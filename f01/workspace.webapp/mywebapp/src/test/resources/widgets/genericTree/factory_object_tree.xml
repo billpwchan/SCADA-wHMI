@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://navtree.util.core.mwt.hypervisor.thalesgroup.com">
+    <navigationTreeType scrollIntoViewOnSelection="false" id="factory_object_tree">
+        <rootNodeDef isOpen="true" navId="factory_object_tree">
+            <categoryNodeDef labelName="equipement_desc" isOpen="true" navId="equipement">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B01VA001" isOpen="false" navId="Equipement_B01VA001"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B01VA002" isOpen="false" navId="Equipement_B01VA002"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B02VA001" isOpen="false" navId="Equipement_B02VA001"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B02VA002" isOpen="false" navId="Equipement_B02VA002"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B01VA003" isOpen="false" navId="Equipement_B01VA003"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B01VA004" isOpen="false" navId="Equipement_B01VA004"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" entityId="B01VA005" isOpen="false" navId="Equipement_B01VA005"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="equipementtext_desc" isOpen="true" navId="equipementtext">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Floor_REP" entityId="F01001" isOpen="false" navId="EquipementText_F01001"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.PressureSensor_REP" entityId="B01PS001" isOpen="false" navId="EquipementText_B01PS001"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Floor_REP" entityId="F02001" isOpen="false" navId="EquipementText_F02001"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.PressureSensor_REP" entityId="B02PS001" isOpen="false" navId="EquipementText_B02PS001"></entityNodeDef>
+            </categoryNodeDef>
+        </rootNodeDef>
+    </navigationTreeType>
+</ns2:maestroHMIConfiguration>

@@ -1,0 +1,24 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="md_Tripped"><g id="symbol_motiondet_active" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
+   <rect x="0" y="0" fill="red" width="200" id="dummy_box" height="200" opacity="0"/>
+
+   <path style="stroke-linejoin:round;stroke:#216ca8;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-width:6;fill:none;" d="m165.85635,100.59193s-66.80091,84.87001 -135.51824,-2.13544c71.86574,-99.9276 135.51824,2.13544 135.51824,2.13544z"/>
+
+   <path style="fill:#216ca8;" d="m97.1664,59.2178c-8.41856,0 -16.08424,2.89516 -22.24416,7.66568l4.27773,5.34544c4.99638,-3.80547 11.22474,-6.20099 17.93221,-6.20099c16.42645,0 29.70451,13.27805 29.70451,29.70451c0.06845,16.4949 -13.20961,29.84139 -29.70451,29.84139c-16.42645,-0.06845 -29.7045,-13.3465 -29.7045,-29.77295c0,-3.48378 0.82816,-6.73485 1.92326,-9.85587l-6.63219,-2.13544c-1.31411,3.7644 -2.13544,7.80257 -2.13544,11.97762c0,20.12242 16.42645,36.54887 36.54886,36.54887s36.54885,-16.42645 36.54885,-36.54887c0,-20.1224 -16.42644,-36.54885 -36.54885,-36.54885l0.03423,-0.02053zm0,14.09938c-5.09905,0 -9.71899,1.79322 -13.48338,4.70892l13.07272,16.70023l-20.53307,-6.63219c-0.86238,2.39554 -1.28674,5.01692 -1.28674,7.66569c0,12.31984 9.92431,22.24415 22.24416,22.24415s22.44948,-9.92431 22.44948,-22.24415s-10.12964,-22.44949 -22.44948,-22.44949l-0.01369,0.00684z"/>
+
+</g><g id="symbol_man" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
+ <rect x="0" width="200" height="200" id="dummy_box" y="0" style="opacity:0;fill:#ff0000;"/>
+
+ <path id="path3937" d="m176,181-22-24.6,0-50,19.5,15.3,0,20.3" stroke-miterlimit="4" style="stroke-linejoin:round;stroke-dashoffset:0;stroke:#ff0000;stroke-miterlimit:4;stroke-width:9;fill:none;"/>
+
+ <path id="path3935" d="m126,183,11.9-37,1.7-39.3-26.3,24.4" stroke-miterlimit="4" style="stroke-linejoin:round;stroke:#ff0000;stroke-width:9;stroke-miterlimit:4;fill:none;"/>
+
+ <path id="path3939" d="m145,148-1-41.5" stroke-miterlimit="4" style="stroke-linejoin:round;stroke-dashoffset:0;stroke:#ff0000;stroke-miterlimit:4;stroke-width:9;fill:none;"/>
+
+ <path style="fill:#ff0000;" id="path3941" d="M161,85.6"/>
+
+ <path id="path3939-4" d="m151,147-1-40.8" stroke-miterlimit="4" style="stroke-linejoin:round;stroke-dashoffset:0;stroke:#ff0000;stroke-miterlimit:4;stroke-width:9;fill:none;"/>
+
+ <path id="path3939-4-0" d="m138,106,18.3,0.424" stroke-miterlimit="4" style="stroke-linejoin:round;stroke-dashoffset:0;stroke:#ff0000;stroke-miterlimit:4;stroke-width:10;fill:none;"/>
+
+ <path id="path3163" d="m152,79.7a13.6,13.6,0,1,1,-27.1,0,13.6,13.6,0,1,1,27.1,0z" style="fill-rule:nonzero;color:#000000;fill:#ff0000;" transform="translate(8.4745763,0)"/>
+</g></g></svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UITask">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitask.UITask' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UITask/greet" class="com.thalesgroup.scadagen.whmi.uitask.uitask.server.GreetingServiceImpl" />
+
+</module>

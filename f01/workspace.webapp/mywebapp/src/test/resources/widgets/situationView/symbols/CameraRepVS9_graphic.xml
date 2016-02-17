@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="CameraRepVS9_graphic">
+        <root>
+            <svgGroup id="CameraRepVS9_cam_locked_cam_workOrder_empty_cam_lockeAndwork">
+                <svgRef brickId="empty" id="tagstatus.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="CameraRepVS9_cam_overriden_empty2">
+                <svgRef brickId="empty2" id="WidgetInhibSynthesis_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="CameraRepVS9_cam_OK_cam_OK_NotAck_cam_NOK_cam_NOK_NotAck_cam_Invalid_cam_NotConnected">
+                <svgRef brickId="cam_NotConnected" id="WidgetGlobalState_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="CameraRepVS9_cam_NotInRecording_cam_InRecording">
+                <svgRef brickId="cam_InRecording" id="recstate.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="CameraRepVS9_cameraStopOk_Aspect_camInvalid_Aspect">
+                <svgRef brickId="cameraStopOk_Aspect" id="state.value_node"></svgRef>
+            </svgGroup>
+            <svgText verticalAlignment="bottom" horizontalAlignment="middle" initValue="eqpNameDT" ty="80.0" tx="0.0" cssClass="eqpNameDT" id="CameraRepVS9_eqp_name_eqpNameDT"></svgText>
+            <svgText verticalAlignment="bottom" horizontalAlignment="start" initValue="camAngleDT" ty="38.0" tx="-5.0" cssClass="camAngleDT" id="CameraRepVS9_AngleAspect_camAngleDT"></svgText>
+        </root>
+    </graphic>
+</graphicConfiguration>

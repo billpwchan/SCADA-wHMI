@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>whmi</artifactId>
+    <groupId>com.thalesgroup.scadagen.whmi</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi</groupId>
+  <artifactId>uiscreen-uiscreenmmi</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>GWT Maven Archetype</name>
+
+  <properties>
+    <!-- Convenience property to set the GWT version -->
+    <gwtVersion>2.7.0</gwtVersion>
+
+    <!-- GWT needs at least java 1.6 -->
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt</artifactId>
+        <version>${gwtVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
+	  <artifactId>uinamecard</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
+	  <artifactId>uievent</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitaskmgr</groupId>
+	  <artifactId>uitask-uitaskmgr</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
+	  <artifactId>config-configenv</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreen</groupId>
+	  <artifactId>uiscreen-uiscreen</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanel</groupId>
+	  <artifactId>uipanel-uipanel</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner</groupId>
+	  <artifactId>uipanel-uipanelalarmbanner</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation</groupId>
+	  <artifactId>uipanel-uipanelnavigation</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelstatusbar</groupId>
+	  <artifactId>uipanel-uipanelstatusbar</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar</groupId>
+	  <artifactId>uipanel-uipaneltoolbar</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout</groupId>
+	  <artifactId>uipanel-uipanelviewlayout</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg</groupId>
+	  <artifactId>uidialog-uidialogmsg</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+    
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiinspector.uiinspector</groupId>
+	  <artifactId>uiinspector-uiinspector</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+    
+  </dependencies>
+
+  <build>
+    <!-- Output classes directly into the webapp, so that IDEs and "mvn process-classes" update them in DevMode -->
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
+    <plugins>
+
+      <!-- GWT Maven Plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>2.7.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <!-- <goal>test</goal> -->
+              <!-- <goal>generateAsync</goal> -->
+            </goals>
+          </execution>
+        </executions>
+        <!-- Plugin configuration. There are many available options, see 
+          gwt-maven-plugin documentation at codehaus.org -->
+        <configuration>
+          <runTarget>UIScreenMMI.html</runTarget>
+          <modules>
+            <module>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.UIScreenMMI</module>
+          </modules>
+        </configuration>
+      </plugin>
+    </plugins>
+    
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+    </resources>
+    
+  </build>
+
+</project>

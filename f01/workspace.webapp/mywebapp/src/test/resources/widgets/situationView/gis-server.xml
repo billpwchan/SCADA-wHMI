@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+***************************************************************
+ Generated with MetaConfigurator v3.0.3 (2015-01-28 19:57:27)
+
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+***************************************************************
+-->
+<gisConfigurations xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/gis">
+    <wmsServerConfiguration urls="http://pl1node1:8180/geoserver/gwc/service/wms" id="defaultwms"></wmsServerConfiguration>
+    <wfsServerConfiguration url="http://pl1node1:8082/geoserver/wfs" id="defaultwfs"></wfsServerConfiguration>
+    <wmsServerConfiguration urls="http://pl1node1:8180/geoserver/gwc/service/wms" id="site1_gis_conf"></wmsServerConfiguration>
+    <wfsServerConfiguration url="http://pl1node1:8082/geoserver/wfs" id="site1_gis_conf_wfs"></wfsServerConfiguration>
+    <wmsServerConfiguration urls="http://pl1node1:8180/geoserver/gwc/service/wms" id="usq_gis_conf"></wmsServerConfiguration>
+    <wfsServerConfiguration url="http://pl1node1:8082/geoserver/wfs" id="usq_gis_conf_wfs"></wfsServerConfiguration>
+</gisConfigurations>

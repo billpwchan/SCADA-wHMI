@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UIEvent">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uievent.uievent.UIEvent' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UIEvent/greet" class="com.thalesgroup.scadagen.whmi.uievent.uievent.server.GreetingServiceImpl" />
+
+</module>

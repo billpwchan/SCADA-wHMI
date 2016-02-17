@@ -1,0 +1,174 @@
+@external .*;
+
+.mainContainer {
+    background-color: #BEBEBE; /* PATTERN : GREY-4 */
+}
+
+   
+.emptyGridLabel {
+  color: black;
+}
+
+.grid {
+  
+}
+
+.toolBarItemStyle {
+  float: left;
+  margin: 1px;
+}
+
+/* find another way to override that property */
+.grid div {
+  opacity: 1 !important;
+}
+
+.dataGridWidget {
+}
+
+.dataGridFirstColumn {
+  
+}
+
+.dataGridLastColumn {
+  
+}
+
+.dataGridFooter {
+}
+
+.dataGridHeader {
+  padding: 3px 15px;
+  text-align: left;
+  color: black;
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #BEBEBE; /* PATTERN : GREY-8 */
+  border-left: solid 1px black;
+  border-right: solid 1px #black;
+  border-top: solid 1px #black;
+  border-bottom: solid 1px #black;
+}
+
+.dataGridCell div {
+  color: black;
+  padding-left: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+}
+
+.dataGridFirstColumnFooter {
+  
+}
+
+.dataGridFirstColumnHeader {
+  
+}
+
+.dataGridLastColumnFooter {
+  
+}
+
+.dataGridLastColumnHeader {
+  
+}
+
+.dataGridSortableHeader {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.dataGridSortableHeader:hover {
+  color: #black;
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.dataGridSortedHeaderAscending {
+  
+}
+
+.dataGridSortedHeaderDescending {
+  
+}
+
+.dataGridEvenRow {
+  background: white; /* PATTERN : EVEN */
+  color: black;
+}
+
+.dataGridEvenRowCell {
+}
+
+.dataGridOddRow {
+  background: #E6E6E6; /* PATTERN : ODD */
+  color: black;
+}
+
+.dataGridOddRowCell {
+}
+
+.dataGridHoveredRow {
+  background: #BEBEBE !important;
+  color: black;
+}
+
+.dataGridHoveredRowCell {
+}
+
+.dataGridKeyboardSelectedRow {
+}
+
+.dataGridKeyboardSelectedRowCell {
+}
+
+.dataGridSelectedRow {
+  background: #BEBEBE;
+  color: black;
+  height: auto;
+  overflow: auto;
+}
+
+.dataGridSelectedRowCell {
+}
+
+/**
+ * The keyboard selected cell is visible over selection.
+ */
+.dataGridKeyboardSelectedCell {
+}
+
+
+/* Pager */
+.pageDetails {
+  padding: 4px 8px;
+  text-align: center;
+  color: black;
+}
+
+.button {
+  padding: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.disabledButton {
+  cursor: default;
+}

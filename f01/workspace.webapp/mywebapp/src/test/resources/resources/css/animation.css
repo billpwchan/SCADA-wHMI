@@ -1,0 +1,32 @@
+.camAngleDT {
+  font-family: Arial;
+  font-size: 20px;
+  font-weigh: bold;
+  fill: grey;
+}
+.eqpNameDT {
+  font-family: Arial;
+  font-size: 18px;
+  text-anchor: middle;
+  font-weigh: bold;
+  fill: grey;
+}
+.pressNumber {
+  font-family: Microsoft Sans Serif;
+  font-size: 18px;
+  text-anchor: middle;
+  font-weigh: bold;
+  text-decoration: underline;
+  fill-opacity: 1.0;
+  stroke: red;
+  stroke-width: 0.5;
+  stroke-opacity: 1.0;
+  fill: blue;
+}
+.pressValue {
+  font-family: Batang;
+  font-size: 22px;
+  font-weigh: bold;
+  fill-opacity: 1.0;
+  fill: #999900;
+}

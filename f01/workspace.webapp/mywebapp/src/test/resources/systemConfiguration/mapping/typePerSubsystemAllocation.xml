@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:configuration 
+xmlns:p="http://www.thalesgroup.com/hv/data-v1/system/configuration" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.thalesgroup.com/hv/data-v1/system/configuration hypervisor_system_configuration.xsd ">
+    <p:mapping runtimeMode="OPERATIONAL" xsi:type="p:IdToTypeMapType">
+
+        <p:entry key="SCADA1" role="DEFAULT" xsi:type="p:IdToTypeEntryType">
+            <p:value>{http://www.thalesgroup.com/myproject/data/exchange/entity/alarm}DoorIntrusionAlarmType</p:value>
+            <p:value>{http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm}SCADAsoftAlarmType</p:value>
+            <p:value>{http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm}ScseventType</p:value>
+            <p:value>{http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm}DpceqpEntryType</p:value>
+        </p:entry> 
+     <!--   
+        <p:entry key="SCADA2" role="DEFAULT" xsi:type="p:IdToTypeEntryType">
+            <p:value>{http://www.thalesgroup.com/myproject/data/exchange/entity/alarm}DoorIntrusionAlarmType</p:value>
+            <p:value>{http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm}SCADAsoftAlarmType</p:value>
+            <p:value>{http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm}ScseventType</p:value>
+            <p:value>{http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm}DpceqpEntryType</p:value>
+        </p:entry> 
+-->
+
+    </p:mapping>
+</p:configuration>

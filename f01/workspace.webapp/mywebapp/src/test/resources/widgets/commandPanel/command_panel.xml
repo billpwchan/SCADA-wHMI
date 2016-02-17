@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+***************************************************************
+ Generated with MetaConfigurator v3.0.0 (2014-06-03 12:45:48)
+
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+***************************************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="http://cmdpanel.util.core.mwt.hypervisor.thalesgroup.com" xsi:schemaLocation="http://cmdpanel.util.core.mwt.hypervisor.thalesgroup.com mwt-cmdpanel-config.xsd">
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Building_REP" commandPanelTypeIdentifier="cmdBLD"/>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.MotionDet_REP" commandPanelTypeIdentifier="cmdIND"/>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Floor_REP" commandPanelTypeIdentifier="cmdFLO"/>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.PressureSensor_REP" commandPanelTypeIdentifier="cmdPSS"/>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Sprinkler_REP" commandPanelTypeIdentifier="cmdSPK">
+    <operationEntry labelName="SprinklerState">
+      <listButtonWidget numberButtonsPerRow="2">
+        <buttonWidget labelName="sprinkleron">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpSprinklerOnRequest"/>
+        </buttonWidget>
+        <buttonWidget labelName="sprinkleroff">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpSprinklerOffRequest"/>
+        </buttonWidget>
+      </listButtonWidget>
+    </operationEntry>
+  </commandPanel>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Camera_REP" commandPanelTypeIdentifier="cmdCAM">
+    <operationEntry labelName="cmdPanel_CAM_angle">
+      <textBoxFloatWidget tooltipLabelName="cmdPanel_CAM_aioAngle_tooltip" textRegularExpression="^(.)*$" maxValue="360.1" minValue="-0.001">
+        <commandContent operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpCamAngleRequest">
+          <commandParam paramName="angle" paramValue="$$(WIDGET.VALUE)$$" />
+        </commandContent>
+      </textBoxFloatWidget>
+    </operationEntry>
+    <operationEntry labelName="cmdPanel_CAM_zoom">
+      <textBoxFloatWidget tooltipLabelName="cmdPanel_CAM_zoom_tooltip" textRegularExpression="^(.)*$" maxValue="100" minValue="0">
+        <commandContent operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpCamZoomRequest">
+          <commandParam paramName="zoom" paramValue="$$(WIDGET.VALUE)$$" />
+        </commandContent>
+      </textBoxFloatWidget>
+    </operationEntry>
+  </commandPanel>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" commandPanelTypeIdentifier="cmdDOO">
+    <operationEntry labelName="DoorState">
+      <listButtonWidget numberButtonsPerRow="2">
+        <buttonWidget labelName="opendoor">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpDoorOpenRequest"/>
+        </buttonWidget>
+        <buttonWidget labelName="closedoor">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpDoorCloseRequest"/>
+        </buttonWidget>
+      </listButtonWidget>
+    </operationEntry>
+  </commandPanel>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" commandPanelTypeIdentifier="cmdVAV">
+    <operationEntry labelName="ValveState">
+      <listButtonWidget numberButtonsPerRow="2">
+        <buttonWidget labelName="openvalve">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpValveOpenRequest"/>
+        </buttonWidget>
+        <buttonWidget labelName="closevalve">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpValveCloseRequest"/>
+        </buttonWidget>
+      </listButtonWidget>
+    </operationEntry>
+
+    <operationEntry labelName="ValveLock">
+      <listButtonWidget numberButtonsPerRow="2">
+        <buttonWidget labelName="lock">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpValveLockRequest">
+            <commandParam paramValue="1" paramName="state"/>
+          </commandOnButtonUp>
+        </buttonWidget>
+        <buttonWidget labelName="unlock">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpValveLockRequest">
+            <commandParam paramValue="0" paramName="state"/>
+          </commandOnButtonUp>
+        </buttonWidget>
+      </listButtonWidget>
+    </operationEntry>
+  </commandPanel>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.FireDet_REP" commandPanelTypeIdentifier="cmdFID"/>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.BasicEquipment_REP" commandPanelTypeIdentifier="cmdIPD"/>
+
+  <commandPanel entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.FEP_REP" commandPanelTypeIdentifier="cmdPSR">
+    <operationEntry labelName="SpyMode">
+      <listButtonWidget numberButtonsPerRow="2">
+        <buttonWidget labelName="spyon">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpFEPSpyOnRequest"/>
+        </buttonWidget>
+        <buttonWidget labelName="spyoff">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpFEPSpyOffRequest"/>
+        </buttonWidget>
+      </listButtonWidget>
+    </operationEntry>
+
+    <operationEntry labelName="ComState">
+      <listButtonWidget numberButtonsPerRow="2">
+        <buttonWidget labelName="comstateinservice">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpFEPComStateInServiceRequest"/>
+        </buttonWidget>
+        <buttonWidget labelName="comstateoutofservice">
+          <commandOnButtonUp operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpFEPComStateOutOfServiceRequest"/>
+        </buttonWidget>
+      </listButtonWidget>
+    </operationEntry>
+  </commandPanel>
+</ns2:maestroHMIConfiguration>

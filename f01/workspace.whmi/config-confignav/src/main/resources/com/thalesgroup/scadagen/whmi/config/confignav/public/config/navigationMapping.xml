@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<option key="Overview">
+		<setting>M</setting>
+	</option>
+	<option key="Overview|Summary">
+		<setting>M</setting>
+	</option>
+	<option key="Overview|Summary|MimicSummary">
+		<setting>A</setting>
+	</option>
+	<option key="OCC">
+		<setting>M</setting>
+	</option>
+	<option key="OCC|MCS">
+		<setting>M</setting>
+	</option>
+	<option key="OCC|MCS|SystemHealth">
+		<setting>B</setting>
+	</option>
+	<option key="CTV">
+		<setting>M</setting>
+	</option>
+	<option key="CTV|33kVLV">
+		<setting>C</setting>
+	</option>
+	<option key="SSV">
+		<setting>M</setting>
+	</option>
+	<option key="SSV|33kVLV">
+		<setting>D</setting>
+	</option>
+</data-set>

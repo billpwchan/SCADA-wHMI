@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UINameCard">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.UINameCard' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UINameCard/greet" class="com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.server.GreetingServiceImpl" />
+
+</module>

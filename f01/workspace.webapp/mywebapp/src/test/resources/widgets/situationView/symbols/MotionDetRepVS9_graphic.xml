@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="MotionDetRepVS9_graphic">
+        <root>
+            <svgGroup id="MotionDetRepVS9_ind_NOK_ind_NOK_NotAck_ind_NotConnected_ind_Invalid_ind_OK_ind_OK_NotAck">
+                <svgRef brickId="ind_NotConnected" id="WidgetGlobalState_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="MotionDetRepVS9_ind_workOrder_ind_locked_empty_ind_lockeAndwork">
+                <svgRef brickId="empty" id="tagstatus.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="MotionDetRepVS9_empty2_ind_overriden">
+                <svgRef brickId="empty2" id="WidgetInhibSynthesis_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="MotionDetRepVS9_md_Tripped_md_NotTripped">
+                <svgRef brickId="md_NotTripped" id="state.value_node"></svgRef>
+            </svgGroup>
+            <svgText verticalAlignment="bottom" horizontalAlignment="middle" initValue="eqpNameDT" ty="80.0" tx="0.0" cssClass="eqpNameDT" id="MotionDetRepVS9_eqp_name_eqpNameDT"></svgText>
+        </root>
+    </graphic>
+</graphicConfiguration>

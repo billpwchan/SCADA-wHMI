@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+    <animationRules id="PressSensorRep_animation">
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="pressure"></source>
+            <sourceType>FLOAT</sourceType>
+            <textAnimation defaultValue="XXX" template="pres: {} bar" i18n="false" nodeId="PressSensorRep_pressure_pressText"></textAnimation>
+            <numberAnimation defaultValue="1.2" numberFormat="0.00" template="Press: {} bar" i18n="false" nodeId="PressSensorRep_pressure_pressValue"></numberAnimation>
+        </animationRule>
+    </animationRules>
+</animationConfiguration>

@@ -1,0 +1,30 @@
+
+
+body{
+  color: #FFFFFF;
+  background-color: #0F2027;
+}
+.showcase-screen-overview, .showcase-action-panel  {
+  border-top: 3px solid #000000;
+}
+.showcase-action-panel {
+  border-left: 3px solid #000000;
+}
+.gwt-SplitLayoutPanel-HDragger, .gwt-SplitLayoutPanel-VDragger {
+  background-color: #000000;
+  cursor: pointer;
+}
+
+/*SCADAsoft Custom*/
+
+.edge-info-panel{
+	color:white;
+}
+
+.edge-info-panel-filled{
+	color:#00E0FF!important;
+}
+
+.edge-info-panel-unkwnow{
+	color:#F1C315!important;
+}

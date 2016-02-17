@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UIInspector">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.UIInspector' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UIInspector/greet" class="com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.server.GreetingServiceImpl" />
+
+</module>

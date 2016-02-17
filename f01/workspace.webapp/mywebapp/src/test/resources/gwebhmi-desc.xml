@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<scseqp-desc>
+    <scseqp-classdesc name="CAM" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Camera_REP" infoPanelTypeIdentifier="infopanel_Cam">
+        <scseqp-input name="angle" value="aciAngle.value" order="1" type="AI"
+                forceInfo="aciAngle:afo.forcedStatus" />
+
+        <scseqp-input name="zoom" value="aciZoom.value" order="2" type="AI"
+                forceInfo="aciZoom:afo.forcedStatus"  almSeverity="aciZoom:aal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="recstate" value="dciRecState.value" order="3" type="DI" enum="0 1"
+                forceInfo="dciRecState:dfo.forcedStatus" />
+
+        <scseqp-input name="state" value="dciState.value" order="4" type="DI" enum="0 1"
+                forceInfo="dciState:dfo.forcedStatus"/>
+
+        <scseqp-input name="fault" value="dciFault.value" order="4" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+
+    </scseqp-classdesc>
+
+    <scseqp-classdesc name="DOO" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" infoPanelTypeIdentifier="infopanel_Door">
+        <scseqp-input name="openstatus" value="dciOpenClose.value" order="2" type="DI" enum="0 2 1 3"
+                forceInfo="dciOpenClose:dfo.forcedStatus"  almSeverity="dciOpenClose:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="fault" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="intrusion" value="dciIntrusion.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciIntrusion:dfo.forcedStatus"  almSeverity="dciIntrusion:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="locked" value="dciLocked.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciLocked:dfo.forcedStatus"  almSeverity="dciLocked:dal.valueAlarmVector(3)"/>
+    </scseqp-classdesc>
+    
+    <scseqp-classdesc name="VAV" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Valve_REP" infoPanelTypeIdentifier="infopanel_Valve">
+        <scseqp-input name="openstatus" value="dciOpenClose.value" order="2" type="DI" enum="0 2 1 3"
+                forceInfo="dciOpenClose:dfo.forcedStatus"  almSeverity="dciOpenClose:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="fault" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="locked" value="dciLocked.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciLocked:dfo.forcedStatus"  almSeverity="dciLocked:dal.valueAlarmVector(3)"/>
+    </scseqp-classdesc>
+    
+    <scseqp-classdesc name="PSS" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.PressureSensor_REP" infoPanelTypeIdentifier="infopanel_PressureSensor">
+        <scseqp-input name="fault" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="pressure" value="aciPress.value" order="2" type="AI"
+                forceInfo="aciPress:afo.forcedStatus"  almSeverity="aciZoom:aal.valueAlarmVector(3)"/>
+        
+    </scseqp-classdesc>
+    
+    <scseqp-classdesc name="SEC" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.SECETCDS_REP" infoPanelTypeIdentifier="infopanel_SECETCDS">
+        <scseqp-input name="tripState" value="dciOpenClose.value" order="2" type="DI" enum="0 1"
+                forceInfo="dciTRIPState:dfo.forcedStatus"  almSeverity="dciTRIPState:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="tripReset" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciTRIPResetState:dfo.forcedStatus"  almSeverity="dciTRIPResetState:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="tripEnable" value="dciIntrusion.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciTRIPEnabledState:dfo.forcedStatus"  almSeverity="dciTRIPEnabledState:dal.valueAlarmVector(3)"/>
+
+        <scseqp-input name="softSwitch" value="dciLocked.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciTRIPSoftSwitchState:dfo.forcedStatus"  almSeverity="dciTRIPSoftSwitchState:dal.valueAlarmVector(3)"/>
+    </scseqp-classdesc>
+
+    
+    <scseqp-classdesc name="IND" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.MotionDet_REP" infoPanelTypeIdentifier="infopanel_MotionDet">	
+        <scseqp-input name="state" value="dciState.value" order="2" type="DI" enum="0 1"
+                forceInfo="dciState:dfo.forcedStatus"  almSeverity="dciState:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="fault" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+    </scseqp-classdesc>
+
+    <scseqp-classdesc name="IPD" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.BasicEquipment_REP" infoPanelTypeIdentifier="IPD_INFO">
+        <scseqp-input name="dciPingState" value="dciPingState.value" order="0" type="DI" enum="0 1"
+                forceInfo="dciPingState:dfo.forcedStatus"  almSeverity="dciPingState:dal.valueAlarmVector(3)"/>
+    </scseqp-classdesc>
+
+    <scseqp-classdesc name="PSR" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.FEP_REP" infoPanelTypeIdentifier="PSR_INFO">
+        <scseqp-input name="dciComState" value="dciComState.value" order="2" type="DI" enum="1 2 3 7"
+                forceInfo="dciComState:dfo.forcedStatus"  almSeverity="dciComState:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="dciLnk1State" value="dciLnk1State.value" order="2" type="DI" enum="1 2 3 7"
+                forceInfo="dciLnk1State:dfo.forcedStatus"  almSeverity="dciLnk1State:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="dciLnk2State" value="dciLnk2State.value" order="2" type="DI" enum="1 2 3 7"
+                forceInfo="dciLnk2State:dfo.forcedStatus"  almSeverity="dciLnk2State:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="dciSpy" value="dciSpy.value" order="2" type="DI" enum="6 5"
+                forceInfo="dciSpy:dfo.forcedStatus"  almSeverity="dciSpy:dal.valueAlarmVector(3)"/>
+        <scseqp-output name="dioComState" order="0" type="DO" widgetType="BUTTON">
+            <scseqp-value name="oum" value="2"/>
+            <scseqp-value name="ins" value="3"/>
+        </scseqp-output>
+        <scseqp-output name="dioSpy" order="0" type="DO" widgetType="BUTTON">
+            <scseqp-value name="on" value="5"/>
+            <scseqp-value name="off" value="6"/>
+        </scseqp-output>
+    </scseqp-classdesc>
+
+    <scseqp-classdesc name="SPK" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Sprinkler_REP" infoPanelTypeIdentifier="infopanel_Sprinkler">
+        <scseqp-input name="state" value="dciState.value" order="2" type="DI" enum="0 1"
+                forceInfo="dciState:dfo.forcedStatus"  almSeverity="dciState:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="fault" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+        <scseqp-output name="dioState" order="0" type="DO" widgetType="BUTTON">
+            <scseqp-value name="on" value="1"/>
+            <scseqp-value name="off" value="2"/>
+        </scseqp-output>
+    </scseqp-classdesc>
+
+    <scseqp-classdesc name="FID" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.FireDet_REP" infoPanelTypeIdentifier="infopanel_FireDet">
+        <scseqp-input name="smoke" value="dciSmoke.value" order="2" type="DI" enum="0 1"
+                forceInfo="dciSmoke:dfo.forcedStatus"  almSeverity="dciSmoke:dal.valueAlarmVector(3)"/>
+        <scseqp-input name="fault" value="dciFault.value" order="1" type="DI" enum="0 1"
+                forceInfo="dciFault:dfo.forcedStatus"  almSeverity="dciFault:dal.valueAlarmVector(3)"/>
+    </scseqp-classdesc>
+
+    <scseqp-classdesc name="BLD" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Building_REP" infoPanelTypeIdentifier="BLD_INFO">
+
+    </scseqp-classdesc>
+    <scseqp-classdesc name="FLO" entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Floor_REP" infoPanelTypeIdentifier="FLO_INFO">
+
+    </scseqp-classdesc>
+
+</scseqp-desc>

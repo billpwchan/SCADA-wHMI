@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UIPanelRoot">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelroot.UIPanelRoot' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UIPanelRoot/greet" class="com.thalesgroup.scadagen.whmi.uipanel.uipanelroot.server.GreetingServiceImpl" />
+
+</module>

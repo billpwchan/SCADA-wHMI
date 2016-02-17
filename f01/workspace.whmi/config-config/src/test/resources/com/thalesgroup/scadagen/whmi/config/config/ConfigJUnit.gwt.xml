@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="Config">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.config.config.Config' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/Config/greet" class="com.thalesgroup.scadagen.whmi.config.config.server.GreetingServiceImpl" />
+
+</module>

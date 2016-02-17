@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="IPDeviceRep_graphic">
+        <root>
+            <svgGroup id="IPDeviceRep_ipd_symbolFault_ipd_symbolOK">
+                <svgRef brickId="ipd_symbolOK" id="fault.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="IPDeviceRep_ipd_NOK_ipd_NOK_NotAck_ipd_NotConnected_ipd_OK_NotAck_ipd_OK_ipd_Invalid">
+                <svgRef brickId="ipd_NotConnected" id="WidgetGlobalState_node"></svgRef>
+            </svgGroup>
+        </root>
+    </graphic>
+</graphicConfiguration>

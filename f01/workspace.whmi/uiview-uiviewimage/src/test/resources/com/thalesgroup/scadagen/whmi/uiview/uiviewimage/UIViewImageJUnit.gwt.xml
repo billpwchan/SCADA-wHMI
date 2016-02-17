@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UIViewImage">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewimage.UIViewImage' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UIViewImage/greet" class="com.thalesgroup.scadagen.whmi.uiview.uiviewimage.server.GreetingServiceImpl" />
+
+</module>

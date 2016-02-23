@@ -64,8 +64,8 @@
         <p:source name="alarmText" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 
-
-    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="false" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
+	<!-- Status -->
+    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="false" width="0" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="priority" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="CRITICAL" value="scsalarmList_priority_CRITICAL"/>
         <p:textItem sourceValue="HIGH" value="scsalarmList_priority_HIGH"/>

@@ -13,6 +13,7 @@
 </p:dataSource>
 </p:subject>
 
+	<!-- Status -->
     <p:column filterable="true" i18n="true" name="scsalarmList_state_name" sortable="true" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
               
         <p:source name="ackstate" statusComputerName="ackstate" xsi:type="cmn:computedStatusDataSourceType"/>
@@ -22,10 +23,13 @@
         
     </p:column>
     
-    <p:column filterable="true" format="alarmList_DateFormat" i18n="true" name="scsalarmList_apparitionDate_name" sortable="true" width="100" widthUnit="PX" xsi:type="p:dateColumnType">
+	<!-- Datetime -->
+    <p:column filterable="true" format="scsalarmList_DateFormat" i18n="true" name="scsalarmList_apparitionDate_name" sortable="true" width="100" widthUnit="PX" xsi:type="p:dateColumnType">
         <p:source name="apparitionDate" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 	
+	
+	<!-- Building -->
     <p:column filterable="true" i18n="true" name="scsalarmList_area_name" sortable="true" width="60" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="areaID" xsi:type="cmn:statusDataSourceType"/>
 
@@ -41,6 +45,7 @@
         <p:textItem sourceValue="building10" value="scsalarmList_area_building10"/>
     </p:column>
 	
+	<!-- System -->
     <p:column filterable="true" i18n="true" name="scsalarmList_funccat_name" sortable="true" width="50" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
 
@@ -51,18 +56,22 @@
         <p:textItem sourceValue="5" value="scsalarmList_funcat_power"/>
     </p:column>
 	
+	<!-- 0 -->
 	<p:column filterable="true" i18n="false" name="scsalarmList_fc_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 
+	<!-- Equipment -->
     <p:column filterable="true" i18n="true" name="scsalarmList_sourceID_name" sortable="true" template="{}" templateMarker="{}" width="120" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="sourceID" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 
+	<!-- Description -->
     <p:column filterable="true" messageKey="msgId" name="scsalarmList_alarmText_name" sortable="true" width="300" widthUnit="PX" xsi:type="p:messageColumnType">
         <p:source name="alarmText" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 
+	<!-- Severity -->
     <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="true" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="priority" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="CRITICAL" value="scsalarmList_priority_CRITICAL"/>

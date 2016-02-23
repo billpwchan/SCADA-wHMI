@@ -1,0 +1,136 @@
+/* Chrome, Safari, Opera */
+@-webkit-keyframes blinkingSuperCritical {
+    from {background-color: #FF0000;}
+    to {background-color: white;}
+}
+
+/* Standard syntax */
+@keyframes blinkingSuperCritical {
+    from {background-color: #FF0000;}
+    to {background-color: white;}
+}
+
+.CSS_ALARM_SUPER_CRITICAL_NA {
+    color: black!important;
+	background-color : #FF0000!important;
+	
+    -webkit-animation-name: blinkingSuperCritical; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    animation-name: blinkingSuperCritical;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.CSS_ALARM_SUPER_CRITICAL_A {
+    color: black!important;
+	background-color : #FF0000!important;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes blinkingCritical {
+    from {background-color: #FFA800;}
+    to {background-color: white;}
+}
+
+/* Standard syntax */
+@keyframes blinkingCritical {
+    from {background-color: #FFA800;}
+    to {background-color: white;}
+}
+
+.CSS_ALARM_CRITICAL_NA {
+    color: black!important;
+	background-color : #FFA800!important;
+	
+    -webkit-animation-name: blinkingCritical; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    animation-name: blinkingCritical;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.CSS_ALARM_CRITICAL_A {
+    color: black!important;
+	background-color : #FFA800!important;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes blinkingLessCritical {
+    from {background-color: #FFFF00;}
+    to {background-color: white;}
+}
+
+/* Standard syntax */
+@keyframes blinkingLessCritical {
+    from {background-color: #FFFF00;}
+    to {background-color: white;}
+}
+
+.CSS_ALARM_LESS_CRITICAL_NA {
+    color: black!important;
+	background-color : #FFFF00!important;
+	
+    -webkit-animation-name: blinkingLessCritical; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    animation-name: blinkingLessCritical;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.CSS_ALARM_LESS_CRITICAL_A {
+    color: black!important;
+	background-color : #FFFF00!important;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes blinkingEvent {
+    from {background-color: #969696;}
+    to {background-color: white;}
+}
+
+/* Standard syntax */
+@keyframes blinkingEvent {
+    from {background-color: #969696;}
+    to {background-color: white;}
+}
+
+.CSS_ALARM_EVENT_NA {
+    color: black!important;
+	background-color : #969696!important;
+	
+    -webkit-animation-name: blinkingEvent; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
+    animation-name: blinkingEvent;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.CSS_ALARM_EVENT_A {
+    color: black!important;
+	background-color : #969696!important;
+}
+
+/* Event */
+
+.CSS_EVENT_SUPER_CRITICAL {
+    color: black!important;
+	background-color : #FF0000!important;
+}
+
+.CSS_EVENT_CRITICAL {
+    color: black!important;
+	background-color : #FFA800!important;
+}
+
+.CSS_EVENT_LESS_CRITIICAL {
+    color: black!important;
+	background-color : #FFFF00!important;
+}
+
+.CSS_EVENT_EVENT {
+    color: black!important;
+	background-color : #969696!important;
+}

@@ -18,9 +18,15 @@ public class WrapperScsSituationViewPanel {
 		this.width = width;
 		this.height = height;
 	}
+	private WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
+	public void setWrapperScsSituationViewPanelEvent ( WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent ) {
+		this.wrapperScsSituationViewPanelEvent = wrapperScsSituationViewPanelEvent;
+	}
+	
+	private ScsSituationViewPanel scsSituationViewPanel = null;
 	public HorizontalPanel getMainPanel() {
 		
-		ScsSituationViewPanel scsSituationViewPanel = new ScsSituationViewPanel(this.configurationId, AppUtils.EVENT_BUS);
+		scsSituationViewPanel = new ScsSituationViewPanel(this.configurationId, AppUtils.EVENT_BUS, this.wrapperScsSituationViewPanelEvent);
 		scsSituationViewPanel.setWidth("100%");
 		scsSituationViewPanel.setHeight("100%");
 		

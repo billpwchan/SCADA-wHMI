@@ -1,11 +1,11 @@
-package com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client;
+package com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client;
 
 import java.util.HashMap;
 import java.util.Set;
 
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 
-public class UITaskDictionary implements UITask_i {
+public abstract class UITaskDictionary implements UITask_i {
 	
 	private String strUIScreen = "UIScreen";
 	private String strUIPath = "UIPath";

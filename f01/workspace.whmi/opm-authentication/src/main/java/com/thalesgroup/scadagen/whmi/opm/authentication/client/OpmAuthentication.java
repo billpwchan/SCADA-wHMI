@@ -20,7 +20,7 @@ public class OpmAuthentication {
 	public void setCurrentProfile(String profile) { this.profile = profile; }
 	public String getCurrentProfile() { return this.profile; }
 	public String[] getOperators() {
-		Set<String> keySet =this.hashMapProfile.keySet();
+		Set<String> keySet = this.hashMapProfile.keySet();
 		return keySet.toArray(new String[keySet.size()]);
 	}
 	public void setPassword(String operator, String password) { 
@@ -69,12 +69,29 @@ public class OpmAuthentication {
 	private String CORRECT_USER_ADMIN				= "ADMIN";
 	private String CORRECT_PASSWORD_ADMIN			= "PASSWORD";
 	
-	private String EMPTY							= "";
+//	private String EMPTY							= "";
 	private String OPERATOR							= "OPERATOR";
 	private String ADMINISTRATOR					= "ADMINISTRATOR";
 		
 	private HashMap<String, String> hashMapProfile;
 	private HashMap<String, String> hashMapPassword;
+	
+//	class Operator {
+//		public Operator (String operator, String password, String profile) {
+//			setOperator(operator);
+//			setPassword(password);
+//			setProfile(profile);
+//		}
+//		private String operator;
+//		private String password;
+//		private String profile;
+//		public String getOperator() { return operator; }
+//		public void setOperator(String operator) { this.operator = operator; }
+//		public String getPassword() { return password; }
+//		public void setPassword(String password) { this.password = password; }
+//		public String getProfile() { return profile; }
+//		public void setProfile(String profile) { this.profile = profile; }
+//	}
 	
 	private void init () {
 		hashMapProfile = new HashMap<String, String>();

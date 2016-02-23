@@ -11,7 +11,6 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 
@@ -36,7 +35,7 @@ public class UIPanelEmpty implements UIPanel_i {
 
 	private UINameCard uiNameCard;
 
-	private InlineLabel equipmenpLabel = null;
+//	private InlineLabel equipmenpLabel = null;
 
 	@Override
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {

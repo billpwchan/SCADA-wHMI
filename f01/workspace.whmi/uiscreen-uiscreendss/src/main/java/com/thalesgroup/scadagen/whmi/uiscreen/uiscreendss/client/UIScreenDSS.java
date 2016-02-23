@@ -389,7 +389,7 @@ public class UIScreenDSS implements UIScreen_i{
 		vpLeft.getElement().getStyle().setPadding(100, Unit.PX);
 		
 		String strLeftImgUrl = baseUrl + subUrl + "TunLeft.jpg";
-		String strLeftDisableImgUrl = baseUrl + subUrl + "TunLeft_Disabled.jpg";
+//		String strLeftDisableImgUrl = baseUrl + subUrl + "TunLeft_Disabled.jpg";
 		String imgHtmlLeft = "<img src=\""+strLeftImgUrl+"\" width=\"116px\" height=\"117px\" />";
 		Button btnLeft = new Button();
 		btnLeft.setHTML(imgHtmlLeft);
@@ -411,7 +411,7 @@ public class UIScreenDSS implements UIScreen_i{
 		vpRight.getElement().getStyle().setPadding(100, Unit.PX);
 		
 		String strRightImgUrl = baseUrl + subUrl + "TunRight.jpg";
-		String strRightDisableImgUrl = baseUrl + subUrl + "TunRight_Disabled.jpg";
+//		String strRightDisableImgUrl = baseUrl + subUrl + "TunRight_Disabled.jpg";
 		String imgHtmlRight = "<img src=\""+strRightImgUrl+"\" width=\"116px\" height=\"117px\" />";
 		Button btnRight = new Button();
 		btnRight.setHTML(imgHtmlRight);

@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -70,22 +69,81 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		
 		logger.log(Level.FINE, "createReadRequest End");
 	}
+	
+	
+	public void setReadRequestCache () {
+		
+		logger.log(Level.FINE, "setReadRequestCache Begin");
+		
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciFault + strDot + strLabel,			new String[]{"Failure"});
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciIntrusion + strDot + strLabel,		new String[]{"instrusion"});
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciLocked + strDot + strLabel,			new String[]{"lock state"});
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciOpenClose + strDot + strLabel,		new String[]{"State"});
+		
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciFault + strColumn + strValueTable,		new String[]{"[[1,1836216174,973106273,825241670,1128481082,978539333,329,1627409920,24940,65536,1852375040,1969317408],[normal,in fault,,,,,,,,,,],[1,1818296398,97,256,544106752,1819631974,116,-1241513984,5391653,131177,4259840,21117489],[N,A,,,,,,,,,,],[0,1,1713401449,1953264993,0,632684544,1761628741,512,822100224,82490,0,1090519040]]"});
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciIntrusion + strColumn + strValueTable,	new String[]{"[[1,1836216174,1124101217,978539333,842024009,1630419509,364,1946177024,25960,65536,1920204800,1701867625],[normal,tripped,,,,,,,,,,],[1,1752432718,101,256,1769108480,1684369520,5424384,981467257,1163151699,80433,4259840,20000816],[N,A,,,,,,,,,,],[0,1,1885958772,6579568,2030064325,1396342784,826627145,314,805323008,78128,0,1140850688]]"});
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciLocked + strColumn + strValueTable,		new String[]{"[[1,1869377141,1684368227,1946177024,25960,65536,256,1694518784,100,65536,1869348864,1684368227],[unlocked,locked,,,,,,,,,,],[1,1684340814,0,256,1668246528,6579563,4259840,20000816,0,65536,5111808,23146042],[N,N,,,,,,,,,,],[0,1,1801678700,25701,805323008,78128,0,256,973098496,90414,0,1694498816]]"});
+		wrapperScsRTDBAccess.cachePut(strAlias + strColumn + strDciOpenClose + strColumn + strValueTable,	new String[]{"[[1,1769369453,26478,1694518784,100,65536,512,1677743104,0,65536,1886322688,1684368997],[moving,opened,closed,discordant,,,,,,,,],[2,6553684,0,256,1701867264,6579566,5111808,23146042,0,65536,5111808,33554432],[T,N,N,A,,,,,,,,],[0,1,1852141679,25701,973098496,90414,0,256,19968,131072,65536,1818427392]]]</code>111808,33554432],[T,N,N,A,,,,,,,,],[0,1,1852141679,25701,973098496,90414,0,256,19968,131072,65536,1818427392]]]</code>1808,23146042,0,65536,5111808,33554432],[T,N,N,A,,,,,,,,],[0,1,1852141679,25701,973098496,90414,0,256,19968,131072,65536,1818427392]]"});		
+		
+					
+		wrapperScsRTDBAccess.readValueRequestCache(
+											 strReadValue + strUnderscore + strDciFault + strUnderscore + strLabel
+											 , strB001
+											 , strAlias + strColumn + strDciFault + strDot + strLabel);
+		wrapperScsRTDBAccess.readValueRequestCache(
+						  					  strReadValue + strUnderscore + strDciFault + strUnderscore + strValueTable
+						  					 , strB001
+											, strAlias + strColumn + strDciFault + strColumn + strValueTable);
+		
+		
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strLabel
+											, strB001
+											, strAlias + strColumn + strDciIntrusion + strDot + strLabel);
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strValueTable
+											, strB001
+											, strAlias + strColumn + strDciIntrusion + strColumn + strValueTable);
+		
+		
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strLabel
+											, strB001
+											, strAlias + strColumn + strDciLocked + strDot + strLabel);
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strValueTable
+											, strB001
+											, strAlias + strColumn + strDciLocked + strColumn + strValueTable);
+		
+		
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strLabel
+											, strB001
+											, strAlias + strColumn + strDciOpenClose + strDot + strLabel);
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strValueTable
+											, strB001
+											, strAlias + strColumn + strDciOpenClose + strColumn + strValueTable);
+
+		logger.log(Level.FINE, "setReadRequestCache End");
+	}
+	
 	public void setReadRequest (int index) {
 		
 		logger.log(Level.FINE, "setReadRequest Begin");
 		logger.log(Level.FINE, "setReadRequest index["+index+"]");
 		
 		int i = 3;
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciFault + strUnderscore + strLabel
-											, strB001
-											, strAlias + strColumn + strDciFault + strDot + strLabel);
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciFault + strUnderscore + strValueTable
-											, strB001
-											, strAlias + strColumn + strDciFault + strColumn + strValueTable);		
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciFault + strUnderscore + strLabel
+//											, strB001
+//											, strAlias + strColumn + strDciFault + strDot + strLabel);
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciFault + strUnderscore + strValueTable
+//											, strB001
+//											, strAlias + strColumn + strDciFault + strColumn + strValueTable);		
 		if ( index == i++ )
 		wrapperScsRTDBAccess.readValueRequest(
 											  strReadValue + strUnderscore + strDciFault + strUnderscore + strValue
@@ -108,16 +166,16 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 											, strAlias + strColumn + strDciFault + strColumn + strForcedStatus);
 
 		
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strLabel
-											, strB001
-											, strAlias + strColumn + strDciIntrusion + strDot + strLabel);
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strValueTable
-											, strB001
-											, strAlias + strColumn + strDciIntrusion + strColumn + strValueTable);		
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strLabel
+//											, strB001
+//											, strAlias + strColumn + strDciIntrusion + strDot + strLabel);
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strValueTable
+//											, strB001
+//											, strAlias + strColumn + strDciIntrusion + strColumn + strValueTable);		
 		if ( index == i++ )
 		wrapperScsRTDBAccess.readValueRequest(
 											  strReadValue + strUnderscore + strDciIntrusion + strUnderscore + strValue
@@ -141,16 +199,16 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 
 		
 		
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strLabel
-											, strB001
-											, strAlias + strColumn + strDciLocked + strDot + strLabel);
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strValueTable
-											, strB001
-											, strAlias + strColumn + strDciLocked + strColumn + strValueTable);		
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strLabel
+//											, strB001
+//											, strAlias + strColumn + strDciLocked + strDot + strLabel);
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strValueTable
+//											, strB001
+//											, strAlias + strColumn + strDciLocked + strColumn + strValueTable);		
 		if ( index == i++ )
 		wrapperScsRTDBAccess.readValueRequest(
 											  strReadValue + strUnderscore + strDciLocked + strUnderscore + strValue
@@ -173,16 +231,16 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 											, strAlias + strColumn + strDciLocked + strColumn + strForcedStatus);
 
 		
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strLabel
-											, strB001
-											, strAlias + strColumn + strDciOpenClose + strDot + strLabel);
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strValueTable
-											, strB001
-											, strAlias + strColumn + strDciOpenClose + strColumn + strValueTable);		
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strLabel
+//											, strB001
+//											, strAlias + strColumn + strDciOpenClose + strDot + strLabel);
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strValueTable
+//											, strB001
+//											, strAlias + strColumn + strDciOpenClose + strColumn + strValueTable);		
 		if ( index == i++ )
 		wrapperScsRTDBAccess.readValueRequest(
 											  strReadValue + strUnderscore + strDciOpenClose + strUnderscore + strValue
@@ -223,13 +281,13 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		
 		logger.log(Level.FINE, "initVariable numOfPoint["+numOfPoint+"]");
 		
-		strLabelValue = new String[numOfPoint];
-		strValueTableValue = new String[numOfPoint];
-		strValueValue = new String[numOfPoint];
-		strValueValueName = new String[numOfPoint];
-		strValueAlarmVectorValue = new String[numOfPoint];
-		strValidityValue = new String[numOfPoint];
-		strForcedStatusValue = new String[numOfPoint];
+		strLabelValue				= new String[numOfPoint];
+		strValueTableValue			= new String[numOfPoint];
+		strValueValue				= new String[numOfPoint];
+		strValueValueName			= new String[numOfPoint];
+		strValueAlarmVectorValue	= new String[numOfPoint];
+		strValidityValue			= new String[numOfPoint];
+		strForcedStatusValue		= new String[numOfPoint];
 		for(int i=0;i<points.length;++i) {
 			strLabelValue[i]				= " - ";
 			strValueTableValue[i]			= "1,normal,1,N,0,1,in fault,2,A,1";
@@ -297,8 +355,8 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			
 			for( int x = 0 ; x < 12 ; ++x ) {
 				String v = getArrayValues(strValueTableValue[i], 4, x );
-				logger.log(Level.SEVERE, "getArrayValues x["+x+"]");
-				logger.log(Level.SEVERE, "getArrayValues v["+v+"] == strValueTableValue[i]["+strValueTableValue[i]+"]");
+				logger.log(Level.FINE, "getArrayValues x["+x+"]");
+				logger.log(Level.FINE, "getArrayValues v["+v+"] == strValueTableValue[i]["+strValueTableValue[i]+"]");
 				if ( 0 == v.compareTo(strValueValue[i]) ) {
 					strValueValueName[i] = getArrayValues(strValueTableValue[i], 1, x );
 					break;
@@ -314,9 +372,9 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			}
 			
 			
-			String code = getColorCode(strValueAlarmVectorValue[i], strValidityValue[i], strForcedStatusValue[i]);
-			txtAttibuteColor[i].getElement().getStyle().setColor(code);
-			txtAttibuteColor[i].getElement().getStyle().setBackgroundColor(code);
+			String strColor = getColorCode(strValueAlarmVectorValue[i], strValidityValue[i], strForcedStatusValue[i]);
+			txtAttibuteColor[i].getElement().getStyle().setColor(strColor);
+			txtAttibuteColor[i].getElement().getStyle().setBackgroundColor(strColor);
 			
 			logger.log(Level.SEVERE, "setReadResult i["+i+"] strLabelValue["+strLabelValue[i]+"]");
 			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValueTableValue["+strValueTableValue[i]+"]");
@@ -324,7 +382,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValueAlarmVectorValue["+strValueAlarmVectorValue[i]+"]");
 			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValidityValue["+strValidityValue[i]+"]");
 			logger.log(Level.SEVERE, "setReadResult i["+i+"] strForcedStatusValue["+strForcedStatusValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] code["+code+"]");
+			logger.log(Level.SEVERE, "setReadResult i["+i+"] strColor["+strColor+"]");
 		}
 		
 		logger.log(Level.FINE, "setReadResult End");
@@ -336,10 +394,10 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		String str = null;
 		
 		
-		logger.log(Level.SEVERE, "getArrayValues Begin");
+		logger.log(Level.FINE, "getArrayValues Begin");
 
-		logger.log(Level.SEVERE, "getArrayValues string["+string+"]");
-		logger.log(Level.SEVERE, "getArrayValues x["+x+"] y["+y+"]");
+		logger.log(Level.FINE, "getArrayValues string["+string+"]");
+		logger.log(Level.FINE, "getArrayValues x["+x+"] y["+y+"]");
 				
 		if (null != string && string.length() > 0) {
 			if (string.charAt(0) == '[')
@@ -350,7 +408,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			if (strs.length > 0 && x < strs.length) {
 				String s = strs[x];
 				
-				logger.log(Level.SEVERE, "getArrayValues s["+s+"]");
+				logger.log(Level.FINE, "getArrayValues s["+s+"]");
 				
 				//for (String s : strs) {
 					//System.out.println("s [" + s + "]");
@@ -358,7 +416,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 					if ( str2s.length > 0 && y < str2s.length ) {
 						str = str2s[y];
 						
-						logger.log(Level.SEVERE, "getArrayValues str["+str+"]");
+						logger.log(Level.FINE, "getArrayValues str["+str+"]");
 						
 						//for (String s2 : str2s) {
 						//	System.out.println("s2 [" + s2 + "]");
@@ -371,7 +429,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			}
 		}
 		
-		logger.log(Level.SEVERE, "getArrayValues End");
+		logger.log(Level.FINE, "getArrayValues End");
 
 		
 		return str;

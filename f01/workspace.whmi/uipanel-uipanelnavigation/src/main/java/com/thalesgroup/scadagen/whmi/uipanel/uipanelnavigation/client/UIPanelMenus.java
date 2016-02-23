@@ -201,11 +201,11 @@ public class UIPanelMenus implements NavigationMgrEvent {
 			logger.log(Level.FINE, "addTaskToMenu menuBar.getWidgetCount() > 0 Begin");
 			NavigationMenuButton navigationMenuButton = null;
 			if ( null != launchHeader ) {
-				String headers[] = launchHeader.split("\\"+String.valueOf(UITaskLaunch.spliter));
+				String headers[] = launchHeader.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 				
 				logger.log(Level.FINE, "addTaskToMenu headers["+headers+"]");
 				
-				int headersCounter = headers.length;
+//				int headersCounter = headers.length;
 				String headerCur = headers[level];
 				
 				logger.log(Level.FINE, "addTaskToMenu level["+level+"] headerCur["+headerCur+"]");
@@ -215,7 +215,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 					btn = (NavigationMenuButton)menuBar.getWidget(i);
 					UITaskLaunch taskLaunch = btn.getTaskLaunch();
 					String headerComma = taskLaunch.getHeader();
-					String headerCommas[] = headerComma.split("\\"+String.valueOf(UITaskLaunch.spliter));
+					String headerCommas[] = headerComma.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 					
 					logger.log(Level.FINE, "addTaskToMenu headerComma["+headerComma+"] headerCommas["+headerCommas+"]");
 					logger.log(Level.FINE, "addTaskToMenu headerCommas["+level+"]["+headerCommas[level]+"] headerCommas["+headerCommas+"]");

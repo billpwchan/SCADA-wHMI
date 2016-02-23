@@ -11,6 +11,14 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelempty.client.UIPanelEmpty;
 public class UIPanelMgr {
 	
 	private static Logger logger = Logger.getLogger(UIPanelMgr.class.getName());
+	
+	private UIPanelMgr() {};
+	private static UIPanelMgr instance = null;
+	public static UIPanelMgr getInstance() {
+		if ( null == instance ) 
+			instance = new UIPanelMgr();
+		return instance;
+	}
 
 	public DockLayoutPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		

@@ -106,8 +106,9 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 		return basePanel; 
 	}
 	
+
 	/* (non-Javadoc)
-	 * @see com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent#setLayout(com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode, com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction)
+	 * @see com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent#setLayout(com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode, com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction)
 	 */
 	@Override
 	public void setLayout(ViewLayoutMode viewLayoutMode, ViewLayoutAction viewLayoutAction)
@@ -119,7 +120,7 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 		
 		basePanel.clear();
 		
-		UIPanelMgr uiPanelFactoryMgr = new UIPanelMgr();
+		UIPanelMgr uiPanelFactoryMgr = UIPanelMgr.getInstance();
 		
 		upperMainPanel = uiPanelFactoryMgr.getMainPanel("UIPanelEmpty", uiNameCard);
 		

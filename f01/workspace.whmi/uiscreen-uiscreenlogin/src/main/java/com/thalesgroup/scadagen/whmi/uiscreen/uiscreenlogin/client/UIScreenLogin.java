@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -44,8 +45,8 @@ public class UIScreenLogin implements UIScreen_i {
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 	
-	private static final String COMPANY_LOGO = "logologinmtr.jpg";
-	private static final String CLIENT_LOGO = "logo_thales.jpg";
+	private static final String COMPANY_LOGO 	= "logologinmtr.jpg";
+	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
 	
 	private String EMPTY							= "";
 	
@@ -229,7 +230,16 @@ public class UIScreenLogin implements UIScreen_i {
 		
 		if ( 0 == btnText.compareToIgnoreCase(strLogin) ) {
 			
-			if (  0 != profile.compareTo(EMPTY) && opmAuthentication.isValidPassword(operator, password) ) {
+			if ( 0 == profile.compareTo(EMPTY) ) {
+				
+				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+				uiDialgogMsg.setUINameCard(this.uiNameCard);
+//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Profile", "Please check the Login name and Profile is correct!", null, null);
+				uiDialgogMsg.popUp();
+				
+			} else if ( opmAuthentication.isValidPassword(operator, password) ) { 
 				
 				opmAuthentication.setCurrentOperator(operator);
 				opmAuthentication.setCurrentProfile(profile);
@@ -242,35 +252,46 @@ public class UIScreenLogin implements UIScreen_i {
 
 			} else {
 				
-				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+				uiDialgogMsg.setUINameCard(this.uiNameCard);
+//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name of Password", "Please check the Login name and Password is correct!", null, null);
 				uiDialgogMsg.popUp();
+				
 			}
 		} else if ( 0 == btnText.compareToIgnoreCase(strChangePassword) ) {
 			
-			if ( opmAuthentication.hasRight("M", "PASSWORD", profile) ) {
-				if ( opmAuthentication.isValidPassword(operator, password) ) {
-					
-					UITaskLaunch uiTaskLaunch = new UITaskLaunch();
-					uiTaskLaunch.setTaskUiScreen(0);
-					uiTaskLaunch.setUiPath(":UIGws:UIPanelScreen");
-					uiTaskLaunch.setUiPanel("UIScreenOPM");
-					uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));
-
-				} else {
-					
-					UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
-					uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name or Password", "Please check the Login name and Password is correct!", null, null);
-					uiDialgogMsg.popUp();
-					
-				}				
-			} else {
-				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+			if ( ! opmAuthentication.hasRight("M", "PASSWORD", profile) ) {
+				
+				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+				uiDialgogMsg.setUINameCard(this.uiNameCard);
+//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Profile to change password", "Only administator profile can change password!", null, null);
-				uiDialgogMsg.popUp();				
+				uiDialgogMsg.popUp();
+				
+			} else if ( opmAuthentication.isValidPassword(operator, password) ) {
+				
+				opmAuthentication.setCurrentOperator(operator);
+				opmAuthentication.setCurrentProfile(profile);
+				
+				UITaskLaunch uiTaskLaunch = new UITaskLaunch();
+				uiTaskLaunch.setTaskUiScreen(0);
+				uiTaskLaunch.setUiPath(":UIGws:UIPanelScreen");
+				uiTaskLaunch.setUiPanel("UIScreenOPM");
+				uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));
+				
+			} else {
+				
+				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+				uiDialgogMsg.setUINameCard(this.uiNameCard);
+//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name or Password", "Please check the Login name and Password is correct!", null, null);
+				uiDialgogMsg.popUp();
+				
 			}
-
-
 		}
 		
 		logger.log(Level.FINE, "verify End");

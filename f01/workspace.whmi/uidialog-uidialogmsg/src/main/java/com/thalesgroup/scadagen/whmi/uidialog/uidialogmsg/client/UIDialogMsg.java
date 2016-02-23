@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextArea;
 
-public class UIDialogMsg extends DialogBox implements DialogMsgMgrEvent {
+public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEvent {
 	
 	private static String IMAGE_PATH = "imgs";
 	
@@ -32,7 +32,7 @@ public class UIDialogMsg extends DialogBox implements DialogMsgMgrEvent {
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 	
-	DialogMsgMgr dialogMsgMgr;
+	DialogMsgCtrl dialogMsgCtrl;
 	
 	int baseBoderX = 28, baseBoderY = 28;
 	
@@ -69,8 +69,14 @@ public class UIDialogMsg extends DialogBox implements DialogMsgMgrEvent {
 	private Button btnCancel;
 	private HorizontalPanel btnBar;
 	
+//	
+//	public UIDialogMsg(UINameCard uiNameCard) {
+//		this.uiNameCard = new UINameCard(uiNameCard);
+//		this.uiNameCard.appendUIPanel(this);
+//	}
+	
 	private UINameCard uiNameCard;
-	public UIDialogMsg(UINameCard uiNameCard) {
+	public void setUINameCard(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 	}
@@ -83,11 +89,9 @@ public class UIDialogMsg extends DialogBox implements DialogMsgMgrEvent {
 		this.setTaskProvideNo(taskProvideNo);
 	}
 	
-	public void popUp(){
+	public void popUp() {
 		
-//Window.alert(this.getClass().getName());
-		
-		dialogMsgMgr = new DialogMsgMgr(this.uiNameCard, this);
+		dialogMsgCtrl = new DialogMsgCtrl(this.uiNameCard, this);
 
 		int baseWidth = 500;
 		int baseHeight = 200;
@@ -101,13 +105,13 @@ public class UIDialogMsg extends DialogBox implements DialogMsgMgrEvent {
 		btnOk = new Button();
 		btnOk.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				dialogMsgMgr.setYes(taskProvideYes);
+				dialogMsgCtrl.setYes(taskProvideYes);
 			}
 		});
 		btnCancel = new Button();
 		btnCancel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				dialogMsgMgr.setNo(taskProvideNo);
+				dialogMsgCtrl.setNo(taskProvideNo);
 			}
 		});
 		

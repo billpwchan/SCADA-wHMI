@@ -47,11 +47,12 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	
 	int baseBoderX = 28, baseBoderY = 28;
 	
-	int baseWidth = 300, baseHeight = 600;
+	int baseWidth = 400, baseHeight = 620;
 	
 	VerticalPanel basePanel;
 	
 	private Label lblEquipmentName;
+	private Label lblEquipmentAlias;
 	
 	private TextBox txtAttributeStatus[];
 
@@ -71,8 +72,8 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	
 	private WrapperScsRTDBAccess wrapperScsRTDBAccess;
 	
-	private String strShortName		= "shortname";
-	private String strUNIVNAME		= "UNIVNAME";
+	private String strLabel			= "label";
+	private String strName			= "name";
 	private String strIsControlable	= "isControlable";
 	public void createReadRequest () {
 		
@@ -83,6 +84,35 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		logger.log(Level.FINE, "createReadRequest End");
 		
 	}
+	
+	public void setReadRequestCache () {
+		
+		logger.log(Level.FINE, "setReadRequestCache Begin");
+		
+		String dbaddresses = "";
+		String [] values = new String[1];
+		
+		dbaddresses = strAlias + strDot + strLabel;
+		values[0] = "Door B01DO001";
+		wrapperScsRTDBAccess.cachePut(dbaddresses, values);
+				
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strLabel
+											, strB001
+											, dbaddresses);
+		
+		dbaddresses = strAlias + strDot + strName;
+		values[0] = ":SITE1:B001:F001:ACCESS:DO001";
+		wrapperScsRTDBAccess.cachePut(dbaddresses, values);
+
+		wrapperScsRTDBAccess.readValueRequestCache(
+											  strReadValue + strUnderscore + strName
+											, strB001
+											, dbaddresses);
+		
+		logger.log(Level.FINE, "setReadRequestCache End");
+	}
+	
 	public void setReadRequest (int index) {
 		
 		logger.log(Level.FINE, "setReadRequest Begin");
@@ -90,16 +120,16 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		
 		int i = 0;
 		
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strShortName
-											, strB001
-											, strAlias + strDot + strShortName);
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											  strReadValue + strUnderscore + strUNIVNAME
-											, strB001
-											, strAlias + strDot + strUNIVNAME);
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strLabel
+//											, strB001
+//											, strAlias + strDot + strLabel);
+//		if ( index == i++ )
+//		wrapperScsRTDBAccess.readValueRequest(
+//											  strReadValue + strUnderscore + strName
+//											, strB001
+//											, strAlias + strDot + strName);
 		if ( index == i++ )
 		wrapperScsRTDBAccess.readValueRequest(
 											   strReadValue + strUnderscore + strIsControlable
@@ -114,12 +144,11 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		logger.log(Level.FINE, "setReadResult Begin");
 		if ( null != values && values.length > 0 ) {
 			for ( String value: values) {
-//Window.alert("UIPanelInspector setReadResult: ["+key+"] value["+value+"] errorCode["+errorCode+"]");
 				
-				if ( 0 == key.compareTo(strReadValue + strUnderscore + strShortName) ) {
+				if ( 0 == key.compareTo(strReadValue + strUnderscore + strLabel) ) {
 					lblEquipmentNameType = value;
 				}
-				else if ( 0 == key.compareTo(strReadValue + strUnderscore + strUNIVNAME) ) {
+				else if ( 0 == key.compareTo(strReadValue + strUnderscore + strName) ) {
 					lblEquipmentNameID = value;
 				}
 				else if ( 0 == key.compareTo(strReadValue + strUnderscore + strIsControlable) ) {
@@ -128,7 +157,9 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 			}
 		}
 		
-		lblEquipmentName.setText(" Equipment Type: "+lblEquipmentNameType+" ID: "+lblEquipmentNameID+" ");
+		lblEquipmentName.setText(" Equipment Type: "+lblEquipmentNameType + " ");
+		lblEquipmentAlias.setText(" Equipment Alias: "+lblEquipmentNameID + " ");
+		
 		txtAttributeStatus[0].setText((0==lblEquipmentControlable.compareTo("0")?"No":"Yes"));
 		
 		logger.log(Level.FINE, "setReadResult End");
@@ -138,11 +169,15 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	public void init() {
 		logger.log(Level.FINE, "init Begin");
 		
-		lblEquipmentName = new Label(" Equipment Type: XXXX_XXXX ID: XXXXX_XXXXX ");
+		lblEquipmentName = new Label(" Equipment Type: XXXX_XXXX ");
 		lblEquipmentName.getElement().getStyle().setPadding(10, Unit.PX);	
+		
+		lblEquipmentAlias = new Label(" Equipment Alias: XXXXX_XXXXX ");
+		lblEquipmentAlias.getElement().getStyle().setPadding(10, Unit.PX);	
 		
 		VerticalPanel verticalPanelEqpName = new VerticalPanel();
 		verticalPanelEqpName.add(lblEquipmentName);
+		verticalPanelEqpName.add(lblEquipmentAlias);
 		
 		String strHeadersLabel [] = new String[] { "Equipment Control Right","Control Right Reserved","Equipment Handover Right" };
 		String strHeadersStatus [] = new String[] { "Yes / No","Not Reserved / Not", "Central / Station" };
@@ -166,8 +201,8 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		uiInspectorInfo = new UIInspectorInfo();
 		Panel panelInfo = uiInspectorInfo.getMainPanel();
 		Panel panelCtrl = new UIInspectorControl().getMainPanel();
-//		Panel panelTag = new UIInspectorTag().getMainPanel();
-//		Panel panelAdv = new UIInspectorAdvance().getMainPanel();
+		Panel panelTag = new UIInspectorTag().getMainPanel();
+		Panel panelAdv = new UIInspectorAdvance().getMainPanel();
 		
 		String strTabNames [] = new String[] {"Info","Control","Tagging","Advance"};
 
@@ -176,8 +211,8 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		
 		tabPanel.add(panelInfo, strTabNames[0]);
 		tabPanel.add(panelCtrl, strTabNames[1]);
-//		tabPanel.add(panelTag, strTabNames[2]);
-//		tabPanel.add(panelAdv, strTabNames[3]);
+		tabPanel.add(panelTag, strTabNames[2]);
+		tabPanel.add(panelAdv, strTabNames[3]);
 		tabPanel.selectTab(0);
 		
 		Button btnClose = new Button("Close");
@@ -225,22 +260,24 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
         uiInspectorInfo.createReadRequest();
         uiInspectorInfo.initVariable();
         
+        setReadRequestCache();
+        uiInspectorInfo.setReadRequestCache();
+        
         Timer t = new Timer() {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				
 				executeTimer(timerCounter);
 				
 				timerCounter++;
 				
-				if ( timerCounter > 3 + ((1+2+3)*4) ) this.cancel();
+				if ( timerCounter > 1/*+2*/ + ((/*1+*/2+3)*4) ) this.cancel();
 			}
         	
         };
         
-        t.scheduleRepeating(200);//200
+        t.scheduleRepeating(100);//200
         
         logger.log(Level.FINE, "init End");
         

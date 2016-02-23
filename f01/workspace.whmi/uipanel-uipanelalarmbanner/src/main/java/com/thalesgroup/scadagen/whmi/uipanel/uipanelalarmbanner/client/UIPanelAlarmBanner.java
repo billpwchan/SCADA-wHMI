@@ -40,7 +40,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	int BUTTON_HEIGHT	= 32;
 	
 	int LABEL_WIDTH		= 120;
-	int LABEL_HEIGHT	= 24;
+	int LABEL_HEIGHT	= 23;
 	
     String strAlarmSummary = "Alarm";
     String strEventSummary = "Event";
@@ -50,7 +50,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
     private InlineLabel[] inlineLabel;
 
 	private UINameCard uiNameCard;
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard){
+	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		
@@ -62,27 +62,21 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 	    basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    
-//	    VerticalPanel alarmPanel = new CellTableAlarm().GetTablePanel(3);
-	    
 	    String ALARM_LIST_BANNER_ID = "alarmListBanner";
 	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(ALARM_LIST_BANNER_ID, false, false, false);
-	    wrapperScsAlarmListPanel.setSize("1400px", "100%");
-	    wrapperScsAlarmListPanel.setBorderWidth(0);
+	    wrapperScsAlarmListPanel.setSize("1550px", "100%");
+	    wrapperScsAlarmListPanel.setBorderWidth(LAYOUT_BORDER);
 	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
 	    
 	    VerticalPanel buttonPanel = new VerticalPanel();
-//	    verticalPanel.getElement().getStyle().setPadding(5, Unit.PX);	
+//	    verticalPanel.getElement().getStyle().setPadding(5, Unit.PX);
 	    buttonPanel.setHeight("100%");
 	    buttonPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
-
-	    String lblSums [] = new String[] {
-	    		strAlarmSummary
-	    		, strEventSummary
-	    };
+	    String lblSums [] = new String[] { strAlarmSummary , strEventSummary };
 	    
 	    for ( String lbl: lblSums) {
 		    final Button button = new Button(lbl);
@@ -117,14 +111,13 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 				} else {
 					button.setHTML(audioHtmlDown);
 				}
-				
-				showInspectorPanel();
 			}
 		});
    		buttonPanel.add(audioButton);
    		
 	    VerticalPanel statPanel = new VerticalPanel();
-	    statPanel.setHeight("100%");	
+	    statPanel.setWidth("100%");
+	    statPanel.setHeight("100%");
 	    statPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    statPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    statPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -133,21 +126,15 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	    for(int i=0;i<strAlarmLbls.length;i++){
 	    	inlineLabel[i] = new InlineLabel(strAlarmLbls[i]);
 	    	inlineLabel[i].setSize(LABEL_WIDTH+UNIT_PX,LABEL_HEIGHT +UNIT_PX);
+	    	inlineLabel[i].getElement().getStyle().setPadding(5, Unit.PX);
+	    	if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-alarm-banner-counter");
 	    	statPanel.add(inlineLabel[i]);
 	    }
 	    
-	    HorizontalPanel alarmControlPanel = new HorizontalPanel();
-	    alarmControlPanel.setBorderWidth(LAYOUT_BORDER);
-	    alarmControlPanel.setHeight("100%");
-	    alarmControlPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    alarmControlPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    alarmControlPanel.add(wrapperScsAlarmListPanel.getMainPanel());
-	    
-//	    alarmControlPanel.add(alarmPanel);
-	    alarmControlPanel.add(buttonPanel);
-	    
-	    basePanel.add(alarmControlPanel);
+	    basePanel.add(wrapperScsAlarmListPanel.getMainPanel());
+	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+	    basePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    basePanel.add(buttonPanel);
 	    basePanel.add(statPanel);
 	    	   
 	    DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
@@ -177,6 +164,8 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewAlarm");
+			taskLaunch.setFirst("Alarm");
+			taskLaunch.setLast("Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( 0 == strEventSummary.compareToIgnoreCase(strBtn) ) {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -184,20 +173,14 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewEvent");
+			taskLaunch.setFirst("Event");
+			taskLaunch.setLast("Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		}
 		
 		logger.log(Level.FINE, "onButton End");
 	}
 	
-	private void showInspectorPanel () {
-		UITaskLaunch taskLaunch = new UITaskLaunch();
-		taskLaunch.setUiPanel("UIPanelInspector");
-		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI");
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-	}
-
 	@Override
 	public void valueChanged(String name, int value) {
 		logger.log(Level.SEVERE, "valueChanged Begin");

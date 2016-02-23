@@ -81,10 +81,10 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
 
     private boolean isTerminated_ = false;
     
-//    /**
-//     * To color the line according to the severity (for instance)
-//     */
-//    private static final String CSS_SEVERITY_PREFIX = "event_";
+    /**
+     * To color the line according to the severity (for instance)
+     */
+    private static final String EVENT_CSS_SEVERITY_PREFIX = "event_";
 
 
     /**
@@ -182,18 +182,90 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
-//            	AttributeClientAbstract<String> severity = row.getAttribute("severity");
+            	
+            	String CSS_EVENT_		= "CSS_EVENT";
+            	            	
+                String _SUPER_CRITICAL	= "_SUPER_CRITICAL";
+                String _CRITICAL		= "_CRITICAL";
+                String _LESS_CRITIICAL	= "_LESS_CRITIICAL";
+                String _EVENT			= "_EVENT";
+                
+                String strCssResult		= CSS_EVENT_;
+            	
+                logger.log(Level.FINE, "getStyleNames Begin");
+				logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"]");
+				
                 if (row != null) {
+                	
+                	AttributeClientAbstract<Integer> severity = null;
+                    try {
+                    	severity = row.getAttribute("severity");
+                    } catch ( ClassCastException e) {
+                    	logger.log(Level.FINE, "getStyleNames ClassCastException e["+e.toString()+"]");
+                    }                    	
+                	
                     for (String attname : row.attributeNames()) {
+                    	logger.log(Level.FINE, "getStyleNames attname["+attname+"]");
                         AttributeClientAbstract<Object> att = row.getAttribute(attname);
                         if (!att.isValid()) {
+                        	logger.log(Level.FINE, "getStyleNames !att.isValid()");
                             return "gdg_invalid";
                         }
                     }
+                    if ( null != severity ) {
+                    	if ( severity.isValid() ) {
+                    		
+                    		if ( true ) {
+                    		
+                    		int iValue = severity.getValue();
+                    		
+                    		switch ( iValue ) {
+                    		case 4:
+                    			strCssResult += _SUPER_CRITICAL;
+                    			break;
+                    		case 3:
+                    			strCssResult += _CRITICAL;
+                    			break;
+                    		case 2:
+                    			strCssResult += _LESS_CRITIICAL;
+                    			break;
+                    		case 1:
+                    		case 0:
+                    			strCssResult += _EVENT;
+                    			default:
+                    		break;
+                    		}
+                    		
+                    		logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] iValue["+iValue+"] => strCssResult["+strCssResult+"]");
+                    		
+                    		return strCssResult;
+                    		
+                    		} else {
+                    		
+                    			Integer intValue = severity.getValue();
+								String strCSS = EVENT_CSS_SEVERITY_PREFIX + severity.getValue();
+
+							return strCSS;
+							
+                    		}
+                    		
+                    		//CSS_EVENT_SUPER_CRITICAL
+                    		//CSS_EVENT_CRITICAL
+                    		//CSS_EVENT_LESS_CRITIICAL
+                    		//CSS_EVENT_EVENT
+
+                    	} else {
+                    		logger.log(Level.FINE, "getStyleNames severity.isValid()");
+                    	}
+                    } else {
+                    	logger.log(Level.FINE, "getStyleNames severity is null");
+                    }
+                } else {
+                	logger.log(Level.FINE, "getStyleNames row is null");
                 }
 
+                logger.log(Level.FINE, "getStyleNames End");
                 return "gdg_normal";
-//                return CSS_SEVERITY_PREFIX + severity.getValue();
             }
         });
     }

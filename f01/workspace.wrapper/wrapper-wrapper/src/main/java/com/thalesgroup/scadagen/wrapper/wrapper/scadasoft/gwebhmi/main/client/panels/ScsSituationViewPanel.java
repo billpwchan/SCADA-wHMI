@@ -20,6 +20,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.ISelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.SingleSelectionModel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanelEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.widget.ScsWidgetFactory;
 
 
@@ -69,8 +70,8 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
      * @param eventBus
      *            a bus used to subscribe to and publish events
      */
-    public ScsSituationViewPanel(final String configurationId, final EventBus eventBus) {
-        this(configurationId, eventBus, null);
+    public ScsSituationViewPanel(final String configurationId, final EventBus eventBus, final WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent) {
+        this(configurationId, eventBus, wrapperScsSituationViewPanelEvent, null);
     }
 
     /**
@@ -84,9 +85,11 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
      *            Presenter State handler
      */
     public ScsSituationViewPanel(final String configurationId, final EventBus eventBus,
+    		final WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent,
             final IPresenterStateHandler presenterStateHandler) {
         configId_ = configurationId;
         eventBus_ = eventBus;
+        this.wrapperScsSituationViewPanelEvent = wrapperScsSituationViewPanelEvent;
         handlerRegistrations_ = new ArrayList<HandlerRegistration>();
 
         mainPanel_ = new SimpleLayoutPanel();
@@ -95,7 +98,7 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
         // CUSTOM code BEGIN
         mainPanel_.addStyleName(configId_);
         // A view with a custom widgetfactory
-        ScsWidgetFactory widgetFactory = new ScsWidgetFactory();
+        ScsWidgetFactory widgetFactory = new ScsWidgetFactory(this.wrapperScsSituationViewPanelEvent);
         final SituationView svView = new SituationView(widgetFactory);
 
         // A presenter
@@ -164,5 +167,7 @@ public class ScsSituationViewPanel extends ResizeComposite implements IClientLif
             selectionModelAlarm_.destroy();
         }
     }
+    
+	private WrapperScsSituationViewPanelEvent wrapperScsSituationViewPanelEvent = null;
 
 }

@@ -17,12 +17,12 @@ public class UIScreenMgr {
 	private static Logger logger = Logger.getLogger(UIScreenMgr.class.getName());
 	
 	private UIScreenMgr() {}
-	private static UIScreenMgr uiScreenMgr = null;
+	private static UIScreenMgr instance = null;
 	public static UIScreenMgr getInstance() {
-		if ( null == uiScreenMgr ) {
-			uiScreenMgr = new UIScreenMgr();
+		if ( null == instance ) {
+			instance = new UIScreenMgr();
 		}
-		return uiScreenMgr;
+		return instance;
 	}
 	
 	public DockLayoutPanel getMainPanel(String uiPanel, UINameCard uiNameCard){

@@ -59,7 +59,7 @@
 }
 
 .dataGridCell div {
-  color: black;
+  /* color: black; */
   padding-left: 15px;
   white-space: nowrap;
   overflow: hidden;
@@ -126,11 +126,13 @@
 }
 
 .dataGridHoveredRow {
-  background: #BEBEBE !important;
-  color: black;
+  background: blue !important;
+  color: white;
 }
 
 .dataGridHoveredRowCell {
+  background: blue !important;
+  color: white;
 }
 
 .dataGridKeyboardSelectedRow {
@@ -140,13 +142,15 @@
 }
 
 .dataGridSelectedRow {
-  background: #BEBEBE;
-  color: black;
+  background: black;
+  color: white;
   height: auto;
   overflow: auto;
 }
 
 .dataGridSelectedRowCell {
+  background: black;
+  color: white;
 }
 
 /**

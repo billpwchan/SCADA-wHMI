@@ -196,27 +196,32 @@ public class ViewLayoutMgr {
 			logger.log(Level.FINE, "setTaskLaunch this.viewIdActivate is INVALUD[" + this.viewIdActivate
 					+ "] taskLaunchs.length[" + this.taskLaunchs.length + "]");
 		}
+		
+		
+		triggerTitleChange(taskLaunch);
 
 		// Station
-		UITaskTitle taskTitle = new UITaskTitle();
-		taskTitle.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskTitle.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
-		taskTitle.setStation(taskLaunch.getNameWithSpace());
-		taskTitle.setTitle(taskLaunch.getTitleWithSpace());
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskTitle));
+//		UITaskTitle taskTitle = new UITaskTitle();
+//		taskTitle.setTaskUiScreen(this.uiNameCard.getUiScreen());
+//		taskTitle.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
+//		taskTitle.setStation(taskLaunch.getNameWithSpace());
+//		taskTitle.setTitle(taskLaunch.getTitleWithSpace());
+//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskTitle));
 		// End of Station
+
+		triggerProfileChange();
 		
 		// Profile
-		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
-		String profile = opmAuthentication.getCurrentProfile();
-		String operator = opmAuthentication.getCurrentOperator();
-		
-		UITaskProfile taskProfile = new UITaskProfile();
-		taskProfile.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskProfile.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
-		taskProfile.setProfile(profile);
-		taskProfile.setOperator(operator);
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
+//		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
+//		String profile = opmAuthentication.getCurrentProfile();
+//		String operator = opmAuthentication.getCurrentOperator();
+//		
+//		UITaskProfile taskProfile = new UITaskProfile();
+//		taskProfile.setTaskUiScreen(this.uiNameCard.getUiScreen());
+//		taskProfile.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
+//		taskProfile.setProfile(profile);
+//		taskProfile.setOperator(operator);
+//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
 		// End of Profile
 
 		logger.log(Level.FINE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
@@ -540,6 +545,24 @@ public class ViewLayoutMgr {
 		return taskLaunch;
 	}
 	
+	private void triggerProfileChange () {
+		
+		logger.log(Level.FINE, "triggerProfileChange Begin");
+		
+		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
+		String profile = opmAuthentication.getCurrentProfile();
+		String operator = opmAuthentication.getCurrentOperator();
+		
+		UITaskProfile taskProfile = new UITaskProfile();
+		taskProfile.setTaskUiScreen(this.uiNameCard.getUiScreen());
+		taskProfile.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
+		taskProfile.setProfile(profile);
+		taskProfile.setOperator(operator);
+		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
+		
+		logger.log(Level.FINE, "triggerProfileChange End");
+	}
+	
 	private void triggerTitleChange ( UITaskLaunch taskLaunch ) {
 		
 		logger.log(Level.FINE, "triggerTitleChange Begin");
@@ -547,11 +570,13 @@ public class ViewLayoutMgr {
 		String staion = "";
 		String title = "";
 		if ( null != taskLaunch ) {
-			staion = taskLaunch.getNameWithSpace();
-			title = taskLaunch.getTitleWithSpace();
+			staion = taskLaunch.getFirstWithSpace();
+			title = taskLaunch.getLastWithSpace();
 		} else {
-			logger.log(Level.FINE, "triggerTitleChange tasLaunch is null");
+			logger.log(Level.SEVERE, "triggerTitleChange tasLaunch is null");
 		}
+		
+		logger.log(Level.SEVERE, "triggerMenuChange UITaskTitle staion["+staion+"] title["+title+"]");
 		
 		UITaskTitle taskTitle = new UITaskTitle();
 		taskTitle.setStation(staion);

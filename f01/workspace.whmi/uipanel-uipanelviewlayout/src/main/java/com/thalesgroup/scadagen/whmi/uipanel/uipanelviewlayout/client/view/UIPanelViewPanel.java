@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -56,7 +57,10 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 
 	private void onClickLabel(){
 		
-		UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+		DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+		UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+		uiDialgogMsg.setUINameCard(this.uiNameCard);
+//		UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 		uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OK, "Logout",
 				"This is the popup dialog message box", null, null);
 		uiDialgogMsg.popUp();

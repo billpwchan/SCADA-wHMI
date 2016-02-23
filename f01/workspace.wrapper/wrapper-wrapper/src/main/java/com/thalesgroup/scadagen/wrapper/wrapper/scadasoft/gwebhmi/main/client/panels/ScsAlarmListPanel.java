@@ -225,8 +225,71 @@ public class ScsAlarmListPanel extends ResizeComposite
                 if (!state.isValid()) {
                     return "gdg_invalid";
                 }
-
-                return CSS_SEVERITY_PREFIX + severity.getValue() + " " + CSS_ALARM_ACK_PREFIX + state.getValue();
+                
+                if ( true ) {
+                	
+                String CSS_ALARM_		= "CSS_ALARM";
+                
+                String EVENT			= "LOW";
+                String LESS_CRITIICAL	= "MEDIUM";
+                String CRITICAL			= "HIGH";
+                String SUPER_CRITICAL	= "CRITICAL";
+                
+                String YES1				= "NPA";
+                String YES2				= "PA";
+                String NO1				= "NPNA";
+                String NO2				= "PNA";
+                
+                String _NA				= "_NA";
+                String _A				= "_A";
+                String _SUPER_CRITICAL	= "_SUPER_CRITICAL";
+                String _CRITICAL		= "_CRITICAL";
+                String _LESS_CRITICAL	= "_LESS_CRITICAL";
+                String _EVENT			= "_EVENT";
+                
+                String strSeverity		= severity.getValue();
+                String strState			= state.getValue();
+                
+                String strCssResult		= CSS_ALARM_;
+                
+                if ( 0 == strSeverity.compareTo(SUPER_CRITICAL) ) {
+                	strCssResult += _SUPER_CRITICAL;
+                } else if ( 0 == strSeverity.compareTo(CRITICAL) ) {
+                	strCssResult += _CRITICAL;
+                } else if ( 0 == strSeverity.compareTo(LESS_CRITIICAL) ) {
+                	strCssResult += _LESS_CRITICAL;
+                } else {
+                	strCssResult += _EVENT;
+                }
+                
+                if ( 0 == strState.compareTo(YES1) || 0 == strState.compareTo(YES2) ) {
+                	strCssResult += _A;
+                } else if ( 0 == strState.compareTo(NO1) || 0 == strState.compareTo(NO2) ) {
+                	strCssResult += _NA;
+                }
+                
+logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
+                
+                return strCssResult;
+                
+	            } else {
+	
+	                return CSS_SEVERITY_PREFIX + severity.getValue() + " " + CSS_ALARM_ACK_PREFIX + state.getValue();
+	                
+	            }
+                
+                //CSS_SUPER_CRITICAL_NA
+                //CSS_SUPER_CRITICAL_A
+                //CSS_CRITICAL_NA
+                //CSS_CRITICAL_A
+                //CSS_LESS_CRITICAL_NA
+                //CSS_LESS_CRITICAL_A
+                //CSS_EVENT_NA
+                //CSS_EVENT_A
+                
+                //dataGridSelectedRow
+                //dataGridSelectedRowCell
+                
             }
         });
     }

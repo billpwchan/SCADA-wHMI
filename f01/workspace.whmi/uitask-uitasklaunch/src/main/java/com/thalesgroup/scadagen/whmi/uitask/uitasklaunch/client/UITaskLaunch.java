@@ -31,7 +31,8 @@ public class UITaskLaunch implements UITask_i {
 		this.uiPath = uiPath;
 	}
 	
-	public final static char spliter = '|';
+	private final static char spliter = '|';
+	public static char getSplite() { return spliter; }
 	
 	// TaskLaunch
 	public enum TaskLaunchType {
@@ -70,13 +71,17 @@ public class UITaskLaunch implements UITask_i {
 	private String header = "";
 	private String type = "", order = "", name = "", title = "", enable = "", visible = "", locCat = "", funCat = "",
 			uiScreen = "", uiPath = "", uiPanel = "";
+	
+	private String first = "", last = "";
+	public void setFirst(String first) { this.first = first; }
+	public void setLast(String last) { this.last = last; }
 
-	public void set(String head, String type, String order, String name, String title, String enable, String visible,
+	public void set(String header, String type, String order, String name, String title, String enable, String visible,
 			String locCat, String funCat, String uiPanel, String uiScreen, String uiPath) {
 		
 		logger.log(Level.FINE, "set Begin");
 		
-		logger.log(Level.FINE, "set head["+head+"]");
+		logger.log(Level.FINE, "set head["+header+"]");
 		logger.log(Level.FINE, "set type["+type+"]");
 		logger.log(Level.FINE, "set order["+order+"]");
 		logger.log(Level.FINE, "set name["+name+"]");
@@ -89,7 +94,7 @@ public class UITaskLaunch implements UITask_i {
 		logger.log(Level.FINE, "set uiScreen["+uiScreen+"]");
 		logger.log(Level.FINE, "set uiPath["+uiPath+"]");
 		
-		this.header = head;
+		this.header = header;
 		this.type = type;
 		this.order = order;
 		this.name = name;
@@ -144,6 +149,58 @@ public class UITaskLaunch implements UITask_i {
 		}
 		
 		logger.log(Level.FINE, "getNameWithSpace End");
+		
+		return string;
+	}
+	
+	public String getFirst() {
+		
+		logger.log(Level.FINE, "getFirst Begin");
+		
+		String string = getElementFirst(this.header);
+		
+		logger.log(Level.FINE, "getFirst End");
+		
+		return string;
+	}
+	
+	public String getFirstWithSpace() {
+		
+		logger.log(Level.FINE, "getFirstWithSpace Begin");
+		
+		String string = first;
+		
+		if ( 0 == first.compareTo("") )  {
+			string = toTitle(getElementFirst(this.header));
+		}
+		
+		logger.log(Level.FINE, "getFirstWithSpace End");
+		
+		return string;
+	}
+//	
+//	public String getLast() {
+//		
+//		logger.log(Level.FINE, "getLast Begin");
+//		
+//		String string = getElementFirst(this.header);
+//		
+//		logger.log(Level.FINE, "getLast End");
+//		
+//		return string;
+//	}
+//	
+	public String getLastWithSpace() {
+		
+		logger.log(Level.FINE, "getLastWithSpace Begin");
+		
+		String string = last;
+		
+		if ( 0 == last.compareTo("") ) {
+			string = toTitle(getElementLast(this.header));
+		}
+		
+		logger.log(Level.FINE, "getLastWithSpace End");
 		
 		return string;
 	}
@@ -330,6 +387,24 @@ public class UITaskLaunch implements UITask_i {
 		
 		return counter;
 	}
+	
+	public String getElementFirst(String string) {
+		
+		logger.log(Level.FINE, "getElementLast Begin");
+		
+		String element = "";
+		String strings[] = string.split("\\|");
+		if (strings.length > 0) {
+			element = strings[0];
+		}	
+		
+		// Window.alert("getElementLast string["+string+"] >
+		// element["+element+"]");
+		
+		logger.log(Level.FINE, "getElementLast End");
+		
+		return element;
+	}
 
 	public String getElementLast(String string) {
 		
@@ -355,7 +430,7 @@ public class UITaskLaunch implements UITask_i {
 		
 		String element = "";
 		String strings[] = string.split("\\|");
-		if (strings.length > 0) {
+		if (strings.length > 0 && strings.length > index ) {
 			element = strings[index];
 		}
 		

@@ -15,11 +15,11 @@ public class UIViewMgr {
 	private static Logger logger = Logger.getLogger(UIViewMgr.class.getName());
 	
 	private UIViewMgr() {};
-	private static UIViewMgr viewFactoryMgr = null;
+	private static UIViewMgr instance = null;
 	public static UIViewMgr getInstance() {
-		if ( null == viewFactoryMgr ) 
-			viewFactoryMgr = new UIViewMgr();
-		return viewFactoryMgr;
+		if ( null == instance ) 
+			instance = new UIViewMgr();
+		return instance;
 	}
 	
 

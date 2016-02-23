@@ -513,6 +513,43 @@ public class WrapperScsRTDBAccess extends Composite implements IRTDBComponentCli
     	logger.log(Level.FINE, "readValueRequest End");
     }
     
+    private HashMap<String, String[]> hashMapCache = new HashMap<String, String[]>();
+    public void cachePut(String dbaddresses, String[] values) {
+    	hashMapCache.put(dbaddresses, values);
+    }
+    public String[] cacheGet(String dbaddresses) {
+    	return hashMapCache.get(dbaddresses);
+    }
+    
+    /**
+     * @param key
+     * 				Key - "ReadValue"
+     * @param scsEnvId
+     * 				ScsEnvName - "B001"
+     * @param dbaddresses
+     * 				DB Address - ":SITE1:B001:F001:ACCESS:DO001.UNIVNAME"
+     */
+    public void readValueRequestCache(String key, String scsEnvId, String dbaddresses) {
+    	
+    	logger.log(Level.FINE, "readValueRequestCache Begin");
+    	
+    	logger.log(Level.FINE, "readValueRequestCache key["+key+"] scsEnvId["+scsEnvId+"] dbaddresses["+dbaddresses+"]");  	
+    	
+    	String values[] = hashMapCache.get(dbaddresses);
+    	int errorCode = 0;
+    	String errorMessage = "";
+    	if ( null != values ) {
+    		this.wrapperScsRTDBAccessEvent.setReadResult(key, values, errorCode, errorMessage);
+    	} else {
+        	errorCode = 1;
+        	errorMessage = "NOT_FOUND";
+    		this.wrapperScsRTDBAccessEvent.setReadResult(key, values, errorCode, errorMessage);
+    	}
+
+    	
+    	logger.log(Level.FINE, "readValueRequestCache End");
+    }
+    
 //    @UiHandler("upButton")
     void onUpButtonClick(ClickEvent event) {
 //    	int selIndex = childrenListBox.getSelectedIndex();

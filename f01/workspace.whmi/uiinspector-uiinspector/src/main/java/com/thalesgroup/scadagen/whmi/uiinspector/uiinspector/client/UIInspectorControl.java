@@ -26,31 +26,36 @@ public class UIInspectorControl {
 		VerticalPanel vpCtrls  = new VerticalPanel();
 		vpCtrls.setBorderWidth(LAYOUT_BORDER);
 		vpCtrls.setWidth("100%");
+		
+		String btnWidth = "90px";
+		String btnHeight = "26px";
 
-		int numOfCtrlRow = 3;
+		int numOfCtrlRow = 1;
 		int numOfCtrlBtnRow = 4;
 		for(int x=1;x<=numOfCtrlRow;++x){
 			VerticalPanel vp0 = new VerticalPanel();
 			vp0.setWidth("100%");
 			vp0.getElement().getStyle().setPadding(5, Unit.PX);
 			InlineLabel inlineLabel = new InlineLabel();
-			inlineLabel.setText("XXXXX Control:");
+			inlineLabel.setText("Control: "+x);
 			vp0.add(inlineLabel);
 			
 			HorizontalPanel hp1 = new HorizontalPanel();
-			hp1.setWidth("100%");
 			for(int y=1;y<=numOfCtrlBtnRow;++y){
 				Button btnCtrl = new Button();
 				btnCtrl.setText("Control "+y);
+				btnCtrl.setWidth(btnWidth);
+				btnCtrl.setHeight(btnHeight);
 				hp1.add(btnCtrl);
 			}
 			vp0.add(hp1);
 			
 			HorizontalPanel hp2 = new HorizontalPanel();
-			hp2.setWidth("100%");
 			for(int y=numOfCtrlBtnRow;y<=numOfCtrlBtnRow+numOfCtrlBtnRow-1;++y){
 				Button btnCtrl = new Button();
 				btnCtrl.setText("Control "+y);
+				btnCtrl.setWidth(btnWidth);
+				btnCtrl.setHeight(btnHeight);
 				hp2.add(btnCtrl);
 			}
 			vp0.add(hp2);
@@ -62,6 +67,8 @@ public class UIInspectorControl {
 		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
 		btnExecute.setWidth("100px");
 		btnExecute.setText("Execute");
+//		btnExecute.setWidth(btnWidth);
+//		btnExecute.setHeight(btnHeight);
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {

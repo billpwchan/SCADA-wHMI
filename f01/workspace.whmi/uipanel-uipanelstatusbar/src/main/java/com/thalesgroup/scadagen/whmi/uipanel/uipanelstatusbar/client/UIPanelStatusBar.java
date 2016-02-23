@@ -100,10 +100,10 @@ public class UIPanelStatusBar {
 		datetimeInlineLabel = new InlineLabel();
 		datetimeInlineLabel.setText("dd MM yyyy HH:mm:ss.SSS");
 		topStatusBanner.add(datetimeInlineLabel);
-
+		
 		Timer t = new Timer() {
 			public void run() {
-				datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy HH:mm:ss").format(new Date()));
+				setCurrentDateTime();
 			}
 		};
 		// Schedule the timer to run once every second, 1000 ms.
@@ -116,10 +116,17 @@ public class UIPanelStatusBar {
 		topStatusBanner.setCellWidth(datetimeInlineLabel, "20%");
 		
 		dockLayoutPanel.add(topStatusBanner);
+		
+		// Fill the current datetime before timer start
+		setCurrentDateTime();
 
 		logger.log(Level.FINE, "getMainPanel End");
 
 		return dockLayoutPanel;
+	}
+	
+	private void setCurrentDateTime() {
+		datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy HH:mm:ss").format(new Date()));
 	}
 
 	private void setTitle(String station, String title) {
@@ -162,16 +169,13 @@ public class UIPanelStatusBar {
 					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
 
 					UITaskTitle taskTitle = (UITaskTitle) taskProvide;
-					String station = taskTitle.getStation();
+					String strStation = taskTitle.getStation();
 					String strTitle = taskTitle.getTitle();
 
 					logger.log(Level.FINE, "onUIEvent strTitle[" + strTitle + "]");
-					if (null != station) {
-						this.strTitle = strTitle;
-					}
-					if (null != strTitle) {
-						this.strTitle = strTitle;
-					}
+					if (null != strStation)		this.strStation = strStation;
+					if (null != strTitle)		this.strTitle = strTitle;
+					
 					setTitle(this.strStation, this.strTitle);
 					
 				} else if (UITaskMgr.isInstanceOf(UITaskProfile.class, taskProvide)) {
@@ -183,12 +187,9 @@ public class UIPanelStatusBar {
 					String strProfile = taskOperator.getProfile();
 
 					logger.log(Level.FINE, "onUIEvent strTitle[" + strProfile + "]");
-					if (null != strOperator) {
-						this.strOperator = strOperator;
-					}
-					if (null != strProfile) {
-						this.strProfile = strProfile;
-					}
+					if (null != strOperator)	this.strOperator = strOperator; 
+					if (null != strProfile) 	this.strProfile = strProfile;
+					
 					setProfile(this.strOperator, this.strProfile);
 					
 				}

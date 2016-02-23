@@ -4,8 +4,16 @@ public class UITaskProfile extends UITaskDictionary {
 	public UITaskProfile() {
 		super();
 	}
-	public String getOperator() { return (String) getValue("operator"); }
-	public void setOperator(String operator) { setValue("operator", operator); }
-	public String getProfile() { return (String) getValue("profile"); }
-	public void setProfile(String profile){ setValue("profile", profile); }
+	public UITaskProfile(UITaskProfile uiTaskProfile) {
+		super(uiTaskProfile);
+		setOperator(uiTaskProfile.getOperator());
+		setProfile(uiTaskProfile.getProfile());
+	}
+	
+	private String strOperator = "Operator";
+	private String strProfile = "Profile";
+	public String getOperator() { return (String) getValue(strOperator); }
+	public void setOperator(String operator) { setValue(strOperator, operator); }
+	public String getProfile() { return (String) getValue(strProfile); }
+	public void setProfile(String profile){ setValue(strProfile, profile); }
 }

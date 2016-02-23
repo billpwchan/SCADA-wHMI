@@ -65,6 +65,7 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		for(int i=0;i<strNoOfEvents.length;++i){
 			inlineLabel[i] = new InlineLabel(strNoOfEvents[i]);
 			inlineLabel[i].getElement().getStyle().setPadding(20, Unit.PX);
+			if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-event-summary-counter");
 			numOfEventBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			numOfEventBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			numOfEventBar.add(inlineLabel[i]);
@@ -130,7 +131,7 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 //
 	    String SCS_OLS_LIST_ID = "scseventList";
 	    WrapperScsOlsListPanel wrapperScsOlsListPanel = new WrapperScsOlsListPanel(SCS_OLS_LIST_ID, false);
-	    wrapperScsOlsListPanel.setSize("1400px", "100%");
+	    wrapperScsOlsListPanel.setSize("100%", "100%");
 	    wrapperScsOlsListPanel.setBorderWidth(1);
 	    wrapperScsOlsListPanel.setCounterNames(counterNames);	    
 	    wrapperScsOlsListPanel.setWrapperScsOlsListPanelEvent(this);

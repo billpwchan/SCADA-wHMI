@@ -73,6 +73,7 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 		for(int i=0;i<strNoOfAlarms.length;++i){
 			inlineLabel[i] = new InlineLabel();
 			inlineLabel[i].getElement().getStyle().setPadding(20, Unit.PX);
+			if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-alarm-summary-counter");
 			inlineLabel[i].setWidth("100%");
 			inlineLabel[i].setText(strNoOfAlarms[i]);
 			flexTableFilters.setWidget(i/8, i%8, inlineLabel[i]);
@@ -138,7 +139,7 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	
 	    String SCS_ALARM_LIST_ID = "scsalarmList";
 	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(SCS_ALARM_LIST_ID, false, false, true);
-	    wrapperScsAlarmListPanel.setSize("1400px", "100%");
+	    wrapperScsAlarmListPanel.setSize("100%", "100%");
 	    wrapperScsAlarmListPanel.setBorderWidth(1);
 	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);

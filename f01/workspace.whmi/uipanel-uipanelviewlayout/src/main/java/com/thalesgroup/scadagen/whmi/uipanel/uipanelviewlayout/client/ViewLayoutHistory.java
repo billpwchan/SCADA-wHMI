@@ -87,7 +87,7 @@ public class ViewLayoutHistory {
 			UITaskLaunch taskLaunch = taskLaunchs[i];
 			if ( null != taskLaunch ) {
 				logger.log(Level.FINE, "debug taskLunch[" + i + "]");
-				taskLaunch.debug();
+//				taskLaunch.debug();
 			} else {
 				logger.log(Level.FINE, "debug taskLunch[" + i + "] is null");
 			}

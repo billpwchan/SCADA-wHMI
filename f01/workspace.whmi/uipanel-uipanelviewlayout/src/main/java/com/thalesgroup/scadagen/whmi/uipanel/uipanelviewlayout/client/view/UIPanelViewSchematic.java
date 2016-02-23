@@ -10,13 +10,15 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanelEvent;
 
-public class UIPanelViewSchematic implements UIPanelViewProvide {
+public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSituationViewPanelEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewSchematic.class.getName());
 
@@ -42,15 +44,6 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 			handlerRegistration = handlerRegistrations.poll();
 		}
 	}
-	
-//	InlineLabel equipmenpLabel = null;
-//	private void onClickLabel(){
-//		UITaskLaunch taskLaunch = new UITaskLaunch();
-//		taskLaunch.setUiPanel("UIPanelInspector");
-//		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-//		taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI");
-//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-//	}
 
 	private UINameCard uiNameCard;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
@@ -59,34 +52,16 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
-		
-//		HorizontalPanel hp = new HorizontalPanel();
-//		hp.setWidth("100%");
-//		hp.setHeight("100%");
-//		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		
-//		equipmenpLabel = new InlineLabel();
-//		equipmenpLabel.setText("Schematic: ---- Click to launch the Inspector Panel");
-//		hp.add(equipmenpLabel);
-//		
-//		equipmenpLabel.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				onClickLabel();
-//			}
-//		});
-		
 
 		WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("L5_33KV");
 		wrapperScsSituationViewPanel.setSize("100%", "100%");
+		wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
 		HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
 		scsViewPanel.setWidth("100%");
 		scsViewPanel.setWidth("100%");
 		scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-
+		
 		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
 		root.add(scsViewPanel);
 		
@@ -106,9 +81,7 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 			if ( null != taskLaunch) {
 				
 				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getHeader()+"]");
-				
-//				this.equipmenpLabel.setText("Schematic: "+taskLaunch.getHeader()+" Click to launch the Inspector Panel");
-				
+
 			} else {
 				
 				logger.log(Level.FINE, "setTaskProvide taskLaunch is null");
@@ -122,6 +95,19 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 		}
 		
 		logger.log(Level.FINE, "setTaskProvide End");
+	}
+	
+	@Override
+	public void triggerSymbolWidget(String hv_id) {
+		showInspectorPanel(hv_id);
+	}
+	
+	private void showInspectorPanel (String hv_id) {
+		UITaskLaunch taskLaunch = new UITaskLaunch();
+		taskLaunch.setUiPanel("UIPanelInspector");
+		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
+		taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI");
+		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 	}
 
 }

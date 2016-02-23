@@ -54,10 +54,10 @@ public class UIPanelAccessBar implements UIPanel_i {
 	
 	private String basePath = GWT.getModuleBaseURL();
 	
-	private String strTipsBack 			= "History Back";
+//	private String strTipsBack 			= "History Back";
 	private String strPrevious 			= basePath + IMAGE_PATH+"/hscs/Previous.png";
 	private String strPreviousDisable 	= basePath + IMAGE_PATH+"/hscs/PreviousDisable.png";
-	private String strTipsForward 		= "History Forward";
+//	private String strTipsForward 		= "History Forward";
 	private String strNext 				= basePath + IMAGE_PATH+"/hscs/Next.png";
 	private String strNextDisable		= basePath + IMAGE_PATH+"/hscs/NextDisable.png";
 	
@@ -72,8 +72,8 @@ public class UIPanelAccessBar implements UIPanel_i {
 	private String strDSS 				= basePath + IMAGE_PATH+"/hscs/DSS.png";	
 	private String strLogout 			= basePath + IMAGE_PATH+"/hscs/Logout.PNG";
 	
-	private Button btnBack;
-	private Button btnForward;
+//	private Button btnBack;
+//	private Button btnForward;
 	
 	private HashMap<String, Button> mapStrBtn;
 	private Button buttons[];
@@ -201,19 +201,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 	}
 	
 	void onButtonClick ( Button button ) {
-//		if ( button.getHTML().indexOf(strAlarm) != -1 ) {
-//			
-//			logger.log(Level.FINE, "onButtonClick strLogout");
-//			
-//			TaskLaunch taskLaunch = new TaskLaunch();
-//			taskLaunch.setType("P");
-//			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-//			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
-//			taskLaunch.setUiPanel("UIViewAlarm");
-//			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-//		
-//		} else 
-			if ( button.getHTML().indexOf(strLogout) != -1 ) {
+		if ( button.getHTML().indexOf(strLogout) != -1 ) {
 			
 			logger.log(Level.FINE, "onButtonClick strLogout");
 			

@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -279,7 +280,10 @@ public class UIScreenOPM implements UIScreen_i {
 					break;
 				}
 				
-				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+				uiDialgogMsg.setUINameCard(this.uiNameCard);
+//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OK, title, message, null, null);
 				uiDialgogMsg.popUp();
 				
@@ -292,7 +296,10 @@ public class UIScreenOPM implements UIScreen_i {
 				taskLaunchYes.setUiPath(":UIGws:UIPanelScreen");
 				taskLaunchYes.setUiPanel("UIScreenLogin");
 
-				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+				uiDialgogMsg.setUINameCard(this.uiNameCard);
+//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
 						"Are you sure logout?", taskLaunchYes, null);
 				uiDialgogMsg.popUp();

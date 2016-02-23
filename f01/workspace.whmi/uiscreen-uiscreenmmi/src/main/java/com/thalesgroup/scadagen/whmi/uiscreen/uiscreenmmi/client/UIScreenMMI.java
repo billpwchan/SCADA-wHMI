@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -36,16 +37,18 @@ public class UIScreenMMI implements UIScreen_i {
 
 	public static final String CUSTOMER_LOGIN_NAME = "Logo_Corp-300dpi.bg_grey.15per.jpg";
 	public static final String THALES_LOGIN_NAME = "logo_thales.jpg";
+	
+	private static final String menubarWidth = "160px";
 
-	public static final int BUTTON_WIDTH = 128;
-	public static final int BUTTON_HIGHT = 30;
-	public static final int FUNTION_WIDTH = 128;
-	public static final int IMG_BTN_WIDTH = 45;
+	public static final int BUTTON_WIDTH	= 128;
+	public static final int BUTTON_HIGHT	= 30;
+	public static final int FUNTION_WIDTH	= 128;
+	public static final int IMG_BTN_WIDTH	= 45;
 
-	public static final int EAST_WIDTH = 160;
-	public static final int SOUTH_HIGHT = 50;
-	public static final int WEST_WIDTH = 160;
-	public static final int NORTH_HIGHT = 200;//150
+	public static final int EAST_WIDTH		= 160;
+	public static final int SOUTH_HIGHT		= 50;
+	public static final int WEST_WIDTH		= 160;
+	public static final int NORTH_HIGHT		= 200;
 
 	public static final String UNIT_PX		= "px";
 	public static final int LAYOUT_BORDER	= 0;	
@@ -104,10 +107,12 @@ public class UIScreenMMI implements UIScreen_i {
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 
-		dockLayoutPanel.addNorth(statusBar, 24);
-		dockLayoutPanel.addEast(mtrPanel, 230);
+		dockLayoutPanel.addNorth(statusBar, 32);
+		dockLayoutPanel.addEast(mtrPanel, 160);
 
-		Panel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
+		DockLayoutPanel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
+		alarmBanner.setWidth("1900px");
+		alarmBanner.setHeight("100%");
 		dockLayoutPanel.add(alarmBanner);
 
 		logger.log(Level.FINE, "getMainPanel North Bar End");
@@ -117,7 +122,7 @@ public class UIScreenMMI implements UIScreen_i {
 		logger.log(Level.FINE, "getMainPanel South Bar Begin");
 		// LV2, SYS
 		HorizontalPanel menuBarLv1 = uiPanelmenu.getHorizontalMenu(1);
-		menuBarLv1.setWidth("160px");
+		menuBarLv1.setWidth(menubarWidth);
 		menuBarLv1.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv1.getElement().getStyle().setPadding(10, Unit.PX);
 		menuBarLv1.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
@@ -137,7 +142,7 @@ public class UIScreenMMI implements UIScreen_i {
 		logger.log(Level.FINE, "getMainPanel East Bar Begin");
 
 		VerticalPanel verticalPanelEast = new VerticalPanel();
-		verticalPanelEast.setWidth("160px");
+		verticalPanelEast.setWidth(menubarWidth);
 		verticalPanelEast.setHeight("100%");
 		verticalPanelEast.setBorderWidth(LAYOUT_BORDER);
 		verticalPanelEast.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
@@ -154,19 +159,19 @@ public class UIScreenMMI implements UIScreen_i {
 		logger.log(Level.FINE, "getMainPanel West Bar Begin");
 		// LV3, SubSys/Fun
 		VerticalPanel menuBarLv2 = uiPanelmenu.getVerticalMenu(2);
-		menuBarLv2.setWidth("160px");
+		menuBarLv2.setWidth(menubarWidth);
 		menuBarLv2.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv2.addStyleName("paddedHorizontalPanel");
 		menuBarLv2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
 		// LV4, SubSys/Fun
 		VerticalPanel menuBarLv3 = uiPanelmenu.getVerticalMenu(3);
-		menuBarLv3.setWidth("160px");
+		menuBarLv3.setWidth(menubarWidth);
 		menuBarLv3.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
 		VerticalPanel verticalPanelWest = new VerticalPanel();
-		verticalPanelWest.setWidth("160px");
+		verticalPanelWest.setWidth(menubarWidth);
 		verticalPanelWest.setHeight("100%");
 		verticalPanelWest.setBorderWidth(LAYOUT_BORDER);
 		verticalPanelWest.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
@@ -234,9 +239,12 @@ public class UIScreenMMI implements UIScreen_i {
 							taskLaunchYes.setUiPath(":UIGws:UIPanelScreen");
 							taskLaunchYes.setUiPanel("UIScreenLogin");
 
-							UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
+							DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+							UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+							uiDialgogMsg.setUINameCard(this.uiNameCard);
+//							UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 							uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
-									"Are you sure to login the current HMI?", taskLaunchYes, null);
+									"Are you sure to logout the current HMI?", taskLaunchYes, null);
 							uiDialgogMsg.popUp();
 
 						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {

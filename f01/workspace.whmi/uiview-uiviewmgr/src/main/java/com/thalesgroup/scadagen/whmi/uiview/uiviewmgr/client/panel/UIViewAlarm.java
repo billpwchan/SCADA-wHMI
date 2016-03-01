@@ -93,6 +93,7 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 //			button.getElement().getStyle().setPadding(10, Unit.PX);
 			button.setWidth("100px");
 			button.setHeight("45px");
+			button.addStyleName("project-gwt-button");
 			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
 				button.getElement().getStyle().setColor(RGB_RED);
 			}

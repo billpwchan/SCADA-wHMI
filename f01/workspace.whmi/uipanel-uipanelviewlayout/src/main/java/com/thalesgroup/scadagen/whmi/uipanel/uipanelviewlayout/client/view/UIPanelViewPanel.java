@@ -61,7 +61,7 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 		UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 		uiDialgogMsg.setUINameCard(this.uiNameCard);
 //		UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
-		uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OK, "Logout",
+		uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OK, "Message Dialog",
 				"This is the popup dialog message box", null, null);
 		uiDialgogMsg.popUp();
 	}

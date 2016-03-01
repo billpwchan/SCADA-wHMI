@@ -103,12 +103,14 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		txtMsg = new TextArea();
 
 		btnOk = new Button();
+		btnOk.addStyleName("project-gwt-button");
 		btnOk.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogMsgCtrl.setYes(taskProvideYes);
 			}
 		});
 		btnCancel = new Button();
+		btnCancel.addStyleName("project-gwt-button");
 		btnCancel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogMsgCtrl.setNo(taskProvideNo);

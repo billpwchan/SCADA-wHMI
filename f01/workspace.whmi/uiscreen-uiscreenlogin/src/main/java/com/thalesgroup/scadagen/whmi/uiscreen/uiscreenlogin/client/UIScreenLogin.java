@@ -78,7 +78,7 @@ public class UIScreenLogin implements UIScreen_i {
 		txtOperator = new TextBox();
 		listBoxProfile = new ListBox();
 		passwordTextBox = new PasswordTextBox();
-		Button buttons[] = new Button[strLogins.length];
+		Button buttons[];
 		
 		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
@@ -167,9 +167,10 @@ public class UIScreenLogin implements UIScreen_i {
 	    bottomButtonBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    bottomButtonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
+	    buttons = new Button[strLogins.length];
 	    for ( int i = 0 ; i < strLogins.length ; ++i ) {
 			buttons[i] = new Button(strLogins[i]);
-			buttons[i].setWidth("128px");
+			buttons[i].addStyleName("project-gwt-login-panel-button");
 			
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {

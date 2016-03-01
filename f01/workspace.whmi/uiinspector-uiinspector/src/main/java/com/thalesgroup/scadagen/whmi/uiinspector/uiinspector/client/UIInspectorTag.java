@@ -51,6 +51,7 @@ public class UIInspectorTag {
 				btnCtrl.setText(tagging[y]);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp1.add(btnCtrl);
 			}
 			vp0.add(hp1);
@@ -64,6 +65,7 @@ public class UIInspectorTag {
 				btnCtrl.setText(control[y]);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp2.add(btnCtrl);
 			}
 			vp0.add(hp2);

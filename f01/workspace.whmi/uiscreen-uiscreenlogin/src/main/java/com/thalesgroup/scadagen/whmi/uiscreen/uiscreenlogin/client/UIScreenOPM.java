@@ -129,6 +129,7 @@ public class UIScreenOPM implements UIScreen_i {
 	    for ( int i = 0 ; i < strBtns.length ; ++i ) {
 	    	buttons[i] = new Button(strBtns[i]);
 			buttons[i].setWidth("128px");
+			buttons[i].addStyleName("project-gwt-button");
 			
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {

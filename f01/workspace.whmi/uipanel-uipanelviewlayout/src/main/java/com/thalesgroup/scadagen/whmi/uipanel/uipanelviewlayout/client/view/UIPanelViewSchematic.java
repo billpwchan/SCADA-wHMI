@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
@@ -45,6 +46,8 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 		}
 	}
 
+	private DockLayoutPanel root = null;
+	
 	private UINameCard uiNameCard;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		
@@ -53,17 +56,29 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 
-		WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("L5_33KV");
-		wrapperScsSituationViewPanel.setSize("100%", "100%");
-		wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
-		HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
-		scsViewPanel.setWidth("100%");
-		scsViewPanel.setWidth("100%");
-		scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("C1166B_ECS");
+////		WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("L5_33KV");
+//		
+//		wrapperScsSituationViewPanel.setSize("100%", "100%");
+//		wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
+//		HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
+//		scsViewPanel.setWidth("100%");
+//		scsViewPanel.setWidth("100%");
+//		scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//		scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		
-		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
-		root.add(scsViewPanel);
+		HorizontalPanel hp = new HorizontalPanel();
+		hp.setWidth("100%");
+		hp.setHeight("100%");
+		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		
+//		InlineLabel equipmenpLabel = new InlineLabel();
+//		equipmenpLabel.setText("Schematic: "+header);
+//		hp.add(equipmenpLabel);
+		
+		root = new DockLayoutPanel(Unit.PX);
+		root.add(hp);
 		
 		logger.log(Level.FINE, "getMainPanel End");
 
@@ -80,7 +95,41 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 			
 			if ( null != taskLaunch) {
 				
-				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getHeader()+"]");
+				String header = taskLaunch.getHeader();
+				
+				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+header+"]");
+				
+				root.clear();
+				
+				if ( header.endsWith("MimicSummary") ) {
+					
+					WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("C1166B_ECS");
+//					WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("L5_33KV");
+					
+					wrapperScsSituationViewPanel.setSize("100%", "100%");
+					wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
+					HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
+					scsViewPanel.setWidth("100%");
+					scsViewPanel.setWidth("100%");
+					scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+					scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+					
+					root.add(scsViewPanel);
+					
+				} else {
+					
+					HorizontalPanel hp = new HorizontalPanel();
+					hp.setWidth("100%");
+					hp.setHeight("100%");
+					hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+					hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+					
+					InlineLabel equipmenpLabel = new InlineLabel();
+					equipmenpLabel.setText("Schematic: "+header);
+					hp.add(equipmenpLabel);
+									
+					root.add(hp);
+				}
 
 			} else {
 				

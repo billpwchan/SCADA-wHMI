@@ -1,0 +1,374 @@
+/* ==================================================================================================== */
+/* Situation view */
+/* ==================================================================================================== */
+
+.mwt-sv-container {
+    background-color: #1C1C20;
+}
+
+/* ==================================================================================================== */
+/* mapInfoBar */
+/* ==================================================================================================== */
+
+.mwt-sv-info-bar {
+  border: 1px solid black;
+  color: white;
+  background-color: #1c1c20;
+  display: inline;
+}
+
+.mwt-sv-info-bar-item {
+  display: inline;
+  padding-left: 10px;
+}
+
+.mwt-sv-warn {
+  color: #ffcd12;
+  font-weight: normal;
+  background-color: rgba(255, 205, 18, 0.3);
+}
+
+/* ==================================================================================================== */
+/* Open Layers */
+/* ==================================================================================================== */
+
+
+/* ==================================================================================================== */
+/* Scale Line */
+/* ==================================================================================================== */
+.olControlScaleLine {
+ color: white;
+}
+
+.olControlScaleLine .olControlScaleLineTop {
+    border-width: 2px;
+    border-color: white;
+    border-style: none solid solid solid;
+}
+
+.olControlScaleLine .olControlScaleLineBottom {
+  border-width: 2px;
+  border-color: white;
+  border-style: solid solid none solid;
+}
+
+/* ==================================================================================================== */
+/* Layer Switcher */
+/* ==================================================================================================== */
+.olControlLayerSwitcher {
+    position: absolute;
+    top: 25px;
+    right: 0;
+    width: 20em;
+    font-family: sans-serif;
+    font-weight: normal;
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    font-size: 1em;
+    color: white;
+    background-color: transparent;
+}
+
+.olControlLayerSwitcher .layersDiv {
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-right: 75px;
+    background-color: rgba(0,0,0,0.8) !important;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    width: 100%;
+    height: 100%;
+}
+
+.olControlLayerSwitcher .layersDiv .baseLbl,
+.olControlLayerSwitcher .layersDiv .dataLbl {
+    margin-top: 3px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+}
+
+.olControlLayerSwitcher .layersDiv .baseLayersDiv,
+.olControlLayerSwitcher .layersDiv .dataLayersDiv {
+    padding-left: 10px;
+}
+
+.olControlLayerSwitcher .layersDiv .baseLayersDiv .labelSpan,
+.olControlLayerSwitcher .layersDiv .dataLayersDiv .labelSpan {
+    color: white;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+}
+
+.olControlLayerSwitcher .layersDiv .baseLayersDiv .labelSpan:hover,
+.olControlLayerSwitcher .layersDiv .dataLayersDiv .labelSpan:hover {
+    color: #00e0ff;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    -moz-transition-duration: 0.1s;
+    -o-transition-duration: 0.1s;
+}
+
+.olControlLayerSwitcher .maximizeDiv,
+.olControlLayerSwitcher .minimizeDiv {
+    top: 5px;
+    right: 0;
+    cursor: pointer;
+}
+
+/* ==================================================================================================== */
+/* Pan Zoom Bar */
+/* ==================================================================================================== */
+
+/*
+ * Class suffixed by ItemInactive because the element without ItemActive doesn't 
+ */
+.mwt-sv-panupItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/geo-panup.png);
+    position: absolute;
+    left: 22px;
+    top: 10px;
+    z-index: 1006;
+    cursor: pointer;
+}
+.mwt-sv-pandownItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/geo-pandown.png);
+    position: absolute;
+    left: 22px;
+    top: 46px;
+    z-index: 1010;
+    cursor: pointer;
+}
+.mwt-sv-panrightItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/geo-panright.png);
+    position: absolute;
+    left: 40px;
+    top: 28px;
+    z-index: 1009;
+    cursor: pointer;
+}
+.mwt-sv-panleftItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/geo-panleft.png);
+    position: absolute;
+    left: 4px;
+    top: 28px;
+    z-index: 1007;
+    cursor: pointer;
+}
+.mwt-sv-zoomextendItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/geo-resetview.png);
+    position: absolute;
+    left: 22px;
+    top: 28px;
+    z-index: 1008;
+    cursor: pointer;
+}
+.mwt-sv-zoomworldItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/geo-zoomworld.png);
+    position: absolute;
+    left: 22px;
+    top: 69px;
+    z-index: 1011;
+    cursor: pointer;
+}
+
+/* ==================================================================================================== */
+/* Custom Panel */
+/* ==================================================================================================== */
+.mwt-sv-customPanel {
+    bottom: 200px;
+}
+.mwt-sv-unselectAllItemInactive {
+    width: 18px;
+    height: 18px;
+    background: transparent url(./../Images/panel/geocontrol/unselect-all.png);
+    position: absolute;
+    left: 22px;
+    top: 100px;
+    z-index: 1012;
+    cursor: pointer;
+}
+
+/* ==================================================================================================== */
+/* overview map */
+/* ==================================================================================================== */
+
+.olControlOverviewMapElement {
+    padding: 10px 18px 10px 10px;
+    background-color: rgba(0,0,0,0.8) !important;
+    border-bottom: 2px #ddd solid !important;
+    border-top: 2px #ddd solid !important;
+    border-left: 2px #ddd solid !important;
+    border-right: none !important;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.olControlOverviewMapExtentRectangle {
+    overflow: hidden;
+    background-image: url("./../img/blank.gif");
+    cursor: move;
+    border: 2px dotted #00e0ff !important;
+}
+
+.olControlOverviewMapRectReplacement {
+    overflow: hidden !important;
+    cursor: move !important;
+    background-image: url(./../Images/panel/geocontrol/overview_replacement.png) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+}
+
+/* ==================================================================================================== */
+/* situation view widgets */
+/* ==================================================================================================== */
+.mwt-sv-interactive {
+  cursor: pointer;
+}
+
+.mwt-sv-label {
+  font-family: "Lucida Sans Unicode", sans-serif;
+  fill: white;
+}
+
+.mwt-sv-mask {
+  fill-opacity: 0;
+  }
+
+.mwt-sv-cfg-entity .highlight {
+  vector-effect: non-scaling-stroke;
+  stroke: #00e0ff;
+  stroke-width: 1px;
+  stroke-dasharray: 5,5;
+  fill: #00e0ff;
+  fill-opacity: 0.1;
+  transition-property: fill-opacity;
+  -webkit-transition-property: fill-opacity;
+  -moz-transition-property: fill-opacity;
+  -o-transition-property: fill-opacity;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.mwt-sv-cfg-entity .highlight:hover, .mwt-sv-cfg-entity:hover .highlight {
+  fill-opacity: 0.3;
+  transition-property: fill-opacity;
+  -webkit-transition-property: fill-opacity;
+  -moz-transition-property: fill-opacity;
+  -o-transition-property: fill-opacity;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-sv-graphic {
+  vector-effect: non-scaling-stroke;
+  fill: none;
+  stroke: none;
+}
+
+.mwt-sv-trs-entity .highlight {
+  vector-effect: non-scaling-stroke;
+  stroke: #ffcd12;
+  stroke-width: 1px;
+  stroke-dasharray: 5,5;
+  fill: #ffcd12;
+  fill-opacity: 0.1;
+  transition-property: fill-opacity;
+  -webkit-transition-property: fill-opacity;
+  -moz-transition-property: fill-opacity;
+  -o-transition-property: fill-opacity;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.mwt-sv-trs-entity .highlight:hover, .mwt-sv-trs-entity:hover .highlight {
+  fill-opacity: 0.3;
+  transition-property: fill-opacity;
+  -webkit-transition-property: fill-opacity;
+  -moz-transition-property: fill-opacity;
+  -o-transition-property: fill-opacity;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-sv-trs-entity .counter {
+  transform: translate(20px, 20px);
+  -ms-transform: translate(20px, 20px); /* IE 9 */
+  -webkit-transform: translate(20px, 20px); /* Safari and Chrome */
+  -o-transform: translate(20px, 20px); /* Opera */
+  -moz-transform: translate(20px, 20px); /* Firefox */
+   fill: #ffcd12;
+   stroke: #ffcd12;
+}
+
+.mwt-sv-blink {
+    -webkit-animation-name: blink;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-direction: alternate;
+    -moz-animation-name: blink;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-out;
+    -moz-animation-direction: alternate;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+    animation-direction: alternate;
+	
+	-webkit-animation: move 1s infinite;
+}
+ 
+@-webkit-keyframes move {
+  0% { opacity: 0.2;}
+  100% { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes blink {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+@-moz-keyframes blink {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}
+@keyframes blink {
+    0% { opacity: 0.2; }
+    100% { opacity: 1; }
+}

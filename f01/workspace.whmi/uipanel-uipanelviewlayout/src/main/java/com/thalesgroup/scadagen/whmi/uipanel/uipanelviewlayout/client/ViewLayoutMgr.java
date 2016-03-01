@@ -567,19 +567,16 @@ public class ViewLayoutMgr {
 		
 		logger.log(Level.FINE, "triggerTitleChange Begin");
 		
-		String staion = "";
 		String title = "";
 		if ( null != taskLaunch ) {
-			staion = taskLaunch.getFirstWithSpace();
-			title = taskLaunch.getLastWithSpace();
+			title = taskLaunch.getTitle();
 		} else {
 			logger.log(Level.SEVERE, "triggerTitleChange tasLaunch is null");
 		}
 		
-		logger.log(Level.SEVERE, "triggerMenuChange UITaskTitle staion["+staion+"] title["+title+"]");
+		logger.log(Level.SEVERE, "triggerMenuChange UITaskTitle title["+title+"]");
 		
 		UITaskTitle taskTitle = new UITaskTitle();
-		taskTitle.setStation(staion);
 		taskTitle.setTitle(title);
 		taskTitle.setTaskUiScreen(this.uiNameCard.getUiScreen());
 		taskTitle.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");

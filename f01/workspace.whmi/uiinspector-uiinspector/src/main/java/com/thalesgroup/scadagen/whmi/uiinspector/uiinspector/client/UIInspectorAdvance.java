@@ -50,6 +50,7 @@ public class UIInspectorAdvance {
 				btnCtrl.setText(command[y]);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp1.add(btnCtrl);
 			}
 			vp0.add(hp1);
@@ -68,6 +69,7 @@ public class UIInspectorAdvance {
 					btnCtrl.setText(control[y]);
 					btnCtrl.setWidth(btnWidth);
 					btnCtrl.setHeight(btnHeight);
+					btnCtrl.addStyleName("project-gwt-button");
 					hp3.add(btnCtrl);
 				}
 			
@@ -80,6 +82,7 @@ public class UIInspectorAdvance {
 					btnCtrl.setText(datapointmanagement[y]);
 					btnCtrl.setWidth(btnWidth);
 					btnCtrl.setHeight(btnHeight);
+					btnCtrl.addStyleName("project-gwt-button");
 					hp4.add(btnCtrl);
 				}
 			

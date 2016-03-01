@@ -69,6 +69,9 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 			numOfEventBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			numOfEventBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			numOfEventBar.add(inlineLabel[i]);
+			
+			
+			inlineLabel[i].setVisible(false);
 		}
 		
 		
@@ -85,6 +88,7 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 //			button.getElement().getStyle().setPadding(10, Unit.PX);
 			button.setWidth("100px");
 			button.setHeight("45px");
+			button.addStyleName("project-gwt-button");
 			
 			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
 				button.getElement().getStyle().setColor(RGB_RED);

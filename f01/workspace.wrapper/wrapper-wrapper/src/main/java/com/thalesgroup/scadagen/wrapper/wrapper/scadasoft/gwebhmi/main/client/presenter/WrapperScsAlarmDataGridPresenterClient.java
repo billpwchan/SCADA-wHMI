@@ -16,7 +16,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.vi
 /**
  * SCADAsoft AlarmDataGridPresenterClient implementation.
  */
-public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClient {
+public class WrapperScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClient {
 
     /**
      * Used to know which entities are selected in the view
@@ -38,7 +38,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      * @param eventBus
      *            the event bus.
      */
-    public ScsAlarmDataGridPresenterClient(String configurationId, ScsGenericDataGridView view, EventBus eventBus, Set<FilterSetEvent> filterSet) {
+    public WrapperScsAlarmDataGridPresenterClient(String configurationId, ScsGenericDataGridView view, EventBus eventBus, Set<FilterSetEvent> filterSet) {
         super(configurationId, view, eventBus);
         view_ = view;
         filterSet_ = filterSet;

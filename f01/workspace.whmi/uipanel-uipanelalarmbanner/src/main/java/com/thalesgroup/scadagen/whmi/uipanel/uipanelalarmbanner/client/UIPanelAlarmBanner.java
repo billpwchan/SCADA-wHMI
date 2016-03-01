@@ -81,6 +81,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	    for ( String lbl: lblSums) {
 		    final Button button = new Button(lbl);
 		    button.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
+		    button.addStyleName("project-gwt-button");
 	   		buttonPanel.add(button);
 	   		button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -102,6 +103,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 		
 		final Button audioButton = new Button();
 		audioButton.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
+		audioButton.addStyleName("project-gwt-button");
 		audioButton.setHTML(audioHtmlUp);
 		audioButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

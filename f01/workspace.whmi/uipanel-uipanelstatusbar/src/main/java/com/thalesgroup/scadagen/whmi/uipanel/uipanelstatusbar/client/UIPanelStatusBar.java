@@ -39,7 +39,6 @@ public class UIPanelStatusBar {
 	private InlineLabel operatorProfileInlineLabel = null;
 	private InlineLabel datetimeInlineLabel = null;
 	
-	private String strStation = "";
 	private String strTitle = "";
 	
 	private String strOperator = "";
@@ -81,14 +80,13 @@ public class UIPanelStatusBar {
 			topStatusBanner.add(inlineLabel[i]);
 		}
 
-		final String strStation = "STATION";
 		final String strTitle = "TITLE";
 
 		titleInlineLabel = new InlineLabel();
 		titleInlineLabel.setWidth("250px");
 		topStatusBanner.add(titleInlineLabel);
 
-		setTitle(strStation, strTitle);
+		setTitle(strTitle);
 
 		operatorProfileInlineLabel = new InlineLabel();
 		operatorProfileInlineLabel.setWidth("250px");
@@ -129,12 +127,12 @@ public class UIPanelStatusBar {
 		datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy HH:mm:ss").format(new Date()));
 	}
 
-	private void setTitle(String station, String title) {
+	private void setTitle(String title) {
 
 		logger.log(Level.FINE, "setTitle Begin");
 
 		if (null != titleInlineLabel) {
-			titleInlineLabel.setText(station + " - " + title);
+			titleInlineLabel.setText(title);
 		}
 		logger.log(Level.FINE, "setTitle End");
 	}
@@ -169,14 +167,12 @@ public class UIPanelStatusBar {
 					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
 
 					UITaskTitle taskTitle = (UITaskTitle) taskProvide;
-					String strStation = taskTitle.getStation();
 					String strTitle = taskTitle.getTitle();
 
 					logger.log(Level.FINE, "onUIEvent strTitle[" + strTitle + "]");
-					if (null != strStation)		this.strStation = strStation;
 					if (null != strTitle)		this.strTitle = strTitle;
 					
-					setTitle(this.strStation, this.strTitle);
+					setTitle(this.strTitle);
 					
 				} else if (UITaskMgr.isInstanceOf(UITaskProfile.class, taskProvide)) {
 

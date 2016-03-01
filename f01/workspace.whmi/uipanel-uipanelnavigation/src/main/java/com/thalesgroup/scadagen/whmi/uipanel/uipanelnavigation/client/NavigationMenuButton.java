@@ -26,6 +26,8 @@ public class NavigationMenuButton extends Button {
 	 * @return
 	 */
 	public boolean isHightLight() { return hightLight; };
+	
+	private String backgroundImage = "";
 	/**
 	 * get the button is hight light or not
 	 * @param hightLight
@@ -36,12 +38,20 @@ public class NavigationMenuButton extends Button {
 		
 		this.hightLight = hightLight;
 		if ( hightLight ) {
+			String backgroundImage = this.getElement().getStyle().getBackgroundImage();
+			
+			if ( null != backgroundImage && 0 != backgroundImage.compareTo(IMG_NONE) )
+				this.backgroundImage = backgroundImage;
+			
 			this.getElement().getStyle().setBackgroundColor(RGB_BTN_SEL);
 			this.getElement().getStyle().setBackgroundImage(IMG_NONE);
 		} else {
 			this.getElement().getStyle().setBackgroundColor(RGB_BTN_BG);
+			if ( 0 != backgroundImage.compareTo(IMG_NONE) || 0 != backgroundImage.compareTo("") )
+				this.getElement().getStyle().setBackgroundImage(backgroundImage);
 		}
 		
 		logger.log(Level.FINE, "setHightLight End");
 	}
+	
 }

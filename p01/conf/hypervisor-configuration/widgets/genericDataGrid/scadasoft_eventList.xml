@@ -57,10 +57,10 @@
 
         <p:source name="severity" xsi:type="cmn:statusDataSourceType"/>
 
-        <p:textItem sourceValue="4" value="scsalarmList_priority_CRITICAL"/>
-        <p:textItem sourceValue="3" value="scsalarmList_priority_HIGH"/>
-        <p:textItem sourceValue="2" value="scsalarmList_priority_MEDIUM"/>
-        <p:textItem sourceValue="1" value="scsalarmList_priority_LOW"/>
+        <p:textItem sourceValue="4" value="scseventList_priority_CRITICAL"/>
+        <p:textItem sourceValue="3" value="scseventList_priority_HIGH"/>
+        <p:textItem sourceValue="2" value="scseventList_priority_MEDIUM"/>
+        <p:textItem sourceValue="1" value="scseventList_priority_LOW"/>
     </p:column>
 	<!--
     <p:column filterable="true" i18n="false" name="scsalarmList_ar_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">

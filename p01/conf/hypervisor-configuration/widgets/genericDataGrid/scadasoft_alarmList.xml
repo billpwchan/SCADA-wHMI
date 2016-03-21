@@ -161,13 +161,13 @@
         <cmn:counter name="alarmlist_counter_medium" scope="VIEW">
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>MEDIUM</cmn:equalTo>
-				<cmn:equalTo>LOW</cmn:equalTo>
+				<!-- <cmn:equalTo>LOW</cmn:equalTo> -->
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_medium_unack" scope="VIEW">
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>MEDIUM</cmn:equalTo>
-				<cmn:equalTo>LOW</cmn:equalTo>
+				<!-- <cmn:equalTo>LOW</cmn:equalTo> -->
             </cmn:columnCounterCriterion>
             <cmn:columnCounterCriterion columnName="scsalarmList_state_name">
                 <cmn:equalTo>no</cmn:equalTo>

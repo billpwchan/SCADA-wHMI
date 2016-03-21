@@ -24,25 +24,9 @@ public class UIPanelMenus implements NavigationMgrEvent {
 	private static Logger logger = Logger.getLogger(UIPanelMenus.class.getName());
 
 	public static final String UNIT_PX = "px";
-	public static final int LAYOUT_BORDER = 0;
-
-	public static final String RGB_RED = "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN = "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE = "rgb( 0, 0, 255)";
-
-	public static final String RGB_BTN_SEL = "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG = "#F1F1F1";
-	public static final String IMG_NONE = "none";
-
-	public static final String RGB_PAL_BG = "#BEBEBE";
 
 	public static final String IMAGE_PATH = "imgs";
-
-	public static final int BUTTON_WIDTH = 138;
-	public static final int BUTTON_HIGHT = 30;
-	
-//	private ArrayList<TaskLaunch> taskLaunchs = null;
-	
+		
 	private NavigationMgr navigationMgr = null;
 
 	private HashMap<Integer, Panel> menus = new HashMap<Integer, Panel>();
@@ -85,10 +69,9 @@ public class UIPanelMenus implements NavigationMgrEvent {
 		
 		HorizontalPanel menuBar = new HorizontalPanel();
 		menuBar.setWidth("160px");
-		menuBar.setBorderWidth(LAYOUT_BORDER);
 		menuBar.getElement().getStyle().setPadding(10, Unit.PX);
-		menuBar.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		menuBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		menuBar.addStyleName("project-gwt-panel-navigation");
 		addMenuBar(new Integer(level), menuBar);
 		
 		logger.log(Level.FINE, "getHorizontalMenu End");
@@ -102,8 +85,8 @@ public class UIPanelMenus implements NavigationMgrEvent {
 		
 		VerticalPanel menuBar = new VerticalPanel();
 		menuBar.setWidth("160px");
-		menuBar.setBorderWidth(LAYOUT_BORDER);
 		menuBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		menuBar.addStyleName("project-gwt-panel-navigation");
 		addMenuBar(new Integer(level), menuBar);
 		
 		logger.log(Level.FINE, "getVerticalMenu End");
@@ -169,7 +152,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 		
 		logger.log(Level.FINE, "addTaskToMenu Begin");
 		
-		logger.log(Level.FINE, "setMenusetMenuSelect level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.log(Level.FINE, "addTaskToMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
 		
 		ComplexPanel menuBar = (ComplexPanel) this.getMenuBar(level);
 		
@@ -182,7 +165,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 			NavigationMenuButton btnNew = new NavigationMenuButton(name);
 			buttons.put(taskLaunch.getHeader(), btnNew);
 			btnNew.setTaskLaunch(taskLaunch);
-			btnNew.addStyleName("project-gwt-navigation-menu-button");
+			btnNew.addStyleName("project-gwt-button-navigation");
 			
 			btnNew.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {

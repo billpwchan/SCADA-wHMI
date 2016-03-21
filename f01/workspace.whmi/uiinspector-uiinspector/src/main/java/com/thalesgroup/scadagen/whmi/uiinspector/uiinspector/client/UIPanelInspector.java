@@ -31,17 +31,6 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	private static Logger logger = Logger.getLogger(UIPanelInspector.class.getName());
 	
 	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 0;
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
-	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
 	
 	public static final String IMAGE_PATH	= "imgs";
 	
@@ -170,10 +159,12 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		logger.log(Level.FINE, "init Begin");
 		
 		lblEquipmentName = new Label(" Equipment Type: XXXX_XXXX ");
-		lblEquipmentName.getElement().getStyle().setPadding(10, Unit.PX);	
+		lblEquipmentName.getElement().getStyle().setPadding(10, Unit.PX);
+		lblEquipmentName.addStyleName("project-gwt-inlinelabel-equipmentname");
 		
 		lblEquipmentAlias = new Label(" Equipment Alias: XXXXX_XXXXX ");
-		lblEquipmentAlias.getElement().getStyle().setPadding(10, Unit.PX);	
+		lblEquipmentAlias.getElement().getStyle().setPadding(10, Unit.PX);
+		lblEquipmentAlias.addStyleName("project-gwt-inlinelabel-equipmentalias");
 		
 		VerticalPanel verticalPanelEqpName = new VerticalPanel();
 		verticalPanelEqpName.add(lblEquipmentName);
@@ -189,6 +180,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 			InlineLabel inlineLabel = new InlineLabel(strHeadersLabel[i]);
 			inlineLabel.getElement().getStyle().setPadding(10, Unit.PX);	
 			inlineLabel.setWidth("100%");
+			inlineLabel.addStyleName("project-gwt-inlinelabel-headerlabel");
 			flexTableHeader.setWidget(i, 0, inlineLabel);
 			txtAttributeStatus[i] = new TextBox();
 //			txtAttributeStatus[i].getElement().getStyle().setPadding(10, Unit.PX);	
@@ -196,6 +188,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 			txtAttributeStatus[i].setMaxLength(16);
 			txtAttributeStatus[i].setReadOnly(true);
 			txtAttributeStatus[i].setWidth("100%");
+			txtAttributeStatus[i].addStyleName("project-gwt-textbox-headervalue");
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
 		}
 		
@@ -242,14 +235,13 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		bottomBar.add(btnClose);
 		
 		basePanel = new VerticalPanel();
-		basePanel.setBorderWidth(LAYOUT_BORDER);
 		basePanel.add(verticalPanelEqpName);
 		basePanel.add(flexTableHeader);
 		basePanel.add(tabPanel);
 		basePanel.add(bottomBar);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		basePanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);
 		basePanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);
+		basePanel.addStyleName("project-gwt-panel-inspector");
 		this.add(basePanel);
 		
 		this.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);

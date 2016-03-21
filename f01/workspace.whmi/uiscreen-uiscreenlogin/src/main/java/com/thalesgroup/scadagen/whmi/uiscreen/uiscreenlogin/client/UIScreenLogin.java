@@ -37,14 +37,7 @@ public class UIScreenLogin implements UIScreen_i {
 	public static final String UNIT_PX		= "px";
 	
 	public static final String IMAGE_PATH	= "imgs";
-	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
+
 	private static final String COMPANY_LOGO 	= "logologinmtr.jpg";
 	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
 	
@@ -54,7 +47,6 @@ public class UIScreenLogin implements UIScreen_i {
     final String strChangePassword	= "Change Password";
     final String strCancel			= "Cancel";
 	
-    private InlineLabel lblMessage;
 	private TextBox txtOperator;
 	private ListBox listBoxProfile;
 	private PasswordTextBox passwordTextBox;
@@ -71,20 +63,22 @@ public class UIScreenLogin implements UIScreen_i {
 	    		strLogin, strChangePassword, strCancel
 	    };
 	    
+	    String [] strButtonCSS 		= new String [] {
+	    		"project-gwt-button-login-login", "project-gwt-button-login-changepassword", "project-gwt-button-login-cancel"
+	    };
 		
 		HorizontalPanel horizontalPanelBar = null;
 		
-		lblMessage = new InlineLabel();
 		txtOperator = new TextBox();
 		listBoxProfile = new ListBox();
 		passwordTextBox = new PasswordTextBox();
 		Button buttons[];
 		
 		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		dockLayoutPanel.addStyleName("project-gwt-panel-login");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
-	    verticalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+	    verticalPanel.addStyleName("project-gwt-panel-login");
 	    verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		
@@ -103,9 +97,6 @@ public class UIScreenLogin implements UIScreen_i {
 		horizontalPanelBar.setWidth("128px");
 		horizontalPanelBar.setHeight("10px");
 		verticalPanel.add(horizontalPanelBar);
-		
-		lblMessage.getElement().getStyle().setColor(RGB_RED);
-		verticalPanel.add(lblMessage);
 		
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
@@ -170,7 +161,7 @@ public class UIScreenLogin implements UIScreen_i {
 	    buttons = new Button[strLogins.length];
 	    for ( int i = 0 ; i < strLogins.length ; ++i ) {
 			buttons[i] = new Button(strLogins[i]);
-			buttons[i].addStyleName("project-gwt-login-panel-button");
+			buttons[i].addStyleName(strButtonCSS[i]);
 			
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -197,7 +188,7 @@ public class UIScreenLogin implements UIScreen_i {
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHeight("100%");
 		horizontalPanel.setWidth("100%");
-	    horizontalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		horizontalPanel.addStyleName("project-gwt-panel-login");
 	    horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    

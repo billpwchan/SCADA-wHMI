@@ -51,18 +51,6 @@ public class UIScreenMMI implements UIScreen_i {
 	public static final int NORTH_HIGHT		= 200;
 
 	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 0;	
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
-	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
 	
 	public static final String IMAGE_PATH	= "imgs";
 	
@@ -101,11 +89,11 @@ public class UIScreenMMI implements UIScreen_i {
 		mtrPanel.setHeight("100%");
 		mtrPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		mtrPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		mtrPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		mtrPanel.addStyleName("project-gwt-panel-north");
 		mtrPanel.add(new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CUSTOMER_LOGIN_NAME));
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		dockLayoutPanel.addStyleName("project-gwt-panel-north");
 
 		dockLayoutPanel.addNorth(statusBar, 32);
 		dockLayoutPanel.addEast(mtrPanel, 160);
@@ -123,15 +111,15 @@ public class UIScreenMMI implements UIScreen_i {
 		// LV2, SYS
 		HorizontalPanel menuBarLv1 = uiPanelmenu.getHorizontalMenu(1);
 		menuBarLv1.setWidth(menubarWidth);
-		menuBarLv1.setBorderWidth(LAYOUT_BORDER);
+//		menuBarLv1.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv1.getElement().getStyle().setPadding(10, Unit.PX);
-		menuBarLv1.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		menuBarLv1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		menuBarLv1.addStyleName("project-gwt-panel-south");
 
 		Panel AccessBar = new UIPanelAccessBar().getMainPanel(this.uiNameCard);
 
 		SplitLayoutPanel splitLayoutPanelSouth = new SplitLayoutPanel(0);
-		splitLayoutPanelSouth.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		splitLayoutPanelSouth.addStyleName("project-gwt-panel-south");
 		splitLayoutPanelSouth.addLineStart(menuBarLv1, BUTTON_WIDTH * 20);
 		splitLayoutPanelSouth.addLineEnd(AccessBar, UIScreenMMI.IMG_BTN_WIDTH * 7 + 10);
 
@@ -144,9 +132,9 @@ public class UIScreenMMI implements UIScreen_i {
 		VerticalPanel verticalPanelEast = new VerticalPanel();
 		verticalPanelEast.setWidth(menubarWidth);
 		verticalPanelEast.setHeight("100%");
-		verticalPanelEast.setBorderWidth(LAYOUT_BORDER);
-		verticalPanelEast.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+//		verticalPanelEast.setBorderWidth(LAYOUT_BORDER);
 		verticalPanelEast.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanelEast.addStyleName("project-gwt-panel-east");
 
 		// LV1, STN
 		FlowPanel menuBarLv0 = uiPanelmenu.getFlowMenu(0);
@@ -160,22 +148,21 @@ public class UIScreenMMI implements UIScreen_i {
 		// LV3, SubSys/Fun
 		VerticalPanel menuBarLv2 = uiPanelmenu.getVerticalMenu(2);
 		menuBarLv2.setWidth(menubarWidth);
-		menuBarLv2.setBorderWidth(LAYOUT_BORDER);
+//		menuBarLv2.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv2.addStyleName("paddedHorizontalPanel");
 		menuBarLv2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
 		// LV4, SubSys/Fun
 		VerticalPanel menuBarLv3 = uiPanelmenu.getVerticalMenu(3);
 		menuBarLv3.setWidth(menubarWidth);
-		menuBarLv3.setBorderWidth(LAYOUT_BORDER);
+//		menuBarLv3.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
 		VerticalPanel verticalPanelWest = new VerticalPanel();
 		verticalPanelWest.setWidth(menubarWidth);
 		verticalPanelWest.setHeight("100%");
-		verticalPanelWest.setBorderWidth(LAYOUT_BORDER);
-		verticalPanelWest.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		verticalPanelWest.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		verticalPanelWest.addStyleName("project-gwt-panel-west");
 
 		verticalPanelWest.add(menuBarLv2);
 		verticalPanelWest.add(menuBarLv3);

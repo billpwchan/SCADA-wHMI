@@ -28,9 +28,6 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	
 	public static final String IMAGE_PATH	= "imgs";
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
 	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
@@ -67,13 +64,17 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 
 		FlexTable flexTableFilters = new FlexTable();
 		flexTableFilters.setWidth("100%");
-		flexTableFilters.setBorderWidth(LAYOUT_BORDER);
+//		flexTableFilters.setBorderWidth(LAYOUT_BORDER);
 		
 		inlineLabel = new InlineLabel[strNoOfAlarms.length];
 		for(int i=0;i<strNoOfAlarms.length;++i){
 			inlineLabel[i] = new InlineLabel();
 			inlineLabel[i].getElement().getStyle().setPadding(20, Unit.PX);
-			if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-alarm-summary-counter");
+			if ( (i % 2) != 0 ) {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarm-summary-counter-value");
+			} else {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarm-summary-counter-label");
+			}
 			inlineLabel[i].setWidth("100%");
 			inlineLabel[i].setText(strNoOfAlarms[i]);
 			flexTableFilters.setWidget(i/8, i%8, inlineLabel[i]);
@@ -153,12 +154,12 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
 		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
 		VerticalPanel toolBarPanel = new VerticalPanel();
-		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
+//		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
 		toolBarPanel.setWidth("100%");
 		toolBarPanel.setHeight("100%");
-		toolBarPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    toolBarPanel.addStyleName("project-gwt-panel-viewalarm-toolbar");
 	    toolBarPanel.add(panelToolBar);
 		
 		uiPanelPanelToolBar.setButton("Alarm Summary", true);

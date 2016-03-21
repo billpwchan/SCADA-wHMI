@@ -34,11 +34,11 @@ public class UIPanelViewFactoryMgr {
 		
 		UIPanelViewProvide uiPanelViewProvide = null;
 		
-		if ( 0 == uiPanel.compareTo("UIPanelViewPanel") ) {
+		if ( 0 == uiPanel.compareTo(UIPanelViewPanel) ) {
 			uiPanelViewProvide = new UIPanelViewPanel();
-		} else if ( 0 == uiPanel.compareTo("UIPanelViewSchematic") ) {
+		} else if ( 0 == uiPanel.compareTo(UIPanelViewSchematic) ) {
 			uiPanelViewProvide = new UIPanelViewSchematic();
-		} else if ( 0 == uiPanel.compareTo("UIPanelViewPanel") ) {
+		} else if ( 0 == uiPanel.compareTo(UIPanelViewEmpty) ) {
 			uiPanelViewProvide = new UIPanelViewEmpty();
 		}
 		

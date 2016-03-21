@@ -12,8 +12,8 @@
     </p:dataSource>
     </p:subject>
 
-	<!-- Status -->
-    <p:column filterable="false" i18n="true" name="scsalarmList_state_name" sortable="false" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
+	<!-- Ack -->
+    <p:column filterable="false" i18n="true" name="scsalarmList_state_name" sortable="false" width="30" widthUnit="PX" xsi:type="p:textEnumColumnType">
               
         <p:source name="ackstate" statusComputerName="ackstate" xsi:type="cmn:computedStatusDataSourceType"/>
         
@@ -54,7 +54,7 @@
         <p:textItem sourceValue="5" value="scsalarmList_funcat_power"/>
     </p:column>
 	
-	<!-- Equipment -->
+	<!-- Eqt Name -->
     <p:column filterable="false" i18n="true" name="scsalarmList_sourceID_name" sortable="false" template="{}" templateMarker="{}" width="120" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="sourceID" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
@@ -93,8 +93,14 @@
     </p:operationalSortsConfiguration>
     -->
     <p:defaultSort>
+        <p:simpleSort ascending="false" columnName="scsalarmList_apparitionDate_name"/>
+    </p:defaultSort>
+	
+	<!--
+    <p:defaultSort>
         <p:operationalSort operationalSortName="osc1"/>
     </p:defaultSort>
+-->	
     
 	<!--
     <p:countersConfiguration>

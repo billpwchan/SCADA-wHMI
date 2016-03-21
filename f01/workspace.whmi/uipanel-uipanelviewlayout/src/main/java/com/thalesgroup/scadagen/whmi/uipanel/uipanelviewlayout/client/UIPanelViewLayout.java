@@ -24,17 +24,9 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 	public static final String UNIT_PX		= "px";
 	public static final int LAYOUT_BORDER	= 0;
 	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
 	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
 	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String IMAGE_PATH	= "imgs";
+	public static final String IMG_NONE		= "none";	
 
 	private ViewLayoutMgr viewLayoutMgr;
 	
@@ -61,7 +53,7 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 		v.getPanel().getElement().getStyle().setBorderColor(RGB_BTN_SEL);
 		v.getPanel().setWidth("100%");
 		v.getPanel().setHeight("100%");
-		v.getPanel().getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		v.getPanel().addStyleName("project-gwt-panel-viewlayout-view");
 //		v.getPanel().add(new InlineLabel("View ID: "+viewId));
 		
 		logger.log(Level.FINE, "getView End");
@@ -139,9 +131,9 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 			bottomToolBar.setBorderWidth(LAYOUT_BORDER);
 		    bottomToolBar.setWidth("100%");
 		    bottomToolBar.setHeight("100%");
-		    bottomToolBar.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		    bottomToolBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		    bottomToolBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		    bottomToolBar.addStyleName("project-gwt-panel-viewlayout-bottomtoolbar");
 		    bottomToolBar.add(imageToolBar);
 			
 			basePanel.addSouth(bottomToolBar, 50);

@@ -1,0 +1,150 @@
+/* UIScreenMMI */
+.project-gwt-panel-west {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-panel-east {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-panel-south {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-panel-north {
+	background-color: #BEBEBE;
+}
+
+/* UIPanelViewLayout */
+.project-gwt-panel-viewlayout-view {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-panel-viewlayout-bottomtoolbar {
+	background-color: #BEBEBE;
+}
+
+/* UIPanelStatusBar */
+.project-gwt-panel-statusbar {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-inlinelabel-statusbar-company {
+	background-color: #BEBEBE;
+	font-size: 110%
+}
+
+.project-gwt-inlinelabel-statusbar-title {
+	background-color: #BEBEBE;
+	font-size: 110%
+}
+
+.project-gwt-inlinelabel-statusbar-operatorprofile {
+	background-color: #BEBEBE;
+	font-size: 110%;
+}
+
+.project-gwt-inlinelabel-statusbar-datetime {
+	background-color: #BEBEBE;
+	font-size: 110%;
+}
+
+/* UIPanelAlarmBanner */
+.project-gwt-inlinelabel-alarmbanner-counter-label {
+	font-size: 110%;
+}
+
+.project-gwt-inlinelabel-alarmbanner-counter-value {
+	font-size: 110%;
+	font-weight: bold;
+}
+
+/* UIViewAlarm */
+.project-gwt-panel-viewalarm-toolbar {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-inlinelabel-alarm-summary-counter-value  {
+	font-weight: bold;
+	font-size: 110%
+}
+
+.project-gwt-inlinelabel-alarm-summary-counter-label  {
+	font-size: 110%
+}
+
+/* UIViewEvent */
+.project-gwt-panel-viewevent-toolbar {
+	background-color: #BEBEBE;
+}
+.project-gwt-inlinelabel-event-summary-counter-value {
+	font-weight: bold;
+	font-size: 110%
+}
+
+.project-gwt-inlinelabel-event-summary-counter-label {
+	font-size: 100%
+}
+
+.project-gwt-button {
+	font-weight: bold;
+}
+
+/* UIScreenOPM */
+.project-gwt-panel-opm {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-inlinelabel-opm-label {
+	font-size: 100%
+}
+
+.project-gwt-listbox-opm-value {
+	font-size: 100%
+}
+
+/* WrapperScsAlarmListPanel */
+.project-gwt-panel-alarmbanner-wrapper {
+	background-color: #BEBEBE;	
+}
+
+/* UIPanelAlarmBanner */
+.project-gwt-panel-alarmbanner {
+	background-color: #BEBEBE;
+}
+
+
+/* UIPanelMenu */
+.project-gwt-panel-navigation {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-button-navigation {
+	width: 142px;
+	height: 30px;
+	font-weight: bold;
+}
+
+
+/* UIPanelLogin */
+.project-gwt-panel-login  {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-button-login-login {
+	width: 128px;
+	height: 30px;
+	font-weight: bold;
+}
+
+.project-gwt-button-login-changepassword {
+	width: 128px;
+	height: 30px;
+	font-weight: bold;
+}
+
+.project-gwt-button-login-cancel {
+	width: 128px;
+	height: 30px;
+	font-weight: bold;
+}

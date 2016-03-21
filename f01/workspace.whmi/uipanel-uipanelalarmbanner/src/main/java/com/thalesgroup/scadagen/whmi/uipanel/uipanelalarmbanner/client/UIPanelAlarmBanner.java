@@ -29,13 +29,6 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	
 	public static final String IMAGE_PATH	= "imgs";
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
 	int BUTTON_WIDTH	= 120;
 	int BUTTON_HEIGHT	= 32;
 	
@@ -57,22 +50,21 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
 	    HorizontalPanel basePanel = new HorizontalPanel();
-	    basePanel.setBorderWidth(LAYOUT_BORDER);
 	    basePanel.setHeight("100%");
 	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-	    basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+	    basePanel.addStyleName("project-gwt-panel-alarmbanner");
 	    
 	    String ALARM_LIST_BANNER_ID = "alarmListBanner";
 	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(ALARM_LIST_BANNER_ID, false, false, false);
 	    wrapperScsAlarmListPanel.setSize("1550px", "100%");
-	    wrapperScsAlarmListPanel.setBorderWidth(LAYOUT_BORDER);
+//	    wrapperScsAlarmListPanel.setAddStyleName("project-gwt-panel-alarmbanner-wrapper");
 	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
 	    
 	    VerticalPanel buttonPanel = new VerticalPanel();
 //	    verticalPanel.getElement().getStyle().setPadding(5, Unit.PX);
 	    buttonPanel.setHeight("100%");
-	    buttonPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+	    buttonPanel.addStyleName("project-gwt-panel-alarmbanner");
 	    buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
@@ -120,7 +112,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	    VerticalPanel statPanel = new VerticalPanel();
 	    statPanel.setWidth("100%");
 	    statPanel.setHeight("100%");
-	    statPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+	    statPanel.addStyleName("project-gwt-panel-alarmbanner");
 	    statPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    statPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
@@ -129,7 +121,11 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	    	inlineLabel[i] = new InlineLabel(strAlarmLbls[i]);
 	    	inlineLabel[i].setSize(LABEL_WIDTH+UNIT_PX,LABEL_HEIGHT +UNIT_PX);
 	    	inlineLabel[i].getElement().getStyle().setPadding(5, Unit.PX);
-	    	if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-alarm-banner-counter");
+	    	if ( (i % 2) != 0 ) { 
+	    		inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarmbanner-counter-value");
+	    	} else {
+	    		inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarmbanner-counter-label");
+	    	}
 	    	statPanel.add(inlineLabel[i]);
 	    }
 	    
@@ -166,8 +162,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewAlarm");
-			taskLaunch.setFirst("Alarm");
-			taskLaunch.setLast("Summary");
+			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( 0 == strEventSummary.compareToIgnoreCase(strBtn) ) {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -175,8 +170,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewEvent");
-			taskLaunch.setFirst("Event");
-			taskLaunch.setLast("Summary");
+			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		}
 		

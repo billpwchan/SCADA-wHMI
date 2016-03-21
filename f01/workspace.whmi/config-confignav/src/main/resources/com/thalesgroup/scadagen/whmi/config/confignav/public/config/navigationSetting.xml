@@ -12,15 +12,15 @@
 	</option>
 	<option key="2">
 		<type>S</type>
-		<name>ACB &amp; 3.3kV Schematics</name>
-		<title>CTVB ACB &amp; 3.3kV Schematics</title>
+		<name>UPS</name>
+		<title>CTVB UPS</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
 	<option key="3">
 		<type>S</type>
-		<name>ACB &amp; 3.3kV Schematics</name>
-		<title>SSVB ACB &amp; 3.3kV Schematics</title>
+		<name>UPS</name>
+		<title>SSVB UPS</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -210,6 +210,13 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>LMC - MCS - System Health</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="31">
+		<type>S</type>
+		<name>Schematics</name>
+		<title>KOT - TECS - Schematics</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>

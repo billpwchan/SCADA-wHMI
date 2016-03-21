@@ -3,40 +3,40 @@
 	<option key="LMC">
 		<setting>M</setting>
 	</option>
-	<option key="LMC|PCSOverview">
+	<option key="LMC|PCS Overview">
 		<setting>M</setting>
 	</option>
-	<option key="LMC|PCSOverview|MimicSummary">
+	<option key="LMC|PCS Overview|MimicSummary">
 		<setting>1</setting>
 	</option>
 	<option key="CTV">
 		<setting>M</setting>
 	</option>
-	<option key="CTV|PCSOverview">
+	<option key="CTV|PCS Overview">
 		<setting>M</setting>
 	</option>
-	<option key="CTV|PCSOverview|MimicSummary">
+	<option key="CTV|PCS Overview|MimicSummary">
 		<setting>1</setting>
 	</option>
-	<option key="CTV|33kVLV">
+	<option key="CTV|33kV &amp; LV">
 		<setting>M</setting>
 	</option>
-	<option key="CTV|33kVLV|ACB33kVSchematics">
+	<option key="CTV|33kV &amp; LV|UPS">
 		<setting>2</setting>
 	</option>
 	<option key="SSV">
 		<setting>M</setting>
 	</option>
-	<option key="SSV|PCSOverview">
+	<option key="SSV|PCS Overview">
 		<setting>M</setting>
 	</option>
-	<option key="SSV|PCSOverview|MimicSummary">
+	<option key="SSV|PCS Overview|MimicSummary">
 		<setting>1</setting>
 	</option>
-	<option key="SSV|33kVLV">
+	<option key="SSV|33kV &amp; LV">
 		<setting>M</setting>
 	</option>
-	<option key="SSV|33kVLV|ACB33kVSchematics">
+	<option key="SSV|33kV &amp; LV|UPS">
 		<setting>3</setting>
 	</option>
 	<option key="OCC">
@@ -229,7 +229,7 @@
 		<setting>M</setting>
 	</option>
 	<option key="LMC|MCS|SystemHealth">
-		<setting>18</setting>
+		<setting>30</setting>
 	</option>
 	<option key="LMC|Utilities">
 		<setting>M</setting>
@@ -250,7 +250,10 @@
 		<setting>9</setting>
 	</option>
 	<option key="KOT|TECS|Schematics">
-		<setting>22</setting>
+		<setting>31</setting>
+	</option>
+	<option key="KOT|TECS|Summary">
+		<setting>M</setting>
 	</option>
 	<option key="KOT|TECS|Summary|ControlSummary">
 		<setting>28</setting>

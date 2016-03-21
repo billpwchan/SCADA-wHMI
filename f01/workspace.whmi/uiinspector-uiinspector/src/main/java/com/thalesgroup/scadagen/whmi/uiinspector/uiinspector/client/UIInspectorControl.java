@@ -14,17 +14,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UIInspectorControl {
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-
 	public Panel getMainPanel() {
 
 		VerticalPanel vpCtrls  = new VerticalPanel();
-		vpCtrls.setBorderWidth(LAYOUT_BORDER);
+//		vpCtrls.setBorderWidth(LAYOUT_BORDER);
 		vpCtrls.setWidth("100%");
 		
 		String btnWidth = "90px";
@@ -93,10 +86,11 @@ public class UIInspectorControl {
 			}
 		});
 		
-		InlineLabel lblVol = new InlineLabel();
-		lblVol.setWidth("50px");
-		lblVol.getElement().getStyle().setPadding(10, Unit.PX);
-		lblVol.setText("1 / 1");
+		InlineLabel lblPageNum = new InlineLabel();
+		lblPageNum.setWidth("50px");
+		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
+		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
+		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
 		btnDown.setWidth("50px");
@@ -119,7 +113,7 @@ public class UIInspectorControl {
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		pageBar.add(lblVol);
+		pageBar.add(lblPageNum);
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -137,7 +131,7 @@ public class UIInspectorControl {
 		bottomBar.add(btnExecute);
 				
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
 		basePanel.addSouth(bottomBar, 50);

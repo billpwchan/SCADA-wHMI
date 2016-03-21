@@ -1,10 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
@@ -31,6 +29,11 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 		this.border = border;
 	}
 	
+//	private String css = "";
+//	public void setAddStyleName(String css) {
+//		this.css = css;
+//	}
+	
 	private ScsAlarmListPanel scsAlarmListPanel = null;
 	
 	private WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent = null;
@@ -39,19 +42,21 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 		
         // build layout SplitLayout is DockLayout
         // Set critical alarm filter event      
-        final Set<String> values = new HashSet<String>();
-        values.add( "CRITICAL" );
-        values.add( "HIGH" );
-        values.add( "MEDIUM" );
-        StringEnumFilterDescription filterdesc = new StringEnumFilterDescription(values);
-        final FilterSetEvent filterEvent = new FilterSetEvent("scsalarmList_priority_name", filterdesc);
-        final Set<FilterSetEvent> filterSet = new HashSet<FilterSetEvent>();
-        filterSet.add(filterEvent);
+//        final Set<String> values = new HashSet<String>();
+//        values.add( "CRITICAL" );
+//        values.add( "HIGH" );
+//        values.add( "MEDIUM" );
+//        StringEnumFilterDescription filterdesc = new StringEnumFilterDescription(values);
+//        final FilterSetEvent filterEvent = new FilterSetEvent("scsalarmList_priority_name", filterdesc);
+//        final Set<FilterSetEvent> filterSet = new HashSet<FilterSetEvent>();
+//        filterSet.add(filterEvent);
 		
+        final Set<FilterSetEvent> filterSet = null;
+        
 		scsAlarmListPanel = new ScsAlarmListPanel(AppUtils.EVENT_BUS, alarmListId, withAction, withCaption, withAck, filterSet);
 	    scsAlarmListPanel.setWidth(this.width);
 	    scsAlarmListPanel.setHeight(this.height);
-	    scsAlarmListPanel.setHeight(this.height);
+//	    scsAlarmListPanel.addStyleName(this.css);
 	    scsAlarmListPanel.setCounterNames(counterNames);
 	    scsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
 	    

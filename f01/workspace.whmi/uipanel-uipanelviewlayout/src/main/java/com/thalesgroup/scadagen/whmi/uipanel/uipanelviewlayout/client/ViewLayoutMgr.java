@@ -197,32 +197,9 @@ public class ViewLayoutMgr {
 					+ "] taskLaunchs.length[" + this.taskLaunchs.length + "]");
 		}
 		
-		
 		triggerTitleChange(taskLaunch);
 
-		// Station
-//		UITaskTitle taskTitle = new UITaskTitle();
-//		taskTitle.setTaskUiScreen(this.uiNameCard.getUiScreen());
-//		taskTitle.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
-//		taskTitle.setStation(taskLaunch.getNameWithSpace());
-//		taskTitle.setTitle(taskLaunch.getTitleWithSpace());
-//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskTitle));
-		// End of Station
-
 		triggerProfileChange();
-		
-		// Profile
-//		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
-//		String profile = opmAuthentication.getCurrentProfile();
-//		String operator = opmAuthentication.getCurrentOperator();
-//		
-//		UITaskProfile taskProfile = new UITaskProfile();
-//		taskProfile.setTaskUiScreen(this.uiNameCard.getUiScreen());
-//		taskProfile.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
-//		taskProfile.setProfile(profile);
-//		taskProfile.setOperator(operator);
-//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
-		// End of Profile
 
 		logger.log(Level.FINE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
 
@@ -231,8 +208,9 @@ public class ViewLayoutMgr {
 			historySnapshot();
 		}
 
-		triggerTitleChange(taskLaunch);
-		triggerSplitScreenButtonUpdate();
+		if (ViewLayoutMode.Panel != this.viewLayoutMode) {
+			triggerSplitScreenButtonUpdate();
+		}
 		triggerHistoryUIUpdate();
 
 		logger.log(Level.FINE, "setTaskLaunch End");

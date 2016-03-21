@@ -24,13 +24,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 	private static String IMAGE_PATH = "imgs";
 	
 	public static final String UNIT_PX		= "px";
-		
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 	
 	DialogMsgCtrl dialogMsgCtrl;
 	
@@ -68,12 +61,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 	private Button btnOk;
 	private Button btnCancel;
 	private HorizontalPanel btnBar;
-	
-//	
-//	public UIDialogMsg(UINameCard uiNameCard) {
-//		this.uiNameCard = new UINameCard(uiNameCard);
-//		this.uiNameCard.appendUIPanel(this);
-//	}
 	
 	private UINameCard uiNameCard;
 	public void setUINameCard(UINameCard uiNameCard) {
@@ -174,9 +161,9 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		txtMsg.setText(msg);
 		
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		dockLayoutPanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);		
+		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);	
+		dockLayoutPanel.addStyleName("project-gwt-panel-dialogmsg");
 		
 		lblTitle.getElement().getStyle().setPadding(10, Unit.PX);
 		lblTitle.getElement().getStyle().setFontStyle(FontStyle.OBLIQUE);
@@ -194,8 +181,8 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		
 		txtMsg.setWidth("90%");
 		txtMsg.setHeight("95%");
-		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);
-		txtMsg.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);		
+		txtMsg.addStyleName("project-gwt-textarea-dialogmsg");
 		dockLayoutPanel.add(txtMsg);
 		
 		this.add(dockLayoutPanel);
@@ -242,7 +229,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 
 	@Override
 	public void dialogMsgMgrEvent(DialogMsgMgrEventType dialogMsgMgrEventType) {
-//Window.alert("dialogMsgMgrEvent dialogMsgMgrEventType: "+dialogMsgMgrEventType.toString());
 		switch ( dialogMsgMgrEventType )
 		{
 		case MSG_YES:

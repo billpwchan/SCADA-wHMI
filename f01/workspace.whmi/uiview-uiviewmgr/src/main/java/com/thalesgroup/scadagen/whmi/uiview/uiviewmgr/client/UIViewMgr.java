@@ -49,7 +49,7 @@ public class UIViewMgr {
 		} else if ( 0 == uiPanel.compareTo("UIViewEvent") ) {
 			uiView_i = new UIViewEvent();
 		} else {
-			uiView_i = new UIViewEmpty();
+			//uiView_i = new UIViewEmpty();
 		}
 		
 		/*

@@ -25,15 +25,6 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 
 	public static final String UNIT_PX = "px";
 
-	public static final String IMAGE_PATH = "imgs";
-
-	public static final int LAYOUT_BORDER = 0;
-	public static final String RGB_PAL_BG = "#BEBEBE";
-
-	public static final String RGB_RED = "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN = "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE = "rgb( 0, 0, 255)";
-
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
 		handlerRegistrations.add(handlerRegistration);

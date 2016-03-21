@@ -23,12 +23,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 
 public class UIPanelStatusBar {
-	
-	public static final int LAYOUT_BORDER	= 0;
 
 	private static Logger logger = Logger.getLogger(UIPanelStatusBar.class.getName());
-
-	public static final String RGB_PAL_BG = "#BEBEBE";
 
 	public static final String basePath		= GWT.getModuleBaseURL();
 	public static final String IMAGE_PATH	= "imgs";
@@ -61,13 +57,13 @@ public class UIPanelStatusBar {
 		});
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		dockLayoutPanel.addStyleName("project-gwt-panel-statusbar");
 
 		HorizontalPanel topStatusBanner = new HorizontalPanel();
 		topStatusBanner.setWidth("100%");
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		topStatusBanner.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
-		topStatusBanner.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		topStatusBanner.addStyleName("project-gwt-panel-statusbar");
 
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		Image imgThales = new Image(basePath + "/" + IMAGE_PATH + "/logo/" + THALES_LOGIN_NAME);
@@ -77,6 +73,7 @@ public class UIPanelStatusBar {
 		for (int i = 0; i < strLabels.length; i++) {
 			inlineLabel[i] = new InlineLabel(strLabels[i]);
 			inlineLabel[i].setWidth("250px");
+			inlineLabel[i].addStyleName("project-gwt-inlinelabel-statusbar-company");
 			topStatusBanner.add(inlineLabel[i]);
 		}
 
@@ -84,12 +81,14 @@ public class UIPanelStatusBar {
 
 		titleInlineLabel = new InlineLabel();
 		titleInlineLabel.setWidth("250px");
+		titleInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-title");
 		topStatusBanner.add(titleInlineLabel);
 
 		setTitle(strTitle);
 
 		operatorProfileInlineLabel = new InlineLabel();
 		operatorProfileInlineLabel.setWidth("250px");
+		operatorProfileInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-operatorprofile");
 		topStatusBanner.add(operatorProfileInlineLabel);
 		
 		setProfile("OPERTOR", "PROFILE");
@@ -97,6 +96,7 @@ public class UIPanelStatusBar {
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		datetimeInlineLabel = new InlineLabel();
 		datetimeInlineLabel.setText("dd MM yyyy HH:mm:ss.SSS");
+		datetimeInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-datetime");
 		topStatusBanner.add(datetimeInlineLabel);
 		
 		Timer t = new Timer() {

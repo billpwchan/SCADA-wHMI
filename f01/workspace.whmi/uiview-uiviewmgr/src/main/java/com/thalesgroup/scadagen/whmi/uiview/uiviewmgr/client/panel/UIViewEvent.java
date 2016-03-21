@@ -23,9 +23,6 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 	
 	private static Logger logger = Logger.getLogger(UIViewEvent.class.getName());
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
 	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
@@ -65,7 +62,11 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		for(int i=0;i<strNoOfEvents.length;++i){
 			inlineLabel[i] = new InlineLabel(strNoOfEvents[i]);
 			inlineLabel[i].getElement().getStyle().setPadding(20, Unit.PX);
-			if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-event-summary-counter");
+			if ( (i % 2) != 0 ) {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-event-summary-counter-value");
+			} else {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-event-summary-counter-label");
+			}
 			numOfEventBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			numOfEventBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			numOfEventBar.add(inlineLabel[i]);
@@ -146,12 +147,12 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
 		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
 		VerticalPanel toolBarPanel = new VerticalPanel();
-		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
+//		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
 		toolBarPanel.setWidth("100%");
 		toolBarPanel.setHeight("100%");
-		toolBarPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    toolBarPanel.addStyleName("project-gwt-panel-viewevent-toolbar");
 	    toolBarPanel.add(panelToolBar);
 		
 		uiPanelPanelToolBar.setButton("Event Summary", true);

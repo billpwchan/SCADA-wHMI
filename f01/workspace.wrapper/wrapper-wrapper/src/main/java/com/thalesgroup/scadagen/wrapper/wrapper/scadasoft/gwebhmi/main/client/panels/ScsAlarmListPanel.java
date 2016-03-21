@@ -228,8 +228,6 @@ public class ScsAlarmListPanel extends ResizeComposite
                 if (!state.isValid()) {
                     return "gdg_invalid";
                 }
-                
-                if ( true ) {
                 	
                 String CSS_ALARM_		= "CSS_ALARM";
                 
@@ -274,12 +272,6 @@ public class ScsAlarmListPanel extends ResizeComposite
 logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
-                
-	            } else {
-	
-	                return CSS_SEVERITY_PREFIX + severity.getValue() + " " + CSS_ALARM_ACK_PREFIX + state.getValue();
-	                
-	            }
                 
                 //CSS_SUPER_CRITICAL_NA
                 //CSS_SUPER_CRITICAL_A

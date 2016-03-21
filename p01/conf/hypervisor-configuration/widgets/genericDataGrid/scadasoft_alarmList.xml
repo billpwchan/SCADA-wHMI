@@ -13,8 +13,8 @@
 </p:dataSource>
 </p:subject>
 
-	<!-- Status -->
-    <p:column filterable="true" i18n="true" name="scsalarmList_state_name" sortable="true" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
+	<!-- Ack -->
+    <p:column filterable="true" i18n="true" name="scsalarmList_state_name" sortable="true" width="30" widthUnit="PX" xsi:type="p:textEnumColumnType">
               
         <p:source name="ackstate" statusComputerName="ackstate" xsi:type="cmn:computedStatusDataSourceType"/>
         
@@ -23,7 +23,7 @@
         
     </p:column>
     
-	<!-- Datetime -->
+	<!-- Time -->
     <p:column filterable="true" format="scsalarmList_DateFormat" i18n="true" name="scsalarmList_apparitionDate_name" sortable="true" width="100" widthUnit="PX" xsi:type="p:dateColumnType">
         <p:source name="apparitionDate" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
@@ -61,7 +61,7 @@
         <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 
-	<!-- Equipment -->
+	<!-- Eqt Name -->
     <p:column filterable="true" i18n="true" name="scsalarmList_sourceID_name" sortable="true" template="{}" templateMarker="{}" width="120" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="sourceID" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
@@ -72,7 +72,7 @@
     </p:column>
 
 	<!-- Severity -->
-    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="true" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
+    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="true" width="0" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="priority" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="CRITICAL" value="scsalarmList_priority_CRITICAL"/>
         <p:textItem sourceValue="HIGH" value="scsalarmList_priority_HIGH"/>

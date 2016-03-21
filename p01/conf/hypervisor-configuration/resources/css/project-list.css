@@ -79,6 +79,7 @@
     animation-iteration-count: infinite;
 }
 
+
 .CSS_ALARM_LESS_CRITICAL_A {
     color: black!important;
 	background-color : #FFFF00!important;
@@ -87,19 +88,19 @@
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes blinkingEvent {
-    from {background-color: #969696;}
+    from {background-color: #00FF00;}
     to {background-color: white;}
 }
 
 /* Standard syntax */
 @keyframes blinkingEvent {
-    from {background-color: #969696;}
+    from {background-color: #00FF00;}
     to {background-color: white;}
 }
 
 .CSS_ALARM_EVENT_NA {
     color: black!important;
-	background-color : #969696!important;
+	background-color : #00FF00!important;
 	
     -webkit-animation-name: blinkingEvent; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
@@ -110,7 +111,7 @@
 
 .CSS_ALARM_EVENT_A {
     color: black!important;
-	background-color : #969696!important;
+	background-color : #00FF00!important;
 }
 
 /* Event */

@@ -218,8 +218,6 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
                     if ( null != severity ) {
                     	if ( severity.isValid() ) {
                     		
-                    		if ( true ) {
-                    		
                     		int iValue = severity.getValue();
                     		
                     		switch ( iValue ) {
@@ -242,15 +240,6 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
                     		logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] iValue["+iValue+"] => strCssResult["+strCssResult+"]");
                     		
                     		return strCssResult;
-                    		
-                    		} else {
-                    		
-                    			Integer intValue = severity.getValue();
-								String strCSS = EVENT_CSS_SEVERITY_PREFIX + severity.getValue();
-
-							return strCSS;
-							
-                    		}
                     		
                     		//CSS_EVENT_SUPER_CRITICAL
                     		//CSS_EVENT_CRITICAL

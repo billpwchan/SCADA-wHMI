@@ -23,9 +23,6 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
 	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
@@ -492,7 +489,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		
 		FlexTable flexTableAttibutes = new FlexTable();
 		flexTableAttibutes.setWidth("100%");
-		flexTableAttibutes.setBorderWidth(LAYOUT_BORDER);
+//		flexTableAttibutes.setBorderWidth(LAYOUT_BORDER);
 		for ( int i = 0; i < numOfPoints ; i ++ ) {
 			txtAttribute[i] = new TextBox();
 			txtAttibuteLabel[i] = new InlineLabel();
@@ -528,10 +525,11 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			}
 		});
 		
-		InlineLabel lblVol = new InlineLabel();
-		lblVol.setWidth("50px");
-		lblVol.getElement().getStyle().setPadding(10, Unit.PX);
-		lblVol.setText("1 / 1");
+		InlineLabel lblPageNum = new InlineLabel();
+		lblPageNum.setWidth("50px");
+		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
+		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
+		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
 		btnDown.setWidth("50px");
@@ -567,7 +565,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		pageBar.add(lblVol);
+		pageBar.add(lblPageNum);
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -585,7 +583,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		bottomBar.add(btnAckCurPage);
 
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
 		basePanel.addSouth(bottomBar, 50);

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector" 
+    project="uiinspector-uiinspector" 
+    file="/uiinspector-uiinspector/src/main/java/com/thalesgroup/scadagen/whmi/uiinspector/uiinspector/client/UIPanelInspector.java" 
+    binary="false" label="uiPanelInspector" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="144" y="0"/>    
+    <execution id="2">      
+      <position height="77" width="349" x="5" y="240"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="24" width="349" x="5" y="354"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="96" width="349" x="5" y="89"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="24" width="349" x="5" y="137"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="149" width="349" x="5" y="192"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess" 
+    project="uiinspector-uiinspector" 
+    file="R:/1166B/.m2/repo/com/thalesgroup/scadagen/wrapper/wrapper/wrapper-wrapper/1.0-SNAPSHOT/wrapper-wrapper-1.0-SNAPSHOT.jar" 
+    binary="true" label="wrapperScsRTDBAccess" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1143" y="0"/>    
+    <execution id="4">      
+      <position height="24" width="284" x="358" y="269"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="72" width="284" x="358" y="330"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="readValueRequestCache(java.lang.String,java.lang.String,java.lang.String):void" 
+    asynchronous="true">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="7" operation="createReadRequest():void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="10" operation="init():void" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="2"/>  
+  </message>  
+  <message id="13" operation="setReadResult(java.lang.String,java.lang.String[],int,java.lang.String):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>
+</sequence-diagram>

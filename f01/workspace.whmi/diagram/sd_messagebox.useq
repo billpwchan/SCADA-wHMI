@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI" 
+    project="uiscreen-uiscreenmmi" 
+    file="/uiscreen-uiscreenmmi/src/main/java/com/thalesgroup/scadagen/whmi/uiscreen/uiscreenmmi/client/UIScreenMMI.java" 
+    binary="false" label="uiScreenMMI" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="7" y="0"/>    
+    <execution id="2">      
+      <position height="210" width="350" x="5" y="113"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr" 
+    project="uidialog-uidialogmsg" 
+    file="/uidialog-uidialogmsg/src/main/java/com/thalesgroup/scadagen/whmi/uidialog/uidialogmsg/client/DialogMsgMgr.java" 
+    binary="false" label="dialogMsgMgr" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="125" y="0"/>    
+    <execution id="4">      
+      <position height="72" width="342" x="359" y="137"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg" 
+    project="uidialog-uidialogmsg" 
+    file="/uidialog-uidialogmsg/src/main/java/com/thalesgroup/scadagen/whmi/uidialog/uidialogmsg/client/UIDialogMsg.java" 
+    binary="false" label="uiDialogMsg" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="813" y="0"/>    
+    <execution id="13">      
+      <position height="24" width="342" x="1051" y="161"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="24" width="7" x="1219" y="191"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="24" width="342" x="1051" y="235"/>    
+    </execution>    
+    <execution id="10">      
+      <position height="24" width="342" x="705" y="275"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="228" width="342" x="705" y="300"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="24" width="7" x="876" y="348"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgCtrl" 
+    project="uidialog-uidialogmsg" 
+    file="/uidialog-uidialogmsg/src/main/java/com/thalesgroup/scadagen/whmi/uidialog/uidialogmsg/client/DialogMsgCtrl.java" 
+    binary="false" label="dialogMsgCtrl" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1455" y="0"/>    
+    <execution id="19">      
+      <position height="120" width="342" x="1051" y="384"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard" 
+    project="uinamecard" 
+    file="/uinamecard/src/main/java/com/thalesgroup/scadagen/whmi/uinamecard/uinamecard/client/UINameCard.java" 
+    binary="false" label="uiNameCard" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1406" y="0"/>    
+    <execution id="22">      
+      <position height="72" width="361" x="1397" y="408"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="com.google.gwt.event.shared.EventBus" project="uiinspector-uiinspector" 
+    file="R:/1166B/.m2/repo/com/google/gwt/gwt-servlet/2.7.0/gwt-servlet-2.7.0.jar" binary="true" label="eventBus" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1502" y="0"/>    
+    <execution id="25">      
+      <position height="24" width="168" x="1397" y="432"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getInstance():com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="setUINameCard(com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" 
+    operation="setDialogMsg(com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType,java.lang.String,java.lang.String,com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i,com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="popUp():void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="12" operation="UIDialogMsg()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="16" asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="18" operation="setYes(com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="21" operation="setUiEventBus(com.google.gwt.event.shared.ResettableEventBus):void" asynchronous="false">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="24" operation="fireEvent(com.google.web.bindery.event.shared.Event&lt;?&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>
+</sequence-diagram>

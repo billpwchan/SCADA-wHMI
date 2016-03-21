@@ -74,10 +74,12 @@ public class UIPanelImageToolBar {
 		
 		imageMaps= new HashMap<String, UIPanelImageBarEventType>();
 
+		/*
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/ZoomIn.png", UIPanelImageBarEventType.ZoomIn);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/ZoomOut.png", UIPanelImageBarEventType.ZoomOut);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/Zoom.png", UIPanelImageBarEventType.Zoom);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/Locator.png", UIPanelImageBarEventType.Locator);
+		*/
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/SplitH.png", UIPanelImageBarEventType.VDouble);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/SplitV.png", UIPanelImageBarEventType.HDouble);
 		
@@ -104,6 +106,7 @@ public class UIPanelImageToolBar {
 				btn.setText(btnStr);
 				btn.setSize(IMG_BTN_WIDTH*4+UNIT_PX, IMG_BTN_WIDTH+UNIT_PX);
 			}
+			btn.addStyleName("project-gwt-button");
 			
 			btn.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {

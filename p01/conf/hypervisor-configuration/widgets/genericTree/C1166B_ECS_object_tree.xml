@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+************************************************
+ Generated with MetaConfigurator v3.0.6_P02_QF1
+     Project: StressTest
+     Version: 1.2.4
+
+        User: syau
+    Computer: PC16011
+          OS: Windows 7 v6.1 (arch x86)
+************************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://navtree.util.core.mwt.hypervisor.thalesgroup.com">
+    <navigationTreeType id="C1166B_ECS_object_tree">
+        <rootNodeDef isOpen="true" navId="C1166B_ECS_object_tree">
+            <categoryNodeDef labelName="andefaultlayer_desc" isOpen="true" navId="andefaultlayer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO001" navId="AnDefaultLayer_B01DO001"></entityNodeDef>
+            </categoryNodeDef>
+        </rootNodeDef>
+    </navigationTreeType>
+</ns2:maestroHMIConfiguration>

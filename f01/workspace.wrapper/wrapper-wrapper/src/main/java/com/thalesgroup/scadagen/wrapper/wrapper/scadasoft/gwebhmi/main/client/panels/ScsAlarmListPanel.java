@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,12 +27,14 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.component.Capti
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.event.GDGCounterChangeEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.ScsAlarmDataGridPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.WrapperScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view.ScsGenericDataGridView;
 /**
  * A widget displaying an alarm list panel.
@@ -51,7 +54,7 @@ public class ScsAlarmListPanel extends ResizeComposite
     /**
      * Client presenter of this alarm list widget
      */
-    private ScsAlarmDataGridPresenterClient gridPresenter_;
+    private WrapperScsAlarmDataGridPresenterClient gridPresenter_;
 
     /**
      * Bus used to subscribe to and publish alarm-related events
@@ -131,7 +134,7 @@ public class ScsAlarmListPanel extends ResizeComposite
      * @param withAck
      *            display or not the acknowledge button and menu
      */
-    public ScsAlarmListPanel(final EventBus eventBus, String listConfigId, boolean withAction, boolean withCaption, boolean withAck) {
+    public ScsAlarmListPanel(final EventBus eventBus, String listConfigId, boolean withAction, boolean withCaption, boolean withAck, Set<FilterSetEvent> filterSet) {
 
         eventBus_ = eventBus;
         withAction_ = withAction;
@@ -139,7 +142,7 @@ public class ScsAlarmListPanel extends ResizeComposite
         withCaption_ = withCaption;
         listConfigId_ = listConfigId;
         initComponents();
-        initPresenter();
+        initPresenter(filterSet);
         initWidget((Widget) mainPanel_);
     }
 
@@ -151,9 +154,9 @@ public class ScsAlarmListPanel extends ResizeComposite
      * Create and initialize the presenter with its view, selectionModel,
      * context menu and Handlers
      */
-    private void initPresenter() {
+    private void initPresenter(Set<FilterSetEvent> filterSet) {
         if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
-            gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
+            gridPresenter_ = new WrapperScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_, filterSet);
             gridPresenter_.setSelectionModel(new MultipleSelectionModel());
             gridPresenter_.setMenu(contextMenu_);
 

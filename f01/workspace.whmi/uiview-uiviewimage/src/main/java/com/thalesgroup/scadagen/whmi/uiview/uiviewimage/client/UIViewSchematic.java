@@ -102,7 +102,7 @@ public class UIViewSchematic implements UIView_i {
 				
 				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getHeader()+"]");
 				
-				this.equipmenpLabel.setText("Schematic: "+taskLaunch.getHeader()+" Click to launch the Inspector Panel");
+				this.equipmenpLabel.setText("Schematic: "+taskLaunch.getHeader());
 				
 			} else {
 				

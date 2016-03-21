@@ -111,6 +111,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 			mapStrBtn.put(strImgs[i], buttons[i]);
 			buttons[i].setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+strImgs[i]+"\" width=\"32px\" height=\"32px\"></center></br></div>");
 			buttons[i].setSize(IMG_BTN_WIDTH+UNIT_PX, IMG_BTN_WIDTH+UNIT_PX);
+			buttons[i].addStyleName("project-gwt-button");
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					onButtonClick((Button)event.getSource());

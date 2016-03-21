@@ -46,6 +46,7 @@ public class UIInspectorControl {
 				btnCtrl.setText("Control "+y);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp1.add(btnCtrl);
 			}
 			vp0.add(hp1);
@@ -56,6 +57,7 @@ public class UIInspectorControl {
 				btnCtrl.setText("Control "+y);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp2.add(btnCtrl);
 			}
 			vp0.add(hp2);
@@ -69,6 +71,7 @@ public class UIInspectorControl {
 		btnExecute.setText("Execute");
 //		btnExecute.setWidth(btnWidth);
 //		btnExecute.setHeight(btnHeight);
+		btnExecute.addStyleName("project-gwt-button");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -80,6 +83,7 @@ public class UIInspectorControl {
 		Button btnUp = new Button();
 		btnUp.setWidth("50px");
 		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
+		btnUp.addStyleName("project-gwt-button");
 		btnUp.setText("Up");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -97,6 +101,7 @@ public class UIInspectorControl {
 		Button btnDown = new Button();
 		btnDown.setWidth("50px");
 		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
+		btnDown.addStyleName("project-gwt-button");
 		btnDown.setText("Down");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override

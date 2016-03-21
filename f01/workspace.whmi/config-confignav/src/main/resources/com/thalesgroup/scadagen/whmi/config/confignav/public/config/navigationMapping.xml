@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<option key="Overview">
+	<option key="LMC">
 		<setting>M</setting>
 	</option>
-	<option key="Overview|Summary">
+	<option key="LMC|PCSOverview">
 		<setting>M</setting>
 	</option>
-	<option key="Overview|Summary|MimicSummary">
-		<setting>A</setting>
+	<option key="LMC|PCSOverview|MimicSummary">
+		<setting>1</setting>
+	</option>
+	<option key="CTV">
+		<setting>M</setting>
+	</option>
+	<option key="CTV|PCSOverview">
+		<setting>M</setting>
+	</option>
+	<option key="CTV|PCSOverview|MimicSummary">
+		<setting>1</setting>
+	</option>
+	<option key="CTV|33kVLV">
+		<setting>M</setting>
+	</option>
+	<option key="CTV|33kVLV|ACB33kVSchematics">
+		<setting>2</setting>
+	</option>
+	<option key="SSV">
+		<setting>M</setting>
+	</option>
+	<option key="SSV|PCSOverview">
+		<setting>M</setting>
+	</option>
+	<option key="SSV|PCSOverview|MimicSummary">
+		<setting>1</setting>
+	</option>
+	<option key="SSV|33kVLV">
+		<setting>M</setting>
+	</option>
+	<option key="SSV|33kVLV|ACB33kVSchematics">
+		<setting>3</setting>
 	</option>
 	<option key="OCC">
 		<setting>M</setting>
@@ -16,18 +46,243 @@
 		<setting>M</setting>
 	</option>
 	<option key="OCC|MCS|SystemHealth">
-		<setting>B</setting>
+		<setting>4</setting>
 	</option>
-	<option key="CTV">
+	<option key="OCC|Utilities">
 		<setting>M</setting>
 	</option>
-	<option key="CTV|33kVLV">
-		<setting>C</setting>
+	<option key="OCC|Utilities|Notepad">
+		<setting>5</setting>
 	</option>
-	<option key="SSV">
+	<option key="OCC|Utilities|InputTable">
+		<setting>6</setting>
+	</option>
+	<option key="OCC|Utilities|RealTimeReport">
+		<setting>7</setting>
+	</option>
+	<option key="OCC|Utilities|HistoricalReport">
+		<setting>8</setting>
+	</option>
+	<option key="OCC|Utilities|OperatorProfileManagement">
+		<setting>9</setting>
+	</option>
+	<option key="LMC|TECS">
 		<setting>M</setting>
 	</option>
-	<option key="SSV|33kVLV">
-		<setting>D</setting>
+	<option key="LMC|TECS|TunnelOverview">
+		<setting>10</setting>
+	</option>
+	<option key="LMC|TECS|Overview">
+		<setting>11</setting>
+	</option>
+	<option key="LMC|TECS|Mode">
+		<setting>12</setting>
+	</option>
+	<option key="LMC|TECS|Timetable">
+		<setting>13</setting>
+	</option>
+	<option key="LMC|TECS|CongestionModeSummary">
+		<setting>14</setting>
+	</option>
+	<option key="LMC|TECS|ControlSummary">
+		<setting>15</setting>
+	</option>
+	<option key="LMC|TECS|TunnelTemperatureSummary">
+		<setting>16</setting>
+	</option>
+	<option key="LMC|TECS|CompressedAirSummary">
+		<setting>17</setting>
+	</option>
+	<option key="LMC|TECS|MultisourcedDataSummary">
+		<setting>18</setting>
+	</option>
+	<option key="LMC|TECS|SmokeProbeUnitSummary">
+		<setting>19</setting>
+	</option>
+	<option key="CTV|TECS">
+		<setting>M</setting>
+	</option>
+	<option key="CTV|TECS|TunnelOverview">
+		<setting>10</setting>
+	</option>
+	<option key="CTV|TECS|Overview">
+		<setting>20</setting>
+	</option>
+	<option key="CTV|TECS|Mode">
+		<setting>12</setting>
+	</option>
+	<option key="CTV|TECS|Timetable">
+		<setting>13</setting>
+	</option>
+	<option key="CTV|TECS|CongestionModeSummary">
+		<setting>14</setting>
+	</option>
+	<option key="CTV|TECS|ControlSummary">
+		<setting>15</setting>
+	</option>
+	<option key="CTV|TECS|TunnelTemperatureSummary">
+		<setting>16</setting>
+	</option>
+	<option key="CTV|TECS|CompressedAirSummary">
+		<setting>17</setting>
+	</option>
+	<option key="CTV|TECS|MultisourcedDataSummary">
+		<setting>18</setting>
+	</option>
+	<option key="CTV|TECS|SmokeProbeUnitSummary">
+		<setting>19</setting>
+	</option>
+	<option key="SSV|TECS">
+		<setting>M</setting>
+	</option>
+	<option key="SSV|TECS|TunnelOverview">
+		<setting>10</setting>
+	</option>
+	<option key="SSV|TECS|Overview">
+		<setting>21</setting>
+	</option>
+	<option key="SSV|TECS|Mode">
+		<setting>12</setting>
+	</option>
+	<option key="SSV|TECS|Timetable">
+		<setting>13</setting>
+	</option>
+	<option key="SSV|TECS|CongestionModeSummary">
+		<setting>14</setting>
+	</option>
+	<option key="SSV|TECS|ControlSummary">
+		<setting>15</setting>
+	</option>
+	<option key="SSV|TECS|TunnelTemperatureSummary">
+		<setting>16</setting>
+	</option>
+	<option key="SSV|TECS|CompressedAirSummary">
+		<setting>17</setting>
+	</option>
+	<option key="SSV|TECS|MultisourcedDataSummary">
+		<setting>18</setting>
+	</option>
+	<option key="SSV|TECS|SmokeProbeUnitSummary">
+		<setting>19</setting>
+	</option>
+	<option key="KOT">
+		<setting>M</setting>
+	</option>
+	<option key="KOT|TECS">
+		<setting>M</setting>
+	</option>
+	<option key="KOT|TECS|TunnelOverview">
+		<setting>10</setting>
+	</option>
+	<option key="KOT|TECS|Overview">
+		<setting>22</setting>
+	</option>
+	<option key="KOT|TECS|Mode">
+		<setting>23</setting>
+	</option>
+	<option key="KOT|TECS|Timetable">
+		<setting>24</setting>
+	</option>
+	<option key="KOT|TECS|CongestionModeSummary">
+		<setting>14</setting>
+	</option>
+	<option key="KOT|TECS|ControlSummary">
+		<setting>15</setting>
+	</option>
+	<option key="KOT|TECS|TunnelTemperatureSummary">
+		<setting>25</setting>
+	</option>
+	<option key="KOT|TECS|CompressedAirSummary">
+		<setting>26</setting>
+	</option>
+	<option key="LMC|TECS|Schematics">
+		<setting>M</setting>
+	</option>
+	<option key="LMC|TECS|Schematics|Overview">
+		<setting>11</setting>
+	</option>
+	<option key="LMC|TECS|Schematics|CTV">
+		<setting>20</setting>
+	</option>
+	<option key="LMC|TECS|Schematics|SSV">
+		<setting>21</setting>
+	</option>
+	<option key="LMC|TECS|Summary">
+		<setting>M</setting>
+	</option>
+	<option key="LMC|TECS|Summary|ControlSummary">
+		<setting>27</setting>
+	</option>
+	<option key="LMC|TECS|Summary|TunnelTemperature">
+		<setting>16</setting>
+	</option>
+	<option key="LMC|TECS|Summary|CompressedAir">
+		<setting>17</setting>
+	</option>
+	<option key="LMC|TECS|Summary|MultisourcedData">
+		<setting>18</setting>
+	</option>
+	<option key="LMC|TECS|Summary|SmokeProbeUnit">
+		<setting>19</setting>
+	</option>
+	<option key="LMC|MCS">
+		<setting>M</setting>
+	</option>
+	<option key="LMC|MCS|SystemHealth">
+		<setting>18</setting>
+	</option>
+	<option key="LMC|Utilities">
+		<setting>M</setting>
+	</option>
+	<option key="LMC|Utilities|Notepad">
+		<setting>5</setting>
+	</option>
+	<option key="LMC|Utilities|InputTable">
+		<setting>6</setting>
+	</option>
+	<option key="LMC|Utilities|RealTimeReport">
+		<setting>7</setting>
+	</option>
+	<option key="LMC|Utilities|HistoricalReport">
+		<setting>8</setting>
+	</option>
+	<option key="LMC|Utilities|OperatorProfileManagement">
+		<setting>9</setting>
+	</option>
+	<option key="KOT|TECS|Schematics">
+		<setting>22</setting>
+	</option>
+	<option key="KOT|TECS|Summary|ControlSummary">
+		<setting>28</setting>
+	</option>
+	<option key="KOT|TECS|Summary|TunnelTemperature">
+		<setting>25</setting>
+	</option>
+	<option key="KOT|TECS|Summary|CompressedAir">
+		<setting>26</setting>
+	</option>
+	<option key="KOT|MCS">
+		<setting>M</setting>
+	</option>
+	<option key="KOT|MCS|SystemHealth">
+		<setting>29</setting>
+	</option>
+	<option key="KOT|Utilities">
+		<setting>M</setting>
+	</option>
+	<option key="KOT|Utilities|Notepad">
+		<setting>5</setting>
+	</option>
+	<option key="KOT|Utilities|InputTable">
+		<setting>6</setting>
+	</option>
+	<option key="KOT|Utilities|RealTimeReport">
+		<setting>7</setting>
+	</option>
+	<option key="KOT|Utilities|HistoricalReport">
+		<setting>8</setting>
+	</option>
+	<option key="KOT|Utilities|OperatorProfileManagement">
+		<setting>9</setting>
 	</option>
 </data-set>

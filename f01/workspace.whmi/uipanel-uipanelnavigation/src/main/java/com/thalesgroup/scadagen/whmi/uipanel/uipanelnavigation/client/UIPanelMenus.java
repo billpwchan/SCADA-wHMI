@@ -38,7 +38,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 
 	public static final String IMAGE_PATH = "imgs";
 
-	public static final int BUTTON_WIDTH = 128;
+	public static final int BUTTON_WIDTH = 138;
 	public static final int BUTTON_HIGHT = 30;
 	
 //	private ArrayList<TaskLaunch> taskLaunchs = null;
@@ -177,13 +177,13 @@ public class UIPanelMenus implements NavigationMgrEvent {
 
 		for (int i = 0; i < taskLaunchs.size(); i++) {
 			UITaskLaunch taskLaunch = taskLaunchs.get(i);
-			NavigationMenuButton btnNew = new NavigationMenuButton(taskLaunchs.get(i).getNameWithSpace());
+//			String name = taskLaunchs.get(i).getNameWithSpace();
+			String name = taskLaunchs.get(i).getName();
+			NavigationMenuButton btnNew = new NavigationMenuButton(name);
 			buttons.put(taskLaunch.getHeader(), btnNew);
-			
-//			logger.log(Level.FINE, "addTaskToMenu taskLaunch.getHeader()["+taskLaunch.getHeader()+"] btnNew["+btnNew+"]");
-			
 			btnNew.setTaskLaunch(taskLaunch);
-			btnNew.setSize(BUTTON_WIDTH + UNIT_PX, BUTTON_HIGHT + UNIT_PX);
+			btnNew.addStyleName("project-gwt-navigation-menu-button");
+			
 			btnNew.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					NavigationMenuButton btnSel = (NavigationMenuButton) event.getSource();

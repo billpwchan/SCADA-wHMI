@@ -194,6 +194,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 //			txtAttributeStatus[i].getElement().getStyle().setPadding(10, Unit.PX);	
 			txtAttributeStatus[i].setText(strHeadersStatus[i]);
 			txtAttributeStatus[i].setMaxLength(16);
+			txtAttributeStatus[i].setReadOnly(true);
 			txtAttributeStatus[i].setWidth("100%");
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
 		}
@@ -218,6 +219,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		Button btnClose = new Button("Close");
 		btnClose.setWidth("80px");
 		btnClose.setHeight("30px");
+		btnClose.addStyleName("project-gwt-button");
 		
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -226,6 +228,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	    });
 		
 		TextBox txtMsg = new TextBox();
+		txtMsg.setReadOnly(true);
 		txtMsg.setWidth("300px");
 		txtMsg.setHeight("40px");
 		

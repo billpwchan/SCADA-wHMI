@@ -3,27 +3,213 @@
 	<option key="M">
 		<type>M</type>
 	</option>
-	<option key="A">
+	<option key="1">
 		<type>S</type>
+		<name>Mimic Summary</name>
+		<title>Mimic Summary</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
-	<option key="B">
+	<option key="2">
 		<type>S</type>
+		<name>ACB &amp; 3.3kV Schematics</name>
+		<title>CTVB ACB &amp; 3.3kV Schematics</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
-	<option key="C">
+	<option key="3">
 		<type>S</type>
-		<name>3.3kV &amp; LV</name>
-		<title>3.3kV &amp; LV</title>
+		<name>ACB &amp; 3.3kV Schematics</name>
+		<title>SSVB ACB &amp; 3.3kV Schematics</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
-	<option key="D">
+	<option key="4">
 		<type>S</type>
-		<name>3.3kV &amp; LV</name>
-		<title>3.3kV &amp; LV</title>
+		<name>System Health</name>
+		<title>OCC - MCS - System Health</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="5">
+		<type>P</type>
+		<name>Notepad</name>
+		<title>MCS - Utilities - Notepad</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="6">
+		<type>P</type>
+		<name>Input Table</name>
+		<title>MCS - Utilities - Input Table</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="7">
+		<type>P</type>
+		<name>Real Time Report</name>
+		<title>MCS - Utilities - Real Time Report</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="8">
+		<type>P</type>
+		<name>Historical Report</name>
+		<title>MCS - Utilities - Historical Report</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="9">
+		<type>P</type>
+		<name>OPM</name>
+		<title>MCS - Utilities - OPM</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="10">
+		<type>S</type>
+		<name>Tunnel Overview</name>
+		<title>TECS Tunnel Overview</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="11">
+		<type>S</type>
+		<name>Overview</name>
+		<title>LMC/CTV/SSV Tunnel Overview</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="12">
+		<type>S</type>
+		<name>Mode</name>
+		<title>LMC/CTV/SSV - TECS - Mode</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="13">
+		<type>P</type>
+		<name>Timetable</name>
+		<title>LMC/CTV/SSV - TECS - Timetable</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="14">
+		<type>P</type>
+		<name>Congestion Mode</name>
+		<title>TECS Congestion Mode Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="15">
+		<type>S</type>
+		<name>Control Summary</name>
+		<title>TECS Control Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="16">
+		<type>S</type>
+		<name>Tunnel Temperature</name>
+		<title>LMC/CTV/SSV - TECS - Tunnel Temperature Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="17">
+		<type>S</type>
+		<name>Compressed Air</name>
+		<title>LMC/CTV/SSV - TECS - Compressed Air Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="18">
+		<type>S</type>
+		<name>Multisourced Data</name>
+		<title>LMC/CTV/SSV - TECS - Multisourced Data Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="19">
+		<type>S</type>
+		<name>Smoke Probe Unit</name>
+		<title>LMC/CTV/SSV - TECS - Smoke Probe Unit Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="20">
+		<type>S</type>
+		<name>CTV Overview</name>
+		<title>CTV - TECS - Overview</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="21">
+		<type>S</type>
+		<name>SSV Overview</name>
+		<title>SSV - TECS - Overview</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="22">
+		<type>S</type>
+		<name>Overview</name>
+		<title>KOT - TECS - Overview</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="23">
+		<type>S</type>
+		<name>Mode</name>
+		<title>KOT - TECS - Mode</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="24">
+		<type>P</type>
+		<name>Timetable</name>
+		<title>KOT - TECS - Timetable</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="25">
+		<type>S</type>
+		<name>Tunnel Temperature</name>
+		<title>KOT - TECS - Tunnel Temperature Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="26">
+		<type>S</type>
+		<name>Compressed Air</name>
+		<title>KOT - TECS - Compressed Air Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="27">
+		<type>S</type>
+		<name>Control Summary</name>
+		<title>LMC/CTV/SSV - TECS - Control Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="28">
+		<type>S</type>
+		<name>Control Summary</name>
+		<title>KOT - TECS - Control Summary</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="29">
+		<type>S</type>
+		<name>System Health</name>
+		<title>KOT - MCS - System Health</title>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+	</option>
+	<option key="30">
+		<type>S</type>
+		<name>System Health</name>
+		<title>LMC - MCS - System Health</title>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>

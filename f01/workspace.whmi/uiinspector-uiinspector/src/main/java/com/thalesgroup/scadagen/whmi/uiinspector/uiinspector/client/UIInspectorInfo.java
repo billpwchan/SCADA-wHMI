@@ -327,7 +327,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 								strLabelValue[x]			= value;
 								logger.log(Level.FINE, "setReadResult x["+x+"] strLabelValue["+strLabelValue[x]+"]");
 							} else if ( 0 == attribute.compareTo(strValueTable) ) {
-								strValueTableValue[x]			= value;
+								strValueTableValue[x]		= value;
 								logger.log(Level.FINE, "setReadResult x["+x+"] strValueTableValue["+strValueTableValue[x]+"]");
 							} else if ( 0 == attribute.compareTo(strValue) ) {
 								strValueValue[x]			= value;
@@ -501,6 +501,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			flexTableAttibutes.setWidget(i+1, 0, txtAttibuteLabel[i]);
 			txtAttribute[i].setWidth("95%");
 			txtAttribute[i].setText("ATTRIBUTE_STATUS_"+(i+1));
+			txtAttribute[i].setReadOnly(true);
 			txtAttribute[i].setMaxLength(16);
 			flexTableAttibutes.setWidget(i+1, 1, txtAttribute[i]);
 			txtAttibuteColor[i] = new InlineLabel();
@@ -518,6 +519,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		Button btnUp = new Button();
 		btnUp.setWidth("50px");
 		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
+		btnUp.addStyleName("project-gwt-button");
 		btnUp.setText("Up");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -534,6 +536,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		Button btnDown = new Button();
 		btnDown.setWidth("50px");
 		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
+		btnDown.addStyleName("project-gwt-button");
 		btnDown.setText("Down");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -544,6 +547,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		
 		Button btnAckCurPage = new Button();
 		btnAckCurPage.getElement().getStyle().setPadding(10, Unit.PX);
+		btnAckCurPage.addStyleName("project-gwt-button");
 		btnAckCurPage.setText("Alarm Ack on Curr Page");
 		btnAckCurPage.addClickHandler(new ClickHandler() {
 			

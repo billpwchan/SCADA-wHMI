@@ -92,6 +92,7 @@ public class UIScreenDSS implements UIScreen_i{
 		topLv2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		Button btnCloseDssPanel = new Button();
 		btnCloseDssPanel.setSize("200px", "30px");
+		btnCloseDssPanel.addStyleName("project-gwt-button");
 		btnCloseDssPanel.setText("Close DSS Panel");
 		btnCloseDssPanel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -175,6 +176,7 @@ public class UIScreenDSS implements UIScreen_i{
 					String name = btnPlayTools[i];
 					Button btn = new Button();
 					btn.setSize(40+"px", 40+"px");
+					btn.addStyleName("project-gwt-button");
 					btn.setText(name);
 					hInfoResc2.add(btn);
 				}
@@ -435,9 +437,11 @@ public class UIScreenDSS implements UIScreen_i{
 		buttonBar.setHeight("100%");
 		
 		Button btnHome = new Button();
+		btnHome.addStyleName("project-gwt-button");
 		btnHome.setText("Home");
 		
 		Button btnBack = new Button();
+		btnBack.addStyleName("project-gwt-button");
 		btnBack.setText("Back");
 		
 		buttonBar.add(btnHome);

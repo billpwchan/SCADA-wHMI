@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -22,10 +21,6 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.Tas
 public class UIPanelMenus implements NavigationMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelMenus.class.getName());
-
-	public static final String UNIT_PX = "px";
-
-	public static final String IMAGE_PATH = "imgs";
 		
 	private NavigationMgr navigationMgr = null;
 
@@ -69,9 +64,9 @@ public class UIPanelMenus implements NavigationMgrEvent {
 		
 		HorizontalPanel menuBar = new HorizontalPanel();
 		menuBar.setWidth("160px");
-		menuBar.getElement().getStyle().setPadding(10, Unit.PX);
+//		menuBar.getElement().getStyle().setPadding(10, Unit.PX);
 		menuBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		menuBar.addStyleName("project-gwt-panel-navigation");
+		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
 		addMenuBar(new Integer(level), menuBar);
 		
 		logger.log(Level.FINE, "getHorizontalMenu End");
@@ -86,7 +81,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 		VerticalPanel menuBar = new VerticalPanel();
 		menuBar.setWidth("160px");
 		menuBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		menuBar.addStyleName("project-gwt-panel-navigation");
+		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
 		addMenuBar(new Integer(level), menuBar);
 		
 		logger.log(Level.FINE, "getVerticalMenu End");
@@ -99,6 +94,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 		logger.log(Level.FINE, "setMenu Begin");
 		
 		FlowPanel menuBar = new FlowPanel();
+		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
 		addMenuBar(new Integer(level), menuBar);
 		
 		logger.log(Level.FINE, "getFlowMenu End");
@@ -109,9 +105,9 @@ public class UIPanelMenus implements NavigationMgrEvent {
 	@Override
 	public void setMenu(int level, String header, String launchHeader, boolean executeTask) {
 		
-		logger.log(Level.FINE, "setMenu Begin");
+		logger.log(Level.SEVERE, "setMenu Begin");
 		
-		logger.log(Level.FINE, "setMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.log(Level.SEVERE, "setMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
 
 		cascadeClearMenu(level);
 		
@@ -129,7 +125,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 			
 		}
 
-		logger.log(Level.FINE, "setMenu End");
+		logger.log(Level.SEVERE, "setMenu End");
 	}
 
 	private void cascadeClearMenu(int panelLevelToClear) {
@@ -165,7 +161,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 			NavigationMenuButton btnNew = new NavigationMenuButton(name);
 			buttons.put(taskLaunch.getHeader(), btnNew);
 			btnNew.setTaskLaunch(taskLaunch);
-			btnNew.addStyleName("project-gwt-button-navigation");
+			btnNew.addStyleName("project-gwt-button-navigation-"+level);
 			
 			btnNew.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -231,50 +227,50 @@ public class UIPanelMenus implements NavigationMgrEvent {
 	
 	private void onClickAction(NavigationMenuButton btnSel, String launchHeader, boolean executeTask) {
 		
-		logger.log(Level.FINE, "onClickAction Begin");
+		logger.log(Level.SEVERE, "onClickAction Begin");
+		
+		logger.log(Level.SEVERE, "onClickAction btnSel.getText()["+btnSel.getText()+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
 
 		ComplexPanel parent = (ComplexPanel) btnSel.getParent();
-
-		if ( ! btnSel.isHightLight() ) {
-			for (int c = 0; c < parent.getWidgetCount(); c++) {
-				NavigationMenuButton btn = (NavigationMenuButton) parent.getWidget(c);
-				if (btn != btnSel) {
-					btn.setHightLight(false);
-					
-				} else {
-					btn.setHightLight(true);
-
-					UITaskLaunch task = btnSel.getTaskLaunch();
-					
-					logger.log(Level.FINE, "onClickAction Selected Button Header["+task.getHeader()+"]");
-
-					int level = btnSel.getTaskLaunch().getTaskLevel();
-					int levelNext = level + 1;
-
-					if ( TaskLaunchType.MENU == task.getTaskLaunchType()) {
-						
-						logger.log(Level.FINE, "onClickAction is TaskType.MENU");
-						
-						setMenu(levelNext, task.getHeader(), launchHeader, true);
-						
-					} else {
-						
-						logger.log(Level.FINE, "onClickAction executeTask["+executeTask+"]");
-						
-						if ( executeTask ) {
-						
-							task.setTaskUiScreen(this.uiNameCard.getUiScreen());
-							
-							logger.log(Level.FINE, "onClickAction Execute Task["+task.getHeader()+"] on Screen["+task.getTaskUiScreen()+"]");
-							
-							this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(task));
-						}
-					}
-				}
-			} // for
+		
+		UITaskLaunch task = btnSel.getTaskLaunch();
+		int level = btnSel.getTaskLaunch().getTaskLevel();
+		int levelNext = level + 1;
+		
+		cascadeClearMenu(levelNext);
+		
+		for ( int c = 0 ; c < parent.getWidgetCount(); ++c ) {
+			NavigationMenuButton btn = (NavigationMenuButton) parent.getWidget(c);
+			if (btn != btnSel) {
+				btn.setHightLight(false);
+			}
 		}
 		
-		logger.log(Level.FINE, "onClickAction End");
+		btnSel.setHightLight(true);
+		
+		logger.log(Level.FINE, "onClickAction Selected Button Header["+task.getHeader()+"]");
+
+		if ( TaskLaunchType.MENU == task.getTaskLaunchType()) {
+			
+			logger.log(Level.FINE, "onClickAction is TaskType.MENU");
+			
+			setMenu(levelNext, task.getHeader(), launchHeader, executeTask);
+			
+		} else {
+			
+			logger.log(Level.SEVERE, "onClickAction executeTask["+executeTask+"]");
+			
+			if ( executeTask ) {
+			
+				task.setTaskUiScreen(this.uiNameCard.getUiScreen());
+				
+				logger.log(Level.SEVERE, "onClickAction Execute Task["+task.getHeader()+"] on Screen["+task.getTaskUiScreen()+"]");
+				
+				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(task));
+			}
+		}
+		
+		logger.log(Level.SEVERE, "onClickAction End");
 	}
 
 	public void readyToGetMenu(String profile, String location, int level, String header) {

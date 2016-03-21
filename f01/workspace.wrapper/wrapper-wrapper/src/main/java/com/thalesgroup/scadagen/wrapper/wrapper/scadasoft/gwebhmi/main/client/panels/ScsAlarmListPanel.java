@@ -33,7 +33,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dict
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.WrapperScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view.ScsGenericDataGridView;
 /**
@@ -269,7 +268,7 @@ public class ScsAlarmListPanel extends ResizeComposite
                 	strCssResult += _NA;
                 }
                 
-logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
+logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
                 
@@ -354,9 +353,9 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
     }
     private String [] counterNames;
     public void setCounterNames(String [] counterNames) {
-    	logger.log(Level.SEVERE, "setCounterNames counterNames");
+    	logger.log(Level.FINE, "setCounterNames counterNames");
     	for(String s: counterNames) {
-    		logger.log(Level.SEVERE, "setCounterNames s["+s+"]");
+    		logger.log(Level.FINE, "setCounterNames s["+s+"]");
     	}
     	this.counterNames = counterNames;
     }
@@ -368,14 +367,14 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
     @Override
     public void onCounterChange(GDGCounterChangeEvent event) {
         if (event.getSource() == gridPresenter_) {
-        	logger.log(Level.SEVERE, "onCounterChange");
+        	logger.log(Level.FINE, "onCounterChange");
         	try {
 	        	Iterator<Entry<String, Integer>> iter = hashMap.entrySet().iterator();
 	        	while (iter.hasNext()) {
 	        	    Entry<String, Integer> entry = iter.next();
 	        	    String key = entry.getKey();
 	        	    Integer value = entry.getValue();
-	        	    logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
+	        	    logger.log(Level.FINE, "onCounterChange key["+key+"] value["+value+"]");
 	        	    if ( null != value ) hashMap.put(key, value);
 	        	} 
 	        	/*
@@ -411,14 +410,14 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
 	            	for ( int i = 0 ; i < counterNames.length ; ++i ) {
 	                	String n = counterNames[i];
 	                    Integer v = event.getValues().get(n);
-	                    logger.log(Level.SEVERE, "onCounterChange n["+n+"] v["+v+"]");
+	                    logger.log(Level.FINE, "onCounterChange n["+n+"] v["+v+"]");
 	                    if (null != v) wrapperScsAlarmListPanelEvent.valueChanged(n, v);
 	            	}            	
 	            } else {
-	            	logger.log(Level.SEVERE, "onCounterChange wrapperScsAlarmListPanelEvent is NULL");
+	            	logger.log(Level.FINE, "onCounterChange wrapperScsAlarmListPanelEvent is NULL");
 	            }
         	} catch (Exception e ) {
-        		logger.log(Level.SEVERE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
+        		logger.log(Level.FINE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
         	}
         }
     }

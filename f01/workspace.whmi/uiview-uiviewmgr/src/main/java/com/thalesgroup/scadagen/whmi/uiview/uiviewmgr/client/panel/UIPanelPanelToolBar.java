@@ -132,8 +132,7 @@ public class UIPanelPanelToolBar {
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewAlarm");
-			taskLaunch.setFirst("Alarm");
-			taskLaunch.setLast("Summary");
+			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( 0 == label.compareToIgnoreCase("Event Summary") ){
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -141,8 +140,7 @@ public class UIPanelPanelToolBar {
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewEvent");
-			taskLaunch.setFirst("Event");
-			taskLaunch.setLast("Summary");
+			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		}
 	}

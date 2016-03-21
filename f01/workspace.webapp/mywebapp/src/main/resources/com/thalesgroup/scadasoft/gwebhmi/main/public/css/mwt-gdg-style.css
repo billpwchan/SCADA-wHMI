@@ -1,7 +1,7 @@
 @external .*;
 
 .mainContainer {
-    background-color: #BEBEBE; /* PATTERN : GREY-4 */
+    background-color: lightgrey; /* PATTERN : GREY-4 */
 }
 
    
@@ -21,6 +21,7 @@
 /* find another way to override that property */
 .grid div {
   opacity: 1 !important;
+  font-size: 16px;
 }
 
 .dataGridWidget {
@@ -165,6 +166,7 @@
   padding: 4px 8px;
   text-align: center;
   color: black;
+  font-size: 16px;
 }
 
 .button {

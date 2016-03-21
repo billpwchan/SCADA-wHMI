@@ -3,14 +3,11 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -80,26 +77,26 @@ public class UIScreenMMI implements UIScreen_i {
 		// North Bar
 		logger.log(Level.FINE, "getMainPanel North Bar Begin");
 		
-		String basePath		= GWT.getModuleBaseURL();
+//		String basePath		= GWT.getModuleBaseURL();
 
 		DockLayoutPanel statusBar = new UIPanelStatusBar().getMainPanel(this.uiNameCard);
 
-		HorizontalPanel mtrPanel = new HorizontalPanel();
-		mtrPanel.setWidth("100%");
-		mtrPanel.setHeight("100%");
-		mtrPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		mtrPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		mtrPanel.addStyleName("project-gwt-panel-north");
-		mtrPanel.add(new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CUSTOMER_LOGIN_NAME));
+//		HorizontalPanel mtrPanel = new HorizontalPanel();
+//		mtrPanel.setWidth("100%");
+//		mtrPanel.setHeight("100%");
+//		mtrPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//		mtrPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		mtrPanel.addStyleName("project-gwt-panel-north");
+//		mtrPanel.add(new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CUSTOMER_LOGIN_NAME));
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.addStyleName("project-gwt-panel-north");
 
-		dockLayoutPanel.addNorth(statusBar, 32);
-		dockLayoutPanel.addEast(mtrPanel, 160);
+		dockLayoutPanel.addNorth(statusBar, 42);
+//		dockLayoutPanel.addEast(mtrPanel, 160);
 
 		DockLayoutPanel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
-		alarmBanner.setWidth("1900px");
+		alarmBanner.setWidth("100%");
 		alarmBanner.setHeight("100%");
 		dockLayoutPanel.add(alarmBanner);
 
@@ -112,16 +109,16 @@ public class UIScreenMMI implements UIScreen_i {
 		HorizontalPanel menuBarLv1 = uiPanelmenu.getHorizontalMenu(1);
 		menuBarLv1.setWidth(menubarWidth);
 //		menuBarLv1.setBorderWidth(LAYOUT_BORDER);
-		menuBarLv1.getElement().getStyle().setPadding(10, Unit.PX);
+//		menuBarLv1.getElement().getStyle().setPadding(10, Unit.PX);
 		menuBarLv1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		menuBarLv1.addStyleName("project-gwt-panel-south");
 
-		Panel AccessBar = new UIPanelAccessBar().getMainPanel(this.uiNameCard);
+		Panel accessBar = new UIPanelAccessBar().getMainPanel(this.uiNameCard);
 
 		SplitLayoutPanel splitLayoutPanelSouth = new SplitLayoutPanel(0);
 		splitLayoutPanelSouth.addStyleName("project-gwt-panel-south");
 		splitLayoutPanelSouth.addLineStart(menuBarLv1, BUTTON_WIDTH * 20);
-		splitLayoutPanelSouth.addLineEnd(AccessBar, UIScreenMMI.IMG_BTN_WIDTH * 7 + 10);
+		splitLayoutPanelSouth.addLineEnd(accessBar, ( UIScreenMMI.IMG_BTN_WIDTH * 9 ) + 10);
 
 		logger.log(Level.FINE, "getMainPanel South Bar End");
 		// End of South
@@ -179,16 +176,16 @@ public class UIScreenMMI implements UIScreen_i {
 		// End of Main Area
 
 		logger.log(Level.FINE, "getMainPanel Adding North to base...");
-		basePanel.addNorth(dockLayoutPanel, NORTH_HIGHT);
+		basePanel.addNorth(dockLayoutPanel, 		NORTH_HIGHT);
 
 		logger.log(Level.FINE, "getMainPanel Adding West to base...");
-		basePanel.addWest(verticalPanelWest, WEST_WIDTH);
+		basePanel.addWest(verticalPanelWest, 		WEST_WIDTH);
 
 		logger.log(Level.FINE, "getMainPanel Adding South to base...");
-		basePanel.addSouth(splitLayoutPanelSouth, SOUTH_HIGHT);
+		basePanel.addSouth(splitLayoutPanelSouth, 	SOUTH_HIGHT);
 
 		logger.log(Level.FINE, "getMainPanel Adding East to base...");
-		basePanel.addEast(verticalPanelEast, EAST_WIDTH);
+		basePanel.addEast(verticalPanelEast, 		EAST_WIDTH);
 
 		logger.log(Level.FINE, "getMainPanel Adding Main to base...");
 		basePanel.add(manAreaPanel);

@@ -19,61 +19,58 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory.TaskType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
+import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 
 public class UIPanelAccessBar implements UIPanel_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelAccessBar.class.getName());
-	
-	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 0;	
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
-	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
+
 	public static final String IMAGE_PATH	= "imgs";
 	
-	public static final int BUTTON_WIDTH	= 128;
-	public static final int BUTTON_HIGHT	= 30;	
-	public static final int FUNTION_WIDTH	= 128;
-	public static final int IMG_BTN_WIDTH	= 45;
-		
-	public static final int EAST_WIDTH		= 160;
-	public static final int SOUTH_HIGHT		= 50;
-	public static final int WEST_WIDTH		= 160;
-	public static final int NORTH_HIGHT		= 150;
+	private String baseURL								= GWT.getModuleBaseURL();
 	
-	private String basePath = GWT.getModuleBaseURL();
+	private String basePath								= baseURL + IMAGE_PATH+"/hscs/";
 	
-//	private String strTipsBack 			= "History Back";
-	private String strPrevious 			= basePath + IMAGE_PATH+"/hscs/Previous.png";
-	private String strPreviousDisable 	= basePath + IMAGE_PATH+"/hscs/PreviousDisable.png";
-//	private String strTipsForward 		= "History Forward";
-	private String strNext 				= basePath + IMAGE_PATH+"/hscs/Next.png";
-	private String strNextDisable		= basePath + IMAGE_PATH+"/hscs/NextDisable.png";
+	private String strTipsHorizontalSplit				= "Horizontal Split";
+	private String strSplitH							= "SplitH.png";
 	
-	private String strHelp 				= basePath + IMAGE_PATH+"/hscs/help.png";
+	private String strTipsHorizontalSplitDisabled		= "Horizontal Split Disabled";
+	private String strSplitHDisable						= "SplitHDisable.png";
 	
-//	String strAlarm 			= basePath + IMAGE_PATH+"/hscs/Alarm_Green.png";
+	private String strTipVerticalSplit					= "Vertical Split";
+	private String strSplitV							= "SplitV.png";
 	
-	private String strEmergency 		= basePath + IMAGE_PATH+"/hscs/Emergency.png";
+	private String strTipVerticalSplitDisabled			= "Vertical Split Disabled";
+	private String strSplitVDisable						= "SplitVDisable.png";
 	
-	private String strPrint 			= basePath + IMAGE_PATH+"/hscs/Print.png";
+	private String strTipBack 							= "History Back";
+	private String strPrevious 							= "Previous.png";
 	
-	private String strDSS 				= basePath + IMAGE_PATH+"/hscs/DSS.png";	
-	private String strLogout 			= basePath + IMAGE_PATH+"/hscs/Logout.PNG";
+	private String strTipBackDisabled					= "History Back Disabled";
+	private String strPreviousDisable 					= "PreviousDisable.png";
 	
-//	private Button btnBack;
-//	private Button btnForward;
+	private String strTipForward 						= "History Forward";
+	private String strNext 								= "Next.png";
+	
+	private String strTipForwardDisabled 				= "History Forward Disabled";
+	private String strNextDisable						= "NextDisable.png";
+	
+	private String strTipHelp 							= "Help";
+	private String strHelp 								= "help.png";
+	
+	private String strTipEmergency 						= "Station Operation";
+	private String strEmergency 						= "Emergency.png";
+	
+	private String strTipPrintScreen					= "Print Screen";
+	private String strPrint 							= "Print.png";
+	
+	private String strTipsDSS							= "Decision Support System";
+	private String strDSS 								= "DSS.png";
+	
+	private String strTipsLogout						= "Logout";
+	private String strLogout 							= "Logout.PNG";
 	
 	private HashMap<String, Button> mapStrBtn;
 	private Button buttons[];
@@ -87,13 +84,14 @@ public class UIPanelAccessBar implements UIPanel_i {
 		this.uiNameCard.appendUIPanel(this);
 		
 		HorizontalPanel buttonBar = new HorizontalPanel();
-		buttonBar.setBorderWidth(LAYOUT_BORDER);
-		buttonBar.getElement().getStyle().setPadding(1, Unit.PX);
+		buttonBar.addStyleName("project-gwt-panel-accessbar-buttonbar");
 		buttonBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		buttonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 				
 		String strImgs [] = new String[] {
-				strPrevious
+				strSplitH
+				, strSplitV
+				, strPrevious
 				, strNext
 				, strHelp
 				, strDSS
@@ -103,15 +101,29 @@ public class UIPanelAccessBar implements UIPanel_i {
 				, strLogout
 		};
 		
+		String strTips [] = new String[] {
+				strTipsHorizontalSplit
+				, strTipVerticalSplit
+				, strTipBack
+				, strTipForward
+				, strTipHelp
+				, strTipsDSS
+//				, strAlarm
+				, strTipEmergency
+				, strTipPrintScreen
+				, strTipsLogout
+		};
+		
+		
 		buttons = new Button[strImgs.length];
 		mapStrBtn = new HashMap<String, Button>();
 		
 		for(int i=0;i<strImgs.length;i++){
 			buttons[i] = new Button();
 			mapStrBtn.put(strImgs[i], buttons[i]);
-			buttons[i].setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+strImgs[i]+"\" width=\"32px\" height=\"32px\"></center></br></div>");
-			buttons[i].setSize(IMG_BTN_WIDTH+UNIT_PX, IMG_BTN_WIDTH+UNIT_PX);
-			buttons[i].addStyleName("project-gwt-button");
+			buttons[i].setTitle(strTips[i]);
+			buttons[i].setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+basePath+strImgs[i]+"\" width=\"32px\" height=\"32px\"></center></br></div>");
+			buttons[i].addStyleName("project-gwt-button-accessbar");
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
 					onButtonClick((Button)event.getSource());
@@ -134,6 +146,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 		});
 
  		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
+ 		dockLayoutPanel.addStyleName("project-gwt-panel-accessbar");
  		dockLayoutPanel.add(buttonBar);
  		
  		logger.log(Level.FINE, "getMainPanel End");
@@ -148,32 +161,114 @@ public class UIPanelAccessBar implements UIPanel_i {
 		logger.log(Level.FINE, "setHistoryButton taskHistory.getTaskType()["+taskHistory.getTaskType()+"]");
 		
 		Button button = null;
+		String strName = "";
+		String strSrc = "";
+		String strTip = "";
 		switch (taskHistory.getTaskType()) {
 		case PreviousEnable:
-			button = mapStrBtn.get(strPrevious);
-			button.setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+strPrevious+"\" width=\"32px\" height=\"32px\"></center></br></div>");
-			button.setEnabled(true);
+			strName = strPrevious;
+			strSrc = strPrevious;
+			strTip = strTipBack;
 			break;
 		case PreviousDisable:
-			button = mapStrBtn.get(strPrevious);
-			button.setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+strPreviousDisable+"\" width=\"32px\" height=\"32px\"></center></br></div>");
-			button.setEnabled(true);
+			strName = strPrevious;
+			strSrc = strPreviousDisable;
+			strTip = strTipBackDisabled;
 			break;
 		case NextEnable:
-			button = mapStrBtn.get(strNext);
-			button.setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+strNext+"\" width=\"32px\" height=\"32px\"></center></br></div>");
-			button.setEnabled(true);
+			strName = strNext;
+			strSrc = strNext;
+			strTip = strTipForward;
 			break;
 		case NextDisable:
-			button = mapStrBtn.get(strNext);
-			button.setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+strNextDisable+"\" width=\"32px\" height=\"32px\"></center></br></div>");
+			strName = strNext;
+			strSrc = strNextDisable;
+			strTip = strTipForwardDisabled;
+			break;
+		default:
+			break;
+		}
+	
+		button = mapStrBtn.get(strName);
+		if ( null != button ) {
+			button.setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+basePath+strSrc+"\" width=\"32px\" height=\"32px\"></center></br></div>");
+			button.setTitle(strTip);
 			button.setEnabled(true);
+		}
+		
+		logger.log(Level.FINE, "setHistoryButton End");
+	}
+	
+	private void setSplitButton(UITaskSplit taskSplit) {
+		
+		logger.log(Level.SEVERE, "setSplitButton Begin");
+		
+		logger.log(Level.SEVERE, "setSplitButton taskSplit.getTaskType()["+taskSplit.getTaskType()+"]");
+		
+		Button button = null;
+		String strName = "";
+		String strSrc = "";
+		String strTip = "";
+		boolean hightLight = false;
+		String styleName = null;
+		boolean enable = false;
+		switch (taskSplit.getTaskType()) {
+		case HorizontalHightLight:
+			hightLight = true;
+		case HorizontalEnable:
+			strName = strSplitH;
+			strSrc = strSplitH;
+			strTip = strTipsHorizontalSplit;
+			enable = true;
+			styleName = "project-gwt-button-split-h-selected";
+			break;
+		case HorizontalDisable:
+			strName = strSplitH;
+			strSrc = strSplitHDisable;
+			strTip = strTipsHorizontalSplitDisabled;
+			enable = false;
+			styleName = "project-gwt-button-split-h-selected";
+			break;
+		case VerticalHightLight:
+			hightLight = true;
+		case VerticalEnable:
+			strName = strSplitV;
+			strSrc = strSplitV;
+			strTip = strTipVerticalSplit;
+			enable = true;
+			styleName = "project-gwt-button-split-v-selected";
+			break;
+		case VerticalDisable:
+			strName = strSplitV;
+			strSrc = strSplitVDisable;
+			strTip = strTipVerticalSplitDisabled;
+			enable = false;
+			styleName = "project-gwt-button-split-v-selected";
 			break;
 		default:
 			break;
 		}
 		
-		logger.log(Level.FINE, "setHistoryButton End");
+		button = mapStrBtn.get(strName);
+		if ( null != button ) {
+			button.setHTML("<div width=\"90px\" height=\"32px\"><center><img src=\""+basePath+strSrc+"\" width=\"32px\" height=\"32px\"></center></br></div>");
+			button.setTitle(strTip);
+			button.setEnabled(enable);
+			
+			logger.log(Level.SEVERE, "setSplitButton addStyleName["+styleName+"] hightLight["+hightLight+"]");
+	
+			
+			if ( null != styleName ) {
+				if ( hightLight ) {
+					button.addStyleName(styleName);
+				} else {
+					button.removeStyleName(styleName);
+				}		
+			}
+			
+		}
+		
+		logger.log(Level.SEVERE, "setSplitButton End");
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
@@ -194,6 +289,13 @@ public class UIPanelAccessBar implements UIPanel_i {
 						UITaskHistory taskHistory = (UITaskHistory)taskProvide;				
 						
 						setHistoryButton(taskHistory);
+					} else if ( UITaskMgr.isInstanceOf(UITaskSplit.class, taskProvide)){
+						
+						logger.log(Level.SEVERE, "onUIEvent taskProvide is UITaskSplit");
+						
+						UITaskSplit taskSplit = (UITaskSplit)taskProvide;				
+						
+						setSplitButton(taskSplit);
 					}
 				}
 			}
@@ -202,6 +304,8 @@ public class UIPanelAccessBar implements UIPanel_i {
 	}
 	
 	void onButtonClick ( Button button ) {
+		
+		
 		if ( button.getHTML().indexOf(strLogout) != -1 ) {
 			
 			logger.log(Level.FINE, "onButtonClick strLogout");
@@ -212,7 +316,9 @@ public class UIPanelAccessBar implements UIPanel_i {
 			taskLaunch.setUiPanel("UIDialogMsg");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		
-		} else if ( button.getHTML().indexOf(strDSS) != -1 ) {
+		}
+		
+		if ( button.getHTML().indexOf(strDSS) != -1 ) {
 			
 			logger.log(Level.FINE, "onButtonClick strDSS");
 			
@@ -222,7 +328,9 @@ public class UIPanelAccessBar implements UIPanel_i {
 			taskLaunch.setUiPanel("UIScreenDSS");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			
-		} else if ( button.getHTML().indexOf(strPreviousDisable) != -1 ) {
+		}
+		
+		if ( button.getHTML().indexOf(strPreviousDisable) != -1 ) {
 			
 			logger.log(Level.FINE, "onButtonClick strPreviousDisable");
 			
@@ -233,7 +341,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 			UITaskHistory taskHistory = new UITaskHistory();
 			taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskHistory.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
-			taskHistory.setTaskType(TaskType.Previous);
+			taskHistory.setTaskType(UITaskHistory.TaskType.Previous);
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistory));
 	
 		} else if ( button.getHTML().indexOf(strNextDisable) != -1 ) {
@@ -247,12 +355,38 @@ public class UIPanelAccessBar implements UIPanel_i {
 			UITaskHistory taskHistory = new UITaskHistory();
 			taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskHistory.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
-			taskHistory.setTaskType(TaskType.Next);
+			taskHistory.setTaskType(UITaskHistory.TaskType.Next);
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistory));
+
+		}
 		
-		} else {
+		if ( button.getHTML().indexOf(strSplitHDisable) != -1 ) {
+					
+			logger.log(Level.SEVERE, "onButtonClick strSplitHDisable");
 			
-//			Window.alert("Assert to operation:" + button.getText());
+		} else if ( button.getHTML().indexOf(strSplitH) != -1 ) {
+			
+			logger.log(Level.SEVERE, "onButtonClick strSplitH");
+			
+			UITaskSplit taskSplit = new UITaskSplit();
+			taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
+			taskSplit.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+			taskSplit.setTaskType(UITaskSplit.SplitType.Horizontal);
+			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
+
+		} else if ( button.getHTML().indexOf(strSplitVDisable) != -1 ) {
+			
+			logger.log(Level.SEVERE, "onButtonClick strSplitVDisable");
+			
+		} else if ( button.getHTML().indexOf(strSplitV) != -1 ) {
+			
+			logger.log(Level.SEVERE, "onButtonClick strSplitV");
+			
+			UITaskSplit taskSplit = new UITaskSplit();
+			taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
+			taskSplit.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+			taskSplit.setTaskType(UITaskSplit.SplitType.Vertical);
+			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 			
 		}
 	}

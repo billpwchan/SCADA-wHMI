@@ -21,8 +21,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 public class UIPanelViewPanel implements UIPanelViewProvide {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewPanel.class.getName());
-	
-	public static final String UNIT_PX = "px";
 
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	@Override

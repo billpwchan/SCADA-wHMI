@@ -10,7 +10,7 @@ public class ViewLayoutHistoryMgr {
 	
 	private static Logger logger = Logger.getLogger(ViewLayoutHistoryMgr.class.getName());
 
-	private static int HISTORY_LIMIT = 12;
+	private static int HISTORY_LIMIT = 20;
 	
 	private int index=0;
 	public int getIndex() { return index; }
@@ -113,22 +113,25 @@ public class ViewLayoutHistoryMgr {
 		
 		return next;
 	}
-	public void debug() {
+
+	public void debug(String prefix) {
 		
-		logger.log(Level.FINE, "debug Begin");
+		logger.log(Level.SEVERE, "debug "+prefix+" Begin");
 		
-		logger.log(Level.FINE, "debug viewLayoutHistorys.size()["+viewLayoutHistorys.size()+"]");
+		logger.log(Level.SEVERE, "debug "+prefix+" taskLaunchs.length: [" + viewLayoutHistorys.size() +"]");
+		logger.log(Level.SEVERE, "debug "+prefix+" index: [" + index +"]");
 		
-		for(int i=0;i<viewLayoutHistorys.size();i++){
-			ViewLayoutHistory history = viewLayoutHistorys.get(i);
-			if ( null != history ) {
-				logger.log(Level.FINE, "debug ViewLayoutHistorys at ["+i+"]...");
+		for ( int i = 0 ; i < viewLayoutHistorys.size() ; ++i ) {
+			ViewLayoutHistory viewLayoutHistory = viewLayoutHistorys.get(i);
+			if ( null != viewLayoutHistory ) {
+				logger.log(Level.SEVERE, "debug "+prefix+" viewLayoutHistory(" + i + ")[" + viewLayoutHistorys.size() + "]");
+				viewLayoutHistory.debug("viewLayoutHistory(" + i + ")");
 			} else {
-				logger.log(Level.FINE, "debug ViewLayoutHistorys at ["+i+"] is null");
+				logger.log(Level.SEVERE, "debug "+prefix+" viewLayoutHistory(" + i + ") is null");
 			}
 		}
 		
-		logger.log(Level.FINE, "debug End");
+		logger.log(Level.SEVERE, "debug "+prefix+" End");
 		
 	}
 }

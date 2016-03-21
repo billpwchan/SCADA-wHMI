@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.FontStyle;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,7 +15,6 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextArea;
 
 public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEvent {
@@ -55,7 +53,7 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 	public UITask_i getTaskProvideNo() { return taskProvideNo; }
 	public void setTaskProvideNo(UITask_i taskProvideNo) { this.taskProvideNo = taskProvideNo; }
 	
-	private InlineLabel lblTitle;
+//	private InlineLabel lblTitle;
 	private Image image;
 	private TextArea txtMsg;
 	private Button btnOk;
@@ -83,7 +81,7 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		int baseWidth = 500;
 		int baseHeight = 200;
 		
-		lblTitle = new InlineLabel();
+//		lblTitle = new InlineLabel();
 		
 		image = new Image();
 
@@ -156,7 +154,9 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 				break;
 		}
 		
-		lblTitle.setText(title);
+		this.setText(title);
+		
+//		lblTitle.setText(title);
 		
 		txtMsg.setText(msg);
 		
@@ -165,15 +165,20 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);	
 		dockLayoutPanel.addStyleName("project-gwt-panel-dialogmsg");
 		
-		lblTitle.getElement().getStyle().setPadding(10, Unit.PX);
-		lblTitle.getElement().getStyle().setFontStyle(FontStyle.OBLIQUE);
+//		lblTitle.getElement().getStyle().setPadding(10, Unit.PX);
+//		lblTitle.getElement().getStyle().setFontStyle(FontStyle.OBLIQUE);
 		
-		btnOk.setWidth("100px");
-		btnCancel.setWidth("100px");
-		dockLayoutPanel.addNorth(lblTitle, 40);
+//		btnOk.setWidth("100px");
+//		btnCancel.setWidth("100px");
 		
-		btnBar.getElement().getStyle().setPadding(10, Unit.PX);		
-		btnBar.setWidth("100%");
+		btnOk.addStyleName("project-gwt-button-ok");
+		btnCancel.addStyleName("project-gwt-button-cancel");
+//		dockLayoutPanel.addNorth(lblTitle, 40);
+		
+//		btnBar.getElement().getStyle().setPadding(10, Unit.PX);		
+//		btnBar.setWidth("100%");
+//		btnBar.setWidth("100%");
+		btnBar.addStyleName("project-gwt-panel-btnbar");
 		dockLayoutPanel.addSouth(btnBar, 50);
 		
 		image.getElement().getStyle().setPadding(25, Unit.PX);  

@@ -74,34 +74,32 @@ public class UIInspectorControl {
 		});
 		
 		Button btnUp = new Button();
-		btnUp.setWidth("50px");
-		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
-		btnUp.addStyleName("project-gwt-button");
-		btnUp.setText("Up");
+//		btnUp.setWidth("50px");
+//		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
+		btnUp.addStyleName("project-gwt-button-inspector-up");
+		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
 			}
 		});
 		
 		InlineLabel lblPageNum = new InlineLabel();
-		lblPageNum.setWidth("50px");
-		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
+//		lblPageNum.setWidth("50px");
+//		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
 		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.setWidth("50px");
-		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
-		btnDown.addStyleName("project-gwt-button");
-		btnDown.setText("Down");
+//		btnDown.setWidth("50px");
+//		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
+		btnDown.addStyleName("project-gwt-button-inspector-down");
+		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
 			}
 		});	
 

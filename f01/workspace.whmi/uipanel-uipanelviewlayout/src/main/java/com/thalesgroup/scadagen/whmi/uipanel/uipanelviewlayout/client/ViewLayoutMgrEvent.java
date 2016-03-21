@@ -52,10 +52,10 @@ public interface ViewLayoutMgrEvent {
 	 */
 	void setActivateView(int viewIdActivate);
 	
-	/**
-	 * This should be called by ViewLayoutMgr only.
-	 * Update the Split Button UI
-	 */
-	void setSplitButton();
+//	/**
+//	 * This should be called by ViewLayoutMgr only.
+//	 * Update the Split Button UI
+//	 */
+//	void setSplitButton();
 }
 

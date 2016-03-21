@@ -16,12 +16,12 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorInfo;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccessEvent;
@@ -40,8 +40,8 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	
 	VerticalPanel basePanel;
 	
-	private Label lblEquipmentName;
-	private Label lblEquipmentAlias;
+//	private Label lblEquipmentName;
+//	private Label lblEquipmentAlias;
 	
 	private TextBox txtAttributeStatus[];
 
@@ -146,8 +146,10 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 			}
 		}
 		
-		lblEquipmentName.setText(" Equipment Type: "+lblEquipmentNameType + " ");
-		lblEquipmentAlias.setText(" Equipment Alias: "+lblEquipmentNameID + " ");
+		this.setText(lblEquipmentNameType);
+		
+//		lblEquipmentName.setText(" "+lblEquipmentNameType + " ");
+//		lblEquipmentAlias.setText(" "+lblEquipmentNameID + " ");
 		
 		txtAttributeStatus[0].setText((0==lblEquipmentControlable.compareTo("0")?"No":"Yes"));
 		
@@ -158,28 +160,28 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 	public void init() {
 		logger.log(Level.FINE, "init Begin");
 		
-		lblEquipmentName = new Label(" Equipment Type: XXXX_XXXX ");
-		lblEquipmentName.getElement().getStyle().setPadding(10, Unit.PX);
-		lblEquipmentName.addStyleName("project-gwt-inlinelabel-equipmentname");
+//		lblEquipmentName = new Label(" - ");
+//		lblEquipmentName.addStyleName("project-gwt-inlinelabel-equipmentname");
 		
-		lblEquipmentAlias = new Label(" Equipment Alias: XXXXX_XXXXX ");
-		lblEquipmentAlias.getElement().getStyle().setPadding(10, Unit.PX);
-		lblEquipmentAlias.addStyleName("project-gwt-inlinelabel-equipmentalias");
+//		lblEquipmentAlias = new Label(" XXXXX_XXXXX ");
+//		lblEquipmentAlias.addStyleName("project-gwt-inlinelabel-equipmentalias");
 		
-		VerticalPanel verticalPanelEqpName = new VerticalPanel();
-		verticalPanelEqpName.add(lblEquipmentName);
-		verticalPanelEqpName.add(lblEquipmentAlias);
+//		VerticalPanel verticalPanelTitle = new VerticalPanel();
+//		verticalPanelTitle.addStyleName("project-gwt-panel-title");
+//		verticalPanelTitle.add(lblEquipmentName);
+//		verticalPanelEqpName.add(lblEquipmentAlias);
 		
-		String strHeadersLabel [] = new String[] { "Equipment Control Right","Control Right Reserved","Equipment Handover Right" };
+		String strHeadersLabel [] = new String[] { "Control Right","Control Right Reserved","Handover Right" };
 		String strHeadersStatus [] = new String[] { "Yes / No","Not Reserved / Not", "Central / Station" };
 		
 		FlexTable flexTableHeader = new FlexTable();
-		flexTableHeader.setWidth("400px");
+//		flexTableHeader.setWidth("400px");
+		flexTableHeader.addStyleName("project-gwt-flextable-header");
 		txtAttributeStatus = new TextBox[strHeadersStatus.length];
 		for ( int i = 0 ; i < strHeadersLabel.length ; i++ ) {
 			InlineLabel inlineLabel = new InlineLabel(strHeadersLabel[i]);
 			inlineLabel.getElement().getStyle().setPadding(10, Unit.PX);	
-			inlineLabel.setWidth("100%");
+//			inlineLabel.setWidth("100%");
 			inlineLabel.addStyleName("project-gwt-inlinelabel-headerlabel");
 			flexTableHeader.setWidget(i, 0, inlineLabel);
 			txtAttributeStatus[i] = new TextBox();
@@ -187,7 +189,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 			txtAttributeStatus[i].setText(strHeadersStatus[i]);
 			txtAttributeStatus[i].setMaxLength(16);
 			txtAttributeStatus[i].setReadOnly(true);
-			txtAttributeStatus[i].setWidth("100%");
+//			txtAttributeStatus[i].setWidth("100%");
 			txtAttributeStatus[i].addStyleName("project-gwt-textbox-headervalue");
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
 		}
@@ -210,9 +212,9 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		tabPanel.selectTab(0);
 		
 		Button btnClose = new Button("Close");
-		btnClose.setWidth("80px");
-		btnClose.setHeight("30px");
-		btnClose.addStyleName("project-gwt-button");
+//		btnClose.setWidth("80px");
+//		btnClose.setHeight("30px");
+		btnClose.addStyleName("project-gwt-button-inspector-bottom-close");
 		
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -222,11 +224,13 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		
 		TextBox txtMsg = new TextBox();
 		txtMsg.setReadOnly(true);
-		txtMsg.setWidth("300px");
-		txtMsg.setHeight("40px");
+//		txtMsg.setWidth("300px");
+//		txtMsg.setHeight("40px");
+		txtMsg.addStyleName("project-gwt-textbox-inspector-bottom-message");
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.setWidth("100%");
+//		bottomBar.setWidth("100%");
+		bottomBar.addStyleName("project-gwt-panel-inspector-bottom");
 		bottomBar.getElement().getStyle().setPadding(10, Unit.PX);	
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.add(txtMsg);
@@ -235,7 +239,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		bottomBar.add(btnClose);
 		
 		basePanel = new VerticalPanel();
-		basePanel.add(verticalPanelEqpName);
+//		basePanel.add(verticalPanelTitle);
 		basePanel.add(flexTableHeader);
 		basePanel.add(tabPanel);
 		basePanel.add(bottomBar);

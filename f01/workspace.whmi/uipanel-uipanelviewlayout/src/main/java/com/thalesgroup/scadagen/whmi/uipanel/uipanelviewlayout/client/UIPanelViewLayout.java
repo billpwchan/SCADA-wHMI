@@ -5,19 +5,15 @@ import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.client.UIPanelMgr;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelView;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.viewtoolbar.UIPanelImageToolBar;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.viewtoolbar.UIPanelImageToolBarEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 
-public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, UIPanelImageToolBarEvent {
+public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewLayout.class.getName());
 		
@@ -36,9 +32,9 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 	
 	private DockLayoutPanel upperMainPanel;
 	
-	private UIPanelImageToolBar uiPanelImageToolBar = null;
-	private HorizontalPanel imageToolBar = null;
-	private VerticalPanel bottomToolBar = null;
+//	private UIPanelImageToolBar uiPanelImageToolBar = null;
+//	private HorizontalPanel imageToolBar = null;
+//	private VerticalPanel bottomToolBar = null;
 	
 	/**
 	 * @param viewId
@@ -50,11 +46,7 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 		
 		UIPanelView v = new UIPanelView(this, this.uiNameCard, viewId);
 		v.setViewId(viewId);
-		v.getPanel().getElement().getStyle().setBorderColor(RGB_BTN_SEL);
-		v.getPanel().setWidth("100%");
-		v.getPanel().setHeight("100%");
-		v.getPanel().addStyleName("project-gwt-panel-viewlayout-view");
-//		v.getPanel().add(new InlineLabel("View ID: "+viewId));
+		v.getPanel().addStyleName("project-gwt-panel-viewlayout-inner-view");
 		
 		logger.log(Level.FINE, "getView End");
 		
@@ -90,8 +82,7 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
 
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.setWidth("100%");
-		basePanel.setHeight("100%");
+		basePanel.addStyleName("project-gwt-panel-viewlayout-main");
 		
 		logger.log(Level.FINE, "getMainPanel End.");
 				
@@ -122,34 +113,29 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 			
 			logger.log(Level.FINE, "setLayout ViewLayoutMode.Image");
 						
-			uiPanelImageToolBar = new UIPanelImageToolBar();
-			imageToolBar = uiPanelImageToolBar.getMainPanel(this, this.uiNameCard);
-	
-			imageToolBar.setVisible(true);
-			
-			bottomToolBar = new VerticalPanel();
-			bottomToolBar.setBorderWidth(LAYOUT_BORDER);
-		    bottomToolBar.setWidth("100%");
-		    bottomToolBar.setHeight("100%");
-		    bottomToolBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		    bottomToolBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		    bottomToolBar.addStyleName("project-gwt-panel-viewlayout-bottomtoolbar");
-		    bottomToolBar.add(imageToolBar);
-			
-			basePanel.addSouth(bottomToolBar, 50);
-			
-//			basePanel.addSouth(imageToolBar, 50);
-			
-			
+//			uiPanelImageToolBar = new UIPanelImageToolBar();
+//			imageToolBar = uiPanelImageToolBar.getMainPanel(this, this.uiNameCard);
+//	
+//			imageToolBar.setVisible(true);
+//			
+//			bottomToolBar = new VerticalPanel();
+//			bottomToolBar.setBorderWidth(LAYOUT_BORDER);
+//		    bottomToolBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//		    bottomToolBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		    bottomToolBar.addStyleName("project-gwt-panel-viewlayout-bottomtoolbar");
+//		    bottomToolBar.add(imageToolBar);
+//			
+//			basePanel.addSouth(bottomToolBar, 50);
+//			
 			borderVisible = true;
 			
 		} else if ( ViewLayoutMode.Panel == viewLayoutMode ) {
 			
 			logger.log(Level.FINE, "setLayout ViewLayoutMode.Panel");
 			
-			bottomToolBar = null;
-			uiPanelImageToolBar = null;
-			imageToolBar = null;
+//			bottomToolBar = null;
+//			uiPanelImageToolBar = null;
+//			imageToolBar = null;
 		}
 		
 		basePanel.add(upperMainPanel);
@@ -165,14 +151,14 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 			uiPanelViews = createViews(2);
 			
 			uiPanelViews[0].setViewType(viewLayoutMode);
+			uiPanelViews[0].setViewAction(viewLayoutAction);
 			uiPanelViews[0].setBorderVisible(borderVisible);
 			uiPanelViews[1].setViewType(viewLayoutMode);
+			uiPanelViews[1].setViewAction(viewLayoutAction);
 			uiPanelViews[1].setBorderVisible(borderVisible);
 			
 			VerticalPanel vp = new VerticalPanel();
-		    vp.setWidth("100%");
-		    vp.setHeight("100%");
-			vp.setBorderWidth(LAYOUT_BORDER);
+			vp.addStyleName("project-gwt-panel-viewlayout-outer-view-vp");
 			DockLayoutPanel v0 = uiPanelViews[0].getPanel();
 			vp.add(v0);
 			
@@ -196,14 +182,14 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 			uiPanelViews = createViews(2);
 			
 			uiPanelViews[0].setViewType(viewLayoutMode);
+			uiPanelViews[0].setViewAction(viewLayoutAction);
 			uiPanelViews[0].setBorderVisible(borderVisible);
 			uiPanelViews[1].setViewType(viewLayoutMode);
+			uiPanelViews[1].setViewAction(viewLayoutAction);
 			uiPanelViews[1].setBorderVisible(borderVisible);
 			
 			HorizontalPanel hp = new HorizontalPanel();
-		    hp.setWidth("100%");
-		    hp.setHeight("100%");
-			hp.setBorderWidth(LAYOUT_BORDER);
+			hp.addStyleName("project-gwt-panel-viewlayout-outer-view-hp");
 			
 			DockLayoutPanel v0 = uiPanelViews[0].getPanel();
 			hp.add(v0);
@@ -307,58 +293,58 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent, 
 		logger.log(Level.FINE, "onViewIdActivateEvent End");
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent#setSplitButton()
-	 */
-	public void setSplitButton() {
-		logger.log(Level.FINE, "setSplitButton Begin");
-		
-		uiPanelImageToolBar.setButton(UIPanelImageBarEventType.HDouble, viewLayoutMgr.getViewAction()==ViewLayoutAction.HDoubleLayout);
-		
-		uiPanelImageToolBar.setButton(UIPanelImageBarEventType.VDouble, viewLayoutMgr.getViewAction()==ViewLayoutAction.VDoubleLayout);
-		
-		logger.log(Level.FINE, "setSplitButton End");
-	};
-
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.mmi.viewlayout.client.viewtoolbar.UIPanelImageToolBarEvent#onImageButtonEvent(com.thalesgroup.mmi.viewlayout.client.viewtoolbar.UIPanelImageToolBarEvent.UIPanelImageBarEventType)
-	 */
-	@Override
-	public void onImageButtonEvent(UIPanelImageBarEventType uiPanelImageBarEventType) {
-		
-		logger.log(Level.FINE, "onImageButtonEvent Begin");
-
-		switch (uiPanelImageBarEventType) 
-		{
-		case ZoomIn:
-			break;
-		case ZoomOut:
-			break;
-		case Zoom:
-			break;
-		case Locator:
-			break;
-		case VDouble:
-		{
-			logger.log(Level.FINE, "onImageButtonEvent VDouble");
-			
-			viewLayoutMgr.setSplitScreen(ViewLayoutAction.VDoubleLayout);
-		}
-			break;
-		case HDouble:
-		{
-			logger.log(Level.FINE, "onImageButtonEvent HDouble");
-			
-			viewLayoutMgr.setSplitScreen(ViewLayoutAction.HDoubleLayout);
-		}
-			break;
-		default:
-			logger.log(Level.FINE, "onButtonEvent Invald UIPanelImageBarEventType");
-			break;
-		}
-		
-		logger.log(Level.FINE, "onImageButtonEvent End");
-	}
+////	/* (non-Javadoc)
+////	 * @see com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent#setSplitButton()
+////	 */
+////	public void setSplitButton() {
+////		logger.log(Level.FINE, "setSplitButton Begin");
+////		
+////		uiPanelImageToolBar.setButton(UIPanelImageBarEventType.HDouble, viewLayoutMgr.getViewAction()==ViewLayoutAction.HDoubleLayout);
+////		
+////		uiPanelImageToolBar.setButton(UIPanelImageBarEventType.VDouble, viewLayoutMgr.getViewAction()==ViewLayoutAction.VDoubleLayout);
+////		
+////		logger.log(Level.FINE, "setSplitButton End");
+////	};
+//
+//	/* (non-Javadoc)
+//	 * @see com.thalesgroup.mmi.viewlayout.client.viewtoolbar.UIPanelImageToolBarEvent#onImageButtonEvent(com.thalesgroup.mmi.viewlayout.client.viewtoolbar.UIPanelImageToolBarEvent.UIPanelImageBarEventType)
+//	 */
+//	@Override
+//	public void onImageButtonEvent(UIPanelImageBarEventType uiPanelImageBarEventType) {
+//		
+//		logger.log(Level.FINE, "onImageButtonEvent Begin");
+//
+//		switch (uiPanelImageBarEventType) 
+//		{
+//		case ZoomIn:
+//			break;
+//		case ZoomOut:
+//			break;
+//		case Zoom:
+//			break;
+//		case Locator:
+//			break;
+//		case VDouble:
+//		{
+//			logger.log(Level.FINE, "onImageButtonEvent VDouble");
+//			
+////			viewLayoutMgr.setSplitScreen(ViewLayoutAction.VDoubleLayout);
+//		}
+//			break;
+//		case HDouble:
+//		{
+//			logger.log(Level.FINE, "onImageButtonEvent HDouble");
+//			
+////			viewLayoutMgr.setSplitScreen(ViewLayoutAction.HDoubleLayout);
+//		}
+//			break;
+//		default:
+//			logger.log(Level.FINE, "onButtonEvent Invald UIPanelImageBarEventType");
+//			break;
+//		}
+//		
+//		logger.log(Level.FINE, "onImageButtonEvent End");
+//	}
 
 	@Override
 	public void setActivateView(int viewIdActivate) {

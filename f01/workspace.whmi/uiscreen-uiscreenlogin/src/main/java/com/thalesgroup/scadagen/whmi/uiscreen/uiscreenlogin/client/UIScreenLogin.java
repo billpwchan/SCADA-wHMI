@@ -39,7 +39,7 @@ public class UIScreenLogin implements UIScreen_i {
 	public static final String IMAGE_PATH	= "imgs";
 
 	private static final String COMPANY_LOGO 	= "logologinmtr.jpg";
-	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
+//	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
 	
 	private String EMPTY							= "";
 	
@@ -49,7 +49,7 @@ public class UIScreenLogin implements UIScreen_i {
 	
 	private TextBox txtOperator;
 	private ListBox listBoxProfile;
-	private PasswordTextBox passwordTextBox;
+	private PasswordTextBox txtpassword;
 	
 	private UINameCard uiNameCard;
 	private DockLayoutPanel dockLayoutPanel;
@@ -71,14 +71,14 @@ public class UIScreenLogin implements UIScreen_i {
 		
 		txtOperator = new TextBox();
 		listBoxProfile = new ListBox();
-		passwordTextBox = new PasswordTextBox();
+		txtpassword = new PasswordTextBox();
 		Button buttons[];
 		
 		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.addStyleName("project-gwt-panel-login");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
-	    verticalPanel.addStyleName("project-gwt-panel-login");
+	    verticalPanel.addStyleName("project-gwt-panel-login-inner");
 	    verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		
@@ -91,12 +91,12 @@ public class UIScreenLogin implements UIScreen_i {
 		horizontalPanelBar.setHeight("10px");
 		verticalPanel.add(horizontalPanelBar);
 		
-		verticalPanel.add(	new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CLIENT_LOGO));
-		
-		horizontalPanelBar = new HorizontalPanel();
-		horizontalPanelBar.setWidth("128px");
-		horizontalPanelBar.setHeight("10px");
-		verticalPanel.add(horizontalPanelBar);
+//		verticalPanel.add(	new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CLIENT_LOGO));
+//		
+//		horizontalPanelBar = new HorizontalPanel();
+//		horizontalPanelBar.setWidth("128px");
+//		horizontalPanelBar.setHeight("10px");
+//		verticalPanel.add(horizontalPanelBar);
 		
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
@@ -111,10 +111,13 @@ public class UIScreenLogin implements UIScreen_i {
 		verticalPanel.add(horizontalPanelBar);
 		flexTable.setWidget(0, 1, horizontalPanelBar);
 		
-		flexTable.setWidget(1, 0, new InlineLabel("Operator:"));
+		InlineLabel lblOperator = new InlineLabel("Operator:");
+		lblOperator.addStyleName("project-gwt-inlinelabel-login-operator");
+		flexTable.setWidget(1, 0, lblOperator);
 		txtOperator.setText(OpmAuthentication.getInstance().getDefaultOperator());
 		txtOperator.setMaxLength(16);
 		txtOperator.setWidth("100%");
+		txtOperator.addStyleName("project-gwt-textbox-login-operator");
 		flexTable.setWidget(1, 1, txtOperator);
 		
 		txtOperator.addKeyPressHandler(new KeyPressHandler() {
@@ -126,18 +129,24 @@ public class UIScreenLogin implements UIScreen_i {
 		    }
 		});
 		
-		flexTable.setWidget(2, 0, new InlineLabel("Profile:"));
+		InlineLabel lblProfile = new InlineLabel("Profile:");
+		lblProfile.addStyleName("project-gwt-inlinelabel-login-profile");
+		flexTable.setWidget(2, 0, lblProfile);
 		listBoxProfile.setWidth("100%");
 		listBoxProfile.setHeight("100%");
 		listBoxProfile.setVisibleItemCount(1);
 		listBoxProfile.addItem(EMPTY);
+		listBoxProfile.addStyleName("project-gwt-listbox-login-profile");
 		flexTable.setWidget(2, 1, listBoxProfile);
 		
-		flexTable.setWidget(3, 0, new InlineLabel("Password:"));
-		passwordTextBox.setText(OpmAuthentication.getInstance().getDefaultPassword());
-		passwordTextBox.setMaxLength(16);
-		passwordTextBox.setWidth("100%");
-		flexTable.setWidget(3, 1, passwordTextBox);
+		InlineLabel lblPassword = new InlineLabel("Password:");
+		lblPassword.addStyleName("project-gwt-inlinelabel-login-password");
+		flexTable.setWidget(3, 0, lblPassword);
+		txtpassword.setText(OpmAuthentication.getInstance().getDefaultPassword());
+		txtpassword.setMaxLength(16);
+		txtpassword.setWidth("100%");
+		txtpassword.addStyleName("project-gwt-textbox-login-password");
+		flexTable.setWidget(3, 1, txtpassword);
 
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
@@ -172,7 +181,7 @@ public class UIScreenLogin implements UIScreen_i {
 						String buttonText	= button.getText();
 						String operator		= txtOperator.getText();
 						String profile		= listBoxProfile.getValue(listBoxProfile.getSelectedIndex());
-						String password		= passwordTextBox.getText();
+						String password		= txtpassword.getText();
 						
 						verify(buttonText, operator, profile, password);
 					}
@@ -188,7 +197,7 @@ public class UIScreenLogin implements UIScreen_i {
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHeight("100%");
 		horizontalPanel.setWidth("100%");
-		horizontalPanel.addStyleName("project-gwt-panel-login");
+		horizontalPanel.addStyleName("project-gwt-panel-login-outer");
 	    horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    

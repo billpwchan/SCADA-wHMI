@@ -31,7 +31,12 @@ public class NavigationMgr implements TaskMgrEvent, ConfigMgrEvent {
 	private String taskLaunchsParentHeader = "";
 	
 	private TaskMgr taskMgr = null;
+	
+	
 	private ConfigMgr configMgr = null;
+//	private ArrayList<UITaskLaunchDictionary> uiTaskLaunchDictionarys = null;
+//	private int uiTaskLaunchDictionarysParentLevel = 0;
+//	private String uiTaskLaunchDictionarysParentHeader = "";
 
 	private NavigationMgrEvent navigationMgrEvent = null;
 	
@@ -205,6 +210,10 @@ public class NavigationMgr implements TaskMgrEvent, ConfigMgrEvent {
 	@Override
 	public void ready(Configs configs) {
 		logger.log(Level.FINE, "ready configs");
+		
+//		this.uiTaskLaunchDictionarys = null;
+//		
+//		this.uiTaskLaunchDictionarys = new ArrayList<UITaskLaunchDictionary>();
 		
 		if ( null != configs ) {
 			String xml = (String) configs.getHeader("XmlFile");

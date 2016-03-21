@@ -1,93 +1,481 @@
+
+.project-gwt-button {
+	font-weight: bold;
+	font-size: 16px !important;
+}
+
+/* UIPanelLogin */
+.project-gwt-panel-login {
+	background-image:url('/mywebapp/scsmain/imgs/background/ERL_system_map.png');
+}
+.project-gwt-panel-login-inner {
+	background-color:#BEBEBE;
+	border: 2px solid dimgrey;
+}
+.project-gwt-panel-login-outer {
+	
+}
+.project-gwt-inlinelabel-login-operator {
+	font-size: 16px;
+}
+.project-gwt-textbox-login-operator {
+	font-size: 16px;
+}
+.project-gwt-inlinelabel-login-profile {
+	font-size: 16px;
+}
+.project-gwt-listbox-login-profile {
+	font-size: 16px;
+}
+.project-gwt-inlinelabel-login-password {
+	font-size: 16px;
+}
+.project-gwt-textbox-login-password {
+	font-size: 16px;
+}
+
+.project-gwt-button-login-login {
+	width: 170px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+}
+
+.project-gwt-button-login-changepassword {
+	width: 170px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+}
+
+.project-gwt-button-login-cancel {
+	width: 170px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+}
+
 /* UIScreenMMI */
 .project-gwt-panel-west {
-	background-color: #BEBEBE;
+	background-color: dimgrey;
 }
 
 .project-gwt-panel-east {
-	background-color: #BEBEBE;
+	background-color: dimgrey;
 }
 
 .project-gwt-panel-south {
-	background-color: #BEBEBE;
+	background-color: dimgrey;
+	padding: 10px;
 }
 
 .project-gwt-panel-north {
-	background-color: #BEBEBE;
+	background-color: dimgrey;
 }
 
-/* UIPanelViewLayout */
-.project-gwt-panel-viewlayout-view {
-	background-color: #BEBEBE;
+
+/* UIPanelAccessBar */
+.project-gwt-button-split-h-selected {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
 }
 
-.project-gwt-panel-viewlayout-bottomtoolbar {
-	background-color: #BEBEBE;
+.project-gwt-button-split-v-selected {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
 }
+
 
 /* UIPanelStatusBar */
 .project-gwt-panel-statusbar {
-	background-color: #BEBEBE;
+	background-color: black;
 }
 
-.project-gwt-inlinelabel-statusbar-company {
-	background-color: #BEBEBE;
-	font-size: 110%
+.project-gwt-inlinelabel-statusbar-companylogo {
+	color:white;
+	font-size: 16px;
+	vertical-align: middle;
 }
 
 .project-gwt-inlinelabel-statusbar-title {
-	background-color: #BEBEBE;
-	font-size: 110%
+	color: black;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 24px;
+}
+
+.project-gwt-inlinelabel-statusbar-softwaretitle {
+	color:white;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 20px;
 }
 
 .project-gwt-inlinelabel-statusbar-operatorprofile {
-	background-color: #BEBEBE;
-	font-size: 110%;
+	color:white;
+	vertical-align: middle;
+	font-size: 18px;
 }
 
 .project-gwt-inlinelabel-statusbar-datetime {
-	background-color: #BEBEBE;
-	font-size: 110%;
+	color:white;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+/* WrapperScsAlarmListPanel */
+.project-gwt-panel-alarmbanner {
+	width: 100%;
+	background-color: dimgrey;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2px;
+	margin-bottom: 6px;
+}
+
+.project-gwt-panel-alarmbanner-wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2px;
+	margin-bottom: 6px;
 }
 
 /* UIPanelAlarmBanner */
 .project-gwt-inlinelabel-alarmbanner-counter-label {
-	font-size: 110%;
+	font-size: 16px !important;
 }
 
 .project-gwt-inlinelabel-alarmbanner-counter-value {
-	font-size: 110%;
+	font-size: 16px !important;
 	font-weight: bold;
+}
+
+.project-gwt-panel-alarmbanner-button {
+	width: 100%;
+}
+
+.project-gwt-button-alarmbanner-ackpage {
+	width: 75px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-left: 5px !important;
+}
+
+.project-gwt-button-alarmbanner-almsum {
+	width: 75px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-left: 5px !important;
+}
+
+.project-gwt-button-alarmbanner-evtsum {
+	width: 75px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-top: 5px !important;
+	margin-left: 5px !important;
+}
+
+.project-gwt-button-alarmbanner-audio {
+	width: 75px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-top: 5px !important;
+	margin-left: 5px !important;
+}
+
+.project-gwt-panel-alarmbanner-filter {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	margin-bottom: 6px;
+}
+
+.project-gwt-flextable-alarmbanner-filter {
+	width: 100%;
+	height: 100%;
+}
+
+.project-gwt-panel-alarmbanner-button-vertical1 {
+	
+}
+
+.project-gwt-panel-alarmbanner-button-vertical2 {
+	
+}
+
+.project-gwt-panel-alarmbanner-button-horizontal {
+	
+}
+
+.project-gwt-textbox-alarmbanner-counter-0-0 {
+	width: 50px !important;
+	color: white !important;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-1 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-2 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-3 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-4 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-1-0 {
+	width: 50px !important;
+	color: white !important;
+	background-color: dimgrey;
+	text-align: right;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-1-1 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid lightgrey;
+}
+.project-gwt-textbox-alarmbanner-counter-1-2{
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid red;
+}
+.project-gwt-textbox-alarmbanner-counter-1-3 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid orange;
+}
+.project-gwt-textbox-alarmbanner-counter-1-4 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid yellow;
+}
+.project-gwt-textbox-alarmbanner-counter-2-0 {
+	width: 50px !important;
+	color: white !important;
+	background-color: dimgrey;
+	text-align: right;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-2-1 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid lightgrey;
+}
+.project-gwt-textbox-alarmbanner-counter-2-2 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid red;
+}
+.project-gwt-textbox-alarmbanner-counter-2-3 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid orange;
+}
+.project-gwt-textbox-alarmbanner-counter-2-4 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid yellow;
+}
+
+
+/* UIAccsssBar */
+.project-gwt-panel-accessbar-buttonbar {
+	padding-right: 5px !important;
+}
+
+.project-gwt-panel-accessbar {
+	
+}
+
+.project-gwt-button-accessbar {
+	width: 45px;
+	height: 45px;
+	padding: 5px !important;
+	font-weight: bold;
+	font-size: 16px !important;
 }
 
 /* UIViewAlarm */
-.project-gwt-panel-viewalarm-toolbar {
-	background-color: #BEBEBE;
+.project-gwt-panel-alarmsummary-upperbar {
+	width:100%;
+	height:100%;
+}
+.project-gwt-panel-alarmsummary-bottombar {
+	width:100%;
+	height:0px;
+}
+.project-gwt-panel-alarmsummary-toolbar {
+	width:100%;
+	height:100%;
+	background-color: drakgrey;
 }
 
-.project-gwt-inlinelabel-alarm-summary-counter-value  {
+.project-gwt-inlinelabel-alarmsummary-counter-label  {
+	font-size: 16px;
+}
+
+.project-gwt-inlinelabel-alarmsummary-counter-value  {
 	font-weight: bold;
-	font-size: 110%
+	font-size: 16px;
+	text-align: center;
 }
 
-.project-gwt-inlinelabel-alarm-summary-counter-label  {
-	font-size: 110%
+.project-gwt-button-alarmsummary-ackpage {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.project-gwt-button-alarmsummary-print {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.project-gwt-button-alarmsummary-filterreset {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.project-gwt-button-alarmsummary-filterapplied {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+	color: white !important;
+	background-color: red !important;
+	background-image: none !important;
 }
 
 /* UIViewEvent */
-.project-gwt-panel-viewevent-toolbar {
-	background-color: #BEBEBE;
+.project-gwt-panel-eventsummary-upperbar {
+	width:100%;
+	height:100%;
 }
-.project-gwt-inlinelabel-event-summary-counter-value {
-	font-weight: bold;
-	font-size: 110%
+.project-gwt-panel-eventsummary-bottombar {
+	width:100%;
+	height:0px;
+}
+.project-gwt-panel-eventsummary-toolbar {
+	width:100%;
+	height:100%;
+	background-color: drakgrey;
 }
 
-.project-gwt-inlinelabel-event-summary-counter-label {
-	font-size: 100%
+.project-gwt-inlinelabel-eventsummary-counter-label  {
+	font-size: 16px;
 }
 
-.project-gwt-button {
+.project-gwt-inlinelabel-eventsummary-counter-value  {
 	font-weight: bold;
+	font-size: 16px;
+	text-align: center;
+}
+
+.project-gwt-button-eventsummary-ackpage {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.project-gwt-button-eventsummary-print {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.project-gwt-button-eventsummary-filterreset {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.project-gwt-button-eventsummary-filterapplied {
+	width:100px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px;
+	color: white !important;
+	background-color: red !important;
+	background-image: none !important;
 }
 
 /* UIScreenOPM */
@@ -96,55 +484,151 @@
 }
 
 .project-gwt-inlinelabel-opm-label {
-	font-size: 100%
 }
 
 .project-gwt-listbox-opm-value {
-	font-size: 100%
 }
-
-/* WrapperScsAlarmListPanel */
-.project-gwt-panel-alarmbanner-wrapper {
-	background-color: #BEBEBE;	
-}
-
-/* UIPanelAlarmBanner */
-.project-gwt-panel-alarmbanner {
-	background-color: #BEBEBE;
-}
-
 
 /* UIPanelMenu */
-.project-gwt-panel-navigation {
-	background-color: #BEBEBE;
+.project-gwt-panel-navigation-0 {
+	background-color: dimgrey;
+}
+.project-gwt-panel-navigation-1 {
+	background-color: dimgrey;
+}
+.project-gwt-panel-navigation-2 {
+	background-color: dimgrey;
+}
+.project-gwt-panel-navigation-3  {
+	background-color: dimgrey;
 }
 
-.project-gwt-button-navigation {
+.project-gwt-button-navigation-0 {
 	width: 142px;
 	height: 30px;
 	font-weight: bold;
+
+    background: url("images/hborder.png") repeat-x 0px -27px;
+	
+	margin-bottom: 5px !important;
+}
+.project-gwt-button-navigation-0-selected {
+
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+	
 }
 
+.project-gwt-button-navigation-1 {
+	width: 142px;
+	height: 30px;
+	font-weight: bold;
+	
+	background: url("images/hborder.png") repeat-x 0px -27px;
+	
+	margin-right: 5px !important;
+}
+.project-gwt-button-navigation-1-selected {
 
-/* UIPanelLogin */
-.project-gwt-panel-login  {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+	
+}
+.project-gwt-button-navigation-2 {
+	width: 142px;
+	height: 30px;
+	font-weight: bold;
+	
+	background: url("images/hborder.png") repeat-x 0px -27px;
+	
+	margin-bottom: 5px !important;
+}
+.project-gwt-button-navigation-2-selected {
+
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+	
+}
+.project-gwt-button-navigation-3 {
+	width: 142px;
+	height: 30px;
+	font-weight: bold;
+	
+	background: url("images/hborder.png") repeat-x 0px -27px;
+	
+	margin-bottom: 5px !important;
+}
+.project-gwt-button-navigation-3-selected {
+	
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+	
+}
+
+/* UIPanelViewLayout */
+.project-gwt-panel-viewlayout-main {
+	background-color: silver;
+	border: 2px solid black;
+	width: 99.75%;
+	height: 99.5%;
+}
+.project-gwt-panel-viewlayout-outer-view-vp {
+	width:100%;
+	height:100%;
+}
+.project-gwt-panel-viewlayout-outer-view-hp {
+	width:100%;
+	height:100%;	
+}
+.project-gwt-panel-viewlayout-inner-view {
+
+}
+.project-gwt-panel-viewlayout-bottomtoolbar {
 	background-color: #BEBEBE;
 }
 
-.project-gwt-button-login-login {
-	width: 128px;
-	height: 30px;
-	font-weight: bold;
+/* UIPanelViewPanel */
+.project-gwt-panel-view-root-container {
+
 }
 
-.project-gwt-button-login-changepassword {
-	width: 128px;
-	height: 30px;
+
+/* UIPanelView */
+.project-gwt-panel-panelview-titlebar {
+	width:100%;
+	height:100%;
+	background-color: slategrey;
+}
+.project-gwt-inlinelabel-panelview-title {
+	width:100%;
+	height:100%;
+	font-size: 24px;
 	font-weight: bold;
+	color: white;
+}
+.project-gwt-panel-panelview-container {
+	width:100%;
+	height:100%;
 }
 
-.project-gwt-button-login-cancel {
-	width: 128px;
-	height: 30px;
-	font-weight: bold;
+/* UIPanelView */
+.project-gwt-panel-view-vp-activate {
+	border:blue solid 5px;
+	height: 100%;
+	width: 99.4%;
+}
+.project-gwt-panel-view-hp-activate {
+	border:blue solid 5px;
+	height: 100%;
+	width: 98.9%;
+}
+.project-gwt-panel-view-vp-deactivate {
+	border:blue solid 0px;
+	height: 100%;
+	width: 100%;
+}
+.project-gwt-panel-view-hp-deactivate {
+	border:blue solid 0px;
+	height: 100%;
+	width: 100%;
 }

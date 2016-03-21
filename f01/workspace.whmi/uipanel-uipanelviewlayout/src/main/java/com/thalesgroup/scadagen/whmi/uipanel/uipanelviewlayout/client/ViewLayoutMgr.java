@@ -16,6 +16,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory.T
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
+import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 
@@ -57,23 +58,80 @@ public class ViewLayoutMgr {
 	/**
 	 * Update the Splie Screen UI
 	 */
-	private void triggerSplitScreenButtonUpdate() {
-		viewLayoutMgrEvent.setSplitButton();
+	private void triggerSplitChange() {
+		
+		logger.log(Level.FINE, "triggerSplitChange Begin");
+		
+//		viewLayoutMgrEvent.setSplitButton();
+		
+		UITaskSplit taskSplit1 = new UITaskSplit();
+		taskSplit1.setTaskUiScreen(this.uiNameCard.getUiScreen());
+		taskSplit1.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar");
+
+		if ( this.getViewMode() == ViewLayoutMode.Panel ) {
+
+			taskSplit1.setTaskType(UITaskSplit.SplitType.HorizontalDisable);
+			
+		} else if ( this.getViewAction() == ViewLayoutAction.HDoubleLayout ){
+			
+			taskSplit1.setTaskType(UITaskSplit.SplitType.HorizontalHightLight);
+			
+		} else {
+			
+			taskSplit1.setTaskType(UITaskSplit.SplitType.HorizontalEnable);
+			
+		}
+		
+		logger.log(Level.FINE, "triggerSplitChange taskSplit1.getTaskType["+taskSplit1.getTaskType()+"]");
+		
+		logger.log(Level.FINE, "triggerSplitChange taskSplit1 fire");
+
+		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit1));
+		
+		UITaskSplit taskSplit2 = new UITaskSplit();
+		taskSplit2.setTaskUiScreen(this.uiNameCard.getUiScreen());
+		taskSplit2.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar");
+		
+		if ( this.getViewMode() == ViewLayoutMode.Panel ) {
+
+			taskSplit2.setTaskType(UITaskSplit.SplitType.VerticalDisable);
+			
+		} else if ( this.getViewAction() == ViewLayoutAction.VDoubleLayout ){
+			
+			taskSplit2.setTaskType(UITaskSplit.SplitType.VerticalHightLight);
+			
+		} else {
+			
+			taskSplit2.setTaskType(UITaskSplit.SplitType.VerticalEnable);
+			
+		}
+		
+		logger.log(Level.FINE, "triggerSplitChange taskSplit2.getTaskType["+taskSplit2.getTaskType()+"]");
+		
+		logger.log(Level.FINE, "triggerSplitChange taskSplit2 fire");
+
+		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit2));
+
+		logger.log(Level.FINE, "triggerSplitChange End");
+		
 	}
-
-	/**
-	 * Update the Split Screen Statue and the UI
-	 * @param viewLayoutAction
-	 */
-	public void setSplitScreen(ViewLayoutAction viewLayoutAction) {
-
+	
+	public void setSplitScreen(UITaskSplit uiTaskSplit) {
+		
+		logger.log(Level.SEVERE, "setSplitScreen Begin");
+		
 		ViewLayoutHistory viewLayoutHistory = null;
 
 		if (null != this.taskLaunchs) {
 			// Copy the previous views
 			viewLayoutHistory = getCurrentAsHistory();
 		}
-		if (ViewLayoutAction.VDoubleLayout == viewLayoutAction) {
+		
+		logger.log(Level.FINE, "setSplitScreen uiTaskSplit.getSplitType()["+uiTaskSplit.getTaskType()+"]");
+		
+		if (UITaskSplit.SplitType.Vertical == uiTaskSplit.getTaskType()) {
+			
+			logger.log(Level.FINE, "setSplitScreen UITaskSplit.SplitType.Vertical");
 
 			if (ViewLayoutAction.VDoubleLayout == this.viewLayoutAction) {
 				setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
@@ -81,7 +139,7 @@ public class ViewLayoutMgr {
 				setLayout(ViewLayoutMode.Image, ViewLayoutAction.VDoubleLayout);
 			}
 
-		} else if (ViewLayoutAction.HDoubleLayout == viewLayoutAction) {
+		} else if (UITaskSplit.SplitType.Horizontal == uiTaskSplit.getTaskType()) {
 
 			if (ViewLayoutAction.HDoubleLayout == this.viewLayoutAction) {
 				setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
@@ -95,10 +153,12 @@ public class ViewLayoutMgr {
 			restoreCurrentStatus(viewLayoutHistory);
 		}
 
-		triggerSplitScreenButtonUpdate();
+		triggerSplitChange();
 
 		historySnapshot();
-
+		
+		
+		logger.log(Level.SEVERE, "setSplitScreen End");
 	}
 
 	/**
@@ -153,7 +213,7 @@ public class ViewLayoutMgr {
 	 */
 	public void setTaskLaunch(UITaskLaunch taskLaunch, boolean makeSnapshot) {
 
-		logger.log(Level.FINE, "setTaskLaunch Begin");
+		logger.log(Level.SEVERE, "setTaskLaunch Begin");
 
 		// boolean change = false;
 
@@ -201,19 +261,18 @@ public class ViewLayoutMgr {
 
 		triggerProfileChange();
 
-		logger.log(Level.FINE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
+		logger.log(Level.SEVERE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
 
 		if (makeSnapshot) {
 
 			historySnapshot();
 		}
 
-		if (ViewLayoutMode.Panel != this.viewLayoutMode) {
-			triggerSplitScreenButtonUpdate();
-		}
-		triggerHistoryUIUpdate();
+		triggerSplitChange();
 
-		logger.log(Level.FINE, "setTaskLaunch End");
+		triggerHistoryChange();
+
+		logger.log(Level.SEVERE, "setTaskLaunch End");
 
 	}
 
@@ -224,7 +283,7 @@ public class ViewLayoutMgr {
 	 */
 	private void restoreCurrentStatus(ViewLayoutHistory viewLayoutHistory) {
 
-		logger.log(Level.FINE, "restoreCurrentStatus Begin");
+		logger.log(Level.SEVERE, "restoreCurrentStatus Begin");
 
 		UITaskLaunch taskLaunchs[] = viewLayoutHistory.getTaskLaunchs();
 
@@ -242,10 +301,11 @@ public class ViewLayoutMgr {
 		UITaskLaunch taskLaunch = getTaskLaunchActivate();
 		if ( null != taskLaunch ) {
 			triggerMenuChange(taskLaunch);
-			triggerTitleChange(taskLaunch);		
+			triggerTitleChange(taskLaunch);
+			triggerSplitChange();
 		}
 
-		logger.log(Level.FINE, "restoreCurrentStatus End");
+		logger.log(Level.SEVERE, "restoreCurrentStatus End");
 	}
 
 	/**
@@ -268,7 +328,7 @@ public class ViewLayoutMgr {
 	 */
 	public void setLayoutAction(ViewLayoutAction viewLayoutAction, boolean restorePreviousViews) {
 
-		logger.log(Level.FINE, "setLayoutAction Begin");
+		logger.log(Level.SEVERE, "setLayoutAction Begin");
 
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -283,14 +343,14 @@ public class ViewLayoutMgr {
 
 		historySnapshot();
 
-		logger.log(Level.FINE, "setLayoutAction End");
+		logger.log(Level.SEVERE, "setLayoutAction End");
 	}
 
 	/**
 	 * Trigger the TaskHistory UI (Button etc.) Update. Fire the TaskHistory
 	 * with TaskType PreviousEnable, PreviousDisable, NextEnable, NextDisable
 	 */
-	private void triggerHistoryUIUpdate() {
+	private void triggerHistoryChange() {
 
 		logger.log(Level.FINE, "triggerHistoryUIUpdate Begin");
 
@@ -384,7 +444,7 @@ public class ViewLayoutMgr {
 			setLayoutAction(viewLayoutHistory);
 		}
 
-		triggerHistoryUIUpdate();
+		triggerHistoryChange();
 
 		logger.log(Level.FINE, "setTaskHistory End");
 	}
@@ -414,6 +474,12 @@ public class ViewLayoutMgr {
 						logger.log(Level.FINE, "onUIEvent taskProvide is TaskHistory");
 
 						setTaskHistory((UITaskHistory) taskProvide);
+					} else if (UITaskMgr.isInstanceOf(UITaskSplit.class, taskProvide)) {
+						
+						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
+						
+						setSplitScreen((UITaskSplit) taskProvide);
+						
 					}
 
 				}
@@ -484,19 +550,21 @@ public class ViewLayoutMgr {
 	}
 
 	/**
-	 * Save the current ViewLayout Snapshot into history
+	 * Save the current ViewLayout Snapshot into history list
 	 */
 	private void historySnapshot() {
 
-		logger.log(Level.FINE, "historySnapshot Begin");
+		logger.log(Level.SEVERE, "historySnapshot Begin");
 
 		ViewLayoutHistory history = getCurrentAsHistory();
 
-		history.debug();
+		viewLayoutHistoryMgr.debug("BF");
 
 		viewLayoutHistoryMgr.add(history);
+		
+		viewLayoutHistoryMgr.debug("AF");
 
-		logger.log(Level.FINE, "historySnapshot End");
+		logger.log(Level.SEVERE, "historySnapshot End");
 	}
 	
 	private UITaskLaunch getTaskLaunchActivate() {
@@ -549,10 +617,10 @@ public class ViewLayoutMgr {
 		if ( null != taskLaunch ) {
 			title = taskLaunch.getTitle();
 		} else {
-			logger.log(Level.SEVERE, "triggerTitleChange tasLaunch is null");
+			logger.log(Level.FINE, "triggerTitleChange tasLaunch is null");
 		}
 		
-		logger.log(Level.SEVERE, "triggerMenuChange UITaskTitle title["+title+"]");
+		logger.log(Level.FINE, "triggerMenuChange UITaskTitle title["+title+"]");
 		
 		UITaskTitle taskTitle = new UITaskTitle();
 		taskTitle.setTitle(title);

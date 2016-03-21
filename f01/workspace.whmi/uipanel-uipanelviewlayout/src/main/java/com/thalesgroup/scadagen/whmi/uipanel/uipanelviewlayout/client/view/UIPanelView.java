@@ -8,24 +8,29 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 
 public class UIPanelView {
 	
 	private static Logger logger = Logger.getLogger(UIPanelView.class.getName());
-	
-	private static final int LAYOUT_BORDER_ACTIVATE = 2;
-	private static final int LAYOUT_BORDER_DEACTIVATE = 0;
-	
+		
 	private int viewId;
 	private boolean activate;
 	private boolean borderVisible;
 	private ViewLayoutMode viewLayoutType;
+	private ViewLayoutAction viewLayoutAction;
 	private UIPanelViewEvent uiPanelViewEvent;
 	private UITaskLaunch taskLaunch;
 	private DockLayoutPanel panel = null;
+	
+	private InlineLabel lblTitle;
 	
 	private UINameCard uiNameCard = null;
 	public UIPanelView(UIPanelViewEvent uiPanelViewEvent, UINameCard uiNameCard, int viewId) {
@@ -54,9 +59,7 @@ public class UIPanelView {
 		logger.log(Level.FINE, "onMouseClick Begin");
 		
 		uiPanelViewEvent.setViewIdActivate(this.viewId);
-				
-//		triggerTitleChange(this.taskLaunch);
-				
+		
 		logger.log(Level.FINE, "onMouseClick End");
 	}
 	public DockLayoutPanel getMainPanel() {
@@ -87,18 +90,31 @@ public class UIPanelView {
 		
 		logger.log(Level.FINE, "setActivateBorder Begin");
 		
-		if ( activate ) {
-//			this.panel.setWidth("100%");
-			this.panel.getElement().getStyle().setProperty("border","yellow solid "+LAYOUT_BORDER_ACTIVATE+"px");
-//			int width = this.panel.getOffsetWidth();
-//			width -= LAYOUT_BORDER_ACTIVATE;
-//			this.panel.setWidth(width+"px");
-//			this.panel.setHeight("100%");
-		} else {
+		logger.log(Level.FINE, "setActivateBorder activate["+activate+"]");
+		
+		String stylePrimaryName = null;
+		
+		if ( ViewLayoutAction.VDoubleLayout == getViewAction() ) {
+			stylePrimaryName = "project-gwt-panel-view-vp";
+		} else if ( ViewLayoutAction.HDoubleLayout == getViewAction() ) {
+			stylePrimaryName = "project-gwt-panel-view-hp";
+		}
+		
+		if ( null != stylePrimaryName ) {
+			if ( activate ) {
+				stylePrimaryName += "-activate";
+			} else {
+				stylePrimaryName += "-deactivate";
+			}
+		}
+
+		if ( null != stylePrimaryName ) {
 			
-			this.panel.getElement().getStyle().setProperty("border","yellow solid "+LAYOUT_BORDER_DEACTIVATE+"px");
-//			this.panel.setWidth("100%");
-//			this.panel.setHeight("100%");
+			logger.log(Level.FINE, "setActivateBorder stylePrimaryName["+stylePrimaryName+"]");
+			
+			this.panel.setStylePrimaryName(stylePrimaryName);
+		} else {
+			logger.log(Level.FINE, "setActivateBorder stylePrimaryName IS NULL");
 		}
 		
 		logger.log(Level.FINE, "setActivateBorder End");
@@ -141,6 +157,20 @@ public class UIPanelView {
 		
 		this.panel = panel;
 	}
+	public ViewLayoutAction getViewAction() {
+		
+		logger.log(Level.FINE, "ViewLayoutAction Begin/End");
+		
+		return viewLayoutAction;
+	}
+	public void setViewAction(ViewLayoutAction viewAction) {
+		
+		logger.log(Level.FINE, "setViewType Begin");
+		
+		this.viewLayoutAction = viewAction;
+		
+		logger.log(Level.FINE, "setViewType End");
+	}
 	public ViewLayoutMode getViewMode() {
 		
 		logger.log(Level.FINE, "ViewLayoutMode Begin/End");
@@ -168,7 +198,7 @@ public class UIPanelView {
 		if ( null != taskLaunch ) {
 		
 			this.taskLaunch = new UITaskLaunch(taskLaunch);
-			this.panel.clear();
+			panel.clear();
 			
 			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
 			UIPanelViewProvide uiPanelViewProvide = null;
@@ -189,11 +219,23 @@ public class UIPanelView {
 				break;			
 			}
 
-			dockLayoutPanel.setWidth("100%");
-			dockLayoutPanel.setHeight("100%");
-			this.panel.add(dockLayoutPanel);
+			HorizontalPanel hp = new HorizontalPanel();
+			hp.addStyleName("project-gwt-panel-panelview-titlebar");
+			hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+			hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+			
+			lblTitle = new InlineLabel("Title");
+			lblTitle.addStyleName("project-gwt-inlinelabel-panelview-title");
+			hp.add(lblTitle);
+			
+			panel.addNorth(hp, 40);
+			
+			panel.addStyleName("project-gwt-panel-panelview-container");
+			panel.add(dockLayoutPanel);
 			
 			uiPanelViewProvide.setTaskProvide(taskLaunch);
+			
+			setTitle(this.taskLaunch.getTitle());
 
 		} else {
 			
@@ -203,6 +245,11 @@ public class UIPanelView {
 		}
 		
 		logger.log(Level.FINE, "setTaskLaunch End");
+	}
+	
+	
+	private void setTitle ( String title ) {
+		lblTitle.setText(title);
 	}
 
 

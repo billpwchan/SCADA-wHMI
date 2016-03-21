@@ -8,6 +8,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
+import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 
 public class UITaskMgr {
 	
@@ -27,6 +28,8 @@ public class UITaskMgr {
 			uitask_i = new UITaskProfile();
 		} else if ( 0 == taskname.compareTo("UITaskTitle") ) {
 			uitask_i = new UITaskTitle();
+		} else if ( 0 == taskname.compareTo("UITaskSplit") ) {
+			uitask_i = new UITaskSplit();
 		}
 
 		/*

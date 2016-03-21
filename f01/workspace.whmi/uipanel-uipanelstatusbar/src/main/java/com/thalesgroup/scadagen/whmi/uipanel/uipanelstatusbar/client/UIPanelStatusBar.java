@@ -6,11 +6,11 @@ import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.dom.client.Style.VerticalAlign;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -28,8 +28,10 @@ public class UIPanelStatusBar {
 
 	public static final String basePath		= GWT.getModuleBaseURL();
 	public static final String IMAGE_PATH	= "imgs";
+	
+	String strLabels[] = new String[] { "MTR - Main Control System" };
 
-	public static final String THALES_LOGIN_NAME = "logo_thales.jpg";
+	public static final String LOGIN_NAME = "Logo_Corp-300dpi-SymbolOnly-50px.png";
 
 	private InlineLabel titleInlineLabel = null;
 	private InlineLabel operatorProfileInlineLabel = null;
@@ -62,25 +64,30 @@ public class UIPanelStatusBar {
 		HorizontalPanel topStatusBanner = new HorizontalPanel();
 		topStatusBanner.setWidth("100%");
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		topStatusBanner.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
-		topStatusBanner.addStyleName("project-gwt-panel-statusbar");
+		topStatusBanner.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		topStatusBanner.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
 
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		Image imgThales = new Image(basePath + "/" + IMAGE_PATH + "/logo/" + THALES_LOGIN_NAME);
+		Image imgThales = new Image(basePath + "/" + IMAGE_PATH + "/logo/" + LOGIN_NAME);
+		imgThales.addStyleName("project-gwt-inlinelabel-statusbar-companylogo");
 		topStatusBanner.add(imgThales);
-		String strLabels[] = new String[] { "MCS - Main Control System" };
+		
+		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		InlineLabel inlineLabel[] = new InlineLabel[1];
 		for (int i = 0; i < strLabels.length; i++) {
 			inlineLabel[i] = new InlineLabel(strLabels[i]);
 			inlineLabel[i].setWidth("250px");
-			inlineLabel[i].addStyleName("project-gwt-inlinelabel-statusbar-company");
+			inlineLabel[i].setHeight("100%");
+			inlineLabel[i].addStyleName("project-gwt-inlinelabel-statusbar-softwaretitle");
 			topStatusBanner.add(inlineLabel[i]);
 		}
 
 		final String strTitle = "TITLE";
 
+		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		titleInlineLabel = new InlineLabel();
 		titleInlineLabel.setWidth("250px");
+		titleInlineLabel.setHeight("100%");
 		titleInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-title");
 		topStatusBanner.add(titleInlineLabel);
 
@@ -88,14 +95,15 @@ public class UIPanelStatusBar {
 
 		operatorProfileInlineLabel = new InlineLabel();
 		operatorProfileInlineLabel.setWidth("250px");
+		operatorProfileInlineLabel.setHeight("100%");
 		operatorProfileInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-operatorprofile");
 		topStatusBanner.add(operatorProfileInlineLabel);
 		
 		setProfile("OPERTOR", "PROFILE");
 
-		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		datetimeInlineLabel = new InlineLabel();
-		datetimeInlineLabel.setText("dd MM yyyy HH:mm:ss.SSS");
+		datetimeInlineLabel.setText("dd MM yyyy    HH:mm:ss.SSS");
 		datetimeInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-datetime");
 		topStatusBanner.add(datetimeInlineLabel);
 		
@@ -107,11 +115,20 @@ public class UIPanelStatusBar {
 		// Schedule the timer to run once every second, 1000 ms.
 		t.scheduleRepeating(250);
 		
-		topStatusBanner.setCellWidth(imgThales, "20%");
-		topStatusBanner.setCellWidth(inlineLabel[0], "20%");
-		topStatusBanner.setCellWidth(titleInlineLabel, "20%");
+		topStatusBanner.setCellWidth(imgThales, "5%");
+		topStatusBanner.setCellHeight(imgThales, "100%");
+		
+		topStatusBanner.setCellWidth(inlineLabel[0], "15%");
+		topStatusBanner.setCellHeight(inlineLabel[0], "100%");
+		
+		topStatusBanner.setCellWidth(titleInlineLabel, "45%");
+		topStatusBanner.setCellHeight(titleInlineLabel, "100%");
+		
 		topStatusBanner.setCellWidth(operatorProfileInlineLabel, "20%");
-		topStatusBanner.setCellWidth(datetimeInlineLabel, "20%");
+		topStatusBanner.setCellHeight(operatorProfileInlineLabel, "100%");
+		
+		topStatusBanner.setCellWidth(datetimeInlineLabel, "15%");
+		topStatusBanner.setCellHeight(datetimeInlineLabel, "100%");
 		
 		dockLayoutPanel.add(topStatusBanner);
 		
@@ -124,7 +141,7 @@ public class UIPanelStatusBar {
 	}
 	
 	private void setCurrentDateTime() {
-		datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy HH:mm:ss").format(new Date()));
+		datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy     HH:mm:ss").format(new Date()));
 	}
 
 	private void setTitle(String title) {

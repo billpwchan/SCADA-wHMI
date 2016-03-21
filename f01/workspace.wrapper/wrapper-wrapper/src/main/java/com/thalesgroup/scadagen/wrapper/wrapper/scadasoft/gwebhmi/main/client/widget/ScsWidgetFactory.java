@@ -52,30 +52,30 @@ public class ScsWidgetFactory extends WidgetFactory {
             w = new SymbolWidget(insert, symbolClient, strategy);
         }
         
-//        logger.log(Level.SEVERE, "getSymbolWidget Begin");
+//        logger.log(Level.FINE, "getSymbolWidget Begin");
         //1166B Click
         w.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-//logger.log(Level.SEVERE, "getSymbolWidget onClick Begin");
+//logger.log(Level.FINE, "getSymbolWidget onClick Begin");
 				SymbolWidget symbolWidget = (SymbolWidget)event.getSource();
-//logger.log(Level.SEVERE, "getSymbolWidget getSource()");
+//logger.log(Level.FINE, "getSymbolWidget getSource()");
 				if ( null != symbolWidget ) {
-//logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is not null");
+//logger.log(Level.FINE, "getSymbolWidget symbolWidget is not null");
 					String hv_id = symbolWidget.getEntityId();
-logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
+logger.log(Level.FINE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
 //Window.alert("getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id);
 					}
 				} else {
-//logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is NULL");
+//logger.log(Level.FINE, "getSymbolWidget symbolWidget is NULL");
 				}
-//logger.log(Level.SEVERE, "getSymbolWidget onClick End");
+//logger.log(Level.FINE, "getSymbolWidget onClick End");
 			}
 		});
-//        logger.log(Level.SEVERE, "getSymbolWidget End");
+//        logger.log(Level.FINE, "getSymbolWidget End");
 
         return w;
     }

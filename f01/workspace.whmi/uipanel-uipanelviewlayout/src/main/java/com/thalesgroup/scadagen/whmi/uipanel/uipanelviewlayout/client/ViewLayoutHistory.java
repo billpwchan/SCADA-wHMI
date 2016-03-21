@@ -75,25 +75,27 @@ public class ViewLayoutHistory {
 		logger.log(Level.FINE, "setTaskLaunchs End");
 	}
 	
-	public void debug() {
+	public void debug(String prefix) {
 		
-		logger.log(Level.FINE, "debug Begin");
+		logger.log(Level.SEVERE, "debug "+prefix+" Begin");
 		
-		logger.log(Level.FINE, "debug viewLayoutMode: [" + viewLayoutMode +"]");
-		logger.log(Level.FINE, "debug viewLayoutAction: [" + viewLayoutAction +"]");
-		logger.log(Level.FINE, "debug activateSelection: [" + activateSelection +"]");
+		logger.log(Level.SEVERE, "debug "+prefix+" taskLaunchs.length: [" + taskLaunchs.length +"]");
+		logger.log(Level.SEVERE, "debug "+prefix+" activateSelection: [" + activateSelection +"]");
+		
+		logger.log(Level.SEVERE, "debug "+prefix+" viewLayoutMode: [" + viewLayoutMode +"]");
+		logger.log(Level.SEVERE, "debug "+prefix+" viewLayoutAction: [" + viewLayoutAction +"]");
+		
 		
 		for ( int i = 0 ; i < taskLaunchs.length ; ++i ) {
 			UITaskLaunch taskLaunch = taskLaunchs[i];
 			if ( null != taskLaunch ) {
-				logger.log(Level.FINE, "debug taskLunch[" + i + "]");
-//				taskLaunch.debug();
+				logger.log(Level.SEVERE, "debug "+prefix+" taskLaunch[" + i + "][" + taskLaunch.getHeader() + "]");
 			} else {
-				logger.log(Level.FINE, "debug taskLunch[" + i + "] is null");
+				logger.log(Level.SEVERE, "debug "+prefix+" taskLunch[" + i + "] is null");
 			}
 		}
 		
-		logger.log(Level.FINE, "debug End");
+		logger.log(Level.SEVERE, "debug "+prefix+" End");
 		
 	}
 

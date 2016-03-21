@@ -29,11 +29,6 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 		this.border = border;
 	}
 	
-//	private String css = "";
-//	public void setAddStyleName(String css) {
-//		this.css = css;
-//	}
-	
 	private ScsAlarmListPanel scsAlarmListPanel = null;
 	
 	private WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent = null;
@@ -56,7 +51,6 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 		scsAlarmListPanel = new ScsAlarmListPanel(AppUtils.EVENT_BUS, alarmListId, withAction, withCaption, withAck, filterSet);
 	    scsAlarmListPanel.setWidth(this.width);
 	    scsAlarmListPanel.setHeight(this.height);
-//	    scsAlarmListPanel.addStyleName(this.css);
 	    scsAlarmListPanel.setCounterNames(counterNames);
 	    scsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
 	    

@@ -12,12 +12,12 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelOlsCounter;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 
@@ -35,13 +35,22 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	int LABEL_WIDTH		= 120;
 	int LABEL_HEIGHT	= 23;
 	
-    String strAlarmSummary = "Alarm";
-    String strEventSummary = "Event";
+	String strTipAckPage		= "Acknowledge";
+	String strAckPage			= "Ack Page";
+	
+	String strTipAlarmSummary	= "Alarm Smmary";
+    String strAlarmSummary		= "Alarm";
     
-    private String [] counterNames = { "alarmlist_banner_counter", "alarmlist_banner_counter_unack"};
-    private String strAlarmLbls [] = new String[] {"Total","0","Unack","0"};
-    private InlineLabel[] inlineLabel;
-
+    String strTipEventSummary	= "Event Summary";
+    String strEventSummary		= "Event";
+    
+    String strAckPageCSS	= "project-gwt-button-alarmbanner-ackpage";
+    String strAlmSumCSS		= "project-gwt-button-alarmbanner-almsum";
+    String strEvtSumCSS		= "project-gwt-button-alarmbanner-evtsum";
+    
+    private UIPanelOlsCounter uiPanelCounter = null;
+    private String [] counterNames = null;
+    
 	private UINameCard uiNameCard;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
@@ -49,103 +58,131 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
+		uiPanelCounter = new UIPanelOlsCounter();
+		counterNames = uiPanelCounter.getCounterNames();
+		
 	    HorizontalPanel basePanel = new HorizontalPanel();
-	    basePanel.setHeight("100%");
+	    basePanel.setHeight("100%"); // Dont't remove it
 	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 	    basePanel.addStyleName("project-gwt-panel-alarmbanner");
 	    
 	    String ALARM_LIST_BANNER_ID = "alarmListBanner";
 	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(ALARM_LIST_BANNER_ID, false, false, false);
-	    wrapperScsAlarmListPanel.setSize("1550px", "100%");
-//	    wrapperScsAlarmListPanel.setAddStyleName("project-gwt-panel-alarmbanner-wrapper");
+	    wrapperScsAlarmListPanel.setSize("1450px", "100%");
 	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
+
 	    
-	    VerticalPanel buttonPanel = new VerticalPanel();
-//	    verticalPanel.getElement().getStyle().setPadding(5, Unit.PX);
-	    buttonPanel.setHeight("100%");
-	    buttonPanel.addStyleName("project-gwt-panel-alarmbanner");
-	    buttonPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    buttonPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    VerticalPanel panelButtonVertical1 = new VerticalPanel();
+	    panelButtonVertical1.addStyleName("project-gwt-panel-alarmbanner-button-vertical1");
+	    panelButtonVertical1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+	    panelButtonVertical1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
-	    String lblSums [] = new String[] { strAlarmSummary , strEventSummary };
+	    VerticalPanel panelButtonVertical2 = new VerticalPanel();
+	    panelButtonVertical2.addStyleName("project-gwt-panel-alarmbanner-button-vertical2");
+	    panelButtonVertical2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+	    panelButtonVertical2.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
-	    for ( String lbl: lblSums) {
-		    final Button button = new Button(lbl);
+	    String lblSums2 []		= new String[] { strAlarmSummary , strEventSummary };
+	    String strTipSums2[]	= new String[] { strTipAlarmSummary, strTipEventSummary};
+	    String strCsss2 []		= new String[] { strAlmSumCSS, strEvtSumCSS};
+	    
+	    String lblSums1 [] 		= new String[] { strAckPage };
+	    String strTipSums1[] 	= new String[] { strTipAckPage};
+	    String strCsss1 [] 		= new String[] { strAckPageCSS};
+	    
+	    for ( int i = 0 ; i < lblSums2.length ; ++i) {
+		    final Button button = new Button();
+		    button.setText(lblSums2[i]);
+		    button.setTitle(strTipSums2[i]);
 		    button.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
-		    button.addStyleName("project-gwt-button");
-	   		buttonPanel.add(button);
+		    button.addStyleName(strCsss2[i]);
+		    panelButtonVertical2.add(button);
 	   		button.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
-					//Window.alert("Summary Button Clicked");
 					Button btn = (Button) event.getSource();
 					onButton(btn.getText());
 				}
 			});	    	
 	    }
 	    
-	    String basePath		= GWT.getModuleBaseURL();
+	    for ( int i = 0 ; i < lblSums1.length ; ++i) {
+		    final Button button = new Button();
+		    button.setText(lblSums1[i]);
+		    button.setTitle(strTipSums1[i]);
+		    button.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
+		    button.addStyleName(strCsss1[i]);
+		    panelButtonVertical1.add(button);
+	   		button.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					Button btn = (Button) event.getSource();
+					onButton(btn.getText());
+				}
+			});	    	
+	    }
+	    
+	    String basePath					= GWT.getModuleBaseURL();
 	    	       		
-   		String strSoundPath			= basePath + "/" + IMAGE_PATH+"/hscs/Sound.png";
-   		final String strNoSoundPath	= basePath + "/" + IMAGE_PATH+"/hscs/NoSound.png";
+	    final String strSoundPath		= basePath + "/" + IMAGE_PATH+"/hscs/Sound.png";
+   		final String strNoSoundPath		= basePath + "/" + IMAGE_PATH+"/hscs/NoSound.png";
+   		
+   		final String strTipSound		= "Alarm Sound Audible";
+   		final String strTipSoundDisable	= "Alarm Sound Silent";
    		
 		//GWT.getModuleBaseURL()
-		final String audioHtmlUp	= "<div width=\"90px\" height=\"32px\"><center><img src=\""+strSoundPath+"\" width=\"18px\" height=\"18px\"><label>Audible</label></center></br></div>";
-		final String audioHtmlDown	= "<div width=\"90px\" height=\"32px\"><center><img src=\""+strNoSoundPath+"\" width=\"18px\" height=\"18px\"><label>Silent</label></center></br></div>";
+		final String audioHtmlUp		= "<div width=\"90px\" height=\"32px\"><center><img src=\""+strSoundPath+"\" width=\"18px\" height=\"18px\"><label>Audible</label></center></br></div>";
+		final String audioHtmlDown		= "<div width=\"90px\" height=\"32px\"><center><img src=\""+strNoSoundPath+"\" width=\"18px\" height=\"18px\"><label>Silent</label></center></br></div>";
 		
 		final Button audioButton = new Button();
 		audioButton.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
-		audioButton.addStyleName("project-gwt-button");
+		audioButton.addStyleName("project-gwt-button-alarmbanner-audio");
 		audioButton.setHTML(audioHtmlUp);
+		audioButton.setTitle(strTipSound);
 		audioButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				Button button = (Button)event.getSource();
 				if ( button.getHTML().indexOf(strNoSoundPath) != -1 ) {
 					button.setHTML(audioHtmlUp);
+					audioButton.setTitle(strTipSound);
 				} else {
 					button.setHTML(audioHtmlDown);
+					audioButton.setTitle(strTipSoundDisable);
 				}
 			}
 		});
-   		buttonPanel.add(audioButton);
+		panelButtonVertical1.add(audioButton);
+		
+	    
+	    HorizontalPanel panelButtonHorizontal = new HorizontalPanel();
+	    panelButtonHorizontal.addStyleName("project-gwt-panel-alarmbanner-button-horizontal");
+	    panelButtonHorizontal.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+	    panelButtonHorizontal.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    
+	    panelButtonHorizontal.add(panelButtonVertical1);
+	    panelButtonHorizontal.add(panelButtonVertical2);
    		
-	    VerticalPanel statPanel = new VerticalPanel();
-	    statPanel.setWidth("100%");
-	    statPanel.setHeight("100%");
-	    statPanel.addStyleName("project-gwt-panel-alarmbanner");
-	    statPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    statPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    inlineLabel = new InlineLabel[strAlarmLbls.length];
-	    for(int i=0;i<strAlarmLbls.length;i++){
-	    	inlineLabel[i] = new InlineLabel(strAlarmLbls[i]);
-	    	inlineLabel[i].setSize(LABEL_WIDTH+UNIT_PX,LABEL_HEIGHT +UNIT_PX);
-	    	inlineLabel[i].getElement().getStyle().setPadding(5, Unit.PX);
-	    	if ( (i % 2) != 0 ) { 
-	    		inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarmbanner-counter-value");
-	    	} else {
-	    		inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarmbanner-counter-label");
-	    	}
-	    	statPanel.add(inlineLabel[i]);
-	    }
-	    
+
+	    //
+	    VerticalPanel statPanel = uiPanelCounter.getMainPanel(this.uiNameCard);
+	    //
+		
 	    basePanel.add(wrapperScsAlarmListPanel.getMainPanel());
 	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 	    basePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    basePanel.add(buttonPanel);
+	    basePanel.add(panelButtonHorizontal);
 	    basePanel.add(statPanel);
 	    	   
 	    DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
 	    root.add(basePanel);
 	    root.setWidth("100%");
 	    root.setHeight("100%");
-	    
-		for ( int i = 0 ; i < counterNames.length; ++i) {
-			Integer value = wrapperScsAlarmListPanel.getCounter(counterNames[i]);
-			if ( null != value ) {
-				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
-			}
-		}
+
+	    for ( int i = 0 ; i < counterNames.length; ++i) {
+	    	Integer value = wrapperScsAlarmListPanel.getCounter(counterNames[i]);
+	    	if ( null != value ) {
+	    		uiPanelCounter.updateCounter(counterNames[i], value);
+	    	}
+	    }
 	    
 	    logger.log(Level.FINE, "getMainPanel End");
 	    
@@ -179,16 +216,14 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 	
 	@Override
 	public void valueChanged(String name, int value) {
-		logger.log(Level.SEVERE, "valueChanged Begin");
+		logger.log(Level.FINE, "valueChanged Begin");
 		
-		logger.log(Level.SEVERE, " **** valueChanged name["+name+"] value["+value+"]");
-		for ( int i = 0 ; i < counterNames.length; ++i) {
-			if ( 0 == name.compareTo(counterNames[i]) ) {
-				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
-			}			
-		}
+		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
+
+		if ( null != uiPanelCounter ) uiPanelCounter.updateCounter(name, value);
 		
-		logger.log(Level.SEVERE, "valueChanged End");
+		logger.log(Level.FINE, "valueChanged End");
 		
 	}
+
 }

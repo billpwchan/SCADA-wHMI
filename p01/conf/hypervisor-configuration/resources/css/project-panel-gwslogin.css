@@ -1,8 +1,8 @@
-.project-gwt-panel-login {
+.project-gwt-panel-gwslogin {
 	background-color: #BEBEBE;
 }
 
-.project-gwt-inlinelabel-login {
-	background-color: #BEBEBE;
-	font-size: 400%;
+.project-gwt-inlinelabel-connecting {
+	font-weight: bold;
+	font-size: 16px;
 }

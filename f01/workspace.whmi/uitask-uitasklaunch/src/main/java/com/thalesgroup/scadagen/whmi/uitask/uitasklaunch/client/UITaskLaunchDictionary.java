@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client;
 import java.util.logging.Logger;
 
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
+import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
 
 public class UITaskLaunchDictionary extends UITaskDictionary {
 	

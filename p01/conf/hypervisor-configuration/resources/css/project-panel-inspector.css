@@ -2,22 +2,126 @@
 	background-color: #BEBEBE;
 }
 
+.project-gwt-panel-title {
+	width: 100%;
+	padding:10px;
+	color: white;
+	background-color: slategrey;
+}
+
+.project-gwt-flextable-header {
+
+}
+
 .project-gwt-inlinelabel-equipmentname {
-	font-size: 100%;
+	width:100%;
+	text-align:center;
+	font-size:16px !important;
 }
 
 .project-gwt-inlinelabel-equipmentalias {
-	font-size: 100%;
+	padding:10px;
 }
 
 .project-gwt-inlinelabel-headerlabel {
-	font-size: 100%;
+	font-size: 16px !important;
 }
 
 .project-gwt-textbox-headervalue {
-	font-size: 100%;
+	color:black !important;
+	font-size: 16px !important;
+	font-size: 16px;
+}
+
+.project-gwt-button-inspector-up {
+	width:50px;
+	padding:10px;
+	font-size: 22px !important;
 }
 
 .project-gwt-inlinelabel-pagenum {
-	font-size: 100%;
+	width:50px;
+	padding:10px;
+	font-size: 16px;
+}
+
+.project-gwt-button-inspector-down {
+	width:50px;
+	padding:10px;
+	font-size: 22px !important;
+}
+
+.project-gwt-button-inspector-info-ackpage {
+	width: 128px;
+	padding:10px;
+	font-size: 22px !important;
+}
+
+.project-gwt-inlinelabel-inspector-info-label {
+	font-size: 16px !important;
+}
+
+.project-gwt-textbox-inspector-info-value {
+	color:black !important;
+	font-size: 16px !important;
+}
+
+
+.project-gwt-flextable-inspector-info-label-col {
+	width: 150px;
+}
+.project-gwt-flextable-inspector-info-value-col {
+	width: 150px;
+}
+.project-gwt-flextable-inspector-info-status-col {
+	width: 15px;
+}
+
+.project-gwt-inlinelabel-inspector-info-status-green {
+	color:green;
+	background-color:green;
+	background-image: none;
+	font-size: 16px !important;
+}
+
+.project-gwt-inlinelabel-inspector-info-status-red {
+	color:red;
+	background-color:red;
+	background-image: none;
+	font-size: 16px !important;
+}
+
+.project-gwt-inlinelabel-inspector-info-status-blue {
+	color:green;
+	background-color:green;
+	background-image: none;
+	font-size: 16px !important;
+}
+
+.project-gwt-inlinelabel-inspector-info-status-grey {
+	color:grey;
+	background-color:grey;
+	background-image: none;
+	font-size: 16px !important;
+}
+
+.project-gwt-panel-inspector-bottom {
+	width:100%;
+	background-color: dimgrey;
+}
+.project-gwt-textbox-inspector-bottom-message {
+	width: 300px;
+	height: 40px;
+	color:black !important;
+	font-size:16px !important;
+	background-color: lightgrey;
+}
+.project-gwt-button-inspector-bottom-close {
+	width: 80px;
+	height: 30px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.project-gwt-panel-inspector-info-bottom {
+	width:100%;
 }

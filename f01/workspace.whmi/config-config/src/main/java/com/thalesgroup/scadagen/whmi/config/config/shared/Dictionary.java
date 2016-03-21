@@ -10,14 +10,18 @@ public class Dictionary implements Config_i, java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 3830180475332229852L;
 	public Dictionary() {}
+	public Dictionary(Dictionary dictionary) {
+		for ( Object o : dictionary.getAttributeKeys() ) { this.setAttribute(o, dictionary.getAttribute(o)); }
+		for ( Object o : dictionary.getValueKeys() ) { this.setValue(o, dictionary.getValue(o)); }
+	}
 	
-	private HashMap<String, Object> attributeMap = new HashMap<String, Object>();
-	public void setAttribute(String key, Object value) { this.attributeMap.put(key, value); }
-	public Object getAttribute(String key) { return this.attributeMap.get(key); }
-	public Set<String> getAttributeKeys() { return this.attributeMap.keySet(); }
+	private HashMap<Object, Object> attributeMap = new HashMap<Object, Object>();
+	public void setAttribute(Object key, Object value) { this.attributeMap.put(key, value); }
+	public Object getAttribute(Object key) { return this.attributeMap.get(key); }
+	public Set<Object> getAttributeKeys() { return this.attributeMap.keySet(); }
 	
-	private HashMap<String, Object> contentMap = new HashMap<String, Object>();
-	public void setValue(String key, Object value) { this.contentMap.put(key, value); }
-	public Object getValue(String key) { return this.contentMap.get(key); }
-	public Set<String> getValueKeys() { return this.contentMap.keySet(); }
+	private HashMap<Object, Object> valueMap = new HashMap<Object, Object>();
+	public void setValue(Object key, Object value) { this.valueMap.put(key, value); }
+	public Object getValue(Object key) { return this.valueMap.get(key); }
+	public Set<Object> getValueKeys() { return this.valueMap.keySet(); }
 }

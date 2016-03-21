@@ -1,27 +1,14 @@
 package com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client;
 
-import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
+import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
 
-public class UITaskHistory implements UITask_i {
-	private String uiScreen = "";
-	private String uiPath = "";
-	public String getUiScreen() {
-		return this.uiScreen;
+public class UITaskHistory extends UITaskDictionary {
+	public UITaskHistory() {
+		super();
 	}
-	public int getTaskUiScreen() {
-		return Integer.parseInt(this.uiScreen);
-	}
-	public void setTaskUiScreen(int uiScreen) {
-		this.uiScreen = Integer.toString(uiScreen);
-	}
-	public void setUiScreen(String uiScreen) {
-		this.uiScreen = uiScreen;
-	}
-	public String getUiPath() {
-		return uiPath;
-	}
-	public void setUiPath(String uiPath) {
-		this.uiPath = uiPath;
+	public UITaskHistory(UITaskHistory uiTaskHistory) {
+		super(uiTaskHistory);
+
 	}
 	
 	/**
@@ -35,6 +22,5 @@ public class UITaskHistory implements UITask_i {
 	public void setTaskType(TaskType taskType) {
 		this.taskType = taskType;
 	}
-
 
 }

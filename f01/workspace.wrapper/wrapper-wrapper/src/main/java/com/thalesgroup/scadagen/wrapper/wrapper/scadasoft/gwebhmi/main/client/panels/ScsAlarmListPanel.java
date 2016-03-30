@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,12 +27,13 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.component.Capti
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.event.GDGCounterChangeEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.ScsAlarmDataGridPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.WrapperScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view.ScsGenericDataGridView;
 /**
  * A widget displaying an alarm list panel.
@@ -51,7 +53,7 @@ public class ScsAlarmListPanel extends ResizeComposite
     /**
      * Client presenter of this alarm list widget
      */
-    private ScsAlarmDataGridPresenterClient gridPresenter_;
+    private WrapperScsAlarmDataGridPresenterClient gridPresenter_;
 
     /**
      * Bus used to subscribe to and publish alarm-related events
@@ -131,7 +133,7 @@ public class ScsAlarmListPanel extends ResizeComposite
      * @param withAck
      *            display or not the acknowledge button and menu
      */
-    public ScsAlarmListPanel(final EventBus eventBus, String listConfigId, boolean withAction, boolean withCaption, boolean withAck) {
+    public ScsAlarmListPanel(final EventBus eventBus, String listConfigId, boolean withAction, boolean withCaption, boolean withAck, Set<FilterSetEvent> filterSet) {
 
         eventBus_ = eventBus;
         withAction_ = withAction;
@@ -139,7 +141,7 @@ public class ScsAlarmListPanel extends ResizeComposite
         withCaption_ = withCaption;
         listConfigId_ = listConfigId;
         initComponents();
-        initPresenter();
+        initPresenter(filterSet);
         initWidget((Widget) mainPanel_);
     }
 
@@ -151,9 +153,9 @@ public class ScsAlarmListPanel extends ResizeComposite
      * Create and initialize the presenter with its view, selectionModel,
      * context menu and Handlers
      */
-    private void initPresenter() {
+    private void initPresenter(Set<FilterSetEvent> filterSet) {
         if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
-            gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
+            gridPresenter_ = new WrapperScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_, filterSet);
             gridPresenter_.setSelectionModel(new MultipleSelectionModel());
             gridPresenter_.setMenu(contextMenu_);
 
@@ -225,8 +227,6 @@ public class ScsAlarmListPanel extends ResizeComposite
                 if (!state.isValid()) {
                     return "gdg_invalid";
                 }
-                
-                if ( true ) {
                 	
                 String CSS_ALARM_		= "CSS_ALARM";
                 
@@ -268,15 +268,9 @@ public class ScsAlarmListPanel extends ResizeComposite
                 	strCssResult += _NA;
                 }
                 
-logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
+logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
-                
-	            } else {
-	
-	                return CSS_SEVERITY_PREFIX + severity.getValue() + " " + CSS_ALARM_ACK_PREFIX + state.getValue();
-	                
-	            }
                 
                 //CSS_SUPER_CRITICAL_NA
                 //CSS_SUPER_CRITICAL_A
@@ -359,9 +353,9 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
     }
     private String [] counterNames;
     public void setCounterNames(String [] counterNames) {
-    	logger.log(Level.SEVERE, "setCounterNames counterNames");
+    	logger.log(Level.FINE, "setCounterNames counterNames");
     	for(String s: counterNames) {
-    		logger.log(Level.SEVERE, "setCounterNames s["+s+"]");
+    		logger.log(Level.FINE, "setCounterNames s["+s+"]");
     	}
     	this.counterNames = counterNames;
     }
@@ -373,14 +367,14 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
     @Override
     public void onCounterChange(GDGCounterChangeEvent event) {
         if (event.getSource() == gridPresenter_) {
-        	logger.log(Level.SEVERE, "onCounterChange");
+        	logger.log(Level.FINE, "onCounterChange");
         	try {
 	        	Iterator<Entry<String, Integer>> iter = hashMap.entrySet().iterator();
 	        	while (iter.hasNext()) {
 	        	    Entry<String, Integer> entry = iter.next();
 	        	    String key = entry.getKey();
 	        	    Integer value = entry.getValue();
-	        	    logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
+	        	    logger.log(Level.FINE, "onCounterChange key["+key+"] value["+value+"]");
 	        	    if ( null != value ) hashMap.put(key, value);
 	        	} 
 	        	/*
@@ -416,14 +410,14 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
 	            	for ( int i = 0 ; i < counterNames.length ; ++i ) {
 	                	String n = counterNames[i];
 	                    Integer v = event.getValues().get(n);
-	                    logger.log(Level.SEVERE, "onCounterChange n["+n+"] v["+v+"]");
+	                    logger.log(Level.FINE, "onCounterChange n["+n+"] v["+v+"]");
 	                    if (null != v) wrapperScsAlarmListPanelEvent.valueChanged(n, v);
 	            	}            	
 	            } else {
-	            	logger.log(Level.SEVERE, "onCounterChange wrapperScsAlarmListPanelEvent is NULL");
+	            	logger.log(Level.FINE, "onCounterChange wrapperScsAlarmListPanelEvent is NULL");
 	            }
         	} catch (Exception e ) {
-        		logger.log(Level.SEVERE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
+        		logger.log(Level.FINE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
         	}
         }
     }

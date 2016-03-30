@@ -23,9 +23,6 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 	
 	private static Logger logger = Logger.getLogger(UIViewEvent.class.getName());
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
 	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
@@ -65,10 +62,17 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		for(int i=0;i<strNoOfEvents.length;++i){
 			inlineLabel[i] = new InlineLabel(strNoOfEvents[i]);
 			inlineLabel[i].getElement().getStyle().setPadding(20, Unit.PX);
-			if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-event-summary-counter");
+			if ( (i % 2) != 0 ) {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-eventsummary-counter-value");
+			} else {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-eventsummary-counter-label");
+			}
 			numOfEventBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			numOfEventBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			numOfEventBar.add(inlineLabel[i]);
+			
+			
+			inlineLabel[i].setVisible(false);
 		}
 		
 		
@@ -78,17 +82,23 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		String [] strFilters = new String [] {
 				strPrint, strFilterReset, strFilterApplied
 		};
+		
+		String strPrintCss 				= "project-gwt-button-eventsummary-print";
+		String strFilterResetCss 		= "project-gwt-button-eventsummary-filterreset";
+		String strFilterAppliedCss 		= "project-gwt-button-eventsummary-filterapplied";
+		String strFilterCsss [] = new String [] { strPrintCss, strFilterResetCss, strFilterAppliedCss};
+		
 		HorizontalPanel filterBar = new HorizontalPanel();
 //		filterBar.getElement().getStyle().setPadding(20, Unit.PX);
 		for(int i=0;i<strFilters.length;++i){
 			Button button = new Button(strFilters[i]);
 //			button.getElement().getStyle().setPadding(10, Unit.PX);
-			button.setWidth("100px");
-			button.setHeight("45px");
-			
-			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
-				button.getElement().getStyle().setColor(RGB_RED);
-			}
+//			button.setWidth("100px");
+//			button.setHeight("45px");
+			button.addStyleName(strFilterCsss[i]);
+//			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
+//				button.getElement().getStyle().setColor(RGB_RED);
+//			}
 			
 			filterBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			filterBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -107,8 +117,9 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 //		}
 		
 		HorizontalPanel upperBar = new HorizontalPanel();
-		upperBar.setWidth("100%");
-		upperBar.setHeight("100%");
+//		upperBar.setWidth("100%");
+//		upperBar.setHeight("100%");
+		upperBar.addStyleName("project-gwt-panel-eventsummary-upperbar");
 		upperBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		upperBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		upperBar.add(numOfEventBar);
@@ -116,17 +127,17 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		upperBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		upperBar.add(filterBar);
 				
-		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.setWidth("100%");
-		bottomBar.setHeight("100%");
-		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		HorizontalPanel bottomBar = new HorizontalPanel();
+//		bottomBar.setWidth("100%");
+//		bottomBar.setHeight("100%");
+//		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 //		bottomBar.add(nagivatorBar);
 		
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addNorth(upperBar, 60);
-		basePanel.addSouth(bottomBar, 40);
-		//basePanel.add(new CellTableEvent().GetTablePanel(15));
+//		basePanel.addSouth(bottomBar, 40);
+		//basePanel.add(new CellTableAlarm().GetTablePanel(15));
 		
 //
 	    String SCS_OLS_LIST_ID = "scseventList";
@@ -142,19 +153,18 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
 		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
 		VerticalPanel toolBarPanel = new VerticalPanel();
-		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
-		toolBarPanel.setWidth("100%");
-		toolBarPanel.setHeight("100%");
-		toolBarPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+//		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
+//		toolBarPanel.setWidth("100%");
+//		toolBarPanel.setHeight("100%");
+		toolBarPanel.addStyleName("project-gwt-panel-eventsummary-toolbar");
 	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    
 	    toolBarPanel.add(panelToolBar);
 		
 		uiPanelPanelToolBar.setButton("Event Summary", true);
 //		
 		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
-		root.setWidth("100%");
-		root.setHeight("100%");
 		root.addSouth(toolBarPanel, 50);
 		root.add(basePanel);
 		

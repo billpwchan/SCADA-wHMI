@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client;
 
+import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
+
 public class UITaskProfile extends UITaskDictionary {
 	public UITaskProfile() {
 		super();

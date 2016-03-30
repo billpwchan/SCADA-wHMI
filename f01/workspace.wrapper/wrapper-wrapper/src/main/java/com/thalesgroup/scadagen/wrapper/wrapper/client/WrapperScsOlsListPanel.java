@@ -30,7 +30,7 @@ public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
 	public void setWrapperScsOlsListPanelEvent(WrapperScsOlsListPanelEvent wrapperScsOlsListPanelEvent) { this.wrapperScsOlsListPanelEvent = wrapperScsOlsListPanelEvent; }
 	public VerticalPanel getMainPanel() {
 		
-	    scsOlsListPanel = new ScsOlsListPanel(AppUtils.EVENT_BUS, alarmListId, withCaption);
+	    scsOlsListPanel = new ScsOlsListPanel(AppUtils.EVENT_BUS, alarmListId, withCaption, null);
 	    scsOlsListPanel.setWidth(this.width);
 	    scsOlsListPanel.setHeight(this.height);
 	    scsOlsListPanel.setCounterNames(counterNames);

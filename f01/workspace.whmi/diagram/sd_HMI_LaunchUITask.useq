@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="com.google.gwt.event.shared.EventBus" project="uiinspector-uiinspector" 
+    file="R:/1166B/.m2/repo/com/google/gwt/gwt-servlet/2.7.0/gwt-servlet-2.7.0.jar" binary="true" label="eventBus" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="348" y="0"/>    
+    <execution id="2">      
+      <position height="1299" width="168" x="5" y="150"/>    
+    </execution>    
+    <execution id="5">      
+      <position height="152" width="7" x="86" y="1153"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="133" width="7" x="86" y="471"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="146" width="7" x="86" y="689"/>    
+    </execution>  
+  </object>  
+  <object id="14" language="java" name="com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelMenus" 
+    project="uipanel-uipanelnavigation" 
+    file="/uipanel-uipanelnavigation/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipanelnavigation/client/UIPanelMenus.java" 
+    binary="false" label="uiPanelMenus" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="44" y="0"/>    
+    <execution id="15">      
+      <position height="1408" width="367" x="177" y="89"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="1336" width="7" x="357" y="137"/>    
+    </execution>  
+  </object>  
+  <object id="19" language="java" name="com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgr" 
+    project="uipanel-uipanelviewlayout" 
+    file="/uipanel-uipanelviewlayout/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipanelviewlayout/client/ViewLayoutMgr.java" 
+    binary="false" label="viewLayoutMgr" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="623" y="0"/>    
+    <execution id="4">      
+      <position height="1244" width="367" x="177" y="181"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="1184" width="7" x="728" y="217"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="1119" width="7" x="728" y="258"/>    
+    </execution>    
+    <execution id="25">      
+      <position height="1042" width="7" x="728" y="311"/>    
+    </execution>    
+    <execution id="29">      
+      <position height="24" width="7" x="728" y="385"/>    
+    </execution>    
+    <execution id="31">      
+      <position height="184" width="7" x="734" y="444"/>    
+    </execution>    
+    <execution id="33">      
+      <position height="195" width="7" x="734" y="664"/>    
+    </execution>    
+    <execution id="35">      
+      <position height="81" width="7" x="728" y="897"/>    
+    </execution>    
+    <execution id="37">      
+      <position height="77" width="7" x="734" y="1022"/>    
+    </execution>    
+    <execution id="39">      
+      <position height="194" width="7" x="731" y="1135"/>    
+    </execution>  
+  </object>  
+  <object id="47" language="java" 
+    name="com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout" 
+    project="uipanel-uipanelviewlayout" 
+    file="/uipanel-uipanelviewlayout/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipanelviewlayout/client/UIPanelViewLayout.java" 
+    binary="false" label="uiPanelViewLayout" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="433" y="0"/>    
+    <execution id="27">      
+      <position height="24" width="367" x="919" y="335"/>    
+    </execution>    
+    <execution id="45">      
+      <position height="24" width="367" x="919" y="1051"/>    
+    </execution>  
+  </object>  
+  <object id="48" language="java" name="com.thalesgroup.scadagen.whmi.uipanel.uipanelstatusbar.client.UIPanelStatusBar" 
+    project="uipanel-uipanelstatusbar" 
+    file="/uipanel-uipanelstatusbar/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipanelstatusbar/client/UIPanelStatusBar.java" 
+    binary="false" label="uiPanelStatusBar" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1508" y="0"/>    
+    <execution id="10">      
+      <position height="79" width="362" x="1642" y="501"/>    
+    </execution>    
+    <execution id="50">      
+      <position height="24" width="362" x="1642" y="532"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="96" width="362" x="1642" y="715"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="24" width="362" x="1642" y="763"/>    
+    </execution>  
+  </object>  
+  <object id="53" language="java" name="com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar.client.UIPanelAccessBar" 
+    project="uipanel-uipaneltoolbar" 
+    file="/uipanel-uipaneltoolbar/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipaneltoolbar/client/UIPanelAccessBar.java" 
+    binary="false" label="uiPanelAccessBar" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1288" y="0"/>    
+    <execution id="7">      
+      <position height="90" width="348" x="1290" y="1191"/>    
+    </execution>    
+    <execution id="55">      
+      <position height="24" width="348" x="1290" y="1233"/>    
+    </execution>  
+  </object>  
+  <object id="56" language="java" 
+    name="com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.history.ViewLayoutHistoryMgr" 
+    project="uipanel-uipanelviewlayout" 
+    file="/uipanel-uipanelviewlayout/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipanelviewlayout/client/history/ViewLayoutHistoryMgr.java" 
+    binary="false" label="viewLayoutHistoryMgr" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1339" y="0"/>    
+    <execution id="43">      
+      <position height="24" width="406" x="1290" y="930"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="9" operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="12" operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="16" 
+    operation="onClickAction(com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.NavigationMenuButton,java.lang.String,boolean):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="18" operation="fireEvent(com.google.web.bindery.event.shared.Event&lt;?&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="2"/>  
+  </message>  
+  <message id="20" operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>  
+  <message id="22" 
+    operation="setTaskLaunch(com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch,boolean):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="24" 
+    operation="setLayout(com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode,com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>  
+  <message id="26" 
+    operation="setTaskLaunch(com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch,int):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="27"/>  
+  </message>  
+  <message id="28" operation="isValidActivateId(int):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="29"/>  
+  </message>  
+  <message id="30" 
+    operation="triggerTitleChange(com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="31"/>  
+  </message>  
+  <message id="32" operation="triggerProfileChange():void" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="33"/>  
+  </message>  
+  <message id="34" operation="historySnapshot():void" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="35"/>  
+  </message>  
+  <message id="36" operation="triggerSplitScreenButtonUpdate():void" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="37"/>  
+  </message>  
+  <message id="38" operation="triggerHistoryUIUpdate():void" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="39"/>  
+  </message>  
+  <message id="40" operation="fireEvent(com.google.web.bindery.event.shared.Event&lt;?&gt;):void" asynchronous="true">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="41" asynchronous="false">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="42" 
+    operation="add(com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutHistory):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="43"/>  
+  </message>  
+  <message id="44" operation="setSplitButton():void" asynchronous="false">    
+    <end type="SOURCE" refId="37"/>    
+    <end type="TARGET" refId="45"/>  
+  </message>  
+  <message id="46" operation="fireEvent(com.google.web.bindery.event.shared.Event&lt;?&gt;):void" asynchronous="true">    
+    <end type="SOURCE" refId="39"/>    
+    <end type="TARGET" refId="5"/>  
+  </message>  
+  <message id="49" operation="setTitle(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="50"/>  
+  </message>  
+  <message id="51" operation="setProfile(java.lang.String,java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>  
+  <message id="54" 
+    operation="setHistoryButton(com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="55"/>  
+  </message>
+</sequence-diagram>

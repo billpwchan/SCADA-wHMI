@@ -23,18 +23,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelE
 public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	
 	private static Logger logger = Logger.getLogger(UIViewAlarm.class.getName());
-	
-	public static final String UNIT_PX		= "px";
-	
-	public static final String IMAGE_PATH	= "imgs";
-	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
+
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	public void addHandlerRegistration(HandlerRegistration handlerRegistration){
 		handlerRegistrations.add(handlerRegistration);
@@ -48,11 +37,14 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	}
 	
 	private String [] counterNames = { 
-			"alarmlist_counter_all", "alarmlist_counter_critical", "alarmlist_counter_hight", "alarmlist_counter_medium"/*, "alarmlist_counter_low"*/
-			, "alarmlist_counter_all_unack", "alarmlist_counter_critical_unack", "alarmlist_counter_hight_unack", "alarmlist_counter_medium_unack"/*, "alarmlist_counter_low_unack"*/};
+			"alarmlist_counter_all_unack", "alarmlist_counter_critical_unack", "alarmlist_counter_hight_unack", "alarmlist_counter_medium_unack"/*, "alarmlist_counter_low_unack"*/
+			, "alarmlist_counter_all", "alarmlist_counter_critical", "alarmlist_counter_hight", "alarmlist_counter_medium"/*, "alarmlist_counter_low"*/
+	};
+	
 	private String [] strNoOfAlarms = new String [] {
-			"Total:", "0", "Super Critical (ALL):", "0", "Critical (ALL):", "0", "Less Critical (ALL):", "0"
-			, "Unack:", "0", "Super Critical (unack):", "0", "Critical (unack):", "0", "Less Critical (unack):", "0"
+			"UnAck:", "0", "Super Critical (UnAck):", "0", "Critical (UnAck):", "0", "Less Critical (UnAck):", "0"
+			,"Total:", "0", "Super Critical (All):", "0", "Critical (All):", "0", "Less Critical (All):", "0"
+			
 	};
 	private InlineLabel[] inlineLabel;
 		
@@ -67,35 +59,47 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 
 		FlexTable flexTableFilters = new FlexTable();
 		flexTableFilters.setWidth("100%");
-		flexTableFilters.setBorderWidth(LAYOUT_BORDER);
+//		flexTableFilters.setBorderWidth(LAYOUT_BORDER);
 		
 		inlineLabel = new InlineLabel[strNoOfAlarms.length];
 		for(int i=0;i<strNoOfAlarms.length;++i){
 			inlineLabel[i] = new InlineLabel();
 			inlineLabel[i].getElement().getStyle().setPadding(20, Unit.PX);
-			if ( (i % 2) != 0 ) inlineLabel[i].setStyleName("project-alarm-summary-counter");
+			if ( (i % 2) != 0 ) {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarmsummary-counter-value");
+			} else {
+				inlineLabel[i].setStyleName("project-gwt-inlinelabel-alarmsummary-counter-label");
+			}
 			inlineLabel[i].setWidth("100%");
 			inlineLabel[i].setText(strNoOfAlarms[i]);
 			flexTableFilters.setWidget(i/8, i%8, inlineLabel[i]);
 		}
 
-		String strAcknowledgePage = "Acknowledge Page";
+		String strAcknowledgePage = "Ack. Page";
 		String strPrint = "Print";
 		String strFilterReset = "Filter Reset";
 		String strFilterApplied = "Filter Applied";
 		String [] strFilters = new String [] {
 				strAcknowledgePage, strPrint, strFilterReset, strFilterApplied
 		};
+		
+		String strAcknowledgePageCss	= "project-gwt-button-alarmsummary-ackpage";
+		String strPrintCss 				= "project-gwt-button-alarmsummary-print";
+		String strFilterResetCss 		= "project-gwt-button-alarmsummary-filterreset";
+		String strFilterAppliedCss 		= "project-gwt-button-alarmsummary-filterapplied";
+		String strFilterCsss [] = new String [] { strAcknowledgePageCss, strPrintCss, strFilterResetCss, strFilterAppliedCss};
+		
 		HorizontalPanel filterBar = new HorizontalPanel();
 //		filterBar.getElement().getStyle().setPadding(20, Unit.PX);
 		for(int i=0;i<strFilters.length;++i){
 			Button button = new Button(strFilters[i]);
 //			button.getElement().getStyle().setPadding(10, Unit.PX);
-			button.setWidth("100px");
-			button.setHeight("45px");
-			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
-				button.getElement().getStyle().setColor(RGB_RED);
-			}
+//			button.setWidth("100px");
+//			button.setHeight("45px");
+			button.addStyleName(strFilterCsss[i]);
+//			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
+//				button.getElement().getStyle().setColor(RGB_RED);
+//			}
 			
 			filterBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			filterBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -114,8 +118,9 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 //		}
 		
 		HorizontalPanel upperBar = new HorizontalPanel();
-		upperBar.setWidth("100%");
-		upperBar.setHeight("100%");
+//		upperBar.setWidth("100%");
+//		upperBar.setHeight("100%");
+		upperBar.addStyleName("project-gwt-panel-alarmsummary-upperbar");
 		upperBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		upperBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		upperBar.add(flexTableFilters);
@@ -123,16 +128,17 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 		upperBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		upperBar.add(filterBar);
 				
-		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.setWidth("100%");
-		bottomBar.setHeight("100%");
-		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		bottomBar.add(nagivatorBar);
+//		HorizontalPanel bottomBar = new HorizontalPanel();
+////		bottomBar.setWidth("100%");
+////		bottomBar.setHeight("100%");
+//		bottomBar.addStyleName("project-gwt-panel-alarmsummary-bottombar");
+//		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+////		bottomBar.add(nagivatorBar);
 		
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addNorth(upperBar, 60);
-		basePanel.addSouth(bottomBar, 40);
+//		basePanel.addSouth(bottomBar, 40);
 		//basePanel.add(new CellTableAlarm().GetTablePanel(15));
 		
 //
@@ -152,12 +158,13 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
 		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
 		VerticalPanel toolBarPanel = new VerticalPanel();
-		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
-		toolBarPanel.setWidth("100%");
-		toolBarPanel.setHeight("100%");
-		toolBarPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+//		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
+//		toolBarPanel.setWidth("100%");
+//		toolBarPanel.setHeight("100%");
+		toolBarPanel.addStyleName("project-gwt-panel-alarmsummary-toolbar");
 	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    
 	    toolBarPanel.add(panelToolBar);
 		
 		uiPanelPanelToolBar.setButton("Alarm Summary", true);
@@ -185,16 +192,16 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	
 	@Override
 	public void valueChanged(String name, int value) {
-		logger.log(Level.SEVERE, "valueChanged Begin");
+		logger.log(Level.FINE, "valueChanged Begin");
 		
-		logger.log(Level.SEVERE, " **** valueChanged name["+name+"] value["+value+"]");
+		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
 		for ( int i = 0 ; i < counterNames.length; ++i) {
 			if ( 0 == name.compareTo(counterNames[i]) ) {
 				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
 			}			
 		}
 
-		logger.log(Level.SEVERE, "valueChanged End");
+		logger.log(Level.FINE, "valueChanged End");
 		
 	}
 }

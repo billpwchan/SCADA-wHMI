@@ -32,13 +32,6 @@ public class UIScreenOPM implements UIScreen_i {
 	private static Logger logger = Logger.getLogger(UIScreenOPM.class.getName());
 
 	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 1;	
-	
-	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
 	
 	private String EMPTY					= "";
 	
@@ -69,12 +62,12 @@ public class UIScreenOPM implements UIScreen_i {
 
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		dockLayoutPanel.addStyleName("project-gwt-panel-opm");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
-	    verticalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    verticalPanel.addStyleName("project-gwt-panel-opm");
 		
 
 		HorizontalPanel horizontalPanelBar;
@@ -87,24 +80,32 @@ public class UIScreenOPM implements UIScreen_i {
 		verticalPanel.add(horizontalPanelBar);
 		flexTable.setWidget(0, 1, horizontalPanelBar);
 		
-		
-		flexTable.setWidget(1, 0, new InlineLabel("Select Operator:"));
+		InlineLabel lblOperator = new InlineLabel("Select Operator:");
+		lblOperator.addStyleName("project-gwt-inlinelabel-opm-label");
+		flexTable.setWidget(1, 0, lblOperator);
 		listBoxProfile.setWidth("100%");
 		listBoxProfile.setHeight("100%");
 		listBoxProfile.setVisibleItemCount(1);
+		listBoxProfile.addStyleName("project-gwt-listbox-opm-value");
 		for (String s : OpmAuthentication.getInstance().getOperators() ) {
 			listBoxProfile.addItem(s);
 		}
 		flexTable.setWidget(1, 1, listBoxProfile);
 		
-		flexTable.setWidget(2, 0, new InlineLabel("Password"));
+		InlineLabel lblPassword = new InlineLabel("Password");
+		lblPassword.addStyleName("project-gwt-inlinelabel-opm-label");
+		flexTable.setWidget(2, 0, lblPassword);
 		passwordTextBox1.setMaxLength(16);
 		passwordTextBox1.setWidth("100%");
+		passwordTextBox1.addStyleName("project-gwt-listbox-opm-value");
 		flexTable.setWidget(2, 1, passwordTextBox1);
 		
-		flexTable.setWidget(3, 0, new InlineLabel("New Password (min 8)"));
+		InlineLabel lblNewPassword = new InlineLabel("New Password (min 8)");
+		lblNewPassword.addStyleName("project-gwt-inlinelabel-opm-label");
+		flexTable.setWidget(3, 0, lblNewPassword);
 		passwordTextBox2.setMaxLength(16);
 		passwordTextBox2.setWidth("100%");
+		listBoxProfile.addStyleName("project-gwt-listbox-opm-value");
 		flexTable.setWidget(3, 1, passwordTextBox2);
 
 		horizontalPanelBar = new HorizontalPanel();
@@ -129,6 +130,7 @@ public class UIScreenOPM implements UIScreen_i {
 	    for ( int i = 0 ; i < strBtns.length ; ++i ) {
 	    	buttons[i] = new Button(strBtns[i]);
 			buttons[i].setWidth("128px");
+			buttons[i].addStyleName("project-gwt-button");
 			
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -150,9 +152,9 @@ public class UIScreenOPM implements UIScreen_i {
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHeight("100%");
 		horizontalPanel.setWidth("100%");
-	    horizontalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 	    horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    horizontalPanel.addStyleName("project-gwt-panel-opm");
 	    
 	    horizontalPanel.add(verticalPanel);
 

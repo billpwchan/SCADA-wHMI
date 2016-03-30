@@ -1,9 +1,7 @@
-package com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client;
+package com.thalesgroup.scadagen.whmi.uitask.uitask.client;
 
 import java.util.HashMap;
 import java.util.Set;
-
-import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 
 public class UITaskDictionary implements UITask_i {
 	

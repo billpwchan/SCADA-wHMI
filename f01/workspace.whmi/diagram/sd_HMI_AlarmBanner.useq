@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI" 
+    project="uiscreen-uiscreenmmi" 
+    file="/uiscreen-uiscreenmmi/src/main/java/com/thalesgroup/scadagen/whmi/uiscreen/uiscreenmmi/client/UIScreenMMI.java" 
+    binary="false" label="uiScreenMMI" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="97" y="0"/>    
+    <execution id="2">      
+      <position height="315" width="350" x="5" y="89"/>    
+    </execution>  
+  </object>  
+  <object id="7" language="java" 
+    name="com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.client.UIPanelAlarmBanner" 
+    project="uipanel-uipanelalarmbanner" 
+    file="/uipanel-uipanelalarmbanner/src/main/java/com/thalesgroup/scadagen/whmi/uipanel/uipanelalarmbanner/client/UIPanelAlarmBanner.java" 
+    binary="false" label="uiPanelAlarmBanner" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="715" y="0"/>    
+    <execution id="4">      
+      <position height="24" width="381" x="359" y="113"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="243" width="7" x="546" y="137"/>    
+    </execution>  
+  </object>  
+  <object id="20" language="java" name="com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel" 
+    project="uiinspector-uiinspector" 
+    file="R:/1166B/.m2/repo/com/thalesgroup/scadagen/wrapper/wrapper/wrapper-wrapper/1.0-SNAPSHOT/wrapper-wrapper-1.0-SNAPSHOT.jar" 
+    binary="true" label="wrapperScsAlarmListPanel" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1096" y="0"/>    
+    <execution id="9">      
+      <position height="24" width="284" x="744" y="155"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="24" width="284" x="744" y="187"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="24" width="7" x="883" y="221"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="24" width="7" x="886" y="257"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="24" width="7" x="889" y="295"/>    
+    </execution>    
+    <execution id="19">      
+      <position height="24" width="7" x="892" y="332"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="UIPanelAlarmBanner()" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" 
+    operation="getMainPanel(com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard):com.google.gwt.user.client.ui.DockLayoutPanel" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="8" operation="WrapperScsAlarmListPanel(java.lang.String,boolean,boolean,boolean)" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="setSize(java.lang.String,java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="setBorderWidth(int):void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="setCounterNames(java.lang.String[]):void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" 
+    operation="setWrapperScsAlarmListPanelEvent(com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="18" operation="getCounter(java.lang.String):java.lang.Integer" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>
+</sequence-diagram>

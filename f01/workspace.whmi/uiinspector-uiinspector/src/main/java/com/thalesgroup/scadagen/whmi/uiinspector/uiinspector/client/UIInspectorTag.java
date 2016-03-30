@@ -12,17 +12,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UIInspectorTag {
 
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-
 	public Panel getMainPanel() {
 
 		VerticalPanel vpCtrls  = new VerticalPanel();
-		vpCtrls.setBorderWidth(LAYOUT_BORDER);
+//		vpCtrls.setBorderWidth(LAYOUT_BORDER);
 		vpCtrls.setWidth("100%");
 		
 		String btnWidth = "90px";
@@ -51,6 +44,7 @@ public class UIInspectorTag {
 				btnCtrl.setText(tagging[y]);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp1.add(btnCtrl);
 			}
 			vp0.add(hp1);
@@ -64,6 +58,7 @@ public class UIInspectorTag {
 				btnCtrl.setText(control[y]);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp2.add(btnCtrl);
 			}
 			vp0.add(hp2);
@@ -72,7 +67,7 @@ public class UIInspectorTag {
 		}
 				
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
 		basePanel.add(vpCtrls);

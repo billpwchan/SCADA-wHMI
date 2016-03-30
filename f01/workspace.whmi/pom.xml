@@ -96,6 +96,7 @@
     <module>uitask-uitasktitle</module>
     <module>uitask-uitasklaunch</module>
     <module>uitask-uitaskhistory</module>
+    <module>uitask-uitasksplit</module>
     <module>uitask-uitaskmgr</module>
     <module>uiscreen-uiscreen</module>
     <module>uiscreen-uiscreenmgr</module>

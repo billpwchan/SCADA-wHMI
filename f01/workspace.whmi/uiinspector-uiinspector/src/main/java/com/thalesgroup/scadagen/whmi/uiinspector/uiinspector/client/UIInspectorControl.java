@@ -14,17 +14,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class UIInspectorControl {
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-
 	public Panel getMainPanel() {
 
 		VerticalPanel vpCtrls  = new VerticalPanel();
-		vpCtrls.setBorderWidth(LAYOUT_BORDER);
+//		vpCtrls.setBorderWidth(LAYOUT_BORDER);
 		vpCtrls.setWidth("100%");
 		
 		String btnWidth = "90px";
@@ -46,6 +39,7 @@ public class UIInspectorControl {
 				btnCtrl.setText("Control "+y);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp1.add(btnCtrl);
 			}
 			vp0.add(hp1);
@@ -56,6 +50,7 @@ public class UIInspectorControl {
 				btnCtrl.setText("Control "+y);
 				btnCtrl.setWidth(btnWidth);
 				btnCtrl.setHeight(btnHeight);
+				btnCtrl.addStyleName("project-gwt-button");
 				hp2.add(btnCtrl);
 			}
 			vp0.add(hp2);
@@ -69,6 +64,7 @@ public class UIInspectorControl {
 		btnExecute.setText("Execute");
 //		btnExecute.setWidth(btnWidth);
 //		btnExecute.setHeight(btnHeight);
+		btnExecute.addStyleName("project-gwt-button");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -78,31 +74,32 @@ public class UIInspectorControl {
 		});
 		
 		Button btnUp = new Button();
-		btnUp.setWidth("50px");
-		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
-		btnUp.setText("Up");
+//		btnUp.setWidth("50px");
+//		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
+		btnUp.addStyleName("project-gwt-button-inspector-up");
+		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
 			}
 		});
 		
-		InlineLabel lblVol = new InlineLabel();
-		lblVol.setWidth("50px");
-		lblVol.getElement().getStyle().setPadding(10, Unit.PX);
-		lblVol.setText("1 / 1");
+		InlineLabel lblPageNum = new InlineLabel();
+//		lblPageNum.setWidth("50px");
+//		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
+		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
+		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.setWidth("50px");
-		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
-		btnDown.setText("Down");
+//		btnDown.setWidth("50px");
+//		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
+		btnDown.addStyleName("project-gwt-button-inspector-down");
+		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
 			}
 		});	
 
@@ -114,7 +111,7 @@ public class UIInspectorControl {
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		pageBar.add(lblVol);
+		pageBar.add(lblPageNum);
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -132,7 +129,7 @@ public class UIInspectorControl {
 		bottomBar.add(btnExecute);
 				
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
 		basePanel.addSouth(bottomBar, 50);

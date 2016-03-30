@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.FontStyle;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,7 +15,6 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextArea;
 
 public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEvent {
@@ -24,13 +22,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 	private static String IMAGE_PATH = "imgs";
 	
 	public static final String UNIT_PX		= "px";
-		
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 	
 	DialogMsgCtrl dialogMsgCtrl;
 	
@@ -62,18 +53,12 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 	public UITask_i getTaskProvideNo() { return taskProvideNo; }
 	public void setTaskProvideNo(UITask_i taskProvideNo) { this.taskProvideNo = taskProvideNo; }
 	
-	private InlineLabel lblTitle;
+//	private InlineLabel lblTitle;
 	private Image image;
 	private TextArea txtMsg;
 	private Button btnOk;
 	private Button btnCancel;
 	private HorizontalPanel btnBar;
-	
-//	
-//	public UIDialogMsg(UINameCard uiNameCard) {
-//		this.uiNameCard = new UINameCard(uiNameCard);
-//		this.uiNameCard.appendUIPanel(this);
-//	}
 	
 	private UINameCard uiNameCard;
 	public void setUINameCard(UINameCard uiNameCard) {
@@ -96,19 +81,21 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		int baseWidth = 500;
 		int baseHeight = 200;
 		
-		lblTitle = new InlineLabel();
+//		lblTitle = new InlineLabel();
 		
 		image = new Image();
 
 		txtMsg = new TextArea();
 
 		btnOk = new Button();
+		btnOk.addStyleName("project-gwt-button");
 		btnOk.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogMsgCtrl.setYes(taskProvideYes);
 			}
 		});
 		btnCancel = new Button();
+		btnCancel.addStyleName("project-gwt-button");
 		btnCancel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				dialogMsgCtrl.setNo(taskProvideNo);
@@ -167,24 +154,31 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 				break;
 		}
 		
-		lblTitle.setText(title);
+		this.setText(title);
+		
+//		lblTitle.setText(title);
 		
 		txtMsg.setText(msg);
 		
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		dockLayoutPanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);		
+		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);	
+		dockLayoutPanel.addStyleName("project-gwt-panel-dialogmsg");
 		
-		lblTitle.getElement().getStyle().setPadding(10, Unit.PX);
-		lblTitle.getElement().getStyle().setFontStyle(FontStyle.OBLIQUE);
+//		lblTitle.getElement().getStyle().setPadding(10, Unit.PX);
+//		lblTitle.getElement().getStyle().setFontStyle(FontStyle.OBLIQUE);
 		
-		btnOk.setWidth("100px");
-		btnCancel.setWidth("100px");
-		dockLayoutPanel.addNorth(lblTitle, 40);
+//		btnOk.setWidth("100px");
+//		btnCancel.setWidth("100px");
 		
-		btnBar.getElement().getStyle().setPadding(10, Unit.PX);		
-		btnBar.setWidth("100%");
+		btnOk.addStyleName("project-gwt-button-ok");
+		btnCancel.addStyleName("project-gwt-button-cancel");
+//		dockLayoutPanel.addNorth(lblTitle, 40);
+		
+//		btnBar.getElement().getStyle().setPadding(10, Unit.PX);		
+//		btnBar.setWidth("100%");
+//		btnBar.setWidth("100%");
+		btnBar.addStyleName("project-gwt-panel-btnbar");
 		dockLayoutPanel.addSouth(btnBar, 50);
 		
 		image.getElement().getStyle().setPadding(25, Unit.PX);  
@@ -192,8 +186,8 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		
 		txtMsg.setWidth("90%");
 		txtMsg.setHeight("95%");
-		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);
-		txtMsg.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);		
+		txtMsg.addStyleName("project-gwt-textarea-dialogmsg");
 		dockLayoutPanel.add(txtMsg);
 		
 		this.add(dockLayoutPanel);
@@ -240,7 +234,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 
 	@Override
 	public void dialogMsgMgrEvent(DialogMsgMgrEventType dialogMsgMgrEventType) {
-//Window.alert("dialogMsgMgrEvent dialogMsgMgrEventType: "+dialogMsgMgrEventType.toString());
 		switch ( dialogMsgMgrEventType )
 		{
 		case MSG_YES:

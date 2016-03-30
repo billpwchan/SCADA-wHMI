@@ -23,13 +23,10 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
 	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	public static final String RGB_GREY		= "rgb( 213, 210, 213)";
+	public static final String strCSSStatusGreen	= "project-gwt-inlinelabel-inspector-info-status-green";
+	public static final String strCSSStatusRed		= "project-gwt-inlinelabel-inspector-info-status-red";
+	public static final String strCSSStatusBlue		= "project-gwt-inlinelabel-inspector-info-status-blue";
+	public static final String strCSSStatusGrey		= "project-gwt-inlinelabel-inspector-info-status-grey";
 	
 	public UIInspectorInfo () {
 		
@@ -304,12 +301,12 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 	@Override
 	public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
 		
-		logger.log(Level.FINE, "setReadResult Begin");
+		logger.log(Level.SEVERE, "setReadResult Begin");
 
 		if ( null != values && values.length > 0 ) {
 			for ( String value: values ) {
 				
-				logger.log(Level.FINE, "setReadResult key["+key+"] value["+value+"] errorCode["+errorCode+"] errorMessage["+errorMessage+"]");
+				logger.log(Level.SEVERE, "setReadResult key["+key+"] value["+value+"] errorCode["+errorCode+"] errorMessage["+errorMessage+"]");
 				
 				logger.log(Level.FINE, "setReadResult BF value["+value+"]");
 				
@@ -327,7 +324,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 								strLabelValue[x]			= value;
 								logger.log(Level.FINE, "setReadResult x["+x+"] strLabelValue["+strLabelValue[x]+"]");
 							} else if ( 0 == attribute.compareTo(strValueTable) ) {
-								strValueTableValue[x]			= value;
+								strValueTableValue[x]		= value;
 								logger.log(Level.FINE, "setReadResult x["+x+"] strValueTableValue["+strValueTableValue[x]+"]");
 							} else if ( 0 == attribute.compareTo(strValue) ) {
 								strValueValue[x]			= value;
@@ -351,7 +348,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		}
 		
 		for ( int i=0;i<points.length;++i ) {
-			txtAttibuteLabel[i].setText(strLabelValue[i]);
+			lblAttibuteLabel[i].setText(strLabelValue[i]);
 			
 			for( int x = 0 ; x < 12 ; ++x ) {
 				String v = getArrayValues(strValueTableValue[i], 4, x );
@@ -372,20 +369,23 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			}
 			
 			
-			String strColor = getColorCode(strValueAlarmVectorValue[i], strValidityValue[i], strForcedStatusValue[i]);
-			txtAttibuteColor[i].getElement().getStyle().setColor(strColor);
-			txtAttibuteColor[i].getElement().getStyle().setBackgroundColor(strColor);
+//			String strColor = getColorCode(strValueAlarmVectorValue[i], strValidityValue[i], strForcedStatusValue[i]);
+//			txtAttibuteColor[i].getElement().getStyle().setColor(strColor);
+//			txtAttibuteColor[i].getElement().getStyle().setBackgroundColor(strColor);
 			
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strLabelValue["+strLabelValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValueTableValue["+strValueTableValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValueValue["+strValueValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValueAlarmVectorValue["+strValueAlarmVectorValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strValidityValue["+strValidityValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strForcedStatusValue["+strForcedStatusValue[i]+"]");
-			logger.log(Level.SEVERE, "setReadResult i["+i+"] strColor["+strColor+"]");
+			String strColorCSS = getColorCSS(strValueAlarmVectorValue[i], strValidityValue[i], strForcedStatusValue[i]);
+			txtAttibuteColor[i].setStyleName(strColorCSS);
+			
+			logger.log(Level.FINE, "setReadResult i["+i+"] strLabelValue["+strLabelValue[i]+"]");
+			logger.log(Level.FINE, "setReadResult i["+i+"] strValueTableValue["+strValueTableValue[i]+"]");
+			logger.log(Level.FINE, "setReadResult i["+i+"] strValueValue["+strValueValue[i]+"]");
+			logger.log(Level.FINE, "setReadResult i["+i+"] strValueAlarmVectorValue["+strValueAlarmVectorValue[i]+"]");
+			logger.log(Level.FINE, "setReadResult i["+i+"] strValidityValue["+strValidityValue[i]+"]");
+			logger.log(Level.FINE, "setReadResult i["+i+"] strForcedStatusValue["+strForcedStatusValue[i]+"]");
+			logger.log(Level.FINE, "setReadResult i["+i+"] strColor["+strColorCSS+"]");
 		}
 		
-		logger.log(Level.FINE, "setReadResult End");
+		logger.log(Level.SEVERE, "setReadResult End");
 
 	}
 	
@@ -435,11 +435,11 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		return str;
 	}
 	
-	private String getColorCode(String alarmVector, String validity, String forcedStatus) {
+	private String getColorCSS(String alarmVector, String validity, String forcedStatus) {
 		
-		logger.log(Level.FINE, "getColorCode Begin");
+		logger.log(Level.FINE, "getColorCSS Begin");
 		
-		String colorCode	= RGB_GREY;
+		String colorCSS	= strCSSStatusGrey;
 		int intAlarmVector	= 0;
 		int intValidity		= 0;
 		int intForcedStatus	= 0;
@@ -448,37 +448,37 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			intValidity = Integer.parseInt(validity);
 			intForcedStatus = Integer.parseInt(forcedStatus);
 		} catch ( NumberFormatException e ) {
-			logger.log(Level.FINE, "getColorCode NumberFormatException["+e.toString()+"]");
+			logger.log(Level.FINE, "getColorCSS NumberFormatException["+e.toString()+"]");
 		}
 		
 		int intMO = 2, intAI = 8, intSS = 512;
 		
 		// 2=MO, AI=8, 512=SS
 		if ( (intForcedStatus & intMO) == intMO || (intForcedStatus & intAI) == intAI || (intForcedStatus & intSS) == intSS ) {
-			colorCode = RGB_BLUE;
+			colorCSS = strCSSStatusBlue;
 			
 		// 0=invalid, 1=valid	
 		} else if ( intValidity == 0 ) {
-			colorCode = RGB_GREY;
+			colorCSS = strCSSStatusGrey;
 			
 		// 0=normal, 1=alarm
 		} else if ( intAlarmVector == 1 ) {
-			colorCode = RGB_RED;
+			colorCSS = strCSSStatusRed;
 			
 		// Grey
 		} else {
-			colorCode = RGB_GREEN;
+			colorCSS = strCSSStatusGreen;
 		}
 		
-		logger.log(Level.FINE, "getColorCode colorCode["+colorCode+"]");
+		logger.log(Level.FINE, "getColorCSS colorCode["+colorCSS+"]");
 		
-		logger.log(Level.FINE, "getColorCode End");
+		logger.log(Level.FINE, "getColorCSS End");
 
-		return colorCode;
+		return colorCSS;
 	}
 
 	private TextBox txtAttribute[];
-	private InlineLabel txtAttibuteLabel[];
+	private InlineLabel lblAttibuteLabel[];
 	private InlineLabel txtAttibuteColor[];
 	public Panel getMainPanel() {
 		
@@ -487,38 +487,47 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		int numOfPoints = points.length;
 		
 		txtAttribute = new TextBox[numOfPoints];
-		txtAttibuteLabel = new InlineLabel[numOfPoints];
+		lblAttibuteLabel = new InlineLabel[numOfPoints];
 		txtAttibuteColor = new InlineLabel[numOfPoints];
 		
 		FlexTable flexTableAttibutes = new FlexTable();
 		flexTableAttibutes.setWidth("100%");
-		flexTableAttibutes.setBorderWidth(LAYOUT_BORDER);
+//		flexTableAttibutes.setBorderWidth(LAYOUT_BORDER);
 		for ( int i = 0; i < numOfPoints ; i ++ ) {
+			
+			lblAttibuteLabel[i] = new InlineLabel();
+			lblAttibuteLabel[i].setWidth("100%");
+			lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-info-label");
+			lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
+			flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
 			txtAttribute[i] = new TextBox();
-			txtAttibuteLabel[i] = new InlineLabel();
-			txtAttibuteLabel[i].setWidth("100%");
-			txtAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
-			flexTableAttibutes.setWidget(i+1, 0, txtAttibuteLabel[i]);
 			txtAttribute[i].setWidth("95%");
 			txtAttribute[i].setText("ATTRIBUTE_STATUS_"+(i+1));
+			txtAttribute[i].addStyleName("project-gwt-textbox-inspector-info-value");
+			txtAttribute[i].setReadOnly(true);
 			txtAttribute[i].setMaxLength(16);
 			flexTableAttibutes.setWidget(i+1, 1, txtAttribute[i]);
 			txtAttibuteColor[i] = new InlineLabel();
 			txtAttibuteColor[i].setText("R");
-			txtAttibuteColor[i].getElement().getStyle().setColor(RGB_GREEN);
-			txtAttibuteColor[i].getElement().getStyle().setBackgroundColor(RGB_GREEN);
-			txtAttibuteColor[i].getElement().getStyle().setBackgroundImage("none");
+//			txtAttibuteColor[i].getElement().getStyle().setColor(RGB_GREEN);
+//			txtAttibuteColor[i].getElement().getStyle().setBackgroundColor(RGB_GREEN);
+//			txtAttibuteColor[i].getElement().getStyle().setBackgroundImage("none");
+			txtAttibuteColor[i].setStyleName(strCSSStatusGrey);
 			flexTableAttibutes.setWidget(i+1, 2, txtAttibuteColor[i]);
-			
 		}
-		flexTableAttibutes.getColumnFormatter().setWidth(0, "150px");
-		flexTableAttibutes.getColumnFormatter().setWidth(1, "150px");
-		flexTableAttibutes.getColumnFormatter().setWidth(2, "15px");
+		
+		flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspector-info-label-col");
+		flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspector-info-value-col");
+		flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspector-info-status-col");
+//		flexTableAttibutes.getColumnFormatter().setWidth(0, "150px");
+//		flexTableAttibutes.getColumnFormatter().setWidth(1, "150px");
+//		flexTableAttibutes.getColumnFormatter().setWidth(2, "15px");
 		
 		Button btnUp = new Button();
-		btnUp.setWidth("50px");
-		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
-		btnUp.setText("Up");
+//		btnUp.setWidth("50px");
+//		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
+		btnUp.addStyleName("project-gwt-button-inspector-up");
+		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -526,15 +535,17 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 			}
 		});
 		
-		InlineLabel lblVol = new InlineLabel();
-		lblVol.setWidth("50px");
-		lblVol.getElement().getStyle().setPadding(10, Unit.PX);
-		lblVol.setText("1 / 1");
+		InlineLabel lblPageNum = new InlineLabel();
+//		lblPageNum.setWidth("50px");
+//		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
+		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
+		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.setWidth("50px");
-		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
-		btnDown.setText("Down");
+//		btnDown.setWidth("50px");
+//		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
+		btnDown.addStyleName("project-gwt-button-inspector-down");
+		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -543,8 +554,9 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		});	
 		
 		Button btnAckCurPage = new Button();
-		btnAckCurPage.getElement().getStyle().setPadding(10, Unit.PX);
-		btnAckCurPage.setText("Alarm Ack on Curr Page");
+//		btnAckCurPage.getElement().getStyle().setPadding(10, Unit.PX);
+		btnAckCurPage.addStyleName("project-gwt-button-inspector-info-ackpage");
+		btnAckCurPage.setText("Ack. Page");
 		btnAckCurPage.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -563,14 +575,15 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		pageBar.add(lblVol);
+		pageBar.add(lblPageNum);
 		
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		pageBar.add(btnDown);
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.setWidth("100%");
+//		bottomBar.setWidth("100%");
+		bottomBar.addStyleName("project-gwt-panel-inspector-info-bottom");
 		
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -581,7 +594,7 @@ public class UIInspectorInfo implements WrapperScsRTDBAccessEvent {
 		bottomBar.add(btnAckCurPage);
 
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
 		basePanel.addSouth(bottomBar, 50);

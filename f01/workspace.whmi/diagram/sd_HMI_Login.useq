@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen" 
+    project="uiscreen-uiscreenroot" 
+    file="/uiscreen-uiscreenroot/src/main/java/com/thalesgroup/scadagen/whmi/uiscreen/uiscreenroot/client/UIPanelScreen.java" 
+    binary="false" label="uiPanelScreen" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="829" y="0"/>    
+    <execution id="2">      
+      <position height="184" width="346" x="1235" y="426"/>    
+    </execution>    
+    <execution id="7">      
+      <position height="665" width="346" x="5" y="89"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="593" width="7" x="175" y="137"/>    
+    </execution>  
+  </object>  
+  <object id="16" language="java" name="com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr" 
+    project="uiscreen-uiscreenmgr" 
+    file="/uiscreen-uiscreenmgr/src/main/java/com/thalesgroup/scadagen/whmi/uiscreen/uiscreenmgr/client/UIScreenMgr.java" 
+    binary="false" label="uiScreenMgr" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="610" y="0"/>    
+    <execution id="4">      
+      <position height="24" width="346" x="1585" y="458"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="100" width="7" x="1755" y="486"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="24" width="346" x="355" y="165"/>    
+    </execution>  
+  </object>  
+  <object id="21" language="java" name="com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client.UIScreenLogin" 
+    project="uiscreen-uiscreenlogin" 
+    file="/uiscreen-uiscreenlogin/src/main/java/com/thalesgroup/scadagen/whmi/uiscreen/uiscreenlogin/client/UIScreenLogin.java" 
+    binary="false" label="uiScreenLogin" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="13">      
+      <position height="24" width="0" x="0" y="210"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="395" width="0" x="0" y="287"/>    
+    </execution>    
+    <execution id="15">      
+      <position height="463" width="352" x="355" y="243"/>    
+    </execution>  
+  </object>  
+  <object id="30" language="java" name="com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication" 
+    project="opm-authentication" 
+    file="/opm-authentication/src/main/java/com/thalesgroup/scadagen/whmi/opm/authentication/client/OpmAuthentication.java" 
+    binary="false" label="opmAuthentication" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="509" y="0"/>    
+    <execution id="26">      
+      <position height="24" width="7" x="523" y="347"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="24" width="331" x="1061" y="319"/>    
+    </execution>  
+  </object>  
+  <object id="31" language="java" name="com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard" 
+    project="uinamecard" 
+    file="/uinamecard/src/main/java/com/thalesgroup/scadagen/whmi/uinamecard/uinamecard/client/UINameCard.java" 
+    binary="false" label="uiNameCard" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="739" y="0"/>    
+    <execution id="28">      
+      <position height="284" width="361" x="696" y="374"/>    
+    </execution>  
+  </object>  
+  <object id="34" language="java" name="com.google.gwt.event.shared.ResettableEventBus" project="config-config" 
+    file="R:/1166B/.m2/repo/com/google/gwt/gwt-servlet/2.7.0/gwt-servlet-2.7.0.jar" binary="true" 
+    label="resettableEventBus" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="548" y="0"/>    
+    <execution id="33">      
+      <position height="234" width="170" x="1061" y="400"/>    
+    </execution>  
+  </object>  
+  <object id="36" language="java" name="com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI" 
+    project="uiscreen-uiscreenmmi" 
+    file="/uiscreen-uiscreenmmi/src/main/java/com/thalesgroup/scadagen/whmi/uiscreen/uiscreenmmi/client/UIScreenMMI.java" 
+    binary="false" label="uiScreenMMI" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="1390" y="0"/>    
+    <execution id="18">      
+      <position height="24" width="350" x="1935" y="510"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="24" width="7" x="2107" y="538"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="getInstance():com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" 
+    operation="getMainPanel(java.lang.String,com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard):com.google.gwt.user.client.ui.DockLayoutPanel" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="8" 
+    operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):com.google.gwt.user.client.ui.HorizontalPanel" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="getInstance():com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="UIScreenLogin()" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" 
+    operation="getMainPanel(com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard):com.google.gwt.user.client.ui.DockLayoutPanel" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="17" operation="UIScreenMMI()" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" 
+    operation="getMainPanel(com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard):com.google.gwt.user.client.ui.DockLayoutPanel" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="23" operation="getInstance():com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="25" operation="isValidPassword(java.lang.String,java.lang.String):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="27" operation="getUiEventBus():com.google.gwt.event.shared.ResettableEventBus" asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="verify(java.lang.String,java.lang.String,java.lang.String,java.lang.String):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="32" operation="fireEvent(com.google.web.bindery.event.shared.Event&lt;?&gt;):void" asynchronous="true">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="33"/>  
+  </message>  
+  <message id="35" 
+    operation="onUIEvent(com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent):com.google.gwt.user.client.ui.HorizontalPanel" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="2"/>  
+  </message>
+</sequence-diagram>

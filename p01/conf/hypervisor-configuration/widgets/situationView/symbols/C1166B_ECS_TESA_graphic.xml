@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+************************************************
+ Generated with MetaConfigurator v3.0.6_P02_QF1
+     Project: StressTest
+     Version: 1.2.4
+
+        User: syau
+    Computer: PC16011
+          OS: Windows 7 v6.1 (arch x86)
+************************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="C1166B_ECS_TESA_graphic">
+        <root>
+			<svgGroup id="C1166B_ECS_TESA_Blink_node">
+				<svgGroup id="C1166B_ECS_TESA_C1166B_ECS_TESA_Undefined_C1166B_ECS_TESA_Normal_C1166B_ECS_TESA_Alarm_Blink_C1166B_ECS_TESA_Normal_Blink_C1166B_ECS_TESA_Alarm">
+					<svgRef brickId="C1166B_ECS_TESA_Undefined" id="C1166B_ECS_TESA_node"></svgRef>
+				</svgGroup>
+			</svgGroup>
+        </root>
+    </graphic>
+</graphicConfiguration>

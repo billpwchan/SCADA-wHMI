@@ -6,11 +6,11 @@ import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.dom.client.Style.VerticalAlign;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -23,23 +23,20 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 
 public class UIPanelStatusBar {
-	
-	public static final int LAYOUT_BORDER	= 0;
 
 	private static Logger logger = Logger.getLogger(UIPanelStatusBar.class.getName());
 
-	public static final String RGB_PAL_BG = "#BEBEBE";
-
 	public static final String basePath		= GWT.getModuleBaseURL();
 	public static final String IMAGE_PATH	= "imgs";
+	
+	String strLabels[] = new String[] { "MTR - Main Control System" };
 
-	public static final String THALES_LOGIN_NAME = "logo_thales.jpg";
+	public static final String LOGIN_NAME = "Logo_Corp-300dpi-SymbolOnly-50px.png";
 
 	private InlineLabel titleInlineLabel = null;
 	private InlineLabel operatorProfileInlineLabel = null;
 	private InlineLabel datetimeInlineLabel = null;
 	
-	private String strStation = "";
 	private String strTitle = "";
 	
 	private String strOperator = "";
@@ -62,43 +59,52 @@ public class UIPanelStatusBar {
 		});
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		dockLayoutPanel.addStyleName("project-gwt-panel-statusbar");
 
 		HorizontalPanel topStatusBanner = new HorizontalPanel();
 		topStatusBanner.setWidth("100%");
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		topStatusBanner.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
-		topStatusBanner.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		topStatusBanner.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		topStatusBanner.getElement().getStyle().setVerticalAlign(VerticalAlign.MIDDLE);
 
 		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		Image imgThales = new Image(basePath + "/" + IMAGE_PATH + "/logo/" + THALES_LOGIN_NAME);
+		Image imgThales = new Image(basePath + "/" + IMAGE_PATH + "/logo/" + LOGIN_NAME);
+		imgThales.addStyleName("project-gwt-inlinelabel-statusbar-companylogo");
 		topStatusBanner.add(imgThales);
-		String strLabels[] = new String[] { "MCS - Main Control System" };
+		
+		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		InlineLabel inlineLabel[] = new InlineLabel[1];
 		for (int i = 0; i < strLabels.length; i++) {
 			inlineLabel[i] = new InlineLabel(strLabels[i]);
 			inlineLabel[i].setWidth("250px");
+			inlineLabel[i].setHeight("100%");
+			inlineLabel[i].addStyleName("project-gwt-inlinelabel-statusbar-softwaretitle");
 			topStatusBanner.add(inlineLabel[i]);
 		}
 
-		final String strStation = "STATION";
 		final String strTitle = "TITLE";
 
+		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		titleInlineLabel = new InlineLabel();
 		titleInlineLabel.setWidth("250px");
+		titleInlineLabel.setHeight("100%");
+		titleInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-title");
 		topStatusBanner.add(titleInlineLabel);
 
-		setTitle(strStation, strTitle);
+		setTitle(strTitle);
 
 		operatorProfileInlineLabel = new InlineLabel();
 		operatorProfileInlineLabel.setWidth("250px");
+		operatorProfileInlineLabel.setHeight("100%");
+		operatorProfileInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-operatorprofile");
 		topStatusBanner.add(operatorProfileInlineLabel);
 		
 		setProfile("OPERTOR", "PROFILE");
 
-		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		topStatusBanner.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		datetimeInlineLabel = new InlineLabel();
-		datetimeInlineLabel.setText("dd MM yyyy HH:mm:ss.SSS");
+		datetimeInlineLabel.setText("dd MM yyyy    HH:mm:ss.SSS");
+		datetimeInlineLabel.addStyleName("project-gwt-inlinelabel-statusbar-datetime");
 		topStatusBanner.add(datetimeInlineLabel);
 		
 		Timer t = new Timer() {
@@ -109,11 +115,20 @@ public class UIPanelStatusBar {
 		// Schedule the timer to run once every second, 1000 ms.
 		t.scheduleRepeating(250);
 		
-		topStatusBanner.setCellWidth(imgThales, "20%");
-		topStatusBanner.setCellWidth(inlineLabel[0], "20%");
-		topStatusBanner.setCellWidth(titleInlineLabel, "20%");
+		topStatusBanner.setCellWidth(imgThales, "5%");
+		topStatusBanner.setCellHeight(imgThales, "100%");
+		
+		topStatusBanner.setCellWidth(inlineLabel[0], "15%");
+		topStatusBanner.setCellHeight(inlineLabel[0], "100%");
+		
+		topStatusBanner.setCellWidth(titleInlineLabel, "45%");
+		topStatusBanner.setCellHeight(titleInlineLabel, "100%");
+		
 		topStatusBanner.setCellWidth(operatorProfileInlineLabel, "20%");
-		topStatusBanner.setCellWidth(datetimeInlineLabel, "20%");
+		topStatusBanner.setCellHeight(operatorProfileInlineLabel, "100%");
+		
+		topStatusBanner.setCellWidth(datetimeInlineLabel, "15%");
+		topStatusBanner.setCellHeight(datetimeInlineLabel, "100%");
 		
 		dockLayoutPanel.add(topStatusBanner);
 		
@@ -126,15 +141,15 @@ public class UIPanelStatusBar {
 	}
 	
 	private void setCurrentDateTime() {
-		datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy HH:mm:ss").format(new Date()));
+		datetimeInlineLabel.setText(DateTimeFormat.getFormat("dd MMM yyyy     HH:mm:ss").format(new Date()));
 	}
 
-	private void setTitle(String station, String title) {
+	private void setTitle(String title) {
 
 		logger.log(Level.FINE, "setTitle Begin");
 
 		if (null != titleInlineLabel) {
-			titleInlineLabel.setText(station + " - " + title);
+			titleInlineLabel.setText(title);
 		}
 		logger.log(Level.FINE, "setTitle End");
 	}
@@ -169,14 +184,12 @@ public class UIPanelStatusBar {
 					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
 
 					UITaskTitle taskTitle = (UITaskTitle) taskProvide;
-					String strStation = taskTitle.getStation();
 					String strTitle = taskTitle.getTitle();
 
 					logger.log(Level.FINE, "onUIEvent strTitle[" + strTitle + "]");
-					if (null != strStation)		this.strStation = strStation;
 					if (null != strTitle)		this.strTitle = strTitle;
 					
-					setTitle(this.strStation, this.strTitle);
+					setTitle(this.strTitle);
 					
 				} else if (UITaskMgr.isInstanceOf(UITaskProfile.class, taskProvide)) {
 

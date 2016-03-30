@@ -1,6 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
+import java.util.Set;
+
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
 
@@ -32,9 +35,21 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 	public void setWrapperScsAlarmListPanelEvent(WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent) { this.wrapperScsAlarmListPanelEvent = wrapperScsAlarmListPanelEvent; }
 	public VerticalPanel getMainPanel() {
 		
-		scsAlarmListPanel = new ScsAlarmListPanel(AppUtils.EVENT_BUS, alarmListId, withAction, withCaption, withAck);
+        // build layout SplitLayout is DockLayout
+        // Set critical alarm filter event      
+//        final Set<String> values = new HashSet<String>();
+//        values.add( "CRITICAL" );
+//        values.add( "HIGH" );
+//        values.add( "MEDIUM" );
+//        StringEnumFilterDescription filterdesc = new StringEnumFilterDescription(values);
+//        final FilterSetEvent filterEvent = new FilterSetEvent("scsalarmList_priority_name", filterdesc);
+//        final Set<FilterSetEvent> filterSet = new HashSet<FilterSetEvent>();
+//        filterSet.add(filterEvent);
+		
+        final Set<FilterSetEvent> filterSet = null;
+        
+		scsAlarmListPanel = new ScsAlarmListPanel(AppUtils.EVENT_BUS, alarmListId, withAction, withCaption, withAck, filterSet);
 	    scsAlarmListPanel.setWidth(this.width);
-	    scsAlarmListPanel.setHeight(this.height);
 	    scsAlarmListPanel.setHeight(this.height);
 	    scsAlarmListPanel.setCounterNames(counterNames);
 	    scsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);

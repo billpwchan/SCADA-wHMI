@@ -8,6 +8,8 @@ import com.google.gwt.event.shared.EventBus;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.AlarmDataGridPresenterClient;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.StateTransitionReturn;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.presenter.SituationViewPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view.ScsGenericDataGridView;
 
@@ -20,6 +22,11 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      * Used to know which entities are selected in the view
      */
     private ScsGenericDataGridView view_;
+    
+	/**
+     *  Set initial filters
+     */
+	private Set<FilterSetEvent> filterSet_;
 
     /**
      * Constructs a custom SCADAsoft Alarm grid.
@@ -31,9 +38,10 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      * @param eventBus
      *            the event bus.
      */
-    public ScsAlarmDataGridPresenterClient(String configurationId, ScsGenericDataGridView view, EventBus eventBus) {
+    public ScsAlarmDataGridPresenterClient(String configurationId, ScsGenericDataGridView view, EventBus eventBus, Set<FilterSetEvent> filterSet) {
         super(configurationId, view, eventBus);
         view_ = view;
+        filterSet_ = filterSet;
     }
 
     /**
@@ -72,6 +80,18 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
             }
         }
         return selectedEntities;
+    }
+    
+    @Override
+    public void onActivate( StateTransitionReturn transitionResult )
+    {
+        super.onActivate( transitionResult );
+
+        if (filterSet_ != null) {
+            for (FilterSetEvent filter : filterSet_) {
+                setContainerFilter(filter.getColumnName(), filter.getFilterDescription());
+            }
+        }
     }
 
 }

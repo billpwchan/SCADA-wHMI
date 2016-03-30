@@ -23,18 +23,11 @@ public class UIPanelImageToolBar {
 	private static Logger logger = Logger.getLogger(UIPanelImageToolBar.class.getName());
 	
 	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 0;	
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 	
 	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
 	public static final String RGB_BTN_BG	= "#F1F1F1";
 	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
+		
 	public static final String basePath		= GWT.getModuleBaseURL();
 	public static final String IMAGE_PATH	= "imgs";
 	
@@ -74,17 +67,19 @@ public class UIPanelImageToolBar {
 		
 		imageMaps= new HashMap<String, UIPanelImageBarEventType>();
 
+		/*
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/ZoomIn.png", UIPanelImageBarEventType.ZoomIn);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/ZoomOut.png", UIPanelImageBarEventType.ZoomOut);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/Zoom.png", UIPanelImageBarEventType.Zoom);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/Locator.png", UIPanelImageBarEventType.Locator);
+		*/
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/SplitH.png", UIPanelImageBarEventType.VDouble);
 		imageMaps.put(basePath + "/" + IMAGE_PATH+"/hscs/SplitV.png", UIPanelImageBarEventType.HDouble);
 		
 		hashMap.put("IMAGE", imageMaps);
 		
 		HorizontalPanel hp = new HorizontalPanel();
-		hp.setBorderWidth(LAYOUT_BORDER);
+//		hp.setBorderWidth(LAYOUT_BORDER);
 		hp.getElement().getStyle().setPadding(1, Unit.PX);
 		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -104,6 +99,7 @@ public class UIPanelImageToolBar {
 				btn.setText(btnStr);
 				btn.setSize(IMG_BTN_WIDTH*4+UNIT_PX, IMG_BTN_WIDTH+UNIT_PX);
 			}
+			btn.addStyleName("project-gwt-button");
 			
 			btn.addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {

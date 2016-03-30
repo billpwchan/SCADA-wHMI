@@ -49,8 +49,8 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 		return configs;
 	}
 	
-	private ArrayList<Dictionary> getXMLDictionary(String path, String elm) {
-System.out.println("getXMLDictionary Reading from the path["+path+"] elm["+elm+"]");
+	public ArrayList<Dictionary> getDictionary(String path, String elm) {
+System.out.println("getDictionary Reading from the path["+path+"] elm["+elm+"]");
 		
 		ArrayList<Dictionary> dictionarys = new ArrayList<Dictionary>();
 
@@ -80,7 +80,7 @@ System.out.println("getXMLDictionary Reading from the path["+path+"] elm["+elm+"
         			    Node attr = eElementAttr.item(i);
         				String key = attr.getNodeName();
         				String value = attr.getNodeValue();
-System.out.println("getXMLDictionary key[" + key + "] value[" + value + "]");
+System.out.println("getDictionary key[" + key + "] value[" + value + "]");
 						config.setAttribute(key, value);
         			}
         			
@@ -94,7 +94,7 @@ System.out.println("getXMLDictionary key[" + key + "] value[" + value + "]");
 //	        				String value = node.getNodeValue();
 	        				String content = node.getTextContent();
 	        			
-System.out.println("getXMLDictionary name[" + name + "] content[" + content + "]");						
+System.out.println("getDictionary name[" + name + "] content[" + content + "]");						
 //		                    config.getHashMap().put(name, content);
 							config.setValue(name, content);
 		                    dictionarys.add(config);
@@ -105,10 +105,10 @@ System.out.println("getXMLDictionary name[" + name + "] content[" + content + "]
         	}
 
 		} catch (ParserConfigurationException e) {
-System.out.println("\nParserConfigurationException:" + e.toString());
+System.out.println("\ngetDictionary ParserConfigurationException:" + e.toString());
 			e.printStackTrace();
 		} catch (SAXException | IOException e) {
-System.out.println("\nSAXException | IOException e" + e.toString());
+System.out.println("\ngetDictionary SAXException | IOException e" + e.toString());
 			e.printStackTrace();
 		}
 		

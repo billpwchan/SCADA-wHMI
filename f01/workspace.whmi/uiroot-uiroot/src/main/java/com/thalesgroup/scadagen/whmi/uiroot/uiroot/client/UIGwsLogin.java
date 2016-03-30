@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 
@@ -12,8 +12,6 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
  * Auto submit page
  */
 public class UIGwsLogin {
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
 	
 	private FormPanel form = null;
 	
@@ -39,7 +37,6 @@ public class UIGwsLogin {
         form = new FormPanel();
 		form.setWidth("100%");
 		form.setHeight("100%");
-		form.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
         form.setAction(actionUrl);
 
         // Removing target attribute prevent 302 HTTP responses to be stored within a hidden iframe
@@ -54,7 +51,7 @@ public class UIGwsLogin {
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setWidth("100%");
 		horizontalPanel.setHeight("100%");
-		horizontalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		horizontalPanel.addStyleName("project-gwt-panel-gwslogin");
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
@@ -71,7 +68,10 @@ public class UIGwsLogin {
         horizontalPanel.add(field1);
         horizontalPanel.add(field2);
         
-        horizontalPanel.add(new Label("Connecting to the Web Server..."));
+        InlineLabel inlineLabel = new InlineLabel("Connecting to the Web Server.....");
+        inlineLabel.addStyleName("project-gwt-inlinelabel-connecting");
+        
+        horizontalPanel.add(inlineLabel);
 
         return form;
     	

@@ -102,8 +102,9 @@ public class UIPanelPanelToolBar {
 						+ "\" width=\"32px\" height=\"32px\"></center></br></div>");
 				btn.setSize(IMG_BTN_WIDTH + UNIT_PX, IMG_BTN_WIDTH + UNIT_PX);
 			} else {
-				btn.setText(btnStr);
 				btn.setSize(IMG_BTN_WIDTH * 4 + UNIT_PX, IMG_BTN_WIDTH + UNIT_PX);
+				btn.addStyleName("project-gwt-button");
+				btn.setText(btnStr);
 			}
 
 			btn.addClickHandler(new ClickHandler() {
@@ -131,8 +132,7 @@ public class UIPanelPanelToolBar {
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewAlarm");
-			taskLaunch.setFirst("Alarm");
-			taskLaunch.setLast("Summary");
+			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( 0 == label.compareToIgnoreCase("Event Summary") ){
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -140,8 +140,7 @@ public class UIPanelPanelToolBar {
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
 			taskLaunch.setUiPanel("UIViewEvent");
-			taskLaunch.setFirst("Event");
-			taskLaunch.setLast("Summary");
+			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		}
 	}

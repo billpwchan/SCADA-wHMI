@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,12 +23,14 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.component.Capti
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.event.GDGCounterChangeEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanelEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.ScsAlarmDataGridPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.WrapperScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view.ScsGenericDataGridView;
 
 /**
@@ -47,7 +50,7 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
     /**
      * s Client presenter of this alarm list widget
      */
-    private ScsAlarmDataGridPresenterClient gridPresenter_;
+    private WrapperScsAlarmDataGridPresenterClient gridPresenter_;
 
     /**
      * Bus used to subscribe to and publish alarm-related events
@@ -102,13 +105,13 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
      * @param withCaption
      *            display or not a caption with the name of the alarm list
      */
-    public ScsOlsListPanel(final EventBus eventBus, String listConfigId, boolean withCaption) {
+    public ScsOlsListPanel(final EventBus eventBus, String listConfigId, boolean withCaption, Set<FilterSetEvent> filterSet) {
 
         eventBus_ = eventBus;
         withCaption_ = withCaption;
         listConfigId_ = listConfigId;
         initComponents();
-        initPresenter();
+        initPresenter(filterSet);
         initWidget((Widget) mainPanel_);
     }
 
@@ -120,9 +123,9 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
      * Create and initialize the presenter with its view, selectionModel,
      * context menu and Handlers
      */
-    private void initPresenter() {
+    private void initPresenter(Set<FilterSetEvent> filterSet) {
         if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
-            gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
+            gridPresenter_ = new WrapperScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_, filterSet);
             gridPresenter_.setSelectionModel(new MultipleSelectionModel());
             gridPresenter_.setMenu(contextMenu_);
 
@@ -215,8 +218,6 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
                     if ( null != severity ) {
                     	if ( severity.isValid() ) {
                     		
-                    		if ( true ) {
-                    		
                     		int iValue = severity.getValue();
                     		
                     		switch ( iValue ) {
@@ -239,15 +240,6 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
                     		logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] iValue["+iValue+"] => strCssResult["+strCssResult+"]");
                     		
                     		return strCssResult;
-                    		
-                    		} else {
-                    		
-                    			Integer intValue = severity.getValue();
-								String strCSS = EVENT_CSS_SEVERITY_PREFIX + severity.getValue();
-
-							return strCSS;
-							
-                    		}
                     		
                     		//CSS_EVENT_SUPER_CRITICAL
                     		//CSS_EVENT_CRITICAL

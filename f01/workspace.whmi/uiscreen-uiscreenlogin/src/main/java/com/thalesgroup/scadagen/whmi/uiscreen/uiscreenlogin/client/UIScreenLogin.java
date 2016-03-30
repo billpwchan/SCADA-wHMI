@@ -37,16 +37,9 @@ public class UIScreenLogin implements UIScreen_i {
 	public static final String UNIT_PX		= "px";
 	
 	public static final String IMAGE_PATH	= "imgs";
-	
-	public static final int LAYOUT_BORDER	= 0;
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
+
 	private static final String COMPANY_LOGO 	= "logologinmtr.jpg";
-	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
+//	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
 	
 	private String EMPTY							= "";
 	
@@ -54,10 +47,9 @@ public class UIScreenLogin implements UIScreen_i {
     final String strChangePassword	= "Change Password";
     final String strCancel			= "Cancel";
 	
-    private InlineLabel lblMessage;
 	private TextBox txtOperator;
 	private ListBox listBoxProfile;
-	private PasswordTextBox passwordTextBox;
+	private PasswordTextBox txtpassword;
 	
 	private UINameCard uiNameCard;
 	private DockLayoutPanel dockLayoutPanel;
@@ -71,20 +63,22 @@ public class UIScreenLogin implements UIScreen_i {
 	    		strLogin, strChangePassword, strCancel
 	    };
 	    
+	    String [] strButtonCSS 		= new String [] {
+	    		"project-gwt-button-login-login", "project-gwt-button-login-changepassword", "project-gwt-button-login-cancel"
+	    };
 		
 		HorizontalPanel horizontalPanelBar = null;
 		
-		lblMessage = new InlineLabel();
 		txtOperator = new TextBox();
 		listBoxProfile = new ListBox();
-		passwordTextBox = new PasswordTextBox();
-		Button buttons[] = new Button[strLogins.length];
+		txtpassword = new PasswordTextBox();
+		Button buttons[];
 		
 		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		dockLayoutPanel.addStyleName("project-gwt-panel-login");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
-	    verticalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+	    verticalPanel.addStyleName("project-gwt-panel-login-inner");
 	    verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		
@@ -97,15 +91,12 @@ public class UIScreenLogin implements UIScreen_i {
 		horizontalPanelBar.setHeight("10px");
 		verticalPanel.add(horizontalPanelBar);
 		
-		verticalPanel.add(	new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CLIENT_LOGO));
-		
-		horizontalPanelBar = new HorizontalPanel();
-		horizontalPanelBar.setWidth("128px");
-		horizontalPanelBar.setHeight("10px");
-		verticalPanel.add(horizontalPanelBar);
-		
-		lblMessage.getElement().getStyle().setColor(RGB_RED);
-		verticalPanel.add(lblMessage);
+//		verticalPanel.add(	new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CLIENT_LOGO));
+//		
+//		horizontalPanelBar = new HorizontalPanel();
+//		horizontalPanelBar.setWidth("128px");
+//		horizontalPanelBar.setHeight("10px");
+//		verticalPanel.add(horizontalPanelBar);
 		
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
@@ -120,10 +111,13 @@ public class UIScreenLogin implements UIScreen_i {
 		verticalPanel.add(horizontalPanelBar);
 		flexTable.setWidget(0, 1, horizontalPanelBar);
 		
-		flexTable.setWidget(1, 0, new InlineLabel("Operator:"));
+		InlineLabel lblOperator = new InlineLabel("Operator:");
+		lblOperator.addStyleName("project-gwt-inlinelabel-login-operator");
+		flexTable.setWidget(1, 0, lblOperator);
 		txtOperator.setText(OpmAuthentication.getInstance().getDefaultOperator());
 		txtOperator.setMaxLength(16);
 		txtOperator.setWidth("100%");
+		txtOperator.addStyleName("project-gwt-textbox-login-operator");
 		flexTable.setWidget(1, 1, txtOperator);
 		
 		txtOperator.addKeyPressHandler(new KeyPressHandler() {
@@ -135,18 +129,24 @@ public class UIScreenLogin implements UIScreen_i {
 		    }
 		});
 		
-		flexTable.setWidget(2, 0, new InlineLabel("Profile:"));
+		InlineLabel lblProfile = new InlineLabel("Profile:");
+		lblProfile.addStyleName("project-gwt-inlinelabel-login-profile");
+		flexTable.setWidget(2, 0, lblProfile);
 		listBoxProfile.setWidth("100%");
 		listBoxProfile.setHeight("100%");
 		listBoxProfile.setVisibleItemCount(1);
 		listBoxProfile.addItem(EMPTY);
+		listBoxProfile.addStyleName("project-gwt-listbox-login-profile");
 		flexTable.setWidget(2, 1, listBoxProfile);
 		
-		flexTable.setWidget(3, 0, new InlineLabel("Password:"));
-		passwordTextBox.setText(OpmAuthentication.getInstance().getDefaultPassword());
-		passwordTextBox.setMaxLength(16);
-		passwordTextBox.setWidth("100%");
-		flexTable.setWidget(3, 1, passwordTextBox);
+		InlineLabel lblPassword = new InlineLabel("Password:");
+		lblPassword.addStyleName("project-gwt-inlinelabel-login-password");
+		flexTable.setWidget(3, 0, lblPassword);
+		txtpassword.setText(OpmAuthentication.getInstance().getDefaultPassword());
+		txtpassword.setMaxLength(16);
+		txtpassword.setWidth("100%");
+		txtpassword.addStyleName("project-gwt-textbox-login-password");
+		flexTable.setWidget(3, 1, txtpassword);
 
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
@@ -167,9 +167,10 @@ public class UIScreenLogin implements UIScreen_i {
 	    bottomButtonBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    bottomButtonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    
+	    buttons = new Button[strLogins.length];
 	    for ( int i = 0 ; i < strLogins.length ; ++i ) {
 			buttons[i] = new Button(strLogins[i]);
-			buttons[i].setWidth("128px");
+			buttons[i].addStyleName(strButtonCSS[i]);
 			
 			buttons[i].addClickHandler(new ClickHandler() {
 				public void onClick(ClickEvent event) {
@@ -180,7 +181,7 @@ public class UIScreenLogin implements UIScreen_i {
 						String buttonText	= button.getText();
 						String operator		= txtOperator.getText();
 						String profile		= listBoxProfile.getValue(listBoxProfile.getSelectedIndex());
-						String password		= passwordTextBox.getText();
+						String password		= txtpassword.getText();
 						
 						verify(buttonText, operator, profile, password);
 					}
@@ -196,7 +197,7 @@ public class UIScreenLogin implements UIScreen_i {
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		horizontalPanel.setHeight("100%");
 		horizontalPanel.setWidth("100%");
-	    horizontalPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		horizontalPanel.addStyleName("project-gwt-panel-login-outer");
 	    horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 	    

@@ -14,21 +14,20 @@
 </p:subject>
 
 	<!-- Ack -->
-    <p:column filterable="true" i18n="true" name="scsalarmList_state_name" sortable="true" width="30" widthUnit="PX" xsi:type="p:textEnumColumnType">
+    <p:column filterable="true" i18n="true" name="scsalarmList_state_name" sortable="true" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
               
         <p:source name="ackstate" statusComputerName="ackstate" xsi:type="cmn:computedStatusDataSourceType"/>
         
         <p:textItem sourceValue="yes" value="scsalarmList_acked"/>
         <p:textItem sourceValue="no" value="scsalarmList_notAcked"/>
         
-    </p:column>
+    </p:column>   
     
 	<!-- Time -->
-    <p:column filterable="true" format="scsalarmList_DateFormat" i18n="true" name="scsalarmList_apparitionDate_name" sortable="true" width="100" widthUnit="PX" xsi:type="p:dateColumnType">
+    <p:column filterable="true" format="alarmList_DateFormat" i18n="true" name="scsalarmList_apparitionDate_name" sortable="true" width="100" widthUnit="PX" xsi:type="p:dateColumnType">
         <p:source name="apparitionDate" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
-	
-	
+
 	<!-- Building -->
     <p:column filterable="true" i18n="true" name="scsalarmList_area_name" sortable="true" width="60" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="areaID" xsi:type="cmn:statusDataSourceType"/>
@@ -72,7 +71,7 @@
     </p:column>
 
 	<!-- Severity -->
-    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="true" width="0" widthUnit="PX" xsi:type="p:textEnumColumnType">
+    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="true" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="priority" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="CRITICAL" value="scsalarmList_priority_CRITICAL"/>
         <p:textItem sourceValue="HIGH" value="scsalarmList_priority_HIGH"/>
@@ -85,12 +84,12 @@
         <p:source name="ackOperatorID" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
     
-    <p:column filterable="true" i18n="false" name="scsalarmList_comment_name" sortable="true" template="{}" templateMarker="{}" width="80" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+        <p:column filterable="true" i18n="false" name="scsalarmList_comment_name" sortable="true" template="{}" templateMarker="{}" width="80" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="comment" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 	-->
     
-	<p:column filterable="true" i18n="false" name="gdg_validity_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+	 <p:column filterable="true" i18n="false" name="gdg_validity_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="validity" statusComputerName="gdg_validity" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 	
@@ -105,17 +104,21 @@
                 <cmn:equalTo>LOW</cmn:equalTo>
             </cmn:columnCounterCriterion>
         </cmn:counter>
-        <cmn:counter name="mediumPriorityCounter" scope="VIEW"  soundID="warning_mp3" soundPriority="10">
+        <cmn:counter name="mediumPriorityCounter" scope="VIEW"  >
+            <cmn:soundConfiguration soundID="warning_mp3" soundPriority="10"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>MEDIUM</cmn:equalTo>
             </cmn:columnCounterCriterion>
         </cmn:counter>
-        <cmn:counter name="highPriorityCounter" scope="VIEW"  soundID="alert_mp3" soundPriority="20">
+        <cmn:counter name="highPriorityCounter" scope="VIEW"  >
+        <cmn:soundConfiguration soundID="alert_mp3" soundPriority="20"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>HIGH</cmn:equalTo>
             </cmn:columnCounterCriterion>
         </cmn:counter>
-        <cmn:counter name="criticalPriorityCounter" scope="VIEW"  soundID="danger_mp3" soundPriority="30">
+
+        <cmn:counter name="criticalPriorityCounter" scope="VIEW" >
+        <cmn:soundConfiguration  soundID="danger_mp3" soundPriority="30"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>CRITICAL</cmn:equalTo>
             </cmn:columnCounterCriterion>
@@ -173,21 +176,6 @@
                 <cmn:equalTo>no</cmn:equalTo>
             </cmn:columnCounterCriterion>
         </cmn:counter>
-		<!--
-        <cmn:counter name="alarmlist_counter_low" scope="VIEW">
-            <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
-                <cmn:equalTo>LOW</cmn:equalTo>
-            </cmn:columnCounterCriterion>
-        </cmn:counter>
-        <cmn:counter name="alarmlist_counter_low_unack" scope="VIEW">
-            <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
-                <cmn:equalTo>LOW</cmn:equalTo>
-            </cmn:columnCounterCriterion>
-            <cmn:columnCounterCriterion columnName="scsalarmList_state_name">
-                <cmn:equalTo>no</cmn:equalTo>
-            </cmn:columnCounterCriterion>
-        </cmn:counter>
-		-->
     </p:countersConfiguration>
     
 </p:genericDataGridConfiguration>

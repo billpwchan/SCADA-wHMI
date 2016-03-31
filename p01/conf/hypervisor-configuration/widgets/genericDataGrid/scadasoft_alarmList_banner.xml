@@ -65,7 +65,7 @@
     </p:column>
 
 	<!-- Status -->
-    <p:column filterable="true" i18n="true" name="scsalarmList_priority_name" sortable="false" width="0" widthUnit="PX" xsi:type="p:textEnumColumnType">
+    <p:column filterable="false" i18n="true" name="scsalarmList_priority_name" sortable="false" width="40" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="priority" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="CRITICAL" value="scsalarmList_priority_CRITICAL"/>
         <p:textItem sourceValue="HIGH" value="scsalarmList_priority_HIGH"/>
@@ -78,7 +78,7 @@
         <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 	
-	<p:column filterable="true" i18n="false" name="gdg_validity_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+	    <p:column filterable="true" i18n="false" name="gdg_validity_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="validity" statusComputerName="gdg_validity" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 	-->
@@ -127,7 +127,6 @@
     </p:countersConfiguration>
 	-->
 
-	
     <p:countersConfiguration>
         <cmn:counter name="alarmlist_counter_all" scope="VIEW">
         </cmn:counter>
@@ -143,6 +142,7 @@
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_supercritical_unack" scope="VIEW">
+		<cmn:soundConfiguration  soundID="danger_mp3" soundPriority="30"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>CRITICAL</cmn:equalTo>
             </cmn:columnCounterCriterion>
@@ -157,6 +157,7 @@
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_critical_unack" scope="VIEW">
+		<cmn:soundConfiguration soundID="alert_mp3" soundPriority="20"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>HIGH</cmn:equalTo>
             </cmn:columnCounterCriterion>
@@ -172,6 +173,7 @@
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_lesscritical_unack" scope="VIEW">
+		<cmn:soundConfiguration  soundID="warning_mp3" soundPriority="10"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>MEDIUM</cmn:equalTo>
 				<!-- <cmn:equalTo>LOW</cmn:equalTo> -->
@@ -182,5 +184,5 @@
         </cmn:counter>
 		
     </p:countersConfiguration>
-
+	
 </p:genericDataGridConfiguration>

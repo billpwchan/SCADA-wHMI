@@ -1,0 +1,16 @@
+/* WrapperScsAlarmListPanel */
+.project-gwt-panel-alarmbanner {
+	width: 100%;
+	background-color: dimgrey;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2px;
+	margin-bottom: 6px;
+}
+
+.project-gwt-panel-alarmbanner-wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 2px;
+	margin-bottom: 6px;
+}

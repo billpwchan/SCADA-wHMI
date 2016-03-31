@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.UIObject;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.EntitySelectionInfo;
@@ -15,11 +16,12 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.Ent
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.menu.GDGContextMenuAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.menu.GDGContextMenuItem;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.event.OpenSituationViewEvent;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.util.AlarmUtils;
 
 public class ScsAlarmListPanelMenu extends GDGContextMenuAbstract implements Command {
-
+    
     private GDGContextMenuItem openSituationViewContextMenuItem_;
     private GDGContextMenuItem selectEquipmentContextMenuItem_;
     private final static String DEFAULT_IMAGE = "defaultImage";
@@ -67,7 +69,7 @@ public class ScsAlarmListPanelMenu extends GDGContextMenuAbstract implements Com
      */
     @Override
     public void createMenu() {
-
+        
         openSituationViewContextMenuItem_ = new GDGContextMenuItem(
                 Dictionary.getWording("alarmList_menu_open_situation_view"), new OpenImageCommand());
         openSituationViewContextMenuItem_.disable();
@@ -75,6 +77,7 @@ public class ScsAlarmListPanelMenu extends GDGContextMenuAbstract implements Com
         selectEquipmentContextMenuItem_ = new GDGContextMenuItem(
                 Dictionary.getWording("alarmList_menu_select_equipment"), new SelectEquipmentCommand());
         selectEquipmentContextMenuItem_.disable();
+        
         addItem(openSituationViewContextMenuItem_);
         addItem(selectEquipmentContextMenuItem_);
         ackMenuItem_ = new GDGContextMenuItem(Dictionary.getWording("alarmList_menu_ack"), (Command) this);
@@ -160,7 +163,7 @@ public class ScsAlarmListPanelMenu extends GDGContextMenuAbstract implements Com
         }
 
     }
-
+    
     class OpenImageCommand implements Command {
 
         @Override

@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.core.client.GWT;
-import com.thalesgroup.scadagen.whmi.config.config.shared.Config;
-import com.thalesgroup.scadagen.whmi.config.config.shared.Configs;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.ConfigMgr;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.ConfigMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.confignav.client.TaskMgr;
 import com.thalesgroup.scadagen.whmi.config.confignav.client.TaskMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
@@ -21,7 +16,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 
 
-public class NavigationMgr implements TaskMgrEvent, ConfigMgrEvent {
+public class NavigationMgr implements TaskMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(NavigationMgr.class.getName());
 	
@@ -32,12 +27,6 @@ public class NavigationMgr implements TaskMgrEvent, ConfigMgrEvent {
 	
 	private TaskMgr taskMgr = null;
 	
-	
-	private ConfigMgr configMgr = null;
-//	private ArrayList<UITaskLaunchDictionary> uiTaskLaunchDictionarys = null;
-//	private int uiTaskLaunchDictionarysParentLevel = 0;
-//	private String uiTaskLaunchDictionarysParentHeader = "";
-
 	private NavigationMgrEvent navigationMgrEvent = null;
 	
 	private UINameCard uiNameCard = null;
@@ -115,10 +104,6 @@ public class NavigationMgr implements TaskMgrEvent, ConfigMgrEvent {
 		this.taskMgr = TaskMgr.getInstance();
 		this.taskMgr.setTaskMgrEvent(this);
 		this.taskMgr.initTasks(profile, location, level, header);
-		
-		this.configMgr = new ConfigMgr();
-		String module = GWT.getModuleName();
-		this.configMgr.getConfigs(module, "navigationMenu.xml", "option", this);
 		
 		logger.log(Level.FINE, "initCache End");
 		
@@ -204,41 +189,6 @@ public class NavigationMgr implements TaskMgrEvent, ConfigMgrEvent {
 		}
 
 		logger.log(Level.FINE, "onUIEvent End");
-	}
-
-
-	@Override
-	public void ready(Configs configs) {
-		logger.log(Level.FINE, "ready configs");
-		
-//		this.uiTaskLaunchDictionarys = null;
-//		
-//		this.uiTaskLaunchDictionarys = new ArrayList<UITaskLaunchDictionary>();
-		
-		if ( null != configs ) {
-			String xml = (String) configs.getHeader("XmlFile");
-			logger.log(Level.FINE, "ready xml["+xml+"]");
-			for ( int i = 0 ; i < configs.getObjectSize() ; ++i ) {
-				Config cfg = (Config) configs.getConfig(i);
-				String attrubuteKey = "key";
-				String attrubuteValue = (String) cfg.getValue("key");
-				logger.log(Level.FINE, "ready attrubuteKey["+attrubuteKey+"] attrubuteValue["+attrubuteValue+"]");
-				
-				for ( String key: cfg.getValueKeys() ) {
-					String content = (String) cfg.getValue(key);
-					logger.log(Level.FINE, "ready key["+key+"] content["+content+"]");
-				}
-
-			}
-		} else {
-			logger.log(Level.FINE, "ready configs is null");
-		}
-	}
-
-
-	@Override
-	public void failed(String xmlFile) {
-		logger.log(Level.FINE, "failed xmlFile["+xmlFile+"]");
 	}
 
 }

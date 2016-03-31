@@ -1,25 +1,13 @@
-/* Chrome, Safari, Opera */
-@-webkit-keyframes blinkingExample {
-    from {background-color: red;}
-    to {background-color: white;}
-}
-
-/* Standard syntax */
-@keyframes blinkingExample {
-    from {background-color: red;}
-    to {background-color: white;}
-}
+@import url("mwt-timeseries.css");
+@import url("mwt-chart.css");
+@import url("showcase.css");
+@import url("showcase-toolbar.css");
+@import url("showcase-dropzone.css");
 
 .alarm_ack_No{
 	font-weight:bold;
 	font-style:normal!important;
     animation: blinkhide 2s linear infinite;
-	
-    -webkit-animation-name: blinkingExample; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
-    animation-name: blinkingExample;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
 }
 .alarm_ack_Yes{
 	font-weight:normal;
@@ -54,23 +42,11 @@ color: #111111!important;
 .alarm_ack_PNA{
 	font-weight:bold;
 	font-style:normal!important;
-
-    -webkit-animation-name: blinkingExample; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
-    animation-name: blinkingExample;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
      
 }
 .alarm_ack_NPNA{
 	font-weight:bold;
 	font-style:normal!important;
-	
-    -webkit-animation-name: blinkingExample; /* Chrome, Safari, Opera */
-    -webkit-animation-duration: 1s; /* Chrome, Safari, Opera */
-    animation-name: blinkingExample;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
      
 }
 .alarm_ack_NPA{
@@ -235,3 +211,151 @@ fill : #4caf50!important;
     75% { opacity: 0; }
     100% { opacity: 1; }
 }
+
+
+
+	.gwt-DateBox {
+		-moz-border-bottom-colors: none;
+		-moz-border-left-colors: none;
+		-moz-border-right-colors: none;
+		-moz-border-top-colors: none;
+		border-color: #999999 #CCCCCC #CCCCCC;
+		border-image: none;
+		border-right: 1px solid #CCCCCC;
+		border-style: solid;
+		border-width: 1px;
+		font-size: 100%;
+		padding: 5px 4px;
+	}
+	
+	
+	.gwt-DateBox input {
+		width: 8em;
+	}
+	
+	
+	.dateBoxFormatError {
+		background: none repeat scroll 0 0 #FFCCCC;
+	}
+	
+	
+	.dateBoxPopup {
+		
+	}
+	
+
+	.gwt-DatePicker {
+		-moz-border-bottom-colors: none;
+		-moz-border-left-colors: none;
+		-moz-border-right-colors: none;
+		-moz-border-top-colors: none;
+		border-color: #999999 #CCCCCC #CCCCCC;
+		border-image: none;
+		border-right: 1px solid #CCCCCC;
+		border-style: solid;
+		border-width: 1px;
+		cursor: default;
+	}
+	
+
+	.gwt-DatePicker td, .datePickerMonthSelector td:focus {
+		outline: medium none;
+	}
+	
+
+	.datePickerDays {
+		background: none repeat scroll 0 0 #FFFFFF;
+		width: 100%;
+	}
+	
+
+	.datePickerDay, .datePickerWeekdayLabel, .datePickerWeekendLabel {
+		border-bottom: 1px solid #EDEDED;
+		border-right: 1px solid #EDEDED;
+		color: #333333;
+		font-size: 85%;
+		font-weight: bold;
+		outline: medium none;
+		padding: 4px;
+		text-align: center;
+	}
+	
+
+	.datePickerWeekdayLabel, .datePickerWeekendLabel {
+		background: none repeat scroll 0 0 #FFFFFF;
+		color: #666666;
+		cursor: default;
+		font-size: 70%;
+		font-weight: normal;
+		padding: 0 4px 2px;
+	}
+	
+
+	.datePickerDay {
+		cursor: pointer;
+		padding: 4px 7px;
+	}
+	
+	
+	.datePickerDayIsWeekend {
+		background: none repeat scroll 0 0 #F7F7F7;
+	}
+	
+	
+	.datePickerDayIsFiller {
+		color: #999999;
+		font-weight: normal;
+	}
+	
+	
+	.datePickerDayIsValue {
+		background: none repeat scroll 0 0 #D7DFE8;
+	}
+	
+
+	.datePickerDayIsDisabled {
+		color: #AAAAAA;
+		font-style: italic;
+	}
+	
+	
+	.datePickerDayIsHighlighted {
+		background: none repeat scroll 0 0 #F0E68C;
+	}
+	
+	.datePickerDayIsValueAndHighlighted {
+		background: none repeat scroll 0 0 #D7DFE8;
+	}
+	
+	.datePickerDayIsToday {
+		background: url("images/hborder.png") repeat-x scroll 0 -2607px
+			rgba(0, 0, 0, 0);
+		color: #FFFFFF;
+		padding: 3px;
+	}
+	
+	.datePickerMonthSelector {
+		background: none repeat scroll 0 0 #CCCCCC;
+		padding: 1px 0 5px;
+		width: 100%;
+	}
+	
+	td.datePickerMonth, td.datePickerYear {
+		color: #333333;
+		font-size: 100%;
+		font-weight: bold;
+		text-align: center;
+		vertical-align: middle;
+		white-space: nowrap;
+	}
+	
+	.datePickerPreviousButton, .datePickerNextButton,
+		.datePickerPreviousYearButton, .datePickerNextYearButton {
+		color: #3A6AAD;
+		cursor: pointer;
+		font-size: 120%;
+		font-weight: bold;
+		line-height: 1em;
+		outline: medium none;
+		padding: 0 4px;
+	}

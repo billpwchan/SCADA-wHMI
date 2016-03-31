@@ -1,0 +1,66 @@
+/* UIPanelStatusBar */
+.project-gwt-panel-statusbar {
+	background-color: black;
+}
+
+.project-gwt-image-statusbar-companylogo-0-0 {
+	color: white;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.project-gwt-textbox-statuspanel-companytitle-0-0 {
+	color: white;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 20px;
+}
+
+.project-gwt-textbox-statuspanel-title-0-0 {
+	color: black;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 24px;
+}
+
+.project-gwt-textbox-statuspanel-operatorprofile-0-0 {
+	color:white;
+	text-align: right;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+.project-gwt-textbox-statuspanel-operatorprofile-0-1 {
+	color:white;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+.project-gwt-textbox-statuspanel-operatorprofile-0-2 {
+	color:white;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+.project-gwt-textbox-statuspanel-datetime-0-0 {
+	color:white;
+	text-align: right;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+.project-gwt-textbox-statuspanel-datetime-0-1 {
+	color:black;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+.project-gwt-textbox-statuspanel-datetime-0-2 {
+	color:white;
+	text-align: left;
+	vertical-align: middle;
+	font-size: 18px;
+}

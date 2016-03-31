@@ -8,11 +8,13 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -22,6 +24,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelGeneric;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelGenericEvent;
 
 public class UIPanelAccessBar implements UIPanel_i {
 	
@@ -75,6 +79,15 @@ public class UIPanelAccessBar implements UIPanel_i {
 	private HashMap<String, Button> mapStrBtn;
 	private Button buttons[];
 	
+	private String strSplitH_ 							= "splith";
+	private String strSplitV_ 							= "splitv";
+	
+	private String strPrevious_ 						= "previous";
+	private String strNext_								= "next";
+	
+	private UIPanelGeneric uiPanelAccessBarButton 		= null;
+	private String strUIPanelAccessBarButton			= "UIPanelAccessBarButton.xml";
+	
 	private UINameCard uiNameCard;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		
@@ -87,6 +100,25 @@ public class UIPanelAccessBar implements UIPanel_i {
 		buttonBar.addStyleName("project-gwt-panel-accessbar-buttonbar");
 		buttonBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		buttonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		
+		uiPanelAccessBarButton = new UIPanelGeneric();
+		uiPanelAccessBarButton.init(strUIPanelAccessBarButton);
+		uiPanelAccessBarButton.setUIPanelGenericEvent(new UIPanelGenericEvent() {
+			@Override
+			public void onClickHandler(ClickEvent event) {
+				Widget widget = (Widget) event.getSource();
+				String element = uiPanelAccessBarButton.getWidgetName(widget);
+				if ( null != element ) {
+					onButtonClick((Button)event.getSource());
+				} else {
+					logger.log(Level.SEVERE, "onClickHandler onClickHandler button IS NULL");
+				}
+			}
+			@Override
+			public void onKeyPressHandler(KeyPressEvent event) {
+			}
+		});
+		buttonBar.add(uiPanelAccessBarButton.getMainPanel(this.uiNameCard));
 				
 		String strImgs [] = new String[] {
 				strSplitH
@@ -160,6 +192,9 @@ public class UIPanelAccessBar implements UIPanel_i {
 		
 		logger.log(Level.FINE, "setHistoryButton taskHistory.getTaskType()["+taskHistory.getTaskType()+"]");
 		
+		Widget widget = null;
+		String status = null;
+		
 		Button button = null;
 		String strName = "";
 		String strSrc = "";
@@ -169,24 +204,44 @@ public class UIPanelAccessBar implements UIPanel_i {
 			strName = strPrevious;
 			strSrc = strPrevious;
 			strTip = strTipBack;
+			
+			widget = uiPanelAccessBarButton.getWidget(strPrevious_);
+			status = "up";
+			
 			break;
 		case PreviousDisable:
 			strName = strPrevious;
 			strSrc = strPreviousDisable;
 			strTip = strTipBackDisabled;
+			
+			widget = uiPanelAccessBarButton.getWidget(strPrevious_);
+			status = "disable";
+			
 			break;
 		case NextEnable:
 			strName = strNext;
 			strSrc = strNext;
 			strTip = strTipForward;
+			
+			widget = uiPanelAccessBarButton.getWidget(strNext_);
+			status = "up";
+			
 			break;
 		case NextDisable:
 			strName = strNext;
 			strSrc = strNextDisable;
 			strTip = strTipForwardDisabled;
+			
+			widget = uiPanelAccessBarButton.getWidget(strNext_);
+			status = "disable";
+			
 			break;
 		default:
 			break;
+		}
+		
+		if ( null != widget ) {
+			uiPanelAccessBarButton.setWidgetStatus(widget, status);
 		}
 	
 		button = mapStrBtn.get(strName);
@@ -201,9 +256,12 @@ public class UIPanelAccessBar implements UIPanel_i {
 	
 	private void setSplitButton(UITaskSplit taskSplit) {
 		
-		logger.log(Level.SEVERE, "setSplitButton Begin");
+		logger.log(Level.FINE, "setSplitButton Begin");
 		
-		logger.log(Level.SEVERE, "setSplitButton taskSplit.getTaskType()["+taskSplit.getTaskType()+"]");
+		logger.log(Level.FINE, "setSplitButton taskSplit.getTaskType()["+taskSplit.getTaskType()+"]");
+		
+		Widget widget = null;
+		String status = null;
 		
 		Button button = null;
 		String strName = "";
@@ -221,6 +279,11 @@ public class UIPanelAccessBar implements UIPanel_i {
 			strTip = strTipsHorizontalSplit;
 			enable = true;
 			styleName = "project-gwt-button-split-h-selected";
+			
+			
+			widget = uiPanelAccessBarButton.getWidget(strSplitH_);
+			status = "up";
+			
 			break;
 		case HorizontalDisable:
 			strName = strSplitH;
@@ -228,6 +291,10 @@ public class UIPanelAccessBar implements UIPanel_i {
 			strTip = strTipsHorizontalSplitDisabled;
 			enable = false;
 			styleName = "project-gwt-button-split-h-selected";
+			
+			widget = uiPanelAccessBarButton.getWidget(strSplitH_);
+			status = "disable";
+			
 			break;
 		case VerticalHightLight:
 			hightLight = true;
@@ -237,6 +304,10 @@ public class UIPanelAccessBar implements UIPanel_i {
 			strTip = strTipVerticalSplit;
 			enable = true;
 			styleName = "project-gwt-button-split-v-selected";
+			
+			widget = uiPanelAccessBarButton.getWidget(strSplitV_);
+			status = "up";
+			
 			break;
 		case VerticalDisable:
 			strName = strSplitV;
@@ -244,9 +315,18 @@ public class UIPanelAccessBar implements UIPanel_i {
 			strTip = strTipVerticalSplitDisabled;
 			enable = false;
 			styleName = "project-gwt-button-split-v-selected";
+			
+			widget = uiPanelAccessBarButton.getWidget(strSplitV_);
+			status = "disable";
+			
 			break;
 		default:
 			break;
+		}
+		
+		
+		if ( null != widget ) {
+			uiPanelAccessBarButton.setWidgetStatus(widget, status);
 		}
 		
 		button = mapStrBtn.get(strName);
@@ -255,7 +335,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 			button.setTitle(strTip);
 			button.setEnabled(enable);
 			
-			logger.log(Level.SEVERE, "setSplitButton addStyleName["+styleName+"] hightLight["+hightLight+"]");
+			logger.log(Level.FINE, "setSplitButton addStyleName["+styleName+"] hightLight["+hightLight+"]");
 	
 			
 			if ( null != styleName ) {
@@ -268,7 +348,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 			
 		}
 		
-		logger.log(Level.SEVERE, "setSplitButton End");
+		logger.log(Level.FINE, "setSplitButton End");
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
@@ -291,7 +371,7 @@ public class UIPanelAccessBar implements UIPanel_i {
 						setHistoryButton(taskHistory);
 					} else if ( UITaskMgr.isInstanceOf(UITaskSplit.class, taskProvide)){
 						
-						logger.log(Level.SEVERE, "onUIEvent taskProvide is UITaskSplit");
+						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
 						
 						UITaskSplit taskSplit = (UITaskSplit)taskProvide;				
 						
@@ -304,7 +384,6 @@ public class UIPanelAccessBar implements UIPanel_i {
 	}
 	
 	void onButtonClick ( Button button ) {
-		
 		
 		if ( button.getHTML().indexOf(strLogout) != -1 ) {
 			
@@ -362,11 +441,11 @@ public class UIPanelAccessBar implements UIPanel_i {
 		
 		if ( button.getHTML().indexOf(strSplitHDisable) != -1 ) {
 					
-			logger.log(Level.SEVERE, "onButtonClick strSplitHDisable");
+			logger.log(Level.FINE, "onButtonClick strSplitHDisable");
 			
 		} else if ( button.getHTML().indexOf(strSplitH) != -1 ) {
 			
-			logger.log(Level.SEVERE, "onButtonClick strSplitH");
+			logger.log(Level.FINE, "onButtonClick strSplitH");
 			
 			UITaskSplit taskSplit = new UITaskSplit();
 			taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -376,11 +455,11 @@ public class UIPanelAccessBar implements UIPanel_i {
 
 		} else if ( button.getHTML().indexOf(strSplitVDisable) != -1 ) {
 			
-			logger.log(Level.SEVERE, "onButtonClick strSplitVDisable");
+			logger.log(Level.FINE, "onButtonClick strSplitVDisable");
 			
 		} else if ( button.getHTML().indexOf(strSplitV) != -1 ) {
 			
-			logger.log(Level.SEVERE, "onButtonClick strSplitV");
+			logger.log(Level.FINE, "onButtonClick strSplitV");
 			
 			UITaskSplit taskSplit = new UITaskSplit();
 			taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());

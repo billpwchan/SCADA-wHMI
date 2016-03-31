@@ -99,7 +99,10 @@ public class TabLayoutPanel extends ResizeComposite implements HasCloseHandlers<
             final FlowPanel newTab = new FlowPanel();
             newTab.addStyleName("mwt-tabs-toolbar");
 
-            final String caption = Dictionary.getWording(KEY_TAB_DICO + navigationId);
+            String caption = Dictionary.getWording(KEY_TAB_DICO + navigationId);
+            if (caption.startsWith("#Undefined#")) {
+                caption = navigationId;
+            }
             final Label titleLbl = new Label(caption);
             newTab.add(titleLbl);
 

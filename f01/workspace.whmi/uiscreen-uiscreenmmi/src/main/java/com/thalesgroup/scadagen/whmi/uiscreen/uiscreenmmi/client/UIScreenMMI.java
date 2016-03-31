@@ -68,32 +68,19 @@ public class UIScreenMMI implements UIScreen_i {
 			}
 		});
 
-		// Window.alert(getClass().getName());
-
 		this.uiPanelmenu = new UIPanelMenus(this.uiNameCard);
 
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
 
 		// North Bar
 		logger.log(Level.FINE, "getMainPanel North Bar Begin");
-		
-//		String basePath		= GWT.getModuleBaseURL();
 
 		DockLayoutPanel statusBar = new UIPanelStatusBar().getMainPanel(this.uiNameCard);
-
-//		HorizontalPanel mtrPanel = new HorizontalPanel();
-//		mtrPanel.setWidth("100%");
-//		mtrPanel.setHeight("100%");
-//		mtrPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//		mtrPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		mtrPanel.addStyleName("project-gwt-panel-north");
-//		mtrPanel.add(new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CUSTOMER_LOGIN_NAME));
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.addStyleName("project-gwt-panel-north");
 
 		dockLayoutPanel.addNorth(statusBar, 42);
-//		dockLayoutPanel.addEast(mtrPanel, 160);
 
 		DockLayoutPanel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
 		alarmBanner.setWidth("100%");
@@ -108,8 +95,6 @@ public class UIScreenMMI implements UIScreen_i {
 		// LV2, SYS
 		HorizontalPanel menuBarLv1 = uiPanelmenu.getHorizontalMenu(1);
 		menuBarLv1.setWidth(menubarWidth);
-//		menuBarLv1.setBorderWidth(LAYOUT_BORDER);
-//		menuBarLv1.getElement().getStyle().setPadding(10, Unit.PX);
 		menuBarLv1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		menuBarLv1.addStyleName("project-gwt-panel-south");
 
@@ -129,7 +114,6 @@ public class UIScreenMMI implements UIScreen_i {
 		VerticalPanel verticalPanelEast = new VerticalPanel();
 		verticalPanelEast.setWidth(menubarWidth);
 		verticalPanelEast.setHeight("100%");
-//		verticalPanelEast.setBorderWidth(LAYOUT_BORDER);
 		verticalPanelEast.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanelEast.addStyleName("project-gwt-panel-east");
 
@@ -145,14 +129,12 @@ public class UIScreenMMI implements UIScreen_i {
 		// LV3, SubSys/Fun
 		VerticalPanel menuBarLv2 = uiPanelmenu.getVerticalMenu(2);
 		menuBarLv2.setWidth(menubarWidth);
-//		menuBarLv2.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv2.addStyleName("paddedHorizontalPanel");
 		menuBarLv2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
 		// LV4, SubSys/Fun
 		VerticalPanel menuBarLv3 = uiPanelmenu.getVerticalMenu(3);
 		menuBarLv3.setWidth(menubarWidth);
-//		menuBarLv3.setBorderWidth(LAYOUT_BORDER);
 		menuBarLv3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
 		VerticalPanel verticalPanelWest = new VerticalPanel();
@@ -226,7 +208,6 @@ public class UIScreenMMI implements UIScreen_i {
 							DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 							UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 							uiDialgogMsg.setUINameCard(this.uiNameCard);
-//							UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 							uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
 									"Are you sure to logout the current HMI?", taskLaunchYes, null);
 							uiDialgogMsg.popUp();

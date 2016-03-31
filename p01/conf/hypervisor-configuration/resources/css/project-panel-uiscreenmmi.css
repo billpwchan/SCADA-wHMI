@@ -1,0 +1,17 @@
+/* UIScreenMMI */
+.project-gwt-panel-west {
+	background-color: dimgrey;
+}
+
+.project-gwt-panel-east {
+	background-color: dimgrey;
+}
+
+.project-gwt-panel-south {
+	background-color: dimgrey;
+	padding: 10px;
+}
+
+.project-gwt-panel-north {
+	background-color: dimgrey;
+}

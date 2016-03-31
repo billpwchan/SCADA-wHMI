@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.widget;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,6 +12,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogge
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.description.SymbolsPoolClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.description.symbol.SymbolClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.update.SymbolInsert;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.symbol.animator.ClientAnimatorAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.SymbolWidget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.WidgetFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.zoom.strategy.IZoomStrategy;
@@ -51,31 +55,55 @@ public class ScsWidgetFactory extends WidgetFactory {
         } else {
             w = new SymbolWidget(insert, symbolClient, strategy);
         }
-        
-//        logger.log(Level.FINE, "getSymbolWidget Begin");
-        //1166B Click
+
+        if ("rectangular_large_gauge_symbol".equals(insert.getSymbolId())
+                || "rectangular_large_horizontal_gauge_symbol".equals(insert.getSymbolId())) {
+
+            final Map<String, ClientAnimatorAbstract> customAnimators = new HashMap<String, ClientAnimatorAbstract>();
+
+            customAnimators.put("rectangular_large_gauge_animation", new RectangularLargeGaugeAnimator());
+
+            w.addCustomAnimators(customAnimators);
+
+        }
+		
+        //1166B Symbol Click
         w.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-//logger.log(Level.FINE, "getSymbolWidget onClick Begin");
+				
+				logger.log(Level.FINE, "getSymbolWidget onClick Begin");
+				
 				SymbolWidget symbolWidget = (SymbolWidget)event.getSource();
-//logger.log(Level.FINE, "getSymbolWidget getSource()");
+				
+				logger.log(Level.FINE, "getSymbolWidget getSource()");
+				
 				if ( null != symbolWidget ) {
-//logger.log(Level.FINE, "getSymbolWidget symbolWidget is not null");
+					
+					logger.log(Level.FINE, "getSymbolWidget symbolWidget is not null");
+					
 					String hv_id = symbolWidget.getEntityId();
-logger.log(Level.FINE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
-//Window.alert("getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
+					
+					logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
+					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
+						
 						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id);
+						
 					}
+					
 				} else {
-//logger.log(Level.FINE, "getSymbolWidget symbolWidget is NULL");
+					
+					logger.log(Level.FINE, "getSymbolWidget symbolWidget is NULL");
 				}
-//logger.log(Level.FINE, "getSymbolWidget onClick End");
+				
+				logger.log(Level.FINE, "getSymbolWidget onClick End");
+				
 			}
 		});
-//        logger.log(Level.FINE, "getSymbolWidget End");
+        
+        logger.log(Level.FINE, "getSymbolWidget End");
 
         return w;
     }

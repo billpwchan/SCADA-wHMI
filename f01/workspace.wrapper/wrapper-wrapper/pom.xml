@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.thalesgroup.hv.mwt</groupId>
 		<artifactId>mwt</artifactId>
-		<version>3.4.0</version>
+		<version>3.5.0</version>	
 	</parent>
   
   <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
@@ -20,10 +20,10 @@
 
   <properties>
   
-		<myproject.version>1.2.1</myproject.version>
-		<scadasoft.model.version>6.2.4</scadasoft.model.version>
-		<scadasoft.version>6.2.4.0</scadasoft.version>
-        <hv.common.integ.version>1.7.0</hv.common.integ.version>
+        <myproject.version>1.2.3</myproject.version>
+        <scadasoft.model.version>6.2.4.2</scadasoft.model.version>
+        <scadasoft.version>6.2.4.2</scadasoft.version>
+        <hv.common.integ.version>1.8.0</hv.common.integ.version>
 		
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
   

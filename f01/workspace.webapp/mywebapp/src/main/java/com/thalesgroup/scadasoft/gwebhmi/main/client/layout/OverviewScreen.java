@@ -2,6 +2,7 @@ package com.thalesgroup.scadasoft.gwebhmi.main.client.layout;
 
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.chart.timeseries.panel.TimeSeriesGraphFactoryPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.NavigationTreePanel;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
@@ -39,6 +40,7 @@ public class OverviewScreen extends ResizeComposite {
     private ScsOlsListPanel m_operationNotifPanelForListTab = null;
     private ScsOlsListPanel m_connectionListPanelForListTab = null;
     private ScsMatrixPanel m_alarmDiagramPanelForTab = null;
+    private TimeSeriesGraphFactoryPanel m_TSSConfPanelForTab = null;
 
     /**
      * Constructor.
@@ -133,5 +135,16 @@ public class OverviewScreen extends ResizeComposite {
         }
 
         m_leftTabLayout.add(m_alarmDiagramPanelForTab, "alarmDiagramTab_caption", true);
+    }
+
+    public void addTSSConfTab() {
+        if (m_TSSConfPanelForTab != null && m_leftTabLayout.contains(m_TSSConfPanelForTab)) {
+            return;
+        }
+        
+        m_TSSConfPanelForTab = new TimeSeriesGraphFactoryPanel(AppUtils.EVENT_BUS);
+        
+        m_leftTabLayout.add(m_TSSConfPanelForTab, "graph_factory", true);
+        
     }
 }

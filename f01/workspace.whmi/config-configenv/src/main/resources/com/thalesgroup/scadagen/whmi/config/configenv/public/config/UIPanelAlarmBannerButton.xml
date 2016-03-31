@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>2</cols>
+		<widget>FlexTable</widget>
+		<cssVerticalPanel>project-gwt-panel-alarmbanner-button</cssVerticalPanel>
+		<cssFlexTable>project-gwt-flextable-alarmbanner-button</cssFlexTable>
+	</header>
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>Ack Page</label>
+		<tooltip>Ack Page</tooltip>
+		<css>project-gwt-button-alarmbanner-button-0-0</css>
+		<element>ackpage</element>
+	</option>
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>Alarm</label>
+		<tooltip>Alarm Summary</tooltip>
+		<css>project-gwt-button-alarmbanner-button-0-1</css>
+		<element>alarm</element>
+	</option>
+	<option key="1|0">
+		<widget>ImageButton</widget>
+		<tooltip>Alarm Sound Audible</tooltip>
+		<css>project-gwt-button-alarmbanner-button-1-0</css>
+		<element>alarmsound</element>
+		<icon>/imgs/hscs/Sound.png</icon>
+		<iconDown>/imgs/hscs/NoSound.png</iconDown>
+		<cssDown>project-gwt-button-alarmbanner-button-1-0</cssDown>
+		<tooltipDown>Alarm Sound Silent</tooltipDown>
+		<iconDivWidth>90</iconDivWidth>
+		<iconDivHeight>32</iconDivHeight>
+		<iconImgWidth>18</iconImgWidth>
+		<iconImgHeight>18</iconImgHeight>
+	</option>
+	<option key="1|1">
+		<widget>Button</widget>
+		<label>Event</label>
+		<tooltip>Event Summary</tooltip>
+		<css>project-gwt-button-alarmbanner-button-1-1</css>
+		<element>event</element>
+	</option>
+</data-set>

@@ -1,9 +1,13 @@
 package com.thalesgroup.scadasoft.gwebhmi.main.client.widget;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.description.SymbolsPoolClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.description.symbol.SymbolClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.update.SymbolInsert;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.symbol.animator.ClientAnimatorAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.SymbolWidget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.WidgetFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.zoom.strategy.IZoomStrategy;
@@ -40,7 +44,19 @@ public class ScsWidgetFactory extends WidgetFactory {
             w = new SymbolWidget(insert, symbolClient, strategy);
         }
 
+        if ("rectangular_large_gauge_symbol".equals(insert.getSymbolId())
+                || "rectangular_large_horizontal_gauge_symbol".equals(insert.getSymbolId())) {
+
+            final Map<String, ClientAnimatorAbstract> customAnimators = new HashMap<String, ClientAnimatorAbstract>();
+
+            customAnimators.put("rectangular_large_gauge_animation", new RectangularLargeGaugeAnimator());
+
+            w.addCustomAnimators(customAnimators);
+
+        }
+        
         return w;
     }
+    
 
 }

@@ -3,24 +3,19 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.event.dom.client.KeyPressHandler;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
@@ -29,51 +24,43 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelGeneric;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelGenericEvent;
 
 public class UIScreenLogin implements UIScreen_i {
 	
 	private static Logger logger = Logger.getLogger(UIScreenLogin.class.getName());
 	
-	public static final String UNIT_PX		= "px";
+	private String strUIPanelLoginLogo			= "UIPanelLoginLogo.xml";
+	private UIPanelGeneric uiPanelLoginButton 	= null;
 	
-	public static final String IMAGE_PATH	= "imgs";
+	private String strUIPanelLoginInfo			= "UIPanelLoginInfo.xml";
+	private UIPanelGeneric uiPanelLoginInfo 	= null;
+	
+	private String strUIPanelLoginButton		= "UIPanelLoginButton.xml";
+	private UIPanelGeneric uiPanelLoginLogo		= null;
+	
+	private String EMPTY						= "";
+	
+	private final String strName				= "name";
+	private final String strProfile				= "profile";
+	private final String strPassword			= "password";
+	
+    private final String strLogin 				= "login";
+    private final String strChangePassword		= "changepassword";
+    private final String strCancel				= "cancel";
 
-	private static final String COMPANY_LOGO 	= "logologinmtr.jpg";
-//	private static final String CLIENT_LOGO 	= "logo_thales.jpg";
-	
-	private String EMPTY							= "";
-	
-    final String strLogin 			= "Login";
-    final String strChangePassword	= "Change Password";
-    final String strCancel			= "Cancel";
-	
-	private TextBox txtOperator;
-	private ListBox listBoxProfile;
-	private PasswordTextBox txtpassword;
-	
 	private UINameCard uiNameCard;
 	private DockLayoutPanel dockLayoutPanel;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard){
+		
+		logger.log(Level.SEVERE, "getMainPanel Begin");
+		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
-		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
-	    String [] strLogins			= new String[] {
-	    		strLogin, strChangePassword, strCancel
-	    };
-	    
-	    String [] strButtonCSS 		= new String [] {
-	    		"project-gwt-button-login-login", "project-gwt-button-login-changepassword", "project-gwt-button-login-cancel"
-	    };
-		
+
 		HorizontalPanel horizontalPanelBar = null;
-		
-		txtOperator = new TextBox();
-		listBoxProfile = new ListBox();
-		txtpassword = new PasswordTextBox();
-		Button buttons[];
-		
+
 		dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.addStyleName("project-gwt-panel-login");
 		
@@ -81,23 +68,16 @@ public class UIScreenLogin implements UIScreen_i {
 	    verticalPanel.addStyleName("project-gwt-panel-login-inner");
 	    verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		
-		String basePath		= GWT.getModuleBaseURL();
-	
-		verticalPanel.add(	new Image(basePath + "/" + IMAGE_PATH + "/logo/" + COMPANY_LOGO));
+
+		uiPanelLoginLogo = new UIPanelGeneric();
+		uiPanelLoginLogo.init(strUIPanelLoginLogo);
+		verticalPanel.add(uiPanelLoginLogo.getMainPanel(this.uiNameCard));
 		
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
 		horizontalPanelBar.setHeight("10px");
 		verticalPanel.add(horizontalPanelBar);
-		
-//		verticalPanel.add(	new Image(basePath + "/" + IMAGE_PATH + "/logo/" + CLIENT_LOGO));
-//		
-//		horizontalPanelBar = new HorizontalPanel();
-//		horizontalPanelBar.setWidth("128px");
-//		horizontalPanelBar.setHeight("10px");
-//		verticalPanel.add(horizontalPanelBar);
-		
+
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
 		horizontalPanelBar.setHeight("10px");
@@ -110,43 +90,25 @@ public class UIScreenLogin implements UIScreen_i {
 		horizontalPanelBar.setHeight("5px");
 		verticalPanel.add(horizontalPanelBar);
 		flexTable.setWidget(0, 1, horizontalPanelBar);
-		
-		InlineLabel lblOperator = new InlineLabel("Operator:");
-		lblOperator.addStyleName("project-gwt-inlinelabel-login-operator");
-		flexTable.setWidget(1, 0, lblOperator);
-		txtOperator.setText(OpmAuthentication.getInstance().getDefaultOperator());
-		txtOperator.setMaxLength(16);
-		txtOperator.setWidth("100%");
-		txtOperator.addStyleName("project-gwt-textbox-login-operator");
-		flexTable.setWidget(1, 1, txtOperator);
-		
-		txtOperator.addKeyPressHandler(new KeyPressHandler() {
-		    @Override
-		    public void onKeyPress(KeyPressEvent event) {
-				String operator = txtOperator.getText();
-				logger.log(Level.FINE, "onKeyPress operator["+operator+"]");
-				verifyOperator(operator);
-		    }
+
+		uiPanelLoginInfo = new UIPanelGeneric();
+		uiPanelLoginInfo.init(strUIPanelLoginInfo);
+		uiPanelLoginInfo.setUIPanelGenericEvent(new UIPanelGenericEvent() {
+			@Override
+			public void onKeyPressHandler(KeyPressEvent event) {
+				TextBox textbox = (TextBox)uiPanelLoginInfo.getWidget(strName);
+				if ( null != textbox ) {
+					String operator = textbox.getText();
+					logger.log(Level.FINE, "onKeyPress operator["+operator+"]");
+					verifyOperator(operator);
+				}
+			}
+			
+			@Override
+			public void onClickHandler(ClickEvent event) {
+			}
 		});
-		
-		InlineLabel lblProfile = new InlineLabel("Profile:");
-		lblProfile.addStyleName("project-gwt-inlinelabel-login-profile");
-		flexTable.setWidget(2, 0, lblProfile);
-		listBoxProfile.setWidth("100%");
-		listBoxProfile.setHeight("100%");
-		listBoxProfile.setVisibleItemCount(1);
-		listBoxProfile.addItem(EMPTY);
-		listBoxProfile.addStyleName("project-gwt-listbox-login-profile");
-		flexTable.setWidget(2, 1, listBoxProfile);
-		
-		InlineLabel lblPassword = new InlineLabel("Password:");
-		lblPassword.addStyleName("project-gwt-inlinelabel-login-password");
-		flexTable.setWidget(3, 0, lblPassword);
-		txtpassword.setText(OpmAuthentication.getInstance().getDefaultPassword());
-		txtpassword.setMaxLength(16);
-		txtpassword.setWidth("100%");
-		txtpassword.addStyleName("project-gwt-textbox-login-password");
-		flexTable.setWidget(3, 1, txtpassword);
+		verticalPanel.add(uiPanelLoginInfo.getMainPanel(this.uiNameCard));
 
 		horizontalPanelBar = new HorizontalPanel();
 		horizontalPanelBar.setWidth("128px");
@@ -166,37 +128,56 @@ public class UIScreenLogin implements UIScreen_i {
 		bottomButtonBar.setWidth("100%");
 	    bottomButtonBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    bottomButtonBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    buttons = new Button[strLogins.length];
-	    for ( int i = 0 ; i < strLogins.length ; ++i ) {
-			buttons[i] = new Button(strLogins[i]);
-			buttons[i].addStyleName(strButtonCSS[i]);
+
+		uiPanelLoginButton = new UIPanelGeneric();
+		uiPanelLoginButton.init(strUIPanelLoginButton);
+		uiPanelLoginButton.setUIPanelGenericEvent(new UIPanelGenericEvent() {
 			
-			buttons[i].addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					Button button = (Button)event.getSource();
-					if ( 0 == button.getText().compareToIgnoreCase(strLogin) 
-							|| 0 == button.getText().compareToIgnoreCase(strChangePassword) ) {
+			@Override
+			public void onClickHandler(ClickEvent event) {
+				Widget widget = (Widget) event.getSource();
+				
+				String element = uiPanelLoginButton.getWidgetName(widget);
+				
+				if ( null != element ) {
+					if ( 0 == element.compareTo(strLogin) || 0 == element.compareTo(strChangePassword) ) {
+					
 						// Operation: Login
-						String buttonText	= button.getText();
-						String operator		= txtOperator.getText();
-						String profile		= listBoxProfile.getValue(listBoxProfile.getSelectedIndex());
-						String password		= txtpassword.getText();
+						TextBox txtOperator = (TextBox)uiPanelLoginInfo.getWidget(strName);
+						ListBox lstProfile = (ListBox)uiPanelLoginInfo.getWidget(strProfile);
+						PasswordTextBox txtpwdPassword = (PasswordTextBox)uiPanelLoginInfo.getWidget(strPassword);
 						
-						verify(buttonText, operator, profile, password);
-					}
+						if ( null == txtOperator ) {
+							logger.log(Level.SEVERE, "setUIPanelGenericEvent onClickHandler widget element["+strName+"] IS NULL");
+						} else if ( null == lstProfile ) {
+							logger.log(Level.SEVERE, "setUIPanelGenericEvent onClickHandler widget element["+strProfile+"] IS NULL");
+						} else if ( null == txtpwdPassword) {
+							logger.log(Level.SEVERE, "setUIPanelGenericEvent onClickHandler widget element["+strPassword+"] IS NULL");
+						} else {
+
+							String operator		= txtOperator.getText();
+							String profile		= lstProfile.getValue(lstProfile.getSelectedIndex());
+							String password		= txtpwdPassword.getText();
+							
+							verify(element, operator, profile, password);
+						}
+					} 						
+				} else {
+					logger.log(Level.SEVERE, "onClickHandler button IS NULL");
 				}
-			});
-			
-			bottomButtonBar.add(buttons[i]);
-			
-	    }
-		
-		verticalPanel.add(bottomButtonBar);
+
+			}
+
+			@Override
+			public void onKeyPressHandler(KeyPressEvent event) {
+			}
+		});
+		verticalPanel.add(uiPanelLoginButton.getMainPanel(this.uiNameCard));
+		//
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.setHeight("100%");
 		horizontalPanel.setWidth("100%");
+		horizontalPanel.setHeight("100%");
 		horizontalPanel.addStyleName("project-gwt-panel-login-outer");
 	    horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -205,7 +186,7 @@ public class UIScreenLogin implements UIScreen_i {
 		
 		dockLayoutPanel.add(horizontalPanel);
 		
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.log(Level.SEVERE, "getMainPanel End");
 		
 		return dockLayoutPanel;
 	}
@@ -217,26 +198,30 @@ public class UIScreenLogin implements UIScreen_i {
 			if ( null == profile ) {
 				profile = EMPTY;
 			}
-			this.listBoxProfile.clear();
-			this.listBoxProfile.addItem(profile);
-			this.listBoxProfile.setSelectedIndex(0);
+
+			ListBox listbox = (ListBox)uiPanelLoginInfo.getWidget(strProfile);
+			if ( null != listbox ) {
+				listbox.clear();
+				listbox.addItem(profile);
+				listbox.setSelectedIndex(0);
+			} else {
+				logger.log(Level.SEVERE, "verifyOperator element["+profile+"] IS NULL");
+			}
 		}
 	}
 	
-	private void verify(String btnText, String operator, String profile, String password) {
-		
+	private void verify(String element, String operator, String profile, String password) {	
 		logger.log(Level.FINE, "verify Begin");
 		
 		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
 		
-		if ( 0 == btnText.compareToIgnoreCase(strLogin) ) {
-			
+		
+		if ( 0 == element.compareTo(strLogin) ) {
 			if ( 0 == profile.compareTo(EMPTY) ) {
 				
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 				uiDialgogMsg.setUINameCard(this.uiNameCard);
-//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Profile", "Please check the Login name and Profile is correct!", null, null);
 				uiDialgogMsg.popUp();
 				
@@ -256,19 +241,17 @@ public class UIScreenLogin implements UIScreen_i {
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 				uiDialgogMsg.setUINameCard(this.uiNameCard);
-//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name of Password", "Please check the Login name and Password is correct!", null, null);
 				uiDialgogMsg.popUp();
 				
 			}
-		} else if ( 0 == btnText.compareToIgnoreCase(strChangePassword) ) {
+		} else if ( 0 == element.compareTo(strCancel) ) {
 			
 			if ( ! opmAuthentication.hasRight("M", "PASSWORD", profile) ) {
 				
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 				uiDialgogMsg.setUINameCard(this.uiNameCard);
-//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Profile to change password", "Only administator profile can change password!", null, null);
 				uiDialgogMsg.popUp();
 				
@@ -288,7 +271,6 @@ public class UIScreenLogin implements UIScreen_i {
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 				uiDialgogMsg.setUINameCard(this.uiNameCard);
-//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
 				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name or Password", "Please check the Login name and Password is correct!", null, null);
 				uiDialgogMsg.popUp();
 				

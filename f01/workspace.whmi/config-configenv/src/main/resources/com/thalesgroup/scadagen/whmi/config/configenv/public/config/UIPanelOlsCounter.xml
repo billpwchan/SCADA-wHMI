@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>5</cols>
+		<widget>FlexTable</widget>
+		<cssVerticalPanel>project-gwt-panel-alarmbanner-filter</cssVerticalPanel>
+		<cssFlexTable>project-gwt-flextable-alarmbanner-filter</cssFlexTable>
+	</header>
+	
+	<option key="0|0">
+		<widget></widget>
+		<label></label>
+		<css>project-gwt-textbox-alarmbanner-counter-0-0</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="0|1">
+		<widget></widget>
+		<label>Total</label>
+		<css>project-gwt-textbox-alarmbanner-counter-0-1</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="0|2">
+		<widget></widget>
+		<label>Super</label>
+		<css>project-gwt-textbox-alarmbanner-counter-0-2</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="0|3">
+		<widget></widget>
+		<label>Critical</label>
+		<css>project-gwt-textbox-alarmbanner-counter-0-3</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="0|4">
+		<widget></widget>
+		<label>Less</label>
+		<css>project-gwt-textbox-alarmbanner-counter-0-4</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	
+	
+	<option key="1|0">
+		<widget></widget>
+		<label>UnAck</label>
+		<css>project-gwt-textbox-alarmbanner-counter-1-0</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="1|1">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-1-1</css>
+		<element>alarmlist_counter_all</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="1|2">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-1-2</css>
+		<element>alarmlist_counter_supercritical_unack</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="1|3">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-1-3</css>
+		<element>alarmlist_counter_critical_unack</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="1|4">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-1-4</css>
+		<element>alarmlist_counter_lesscritical_unack</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	
+	<option key="2|0">
+		<widget></widget>
+		<label>All</label>
+		<css>project-gwt-textbox-alarmbanner-counter-2-0</css>
+		<element></element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="2|1">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-2-1</css>
+		<element>alarmlist_counter_unack</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="2|2">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-2-2</css>
+		<element>alarmlist_counter_supercritical_all</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="2|3">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-2-3</css>
+		<element>alarmlist_counter_critical_all</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+	<option key="2|4">
+		<widget></widget>
+		<label>0</label>
+		<css>project-gwt-textbox-alarmbanner-counter-2-4</css>
+		<element>alarmlist_counter_lesscritical_all</element>
+		<format></format>
+		<readonly>true</readonly>
+	</option>
+</data-set>

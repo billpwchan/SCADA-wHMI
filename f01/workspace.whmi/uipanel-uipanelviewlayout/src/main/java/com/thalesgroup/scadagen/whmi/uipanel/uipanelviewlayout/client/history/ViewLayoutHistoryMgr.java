@@ -116,22 +116,22 @@ public class ViewLayoutHistoryMgr {
 
 	public void debug(String prefix) {
 		
-		logger.log(Level.SEVERE, "debug "+prefix+" Begin");
+		logger.log(Level.FINE, "debug "+prefix+" Begin");
 		
-		logger.log(Level.SEVERE, "debug "+prefix+" taskLaunchs.length: [" + viewLayoutHistorys.size() +"]");
-		logger.log(Level.SEVERE, "debug "+prefix+" index: [" + index +"]");
+		logger.log(Level.FINE, "debug "+prefix+" taskLaunchs.length: [" + viewLayoutHistorys.size() +"]");
+		logger.log(Level.FINE, "debug "+prefix+" index: [" + index +"]");
 		
 		for ( int i = 0 ; i < viewLayoutHistorys.size() ; ++i ) {
 			ViewLayoutHistory viewLayoutHistory = viewLayoutHistorys.get(i);
 			if ( null != viewLayoutHistory ) {
-				logger.log(Level.SEVERE, "debug "+prefix+" viewLayoutHistory(" + i + ")[" + viewLayoutHistorys.size() + "]");
+				logger.log(Level.FINE, "debug "+prefix+" viewLayoutHistory(" + i + ")[" + viewLayoutHistorys.size() + "]");
 				viewLayoutHistory.debug("viewLayoutHistory(" + i + ")");
 			} else {
-				logger.log(Level.SEVERE, "debug "+prefix+" viewLayoutHistory(" + i + ") is null");
+				logger.log(Level.FINE, "debug "+prefix+" viewLayoutHistory(" + i + ") is null");
 			}
 		}
 		
-		logger.log(Level.SEVERE, "debug "+prefix+" End");
+		logger.log(Level.FINE, "debug "+prefix+" End");
 		
 	}
 }

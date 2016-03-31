@@ -11,9 +11,9 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.EquipmentTreePanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.SituationViewPanel;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.panels.InfoCommandTabPanel;
+import com.thalesgroup.scadasoft.gwebhmi.main.client.panels.ScsSituationViewPanel;
 
 /**
  * This class implements an action panel which allows to visualize a detailed
@@ -52,7 +52,7 @@ public class ActionPanel extends ResizeComposite implements IClientLifeCycle {
     /**
      * A widget displaying a situation view
      */
-    private SituationViewPanel situationViewPanel_;
+    private ScsSituationViewPanel situationViewPanel_;
 
     /**
      * A widget displaying equipment info panel and command panel
@@ -117,7 +117,7 @@ public class ActionPanel extends ResizeComposite implements IClientLifeCycle {
      * Create and add the situation view panel.
      */
     private void addSituationViewPanel() {
-        situationViewPanel_ = new SituationViewPanel(imageId_, appEventBus_);
+        situationViewPanel_ = new ScsSituationViewPanel(imageId_, appEventBus_);
 
         outerSplitPanel_.add(situationViewPanel_);
     }

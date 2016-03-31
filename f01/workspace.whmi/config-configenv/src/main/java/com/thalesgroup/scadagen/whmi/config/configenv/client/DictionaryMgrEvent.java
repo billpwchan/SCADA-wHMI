@@ -4,7 +4,7 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 
 public interface DictionaryMgrEvent {
 	
-	public void ready(Dictionary dictionary);
-	public void failed(String xmlFile);
+	public void dictionaryMgrEventReady(Dictionary dictionary);
+	public void dictionaryMgrEventFailed(String xmlFile);
 	
 }

@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.config.config.shared;
 import java.util.HashMap;
 import java.util.Set;
 
-public class Dictionary implements Config_i, java.io.Serializable {
+public class Dictionary implements Dictionary_i, java.io.Serializable {
 	
 	/**
 	 * 

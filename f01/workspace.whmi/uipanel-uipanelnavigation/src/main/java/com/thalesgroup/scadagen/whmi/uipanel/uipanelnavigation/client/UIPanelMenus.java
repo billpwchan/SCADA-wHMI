@@ -105,9 +105,9 @@ public class UIPanelMenus implements NavigationMgrEvent {
 	@Override
 	public void setMenu(int level, String header, String launchHeader, boolean executeTask) {
 		
-		logger.log(Level.SEVERE, "setMenu Begin");
+		logger.log(Level.FINE, "setMenu Begin");
 		
-		logger.log(Level.SEVERE, "setMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.log(Level.FINE, "setMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
 
 		cascadeClearMenu(level);
 		
@@ -125,7 +125,7 @@ public class UIPanelMenus implements NavigationMgrEvent {
 			
 		}
 
-		logger.log(Level.SEVERE, "setMenu End");
+		logger.log(Level.FINE, "setMenu End");
 	}
 
 	private void cascadeClearMenu(int panelLevelToClear) {
@@ -227,9 +227,9 @@ public class UIPanelMenus implements NavigationMgrEvent {
 	
 	private void onClickAction(NavigationMenuButton btnSel, String launchHeader, boolean executeTask) {
 		
-		logger.log(Level.SEVERE, "onClickAction Begin");
+		logger.log(Level.FINE, "onClickAction Begin");
 		
-		logger.log(Level.SEVERE, "onClickAction btnSel.getText()["+btnSel.getText()+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.log(Level.FINE, "onClickAction btnSel.getText()["+btnSel.getText()+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
 
 		ComplexPanel parent = (ComplexPanel) btnSel.getParent();
 		
@@ -258,19 +258,19 @@ public class UIPanelMenus implements NavigationMgrEvent {
 			
 		} else {
 			
-			logger.log(Level.SEVERE, "onClickAction executeTask["+executeTask+"]");
+			logger.log(Level.FINE, "onClickAction executeTask["+executeTask+"]");
 			
 			if ( executeTask ) {
 			
 				task.setTaskUiScreen(this.uiNameCard.getUiScreen());
 				
-				logger.log(Level.SEVERE, "onClickAction Execute Task["+task.getHeader()+"] on Screen["+task.getTaskUiScreen()+"]");
+				logger.log(Level.FINE, "onClickAction Execute Task["+task.getHeader()+"] on Screen["+task.getTaskUiScreen()+"]");
 				
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(task));
 			}
 		}
 		
-		logger.log(Level.SEVERE, "onClickAction End");
+		logger.log(Level.FINE, "onClickAction End");
 	}
 
 	public void readyToGetMenu(String profile, String location, int level, String header) {

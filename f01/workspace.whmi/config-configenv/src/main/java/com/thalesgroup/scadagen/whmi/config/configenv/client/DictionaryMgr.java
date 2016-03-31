@@ -24,32 +24,32 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 	private LinkedList<DictionaryMgrEvent> dictionaryMgrEvents = new LinkedList<DictionaryMgrEvent>();
 	public void setDictionaryMgrEvent ( DictionaryMgrEvent dictionaryMgrEvent ) {
 		
-		logger.log(Level.FINE, "setTaskMgrEvent Begin");
+		logger.log(Level.FINE, "setDictionaryMgrEvent Begin");
 		
 		this.dictionaryMgrEvents.add(dictionaryMgrEvent);
 		
-		logger.log(Level.FINE, "setTaskMgrEvent End");
+		logger.log(Level.FINE, "setDictionaryMgrEvent End");
 	}
 	
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting service.
 	 */
-	private final DictionaryServiceAsync dictionaryMgrService = GWT.create(DictionaryService.class);
+	private final DictionaryServiceAsync dictionaryService = GWT.create(DictionaryService.class);
 	
 	public void getDictionary(String module, String xml, String tag, DictionaryMgrEvent dictionaryMgrEvent) {
 		
-		logger.log(Level.FINE, "getDictionarys Begin");
+		logger.log(Level.SEVERE, "getDictionary Begin");
 		
 		this.xml = xml;
 		this.tag = tag;
 		
-		logger.log(Level.FINE, "getDictionarys this.xml["+this.xml+"] this.tag["+this.tag+"]");
+		logger.log(Level.SEVERE, "getDictionary this.xml["+this.xml+"] this.tag["+this.tag+"]");
 		
 		this.dictionaryMgrEvents.add(dictionaryMgrEvent);
 		
-		dictionaryMgrService.dictionaryServer(module, xml, tag, this);
+		dictionaryService.dictionaryServer(module, xml, tag, this);
 		
-		logger.log(Level.FINE, "getDictionarys End");
+		logger.log(Level.SEVERE, "getDictionary End");
 	}
 
 	public void onFailure(Throwable caught) {
@@ -59,7 +59,7 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 				
 		for (Iterator<DictionaryMgrEvent> iterator = dictionaryMgrEvents.iterator(); iterator.hasNext();) {
 			DictionaryMgrEvent dictionaryMgrEvent = iterator.next();
-			dictionaryMgrEvent.failed(xml);
+			dictionaryMgrEvent.dictionaryMgrEventFailed(xml);
 		    iterator.remove();
 		}
 
@@ -75,11 +75,11 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 
 //			logger.log(Level.FINE, "onSuccess cfgsCur.size()["+dictionaryCur.getObjectSize()+"]");
 					
-			logger.log(Level.FINE, "onSuccess calling the callback: configMgrEvent.ready()");
+			logger.log(Level.FINE, "onSuccess calling the callback: dictionaryMgrEvent.DictionaryMgrEventReady()");
 			
 			for (Iterator<DictionaryMgrEvent> iterator = dictionaryMgrEvents.iterator(); iterator.hasNext();) {
 				DictionaryMgrEvent dictionaryMgrEvent = iterator.next();
-				dictionaryMgrEvent.ready(dictionaryCur);
+				dictionaryMgrEvent.dictionaryMgrEventReady(dictionaryCur);
 			    iterator.remove();
 			}
 

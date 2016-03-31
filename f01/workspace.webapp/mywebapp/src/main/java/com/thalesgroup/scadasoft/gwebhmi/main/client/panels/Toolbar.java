@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.MenuBar;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.NavigationActivationEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dialog.ChangePassPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dialog.ChangePassPanelAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.soundserver.SoundServerPanel;
@@ -88,7 +89,7 @@ public class Toolbar extends Composite {
             @Override
             public void onClick(final ClickEvent event) {
                 final NavigationActivationEvent navigationEvent = new NavigationActivationEvent(
-                        ConfigurationConstantUtil.SpecialNavPlaces.HISTORY.getValue(), null, null);
+                        ConfigurationConstantUtil.SpecialNavPlaces.HISTORY.getValue());
 
                 AppUtils.EVENT_BUS.fireEventFromSource(navigationEvent, event.getSource());
             }
@@ -137,15 +138,22 @@ public class Toolbar extends Composite {
         Command cmdChangePass = new Command() {
             @Override
             public void execute() {
-
+/*
                 final ChangePassPanelAbstract changePassPanel_ = new ChangePassPanelAbstract() {
 
                     @Override
-                    protected Boolean checkPassword(String password) {
+					public boolean checkPassword(String password) {
                         if (password.length() > 5)
                             return true;
                         return false;
                     }
+
+					@Override
+					public String getRegExpPassword() {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
                 };
 
                 changePassPanel_.setGlassEnabled(true);
@@ -158,6 +166,9 @@ public class Toolbar extends Composite {
                         changePassPanel_.setPopupPosition(left, top);
                     }
                 });
+                */
+                ChangePassPanel cp = new ChangePassPanel();
+                cp.show();
             }
         };
 
@@ -204,6 +215,13 @@ public class Toolbar extends Composite {
             }
         };
 
+        Command cmdTSSConf = new Command() {
+            @Override
+            public void execute() {
+                overviewScreen_.addTSSConfTab();
+            }
+        };
+        
         MenuBar menu1 = new MenuBar(true);
         menu1.addItem(Dictionary.getWording("toolBarItemLogout"), cmdLogout);
         menu1.addItem(Dictionary.getWording("toolBarItemChangePwd"), cmdChangePass);
@@ -216,6 +234,7 @@ public class Toolbar extends Composite {
         menu2.addItem(Dictionary.getWording("toolBarItemNotifList"), cmdOpeNotifList);
         menu2.addItem(Dictionary.getWording("toolBarItemConnection"), connectionEqpList);
         menu2.addItem(Dictionary.getWording("toolBarItemAlarmDiagram"), cmdAlarmMatrix);
+        menu2.addItem(Dictionary.getWording("toolBarItemTSSConf"), cmdTSSConf);
 
         menu2.addStyleName(CSS_MENU_VERTICAL);
 

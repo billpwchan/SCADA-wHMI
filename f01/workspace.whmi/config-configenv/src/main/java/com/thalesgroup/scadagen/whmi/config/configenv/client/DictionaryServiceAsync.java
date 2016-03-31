@@ -4,7 +4,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 
 /**
- * The async counterpart of <code>DictionaryMgrEventService</code>.
+ * The async counterpart of <code>DictionaryService</code>.
  */
 public interface DictionaryServiceAsync {
 	

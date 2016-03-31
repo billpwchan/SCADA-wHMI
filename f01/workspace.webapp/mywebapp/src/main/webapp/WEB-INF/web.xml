@@ -62,9 +62,14 @@
   <!-- Servlets -->
 
   <servlet>
-    <servlet-name>UpdateServlet</servlet-name>
-	<servlet-class>com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.UpdateServlet</servlet-class>
+    <servlet-name>downloadReportService</servlet-name>
+    <servlet-class>com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.histo.reports.servlet.DownloadReportServlet</servlet-class>
   </servlet>
+    
+  <servlet>
+	<servlet-name>UpdateServlet</servlet-name>
+	<servlet-class>com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.UpdateServlet</servlet-class>
+</servlet>
 
   <servlet>
     <servlet-name>ConfigServlet</servlet-name>
@@ -75,13 +80,12 @@
   <servlet>
     <servlet-name>InitPageServlet</servlet-name>
 	<servlet-class>com.thalesgroup.hypervisor.mwt.core.webapp.core.init.InitPage</servlet-class>
-  </servlet>
-
+</servlet>
 
   <servlet>
-    <servlet-name>remoteLoggerServiceImpl</servlet-name>
+	<servlet-name>remoteLoggerServiceImpl</servlet-name>
 	<servlet-class>com.allen_sauer.gwt.log.server.RemoteLoggerServiceImpl</servlet-class>
-  </servlet>
+</servlet>
 
   <servlet>
     <servlet-name>PLCServlet</servlet-name>
@@ -97,15 +101,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>com.thalesgroup.hypervisor.mwt.core.webapp.core.login.server.rpc.LoginServlet</servlet-class>
   </servlet>
-
+  
   <servlet>
     <servlet-name>GwtOpenLayersProxyServlet</servlet-name>
     <servlet-class>org.gwtopenmaps.openlayers.server.GwtOpenLayersProxyServlet</servlet-class>
   </servlet>
 
+    <servlet>
+    <servlet-name>ProxyServlet</servlet-name>
+    <servlet-class>com.thalesgroup.hypervisor.mwt.core.webapp.core.common.proxy.ProxyServlet</servlet-class>
+  </servlet>
   <!-- Standard Action Servlet Mapping -->
-  
 
+
+  <servlet-mapping>
+    <servlet-name>downloadReportService</servlet-name>
+    <url-pattern>/scsmain/downloadReportService</url-pattern>
+  </servlet-mapping>
+    
   <!-- -->
   
   <servlet>
@@ -119,16 +132,6 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>configServiceServlet</servlet-name>
-    <servlet-class>com.thalesgroup.scadagen.whmi.config.configenv.server.ConfigServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>configServiceServlet</servlet-name>
-    <url-pattern>/scsmain/configServiceServlet</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
     <servlet-name>dictionaryServiceServlet</servlet-name>
     <servlet-class>com.thalesgroup.scadagen.whmi.config.configenv.server.DictionaryServiceImpl</servlet-class>
   </servlet>
@@ -136,11 +139,18 @@
   <servlet-mapping>
     <servlet-name>dictionaryServiceServlet</servlet-name>
     <url-pattern>/scsmain/dictionaryServiceServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>dictionariesServiceServlet</servlet-name>
+    <servlet-class>com.thalesgroup.scadagen.whmi.config.configenv.server.DictionariesServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>dictionariesServiceServlet</servlet-name>
+    <url-pattern>/scsmain/dictionariesServiceServlet</url-pattern>
   </servlet-mapping>  
   <!-- -->
-  
-  
-  
 
   <servlet-mapping>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>
@@ -156,7 +166,6 @@
     <servlet-name>ConfigServlet</servlet-name>
     <url-pattern>/scsmain/ConfigServlet</url-pattern>
   </servlet-mapping>
-
 
   <servlet-mapping>
     <servlet-name>InitPageServlet</servlet-name>
@@ -182,8 +191,13 @@
   <servlet-mapping>
     <servlet-name>GwtOpenLayersProxyServlet</servlet-name>
     <url-pattern>/scsmain/wfsProxy</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
 
+    <servlet-mapping>
+    <servlet-name>ProxyServlet</servlet-name>
+    <url-pattern>/scsmain/ProxyServlet</url-pattern>
+  </servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>initialize?page=/scsmain/ScsMain.html</welcome-file>

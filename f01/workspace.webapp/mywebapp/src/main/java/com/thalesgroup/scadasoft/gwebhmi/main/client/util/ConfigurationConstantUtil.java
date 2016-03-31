@@ -57,7 +57,16 @@ public class ConfigurationConstantUtil {
                              */
         VIEW_CONCOURSE("concourse"),
         // MVP sample
-        MVP_SAMPLE("mvp_sample");
+        MVP_SAMPLE("mvp_sample"),
+    	// DBM API sample
+        DBM_SAMPLE("dbm_sample"),
+        // CTL API sample
+        CTL_SAMPLE("ctl_sample"),
+        // GRC API sample
+        GRC_SAMPLE("grc_sample"),
+        /** Graph factory */
+        GRAPH_FACTORY("graph_factory");
+        
         /**
          * Store
          */

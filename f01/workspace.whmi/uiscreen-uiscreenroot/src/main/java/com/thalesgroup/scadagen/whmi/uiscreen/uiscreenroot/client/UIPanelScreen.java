@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.UIPanelSetting;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -17,31 +17,17 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 public class UIPanelScreen {
 	
 	private static Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
-	
-	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 0;	
-	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
-	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";
-	
-	public static final String RGB_PAL_BG	= "#BEBEBE";
-	
-	public static final String IMAGE_PATH	= "imgs";
-	
+
 	private HorizontalPanel hp;
-		
+	
 	private UINameCard uiNameCard = null;
-	public HorizontalPanel getMainPanel(UINameCard uiNameCard) {		
+	public HorizontalPanel getMainPanel(UINameCard uiNameCard) {
+		
+		logger.log(Level.SEVERE, "getMainPanel Begin.");
+		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 	  
-		logger.log(Level.FINE, "getMainPanel Begin.");
-		
 		this.hp = new HorizontalPanel();
     	this.hp.setWidth("100%");
     	this.hp.setHeight("100%");
@@ -54,7 +40,7 @@ public class UIPanelScreen {
     	taskLaunch.setUiPanel("UIScreenLogin");
     	this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
     	
-    	logger.log(Level.FINE, "getMainPanel End");
+    	logger.log(Level.SEVERE, "getMainPanel End");
 		
     	return this.hp;
 	}
@@ -124,8 +110,8 @@ public class UIPanelScreen {
 							
 						hp.add(dockLayoutPanel);
 						
-						UIPanelSetting uiPanelSetting = UIPanelSetting.getInstance();
-						String strNumOfScreen = uiPanelSetting.get("numofscreen");
+						Settings setting = Settings.getInstance();
+						String strNumOfScreen = setting.get("numofscreen");
 						if ( null != strNumOfScreen ) {
 							int intNumOfScreen = 1;
 							try {

@@ -7,7 +7,6 @@ import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.AlarmListPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.panels.InfoCommandMobilePanel;

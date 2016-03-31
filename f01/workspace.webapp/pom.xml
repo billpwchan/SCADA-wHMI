@@ -9,7 +9,7 @@
 
     <groupId>com.thalesgroup.hv.common</groupId>
     <artifactId>common-integ</artifactId>
-    <version>1.4.0</version>
+    <version>1.8.0</version>
 
   </parent>
 

@@ -118,7 +118,7 @@ public class ViewLayoutMgr {
 	
 	public void setSplitScreen(UITaskSplit uiTaskSplit) {
 		
-		logger.log(Level.SEVERE, "setSplitScreen Begin");
+		logger.log(Level.FINE, "setSplitScreen Begin");
 		
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -158,7 +158,7 @@ public class ViewLayoutMgr {
 		historySnapshot();
 		
 		
-		logger.log(Level.SEVERE, "setSplitScreen End");
+		logger.log(Level.FINE, "setSplitScreen End");
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class ViewLayoutMgr {
 	 */
 	public void setTaskLaunch(UITaskLaunch taskLaunch, boolean makeSnapshot) {
 
-		logger.log(Level.SEVERE, "setTaskLaunch Begin");
+		logger.log(Level.FINE, "setTaskLaunch Begin");
 
 		// boolean change = false;
 
@@ -261,7 +261,7 @@ public class ViewLayoutMgr {
 
 		triggerProfileChange();
 
-		logger.log(Level.SEVERE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
+		logger.log(Level.FINE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
 
 		if (makeSnapshot) {
 
@@ -272,7 +272,7 @@ public class ViewLayoutMgr {
 
 		triggerHistoryChange();
 
-		logger.log(Level.SEVERE, "setTaskLaunch End");
+		logger.log(Level.FINE, "setTaskLaunch End");
 
 	}
 
@@ -283,7 +283,7 @@ public class ViewLayoutMgr {
 	 */
 	private void restoreCurrentStatus(ViewLayoutHistory viewLayoutHistory) {
 
-		logger.log(Level.SEVERE, "restoreCurrentStatus Begin");
+		logger.log(Level.FINE, "restoreCurrentStatus Begin");
 
 		UITaskLaunch taskLaunchs[] = viewLayoutHistory.getTaskLaunchs();
 
@@ -305,7 +305,7 @@ public class ViewLayoutMgr {
 			triggerSplitChange();
 		}
 
-		logger.log(Level.SEVERE, "restoreCurrentStatus End");
+		logger.log(Level.FINE, "restoreCurrentStatus End");
 	}
 
 	/**
@@ -328,7 +328,7 @@ public class ViewLayoutMgr {
 	 */
 	public void setLayoutAction(ViewLayoutAction viewLayoutAction, boolean restorePreviousViews) {
 
-		logger.log(Level.SEVERE, "setLayoutAction Begin");
+		logger.log(Level.FINE, "setLayoutAction Begin");
 
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -343,7 +343,7 @@ public class ViewLayoutMgr {
 
 		historySnapshot();
 
-		logger.log(Level.SEVERE, "setLayoutAction End");
+		logger.log(Level.FINE, "setLayoutAction End");
 	}
 
 	/**
@@ -554,7 +554,7 @@ public class ViewLayoutMgr {
 	 */
 	private void historySnapshot() {
 
-		logger.log(Level.SEVERE, "historySnapshot Begin");
+		logger.log(Level.FINE, "historySnapshot Begin");
 
 		ViewLayoutHistory history = getCurrentAsHistory();
 
@@ -564,7 +564,7 @@ public class ViewLayoutMgr {
 		
 		viewLayoutHistoryMgr.debug("AF");
 
-		logger.log(Level.SEVERE, "historySnapshot End");
+		logger.log(Level.FINE, "historySnapshot End");
 	}
 	
 	private UITaskLaunch getTaskLaunchActivate() {

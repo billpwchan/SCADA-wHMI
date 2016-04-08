@@ -1,10 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,12 +81,6 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
     private ScsGenericDataGridView gridView_;
 
     private boolean isTerminated_ = false;
-    
-    /**
-     * To color the line according to the severity (for instance)
-     */
-    private static final String EVENT_CSS_SEVERITY_PREFIX = "event_";
-
 
     /**
      * To get the label of the list for the panel caption
@@ -286,18 +279,7 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
     }
     
     private static Logger logger = Logger.getLogger(ScsOlsListPanel.class.getName());
-    private HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
-    public Integer getCounter(String key) { 
-    	return this.hashMap.get(key); 
-    }
-    private String [] counterNames;
-    public void setCounterNames(String [] counterNames) {
-    	logger.log(Level.SEVERE, "setCounterNames counterNames");
-    	for(String s: counterNames) {
-    		logger.log(Level.SEVERE, "setCounterNames s["+s+"]");
-    	}
-    	this.counterNames = counterNames;
-    }
+    
     private WrapperScsOlsListPanelEvent wrapperScsOlsListPanelEvent;
 	public void setWrapperScsOlsListPanelEvent(WrapperScsOlsListPanelEvent wrapperScsOlsListPanelEvent) { 
 		this.wrapperScsOlsListPanelEvent = wrapperScsOlsListPanelEvent; 
@@ -305,30 +287,23 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
 	@Override
 	public void onCounterChange(GDGCounterChangeEvent event) {
         if (event.getSource() == gridPresenter_) {
-        	logger.log(Level.SEVERE, "onCounterChange");
+        	logger.log(Level.SEVERE, "onCounterChange Begin");
         	try {
-	        	Iterator<Entry<String, Integer>> iter = hashMap.entrySet().iterator();
+	        	Map<String, Integer> maps = event.getValues();
+	        	Set<String> keys = maps.keySet();
+	        	Iterator<String> iter = keys.iterator();
 	        	while (iter.hasNext()) {
-	        	    Entry<String, Integer> entry = iter.next();
-	        	    String key = entry.getKey();
-	        	    Integer value = entry.getValue();
-	        	    logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
-	        	    if ( null != value ) hashMap.put(key, value);
-	        	} 
-	        	
-	            if ( null != wrapperScsOlsListPanelEvent ) {
-	            	for ( int i = 0 ; i < counterNames.length ; ++i ) {
-	                	String n = counterNames[i];
-	                    Integer v = event.getValues().get(n);
-	                    logger.log(Level.SEVERE, "onCounterChange n["+n+"] v["+v+"]");
-	                    if (null != v) wrapperScsOlsListPanelEvent.valueChanged(n, v);
-	            	}            	
-	            } else {
-	            	logger.log(Level.SEVERE, "onCounterChange wrapperScsOlsListPanelEvent is NULL");
-	            }
+	        		String key = iter.next();
+	        		if ( null != key ) {
+	        			Integer value = maps.get(key);
+	        			logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
+	        			if (null != wrapperScsOlsListPanelEvent) wrapperScsOlsListPanelEvent.valueChanged(key, value);
+	        		}
+	        	}
         	} catch (Exception e ) {
         		logger.log(Level.SEVERE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
         	}
-        }
+        	logger.log(Level.SEVERE, "onCounterChange End");
+    	}
 	}
 }

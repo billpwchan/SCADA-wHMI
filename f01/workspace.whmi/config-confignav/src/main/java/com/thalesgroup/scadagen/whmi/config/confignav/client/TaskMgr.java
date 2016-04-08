@@ -45,12 +45,12 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		logger.log(Level.FINE, "initTasks Begin");
 		
 		logger.log(Level.FINE, "initTasks this.level["+level+"] this.header["+header+"]");
+
+		String module		= null;
 		
-		String module		= GWT.getModuleName();
+		String mappingFile	= null;
 		
-		String mappingFile	= "navigationMapping.xml";
-		
-		String settingFile	= "navigationSetting.xml";
+		String settingFile	= null;
 		
 		taskMgrService.taskServer(module, mappingFile, settingFile, profile, location, level, header, this);
 		

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>5</cols>
+		<outerpanel>VerticalPanel</outerpanel>
+		<outercss>project-gwt-panel-hmi-outer</outercss>
+		<innerpanel>DockLayoutPanel</innerpanel>
+		<innercss>project-gwt-panel-hmi-inner</innercss>
+		<outerhorizontalalignment>ALIGN_CENTER</outerhorizontalalignment>
+		<outerverticalalignment>ALIGN_MIDDLE</outerverticalalignment>
+		<innerhorizontalalignment>ALIGN_CENTER</innerhorizontalalignment>
+		<innerverticalalignment>ALIGN_MIDDLE</innerverticalalignment>
+	</header>
+	
+	<option key="0|0">
+		<type>Predefine</type>
+		<widget>UIScreenMMINorthPanel</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>North</direction>
+		<size>200</size>
+	</option>
+	
+	<option key="0|1">
+		<type>Predefine</type>
+		<widget>UIScreenMMIEastPanel</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>East</direction>
+		<size>160</size>
+	</option>
+	
+	<option key="0|2">
+		<type>Predefine</type>
+		<widget>UIScreenMMISouthPanel</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>South</direction>
+		<size>50</size>
+	</option>
+	
+	<option key="0|3">
+		<type>Predefine</type>
+		<widget>UIScreenMMIWestPanel</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>West</direction>
+		<size>160</size>
+	</option>
+	
+	<option key="0|4">
+		<type>Predefine</type>
+		<widget>UIScreenMMICenterPanel</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>center</direction>
+	</option>
+	
+</data-set>

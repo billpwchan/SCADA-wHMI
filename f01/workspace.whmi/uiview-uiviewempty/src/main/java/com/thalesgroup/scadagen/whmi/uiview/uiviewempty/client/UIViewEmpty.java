@@ -31,8 +31,6 @@ public class UIViewEmpty implements UIView_i {
 
 	public static final String RGB_PAL_BG = "#BEBEBE";
 
-	public static final String IMAGE_PATH = "imgs";
-
 	private UINameCard uiNameCard = null;
 
 //	private InlineLabel equipmenpLabel = null;

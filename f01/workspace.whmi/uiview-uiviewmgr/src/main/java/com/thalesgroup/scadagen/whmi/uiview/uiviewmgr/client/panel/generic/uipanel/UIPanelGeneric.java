@@ -1,0 +1,618 @@
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.generic.uipanel;
+
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.CellPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.client.UIPanelMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.generic.uiwidget.UIWidgetGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIPanelGeneric_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidget_i;
+
+public class UIPanelGeneric implements UIWidget_i {
+	
+	private static Logger logger = Logger.getLogger(UIPanelGeneric.class.getName());
+	
+	private String xmlFile = null;
+
+	private HashMap<String, UIWidget_i> uiWidgetGeneric = new HashMap<String, UIWidget_i>();
+	private HashMap<String, UIPanel_i> uiPanel = new HashMap<String, UIPanel_i>();
+	
+	private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
+	
+	private int rows;
+	private int cols;
+	private int totals;
+	
+	private String strOuterPanel;
+	private String strOuterCSS;
+	
+	private String strInnerPanel;
+	private String strInnerCSS;
+	
+	private String outerHorizontalAlignment;
+	private String outerVerticalAlignment;
+		
+	private String innerHorizontalAlignment;
+	private String innerVerticalAlignment;
+	
+	private Dictionary dictionaryHeader = null;
+	private Dictionary dictionaryOption = null;
+	
+	public UIWidget_i getUIWidget(String xmlFile) {
+		return uiWidgetGeneric.get(xmlFile);
+	}
+	
+	public UIPanel_i getUIPanel(String xmlFile) {
+		return uiPanel.get(xmlFile);
+	}
+	
+	public void init(String xmlFile) {
+		this.xmlFile = xmlFile;
+		
+		logger.log(Level.SEVERE, "init xmlFile["+this.xmlFile+"]");
+		
+		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance();
+		
+		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
+		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
+		
+		ready(this.dictionaryHeader);
+		ready(this.dictionaryOption);
+	}
+
+	public void ready(Dictionary dictionary) {
+		logger.log(Level.SEVERE, "ready Begin");
+		logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"]");
+		
+		if ( null != dictionary ) {
+			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
+			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
+			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
+			
+			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"]");
+			logger.log(Level.SEVERE, "ready dictionary XmlTag["+XmlTag+"]");
+			logger.log(Level.SEVERE, "ready dictionary CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
+			
+			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
+
+				for ( Object o : dictionary.getValueKeys() ) {
+					if ( null != o ) {
+						Dictionary d2 = (Dictionary) dictionary.getValue(o);
+						for ( Object o2 : d2.getAttributeKeys() ) {
+							if ( null != o2 ) {
+							}
+						}
+						for ( Object o2 : d2.getValueKeys() ) {
+							if ( null != o2 ) {
+								// Get Header Begin
+								String k = (String)o2;
+								String v = (String)d2.getValue(o2);
+								if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.rows.equalsName(k) ) {
+									rows = Integer.parseInt(v);
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.cols.equalsName(k) ) {
+									cols = Integer.parseInt(v);
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.innerPanel.equalsName(k) ) {
+									strInnerPanel = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.innerCSS.equalsName(k) ) {
+									strInnerCSS = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.outerPanel.equalsName(k)  ) {
+									strOuterPanel = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.outerCSS.equalsName(k)  ) {
+									strOuterCSS = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.outerhorizontalalignment.equalsName(k)  ) {
+									outerHorizontalAlignment = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.outerverticalalignment.equalsName(k)  ) {
+									outerVerticalAlignment = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.innerhorizontalalignment.equalsName(k)  ) {
+									innerHorizontalAlignment = v;
+								} else if ( UIPanelGeneric_i.UIScreenGenericRootAttribute.innerverticalalignment.equalsName(k)  ) {
+									innerVerticalAlignment = v;
+								}
+								// Get Header End								
+							}
+						}
+					}
+				}
+				
+				totals = rows * cols;
+				
+				logger.log(Level.SEVERE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
+				
+				for ( int i = 0 ; i < totals ; ++i ) {
+					values.put(i, new HashMap<String, String>());
+				}				
+				
+				logger.log(Level.SEVERE, "ready dictionary ");
+
+			} else if ( 0 == DictionaryCacheInterface.Option.compareTo(XmlTag) ) {
+				
+				for ( Object o : dictionary.getValueKeys() ) {
+					if ( null != o ) {
+						
+						String key=null;
+						String keys[]=null;
+						int index=0;
+						int row=0;
+						int col=0;
+						
+						Dictionary d2 = (Dictionary) dictionary.getValue(o);
+						for ( Object o2 : d2.getAttributeKeys() ) {
+							if ( null != o2 ) {
+								
+								// Get Header Begin
+								String k = (String)o2;
+								String v = (String)d2.getAttribute(o2);
+								if ( 0 == DictionaryCacheInterface.Key.compareTo(k) ) {
+									
+									key = v;
+									
+									if ( null != key) {
+										keys = v.split("\\|");
+										
+										logger.log(Level.SEVERE, "ready dictionary key["+key+"]");
+										
+										break;
+									}
+									
+								}
+								// Get Header End
+							}
+						}
+						
+						logger.log(Level.SEVERE, "ready dictionary key["+key+"]");
+						
+						if ( null != keys ) {
+							if ( 2 == keys.length ) {
+								boolean isvalid = false;
+								try {
+									row = Integer.parseInt(keys[0]);
+									col = Integer.parseInt(keys[1]);
+									
+									isvalid=true;
+								} catch ( NumberFormatException e ) {
+									logger.log(Level.SEVERE, "ready NumberFormatException e["+e+"]");
+								}
+								
+								if ( isvalid ) {
+									logger.log(Level.SEVERE, "ready dictionary row["+row+"] col["+col+"]");
+									
+									index = (row * cols) + col;
+									
+									logger.log(Level.SEVERE, "ready dictionary row["+row+"] col["+col+"] => index["+index+"]");
+									
+									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
+									if ( null != hashMap ) {
+										for ( Object o2 : d2.getValueKeys() ) {
+											if ( null != o2 ) {
+												String k = (String)o2;
+												String v = (String)d2.getValue(o2);
+												
+												logger.log(Level.SEVERE, "ready dictionary k["+k+"] v["+v+"]");
+				
+												hashMap.put(k, v);
+											}
+										}
+									} else {
+										logger.log(Level.SEVERE, "ready row["+row+"] col["+col+"] => index["+index+"] Index NOT EXISTS");
+									}
+								} else {
+									logger.log(Level.SEVERE, "ready keys[0]["+keys[0]+"] OR keys[1]["+keys[1]+"] is not a number");
+								}
+							}
+						} else {
+							logger.log(Level.SEVERE, "ready key IS NULL");
+						}
+					}
+				}
+			}
+
+		} else {
+			logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"] dictionary IS NULL");
+		}
+		
+		logger.log(Level.SEVERE, "ready End");
+		
+	}
+	
+	private UINameCard uiNameCard;
+	public ComplexPanel getMainPanel(UINameCard uiNameCard){
+		
+		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.SEVERE, "getMainPanel xmlFile["+this.xmlFile+"]");
+		
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
+		
+		logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] strOuterCSS["+strOuterCSS+"]");
+		logger.log(Level.SEVERE, "getMainPanel strInnerPanel["+strInnerPanel+"] strInnerCSS["+strInnerCSS+"]");
+		logger.log(Level.SEVERE, "getMainPanel innerHorizontalAlignment["+innerHorizontalAlignment+"] innerVerticalAlignment["+innerVerticalAlignment+"]");
+		logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment["+outerHorizontalAlignment+"] outerVerticalAlignment["+outerVerticalAlignment+"]");
+		
+		ComplexPanel outerPanel = null;
+		if ( null != strOuterPanel ) {
+			if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.VerticalPanel.equalsName(strOuterPanel) ) {
+				outerPanel = new VerticalPanel();
+			} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.HorizontalPanel.equalsName(strOuterPanel) ) {
+				outerPanel = new HorizontalPanel();
+			} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.DockLayoutPanel.equalsName(strOuterPanel) ) {
+				outerPanel = new DockLayoutPanel(Unit.PX);
+			} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.AbsolutePanel.equalsName(strOuterPanel) ) {
+				outerPanel = new AbsolutePanel();
+				Element e = outerPanel.getElement();
+				DOM.setStyleAttribute(e, "position", "absolute");
+			} else {
+				logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] IS INVALID");
+			}
+
+			if ( null != outerPanel ) {
+				if ( null != strOuterCSS ) {
+					outerPanel.addStyleName(strOuterCSS);
+				} else {
+					logger.log(Level.SEVERE, "getMainPanel outerPanel IS NULL");
+				}
+				
+				if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.DockLayoutPanel.equalsName(strOuterPanel) ) {
+					
+				} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.AbsolutePanel.equalsName(strOuterPanel) ) {
+					
+				} else {
+				
+					if ( null != outerHorizontalAlignment && null != outerVerticalAlignment ) {
+					
+						if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.HorizontalPanel.equalsName(strOuterPanel) ) {
+							
+							if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(outerHorizontalAlignment) ) {
+								((HorizontalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(outerHorizontalAlignment) ) {
+								((HorizontalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(outerHorizontalAlignment) ) {
+								((HorizontalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+							}
+							
+							if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_TOP.equalsName(outerVerticalAlignment) ) {
+								((HorizontalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(outerVerticalAlignment) ) {
+								((HorizontalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(outerVerticalAlignment) ) {	
+								((HorizontalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+							}
+						} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.VerticalPanel.equalsName(strOuterPanel) ) {
+							
+							if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(outerHorizontalAlignment) ) {
+								((VerticalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(outerHorizontalAlignment) ) {
+								((VerticalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(outerHorizontalAlignment) ) {
+								((VerticalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+							}
+							
+							if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_TOP.equalsName(outerVerticalAlignment) ) {
+								((VerticalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(outerVerticalAlignment) ) {
+								((VerticalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(outerVerticalAlignment) ) {	
+								((VerticalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+							}
+						} else {
+							
+						}
+					
+					} else {
+						logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment IS NULL or outerVerticalAlignment IS NULL or");
+					}
+				}
+				
+			}
+		} else {
+			logger.log(Level.SEVERE, "getMainPanel strOuterPanel IS NULL");
+		}
+		
+		ComplexPanel innerPanel = null;
+		if ( null != strInnerPanel ) {
+			if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.HorizontalPanel.equalsName(strInnerPanel) ) {
+				innerPanel = new HorizontalPanel();
+			} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.VerticalPanel.equalsName(strInnerPanel) ) {
+				innerPanel = new VerticalPanel();
+			} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
+				innerPanel = new DockLayoutPanel(Unit.PX);
+			} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
+				innerPanel = new AbsolutePanel();
+				Element e = innerPanel.getElement();
+				DOM.setStyleAttribute(e, "position", "absolute");
+			} else {
+			}
+			
+			if ( null != innerPanel ) {
+				
+				if ( null != strInnerCSS ) {
+					innerPanel.addStyleName(strInnerCSS);
+				} else {
+					logger.log(Level.SEVERE, "getMainPanel strInnerCSS IS NULL");
+				}
+				
+				if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
+					
+				} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
+					
+				} else {
+				
+					if ( null != innerHorizontalAlignment && null != innerVerticalAlignment ) {
+						
+						if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.HorizontalPanel.equalsName(strInnerPanel) ) {
+							
+							if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(innerHorizontalAlignment) ) {
+								((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(innerHorizontalAlignment) ) {
+								((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(innerHorizontalAlignment) ) {
+								((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+							}
+							
+							if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_TOP.equalsName(innerVerticalAlignment) ) {
+								((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(innerVerticalAlignment) ) {
+								((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(innerVerticalAlignment) ) {	
+								((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+							}
+							
+						} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.VerticalPanel.equalsName(strInnerPanel) ) {
+							
+							if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(innerHorizontalAlignment) ) {
+								((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(innerHorizontalAlignment) ) {
+								((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+							} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(innerHorizontalAlignment) ) {
+								((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+							}
+							
+							if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_TOP.equalsName(innerVerticalAlignment) ) {
+								((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(innerVerticalAlignment) ) {
+								((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+							} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(innerVerticalAlignment) ) {	
+								((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+							}
+						}
+					} else {
+						logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment IS NULL or outerVerticalAlignment IS NULL or");
+					}
+				}
+			} else {
+				logger.log(Level.SEVERE, "getMainPanel innerPanel IS NULL");
+			}
+
+		} else {
+			logger.log(Level.SEVERE, "getMainPanel strInnerPanel IS NULL");
+		}
+								
+
+		if ( null != innerPanel ) {
+			
+			outerPanel.add(innerPanel);
+			
+		    for ( int i = 0 ; i < rows ; ++i ) {
+		    	
+				logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] Begin");
+				
+				for ( int j = 0 ; j < cols ; ++j ) {
+					
+					int index = (i*cols)+j;
+					
+					logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] => index["+index+"]");
+					
+					HashMap<String, String> valueMap = this.values.get(index);
+					
+					if ( null != valueMap ) {
+						String type					= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.type.toString());
+						String widget 				= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.widget.toString());
+						String horizontalalignment 	= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.horizontalalignment.toString());
+						String verticalalignment	= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.verticalalignment.toString());
+						String direction			= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.direction.toString());
+						String size					= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.width.toString());
+						String cellwidth			= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.cellwidth.toString());
+						String cellheight			= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.cellheight.toString());
+						String left					= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.left.toString());
+						String top					= valueMap.get(UIPanelGeneric_i.UIScreenGenericWidgetAttribute.top.toString());
+						
+						logger.log(Level.SEVERE, "getMainPanel type["+type+"] widget["+widget+"]");
+						logger.log(Level.SEVERE, "getMainPanel horizontalalignment["+horizontalalignment+"] verticalalignment["+verticalalignment+"]");
+						logger.log(Level.SEVERE, "getMainPanel direction["+direction+"] size["+size+"]");
+						
+						if ( null != widget ) {
+							
+							if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
+								
+							} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
+								
+							} else {
+								if ( null != horizontalalignment && null != verticalalignment ) {
+									
+									if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.HorizontalPanel.equalsName(strInnerPanel) ) {
+									
+										if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(horizontalalignment) ) {
+											((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+										} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(horizontalalignment) ) {
+											((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+										} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(horizontalalignment) ) {
+											((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+										}
+										
+										if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_TOP.equalsName(verticalalignment) ) {
+											((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+										} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(verticalalignment) ) {
+											((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+										} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(verticalalignment) ) {
+											((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+										}
+										
+									} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.VerticalPanel.equalsName(strInnerPanel) ) {
+										
+										if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(horizontalalignment) ) {
+											((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+										} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(horizontalalignment) ) {
+											((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+										} else if ( UIPanelGeneric_i.UIScreenGenericHorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(horizontalalignment) ) {
+											((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+										}
+										
+										if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_TOP.equalsName(verticalalignment) ) {
+											((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+										} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(verticalalignment) ) {
+											((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+										} else if ( UIPanelGeneric_i.UIScreenGenericVerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(verticalalignment) ) {
+											((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+										}
+									}
+									
+								} else {
+									logger.log(Level.SEVERE, "getMainPanel horizontalalignment IS NULL or verticalalignment IS NULL");
+								}								
+							}
+							
+							ComplexPanel complexPanel = null;
+							
+							if ( UIPanelGeneric_i.UIScreenGenericTypeAttribute.predefine.equalsName(type) ) {
+								
+								UIPanelMgr uiPanelMgr = UIPanelMgr.getInstance();
+								
+								uiWidgetGeneric.put(widget, uiPanelMgr.getUIWidget(widget));
+								
+								uiPanel.put(widget, uiPanelMgr.getPanel(widget));
+								
+								complexPanel = uiPanel.get(widget).getMainPanel(this.uiNameCard);
+								
+							} else if ( UIPanelGeneric_i.UIScreenGenericTypeAttribute.configuration.equalsName(type) ) {
+								uiWidgetGeneric.put(widget, new UIWidgetGeneric());
+								uiWidgetGeneric.get(widget).init(widget);
+								
+								complexPanel = uiWidgetGeneric.get(widget).getMainPanel(this.uiNameCard);
+							} else {
+								logger.log(Level.SEVERE, "getMainPanel size IS INVALID");
+							}
+							
+							if ( null != complexPanel ) {
+								if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
+									
+									if ( null != direction ) {
+										int width = 0;
+										if ( null != size ) {
+											try {
+												width = Integer.parseInt(size);
+											} catch ( NumberFormatException e) {
+												logger.log(Level.SEVERE, "getMainPanel size IS INVALID");
+											}
+										}
+										
+										logger.log(Level.SEVERE, "getMainPanel size IS INVALID");
+										
+										if ( UIPanelGeneric_i.UIScreenGenericDirectionAttribute.North.equalsName(direction) ) {
+											((DockLayoutPanel)innerPanel).addNorth(complexPanel, width);
+										} else if ( UIPanelGeneric_i.UIScreenGenericDirectionAttribute.East.equalsName(direction) ) {
+											((DockLayoutPanel)innerPanel).addEast(complexPanel, width);
+										} else if ( UIPanelGeneric_i.UIScreenGenericDirectionAttribute.South.equalsName(direction) ) {
+											((DockLayoutPanel)innerPanel).addSouth(complexPanel, width);
+										} else if ( UIPanelGeneric_i.UIScreenGenericDirectionAttribute.West.equalsName(direction) ) {
+											((DockLayoutPanel)innerPanel).addWest(complexPanel, width);
+										} else if ( UIPanelGeneric_i.UIScreenGenericDirectionAttribute.Center.equalsName(direction) ) {
+											((DockLayoutPanel)innerPanel).add(complexPanel);
+										}
+									}
+								} else if ( UIPanelGeneric_i.UIScreenGenericPanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
+								
+									int x = -1;
+									int y = -1;
+									try {
+										if ( null != left )	x = Integer.parseInt(left);
+										if ( null != top )	y = Integer.parseInt(top);
+									} catch ( NumberFormatException e ) {
+										logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
+									}
+									((AbsolutePanel)innerPanel).add(complexPanel, x, y);
+								
+								} else {
+									innerPanel.add(complexPanel);
+									
+									if ( null != cellwidth ) 	((CellPanel) innerPanel).setCellWidth(complexPanel, cellwidth);
+									if ( null != cellheight )	((CellPanel) innerPanel).setCellHeight(complexPanel, cellwidth);
+								}								
+							} else {
+								logger.log(Level.SEVERE, "getMainPanel complexPanel IS NULL");
+							}
+						} else {
+							logger.log(Level.SEVERE, "getMainPanel config IS NULL");
+						}					
+					}
+				}
+		    }
+		} else {
+			logger.log(Level.SEVERE, "getMainPanel innerPanel IS NULL");
+		}
+		
+		logger.log(Level.SEVERE, "getMainPanel End");
+		
+		return outerPanel;
+	}
+
+	@Override
+	public void setValue(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setValue(String name, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Widget getWidget(String widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getWidgetElement(Widget widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public WidgetStatus getWidgetStatus(String element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWidgetStatus(String element, WidgetStatus up) {
+		// TODO Auto-generated method stub
+		
+	}
+}

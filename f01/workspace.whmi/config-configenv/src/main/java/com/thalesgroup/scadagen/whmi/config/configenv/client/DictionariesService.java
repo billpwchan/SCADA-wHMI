@@ -9,5 +9,5 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
  */
 @RemoteServiceRelativePath("dictionariesServiceServlet")
 public interface DictionariesService extends RemoteService {
-	Dictionary dictionariesServer(String module, String path, String extension) throws IllegalArgumentException;
+	Dictionary dictionariesServer(String module, String folder, String extension) throws IllegalArgumentException;
 }

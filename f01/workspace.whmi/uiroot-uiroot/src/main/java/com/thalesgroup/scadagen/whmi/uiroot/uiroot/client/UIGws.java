@@ -125,15 +125,23 @@ public class UIGws {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance();
 		
-		String module = GWT.getModuleName();
+//		String module = GWT.getModuleName();
 		
-		dictionariesCache.add("config", ".xml");
+		String module = null;
+		
+		String folder = "UIPanelGeneric";
+		
+		String extention = ".xml";
+		
+		dictionariesCache.add(folder, extention);
 		
 		dictionariesCache.init(module, new DictionariesCacheEvent() {
 			
 			@Override
 			public void dictionariesCacheEventReady(int received) {
 				logger.log(Level.SEVERE, "dictionariesCacheEventReady Begin");
+				
+				ready(received);
 				
 				logger.log(Level.SEVERE, "dictionariesCacheEventReady End");
 			}
@@ -148,44 +156,58 @@ public class UIGws {
 		
 		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance();
 		
+		String header = "header";
+		String option = "option";
+		
 		//Login Panel
-		uiPanelSettingCache.add("UIPanelLoginLogo.xml", "header");
-		uiPanelSettingCache.add("UIPanelLoginLogo.xml", "option");
+		uiPanelSettingCache.add("UIPanelLogin.xml", header);
+		uiPanelSettingCache.add("UIPanelLogin.xml", option);
 		
-		uiPanelSettingCache.add("UIPanelLoginInfo.xml", "header");
-		uiPanelSettingCache.add("UIPanelLoginInfo.xml", "option");
+		uiPanelSettingCache.add("UIPanelLoginLogo.xml", header);
+		uiPanelSettingCache.add("UIPanelLoginLogo.xml", option);
 		
-		uiPanelSettingCache.add("UIPanelLoginButton.xml", "header");
-		uiPanelSettingCache.add("UIPanelLoginButton.xml", "option");
+		uiPanelSettingCache.add("UIPanelLoginInfo.xml", header);
+		uiPanelSettingCache.add("UIPanelLoginInfo.xml", option);
+		
+		uiPanelSettingCache.add("UIPanelLoginButton.xml", header);
+		uiPanelSettingCache.add("UIPanelLoginButton.xml", option);
 		
 		//Alarm Banner
-		uiPanelSettingCache.add("UIPanelAlarmBannerButton.xml", "header");
-		uiPanelSettingCache.add("UIPanelAlarmBannerButton.xml", "option");
+		uiPanelSettingCache.add("UIPanelAlarmBanner.xml", header);
+		uiPanelSettingCache.add("UIPanelAlarmBanner.xml", option);		
+
+		uiPanelSettingCache.add("UIPanelAlarmBannerButton.xml", header);
+		uiPanelSettingCache.add("UIPanelAlarmBannerButton.xml", option);		
 		
-		uiPanelSettingCache.add("UIPanelOlsCounter.xml", "header");
-		uiPanelSettingCache.add("UIPanelOlsCounter.xml", "option");
+		uiPanelSettingCache.add("UIPanelOlsCounter.xml", header);
+		uiPanelSettingCache.add("UIPanelOlsCounter.xml", option);
 		
 		//Static Bar
-		uiPanelSettingCache.add("UIPanelCompany.xml", "header");
-		uiPanelSettingCache.add("UIPanelCompany.xml", "option");
+		uiPanelSettingCache.add("UIPanelStatusBar.xml", header);
+		uiPanelSettingCache.add("UIPanelStatusBar.xml", option);		
 		
-		uiPanelSettingCache.add("UIPanelCompanyTitle.xml", "header");
-		uiPanelSettingCache.add("UIPanelCompanyTitle.xml", "option");
+		uiPanelSettingCache.add("UIPanelCompany.xml", header);
+		uiPanelSettingCache.add("UIPanelCompany.xml", option);
 		
-		uiPanelSettingCache.add("UIPanelTitle.xml", "header");
-		uiPanelSettingCache.add("UIPanelTitle.xml", "option");
+		uiPanelSettingCache.add("UIPanelCompanyTitle.xml", header);
+		uiPanelSettingCache.add("UIPanelCompanyTitle.xml", option);
 		
-		uiPanelSettingCache.add("UIPanelOperatorProfile.xml", "header");
-		uiPanelSettingCache.add("UIPanelOperatorProfile.xml", "option");
+		uiPanelSettingCache.add("UIPanelTitle.xml", header);
+		uiPanelSettingCache.add("UIPanelTitle.xml", option);
 		
-		uiPanelSettingCache.add("UIPanelDateTime.xml", "header");
-		uiPanelSettingCache.add("UIPanelDateTime.xml", "option");
+		uiPanelSettingCache.add("UIPanelOperatorProfile.xml", header);
+		uiPanelSettingCache.add("UIPanelOperatorProfile.xml", option);
+		
+		uiPanelSettingCache.add("UIPanelDateTime.xml", header);
+		uiPanelSettingCache.add("UIPanelDateTime.xml", option);
 		
 		//Access Bar
-		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", "header");
-		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", "option");
+		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", header);
+		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", option);
 		
-		String module = GWT.getModuleName();
+//		String module = GWT.getModuleName();
+		
+		String module = null;
 		
 		uiPanelSettingCache.init(module, new DictionaryCacheEvent() {
 			

@@ -11,7 +11,32 @@
   		/WEB-INF/applicationContext-security.xml
     </param-value>
   </context-param>
-
+  
+  <context-param>
+	<param-name>project.dictionary.module</param-name>
+	<param-value>/../../conf/project/resources/config/UIPanelGeneric</param-value>
+  </context-param>
+  
+  <context-param>
+	<param-name>project.dictionaries.module</param-name>
+	<param-value>/../../conf/project/resources/config</param-value>
+  </context-param>
+  
+  <context-param>
+	<param-name>project.navigation.module</param-name>
+	<param-value>/../../conf/project/resources/config/UIPanelNavigation</param-value>
+  </context-param>
+  
+  <context-param>
+	<param-name>project.navigation.module.mapping</param-name>
+	<param-value>navigationMapping.xml</param-value>
+  </context-param>  
+  
+  <context-param>
+	<param-name>project.navigation.module.setting</param-name>
+	<param-value>navigationSetting.xml</param-value>
+  </context-param>
+  
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>
     <filter-class>

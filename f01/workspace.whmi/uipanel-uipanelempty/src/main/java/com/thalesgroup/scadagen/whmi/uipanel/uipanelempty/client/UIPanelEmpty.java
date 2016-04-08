@@ -1,4 +1,3 @@
-
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelempty.client;
 
 import java.util.LinkedList;
@@ -11,32 +10,18 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidget_i;
 
-public class UIPanelEmpty implements UIPanel_i {
+public class UIPanelEmpty implements UIWidget_i, UIPanel_i {
 
 	private static Logger logger = Logger.getLogger(UIPanelEmpty.class.getName());
 
-	public static final String UNIT_PX = "px";
-	public static final int LAYOUT_BORDER = 0;
-
-	public static final String RGB_RED = "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN = "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE = "rgb( 0, 0, 255)";
-
-	public static final String RGB_BTN_SEL = "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG = "#F1F1F1";
-	public static final String IMG_NONE = "none";
-
-	public static final String RGB_PAL_BG = "#BEBEBE";
-
-	public static final String IMAGE_PATH = "imgs";
-
 	private UINameCard uiNameCard;
-
-//	private InlineLabel equipmenpLabel = null;
-
 	@Override
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		logger.log(Level.FINE, "getMainPanel Begin");
@@ -70,6 +55,54 @@ public class UIPanelEmpty implements UIPanel_i {
 			handlerRegistration.removeHandler();
 			handlerRegistration = handlerRegistrations.poll();
 		}
+	}
+
+	@Override
+	public void init(String xmlFile) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Widget getWidget(String widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getWidgetElement(Widget widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setValue(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setValue(String name, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public WidgetStatus getWidgetStatus(String element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWidgetStatus(String element, WidgetStatus up) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

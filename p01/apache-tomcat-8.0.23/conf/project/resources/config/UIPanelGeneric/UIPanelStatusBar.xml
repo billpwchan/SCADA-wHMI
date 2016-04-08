@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>6</cols>
+		<outerpanel>VerticalPanel</outerpanel>
+		<outercss>project-gwt-panel-statusbar-outer</outercss>
+		<innerpanel>HorizontalPanel</innerpanel>
+		<innercss>project-gwt-panel-statusbar-inner</innercss>
+		<outerhorizontalalignment>ALIGN_CENTER</outerhorizontalalignment>
+		<outerverticalalignment>ALIGN_MIDDLE</outerverticalalignment>
+		<innerhorizontalalignment>ALIGN_CENTER</innerhorizontalalignment>
+		<innerverticalalignment>ALIGN_MIDDLE</innerverticalalignment>
+	</header>
+	
+	<option key="0|0">
+		<type>configuration</type>
+		<widget>UIPanelCompany.xml</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<cellwidth>2%</cellwidth>
+		<cellheight>100%</cellheight>
+	</option>
+	
+	<option key="0|1">
+		<type>configuration</type>
+		<widget>UIPanelCompanyTitle.xml</widget>
+		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<cellwidth>15%</cellwidth>
+		<cellheight>100%</cellheight>
+	</option>
+	
+	<option key="0|2">
+		<type>configuration</type>
+		<widget>UIPanelTitle.xml</widget>
+		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<cellwidth>45%</cellwidth>
+		<cellheight>100%</cellheight>
+	</option>
+	
+	<option key="0|3">
+		<type>configuration</type>
+		<widget>UIPanelOperatorProfile.xml</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<cellwidth>12%</cellwidth>
+		<cellheight>100%</cellheight>
+	</option>
+	
+	<option key="0|4">
+		<type>configuration</type>
+		<widget>UIPanelDateTime.xml</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<cellwidth>10%</cellwidth>
+		<cellheight>100%</cellheight>
+	</option>
+	
+</data-set>

@@ -3,10 +3,11 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelempty.client.UIPanelEmpty;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidget_i;
 
 public class UIPanelMgr {
 	
@@ -20,17 +21,37 @@ public class UIPanelMgr {
 		return instance;
 	}
 
-	public DockLayoutPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
+	public ComplexPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
-		DockLayoutPanel dockLayoutPanel = this.getPanel(uiPanel).getMainPanel(uiNameCard);
+		ComplexPanel complexPanel = this.getPanel(uiPanel).getMainPanel(uiNameCard);
 		
 		logger.log(Level.FINE, "getMainPanel End");
 
-		return dockLayoutPanel;
+		return complexPanel;
+	}
+	
+	public UIWidget_i getUIWidget(String uiPanel) {
+		
+		logger.log(Level.FINE, "getPanel Begin");
+		
+		logger.log(Level.FINE, "getPanel uiPanel["+uiPanel+"]");
+		
+		UIWidget_i uiWIdget = null;
+		
+		if ( 0 == uiPanel.compareTo("UIPanelAlarmBannerList") ) {
+			uiWIdget = new UIPanelAlarmBannerList();
+		} else if ( 0 == uiPanel.compareTo("UIPanelEmpty") ) {
+			uiWIdget = new UIPanelEmpty();
+		}
+		
+		logger.log(Level.FINE, "getPanel End");
+
+		return uiWIdget;
+		
 	}
 	
 	public UIPanel_i getPanel(String uiPanel) {
@@ -41,21 +62,11 @@ public class UIPanelMgr {
 		
 		UIPanel_i uiPanel_i = null;
 		
-		//if ( 0 == compareTo("UIPanelEmpty") ) {
-			uiPanel_i = new UIPanelEmpty();
-		//}
-		
-		/*
-		switch ( uiPanel ) {
-		
-		case "UIPanelEmpty":
-			
-		default:{
+		if ( 0 == uiPanel.compareTo("UIPanelAlarmBannerList") ) {
+			uiPanel_i = new UIPanelAlarmBannerList();
+		} else if ( 0 == uiPanel.compareTo("UIPanelEmpty") ) {
 			uiPanel_i = new UIPanelEmpty();
 		}
-			break;			
-		}
-		*/
 		
 		logger.log(Level.FINE, "getPanel End");
 

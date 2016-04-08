@@ -1,10 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +32,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dict
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.presenter.WrapperScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view.ScsGenericDataGridView;
 /**
@@ -99,16 +97,6 @@ public class ScsAlarmListPanel extends ResizeComposite
     private Label counterLabel_ = null;
 
     private boolean isTerminated_ = false;
-
-    /**
-     * To color the line according to the severity (for instance)
-     */
-    private static final String CSS_SEVERITY_PREFIX = "alarm_";
-
-    /**
-     * To change the font of the line is the alarm is ack or not (for instance)
-     */
-    private static final String CSS_ALARM_ACK_PREFIX = "alarm_ack_";
 
     /**
      * To get the label of the list for the panel caption
@@ -265,19 +253,7 @@ public class ScsAlarmListPanel extends ResizeComposite
 logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
-                
-                //CSS_SUPER_CRITICAL_NA
-                //CSS_SUPER_CRITICAL_A
-                //CSS_CRITICAL_NA
-                //CSS_CRITICAL_A
-                //CSS_LESS_CRITICAL_NA
-                //CSS_LESS_CRITICAL_A
-                //CSS_EVENT_NA
-                //CSS_EVENT_A
-                
-                //dataGridSelectedRow
-                //dataGridSelectedRowCell
-                
+
             }
         });
     }
@@ -341,18 +317,7 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
             s_logger.error("Error while trying to terminate the Alarm List Panel.", e);
         }
     }
-    private HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
-    public Integer getCounter(String key) { 
-    	return this.hashMap.get(key); 
-    }
-    private String [] counterNames;
-    public void setCounterNames(String [] counterNames) {
-    	logger.log(Level.SEVERE, "setCounterNames counterNames");
-    	for(String s: counterNames) {
-    		logger.log(Level.SEVERE, "setCounterNames s["+s+"]");
-    	}
-    	this.counterNames = counterNames;
-    }
+
     private WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent;
 	public void setWrapperScsAlarmListPanelEvent(WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent) { 
 		this.wrapperScsAlarmListPanelEvent = wrapperScsAlarmListPanelEvent; 
@@ -360,31 +325,25 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
 	private static Logger logger = Logger.getLogger(ScsAlarmListPanel.class.getName());
     @Override
     public void onCounterChange(GDGCounterChangeEvent event) {
+    	
         if (event.getSource() == gridPresenter_) {
-        	logger.log(Level.SEVERE, "onCounterChange");
+        	logger.log(Level.SEVERE, "onCounterChange Begin");
         	try {
-	        	Iterator<Entry<String, Integer>> iter = hashMap.entrySet().iterator();
+	        	Map<String, Integer> maps = event.getValues();
+	        	Set<String> keys = maps.keySet();
+	        	Iterator<String> iter = keys.iterator();
 	        	while (iter.hasNext()) {
-	        	    Entry<String, Integer> entry = iter.next();
-	        	    String key = entry.getKey();
-	        	    Integer value = entry.getValue();
-	        	    logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
-	        	    if ( null != value ) hashMap.put(key, value);
+	        		String key = iter.next();
+	        		if ( null != key ) {
+	        			Integer value = maps.get(key);
+	        			logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
+	        			if (null != wrapperScsAlarmListPanelEvent) wrapperScsAlarmListPanelEvent.valueChanged(key, value);
+	        		}
 	        	}
-	            
-	            if ( null != wrapperScsAlarmListPanelEvent ) {
-	            	for ( int i = 0 ; i < counterNames.length ; ++i ) {
-	                	String n = counterNames[i];
-	                    Integer v = event.getValues().get(n);
-	                    logger.log(Level.SEVERE, "onCounterChange n["+n+"] v["+v+"]");
-	                    if (null != v) wrapperScsAlarmListPanelEvent.valueChanged(n, v);
-	            	}            	
-	            } else {
-	            	logger.log(Level.SEVERE, "onCounterChange wrapperScsAlarmListPanelEvent is NULL");
-	            }
         	} catch (Exception e ) {
         		logger.log(Level.SEVERE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
         	}
-        }
+        	logger.log(Level.SEVERE, "onCounterChange End");
+    	}
     }
 }

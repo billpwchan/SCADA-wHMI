@@ -7,7 +7,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.h
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
 
-public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
+public class WrapperScsAlarmListPanel {
 	private String alarmListId;
 	private boolean withAction;
 	private boolean withCaption;
@@ -34,25 +34,21 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 	private WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent = null;
 	public void setWrapperScsAlarmListPanelEvent(WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent) { this.wrapperScsAlarmListPanelEvent = wrapperScsAlarmListPanelEvent; }
 	public VerticalPanel getMainPanel() {
-		
-        // build layout SplitLayout is DockLayout
-        // Set critical alarm filter event      
-//        final Set<String> values = new HashSet<String>();
-//        values.add( "CRITICAL" );
-//        values.add( "HIGH" );
-//        values.add( "MEDIUM" );
-//        StringEnumFilterDescription filterdesc = new StringEnumFilterDescription(values);
-//        final FilterSetEvent filterEvent = new FilterSetEvent("scsalarmList_priority_name", filterdesc);
-//        final Set<FilterSetEvent> filterSet = new HashSet<FilterSetEvent>();
-//        filterSet.add(filterEvent);
-		
+
         final Set<FilterSetEvent> filterSet = null;
         
 		scsAlarmListPanel = new ScsAlarmListPanel(AppUtils.EVENT_BUS, alarmListId, withAction, withCaption, withAck, filterSet);
 	    scsAlarmListPanel.setWidth(this.width);
 	    scsAlarmListPanel.setHeight(this.height);
-	    scsAlarmListPanel.setCounterNames(counterNames);
-	    scsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
+	    scsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
+			
+			@Override
+			public void valueChanged(String name, String value) {
+				if ( null != wrapperScsAlarmListPanelEvent ) {
+					wrapperScsAlarmListPanelEvent.valueChanged(name, value);
+				}
+			}
+		});
 	    
 	    VerticalPanel alarmPanel = new VerticalPanel();
 	    alarmPanel.setWidth(this.width);
@@ -61,19 +57,6 @@ public class WrapperScsAlarmListPanel implements WrapperScsAlarmListPanelEvent {
 	    alarmPanel.add(scsAlarmListPanel);
 	    
 	    return alarmPanel;
-	    
 	}
-	
-	public Integer getCounter(String key) { return this.scsAlarmListPanel.getCounter(key); }
-	
-	private String [] counterNames; 
-	public void setCounterNames(String [] counterNames) {
-		this.counterNames = counterNames;
-	}
-	@Override
-	public void valueChanged(String name, int value) {
-		if ( null != wrapperScsAlarmListPanelEvent ) {
-			wrapperScsAlarmListPanelEvent.valueChanged(name, value);
-		}
-	}
+
 }

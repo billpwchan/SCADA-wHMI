@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<outerpanel>VerticalPanel</outerpanel>
+		<outercss>project-gwt-panel-alarmbanner-outer</outercss>
+		<innerpanel>HorizontalPanel</innerpanel>
+		<innercss>project-gwt-panel-alarmbanner-inner</innercss>
+		<outerhorizontalalignment>ALIGN_CENTER</outerhorizontalalignment>
+		<outerverticalalignment>ALIGN_MIDDLE</outerverticalalignment>
+		<innerhorizontalalignment>ALIGN_CENTER</innerhorizontalalignment>
+		<innerverticalalignment>ALIGN_MIDDLE</innerverticalalignment>
+	</header>
+	
+	<option key="0|0">
+		<type>predefine</type>
+		<widget>UIPanelAlarmBannerList</widget>
+		<horizontalalignment>ALIGN_LEFT</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+	</option>
+	
+	<option key="0|1">
+		<type>configuration</type>
+		<widget>UIPanelAlarmBannerButton.xml</widget>
+		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+	</option>
+	
+	<option key="0|2">
+		<type>configuration</type>
+		<widget>UIPanelOlsCounter.xml</widget>
+		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+	</option>
+	
+</data-set>

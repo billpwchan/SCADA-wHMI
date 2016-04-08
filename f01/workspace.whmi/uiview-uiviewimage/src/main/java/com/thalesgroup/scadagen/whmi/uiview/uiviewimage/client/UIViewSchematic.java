@@ -26,8 +26,6 @@ public class UIViewSchematic implements UIView_i {
 
 	public static final String UNIT_PX = "px";
 
-	public static final String IMAGE_PATH = "imgs";
-
 	public static final int LAYOUT_BORDER = 0;
 	public static final String RGB_PAL_BG = "#BEBEBE";
 

@@ -25,6 +25,8 @@ public class UIPanelPanelToolBar {
 
 	public static final String UNIT_PX = "px";
 	public static final int LAYOUT_BORDER = 0;
+	
+	private static String IMAGE_PATH = "imgs";
 
 	public static final String RGB_RED = "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN = "rgb( 0, 255, 0)";
@@ -35,8 +37,6 @@ public class UIPanelPanelToolBar {
 	public static final String IMG_NONE = "none";
 
 	public static final String RGB_PAL_BG = "#BEBEBE";
-
-	public static final String IMAGE_PATH = "imgs";
 
 	public static final int BUTTON_WIDTH = 128;
 	public static final int BUTTON_HIGHT = 30;

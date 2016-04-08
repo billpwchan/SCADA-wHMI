@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionariesCacheInterface;
 
 public class DictionariesCache implements DictionariesMgrEvent {
 	
@@ -19,10 +20,6 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		if ( null == instance ) { instance = new DictionariesCache(); }
 		return instance;
 	}
-	
-	public static final String strXmlType				= "XmlType";
-	public static final String strXmlFile				= "XmlFile";
-	public static final String strCreateDateTimeLabel	= "CreateDateTimeLabel";
 		
 	private LinkedList<String> incoming		= new LinkedList<String>();
 	private LinkedList<String> waiting		= new LinkedList<String>();
@@ -38,13 +35,13 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	private int received = 0;
 	private DictionariesCacheEvent dictionariesCacheEvent = null;
 	
-	public void add(String path, String extention) {
+	public void add(String folder, String extention) {
 		
 		logger.log(Level.SEVERE, "add Begin");
 		
-		logger.log(Level.SEVERE, "add path["+path+"] extention["+extention+"] ");
+		logger.log(Level.SEVERE, "add path["+folder+"] extention["+extention+"] ");
 		
-		incoming.add(path+"|"+extention);
+		incoming.add(folder+"|"+extention);
 		
 		logger.log(Level.SEVERE, "add End");
 	}
@@ -72,6 +69,8 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			DictionariesMgr dictionariesMgr = new DictionariesMgr();
 			
 			dictionariesMgrs.add(dictionariesMgr);
+			
+			logger.log(Level.SEVERE, "init xmlTags[0]["+xmlTags[0]+"] xmlTags[1]["+xmlTags[1]+"]");
 			
 			dictionariesMgr.getDictionaries(module, xmlTags[0], xmlTags[1], this);
 			
@@ -114,9 +113,9 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		received++;
 		
 		if ( null != dictionary ) {
-			String xmlType = (String)dictionary.getAttribute(strXmlType);
-			String XmlFile = (String)dictionary.getAttribute(strXmlFile);
-			String CreateDateTimeLabel = (String)dictionary.getAttribute(strCreateDateTimeLabel);
+			String xmlType = (String)dictionary.getAttribute(DictionariesCacheInterface.XmlType);
+			String XmlFile = (String)dictionary.getAttribute(DictionariesCacheInterface.XmlFile);
+			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionariesCacheInterface.CreateDateTimeLabel);
 			
 			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary xmlType["+xmlType+"]");
 			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary XmlFile["+XmlFile+"]");

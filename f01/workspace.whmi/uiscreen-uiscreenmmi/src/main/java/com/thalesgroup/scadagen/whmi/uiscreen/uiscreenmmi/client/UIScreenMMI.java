@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -32,9 +33,6 @@ public class UIScreenMMI implements UIScreen_i {
 
 	private static Logger logger = Logger.getLogger(UIScreenMMI.class.getName());
 
-	public static final String CUSTOMER_LOGIN_NAME = "Logo_Corp-300dpi.bg_grey.15per.jpg";
-	public static final String THALES_LOGIN_NAME = "logo_thales.jpg";
-	
 	private static final String menubarWidth = "160px";
 
 	public static final int BUTTON_WIDTH	= 128;
@@ -48,8 +46,6 @@ public class UIScreenMMI implements UIScreen_i {
 	public static final int NORTH_HIGHT		= 200;
 
 	public static final String UNIT_PX		= "px";
-	
-	public static final String IMAGE_PATH	= "imgs";
 	
 	private UIPanelMenus uiPanelmenu;
 	private UINameCard uiNameCard;
@@ -70,19 +66,19 @@ public class UIScreenMMI implements UIScreen_i {
 
 		this.uiPanelmenu = new UIPanelMenus(this.uiNameCard);
 
-		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
+		
 
 		// North Bar
 		logger.log(Level.FINE, "getMainPanel North Bar Begin");
 
-		DockLayoutPanel statusBar = new UIPanelStatusBar().getMainPanel(this.uiNameCard);
+		ComplexPanel statusBar = new UIPanelStatusBar().getMainPanel(this.uiNameCard);
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.addStyleName("project-gwt-panel-north");
 
 		dockLayoutPanel.addNorth(statusBar, 42);
 
-		DockLayoutPanel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
+		ComplexPanel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
 		alarmBanner.setWidth("100%");
 		alarmBanner.setHeight("100%");
 		dockLayoutPanel.add(alarmBanner);
@@ -152,11 +148,13 @@ public class UIScreenMMI implements UIScreen_i {
 		// Main Area
 		logger.log(Level.FINE, "getMainPanel Main Area Begin");
 
-		DockLayoutPanel manAreaPanel = new UIPanelViewLayout().getMainPanel(this.uiNameCard);
+		ComplexPanel manAreaPanel = new UIPanelViewLayout().getMainPanel(this.uiNameCard);
 
 		logger.log(Level.FINE, "getMainPanel Main Area End");
 		// End of Main Area
 
+		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
+		
 		logger.log(Level.FINE, "getMainPanel Adding North to base...");
 		basePanel.addNorth(dockLayoutPanel, 		NORTH_HIGHT);
 

@@ -28,6 +28,8 @@
   <inherits name='com.thalesgroup.scadagen.whmi.config.config.Config' />
   <inherits name='com.thalesgroup.scadagen.whmi.config.configenv.ConfigEnv' />
   <inherits name='com.thalesgroup.scadagen.whmi.config.confignav.ConfigNav' />
+
+  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.UIWidget' />
   
   <inherits name='com.thalesgroup.scadagen.whmi.opm.authentication.OpmAuthentication' />
   

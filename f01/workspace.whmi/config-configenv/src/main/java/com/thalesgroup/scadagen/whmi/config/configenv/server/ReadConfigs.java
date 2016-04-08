@@ -10,12 +10,12 @@ public class ReadConfigs {
 		System.out.println(" **** ReadConfigs getConfigNames Begin/End");
 		return this.files;
 	}
-	public void setConfigPathExtension( final String module, final String path, final String extension, final boolean recursive) {
+	public void setConfigPathExtension( final String module, final String folder, final String extension, final boolean recursive) {
 		System.out.println(" **** ReadConfigs setConfigPathExtension Begin");
-		System.out.println(" **** ReadConfigs setConfigPathExtension module["+module+"] path["+path+"] extension["+extension+"] extension["+recursive+"]");
-		String folder = module + path;
+		System.out.println(" **** ReadConfigs setConfigPathExtension module["+module+"] path["+folder+"] extension["+extension+"] extension["+recursive+"]");
+		String path = module + File.separator + folder;
 		System.out.println(" **** ReadConfigs setConfigPathExtension folder["+folder+"]");
-		File base = new File(folder);
+		File base = new File(path);
 		getConfigNames(base, extension, recursive);
 		System.out.println(" **** ReadConfigs setConfigPathExtension End");
 	}

@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.client.UIScreenDSS;
@@ -25,17 +25,17 @@ public class UIScreenMgr {
 		return instance;
 	}
 	
-	public DockLayoutPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
+	public ComplexPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
-		DockLayoutPanel dockLayoutPanel = this.getPanel(uiPanel).getMainPanel(uiNameCard);
+		ComplexPanel complexPanel = this.getPanel(uiPanel).getMainPanel(uiNameCard);
 		
 		logger.log(Level.FINE, "getMainPanel End");
 
-		return dockLayoutPanel;
+		return complexPanel;
 	}
 
 	public UIScreen_i getPanel(String uiPanel){
@@ -43,6 +43,7 @@ public class UIScreenMgr {
 		UIScreen_i uiPanel_i = null;
 		
 		if ( 0 == uiPanel.compareTo("UIScreenLogin") ) {
+//			uiPanel_i = new UIScreenLogin();
 			uiPanel_i = new UIScreenLogin();
 		} else if ( 0 == uiPanel.compareTo("UIScreenMMI") ) {
 			uiPanel_i = new UIScreenMMI();

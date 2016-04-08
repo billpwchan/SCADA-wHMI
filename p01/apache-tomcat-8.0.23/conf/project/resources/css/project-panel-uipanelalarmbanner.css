@@ -1,0 +1,192 @@
+/* UIPanelAlarmBanner */
+.project-gwt-panel-alarmbanner-outer {
+	background-color: dimgrey;
+}
+
+.project-gwt-panel-alarmbanner-inner {
+
+}
+
+.project-gwt-panel-alarmbanner-button {
+	width: 100%;
+}
+
+.project-gwt-button-alarmbanner-button-0-0 {
+	width: 100px !important;
+	height: 32px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-left: 5px !important;
+}
+
+.project-gwt-button-alarmbanner-button-0-1 {
+	width: 100px !important;
+	height: 32px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-left: 5px !important;
+}
+
+.project-gwt-button-alarmbanner-button-1-0 {
+	width: 100px !important;
+	height: 32px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-top: 5px !important;
+	margin-left: 5px !important;
+}
+
+.project-gwt-button-alarmbanner-button-1-1 {
+	width: 100px !important;
+	height: 32px !important;
+	font-size: 12px !important;
+	font-weight: bold;
+	margin-top: 5px !important;
+	margin-left: 5px !important;
+}
+
+.project-gwt-panel-alarmbanner-filter {
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	margin-bottom: 6px;
+}
+
+.project-gwt-textbox-alarmbanner-counter-0-0 {
+	width: 50px !important;
+	color: white !important;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-1 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-2 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-3 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-0-4 {
+	width: 50px !important;
+	color: white !important;
+	text-align: center;
+	background-color: dimgrey;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-1-0 {
+	width: 50px !important;
+	color: white !important;
+	background-color: dimgrey;
+	text-align: right;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-1-1 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid lightgrey;
+}
+.project-gwt-textbox-alarmbanner-counter-1-2{
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid red;
+}
+.project-gwt-textbox-alarmbanner-counter-1-3 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid orange;
+}
+.project-gwt-textbox-alarmbanner-counter-1-4 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid yellow;
+}
+.project-gwt-textbox-alarmbanner-counter-2-0 {
+	width: 50px !important;
+	color: white !important;
+	background-color: dimgrey;
+	text-align: right;
+	border-style: none;
+}
+.project-gwt-textbox-alarmbanner-counter-2-1 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid lightgrey;
+}
+.project-gwt-textbox-alarmbanner-counter-2-2 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid red;
+}
+.project-gwt-textbox-alarmbanner-counter-2-3 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid orange;
+}
+.project-gwt-textbox-alarmbanner-counter-2-4 {
+	width: 50px !important;
+	
+	color: black!important;
+	background-color: lightgrey;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 16px !important;
+	border-style: none;
+	border-bottom: 3px solid yellow;
+}

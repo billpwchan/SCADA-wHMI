@@ -1,0 +1,93 @@
+@keyframes blinkingSuperCritical {
+    100% {background-color: #FF0000;}
+    51% {background-color: #FF0000;}
+    50% {background-color: #E5E4E2;}
+    0% {background-color: #E5E4E2;}
+    100% {color: white;}
+    51% {color: white;}
+    50% {color: black;}
+    0% {color: black;}
+}
+
+.CSS_ALARM_SUPER_CRITICAL_NA {
+     animation : blinkingSuperCritical 2s infinite;
+}
+
+.CSS_ALARM_SUPER_CRITICAL_A {
+    color: white;
+     background-color : #FF0000;
+}
+
+/* Standard syntax */
+@keyframes blinkingCritical {
+    100% {background-color: #FFA800;}
+    51% {background-color: #FFA800;}
+    50% {background-color: #E5E4E2;}
+    0% {background-color: #E5E4E2;}
+}
+
+.CSS_ALARM_CRITICAL_NA {
+     animation : blinkingCritical 2s infinite;
+}
+
+.CSS_ALARM_CRITICAL_A {
+    color: black;
+     background-color : #FFA800;
+}
+
+/* Standard syntax */
+@keyframes blinkingLessCritical {
+    100% {background-color: #FFFF00;}
+    51% {background-color: #FFFF00;}
+    50% {background-color: #E5E4E2;}
+    0% {background-color: #E5E4E2;}
+}
+
+.CSS_ALARM_LESS_CRITICAL_NA {
+     animation : blinkingLessCritical 2s infinite;
+}
+
+
+.CSS_ALARM_LESS_CRITICAL_A {
+    color: black;
+     background-color : #FFFF00;
+}
+
+/* Standard syntax */
+@keyframes blinkingEvent {
+    100% {background-color: #00FF00;}
+    51% {background-color: #00FF00;}
+    50% {background-color: #E5E4E2;}
+    0% {background-color: #E5E4E2;}
+}
+
+.CSS_ALARM_EVENT_NA {
+     animation : blinkingEvent 2s infinite;
+}
+
+.CSS_ALARM_EVENT_A {
+    color: black;
+     background-color : #00FF00;
+}
+
+/* Event */
+
+.CSS_EVENT_SUPER_CRITICAL {
+    color: black;
+     background-color : #FF0000;
+}
+
+.CSS_EVENT_CRITICAL {
+    color: black;
+     background-color : #FFA800;
+}
+
+.CSS_EVENT_LESS_CRITIICAL {
+    color: black;
+     background-color : #FFFF00;
+}
+
+.CSS_EVENT_EVENT {
+    color: black;
+     background-color : #00FF00;
+}

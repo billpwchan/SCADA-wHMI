@@ -1,0 +1,23 @@
+@import url('resources/css/project-panel-dialogmsg.css');
+@import url('resources/css/project-panel-inspector.css');
+@import url('resources/css/project-panel-uigwslogin.css');
+@import url('resources/css/project-panel-uigwscache.css');
+@import url('resources/css/project-panel-uiscreenlogin.css');
+@import url('resources/css/project-panel-uiscreenmmi.css');
+@import url('resources/css/project-panel-uiscreenopm.css');
+@import url('resources/css/project-panel-uipanellogin.css');
+@import url('resources/css/project-panel-uipanelmenu.css');
+@import url('resources/css/project-panel-uipanelstatusbar.css');
+@import url('resources/css/project-panel-uipanelaccessbar.css');
+@import url('resources/css/project-panel-uipanelviewlayout.css');
+@import url('resources/css/project-panel-uipanelview.css');
+@import url('resources/css/project-panel-uipanelviewpanel.css');
+@import url('resources/css/project-panel-uiviewalarm.css');
+@import url('resources/css/project-panel-uiviewevent.css');
+@import url('resources/css/project-panel-wrapperscslarmlistpanel.css');
+
+.project-gwt-button {
+	color: black;
+	font-weight: bold;
+	font-size: 16px !important;
+}

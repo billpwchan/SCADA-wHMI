@@ -1,0 +1,81 @@
+.gwt-Button:hover {
+	border-color: #9cf #69e #69e #7af !important;
+	background-color: lightblue !important;
+	background-image: none !important;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+	background: blue !important;
+	color: white !important;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+	padding: 6px 12px 6px 12px !important;
+}
+
+.gwt-TabPanelBottom {
+	border-color: blue !important;
+}
+
+.gwt-DialogBox .Caption {
+
+	text-align: center;
+	background-color: slategrey !important;
+	background-image: none !important;
+	font-size: 16px;
+	color: white;
+	border-top: 1px solid black !important;
+	
+	border-top: 4px solid black !important;
+	border-left: 4px solid black !important;
+	border-right: 4px solid black !important;
+	border-bottom: none !important;
+	
+}
+
+.gwt-DialogBox .dialogTopLeft {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogMiddleLeft {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogMiddleLeft {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogTopRight {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogMiddleCenter {
+	border-top: none !important;
+	border-left: 4px solid black !important;
+	border-right: 4px solid black !important;
+	border-bottom: 4px solid black !important;
+}
+
+.gwt-DialogBox .dialogMiddleRight {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogBottomRight {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogBottomCenter {
+	background: none !important;
+}
+
+.gwt-DialogBox .dialogBottomLeft {
+	background: none !important;
+}
+
+
+/* DataGrid Border */
+.dataGridCell {
+     border : solid black !important;
+     /* top, right, bottom, left */
+     border-width : thin 0px 0px thin !important;
+}

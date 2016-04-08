@@ -19,9 +19,8 @@ import com.google.gwt.user.client.ui.TextArea;
 
 public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEvent {
 	
-	private static String IMAGE_PATH = "imgs";
-	
-	public static final String UNIT_PX		= "px";
+	private static final String basePath	= GWT.getModuleBaseURL();
+	private static final String folder		= "/resources/project/img/dialog/";
 	
 	DialogMsgCtrl dialogMsgCtrl;
 	
@@ -53,7 +52,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 	public UITask_i getTaskProvideNo() { return taskProvideNo; }
 	public void setTaskProvideNo(UITask_i taskProvideNo) { this.taskProvideNo = taskProvideNo; }
 	
-//	private InlineLabel lblTitle;
 	private Image image;
 	private TextArea txtMsg;
 	private Button btnOk;
@@ -81,8 +79,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		int baseWidth = 500;
 		int baseHeight = 200;
 		
-//		lblTitle = new InlineLabel();
-		
 		image = new Image();
 
 		txtMsg = new TextArea();
@@ -108,44 +104,42 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		btnBar.add(btnOk);
 		btnBar.add(btnCancel);	
 		
-		String basePath = GWT.getModuleBaseURL();
-		
 		switch ( confimDlgType ) {
 			case DLG_ERR:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/error.png");
+				image.setUrl(basePath + folder+"/error.png");
 				btnOk.setText("OK");
 				btnCancel.setText("");
 				btnCancel.setVisible(false);
 				break;
 			case DLG_WAR:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/warning.png");
+				image.setUrl(basePath + folder+"/warning.png");
 				btnOk.setText("OK");
 				btnCancel.setText("");
 				btnCancel.setVisible(false);
 				break;
 			case DLG_OK:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/info.png");
+				image.setUrl(basePath + folder+"/info.png");
 				btnOk.setText("OK");
 				btnCancel.setText("");
 				btnCancel.setVisible(false);
 				break;
 			case DLG_YESNO:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/question.png");
+				image.setUrl(basePath + folder+"/question.png");
 				btnOk.setText("Yes");
 				btnCancel.setText("No");
 				break;
 			case DLG_OKCANCEL:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/question.png");
+				image.setUrl(basePath + folder+"/question.png");
 				btnOk.setText("OK");
 				btnCancel.setText("Cancel");
 				break;
 			case DLG_EXECANCEL:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/question.png");
+				image.setUrl(basePath + folder+"/question.png");
 				btnOk.setText("Execute");
 				btnCancel.setText("Cancel");
 				break;
 			case DLG_CONFIRMCANCEL:
-				image.setUrl(basePath + IMAGE_PATH+"/dialog/question.png");
+				image.setUrl(basePath + folder+"/question.png");
 				btnOk.setText("Confirm");
 				btnCancel.setText("Cancel");
 				break;				
@@ -155,29 +149,17 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 		}
 		
 		this.setText(title);
-		
-//		lblTitle.setText(title);
-		
+
 		txtMsg.setText(msg);
 		
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);	
 		dockLayoutPanel.addStyleName("project-gwt-panel-dialogmsg");
-		
-//		lblTitle.getElement().getStyle().setPadding(10, Unit.PX);
-//		lblTitle.getElement().getStyle().setFontStyle(FontStyle.OBLIQUE);
-		
-//		btnOk.setWidth("100px");
-//		btnCancel.setWidth("100px");
-		
+
 		btnOk.addStyleName("project-gwt-button-ok");
-		btnCancel.addStyleName("project-gwt-button-cancel");
-//		dockLayoutPanel.addNorth(lblTitle, 40);
-		
-//		btnBar.getElement().getStyle().setPadding(10, Unit.PX);		
-//		btnBar.setWidth("100%");
-//		btnBar.setWidth("100%");
+		btnCancel.addStyleName("project-gwt-button-cancel");	
+
 		btnBar.addStyleName("project-gwt-panel-btnbar");
 		dockLayoutPanel.addSouth(btnBar, 50);
 		

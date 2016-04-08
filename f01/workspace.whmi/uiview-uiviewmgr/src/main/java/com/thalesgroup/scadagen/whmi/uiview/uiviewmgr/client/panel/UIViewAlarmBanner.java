@@ -46,7 +46,7 @@ public class UIViewAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEve
 	}
 
 	@Override
-	public void valueChanged(String name, int value) {
+	public void valueChanged(String name, String value) {
 		if ( null != uiViewAlarmBannerInterface )
 			uiViewAlarmBannerInterface.valueChanged(name, value);
 	}

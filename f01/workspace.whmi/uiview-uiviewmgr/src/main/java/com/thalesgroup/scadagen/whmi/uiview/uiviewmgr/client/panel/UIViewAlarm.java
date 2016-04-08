@@ -191,13 +191,13 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	}
 	
 	@Override
-	public void valueChanged(String name, int value) {
+	public void valueChanged(String name, String value) {
 		logger.log(Level.FINE, "valueChanged Begin");
 		
 		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
 		for ( int i = 0 ; i < counterNames.length; ++i) {
 			if ( 0 == name.compareTo(counterNames[i]) ) {
-				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
+				this.inlineLabel[(i*2)+1].setText(value);
 			}			
 		}
 

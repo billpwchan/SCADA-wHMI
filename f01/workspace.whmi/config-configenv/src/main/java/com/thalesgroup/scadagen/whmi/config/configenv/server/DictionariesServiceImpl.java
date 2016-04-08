@@ -9,6 +9,8 @@ import java.util.List;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesService;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionariesCacheInterface;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 
 /**
  * The server-side implementation of the RPC service.
@@ -16,52 +18,65 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesService
 @SuppressWarnings("serial")
 public class DictionariesServiceImpl extends RemoteServiceServlet implements DictionariesService {
 
-	public Dictionary dictionariesServer(String module, String path, String extension) {
+	public Dictionary dictionariesServer(String module, String folder, String extension) {
 		
 		System.out.println(" **** dictionariesServer Begin");
 		
-		System.out.println(" **** dictionariesServer module["+module+"] path["+path+"] extension["+extension+"]");
+		System.out.println(" **** dictionariesServer module["+module+"] folder["+folder+"] extension["+extension+"]");
+		
+		if ( null == module ) {
+			module = getServletContext().getInitParameter("project.dictionaries.module");
+			System.out.println(" **** dictionariesServer module["+module+"]");
+		}
 
 		Dictionary dictionaries = new Dictionary();
 		
+		String base = getServletContext().getRealPath("/");
+		
 		ReadConfigs configs = new ReadConfigs();
-		configs.setConfigPathExtension(module, path, extension, false);
+		configs.setConfigPathExtension(base + File.separator + module, folder, extension, false);
 		List<File> files = configs.getConfigNames();
 		
 		Iterator<File> fileIterator = files.iterator();
 		while ( fileIterator.hasNext() ) {
 			File file = fileIterator.next();
-			String xmlFile = file.getPath();
+			String path = file.getPath();
 			
 			ReadConfigXML readConfig = new ReadConfigXML();
-			List<String> tags = readConfig.getTags(xmlFile);
+			List<String> tags = readConfig.getTags(path);
 			
 			Iterator<String> tagIterator = tags.iterator();
 			
 			while ( tagIterator.hasNext() ) {
 				String tag = tagIterator.next();
 				
+				System.out.println(" **** dictionaryServer path["+path+"] tag["+tag+"]");
+
+//				String path = base + File.separator + module + File.separator + xmlFile;
+				
+				int index = path.lastIndexOf(File.pathSeparator);
+				String xmlFile = path.substring(index+1);
+				
+				System.out.println(" **** dictionaryServer base["+base+"]");
+				System.out.println(" **** dictionaryServer module["+module+"]");
+				System.out.println(" **** dictionaryServer xmlFile["+xmlFile+"]");
+				System.out.println(" **** dictionaryServer path["+path+"]");
+				
 				Dictionary dictionary = new Dictionary();
 				
-				dictionary.setAttribute("XmlFile", xmlFile);
-				dictionary.setAttribute("XmlTag", tag);
-				dictionary.setAttribute("CreateDateTimeLabel", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
-				System.out.println(" **** dictionariesServer configs.getXmlFile()["+dictionary.getAttribute("XmlFile")+"] configs.getCreateDateTimeLabel()["+dictionary.getAttribute("CreateDateTimeLabel")+"]");
+				dictionary.setAttribute(DictionaryCacheInterface.XmlFile, xmlFile);
+				dictionary.setAttribute(DictionaryCacheInterface.XmlTag, tag);
+				dictionary.setAttribute(DictionaryCacheInterface.CreateDateTimeLabel, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
 				
-				String folder = getServletContext().getRealPath("/") + "/" + module + "/"+ path + "/" + xmlFile;
-				
-				System.out.println(" **** dictionariesServer path to read["+folder+"]");
-				
-				List<Dictionary> cfgs = readConfig.getDictionary(folder, tag);
-				
+				List<Dictionary> cfgs = new ReadConfigXML().getDictionary(path, tag);
 				for(Dictionary cfg: cfgs) {
 					dictionary.setValue(cfg, cfg);
 				}
 				
-				dictionaries.setAttribute("XmlType", "Dictionaries");
-				dictionaries.setAttribute("XmlFile", "xmlFile");
-				dictionaries.setAttribute("CreateDateTimeLabel", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
-				dictionaries.setValue("Dictionary", dictionary);
+				dictionaries.setAttribute(DictionariesCacheInterface.XmlType, "Dictionaries");
+				dictionaries.setAttribute(DictionariesCacheInterface.XmlFile, "xmlFile");
+				dictionaries.setAttribute(DictionariesCacheInterface.CreateDateTimeLabel, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+				dictionaries.setValue(DictionariesCacheInterface.Dictionary, dictionary);
 			}
 			
 		}

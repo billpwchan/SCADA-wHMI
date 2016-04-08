@@ -13,11 +13,11 @@ public class DictionariesMgr implements AsyncCallback<Dictionary> {
 	
 	private static Logger logger = Logger.getLogger(DictionariesMgr.class.getName());
 	
-	private String path			= null;
+	private String folder			= null;
 	private String extension	= null;
 	
-	public void setDactionaryMgrParam(String path, String extension) {
-		this.path		= path;
+	public void setDactionaryMgrParam(String folder, String extension) {
+		this.folder		= folder;
 		this.extension	= extension;
 	}
 
@@ -36,18 +36,18 @@ public class DictionariesMgr implements AsyncCallback<Dictionary> {
 	 */
 	private final DictionariesServiceAsync dictionariesService = GWT.create(DictionariesService.class);
 	
-	public void getDictionaries(String module, String path, String extension, DictionariesMgrEvent dictionariesMgrEvent) {
+	public void getDictionaries(String module, String folder, String extension, DictionariesMgrEvent dictionariesMgrEvent) {
 		
 		logger.log(Level.SEVERE, "getDictionaries Begin");
 		
-		this.path		= path;
+		this.folder		= folder;
 		this.extension	= extension;
 		
-		logger.log(Level.SEVERE, "getDictionaries this.path["+this.path+"] this.extension["+this.extension+"]");
+		logger.log(Level.SEVERE, "getDictionaries this.path["+this.folder+"] this.extension["+this.extension+"]");
 		
 		this.dictionariesMgrEvents.add(dictionariesMgrEvent);
 		
-		dictionariesService.dictionariesServer(module, path, extension, this);
+		dictionariesService.dictionariesServer(module, folder, extension, this);
 		
 		logger.log(Level.SEVERE, "getDictionaries End");
 	}
@@ -59,7 +59,7 @@ public class DictionariesMgr implements AsyncCallback<Dictionary> {
 				
 		for (Iterator<DictionariesMgrEvent> iterator = dictionariesMgrEvents.iterator(); iterator.hasNext();) {
 			DictionariesMgrEvent dictionaryMgrEvent = iterator.next();
-			dictionaryMgrEvent.dictionariesMgrEventFailed(path);
+			dictionaryMgrEvent.dictionariesMgrEventFailed(folder);
 		    iterator.remove();
 		}
 

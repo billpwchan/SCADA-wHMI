@@ -31,7 +31,7 @@ public class UIScreenDSS implements UIScreen_i{
 
 	public static final String UNIT_PX		= "px";
 	
-	public static final String IMAGE_PATH	= "imgs";
+	private static String IMAGE_PATH = "imgs";
 	
 	public static final int LAYOUT_BORDER	= 0;
 	public static final String RGB_PAL_BG	= "#BEBEBE";
@@ -458,13 +458,4 @@ public class UIScreenDSS implements UIScreen_i{
 		return base;
 	}
 
-	
-	private DockLayoutPanel getMainPanel_TrainDOT() {
-		DockLayoutPanel main = new DockLayoutPanel(Unit.PX);
-		
-		
-		
-		return main;
-		
-	}
 }

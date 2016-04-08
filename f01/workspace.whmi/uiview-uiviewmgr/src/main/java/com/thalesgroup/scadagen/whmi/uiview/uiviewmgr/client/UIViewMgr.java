@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiview.uiview.client.UIView_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewempty.client.UIViewEmpty;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEvent;
 
@@ -51,29 +50,7 @@ public class UIViewMgr {
 		} else {
 			//uiView_i = new UIViewEmpty();
 		}
-		
-		/*
-		switch ( uiPanel ) {
-		
-		case "UIViewAlarm":
-		{
-			uiView_i = new UIViewAlarm();
-		}
-		break;
-		case "UIViewEvent":	
-		{
-			uiView_i = new UIViewEvent();
-		}
-		break;
-		case "UIViewEmpty":
-			
-		default:{
-			uiView_i = new UIViewEmpty();
-		}
-			break;			
-		}
-		*/
-		
+
 		logger.log(Level.FINE, "getPanel End");
 
 		return uiView_i;

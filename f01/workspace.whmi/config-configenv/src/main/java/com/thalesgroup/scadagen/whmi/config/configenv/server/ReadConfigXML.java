@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 
-
 public class ReadConfigXML implements ReadConfigInterface {
 	
 	@Override

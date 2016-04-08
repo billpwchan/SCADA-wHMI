@@ -3,243 +3,110 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelGeneric;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIPanelGenericEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.generic.uipanel.UIPanelGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperSoundServerPanel;
 
-public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEvent {
+public class UIPanelAlarmBanner implements UIPanel_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelAlarmBanner.class.getName());
+
+	private String xmlFile								= "UIPanelAlarmBanner.xml";
+    
+	private String strUIPanelAlarmBannerList			= "UIPanelAlarmBannerList";
+	private String strUIWidgetAccessBarButton			= "UIPanelAlarmBannerButton.xml";
+    private String strUIWidgetOlsCounter				= "UIPanelOlsCounter.xml";
 	
-	public static final String UNIT_PX		= "px";
+	private UIPanelGeneric uiPanelGeneric				= null;
+	private UIWidget_i uiPanelAlarmBannerList			= null;
+	private UIWidget_i uiWidgetAccessBarButton 			= null;
+	private UIWidget_i uiWidgetOlsCounter 				= null;
 	
-	public static final String IMAGE_PATH	= "imgs";
-	
-	int BUTTON_WIDTH	= 120;
-	int BUTTON_HEIGHT	= 32;
-	
-	int LABEL_WIDTH		= 120;
-	int LABEL_HEIGHT	= 23;
-	
-	String strTipAckPage		= "Acknowledge";
-	String strAckPage			= "Ack Page";
-	
-	String strTipAlarmSummary	= "Alarm Smmary";
-    String strAlarmSummary		= "Alarm";
-    
-    String strTipEventSummary	= "Event Summary";
-    String strEventSummary		= "Event";
-    
-    String strAckPageCSS	= "project-gwt-button-alarmbanner-ackpage";
-    String strAlmSumCSS		= "project-gwt-button-alarmbanner-almsum";
-    String strEvtSumCSS		= "project-gwt-button-alarmbanner-evtsum";
-    
-    private UIPanelGeneric uiPanelOlsCounter = null;
-    private String [] counterNames = null;
-    
-    
-    private String strAlarm = "alarm";
-    private String strEvent = "event";
-    private String strAudio = "audio";
-    
-	private UIPanelGeneric uiPanelAccessBarButton 		= null;
-	private String strUIPanelAccessBarButton			= "UIPanelAlarmBannerButton.xml";
-    
 	private UINameCard uiNameCard;
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.log(Level.SEVERE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		
-		uiPanelOlsCounter = new UIPanelGeneric();
-		uiPanelOlsCounter.init("UIPanelOlsCounter.xml");
+		uiPanelGeneric = new UIPanelGeneric();
+		uiPanelGeneric.init(xmlFile);
+		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(this.uiNameCard);
 		
-		counterNames = uiPanelOlsCounter.getElementValues(UIPanelGeneric.strElement);
+		uiPanelAlarmBannerList = uiPanelGeneric.getUIWidget(strUIPanelAlarmBannerList);
+		if ( null != uiPanelAlarmBannerList ) {
+			uiPanelAlarmBannerList.setUIWidgetEvent(new UIWidgetEvent() {
+				
+				@Override
+				public void onValueChange(String name, String value) {
+					if ( null != uiWidgetOlsCounter ) 
+						uiWidgetOlsCounter.setValue(name, value);
+				}
+				
+				@Override
+				public void onKeyPressHandler(KeyPressEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onClickHandler(ClickEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
 		
-	    HorizontalPanel basePanel = new HorizontalPanel();
-	    basePanel.setHeight("100%"); // Dont't remove it
-	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-	    basePanel.addStyleName("project-gwt-panel-alarmbanner");
-	    
-	    String ALARM_LIST_BANNER_ID = "alarmListBanner";
-	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(ALARM_LIST_BANNER_ID, false, false, false);
-	    wrapperScsAlarmListPanel.setSize("1450px", "100%");
-	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
-	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
-	    
-		uiPanelAccessBarButton = new UIPanelGeneric();
-		uiPanelAccessBarButton.init(strUIPanelAccessBarButton);
-		uiPanelAccessBarButton.setUIPanelGenericEvent(new UIPanelGenericEvent() {
+		uiWidgetAccessBarButton = uiPanelGeneric.getUIWidget(strUIWidgetAccessBarButton);
+		uiWidgetAccessBarButton.setUIWidgetEvent(new UIWidgetEvent() {
 			@Override
 			public void onClickHandler(ClickEvent event) {
 				Widget widget = (Widget) event.getSource();
-				String element = uiPanelAccessBarButton.getWidgetName(widget);
+				String element = uiWidgetAccessBarButton.getWidgetElement(widget);
 				if ( null != element ) {
-					if ( 0 == element.compareTo(strAlarm) || 0 == element.compareTo(strEvent) ) {
-						onButton(element);
-					} 				
+					onButton(element);
 				} else {
 					logger.log(Level.SEVERE, "onClickHandler onClickHandler button IS NULL");
 				}
 			}
 			@Override
 			public void onKeyPressHandler(KeyPressEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void onValueChange(String name, String value) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
-
-	    VerticalPanel panelButtonVertical1 = new VerticalPanel();
-	    panelButtonVertical1.addStyleName("project-gwt-panel-alarmbanner-button-vertical1");
-	    panelButtonVertical1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    panelButtonVertical1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    VerticalPanel panelButtonVertical2 = new VerticalPanel();
-	    panelButtonVertical2.addStyleName("project-gwt-panel-alarmbanner-button-vertical2");
-	    panelButtonVertical2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    panelButtonVertical2.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    String lblSums2 []		= new String[] { strAlarmSummary , strEventSummary };
-	    String strTipSums2[]	= new String[] { strTipAlarmSummary, strTipEventSummary};
-	    String strCsss2 []		= new String[] { strAlmSumCSS, strEvtSumCSS};
-	    
-	    String lblSums1 [] 		= new String[] { strAckPage };
-	    String strTipSums1[] 	= new String[] { strTipAckPage};
-	    String strCsss1 [] 		= new String[] { strAckPageCSS};
-	    
-	    for ( int i = 0 ; i < lblSums2.length ; ++i) {
-		    final Button button = new Button();
-		    button.setText(lblSums2[i]);
-		    button.setTitle(strTipSums2[i]);
-		    button.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
-		    button.addStyleName(strCsss2[i]);
-		    panelButtonVertical2.add(button);
-	   		button.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					Button btn = (Button) event.getSource();
-					onButton(btn.getText());
-				}
-			});	    	
-	    }
-	    
-	    for ( int i = 0 ; i < lblSums1.length ; ++i) {
-		    final Button button = new Button();
-		    button.setText(lblSums1[i]);
-		    button.setTitle(strTipSums1[i]);
-		    button.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
-		    button.addStyleName(strCsss1[i]);
-		    panelButtonVertical1.add(button);
-	   		button.addClickHandler(new ClickHandler() {
-				public void onClick(ClickEvent event) {
-					Button btn = (Button) event.getSource();
-					onButton(btn.getText());
-				}
-			});
-	    }
-	    
-	    String basePath					= GWT.getModuleBaseURL();
-	    	       		
-	    final String strSoundPath		= basePath + "/" + IMAGE_PATH+"/hscs/Sound.png";
-   		final String strNoSoundPath		= basePath + "/" + IMAGE_PATH+"/hscs/NoSound.png";
-   		
-   		final String strTipSound		= "Alarm Sound Audible";
-   		final String strTipSoundDisable	= "Alarm Sound Silent";
-   		
-		//GWT.getModuleBaseURL()
-		final String audioHtmlUp		= "<div width=\"90px\" height=\"32px\"><center><img src=\""+strSoundPath+"\" width=\"18px\" height=\"18px\"><label>Audible</label></center></br></div>";
-		final String audioHtmlDown		= "<div width=\"90px\" height=\"32px\"><center><img src=\""+strNoSoundPath+"\" width=\"18px\" height=\"18px\"><label>Silent</label></center></br></div>";
 		
-		final Button audioButton = new Button();
-		audioButton.setSize(BUTTON_WIDTH+UNIT_PX, BUTTON_HEIGHT+UNIT_PX);
-		audioButton.addStyleName("project-gwt-button-alarmbanner-audio");
-		audioButton.setHTML(audioHtmlUp);
-		audioButton.setTitle(strTipSound);
-		audioButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				Button button = (Button)event.getSource();
-				if ( button.getHTML().indexOf(strNoSoundPath) != -1 ) {
-					button.setHTML(audioHtmlUp);
-					audioButton.setTitle(strTipSound);
-				} else {
-					button.setHTML(audioHtmlDown);
-					audioButton.setTitle(strTipSoundDisable);
-				}
-			}
-		});
-		panelButtonVertical1.add(audioButton);
+		uiWidgetOlsCounter = uiPanelGeneric.getUIWidget(strUIWidgetOlsCounter);
 
-	    HorizontalPanel panelButtonHorizontal = new HorizontalPanel();
-	    panelButtonHorizontal.addStyleName("project-gwt-panel-alarmbanner-button-horizontal");
-	    panelButtonHorizontal.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    panelButtonHorizontal.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+	    logger.log(Level.SEVERE, "getMainPanel End");
 	    
-	    panelButtonHorizontal.add(panelButtonVertical1);
-	    panelButtonHorizontal.add(panelButtonVertical2);
-   		
-	    
-	    VerticalPanel panelVerticalPanel = new VerticalPanel();
-	    panelButtonHorizontal.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    panelButtonHorizontal.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    
-
-		panelVerticalPanel.add(uiPanelAccessBarButton.getMainPanel(this.uiNameCard));
-	    panelVerticalPanel.add(panelButtonHorizontal);
-	    panelVerticalPanel.add(new WrapperSoundServerPanel().getMainPanel());
-
-	    //
-	    VerticalPanel statPanel = uiPanelOlsCounter.getMainPanel(this.uiNameCard);
-	    //
-		
-	    basePanel.add(wrapperScsAlarmListPanel.getMainPanel());
-	    basePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-	    basePanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    basePanel.add(panelVerticalPanel);
-	    basePanel.add(statPanel);
-	    	   
-	    DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
-	    root.add(basePanel);
-	    root.setWidth("100%");
-	    root.setHeight("100%");
-
-	    for ( int i = 0 ; i < counterNames.length; ++i) {
-	    	Integer value = wrapperScsAlarmListPanel.getCounter(counterNames[i]);
-	    	if ( null != value ) {
-	    		uiPanelOlsCounter.setValue(counterNames[i], String.valueOf(value));
-	    	}
-	    }
-	    
-	    logger.log(Level.FINE, "getMainPanel End");
-	    
-	    return root;
+	    return complexPanel;
 	}
 	
 	
 	private void onButton(String element) {
 		
-		logger.log(Level.FINE, "onButton Begin");
+		logger.log(Level.SEVERE, "onButton Begin");
 		
-		logger.log(Level.FINE, "onButton element["+element+"]");
+		logger.log(Level.SEVERE, "onButton element["+element+"]");
 		
-		if ( 0 == element.compareTo(strAlarm) || 0 == strAlarmSummary.compareToIgnoreCase(element) ) {
+		if ( UIPanelAlarmBanner_i.WidgetArrtibute.alarm.equalsName(element) ) {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -247,7 +114,7 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 			taskLaunch.setUiPanel("UIViewAlarm");
 			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-		} else if ( 0 == element.compareTo(strEvent) || 0 == strEventSummary.compareToIgnoreCase(element) ) {
+		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.event.equalsName(element) ) {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -255,37 +122,24 @@ public class UIPanelAlarmBanner implements UIPanel_i, WrapperScsAlarmListPanelEv
 			taskLaunch.setUiPanel("UIViewEvent");
 			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-		} else if (0 == element.compareTo(strAudio) ) {
+		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.audio.equalsName(element) ) {
 			
-			String status = uiPanelAccessBarButton.getWidgetStatus(element);
+			WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 			
 			if ( null != status ) {
-				
-				if ( 0 == status.compareTo(UIPanelGeneric.strUp) ) {
-					uiPanelAccessBarButton.setWidgetStatus(element, UIPanelGeneric.strDown);
+				if ( WidgetStatus.Up == status ) {
+					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Down);
 				} else {
-					uiPanelAccessBarButton.setWidgetStatus(element, UIPanelGeneric.strUp);
+					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Up);
 				}
 			} else {
-				logger.log(Level.FINE, "onButton status IS NULL");
+				logger.log(Level.SEVERE, "onButton status IS NULL");
 			}
-			
-
+		} else {
+			logger.log(Level.SEVERE, "onButton element UNKNOW");
 		}
 		
-		logger.log(Level.FINE, "onButton End");
-	}
-	
-	@Override
-	public void valueChanged(String name, int value) {
-		logger.log(Level.SEVERE, "valueChanged Begin");
-		
-		logger.log(Level.SEVERE, " **** valueChanged name["+name+"] value["+value+"]");
-
-		if ( null != uiPanelOlsCounter ) uiPanelOlsCounter.setValue(name, String.valueOf(value));
-		
-		logger.log(Level.SEVERE, "valueChanged End");
-		
+		logger.log(Level.SEVERE, "onButton End");
 	}
 
 }

@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -104,11 +104,11 @@ public class UIPanelScreen {
 						resetEventBus();
 							
 						UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
-						DockLayoutPanel dockLayoutPanel = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), this.uiNameCard);
-						dockLayoutPanel.setWidth("100%");
-						dockLayoutPanel.setHeight("100%");
+						ComplexPanel complexPanel = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), this.uiNameCard);
+						complexPanel.setWidth("100%");
+						complexPanel.setHeight("100%");
 							
-						hp.add(dockLayoutPanel);
+						hp.add(complexPanel);
 						
 						Settings setting = Settings.getInstance();
 						String strNumOfScreen = setting.get("numofscreen");
@@ -122,19 +122,19 @@ public class UIPanelScreen {
 							if ( 0 == "UIScreenLogin".compareTo(taskLaunch.getUiPanel()) ) {
 								intNumOfScreen=1;
 							}
-							DockLayoutPanel dockLayoutPanels = null;
+							ComplexPanel complexPanelOthers = null;
 							for ( int screen=1;screen<intNumOfScreen;++screen){
 								UINameCard uiNameCard = new UINameCard(this.uiNameCard);
 								uiNameCard.setUiScreen(screen);
 								if ( 0 == "UIScreenLogin".compareTo(taskLaunch.getUiPanel()) 
 										|| 0 == "UIScreenOPM".compareTo(taskLaunch.getUiPanel()) ) {
-									dockLayoutPanels = uiPanelFactoryMgr.getMainPanel("UIScreenEmpty", uiNameCard);
+									complexPanelOthers = uiPanelFactoryMgr.getMainPanel("UIScreenEmpty", uiNameCard);
 								} else {
-									dockLayoutPanels = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), uiNameCard);
+									complexPanelOthers = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), uiNameCard);
 								}
-								dockLayoutPanels.setWidth("100%");
-								dockLayoutPanels.setHeight("100%");
-								hp.add(dockLayoutPanels);
+								complexPanelOthers.setWidth("100%");
+								complexPanelOthers.setHeight("100%");
+								hp.add(complexPanelOthers);
 							}
 						}
 					

@@ -147,7 +147,7 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(SCS_ALARM_LIST_ID, false, false, true);
 	    wrapperScsAlarmListPanel.setSize("100%", "100%");
 	    wrapperScsAlarmListPanel.setBorderWidth(1);
-	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
+//	    wrapperScsAlarmListPanel.setCounterNames(counterNames);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
 
 		basePanel.add(wrapperScsAlarmListPanel.getMainPanel());
@@ -173,12 +173,12 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 		root.addSouth(toolBarPanel, 50);
 		root.add(basePanel);
 		
-		for ( int i = 0 ; i < counterNames.length; ++i) {
-			Integer value = wrapperScsAlarmListPanel.getCounter(counterNames[i]);
-			if ( null != value ) {
-				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
-			}
-		}
+//		for ( int i = 0 ; i < counterNames.length; ++i) {
+//			Integer value = wrapperScsAlarmListPanel.getCounter(counterNames[i]);
+//			if ( null != value ) {
+//				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
+//			}
+//		}
 		
 		logger.log(Level.FINE, "getMainPanel End");
 		

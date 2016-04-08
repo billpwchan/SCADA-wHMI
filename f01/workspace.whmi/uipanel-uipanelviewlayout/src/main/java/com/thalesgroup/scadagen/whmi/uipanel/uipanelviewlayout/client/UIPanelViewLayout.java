@@ -4,16 +4,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.client.UIPanelMgr;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelView;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 
-public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
+public class UIPanelViewLayout implements UIPanel_i, UIPanelViewEvent, ViewLayoutMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewLayout.class.getName());
 		
@@ -30,12 +32,8 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 	
 	private DockLayoutPanel basePanel;
 	
-	private DockLayoutPanel upperMainPanel;
-	
-//	private UIPanelImageToolBar uiPanelImageToolBar = null;
-//	private HorizontalPanel imageToolBar = null;
-//	private VerticalPanel bottomToolBar = null;
-	
+	private ComplexPanel upperMainPanel;
+
 	/**
 	 * @param viewId
 	 * @return
@@ -72,7 +70,7 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 	}
 	
 	private UINameCard uiNameCard;
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) 
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) 
 	{ 
 		logger.log(Level.FINE, "getMainPanel Begin...");
 		
@@ -90,9 +88,6 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 	}
 	
 
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent#setLayout(com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode, com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction)
-	 */
 	@Override
 	public void setLayout(ViewLayoutMode viewLayoutMode, ViewLayoutAction viewLayoutAction)
 	{
@@ -112,30 +107,13 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 		if ( ViewLayoutMode.Image == viewLayoutMode ) {
 			
 			logger.log(Level.FINE, "setLayout ViewLayoutMode.Image");
-						
-//			uiPanelImageToolBar = new UIPanelImageToolBar();
-//			imageToolBar = uiPanelImageToolBar.getMainPanel(this, this.uiNameCard);
-//	
-//			imageToolBar.setVisible(true);
-//			
-//			bottomToolBar = new VerticalPanel();
-//			bottomToolBar.setBorderWidth(LAYOUT_BORDER);
-//		    bottomToolBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//		    bottomToolBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		    bottomToolBar.addStyleName("project-gwt-panel-viewlayout-bottomtoolbar");
-//		    bottomToolBar.add(imageToolBar);
-//			
-//			basePanel.addSouth(bottomToolBar, 50);
-//			
+
 			borderVisible = true;
 			
 		} else if ( ViewLayoutMode.Panel == viewLayoutMode ) {
 			
 			logger.log(Level.FINE, "setLayout ViewLayoutMode.Panel");
-			
-//			bottomToolBar = null;
-//			uiPanelImageToolBar = null;
-//			imageToolBar = null;
+
 		}
 		
 		basePanel.add(upperMainPanel);
@@ -230,9 +208,6 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.mmi.viewlayout.client.view.UIPanelViewEvent#setViewIdActivate(int)
-	 */
 	@Override
 	public void setViewIdActivate(int viewId) 
 	{
@@ -245,9 +220,6 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 		logger.log(Level.FINE, "setViewIdActivate End");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent#setTaskLaunch(com.thalesgroup.mmi.tasklaunch.client.TaskLaunch, int)
-	 */
 	@Override
 	public void setTaskLaunch(UITaskLaunch taskLaunch, int viewId) 
 	{
@@ -270,9 +242,6 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 		logger.log(Level.FINE, "setTaskLaunch End");
 	}
 
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.mmi.viewlayout.client.view.UIPanelViewEvent#onViewIdActivateEvent(int)
-	 */
 	@Override
 	public void onViewIdActivateEvent(int viewId) 
 	{
@@ -292,64 +261,10 @@ public class UIPanelViewLayout implements UIPanelViewEvent, ViewLayoutMgrEvent {
 		
 		logger.log(Level.FINE, "onViewIdActivateEvent End");
 	}
-	
-////	/* (non-Javadoc)
-////	 * @see com.thalesgroup.mmi.viewlayout.client.ViewLayoutMgrEvent#setSplitButton()
-////	 */
-////	public void setSplitButton() {
-////		logger.log(Level.FINE, "setSplitButton Begin");
-////		
-////		uiPanelImageToolBar.setButton(UIPanelImageBarEventType.HDouble, viewLayoutMgr.getViewAction()==ViewLayoutAction.HDoubleLayout);
-////		
-////		uiPanelImageToolBar.setButton(UIPanelImageBarEventType.VDouble, viewLayoutMgr.getViewAction()==ViewLayoutAction.VDoubleLayout);
-////		
-////		logger.log(Level.FINE, "setSplitButton End");
-////	};
-//
-//	/* (non-Javadoc)
-//	 * @see com.thalesgroup.mmi.viewlayout.client.viewtoolbar.UIPanelImageToolBarEvent#onImageButtonEvent(com.thalesgroup.mmi.viewlayout.client.viewtoolbar.UIPanelImageToolBarEvent.UIPanelImageBarEventType)
-//	 */
-//	@Override
-//	public void onImageButtonEvent(UIPanelImageBarEventType uiPanelImageBarEventType) {
-//		
-//		logger.log(Level.FINE, "onImageButtonEvent Begin");
-//
-//		switch (uiPanelImageBarEventType) 
-//		{
-//		case ZoomIn:
-//			break;
-//		case ZoomOut:
-//			break;
-//		case Zoom:
-//			break;
-//		case Locator:
-//			break;
-//		case VDouble:
-//		{
-//			logger.log(Level.FINE, "onImageButtonEvent VDouble");
-//			
-////			viewLayoutMgr.setSplitScreen(ViewLayoutAction.VDoubleLayout);
-//		}
-//			break;
-//		case HDouble:
-//		{
-//			logger.log(Level.FINE, "onImageButtonEvent HDouble");
-//			
-////			viewLayoutMgr.setSplitScreen(ViewLayoutAction.HDoubleLayout);
-//		}
-//			break;
-//		default:
-//			logger.log(Level.FINE, "onButtonEvent Invald UIPanelImageBarEventType");
-//			break;
-//		}
-//		
-//		logger.log(Level.FINE, "onImageButtonEvent End");
-//	}
 
 	@Override
 	public void setActivateView(int viewIdActivate) {
 		onViewIdActivateEvent(viewIdActivate);
 	}
-	
 	
 }

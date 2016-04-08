@@ -31,8 +31,6 @@ public class UIScreenEmpty implements UIScreen_i {
 
 	public static final String RGB_PAL_BG = "#BEBEBE";
 
-	public static final String IMAGE_PATH = "imgs";
-
 	private UINameCard uiNameCard;
 
 	@Override

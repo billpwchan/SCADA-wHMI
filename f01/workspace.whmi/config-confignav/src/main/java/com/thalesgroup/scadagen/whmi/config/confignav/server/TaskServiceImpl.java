@@ -23,9 +23,24 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 		
 		System.out.println("taskServer profile["+profile+"] location["+location+"] targetLevel["+targetLevel+"] targetHeader["+targetHeader+"]");
 		
+		if ( null == module ) {
+			module = getServletContext().getInitParameter("project.navigation.module");
+			System.out.println(" **** project.navigation.module module["+module+"]");
+		}
+		
+		if ( null == strMapping ) {
+			strMapping = getServletContext().getInitParameter("project.navigation.module.mapping");
+			System.out.println(" **** project.navigation.module strMapping["+strMapping+"]");
+		}
+		
+		if ( null == strSetting ) {
+			strSetting = getServletContext().getInitParameter("project.navigation.module.setting");
+			System.out.println(" **** project.navigation.module module["+strSetting+"]");
+		}
+		
 		String tag = "option";
-		String mapping = getServletContext().getRealPath("/") + "/" + module + "/config/" + strMapping;
-		String setting = getServletContext().getRealPath("/") + "/" + module + "/config/" + strSetting;
+		String mapping = getServletContext().getRealPath("/") + "/" + module + "/" + strMapping;
+		String setting = getServletContext().getRealPath("/") + "/" + module + "/" + strSetting;
 		ReadConfigXML configs = new ReadConfigXML();
 		
 		System.out.println("taskServer mapping["+mapping+"] setting["+setting+"] tag["+tag+"]");

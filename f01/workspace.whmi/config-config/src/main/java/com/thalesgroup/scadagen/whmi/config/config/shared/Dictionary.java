@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.whmi.config.config.shared;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class Dictionary implements Dictionary_i, java.io.Serializable {
@@ -24,4 +26,9 @@ public class Dictionary implements Dictionary_i, java.io.Serializable {
 	public void setValue(Object key, Object value) { this.valueMap.put(key, value); }
 	public Object getValue(Object key) { return this.valueMap.get(key); }
 	public Set<Object> getValueKeys() { return this.valueMap.keySet(); }
+	
+	private List<Object> valueSet = new ArrayList<Object>();
+	public void setValue(Object key) { this.valueSet.add(key); }
+	public Object[] getValues() { return this.valueSet.toArray((new Object[valueSet.size()])); }
+	
 }

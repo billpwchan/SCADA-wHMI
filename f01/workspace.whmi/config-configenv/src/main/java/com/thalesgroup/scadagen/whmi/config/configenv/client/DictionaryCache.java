@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 
 public class DictionaryCache implements DictionaryMgrEvent {
 	
@@ -19,10 +20,6 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		if ( null == instance ) { instance = new DictionaryCache(); }
 		return instance;
 	}
-	
-	public static final String strXmlFile				= "XmlFile";
-	public static final String strXmlTag				= "XmlTag";
-	public static final String strCreateDateTimeLabel	= "CreateDateTimeLabel";
 		
 	private LinkedList<String> incoming		= new LinkedList<String>();
 	private LinkedList<String> waiting		= new LinkedList<String>();
@@ -114,9 +111,9 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		received++;
 		
 		if ( null != dictionary ) {
-			String xmlFile = (String)dictionary.getAttribute(strXmlFile);
-			String XmlTag = (String)dictionary.getAttribute(strXmlTag);
-			String CreateDateTimeLabel = (String)dictionary.getAttribute(strCreateDateTimeLabel);
+			String xmlFile = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
+			String XmlTag = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
+			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
 			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary XmlFile["+xmlFile+"]");
 			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary XmlTag["+XmlTag+"]");

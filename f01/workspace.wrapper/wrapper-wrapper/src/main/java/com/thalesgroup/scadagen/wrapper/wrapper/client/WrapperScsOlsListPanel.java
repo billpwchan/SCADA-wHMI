@@ -33,7 +33,6 @@ public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
 	    scsOlsListPanel = new ScsOlsListPanel(AppUtils.EVENT_BUS, alarmListId, withCaption, null);
 	    scsOlsListPanel.setWidth(this.width);
 	    scsOlsListPanel.setHeight(this.height);
-	    scsOlsListPanel.setCounterNames(counterNames);
 	    scsOlsListPanel.setWrapperScsOlsListPanelEvent(wrapperScsOlsListPanelEvent);
 	    
 	    VerticalPanel olsPanel = new VerticalPanel();
@@ -45,13 +44,7 @@ public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
 	    return olsPanel;
 	    
 	}
-	
-	public Integer getCounter(String key) { return this.scsOlsListPanel.getCounter(key); }
-	
-	private String [] counterNames; 
-	public void setCounterNames(String [] counterNames) {
-		this.counterNames = counterNames;
-	}
+
 	@Override
 	public void valueChanged(String name, int value) {
 		if ( null != wrapperScsOlsListPanelEvent ) {

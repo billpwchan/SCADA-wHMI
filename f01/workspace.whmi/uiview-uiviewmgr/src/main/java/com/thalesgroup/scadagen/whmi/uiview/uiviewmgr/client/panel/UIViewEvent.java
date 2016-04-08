@@ -39,7 +39,6 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		}		
 	}
 	
-	
 	private String [] strNoOfEvents = new String [] {
 			"No. of Event", "0"
 	};	
@@ -49,12 +48,11 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 	private UINameCard uiNameCard;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.log(Level.SEVERE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 	
-
 		HorizontalPanel numOfEventBar = new HorizontalPanel();
 		numOfEventBar.getElement().getStyle().setPadding(20, Unit.PX);
 		
@@ -70,7 +68,6 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 			numOfEventBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			numOfEventBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			numOfEventBar.add(inlineLabel[i]);
-			
 			
 			inlineLabel[i].setVisible(false);
 		}
@@ -89,36 +86,17 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		String strFilterCsss [] = new String [] { strPrintCss, strFilterResetCss, strFilterAppliedCss};
 		
 		HorizontalPanel filterBar = new HorizontalPanel();
-//		filterBar.getElement().getStyle().setPadding(20, Unit.PX);
 		for(int i=0;i<strFilters.length;++i){
 			Button button = new Button(strFilters[i]);
-//			button.getElement().getStyle().setPadding(10, Unit.PX);
-//			button.setWidth("100px");
-//			button.setHeight("45px");
 			button.addStyleName(strFilterCsss[i]);
-//			if ( 0 == strFilters[i].compareToIgnoreCase(strFilterApplied) ) {
-//				button.getElement().getStyle().setColor(RGB_RED);
-//			}
-			
+
 			filterBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			filterBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			filterBar.add(button);
 		}
-		
-//		String [] strNavigators = new String [] {
-//				"|<", "<", "<<", "EVENTS", "/", "TOTAL_EVENTS", ">>", ">", ">|"
-//		};
-//		HorizontalPanel nagivatorBar = new HorizontalPanel();
-//		nagivatorBar.getElement().getStyle().setPadding(10, Unit.PX);
-//		for(int i=0;i<strNavigators.length;++i){
-//			InlineLabel inlineLabel = new InlineLabel(strNavigators[i]);
-//			inlineLabel.getElement().getStyle().setPadding(20, Unit.PX);
-//			nagivatorBar.add(inlineLabel);
-//		}
-		
+
 		HorizontalPanel upperBar = new HorizontalPanel();
-//		upperBar.setWidth("100%");
-//		upperBar.setHeight("100%");
+
 		upperBar.addStyleName("project-gwt-panel-eventsummary-upperbar");
 		upperBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		upperBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -126,36 +104,21 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		upperBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		upperBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		upperBar.add(filterBar);
-				
-//		HorizontalPanel bottomBar = new HorizontalPanel();
-//		bottomBar.setWidth("100%");
-//		bottomBar.setHeight("100%");
-//		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		bottomBar.add(nagivatorBar);
-		
+
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addNorth(upperBar, 60);
-//		basePanel.addSouth(bottomBar, 40);
-		//basePanel.add(new CellTableAlarm().GetTablePanel(15));
-		
-//
+
 	    String SCS_OLS_LIST_ID = "scseventList";
 	    WrapperScsOlsListPanel wrapperScsOlsListPanel = new WrapperScsOlsListPanel(SCS_OLS_LIST_ID, false);
 	    wrapperScsOlsListPanel.setSize("100%", "100%");
 	    wrapperScsOlsListPanel.setBorderWidth(1);
-	    wrapperScsOlsListPanel.setCounterNames(counterNames);	    
 	    wrapperScsOlsListPanel.setWrapperScsOlsListPanelEvent(this);
 		
 		basePanel.add(wrapperScsOlsListPanel.getMainPanel());
-//
 		
 		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
 		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
 		VerticalPanel toolBarPanel = new VerticalPanel();
-//		toolBarPanel.setBorderWidth(LAYOUT_BORDER);
-//		toolBarPanel.setWidth("100%");
-//		toolBarPanel.setHeight("100%");
 		toolBarPanel.addStyleName("project-gwt-panel-eventsummary-toolbar");
 	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -167,15 +130,8 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
 		root.addSouth(toolBarPanel, 50);
 		root.add(basePanel);
-		
-		for ( int i = 0 ; i < counterNames.length; ++i) {
-			Integer value = wrapperScsOlsListPanel.getCounter(counterNames[i]);
-			if ( null != value ) {
-				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
-			}
-		}
-		
-		logger.log(Level.FINE, "getMainPanel End");
+
+		logger.log(Level.SEVERE, "getMainPanel End");
 		
 	    return root;
 	}
@@ -193,7 +149,7 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		for ( int i = 0 ; i < counterNames.length; ++i) {
 			if ( 0 == name.compareTo(counterNames[i]) ) {
 				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
-			}			
+			}
 		}
 		
 		logger.log(Level.SEVERE, "valueChanged End");

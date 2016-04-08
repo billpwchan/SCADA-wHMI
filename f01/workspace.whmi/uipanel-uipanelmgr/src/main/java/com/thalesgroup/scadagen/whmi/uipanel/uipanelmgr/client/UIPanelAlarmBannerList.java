@@ -30,9 +30,9 @@ public class UIPanelAlarmBannerList implements UIWidget_i, UIPanel_i, WrapperScs
 	    wrapperScsAlarmListPanel.setSize("1450px", "200px");
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
 			@Override
-			public void valueChanged(String name, int value) {
+			public void valueChanged(String name, String value) {
 				if ( null != uiWidgetEvent ) {
-					uiWidgetEvent.onValueChange(name, String.valueOf(value));
+					uiWidgetEvent.onValueChange(name, value);
 				}
 			}
 		});
@@ -49,7 +49,7 @@ public class UIPanelAlarmBannerList implements UIWidget_i, UIPanel_i, WrapperScs
 	WrapperScsAlarmListPanelEvent wrapperScsAlarmListPanelEvent;
 	
 	@Override
-	public void valueChanged(String name, int value) {
+	public void valueChanged(String name, String value) {
 		if ( null != wrapperScsAlarmListPanelEvent ) 
 			this.wrapperScsAlarmListPanelEvent.valueChanged(name, value);
 	}

@@ -337,7 +337,7 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
 	        		if ( null != key ) {
 	        			Integer value = maps.get(key);
 	        			logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
-	        			if (null != wrapperScsAlarmListPanelEvent) wrapperScsAlarmListPanelEvent.valueChanged(key, value);
+	        			if (null != wrapperScsAlarmListPanelEvent) wrapperScsAlarmListPanelEvent.valueChanged(key, String.valueOf(value));
 	        		}
 	        	}
         	} catch (Exception e ) {

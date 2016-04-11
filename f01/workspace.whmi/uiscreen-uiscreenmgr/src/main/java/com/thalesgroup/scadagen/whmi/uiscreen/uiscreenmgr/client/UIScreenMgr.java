@@ -39,11 +39,13 @@ public class UIScreenMgr {
 	}
 
 	public UIScreen_i getPanel(String uiPanel){
-//Window.alert("UIPanelFactoryMgr.getPanel uiPanel["+uiPanel+"]");
+		
+		logger.log(Level.FINE, "getPanel Begin");
+		logger.log(Level.FINE, "getPanel uiPanel["+uiPanel+"]");
+		
 		UIScreen_i uiPanel_i = null;
 		
 		if ( 0 == uiPanel.compareTo("UIScreenLogin") ) {
-//			uiPanel_i = new UIScreenLogin();
 			uiPanel_i = new UIScreenLogin();
 		} else if ( 0 == uiPanel.compareTo("UIScreenMMI") ) {
 			uiPanel_i = new UIScreenMMI();
@@ -54,24 +56,9 @@ public class UIScreenMgr {
 		} else {
 			uiPanel_i = new UIScreenEmpty();
 		}
-		/*
-		switch ( uiPanel ) {
-		case "UIScreenLogin":
-			uiPanel_i = new UIScreenLogin();
-			break;
-		case "UIScreenMMI":
-			uiPanel_i = new UIScreenMMI();
-			break;
-		case "UIScreenDSS":
-			uiPanel_i = new UIScreenDSS();
-			break;
-		case "UIScreenEmpty":
-			
-		default:
-			uiPanel_i = new UIScreenEmpty();
-			break;
-		}
-		*/
+		
+		logger.log(Level.FINE, "getPanel End");
+
 		return uiPanel_i;
 	}
 	

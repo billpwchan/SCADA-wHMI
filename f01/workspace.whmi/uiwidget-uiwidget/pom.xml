@@ -95,7 +95,7 @@
         <configuration>
           <runTarget>UIWidget.html</runTarget>
           <modules>
-            <module>com.thalesgroup.scadagen.whmi.uiwidget.UIWidget</module>
+            <module>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.UIWidget</module>
           </modules>
         </configuration>
       </plugin>

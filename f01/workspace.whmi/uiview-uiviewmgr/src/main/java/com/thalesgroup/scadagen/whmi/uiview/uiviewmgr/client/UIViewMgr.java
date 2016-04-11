@@ -35,17 +35,17 @@ public class UIViewMgr {
 		return dockLayoutPanel;
 	}
 	
-	public UIView_i getPanel(String uiPanel) {
+	public UIView_i getPanel(String uiView) {
 		
 		logger.log(Level.FINE, "getPanel Begin");
 		
-		logger.log(Level.FINE, "getPanel uiPanel["+uiPanel+"]");
+		logger.log(Level.FINE, "getPanel uiPanel["+uiView+"]");
 		
 		UIView_i uiView_i = null;
 		
-		if ( 0 == uiPanel.compareTo("UIViewAlarm") ) {
+		if ( 0 == uiView.compareTo("UIViewAlarm") ) {
 			uiView_i = new UIViewAlarm();
-		} else if ( 0 == uiPanel.compareTo("UIViewEvent") ) {
+		} else if ( 0 == uiView.compareTo("UIViewEvent") ) {
 			uiView_i = new UIViewEvent();
 		} else {
 			//uiView_i = new UIViewEmpty();

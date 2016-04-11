@@ -18,9 +18,9 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.generic.uipanel.UIPanelGeneric;
-import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidgetEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UIScreenLogin implements UIScreen_i {
 	
@@ -36,7 +36,7 @@ public class UIScreenLogin implements UIScreen_i {
 
 	private String EMPTY						= "";
 	
-    private UIPanelGeneric uiPanelGeneric		= null;
+    private UILayoutGeneric uiPanelGeneric		= null;
 	
 	private UINameCard uiNameCard;
 	@Override
@@ -47,7 +47,7 @@ public class UIScreenLogin implements UIScreen_i {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		
-		uiPanelGeneric = new UIPanelGeneric();
+		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.init(strUIPanelLogin);
 		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(this.uiNameCard);
 		
@@ -57,11 +57,6 @@ public class UIScreenLogin implements UIScreen_i {
 		if ( null != uiPanelGenericInfo ) {
 			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEvent() {
 
-				@Override
-				public void onClickHandler(ClickEvent event) {
-					// TODO Auto-generated method stub
-				}
-				
 				@Override
 				public void onKeyPressHandler(KeyPressEvent event) {
 					TextBox textbox = (TextBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.name.toString());
@@ -92,6 +87,13 @@ public class UIScreenLogin implements UIScreen_i {
 					// TODO Auto-generated method stub
 					
 				}
+
+				@Override
+				public void onClickHandler(ClickEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+
 			});
 		} else {
 			logger.log(Level.SEVERE, "getMainPanel uiPanelGeneric.get(strUIPanelLoginInfo) IS NULL");
@@ -183,7 +185,7 @@ public class UIScreenLogin implements UIScreen_i {
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
 				uiDialgogMsg.setUINameCard(this.uiNameCard);
-				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name of Password", "Please check the Login name and Password is correct!", null, null);
+				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, "Invalid Login Name or Password", "Please check the Login name and Password is correct!", null, null);
 				uiDialgogMsg.popUp();
 				
 			}

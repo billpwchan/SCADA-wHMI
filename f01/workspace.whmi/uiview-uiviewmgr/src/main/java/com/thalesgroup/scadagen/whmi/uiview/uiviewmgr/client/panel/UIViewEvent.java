@@ -116,19 +116,19 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 		
 		basePanel.add(wrapperScsOlsListPanel.getMainPanel());
 		
-		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
-		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
-		VerticalPanel toolBarPanel = new VerticalPanel();
-		toolBarPanel.addStyleName("project-gwt-panel-eventsummary-toolbar");
-	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-	    
-	    toolBarPanel.add(panelToolBar);
-		
-		uiPanelPanelToolBar.setButton("Event Summary", true);
+//		UIPanelPanelToolBar uiPanelPanelToolBar = new UIPanelPanelToolBar();
+//		HorizontalPanel panelToolBar = uiPanelPanelToolBar.getMainPanel(this.uiNameCard);
+//		VerticalPanel toolBarPanel = new VerticalPanel();
+//		toolBarPanel.addStyleName("project-gwt-panel-eventsummary-toolbar");
+//	    toolBarPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//	    toolBarPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//	    
+//	    toolBarPanel.add(panelToolBar);
+//		
+//		uiPanelPanelToolBar.setButton("Event Summary", true);
 //		
 		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
-		root.addSouth(toolBarPanel, 50);
+//		root.addSouth(toolBarPanel, 50);
 		root.add(basePanel);
 
 		logger.log(Level.SEVERE, "getMainPanel End");

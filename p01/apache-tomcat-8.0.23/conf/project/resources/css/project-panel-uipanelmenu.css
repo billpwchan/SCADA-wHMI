@@ -1,15 +1,72 @@
 /* UIPanelMenu */
 .project-gwt-panel-navigation-0 {
+	margin-top: 10px;
+	margin-left: 10px;
 	background-color: dimgrey;
 }
 .project-gwt-panel-navigation-1 {
+	margin-top: 10px;
 	background-color: dimgrey;
 }
 .project-gwt-panel-navigation-2 {
+	margin-top: 10px;
+	margin-left: 10px;
 	background-color: dimgrey;
 }
 .project-gwt-panel-navigation-3  {
+	margin-left: 10px;
 	background-color: dimgrey;
+}
+.project-gwt-panel-navigationmenu-0 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-flextable-navigationmenu-0 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-panel-navigationmenu-0-0-0 {
+	width: 100%;
+	height: 100%;
+}
+
+.project-gwt-panel-navigationmenu-1 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-flextable-navigationmenu-1 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-panel-navigationmenu-1-0-0 {
+	width: 100%;
+	height: 100%;
+}
+
+.project-gwt-panel-navigationmenu-2 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-flextable-navigationmenu-2 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-panel-navigationmenu-2-0-0 {
+	width: 100%;
+	height: 100%;
+}
+
+.project-gwt-panel-navigationmenu-3 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-flextable-navigationmenu-3 {
+	width: 100%;
+	height: 100%;
+}
+.project-gwt-panel-navigationmenu-3-0-1 {
+	width: 100%;
+	height: 100%;
 }
 
 .project-gwt-button-navigation-0 {

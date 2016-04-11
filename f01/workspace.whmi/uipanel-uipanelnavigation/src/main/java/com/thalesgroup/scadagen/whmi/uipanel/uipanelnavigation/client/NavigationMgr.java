@@ -181,7 +181,6 @@ public class NavigationMgr implements TaskMgrEvent {
 						UITaskLaunch tasklaunch = (UITaskLaunch)taskProvide;
 
 						this.navigationMgrEvent.setMenu(0, "", tasklaunch.getHeader(), false);
-//						this.navigationMgrEvent.setSelected(tasklaunch.getTaskLevel(), tasklaunch.getHeader());
 
 					}
 				}

@@ -1,11 +1,16 @@
 package com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
 
 public class UINameCard {
+	
+	private static Logger logger = Logger.getLogger(UINameCard.class.getName());
+	
 	private int uiScreen = 0;
 	private String uiPath = "";
 	private ResettableEventBus uiEventBus = null;
@@ -46,11 +51,14 @@ public class UINameCard {
 	}
 	public void appendMgr(Object object) {
 		this.appendUIPath(getSimpleName(object));
+		logger.log(Level.FINE, "appendMgr uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 	}
 	public void appendUIPanel(Object object) {
 		this.appendUIPath(getSimpleName(object));
+		logger.log(Level.FINE, "appendUIPanel uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 	}
 	public void appendUIPath(String uiPath) {
+		logger.log(Level.FINE, "appendUIPath uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 		this.uiPath += ":" + uiPath;
 	}
 	public ResettableEventBus getUiEventBus() {

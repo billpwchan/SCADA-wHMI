@@ -8,14 +8,17 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.client.UIPanelMgr;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelView;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelViewLayout implements UIPanel_i, UIPanelViewEvent, ViewLayoutMgrEvent {
+public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEvent, ViewLayoutMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewLayout.class.getName());
 		
@@ -97,10 +100,10 @@ public class UIPanelViewLayout implements UIPanel_i, UIPanelViewEvent, ViewLayou
 		logger.log(Level.FINE, "setLayout viewLayoutAction["+viewLayoutAction+"]");
 		
 		basePanel.clear();
+
+//		UIPanelEmpty uiPanelEMpty = new UIPanelEmpty();
 		
-		UIPanelMgr uiPanelFactoryMgr = UIPanelMgr.getInstance();
-		
-		upperMainPanel = uiPanelFactoryMgr.getMainPanel("UIPanelEmpty", uiNameCard);
+//		upperMainPanel = uiPanelEMpty.getMainPanel(uiNameCard);
 		
 		boolean borderVisible = false;
 		
@@ -116,7 +119,7 @@ public class UIPanelViewLayout implements UIPanel_i, UIPanelViewEvent, ViewLayou
 
 		}
 		
-		basePanel.add(upperMainPanel);
+//		basePanel.add(upperMainPanel);
 		
 		switch (viewLayoutAction) 
 		{
@@ -265,6 +268,54 @@ public class UIPanelViewLayout implements UIPanel_i, UIPanelViewEvent, ViewLayou
 	@Override
 	public void setActivateView(int viewIdActivate) {
 		onViewIdActivateEvent(viewIdActivate);
+	}
+
+	@Override
+	public void init(String xmlFile) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Widget getWidget(String widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getWidgetElement(Widget widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setValue(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setValue(String name, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getWidgetStatus(String element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setWidgetStatus(String element, String up) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

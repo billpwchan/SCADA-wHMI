@@ -73,20 +73,25 @@
 	</dependency>
 	
 	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
-	  <artifactId>config-configenv</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitaskmgr</groupId>
 	  <artifactId>uitask-uitaskmgr</artifactId>
           <version>1.0-SNAPSHOT</version>
 	</dependency>
-	
+
 	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg</groupId>
-	  <artifactId>uidialog-uidialogmsg</artifactId>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
+	  <artifactId>uiwidget-uiwidget</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
+	  <artifactId>uiwidget-uiwidgetgeneric</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
+	  <artifactId>config-configenv</artifactId>
           <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
@@ -97,8 +102,8 @@
 	</dependency>
 	
 	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiview.uiviewmgr</groupId>
-	  <artifactId>uiview-uiviewmgr</artifactId>
+	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg</groupId>
+	  <artifactId>uidialog-uidialogmsg</artifactId>
           <version>1.0-SNAPSHOT</version>
 	</dependency>
     

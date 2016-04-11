@@ -79,6 +79,12 @@
 	</dependency>
 	
 	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
+	  <artifactId>uiwidget-uiwidgetgeneric</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
 	  <artifactId>config-configenv</artifactId>
           <version>1.0-SNAPSHOT</version>
@@ -93,36 +99,6 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanel</groupId>
 	  <artifactId>uipanel-uipanel</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner</groupId>
-	  <artifactId>uipanel-uipanelalarmbanner</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation</groupId>
-	  <artifactId>uipanel-uipanelnavigation</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelstatusbar</groupId>
-	  <artifactId>uipanel-uipanelstatusbar</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar</groupId>
-	  <artifactId>uipanel-uipaneltoolbar</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout</groupId>
-	  <artifactId>uipanel-uipanelviewlayout</artifactId>
           <version>1.0-SNAPSHOT</version>
 	</dependency>
 	

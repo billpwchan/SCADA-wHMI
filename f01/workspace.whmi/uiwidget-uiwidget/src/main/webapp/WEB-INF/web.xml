@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.thalesgroup.scadagen.whmi.uiwidget.server.GreetingServiceImpl</servlet-class>
+    <servlet-class>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.server.GreetingServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>

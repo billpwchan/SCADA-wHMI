@@ -19,15 +19,13 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.client.UIPanelAlarmBanner;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelMenus;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelstatusbar.client.UIPanelStatusBar;
-import com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar.client.UIPanelAccessBar;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UIScreenMMI implements UIScreen_i {
 
@@ -47,139 +45,39 @@ public class UIScreenMMI implements UIScreen_i {
 
 	public static final String UNIT_PX		= "px";
 	
-	private UIPanelMenus uiPanelmenu;
 	private UINameCard uiNameCard;
+	
+	private String strUIScreenMMI = "UIScreenMMI.xml";
 
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
-
-		logger.log(Level.FINE, "getMainPanel Begin");
-
+	private UILayoutGeneric uiPanelGeneric = null;
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
-
-		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-			@Override
-			public void onEvenBusUIChanged(UIEvent uiEvent) {
-				onUIEvent(uiEvent);
+		
+		uiPanelGeneric = new UILayoutGeneric();
+		uiPanelGeneric.init(strUIScreenMMI);
+		
+		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(uiNameCard);
+		
+		//Start the Navigation Menu
+		logger.log(Level.SEVERE, "getMainPanel Start the Navigation Menu Begin");
+		UIPanelNavigation uiPanelNavigation = UIPanelNavigation.getInstance();
+		if ( null != uiPanelNavigation ) {
+			UIPanelMenus uiPanelmenu = uiPanelNavigation.getMenus(this.uiNameCard);
+			if ( null != uiPanelmenu ) {
+				uiPanelmenu.readyToGetMenu("", "", 0, "");						
+			} else {
+				logger.log(Level.SEVERE, "getMainPanel uiPanelmenu IS NULL");
 			}
-		});
+		} else {
+			logger.log(Level.SEVERE, "getMainPanel uiPanelNavigation IS NULL");
+		}
+		logger.log(Level.SEVERE, "getMainPanel Start the Navigation Menu End");
 
-		this.uiPanelmenu = new UIPanelMenus(this.uiNameCard);
-
-		
-
-		// North Bar
-		logger.log(Level.FINE, "getMainPanel North Bar Begin");
-
-		ComplexPanel statusBar = new UIPanelStatusBar().getMainPanel(this.uiNameCard);
-
-		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
-		dockLayoutPanel.addStyleName("project-gwt-panel-north");
-
-		dockLayoutPanel.addNorth(statusBar, 42);
-
-		ComplexPanel alarmBanner = new UIPanelAlarmBanner().getMainPanel(this.uiNameCard);
-		alarmBanner.setWidth("100%");
-		alarmBanner.setHeight("100%");
-		dockLayoutPanel.add(alarmBanner);
-
-		logger.log(Level.FINE, "getMainPanel North Bar End");
-		// End of North
-
-		// South Bar
-		logger.log(Level.FINE, "getMainPanel South Bar Begin");
-		// LV2, SYS
-		HorizontalPanel menuBarLv1 = uiPanelmenu.getHorizontalMenu(1);
-		menuBarLv1.setWidth(menubarWidth);
-		menuBarLv1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		menuBarLv1.addStyleName("project-gwt-panel-south");
-
-		Panel accessBar = new UIPanelAccessBar().getMainPanel(this.uiNameCard);
-
-		SplitLayoutPanel splitLayoutPanelSouth = new SplitLayoutPanel(0);
-		splitLayoutPanelSouth.addStyleName("project-gwt-panel-south");
-		splitLayoutPanelSouth.addLineStart(menuBarLv1, BUTTON_WIDTH * 20);
-		splitLayoutPanelSouth.addLineEnd(accessBar, ( UIScreenMMI.IMG_BTN_WIDTH * 9 ) + 10);
-
-		logger.log(Level.FINE, "getMainPanel South Bar End");
-		// End of South
-
-		// East Bar
-		logger.log(Level.FINE, "getMainPanel East Bar Begin");
-
-		VerticalPanel verticalPanelEast = new VerticalPanel();
-		verticalPanelEast.setWidth(menubarWidth);
-		verticalPanelEast.setHeight("100%");
-		verticalPanelEast.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		verticalPanelEast.addStyleName("project-gwt-panel-east");
-
-		// LV1, STN
-		FlowPanel menuBarLv0 = uiPanelmenu.getFlowMenu(0);
-		verticalPanelEast.add(menuBarLv0);
-
-		logger.log(Level.FINE, "getMainPanel East Bar End");
-		// End of East Bar
-
-		// West Bar
-		logger.log(Level.FINE, "getMainPanel West Bar Begin");
-		// LV3, SubSys/Fun
-		VerticalPanel menuBarLv2 = uiPanelmenu.getVerticalMenu(2);
-		menuBarLv2.setWidth(menubarWidth);
-		menuBarLv2.addStyleName("paddedHorizontalPanel");
-		menuBarLv2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-
-		// LV4, SubSys/Fun
-		VerticalPanel menuBarLv3 = uiPanelmenu.getVerticalMenu(3);
-		menuBarLv3.setWidth(menubarWidth);
-		menuBarLv3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-
-		VerticalPanel verticalPanelWest = new VerticalPanel();
-		verticalPanelWest.setWidth(menubarWidth);
-		verticalPanelWest.setHeight("100%");
-		verticalPanelWest.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		verticalPanelWest.addStyleName("project-gwt-panel-west");
-
-		verticalPanelWest.add(menuBarLv2);
-		verticalPanelWest.add(menuBarLv3);
-
-		logger.log(Level.FINE, "getMainPanel East Bar End");
-		// End of West
-
-		// Main Area
-		logger.log(Level.FINE, "getMainPanel Main Area Begin");
-
-		ComplexPanel manAreaPanel = new UIPanelViewLayout().getMainPanel(this.uiNameCard);
-
-		logger.log(Level.FINE, "getMainPanel Main Area End");
-		// End of Main Area
-
-		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		
-		logger.log(Level.FINE, "getMainPanel Adding North to base...");
-		basePanel.addNorth(dockLayoutPanel, 		NORTH_HIGHT);
-
-		logger.log(Level.FINE, "getMainPanel Adding West to base...");
-		basePanel.addWest(verticalPanelWest, 		WEST_WIDTH);
-
-		logger.log(Level.FINE, "getMainPanel Adding South to base...");
-		basePanel.addSouth(splitLayoutPanelSouth, 	SOUTH_HIGHT);
-
-		logger.log(Level.FINE, "getMainPanel Adding East to base...");
-		basePanel.addEast(verticalPanelEast, 		EAST_WIDTH);
-
-		logger.log(Level.FINE, "getMainPanel Adding Main to base...");
-		basePanel.add(manAreaPanel);
-
-		// Update Root level Menu
-		logger.log(Level.FINE, "getMainPanel setMenu...");
-
-		uiPanelmenu.readyToGetMenu("", "", 0, "");
-
-		logger.log(Level.FINE, "getMainPanel End");
-
-		return basePanel;
+		return complexPanel;
 	}
-
+	
 	void onUIEvent(UIEvent uiEvent) {
 
 		logger.log(Level.FINE, "onUIEvent Begin");

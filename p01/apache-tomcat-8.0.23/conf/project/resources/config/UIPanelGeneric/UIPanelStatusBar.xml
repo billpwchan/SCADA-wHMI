@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>6</cols>
+		<cols>5</cols>
 		<outerpanel>VerticalPanel</outerpanel>
 		<outercss>project-gwt-panel-statusbar-outer</outercss>
 		<innerpanel>HorizontalPanel</innerpanel>

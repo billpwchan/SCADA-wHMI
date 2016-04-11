@@ -29,8 +29,6 @@
   <inherits name='com.thalesgroup.scadagen.whmi.config.configenv.ConfigEnv' />
   <inherits name='com.thalesgroup.scadagen.whmi.config.confignav.ConfigNav' />
 
-  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.UIWidget' />
-  
   <inherits name='com.thalesgroup.scadagen.whmi.opm.authentication.OpmAuthentication' />
   
   <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitask.UITask' />
@@ -40,13 +38,18 @@
   <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasktitle.UITaskTitle' />
   <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasksplit.UITaskSplit' />  
   
+  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.UIWidget' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.UIWidgetGeneric' />
+  
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanel.UIPanel' />
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.UIPanelMgr' />
+  <!--
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.UIPanelAlarmBanner' />
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelempty.UIPanelEmpty' />
-  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.UIPanelNavigation' />
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelstatusbar.UIPanelStatusBar' />
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar.UIPanelToolBar' />
+  -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.UIPanelNavigation' />
   <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.UIPanelViewLayout' />
   
   <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiview.UIView' />

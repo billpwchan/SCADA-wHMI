@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>2</cols>
+		<outerpanel>VerticalPanel</outerpanel>
+		<outercss>project-gwt-panel-mminorth-outer</outercss>
+		<innerpanel>DockLayoutPanel</innerpanel>
+		<innercss>project-gwt-panel-mminorth-inner</innercss>
+		<outerhorizontalalignment>ALIGN_CENTER</outerhorizontalalignment>
+		<outerverticalalignment>ALIGN_MIDDLE</outerverticalalignment>
+		<innerhorizontalalignment>ALIGN_CENTER</innerhorizontalalignment>
+		<innerverticalalignment>ALIGN_MIDDLE</innerverticalalignment>
+	</header>
+	
+	<option key="0|0">
+		<type>predefine</type>
+		<widget>UIPanelStatusBar</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>North</direction>
+		<width>42</width>
+	</option>
+	
+	<option key="0|1">
+		<type>predefine</type>
+		<widget>UIPanelAlarmBanner</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>Center</direction>
+	</option>
+	
+</data-set>

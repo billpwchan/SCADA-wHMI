@@ -205,7 +205,34 @@ public class UIGws {
 		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", header);
 		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", option);
 		
-//		String module = GWT.getModuleName();
+		//UIScreenMMI
+		uiPanelSettingCache.add("UIScreenMMI.xml", header);
+		uiPanelSettingCache.add("UIScreenMMI.xml", option);
+		
+		uiPanelSettingCache.add("UIScreenMMINorthPanel.xml", header);
+		uiPanelSettingCache.add("UIScreenMMINorthPanel.xml", option);
+		
+		uiPanelSettingCache.add("UIScreenMMIEastPanel.xml", header);
+		uiPanelSettingCache.add("UIScreenMMIEastPanel.xml", option);
+		
+		uiPanelSettingCache.add("UIScreenMMISouthPanel.xml", header);
+		uiPanelSettingCache.add("UIScreenMMISouthPanel.xml", option);
+		
+		uiPanelSettingCache.add("UIScreenMMIWestPanel.xml", header);
+		uiPanelSettingCache.add("UIScreenMMIWestPanel.xml", option);
+		
+		// UIPanelMenu
+		uiPanelSettingCache.add("UIPanelNavigation_0.xml", header);
+		uiPanelSettingCache.add("UIPanelNavigation_0.xml", option);
+		
+		uiPanelSettingCache.add("UIPanelNavigation_1.xml", header);
+		uiPanelSettingCache.add("UIPanelNavigation_1.xml", option);
+		
+		uiPanelSettingCache.add("UIPanelNavigation_2.xml", header);
+		uiPanelSettingCache.add("UIPanelNavigation_2.xml", option);
+		
+		uiPanelSettingCache.add("UIPanelNavigation_3.xml", header);
+		uiPanelSettingCache.add("UIPanelNavigation_3.xml", option);
 		
 		String module = null;
 		

@@ -44,13 +44,7 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		
 		logger.log(Level.FINE, "initTasks Begin");
 		
-		logger.log(Level.FINE, "initTasks this.level["+level+"] this.header["+header+"]");
-		
-//		String module		= GWT.getModuleName();
-//		
-//		String mappingFile	= "navigationMapping.xml";
-//		
-//		String settingFile	= "navigationSetting.xml";
+		logger.log(Level.SEVERE, "initTasks this.level["+level+"] this.header["+header+"]");
 		
 		String module		= null;
 		
@@ -66,7 +60,7 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 	public void onFailure(Throwable caught) {
 		// Show the RPC error message to the user
 		
-		logger.log(Level.FINE, "onFailure Begin");
+		logger.log(Level.SEVERE, "onFailure Begin");
 		
 		this.failded = true;
 		
@@ -76,7 +70,7 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		    iterator.remove();
 		}
 
-		logger.log(Level.FINE, "onFailure End");
+		logger.log(Level.SEVERE, "onFailure End");
 	}// onFailure
 
 	public void onSuccess(Tasks tsksCur) {
@@ -86,11 +80,9 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 		if ( null != tsksCur ) {
 
-			logger.log(Level.FINE, "onSuccess tsksCur.size()["+tsksCur.size()+"]");
+			logger.log(Level.SEVERE, "onSuccess tsksCur.size()["+tsksCur.size()+"] calling the callback: taskMgrEvent.ready()");
 		
 			this.ready = true;
-			
-			logger.log(Level.FINE, "onSuccess calling the callback: taskMgrEvent.ready()");
 			
 			for (Iterator<TaskMgrEvent> iterator = taskMgrEvents.iterator(); iterator.hasNext();) {
 				TaskMgrEvent taskMgrEvent = iterator.next();
@@ -100,7 +92,7 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 		} else {
 			
-			logger.log(Level.FINE, "onSuccess tsksCur is null");
+			logger.log(Level.SEVERE, "onSuccess tsksCur is null");
 			
 		}
 		
@@ -109,13 +101,13 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 	}// onSuccess
 	public boolean isReady() {
 		
-		logger.log(Level.FINE, "isReady Begin/End");
+		logger.log(Level.SEVERE, "isReady Begin/End");
 		
 		return ready;
 	}
 	public boolean isFailded() {
 		
-		logger.log(Level.FINE, "isFailded Begin/End");
+		logger.log(Level.SEVERE, "isFailded Begin/End");
 		
 		return failded;
 	}

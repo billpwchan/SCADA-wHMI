@@ -17,13 +17,15 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 public class UIPanelScreen {
 	
 	private static Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
+	
+	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
 	private HorizontalPanel hp;
 	
 	private UINameCard uiNameCard = null;
 	public HorizontalPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin.");
+		logger.log(Level.FINE, "getMainPanel Begin.");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -36,11 +38,11 @@ public class UIPanelScreen {
     	
     	UITaskLaunch taskLaunch = new UITaskLaunch();
     	taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-    	taskLaunch.setUiPath(":UIGws:UIPanelScreen");
+    	taskLaunch.setUiPath(UIPathUIPanelScreen);
     	taskLaunch.setUiPanel("UIScreenLogin");
     	this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
     	
-    	logger.log(Level.SEVERE, "getMainPanel End");
+    	logger.log(Level.FINE, "getMainPanel End");
 		
     	return this.hp;
 	}

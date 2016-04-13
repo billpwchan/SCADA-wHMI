@@ -47,10 +47,12 @@
 	</option>
 	
 	<option key="0|2">
-		<widget>ImageButton</widget>
+		<widget>Button</widget>
+		<label>◄</label>
 		<tooltip>History Back</tooltip>
 		<css>project-gwt-button-accessbar-button-0-2</css>
-		<element>previous</element>
+		<element>previous</element>		
+
 		<icon>/resources/project/img/hscs/Previous.png</icon>
 		<iconDown>/resources/project/img/hscs/Previous.png</iconDown>
 		<cssDown>project-gwt-button-split-h-selected</cssDown>
@@ -65,10 +67,12 @@
 		
 	</option>
 	<option key="0|3">
-		<widget>ImageButton</widget>
+		<widget>Button</widget>
+		<label>►</label>
 		<tooltip>History Forward</tooltip>
 		<css>project-gwt-button-accessbar-button-0-3</css>
 		<element>next</element>
+		
 		<icon>/resources/project/img/hscs/Next.png</icon>
 		<iconDown>/resources/project/img/hscs/Next.png</iconDown>
 		<cssDown>project-gwt-button-split-h-selected</cssDown>

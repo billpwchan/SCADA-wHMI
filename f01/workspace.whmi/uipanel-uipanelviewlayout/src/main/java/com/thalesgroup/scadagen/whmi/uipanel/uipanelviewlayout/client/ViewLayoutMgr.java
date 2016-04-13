@@ -32,6 +32,10 @@ public class ViewLayoutMgr {
 	private UITaskLaunch taskLaunchs[];
 
 	private UINameCard uiNameCard = null;
+	
+	private final String UIPathUIPanelAccessBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar";
+	private final String UIPathUIPanelStatusBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar";
+	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	/**
 	 * @param viewLayoutMgrEvent
@@ -62,11 +66,9 @@ public class ViewLayoutMgr {
 		
 		logger.log(Level.FINE, "triggerSplitChange Begin");
 		
-//		viewLayoutMgrEvent.setSplitButton();
-		
 		UITaskSplit taskSplit1 = new UITaskSplit();
 		taskSplit1.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskSplit1.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar");
+		taskSplit1.setUiPath(UIPathUIPanelAccessBar);
 
 		if ( this.getViewMode() == ViewLayoutMode.Panel ) {
 
@@ -90,7 +92,7 @@ public class ViewLayoutMgr {
 		
 		UITaskSplit taskSplit2 = new UITaskSplit();
 		taskSplit2.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskSplit2.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar");
+		taskSplit2.setUiPath(UIPathUIPanelAccessBar);
 		
 		if ( this.getViewMode() == ViewLayoutMode.Panel ) {
 
@@ -356,7 +358,7 @@ public class ViewLayoutMgr {
 
 		UITaskHistory taskHistoryPrevious = new UITaskHistory();
 		taskHistoryPrevious.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskHistoryPrevious.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar");
+		taskHistoryPrevious.setUiPath(UIPathUIPanelAccessBar);
 
 		if (this.viewLayoutHistoryMgr.hasPrevious()) {
 
@@ -377,7 +379,7 @@ public class ViewLayoutMgr {
 
 		UITaskHistory taskHistoryNext = new UITaskHistory();
 		taskHistoryNext.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskHistoryNext.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar");
+		taskHistoryNext.setUiPath(UIPathUIPanelAccessBar);
 
 		if (this.viewLayoutHistoryMgr.hasNext()) {
 
@@ -455,6 +457,20 @@ public class ViewLayoutMgr {
 	private void onUIEvent(UIEvent uiEvent) {
 
 		logger.log(Level.FINE, "onUIEvent Begin");
+		
+//		if ( null != uiNameCard ) {
+//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
+//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
+//		} else {
+//			logger.log(Level.SEVERE, "onUIEvent uiNameCard IS NULL");
+//		}
+//		
+//		if ( null != uiEvent ) {
+//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
+//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
+//		} else {
+//			logger.log(Level.SEVERE, "onUIEvent uiEvent IS NULL");
+//		}
 
 		if (null != uiEvent) {
 
@@ -601,7 +617,7 @@ public class ViewLayoutMgr {
 		
 		UITaskProfile taskProfile = new UITaskProfile();
 		taskProfile.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskProfile.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
+		taskProfile.setUiPath(UIPathUIPanelStatusBar);
 		taskProfile.setProfile(profile);
 		taskProfile.setOperator(operator);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
@@ -625,7 +641,7 @@ public class ViewLayoutMgr {
 		UITaskTitle taskTitle = new UITaskTitle();
 		taskTitle.setTitle(title);
 		taskTitle.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskTitle.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar");
+		taskTitle.setUiPath(UIPathUIPanelStatusBar);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskTitle));
 		
 		logger.log(Level.FINE, "triggerTitleChange End");
@@ -639,7 +655,7 @@ public class ViewLayoutMgr {
 		
 			UITaskLaunch taskLaunchToSend = new UITaskLaunch(taskLaunch);
 			taskLaunchToSend.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunchToSend.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:NavigationMgr");
+			taskLaunchToSend.setUiPath(UIPathUIPanelViewLayout);
 			UIEvent uiEvent = new UIEvent(taskLaunchToSend);
 			
 			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);

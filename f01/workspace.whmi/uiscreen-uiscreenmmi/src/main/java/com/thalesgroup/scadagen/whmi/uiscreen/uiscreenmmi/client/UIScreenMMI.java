@@ -3,15 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
@@ -30,21 +22,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 public class UIScreenMMI implements UIScreen_i {
 
 	private static Logger logger = Logger.getLogger(UIScreenMMI.class.getName());
-
-	private static final String menubarWidth = "160px";
-
-	public static final int BUTTON_WIDTH	= 128;
-	public static final int BUTTON_HIGHT	= 30;
-	public static final int FUNTION_WIDTH	= 128;
-	public static final int IMG_BTN_WIDTH	= 45;
-
-	public static final int EAST_WIDTH		= 160;
-	public static final int SOUTH_HIGHT		= 50;
-	public static final int WEST_WIDTH		= 160;
-	public static final int NORTH_HIGHT		= 200;
-
-	public static final String UNIT_PX		= "px";
 	
+	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
+
 	private UINameCard uiNameCard;
 	
 	private String strUIScreenMMI = "UIScreenMMI.xml";
@@ -55,25 +35,22 @@ public class UIScreenMMI implements UIScreen_i {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		
+		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+			@Override
+			public void onEvenBusUIChanged(UIEvent uiEvent) {
+				onUIEvent(uiEvent);
+			}
+		});
+		
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.init(strUIScreenMMI);
 		
-		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(uiNameCard);
+		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(this.uiNameCard);
 		
 		//Start the Navigation Menu
-		logger.log(Level.SEVERE, "getMainPanel Start the Navigation Menu Begin");
-		UIPanelNavigation uiPanelNavigation = UIPanelNavigation.getInstance();
-		if ( null != uiPanelNavigation ) {
-			UIPanelMenus uiPanelmenu = uiPanelNavigation.getMenus(this.uiNameCard);
-			if ( null != uiPanelmenu ) {
-				uiPanelmenu.readyToGetMenu("", "", 0, "");						
-			} else {
-				logger.log(Level.SEVERE, "getMainPanel uiPanelmenu IS NULL");
-			}
-		} else {
-			logger.log(Level.SEVERE, "getMainPanel uiPanelNavigation IS NULL");
-		}
-		logger.log(Level.SEVERE, "getMainPanel Start the Navigation Menu End");
+		logger.log(Level.FINE, "getMainPanel Start the Navigation Menu Begin");
+		
+		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
 
 		return complexPanel;
 	}
@@ -81,6 +58,20 @@ public class UIScreenMMI implements UIScreen_i {
 	void onUIEvent(UIEvent uiEvent) {
 
 		logger.log(Level.FINE, "onUIEvent Begin");
+		
+//		if ( null != uiNameCard ) {
+//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
+//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
+//		} else {
+//			logger.log(Level.SEVERE, "onUIEvent uiNameCard IS NULL");
+//		}
+//		
+//		if ( null != uiEvent ) {
+//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
+//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
+//		} else {
+//			logger.log(Level.SEVERE, "onUIEvent uiEvent IS NULL");
+//		}
 
 		if (null != uiEvent) {
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -98,7 +89,7 @@ public class UIScreenMMI implements UIScreen_i {
 
 							UITaskLaunch taskLaunchYes = new UITaskLaunch();
 							taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
-							taskLaunchYes.setUiPath(":UIGws:UIPanelScreen");
+							taskLaunchYes.setUiPath(UIPathUIPanelScreen);
 							taskLaunchYes.setUiPanel("UIScreenLogin");
 
 							DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();

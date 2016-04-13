@@ -72,6 +72,7 @@
 .project-gwt-button-navigation-0 {
 	width: 142px;
 	height: 30px;
+	font-size: 16px;
 	font-weight: bold;
 
     background: url("images/hborder.png") repeat-x 0px -27px;
@@ -88,6 +89,7 @@
 .project-gwt-button-navigation-1 {
 	width: 142px;
 	height: 30px;
+	font-size: 16px;
 	font-weight: bold;
 	
 	background: url("images/hborder.png") repeat-x 0px -27px;
@@ -103,6 +105,7 @@
 .project-gwt-button-navigation-2 {
 	width: 142px;
 	height: 30px;
+	font-size: 16px;
 	font-weight: bold;
 	
 	background: url("images/hborder.png") repeat-x 0px -27px;
@@ -118,6 +121,7 @@
 .project-gwt-button-navigation-3 {
 	width: 142px;
 	height: 30px;
+	font-size: 16px;
 	font-weight: bold;
 	
 	background: url("images/hborder.png") repeat-x 0px -27px;

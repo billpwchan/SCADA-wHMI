@@ -77,7 +77,7 @@ public class UILayoutGeneric implements UIWidget_i {
 	}
 
 	public void ready(Dictionary dictionary) {
-		logger.log(Level.SEVERE, "ready Begin");
+		logger.log(Level.FINE, "ready Begin");
 		logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"]");
 		
 		if ( null != dictionary ) {
@@ -85,9 +85,7 @@ public class UILayoutGeneric implements UIWidget_i {
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"]");
-			logger.log(Level.SEVERE, "ready dictionary XmlTag["+XmlTag+"]");
-			logger.log(Level.SEVERE, "ready dictionary CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
+			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"] XmlTag["+XmlTag+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -132,13 +130,11 @@ public class UILayoutGeneric implements UIWidget_i {
 				
 				totals = rows * cols;
 				
-				logger.log(Level.SEVERE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
+				logger.log(Level.FINE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
 				}				
-				
-				logger.log(Level.SEVERE, "ready dictionary ");
 
 			} else if ( 0 == DictionaryCacheInterface.Option.compareTo(XmlTag) ) {
 				
@@ -165,7 +161,7 @@ public class UILayoutGeneric implements UIWidget_i {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.log(Level.SEVERE, "ready dictionary key["+key+"]");
+										logger.log(Level.FINE, "ready dictionary key["+key+"]");
 										
 										break;
 									}
@@ -175,7 +171,7 @@ public class UILayoutGeneric implements UIWidget_i {
 							}
 						}
 						
-						logger.log(Level.SEVERE, "ready dictionary key["+key+"]");
+						logger.log(Level.FINE, "ready dictionary key["+key+"]");
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -190,11 +186,11 @@ public class UILayoutGeneric implements UIWidget_i {
 								}
 								
 								if ( isvalid ) {
-									logger.log(Level.SEVERE, "ready dictionary row["+row+"] col["+col+"]");
+									logger.log(Level.FINE, "ready dictionary row["+row+"] col["+col+"]");
 									
 									index = (row * cols) + col;
 									
-									logger.log(Level.SEVERE, "ready dictionary row["+row+"] col["+col+"] => index["+index+"]");
+									logger.log(Level.FINE, "ready dictionary row["+row+"] col["+col+"] => index["+index+"]");
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -203,7 +199,7 @@ public class UILayoutGeneric implements UIWidget_i {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.log(Level.SEVERE, "ready dictionary k["+k+"] v["+v+"]");
+												logger.log(Level.FINE, "ready dictionary k["+k+"] v["+v+"]");
 				
 												hashMap.put(k, v);
 											}
@@ -226,17 +222,16 @@ public class UILayoutGeneric implements UIWidget_i {
 			logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"] dictionary IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "ready End");
+		logger.log(Level.FINE, "ready End");
 		
 	}
 	
 	public ComplexPanel getMainPanel(UINameCard uiNameCard){
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		logger.log(Level.SEVERE, "getMainPanel xmlFile["+this.xmlFile+"]");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
-//		this.uiNameCard.appendUIPanel(this);
 		
 		logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] strOuterCSS["+strOuterCSS+"]");
 		logger.log(Level.SEVERE, "getMainPanel strInnerPanel["+strInnerPanel+"] strInnerCSS["+strInnerCSS+"]");
@@ -578,7 +573,7 @@ public class UILayoutGeneric implements UIWidget_i {
 			logger.log(Level.SEVERE, "getMainPanel innerPanel IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 		return outerPanel;
 	}

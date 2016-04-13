@@ -38,7 +38,7 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 	
 	public void getDictionary(String module, String xml, String tag, DictionaryMgrEvent dictionaryMgrEvent) {
 		
-		logger.log(Level.SEVERE, "getDictionary Begin");
+		logger.log(Level.FINE, "getDictionary Begin");
 		
 		this.xml = xml;
 		this.tag = tag;
@@ -49,7 +49,7 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 		
 		dictionaryService.dictionaryServer(module, xml, tag, this);
 		
-		logger.log(Level.SEVERE, "getDictionary End");
+		logger.log(Level.FINE, "getDictionary End");
 	}
 
 	public void onFailure(Throwable caught) {

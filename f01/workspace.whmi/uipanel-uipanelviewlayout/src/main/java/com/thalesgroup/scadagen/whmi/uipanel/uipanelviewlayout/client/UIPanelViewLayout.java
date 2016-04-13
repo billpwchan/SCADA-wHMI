@@ -15,19 +15,11 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPan
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEvent, ViewLayoutMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewLayout.class.getName());
-		
-	public static final String UNIT_PX		= "px";
-	public static final int LAYOUT_BORDER	= 0;
-	
-	public static final String RGB_BTN_SEL 	= "rgb(246, 230, 139)";
-	public static final String RGB_BTN_BG	= "#F1F1F1";
-	public static final String IMG_NONE		= "none";	
 
 	private ViewLayoutMgr viewLayoutMgr;
 	
@@ -81,7 +73,9 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 		this.uiNameCard.appendUIPanel(this);
 		
 		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
-
+		
+		logger.log(Level.SEVERE, "setLayout this.uiNameCard.getUiScreen() ["+this.uiNameCard.getUiScreen()+"] this.uiNameCard.getUiPath()	["+this.uiNameCard.getUiPath()+"]");
+		
 		basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addStyleName("project-gwt-panel-viewlayout-main");
 		
@@ -96,14 +90,16 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 	{
 		logger.log(Level.FINE, "setLayout Begin");
 		
-		logger.log(Level.FINE, "setLayout ViewLayoutMode["+viewLayoutMode+"]");
-		logger.log(Level.FINE, "setLayout viewLayoutAction["+viewLayoutAction+"]");
+		logger.log(Level.FINE, "setLayout ViewLayoutMode["+viewLayoutMode+"] viewLayoutAction["+viewLayoutAction+"]");
+		
+//		UIPanelMgr uiPanelFactoryMgr = UIPanelMgr.getInstance();
+//		upperMainPanel = uiPanelFactoryMgr.getMainPanel("UIPanelEmpty", uiNameCard);
+		
+		UIPanelEmpty uiPanelEmpty = new UIPanelEmpty();
+		upperMainPanel = uiPanelEmpty.getMainPanel(uiNameCard);
 		
 		basePanel.clear();
-
-//		UIPanelEmpty uiPanelEMpty = new UIPanelEmpty();
-		
-//		upperMainPanel = uiPanelEMpty.getMainPanel(uiNameCard);
+		basePanel.add(upperMainPanel);
 		
 		boolean borderVisible = false;
 		
@@ -114,12 +110,8 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 			borderVisible = true;
 			
 		} else if ( ViewLayoutMode.Panel == viewLayoutMode ) {
-			
 			logger.log(Level.FINE, "setLayout ViewLayoutMode.Panel");
-
 		}
-		
-//		basePanel.add(upperMainPanel);
 		
 		switch (viewLayoutAction) 
 		{
@@ -208,7 +200,6 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 			
 		}
 		logger.log(Level.FINE, "setLayout End");
-
 	}
 
 	@Override
@@ -240,8 +231,6 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 		{
 			logger.log(Level.FINE, "setTaskLaunch this.uiPanelViews is null");
 		}
-		
-		
 		logger.log(Level.FINE, "setTaskLaunch End");
 	}
 
@@ -261,7 +250,6 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 				uiPanelView.setActivate(true);
 			}
 		}
-		
 		logger.log(Level.FINE, "onViewIdActivateEvent End");
 	}
 

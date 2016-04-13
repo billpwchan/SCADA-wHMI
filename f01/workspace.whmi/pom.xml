@@ -92,6 +92,7 @@
     <module>config-config</module>
     <module>config-configenv</module>
     <module>config-confignav</module>
+    <module>uiwidget-uiwidget</module>
     <module>opm-authentication</module>
     <module>uitask-uitasktitle</module>
     <module>uitask-uitasklaunch</module>
@@ -99,6 +100,7 @@
     <module>uitask-uitasksplit</module>
     <module>uitask-uitaskmgr</module>
     <module>uiscreen-uiscreen</module>
+    <module>uiwidget-uiwidgetgeneric</module>
     <module>uiscreen-uiscreenmgr</module>
     <module>uiscreen-uiscreenempty</module>
     <module>uiscreen-uiscreenlogin</module>
@@ -123,8 +125,7 @@
     <module>uiscreen-uiscreenroot</module>
     <module>uipanel-uipanelroot</module>
     <module>uiroot-uiroot</module>
-    <module>uiwidget-uiwidget</module>
-    <module>uiwidget-uiwidgetgeneric</module>
+
   </modules>
   
 </project>

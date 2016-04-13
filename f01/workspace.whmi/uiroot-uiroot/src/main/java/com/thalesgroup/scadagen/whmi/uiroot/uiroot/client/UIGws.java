@@ -28,8 +28,8 @@ import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen;
 public class UIGws {
 
 	private EventBus EVENT_BUS = null;
-	private ResettableEventBus RESETABLE_EVENT_BUS  = null; 
-
+	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
+	
 	private static Logger logger = Logger.getLogger("");
 
 	private SplitLayoutPanel root = null;
@@ -50,7 +50,7 @@ public class UIGws {
 	private UINameCard uiNameCard = null;
 	public SplitLayoutPanel getMainPanel(UINameCard uiNameCard) { 
 
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -69,7 +69,34 @@ public class UIGws {
 			}
 		}
 		// end of parameter override
-
+		
+		String strLogModule = setting.get("logmodule");
+		String strLogModuleLevel = setting.get("logmodulelevel");
+		
+		if ( null != strLogModule && null != strLogModuleLevel ) {
+			Level level = Level.FINE;
+			if ( 0 == strLogModule.compareToIgnoreCase("ALL") ) {
+				level = Level.ALL;
+			} else if ( 0 == strLogModule.compareToIgnoreCase("FINE") ) {
+				level = Level.FINE;
+			} else if ( 0 == strLogModule.compareToIgnoreCase("INFO") ) {
+				level = Level.INFO;
+			} else if ( 0 == strLogModule.compareToIgnoreCase("CONFIG") ) {
+				level = Level.CONFIG;
+			} else if ( 0 == strLogModule.compareToIgnoreCase("WARNING") ) {
+				level = Level.WARNING;
+			} else if ( 0 == strLogModule.compareToIgnoreCase("SEVERE") ) {
+				level = Level.SEVERE;
+			}
+			
+			String strLogModules [] = strLogModule.split("\\|");
+			for ( String s: strLogModules ) {
+				Logger.getLogger(s).setLevel(level);
+			}
+		}
+		
+		
+		// Num Of Screen
 		String strNumOfScreen = setting.get("numofscreen");
 		
 		if ( null == strNumOfScreen ) {
@@ -110,22 +137,20 @@ public class UIGws {
 		// Debug
 		HashMap<String, String> hashMap = setting.getMaps();
 		for ( Map.Entry<String, String> entry : hashMap.entrySet() ) {
-			logger.log(Level.SEVERE, "getMainPanel key["+entry.getKey()+"] value["+entry.getValue()+"]");
+			logger.log(Level.SEVERE, "getMainPanel Debug key["+entry.getKey()+"] value["+entry.getValue()+"]");
 		}
 		// End of Debug
 
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 				
 		return root;
 	}
 	
 	public void initCaches () {
 		
-		logger.log(Level.SEVERE, "initCaches Begin");
+		logger.log(Level.FINE, "initCaches Begin");
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance();
-		
-//		String module = GWT.getModuleName();
 		
 		String module = null;
 		
@@ -139,20 +164,19 @@ public class UIGws {
 			
 			@Override
 			public void dictionariesCacheEventReady(int received) {
-				logger.log(Level.SEVERE, "dictionariesCacheEventReady Begin");
+				logger.log(Level.SEVERE, "dictionariesCacheEventReady");
 				
 				ready(received);
 				
-				logger.log(Level.SEVERE, "dictionariesCacheEventReady End");
 			}
 		});
 		
-		logger.log(Level.SEVERE, "initCaches End");
+		logger.log(Level.FINE, "initCaches End");
 	}
 	
 	public void initCache () {
 		
-		logger.log(Level.SEVERE, "initCache Begin");
+		logger.log(Level.FINE, "initCache Begin");
 		
 		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance();
 		
@@ -205,6 +229,10 @@ public class UIGws {
 		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", header);
 		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", option);
 		
+		//UIPanelVerticalSpliter
+		uiPanelSettingCache.add("UIPanelVerticalSpliter.xml", header);
+		uiPanelSettingCache.add("UIPanelVerticalSpliter.xml", option);
+		
 		//UIScreenMMI
 		uiPanelSettingCache.add("UIScreenMMI.xml", header);
 		uiPanelSettingCache.add("UIScreenMMI.xml", option);
@@ -241,21 +269,31 @@ public class UIGws {
 			@Override
 			public void dictionaryCacheEventReady(int received) {
 
-				logger.log(Level.SEVERE, "dictionaryCacheEventReady Begin");
+				logger.log(Level.SEVERE, "dictionaryCacheEventReady");
 					
 				ready(received);
-					
-				logger.log(Level.SEVERE, "dictionaryCacheEventReady End");
 			}
 		});
 		
-		logger.log(Level.SEVERE, "initCache End");
+		logger.log(Level.FINE, "initCache End");
 	}
 	
 	private void ready(int received) {
-		logger.log(Level.SEVERE, "ready Begin");
+		logger.log(Level.FINE, "ready Begin");
+		
+		logger.log(Level.FINE, "ready BF");
+		
+//		logger.log(Level.SEVERE, "ready BF");
+//		SimpleRemoteLogHandler handler = new SimpleRemoteLogHandler();
+//		handler.setLevel(Level.FINE);
+//		Logger.getLogger("").addHandler(handler);
+//		logger.log(Level.SEVERE, "ready AF");
+		
+		logger.log(Level.FINE, "ready AF");
+
+		
 		this.main.clear();
 		this.main.add(new UIPanelScreen().getMainPanel(this.uiNameCard));
-		logger.log(Level.SEVERE, "ready End");
+		logger.log(Level.FINE, "ready End");
 	}
 }

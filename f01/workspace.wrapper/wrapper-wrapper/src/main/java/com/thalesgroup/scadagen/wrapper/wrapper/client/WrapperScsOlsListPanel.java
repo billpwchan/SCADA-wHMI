@@ -1,13 +1,19 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanel;
 
 /**
  * A widget displaying an alamm list panel.
  */
 public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
+	
+	private static Logger logger = Logger.getLogger(WrapperScsOlsListPanel.class.getName());
 	
 	private String alarmListId;
 	private boolean withCaption;
@@ -47,9 +53,8 @@ public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
 
 	@Override
 	public void valueChanged(String name, int value) {
-		if ( null != wrapperScsOlsListPanelEvent ) {
-			wrapperScsOlsListPanelEvent.valueChanged(name, value);
-		}
+		logger.log(Level.FINE, "valueChanged name["+name+"] value["+value+"]");
+		if ( null != wrapperScsOlsListPanelEvent ) wrapperScsOlsListPanelEvent.valueChanged(name, value);
 	}
 
 }

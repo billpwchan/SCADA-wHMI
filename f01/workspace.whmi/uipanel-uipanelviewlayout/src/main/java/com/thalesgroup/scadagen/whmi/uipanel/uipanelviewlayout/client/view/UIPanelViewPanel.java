@@ -39,17 +39,6 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 	}
 	InlineLabel equipmenpLabel = null;
 
-//	private void onClickLabel(){
-//		
-//		DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
-//		UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
-//		uiDialgogMsg.setUINameCard(this.uiNameCard);
-////		UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
-//		uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OK, "Message Dialog",
-//				"This is the popup dialog message box", null, null);
-//		uiDialgogMsg.popUp();
-//	}
-	
 	private UINameCard uiNameCard = null;
 
 	private DockLayoutPanel root = null;
@@ -69,14 +58,6 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 		equipmenpLabel = new InlineLabel();
 		equipmenpLabel.setText("Panel: ----");
 		hp.add(equipmenpLabel);
-		
-//		equipmenpLabel.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent arg0) {
-//				onClickLabel();
-//			}
-//		});
 
 		root = new DockLayoutPanel(Unit.PX);
 		root.add(hp);

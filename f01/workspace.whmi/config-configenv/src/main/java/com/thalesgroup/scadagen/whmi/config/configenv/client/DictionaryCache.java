@@ -37,18 +37,18 @@ public class DictionaryCache implements DictionaryMgrEvent {
 	
 	public void add(String xml, String tag) {
 		
-		logger.log(Level.SEVERE, "add Begin");
+		logger.log(Level.FINE, "add Begin");
 		
 		logger.log(Level.SEVERE, "add xml["+xml+"] tag["+tag+"] ");
 		
 		incoming.add(xml+"|"+tag);
 		
-		logger.log(Level.SEVERE, "add End");
+		logger.log(Level.FINE, "add End");
 	}
 	
 	public void init(String module, DictionaryCacheEvent dictionaryCacheEvent) {
 		
-		logger.log(Level.SEVERE, "init");
+		logger.log(Level.FINE, "init");
 		
 		this.dictionaryCacheEvent = dictionaryCacheEvent;
 
@@ -60,7 +60,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			
 			String xmlTag = iterator.next();
 			
-			logger.log(Level.SEVERE, "init xmlWithHeader["+xmlTag+"]");
+			logger.log(Level.FINE, "init xmlWithHeader["+xmlTag+"]");
 			
 			String xmlTags[] = xmlTag.split("\\|");
 			
@@ -75,7 +75,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		    iterator.remove();
 		}
 		
-		logger.log(Level.SEVERE, "init End");
+		logger.log(Level.FINE, "init End");
 
 	}
 	
@@ -106,7 +106,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 	@Override
 	public void dictionaryMgrEventReady(Dictionary dictionary) {
 		
-		logger.log(Level.SEVERE, "dictionaryMgrEventReady Begin");
+		logger.log(Level.FINE, "dictionaryMgrEventReady Begin");
 		
 		received++;
 		
@@ -115,9 +115,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			String XmlTag = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary XmlFile["+xmlFile+"]");
-			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary XmlTag["+XmlTag+"]");
-			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
+			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary XmlFile["+xmlFile+"] XmlTag["+XmlTag+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
 			
 			String xmlWithHeader = xmlFile + "|"+ XmlTag;
 		
@@ -140,7 +138,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			if ( null != dictionaryCacheEvent )
 				dictionaryCacheEvent.dictionaryCacheEventReady(received);
 		
-		logger.log(Level.SEVERE, "dictionaryMgrEventReady End");
+		logger.log(Level.FINE, "dictionaryMgrEventReady End");
 	}
 
 }

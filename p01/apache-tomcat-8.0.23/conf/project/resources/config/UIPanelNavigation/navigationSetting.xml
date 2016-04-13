@@ -7,6 +7,7 @@
 		<type>S</type>
 		<name>Mimic Summary</name>
 		<title>Mimic Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -14,6 +15,7 @@
 		<type>S</type>
 		<name>UPS</name>
 		<title>CTVB UPS</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -21,6 +23,7 @@
 		<type>S</type>
 		<name>UPS</name>
 		<title>SSVB UPS</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -28,6 +31,7 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>OCC - MCS - System Health</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -35,6 +39,7 @@
 		<type>P</type>
 		<name>Notepad</name>
 		<title>MCS - Utilities - Notepad</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -42,6 +47,7 @@
 		<type>P</type>
 		<name>Input Table</name>
 		<title>MCS - Utilities - Input Table</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -49,6 +55,7 @@
 		<type>P</type>
 		<name>Real Time Report</name>
 		<title>MCS - Utilities - Real Time Report</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -56,6 +63,7 @@
 		<type>P</type>
 		<name>Historical Report</name>
 		<title>MCS - Utilities - Historical Report</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -63,6 +71,7 @@
 		<type>P</type>
 		<name>OPM</name>
 		<title>MCS - Utilities - OPM</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -70,6 +79,7 @@
 		<type>S</type>
 		<name>Tunnel Overview</name>
 		<title>TECS Tunnel Overview</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -77,6 +87,7 @@
 		<type>S</type>
 		<name>Overview</name>
 		<title>LMC/CTV/SSV Tunnel Overview</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -84,6 +95,7 @@
 		<type>S</type>
 		<name>Mode</name>
 		<title>LMC/CTV/SSV - TECS - Mode</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -91,6 +103,7 @@
 		<type>P</type>
 		<name>Timetable</name>
 		<title>LMC/CTV/SSV - TECS - Timetable</title>
+		<uiPanel>Timetable</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -98,6 +111,7 @@
 		<type>P</type>
 		<name>Congestion Mode</name>
 		<title>TECS Congestion Mode Summary</title>
+		<uiPanel>CongestionMode</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -105,6 +119,7 @@
 		<type>S</type>
 		<name>Control Summary</name>
 		<title>TECS Control Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -112,6 +127,7 @@
 		<type>S</type>
 		<name>Tunnel Temperature</name>
 		<title>LMC/CTV/SSV - TECS - Tunnel Temperature Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -119,6 +135,7 @@
 		<type>S</type>
 		<name>Compressed Air</name>
 		<title>LMC/CTV/SSV - TECS - Compressed Air Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -126,6 +143,7 @@
 		<type>S</type>
 		<name>Multisourced Data</name>
 		<title>LMC/CTV/SSV - TECS - Multisourced Data Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -133,6 +151,7 @@
 		<type>S</type>
 		<name>Smoke Probe Unit</name>
 		<title>LMC/CTV/SSV - TECS - Smoke Probe Unit Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -140,6 +159,7 @@
 		<type>S</type>
 		<name>CTV Overview</name>
 		<title>CTV - TECS - Overview</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -147,6 +167,7 @@
 		<type>S</type>
 		<name>SSV Overview</name>
 		<title>SSV - TECS - Overview</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -154,6 +175,7 @@
 		<type>S</type>
 		<name>Overview</name>
 		<title>KOT - TECS - Overview</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -161,6 +183,7 @@
 		<type>S</type>
 		<name>Mode</name>
 		<title>KOT - TECS - Mode</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -168,6 +191,7 @@
 		<type>P</type>
 		<name>Timetable</name>
 		<title>KOT - TECS - Timetable</title>
+		<uiPanel>Timetable</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -175,6 +199,7 @@
 		<type>S</type>
 		<name>Tunnel Temperature</name>
 		<title>KOT - TECS - Tunnel Temperature Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -182,6 +207,7 @@
 		<type>S</type>
 		<name>Compressed Air</name>
 		<title>KOT - TECS - Compressed Air Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -189,6 +215,7 @@
 		<type>S</type>
 		<name>Control Summary</name>
 		<title>LMC/CTV/SSV - TECS - Control Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -196,6 +223,7 @@
 		<type>S</type>
 		<name>Control Summary</name>
 		<title>KOT - TECS - Control Summary</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -203,6 +231,7 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>KOT - MCS - System Health</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -210,6 +239,7 @@
 		<type>S</type>
 		<name>System Health</name>
 		<title>LMC - MCS - System Health</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>
@@ -217,6 +247,7 @@
 		<type>S</type>
 		<name>Schematics</name>
 		<title>KOT - TECS - Schematics</title>
+		<uiPanel>C1166B_ECS</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>

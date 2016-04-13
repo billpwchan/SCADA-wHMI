@@ -19,6 +19,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelAlarmBanner.class.getName());
+	
+	private final String 		UIPathUIPanelViewLayout = ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	private String xmlFile								= "UIPanelAlarmBanner.xml";
     
@@ -34,7 +36,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 	private UINameCard uiNameCard;
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -49,6 +51,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 				
 				@Override
 				public void onValueChange(String name, String value) {
+					logger.log(Level.SEVERE, "onValueChange name["+name+"] value["+value+"]");
 					if ( null != uiWidgetOlsCounter ) 
 						uiWidgetOlsCounter.setValue(name, value);
 				}
@@ -93,7 +96,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 		
 		uiWidgetOlsCounter = uiPanelGeneric.getUIWidget(strUIWidgetOlsCounter);
 
-	    logger.log(Level.SEVERE, "getMainPanel End");
+	    logger.log(Level.FINE, "getMainPanel End");
 	    
 	    return complexPanel;
 	}
@@ -101,7 +104,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 	
 	private void onButton(String element) {
 		
-		logger.log(Level.SEVERE, "onButton Begin");
+		logger.log(Level.FINE, "onButton Begin");
 		
 		logger.log(Level.SEVERE, "onButton element["+element+"]");
 		
@@ -109,7 +112,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
 			taskLaunch.setUiPanel("UIViewAlarm");
 			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
@@ -117,7 +120,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
 			taskLaunch.setUiPanel("UIViewEvent");
 			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
@@ -138,7 +141,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 			logger.log(Level.SEVERE, "onButton element UNKNOW");
 		}
 		
-		logger.log(Level.SEVERE, "onButton End");
+		logger.log(Level.FINE, "onButton End");
 	}
 
 

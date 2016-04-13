@@ -26,7 +26,9 @@ public class UIScreenLogin implements UIScreen_i {
 	
 	private static Logger logger = Logger.getLogger(UIScreenLogin.class.getName());
 	
-	private String strUIPanelLogin				= "UIPanelLogin.xml";
+	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
+
+	String strUIPanelLogin				= "UIPanelLogin.xml";
 	
 	private String strUIPanelLoginInfo			= "UIPanelLoginInfo.xml";
 	private String strUIPanelLoginButton		= "UIPanelLoginButton.xml";
@@ -42,7 +44,7 @@ public class UIScreenLogin implements UIScreen_i {
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard){
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -150,7 +152,7 @@ public class UIScreenLogin implements UIScreen_i {
 			logger.log(Level.SEVERE, "getMainPanel uiPanelGeneric.get(strUIPanelLoginButton) IS NULL");
 		}
 
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 		return complexPanel;
 	}
@@ -176,7 +178,7 @@ public class UIScreenLogin implements UIScreen_i {
 				
 				UITaskLaunch uiTaskLaunch = new UITaskLaunch();
 				uiTaskLaunch.setTaskUiScreen(0);
-				uiTaskLaunch.setUiPath(":UIGws:UIPanelScreen");
+				uiTaskLaunch.setUiPath(UIPathUIPanelScreen);
 				uiTaskLaunch.setUiPanel("UIScreenMMI");
 				uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));
 
@@ -206,7 +208,7 @@ public class UIScreenLogin implements UIScreen_i {
 				
 				UITaskLaunch uiTaskLaunch = new UITaskLaunch();
 				uiTaskLaunch.setTaskUiScreen(0);
-				uiTaskLaunch.setUiPath(":UIGws:UIPanelScreen");
+				uiTaskLaunch.setUiPath(UIPathUIPanelScreen);
 				uiTaskLaunch.setUiPanel("UIScreenOPM");
 				uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));
 				

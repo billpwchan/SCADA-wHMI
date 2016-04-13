@@ -19,7 +19,7 @@ public class UINameCard {
 		this.setUINameCard(uiNameCard.getUiScreen(), uiNameCard.getUiPath(), uiNameCard.getUiEventBus());
 	}
 	public UINameCard(int uiScreen, String uiPath, ResettableEventBus uiEventBus) {
-		this.setCreateDateTimeLabel(DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		this.setCreateDateTimeLabel(DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
 		this.setUINameCard(uiScreen, uiPath, uiEventBus);
 	}
 	private void setUINameCard(int uiScreen, String uiPath, ResettableEventBus uiEventBus) {
@@ -51,15 +51,15 @@ public class UINameCard {
 	}
 	public void appendMgr(Object object) {
 		this.appendUIPath(getSimpleName(object));
-		logger.log(Level.FINE, "appendMgr uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
+		logger.log(Level.SEVERE, "appendMgr uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 	}
 	public void appendUIPanel(Object object) {
 		this.appendUIPath(getSimpleName(object));
-		logger.log(Level.FINE, "appendUIPanel uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
+		logger.log(Level.SEVERE, "appendUIPanel uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 	}
 	public void appendUIPath(String uiPath) {
-		logger.log(Level.FINE, "appendUIPath uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 		this.uiPath += ":" + uiPath;
+		logger.log(Level.SEVERE, "appendUIPath uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
 	}
 	public ResettableEventBus getUiEventBus() {
 		return this.uiEventBus;

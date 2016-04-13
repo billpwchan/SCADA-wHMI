@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
@@ -22,6 +21,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPa
 public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSituationViewPanelEvent {
 	
 	private static Logger logger = Logger.getLogger(UIPanelViewSchematic.class.getName());
+	
+	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
 
 	public static final String UNIT_PX = "px";
 
@@ -47,27 +48,12 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 
-//		WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("C1166B_ECS");
-////		WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("L5_33KV");
-//		
-//		wrapperScsSituationViewPanel.setSize("100%", "100%");
-//		wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
-//		HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
-//		scsViewPanel.setWidth("100%");
-//		scsViewPanel.setWidth("100%");
-//		scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//		scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
 		hp.setHeight("100%");
 		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-		
-//		InlineLabel equipmenpLabel = new InlineLabel();
-//		equipmenpLabel.setText("Schematic: "+header);
-//		hp.add(equipmenpLabel);
-		
+
 		root = new DockLayoutPanel(Unit.PX);
 		root.add(hp);
 		
@@ -87,40 +73,37 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 			if ( null != taskLaunch) {
 				
 				String header = taskLaunch.getHeader();
+				String uiPanel = taskLaunch.getUiPanel();
 				
-				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+header+"]");
+				logger.log(Level.SEVERE, "setTaskProvide header["+header+"] uiPanel["+uiPanel+"]");
 				
 				root.clear();
+
+				WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel(uiPanel);
 				
-				if ( header.endsWith("MimicSummary") ) {
-					
-					WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("C1166B_ECS");
-//					WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel("L5_33KV");
-					
-					wrapperScsSituationViewPanel.setSize("100%", "100%");
-					wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
-					HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
-					scsViewPanel.setWidth("100%");
-					scsViewPanel.setWidth("100%");
-					scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-					scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-					
-					root.add(scsViewPanel);
-					
-				} else {
-					
-					HorizontalPanel hp = new HorizontalPanel();
-					hp.setWidth("100%");
-					hp.setHeight("100%");
-					hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-					hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-					
-					InlineLabel equipmenpLabel = new InlineLabel();
-					equipmenpLabel.setText("Schematic: "+header);
-					hp.add(equipmenpLabel);
-									
-					root.add(hp);
-				}
+				wrapperScsSituationViewPanel.setSize("100%", "100%");
+				wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(this);
+				root.add(wrapperScsSituationViewPanel.getMainPanel());
+				
+//				HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
+//				scsViewPanel.setWidth("100%");
+//				scsViewPanel.setWidth("100%");
+//				scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//				scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//				
+//				root.add(scsViewPanel);
+
+//				HorizontalPanel hp = new HorizontalPanel();
+//				hp.setWidth("100%");
+//				hp.setHeight("100%");
+//				hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+//				hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//					
+//				InlineLabel equipmenpLabel = new InlineLabel();
+//				equipmenpLabel.setText("Schematic: "+header);
+//				hp.add(equipmenpLabel);
+//								
+//				root.add(hp);
 
 			} else {
 				
@@ -146,7 +129,7 @@ public class UIPanelViewSchematic implements UIPanelViewProvide, WrapperScsSitua
 		UITaskLaunch taskLaunch = new UITaskLaunch();
 		taskLaunch.setUiPanel("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI");
+		taskLaunch.setUiPath(UIPathUIScreenMMI);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 	}
 

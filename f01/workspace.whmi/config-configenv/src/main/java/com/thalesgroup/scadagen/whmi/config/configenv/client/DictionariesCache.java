@@ -37,22 +37,22 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	
 	public void add(String folder, String extention) {
 		
-		logger.log(Level.SEVERE, "add Begin");
+		logger.log(Level.FINE, "add Begin");
 		
-		logger.log(Level.SEVERE, "add path["+folder+"] extention["+extention+"] ");
+		logger.log(Level.FINE, "add path["+folder+"] extention["+extention+"] ");
 		
 		incoming.add(folder+"|"+extention);
 		
-		logger.log(Level.SEVERE, "add End");
+		logger.log(Level.FINE, "add End");
 	}
 	
 	public void init(String module, DictionariesCacheEvent dictionariesCacheEvent) {
 		
-		logger.log(Level.SEVERE, "init");
+		logger.log(Level.FINE, "init");
 		
 		this.dictionariesCacheEvent = dictionariesCacheEvent;
 
-		logger.log(Level.SEVERE, "init module["+module+"]");
+		logger.log(Level.FINE, "init module["+module+"]");
 		
 		for (Iterator<String> iterator = incoming.iterator(); iterator.hasNext();) {
 			
@@ -77,14 +77,14 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		    iterator.remove();
 		}
 		
-		logger.log(Level.SEVERE, "init End");
+		logger.log(Level.FINE, "init End");
 
 	}
 	
 	@Override
 	public void dictionariesMgrEventFailed(String xmlFile) {
 		
-		logger.log(Level.SEVERE, "dictionariesMgrEventFailed xmlFile["+xmlFile+"]");
+		logger.log(Level.FINE, "dictionariesMgrEventFailed xmlFile["+xmlFile+"]");
 		
 		received++;
 
@@ -102,13 +102,13 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.log(Level.SEVERE, "dictionariesMgrEventFailed End");
+		logger.log(Level.FINE, "dictionariesMgrEventFailed End");
 	}
 	
 	@Override
 	public void dictionariesMgrEventReady(Dictionary dictionary) {
 		
-		logger.log(Level.SEVERE, "dictionariesMgrEventReady Begin");
+		logger.log(Level.FINE, "dictionariesMgrEventReady Begin");
 		
 		received++;
 		
@@ -117,9 +117,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			String XmlFile = (String)dictionary.getAttribute(DictionariesCacheInterface.XmlFile);
 			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionariesCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary xmlType["+xmlType+"]");
-			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary XmlFile["+XmlFile+"]");
-			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
+			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary xmlType["+xmlType+"] XmlFile["+XmlFile+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
 			
 			String xmlWithHeader = xmlType + "|"+ XmlFile;
 		
@@ -142,7 +140,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.log(Level.SEVERE, "dictionariesMgrEventReady End");
+		logger.log(Level.FINE, "dictionariesMgrEventReady End");
 	}
 
 }

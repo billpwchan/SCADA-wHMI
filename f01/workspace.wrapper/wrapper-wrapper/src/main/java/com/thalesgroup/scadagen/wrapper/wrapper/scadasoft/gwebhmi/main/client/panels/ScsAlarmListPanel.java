@@ -327,23 +327,23 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
     public void onCounterChange(GDGCounterChangeEvent event) {
     	
         if (event.getSource() == gridPresenter_) {
-        	logger.log(Level.SEVERE, "onCounterChange Begin");
+        	logger.log(Level.FINE, "onCounterChange Begin");
         	try {
 	        	Map<String, Integer> maps = event.getValues();
-	        	Set<String> keys = maps.keySet();
-	        	Iterator<String> iter = keys.iterator();
+	        	Set<String> names = maps.keySet();
+	        	Iterator<String> iter = names.iterator();
 	        	while (iter.hasNext()) {
-	        		String key = iter.next();
-	        		if ( null != key ) {
-	        			Integer value = maps.get(key);
-	        			logger.log(Level.SEVERE, "onCounterChange key["+key+"] value["+value+"]");
-	        			if (null != wrapperScsAlarmListPanelEvent) wrapperScsAlarmListPanelEvent.valueChanged(key, String.valueOf(value));
+	        		String name = iter.next();
+	        		if ( null != name ) {
+	        			Integer value = maps.get(name);
+	        			logger.log(Level.FINE, "onCounterChange key["+name+"] value["+value+"]");
+	        			if (null != wrapperScsAlarmListPanelEvent) wrapperScsAlarmListPanelEvent.valueChanged(name, String.valueOf(value));
 	        		}
 	        	}
         	} catch (Exception e ) {
-        		logger.log(Level.SEVERE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
+        		logger.log(Level.FINE, "onCounterChange Exception on onCounterChange["+e.toString()+"]");
         	}
-        	logger.log(Level.SEVERE, "onCounterChange End");
+        	logger.log(Level.FINE, "onCounterChange End");
     	}
     }
 }

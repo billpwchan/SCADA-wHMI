@@ -30,6 +30,7 @@ public class UIPanelAlarmBannerList implements UIWidget_i, UIPanel_i, WrapperScs
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
 			@Override
 			public void valueChanged(String name, String value) {
+				logger.log(Level.SEVERE, "valueChanged name["+name+"] value["+value+"]");
 				if ( null != uiWidgetEvent ) {
 					uiWidgetEvent.onValueChange(name, value);
 				}
@@ -49,6 +50,7 @@ public class UIPanelAlarmBannerList implements UIWidget_i, UIPanel_i, WrapperScs
 	
 	@Override
 	public void valueChanged(String name, String value) {
+		logger.log(Level.SEVERE, "valueChanged name["+name+"] value["+value+"]");
 		if ( null != wrapperScsAlarmListPanelEvent ) 
 			this.wrapperScsAlarmListPanelEvent.valueChanged(name, value);
 	}

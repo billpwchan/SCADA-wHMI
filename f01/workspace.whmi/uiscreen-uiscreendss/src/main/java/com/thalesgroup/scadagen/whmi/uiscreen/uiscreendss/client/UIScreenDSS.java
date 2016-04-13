@@ -28,6 +28,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 public class UIScreenDSS implements UIScreen_i{
 	
 	private static Logger logger = Logger.getLogger(UIScreenDSS.class.getName());
+	
+	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 
 	public static final String UNIT_PX		= "px";
 	
@@ -339,7 +341,7 @@ public class UIScreenDSS implements UIScreen_i{
 		
 		UITaskLaunch taskLaunch = new UITaskLaunch();
 		taskLaunch.setTaskUiScreen(0);
-		taskLaunch.setUiPath(":UIGws:UIPanelScreen");
+		taskLaunch.setUiPath(UIPathUIPanelScreen);
 		taskLaunch.setUiPanel("UIScreenMMI");
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		

@@ -22,6 +22,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.U
 public class UIPanelPanelToolBar {
 
 	private static Logger logger = Logger.getLogger(UIPanelPanelToolBar.class.getName());
+	
+	private final String UIPathNavigationMgr	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	public static final String UNIT_PX = "px";
 	public static final int LAYOUT_BORDER = 0;
@@ -130,7 +132,7 @@ public class UIPanelPanelToolBar {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+			taskLaunch.setUiPath(UIPathNavigationMgr);
 			taskLaunch.setUiPanel("UIViewAlarm");
 			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
@@ -138,7 +140,7 @@ public class UIPanelPanelToolBar {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+			taskLaunch.setUiPath(UIPathNavigationMgr);
 			taskLaunch.setUiPanel("UIViewEvent");
 			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));

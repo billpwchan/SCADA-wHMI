@@ -48,7 +48,7 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 	private UINameCard uiNameCard;
 	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -131,7 +131,7 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 //		root.addSouth(toolBarPanel, 50);
 		root.add(basePanel);
 
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 	    return root;
 	}
@@ -143,16 +143,16 @@ public class UIViewEvent implements UIView_i, WrapperScsOlsListPanelEvent {
 	
 	@Override
 	public void valueChanged(String name, int value) {
-		logger.log(Level.SEVERE, "valueChanged Begin");
+		logger.log(Level.FINE, "valueChanged Begin");
 		
-		logger.log(Level.SEVERE, " **** valueChanged name["+name+"] value["+value+"]");
+		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
 		for ( int i = 0 ; i < counterNames.length; ++i) {
 			if ( 0 == name.compareTo(counterNames[i]) ) {
 				this.inlineLabel[(i*2)+1].setText(String.valueOf(value));
 			}
 		}
 		
-		logger.log(Level.SEVERE, "valueChanged End");
+		logger.log(Level.FINE, "valueChanged End");
 		
 	}
 }

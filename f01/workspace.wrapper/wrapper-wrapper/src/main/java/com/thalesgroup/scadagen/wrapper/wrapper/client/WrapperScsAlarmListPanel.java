@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
@@ -8,6 +10,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.Ap
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
 
 public class WrapperScsAlarmListPanel {
+	
+	private static Logger logger = Logger.getLogger(WrapperScsAlarmListPanel.class.getName());
+	
 	private String alarmListId;
 	private boolean withAction;
 	private boolean withCaption;
@@ -44,9 +49,8 @@ public class WrapperScsAlarmListPanel {
 			
 			@Override
 			public void valueChanged(String name, String value) {
-				if ( null != wrapperScsAlarmListPanelEvent ) {
-					wrapperScsAlarmListPanelEvent.valueChanged(name, value);
-				}
+				logger.log(Level.FINE, "valueChanged name["+name+"] value["+value+"]");
+				if ( null != wrapperScsAlarmListPanelEvent ) wrapperScsAlarmListPanelEvent.valueChanged(name, value);
 			}
 		});
 	    

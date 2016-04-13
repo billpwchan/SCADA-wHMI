@@ -23,14 +23,18 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 public class UIPanelAccessBar implements UIWidget_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelAccessBar.class.getName());
+	
+	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
+	private final String UIPathUIScreenMMI			= ":UIGws:UIPanelScreen:UIScreenMMI";
+	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
-	private UIWidgetGeneric uiWidgetAccessBarButton 		= null;
-	private String strUIPanelAccessBarButton			= "UIPanelAccessBarButton.xml";
+	private UIWidgetGeneric uiWidgetAccessBarButton = null;
+	private String strUIPanelAccessBarButton		= "UIPanelAccessBarButton.xml";
 	
 	private UINameCard uiNameCard;
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -68,14 +72,14 @@ public class UIPanelAccessBar implements UIWidget_i {
 			}
 		});
 
- 		logger.log(Level.SEVERE, "getMainPanel End");
+ 		logger.log(Level.FINE, "getMainPanel End");
  		
 		return complexPanel;
 	}
 	
 	private void setHistoryButton(UITaskHistory taskHistory) {
 		
-		logger.log(Level.SEVERE, "setHistoryButton Begin");
+		logger.log(Level.FINE, "setHistoryButton Begin");
 		
 		logger.log(Level.SEVERE, "setHistoryButton taskHistory.getTaskType()["+taskHistory.getTaskType()+"]");
 		
@@ -107,12 +111,12 @@ public class UIPanelAccessBar implements UIWidget_i {
 			uiWidgetAccessBarButton.setWidgetStatus(widget, status);
 		}
 
-		logger.log(Level.SEVERE, "setHistoryButton End");
+		logger.log(Level.FINE, "setHistoryButton End");
 	}
 	
 	private void setSplitButton(UITaskSplit taskSplit) {
 		
-		logger.log(Level.SEVERE, "setSplitButton Begin");
+		logger.log(Level.FINE, "setSplitButton Begin");
 		
 		logger.log(Level.SEVERE, "setSplitButton taskSplit.getTaskType()["+taskSplit.getTaskType()+"]");
 		
@@ -152,12 +156,12 @@ public class UIPanelAccessBar implements UIWidget_i {
 			uiWidgetAccessBarButton.setWidgetStatus(widget, status);
 		}
 
-		logger.log(Level.SEVERE, "setSplitButton End");
+		logger.log(Level.FINE, "setSplitButton End");
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
 		
-		logger.log(Level.SEVERE, "onUIEvent Begin");
+		logger.log(Level.FINE, "onUIEvent Begin");
 		if ( null != uiEvent ) {
 			
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -168,20 +172,20 @@ public class UIPanelAccessBar implements UIWidget_i {
 					
 					if ( UITaskMgr.isInstanceOf(UITaskHistory.class, taskProvide)){
 						
-						logger.log(Level.SEVERE, "onUIEvent taskProvide is TaskHistory");
+						logger.log(Level.FINE, "onUIEvent taskProvide is TaskHistory");
 						
 						setHistoryButton((UITaskHistory)taskProvide);
 						
 					} else if ( UITaskMgr.isInstanceOf(UITaskSplit.class, taskProvide)){
 						
-						logger.log(Level.SEVERE, "onUIEvent taskProvide is UITaskSplit");
+						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
 					
 						setSplitButton((UITaskSplit)taskProvide);
 					}
 				}
 			}
 		}
-		logger.log(Level.SEVERE, "onUIEvent End");
+		logger.log(Level.FINE, "onUIEvent End");
 	}
 	
 	void onButtonClick ( String element ) {
@@ -195,7 +199,7 @@ public class UIPanelAccessBar implements UIWidget_i {
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(0);
-				taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI");
+				taskLaunch.setUiPath(UIPathUIScreenMMI);
 				taskLaunch.setUiPanel("UIDialogMsg");
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
@@ -203,7 +207,7 @@ public class UIPanelAccessBar implements UIWidget_i {
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-				taskLaunch.setUiPath(":UIGws:UIPanelScreen");
+				taskLaunch.setUiPath(UIPathUIPanelScreen);
 				taskLaunch.setUiPanel("UIScreenDSS");
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));		
 				
@@ -220,7 +224,7 @@ public class UIPanelAccessBar implements UIWidget_i {
 					
 					UITaskHistory taskHistory = new UITaskHistory();
 					taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
-					taskHistory.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+					taskHistory.setUiPath(UIPathUIPanelViewLayout);
 					taskHistory.setTaskType(UITaskHistory.TaskType.Previous);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistory));
 				}
@@ -238,7 +242,7 @@ public class UIPanelAccessBar implements UIWidget_i {
 			
 					UITaskHistory taskHistory = new UITaskHistory();
 					taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
-					taskHistory.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+					taskHistory.setUiPath(UIPathUIPanelViewLayout);
 					taskHistory.setTaskType(UITaskHistory.TaskType.Next);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistory));
 				}
@@ -253,7 +257,7 @@ public class UIPanelAccessBar implements UIWidget_i {
 					
 					UITaskSplit taskSplit = new UITaskSplit();
 					taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
-					taskSplit.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+					taskSplit.setUiPath(UIPathUIPanelViewLayout);
 					taskSplit.setTaskType(UITaskSplit.SplitType.Horizontal);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}
@@ -268,7 +272,7 @@ public class UIPanelAccessBar implements UIWidget_i {
 					
 					UITaskSplit taskSplit = new UITaskSplit();
 					taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
-					taskSplit.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout");
+					taskSplit.setUiPath(UIPathUIPanelViewLayout);
 					taskSplit.setTaskType(UITaskSplit.SplitType.Vertical);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}

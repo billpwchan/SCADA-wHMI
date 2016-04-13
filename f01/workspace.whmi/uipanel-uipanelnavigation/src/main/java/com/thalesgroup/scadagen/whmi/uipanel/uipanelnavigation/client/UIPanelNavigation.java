@@ -21,13 +21,12 @@ public class UIPanelNavigation {
 	private HashMap<Integer, UIPanelMenus> hashMap = new HashMap<Integer, UIPanelMenus>();
 	public UIPanelMenus getMenus(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMenu Begin");
-		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
-		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
+		logger.log(Level.FINE, "getMenu Begin");
+		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"] uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
 		
 		Integer screen = Integer.valueOf(uiNameCard.getUiScreen());
 		
-		logger.log(Level.SEVERE, "getMenu screen["+screen+"]");
+		logger.log(Level.FINE, "getMenu screen["+screen+"]");
 		
 		UIPanelMenus uiPanelMenus = this.hashMap.get(screen);
 		if ( null == uiPanelMenus ) {
@@ -35,7 +34,7 @@ public class UIPanelNavigation {
 		}
 		uiPanelMenus = this.hashMap.get(screen);
 		
-		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"] uiPanelMenus["+uiPanelMenus+"] hash code");
+		logger.log(Level.FINE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"] uiPanelMenus["+uiPanelMenus+"] hash code");
 			
 		if ( null == uiPanelMenus ) {
 			logger.log(Level.SEVERE, "getMenu uiPanelMenus["+uiPanelMenus+"] IS NULL");
@@ -45,7 +44,7 @@ public class UIPanelNavigation {
 	}
 	public ComplexPanel getMenu(UINameCard uiNameCard, int level, String menuType) {
 		
-		logger.log(Level.SEVERE, "getMenu Begin");
+		logger.log(Level.FINE, "getMenu Begin");
 		
 		UIPanelMenus uiPanelMenus = getMenus(uiNameCard);
 		
@@ -53,7 +52,7 @@ public class UIPanelNavigation {
 		
 		ComplexPanel complexPanel = uiPanelMenus.getMenu(level, menuType);
 		
-		logger.log(Level.SEVERE, "getMenu End");
+		logger.log(Level.FINE, "getMenu End");
 		
 		return complexPanel;
 	}

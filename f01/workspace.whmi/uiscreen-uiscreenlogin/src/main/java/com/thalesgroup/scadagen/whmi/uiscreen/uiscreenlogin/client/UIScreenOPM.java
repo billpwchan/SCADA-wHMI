@@ -30,6 +30,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 public class UIScreenOPM implements UIScreen_i {
 
 	private static Logger logger = Logger.getLogger(UIScreenOPM.class.getName());
+	
+	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
 	public static final String UNIT_PX		= "px";
 	
@@ -295,7 +297,7 @@ public class UIScreenOPM implements UIScreen_i {
 				// Back to main screen
 				UITaskLaunch taskLaunchYes = new UITaskLaunch();
 				taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
-				taskLaunchYes.setUiPath(":UIGws:UIPanelScreen");
+				taskLaunchYes.setUiPath(UIPathUIPanelScreen);
 				taskLaunchYes.setUiPanel("UIScreenLogin");
 
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
@@ -321,30 +323,6 @@ public class UIScreenOPM implements UIScreen_i {
 				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-//					if (UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide)) {
-//
-//						UITaskLaunch taskLaunch = (UITaskLaunch) taskProvide;
-//
-//						logger.log(Level.FINE, "onUIEvent taskLaunch.getUiPanel()[" + taskLaunch.getUiPanel() + "]");
-//
-//						if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIDialogMsg")) {
-//
-//							UITaskLaunch taskLaunchYes = new UITaskLaunch();
-//							taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
-//							taskLaunchYes.setUiPath(":UIGws:UIPanelScreen");
-//							taskLaunchYes.setUiPanel("UIScreenLogin");
-//
-//							UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
-//							uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
-//									"Are you sure to login the current HMI?", taskLaunchYes, null);
-//							uiDialgogMsg.popUp();
-//
-//						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {
-//
-//							UIPanelInspector uiPanelInspector = new UIPanelInspector();
-//							uiPanelInspector.show();
-//						}
-//					}
 				}
 			}
 

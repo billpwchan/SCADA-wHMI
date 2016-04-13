@@ -23,6 +23,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiview.client.UIView_i;
 public class UIViewSchematic implements UIView_i {
 	
 	private static Logger logger = Logger.getLogger(UIViewSchematic.class.getName());
+	
+	private final String UIPathUIScreenMMI		= ":UIGws:UIPanelScreen:UIScreenMMI";
 
 	public static final String UNIT_PX = "px";
 
@@ -50,7 +52,7 @@ public class UIViewSchematic implements UIView_i {
 		UITaskLaunch taskLaunch = new UITaskLaunch();
 		taskLaunch.setUiPanel("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskLaunch.setUiPath(":UIGws:UIPanelScreen:UIScreenMMI");
+		taskLaunch.setUiPath(UIPathUIScreenMMI);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 	}
 

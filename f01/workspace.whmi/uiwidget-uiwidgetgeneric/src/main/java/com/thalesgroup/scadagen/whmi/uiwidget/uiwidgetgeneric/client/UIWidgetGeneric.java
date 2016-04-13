@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -109,7 +110,7 @@ public class UIWidgetGeneric implements UIWidget_i {
     
     public String getWidgetElement(Widget widget) {
     	
-    	logger.log(Level.SEVERE, "getWidgetName Begin");
+    	logger.log(Level.FINE, "getWidgetName Begin");
     	
     	String element = null;
     	Set<Integer> keys = this.widgets.keySet();
@@ -133,7 +134,7 @@ public class UIWidgetGeneric implements UIWidget_i {
     		}
     	}
     	
-    	logger.log(Level.SEVERE, "getWidgetName End");
+    	logger.log(Level.FINE, "getWidgetName End");
     	
 		return element;
     	
@@ -141,7 +142,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 
     public Widget getWidget(String elementValue) {
     	
-    	logger.log(Level.SEVERE, "getWidget Begin");
+    	logger.log(Level.FINE, "getWidget Begin");
     	
     	logger.log(Level.SEVERE, "getWidget element["+elementValue+"]");
     	
@@ -166,32 +167,32 @@ public class UIWidgetGeneric implements UIWidget_i {
     		logger.log(Level.SEVERE, "getWidget widget IS NULL");
     	}
     	
-    	logger.log(Level.SEVERE, "getWidget End");
+    	logger.log(Level.FINE, "getWidget End");
     	
 		return widget;
     }
     
     public String getWidgetStatus ( String element ) {
-    	logger.log(Level.SEVERE, " **** setWidgetStatus Begin");
+    	logger.log(Level.FINE, "setWidgetStatus Begin");
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus element["+element+"]");
+    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"]");
     	
     	String status = null;
     	
     	status = getWidgetStatus(getWidget(element));
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus status["+status+"]");
+    	logger.log(Level.SEVERE, "setWidgetStatus status["+status+"]");
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus End");
+    	logger.log(Level.FINE, "setWidgetStatus End");
     	
     	return status;
     }
     
     public String getWidgetStatus ( Widget widget ) {
     	
-    	logger.log(Level.SEVERE, " **** getWidgetStatus Begin");
+    	logger.log(Level.FINE, "getWidgetStatus Begin");
     	
-    	logger.log(Level.SEVERE, " **** getWidgetStatus widget["+widget+"]");
+    	logger.log(Level.SEVERE, "getWidgetStatus widget["+widget+"]");
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
@@ -210,7 +211,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 				
 				String html = ((Button)widget).getHTML();
 				
-				logger.log(Level.SEVERE, " **** getWidgetStatus html["+html+"]");
+				logger.log(Level.SEVERE, "getWidgetStatus html["+html+"]");
 				
 				if ( null != label ) {
 					if ( null != labelDisable && html.indexOf(labelDisable) != -1 ) {
@@ -233,33 +234,33 @@ public class UIWidgetGeneric implements UIWidget_i {
 			
     	} else {
     		
-    		logger.log(Level.SEVERE, " **** setWidgetStatus widget IS NULL");
+    		logger.log(Level.SEVERE, "setWidgetStatus widget IS NULL");
     		
     	}
     	
-    	logger.log(Level.SEVERE, " **** getWidgetStatus status["+status+"]");
+    	logger.log(Level.SEVERE, "getWidgetStatus status["+status+"]");
     	
-    	logger.log(Level.SEVERE, " **** getWidgetStatus End");
+    	logger.log(Level.FINE, "getWidgetStatus End");
     	
     	return status.toString();
     }
     
     public void setWidgetStatus ( String element, WidgetStatus status ) {
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus Begin");
+    	logger.log(Level.FINE, "setWidgetStatus Begin");
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus element["+element+"] status["+status+"]");
+    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"] status["+status+"]");
     	
     	setWidgetStatus(getWidget(element), status);
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus End");
+    	logger.log(Level.FINE, "setWidgetStatus End");
     }
     
     public void setWidgetStatus ( Widget widget, WidgetStatus status ) {
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus Begin");
+    	logger.log(Level.FINE, "setWidgetStatus Begin");
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus widget["+widget+"] status["+status+"]");
+    	logger.log(Level.SEVERE, "setWidgetStatus widget["+widget+"] status["+status+"]");
     	
     	if ( null != widget ) {
     		 
@@ -332,17 +333,17 @@ public class UIWidgetGeneric implements UIWidget_i {
 	    			
 				}
     		} else {
-    			logger.log(Level.SEVERE, " **** setWidgetStatus status IS NULL");
+    			logger.log(Level.SEVERE, "setWidgetStatus status IS NULL");
     		}
     		
     		
     	} else {
     		
-    		logger.log(Level.SEVERE, " **** setWidgetStatus widget IS NULL");
+    		logger.log(Level.SEVERE, "setWidgetStatus widget IS NULL");
     		
     	}
     	
-    	logger.log(Level.SEVERE, " **** setWidgetStatus End");
+    	logger.log(Level.FINE, "setWidgetStatus End");
     }
     
 	public void setValue (String elementValue) {
@@ -391,6 +392,8 @@ public class UIWidgetGeneric implements UIWidget_i {
 					((InlineLabel)w).setText(label);
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
+				} else {
+					logger.log(Level.SEVERE, "updateValue WidgetType IS NULL");
 				}
 				
 				
@@ -405,7 +408,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 	}
 	
 	public void ready(Dictionary dictionary) {
-		logger.log(Level.SEVERE, "ready Begin");
+		logger.log(Level.FINE, "ready Begin");
 		logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"]");
 		
 		if ( null != dictionary ) {
@@ -413,9 +416,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"]");
-			logger.log(Level.SEVERE, "ready dictionary XmlTag["+XmlTag+"]");
-			logger.log(Level.SEVERE, "ready dictionary CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
+			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"] XmlTag["+XmlTag+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -450,13 +451,13 @@ public class UIWidgetGeneric implements UIWidget_i {
 				
 				totals = rows * cols;
 				
-				logger.log(Level.SEVERE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
+				logger.log(Level.FINE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
 				}				
 				
-				logger.log(Level.SEVERE, "ready dictionary ");
+				logger.log(Level.FINE, "FINE dictionary ");
 
 			} else if ( 0 == DictionaryCacheInterface.Option.compareTo(XmlTag) ) {
 				
@@ -483,7 +484,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.log(Level.SEVERE, "ready dictionary key["+key+"]");
+										logger.log(Level.FINE, "FINE dictionary key["+key+"]");
 										
 										break;
 									}
@@ -493,7 +494,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 							}
 						}
 						
-						logger.log(Level.SEVERE, "ready dictionary key["+key+"]");
+						logger.log(Level.FINE, "dictionary key["+key+"]");
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -508,11 +509,11 @@ public class UIWidgetGeneric implements UIWidget_i {
 								}
 								
 								if ( isvalid ) {
-									logger.log(Level.SEVERE, "ready dictionary row["+row+"] col["+col+"]");
+									logger.log(Level.FINE, "ready dictionary row["+row+"] col["+col+"]");
 									
 									index = (row * cols) + col;
 									
-									logger.log(Level.SEVERE, "ready dictionary row["+row+"] col["+col+"] => index["+index+"]");
+									logger.log(Level.FINE, "dictionary row["+row+"] col["+col+"] => index["+index+"]");
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -521,7 +522,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.log(Level.SEVERE, "ready dictionary k["+k+"] v["+v+"]");
+												logger.log(Level.FINE, "ready dictionary k["+k+"] v["+v+"]");
 				
 												hashMap.put(k, v);
 											}
@@ -544,7 +545,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 			logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"] dictionary IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "ready End");
+		logger.log(Level.FINE, "ready End");
 		
 	}
 	
@@ -803,17 +804,14 @@ public class UIWidgetGeneric implements UIWidget_i {
 							}
 							
 							this.widgets.put(index, w);
-						}  else if ( WidgetType.UIMenu.equalsName(widget) ) {
+						} else if ( WidgetType.UIMenu.equalsName(widget) ) {
 							
 							UIPanelNavigation uiPanelNavigation = UIPanelNavigation.getInstance();
 							
 							ComplexPanel complexPanel = null;
 							if ( null != this.uiNameCard && null != menuLevel && null != menuType ) {
 								
-								logger.log(Level.SEVERE, "getMainPanel widget["+widget+"]");
-								logger.log(Level.SEVERE, "getMainPanel this.uiNameCard.getUiPath()["+this.uiNameCard.getUiPath()+"]");
-								logger.log(Level.SEVERE, "getMainPanel this.uiNameCard.getUiScreen()["+this.uiNameCard.getUiScreen()+"]");
-								logger.log(Level.SEVERE, "getMainPanel menuLevel["+menuLevel+"] menuType["+menuType+"]");
+								logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] menuLevel["+menuLevel+"] menuType["+menuType+"]");
 								
 								int level = -1;
 								
@@ -827,7 +825,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 								if ( -1 != level ) {
 									complexPanel = uiPanelNavigation.getMenu(this.uiNameCard, level, menuType);
 									
-									logger.log(Level.SEVERE, "getMainPanel getMenu after add css["+css+"]");
+									logger.log(Level.FINE, "getMainPanel getMenu after add css["+css+"]");
 									
 									if ( null != css )		complexPanel.addStyleName(css);									
 								} else {
@@ -837,6 +835,13 @@ public class UIWidgetGeneric implements UIWidget_i {
 								w = complexPanel;
 							}
 							
+							this.widgets.put(index, w);
+						} else if ( WidgetType.HTML.equalsName(widget) ) {
+							
+							if ( null != label ) 	w = new HTML(label);
+							
+							if ( null != css )		w.addStyleName(css);									
+					
 							this.widgets.put(index, w);
 						} else {
 							logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] IS INVALID");
@@ -889,7 +894,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 		
 	    }
 		
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 		return rootPanel;
 		

@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelMenus;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAccessBar;
@@ -28,20 +27,20 @@ public class UIWidgetMgr {
 
 	public ComplexPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		logger.log(Level.SEVERE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
 		ComplexPanel complexPanel = this.getUIWidget(uiPanel).getMainPanel(uiNameCard);
 		
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 
 		return complexPanel;
 	}
 	
 	public UIWidget_i getUIWidget(String widget) {
 		
-		logger.log(Level.SEVERE, "getPanel Begin");
+		logger.log(Level.FINE, "getPanel Begin");
 		
 		logger.log(Level.SEVERE, "getPanel uiPanel["+widget+"]");
 		
@@ -61,7 +60,7 @@ public class UIWidgetMgr {
 			uiWIdget = new UIPanelEmpty();
 		}
 		
-		logger.log(Level.SEVERE, "getPanel End");
+		logger.log(Level.FINE, "getPanel End");
 
 		return uiWIdget;
 	}

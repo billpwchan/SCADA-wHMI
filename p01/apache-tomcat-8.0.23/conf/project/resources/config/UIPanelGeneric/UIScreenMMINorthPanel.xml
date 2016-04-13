@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>2</cols>
+		<cols>3</cols>
 		<outerpanel>VerticalPanel</outerpanel>
 		<outercss>project-gwt-panel-mminorth-outer</outercss>
 		<innerpanel>DockLayoutPanel</innerpanel>
@@ -24,6 +24,15 @@
 	</option>
 	
 	<option key="0|1">
+		<type>configuration</type>
+		<widget>UIPanelVerticalSpliter.xml</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>South</direction>
+		<width>20</width>
+	</option>
+	
+	<option key="0|2">
 		<type>predefine</type>
 		<widget>UIPanelAlarmBanner</widget>
 		<horizontalalignment>ALIGN_CENTER</horizontalalignment>

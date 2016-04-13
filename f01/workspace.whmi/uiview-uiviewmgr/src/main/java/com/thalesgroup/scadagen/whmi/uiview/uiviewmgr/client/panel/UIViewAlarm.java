@@ -74,19 +74,21 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 			flexTableFilters.setWidget(i/8, i%8, inlineLabel[i]);
 		}
 
+		String strAcknowledge = "Ack";
 		String strAcknowledgePage = "Ack. Page";
 		String strPrint = "Print";
 		String strFilterReset = "Filter Reset";
 		String strFilterApplied = "Filter Applied";
 		String [] strFilters = new String [] {
-				strAcknowledgePage, strPrint, strFilterReset, strFilterApplied
+				strAcknowledge, strAcknowledgePage, strPrint, strFilterReset, strFilterApplied
 		};
 		
+		String strAcknowledgeCss		= "project-gwt-button-alarmsummary-ack";
 		String strAcknowledgePageCss	= "project-gwt-button-alarmsummary-ackpage";
 		String strPrintCss 				= "project-gwt-button-alarmsummary-print";
 		String strFilterResetCss 		= "project-gwt-button-alarmsummary-filterreset";
 		String strFilterAppliedCss 		= "project-gwt-button-alarmsummary-filterapplied";
-		String strFilterCsss [] = new String [] { strAcknowledgePageCss, strPrintCss, strFilterResetCss, strFilterAppliedCss};
+		String strFilterCsss [] = new String [] { strAcknowledgeCss, strAcknowledgePageCss, strPrintCss, strFilterResetCss, strFilterAppliedCss};
 		
 		HorizontalPanel filterBar = new HorizontalPanel();
 		for(int i=0;i<strFilters.length;++i){

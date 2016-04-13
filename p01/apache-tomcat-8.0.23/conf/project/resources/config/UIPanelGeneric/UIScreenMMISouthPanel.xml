@@ -3,10 +3,10 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>2</cols>
+		<cols>3</cols>
 		<outerpanel>VerticalPanel</outerpanel>
 		<outercss>project-gwt-panel-mmisouth-outer</outercss>
-		<innerpanel>HorizontalPanel</innerpanel>
+		<innerpanel>DockLayoutPanel</innerpanel>
 		<innercss>project-gwt-panel-mmisouth-inner</innercss>
 		<outerhorizontalalignment>ALIGN_CENTER</outerhorizontalalignment>
 		<outerverticalalignment>ALIGN_MIDDLE</outerverticalalignment>
@@ -16,10 +16,11 @@
 	
 	<option key="0|0">
 		<type>configuration</type>
-		<widget>UIPanelNavigation_1.xml</widget>
-		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
+		<widget>UIPanelVerticalSpliter.xml</widget>
+		<horizontalalignment>ALIGN_CENTER</horizontalalignment>
 		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
-		<width>160</width>
+		<direction>North</direction>
+		<width>20</width>
 	</option>
 
 	<option key="0|1">
@@ -27,6 +28,16 @@
 		<widget>UIPanelAccessBar</widget>
 		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
 		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>East</direction>
+		<width>410</width>
+	</option>
+	
+	<option key="0|2">
+		<type>configuration</type>
+		<widget>UIPanelNavigation_1.xml</widget>
+		<horizontalalignment>ALIGN_RIGHT</horizontalalignment>
+		<verticalalignment>ALIGN_MIDDLE</verticalalignment>
+		<direction>Center</direction>
 		<width>160</width>
 	</option>
 	

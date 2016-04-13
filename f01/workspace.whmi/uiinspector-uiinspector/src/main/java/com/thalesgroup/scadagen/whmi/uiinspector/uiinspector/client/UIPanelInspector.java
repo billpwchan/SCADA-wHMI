@@ -204,6 +204,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 
 		TabPanel tabPanel = new TabPanel();
 		tabPanel.getElement().getStyle().setWidth(400, Unit.PX);
+		tabPanel.getElement().getStyle().setFontSize(16, Unit.PX);
 		
 		tabPanel.add(panelInfo, strTabNames[0]);
 		tabPanel.add(panelCtrl, strTabNames[1]);

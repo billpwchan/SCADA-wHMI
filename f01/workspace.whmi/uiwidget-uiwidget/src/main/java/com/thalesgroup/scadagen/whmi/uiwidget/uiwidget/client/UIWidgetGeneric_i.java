@@ -98,6 +98,7 @@ public interface UIWidgetGeneric_i {
 		, ImageButton("ImageButton")
 		, ImageToggleButton("ImageToggleButton")
 		, UIMenu("UIMenu")
+		, HTML("HTML")
 		;
 		
 		private final String text;

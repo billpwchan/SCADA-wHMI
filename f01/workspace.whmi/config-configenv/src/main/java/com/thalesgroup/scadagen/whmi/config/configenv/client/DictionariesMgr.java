@@ -38,18 +38,18 @@ public class DictionariesMgr implements AsyncCallback<Dictionary> {
 	
 	public void getDictionaries(String module, String folder, String extension, DictionariesMgrEvent dictionariesMgrEvent) {
 		
-		logger.log(Level.SEVERE, "getDictionaries Begin");
+		logger.log(Level.FINE, "getDictionaries Begin");
 		
 		this.folder		= folder;
 		this.extension	= extension;
 		
-		logger.log(Level.SEVERE, "getDictionaries this.path["+this.folder+"] this.extension["+this.extension+"]");
+		logger.log(Level.FINE, "getDictionaries this.path["+this.folder+"] this.extension["+this.extension+"]");
 		
 		this.dictionariesMgrEvents.add(dictionariesMgrEvent);
 		
 		dictionariesService.dictionariesServer(module, folder, extension, this);
 		
-		logger.log(Level.SEVERE, "getDictionaries End");
+		logger.log(Level.FINE, "getDictionaries End");
 	}
 
 	public void onFailure(Throwable caught) {

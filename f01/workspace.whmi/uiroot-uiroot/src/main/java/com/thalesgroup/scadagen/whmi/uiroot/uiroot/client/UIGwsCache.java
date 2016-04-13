@@ -16,7 +16,7 @@ public class UIGwsCache {
 	private UINameCard uiNameCard = null;
 	public HorizontalPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -32,7 +32,7 @@ public class UIGwsCache {
         
         horizontalPanel.add(inlineLabel);
         
-        logger.log(Level.SEVERE, "getMainPanel End");
+        logger.log(Level.FINE, "getMainPanel End");
         
 		return horizontalPanel;
 	}

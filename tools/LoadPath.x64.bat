@@ -1,0 +1,37 @@
+SET CUR_PATH=%~dp0
+SET CUR_PATH=%CUR_PATH:~0,-1%
+
+SET SOFTS_BASE=%CUR_PATH%/../
+SET SOURCE_BASE=%CUR_PATH%/../f01/
+SET REPO_BASE=%CUR_PATH%/../
+
+SET SOFTS_DIR=softs.x86_64
+
+SET JAVA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/jdk1.7.0_79_x86_64
+SET MAVEN_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-maven-3.3.9
+SET CATALINA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-tomcat-8.0.30-x86_64
+SET ECLIPSE_HOME=%SOFTS_BASE%/%SOFTS_DIR%/eclipse-jee-mars-R-win32-x86_64
+SET CHROME_HOME=C:\Users\syau\PortableApps\GoogleChromePortable\GoogleChromePortable.exe
+
+SET TAIL_EXE=%SOFTS_BASE%/%SOFTS_DIR%/Tail-4.2.12\Tail.exe
+
+SET LOG_HOME=%CUR_PATH%
+
+SET CATALINA_OPTS=-Djava.library.path=%CATALINA_HOME%\bin
+
+SET JRE_HOME=%JAVA_HOME%/jre
+
+SET M2_HOME=%MAVEN_HOME%
+
+SET M2_REPO=%REPO_BASE%/.m2/repo
+
+SET PATH=.
+SET PATH=%PATH%;%JAVA_HOME%/bin;%MAVEN_HOME%/bin;
+
+SET PATH=%PATH%;%SystemRoot%/system32;%SystemRoot%;%SystemRoot%/System32/Wbem;
+
+SET CLASSPATH=.;%JAVA_HOME%/lib;%JAVA_HOME%/lib/dt.jar;%JAVA_HOME%/lib/tools.jar;
+
+echo M2_REPO [%M2_REPO%]
+
+ECHO %PATH%

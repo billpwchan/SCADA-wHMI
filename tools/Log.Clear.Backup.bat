@@ -1,9 +1,11 @@
+IF NOT EXIST ".\logs.backup" MKDIR .\logs.backup
+
 DEL /Q .\logs.backup\*.log
 
-move /-y .\logs\*.log .\logs.backup\
+MOVE /-y .\logs\*.log .\logs.backup\
 
-move /-y .\*.log .\logs\
+MOVE /-y .\*.log .\logs\
 
-move /-y 
+MOVE /-y 
 
 REM PAUSE

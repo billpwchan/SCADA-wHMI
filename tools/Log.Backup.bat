@@ -1,3 +1,5 @@
-move /-y .\*.log .\logs\
+IF NOT EXIST ".\*.log" MKDIR .\*.log
 
-PAUSE
+MOVE /-y .\*.log .\logs\
+
+REM PAUSE

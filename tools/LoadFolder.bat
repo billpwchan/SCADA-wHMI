@@ -3,7 +3,7 @@
 SET CUR_PATH=%~dp0
 SET CUR_PATH=%CUR_PATH:~0,-1%
 
-SET sp_ver=
+SET sp_ver=.v123
 SET war_ver=1.2.3
 
 SET sp_wrapper=workspace.wrapper%sp_ver%

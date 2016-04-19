@@ -9,9 +9,9 @@ SET LOG_FILE=%LOG_HOME%\Clean.%sp_wrapper%.%v_strdt%.log
 
 echo "" > %LOG_FILE%
 
-start /B Launch.Tail.bat %LOG_FILE%
+start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd %sp_wrapper%
+cd /d %SOURCE_BASE%/%sp_wrapper%
 
 echo Starting Clean %sp_wrapper% process and log to %LOG_FILE%...
 

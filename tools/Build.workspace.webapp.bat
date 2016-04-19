@@ -11,7 +11,7 @@ echo & echo. >> %SOURCE_BASE%/%sp_webapp%\mywebapp\src\main\resources\com\thales
 
 echo "" > %LOG_FILE%
 
-start /B Launch.Tail.bat %LOG_FILE%
+start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
 cd /d %SOURCE_BASE%/%sp_webapp%
 
@@ -27,6 +27,8 @@ REM call mvn clean war:exploded install >> %LOG_FILE%
 call mvn clean install >> %LOG_FILE%
 
 cd ..
+
+cd tools
  
 echo End of build %sp_webapp%
 

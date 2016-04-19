@@ -11,7 +11,7 @@ SET softpackage=whmi
 
 echo "" > %LOG_FILE%
 
-start /B Launch.Tail.bat %LOG_FILE%
+start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
 cd /d %SOURCE_BASE%/%sp_whmi%
 
@@ -24,6 +24,8 @@ echo Building common module(s)
 call mvn war:exploded install >> %LOG_FILE%
 
 cd ..
+
+cd tools
  
 echo End of build %sp_whmi%
 

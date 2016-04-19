@@ -11,9 +11,9 @@ SET softpackage=whmi
 
 echo "" > %LOG_FILE%
 
-start /B Launch.Tail.bat %LOG_FILE%
+start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd %sp_whmi%
+cd /d %SOURCE_BASE%/%sp_whmi%
 
 echo Starting Clean %softpackage% process and log to %LOG_FILE%...
 

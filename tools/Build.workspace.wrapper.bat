@@ -9,7 +9,7 @@ SET LOG_FILE=%LOG_HOME%\build.%sp_wrapper%.%v_strdt%.log
 
 echo "" > %LOG_FILE%
 
-start /B Launch.Tail.bat %LOG_FILE%
+start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
 cd /d %SOURCE_BASE%/%sp_wrapper%
 
@@ -22,6 +22,8 @@ echo Building wrapper...
 call mvn clean install >> %LOG_FILE%
 
 cd ..
+
+cd tools
  
 echo End of build %sp_wrapper%
 

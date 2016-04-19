@@ -9,7 +9,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel_1166B;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 
 public class UIPanelAlarmBannerList implements UIWidget_i, UIPanel_i, WrapperScsAlarmListPanelEvent {
@@ -25,8 +25,8 @@ public class UIPanelAlarmBannerList implements UIWidget_i, UIPanel_i, WrapperScs
 		this.uiNameCard.appendUIPanel(this);
 		
 	    String ALARM_LIST_BANNER_ID = "alarmListBanner";
-	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(ALARM_LIST_BANNER_ID, false, false, false);
-	    wrapperScsAlarmListPanel.setSize("1450px", "200px");
+	    WrapperScsAlarmListPanel_1166B wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel_1166B(ALARM_LIST_BANNER_ID, false, false, false);
+	    wrapperScsAlarmListPanel.setSize("1450px", "160px");
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
 			@Override
 			public void valueChanged(String name, String value) {

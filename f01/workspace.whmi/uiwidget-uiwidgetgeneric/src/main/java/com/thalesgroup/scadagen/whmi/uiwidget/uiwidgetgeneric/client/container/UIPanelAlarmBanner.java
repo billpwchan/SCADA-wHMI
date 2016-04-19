@@ -124,7 +124,7 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 			taskLaunch.setUiPanel("UIViewEvent");
 			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.audio.equalsName(element) ) {
+		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.alarmsound.equalsName(element) ) {
 			
 			WidgetStatus status = WidgetStatus.valueOf(uiWidgetAccessBarButton.getWidgetStatus(element));
 			

@@ -16,10 +16,11 @@
 		<element>splith</element>
 		<icon>/resources/project/img/hscs/SplitH.png</icon>
 		<iconDown>/resources/project/img/hscs/SplitH.png</iconDown>
-		<cssDown>project-gwt-button-split-h-selected</cssDown>
-		<tooltipDown>Horizontal Split</tooltipDown>
+		<cssDown>project-gwt-button-accessbar-button-0-0-down</cssDown>
+		<tooltipDown>Horizontal Split Activate</tooltipDown>
 		<tooltipDisable>Horizontal Split Disabled</tooltipDisable>
 		<iconDisable>/resources/project/img/hscs/SplitHDisable.png</iconDisable>
+		<cssDisable>project-gwt-button-accessbar-button-0-0</cssDisable>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>
@@ -34,10 +35,11 @@
 		<element>splitv</element>
 		<icon>/resources/project/img/hscs/SplitV.png</icon>
 		<iconDown>/resources/project/img/hscs/SplitV.png</iconDown>
-		<cssDown>project-gwt-button-split-h-selected</cssDown>
-		<tooltipDown>Vertical Split</tooltipDown>
+		<cssDown>project-gwt-button-accessbar-button-0-1-down</cssDown>
+		<tooltipDown>Vertical Split Activate</tooltipDown>
 		<tooltipDisable>Vertical Split Disabled</tooltipDisable>
 		<iconDisable>/resources/project/img/hscs/SplitVDisable.png</iconDisable>
+		<cssDisable>project-gwt-button-accessbar-button-0-1</cssDisable>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>
@@ -51,21 +53,15 @@
 		<label>◄</label>
 		<tooltip>History Back</tooltip>
 		<css>project-gwt-button-accessbar-button-0-2</css>
-		<element>previous</element>		
-
-		<icon>/resources/project/img/hscs/Previous.png</icon>
-		<iconDown>/resources/project/img/hscs/Previous.png</iconDown>
-		<cssDown>project-gwt-button-split-h-selected</cssDown>
-		<tooltipDown>History Back</tooltipDown>
+		<element>previous</element>
+		
+		<tooltipDown>History Back Activate</tooltipDown>
 		<tooltipDisable>History Back Disabled</tooltipDisable>
-		<iconDisable>/resources/project/img/hscs/PreviousDisable.png</iconDisable>
 		
-		<iconDivWidth>90</iconDivWidth>
-		<iconDivHeight>32</iconDivHeight>
-		<iconImgWidth>32</iconImgWidth>
-		<iconImgHeight>32</iconImgHeight>
-		
+		<cssDisable>project-gwt-button-accessbar-button-0-2-down</cssDisable>
+
 	</option>
+	
 	<option key="0|3">
 		<widget>Button</widget>
 		<label>►</label>
@@ -73,18 +69,11 @@
 		<css>project-gwt-button-accessbar-button-0-3</css>
 		<element>next</element>
 		
-		<icon>/resources/project/img/hscs/Next.png</icon>
-		<iconDown>/resources/project/img/hscs/Next.png</iconDown>
-		<cssDown>project-gwt-button-split-h-selected</cssDown>
-		<tooltipDown>History Forward</tooltipDown>
+		<tooltipDown>History Forward Activate</tooltipDown>
 		<tooltipDisable>History Forward Disabled</tooltipDisable>
-		<iconDisable>/resources/project/img/hscs/NextDisable.png</iconDisable>
 		
-		<iconDivWidth>90</iconDivWidth>
-		<iconDivHeight>32</iconDivHeight>
-		<iconImgWidth>32</iconImgWidth>
-		<iconImgHeight>32</iconImgHeight>
-		
+		<cssDisable>project-gwt-button-accessbar-button-0-3-down</cssDisable>
+
 	</option>
 	
 	<option key="0|4">

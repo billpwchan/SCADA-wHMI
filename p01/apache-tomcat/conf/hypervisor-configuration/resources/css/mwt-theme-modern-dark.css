@@ -1,0 +1,649 @@
+  /***************************************************************************/
+ /* Modern dark theme                                                       */
+/***************************************************************************/
+
+/*****************************************
+*   BEGIN AVOID FIREFOX DEFAULT STYLE
+*****************************************/
+
+/* See html.css in firefox "res" directory */
+abbr:focus, acronym:focus, address:focus, applet:focus, b:focus, 
+base:focus, big:focus, blockquote:focus, br:focus, canvas:focus, caption:focus,
+center:focus, cite:focus, code:focus, col:focus, colgroup:focus, dd:focus,
+del:focus, dfn:focus, dir:focus, div:focus, dl:focus, dt:focus, em:focus,
+fieldset:focus, font:focus, form:focus, h1:focus, h2:focus, h3:focus, h4:focus,
+h5:focus, h6:focus, hr:focus, i:focus, img:focus, ins:focus, 
+kbd:focus, label:focus, legend:focus, li:focus, link:focus, menu:focus, 
+object:focus, ol:focus, p:focus, pre:focus, q:focus, s:focus, samp:focus, 
+small:focus, span:focus, strike:focus, strong:focus, sub:focus, sup:focus, 
+table:focus, tbody:focus, td:focus, tfoot:focus, th:focus, thead:focus, 
+tr:focus, tt:focus, u:focus, ul:focus, var:focus {
+   outline: 1px dotted transparent;
+}
+
+/* See form.css in firefox "res" directory */
+input[type="image"]:focus {
+  outline: 1px dotted transparent;
+}
+
+button:focus::-moz-focus-inner,
+input[type="reset"]:focus::-moz-focus-inner,
+input[type="button"]:focus::-moz-focus-inner,
+input[type="submit"]:focus::-moz-focus-inner,
+input[type="file"] > input[type="button"]:focus::-moz-focus-inner {
+  border-color: transparent;
+}
+
+
+/* Remove chrome focus outline */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+input[type="password"]:focus,
+input[type="range"]:focus,
+input[type="checkbox"]:focus,
+input[type="checkbox"]:hover,
+textarea:focus,
+textarea:hover,
+select {
+  outline: none;
+}
+
+
+/*****************************************
+*   END AVOID FIREFOX DEFAULT STYLE
+*****************************************/
+
+ /****************************************************************************/
+/* Widgets common rules                                                     */
+
+body {
+    font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+    background-color: #161616; /* PATTERN : GREY-8 */
+    
+    /* nothing is selectable */
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+iframe {
+    border-width: 0px;
+}
+
+/*****************************************
+*   BEGIN NEW GWT STYLE
+*****************************************/
+
+/* ==================================================================================================== */
+/* gwt-Button */
+/* ==================================================================================================== */
+
+.gwt-Button {
+background: -webkit-linear-gradient(top, #484848, #373737); 
+    background: -moz-linear-gradient(top, #484848, #373737);
+    background: -ms-linear-gradient(top, #484848, #373737);
+border-width: 1px; 
+border-color: #202020; 
+cursor: pointer; 
+color: #B0B0B0; 
+box-shadow: 0 0 1px #202020; 
+border-radius: 3px; 
+height: 24px; 
+vertical-align: middle; 
+margin: 0 3px; 
+box-sizing: border-box; 
+min-width: 35px; 
+font-size: 12px;
+
+    transition-property: border-color;
+    -webkit-transition-property: border-color;
+    -moz-transition-property: border-color;
+    -o-transition-property: border-color;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+	
+	color: black;
+}
+
+.gwt-Button:hover {
+    cursor: pointer;
+    border: #018596 solid 1px;
+    transition-property: border-color;
+    -webkit-transition-property: border-color;
+    -moz-transition-property: border-color;
+    -o-transition-property: border-color;
+    transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    -moz-transition-duration: 0.1s;
+    -o-transition-duration: 0.1s;
+}
+
+.gwt-Button:active {
+    cursor: pointer;
+    color: #BBBBBB;
+    border: #000000 solid 1px;
+    background-position: 0 -30px;
+    transition-property: border-color;
+    -webkit-transition-property: border-color;
+    -moz-transition-property: border-color;
+    -o-transition-property: border-color;
+    transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    -moz-transition-duration: 0.1s;
+    -o-transition-duration: 0.1s;
+}
+
+/* ==================================================================================================== */
+/* gwt-PopupPanel */
+/* ==================================================================================================== */
+
+.gwt-PopupPanel {
+	color: white;
+}	
+
+/* ==================================================================================================== */
+/* gwt-TabPanel */
+/* ==================================================================================================== */
+
+.gwt-TabPanel {
+    background-color: #3D4D54;
+    padding-top: 1px;
+    min-height: 350px;
+    max-height: 350px;
+}
+
+/* ==================================================================================================== */
+/* gwt-TabBar */
+/* ==================================================================================================== */
+
+.gwt-TabBar {
+    border-spacing: 2px 0px;
+}
+
+.gwt-TabBar td {
+    margin-left: 10px;
+}
+
+/* ==================================================================================================== */
+/* gwt-TabPanelBottom */
+/* ==================================================================================================== */
+
+.gwt-TabPanelBottom {
+    background-color: #373737; /* PATTERN : GREY-4 */
+    height: 100%;
+}
+
+
+/* ==================================================================================================== */
+/* gwt-TabBarItem */
+/* ==================================================================================================== */
+
+/*.gwt-TabBarItem-wrapper {
+    height: 30px;
+    background: #000000 url(./../Images/TabPanelGradationUnselected.png) repeat-x;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    vertical-align: middle;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.gwt-TabBarItem-wrapper-selected {
+    background: url(./../Images/TabPanelGradationSelected.png) repeat-x;
+    border-bottom: 0px;
+    cursor: default;
+}
+
+.gwt-TabBarItem-wrapper-selected * {
+    color: #00E0FF !important;
+    font-weight: bold;
+}*/
+
+
+/* ==================================================================================================== */
+/* gwt-SuggestBoxPopup */
+/* ==================================================================================================== */
+
+.gwt-SuggestBoxPopup  {
+    color: white;
+    background-color: #373737; /* PATTERN : GREY-4 */
+    border: solid 1px black;
+}
+
+.gwt-SuggestBoxPopup .item-selected {
+    background-color: #018596;
+}
+
+/* ==================================================================================================== */
+/* gwt-ToggleButton */
+/* ==================================================================================================== */
+
+.gwt-ToggleButton {
+    padding: 2px 0px;
+    border: black solid 1px;
+    text-align: center;
+}
+
+.gwt-ToggleButton-up {
+  background: -webkit-linear-gradient(top, #484848, #373737);
+  background: -moz-linear-gradient(top, #484848, #373737);
+  background: -ms-linear-gradient(top, #484848, #373737);
+  cursor: pointer;
+  cursor: hand;
+  color: #dddddd;
+  /*font-size: 10pt;
+  font-weight: bold;
+  text-align: center;*/
+}
+
+.gwt-ToggleButton-up-hovering {
+  background: -webkit-linear-gradient(top, #484848, #373737);
+  background: -moz-linear-gradient(top, #484848, #373737);
+  background: -ms-linear-gradient(top, #484848, #373737);
+  cursor: pointer;
+  cursor: hand;
+  color: #dddddd;
+}
+
+.gwt-ToggleButton-down {
+  background: -webkit-linear-gradient(bottom, #484848, #373737);
+  background: -moz-linear-gradient(top, #484848, #373737);
+  background: -ms-linear-gradient(top, #484848, #373737);
+  cursor: pointer;
+  cursor: hand;
+  color: white;
+}
+
+.gwt-ToggleButton-down-hovering {
+  background: -webkit-linear-gradient(bottom, #484848, #373737);
+  background: -moz-linear-gradient(top, #484848, #373737);
+  background: -ms-linear-gradient(top, #484848, #373737);
+  cursor: pointer;
+  cursor: hand;
+  color: white;
+}
+
+/* ==================================================================================================== */
+/* gwt-TextBox */
+/* ==================================================================================================== */
+
+.gwt-TextBox {
+  background: #161616; /* PATTERN : GREY-8 */
+  border: 1px solid #666;
+  color: white;
+  padding: 1px 2px;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.gwt-TextBox:hover, .gwt-TextBox:focus {
+
+}
+
+input[type="text"].gwt-TextBox:disabled {
+    background: #373737; /* PATTERN : GREY-4 */
+} 
+
+/* ==================================================================================================== */
+/* gwt-RadioButton */
+/* ==================================================================================================== */
+
+.gwt-RadioButton {
+  color: white;
+  font-size: 12px;
+}
+.gwt-RadioButton-disabled {
+  color: #888;
+}
+
+
+/*****************************************
+*   END NEW GWT STYLE
+*****************************************/
+
+
+/* ==================================================================================================== */
+/* mwt-TextBox-filter */
+/* ==================================================================================================== */
+
+.mwt-TextBox-filter {
+    width: 50px;
+    margin: 3px;
+}
+
+/* ==================================================================================================== */
+/* List box */
+/* ==================================================================================================== */
+select.gwt-ListBox {
+    color: #102027 !important;
+    background: #ABB2B5;
+    height: 21px;
+    border: 1px solid #556165;
+    transition-property: border-color;
+    -webkit-transition-property: border-color;
+    -moz-transition-property: border-color;
+    -o-transition-property: border-color;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+
+/* ==================================================================================================== */
+/* mwt-button-disabled */
+/* ==================================================================================================== */
+
+.mwt-button-disabled {
+	color: #706c5e !important;
+	cursor: default !important;
+}
+
+/* ==================================================================================================== */
+/* mwt-splitter-outer-vertical */
+/* ==================================================================================================== */
+
+.mwt-splitter-outer-vertical {
+	background: -moz-linear-gradient(left, #778387, #102027);
+	background: -ms-linear-gradient(left, #778387, #102027);
+	background: -o-linear-gradient(left, #778387, #102027);
+	background: -webkit-linear-gradient(left, #778387, #102027);
+	
+	cursor: col-resize;
+}	
+
+/* ==================================================================================================== */
+/* mwt-splitter-outer-horizontal */
+/* ==================================================================================================== */
+
+.mwt-splitter-outer-horizontal {
+	background: -moz-linear-gradient(top, #778387, #102027);
+	background: -ms-linear-gradient(top, #778387, #102027);
+	background: -o-linear-gradient(top, #778387, #102027);
+	background: -webkit-linear-gradient(top, #778387, #102027);
+	
+	cursor: row-resize;
+}	
+
+/* ==================================================================================================== */
+/* mwt-splitter-inner-north */
+/* ==================================================================================================== */
+
+.mwt-splitter-inner-north {
+	background-image: url(../Images/mini-top.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* ==================================================================================================== */
+/* mwt-splitter-inner-south */
+/* ==================================================================================================== */
+
+.mwt-splitter-inner-south {
+	background-image: url(../Images/mini-bottom.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* ==================================================================================================== */
+/* mwt-splitter-inner-west */
+/* ==================================================================================================== */
+
+.mwt-splitter-inner-west {
+	background-image: url(../Images/mini-left.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* ==================================================================================================== */
+/* mwt-splitter-inner-east */
+/* ==================================================================================================== */
+
+.mwt-splitter-inner-east {
+	background-image: url(../Images/mini-right.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* ==================================================================================================== */
+/* mwt-drag-image-element */
+/* ==================================================================================================== */
+
+.mwt-drag-image-element {
+	color: white;
+	background-color: #102027;
+	padding: 2px;
+	border: 1px solid white;
+}
+
+/* ==================================================================================================== */
+/* mwt-dragging-target */
+/* ==================================================================================================== */
+
+.mwt-dragging-target {
+	color: #FFCD12;
+}	
+
+.gwt-StackLayoutPanel {
+	background-color: #102027;
+	border-right: #2C262C solid 2px;
+}
+
+.gwt-StackLayoutPanel .gwt-StackLayoutPanelHeader {
+	background: transparent url(./../Images/PanelHeaderDark.png) repeat-x scroll 0 0;
+    font-weight: bold;
+    height: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+}
+
+.gwt-StackLayoutPanel .gwt-StackLayoutPanelHeader-hovering  {
+    color: #00E0FF;
+    cursor: pointer;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    -moz-transition-duration: 0.1s;
+    -o-transition-duration: 0.1s;
+}
+
+.gwt-Anchor {
+    color: white;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+}
+
+.gwt-Anchor:hover {
+    color: #00E0FF;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.1s;
+    -webkit-transition-duration: 0.1s;
+    -moz-transition-duration: 0.1s;
+    -o-transition-duration: 0.1s;
+}
+
+/**
+ *   DATE PICKER
+ */
+
+.dateBoxFormatError {
+  border: 1px solid red !important;
+  background: #373737; /* PATTERN : GREY-4 */
+}
+
+.gwt-DateBox {
+  color: white;
+  border: 1px solid #666;
+  background: #161616; /* PATTERN : GREY-8 */
+  padding: 1px 2px;
+  outline: none;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.gwt-DateBox:hover, .gwt-DateBox:focus {
+  border: 1px solid #018596;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.dateBoxFormatError {
+  border: 1px solid red;
+  background: #373737; /* PATTERN : GREY-4 */
+}
+
+.gwt-DatePicker {
+  border: 1px solid black;
+  cursor: default;
+  color: white;
+  background-color: #373737; /* PATTERN : GREY-4 */
+}
+
+.gwt-DatePicker td,
+.datePickerMonthSelector td:focus {
+  outline: none;
+}
+
+.datePickerDays {
+  width: 100%;
+  background: none;
+}
+
+.datePickerDay,
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+  text-align: center;
+  padding: 4px;
+  outline: none;
+  color: white;
+  border-right: 1px solid #373737; /* PATTERN : GREY-4 */
+  border-bottom: 1px solid #373737; /* PATTERN : GREY-4 */
+}
+
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+  background: none;
+  padding: 0px 4px 2px;
+  cursor: default;
+  color:white;
+  font-weight:normal;
+}
+
+.datePickerDay {
+  padding: 4px 7px;
+  cursor: hand;
+  cursor: pointer;
+  color: white;
+}
+
+.datePickerDayIsWeekend {
+  background: #2A2A2A; /* PATTERN : GREY-6 */
+}
+
+.datePickerDayIsFiller {
+  color: #373737; /* PATTERN : GREY-4 */
+  font-weight:normal;
+}
+
+.datePickerDayIsValue {
+  background: #018596;
+}
+
+.datePickerDayIsDisabled {
+  color: #373737; /* PATTERN : GREY-4 */
+  font-style: italic;
+}
+
+.datePickerDayIsHighlighted {
+  background: #018596;
+  color: white;
+}
+.datePickerDayIsValueAndHighlighted {
+  background: #018596;
+  color: white;
+}
+
+.datePickerDayIsToday {
+  padding: 3px;
+  color: #00E0FF;
+}
+
+.datePickerMonthSelector {
+  width: 100%;
+  padding: 1px 0 5px 0;
+}
+
+.mwt-dateFilter td.datePickerMonth {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
+}
+
+.datePickerPreviousButton,
+.datePickerNextButton {
+  font-size: 120%;
+  line-height: 1em;
+  color: white;
+  cursor: hand;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0px 4px;
+  outline: none;
+}
+
+.datePickerPreviousButton:hover,
+.datePickerNextButton:hover {
+  color: #00E0FF;
+}

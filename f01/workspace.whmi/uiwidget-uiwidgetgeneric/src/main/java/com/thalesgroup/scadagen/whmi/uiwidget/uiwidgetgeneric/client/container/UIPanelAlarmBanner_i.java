@@ -4,7 +4,7 @@ public interface UIPanelAlarmBanner_i {
 	public enum WidgetArrtibute {
 		  alarm("alarm")
 		, event("event")
-		, audio("audio")
+		, alarmsound("alarmsound")
 		;
 		private final String text;
 		private WidgetArrtibute(final String text) { this.text = text; }

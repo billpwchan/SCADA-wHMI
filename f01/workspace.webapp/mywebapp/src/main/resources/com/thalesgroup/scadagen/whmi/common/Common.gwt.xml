@@ -54,9 +54,10 @@
   
   <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiview.UIView' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.UIViewMgr' />
+  <!--
   <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewimage.UIViewImage' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewempty.UIViewEmpty' />
-  
+  -->  
   <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.UIScreen' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.UIScreenMgr' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.UIScreenEmpty' />
@@ -70,6 +71,7 @@
   <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.UIScreenRoot' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiroot.uiroot.UIRoot' />
   
+  <inherits name='com.thalesgroup.scadagen.wrapper.mwt.Mwt' />
   <inherits name='com.thalesgroup.scadagen.wrapper.wrapper.Wrapper' />
 
   <!-- Specify the paths for translatable code                    -->

@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.U
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBanner;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBannerList;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelEmpty;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelSoundServerController;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelStatusBar;
 
 public class UIWidgetMgr {
@@ -45,8 +46,9 @@ public class UIWidgetMgr {
 		logger.log(Level.SEVERE, "getPanel uiPanel["+widget+"]");
 		
 		UIWidget_i uiWIdget = null;
-		
-		if ( 0 == widget.compareTo("UIPanelAccessBar") ) {
+		if ( 0 == widget.compareTo("UIPanelSoundServerController") ) {
+			uiWIdget = new UIPanelSoundServerController();
+		} else if ( 0 == widget.compareTo("UIPanelAccessBar") ) {
 			uiWIdget = new UIPanelAccessBar();
 		} else if ( 0 == widget.compareTo("UIPanelAlarmBanner") ) {
 			uiWIdget = new UIPanelAlarmBanner();

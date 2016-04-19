@@ -12,8 +12,8 @@
 		<version>3.5.0</version>	
 	</parent>
   
-  <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
-  <artifactId>wrapper-wrapper</artifactId>
+  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
+  <artifactId>wrapper-mwt</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>GWT Maven Archetype</name>
@@ -128,13 +128,7 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 		
-	<!-- Wrapper-mwt -->
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
-	  <artifactId>wrapper-mwt</artifactId>
-	  <version>1.0-SNAPSHOT</version>
-	</dependency>
-
+		
   </dependencies>
 
   <build>
@@ -160,9 +154,9 @@
         <!-- Plugin configuration. There are many available options, see 
           gwt-maven-plugin documentation at codehaus.org -->
         <configuration>
-          <runTarget>Wrapper.html</runTarget>
+          <runTarget>Mwt.html</runTarget>
           <modules>
-            <module>com.thalesgroup.scadagen.wrapper.wrapper.Wrapper</module>
+            <module>com.thalesgroup.scadagen.wrapper.mwt.Mwt</module>
           </modules>
         </configuration>
       </plugin>

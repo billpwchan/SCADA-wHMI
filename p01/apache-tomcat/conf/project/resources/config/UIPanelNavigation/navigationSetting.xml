@@ -7,7 +7,7 @@
 		<type>S</type>
 		<name>Mimic Summary</name>
 		<title>Mimic Summary</title>
-		<uiPanel>C1166B_ECS</uiPanel>
+		<uiPanel>1166B_TECS_L02SUMTTMP</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 	</option>

@@ -30,8 +30,8 @@
 		<element>alarmsound</element>
 		<icon>/resources/project/img/hscs/Sound.png</icon>
 		<labelDown>Silent</labelDown>
-		<iconDown>/imgs/hscs/NoSound.png</iconDown>
-		<cssDown>project-gwt-button-alarmbanner-button-1-0</cssDown>
+		<iconDown>/resources/project/img/hscs/NoSound.png</iconDown>
+		<cssDown>project-gwt-button-alarmbanner-button-1-0-down</cssDown>
 		<tooltipDown>Alarm Sound Silent</tooltipDown>
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>

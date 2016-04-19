@@ -1,10 +1,16 @@
 /* UIPanelAlarmBanner */
 .project-gwt-panel-alarmbanner-outer {
 	background-color: dimgrey;
+	margin-top: 5px;
 }
 
 .project-gwt-panel-alarmbanner-inner {
 
+}
+
+.project-gwt-panel-uipanelsoundservercontroller {
+	width: 0px !important;
+	height: 0px !important;
 }
 
 .project-gwt-panel-alarmbanner-button {
@@ -34,6 +40,28 @@
 	font-weight: bold;
 	margin-top: 5px !important;
 	margin-left: 5px !important;
+	
+	background-image: url('images/hborder.png');
+    background-position-x: 0px;
+    background-position-y: -27px;
+    background-size: initial;
+    background-repeat-x: repeat;
+    background-repeat-y: no-repeat;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: initial;
+}
+
+.project-gwt-button-alarmbanner-button-1-0-down {
+	width: 80px !important;
+	height: 32px !important;
+	font-size: 13px !important;
+	font-weight: bold;
+	margin-top: 5px !important;
+	margin-left: 5px !important;
+	background: red !important;
+	color: white;
 }
 
 .project-gwt-button-alarmbanner-button-1-1 {
@@ -48,10 +76,7 @@
 .project-gwt-panel-alarmbanner-filter {
 	width: 100%;
 	height: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px;
-	margin-bottom: 6px;
+	margin-right: 5px;
 }
 
 .project-gwt-textbox-alarmbanner-counter-0-0 {

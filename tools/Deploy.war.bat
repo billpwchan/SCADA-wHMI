@@ -1,6 +1,6 @@
 @echo off
 
-call LoadFolder.bat
+call LoadPath.bat
 
 echo delete war file...
 

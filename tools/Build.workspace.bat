@@ -2,7 +2,7 @@
 
 call LoadPath.bat
 
-call %CUR_PATH%/Log.Clear.Backup.bat
+call %TOOLS_BASE%/Log.Clear.Backup.bat
 
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
@@ -15,14 +15,14 @@ echo starting to build...
 
 echo Build all...
 
-call Build.workspace.wrapper.bat %strdt%
+call %TOOLS_BASE%/Build.workspace.wrapper.bat %strdt%
 
-call Build.workspace.whmi.bat %strdt%
+call %TOOLS_BASE%/Build.workspace.whmi.bat %strdt%
 
-call Build.workspace.webapp.bat %strdt%
+call %TOOLS_BASE%/Build.workspace.webapp.bat %strdt%
  
 echo End of build
 
-call %CUR_PATH%/Log.Clear.Backup.bat
+call %TOOLS_BASE%/Log.Clear.Backup.bat
 
 REM PAUSE

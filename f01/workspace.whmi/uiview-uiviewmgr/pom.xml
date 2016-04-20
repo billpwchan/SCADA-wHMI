@@ -73,48 +73,11 @@
 	</dependency>
 	
 	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
-	  <artifactId>uiwidget-uiwidget</artifactId>
+	  <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
+	  <artifactId>wrapper-wrapper</artifactId>
           <version>1.0-SNAPSHOT</version>
 	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr</groupId>
-	  <artifactId>uipanel-uipanelmgr</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiview.uiviewempty</groupId>
-	  <artifactId>uiview-uiviewempty</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiview.uiviewimage</groupId>
-	  <artifactId>uiview-uiviewimage</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiview.uiviewmgr</groupId>
-	  <artifactId>uiview-uiviewmgr</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
-	  <artifactId>config-configenv</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<!-- Temp Import -->
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
-	  <artifactId>uievent</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-    
+
   </dependencies>
 
   <build>

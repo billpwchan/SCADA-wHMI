@@ -10,7 +10,7 @@ SET ECLIPSE_HOME=%CUR_PATH%/%SOFTS_DIR%/eclipse-jee-mars-1-win32
 
 SET TAIL_EXE=%CUR_PATH%\softs\Tail-4.2.12\Tail.exe
 
-SET LOG_HOME=%CUR_PATH%/log
+SET LOG_HOME=%CUR_PATH%/logs
 
 SET CATALINA_OPTS="-Djava.library.path=%CATALINA_HOME%\bin"
 REM -Xmx768m                                                          

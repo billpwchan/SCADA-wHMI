@@ -1,4 +1,4 @@
-IF NOT EXIST ".\*.log" MKDIR .\*.log
+IF NOT EXIST ".\logs" MKDIR .\logs
 
 MOVE /-y .\*.log .\logs\
 

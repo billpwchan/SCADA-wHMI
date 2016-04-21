@@ -73,3 +73,13 @@ REM e02 img
 SET e02_img=conf\project\resources\img
 IF NOT EXIST "%DESTINATION_BASE%\e02\%e02_img%" MKDIR %DESTINATION_BASE%\e02\%e02_img%
 XCOPY /Y /S /I "%CONFIG_BASE%\%e02_img%\*" %DESTINATION_BASE%\e02\%e02_img%
+
+REM e02 sound config
+SET e02_sound_config=conf\hypervisor-configuration\widgets\sound
+IF NOT EXIST "%DESTINATION_BASE%\e02\%e02_sound_config%" MKDIR %DESTINATION_BASE%\e02\%e02_sound_config%
+COPY /Y "%CONFIG_BASE%\%e02_sound_config%\mwt-sound.xml" %DESTINATION_BASE%\e02\%e02_sound_config%
+
+REM e02 sound file
+SET e02_sound_file=conf\hypervisor-configuration\resources\sound
+IF NOT EXIST "%DESTINATION_BASE%\e02\%e02_sound_file%" MKDIR %DESTINATION_BASE%\e02\%e02_sound_file%
+XCOPY /Y /S /I "%CONFIG_BASE%\%e02_sound_file%\*.wav" %DESTINATION_BASE%\e02\%e02_sound_file%

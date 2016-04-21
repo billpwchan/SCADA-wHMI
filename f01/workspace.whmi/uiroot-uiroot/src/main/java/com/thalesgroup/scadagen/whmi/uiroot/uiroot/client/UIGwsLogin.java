@@ -36,6 +36,8 @@ public class UIGwsLogin {
     	// Create a FormPanel and point it at a service.
         form = new FormPanel();
         form.addStyleName("project-gwt-panel-from");
+		form.setWidth("100%");
+		form.setHeight("100%");
         form.setAction(actionUrl);
 
         // Removing target attribute prevent 302 HTTP responses to be stored within a hidden iframe
@@ -51,6 +53,8 @@ public class UIGwsLogin {
 		horizontalPanel.addStyleName("project-gwt-panel-gwslogin");
 		horizontalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		horizontalPanel.setWidth("100%");
+		horizontalPanel.setHeight("100%");
 
         form.setWidget(horizontalPanel);
     	

@@ -2,9 +2,9 @@ SET CUR_PATH=%~dp0
 SET CUR_PATH=%CUR_PATH:~0,-1%
 
 SET TOOLS_BASE=%CUR_PATH%
-SET SOFTS_BASE=%CUR_PATH%/../
+SET SOFTS_BASE=%CUR_PATH%/../../cots/
 SET SOURCE_BASE=%CUR_PATH%/../f01/
-SET REPO_BASE=%CUR_PATH%/../
+SET REPO_BASE=%CUR_PATH%/../../cots/
 
 SET SOFTS_DIR=softs.x86_64
 
@@ -33,6 +33,6 @@ SET PATH=%PATH%;%SystemRoot%/system32;%SystemRoot%;%SystemRoot%/System32/Wbem;
 
 SET CLASSPATH=.;%JAVA_HOME%/lib;%JAVA_HOME%/lib/dt.jar;%JAVA_HOME%/lib/tools.jar;
 
-echo M2_REPO [%M2_REPO%]
+REM ECHO %PATH%
 
-ECHO %PATH%
+ECHO M2_REPO [%M2_REPO%]

@@ -16,5 +16,5 @@ echo Folder Path for sp_whmi is [%sp_whmi%]
 SET sp_webapp=workspace.webapp%sp_ver%
 echo Folder Path for sp_webapp is [%sp_webapp%]
 
-SET scstraning_loc=C:\V1_2_3\scstraining\
+SET scstraning_loc=S:\scstraining\
 echo Folder Path for scstraning_loc is [%scstraning_loc%]

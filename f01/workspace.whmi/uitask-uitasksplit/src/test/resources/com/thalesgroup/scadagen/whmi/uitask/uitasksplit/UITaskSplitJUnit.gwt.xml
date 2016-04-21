@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="UITaskSplit">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasksplit.UITaskSplit' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/UITaskSplit/greet" class="com.thalesgroup.scadagen.whmi.uitask.uitasksplit.server.GreetingServiceImpl" />
+
+</module>

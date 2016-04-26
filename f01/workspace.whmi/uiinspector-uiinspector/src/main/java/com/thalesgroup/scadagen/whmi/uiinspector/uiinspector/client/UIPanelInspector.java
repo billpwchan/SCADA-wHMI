@@ -156,7 +156,8 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		logger.log(Level.FINE, "setReadResult End");
 	}
 	private UIInspectorInfo uiInspectorInfo;
-	private int timerCounter = 0;
+	private UIInspectorInfo3 uiInspectorInfo3;
+//	private int timerCounter = 0;
 	public void init() {
 		logger.log(Level.FINE, "init Begin");
 		
@@ -194,7 +195,11 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
 		}
 		
+		uiInspectorInfo3 = new UIInspectorInfo3(12);
+		Panel panelInfo3 = uiInspectorInfo3.getMainPanel();
+		
 		uiInspectorInfo = new UIInspectorInfo();
+		
 		Panel panelInfo = uiInspectorInfo.getMainPanel();
 		Panel panelCtrl = new UIInspectorControl().getMainPanel();
 		Panel panelTag = new UIInspectorTag().getMainPanel();
@@ -206,6 +211,8 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		tabPanel.getElement().getStyle().setWidth(400, Unit.PX);
 		tabPanel.getElement().getStyle().setFontSize(16, Unit.PX);
 		
+		
+		tabPanel.add(panelInfo3, strTabNames[0]);
 		tabPanel.add(panelInfo, strTabNames[0]);
 		tabPanel.add(panelCtrl, strTabNames[1]);
 		tabPanel.add(panelTag, strTabNames[2]);
@@ -220,6 +227,7 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				hide();
+				
 			}
 	    });
 		
@@ -255,45 +263,50 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 
         this.setPopupPosition(left, top);
         
-        this.createReadRequest();
+        uiInspectorInfo3.init(strB001, strAlias);
         
-        uiInspectorInfo.createReadRequest();
-        uiInspectorInfo.initVariable();
+        uiInspectorInfo3.readyToReadStaticData();
         
-        setReadRequestCache();
-        uiInspectorInfo.setReadRequestCache();
-        
-        Timer t = new Timer() {
-
-			@Override
-			public void run() {
-				
-				executeTimer(timerCounter);
-				
-				timerCounter++;
-				
-				if ( timerCounter > 1/*+2*/ + ((/*1+*/2+3)*4) ) this.cancel();
-			}
-        	
-        };
-        
-        t.scheduleRepeating(100);//200
+//        this.createReadRequest();
+//        
+//        uiInspectorInfo.createReadRequest();
+//        uiInspectorInfo.initVariable();
+//        
+//        setReadRequestCache();
+//        uiInspectorInfo.setReadRequestCache();
+//        
+//        Timer t = new Timer() {
+//
+//			@Override
+//			public void run() {
+//				
+//				executeTimer(timerCounter);
+//				
+//				timerCounter++;
+//				
+//				if ( timerCounter > 1/*+2*/ + ((/*1+*/2+3)*4) ) this.cancel();
+//			}
+//        	
+//        };
+//        
+//        t.scheduleRepeating(100);//200
         
         logger.log(Level.FINE, "init End");
         
 	}
-	private void executeTimer (int timerCounter) {
-		
-		logger.log(Level.FINE, "executeTimer Begin");
-		
-		logger.log(Level.FINE, "executeTimer timerCounter["+timerCounter+"]");
-		
-		this.setReadRequest(timerCounter);
-				
-		uiInspectorInfo.setReadRequest(timerCounter);
-		
-		logger.log(Level.FINE, "executeTimer End");
-	}
+	
+//	private void executeTimer (int timerCounter) {
+//		
+//		logger.log(Level.FINE, "executeTimer Begin");
+//		
+//		logger.log(Level.FINE, "executeTimer timerCounter["+timerCounter+"]");
+//		
+//		this.setReadRequest(timerCounter);
+//				
+//		uiInspectorInfo.setReadRequest(timerCounter);
+//		
+//		logger.log(Level.FINE, "executeTimer End");
+//	}
 	
 	@Override
 	public void onMouseMove(Widget sender, int x, int y) {

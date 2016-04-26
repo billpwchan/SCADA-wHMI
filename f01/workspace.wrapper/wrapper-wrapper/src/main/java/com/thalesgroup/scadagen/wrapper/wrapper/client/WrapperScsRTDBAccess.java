@@ -9,6 +9,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLi
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 
@@ -18,14 +21,6 @@ import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author T0009042
- *
- */
-/**
- * @author syau
- *
- */
 public class WrapperScsRTDBAccess extends Composite implements IRTDBComponentClient , IClientLifeCycle {
 	
 	private static Logger logger = Logger.getLogger(WrapperScsRTDBAccess.class.getName());
@@ -69,6 +64,25 @@ public class WrapperScsRTDBAccess extends Composite implements IRTDBComponentCli
         
         logger.log(Level.FINE, "destroy End");
     }
+    
+    static public void multiReadValueRequest(ScsRTDBComponentAccess rtdb, String key, String scsEnvId, String[] dbaddresses) {
+        
+        JSONObject jsparam = new JSONObject();
+
+        // build dbaddress param with a list of address
+        JSONArray addr = new JSONArray();
+        int i;
+        for(i = 0; i < dbaddresses.length; i++) {
+             addr.set(i, new JSONString(dbaddresses[i]));
+        }
+        
+        jsparam.put("dbaddress", addr);
+
+        JSONObject jsdata = rtdb.buildJSONRequest("multiReadValue", jsparam);
+
+        rtdb.sendJSONRequest(key, scsEnvId, jsdata.toString());
+    }
+
 
     @Override
     public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {

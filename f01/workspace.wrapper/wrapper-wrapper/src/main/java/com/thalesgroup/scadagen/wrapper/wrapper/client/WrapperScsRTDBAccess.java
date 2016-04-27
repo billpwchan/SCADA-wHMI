@@ -1,382 +1,557 @@
-/**
- * 
- */
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
-
 import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class WrapperScsRTDBAccess extends Composite implements IRTDBComponentClient , IClientLifeCycle {
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
+
+public class WrapperScsRTDBAccess {
 	
 	private static Logger logger = Logger.getLogger(WrapperScsRTDBAccess.class.getName());
+	
+	private final String strWaitingList		= "waitingList";
+	private final String strReading			= "reading";
+	private final String strSubscriptions	= "subscriptions";
+	private final String strGetChildrens	= "getChildrens";
+	
+	private HashMap<String, LinkedList<ReadRequest>> lists = null;
 
-    private ScsRTDBComponentAccess m_RTDBAccess = null;
+	// List
+	private LinkedList<ReadRequest> waitingList		= new LinkedList<ReadRequest>();
+	private LinkedList<ReadRequest> reading			= new LinkedList<ReadRequest>();
+	private LinkedList<ReadRequest> subscriptions	= new LinkedList<ReadRequest>();
+	private LinkedList<ReadRequest> getChildrens	= new LinkedList<ReadRequest>();
+	
+	public void reset() {
+		logger.log(Level.SEVERE, "reset Begin");
+		remove("");
+		logger.log(Level.SEVERE, "reset End");
+	}
     
-    private WrapperScsRTDBAccessEvent wrapperScsRTDBAccessEvent = null;
+	public void remove(String prefix) {
+		logger.log(Level.SEVERE, "remove Begin");
+		remove(strWaitingList, prefix);
+		remove(strReading, prefix);
+		remove(strSubscriptions, prefix);
+		remove(strGetChildrens, prefix);	
+		logger.log(Level.SEVERE, "remove End");
+	}
+	
+	public void remove(String key, String prefix) {
+		LinkedList<ReadRequest> list = lists.get(key);
+		logger.log(Level.SEVERE, "remove Begin");
+		logger.log(Level.SEVERE, "remove list["+key+"] prefix["+prefix+"]");
+    	Iterator<ReadRequest> readRequests = list.iterator();
+    	while ( readRequests.hasNext() ) {
+    		ReadRequest readRequest = readRequests.next();
+    		if ( null != readRequest && readRequest.clientKey != null && readRequest.clientKey.startsWith(prefix) ) {
+    			readRequests.remove();
+    		}
+    	}
+    	logger.log(Level.SEVERE, "remove End");
+	}
+	
+	private static WrapperScsRTDBAccess instance = null;
+	public static WrapperScsRTDBAccess getInstance() {
+		if ( null == instance ) instance = new WrapperScsRTDBAccess();
+		return instance;
+	}
+	
+	private Timer timer = null;
+	private ScsRTDBComponentAccess rtdb = null;
+	private WrapperScsRTDBAccess () {
+		
+		logger.log(Level.SEVERE, "WrapperScsRTDBAccess3 Begin");
+		
+		lists = new HashMap<String, LinkedList<ReadRequest>>();
 
-    public WrapperScsRTDBAccess(WrapperScsRTDBAccessEvent wrapperScsRTDBAccessEvent) {
-    	
-    	logger.log(Level.FINE, "WrapperScsRTDBAccess Begin");
+		// List
+		waitingList		= new LinkedList<ReadRequest>();
+		reading			= new LinkedList<ReadRequest>();
+		subscriptions	= new LinkedList<ReadRequest>();
+		getChildrens	= new LinkedList<ReadRequest>();
+		
+		lists.put(strWaitingList, waitingList);
+		lists.put(strReading, reading);
+		lists.put(strSubscriptions, subscriptions);
+		lists.put(strGetChildrens, getChildrens);
+		
+		rtdb = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
 
-		this.wrapperScsRTDBAccessEvent = wrapperScsRTDBAccessEvent;
-        m_RTDBAccess = new ScsRTDBComponentAccess(this);
-        init();
-        
-        logger.log(Level.FINE, "WrapperScsRTDBAccess End");
-    }
-
-
-    private void init() {
-    	
-    	logger.log(Level.FINE, "init Begin");
-    	
-        if (m_RTDBAccess != null) {
-        	
-            m_RTDBAccess.getClasses("classes", "B001");
-            m_RTDBAccess.getDatabaseInfo("dataInfo", "B001");
-            
-        }
-        
-        logger.log(Level.FINE, "init End");
-    }
-
-    @Override
-    public void destroy() {
-    	
-    	logger.log(Level.FINE, "destroy Begin");
-    	
-        m_RTDBAccess = null;
-        
-        logger.log(Level.FINE, "destroy End");
-    }
-    
-    static public void multiReadValueRequest(ScsRTDBComponentAccess rtdb, String key, String scsEnvId, String[] dbaddresses) {
-        
-        JSONObject jsparam = new JSONObject();
-
-        // build dbaddress param with a list of address
-        JSONArray addr = new JSONArray();
-        int i;
-        for(i = 0; i < dbaddresses.length; i++) {
-             addr.set(i, new JSONString(dbaddresses[i]));
-        }
-        
-        jsparam.put("dbaddress", addr);
-
-        JSONObject jsdata = rtdb.buildJSONRequest("multiReadValue", jsparam);
-
-        rtdb.sendJSONRequest(key, scsEnvId, jsdata.toString());
-    }
-
-
-    @Override
-    public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
-    	
-    	logger.log(Level.FINE, "setReadResult Begin");
-    	
-		if (values != null && values.length > 0) {
-			if ( ! withQuery ) {
-				getReadResult(key, values, errorCode, errorMessage);
-			} else {
-				this.wrapperScsRTDBAccessEvent.setReadResult(key, values, errorCode, errorMessage);
+			@Override
+			public void setPresenter(HypervisorPresenterClientAbstract<? extends HypervisorView> presenter) {
+				// TODO Auto-generated method stub
+				
 			}
-			for(String value : values) {
-				logger.log(Level.FINE, "setReadResult key["+key+"] value["+value+"] errorCode["+errorCode+"] errorMessage["+errorMessage+"]");
 
+			@Override
+			public Widget asWidget() {
+				// TODO Auto-generated method stub
+				return null;
 			}
+
+			@Override
+			public void destroy() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
+				
+				setReadResult2(key, value, errorCode, errorMessage);
+				
+			}
+
+			@Override
+			public void setWriteValueRequestResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetInstancesByClassIdResult(String key, String[] values, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassesResult(String key, String[] values, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassNameResult(String key, String className, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassIdResult(String key, int cid, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetUserClassIdResult(String key, int cuid, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassInfoResult(String clientKey, DbmClassInfo cinfo, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetInstancesByClassNameResult(String clientKey, String[] instances, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetInstancesByUserClassIdResult(String clientKey, String[] instances, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
+				
+				setGetChildrenResult2(clientKey, instances, errorCode, errorMessage);
+				
+			}
+
+			@Override
+			public void setGetFullPathResult(String clientKey, String fullPath, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAliasResult(String clientKey, String alias, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setQueryByNameResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributesResult(String clientKey, String[] attributes, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributesDescriptionResult(String clientKey, ScsClassAttInfo[] attributesInfo,
+					int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributeStructureResult(String clientKey, String attType, int fieldCount,
+					int recordCount, int recordSize, String[] fieldNames, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetUserFormulasNamesResult(String clientKey, String[] formulas, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetDatabaseInfoResult(String clientKey, long dbsize, int nbClasses, int nbFormula,
+					int nbInstances, String scsPath, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setForceSnapshotResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributeFormulasResult(String clientKey, String[] formulas, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setSetAttributeFormulaResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetCEOperResult(String clientKey, int[] ceModes, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setControlCEResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetChildrenAliasesResult(String clientKey, String[] values, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		if ( null == timer ) {
+			timer = new Timer() {
+				@Override
+				public void run() {
+					
+					boolean b1 = false;
+					boolean b2 = false;
+					boolean b3 = false;
+					
+					b1 = walkThrought(strWaitingList, true, true, true);
+					
+					if ( !b1 )
+						b2 = walkThrought(strReading, true, true, true);
+					
+					if ( !b1 && !b2 )
+						b3 = walkThrought(strSubscriptions, true, false, true);
+					
+					if ( !b1 && !b2 && !b3 )
+						walkThrought(strGetChildrens, true, true, false);
+				};
+			};
+			timer.scheduleRepeating(1000);			
 		} else {
-			logger.log(Level.FINE, "setReadResult key["+key+"] values[ IS NULL ] errorCode["+errorCode+"] errorMessage["+errorMessage+"]");
-
+			logger.log(Level.SEVERE, "multiReadValueRequest timer EXISTS");
 		}
 		
-		logger.log(Level.FINE, "setReadResult Begin");
-    	
-    }
-    
-
-	@Override
-	public void setWriteValueRequestResult(String clientKey, int errorCode, String errorMessage) {
-
+		logger.log(Level.SEVERE, "WrapperScsRTDBAccess3 End");
+	}
+	
+	private boolean walkThrought(String key, boolean execute, boolean remove, boolean once) {
+		boolean executed = false;
+		LinkedList<ReadRequest> list = lists.get(key);
+		// Subscription
+		if ( null != list && list.size() > 0 ) {
+			Iterator<ReadRequest> iterator = list.iterator();
+			while ( iterator.hasNext() ) {
+				ReadRequest readRequest = iterator.next();
+				if ( null != readRequest ) {
+					if ( execute ) {
+						executed = true;
+						multiReadValueRequest(readRequest);
+					}
+				} else {
+					logger.log(Level.SEVERE, "multiReadValueRequest readRequest IS NULL");
+				}
+				if ( remove ) iterator.remove();
+				if ( once ) break;
+			}
+		}
+		
+		return executed;
 	}
 
-    @Override
-    public void setGetInstancesByClassIdResult(String key, String[] values, int errorCode, String errorMessage) {
+	private boolean multiReadValueRequest(ReadRequest readRequest) {
+		logger.log(Level.SEVERE, "multiReadValueRequest Begin");
+		String clientKey = readRequest.clientKey;
+		String scsEnvId = readRequest.scsEnvId;
+		String[] dbaddresses = readRequest.dbaddresses;
+		Result readResult = readRequest.result;
+		boolean result = multiReadValueRequest(clientKey, scsEnvId, dbaddresses, readRequest.resultName, readResult);
+		logger.log(Level.SEVERE, "multiReadValueRequest End");
+		return result;
+	}
 
-    }
-
-    @Override
-    public void setGetClassesResult(String key, String[] values, int errorCode, String errorMessage) {
-
-    }
-
-    @Override
-    public void setGetClassNameResult(String key, String className, int errorCode, String errorMessage) {
-
-    }
-
-    @Override
-    public void setGetClassIdResult(String key, int cid, int errorCode, String errorMessage) {
-
-    }
-
-    @Override
-    public void setGetUserClassIdResult(String key, int cuid, int errorCode, String errorMessage) {
-
-    }
-
-    @Override
-    public void setGetClassInfoResult(String clientKey, DbmClassInfo cinfo, int errorCode, String errorMessage) {
-
+    public boolean multiReadValueRequest(String key, String scsEnvId, String[] dbaddresses, String resultName, Result readResult) {
+    	
+    	boolean result = false;
+    	
+    	logger.log(Level.SEVERE, "multiReadValueRequest Begin");
+    	
+    	logger.log(Level.SEVERE, "multiReadValueRequest key["+key+"]");
+    	logger.log(Level.SEVERE, "multiReadValueRequest scsEnvId["+scsEnvId+"]");
+    	
+    	ReadRequest readRequest = new ReadRequest(key, scsEnvId, dbaddresses, resultName, readResult);
+    	
+    	if ( reading.size() > 1 ) {
+    		
+    		logger.log(Level.SEVERE, "multiReadValueRequest reading.size()["+reading.size()+"] > 1");
+    		logger.log(Level.SEVERE, "multiReadValueRequest putting to waiting list");
+    		
+    		// Remove the same request from list
+    		
+    		waitingList.add(readRequest);
+    		
+    		return true;
+    	}
+    	
+    	for(int i = 0; i < dbaddresses.length; ++i ) {
+    		logger.log(Level.SEVERE, "multiReadValueRequest dbaddresses("+i+")["+dbaddresses[i]+"]");
+    	}
+    	
+    	reading.add(readRequest);
+    	
+    	performMultiReadValueRequest(readRequest);
+    	
+        logger.log(Level.SEVERE, "multiReadValueRequest End");
+        
+		return result;
     }
     
-    class ReadRequest {
-    	String key, scsEnvId, dbaddresses;
-    	public ReadRequest(String key, String scsEnvId, String dbaddresses) {
-    		this.key = key;
-    		this.scsEnvId = scsEnvId;
-    		this.dbaddresses = dbaddresses;
-    	}
-    }
-    private HashMap<String, ReadRequest> keysQuery		= new HashMap<String, ReadRequest>();
-    private HashMap<String, ReadRequest> keysWaiting	= new HashMap<String, ReadRequest>();
-    private void addReadRequest(String key, String scsEnvId, String dbaddresses) {
-    	
-    	logger.log(Level.FINE, "addReadRequest Begin");
-    	
-    	ReadRequest readRequest = new ReadRequest(key, scsEnvId, dbaddresses);
-    	
-    	logger.log(Level.FINE, "addReadRequest readRequest.key["+readRequest.key+"] readRequest.scsEnvId["+readRequest.scsEnvId+"] readRequest.dbaddresses["+readRequest.dbaddresses+"]");
+    /**
+     * @param key
+     * @param scsEnvId
+     * @param dbaddresses
+     */
+    private void performMultiReadValueRequest(ReadRequest readRequest) {
 
-    	if ( keysQuery.get(readRequest.key) == null ) {
-    		keysQuery.put(readRequest.key, readRequest);
-    	}
-    	setReadRequest();
-    	
-    	logger.log(Level.FINE, "addReadRequest End");
+		String clientKey = readRequest.clientKey;
+		String scsEnvId = readRequest.scsEnvId;
+		String[] dbaddresses = readRequest.dbaddresses;
+		
+		logger.log(Level.SEVERE, "performMultiReadValueRequest Begin");
+		
+		logger.log(Level.SEVERE, "performMultiReadValueRequest key["+clientKey+"]");
+		logger.log(Level.SEVERE, "performMultiReadValueRequest scsEnvId["+scsEnvId+"]");
+		
+		for(int i = 0; i < dbaddresses.length; ++i ) {
+			logger.log(Level.SEVERE, "performMultiReadValueRequest dbaddresses("+i+")["+dbaddresses[i]+"]");
+		}
+
+		JSONObject jsparam = new JSONObject();
+		
+		// build dbaddress param with a list of address
+		JSONArray addr = new JSONArray();
+		for(int i = 0; i < dbaddresses.length; ++i) {
+			addr.set(i, new JSONString(dbaddresses[i]));
+		}
+		
+		jsparam.put("dbaddress", addr);
+		
+		JSONObject jsdata = this.rtdb.buildJSONRequest("multiReadValue", jsparam);
+		
+		this.rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+		
+		logger.log(Level.SEVERE, "performMultiReadValueRequest End");
     }
-    private void setReadRequest() {
-    	
-    	logger.log(Level.FINE, "setReadRequest Begin");
-    	
-    	if ( keysWaiting.size() == 0 ) {
-    		if ( keysQuery.size() > 0 ) {
-    			try {
-    				Map.Entry<String, ReadRequest> entry = keysWaiting.entrySet().iterator().next();
-    				//String key = entry.getKey();
-    				ReadRequest readRequest = entry.getValue();
+    
+    /**
+     * 
+     * @param key
+     * @param scsEnvId
+     * @param dbaddresses
+     * @param readResult
+     */
+    public void multiReadValueRequestCaches(String clientKey, String scsEnvId, String[] dbaddresses, String resultName, ReadResult readResult) {
+		logger.log(Level.SEVERE, "multiReadValueRequestCaches Begin");
+		multiReadValueRequest(clientKey, scsEnvId, dbaddresses, resultName, readResult);
+		logger.log(Level.SEVERE, "multiReadValueRequestCaches End");
+    }
+    
+    private void setReadResult2(String clientKey, String[] values, int errorCode, String errorMessage) {
+    	logger.log(Level.SEVERE, "setReadResult2 Begin");
+    	logger.log(Level.SEVERE, "setReadResult2 clientKey["+clientKey+"]");
+    	logger.log(Level.SEVERE, "setReadResult2 errorCode["+errorCode+"]");
+    	logger.log(Level.SEVERE, "setReadResult2 errorMessage["+errorMessage+"]");
+
+    	logger.log(Level.SEVERE, "setReadResult2 ReadResult.class.getName()["+ReadResult.class.getName()+"]");
+    	logger.log(Level.SEVERE, "setReadResult2 SubscriptionResult.class.getName()["+SubscriptionResult.class.getName()+"]");		
+		
+		// Remove the result from the reading list
+    	Iterator<ReadRequest> readRequests = reading.iterator();
+    	while ( readRequests.hasNext() ) {
+    		ReadRequest readRequest = readRequests.next();
+
+    		logger.log(Level.SEVERE, "setReadResult2 readRequest.clientKey["+readRequest.clientKey+"]");
+    		
+    		if ( readRequest.equalToKey(clientKey) ) {
+    			Result result = readRequest.result;
     			
-    				keysQuery.remove(readRequest.key);
-    				
-    				logger.log(Level.FINE, "setReadRequest readRequest.key["+readRequest.key+"] readRequest.scsEnvId["+readRequest.scsEnvId+"] readRequest.dbaddresses["+readRequest.dbaddresses+"]");
-
-					m_RTDBAccess.readValueRequest(readRequest.key, readRequest.scsEnvId, readRequest.dbaddresses);
-					
-    			} catch (NoSuchElementException e)  {
-    				Window.alert(e.toString());
+    			logger.log(Level.SEVERE, "setReadResult2 readRequest.resultName["+readRequest.resultName+"]");
+    			
+    			String results[][] = new String[values.length][];
+    			for ( int i = 0 ; i < values.length ; ++i ) {
+    				results[i] = new String[]{readRequest.dbaddresses[i], values[i]};
     			}
+    			if ( 0 == ReadResult.class.getName().compareTo(readRequest.resultName) ) {
+    				((ReadResult)result).setReadResult(clientKey, results, errorCode, errorMessage);
+    			} else if ( 0 == SubscriptionResult.class.getName().compareTo(readRequest.resultName) ) {
+    				((SubscriptionResult)result).setReadResultSubscription(clientKey, results, errorCode, errorMessage);
+    			}
+    			readRequests.remove();
+    		}
+    	}
+		for(int i = 0 ; i < values.length ; ++i ) {
+			logger.log(Level.SEVERE, "setReadResult2 values("+i+") values["+values[i]+"]");
+		}
+		logger.log(Level.SEVERE, "setReadResult2 End");
+    }
+	
+    public boolean subscriptionRequest(String key, String scsEnvId, String[] dbaddresses, SubscriptionResult subscription) {
+        	
+    	logger.log(Level.SEVERE, "subscriptionRequest Begin");
+    	
+    	logger.log(Level.SEVERE, "subscriptionRequest key["+key+"]");
+    	logger.log(Level.SEVERE, "subscriptionRequest scsEnvId["+scsEnvId+"]");
+    	
+    	for(int i = 0; i < dbaddresses.length; ++i ) {
+    		logger.log(Level.SEVERE, "subscriptionRequest dbaddresses("+i+")["+dbaddresses[i]+"]");
+    	}
+    	
+    	Iterator<ReadRequest> iterator = subscriptions.iterator();
+    	while ( iterator.hasNext() ) {
+    		ReadRequest readRequest = iterator.next();
+    		
+    		if ( readRequest.equalToKey(key) ) {
+        		logger.log(Level.SEVERE, "subscriptionRequest key["+key+"] ALREADY EXISTS, subscription CANCELED");
+        		return false;
     		}
     	}
     	
-    	logger.log(Level.FINE, "setReadRequest End");
+    	ReadRequest readRequest = new ReadRequest(key, scsEnvId, dbaddresses, SubscriptionResult.class.getName(), subscription);
     	
+    	logger.log(Level.SEVERE, "subscriptionRequest add to subscriptions list");
+    	
+    	subscriptions.add(readRequest);
+    	
+//    	multiReadValueRequest(readRequest);
+    	
+        logger.log(Level.SEVERE, "subscriptionRequest End");
+            
+        return true;
     }
-    private void getReadResult(String key, String[] values, int errorCode, String errorMessage) {
+
+    public void getChildren(String key, String scsEnvId, String dbaddress, ChildrenResult readChildren) {
     	
-    	logger.log(Level.FINE, "getReadResult Begin");
+    	logger.log(Level.SEVERE, "getChildren Begin");
+    	logger.log(Level.SEVERE, "getChildren key["+key+"]");
+    	logger.log(Level.SEVERE, "getChildren scsEnvId["+scsEnvId+"]");
+    	logger.log(Level.SEVERE, "getChildren dbaddress["+dbaddress+"]");
     	
-    	this.wrapperScsRTDBAccessEvent.setReadResult(key, values, errorCode, errorMessage);
-    	
-    	//ReadRequest readRequest = keysWaiting.remove(key);
-    	
-    	logger.log(Level.FINE, "getReadResult key["+key+"] values[0]["+values[0]+"] errorCode["+errorCode+"] errorMessage["+errorMessage+"]");
-    	
-    	setReadRequest();
-    	
-    	logger.log(Level.FINE, "getReadResult End");
+        JSONObject jsparam = new JSONObject();
+
+        // build param list
+        jsparam.put("dbaddress", new JSONString(dbaddress));
+
+        JSONObject jsdata = this.rtdb.buildJSONRequest("GetChildren", jsparam);
+        
+        ReadRequest readRequest = new ReadRequest(key, scsEnvId, new String[]{dbaddress}, ChildrenResult.class.getName(), readChildren);
+        
+        getChildrens.add(readRequest);
+        
+        this.rtdb.sendJSONRequest(key, scsEnvId, jsdata.toString());
+        
+        logger.log(Level.SEVERE, "getChildren End");
     }
     
-    private boolean withQuery = false;
-    /**
-     * @param key
-     * 				Key - "ReadValue"
-     * @param scsEnvId
-     * 				ScsEnvName - "B001"
-     * @param dbaddresses
-     * 				DB Address - ":SITE1:B001:F001:ACCESS:DO001.UNIVNAME"
-     */
-    public void readValueRequest(String key, String scsEnvId, String dbaddresses) {
+    private void setGetChildrenResult2(String clientKey, String[] instances, int errorCode, String errorMessage) {
+    	logger.log(Level.SEVERE, "setGetChildrenResult2 Begin");
+    	logger.log(Level.SEVERE, "setGetChildrenResult2 clientKey["+clientKey+"]");
+    	logger.log(Level.SEVERE, "setGetChildrenResult2 errorCode["+errorCode+"]");
+    	logger.log(Level.SEVERE, "setGetChildrenResult2 errorMessage["+errorMessage+"]");
     	
-    	logger.log(Level.FINE, "readValueRequest Begin");
+        logger.log(Level.SEVERE, "setGetChildrenResult2 ChildrenResult.class.getName()["+ChildrenResult.class.getName()+"]");     	
     	
-    	logger.log(Level.FINE, "readValueRequest key["+key+"] scsEnvId["+scsEnvId+"] dbaddresses["+dbaddresses+"]");
-    	
-    	if ( withQuery ) {
-    		addReadRequest(key, scsEnvId, dbaddresses);
+    	if ( null != instances ) {
+    		// Remove the result from the reading list
+        	Iterator<ReadRequest> readRequests = getChildrens.iterator();
+        	while ( readRequests.hasNext() ) {
+        		ReadRequest readRequest = readRequests.next();
+        		
+        		logger.log(Level.SEVERE, "setGetChildrenResult2 readRequest.clientKey["+readRequest.clientKey+"]");
+        		
+        		if ( readRequest.equalToKey(clientKey) ) {
+        			Result result = readRequest.result;
+        			
+        			logger.log(Level.SEVERE, "setGetChildrenResult2 readRequest.resultName["+readRequest.resultName+"]");
+        			
+        			if ( 0 == ChildrenResult.class.getName().compareTo(readRequest.resultName) ) {
+        				((ChildrenResult)result).setGetChildrenResult(clientKey, instances, errorCode, errorMessage);
+        			}
+        			readRequests.remove();
+        		}
+        	}
+			for(int i = 0 ; i < instances.length ; ++i ) {
+				logger.log(Level.SEVERE, "setGetChildrenResult2 instances("+i+") instances["+instances[i]+"]");
+			}
     	} else {
-    		m_RTDBAccess.readValueRequest(key, scsEnvId, dbaddresses);
+    		logger.log(Level.SEVERE, "setGetChildrenResult2 instances IS NULL");
     	}
-    	
-    	logger.log(Level.FINE, "readValueRequest End");
+		logger.log(Level.SEVERE, "setGetChildrenResult2 End");
     }
-    
-    private HashMap<String, String[]> hashMapCache = new HashMap<String, String[]>();
-    public void cachePut(String dbaddresses, String[] values) {
-    	hashMapCache.put(dbaddresses, values);
-    }
-    public String[] cacheGet(String dbaddresses) {
-    	return hashMapCache.get(dbaddresses);
-    }
-    
-    /**
-     * @param key
-     * 				Key - "ReadValue"
-     * @param scsEnvId
-     * 				ScsEnvName - "B001"
-     * @param dbaddresses
-     * 				DB Address - ":SITE1:B001:F001:ACCESS:DO001.UNIVNAME"
-     */
-    public void readValueRequestCache(String key, String scsEnvId, String dbaddresses) {
-    	
-    	logger.log(Level.FINE, "readValueRequestCache Begin");
-    	
-    	logger.log(Level.FINE, "readValueRequestCache key["+key+"] scsEnvId["+scsEnvId+"] dbaddresses["+dbaddresses+"]");  	
-    	
-    	String values[] = hashMapCache.get(dbaddresses);
-    	int errorCode = 0;
-    	String errorMessage = "";
-    	if ( null != values ) {
-    		this.wrapperScsRTDBAccessEvent.setReadResult(key, values, errorCode, errorMessage);
-    	} else {
-        	errorCode = 1;
-        	errorMessage = "NOT_FOUND";
-    		this.wrapperScsRTDBAccessEvent.setReadResult(key, values, errorCode, errorMessage);
-    	}
-
-    	
-    	logger.log(Level.FINE, "readValueRequestCache End");
-    }
-    
-    @Override
-    public void terminate() {
-    	logger.log(Level.FINE, "terminate Begin");
-        try {
-            m_RTDBAccess.terminate();
-        } catch (final IllegalStatePresenterException e) {
-            e.printStackTrace();
-        }
-//        clearHMI();
-        logger.log(Level.FINE, "terminate End");
-    }
-
-    @Override
-    public void setPresenter(HypervisorPresenterClientAbstract<?> presenter) {
-    	/*
-    	 * =================================
-    	 */
-       
-    }
-
-	@Override
-	public void setGetInstancesByClassNameResult(String clientKey, String[] instances, int errorCode,
-			String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetInstancesByUserClassIdResult(String clientKey, String[] instances, int errorCode,
-			String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-    public void setGetChildrenAliasesResult(String clientKey, String[] values, int errorCode, String errorMessage) {
-        // TODO Auto-generated method stub
-    }
-	public void setGetFullPathResult(String clientKey, String fullPath, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetAliasResult(String clientKey, String alias, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-	
-	@Override
-	public void setQueryByNameResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetAttributesResult(String clientKey, String[] attributes, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetAttributesDescriptionResult(String clientKey, ScsClassAttInfo[] attributesInfo, int errorCode,
-			String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetAttributeStructureResult(String clientKey, String attType, int fieldCount, int recordCount,
-			int recordSize, String[] fieldNames, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetUserFormulasNamesResult(String clientKey, String[] formulas, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setGetDatabaseInfoResult(String clientKey, long dbsize, int nbClasses, int nbFormula, int nbInstances,
-			String scsPath, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setForceSnapshotResult(String clientKey, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetAttributeFormulasResult(String clientKey, String[] formulas, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setSetAttributeFormulaResult(String clientKey, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setGetCEOperResult(String clientKey, int[] ceModes, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setControlCEResult(String clientKey, int errorCode, String errorMessage) {
-		// TODO Auto-generated method stub
-	}
 }

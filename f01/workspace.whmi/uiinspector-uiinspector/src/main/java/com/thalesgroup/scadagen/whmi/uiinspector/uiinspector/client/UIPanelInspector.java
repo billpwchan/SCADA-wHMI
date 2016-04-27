@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -7,212 +9,257 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.Point;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicDynamicDataEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicStaticDataEvent;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorInfo;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccessEvent;
-
-public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessEvent {
+public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelInspector.class.getName());
 	
-	public static final String UNIT_PX		= "px";
-	
-	public static final String IMAGE_PATH	= "imgs";
-	
-	int baseBoderX = 28, baseBoderY = 28;
-	
-	int baseWidth = 400, baseHeight = 620;
-	
-	VerticalPanel basePanel;
-	
-//	private Label lblEquipmentName;
-//	private Label lblEquipmentAlias;
-	
-	private TextBox txtAttributeStatus[];
+	private String strTabNames [] = new String[] {"Info","Control","Tagging","Advance"};
 
-	public UIPanelInspector() {
-		logger.log(Level.FINE, "UIPanelInspector Begin");
-		init ();
-		logger.log(Level.FINE, "UIPanelInspector End");
-	}
+	private String strLabel			= ".label";
+	private String strIsControlable	= ".isControlable";
 	
-	private String strDot = ".";
-	private String strUnderscore = "_";	
-	private String strReadValue = "ReadValue";
-	
-	private String strB001 = "B001";
+	// Static Attribute List
+	private String attributesStatic[]	= new String[] {strLabel};
 
-	private String strAlias = ":SITE1:B001:F001:ACCESS:DO001";
+	// Dynamic Attribute List
+	private String attributesDynamic[]	= new String[] {strIsControlable};
 	
-	private WrapperScsRTDBAccess wrapperScsRTDBAccess;
+	private UIPanelInspectorRTDBLogic uiPanelRTDBLogin = null;
 	
-	private String strLabel			= "label";
-	private String strName			= "name";
-	private String strIsControlable	= "isControlable";
-	public void createReadRequest () {
-		
-		logger.log(Level.FINE, "createReadRequest Begin");
-		
-		wrapperScsRTDBAccess = new WrapperScsRTDBAccess(this);
-		
-		logger.log(Level.FINE, "createReadRequest End");
-		
-	}
-	
-	public void setReadRequestCache () {
-		
-		logger.log(Level.FINE, "setReadRequestCache Begin");
-		
-		String dbaddresses = "";
-		String [] values = new String[1];
-		
-		dbaddresses = strAlias + strDot + strLabel;
-		values[0] = "Door B01DO001";
-		wrapperScsRTDBAccess.cachePut(dbaddresses, values);
-				
-		wrapperScsRTDBAccess.readValueRequestCache(
-											  strReadValue + strUnderscore + strLabel
-											, strB001
-											, dbaddresses);
-		
-		dbaddresses = strAlias + strDot + strName;
-		values[0] = ":SITE1:B001:F001:ACCESS:DO001";
-		wrapperScsRTDBAccess.cachePut(dbaddresses, values);
+	private String scsEnvId		= null;
+	private String dbaddress	= null;
 
-		wrapperScsRTDBAccess.readValueRequestCache(
-											  strReadValue + strUnderscore + strName
-											, strB001
-											, dbaddresses);
+	public void setConnection(String scsEnvId, String dbaddress) {
+		logger.log(Level.SEVERE, "setConnection Begin");
+		this.scsEnvId = scsEnvId;
+		this.dbaddress = dbaddress;
+
+		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"] this.dbaddress["+this.dbaddress+"]");
 		
-		logger.log(Level.FINE, "setReadRequestCache End");
+		this.uiPanelRTDBLogin = new UIPanelInspectorRTDBLogic();
+		this.uiPanelRTDBLogin.setUINameCard(this.uiNameCard);
+		this.uiPanelRTDBLogin.setConnection(this.scsEnvId, this.dbaddress);
+		this.uiPanelRTDBLogin.setAttibute(UIPanelInspectorRTDBLogic_i.strStatic, attributesStatic);
+		this.uiPanelRTDBLogin.setAttibute(UIPanelInspectorRTDBLogic_i.strDynamic, attributesDynamic);
+
+		this.uiPanelRTDBLogin.setUIPanelLogicStaticDataEvent(new UIPanelLogicStaticDataEvent() {
+			@Override
+			public void ready(LinkedList<Point> points) {
+				updateStaticDisplay(points);
+			}
+		});
+		this.uiPanelRTDBLogin.setUIPanelLogicDynamicDataEvent(new UIPanelLogicDynamicDataEvent() {
+			@Override
+			public void update(LinkedList<Point> points) {
+				updateDynamicDisplay(points);
+			}
+		});
+		logger.log(Level.SEVERE, "setConnection End");
 	}
-	
-	public void setReadRequest (int index) {
+
+	public void setConnections(String scsEnvId, String dbaddress) {
+		logger.log(Level.SEVERE, "setConnection Begin");
 		
-		logger.log(Level.FINE, "setReadRequest Begin");
-		logger.log(Level.FINE, "setReadRequest index["+index+"]");
-		
-		int i = 0;
-		
-//		if ( index == i++ )
-//		wrapperScsRTDBAccess.readValueRequest(
-//											  strReadValue + strUnderscore + strLabel
-//											, strB001
-//											, strAlias + strDot + strLabel);
-//		if ( index == i++ )
-//		wrapperScsRTDBAccess.readValueRequest(
-//											  strReadValue + strUnderscore + strName
-//											, strB001
-//											, strAlias + strDot + strName);
-		if ( index == i++ )
-		wrapperScsRTDBAccess.readValueRequest(
-											   strReadValue + strUnderscore + strIsControlable
-											, strB001
-											, strAlias + strDot + strIsControlable);
-		logger.log(Level.FINE, "setReadRequest End");
-	}
-	
-	private String lblEquipmentNameType="", lblEquipmentNameID="", lblEquipmentControlable="";
-	@Override
-	public void setReadResult(String key, String values[], int errorCode, String errorMessage) {
-		logger.log(Level.FINE, "setReadResult Begin");
-		if ( null != values && values.length > 0 ) {
-			for ( String value: values) {
-				
-				if ( 0 == key.compareTo(strReadValue + strUnderscore + strLabel) ) {
-					lblEquipmentNameType = value;
-				}
-				else if ( 0 == key.compareTo(strReadValue + strUnderscore + strName) ) {
-					lblEquipmentNameID = value;
-				}
-				else if ( 0 == key.compareTo(strReadValue + strUnderscore + strIsControlable) ) {
-					lblEquipmentControlable = value;
-				}
+		Iterator<UIPanelInspector_i> iterator = uiInspectorTags.iterator();
+		while ( iterator.hasNext() ) {
+			UIPanelInspector_i uiPanelInspector_i = iterator.next();
+			if ( null != uiPanelInspector_i ) {
+				uiPanelInspector_i.setConnection(scsEnvId, dbaddress);
+			} else {
+				logger.log(Level.SEVERE, "setConnection uiPanelInspector_i IS NULL");
 			}
 		}
 		
-		this.setText(lblEquipmentNameType);
-		
-//		lblEquipmentName.setText(" "+lblEquipmentNameType + " ");
-//		lblEquipmentAlias.setText(" "+lblEquipmentNameID + " ");
-		
-		txtAttributeStatus[0].setText((0==lblEquipmentControlable.compareTo("0")?"No":"Yes"));
-		
-		logger.log(Level.FINE, "setReadResult End");
+		logger.log(Level.SEVERE, "setConnection End");		
 	}
-	private UIInspectorInfo uiInspectorInfo;
-	private UIInspectorInfo3 uiInspectorInfo3;
-//	private int timerCounter = 0;
-	public void init() {
-		logger.log(Level.FINE, "init Begin");
+	
+	@Override
+	public void readyToReadChildrenData() {
+		logger.log(Level.SEVERE, "readyToReadChildrenData Begin");
 		
-//		lblEquipmentName = new Label(" - ");
-//		lblEquipmentName.addStyleName("project-gwt-inlinelabel-equipmentname");
+		logger.log(Level.SEVERE, "readyToReadChildrenData End");
+	}
+	
+	@Override
+	public void readyToReadStaticData() {
+		logger.log(Level.SEVERE, "readToReadStaticData Begin");
 		
-//		lblEquipmentAlias = new Label(" XXXXX_XXXXX ");
-//		lblEquipmentAlias.addStyleName("project-gwt-inlinelabel-equipmentalias");
+		this.uiPanelRTDBLogin.readyToReadStaticData();
 		
-//		VerticalPanel verticalPanelTitle = new VerticalPanel();
-//		verticalPanelTitle.addStyleName("project-gwt-panel-title");
-//		verticalPanelTitle.add(lblEquipmentName);
-//		verticalPanelEqpName.add(lblEquipmentAlias);
+		logger.log(Level.SEVERE, "readToReadStaticData End");
+	}
+	
+	@Override
+	public void readyToSubscribeDynamicData() {
+		logger.log(Level.SEVERE, "requestDynmaicData Begin");
+		
+		this.uiPanelRTDBLogin.readyToSubscribeDynamicData();
+		
+		logger.log(Level.SEVERE, "requestDynmaicData End");
+	}
+	
+	@Override
+	public void removeConnection() {
+		logger.log(Level.SEVERE, "removeConnection Begin");
+		
+		this.uiPanelRTDBLogin.removeDynamicSubscription();
+		
+		logger.log(Level.SEVERE, "removeConnection End");
+	}
+	
+	private void updateStaticDisplay(LinkedList<Point> points) {
+		logger.log(Level.SEVERE, "updateStaticDisplay Begin");
+		
+		if ( null != points ) {
+			String label = null;
+			Iterator<Point> iterator = points.iterator();
+			while ( iterator.hasNext() ) {
+				Point point = iterator.next();
+				label = point.getValue(strLabel);
+			}
+			if ( null != label ) this.setText(label);
+			
+		} else {
+			logger.log(Level.SEVERE, "updateStaticDisplay points IS NULL");
+		}
+		
+		readyToSubscribeDynamicData();
+		
+		logger.log(Level.SEVERE, "updateStaticDisplay End");
+	}
+	
+	private void updateDynamicDisplay(LinkedList<Point> points) {
+		logger.log(Level.SEVERE, "updateDynamicDisplay Begin");
+		String controlable = null;
+		Iterator<Point> iterator = points.iterator();
+		while ( iterator.hasNext() ) {
+			Point point = iterator.next();
+			controlable = point.getValue(strIsControlable);
+		}
+		if ( null != controlable ) txtAttributeStatus[0].setText((0==controlable.compareTo("0")?"No":"Yes"));
+		logger.log(Level.SEVERE, "updateDynamicDisplay End");
+	}
+	
+	public void connect() {
+		logger.log(Level.SEVERE, "connect Begin");
+		
+		readyToReadStaticData();
+		
+		logger.log(Level.SEVERE, "connect End");
+	}
+	
+	public void connects() {
+		logger.log(Level.SEVERE, "connects Begin");
+
+		Iterator<UIPanelInspector_i> iterator = uiInspectorTags.iterator();
+		while ( iterator.hasNext() ) {
+			UIPanelInspector_i uiPanelInspector_i = iterator.next();
+			if ( null != uiPanelInspector_i ) {
+				uiPanelInspector_i.readyToReadChildrenData();
+			} else {
+				logger.log(Level.SEVERE, "connects uiPanelInspector_i IS NULL");
+			}
+		}
+		logger.log(Level.SEVERE, "connects End");
+	}
+	
+	private void disconnects() {
+		logger.log(Level.SEVERE, "tagsDisconnect Begin");
+		
+		Iterator<UIPanelInspector_i> iterator = uiInspectorTags.iterator();
+		while ( iterator.hasNext() ) {
+			UIPanelInspector_i uiPanelInspector_i = iterator.next();
+			if ( null != uiPanelInspector_i ) {
+				uiPanelInspector_i.removeConnection();
+			} else {
+				logger.log(Level.SEVERE, "tagsConnect uiPanelInspector_i IS NULL");
+			}
+		}
+		logger.log(Level.SEVERE, "tagsDisconnect End");
+	}
+	
+	private UIInspectorInfo uiInspectorInfo			= null;
+	private UIInspectorControl uiInspectorControl	= null;
+	private UIInspectorTag uiInspectorTag			= null;
+	private UIInspectorAdvance uiInspectorAdvance	= null;
+	
+	private LinkedList<UIPanelInspector_i> uiInspectorTags = null;
+	
+	int baseBoderX = 28, baseBoderY = 28;
+	int baseWidth = 400, baseHeight = 620;
+	private VerticalPanel basePanel = null;
+	private TextBox txtAttributeStatus[] = null;
+	
+	private UINameCard uiNameCard = null;
+	@Override
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+		
+		logger.log(Level.SEVERE, "getMainPanel Begin");
+		
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
 		
 		String strHeadersLabel [] = new String[] { "Control Right","Control Right Reserved","Handover Right" };
 		String strHeadersStatus [] = new String[] { "Yes / No","Not Reserved / Not", "Central / Station" };
 		
 		FlexTable flexTableHeader = new FlexTable();
-//		flexTableHeader.setWidth("400px");
 		flexTableHeader.addStyleName("project-gwt-flextable-header");
 		txtAttributeStatus = new TextBox[strHeadersStatus.length];
 		for ( int i = 0 ; i < strHeadersLabel.length ; i++ ) {
 			InlineLabel inlineLabel = new InlineLabel(strHeadersLabel[i]);
 			inlineLabel.getElement().getStyle().setPadding(10, Unit.PX);	
-//			inlineLabel.setWidth("100%");
 			inlineLabel.addStyleName("project-gwt-inlinelabel-headerlabel");
 			flexTableHeader.setWidget(i, 0, inlineLabel);
 			txtAttributeStatus[i] = new TextBox();
-//			txtAttributeStatus[i].getElement().getStyle().setPadding(10, Unit.PX);	
 			txtAttributeStatus[i].setText(strHeadersStatus[i]);
 			txtAttributeStatus[i].setMaxLength(16);
 			txtAttributeStatus[i].setReadOnly(true);
-//			txtAttributeStatus[i].setWidth("100%");
 			txtAttributeStatus[i].addStyleName("project-gwt-textbox-headervalue");
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
 		}
+	
+		uiInspectorInfo		= new UIInspectorInfo();
+		uiInspectorControl	= new UIInspectorControl();
+		uiInspectorTag		= new UIInspectorTag();
+		uiInspectorAdvance	= new UIInspectorAdvance();
 		
-		uiInspectorInfo3 = new UIInspectorInfo3(12);
-		Panel panelInfo3 = uiInspectorInfo3.getMainPanel();
+		uiInspectorTags 	= new LinkedList<UIPanelInspector_i>();
 		
-		uiInspectorInfo = new UIInspectorInfo();
+		uiInspectorTags.add(uiInspectorInfo);
+		uiInspectorTags.add(uiInspectorControl);
+		uiInspectorTags.add(uiInspectorTag);
+		uiInspectorTags.add(uiInspectorAdvance);
 		
-		Panel panelInfo = uiInspectorInfo.getMainPanel();
-		Panel panelCtrl = new UIInspectorControl().getMainPanel();
-		Panel panelTag = new UIInspectorTag().getMainPanel();
-		Panel panelAdv = new UIInspectorAdvance().getMainPanel();
+		ComplexPanel panelInfo		= uiInspectorInfo.getMainPanel(this.uiNameCard);
+		ComplexPanel panelCtrl		= uiInspectorControl.getMainPanel(this.uiNameCard);
+		ComplexPanel panelTag		= uiInspectorTag.getMainPanel(this.uiNameCard);
+		ComplexPanel panelAdv		= uiInspectorAdvance.getMainPanel(this.uiNameCard);
 		
-		String strTabNames [] = new String[] {"Info","Control","Tagging","Advance"};
-
 		TabPanel tabPanel = new TabPanel();
 		tabPanel.getElement().getStyle().setWidth(400, Unit.PX);
 		tabPanel.getElement().getStyle().setFontSize(16, Unit.PX);
 		
-		
-		tabPanel.add(panelInfo3, strTabNames[0]);
 		tabPanel.add(panelInfo, strTabNames[0]);
 		tabPanel.add(panelCtrl, strTabNames[1]);
 		tabPanel.add(panelTag, strTabNames[2]);
@@ -220,21 +267,19 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		tabPanel.selectTab(0);
 		
 		Button btnClose = new Button("Close");
-//		btnClose.setWidth("80px");
-//		btnClose.setHeight("30px");
 		btnClose.addStyleName("project-gwt-button-inspector-bottom-close");
 		
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				hide();
 				
+				disconnects();
+				
+				hide();
 			}
 	    });
 		
 		TextBox txtMsg = new TextBox();
 		txtMsg.setReadOnly(true);
-//		txtMsg.setWidth("300px");
-//		txtMsg.setHeight("40px");
 		txtMsg.addStyleName("project-gwt-textbox-inspector-bottom-message");
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
@@ -248,7 +293,6 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
 		bottomBar.add(btnClose);
 		
 		basePanel = new VerticalPanel();
-//		basePanel.add(verticalPanelTitle);
 		basePanel.add(flexTableHeader);
 		basePanel.add(tabPanel);
 		basePanel.add(bottomBar);
@@ -262,51 +306,11 @@ public class UIPanelInspector extends DialogBox implements WrapperScsRTDBAccessE
         int top = (Window.getClientHeight() / 2) - ( baseHeight / 2 ) - (baseBoderY / 2);
 
         this.setPopupPosition(left, top);
+    
+        logger.log(Level.SEVERE, "getMainPanel End");
         
-        uiInspectorInfo3.init(strB001, strAlias);
-        
-        uiInspectorInfo3.readyToReadStaticData();
-        
-//        this.createReadRequest();
-//        
-//        uiInspectorInfo.createReadRequest();
-//        uiInspectorInfo.initVariable();
-//        
-//        setReadRequestCache();
-//        uiInspectorInfo.setReadRequestCache();
-//        
-//        Timer t = new Timer() {
-//
-//			@Override
-//			public void run() {
-//				
-//				executeTimer(timerCounter);
-//				
-//				timerCounter++;
-//				
-//				if ( timerCounter > 1/*+2*/ + ((/*1+*/2+3)*4) ) this.cancel();
-//			}
-//        	
-//        };
-//        
-//        t.scheduleRepeating(100);//200
-        
-        logger.log(Level.FINE, "init End");
-        
+        return basePanel;
 	}
-	
-//	private void executeTimer (int timerCounter) {
-//		
-//		logger.log(Level.FINE, "executeTimer Begin");
-//		
-//		logger.log(Level.FINE, "executeTimer timerCounter["+timerCounter+"]");
-//		
-//		this.setReadRequest(timerCounter);
-//				
-//		uiInspectorInfo.setReadRequest(timerCounter);
-//		
-//		logger.log(Level.FINE, "executeTimer End");
-//	}
 	
 	@Override
 	public void onMouseMove(Widget sender, int x, int y) {

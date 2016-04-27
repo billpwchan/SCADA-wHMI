@@ -1,23 +1,72 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
-public class UIInspectorControl {
+public class UIInspectorControl implements UIPanelInspector_i {
 	
-	public Panel getMainPanel() {
+	private static Logger logger = Logger.getLogger(UIInspectorControl.class.getName());
+
+	private String scsEnvId = null;
+	private String dbaddress = null;
+	
+	@Override
+	public void setConnection(String scsEnvId, String dbaddress) {
+		logger.log(Level.SEVERE, "setConnection Begin");
+		this.scsEnvId = scsEnvId;
+		this.dbaddress = dbaddress;
+		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"] this.dbaddress["+this.dbaddress+"]");
+		logger.log(Level.SEVERE, "setConnection End");
+	}
+	
+	@Override
+	public void readyToReadChildrenData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void readyToReadStaticData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void readyToSubscribeDynamicData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	private UINameCard uiNameCard = null;
+	@Override
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+		
+		logger.log(Level.SEVERE, "getMainPanel Begin");
+		
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
 
 		VerticalPanel vpCtrls  = new VerticalPanel();
-//		vpCtrls.setBorderWidth(LAYOUT_BORDER);
 		vpCtrls.setWidth("100%");
 		
 		String btnWidth = "90px";
@@ -62,8 +111,6 @@ public class UIInspectorControl {
 		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
 		btnExecute.setWidth("100px");
 		btnExecute.setText("Execute");
-//		btnExecute.setWidth(btnWidth);
-//		btnExecute.setHeight(btnHeight);
 		btnExecute.addStyleName("project-gwt-button");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
@@ -74,8 +121,6 @@ public class UIInspectorControl {
 		});
 		
 		Button btnUp = new Button();
-//		btnUp.setWidth("50px");
-//		btnUp.getElement().getStyle().setPadding(10, Unit.PX);
 		btnUp.addStyleName("project-gwt-button-inspector-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
@@ -86,14 +131,10 @@ public class UIInspectorControl {
 		});
 		
 		InlineLabel lblPageNum = new InlineLabel();
-//		lblPageNum.setWidth("50px");
-//		lblPageNum.getElement().getStyle().setPadding(10, Unit.PX);
 		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-//		btnDown.setWidth("50px");
-//		btnDown.getElement().getStyle().setPadding(10, Unit.PX);
 		btnDown.addStyleName("project-gwt-button-inspector-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
@@ -138,6 +179,9 @@ public class UIInspectorControl {
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(basePanel);
 		
+		logger.log(Level.SEVERE, "getMainPanel End");
+		
 		return vp;
 	}
+
 }

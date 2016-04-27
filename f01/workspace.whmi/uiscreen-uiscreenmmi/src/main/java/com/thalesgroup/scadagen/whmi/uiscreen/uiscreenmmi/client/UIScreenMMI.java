@@ -11,7 +11,6 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelMenus;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
@@ -101,8 +100,20 @@ public class UIScreenMMI implements UIScreen_i {
 
 						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {
 
+							String scsEnvId = "B001";
+							String dbaddress = ":SITE1:B001:F001:ACCESS:DO001";
+							
 							UIPanelInspector uiPanelInspector = new UIPanelInspector();
+							uiPanelInspector.getMainPanel(this.uiNameCard);
 							uiPanelInspector.show();
+							
+//							// Header Connect
+//							uiPanelInspector.setConnection(scsEnvId, dbaddress);
+//							uiPanelInspector.connect();
+							
+							// Tags Page connect
+							uiPanelInspector.setConnections(scsEnvId, dbaddress);
+							uiPanelInspector.connects();
 						}
 					}
 				}

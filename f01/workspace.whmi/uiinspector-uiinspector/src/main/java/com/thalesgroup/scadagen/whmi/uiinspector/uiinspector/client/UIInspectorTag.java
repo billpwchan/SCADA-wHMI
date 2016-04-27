@@ -1,19 +1,68 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
-public class UIInspectorTag {
+public class UIInspectorTag implements UIPanelInspector_i {
+	
+	private static Logger logger = Logger.getLogger(UIInspectorTag.class.getName());
+	
+	private String scsEnvId = null;
+	private String dbaddress = null;
+	
+	@Override
+	public void setConnection(String scsEnvId, String dbaddress) {
+		logger.log(Level.SEVERE, "setConnection Begin");
+		this.scsEnvId = scsEnvId;
+		this.dbaddress = dbaddress;
+		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"] this.dbaddress["+this.dbaddress+"]");
+	}
 
-	public Panel getMainPanel() {
+	@Override
+	public void readyToReadChildrenData() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void readyToReadStaticData() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void readyToSubscribeDynamicData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeConnection() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private UINameCard uiNameCard = null;
+	@Override
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+		
+		logger.log(Level.SEVERE, "getMainPanel Begin");
+
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
+		
 		VerticalPanel vpCtrls  = new VerticalPanel();
 //		vpCtrls.setBorderWidth(LAYOUT_BORDER);
 		vpCtrls.setWidth("100%");
@@ -74,6 +123,8 @@ public class UIInspectorTag {
 		
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(basePanel);
+		
+		logger.log(Level.SEVERE, "getMainPanel End");
 		
 		return vp;
 	}

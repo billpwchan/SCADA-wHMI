@@ -1,6 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -19,16 +18,14 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.Point;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.PointSort;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicChildrenDataEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicDynamicDataEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicStaticDataEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicDynamicEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicStaticEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.storage.Point;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-public class UIInspectorInfo implements UIPanelInspector_i {
+
+public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
 	
@@ -54,211 +51,230 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 	private final String strValueAlarmVector	= ":dal.valueAlarmVector"; // (0,1)==0 = normal, (0,1)==1 = alarm 
 	private final String strForcedStatus		= ":dfo.forcedStatus"; // 2=MO, AI=8, 512=SS //dfo.forcedStatus
 
-	private int numOfPoints = 12;
-	
 	// Static Attribute List
-	private String attributesStatic [] = new String[] {strLabel, strValueTable, strHmiOrder};
+	private String staticAttibutes [] = new String[] {strLabel, strValueTable, strHmiOrder};
 
 	// Dynamic Attribute List
-	private String attributesDynamic [] = new String[] {strValue, strValidity, strValueAlarmVector, strForcedStatus};
-	
-	private UIPanelInspectorRTDBLogic uiPanelRTDBLogin = null;
-	
-	private String scsEnvId = null;
-	private String dbaddress = null;
+	private String dynamicAttibutes [] = new String[] {strValue, strValidity, strValueAlarmVector, strForcedStatus};
 
+	private String scsEnvId		= null;
+	private String parent		= null;
+	private String[] addresses	= null;
+	
 	@Override
-	public void setConnection(String scsEnvId, String dbaddress) {
-		logger.log(Level.SEVERE, "setConnection Begin");
+	public void setParent(String parent) {
+		this.parent=parent;
+	}
+	
+	@Override
+	public void setAddresses(String scsEnvId, String[] addresses) {
+		logger.log(Level.SEVERE, "setAddresses Begin");
+		
 		this.scsEnvId = scsEnvId;
-		this.dbaddress = dbaddress;
+		
+		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
+		
+		this.addresses = addresses;
+		
+		logger.log(Level.SEVERE, "setAddresses End");
+	}
+	
+	private UIPanelInspectorRTDBLogic logic = null;
+	@Override
+	public void connect() {
+		logger.log(Level.SEVERE, "connect Begin");
+		
+		if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
+			
+			{
+				logger.log(Level.SEVERE, "connect setUIPanelInspectorRTDBLogicStaticEvent Begin");
+				
+				if ( null != logic ) logic.disconnect();
+				
+				logic = new UIPanelInspectorRTDBLogic(this.uiNameCard);
+				
+				logic.setScsEnvId(scsEnvId);
+				logic.setParent(parent);
+				logic.setDBaddresses(this.addresses);
+				logic.setStaticAttributes(staticAttibutes);
+//				logic.setDynamicAttributes(dynamicAttibutes);
+				logic.setUIPanelInspectorRTDBLogicStaticEvent(new UIPanelInspectorRTDBLogicStaticEvent() {
+					@Override
+					public void ready(Point[] points) {
+						buildPointList(points);
+						buildWidgets(points.length);
+						updateStaticDisplay(points);
+					}
+				});
+				logic.setUIPanelInspectorRTDBLogicDynamicEventt(new UIPanelInspectorRTDBLogicDynamicEvent() {
+					@Override
+					public void update(Point[] points) {
+						updateDynamicDisplay(points);
+					}
+				});
+				
+				logic.connect();
+				
+				logger.log(Level.SEVERE, "connect setUIPanelInspectorRTDBLogicStaticEvent End");
+			}
+			
+		} else {
+			logger.log(Level.SEVERE, "connect addressIsValid IS FALSE");
+		}
 
-		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"] this.dbaddress["+this.dbaddress+"]");
+		logger.log(Level.SEVERE, "connect End");
+	}
+	
+	@Override
+	public void disconnect() {
+		logger.log(Level.SEVERE, "disconnect Begin");
 		
-		this.uiPanelRTDBLogin = new UIPanelInspectorRTDBLogic();
+		if ( null != logic ) logic.disconnect();
 		
-		this.uiPanelRTDBLogin.setUINameCard(this.uiNameCard);
-		this.uiPanelRTDBLogin.setConnection(this.scsEnvId, this.dbaddress);
-		this.uiPanelRTDBLogin.setAttibute(UIPanelInspectorRTDBLogic_i.strStatic, attributesStatic);
-		this.uiPanelRTDBLogin.setAttibute(UIPanelInspectorRTDBLogic_i.strDynamic, attributesDynamic);
+		logger.log(Level.SEVERE, "disconnect End");
+	}
+	
+	@Override
+	public void buildWidgets() {
+		logger.log(Level.SEVERE, "buildWidgets Begin");
 		
-		this.uiPanelRTDBLogin.setUIPanelLogicChildrenDataEvent(new UIPanelLogicChildrenDataEvent() {
-			@Override
-			public void ready(String[] instances) {
-				updateChildrenList(instances);
+//		buildPointList(this.addresses.length);
+//		buildWidgets(this.addresses.length);
+	
+		logger.log(Level.SEVERE, "buildWidgets End");
+	}
+	
+	private void buildWidgets(int numOfWidgets) {
+		
+		logger.log(Level.SEVERE, "buildWidgets Begin");
+		
+		logger.log(Level.SEVERE, "buildWidgets numOfWidgets["+numOfWidgets+"]");
+		
+		if ( null != vpCtrls ) {
+			
+			vpCtrls.clear();
+			
+			if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
 				
-				readyToReadStaticData();
+				txtAttribute = new TextBox[numOfWidgets];
+				lblAttibuteLabel = new InlineLabel[numOfWidgets];
+				txtAttibuteColor = new InlineLabel[numOfWidgets];
+
+				flexTableAttibutes = new FlexTable();
+				flexTableAttibutes.setWidth("100%");
+				for( int i = 0 ; i < numOfWidgets ; ++i ) {
+					
+					logger.log(Level.SEVERE, "buildWidgets i["+i+"]");
+						
+					lblAttibuteLabel[i] = new InlineLabel();
+					lblAttibuteLabel[i].setWidth("100%");
+					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-info-label");
+					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
+					flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
+					txtAttribute[i] = new TextBox();
+					txtAttribute[i].setWidth("95%");
+					txtAttribute[i].setText("ATTRIBUTE_STATUS_"+(i+1));
+					txtAttribute[i].addStyleName("project-gwt-textbox-inspector-info-value");
+					txtAttribute[i].setReadOnly(true);
+					txtAttribute[i].setMaxLength(16);
+					flexTableAttibutes.setWidget(i+1, 1, txtAttribute[i]);
+					txtAttibuteColor[i] = new InlineLabel();
+					txtAttibuteColor[i].setText("R");
+					txtAttibuteColor[i].setStyleName(strCSSStatusGrey);
+					flexTableAttibutes.setWidget(i+1, 2, txtAttibuteColor[i]);
+				}
+
+				flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspector-info-label-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspector-info-value-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspector-info-status-col");
+
+			} else {
+				logger.log(Level.SEVERE, "buildWidgets this.pointStatics IS NULL");
 			}
-		});
+			
+			vpCtrls.add(flexTableAttibutes);
+			
+		} else {
+			logger.log(Level.SEVERE, "buildWidgets points IS NULL");
+		}
 		
-		this.uiPanelRTDBLogin.setUIPanelLogicStaticDataEvent(new UIPanelLogicStaticDataEvent() {
-			@Override
-			public void ready(LinkedList<Point> points) {
-				updateStaticDisplay(points);
-				
-				readyToSubscribeDynamicData();
-			}
-		});
-		this.uiPanelRTDBLogin.setUIPanelLogicDynamicDataEvent(new UIPanelLogicDynamicDataEvent() {
-			@Override
-			public void update(LinkedList<Point> points) {
-				updateDynamicDisplay(points);
-			}
-		});
-		logger.log(Level.SEVERE, "setConnection End");
+		logger.log(Level.SEVERE, "buildWidgets End");
 	}
 	
-	@Override
-	public void readyToReadChildrenData() {
-		logger.log(Level.SEVERE, "readyToReadChildrenData Begin");
-		
-		this.uiPanelRTDBLogin.readyToReadChildrenData();
-		
-		logger.log(Level.SEVERE, "readyToReadChildrenData End");
-	}
-	
-	@Override
-	public void readyToReadStaticData() {
-		logger.log(Level.SEVERE, "readyToReadStaticData Begin");
-		
-		this.uiPanelRTDBLogin.readyToReadStaticData();
-		
-		logger.log(Level.SEVERE, "readyToReadStaticData End");
-	}
-	
-	@Override
-	public void readyToSubscribeDynamicData() {
-		logger.log(Level.SEVERE, "readyToSubscribeDynamicData Begin");
-		
-		this.uiPanelRTDBLogin.readyToSubscribeDynamicData();
-		
-		logger.log(Level.SEVERE, "readyToSubscribeDynamicData End");
-	}
-	
-	@Override
-	public void removeConnection() {
-		logger.log(Level.SEVERE, "removeConnection Begin");
-		
-		this.uiPanelRTDBLogin.removeDynamicSubscription();
-		
-		logger.log(Level.SEVERE, "removeConnection End");
-	}
-	
-	private String[] childrenList = null;
-	private void updateChildrenList(String[] instances) {
-		logger.log(Level.SEVERE, "updateChildrenList Begin");
-		
-		this.childrenList = instances;
-		
-		logger.log(Level.SEVERE, "updateChildrenList End");
-		
-	}
-	
-	private LinkedList<Point> pointStatics = null;
 	private LinkedList<Point> pointDisplays = null;
-	private void updateStaticDisplay(LinkedList<Point> points) {
-		
-		logger.log(Level.SEVERE, "updateStaticDisplay Begin");
+	private void buildPointList(Point[] points) {
+		logger.log(Level.SEVERE, "buildVisibleList Begin");
 
-		this.pointStatics = points;
-		
 		if ( null != points ) {
 			
-			logger.log(Level.SEVERE, "updateStaticDisplay points.size()["+ points.size() +"]");
+			logger.log(Level.SEVERE, "buildVisibleList points.length["+ points.length +"]");
 			
 			pointDisplays = new LinkedList<Point>();
-			Iterator<Point> iterator = points.iterator();
-			while ( iterator.hasNext() ) {
-				Point pointStatic = iterator.next();
+			for ( Point point : points ) {
 
-				if ( null != pointStatic ) {
+				if ( null != point ) {
 					
-					logger.log(Level.SEVERE, "updateStaticDisplay  pointStatic.getValue(strHmiOrder)["+ pointStatic.getValue(strHmiOrder)+"]");
+					logger.log(Level.SEVERE, "buildVisibleList point.getValue(strHmiOrder)["+ point.getValue(strHmiOrder)+"]");
 					
-					String address = pointStatic.getAddress();
+					String address = point.getAddress();
 					
-					logger.log(Level.SEVERE, "updateStaticDisplay address["+ address +"]");
+					logger.log(Level.SEVERE, "buildVisibleList address["+ address +"]");
 					
-					String[] ignores = new String[] {"dio", "aio", "sio"};
-					
-					boolean ignored = false;
-					
-					if ( null != address ) {
-						String addresses[] = address.split(":");
-						String pointName = addresses[addresses.length-1];
-						
-						for(int i = 0 ; i < ignores.length ; ++i ) {
-							
-							logger.log(Level.SEVERE, "updateStaticDisplay pointName["+ pointName+"] ignores[i]["+ ignores[i]+"]");
-							
-							if ( pointName.startsWith(ignores[i]) ) {
-								
-								ignored = true;
-								
-								logger.log(Level.SEVERE, "updateStaticDisplay pointName["+ pointName+"] ignores[i]["+ ignores[i]+"] IGNORED");
-								
-								break;
-							}
-						}
-					} else {
-						
-						ignored = true;
-						
-						logger.log(Level.SEVERE, "updateStaticDisplay address IS NULL");
-					}
-					
-					if ( ignored ) continue;
-					
-					if ( null != pointStatic.getValue(strHmiOrder) && 0 == pointStatic.getValue(strHmiOrder).compareTo("-1") ) {
+					if ( null != point.getValue(strHmiOrder) && 0 == point.getValue(strHmiOrder).compareTo("-1") ) {
 						// Invisiable Point
 						continue;
 					}
 					
-					pointDisplays.add(pointStatic);					
+					pointDisplays.add(point);
+					
 				} else {
-					logger.log(Level.SEVERE, "updateStaticDisplay pointStatic IS NULL");
+					logger.log(Level.SEVERE, "buildVisibleList point IS NULL");
 				}
 			}
 			
-			logger.log(Level.SEVERE, "updateStaticDisplay pointDisplays.size()["+ pointDisplays.size() +"]");
+			logger.log(Level.SEVERE, "buildVisibleList pointDisplays.size()["+ pointDisplays.size() +"]");
+		}
+	}
+	
+	
+	private void updateStaticDisplay(Point[] points) {
+		
+		logger.log(Level.SEVERE, "updateStaticDisplay Begin");
+		
+		if ( null != points ) {
+
+			logger.log(Level.SEVERE, "updateStaticDisplay points.length["+points.length+"]");
 			
-//			LinkedList<PointSort> pointDisplaysSorted = new LinkedList<PointSort>();
-//			
-			// sort in ascending order
-//			Collections.sort(pointDisplaysSorted);
-//	 
-//			// sort in descending order
-//			Collections.sort(pointDisplaysSorted, Collections.reverseOrder());
-
-			int i = 0;
-			Iterator<Point> iteratorDisplay = pointDisplays.iterator();
-			while ( iteratorDisplay.hasNext() ) {
-				Point pointDisplay = iteratorDisplay.next();
+			int i=0;
+			for ( Point point: points ) {
 				
-				if ( null != pointDisplay ) {
+				if ( null != point ) {
+					String address = point.getAddress();
 					
-					logger.log(Level.SEVERE, "updateStaticDisplay pointDisplay.label("+i+")["+i+"] pointDisplay.label["+pointDisplay.getValue(strLabel)+"]");
+					logger.log(Level.SEVERE, "updateStaticDisplay address["+address+"]");
 					
-					lblAttibuteLabel[i].setVisible(true);
-					lblAttibuteLabel[i].setText(pointDisplay.getValue(strLabel));
-
-					txtAttribute[i].setVisible(true);
-					txtAttribute[i].setText("-");
-
-					txtAttibuteColor[i].setVisible(true);
-					txtAttibuteColor[i].setStyleName(strCSSStatusGrey);
-							
-					++i;
+//					Integer integer = widgetIndex.get(address);
+//					if ( null != integer ) {
+						
+						int index = ++i;
+						
+						logger.log(Level.SEVERE, "updateStaticDisplay index["+index+"]");
+						
+						logger.log(Level.SEVERE, "updateStaticDisplay pointDisplays("+index+") point.label["+point.getValue(strLabel)+"]");
+						
+						lblAttibuteLabel[index].setText(point.getValue(strLabel));
+		
+						txtAttribute[index].setText("-");
+		
+						txtAttibuteColor[index].setStyleName(strCSSStatusGrey);								
+//					} else {
+//						logger.log(Level.SEVERE, "updateStaticDisplay integer IS NULL");
+//					}
 				} else {
-					logger.log(Level.SEVERE, "updateStaticDisplay IS NULL");
+					logger.log(Level.SEVERE, "updateStaticDisplay point IS NULL");
 				}
 			}
-				
-			for ( ; i < numOfPoints ; ++i ) {
-				lblAttibuteLabel[i].setVisible(false);
-				txtAttribute[i].setVisible(false);
-				txtAttibuteColor[i].setVisible(false);
-			}
+
 		} else {
 			logger.log(Level.SEVERE, "updateStaticDisplay points IS NULL");
 		}
@@ -266,33 +282,31 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 		logger.log(Level.SEVERE, "updateStaticDisplay End");
 	}
 	
-	private void updateDynamicDisplay(LinkedList<Point> pointDynamics) {
+	private void updateDynamicDisplay(Point[] points) {
 		
 		logger.log(Level.SEVERE, "updateDynamicDisplay Begin");
 		
-		if ( null != pointDynamics ) {
+		if ( null != points ) {
 			
-			logger.log(Level.SEVERE, "updateDynamicDisplay pointDynamics.size()["+ pointDynamics.size() +"] pointDisplays.size()["+ pointDisplays.size() +"]");
+			logger.log(Level.SEVERE, "updateDynamicDisplay points.length["+ points.length +"] points.length["+ pointDisplays.size() +"]");
 			
-			Iterator<Point> iteratorDynamic = pointDynamics.iterator();
-			while ( iteratorDynamic.hasNext() ) {
-				Point pointDynamic = iteratorDynamic.next();
+			for ( Point point : points ) {
 				
-				if ( null != pointDynamic ) {
+				if ( null != point ) {
 
 					{
-						String [] keys = pointDynamic.getAttributeKeys();
-						logger.log(Level.SEVERE, "updateDynamicDisplay pointDynamic.getAddress()["+pointDynamic.getAddress()+"] keys.length["+keys.length+"]");
+						String [] keys = point.getAttributeKeys();
+						logger.log(Level.SEVERE, "updateDynamicDisplay point.getAddress()["+point.getAddress()+"] keys.length["+keys.length+"]");
 						for ( String k : keys ) {
-							logger.log(Level.SEVERE, "updateDynamicDisplay pointDynamic.getValue("+k+")["+pointDynamic.getValue(k)+"]");
+							logger.log(Level.SEVERE, "updateDynamicDisplay point.getValue("+k+")["+point.getValue(k)+"]");
 						}
 					}
 					
-					String address = pointDynamic.getAddress();
+					String address = point.getAddress();
 					
 					if ( null != address ) {
 						
-						String value = pointDynamic.getValue(strValue);
+						String value = point.getValue(strValue);
 						
 						logger.log(Level.SEVERE, "updateDynamicDisplay address["+address+"] == value["+value+"]");
 						
@@ -311,10 +325,10 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 								
 										String valueTable = pointDisplay.getValue(strValueTable);
 										for( int r = 0 ; r < 12 ; ++r ) {
-											String v = UIPanelInspectorRTDBLogic.getArrayValues(valueTable, 4, r );
+											String v = RTDB_Helper.getArrayValues(valueTable, 4, r );
 											logger.log(Level.SEVERE, "updateDynamicDisplay getArrayValues r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
 											if ( 0 == v.compareTo(value) ) {
-												name = UIPanelInspectorRTDBLogic.getArrayValues(valueTable, 1, r );
+												name = RTDB_Helper.getArrayValues(valueTable, 1, r );
 												break;
 											}
 										}
@@ -325,12 +339,12 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 											txtAttribute[i].setText(value);	
 										}
 										
-										logger.log(Level.SEVERE, "getArrayValues value["+value+"] or name["+name+"]");
+										logger.log(Level.SEVERE, "updateDynamicDisplay value["+value+"] or name["+name+"]");
 										
-										String strColorCSS = getColorCSS(pointDynamic.getValue(strValueAlarmVector), pointDynamic.getValue(strValidity), pointDynamic.getValue(strForcedStatus));
+										String strColorCSS = RTDB_Helper.getColorCSS(point.getValue(strValueAlarmVector), point.getValue(strValidity), point.getValue(strForcedStatus));
 										txtAttibuteColor[i].setStyleName(strColorCSS);
 										
-										logger.log(Level.SEVERE, "getArrayValues strColorCSS["+strColorCSS+"]");
+										logger.log(Level.SEVERE, "updateDynamicDisplay strColorCSS["+strColorCSS+"]");
 									}
 								} else {
 									logger.log(Level.SEVERE, "updateDynamicDisplay pointDisplay.getAddress() IS NULL");
@@ -355,47 +369,6 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 
 		logger.log(Level.SEVERE, "updateDynamicDisplay End");
 	}
-
-	private static final int intMO = 2, intAI = 8, intSS = 512;
-	private String getColorCSS(String alarmVector, String validity, String forcedStatus) {
-		
-		logger.log(Level.FINE, "getColorCSS Begin");
-		
-		String colorCSS	= strCSSStatusGrey;
-		int intAlarmVector	= 0;
-		int intValidity		= 0;
-		int intForcedStatus	= 0;
-		try {
-			intAlarmVector	= Integer.parseInt(alarmVector.split(",")[1]);
-			intValidity		= Integer.parseInt(validity);
-			intForcedStatus	= Integer.parseInt(forcedStatus);
-		} catch ( NumberFormatException e ) {
-			logger.log(Level.FINE, "getColorCSS NumberFormatException["+e.toString()+"]");
-		}
-		
-		// 2=MO, AI=8, 512=SS
-		if ( (intForcedStatus & intMO) == intMO || (intForcedStatus & intAI) == intAI || (intForcedStatus & intSS) == intSS ) {
-			colorCSS = strCSSStatusBlue;
-			
-		// 0=invalid, 1=valid	
-		} else if ( intValidity == 0 ) {
-			colorCSS = strCSSStatusGrey;
-			
-		// 0=normal, 1=alarm
-		} else if ( intAlarmVector == 1 ) {
-			colorCSS = strCSSStatusRed;
-			
-		// Grey
-		} else {
-			colorCSS = strCSSStatusGreen;
-		}
-		
-		logger.log(Level.FINE, "getColorCSS colorCode["+colorCSS+"]");
-		
-		logger.log(Level.FINE, "getColorCSS End");
-
-		return colorCSS;
-	}
 	
 	FlexTable flexTableAttibutes = null;
 
@@ -403,6 +376,7 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 	private InlineLabel lblAttibuteLabel[];
 	private InlineLabel txtAttibuteColor[];
 	
+	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
@@ -412,39 +386,8 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		
-		flexTableAttibutes = new FlexTable();
-		
-		txtAttribute = new TextBox[numOfPoints];
-		lblAttibuteLabel = new InlineLabel[numOfPoints];
-		txtAttibuteColor = new InlineLabel[numOfPoints];
-		
-		flexTableAttibutes = new FlexTable();
-		
-		FlexTable flexTableAttibutes = new FlexTable();
-		flexTableAttibutes.setWidth("100%");
-		for ( int i = 0; i < numOfPoints ; i ++ ) {
-			
-			lblAttibuteLabel[i] = new InlineLabel();
-			lblAttibuteLabel[i].setWidth("100%");
-			lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-info-label");
-			lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
-			flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
-			txtAttribute[i] = new TextBox();
-			txtAttribute[i].setWidth("95%");
-			txtAttribute[i].setText("ATTRIBUTE_STATUS_"+(i+1));
-			txtAttribute[i].addStyleName("project-gwt-textbox-inspector-info-value");
-			txtAttribute[i].setReadOnly(true);
-			txtAttribute[i].setMaxLength(16);
-			flexTableAttibutes.setWidget(i+1, 1, txtAttribute[i]);
-			txtAttibuteColor[i] = new InlineLabel();
-			txtAttibuteColor[i].setText("R");
-			txtAttibuteColor[i].setStyleName(strCSSStatusGrey);
-			flexTableAttibutes.setWidget(i+1, 2, txtAttibuteColor[i]);
-		}
-		
-		flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspector-info-label-col");
-		flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspector-info-value-col");
-		flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspector-info-status-col");
+		vpCtrls = new VerticalPanel();
+		vpCtrls.setWidth("100%");
 		
 		Button btnUp = new Button();
 		btnUp.addStyleName("project-gwt-button-inspector-up");
@@ -482,7 +425,6 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 			}
 		});
 
-
 		HorizontalPanel pageBar = new HorizontalPanel();
 
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -513,7 +455,7 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
 		basePanel.addSouth(bottomBar, 50);
-		basePanel.add(flexTableAttibutes);
+		basePanel.add(vpCtrls);
 		
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(basePanel);
@@ -522,6 +464,4 @@ public class UIInspectorInfo implements UIPanelInspector_i {
 		
 		return vp;
 	}
-
-
 }

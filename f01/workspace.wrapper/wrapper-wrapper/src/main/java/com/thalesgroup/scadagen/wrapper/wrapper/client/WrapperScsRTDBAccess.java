@@ -21,7 +21,7 @@ public class WrapperScsRTDBAccess {
 	
 	private static Logger logger = Logger.getLogger(WrapperScsRTDBAccess.class.getName());
 	
-	private final String strWaitingList		= "waitingList";
+//	private final String strWaitingList		= "waitingList";
 	private final String strReading			= "reading";
 	private final String strSubscriptions	= "subscriptions";
 	private final String strGetChildrens	= "getChildrens";
@@ -29,23 +29,27 @@ public class WrapperScsRTDBAccess {
 	private HashMap<String, LinkedList<ReadRequest>> lists = null;
 
 	// List
-	private LinkedList<ReadRequest> waitingList		= new LinkedList<ReadRequest>();
+//	private LinkedList<ReadRequest> waitingList		= new LinkedList<ReadRequest>();
 	private LinkedList<ReadRequest> reading			= new LinkedList<ReadRequest>();
 	private LinkedList<ReadRequest> subscriptions	= new LinkedList<ReadRequest>();
 	private LinkedList<ReadRequest> getChildrens	= new LinkedList<ReadRequest>();
 	
 	public void reset() {
 		logger.log(Level.SEVERE, "reset Begin");
-		remove("");
+    	for ( String key : lists.keySet() ) {
+    		logger.log(Level.SEVERE, "reset key["+key+"]");
+    		LinkedList<ReadRequest> list = lists.get(key);
+    		if ( null != list ) list.clear();
+    	}
 		logger.log(Level.SEVERE, "reset End");
 	}
     
 	public void remove(String prefix) {
 		logger.log(Level.SEVERE, "remove Begin");
-		remove(strWaitingList, prefix);
+//		remove(strWaitingList, prefix);
 		remove(strReading, prefix);
 		remove(strSubscriptions, prefix);
-		remove(strGetChildrens, prefix);	
+		remove(strGetChildrens, prefix);
 		logger.log(Level.SEVERE, "remove End");
 	}
 	
@@ -63,28 +67,28 @@ public class WrapperScsRTDBAccess {
     	logger.log(Level.SEVERE, "remove End");
 	}
 	
-	private static WrapperScsRTDBAccess instance = null;
-	public static WrapperScsRTDBAccess getInstance() {
-		if ( null == instance ) instance = new WrapperScsRTDBAccess();
-		return instance;
-	}
+//	private static WrapperScsRTDBAccess instance = null;
+//	public static WrapperScsRTDBAccess getInstance() {
+//		if ( null == instance ) instance = new WrapperScsRTDBAccess();
+//		return instance;
+//	}
 	
 	private Timer timer = null;
 	private ScsRTDBComponentAccess rtdb = null;
-	private WrapperScsRTDBAccess () {
+	public WrapperScsRTDBAccess () {
 		
 		logger.log(Level.SEVERE, "WrapperScsRTDBAccess3 Begin");
 		
 		lists = new HashMap<String, LinkedList<ReadRequest>>();
 
 		// List
-		waitingList		= new LinkedList<ReadRequest>();
-		reading			= new LinkedList<ReadRequest>();
+//		waitingList		= new LinkedList<ReadRequest>();
+//		reading			= new LinkedList<ReadRequest>();
 		subscriptions	= new LinkedList<ReadRequest>();
 		getChildrens	= new LinkedList<ReadRequest>();
 		
-		lists.put(strWaitingList, waitingList);
-		lists.put(strReading, reading);
+//		lists.put(strWaitingList, waitingList);
+//		lists.put(strReading, reading);
 		lists.put(strSubscriptions, subscriptions);
 		lists.put(strGetChildrens, getChildrens);
 		
@@ -111,7 +115,11 @@ public class WrapperScsRTDBAccess {
 			@Override
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
 				
-				setReadResult2(key, value, errorCode, errorMessage);
+				logger.log(Level.SEVERE, "setReadResult Begin");
+				
+				setReadResponse(key, value, errorCode, errorMessage);
+				
+				logger.log(Level.SEVERE, "setReadResult End");
 				
 			}
 
@@ -176,7 +184,11 @@ public class WrapperScsRTDBAccess {
 			@Override
 			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
 				
-				setGetChildrenResult2(clientKey, instances, errorCode, errorMessage);
+				logger.log(Level.SEVERE, "setGetChildrenResult Begin");
+				
+				setGetChildrenResponse(clientKey, instances, errorCode, errorMessage);
+				
+				logger.log(Level.SEVERE, "setGetChildrenResult End");
 				
 			}
 
@@ -278,20 +290,22 @@ public class WrapperScsRTDBAccess {
 				@Override
 				public void run() {
 					
-					boolean b1 = false;
-					boolean b2 = false;
-					boolean b3 = false;
+					walkThrought(strSubscriptions, true, false, true);
 					
-					b1 = walkThrought(strWaitingList, true, true, true);
+//					boolean b1 = false;
+//					boolean b2 = false;
+//					boolean b3 = false;
+//					
+//					b1 = walkThrought(strWaitingList, true, true, true);
+//					
+//					if ( !b1 )
+//						b2 = walkThrought(strReading, true, true, true);
+//					
+//					if ( !b1 && !b2 )
+//						b3 = walkThrought(strSubscriptions, true, false, true);
 					
-					if ( !b1 )
-						b2 = walkThrought(strReading, true, true, true);
-					
-					if ( !b1 && !b2 )
-						b3 = walkThrought(strSubscriptions, true, false, true);
-					
-					if ( !b1 && !b2 && !b3 )
-						walkThrought(strGetChildrens, true, true, false);
+//					if ( !b1 && !b2 && !b3 )
+//						walkThrought(strGetChildrens, true, true, false);
 				};
 			};
 			timer.scheduleRepeating(1000);			
@@ -328,15 +342,17 @@ public class WrapperScsRTDBAccess {
 
 	private boolean multiReadValueRequest(ReadRequest readRequest) {
 		logger.log(Level.SEVERE, "multiReadValueRequest Begin");
+		
 		String clientKey = readRequest.clientKey;
 		String scsEnvId = readRequest.scsEnvId;
 		String[] dbaddresses = readRequest.dbaddresses;
 		Result readResult = readRequest.result;
 		boolean result = multiReadValueRequest(clientKey, scsEnvId, dbaddresses, readRequest.resultName, readResult);
+		
 		logger.log(Level.SEVERE, "multiReadValueRequest End");
 		return result;
 	}
-
+    
     public boolean multiReadValueRequest(String key, String scsEnvId, String[] dbaddresses, String resultName, Result readResult) {
     	
     	boolean result = false;
@@ -345,20 +361,20 @@ public class WrapperScsRTDBAccess {
     	
     	logger.log(Level.SEVERE, "multiReadValueRequest key["+key+"]");
     	logger.log(Level.SEVERE, "multiReadValueRequest scsEnvId["+scsEnvId+"]");
-    	
+
     	ReadRequest readRequest = new ReadRequest(key, scsEnvId, dbaddresses, resultName, readResult);
     	
-    	if ( reading.size() > 1 ) {
-    		
-    		logger.log(Level.SEVERE, "multiReadValueRequest reading.size()["+reading.size()+"] > 1");
-    		logger.log(Level.SEVERE, "multiReadValueRequest putting to waiting list");
-    		
-    		// Remove the same request from list
-    		
-    		waitingList.add(readRequest);
-    		
-    		return true;
-    	}
+//    	if ( reading.size() > 1 ) {
+//    		
+//    		logger.log(Level.SEVERE, "multiReadValueRequest reading.size()["+reading.size()+"] > 1");
+//    		logger.log(Level.SEVERE, "multiReadValueRequest putting to waiting list");
+//    		
+//    		// Remove the same request from list
+//    		
+//    		waitingList.add(readRequest);
+//    		
+//    		return true;
+//    	}
     	
     	for(int i = 0; i < dbaddresses.length; ++i ) {
     		logger.log(Level.SEVERE, "multiReadValueRequest dbaddresses("+i+")["+dbaddresses[i]+"]");
@@ -419,47 +435,68 @@ public class WrapperScsRTDBAccess {
      */
     public void multiReadValueRequestCaches(String clientKey, String scsEnvId, String[] dbaddresses, String resultName, ReadResult readResult) {
 		logger.log(Level.SEVERE, "multiReadValueRequestCaches Begin");
-		multiReadValueRequest(clientKey, scsEnvId, dbaddresses, resultName, readResult);
+
+		if ( readCashed.containsKey(clientKey) ) {
+			
+			logger.log(Level.SEVERE, "multiReadValueRequestCaches setReadResult Begin");
+			
+			String[][] values = readCashed.get(clientKey);
+			
+			readResult.setReadResult(clientKey, values, 0, "");
+			
+			logger.log(Level.SEVERE, "multiReadValueRequestCaches setReadResult End");
+			
+		} else {
+			
+			multiReadValueRequest(clientKey, scsEnvId, dbaddresses, resultName, readResult);
+			
+		}
+		
 		logger.log(Level.SEVERE, "multiReadValueRequestCaches End");
     }
     
-    private void setReadResult2(String clientKey, String[] values, int errorCode, String errorMessage) {
-    	logger.log(Level.SEVERE, "setReadResult2 Begin");
-    	logger.log(Level.SEVERE, "setReadResult2 clientKey["+clientKey+"]");
-    	logger.log(Level.SEVERE, "setReadResult2 errorCode["+errorCode+"]");
-    	logger.log(Level.SEVERE, "setReadResult2 errorMessage["+errorMessage+"]");
+    private static HashMap<String, String[][]> readCashed = new HashMap<String, String[][]>();
+    private void setReadResponse(String clientKey, String[] values, int errorCode, String errorMessage) {
+    	logger.log(Level.SEVERE, "setReadResponse Begin");
+    	logger.log(Level.SEVERE, "setReadResponse clientKey["+clientKey+"]");
+    	logger.log(Level.SEVERE, "setReadResponse errorCode["+errorCode+"]");
+    	logger.log(Level.SEVERE, "setReadResponse errorMessage["+errorMessage+"]");
 
-    	logger.log(Level.SEVERE, "setReadResult2 ReadResult.class.getName()["+ReadResult.class.getName()+"]");
-    	logger.log(Level.SEVERE, "setReadResult2 SubscriptionResult.class.getName()["+SubscriptionResult.class.getName()+"]");		
-		
+    	logger.log(Level.SEVERE, "setReadResponse ReadResult.class.getName()["+ReadResult.class.getName()+"]");
+    	logger.log(Level.SEVERE, "setReadResponse SubscriptionResult.class.getName()["+SubscriptionResult.class.getName()+"]");
+
 		// Remove the result from the reading list
     	Iterator<ReadRequest> readRequests = reading.iterator();
     	while ( readRequests.hasNext() ) {
     		ReadRequest readRequest = readRequests.next();
 
-    		logger.log(Level.SEVERE, "setReadResult2 readRequest.clientKey["+readRequest.clientKey+"]");
+    		logger.log(Level.SEVERE, "setReadResponse readRequest.clientKey["+readRequest.clientKey+"]");
     		
     		if ( readRequest.equalToKey(clientKey) ) {
     			Result result = readRequest.result;
     			
-    			logger.log(Level.SEVERE, "setReadResult2 readRequest.resultName["+readRequest.resultName+"]");
+    			logger.log(Level.SEVERE, "setReadResponse readRequest.resultName["+readRequest.resultName+"]");
     			
     			String results[][] = new String[values.length][];
     			for ( int i = 0 ; i < values.length ; ++i ) {
     				results[i] = new String[]{readRequest.dbaddresses[i], values[i]};
     			}
     			if ( 0 == ReadResult.class.getName().compareTo(readRequest.resultName) ) {
+    				
+    				readCashed.put(clientKey, results);
+    				
     				((ReadResult)result).setReadResult(clientKey, results, errorCode, errorMessage);
     			} else if ( 0 == SubscriptionResult.class.getName().compareTo(readRequest.resultName) ) {
     				((SubscriptionResult)result).setReadResultSubscription(clientKey, results, errorCode, errorMessage);
     			}
+
     			readRequests.remove();
     		}
     	}
 		for(int i = 0 ; i < values.length ; ++i ) {
-			logger.log(Level.SEVERE, "setReadResult2 values("+i+") values["+values[i]+"]");
+			logger.log(Level.SEVERE, "setReadResponse values("+i+") values["+values[i]+"]");
 		}
-		logger.log(Level.SEVERE, "setReadResult2 End");
+		logger.log(Level.SEVERE, "setReadResponse End");
     }
 	
     public boolean subscriptionRequest(String key, String scsEnvId, String[] dbaddresses, SubscriptionResult subscription) {
@@ -496,62 +533,78 @@ public class WrapperScsRTDBAccess {
         return true;
     }
 
-    public void getChildren(String key, String scsEnvId, String dbaddress, ChildrenResult readChildren) {
+    
+    private static HashMap<String, String[]> childrenCached = new HashMap<String, String[]>();
+    public void getChildren(String clientKey, String scsEnvId, String dbaddress, ChildrenResult readChildren) {
     	
     	logger.log(Level.SEVERE, "getChildren Begin");
-    	logger.log(Level.SEVERE, "getChildren key["+key+"]");
+    	logger.log(Level.SEVERE, "getChildren clientKey["+clientKey+"]");
     	logger.log(Level.SEVERE, "getChildren scsEnvId["+scsEnvId+"]");
     	logger.log(Level.SEVERE, "getChildren dbaddress["+dbaddress+"]");
     	
-        JSONObject jsparam = new JSONObject();
+    	if ( childrenCached.containsKey(clientKey) ) {
+    		
+    		String[] instances = childrenCached.get(clientKey);
+    		
+    		readChildren.setGetChildrenResult(clientKey, instances, 0, "");
+    		
+    	} else {
+			JSONObject jsparam = new JSONObject();
+			
+			// build param list
+			jsparam.put("dbaddress", new JSONString(dbaddress));
+			
+			JSONObject jsdata = this.rtdb.buildJSONRequest("GetChildren", jsparam);
+			    
+			ReadRequest readRequest = new ReadRequest(clientKey, scsEnvId, new String[]{dbaddress}, ChildrenResult.class.getName(), readChildren);
+			    
+			getChildrens.add(readRequest);
+			    
+			this.rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());    		
+    	}
 
-        // build param list
-        jsparam.put("dbaddress", new JSONString(dbaddress));
-
-        JSONObject jsdata = this.rtdb.buildJSONRequest("GetChildren", jsparam);
-        
-        ReadRequest readRequest = new ReadRequest(key, scsEnvId, new String[]{dbaddress}, ChildrenResult.class.getName(), readChildren);
-        
-        getChildrens.add(readRequest);
-        
-        this.rtdb.sendJSONRequest(key, scsEnvId, jsdata.toString());
-        
         logger.log(Level.SEVERE, "getChildren End");
     }
     
-    private void setGetChildrenResult2(String clientKey, String[] instances, int errorCode, String errorMessage) {
-    	logger.log(Level.SEVERE, "setGetChildrenResult2 Begin");
-    	logger.log(Level.SEVERE, "setGetChildrenResult2 clientKey["+clientKey+"]");
-    	logger.log(Level.SEVERE, "setGetChildrenResult2 errorCode["+errorCode+"]");
-    	logger.log(Level.SEVERE, "setGetChildrenResult2 errorMessage["+errorMessage+"]");
+    
+    private void setGetChildrenResponse(String clientKey, String[] instances, int errorCode, String errorMessage) {
+    	logger.log(Level.SEVERE, "setGetChildrenResponse Begin");
+    	logger.log(Level.SEVERE, "setGetChildrenResponse clientKey["+clientKey+"]");
+    	logger.log(Level.SEVERE, "setGetChildrenResponse errorCode["+errorCode+"]");
+    	logger.log(Level.SEVERE, "setGetChildrenResponse errorMessage["+errorMessage+"]");
     	
-        logger.log(Level.SEVERE, "setGetChildrenResult2 ChildrenResult.class.getName()["+ChildrenResult.class.getName()+"]");     	
-    	
+        logger.log(Level.SEVERE, "setGetChildrenResponse ChildrenResult.class.getName()["+ChildrenResult.class.getName()+"]");
+        
+        childrenCached.put(clientKey, instances);
+
     	if ( null != instances ) {
     		// Remove the result from the reading list
         	Iterator<ReadRequest> readRequests = getChildrens.iterator();
         	while ( readRequests.hasNext() ) {
         		ReadRequest readRequest = readRequests.next();
         		
-        		logger.log(Level.SEVERE, "setGetChildrenResult2 readRequest.clientKey["+readRequest.clientKey+"]");
+        		logger.log(Level.SEVERE, "setGetChildrenResponse readRequest.clientKey["+readRequest.clientKey+"]");
         		
         		if ( readRequest.equalToKey(clientKey) ) {
         			Result result = readRequest.result;
         			
-        			logger.log(Level.SEVERE, "setGetChildrenResult2 readRequest.resultName["+readRequest.resultName+"]");
+        			logger.log(Level.SEVERE, "setGetChildrenResponse readRequest.resultName["+readRequest.resultName+"]");
         			
         			if ( 0 == ChildrenResult.class.getName().compareTo(readRequest.resultName) ) {
         				((ChildrenResult)result).setGetChildrenResult(clientKey, instances, errorCode, errorMessage);
         			}
-        			readRequests.remove();
+	
+        			logger.log(Level.SEVERE, "setGetChildrenResponse remove readRequest");
+
         		}
         	}
 			for(int i = 0 ; i < instances.length ; ++i ) {
-				logger.log(Level.SEVERE, "setGetChildrenResult2 instances("+i+") instances["+instances[i]+"]");
+				logger.log(Level.SEVERE, "setGetChildrenResponse instances("+i+") instances["+instances[i]+"]");
 			}
     	} else {
-    		logger.log(Level.SEVERE, "setGetChildrenResult2 instances IS NULL");
+    		logger.log(Level.SEVERE, "setGetChildrenResponse instances IS NULL");
     	}
-		logger.log(Level.SEVERE, "setGetChildrenResult2 End");
+		logger.log(Level.SEVERE, "setGetChildrenResponse End");
     }
+    
 }

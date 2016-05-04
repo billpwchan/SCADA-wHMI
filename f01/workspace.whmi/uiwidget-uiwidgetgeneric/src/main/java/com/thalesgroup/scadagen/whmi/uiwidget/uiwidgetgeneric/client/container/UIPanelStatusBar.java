@@ -14,7 +14,6 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 

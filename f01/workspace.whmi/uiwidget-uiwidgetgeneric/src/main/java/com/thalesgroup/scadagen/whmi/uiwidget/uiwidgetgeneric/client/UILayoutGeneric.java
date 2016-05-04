@@ -58,9 +58,9 @@ public class UILayoutGeneric implements UIWidget_i {
 	}
 	
 	private UINameCard uiNameCard = null;
-	public void UILayoutGeneric(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-	}
+//	public UILayoutGeneric(UINameCard uiNameCard) {
+//		this.uiNameCard = new UINameCard(uiNameCard);
+//	}
 	
 	public void init(String xmlFile) {
 		this.xmlFile = xmlFile;

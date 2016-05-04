@@ -1,6 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,15 +21,17 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.Point;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicDynamicDataEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelLogicStaticDataEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicChildEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicDynamicEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicHeader;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicStaticEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.storage.Point;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
-public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
+public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UIInspector_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelInspector.class.getName());
 	
@@ -40,102 +41,122 @@ public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
 	private String strIsControlable	= ".isControlable";
 	
 	// Static Attribute List
-	private String attributesStatic[]	= new String[] {strLabel};
+	private String staticAttibutes[]	= new String[] {strLabel};
 
 	// Dynamic Attribute List
-	private String attributesDynamic[]	= new String[] {strIsControlable};
-	
-	private UIPanelInspectorRTDBLogic uiPanelRTDBLogin = null;
-	
+	private String dynamicAttibutes[]	= new String[] {strIsControlable};
+
 	private String scsEnvId		= null;
-	private String dbaddress	= null;
-
-	public void setConnection(String scsEnvId, String dbaddress) {
-		logger.log(Level.SEVERE, "setConnection Begin");
+	private String parent		= null;
+	private String[] addresses	= null;
+	
+	@Override
+	public void setParent(String parent) {
+		this.parent = parent;
+	}
+	
+	@Override
+	public void setAddresses(String scsEnvId, String[] addresses) {
+		logger.log(Level.SEVERE, "setAddresses Begin");
+		
 		this.scsEnvId = scsEnvId;
-		this.dbaddress = dbaddress;
-
-		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"] this.dbaddress["+this.dbaddress+"]");
 		
-		this.uiPanelRTDBLogin = new UIPanelInspectorRTDBLogic();
-		this.uiPanelRTDBLogin.setUINameCard(this.uiNameCard);
-		this.uiPanelRTDBLogin.setConnection(this.scsEnvId, this.dbaddress);
-		this.uiPanelRTDBLogin.setAttibute(UIPanelInspectorRTDBLogic_i.strStatic, attributesStatic);
-		this.uiPanelRTDBLogin.setAttibute(UIPanelInspectorRTDBLogic_i.strDynamic, attributesDynamic);
-
-		this.uiPanelRTDBLogin.setUIPanelLogicStaticDataEvent(new UIPanelLogicStaticDataEvent() {
-			@Override
-			public void ready(LinkedList<Point> points) {
-				updateStaticDisplay(points);
-			}
-		});
-		this.uiPanelRTDBLogin.setUIPanelLogicDynamicDataEvent(new UIPanelLogicDynamicDataEvent() {
-			@Override
-			public void update(LinkedList<Point> points) {
-				updateDynamicDisplay(points);
-			}
-		});
-		logger.log(Level.SEVERE, "setConnection End");
+		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
+		
+		this.addresses = addresses;
+		
+		RTDB_Helper.addressesIsValid(this.addresses);
+		
+		logger.log(Level.SEVERE, "setAddresses End");
 	}
-
-	public void setConnections(String scsEnvId, String dbaddress) {
-		logger.log(Level.SEVERE, "setConnection Begin");
+	
+	private UIPanelInspectorRTDBLogic logic 			= null;
+	private UIPanelInspectorRTDBLogicHeader headerLogic	= null;
+	@Override
+	public void connect() {
+		logger.log(Level.SEVERE, "connect Begin");
 		
-		Iterator<UIPanelInspector_i> iterator = uiInspectorTags.iterator();
-		while ( iterator.hasNext() ) {
-			UIPanelInspector_i uiPanelInspector_i = iterator.next();
-			if ( null != uiPanelInspector_i ) {
-				uiPanelInspector_i.setConnection(scsEnvId, dbaddress);
-			} else {
-				logger.log(Level.SEVERE, "setConnection uiPanelInspector_i IS NULL");
+		if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
+			
+			String address = this.addresses[0];
+			
+			{
+				if ( null != headerLogic ) headerLogic.disconnect();
+				
+				headerLogic = new UIPanelInspectorRTDBLogicHeader(this.uiNameCard);
+				headerLogic.setScsEnvId(scsEnvId);
+				headerLogic.setDBaddress(address);
+				headerLogic.setUIPanelInspectorRTDBLogicChildEvent(new UIPanelInspectorRTDBLogicChildEvent() {
+					@Override
+					public void ready(String[] instances) {
+//						buildTabsAddress(scsEnvId, instances);
+//						makeTabsSetAddress();
+//						makeTabsBuildWidgets();
+//						makeTabsConnect();
+					}
+				});
+				if ( null != headerLogic ) headerLogic.connect();
 			}
+			
+			{
+				if ( null != logic ) logic.disconnect();
+				
+				logic = new UIPanelInspectorRTDBLogic(this.uiNameCard);
+				
+				logic.setScsEnvId(scsEnvId);
+				logic.setParent(parent);
+				logic.setDBaddresses(this.addresses);
+				logic.setStaticAttributes(staticAttibutes);
+//				logic.setDynamicAttributes(dynamicAttibutes);
+				logic.setUIPanelInspectorRTDBLogicStaticEvent(new UIPanelInspectorRTDBLogicStaticEvent() {
+					@Override
+					public void ready(Point[] points) {
+						updateStaticDisplay(points);
+					}
+				});
+				logic.setUIPanelInspectorRTDBLogicDynamicEventt(new UIPanelInspectorRTDBLogicDynamicEvent() {
+					@Override
+					public void update(Point[] points) {
+						updateDynamicDisplay(points);
+					}
+				});
+				
+				
+				if ( null != logic ) logic.connect();				
+			}
+			
+		} else {
+			logger.log(Level.SEVERE, "connect addressIsValid IS FALSE");
 		}
-		
-		logger.log(Level.SEVERE, "setConnection End");		
+
+		logger.log(Level.SEVERE, "connect End");
 	}
 	
 	@Override
-	public void readyToReadChildrenData() {
-		logger.log(Level.SEVERE, "readyToReadChildrenData Begin");
-		
-		logger.log(Level.SEVERE, "readyToReadChildrenData End");
+	public void buildWidgets() {
+		buildWidgets(this.addresses.length);
+	}
+	
+	public void buildWidgets(int numOfWidgets) {
+	
 	}
 	
 	@Override
-	public void readyToReadStaticData() {
-		logger.log(Level.SEVERE, "readToReadStaticData Begin");
-		
-		this.uiPanelRTDBLogin.readyToReadStaticData();
-		
-		logger.log(Level.SEVERE, "readToReadStaticData End");
-	}
-	
-	@Override
-	public void readyToSubscribeDynamicData() {
-		logger.log(Level.SEVERE, "requestDynmaicData Begin");
-		
-		this.uiPanelRTDBLogin.readyToSubscribeDynamicData();
-		
-		logger.log(Level.SEVERE, "requestDynmaicData End");
-	}
-	
-	@Override
-	public void removeConnection() {
+	public void disconnect() {
 		logger.log(Level.SEVERE, "removeConnection Begin");
 		
-		this.uiPanelRTDBLogin.removeDynamicSubscription();
+		if ( null != logic ) logic.disconnect();
+		if ( null != headerLogic ) headerLogic.disconnect();
 		
 		logger.log(Level.SEVERE, "removeConnection End");
 	}
 	
-	private void updateStaticDisplay(LinkedList<Point> points) {
+	private void updateStaticDisplay(Point[] points) {
 		logger.log(Level.SEVERE, "updateStaticDisplay Begin");
 		
 		if ( null != points ) {
 			String label = null;
-			Iterator<Point> iterator = points.iterator();
-			while ( iterator.hasNext() ) {
-				Point point = iterator.next();
+			for(Point point : points ) {
 				label = point.getValue(strLabel);
 			}
 			if ( null != label ) this.setText(label);
@@ -144,67 +165,149 @@ public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
 			logger.log(Level.SEVERE, "updateStaticDisplay points IS NULL");
 		}
 		
-		readyToSubscribeDynamicData();
-		
 		logger.log(Level.SEVERE, "updateStaticDisplay End");
 	}
 	
-	private void updateDynamicDisplay(LinkedList<Point> points) {
+	private void updateDynamicDisplay(Point[] points) {
 		logger.log(Level.SEVERE, "updateDynamicDisplay Begin");
+		
 		String controlable = null;
-		Iterator<Point> iterator = points.iterator();
-		while ( iterator.hasNext() ) {
-			Point point = iterator.next();
+		for(Point point : points ) {
 			controlable = point.getValue(strIsControlable);
 		}
 		if ( null != controlable ) txtAttributeStatus[0].setText((0==controlable.compareTo("0")?"No":"Yes"));
+		
 		logger.log(Level.SEVERE, "updateDynamicDisplay End");
 	}
 	
-	public void connect() {
-		logger.log(Level.SEVERE, "connect Begin");
+	private LinkedList<String> infos	= new LinkedList<String>();
+	private LinkedList<String> controls	= new LinkedList<String>();
+	private LinkedList<String> tags		= new LinkedList<String>();
+	private LinkedList<String> advances	= new LinkedList<String>();
+	@Override
+	public void buildTabsAddress(String scsEnvId, String[] instances) {
 		
-		readyToReadStaticData();
-		
-		logger.log(Level.SEVERE, "connect End");
-	}
-	
-	public void connects() {
-		logger.log(Level.SEVERE, "connects Begin");
+		logger.log(Level.SEVERE, "updateTabs Begin");
 
-		Iterator<UIPanelInspector_i> iterator = uiInspectorTags.iterator();
-		while ( iterator.hasNext() ) {
-			UIPanelInspector_i uiPanelInspector_i = iterator.next();
-			if ( null != uiPanelInspector_i ) {
-				uiPanelInspector_i.readyToReadChildrenData();
+		String[] infoPrefix				= new String[] {"dci", "aci", "sci"};
+		String[] controlPrefix			= new String[] {"dio", "aio", "sio"};
+		String[] tagsEnding				= new String[] {"PTW", "LR"};
+		
+		logger.log(Level.SEVERE, "updateTabs Iterator Begin");
+		
+		for ( String dbaddress : instances ) {
+			logger.log(Level.SEVERE, "updateTabs Iterator dbaddress["+dbaddress+"]");
+			
+			if ( null != dbaddress ) {
+				String dbaddressTokenes[] = dbaddress.split(":");
+				String point = dbaddressTokenes[dbaddressTokenes.length-1];
+				
+				if ( null != point ) {
+					for ( String s : controlPrefix ) {
+						if ( point.startsWith(s) ) {
+							controls.add(dbaddress);
+							continue;
+						}
+					}
+					for ( String s : tagsEnding ) {
+						if ( point.endsWith(s) ) {
+							tags.add(dbaddress);
+							continue;
+						}
+					}
+					for ( String s : infoPrefix ) {
+						if ( point.startsWith(s) ) {
+							infos.add(dbaddress);
+							advances.add(dbaddress);
+						}
+					}
+				} else {
+					logger.log(Level.SEVERE, "updateTabs Iterator point IS NULL");
+				}
 			} else {
-				logger.log(Level.SEVERE, "connects uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, "updateTabs Iterator dbaddress IS NULL");
 			}
 		}
-		logger.log(Level.SEVERE, "connects End");
+
+		logger.log(Level.SEVERE, "updateTabs Iterator End");
+		
+		for ( String dbaddress : infos )	{ logger.log(Level.SEVERE, "updateTabs infos dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : controls )	{ logger.log(Level.SEVERE, "updateTabs controls dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : tags )		{ logger.log(Level.SEVERE, "updateTabs tags dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : advances )	{ logger.log(Level.SEVERE, "updateTabs advances dbaddress["+dbaddress+"]"); }
+		
+		uiInspectorInfo.setAddresses	(scsEnvId, infos.toArray(new String[0]));
+		uiInspectorControl.setAddresses	(scsEnvId, controls.toArray(new String[0]));
+		uiInspectorTag.setAddresses		(scsEnvId, tags.toArray(new String[0]));
+		uiInspectorAdvance.setAddresses	(scsEnvId, advances.toArray(new String[0]));
+		
+		logger.log(Level.SEVERE, "updateTabs End");
 	}
 	
-	private void disconnects() {
+	@Override
+	public void makeTabsSetAddress() {
+		for ( String dbaddress : infos )	{ logger.log(Level.SEVERE, "updateTabs infos dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : controls )	{ logger.log(Level.SEVERE, "updateTabs controls dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : tags )		{ logger.log(Level.SEVERE, "updateTabs tags dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : advances )	{ logger.log(Level.SEVERE, "updateTabs advances dbaddress["+dbaddress+"]"); }
+		
+		uiInspectorInfo.setAddresses	(scsEnvId, infos.toArray(new String[0]));
+		uiInspectorControl.setAddresses	(scsEnvId, controls.toArray(new String[0]));
+		uiInspectorTag.setAddresses		(scsEnvId, tags.toArray(new String[0]));
+		uiInspectorAdvance.setAddresses	(scsEnvId, advances.toArray(new String[0]));		
+	}
+	
+	@Override
+	public void makeTabsBuildWidgets() {
+		logger.log(Level.SEVERE, "makeTabsBuildWidgets Begin");
+		
+		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
+			if ( null != uiPanelInspector ) {
+				uiPanelInspector.buildWidgets();
+			} else {
+				logger.log(Level.SEVERE, "makeTabsBuildWidgets uiPanelInspector_i IS NULL");
+			}
+		}
+
+		logger.log(Level.SEVERE, "makeTabsBuildWidgets End");
+	}
+	
+	@Override
+	public void makeTabsConnect() {
+		logger.log(Level.SEVERE, "makeTabsConnect Begin");
+		
+		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
+			if ( null != uiPanelInspector ) {
+				uiPanelInspector.connect();
+			} else {
+				logger.log(Level.SEVERE, "makeTabsConnect uiPanelInspector_i IS NULL");
+			}
+		}
+
+		logger.log(Level.SEVERE, "makeTabsConnect End");
+	}
+
+	@Override
+	public void makeTabsDisconnect() {
 		logger.log(Level.SEVERE, "tagsDisconnect Begin");
 		
-		Iterator<UIPanelInspector_i> iterator = uiInspectorTags.iterator();
-		while ( iterator.hasNext() ) {
-			UIPanelInspector_i uiPanelInspector_i = iterator.next();
-			if ( null != uiPanelInspector_i ) {
-				uiPanelInspector_i.removeConnection();
+		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
+			if ( null != uiPanelInspector ) {
+				uiPanelInspector.disconnect();
 			} else {
-				logger.log(Level.SEVERE, "tagsConnect uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, "tagsDisconnect uiPanelInspector_i IS NULL");
 			}
 		}
+
 		logger.log(Level.SEVERE, "tagsDisconnect End");
 	}
 	
-	private UIInspectorInfo uiInspectorInfo			= null;
-	private UIInspectorControl uiInspectorControl	= null;
-	private UIInspectorTag uiInspectorTag			= null;
-	private UIInspectorAdvance uiInspectorAdvance	= null;
+	private UIInspectorTab_i uiInspectorInfo	= null;
+	private UIInspectorTab_i uiInspectorControl	= null;
+	private UIInspectorTab_i uiInspectorTag		= null;
+	private UIInspectorTab_i uiInspectorAdvance	= null;
 	
-	private LinkedList<UIPanelInspector_i> uiInspectorTags = null;
+	private LinkedList<UIInspectorTab_i> uiInspectorTabs = null;
 	
 	int baseBoderX = 28, baseBoderY = 28;
 	int baseWidth = 400, baseHeight = 620;
@@ -239,17 +342,17 @@ public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
 		}
 	
+		uiInspectorTabs 	= new LinkedList<UIInspectorTab_i>();
+		
 		uiInspectorInfo		= new UIInspectorInfo();
 		uiInspectorControl	= new UIInspectorControl();
 		uiInspectorTag		= new UIInspectorTag();
 		uiInspectorAdvance	= new UIInspectorAdvance();
-		
-		uiInspectorTags 	= new LinkedList<UIPanelInspector_i>();
-		
-		uiInspectorTags.add(uiInspectorInfo);
-		uiInspectorTags.add(uiInspectorControl);
-		uiInspectorTags.add(uiInspectorTag);
-		uiInspectorTags.add(uiInspectorAdvance);
+
+		uiInspectorTabs.add(uiInspectorInfo);
+		uiInspectorTabs.add(uiInspectorControl);
+		uiInspectorTabs.add(uiInspectorTag);
+		uiInspectorTabs.add(uiInspectorAdvance);
 		
 		ComplexPanel panelInfo		= uiInspectorInfo.getMainPanel(this.uiNameCard);
 		ComplexPanel panelCtrl		= uiInspectorControl.getMainPanel(this.uiNameCard);
@@ -272,7 +375,9 @@ public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				disconnects();
+//				disconnect();
+//				
+//				makeTabsDisconnect();
 				
 				hide();
 			}
@@ -341,6 +446,5 @@ public class UIPanelInspector extends DialogBox implements UIPanelInspector_i {
 			}
 		}
 	}
-
 
 }

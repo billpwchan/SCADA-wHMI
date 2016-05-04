@@ -13,7 +13,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiview.client.UIView_i;

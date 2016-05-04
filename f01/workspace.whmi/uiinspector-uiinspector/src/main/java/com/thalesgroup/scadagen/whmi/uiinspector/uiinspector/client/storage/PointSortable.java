@@ -1,13 +1,13 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.storage;
 
-public class PointSort extends Point implements Comparable<PointSort> {
+public class PointSortable extends Point implements Comparable<PointSortable> {
 
-	public PointSort(String address, String[] keys) {
+	public PointSortable(String address, String[] keys) {
 		super(address, keys);
 	}
 
 	@Override
-	public int compareTo(PointSort o) {
+	public int compareTo(PointSortable o) {
 		
 		int comparedOrder = 0;
 		String strComparedOrder = o.getValue("hmiOrder");

@@ -1,7 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,10 +18,6 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicDynamicEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicStaticEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.storage.Point;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 public class UIInspectorInfo implements UIInspectorTab_i {
@@ -63,90 +58,49 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	@Override
 	public void setParent(String parent) {
-		this.parent=parent;
+		this.parent = parent;
 	}
 	
 	@Override
 	public void setAddresses(String scsEnvId, String[] addresses) {
-		logger.log(Level.SEVERE, "setAddresses Begin");
+		logger.log(Level.FINE, "setAddresses Begin");
 		
 		this.scsEnvId = scsEnvId;
 		
-		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
 		
 		this.addresses = addresses;
 		
-		logger.log(Level.SEVERE, "setAddresses End");
+		logger.log(Level.FINE, "setAddresses End");
 	}
 	
-	private UIPanelInspectorRTDBLogic logic = null;
 	@Override
 	public void connect() {
-		logger.log(Level.SEVERE, "connect Begin");
+		logger.log(Level.FINE, "connect Begin");
 		
-		if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
-			
-			{
-				logger.log(Level.SEVERE, "connect setUIPanelInspectorRTDBLogicStaticEvent Begin");
-				
-				if ( null != logic ) logic.disconnect();
-				
-				logic = new UIPanelInspectorRTDBLogic(this.uiNameCard);
-				
-				logic.setScsEnvId(scsEnvId);
-				logic.setParent(parent);
-				logic.setDBaddresses(this.addresses);
-				logic.setStaticAttributes(staticAttibutes);
-//				logic.setDynamicAttributes(dynamicAttibutes);
-				logic.setUIPanelInspectorRTDBLogicStaticEvent(new UIPanelInspectorRTDBLogicStaticEvent() {
-					@Override
-					public void ready(Point[] points) {
-						buildPointList(points);
-						buildWidgets(points.length);
-						updateStaticDisplay(points);
-					}
-				});
-				logic.setUIPanelInspectorRTDBLogicDynamicEventt(new UIPanelInspectorRTDBLogicDynamicEvent() {
-					@Override
-					public void update(Point[] points) {
-						updateDynamicDisplay(points);
-					}
-				});
-				
-				logic.connect();
-				
-				logger.log(Level.SEVERE, "connect setUIPanelInspectorRTDBLogicStaticEvent End");
-			}
-			
-		} else {
-			logger.log(Level.SEVERE, "connect addressIsValid IS FALSE");
-		}
-
-		logger.log(Level.SEVERE, "connect End");
+		logger.log(Level.FINE, "connect End");
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.SEVERE, "disconnect Begin");
+		logger.log(Level.FINE, "disconnect Begin");
 		
-		if ( null != logic ) logic.disconnect();
 		
-		logger.log(Level.SEVERE, "disconnect End");
+		logger.log(Level.FINE, "disconnect End");
 	}
 	
 	@Override
 	public void buildWidgets() {
-		logger.log(Level.SEVERE, "buildWidgets Begin");
+		logger.log(Level.FINE, "buildWidgets Begin");
 		
-//		buildPointList(this.addresses.length);
-//		buildWidgets(this.addresses.length);
+		buildWidgets(this.addresses.length);
 	
-		logger.log(Level.SEVERE, "buildWidgets End");
+		logger.log(Level.FINE, "buildWidgets End");
 	}
 	
-	private void buildWidgets(int numOfWidgets) {
+	void buildWidgets(int numOfWidgets) {
 		
-		logger.log(Level.SEVERE, "buildWidgets Begin");
+		logger.log(Level.FINE, "buildWidgets Begin");
 		
 		logger.log(Level.SEVERE, "buildWidgets numOfWidgets["+numOfWidgets+"]");
 		
@@ -164,7 +118,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				flexTableAttibutes.setWidth("100%");
 				for( int i = 0 ; i < numOfWidgets ; ++i ) {
 					
-					logger.log(Level.SEVERE, "buildWidgets i["+i+"]");
+					logger.log(Level.FINE, "buildWidgets i["+i+"]");
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
@@ -189,185 +143,157 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspector-info-status-col");
 
 			} else {
-				logger.log(Level.SEVERE, "buildWidgets this.pointStatics IS NULL");
+				logger.log(Level.FINE, "buildWidgets this.pointStatics IS NULL");
 			}
 			
 			vpCtrls.add(flexTableAttibutes);
 			
 		} else {
-			logger.log(Level.SEVERE, "buildWidgets points IS NULL");
+			logger.log(Level.FINE, "buildWidgets points IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "buildWidgets End");
-	}
-	
-	private LinkedList<Point> pointDisplays = null;
-	private void buildPointList(Point[] points) {
-		logger.log(Level.SEVERE, "buildVisibleList Begin");
-
-		if ( null != points ) {
-			
-			logger.log(Level.SEVERE, "buildVisibleList points.length["+ points.length +"]");
-			
-			pointDisplays = new LinkedList<Point>();
-			for ( Point point : points ) {
-
-				if ( null != point ) {
-					
-					logger.log(Level.SEVERE, "buildVisibleList point.getValue(strHmiOrder)["+ point.getValue(strHmiOrder)+"]");
-					
-					String address = point.getAddress();
-					
-					logger.log(Level.SEVERE, "buildVisibleList address["+ address +"]");
-					
-					if ( null != point.getValue(strHmiOrder) && 0 == point.getValue(strHmiOrder).compareTo("-1") ) {
-						// Invisiable Point
-						continue;
-					}
-					
-					pointDisplays.add(point);
-					
-				} else {
-					logger.log(Level.SEVERE, "buildVisibleList point IS NULL");
-				}
-			}
-			
-			logger.log(Level.SEVERE, "buildVisibleList pointDisplays.size()["+ pointDisplays.size() +"]");
-		}
+		logger.log(Level.FINE, "buildWidgets End");
 	}
 	
 	
-	private void updateStaticDisplay(Point[] points) {
+	private HashMap<String, String> dbvalues = new HashMap<String, String>();
+	public void updateValue(String clientkey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.SEVERE, "updateStaticDisplay Begin");
+		logger.log(Level.SEVERE, "updateValue Begin");
+		logger.log(Level.SEVERE, "updateValue clientkey["+clientkey+"]");
 		
-		if ( null != points ) {
+		for ( String key : keyAndValue.keySet() ) {
+			dbvalues.put(key, keyAndValue.get(key));
+		}
+		
+		for ( int i = 0 ; i < this.addresses.length ; ++i ) {
+			logger.log(Level.SEVERE, "updateValue addresses("+i+")["+addresses[i]+"]");
+		}
+		
+		for ( String key : dbvalues.keySet() ) {
+			logger.log(Level.SEVERE, "updateValue dbvalues.get("+key+")["+dbvalues.get(key)+"]");
+		}
 
-			logger.log(Level.SEVERE, "updateStaticDisplay points.length["+points.length+"]");
-			
-			int i=0;
-			for ( Point point: points ) {
-				
-				if ( null != point ) {
-					String address = point.getAddress();
-					
-					logger.log(Level.SEVERE, "updateStaticDisplay address["+address+"]");
-					
-//					Integer integer = widgetIndex.get(address);
-//					if ( null != integer ) {
-						
-						int index = ++i;
-						
-						logger.log(Level.SEVERE, "updateStaticDisplay index["+index+"]");
-						
-						logger.log(Level.SEVERE, "updateStaticDisplay pointDisplays("+index+") point.label["+point.getValue(strLabel)+"]");
-						
-						lblAttibuteLabel[index].setText(point.getValue(strLabel));
+		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "inspectorinfo" + "static" + parent;
 		
-						txtAttribute[index].setText("-");
+		logger.log(Level.SEVERE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
 		
-						txtAttibuteColor[index].setStyleName(strCSSStatusGrey);								
-//					} else {
-//						logger.log(Level.SEVERE, "updateStaticDisplay integer IS NULL");
-//					}
-				} else {
-					logger.log(Level.SEVERE, "updateStaticDisplay point IS NULL");
+		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientkey) ) {
+
+			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
+				String address = this.addresses[i];
+				String dbaddress = address + strLabel;
+				if ( dbvalues.containsKey(dbaddress) ) {
+					String value = dbvalues.get(dbaddress);
+					value = RTDB_Helper.removeDBStringWrapper(value);
+					lblAttibuteLabel[i].setText(value);
 				}
 			}
-
 		} else {
-			logger.log(Level.SEVERE, "updateStaticDisplay points IS NULL");
-		}
-		
-		logger.log(Level.SEVERE, "updateStaticDisplay End");
-	}
-	
-	private void updateDynamicDisplay(Point[] points) {
-		
-		logger.log(Level.SEVERE, "updateDynamicDisplay Begin");
-		
-		if ( null != points ) {
-			
-			logger.log(Level.SEVERE, "updateDynamicDisplay points.length["+ points.length +"] points.length["+ pointDisplays.size() +"]");
-			
-			for ( Point point : points ) {
+			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
+				String address = this.addresses[i];
 				
-				if ( null != point ) {
-
-					{
-						String [] keys = point.getAttributeKeys();
-						logger.log(Level.SEVERE, "updateDynamicDisplay point.getAddress()["+point.getAddress()+"] keys.length["+keys.length+"]");
-						for ( String k : keys ) {
-							logger.log(Level.SEVERE, "updateDynamicDisplay point.getValue("+k+")["+point.getValue(k)+"]");
-						}
-					}
-					
-					String address = point.getAddress();
-					
-					if ( null != address ) {
-						
-						String value = point.getValue(strValue);
-						
-						logger.log(Level.SEVERE, "updateDynamicDisplay address["+address+"] == value["+value+"]");
-						
-						int i = 0;
-						Iterator<Point> iteratorDisplay = pointDisplays.iterator();
-						while ( iteratorDisplay.hasNext() ) {
-							Point pointDisplay = iteratorDisplay.next();
-							
-							if ( null != pointDisplay ) {
-								
-								if ( null != pointDisplay.getAddress() ) {
-									
-									if ( 0 == address.compareTo(pointDisplay.getAddress()) ) {
-										
-										String name = null;
-								
-										String valueTable = pointDisplay.getValue(strValueTable);
-										for( int r = 0 ; r < 12 ; ++r ) {
-											String v = RTDB_Helper.getArrayValues(valueTable, 4, r );
-											logger.log(Level.SEVERE, "updateDynamicDisplay getArrayValues r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
-											if ( 0 == v.compareTo(value) ) {
-												name = RTDB_Helper.getArrayValues(valueTable, 1, r );
-												break;
-											}
-										}
-										
-										if ( null != name ) {
-											txtAttribute[i].setText(name);	
-										} else {
-											txtAttribute[i].setText(value);	
-										}
-										
-										logger.log(Level.SEVERE, "updateDynamicDisplay value["+value+"] or name["+name+"]");
-										
-										String strColorCSS = RTDB_Helper.getColorCSS(point.getValue(strValueAlarmVector), point.getValue(strValidity), point.getValue(strForcedStatus));
-										txtAttibuteColor[i].setStyleName(strColorCSS);
-										
-										logger.log(Level.SEVERE, "updateDynamicDisplay strColorCSS["+strColorCSS+"]");
-									}
-								} else {
-									logger.log(Level.SEVERE, "updateDynamicDisplay pointDisplay.getAddress() IS NULL");
-								}
-							} else {
-								logger.log(Level.SEVERE, "updateDynamicDisplay pointDisplay IS NULL");
-							}
-							++i;
-						}
+				logger.log(Level.SEVERE, "updateValue address["+address+"]");
+				
+				String value = null;
+				{
+					String dbaddress = address + strValue;
+					logger.log(Level.SEVERE, "updateValue strValue["+strValue+"] dbaddress["+dbaddress+"]");
+					if ( dbvalues.containsKey(dbaddress) ) {
+						value = dbvalues.get(dbaddress);
 					} else {
-						logger.log(Level.SEVERE, "updateDynamicDisplay pointDynamic.getAddress() IS NULL");
+						logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					}
+				}		
+				
+				logger.log(Level.SEVERE, "updateValue value["+value+"]");
+				
+				String valueTable = null;
+				{
+					String dbaddress = address + strValueTable;
+					logger.log(Level.SEVERE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
+					if ( dbvalues.containsKey(dbaddress) ) {
+						valueTable = dbvalues.get(dbaddress);
+					} else {
+						logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					}					
+				}
+				
+				logger.log(Level.SEVERE, "updateValue valueTable["+valueTable+"]");
+				
+				String name = null;
+				{
+					for( int r = 0 ; r < 12 ; ++r ) {
+						String v = RTDB_Helper.getArrayValues(valueTable, 4, r );
+						logger.log(Level.FINE, "updateValue getArrayValues r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+						if ( 0 == v.compareTo(value) ) {
+							name = RTDB_Helper.getArrayValues(valueTable, 1, r );
+							break;
+						}
+					}					
+				}
+				
+				logger.log(Level.SEVERE, "updateValue name["+name+"]");
+				
+				if ( null != name ) {
+					name = RTDB_Helper.removeDBStringWrapper(name);
+					txtAttribute[i].setText(name);	
+				} else {
+					value = RTDB_Helper.removeDBStringWrapper(value);
+					txtAttribute[i].setText(value);	
+				}
+				
+				String valueAlarmVector = null;
+				String validity = null;
+				String forcedStatus = null;
+				{
+					{
+						String dbaddress = address + strValueAlarmVector;
+						logger.log(Level.SEVERE, "updateValue strValueAlarmVector["+strValueAlarmVector+"] dbaddress["+dbaddress+"]");
+						if ( dbvalues.containsKey(dbaddress) ) {
+							valueAlarmVector = dbvalues.get(dbaddress);
+						} else {
+							logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+						}
 					}
 					
-				} else {
-					logger.log(Level.SEVERE, "updateDynamicDisplay pointDynamic IS NULL");
+					logger.log(Level.SEVERE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
+					
+					{
+						String dbaddress = address + strValidity;
+						logger.log(Level.SEVERE, "updateValue strValidity["+strValidity+"] dbaddress["+dbaddress+"]");
+						if ( dbvalues.containsKey(dbaddress) ) {
+							validity = dbvalues.get(dbaddress);
+						} else {
+							logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+						}
+					}
+					
+					logger.log(Level.SEVERE, "updateValue validity["+validity+"]");
+					
+					{
+						String dbaddress = address + strForcedStatus;
+						logger.log(Level.SEVERE, "updateValue strForcedStatus["+strForcedStatus+"] dbaddress["+dbaddress+"]");
+						if ( dbvalues.containsKey(dbaddress) ) {
+							forcedStatus = dbvalues.get(dbaddress);
+						} else {
+							logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+						}
+					}
+					
+					logger.log(Level.SEVERE, "updateValue forcedStatus["+forcedStatus+"]");
+
 				}
-			} // pointDynamics iterator
-			
-		} else {
-			logger.log(Level.SEVERE, "updateDynamicDisplay pointDynamics IS NULL");
+				
+				String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+				txtAttibuteColor[i].setStyleName(strColorCSS);
+				
+				logger.log(Level.SEVERE, "updateValue strColorCSS["+strColorCSS+"]");
+
+			}
 		}
 
-		logger.log(Level.SEVERE, "updateDynamicDisplay End");
+		logger.log(Level.SEVERE, "updateValue End");
 	}
 	
 	FlexTable flexTableAttibutes = null;
@@ -381,7 +307,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -460,7 +386,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(basePanel);
 		
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 		return vp;
 	}

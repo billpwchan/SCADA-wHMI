@@ -106,14 +106,13 @@ public class UIScreenMMI implements UIScreen_i {
 							String dbaddress = ":SITE1:B001:F001:ACCESS:DO001";
 							
 							UIInspectorTab_i uiPanelInspector = new UIPanelInspector();
-							uiPanelInspector.getMainPanel(this.uiNameCard);
-							((DialogBox)uiPanelInspector).show();
-							
-							// Header Connect
 							uiPanelInspector.setParent(dbaddress);
 							uiPanelInspector.setAddresses(scsEnvId, new String[]{dbaddress});
+							uiPanelInspector.getMainPanel(this.uiNameCard);
+							((DialogBox)uiPanelInspector).show();
 							uiPanelInspector.connect();
 							
+
 						}
 					}
 				}
@@ -123,5 +122,4 @@ public class UIScreenMMI implements UIScreen_i {
 		logger.log(Level.FINE, "onUIEvent End");
 
 	}
-
 }

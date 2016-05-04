@@ -4,11 +4,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
@@ -103,17 +105,15 @@ public class UIScreenMMI implements UIScreen_i {
 							String scsEnvId = "B001";
 							String dbaddress = ":SITE1:B001:F001:ACCESS:DO001";
 							
-							UIPanelInspector uiPanelInspector = new UIPanelInspector();
+							UIInspectorTab_i uiPanelInspector = new UIPanelInspector();
 							uiPanelInspector.getMainPanel(this.uiNameCard);
-							uiPanelInspector.show();
+							((DialogBox)uiPanelInspector).show();
 							
-//							// Header Connect
-//							uiPanelInspector.setConnection(scsEnvId, dbaddress);
-//							uiPanelInspector.connect();
+							// Header Connect
+							uiPanelInspector.setParent(dbaddress);
+							uiPanelInspector.setAddresses(scsEnvId, new String[]{dbaddress});
+							uiPanelInspector.connect();
 							
-							// Tags Page connect
-							uiPanelInspector.setConnections(scsEnvId, dbaddress);
-							uiPanelInspector.connects();
 						}
 					}
 				}

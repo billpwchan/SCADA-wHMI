@@ -7,6 +7,13 @@ public class RTDB_Helper {
 	
 	private static Logger logger = Logger.getLogger(RTDB_Helper.class.getName());
 	
+	public static String removeDBStringWrapper(String value) {
+		if ( null != value && value.length() >= 2 ) {
+			if ( value.startsWith("\"") && value.endsWith("\"") ) { value = value.substring(1, value.length()-1); }
+		}
+		return value;
+	}
+	
 	public static boolean addressIsValid (String addresses) {
 		boolean result = false;
 		if ( null != addresses ) {

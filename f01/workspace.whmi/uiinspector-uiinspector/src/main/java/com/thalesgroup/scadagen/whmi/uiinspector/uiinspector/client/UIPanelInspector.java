@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,10 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -21,15 +26,14 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogic;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicChildEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicDynamicEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicHeader;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.rtdblogic.UIPanelInspectorRTDBLogicStaticEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.storage.Point;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
 
 public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UIInspector_i {
 	
@@ -49,7 +53,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
-	
+
 	@Override
 	public void setParent(String parent) {
 		this.parent = parent;
@@ -57,84 +61,628 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	
 	@Override
 	public void setAddresses(String scsEnvId, String[] addresses) {
-		logger.log(Level.SEVERE, "setAddresses Begin");
+		logger.log(Level.FINE, "setAddresses Begin");
 		
 		this.scsEnvId = scsEnvId;
 		
-		logger.log(Level.SEVERE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
 		
 		this.addresses = addresses;
 		
-		RTDB_Helper.addressesIsValid(this.addresses);
+//		RTDB_Helper.addressesIsValid(this.addresses);
 		
-		logger.log(Level.SEVERE, "setAddresses End");
+		logger.log(Level.FINE, "setAddresses End");
 	}
 	
-	private UIPanelInspectorRTDBLogic logic 			= null;
-	private UIPanelInspectorRTDBLogicHeader headerLogic	= null;
-	@Override
-	public void connect() {
-		logger.log(Level.SEVERE, "connect Begin");
-		
-		if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
-			
-			String address = this.addresses[0];
-			
-			{
-				if ( null != headerLogic ) headerLogic.disconnect();
-				
-				headerLogic = new UIPanelInspectorRTDBLogicHeader(this.uiNameCard);
-				headerLogic.setScsEnvId(scsEnvId);
-				headerLogic.setDBaddress(address);
-				headerLogic.setUIPanelInspectorRTDBLogicChildEvent(new UIPanelInspectorRTDBLogicChildEvent() {
-					@Override
-					public void ready(String[] instances) {
-//						buildTabsAddress(scsEnvId, instances);
-//						makeTabsSetAddress();
-//						makeTabsBuildWidgets();
-//						makeTabsConnect();
-					}
-				});
-				if ( null != headerLogic ) headerLogic.connect();
+	private HashMap<String, String> dynamicvalues = new HashMap<String, String>();
+	void updateValue(String clientKey, String [] values) {
+		String clientKey_GetChildren_inspectorn_static = "GetChildren" + "inspector" + "static" + parent;
+		if ( 0 == clientKey_GetChildren_inspectorn_static.compareTo(clientKey) ) {
+			buildTabsAddress(values);
+			makeTabsSetAddress();
+			makeTabsBuildWidgets();
+			connectInspectorInfo();
+		}
+		String clientKey_multiReadValue_inspector_static = "multiReadValue" + "inspector" + "static" + parent;
+		if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(clientKey) ) {
+			String [] dbaddresses = KeyAndAddress.get(clientKey);
+			String [] dbvalues = KeyAndValues.get(clientKey);
+			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+				String dbaddress = dbaddresses[i];
+
+				if ( dbaddress.endsWith(strLabel) ) {
+					String value = dbvalues[i];
+					value = RTDB_Helper.removeDBStringWrapper(value);
+					if ( null != value) this.setText(value);
+					break;
+				}
 			}
-			
-			{
-				if ( null != logic ) logic.disconnect();
-				
-				logic = new UIPanelInspectorRTDBLogic(this.uiNameCard);
-				
-				logic.setScsEnvId(scsEnvId);
-				logic.setParent(parent);
-				logic.setDBaddresses(this.addresses);
-				logic.setStaticAttributes(staticAttibutes);
-//				logic.setDynamicAttributes(dynamicAttibutes);
-				logic.setUIPanelInspectorRTDBLogicStaticEvent(new UIPanelInspectorRTDBLogicStaticEvent() {
-					@Override
-					public void ready(Point[] points) {
-						updateStaticDisplay(points);
-					}
-				});
-				logic.setUIPanelInspectorRTDBLogicDynamicEventt(new UIPanelInspectorRTDBLogicDynamicEvent() {
-					@Override
-					public void update(Point[] points) {
-						updateDynamicDisplay(points);
-					}
-				});
-				
-				
-				if ( null != logic ) logic.connect();				
-			}
-			
-		} else {
-			logger.log(Level.SEVERE, "connect addressIsValid IS FALSE");
 		}
 
-		logger.log(Level.SEVERE, "connect End");
+		
+		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "inspectorinfo" + "static" + parent;
+		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
+			String [] dbaddresses = KeyAndAddress.get(clientKey);
+			String [] dbvalues = KeyAndValues.get(clientKey);
+			HashMap<String, String> keyAndValue = new HashMap<String, String>();
+			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+				keyAndValue.put(dbaddresses[i], dbvalues[i]);
+			}
+			((UIInspectorInfo)uiInspectorInfo).updateValue(clientKey, keyAndValue);
+		}
+		
+//		String clientKey_multiReadValue_inspector_dynamic = "multiReadValue" + "inspector" + "dynamic" + parent;
+//		if ( 0 == clientKey_multiReadValue_inspector_dynamic.compareTo(key) ) {
+//			String [] dbaddresses = KeyAndAddress.get(key);
+//			String [] dbvalues = KeyAndValues.get(key);
+//			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+//				String dbaddress = dbaddresses[i];
+//				if ( dbaddress.endsWith(strIsControlable) ) {
+//					String value = dbvalues[i];
+//					if ( null != value ) txtAttributeStatus[0].setText((0==value.compareTo("0")?"No":"Yes"));
+//					break;
+//				}
+//			}
+//		}
+//		String clientKey_multiReadValue_inspectorinfo_dynamic = "multiReadValue" + "inspectorinfo" + "dynamic" + parent;
+//		if ( 0 == clientKey_multiReadValue_inspectorinfo_dynamic.compareTo(key) ) {
+//			String [] dbaddresses = KeyAndAddress.get(key);
+//			String [] dbvalues = KeyAndValues.get(key);
+//			HashMap<String, String> keyAndValue = new HashMap<String, String>();
+//			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+//				keyAndValue.put(dbaddresses[i], dbvalues[i]);
+//			}
+//			((UIInspectorInfo)uiInspectorInfo).updateValue(key, keyAndValue);
+//		}
+		
+		String clientKey_multiReadValue_inspector_dynamic = "multiReadValue" + "inspector" + "dynamic" + parent;
+		if ( 0 == clientKey_multiReadValue_inspector_dynamic.compareTo(clientKey) ) {
+			String [] dbaddresses = KeyAndAddress.get(clientKey);
+			String [] dbvalues = KeyAndValues.get(clientKey);
+			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+				dynamicvalues.put(dbaddresses[i], dbvalues[i]);
+			}
+			
+			String key = parent+ strIsControlable;
+			if ( dynamicvalues.containsKey(key) ) {
+				String value = dynamicvalues.get(key);
+				value = RTDB_Helper.removeDBStringWrapper(value);
+				if ( null != value ) txtAttributeStatus[0].setText((0==value.compareTo("0")?"No":"Yes"));
+			}
+			
+			((UIInspectorInfo)uiInspectorInfo).updateValue(key, dynamicvalues);
+		}
+		
+		
+	}
+	
+//	private boolean directly = false;
+	
+	private HashMap<String, String[]> KeyAndAddress = new HashMap<String, String[]>();
+	private HashMap<String, String[]> KeyAndValues = new HashMap<String, String[]>();
+	
+	class JSONRequest {
+		String api;
+		String clientKey;
+		String scsEnvId;
+		String dbaddress;
+		String[] dbaddresses;
+		public JSONRequest (String api, String clientKey, String scsEnvId, String dbaddress) {
+			this.api = api;
+			this.clientKey = clientKey;
+			this.scsEnvId = scsEnvId;
+			this.dbaddress = dbaddress;
+		}
+		public JSONRequest (String api, String clientKey, String scsEnvId, String[] dbaddresses) {
+			this.api = api;
+			this.clientKey = clientKey;
+			this.scsEnvId = scsEnvId;
+			this.dbaddresses = dbaddresses;
+		}
+	}
+	
+	ScsRTDBComponentAccess rtdb = null;
+	
+	LinkedList<JSONRequest> requestStatics = new LinkedList<JSONRequest>();
+	HashMap<String, String[]> requestDynamics = new HashMap<String, String[]>();
+	
+	private void connectRTDB() {
+		
+		rtdb = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
+
+			@Override
+			public void setPresenter(HypervisorPresenterClientAbstract<? extends HypervisorView> presenter) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public Widget asWidget() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public void destroy() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
+				
+				logger.log(Level.SEVERE, "setReadResult Begin");
+				
+		    	logger.log(Level.SEVERE, "setReadResult Begin");
+		    	logger.log(Level.SEVERE, "setReadResult key["+key+"]");
+		    	logger.log(Level.SEVERE, "setReadResult errorCode["+errorCode+"]");
+		    	logger.log(Level.SEVERE, "setReadResult errorMessage["+errorMessage+"]");
+		    	
+		    	KeyAndValues.put(key, value);
+		    	
+		    	updateValue(key, value);
+		    	
+				for(int i = 0; i < value.length; ++i) {
+					logger.log(Level.SEVERE, "setReadResult value["+i+"]["+value[i]+"]");
+				}
+				
+				logger.log(Level.SEVERE, "setReadResult End");
+				
+			}
+
+			@Override
+			public void setWriteValueRequestResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetInstancesByClassIdResult(String key, String[] values, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassesResult(String key, String[] values, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassNameResult(String key, String className, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassIdResult(String key, int cid, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetUserClassIdResult(String key, int cuid, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetClassInfoResult(String clientKey, DbmClassInfo cinfo, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetInstancesByClassNameResult(String clientKey, String[] instances, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetInstancesByUserClassIdResult(String clientKey, String[] instances, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
+				
+				logger.log(Level.SEVERE, "setGetChildrenResult Begin");
+				
+		    	logger.log(Level.SEVERE, "setGetChildrenResult Begin");
+		    	logger.log(Level.SEVERE, "setGetChildrenResult clientKey["+clientKey+"]");
+		    	logger.log(Level.SEVERE, "setGetChildrenResult errorCode["+errorCode+"]");
+		    	logger.log(Level.SEVERE, "setGetChildrenResult errorMessage["+errorMessage+"]");
+
+				KeyAndValues.put(clientKey, instances);
+				
+				updateValue(clientKey, instances);
+				
+				for(int i = 0; i < instances.length; ++i) {
+					logger.log(Level.SEVERE, "setGetChildrenResult instances["+i+"]["+instances[i]+"]");
+				}
+				
+				logger.log(Level.SEVERE, "setGetChildrenResult End");
+				
+			}
+
+			@Override
+			public void setGetFullPathResult(String clientKey, String fullPath, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAliasResult(String clientKey, String alias, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setQueryByNameResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributesResult(String clientKey, String[] attributes, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributesDescriptionResult(String clientKey, ScsClassAttInfo[] attributesInfo,
+					int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributeStructureResult(String clientKey, String attType, int fieldCount,
+					int recordCount, int recordSize, String[] fieldNames, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetUserFormulasNamesResult(String clientKey, String[] formulas, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetDatabaseInfoResult(String clientKey, long dbsize, int nbClasses, int nbFormula,
+					int nbInstances, String scsPath, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setForceSnapshotResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetAttributeFormulasResult(String clientKey, String[] formulas, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setSetAttributeFormulaResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetCEOperResult(String clientKey, int[] ceModes, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setControlCEResult(String clientKey, int errorCode, String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void setGetChildrenAliasesResult(String clientKey, String[] values, int errorCode,
+					String errorMessage) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	}
+	
+	private void connectInspectorMain() {
+		{
+			logger.log(Level.SEVERE, "GetChildren Begin");
+
+			String clientKey = "GetChildren" + "inspector" + "static" + parent;
+
+			requestStatics.add(new JSONRequest("GetChildren", clientKey, scsEnvId, parent));
+			
+			KeyAndAddress.put(clientKey, new String[]{parent});
+			
+			logger.log(Level.SEVERE, "GetChildren End");
+		}
+
+		{
+			logger.log(Level.SEVERE, "multiReadValue Begin");
+			
+			String clientKey = "multiReadValue" + "inspector" + "static" + parent;
+			
+			String[] parents = new String[]{parent};
+			
+			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
+			int r=0;
+			for(int x=0;x<parents.length;++x) {
+				for(int y=0;y<staticAttibutes.length;++y) {
+					dbaddresses[r++]=parents[x]+staticAttibutes[y];
+				}
+			}
+			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+			}
+
+			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddresses));
+
+			KeyAndAddress.put(clientKey, dbaddresses);
+			
+			logger.log(Level.SEVERE, "multiReadValue End");
+		}
+		
+		{
+			
+			logger.log(Level.SEVERE, "multiReadValue Begin");
+			
+			String clientKey = "multiReadValue" + "inspector" + "dynamic" + parent;
+
+			String[] parents = new String[]{parent};
+			
+			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
+			int r=0;
+			for(int x=0;x<parents.length;++x) {
+				for(int y=0;y<dynamicAttibutes.length;++y) {
+					dbaddresses[r++]=parents[x]+dynamicAttibutes[y];
+				}
+			}
+
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+			}
+			
+			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddresses));
+
+			KeyAndAddress.put(clientKey, dbaddresses);
+			
+			logger.log(Level.SEVERE, "multiReadValue End");
+		}
+	
+	}
+		
+	private void connectInspectorInfo() {
+		String[] parents = new String[]{parent+":dciLocked"};
+		
+		if ( KeyAndValues.containsKey("GetChildren" + "inspector" + "static" + parent) ) {
+			parents = KeyAndValues.get("GetChildren" + "inspector" + "static" + parent);
+		}
+		
+		for(int i=0;i<parents.length;i++) {
+			logger.log(Level.SEVERE, "multiReadValue parents("+i+")["+parents[i]+"]");
+		}
+		
+		{
+			logger.log(Level.SEVERE, "multiReadValue Begin");
+			
+			String clientKey = "multiReadValue" + "inspectorinfo" + "static" + parent;
+			
+			String strLabel				= ".label";
+			String strValueTable		= ":dal.valueTable";
+			String strHmiOrder			= ".hmiOrder";
+			
+			String strValue				= ".value";
+			String strValidity			= ".validity"; // 0=invalid, 1=valid
+			String strValueAlarmVector	= ":dal.valueAlarmVector"; // (0,1)==0 = normal, (0,1)==1 = alarm 
+			String strForcedStatus		= ":dfo.forcedStatus"; // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+			
+			String staticAttibutes [] = new String[] {strLabel, strValueTable, strHmiOrder};
+			String dynamicAttibutes [] = new String[] {strValue, strValidity, strValueAlarmVector, strForcedStatus};
+			
+//			String clientKey = "inspectorinfo" + "multiReadValue" + "static" + "2" + Random.nextInt();
+			
+			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
+			int r=0;
+			for(int x=0;x<parents.length;++x) {
+				for(int y=0;y<staticAttibutes.length;++y) {
+					dbaddresses[r++]=parents[x]+staticAttibutes[y];
+				}
+			}
+			
+			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+			}
+
+			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddresses));
+
+			KeyAndAddress.put(clientKey, dbaddresses);
+			
+			logger.log(Level.SEVERE, "multiReadValue End");
+		}
+		
+		{
+			
+			logger.log(Level.SEVERE, "multiReadValue Begin");
+			
+			String clientKey = "multiReadValue" + "inspectorinfo" + "dynamic" + parent;
+			
+			String strLabel				= ".label";
+			String strValueTable		= ":dal.valueTable";
+			String strHmiOrder			= ".hmiOrder";
+			
+			String strValue				= ".value";
+			String strValidity			= ".validity"; // 0=invalid, 1=valid
+			String strValueAlarmVector	= ":dal.valueAlarmVector"; // (0,1)==0 = normal, (0,1)==1 = alarm 
+			String strForcedStatus		= ":dfo.forcedStatus"; // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+
+			String staticAttibutes [] = new String[] {strLabel, strValueTable, strHmiOrder};
+			String dynamicAttibutes [] = new String[] {strValue, strValidity, strValueAlarmVector, strForcedStatus};
+			
+			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
+			int r=0;
+			for(int x=0;x<parents.length;++x) {
+				for(int y=0;y<dynamicAttibutes.length;++y) {
+					dbaddresses[r++]=parents[x]+dynamicAttibutes[y];
+				}
+			}
+			
+			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+			}
+			
+			requestDynamics.put(clientKey, dbaddresses);
+
+			KeyAndAddress.put(clientKey, dbaddresses);
+		
+			logger.log(Level.SEVERE, "multiReadValue End");
+		}
+	}
+	
+	private Timer timer = null;
+	private void connectTimer() {
+		
+		if ( null == timer ) {
+			timer = new Timer() {
+
+				@Override
+				public void run() {
+					if ( null != rtdb ) {
+					
+						if ( requestStatics.size() > 0 ) {
+							
+							logger.log(Level.SEVERE, "sendJSONRequest Begin");
+							
+							JSONRequest jsonRequest = requestStatics.removeFirst();
+							
+							if ( 0 == "GetChildren".compareTo(jsonRequest.api) ) {
+								
+								String api = jsonRequest.api;
+								String clientKey = jsonRequest.clientKey;
+								String scsEnvId = jsonRequest.scsEnvId;
+								String dbaddress = jsonRequest.dbaddress;
+								
+								logger.log(Level.SEVERE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+						    	
+								JSONObject jsparam = new JSONObject();
+								
+								// build param list
+								jsparam.put("dbaddress", new JSONString(dbaddress));
+								
+								JSONObject jsdata = rtdb.buildJSONRequest(api, jsparam);
+								    
+								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+								
+							} else if ( 0 == "multiReadValue".compareTo(jsonRequest.api) ) {
+								
+								String api = jsonRequest.api;
+								String clientKey = jsonRequest.clientKey;
+								String scsEnvId = jsonRequest.scsEnvId;
+								String[] dbaddresses = jsonRequest.dbaddresses;
+								
+								logger.log(Level.SEVERE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+								
+								JSONObject jsparam = new JSONObject();
+								
+								// build dbaddress param with a list of address
+								JSONArray addr = new JSONArray();
+								for(int i = 0; i < dbaddresses.length; ++i) {
+									addr.set(i, new JSONString(dbaddresses[i]));
+								}
+								
+								jsparam.put("dbaddress", addr);
+								
+								JSONObject jsdata = rtdb.buildJSONRequest(api, jsparam);
+
+								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+							}
+
+							logger.log(Level.SEVERE, "sendJSONRequest End");
+
+							
+						} else if ( requestDynamics.size() > 0 ) {
+							
+							LinkedList<String> dbaddresslist = new LinkedList<String>();
+							for ( String key : requestDynamics.keySet() ) {
+								for ( String dbaddress : requestDynamics.get(key) ) {
+									dbaddresslist.add(dbaddress);
+								}
+							}
+							String[] dbaddresses = dbaddresslist.toArray(new String[0]);
+							
+							String clientKey = "multiReadValue" + "inspector" + "dynamic" + parent;
+							
+							KeyAndAddress.put(clientKey, dbaddresses);
+									
+							String api = "multiReadValue";
+		
+							logger.log(Level.SEVERE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+									
+							JSONObject jsparam = new JSONObject();
+									
+							// build dbaddress param with a list of address
+							JSONArray addr = new JSONArray();
+							for(int i = 0; i < dbaddresses.length; ++i) {
+								addr.set(i, new JSONString(dbaddresses[i]));
+							}
+									
+							jsparam.put("dbaddress", addr);
+									
+							JSONObject jsdata = rtdb.buildJSONRequest(api, jsparam);
+
+							rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+						}
+					}
+				}
+				
+			};
+			
+			timer.scheduleRepeating(250);
+		}
+
+	}
+
+
+	@Override
+	public void connect() {
+		
+		logger.log(Level.FINE, "connect Begin");
+				
+		connectRTDB();
+		connectInspectorMain();
+		connectTimer();
+
+		logger.log(Level.FINE, "connect End");
 	}
 	
 	@Override
 	public void buildWidgets() {
-		buildWidgets(this.addresses.length);
+//		buildWidgets(this.addresses.length);
 	}
 	
 	public void buildWidgets(int numOfWidgets) {
@@ -143,60 +691,33 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.SEVERE, "removeConnection Begin");
+		logger.log(Level.FINE, "removeConnection Begin");
 		
-		if ( null != logic ) logic.disconnect();
-		if ( null != headerLogic ) headerLogic.disconnect();
+		requestStatics.clear();
+		requestDynamics.clear();
 		
-		logger.log(Level.SEVERE, "removeConnection End");
+		if ( null != timer ) timer.cancel();
+		
+		logger.log(Level.FINE, "removeConnection End");
 	}
-	
-	private void updateStaticDisplay(Point[] points) {
-		logger.log(Level.SEVERE, "updateStaticDisplay Begin");
-		
-		if ( null != points ) {
-			String label = null;
-			for(Point point : points ) {
-				label = point.getValue(strLabel);
-			}
-			if ( null != label ) this.setText(label);
-			
-		} else {
-			logger.log(Level.SEVERE, "updateStaticDisplay points IS NULL");
-		}
-		
-		logger.log(Level.SEVERE, "updateStaticDisplay End");
-	}
-	
-	private void updateDynamicDisplay(Point[] points) {
-		logger.log(Level.SEVERE, "updateDynamicDisplay Begin");
-		
-		String controlable = null;
-		for(Point point : points ) {
-			controlable = point.getValue(strIsControlable);
-		}
-		if ( null != controlable ) txtAttributeStatus[0].setText((0==controlable.compareTo("0")?"No":"Yes"));
-		
-		logger.log(Level.SEVERE, "updateDynamicDisplay End");
-	}
-	
+
 	private LinkedList<String> infos	= new LinkedList<String>();
 	private LinkedList<String> controls	= new LinkedList<String>();
 	private LinkedList<String> tags		= new LinkedList<String>();
 	private LinkedList<String> advances	= new LinkedList<String>();
 	@Override
-	public void buildTabsAddress(String scsEnvId, String[] instances) {
+	public void buildTabsAddress(String[] instances) {
 		
-		logger.log(Level.SEVERE, "updateTabs Begin");
+		logger.log(Level.FINE, "buildTabsAddress Begin");
 
 		String[] infoPrefix				= new String[] {"dci", "aci", "sci"};
 		String[] controlPrefix			= new String[] {"dio", "aio", "sio"};
 		String[] tagsEnding				= new String[] {"PTW", "LR"};
 		
-		logger.log(Level.SEVERE, "updateTabs Iterator Begin");
+		logger.log(Level.FINE, "buildTabsAddress Iterator Begin");
 		
 		for ( String dbaddress : instances ) {
-			logger.log(Level.SEVERE, "updateTabs Iterator dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "buildTabsAddress Iterator dbaddress["+dbaddress+"]");
 			
 			if ( null != dbaddress ) {
 				String dbaddressTokenes[] = dbaddress.split(":");
@@ -222,84 +743,82 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 						}
 					}
 				} else {
-					logger.log(Level.SEVERE, "updateTabs Iterator point IS NULL");
+					logger.log(Level.FINE, "buildTabsAddress Iterator point IS NULL");
 				}
 			} else {
-				logger.log(Level.SEVERE, "updateTabs Iterator dbaddress IS NULL");
+				logger.log(Level.FINE, "buildTabsAddress Iterator dbaddress IS NULL");
 			}
 		}
 
-		logger.log(Level.SEVERE, "updateTabs Iterator End");
+		logger.log(Level.FINE, "buildTabsAddress End");
+	}
+	
+	@Override
+	public void makeTabsSetAddress() {
 		
-		for ( String dbaddress : infos )	{ logger.log(Level.SEVERE, "updateTabs infos dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : controls )	{ logger.log(Level.SEVERE, "updateTabs controls dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : tags )		{ logger.log(Level.SEVERE, "updateTabs tags dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : advances )	{ logger.log(Level.SEVERE, "updateTabs advances dbaddress["+dbaddress+"]"); }
+		logger.log(Level.FINE, "makeTabsSetAddress Begin");
+		
+		for ( String dbaddress : infos )	{ logger.log(Level.FINE, "makeTabsSetAddress infos dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : controls )	{ logger.log(Level.FINE, "makeTabsSetAddress controls dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : tags )		{ logger.log(Level.FINE, "makeTabsSetAddress tags dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : advances )	{ logger.log(Level.FINE, "makeTabsSetAddress advances dbaddress["+dbaddress+"]"); }
+		
+		uiInspectorInfo.setParent(parent);
+		uiInspectorControl.setParent(parent);
+		uiInspectorTag.setParent(parent);
+		uiInspectorAdvance.setParent(parent);
 		
 		uiInspectorInfo.setAddresses	(scsEnvId, infos.toArray(new String[0]));
 		uiInspectorControl.setAddresses	(scsEnvId, controls.toArray(new String[0]));
 		uiInspectorTag.setAddresses		(scsEnvId, tags.toArray(new String[0]));
 		uiInspectorAdvance.setAddresses	(scsEnvId, advances.toArray(new String[0]));
 		
-		logger.log(Level.SEVERE, "updateTabs End");
-	}
-	
-	@Override
-	public void makeTabsSetAddress() {
-		for ( String dbaddress : infos )	{ logger.log(Level.SEVERE, "updateTabs infos dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : controls )	{ logger.log(Level.SEVERE, "updateTabs controls dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : tags )		{ logger.log(Level.SEVERE, "updateTabs tags dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : advances )	{ logger.log(Level.SEVERE, "updateTabs advances dbaddress["+dbaddress+"]"); }
-		
-		uiInspectorInfo.setAddresses	(scsEnvId, infos.toArray(new String[0]));
-		uiInspectorControl.setAddresses	(scsEnvId, controls.toArray(new String[0]));
-		uiInspectorTag.setAddresses		(scsEnvId, tags.toArray(new String[0]));
-		uiInspectorAdvance.setAddresses	(scsEnvId, advances.toArray(new String[0]));		
+		logger.log(Level.FINE, "makeTabsSetAddress End");
 	}
 	
 	@Override
 	public void makeTabsBuildWidgets() {
-		logger.log(Level.SEVERE, "makeTabsBuildWidgets Begin");
+		logger.log(Level.FINE, "makeTabsBuildWidgets Begin");
 		
 		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.buildWidgets();
 			} else {
-				logger.log(Level.SEVERE, "makeTabsBuildWidgets uiPanelInspector_i IS NULL");
+				logger.log(Level.FINE, "makeTabsBuildWidgets uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.SEVERE, "makeTabsBuildWidgets End");
+		logger.log(Level.FINE, "makeTabsBuildWidgets End");
 	}
 	
 	@Override
 	public void makeTabsConnect() {
-		logger.log(Level.SEVERE, "makeTabsConnect Begin");
+		logger.log(Level.FINE, "makeTabsConnect Begin");
 		
 		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.connect();
 			} else {
-				logger.log(Level.SEVERE, "makeTabsConnect uiPanelInspector_i IS NULL");
+				logger.log(Level.FINE, "makeTabsConnect uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.SEVERE, "makeTabsConnect End");
+		logger.log(Level.FINE, "makeTabsConnect End");
 	}
 
 	@Override
 	public void makeTabsDisconnect() {
-		logger.log(Level.SEVERE, "tagsDisconnect Begin");
+		logger.log(Level.FINE, "tagsDisconnect Begin");
 		
 		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.disconnect();
 			} else {
-				logger.log(Level.SEVERE, "tagsDisconnect uiPanelInspector_i IS NULL");
+				logger.log(Level.FINE, "tagsDisconnect uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.SEVERE, "tagsDisconnect End");
+		logger.log(Level.FINE, "tagsDisconnect End");
 	}
 	
 	private UIInspectorTab_i uiInspectorInfo	= null;
@@ -318,7 +837,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -375,7 +894,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-//				disconnect();
+				disconnect();
 //				
 //				makeTabsDisconnect();
 				
@@ -412,7 +931,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 
         this.setPopupPosition(left, top);
     
-        logger.log(Level.SEVERE, "getMainPanel End");
+        logger.log(Level.FINE, "getMainPanel End");
         
         return basePanel;
 	}

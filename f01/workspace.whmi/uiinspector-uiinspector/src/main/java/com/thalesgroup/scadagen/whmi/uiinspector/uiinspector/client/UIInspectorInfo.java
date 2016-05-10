@@ -24,12 +24,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
 	
-	// 1 Get DBAddress Children
-	// 2 Get DBAddress Static Data
-	// 3 Get DBAddress Subscription Data
-	// 4 Update Scscription Data
-	// 5 Disconnect
-	
 	public final String strCSSStatusGreen		= "project-gwt-inlinelabel-inspector-info-status-green";
 	public final String strCSSStatusRed			= "project-gwt-inlinelabel-inspector-info-status-red";
 	public final String strCSSStatusBlue		= "project-gwt-inlinelabel-inspector-info-status-blue";
@@ -73,10 +67,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.log(Level.FINE, "setAddresses End");
 	}
-	
+
 	@Override
 	public void connect() {
 		logger.log(Level.FINE, "connect Begin");
+		
 		
 		logger.log(Level.FINE, "connect End");
 	}
@@ -155,12 +150,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.log(Level.FINE, "buildWidgets End");
 	}
 	
-	
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
-	public void updateValue(String clientkey, HashMap<String, String> keyAndValue) {
+	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
 		logger.log(Level.SEVERE, "updateValue Begin");
-		logger.log(Level.SEVERE, "updateValue clientkey["+clientkey+"]");
+		logger.log(Level.SEVERE, "updateValue clientkey["+clientKey+"]");
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -178,7 +172,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.log(Level.SEVERE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
 		
-		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientkey) ) {
+		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
 
 			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
 				String address = this.addresses[i];
@@ -316,7 +310,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		vpCtrls.setWidth("100%");
 		
 		Button btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-up");
+		btnUp.addStyleName("project-gwt-button-inspector-info-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -326,11 +320,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});
 		
 		InlineLabel lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-info-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-down");
+		btnDown.addStyleName("project-gwt-button-inspector-info-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -389,5 +383,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.log(Level.FINE, "getMainPanel End");
 		
 		return vp;
+	}
+	
+	private MessageBoxEvent messageBoxEvent = null;
+	@Override
+	public void setMessageBoxEvent(MessageBoxEvent messageBoxEvent) {
+		this.messageBoxEvent = messageBoxEvent;
 	}
 }

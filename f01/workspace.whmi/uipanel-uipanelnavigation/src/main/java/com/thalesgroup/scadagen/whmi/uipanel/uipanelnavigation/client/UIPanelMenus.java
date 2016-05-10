@@ -28,7 +28,7 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 
 	private HashMap<Integer, Panel> menus = new HashMap<Integer, Panel>();
 
-	private HashMap<String, NavigationMenuButton> buttons = new HashMap<String, NavigationMenuButton>();
+	private HashMap<String, UIButtonNavigation> buttons = new HashMap<String, UIButtonNavigation>();
 	
 	public void addMenuBar(int index, Panel menu) {
 		
@@ -178,14 +178,14 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 			for (int i = 0; i < taskLaunchs.size(); i++) {
 				UITaskLaunch taskLaunch = taskLaunchs.get(i);
 				String name = taskLaunchs.get(i).getName();
-				NavigationMenuButton btnNew = new NavigationMenuButton(name);
+				UIButtonNavigation btnNew = new UIButtonNavigation(name);
 				buttons.put(taskLaunch.getHeader(), btnNew);
 				btnNew.setTaskLaunch(taskLaunch);
 				btnNew.addStyleName("project-gwt-button-navigation-"+level);
 				
 				btnNew.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {
-						NavigationMenuButton btnSel = (NavigationMenuButton) event.getSource();
+						UIButtonNavigation btnSel = (UIButtonNavigation) event.getSource();
 						onClickAction(btnSel, null, true);
 					}
 				});// ClickHandler
@@ -198,7 +198,7 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 			if (menuBar.getWidgetCount() > 0) {
 				
 				logger.log(Level.FINE, "addTaskToMenu menuBar.getWidgetCount() > 0 Begin");
-				NavigationMenuButton navigationMenuButton = null;
+				UIButtonNavigation navigationMenuButton = null;
 				if ( null != launchHeader ) {
 					String headers[] = launchHeader.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 					
@@ -209,9 +209,9 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 					
 					logger.log(Level.SEVERE, "addTaskToMenu level["+level+"] headerCur["+headerCur+"]");
 					
-					NavigationMenuButton btn = null;
+					UIButtonNavigation btn = null;
 					for ( int i = 0 ; i < menuBar.getWidgetCount(); ++i ) {
-						btn = (NavigationMenuButton)menuBar.getWidget(i);
+						btn = (UIButtonNavigation)menuBar.getWidget(i);
 						UITaskLaunch taskLaunch = btn.getTaskLaunch();
 						String headerComma = taskLaunch.getHeader();
 						String headerCommas[] = headerComma.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
@@ -229,7 +229,7 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 						}
 					}
 				} else {
-					navigationMenuButton = (NavigationMenuButton)menuBar.getWidget(0);
+					navigationMenuButton = (UIButtonNavigation)menuBar.getWidget(0);
 				}
 				
 				if ( null != navigationMenuButton ) {
@@ -250,7 +250,7 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 
 	}// addTaskToMenu
 	
-	private void onClickAction(NavigationMenuButton btnSel, String launchHeader, boolean executeTask) {
+	private void onClickAction(UIButtonNavigation btnSel, String launchHeader, boolean executeTask) {
 		
 		logger.log(Level.FINE, "onClickAction Begin");
 		
@@ -265,7 +265,7 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 		cascadeClearMenu(levelNext);
 		
 		for ( int c = 0 ; c < parent.getWidgetCount(); ++c ) {
-			NavigationMenuButton btn = (NavigationMenuButton) parent.getWidget(c);
+			UIButtonNavigation btn = (UIButtonNavigation) parent.getWidget(c);
 			if (btn != btnSel) {
 				btn.setHightLight(false);
 			}

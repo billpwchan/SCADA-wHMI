@@ -7,6 +7,7 @@ public interface UIInspectorTab_i {
 	ComplexPanel getMainPanel(UINameCard uiNameCard);
 	void setParent(String parent);
 	void setAddresses(String scsEnvId, String[] addresses);
+	void setMessageBoxEvent(MessageBoxEvent messageBoxEvent);
 	void buildWidgets();
 	void connect();
 	void disconnect();

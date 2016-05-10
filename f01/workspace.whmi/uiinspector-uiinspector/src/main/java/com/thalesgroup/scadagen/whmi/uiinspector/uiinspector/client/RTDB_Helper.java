@@ -7,10 +7,43 @@ public class RTDB_Helper {
 	
 	private static Logger logger = Logger.getLogger(RTDB_Helper.class.getName());
 	
-	public static String removeDBStringWrapper(String value) {
-		if ( null != value && value.length() >= 2 ) {
-			if ( value.startsWith("\"") && value.endsWith("\"") ) { value = value.substring(1, value.length()-1); }
+	public static String getPoint(String dbaddress) {
+		String dbaddressTokenes[] = dbaddress.split(":");
+		return dbaddressTokenes[dbaddressTokenes.length-1];
+	}
+	
+	public static String getPointType(String point) {
+		if ( null != point ) {
+			if ( point.startsWith("aci") ) {
+				return "aci";
+			}
+			if ( point.startsWith("dci") ) {
+				return "dci";
+			}
+			if ( point.startsWith("sci") ) {
+				return "sci";
+			}
+			if ( point.startsWith("aio") ) {
+				return "aio";
+			}
+			if ( point.startsWith("dio") ) {
+				return "dio";
+			}
+			if ( point.startsWith("sio") ) {
+				return "sio";
+			}
 		}
+		return null;
+	}
+	
+	public static String removeDBStringWrapper(String value) {
+		if ( null != value  ) {
+			value = value.replace("[", "");
+			value = value.replace("]", "");
+			value = value.replace("\"", "");
+			value = value.replace("[", "");	
+		}
+
 		return value;
 	}
 	
@@ -78,11 +111,23 @@ public class RTDB_Helper {
 		return str;
 	}
 	
+	public static boolean isMO(int forcedStatus) {
+		return (forcedStatus & RTDB_i.intMO) == RTDB_i.intMO;
+	}
+	
+	public static boolean isAI(int forcedStatus) {
+		return (forcedStatus & RTDB_i.intAI) == RTDB_i.intAI;
+	}
+	
+	public static boolean isSS(int forcedStatus) {
+		return (forcedStatus & RTDB_i.intSS) == RTDB_i.intSS;
+	}
+	
 	public static String getColorCSS(String alarmVector, String validity, String forcedStatus) {
 		
 		logger.log(Level.FINE, "getColorCSS Begin");
 		
-		String colorCSS	= RTDB_Interface.strCSSStatusGrey;
+		String colorCSS	= RTDB_i.strCSSStatusGrey;
 		int intAlarmVector	= 0;
 		int intValidity		= 0;
 		int intForcedStatus	= 0;
@@ -95,20 +140,20 @@ public class RTDB_Helper {
 		}
 		
 		// 2=MO, AI=8, 512=SS
-		if ( (intForcedStatus & RTDB_Interface.intMO) == RTDB_Interface.intMO || (intForcedStatus & RTDB_Interface.intAI) == RTDB_Interface.intAI || (intForcedStatus & RTDB_Interface.intSS) == RTDB_Interface.intSS ) {
-			colorCSS = RTDB_Interface.strCSSStatusBlue;
+		if ( isMO(intForcedStatus) || isAI(intForcedStatus) || isSS(intForcedStatus) ) {
+			colorCSS = RTDB_i.strCSSStatusBlue;
 			
 		// 0=invalid, 1=valid	
 		} else if ( intValidity == 0 ) {
-			colorCSS = RTDB_Interface.strCSSStatusGrey;
+			colorCSS = RTDB_i.strCSSStatusGrey;
 			
 		// 0=normal, 1=alarm
 		} else if ( intAlarmVector == 1 ) {
-			colorCSS = RTDB_Interface.strCSSStatusRed;
+			colorCSS = RTDB_i.strCSSStatusRed;
 			
 		// Grey
 		} else {
-			colorCSS = RTDB_Interface.strCSSStatusGreen;
+			colorCSS = RTDB_i.strCSSStatusGreen;
 		}
 		
 		logger.log(Level.FINE, "getColorCSS colorCode["+colorCSS+"]");

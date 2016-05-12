@@ -1,0 +1,7 @@
+{
+  "name": "lib-brokers",
+  "version": "1.5.1",
+  "melody": "4.0.1",
+  "owner": "HV",
+  "dependencies": []
+}

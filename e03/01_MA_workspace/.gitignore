@@ -1,0 +1,9 @@
+.metadata/.plugins
+.metadata/.lock
+.metadata/*.log
+.metadata/version.ini
+.metadata/.mylyn/
+*.api
+*.feature
+*.updatesite
+/MyProject/model/

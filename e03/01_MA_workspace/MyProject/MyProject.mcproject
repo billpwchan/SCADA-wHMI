@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project:McProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:diagram="http://www.thalesgroup.com/scsRepresentation/diagram/1.0.0" xmlns:org.polarsys.capella.core.data.information="http://www.polarsys.org/capella/core/information/0.8.0"
+    xmlns:project="http://www.thalesgroup.com/mc/project/1.0.0" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation"
+    xmi:id="e207393c-636a-491e-b98d-0e8878edb3be" id="e207393c-636a-491e-b98d-0e8878edb3be"
+    name="MyProject" representationDiagramRoot="diagram:RepresentationDiagramModelRoot MyProject.mcdiag#_0foEMcDyEeWQoO0Fu5aZbQ">
+  <ownedRepresentationModelRoot xsi:type="scsRepresentation:RepresentationModelRoot"
+      xmi:id="abe549d2-a8e6-457f-bc3e-409dcdef73f4" id="abe549d2-a8e6-457f-bc3e-409dcdef73f4">
+    <ownedRepresentationFolders xsi:type="scsRepresentation:RepresentationFolder"
+        xmi:id="518f6882-cf99-452c-96c0-83eabc48e766" id="518f6882-cf99-452c-96c0-83eabc48e766"
+        name="ACCESS">
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="dea4dad0-cafe-4fa6-a753-f0918f338df7" id="dea4dad0-cafe-4fa6-a753-f0918f338df7"
+          name="BasementRep" ownedSymbol="#561c0739-4160-40c0-94ae-2caaf068cb00"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="51b67e04-1462-4c82-9fc4-9920ce1912f3" id="51b67e04-1462-4c82-9fc4-9920ce1912f3"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#e2943700-e788-4957-8ef1-86498775d8cd"
+          name="BuildingRep" ownedSymbol="#a171533f-b733-49cf-9192-12ded33cecdd"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="d66c8eef-6f97-4e33-9670-6758746a7b66" id="d66c8eef-6f97-4e33-9670-6758746a7b66"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#3ec2b501-fb70-4004-ae1d-4d4fddf96f78"
+          name="DoorActiveBackdrop" ownedSymbol="#c6104d45-04f5-48f4-9d6a-57d25f96906d"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="b5aab967-43e2-4fa4-a133-6245a85fff1d" id="b5aab967-43e2-4fa4-a133-6245a85fff1d"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#3ec2b501-fb70-4004-ae1d-4d4fddf96f78"
+          name="DoorRepVS9" ownedSymbol="#a196a99b-d603-426b-9b08-16b467865374"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="39a0a3c4-dd17-41f0-a0b0-cc7145c6257c" id="39a0a3c4-dd17-41f0-a0b0-cc7145c6257c"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#e218344e-401f-42b8-bd08-d1191433c5a2"
+          name="FloorRep" ownedSymbol="#a0b8beef-19e8-4f47-9628-17b3562b99cd"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="af61fe6b-3df4-4f98-9b2c-6989532d568b" id="af61fe6b-3df4-4f98-9b2c-6989532d568b"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#2adffe86-bbb1-4ca2-a7dd-15ca64116f53"
+          name="IntrusionActiveBackdrop" ownedSymbol="#21eeb40e-34a3-4c5e-b067-5dad7eed0711"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="88038e90-a52e-464f-ad92-f98539c80f27" id="88038e90-a52e-464f-ad92-f98539c80f27"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#2adffe86-bbb1-4ca2-a7dd-15ca64116f53"
+          name="MotionDetRepVS9" ownedSymbol="#46bfea49-447c-4fe3-a9f6-4b9c1f6c7676"/>
+    </ownedRepresentationFolders>
+    <ownedRepresentationFolders xsi:type="scsRepresentation:RepresentationFolder"
+        xmi:id="b2a97666-a0b4-4ea9-afdb-eb4ba8712bcd" id="b2a97666-a0b4-4ea9-afdb-eb4ba8712bcd"
+        name="CCTV">
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="a89eef9f-7e2e-4510-98bc-a8dcc91a4b0c" id="a89eef9f-7e2e-4510-98bc-a8dcc91a4b0c"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#24d640c1-e590-4219-9f5f-ec692cb34d20"
+          name="CameraRepVS9" ownedSymbol="#1a16151a-ad0b-480c-8458-fa4f9425ecb8"/>
+    </ownedRepresentationFolders>
+    <ownedRepresentationFolders xsi:type="scsRepresentation:RepresentationFolder"
+        xmi:id="d2b1a18a-ed51-42bd-bdf3-f5afa226115f" id="d2b1a18a-ed51-42bd-bdf3-f5afa226115f"
+        name="FIRE">
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="01ba1059-3b03-4fba-a1fb-e1a39c8ca11f" id="01ba1059-3b03-4fba-a1fb-e1a39c8ca11f"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#55f4cf01-cdb3-487b-8e22-ca4960704b07"
+          name="FireRepVS9" ownedSymbol="#c02d75ef-aedf-400f-ab30-3f3c8214b333"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="cb84f93e-d075-40af-a4d3-5beb8e01a260" id="cb84f93e-d075-40af-a4d3-5beb8e01a260"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#55f4cf01-cdb3-487b-8e22-ca4960704b07"
+          name="FireZoneActiveBackdrop" ownedSymbol="#76d25fee-30b5-4b7f-b52d-2f7b3cdd8e32"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="04dc2e0c-9d5c-481a-9a52-52f518704fe0" id="04dc2e0c-9d5c-481a-9a52-52f518704fe0"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#a4427836-dd01-4ef8-a825-fb6ea785ab5e"
+          name="SprinklerRepVS9" ownedSymbol="#4217dd02-acc9-4547-99af-0219cf4a51e4"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="a04df438-f42c-4343-a702-c0819b73d780" id="a04df438-f42c-4343-a702-c0819b73d780"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#a4427836-dd01-4ef8-a825-fb6ea785ab5e"
+          name="asym1" ownedSymbol="#e7d82d3f-3daa-483b-a3df-48c659bc9bdd"/>
+    </ownedRepresentationFolders>
+    <ownedRepresentationFolders xsi:type="scsRepresentation:RepresentationFolder"
+        xmi:id="604355d2-bda2-4ca9-bcb4-fae204371941" id="604355d2-bda2-4ca9-bcb4-fae204371941"
+        name="SYSTEM">
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="e6ba7948-60dd-444a-bacc-7c35751cfcfe" id="e6ba7948-60dd-444a-bacc-7c35751cfcfe"
+          name="IPDeviceRep" ownedSymbol="#7f22e102-aba1-4952-bbfe-dd707490149c"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="c2db593a-b373-4862-ace9-d771fdaaa2c5" id="c2db593a-b373-4862-ace9-d771fdaaa2c5"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class ../scadasoft/scadasoft.melodymodeller#956e2622-9866-4459-a7cb-d88f25148107"
+          name="RTURep" ownedSymbol="#78949e69-4100-4791-ba15-3fb20e5fca4f"/>
+    </ownedRepresentationFolders>
+    <ownedRepresentationFolders xsi:type="scsRepresentation:RepresentationFolder"
+        xmi:id="4f408f7f-cc78-4aee-a3d7-a94c858e2020" id="4f408f7f-cc78-4aee-a3d7-a94c858e2020"
+        name="Factory">
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="8e28532d-f62b-478e-9cea-475a40c9e96e" id="8e28532d-f62b-478e-9cea-475a40c9e96e"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#bc5d9aa6-0179-4ec5-ab21-a2e09f93dfc2"
+          name="PressSensorRep" ownedSymbol="#71ab0887-ac3f-4f7f-89e9-65ac50f24d44"/>
+      <ownedRepresentations xsi:type="scsRepresentation:StaticGraphicalRepresentation"
+          xmi:id="a1d3d6a9-44d7-4f5e-95e0-9375c807ea58" id="a1d3d6a9-44d7-4f5e-95e0-9375c807ea58"
+          equipmentClasses="org.polarsys.capella.core.data.information:Class MyProject.melodymodeller#4f26b4bd-9cc7-429e-9cdc-7228c25f4788"
+          name="ValveRep" ownedSymbol="#7cdd8e51-b0fe-401f-8393-3c7e6ebc03b7"/>
+    </ownedRepresentationFolders>
+    <ownedSymbolLibrary xsi:type="scsRepresentation:SymbolLibrary" xmi:id="67bbc601-54bd-4aa6-a76d-4d5996a4b666"
+        id="67bbc601-54bd-4aa6-a76d-4d5996a4b666">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="561c0739-4160-40c0-94ae-2caaf068cb00"
+          id="561c0739-4160-40c0-94ae-2caaf068cb00" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/BasementRep.svg"
+          filePath="Symbols/ACCESS/BasementRep.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="a171533f-b733-49cf-9192-12ded33cecdd"
+          id="a171533f-b733-49cf-9192-12ded33cecdd" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/BuildingRep.svg"
+          filePath="Symbols/ACCESS/BuildingRep.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="c6104d45-04f5-48f4-9d6a-57d25f96906d"
+          id="c6104d45-04f5-48f4-9d6a-57d25f96906d" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/DoorActiveBackdrop.svg"
+          filePath="Symbols/ACCESS/DoorActiveBackdrop.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="a196a99b-d603-426b-9b08-16b467865374"
+          id="a196a99b-d603-426b-9b08-16b467865374" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/DoorRepVS9.svg"
+          filePath="Symbols/ACCESS/DoorRepVS9.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="a0b8beef-19e8-4f47-9628-17b3562b99cd"
+          id="a0b8beef-19e8-4f47-9628-17b3562b99cd" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/FloorRep.svg"
+          filePath="Symbols/ACCESS/FloorRep.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="21eeb40e-34a3-4c5e-b067-5dad7eed0711"
+          id="21eeb40e-34a3-4c5e-b067-5dad7eed0711" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/IntrusionActiveBackdrop.svg"
+          filePath="Symbols/ACCESS/IntrusionActiveBackdrop.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="46bfea49-447c-4fe3-a9f6-4b9c1f6c7676"
+          id="46bfea49-447c-4fe3-a9f6-4b9c1f6c7676" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/ACCESS/MotionDetRepVS9.svg"
+          filePath="Symbols/ACCESS/MotionDetRepVS9.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="1a16151a-ad0b-480c-8458-fa4f9425ecb8"
+          id="1a16151a-ad0b-480c-8458-fa4f9425ecb8" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/CCTV/CameraRepVS9.svg"
+          filePath="Symbols/CCTV/CameraRepVS9.svg" width="204.5" height="204.5"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="c02d75ef-aedf-400f-ab30-3f3c8214b333"
+          id="c02d75ef-aedf-400f-ab30-3f3c8214b333" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/FIRE/FireRepVS9.svg"
+          filePath="Symbols/FIRE/FireRepVS9.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="76d25fee-30b5-4b7f-b52d-2f7b3cdd8e32"
+          id="76d25fee-30b5-4b7f-b52d-2f7b3cdd8e32" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/FIRE/FireZoneActiveBackdrop.svg"
+          filePath="Symbols/FIRE/FireZoneActiveBackdrop.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="4217dd02-acc9-4547-99af-0219cf4a51e4"
+          id="4217dd02-acc9-4547-99af-0219cf4a51e4" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/FIRE/SprinklerRepVS9.svg"
+          filePath="Symbols/FIRE/SprinklerRepVS9.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="e7d82d3f-3daa-483b-a3df-48c659bc9bdd"
+          id="e7d82d3f-3daa-483b-a3df-48c659bc9bdd" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/FIRE/asym1.svg"
+          filePath="Symbols/FIRE/asym1.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="71ab0887-ac3f-4f7f-89e9-65ac50f24d44"
+          id="71ab0887-ac3f-4f7f-89e9-65ac50f24d44" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/Factory/PressSensorRep.svg"
+          filePath="Symbols/Factory/PressSensorRep.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="7cdd8e51-b0fe-401f-8393-3c7e6ebc03b7"
+          id="7cdd8e51-b0fe-401f-8393-3c7e6ebc03b7" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/Factory/ValveRep.svg"
+          filePath="Symbols/Factory/ValveRep.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="7f22e102-aba1-4952-bbfe-dd707490149c"
+          id="7f22e102-aba1-4952-bbfe-dd707490149c" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/SYSTEM/IPDeviceRep.svg"
+          filePath="Symbols/SYSTEM/IPDeviceRep.svg" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="78949e69-4100-4791-ba15-3fb20e5fca4f"
+          id="78949e69-4100-4791-ba15-3fb20e5fca4f" description="Symbol imported @[2016-01-22 11:32:31] in Symbols/SYSTEM/RTURep.svg"
+          filePath="Symbols/SYSTEM/RTURep.svg" width="201.0" height="201.0"/>
+    </ownedSymbolLibrary>
+  </ownedRepresentationModelRoot>
+</project:McProject>

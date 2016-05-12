@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scsmodel:ScsRootPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsmodel="http://www.thalesgroup.com/mde/scsmodel"
+    xmi:id="_b9jooBKsEea7gOG8GF6d-w" name="Root">
+  <composeScsDomainPackage xmi:id="_b9jooRKsEea7gOG8GF6d-w" name="Domains">
+    <composeScsDomainPackage xmi:id="_b9joohKsEea7gOG8GF6d-w" name="DATATYPE">
+      <composeScsDomain xmi:id="_b9jooxKsEea7gOG8GF6d-w" name="Boolean" dataType="BOOLEAN"/>
+      <composeScsDomain xmi:id="_b9jopBKsEea7gOG8GF6d-w" name="Byte" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jopRKsEea7gOG8GF6d-w" name="Char" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jophKsEea7gOG8GF6d-w" name="Double" dataType="FLOAT"/>
+      <composeScsDomain xmi:id="_b9jopxKsEea7gOG8GF6d-w" name="Float" dataType="FLOAT"/>
+      <composeScsDomain xmi:id="_b9joqBKsEea7gOG8GF6d-w" name="Hexadecimal" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9joqRKsEea7gOG8GF6d-w" name="Integer" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9joqhKsEea7gOG8GF6d-w" name="Long" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9joqxKsEea7gOG8GF6d-w" name="LongLong" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jorBKsEea7gOG8GF6d-w" name="Short" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jorRKsEea7gOG8GF6d-w" name="String" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jorhKsEea7gOG8GF6d-w" name="UnsignedInteger" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jorxKsEea7gOG8GF6d-w" name="UnsignedShort" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9josBKsEea7gOG8GF6d-w" name="UnsignedLong" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9josRKsEea7gOG8GF6d-w" name="UnsignedLongLong" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9joshKsEea7gOG8GF6d-w" name="Undefined" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9josxKsEea7gOG8GF6d-w" name="AbsoluteOrRelativeTimeType"
+          dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jotBKsEea7gOG8GF6d-w" name="Angle" dataType="FLOAT"/>
+      <composeScsDomain xmi:id="_b9jotRKsEea7gOG8GF6d-w" name="CronExpression" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jothKsEea7gOG8GF6d-w" name="DataSize" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jotxKsEea7gOG8GF6d-w" name="DateTime" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jouBKsEea7gOG8GF6d-w" name="DateTime1970" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jouRKsEea7gOG8GF6d-w" name="Delay" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jouhKsEea7gOG8GF6d-w" name="DelayinSec" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jouxKsEea7gOG8GF6d-w" name="DomainPath" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jovBKsEea7gOG8GF6d-w" name="Duration" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jovRKsEea7gOG8GF6d-w" name="LangType" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jovhKsEea7gOG8GF6d-w" name="LinuxPath" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jovxKsEea7gOG8GF6d-w" name="LoginName" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jowBKsEea7gOG8GF6d-w" name="NetworkAddress" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jowRKsEea7gOG8GF6d-w" name="Number10" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jowhKsEea7gOG8GF6d-w" name="Password" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jowxKsEea7gOG8GF6d-w" name="Path" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9joxBKsEea7gOG8GF6d-w" name="Percent" dataType="FLOAT"/>
+      <composeScsDomain xmi:id="_b9joxRKsEea7gOG8GF6d-w" name="Port" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9joxhKsEea7gOG8GF6d-w" name="RelativePath" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9joxxKsEea7gOG8GF6d-w" name="String10" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9joyBKsEea7gOG8GF6d-w" name="String128" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9joyRKsEea7gOG8GF6d-w" name="String256" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9joyhKsEea7gOG8GF6d-w" name="String32" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9joyxKsEea7gOG8GF6d-w" name="String50" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jozBKsEea7gOG8GF6d-w" name="String64" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jozRKsEea7gOG8GF6d-w" name="TimeShift" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jozhKsEea7gOG8GF6d-w" name="Trigram" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jozxKsEea7gOG8GF6d-w" name="URL" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo0BKsEea7gOG8GF6d-w" name="UTCDateTime" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jo0RKsEea7gOG8GF6d-w" name="UUIDType" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo0hKsEea7gOG8GF6d-w" name="WindowsPath" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo0xKsEea7gOG8GF6d-w" name="anyType" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo1BKsEea7gOG8GF6d-w" name="anyURI" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo1RKsEea7gOG8GF6d-w" name="Surface (m2)" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jo1hKsEea7gOG8GF6d-w" name="Density (/m2)" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jo1xKsEea7gOG8GF6d-w" name="Speed (m/s)" dataType="INT32"/>
+      <composeScsDomain xmi:id="_b9jo2BKsEea7gOG8GF6d-w" name="RGBColor" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo2RKsEea7gOG8GF6d-w" name="String24" dataType="CHARN"/>
+      <composeScsDomain xmi:id="_b9jo2hKsEea7gOG8GF6d-w" name="String16" dataType="CHARN"/>
+      <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_b9jo2xKsEea7gOG8GF6d-w"
+          name="AlarmPriority" dataType="CHARN">
+        <composeScsValue xmi:id="_b9jo3BKsEea7gOG8GF6d-w" name="LOW"/>
+        <composeScsValue xmi:id="_b9jo3RKsEea7gOG8GF6d-w" name="MEDIUM"/>
+        <composeScsValue xmi:id="_b9jo3hKsEea7gOG8GF6d-w" name="HIGH"/>
+        <composeScsValue xmi:id="_b9jo3xKsEea7gOG8GF6d-w" name="CRITICAL"/>
+      </composeScsDomain>
+      <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_b9jo4BKsEea7gOG8GF6d-w"
+          name="CameraType" dataType="CHARN">
+        <composeScsValue xmi:id="_b9jo4RKsEea7gOG8GF6d-w" name="PELCO"/>
+        <composeScsValue xmi:id="_b9jo4hKsEea7gOG8GF6d-w" name="SAMSUNG"/>
+        <composeScsValue xmi:id="_b9jo4xKsEea7gOG8GF6d-w" name="NKF"/>
+      </composeScsDomain>
+      <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_b9jo5BKsEea7gOG8GF6d-w"
+          name="ComparatorTypeEnum" dataType="CHARN">
+        <composeScsValue xmi:id="_b9jo5RKsEea7gOG8GF6d-w" name="EQUAL"/>
+        <composeScsValue xmi:id="_b9jo5hKsEea7gOG8GF6d-w" name="GREATER"/>
+        <composeScsValue xmi:id="_b9jo5xKsEea7gOG8GF6d-w" name="GREATER_OR_EQUAL"/>
+        <composeScsValue xmi:id="_b9jo6BKsEea7gOG8GF6d-w" name="LESS"/>
+        <composeScsValue xmi:id="_b9jo6RKsEea7gOG8GF6d-w" name="LESS_OR_EQUAL"/>
+      </composeScsDomain>
+    </composeScsDomainPackage>
+    <composeScsDomainPackage xmi:id="_b9jo6hKsEea7gOG8GF6d-w" name="HV">
+      <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_b9jo6xKsEea7gOG8GF6d-w"
+          name="hvatttype" label="hvatttype">
+        <composeScsValue xmi:id="_b9jo7BKsEea7gOG8GF6d-w" name="Boolean" label="Boolean"
+            value="Boolean"/>
+        <composeScsValue xmi:id="_b9jo7RKsEea7gOG8GF6d-w" name="Byte" label="Byte"
+            value="Byte"/>
+        <composeScsValue xmi:id="_b9jo7hKsEea7gOG8GF6d-w" name="Char" label="Char"
+            value="Char"/>
+        <composeScsValue xmi:id="_b9jo7xKsEea7gOG8GF6d-w" name="Double" label="Double"
+            value="Double"/>
+        <composeScsValue xmi:id="_b9jo8BKsEea7gOG8GF6d-w" name="Float" label="Float"
+            value="Float"/>
+        <composeScsValue xmi:id="_b9jo8RKsEea7gOG8GF6d-w" name="Hexadecimal" label="Hexadecimal"
+            value="Hexadecimal"/>
+        <composeScsValue xmi:id="_b9jo8hKsEea7gOG8GF6d-w" name="Integer" label="Integer"
+            value="Integer"/>
+        <composeScsValue xmi:id="_b9jo8xKsEea7gOG8GF6d-w" name="Long" label="Long"
+            value="Long"/>
+        <composeScsValue xmi:id="_b9jo9BKsEea7gOG8GF6d-w" name="LongLong" label="LongLong"
+            value="LongLong"/>
+        <composeScsValue xmi:id="_b9jo9RKsEea7gOG8GF6d-w" name="Short" label="Short"
+            value="Short"/>
+        <composeScsValue xmi:id="_b9jo9hKsEea7gOG8GF6d-w" name="String" label="String"
+            value="String"/>
+        <composeScsValue xmi:id="_b9jo9xKsEea7gOG8GF6d-w" name="UnsignedInteger" label="UnsignedInteger"
+            value="UnsignedInteger"/>
+        <composeScsValue xmi:id="_b9jo-BKsEea7gOG8GF6d-w" name="UnsignedShort" label="UnsignedShort"
+            value="UnsignedShort"/>
+        <composeScsValue xmi:id="_b9jo-RKsEea7gOG8GF6d-w" name="UnsignedLong" label="UnsignedLong"
+            value="UnsignedLong"/>
+        <composeScsValue xmi:id="_b9jo-hKsEea7gOG8GF6d-w" name="UnsignedLongLong"
+            label="UnsignedLongLong" value="UnsignedLongLong"/>
+        <composeScsValue xmi:id="_b9jo-xKsEea7gOG8GF6d-w" name="Undefined" label="Undefined"
+            value="Undefined"/>
+        <composeScsValue xmi:id="_b9jo_BKsEea7gOG8GF6d-w" name="AbsoluteOrRelativeTimeType"
+            label="AbsoluteOrRelativeTimeType" value="AbsoluteOrRelativeTimeType"/>
+        <composeScsValue xmi:id="_b9jo_RKsEea7gOG8GF6d-w" name="Angle" label="Angle"
+            value="Angle"/>
+        <composeScsValue xmi:id="_b9jo_hKsEea7gOG8GF6d-w" name="CronExpression" label="CronExpression"
+            value="CronExpression"/>
+        <composeScsValue xmi:id="_b9jo_xKsEea7gOG8GF6d-w" name="DataSize" label="DataSize"
+            value="DataSize"/>
+        <composeScsValue xmi:id="_b9jpABKsEea7gOG8GF6d-w" name="DateTime" label="DateTime"
+            value="DateTime"/>
+        <composeScsValue xmi:id="_b9jpARKsEea7gOG8GF6d-w" name="DateTime1970" label="DateTime1970"
+            value="DateTime1970"/>
+        <composeScsValue xmi:id="_b9jpAhKsEea7gOG8GF6d-w" name="Delay" label="Delay"
+            value="Delay"/>
+        <composeScsValue xmi:id="_b9jpAxKsEea7gOG8GF6d-w" name="DelayinSec" label="DelayinSec"
+            value="DelayinSec"/>
+        <composeScsValue xmi:id="_b9jpBBKsEea7gOG8GF6d-w" name="DomainPath" label="DomainPath"
+            value="DomainPath"/>
+        <composeScsValue xmi:id="_b9jpBRKsEea7gOG8GF6d-w" name="Duration" label="Duration"
+            value="Duration"/>
+        <composeScsValue xmi:id="_b9jpBhKsEea7gOG8GF6d-w" name="LangType" label="LangType"
+            value="LangType"/>
+        <composeScsValue xmi:id="_b9jpBxKsEea7gOG8GF6d-w" name="LinuxPath" label="LinuxPath"
+            value="LinuxPath"/>
+        <composeScsValue xmi:id="_b9jpCBKsEea7gOG8GF6d-w" name="LoginName" label="LoginName"
+            value="LoginName"/>
+        <composeScsValue xmi:id="_b9jpCRKsEea7gOG8GF6d-w" name="NetworkAddress" label="NetworkAddress"
+            value="NetworkAddress"/>
+        <composeScsValue xmi:id="_b9jpChKsEea7gOG8GF6d-w" name="Number10" label="Number10"
+            value="Number10"/>
+        <composeScsValue xmi:id="_b9jpCxKsEea7gOG8GF6d-w" name="Password" label="Password"
+            value="Password"/>
+        <composeScsValue xmi:id="_b9jpDBKsEea7gOG8GF6d-w" name="Path" label="Path"
+            value="Path"/>
+        <composeScsValue xmi:id="_b9jpDRKsEea7gOG8GF6d-w" name="Percent" label="Percent"
+            value="Percent"/>
+        <composeScsValue xmi:id="_b9jpDhKsEea7gOG8GF6d-w" name="Port" label="Port"
+            value="Port"/>
+        <composeScsValue xmi:id="_b9jpDxKsEea7gOG8GF6d-w" name="RelativePath" label="RelativePath"
+            value="RelativePath"/>
+        <composeScsValue xmi:id="_b9jpEBKsEea7gOG8GF6d-w" name="String10" label="String10"
+            value="String10"/>
+        <composeScsValue xmi:id="_b9jpERKsEea7gOG8GF6d-w" name="String128" label="String128"
+            value="String128"/>
+        <composeScsValue xmi:id="_b9jpEhKsEea7gOG8GF6d-w" name="String256" label="String256"
+            value="String256"/>
+        <composeScsValue xmi:id="_b9jpExKsEea7gOG8GF6d-w" name="String32" label="String32"
+            value="String32"/>
+        <composeScsValue xmi:id="_b9jpFBKsEea7gOG8GF6d-w" name="String50" label="String50"
+            value="String50"/>
+        <composeScsValue xmi:id="_b9jpFRKsEea7gOG8GF6d-w" name="String64" label="String64"
+            value="String64"/>
+        <composeScsValue xmi:id="_b9jpFhKsEea7gOG8GF6d-w" name="TimeShift" label="TimeShift"
+            value="TimeShift"/>
+        <composeScsValue xmi:id="_b9jpFxKsEea7gOG8GF6d-w" name="Trigram" label="Trigram"
+            value="Trigram"/>
+        <composeScsValue xmi:id="_b9jpGBKsEea7gOG8GF6d-w" name="URL" label="URL" value="URL"/>
+        <composeScsValue xmi:id="_b9jpGRKsEea7gOG8GF6d-w" name="UTCDateTime" label="UTCDateTime"
+            value="UTCDateTime"/>
+        <composeScsValue xmi:id="_b9jpGhKsEea7gOG8GF6d-w" name="UUIDType" label="UUIDType"
+            value="UUIDType"/>
+        <composeScsValue xmi:id="_b9jpGxKsEea7gOG8GF6d-w" name="WindowsPath" label="WindowsPath"
+            value="WindowsPath"/>
+        <composeScsValue xmi:id="_b9jpHBKsEea7gOG8GF6d-w" name="anyType" label="anyType"
+            value="anyType"/>
+        <composeScsValue xmi:id="_b9jpHRKsEea7gOG8GF6d-w" name="anyURI" label="anyURI"
+            value="anyURI"/>
+        <composeScsValue xmi:id="_b9jpHhKsEea7gOG8GF6d-w" name="Surface (m2)" label="Surface (m2)"
+            value="Surface (m2)"/>
+        <composeScsValue xmi:id="_b9jpHxKsEea7gOG8GF6d-w" name="Density (/m2)" label="Density (/m2)"
+            value="Density (/m2)"/>
+        <composeScsValue xmi:id="_b9jpIBKsEea7gOG8GF6d-w" name="Speed (m/s)" label="Speed (m/s)"
+            value="Speed (m/s)"/>
+        <composeScsValue xmi:id="_b9jpIRKsEea7gOG8GF6d-w" name="RGBColor" label="RGBColor"
+            value="RGBColor"/>
+        <composeScsValue xmi:id="_b9jpIhKsEea7gOG8GF6d-w" name="String24" label="String24"
+            value="String24"/>
+        <composeScsValue xmi:id="_b9jpIxKsEea7gOG8GF6d-w" name="String16" label="String16"
+            value="String16"/>
+        <composeScsValue xmi:id="_b9jpJBKsEea7gOG8GF6d-w" name="AlarmPriority" label="AlarmPriority"
+            value="AlarmPriority"/>
+        <composeScsValue xmi:id="_b9jpJRKsEea7gOG8GF6d-w" name="CameraType" label="CameraType"
+            value="CameraType"/>
+        <composeScsValue xmi:id="_b9jpJhKsEea7gOG8GF6d-w" name="ComparatorTypeEnum"
+            label="ComparatorTypeEnum" value="ComparatorTypeEnum"/>
+      </composeScsDomain>
+    </composeScsDomainPackage>
+  </composeScsDomainPackage>
+  <composeScsClassPackage xmi:id="_b9jpJxKsEea7gOG8GF6d-w" name="Class">
+    <composeScsClass xmi:id="_b9jpKBKsEea7gOG8GF6d-w" name="Object" label="Object: Master Class"
+        description="Object" trigram="OBJ" referenceChildClass="#_b9jpLxKsEea7gOG8GF6d-w #_b9jpNBKsEea7gOG8GF6d-w #_b9jpsxKsEea7gOG8GF6d-w #_b9jpwhKsEea7gOG8GF6d-w #_b9jpzBKsEea7gOG8GF6d-w #_b9jp8BKsEea7gOG8GF6d-w #_b9jp-BKsEea7gOG8GF6d-w #_b9jqARKsEea7gOG8GF6d-w #_b9tZxxKsEea7gOG8GF6d-w #_b9tZ4xKsEea7gOG8GF6d-w #_b9tZ5xKsEea7gOG8GF6d-w #_b9tZ_xKsEea7gOG8GF6d-w #_b9tZ3xKsEea7gOG8GF6d-w #_b9tZxRKsEea7gOG8GF6d-w #_b9tZwxKsEea7gOG8GF6d-w #_b9taMhKsEea7gOG8GF6d-w #_b9taMRKsEea7gOG8GF6d-w">
+      <composeScsAttribute xmi:id="_b9jpKRKsEea7gOG8GF6d-w" name="nom_instance" label="Instance Name"
+          description="Instance name of the object . Must be unique under a same father."
+          attributesGroupInHMI="main" attributesOrderInHMI="1" presentInCtrlPanel="true"
+          mandatoryInConfigurator="true" stringLength="50" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+      <composeScsAttribute xmi:id="_b9jpKhKsEea7gOG8GF6d-w" name="reference_import"
+          label="Import Reference" description="Import reference for the configurator."
+          attributesGroupInHMI="main" attributesOrderInHMI="3" presentInCtrlPanel="true"
+          calculated="true" calculatorPass="1" stringLength="128" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+    </composeScsClass>
+    <composeScsClass xmi:id="_b9jpKxKsEea7gOG8GF6d-w" name="root_alphanum" label="root_alphanum : AlphaNumeric"
+        trigram="ROA">
+      <composeScsComposition xmi:id="_b9jpLBKsEea7gOG8GF6d-w" name="ImagePackage"
+          label="Image Package" description="The images package composition" maxCardinality="1"
+          minCardinality="0" referenceScsClass="#_b9jpNBKsEea7gOG8GF6d-w"/>
+      <composeScsComposition xmi:id="_b9taOBKsEea7gOG8GF6d-w" name="AbstractEquipment"
+          referenceScsClass="#_b9jpvxKsEea7gOG8GF6d-w"/>
+      <composeScsAttribute xmi:id="_b9jpLRKsEea7gOG8GF6d-w" name="nom_instance" label="Instance Name"
+          description="Instance name of the object . Must be unique under a same father."
+          attributesGroupInHMI="main" attributesOrderInHMI="1" presentInCtrlPanel="true"
+          mandatoryInConfigurator="true" stringLength="50" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+    </composeScsClass>
+    <composeScsClassPackage xmi:id="_b9jpLhKsEea7gOG8GF6d-w" name="IMAGE_CLASSES">
+      <composeScsClass xmi:id="_b9jpLxKsEea7gOG8GF6d-w" name="BasicImage" label="BasicImage"
+          description="The base image class" trigram="IMG" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w"
+          referenceChildClass="#_b9jpNhKsEea7gOG8GF6d-w #_b9jpNxKsEea7gOG8GF6d-w #_b9jpOBKsEea7gOG8GF6d-w #_b9jpORKsEea7gOG8GF6d-w #_b9jpOhKsEea7gOG8GF6d-w"
+          abstract="true">
+        <composeScsAttribute xmi:id="_b9jpMBKsEea7gOG8GF6d-w" name="Label" label="Label"
+            description="The image label" presentInCtrlPanel="true" stringLength="128"
+            referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+        <composeScsAttribute xmi:id="_b9jpMRKsEea7gOG8GF6d-w" name="BackgroundFileName"
+            label="Background File Name" description="The image background file name"
+            presentInCtrlPanel="true" stringLength="128" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+        <composeScsAttribute xmi:id="_b9jpMhKsEea7gOG8GF6d-w" name="ConfigurationFileName"
+            label="Configuration File Name" description="The image configuration file name"
+            presentInCtrlPanel="true" stringLength="128" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+        <composeScsAttribute xmi:id="_b9jpMxKsEea7gOG8GF6d-w" name="CreatedInImageEditor"
+            label="Created In Image Editor" description="A boolean variable to check if the image is created using the Image Editor."
+            presentInCtrlPanel="true" stringLength="128" referenceScsDomain="#_b9jooxKsEea7gOG8GF6d-w"/>
+      </composeScsClass>
+      <composeScsClass xmi:id="_b9jpNBKsEea7gOG8GF6d-w" name="ImagePackage" label="Image Package"
+          description="The Image Package" trigram="IMG" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+        <composeScsComposition xmi:id="_b9jpNRKsEea7gOG8GF6d-w" name="image" label="Image"
+            description="The images registry" referenceScsClass="#_b9jpLxKsEea7gOG8GF6d-w"/>
+      </composeScsClass>
+      <composeScsClass xmi:id="_b9jpNhKsEea7gOG8GF6d-w" name="ImageFunctional" label="Functional Image"
+          description="The Functional image category" trigram="IMG" referenceSuperClass="#_b9jpLxKsEea7gOG8GF6d-w"/>
+      <composeScsClass xmi:id="_b9jpNxKsEea7gOG8GF6d-w" name="ImageGeographical" label="Geographical Image"
+          description="The Geographical image category" trigram="IMG" referenceSuperClass="#_b9jpLxKsEea7gOG8GF6d-w"/>
+      <composeScsClass xmi:id="_b9jpOBKsEea7gOG8GF6d-w" name="ImageSynthesis" label="Synthesis Image"
+          description="The Synthesis image category" trigram="IMG" referenceSuperClass="#_b9jpLxKsEea7gOG8GF6d-w"/>
+      <composeScsClass xmi:id="_b9jpORKsEea7gOG8GF6d-w" name="ImageSystem" label="System Image"
+          description="The System image category" trigram="IMG" referenceSuperClass="#_b9jpLxKsEea7gOG8GF6d-w"/>
+      <composeScsClass xmi:id="_b9jpOhKsEea7gOG8GF6d-w" name="ImageOutline" label="Outline Image"
+          description="The Outline image category" trigram="IMG" referenceSuperClass="#_b9jpLxKsEea7gOG8GF6d-w"/>
+    </composeScsClassPackage>
+    <composeScsClassPackage xmi:id="_b9jpOxKsEea7gOG8GF6d-w" name="CoreModel">
+      <composeScsClassPackage xmi:id="_b9jpPBKsEea7gOG8GF6d-w" name="HV">
+        <composeScsClass xmi:id="_b9jpPRKsEea7gOG8GF6d-w" name="HvStatusBoolean" label="HvStatusBoolean"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpPhKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jooxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpPxKsEea7gOG8GF6d-w" name="HvStatusByte" label="HvStatusByte"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpQBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jopBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpQRKsEea7gOG8GF6d-w" name="HvStatusChar" label="HvStatusChar"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpQhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jopRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpQxKsEea7gOG8GF6d-w" name="HvStatusDouble" label="HvStatusDouble"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpRBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpRRKsEea7gOG8GF6d-w" name="HvStatusFloat" label="HvStatusFloat"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpRhKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jopxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpRxKsEea7gOG8GF6d-w" name="HvStatusHexadecimal"
+            label="HvStatusHexadecimal" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpSBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9joqBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpSRKsEea7gOG8GF6d-w" name="HvStatusInteger" label="HvStatusInteger"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpShKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpSxKsEea7gOG8GF6d-w" name="HvStatusLong" label="HvStatusLong"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpTBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9joqhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpTRKsEea7gOG8GF6d-w" name="HvStatusLongLong"
+            label="HvStatusLongLong" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpThKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9joqxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpTxKsEea7gOG8GF6d-w" name="HvStatusShort" label="HvStatusShort"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpUBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jorBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpURKsEea7gOG8GF6d-w" name="HvStatusString" label="HvStatusString"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpUhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpUxKsEea7gOG8GF6d-w" name="HvStatusUnsignedInteger"
+            label="HvStatusUnsignedInteger" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpVBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jorhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpVRKsEea7gOG8GF6d-w" name="HvStatusUnsignedShort"
+            label="HvStatusUnsignedShort" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpVhKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jorxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpVxKsEea7gOG8GF6d-w" name="HvStatusUnsignedLong"
+            label="HvStatusUnsignedLong" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpWBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9josBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpWRKsEea7gOG8GF6d-w" name="HvStatusUnsignedLongLong"
+            label="HvStatusUnsignedLongLong" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpWhKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9josRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpWxKsEea7gOG8GF6d-w" name="HvStatusUndefined"
+            label="HvStatusUndefined" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpXBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joshKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpXRKsEea7gOG8GF6d-w" name="HvStatusAbsoluteOrRelativeTimeType"
+            label="HvStatusAbsoluteOrRelativeTimeType" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpXhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9josxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpXxKsEea7gOG8GF6d-w" name="HvStatusAngle" label="HvStatusAngle"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpYBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jotBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpYRKsEea7gOG8GF6d-w" name="HvStatusCronExpression"
+            label="HvStatusCronExpression" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpYhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jotRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpYxKsEea7gOG8GF6d-w" name="HvStatusDataSize"
+            label="HvStatusDataSize" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpZBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jothKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpZRKsEea7gOG8GF6d-w" name="HvStatusDateTime"
+            label="HvStatusDateTime" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpZhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jotxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpZxKsEea7gOG8GF6d-w" name="HvStatusDateTime1970"
+            label="HvStatusDateTime1970" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpaBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jouBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpaRKsEea7gOG8GF6d-w" name="HvStatusDelay" label="HvStatusDelay"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpahKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jouRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpaxKsEea7gOG8GF6d-w" name="HvStatusDelayinSec"
+            label="HvStatusDelayinSec" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpbBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jouhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpbRKsEea7gOG8GF6d-w" name="HvStatusDomainPath"
+            label="HvStatusDomainPath" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpbhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jouxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpbxKsEea7gOG8GF6d-w" name="HvStatusDuration"
+            label="HvStatusDuration" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpcBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jovBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpcRKsEea7gOG8GF6d-w" name="HvStatusLangType"
+            label="HvStatusLangType" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpchKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jovRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpcxKsEea7gOG8GF6d-w" name="HvStatusLinuxPath"
+            label="HvStatusLinuxPath" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpdBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jovhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpdRKsEea7gOG8GF6d-w" name="HvStatusLoginName"
+            label="HvStatusLoginName" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpdhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jovxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpdxKsEea7gOG8GF6d-w" name="HvStatusNetworkAddress"
+            label="HvStatusNetworkAddress" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpeBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jowBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpeRKsEea7gOG8GF6d-w" name="HvStatusNumber10"
+            label="HvStatusNumber10" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpehKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jowRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpexKsEea7gOG8GF6d-w" name="HvStatusPassword"
+            label="HvStatusPassword" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpfBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jowhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpfRKsEea7gOG8GF6d-w" name="HvStatusPath" label="HvStatusPath"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpfhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jowxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpfxKsEea7gOG8GF6d-w" name="HvStatusPercent" label="HvStatusPercent"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpgBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9joxBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpgRKsEea7gOG8GF6d-w" name="HvStatusPort" label="HvStatusPort"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpghKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9joxRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpgxKsEea7gOG8GF6d-w" name="HvStatusRelativePath"
+            label="HvStatusRelativePath" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jphBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joxhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jphRKsEea7gOG8GF6d-w" name="HvStatusString10"
+            label="HvStatusString10" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jphhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joxxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jphxKsEea7gOG8GF6d-w" name="HvStatusString128"
+            label="HvStatusString128" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpiBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joyBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpiRKsEea7gOG8GF6d-w" name="HvStatusString256"
+            label="HvStatusString256" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpihKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joyRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpixKsEea7gOG8GF6d-w" name="HvStatusString32"
+            label="HvStatusString32" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpjBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joyhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpjRKsEea7gOG8GF6d-w" name="HvStatusString50"
+            label="HvStatusString50" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpjhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9joyxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpjxKsEea7gOG8GF6d-w" name="HvStatusString64"
+            label="HvStatusString64" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpkBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jozBKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpkRKsEea7gOG8GF6d-w" name="HvStatusTimeShift"
+            label="HvStatusTimeShift" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpkhKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jozRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpkxKsEea7gOG8GF6d-w" name="HvStatusTrigram" label="HvStatusTrigram"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jplBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jozhKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jplRKsEea7gOG8GF6d-w" name="HvStatusURL" label="HvStatusURL"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jplhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jozxKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jplxKsEea7gOG8GF6d-w" name="HvStatusUTCDateTime"
+            label="HvStatusUTCDateTime" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpmBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jo0BKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpmRKsEea7gOG8GF6d-w" name="HvStatusUUIDType"
+            label="HvStatusUUIDType" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpmhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo0RKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpmxKsEea7gOG8GF6d-w" name="HvStatusWindowsPath"
+            label="HvStatusWindowsPath" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpnBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo0hKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpnRKsEea7gOG8GF6d-w" name="HvStatusAnyType" label="HvStatusAnyType"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpnhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo0xKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpnxKsEea7gOG8GF6d-w" name="HvStatusAnyURI" label="HvStatusAnyURI"
+            referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpoBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo1BKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpoRKsEea7gOG8GF6d-w" name="HvStatusSurface (m2)"
+            label="HvStatusSurface (m2)" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpohKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jo1RKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpoxKsEea7gOG8GF6d-w" name="HvStatusDensity (/m2)"
+            label="HvStatusDensity (/m2)" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jppBKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jo1hKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jppRKsEea7gOG8GF6d-w" name="HvStatusSpeed (m/s)"
+            label="HvStatusSpeed (m/s)" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpphKsEea7gOG8GF6d-w" name="value" label="value"
+              referenceScsDomain="#_b9jo1xKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jppxKsEea7gOG8GF6d-w" name="HvStatusRGBColor"
+            label="HvStatusRGBColor" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpqBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo2BKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpqRKsEea7gOG8GF6d-w" name="HvStatusString24"
+            label="HvStatusString24" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpqhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo2RKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpqxKsEea7gOG8GF6d-w" name="HvStatusString16"
+            label="HvStatusString16" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jprBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo2hKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jprRKsEea7gOG8GF6d-w" name="HvStatusAlarmPriority"
+            label="HvStatusAlarmPriority" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jprhKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo2xKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jprxKsEea7gOG8GF6d-w" name="HvStatusCameraType"
+            label="HvStatusCameraType" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpsBKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo4BKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpsRKsEea7gOG8GF6d-w" name="HvStatusComparatorTypeEnum"
+            label="HvStatusComparatorTypeEnum" referenceSuperClass="#_b9jpuBKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpshKsEea7gOG8GF6d-w" name="value" label="value"
+              stringLength="1000" referenceScsDomain="#_b9jo5BKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpsxKsEea7gOG8GF6d-w" name="AbstractHvElement"
+            label="AbstractHvElement" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w"
+            referenceChildClass="#_b9jpthKsEea7gOG8GF6d-w #_b9jptxKsEea7gOG8GF6d-w #_b9jpuBKsEea7gOG8GF6d-w"
+            abstract="true">
+          <composeScsAttribute xmi:id="_b9jptBKsEea7gOG8GF6d-w" name="hvqname" label="hvqname"
+              presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          <composeScsAttribute xmi:id="_b9jptRKsEea7gOG8GF6d-w" name="subsysMapping"
+              label="subsysMapping" presentInCtrlPanel="true" stringLength="1024"
+              referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+        <composeScsClass xmi:id="_b9jpthKsEea7gOG8GF6d-w" name="HvOperation" label="HvOperation"
+            trigram="HVO" referenceSuperClass="#_b9jpsxKsEea7gOG8GF6d-w"/>
+        <composeScsClass xmi:id="_b9jptxKsEea7gOG8GF6d-w" name="HvAlarm" label="HvAlarm"
+            trigram="HVL" referenceSuperClass="#_b9jpsxKsEea7gOG8GF6d-w"/>
+        <composeScsClass xmi:id="_b9jpuBKsEea7gOG8GF6d-w" name="HvStatus" label="HvStatus"
+            referenceSuperClass="#_b9jpsxKsEea7gOG8GF6d-w" referenceChildClass="#_b9jpPRKsEea7gOG8GF6d-w #_b9jpPxKsEea7gOG8GF6d-w #_b9jpQRKsEea7gOG8GF6d-w #_b9jpQxKsEea7gOG8GF6d-w #_b9jpRRKsEea7gOG8GF6d-w #_b9jpRxKsEea7gOG8GF6d-w #_b9jpSRKsEea7gOG8GF6d-w #_b9jpSxKsEea7gOG8GF6d-w #_b9jpTRKsEea7gOG8GF6d-w #_b9jpTxKsEea7gOG8GF6d-w #_b9jpURKsEea7gOG8GF6d-w #_b9jpUxKsEea7gOG8GF6d-w #_b9jpVRKsEea7gOG8GF6d-w #_b9jpVxKsEea7gOG8GF6d-w #_b9jpWRKsEea7gOG8GF6d-w #_b9jpWxKsEea7gOG8GF6d-w #_b9jpXRKsEea7gOG8GF6d-w #_b9jpXxKsEea7gOG8GF6d-w #_b9jpYRKsEea7gOG8GF6d-w #_b9jpYxKsEea7gOG8GF6d-w #_b9jpZRKsEea7gOG8GF6d-w #_b9jpZxKsEea7gOG8GF6d-w #_b9jpaRKsEea7gOG8GF6d-w #_b9jpaxKsEea7gOG8GF6d-w #_b9jpbRKsEea7gOG8GF6d-w #_b9jpbxKsEea7gOG8GF6d-w #_b9jpcRKsEea7gOG8GF6d-w #_b9jpcxKsEea7gOG8GF6d-w #_b9jpdRKsEea7gOG8GF6d-w #_b9jpdxKsEea7gOG8GF6d-w #_b9jpeRKsEea7gOG8GF6d-w #_b9jpexKsEea7gOG8GF6d-w #_b9jpfRKsEea7gOG8GF6d-w #_b9jpfxKsEea7gOG8GF6d-w #_b9jpgRKsEea7gOG8GF6d-w #_b9jpgxKsEea7gOG8GF6d-w #_b9jphRKsEea7gOG8GF6d-w #_b9jphxKsEea7gOG8GF6d-w #_b9jpiRKsEea7gOG8GF6d-w #_b9jpixKsEea7gOG8GF6d-w #_b9jpjRKsEea7gOG8GF6d-w #_b9jpjxKsEea7gOG8GF6d-w #_b9jpkRKsEea7gOG8GF6d-w #_b9jpkxKsEea7gOG8GF6d-w #_b9jplRKsEea7gOG8GF6d-w #_b9jplxKsEea7gOG8GF6d-w #_b9jpmRKsEea7gOG8GF6d-w #_b9jpmxKsEea7gOG8GF6d-w #_b9jpnRKsEea7gOG8GF6d-w #_b9jpnxKsEea7gOG8GF6d-w #_b9jpoRKsEea7gOG8GF6d-w #_b9jpoxKsEea7gOG8GF6d-w #_b9jppRKsEea7gOG8GF6d-w #_b9jppxKsEea7gOG8GF6d-w #_b9jpqRKsEea7gOG8GF6d-w #_b9jpqxKsEea7gOG8GF6d-w #_b9jprRKsEea7gOG8GF6d-w #_b9jprxKsEea7gOG8GF6d-w #_b9jpsRKsEea7gOG8GF6d-w">
+          <composeScsAttribute xmi:id="_b9jpuRKsEea7gOG8GF6d-w" name="hvdatatype"
+              label="hvdatatype" presentInCtrlPanel="true" referenceScsDomain="#_b9jo6xKsEea7gOG8GF6d-w"/>
+        </composeScsClass>
+      </composeScsClassPackage>
+    </composeScsClassPackage>
+    <composeScsClassPackage xmi:id="_b9jpuhKsEea7gOG8GF6d-w" name="Melody">
+      <composeScsClassPackage xmi:id="_b9jpuxKsEea7gOG8GF6d-w" name="Public" id="6b752300-1bae-45fb-8064-c1dfa6342fde">
+        <composeScsClassPackage xmi:id="_b9jpvBKsEea7gOG8GF6d-w" name="Configuration"
+            id="9b039d75-e229-4ac7-bc6b-17257da743b1">
+          <composeScsClassPackage xmi:id="_b9jpvRKsEea7gOG8GF6d-w" name="Application"
+              id="04668449-4580-4e04-94b1-3ea3396586ee">
+            <composeScsClass xmi:id="_b9jpxxKsEea7gOG8GF6d-w" name="AbstractConfiguredEntity"
+                label="AbstractConfiguredEntity" referenceExtremiteAssoc="#_b9tZvRKsEea7gOG8GF6d-w"
+                referenceSuperClass="#_b9jpzBKsEea7gOG8GF6d-w" referenceChildClass="#_b9jpvxKsEea7gOG8GF6d-w #_b9tZvBKsEea7gOG8GF6d-w"
+                abstract="true">
+              <composeScsAttribute xmi:id="_b9jpyBKsEea7gOG8GF6d-w" name="name" label="name"
+                  presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+              <composeScsAttribute xmi:id="_b9jpyRKsEea7gOG8GF6d-w" name="label" label="label"
+                  presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jo2RKsEea7gOG8GF6d-w"/>
+              <composeScsAttribute xmi:id="_b9jpyhKsEea7gOG8GF6d-w" name="longLabel"
+                  label="longLabel" presentInCtrlPanel="true" stringLength="1024"
+                  referenceScsDomain="#_b9jozBKsEea7gOG8GF6d-w"/>
+            </composeScsClass>
+            <composeScsClassPackage xmi:id="_b9jpvhKsEea7gOG8GF6d-w" name="equipment"
+                id="a0d60bda-3d11-4ad1-9fd3-1690ca65f0cc">
+              <composeScsClass xmi:id="_b9jpvxKsEea7gOG8GF6d-w" name="AbstractEquipment"
+                  label="AbstractEquipment" referenceSuperClass="#_b9jpxxKsEea7gOG8GF6d-w"
+                  referenceChildClass="#_b9tZohKsEea7gOG8GF6d-w #_b9tZuhKsEea7gOG8GF6d-w"
+                  abstract="true">
+                <composeScsComposition xmi:id="_b9jpxhKsEea7gOG8GF6d-w" name="location"
+                    label="location" maxCardinality="1" minCardinality="0" referenceScsClass="#_b9jpwhKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+            </composeScsClassPackage>
+            <composeScsClassPackage xmi:id="_b9jp6hKsEea7gOG8GF6d-w" name="process"
+                id="2ee7a68d-8ebc-492a-a610-702fdd0c33a3">
+              <composeScsClass xmi:id="_b9jp6xKsEea7gOG8GF6d-w" name="AbstractBusinessProcess"
+                  label="AbstractBusinessProcess" referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w"
+                  abstract="true"/>
+            </composeScsClassPackage>
+            <composeScsClassPackage xmi:id="_b9tZuxKsEea7gOG8GF6d-w" name="area" id="769d9696-40f3-41b9-82e9-83808b2ba4ba">
+              <composeScsClass xmi:id="_b9tZvBKsEea7gOG8GF6d-w" name="Area" label="Area"
+                  referenceSuperClass="#_b9jpxxKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZvhKsEea7gOG8GF6d-w #_b9taKRKsEea7gOG8GF6d-w"
+                  abstract="true">
+                <composeScsAssociation xmi:id="_b9tZvRKsEea7gOG8GF6d-w" name="configuredEntity"
+                    label="configuredEntity" minCardinality="0" referenceScsClass="#_b9jpxxKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+              <composeScsClass xmi:id="_b9tZvhKsEea7gOG8GF6d-w" name="LogicalArea"
+                  label="LogicalArea" referenceExtremiteAssoc="#_b9tZvxKsEea7gOG8GF6d-w"
+                  referenceSuperClass="#_b9tZvBKsEea7gOG8GF6d-w">
+                <composeScsAssociation xmi:id="_b9tZvxKsEea7gOG8GF6d-w" name="subLogicalArea"
+                    label="subLogicalArea" minCardinality="0" referenceScsClass="#_b9tZvhKsEea7gOG8GF6d-w"/>
+                <composeScsAssociation xmi:id="_b9taKBKsEea7gOG8GF6d-w" name="entityType"
+                    label="entityType" minCardinality="0" referenceScsClass="#_b9tZwhKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+              <composeScsClass xmi:id="_b9taKRKsEea7gOG8GF6d-w" name="PhysicalArea"
+                  label="PhysicalArea" referenceExtremiteAssoc="#_b9taKhKsEea7gOG8GF6d-w"
+                  referenceSuperClass="#_b9tZvBKsEea7gOG8GF6d-w">
+                <composeScsAssociation xmi:id="_b9taKhKsEea7gOG8GF6d-w" name="physicalArea"
+                    label="physicalArea" minCardinality="0" referenceScsClass="#_b9taKRKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+            </composeScsClassPackage>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_b9jpwBKsEea7gOG8GF6d-w" name="Types" id="0c5dd965-b7cb-4b35-9218-ed0a4f9cc54d">
+          <composeScsClassPackage xmi:id="_b9jpwRKsEea7gOG8GF6d-w" name="CustomTypes"
+              id="b4281df2-587a-407f-a6ed-f78773940789">
+            <composeScsClass xmi:id="_b9jpwhKsEea7gOG8GF6d-w" name="Coordinates" label="Coordinates"
+                referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w" referenceChildClass="#_b9jpxRKsEea7gOG8GF6d-w">
+              <composeScsAttribute xmi:id="_b9jpwxKsEea7gOG8GF6d-w" name="x" label="x"
+                  presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+              <composeScsAttribute xmi:id="_b9jpxBKsEea7gOG8GF6d-w" name="y" label="y"
+                  presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+            </composeScsClass>
+            <composeScsClass xmi:id="_b9jpxRKsEea7gOG8GF6d-w" name="GeographicalCoordinates"
+                label="GeographicalCoordinates" referenceSuperClass="#_b9jpwhKsEea7gOG8GF6d-w"/>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_b9jpyxKsEea7gOG8GF6d-w" name="Core" id="dd91e0ca-52be-40f7-a5b9-77bf93c22c7b">
+          <composeScsClass xmi:id="_b9jpzBKsEea7gOG8GF6d-w" name="Entity" label="Entity"
+              referenceExtremiteAssoc="#_b9taNxKsEea7gOG8GF6d-w" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w"
+              referenceChildClass="#_b9jpzxKsEea7gOG8GF6d-w #_b9jpxxKsEea7gOG8GF6d-w #_b9taMBKsEea7gOG8GF6d-w"
+              abstract="true">
+            <composeScsAttribute xmi:id="_b9jpzRKsEea7gOG8GF6d-w" name="id" label="id"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9jp-BKsEea7gOG8GF6d-w" name="User" label="User"
+              referenceExtremiteAssoc="#_b9jp-hKsEea7gOG8GF6d-w #_b9jp_hKsEea7gOG8GF6d-w"
+              referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9jp-RKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_b9jpzhKsEea7gOG8GF6d-w" name="Transient"
+            id="7b6d158c-741f-4979-880b-df2f4cd76184">
+          <composeScsClass xmi:id="_b9jpzxKsEea7gOG8GF6d-w" name="AbstractTransientEntity"
+              label="AbstractTransientEntity" referenceSuperClass="#_b9jpzBKsEea7gOG8GF6d-w"
+              referenceChildClass="#_b9jp0RKsEea7gOG8GF6d-w #_b9jp6RKsEea7gOG8GF6d-w #_b9jp6xKsEea7gOG8GF6d-w #_b9jp7RKsEea7gOG8GF6d-w #_b9jp-xKsEea7gOG8GF6d-w #_b9jqABKsEea7gOG8GF6d-w #_b9jqDBKsEea7gOG8GF6d-w"
+              abstract="true"/>
+          <composeScsClassPackage xmi:id="_b9jp0BKsEea7gOG8GF6d-w" name="alarm" id="6e1dd4b8-dd0b-43c0-9b36-ddf3cbfd952d">
+            <composeScsClass xmi:id="_b9jp0RKsEea7gOG8GF6d-w" name="AbstractAlarm"
+                label="AbstractAlarm" referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w"
+                referenceChildClass="#_b9jp1RKsEea7gOG8GF6d-w #_b9jp3BKsEea7gOG8GF6d-w #_b9jp3RKsEea7gOG8GF6d-w #_b9jp4BKsEea7gOG8GF6d-w #_b9jp5RKsEea7gOG8GF6d-w"
+                abstract="true"/>
+          </composeScsClassPackage>
+          <composeScsClassPackage xmi:id="_b9jp6BKsEea7gOG8GF6d-w" name="event" id="cde748f3-aa1e-4214-9c27-d0a340e42dfb">
+            <composeScsClass xmi:id="_b9jp6RKsEea7gOG8GF6d-w" name="AbstractEvent"
+                label="AbstractEvent" referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w"
+                abstract="true"/>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9jp0hKsEea7gOG8GF6d-w" name="Exchange" id="bd9ebd03-0d34-4ed0-bac9-5486ecd56773">
+        <composeScsClassPackage xmi:id="_b9jp0xKsEea7gOG8GF6d-w" name="Entity" id="24abeece-7368-46ae-aaf7-dabbcd746ac0">
+          <composeScsClassPackage xmi:id="_b9jp1BKsEea7gOG8GF6d-w" name="Alarm" id="400c7df1-70b9-4c3d-b7c5-9fcf94cb3544">
+            <composeScsClass xmi:id="_b9jp1RKsEea7gOG8GF6d-w" name="ScsAlmCommon"
+                label="ScsAlmCommon" referenceSuperClass="#_b9jp0RKsEea7gOG8GF6d-w"
+                referenceChildClass="#_b9jp1hKsEea7gOG8GF6d-w #_b9jp1xKsEea7gOG8GF6d-w #_b9jp2xKsEea7gOG8GF6d-w"
+                abstract="true"/>
+            <composeScsClass xmi:id="_b9jp1hKsEea7gOG8GF6d-w" name="Scsevent" label="Scsevent"
+                referenceSuperClass="#_b9jp1RKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9jp1xKsEea7gOG8GF6d-w" name="SCADAsoftAlarm"
+                label="SCADAsoftAlarm" referenceSuperClass="#_b9jp1RKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9jp3BKsEea7gOG8GF6d-w" name="DpceqpEntry" label="DpceqpEntry"
+                referenceSuperClass="#_b9jp0RKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9jp3RKsEea7gOG8GF6d-w" name="OperationLongNotif"
+                label="OperationLongNotif" referenceSuperClass="#_b9jp0RKsEea7gOG8GF6d-w"/>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9jp2BKsEea7gOG8GF6d-w" name="Exchange" id="c72d0d59-ebda-4dea-9d9f-4fe085802d47">
+        <composeScsClassPackage xmi:id="_b9jp2RKsEea7gOG8GF6d-w" name="Entity" id="1cf4b43a-3824-4963-aeb7-fb2614741010">
+          <composeScsClassPackage xmi:id="_b9jp2hKsEea7gOG8GF6d-w" name="Alarm" id="94625ded-91ab-4715-ba12-c3e6fbc52855">
+            <composeScsClass xmi:id="_b9jp2xKsEea7gOG8GF6d-w" name="DoorIntrusionAlarm"
+                label="DoorIntrusionAlarm" referenceSuperClass="#_b9jp1RKsEea7gOG8GF6d-w"/>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9jp3hKsEea7gOG8GF6d-w" name="Domain" id="e75c251d-302e-4ca6-a5f9-3ff819a75900">
+        <composeScsClassPackage xmi:id="_b9jp3xKsEea7gOG8GF6d-w" name="Model" id="b5da5d10-3927-459a-b17a-c94888c18c9c">
+          <composeScsClass xmi:id="_b9jp4BKsEea7gOG8GF6d-w" name="AlarmDisconnection"
+              label="AlarmDisconnection" referenceSuperClass="#_b9jp0RKsEea7gOG8GF6d-w"/>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9jp4RKsEea7gOG8GF6d-w" name="HV" id="812b27cd-a53e-44c6-b2f5-9c29c14f5db6">
+        <composeScsClassPackage xmi:id="_b9jp4hKsEea7gOG8GF6d-w" name="Exchange" id="6d95945c-9623-45a2-8c61-9841810875dc">
+          <composeScsClassPackage xmi:id="_b9jp4xKsEea7gOG8GF6d-w" name="Entity" id="3611b72b-84c1-492f-8f91-6a4ac0773b05">
+            <composeScsClassPackage xmi:id="_b9jp5BKsEea7gOG8GF6d-w" name="alarm"
+                id="a1eda2cf-4333-4afb-836d-b2be9a8f400b">
+              <composeScsClass xmi:id="_b9jp5RKsEea7gOG8GF6d-w" name="Alarm" label="Alarm"
+                  referenceSuperClass="#_b9jp0RKsEea7gOG8GF6d-w" referenceChildClass="#_b9jp5hKsEea7gOG8GF6d-w #_b9jp5xKsEea7gOG8GF6d-w"
+                  abstract="true"/>
+              <composeScsClass xmi:id="_b9jp5hKsEea7gOG8GF6d-w" name="Alarm8States"
+                  label="Alarm8States" referenceSuperClass="#_b9jp5RKsEea7gOG8GF6d-w"/>
+              <composeScsClass xmi:id="_b9jp5xKsEea7gOG8GF6d-w" name="Alarm4States"
+                  label="Alarm4States" referenceSuperClass="#_b9jp5RKsEea7gOG8GF6d-w"/>
+            </composeScsClassPackage>
+            <composeScsClassPackage xmi:id="_b9jp7BKsEea7gOG8GF6d-w" name="logbook"
+                id="15e50d32-0adf-4ed9-a024-419cd492a56d">
+              <composeScsClass xmi:id="_b9jp7RKsEea7gOG8GF6d-w" name="LogbookDiscussion"
+                  label="LogbookDiscussion" referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w">
+                <composeScsAssociation xmi:id="_b9jp-hKsEea7gOG8GF6d-w" name="creator"
+                    label="creator" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9jp-BKsEea7gOG8GF6d-w"/>
+                <composeScsComposition xmi:id="_b9jp9xKsEea7gOG8GF6d-w" name="discussionContext"
+                    label="discussionContext" maxCardinality="1" minCardinality="1"
+                    referenceScsClass="#_b9jp8BKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp7hKsEea7gOG8GF6d-w" name="creationDate"
+                    label="creationDate" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jotxKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp7xKsEea7gOG8GF6d-w" name="title"
+                    label="title" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+              <composeScsClass xmi:id="_b9jp8BKsEea7gOG8GF6d-w" name="DiscussionContext"
+                  label="DiscussionContext" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w"
+                  referenceChildClass="#_b9jp8RKsEea7gOG8GF6d-w"/>
+              <composeScsClass xmi:id="_b9jp8RKsEea7gOG8GF6d-w" name="AlarmContext"
+                  label="AlarmContext" referenceSuperClass="#_b9jp8BKsEea7gOG8GF6d-w">
+                <composeScsAttribute xmi:id="_b9jp8hKsEea7gOG8GF6d-w" name="alarmId"
+                    label="alarmId" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp8xKsEea7gOG8GF6d-w" name="alarmType"
+                    label="alarmType" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp9BKsEea7gOG8GF6d-w" name="apparitionDate"
+                    label="apparitionDate" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jotxKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp9RKsEea7gOG8GF6d-w" name="areaId"
+                    label="areaId" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp9hKsEea7gOG8GF6d-w" name="sourceId"
+                    label="sourceId" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+              <composeScsClass xmi:id="_b9jp-xKsEea7gOG8GF6d-w" name="LogbookEntry"
+                  label="LogbookEntry" referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w">
+                <composeScsAssociation xmi:id="_b9jp_hKsEea7gOG8GF6d-w" name="operator"
+                    label="operator" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9jp-BKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp_BKsEea7gOG8GF6d-w" name="message"
+                    label="message" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jp_RKsEea7gOG8GF6d-w" name="logbookEntryDate"
+                    label="logbookEntryDate" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jotxKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+            </composeScsClassPackage>
+            <composeScsClassPackage xmi:id="_b9jp_xKsEea7gOG8GF6d-w" name="sop" id="47d59762-3356-46ee-b16a-5549b361a957">
+              <composeScsClass xmi:id="_b9jqABKsEea7gOG8GF6d-w" name="Procedure" label="Procedure"
+                  referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w" abstract="true">
+                <composeScsComposition xmi:id="_b9jqAxKsEea7gOG8GF6d-w" name="state"
+                    label="state" maxCardinality="1" minCardinality="0" referenceScsClass="#_b9jqARKsEea7gOG8GF6d-w"/>
+                <composeScsComposition xmi:id="_b9jqBBKsEea7gOG8GF6d-w" name="previousState"
+                    label="previousState" maxCardinality="1" minCardinality="0" referenceScsClass="#_b9jqARKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jqBRKsEea7gOG8GF6d-w" name="creationDate"
+                    label="creationDate" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jotxKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jqBhKsEea7gOG8GF6d-w" name="context"
+                    label="context" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jqBxKsEea7gOG8GF6d-w" name="procedureOwner"
+                    label="procedureOwner" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jqCBKsEea7gOG8GF6d-w" name="description"
+                    label="description" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jqCRKsEea7gOG8GF6d-w" name="ownerGroup"
+                    label="ownerGroup" presentInCtrlPanel="true" stringLength="1024"
+                    referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+                <composeScsAttribute xmi:id="_b9jqChKsEea7gOG8GF6d-w" name="type"
+                    label="type" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+              <composeScsClass xmi:id="_b9jqARKsEea7gOG8GF6d-w" name="ProcedureStateStatusAttribute"
+                  label="ProcedureStateStatusAttribute" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+                <composeScsAttribute xmi:id="_b9jqAhKsEea7gOG8GF6d-w" name="value"
+                    label="value" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+              </composeScsClass>
+            </composeScsClassPackage>
+            <composeScsClassPackage xmi:id="_b9jqCxKsEea7gOG8GF6d-w" name="connection"
+                id="0c0bce47-f79d-44c9-ad25-fbb30d7cfbe3">
+              <composeScsClass xmi:id="_b9jqDBKsEea7gOG8GF6d-w" name="Connection"
+                  label="Connection" description="&lt;p>&#xD;&#xA;    a connection status has two endpoints :&#xD;&#xA;&lt;/p>&#xD;&#xA;&lt;ul>&#xD;&#xA;    &lt;li>&#xD;&#xA;        service that is monitored&#xD;&#xA;    &lt;/li>&#xD;&#xA;    &lt;li>&#xD;&#xA;        service that is monitoring (CMS)&#xD;&#xA;    &lt;/li>&#xD;&#xA;&lt;/ul>"
+                  referenceSuperClass="#_b9jpzxKsEea7gOG8GF6d-w"/>
+            </composeScsClassPackage>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+        <composeScsClassPackage xmi:id="_b9taKxKsEea7gOG8GF6d-w" name="configuration"
+            id="ec338477-afe3-4bd4-8d20-af494332dd7b">
+          <composeScsClassPackage xmi:id="_b9taLBKsEea7gOG8GF6d-w" name="application"
+              id="6daf004a-5cf2-45cc-b884-f9463776ecd9">
+            <composeScsClassPackage xmi:id="_b9taLRKsEea7gOG8GF6d-w" name="PRS" id="108fa061-b76d-43c9-87ad-524480ebbeb9">
+              <composeScsClassPackage xmi:id="_b9taLhKsEea7gOG8GF6d-w" name="Widgets"
+                  id="55387def-11e8-41b2-a9b7-55f0f3ae71b3">
+                <composeScsClassPackage xmi:id="_b9taLxKsEea7gOG8GF6d-w" name="SituationView"
+                    id="35473aae-dfb1-457c-ad68-bfc1eea5c2da">
+                  <composeScsClass xmi:id="_b9taMBKsEea7gOG8GF6d-w" name="GeoCluster"
+                      label="GeoCluster" description="A cluster is a group of entities. Grouping strategy is described by rules. Cluster strategy apply on entities but also&#xD;&#xA;depends on the operator view (e.g. zoom level)."
+                      referenceSuperClass="#_b9jpzBKsEea7gOG8GF6d-w">
+                    <composeScsAssociation xmi:id="_b9taNhKsEea7gOG8GF6d-w" name="rule"
+                        label="rule" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9taMRKsEea7gOG8GF6d-w"/>
+                    <composeScsAssociation xmi:id="_b9taNxKsEea7gOG8GF6d-w" name="content"
+                        label="content" minCardinality="1" referenceScsClass="#_b9jpzBKsEea7gOG8GF6d-w"/>
+                  </composeScsClass>
+                  <composeScsClass xmi:id="_b9taMRKsEea7gOG8GF6d-w" name="ClusterDefinition"
+                      label="ClusterDefinition" referenceExtremiteAssoc="#_b9taNhKsEea7gOG8GF6d-w"
+                      referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+                    <composeScsComposition xmi:id="_b9taNRKsEea7gOG8GF6d-w" name="viewBoxCondition"
+                        label="viewBoxCondition" maxCardinality="1" minCardinality="1"
+                        referenceScsClass="#_b9taMhKsEea7gOG8GF6d-w"/>
+                  </composeScsClass>
+                  <composeScsClass xmi:id="_b9taMhKsEea7gOG8GF6d-w" name="ViewBoxCondition"
+                      label="ViewBoxCondition" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+                    <composeScsAttribute xmi:id="_b9taMxKsEea7gOG8GF6d-w" name="minScaleDenominator"
+                        label="minScaleDenominator" presentInCtrlPanel="true" stringLength="1024"
+                        referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+                    <composeScsAttribute xmi:id="_b9taNBKsEea7gOG8GF6d-w" name="minScaleDenominator"
+                        label="minScaleDenominator" presentInCtrlPanel="true" stringLength="1024"
+                        referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+                  </composeScsClass>
+                </composeScsClassPackage>
+              </composeScsClassPackage>
+            </composeScsClassPackage>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9tZoBKsEea7gOG8GF6d-w" name="config" id="08eb12b8-9a4a-4491-901a-9eab5fd07dc7">
+        <composeScsClassPackage xmi:id="_b9tZoRKsEea7gOG8GF6d-w" name="Equipment"
+            id="48dc46fe-214b-46c0-9fb4-2cd06a7c9c54">
+          <composeScsClass xmi:id="_b9tZohKsEea7gOG8GF6d-w" name="SCSEquipment" label="SCSEquipment"
+              referenceSuperClass="#_b9jpvxKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZoxKsEea7gOG8GF6d-w #_b9tZpxKsEea7gOG8GF6d-w #_b9tZuBKsEea7gOG8GF6d-w #_b9tZuRKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZoxKsEea7gOG8GF6d-w" name="SCSFEP" label="SCSFEP"
+              referenceSuperClass="#_b9tZohKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZphKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZuhKsEea7gOG8GF6d-w" name="SCSEnvironment"
+              label="SCSEnvironment" referenceSuperClass="#_b9jpvxKsEea7gOG8GF6d-w"/>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9tZpBKsEea7gOG8GF6d-w" name="config" id="516e733b-cffb-4bc1-80bc-2cbbceadd174">
+        <composeScsClassPackage xmi:id="_b9tZpRKsEea7gOG8GF6d-w" name="Equipment"
+            id="0afd31b0-a9c1-44fe-a19a-3d120d050f0c">
+          <composeScsClass xmi:id="_b9tZphKsEea7gOG8GF6d-w" name="FEP" label="FEP"
+              referenceSuperClass="#_b9tZoxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZpxKsEea7gOG8GF6d-w" name="BasicEquipment"
+              label="BasicEquipment" referenceSuperClass="#_b9tZohKsEea7gOG8GF6d-w"
+              referenceChildClass="#_b9tZqBKsEea7gOG8GF6d-w #_b9tZqRKsEea7gOG8GF6d-w #_b9tZqhKsEea7gOG8GF6d-w #_b9tZqxKsEea7gOG8GF6d-w #_b9tZrBKsEea7gOG8GF6d-w #_b9tZrRKsEea7gOG8GF6d-w #_b9tZrhKsEea7gOG8GF6d-w #_b9tZsBKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZqBKsEea7gOG8GF6d-w" name="FireDet" label="FireDet"
+              referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZqRKsEea7gOG8GF6d-w" name="Sprinkler" label="Sprinkler"
+              referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZqhKsEea7gOG8GF6d-w" name="MotionDet" label="MotionDet"
+              referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZqxKsEea7gOG8GF6d-w" name="Camera" label="Camera"
+              referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZrBKsEea7gOG8GF6d-w" name="Door" label="Door"
+              referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZrRKsEea7gOG8GF6d-w" name="Valve" label="Valve"
+              referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZrhKsEea7gOG8GF6d-w" name="PressureSensor"
+              label="PressureSensor" referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZuBKsEea7gOG8GF6d-w" name="Building" label="Building"
+              referenceSuperClass="#_b9tZohKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZuRKsEea7gOG8GF6d-w" name="Floor" label="Floor"
+              referenceSuperClass="#_b9tZohKsEea7gOG8GF6d-w"/>
+          <composeScsClassPackage xmi:id="_b9tZrxKsEea7gOG8GF6d-w" name="common" id="d54e0666-90b9-4c2f-89c2-6de4bb499889">
+            <composeScsClass xmi:id="_b9tZsBKsEea7gOG8GF6d-w" name="SGEQPT1" label="SGEQPT1"
+                referenceSuperClass="#_b9tZpxKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZsRKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZsRKsEea7gOG8GF6d-w" name="SGEQPT2" label="SGEQPT2"
+                referenceSuperClass="#_b9tZsBKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZshKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZshKsEea7gOG8GF6d-w" name="SGEQPT3" label="SGEQPT3"
+                referenceSuperClass="#_b9tZsRKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZsxKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZsxKsEea7gOG8GF6d-w" name="SGEQPT4" label="SGEQPT4"
+                referenceSuperClass="#_b9tZshKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZtBKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZtBKsEea7gOG8GF6d-w" name="SGEQPT5" label="SGEQPT5"
+                referenceSuperClass="#_b9tZsxKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZtRKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZtRKsEea7gOG8GF6d-w" name="SGEQPT6" label="SGEQPT6"
+                referenceSuperClass="#_b9tZtBKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZthKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZthKsEea7gOG8GF6d-w" name="SGEQPT7" label="SGEQPT7"
+                referenceSuperClass="#_b9tZtRKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZtxKsEea7gOG8GF6d-w"/>
+            <composeScsClass xmi:id="_b9tZtxKsEea7gOG8GF6d-w" name="SGEQPT8" label="SGEQPT8"
+                referenceSuperClass="#_b9tZthKsEea7gOG8GF6d-w"/>
+          </composeScsClassPackage>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+      <composeScsClassPackage xmi:id="_b9tZwBKsEea7gOG8GF6d-w" name="Internal" id="4f82931b-4c6b-43a2-b788-1f7324c060e6">
+        <composeScsClassPackage xmi:id="_b9tZwRKsEea7gOG8GF6d-w" name="TypeM2" id="4855cb4f-532f-4898-9c86-ba1032b4aa53">
+          <composeScsClass xmi:id="_b9tZwhKsEea7gOG8GF6d-w" name="EntityType" label="EntityType"
+              referenceExtremiteAssoc="#_b9tZ0RKsEea7gOG8GF6d-w #_b9taKBKsEea7gOG8GF6d-w"
+              referenceSuperClass="#_b9tZzBKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZzhKsEea7gOG8GF6d-w #_b9tZ0hKsEea7gOG8GF6d-w">
+            <composeScsComposition xmi:id="_b9taJBKsEea7gOG8GF6d-w" name="operations"
+                label="operations" minCardinality="0" referenceScsClass="#_b9tZwxKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taJRKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taJhKsEea7gOG8GF6d-w" name="modelId" label="modelId"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taJxKsEea7gOG8GF6d-w" name="package" label="package"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZwxKsEea7gOG8GF6d-w" name="OperationType" label="OperationType"
+              referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9taIhKsEea7gOG8GF6d-w" name="returnType"
+                label="returnType" maxCardinality="1" minCardinality="0" referenceScsClass="#_b9tZxxKsEea7gOG8GF6d-w"/>
+            <composeScsComposition xmi:id="_b9taIBKsEea7gOG8GF6d-w" name="parameters"
+                label="parameters" minCardinality="0" referenceScsClass="#_b9tZxBKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taIRKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taIxKsEea7gOG8GF6d-w" name="shortname"
+                label="shortname" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZxBKsEea7gOG8GF6d-w" name="ParameterType" label="ParameterType"
+              referenceSuperClass="#_b9tZxRKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZxRKsEea7gOG8GF6d-w" name="AttributeType" label="AttributeType"
+              referenceExtremiteAssoc="#_b9tZ6BKsEea7gOG8GF6d-w #_b9taHRKsEea7gOG8GF6d-w"
+              referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w" referenceChildClass="#_b9taGhKsEea7gOG8GF6d-w #_b9tZxBKsEea7gOG8GF6d-w #_b9taHxKsEea7gOG8GF6d-w"
+              abstract="true">
+            <composeScsAssociation xmi:id="_b9taFhKsEea7gOG8GF6d-w" name="valueType"
+                label="valueType" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZxxKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZxhKsEea7gOG8GF6d-w" name="shortname"
+                label="shortname" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taFxKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taGBKsEea7gOG8GF6d-w" name="minCardinality"
+                label="minCardinality" presentInCtrlPanel="true" stringLength="1024"
+                referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taGRKsEea7gOG8GF6d-w" name="maxCardinality"
+                label="maxCardinality" presentInCtrlPanel="true" stringLength="1024"
+                referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZxxKsEea7gOG8GF6d-w" name="Type" label="Type"
+              referenceExtremiteAssoc="#_b9tZyBKsEea7gOG8GF6d-w #_b9taFhKsEea7gOG8GF6d-w #_b9taIhKsEea7gOG8GF6d-w"
+              referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZzBKsEea7gOG8GF6d-w #_b9tZ1hKsEea7gOG8GF6d-w"
+              abstract="true">
+            <composeScsAssociation xmi:id="_b9tZyBKsEea7gOG8GF6d-w" name="superType"
+                label="superType" maxCardinality="1" minCardinality="0" referenceScsClass="#_b9tZxxKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZyRKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZyhKsEea7gOG8GF6d-w" name="concrete"
+                label="concrete" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jooxKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZyxKsEea7gOG8GF6d-w" name="shortname"
+                label="shortname" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZzBKsEea7gOG8GF6d-w" name="ComplexType" label="ComplexType"
+              referenceExtremiteAssoc="#_b9tZ5hKsEea7gOG8GF6d-w #_b9taFBKsEea7gOG8GF6d-w"
+              referenceSuperClass="#_b9tZxxKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZwhKsEea7gOG8GF6d-w #_b9tZ1RKsEea7gOG8GF6d-w"
+              abstract="true">
+            <composeScsComposition xmi:id="_b9tZzRKsEea7gOG8GF6d-w" name="attributes"
+                label="attributes" minCardinality="0" referenceScsClass="#_b9tZxRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZzhKsEea7gOG8GF6d-w" name="ConfiguredEntityType"
+              label="ConfiguredEntityType" referenceSuperClass="#_b9tZwhKsEea7gOG8GF6d-w"
+              referenceChildClass="#_b9tZzxKsEea7gOG8GF6d-w #_b9tZ0BKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZzxKsEea7gOG8GF6d-w" name="EquipmentType" label="EquipmentType"
+              referenceSuperClass="#_b9tZzhKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ0BKsEea7gOG8GF6d-w" name="ManagedServiceType"
+              label="ManagedServiceType" referenceSuperClass="#_b9tZzhKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9tZ0RKsEea7gOG8GF6d-w" name="managedEntityType"
+                label="managedEntityType" minCardinality="0" referenceScsClass="#_b9tZwhKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ0hKsEea7gOG8GF6d-w" name="TransientEntityType"
+              label="TransientEntityType" referenceSuperClass="#_b9tZwhKsEea7gOG8GF6d-w"
+              referenceChildClass="#_b9tZ0xKsEea7gOG8GF6d-w #_b9tZ1BKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ0xKsEea7gOG8GF6d-w" name="AlarmType" label="AlarmType"
+              referenceSuperClass="#_b9tZ0hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ1BKsEea7gOG8GF6d-w" name="EventType" label="EventType"
+              referenceSuperClass="#_b9tZ0hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ1RKsEea7gOG8GF6d-w" name="ObjectType" label="ObjectType"
+              referenceSuperClass="#_b9tZzBKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ1hKsEea7gOG8GF6d-w" name="SimpleType" label="SimpleType"
+              referenceExtremiteAssoc="#_b9tZ4hKsEea7gOG8GF6d-w #_b9taBRKsEea7gOG8GF6d-w #_b9taFRKsEea7gOG8GF6d-w"
+              referenceSuperClass="#_b9tZxxKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZ1xKsEea7gOG8GF6d-w #_b9tZ2BKsEea7gOG8GF6d-w #_b9tZ2RKsEea7gOG8GF6d-w #_b9tZ2hKsEea7gOG8GF6d-w #_b9tZ2xKsEea7gOG8GF6d-w #_b9tZ3hKsEea7gOG8GF6d-w #_b9taBhKsEea7gOG8GF6d-w #_b9taCRKsEea7gOG8GF6d-w #_b9taDBKsEea7gOG8GF6d-w #_b9taDxKsEea7gOG8GF6d-w #_b9taEhKsEea7gOG8GF6d-w #_b9taExKsEea7gOG8GF6d-w"
+              abstract="true"/>
+          <composeScsClass xmi:id="_b9tZ1xKsEea7gOG8GF6d-w" name="BooleanType" label="BooleanType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ2BKsEea7gOG8GF6d-w" name="CoordinatesType"
+              label="CoordinatesType" referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ2RKsEea7gOG8GF6d-w" name="CustomValueType"
+              label="CustomValueType" referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ2hKsEea7gOG8GF6d-w" name="DateTimeType" label="DateTimeType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9tZ2xKsEea7gOG8GF6d-w" name="DoubleType" label="DoubleType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ3BKsEea7gOG8GF6d-w" name="min" label="min"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZ3RKsEea7gOG8GF6d-w" name="max" label="max"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ3hKsEea7gOG8GF6d-w" name="EnumerationType"
+              label="EnumerationType" referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9taBRKsEea7gOG8GF6d-w" name="domain"
+                label="domain" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+            <composeScsComposition xmi:id="_b9taBBKsEea7gOG8GF6d-w" name="literal"
+                label="literal" minCardinality="1" referenceScsClass="#_b9tZ3xKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ3xKsEea7gOG8GF6d-w" name="EnumerationLiteral"
+              label="EnumerationLiteral" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+            <composeScsComposition xmi:id="_b9taAxKsEea7gOG8GF6d-w" name="value" label="value"
+                maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZ4RKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZ4BKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ4RKsEea7gOG8GF6d-w" name="SimpleValue" label="SimpleValue"
+              referenceSuperClass="#_b9tZ4xKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZ6xKsEea7gOG8GF6d-w #_b9tZ7RKsEea7gOG8GF6d-w #_b9tZ7xKsEea7gOG8GF6d-w #_b9tZ8RKsEea7gOG8GF6d-w #_b9tZ8xKsEea7gOG8GF6d-w #_b9tZ9RKsEea7gOG8GF6d-w #_b9tZ9xKsEea7gOG8GF6d-w #_b9tZ-RKsEea7gOG8GF6d-w #_b9tZ-xKsEea7gOG8GF6d-w #_b9tZ_hKsEea7gOG8GF6d-w"
+              abstract="true">
+            <composeScsAssociation xmi:id="_b9tZ4hKsEea7gOG8GF6d-w" name="type" label="type"
+                maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ4xKsEea7gOG8GF6d-w" name="Value" label="Value"
+              referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w" referenceChildClass="#_b9tZ5RKsEea7gOG8GF6d-w #_b9tZ4RKsEea7gOG8GF6d-w"
+              abstract="true">
+            <composeScsAttribute xmi:id="_b9tZ5BKsEea7gOG8GF6d-w" name="serializedValue"
+                label="serializedValue" presentInCtrlPanel="true" stringLength="1024"
+                referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ5RKsEea7gOG8GF6d-w" name="ComplexValue" label="ComplexValue"
+              referenceSuperClass="#_b9tZ4xKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9tZ5hKsEea7gOG8GF6d-w" name="type" label="type"
+                maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZzBKsEea7gOG8GF6d-w"/>
+            <composeScsComposition xmi:id="_b9tZ6hKsEea7gOG8GF6d-w" name="attributeValue"
+                label="attributeValue" minCardinality="1" referenceScsClass="#_b9tZ5xKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ5xKsEea7gOG8GF6d-w" name="Attribute" label="Attribute"
+              referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9tZ6BKsEea7gOG8GF6d-w" name="type" label="type"
+                maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZxRKsEea7gOG8GF6d-w"/>
+            <composeScsComposition xmi:id="_b9tZ6RKsEea7gOG8GF6d-w" name="value" label="value"
+                maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZ4xKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ6xKsEea7gOG8GF6d-w" name="DateTimeValue" label="DateTimeValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ7BKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jotxKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ7RKsEea7gOG8GF6d-w" name="DoubleValue" label="DoubleValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ7hKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ7xKsEea7gOG8GF6d-w" name="FloatValue" label="FloatValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ8BKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jopxKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ8RKsEea7gOG8GF6d-w" name="IntegerValue" label="IntegerValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ8hKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ8xKsEea7gOG8GF6d-w" name="LongValue" label="LongValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ9BKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqhKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ9RKsEea7gOG8GF6d-w" name="StringValue" label="StringValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ9hKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ9xKsEea7gOG8GF6d-w" name="BooleanValue" label="BooleanValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ-BKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jooxKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ-RKsEea7gOG8GF6d-w" name="RefValue" label="RefValue"
+              referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ-hKsEea7gOG8GF6d-w" name="keyValue"
+                label="keyValue" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ-xKsEea7gOG8GF6d-w" name="CoordinatesValue"
+              label="CoordinatesValue" referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9tZ_BKsEea7gOG8GF6d-w" name="x" label="x"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9tZ_RKsEea7gOG8GF6d-w" name="y" label="y"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jophKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ_hKsEea7gOG8GF6d-w" name="TextMessageValue"
+              label="TextMessageValue" referenceSuperClass="#_b9tZ4RKsEea7gOG8GF6d-w">
+            <composeScsComposition xmi:id="_b9taAhKsEea7gOG8GF6d-w" name="textMessageParameter"
+                label="textMessageParameter" minCardinality="0" referenceScsClass="#_b9tZ_xKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9tZ_xKsEea7gOG8GF6d-w" name="TextMessageParameterValue"
+              label="TextMessageParameterValue" referenceSuperClass="#_b9jpKBKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9taABKsEea7gOG8GF6d-w" name="name" label="name"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taARKsEea7gOG8GF6d-w" name="value" label="value"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taBhKsEea7gOG8GF6d-w" name="FloatType" label="FloatType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9taBxKsEea7gOG8GF6d-w" name="min" label="min"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jopxKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taCBKsEea7gOG8GF6d-w" name="max" label="max"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9jopxKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taCRKsEea7gOG8GF6d-w" name="IntegerType" label="IntegerType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9taChKsEea7gOG8GF6d-w" name="min" label="min"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taCxKsEea7gOG8GF6d-w" name="max" label="max"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taDBKsEea7gOG8GF6d-w" name="LongType" label="LongType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9taDRKsEea7gOG8GF6d-w" name="min" label="min"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqhKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taDhKsEea7gOG8GF6d-w" name="max" label="max"
+                presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqhKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taDxKsEea7gOG8GF6d-w" name="StringType" label="StringType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAttribute xmi:id="_b9taEBKsEea7gOG8GF6d-w" name="minLength"
+                label="minLength" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taERKsEea7gOG8GF6d-w" name="maxLength"
+                label="maxLength" presentInCtrlPanel="true" stringLength="1024" referenceScsDomain="#_b9joqRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taEhKsEea7gOG8GF6d-w" name="TextMessageType"
+              label="TextMessageType" referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9taExKsEea7gOG8GF6d-w" name="KeyRefType" label="KeyRefType"
+              referenceSuperClass="#_b9tZ1hKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9taFBKsEea7gOG8GF6d-w" name="complexType"
+                label="complexType" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZzBKsEea7gOG8GF6d-w"/>
+            <composeScsAssociation xmi:id="_b9taFRKsEea7gOG8GF6d-w" name="keyType"
+                label="keyType" maxCardinality="1" minCardinality="1" referenceScsClass="#_b9tZ1hKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taGhKsEea7gOG8GF6d-w" name="AbstractStatusType"
+              label="AbstractStatusType" referenceSuperClass="#_b9tZxRKsEea7gOG8GF6d-w"
+              referenceChildClass="#_b9taGxKsEea7gOG8GF6d-w #_b9taHhKsEea7gOG8GF6d-w"
+              abstract="true"/>
+          <composeScsClass xmi:id="_b9taGxKsEea7gOG8GF6d-w" name="StatusComputedType"
+              label="StatusComputedType" referenceSuperClass="#_b9taGhKsEea7gOG8GF6d-w">
+            <composeScsAssociation xmi:id="_b9taHRKsEea7gOG8GF6d-w" name="inputs"
+                label="inputs" minCardinality="1" referenceScsClass="#_b9tZxRKsEea7gOG8GF6d-w"/>
+            <composeScsAttribute xmi:id="_b9taHBKsEea7gOG8GF6d-w" name="classComputer"
+                label="classComputer" presentInCtrlPanel="true" stringLength="1024"
+                referenceScsDomain="#_b9jorRKsEea7gOG8GF6d-w"/>
+          </composeScsClass>
+          <composeScsClass xmi:id="_b9taHhKsEea7gOG8GF6d-w" name="StatusType" label="StatusType"
+              referenceSuperClass="#_b9taGhKsEea7gOG8GF6d-w"/>
+          <composeScsClass xmi:id="_b9taHxKsEea7gOG8GF6d-w" name="PropertyType" label="PropertyType"
+              referenceSuperClass="#_b9tZxRKsEea7gOG8GF6d-w"/>
+        </composeScsClassPackage>
+      </composeScsClassPackage>
+    </composeScsClassPackage>
+  </composeScsClassPackage>
+</scsmodel:ScsRootPackage>

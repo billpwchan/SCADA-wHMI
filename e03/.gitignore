@@ -1,0 +1,9 @@
+10_MC_workspace/.metadata/
+temp/
+genhmi*/
+/log
+/confclient.log
+/import.log
+/rawdata/
+/icdtmp/
+

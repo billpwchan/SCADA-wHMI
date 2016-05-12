@@ -1,0 +1,11 @@
+{
+  "name": "myproject",
+  "version": "1.2.3",
+  "melody": "4.0",
+  "owner": "MyProject",
+  "dependencies": [
+        {"scadasoft":"6.2.4.2" }
+        {"lib-shared-assets":"1.5.1" }
+        {"lib-hypervisor":"1.5.1" }
+      ]
+}

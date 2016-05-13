@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_wf-xEPi7EeSjfvPwjBNZcw" type="Imageeditor" name="im.imageeditor_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_yAYz4Pi7EeSjfvPwjBNZcw" type="2001" fontColor="16777088" fontName="Microsoft Sans Serif" lineColor="16744448">
+    <children xmi:type="notation:DecorationNode" xmi:id="_yAYz4vi7EeSjfvPwjBNZcw" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_yAYz4_i7EeSjfvPwjBNZcw" y="5"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_yAYz5Pi7EeSjfvPwjBNZcw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_y5Ad8Pi7EeSjfvPwjBNZcw" type="2001" fontColor="16777088" fontName="Microsoft Sans Serif" lineColor="16744448">
+        <children xmi:type="notation:DecorationNode" xmi:id="_y5Ad8vi7EeSjfvPwjBNZcw" type="5002">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_y5Ad8_i7EeSjfvPwjBNZcw" y="5"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_y5Ad9Pi7EeSjfvPwjBNZcw" type="7001"/>
+        <element xsi:nil="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y5Ad8fi7EeSjfvPwjBNZcw" x="549" y="209"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_vSZHIPi8EeSjfvPwjBNZcw" type="3001">
+        <children xmi:type="notation:DecorationNode" xmi:id="_vSZHIfi8EeSjfvPwjBNZcw" type="5001">
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHIvi8EeSjfvPwjBNZcw" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_StressTest/im/im.imageeditor#//@canvas/@ownedItem.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHI_i8EeSjfvPwjBNZcw" x="413" y="388" width="77" height="77"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_vSZHJPi8EeSjfvPwjBNZcw" type="3001">
+        <children xmi:type="notation:DecorationNode" xmi:id="_vSZHJfi8EeSjfvPwjBNZcw" type="5001">
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHJvi8EeSjfvPwjBNZcw" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_StressTest/im/im.imageeditor#//@canvas/@ownedItem.1"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHJ_i8EeSjfvPwjBNZcw" x="1063" y="388" width="77" height="77"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_vSZHKPi8EeSjfvPwjBNZcw" type="3001">
+        <children xmi:type="notation:DecorationNode" xmi:id="_vSZHKfi8EeSjfvPwjBNZcw" type="5001">
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHKvi8EeSjfvPwjBNZcw" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_StressTest/im/im.imageeditor#//@canvas/@ownedItem.2"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHK_i8EeSjfvPwjBNZcw" x="275" y="717" width="38" height="38"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_vSZHLPi8EeSjfvPwjBNZcw" type="3001">
+        <children xmi:type="notation:DecorationNode" xmi:id="_vSZHLfi8EeSjfvPwjBNZcw" type="5001">
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHLvi8EeSjfvPwjBNZcw" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_StressTest/im/im.imageeditor#//@canvas/@ownedItem.3"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vSZHL_i8EeSjfvPwjBNZcw" x="1063" y="788" width="77" height="77"/>
+      </children>
+    </children>
+    <element xmi:type="imageeditor:GraphicalCanvas" href="/ImageProject_StressTest/im/im.imageeditor#//@canvas"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yAYz4fi7EeSjfvPwjBNZcw" x="444" y="132"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_wf-xEfi7EeSjfvPwjBNZcw"/>
+  <styles xmi:type="notation:FillStyle" xmi:id="_wpNlkPi7EeSjfvPwjBNZcw" fillColor="2038555"/>
+  <element xmi:type="imageeditor:GraphicalViewer" href="/ImageProject_StressTest/im/im.imageeditor#/"/>
+</notation:Diagram>

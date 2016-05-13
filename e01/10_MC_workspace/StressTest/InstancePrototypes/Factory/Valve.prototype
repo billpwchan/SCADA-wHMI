@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibrary/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibrary/Class ../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="_znRcwPMWEeSpBq9YtNivOA_1430824000652" hvqname="myproject.data.config.equipment.Valve" nom_instance="Valve" functionalCat="5" scstype="ValveType">
+  <status xsi:type="HV:HvStatusString" xmi:id="_-rZ7wPMaEeSpBq9YtNivOA_1430825792892" nom_instance="eqpName" hvdatatype="String"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_QO9HgPMaEeSpBq9YtNivOA_1430825481208" nom_instance="validity" hvdatatype="Integer"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_QO9HgfMaEeSpBq9YtNivOA_1430825481208" nom_instance="inhibsynthesis" hvdatatype="Integer"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_QO9HgvMaEeSpBq9YtNivOA_1430825481208" nom_instance="tagstatus" hvdatatype="Integer"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bcTwwPMaEeSpBq9YtNivOA_1430825556428" nom_instance="alarm" hvdatatype="Integer"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bcTwwfMaEeSpBq9YtNivOA_1430825556428" nom_instance="needack" hvdatatype="Integer"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_zsyO4PMWEeSpBq9YtNivOA_1430824001230" nom_instance="fault" hvdatatype="Integer" hvqname="myproject.data.config.equipment.BasicEquipment.fault"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_zsCoAPMWEeSpBq9YtNivOA_1430824001152" nom_instance="openstatus" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Valve.openstatus"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_zr43APMWEeSpBq9YtNivOA_1430824001136" nom_instance="locked" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Valve.locked"/>
+  <status xsi:type="HV:HvStatusBoolean" xmi:id="_FCvRQPMbEeSpBq9YtNivOA_1430825835604" nom_instance="online" hvdatatype="Boolean"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

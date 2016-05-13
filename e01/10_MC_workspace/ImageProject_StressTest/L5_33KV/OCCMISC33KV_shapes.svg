@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='GBK'?>
+<svg xmlns="http://www.w3.org/2000/svg" height="2304" preserveAspectRatio="xMinYMin meet" version="1.1" viewBox="0 0 3112 2304" width="3112">
+
+  
+  <g><g class="AnLayer" id="Line">
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S03POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID063" id="_alias_S03POWLK__0001_3" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1500px" x2="1242px" y1="390px" y2="390px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S11POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID003" id="_alias_S11POWLK__0001_13" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1109px" x2="1407px" y1="1189px" y2="1189px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S97POWLK__0003" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID083" id="_alias_S97POWLK__0003_14" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1304px" x2="857px" y1="722px" y2="722px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S01POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID025" id="_alias_S01POWLK__0001_15" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="214px" x2="85px" y1="389px" y2="389px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S06POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID015" id="_alias_S06POWLK__0002_20" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="484px" x2="737px" y1="792px" y2="792px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S01POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID026" id="_alias_S01POWLK__0002_21" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="425px" x2="297px" y1="389px" y2="389px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S06POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID014" id="_alias_S06POWLK__0001_41" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="166px" x2="417px" y1="792px" y2="792px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S07POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID033" id="_alias_S07POWLK__0001_46" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2074px" x2="1861px" y1="791px" y2="791px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S03POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID064" id="_alias_S03POWLK__0002_54" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1813px" x2="1555px" y1="390px" y2="390px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S04POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID076" id="_alias_S04POWLK__0001_62" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2083px" x2="1954px" y1="391px" y2="391px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S04POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID077" id="_alias_S04POWLK__0002_63" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2221px" x2="2122px" y1="391px" y2="391px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S97POWLK__0004" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID084" id="_alias_S97POWLK__0004_66" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1789px" x2="1342px" y1="722px" y2="722px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S07POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID034" id="_alias_S07POWLK__0002_78" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2318px" x2="2105px" y1="791px" y2="791px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S09POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID071" id="_alias_S09POWLK__0001_88" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="387px" x2="69px" y1="1188px" y2="1188px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S21POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID087" id="_alias_S21POWLK__0001_96" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="383px" x2="125px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S14POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID061" id="_alias_S14POWLK__0002_98" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="733px" x2="456px" y1="1513px" y2="1513px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S09POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID072" id="_alias_S09POWLK__0002_107" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="650px" x2="412px" y1="1188px" y2="1188px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S14POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID060" id="_alias_S14POWLK__0001_111" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="420px" x2="112px" y1="1513px" y2="1513px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S10POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID085" id="_alias_S10POWLK__0002_115" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1037px" x2="914px" y1="1189px" y2="1189px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S10POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID084" id="_alias_S10POWLK__0001_121" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="869px" x2="745px" y1="1189px" y2="1189px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S17POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID011" id="_alias_S17POWLK__0001_138" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="318px" x2="159px" y1="1843px" y2="1843px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S17POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID012" id="_alias_S17POWLK__0002_139" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="510px" x2="351px" y1="1843px" y2="1843px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S21POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID088" id="_alias_S21POWLK__0002_159" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="666px" x2="408px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S13POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID041" id="_alias_S13POWLK__0001_175" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2638px" x2="2395px" y1="1190px" y2="1190px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S20POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID069" id="_alias_S20POWLK__0002_177" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2270px" x2="2528px" y1="1845px" y2="1845px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S94POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID054" id="_alias_S94POWLK__0001_179" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2505px" x2="1909px" y1="1489px" y2="1489px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S12POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID022" id="_alias_S12POWLK__0001_180" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2036px" x2="1768px" y1="1189px" y2="1189px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S16POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID099" id="_alias_S16POWLK__0002_181" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1637px" x2="1881px" y1="1513px" y2="1513px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S16POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID098" id="_alias_S16POWLK__0001_197" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1349px" x2="1605px" y1="1513px" y2="1513px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S12POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID023" id="_alias_S12POWLK__0002_201" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2356px" x2="2089px" y1="1189px" y2="1189px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S19POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID049" id="_alias_S19POWLK__0001_226" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1588px" x2="1330px" y1="1843px" y2="1843px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S19POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID050" id="_alias_S19POWLK__0002_227" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1873px" x2="1615px" y1="1843px" y2="1843px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S20POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID068" id="_alias_S20POWLK__0001_238" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1984px" x2="2240px" y1="1845px" y2="1845px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S13POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID042" id="_alias_S13POWLK__0002_250" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2917px" x2="2674px" y1="1191px" y2="1191px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S94POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID055" id="_alias_S94POWLK__0002_251" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="3043px" x2="2547px" y1="1489px" y2="1489px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;DEPPOWLK__0047" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID012" id="_alias_DEPPOWLK__0047_258" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2759px" x2="2610px" y1="1846px" y2="1846px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;DEPPOWLK__0048" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID013" id="_alias_DEPPOWLK__0048_259" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2954px" x2="2806px" y1="1846px" y2="1846px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S23POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID025" id="_alias_S23POWLK__0001_268" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1852px" x2="1594px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S23POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID026" id="_alias_S23POWLK__0002_269" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2136px" x2="1879px" y1="2169px" y2="2169px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S24POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID038" id="_alias_S24POWLK__0001_272" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2455px" x2="2306px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S24POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID039" id="_alias_S24POWLK__0002_275" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2643px" x2="2495px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S11POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID004" id="_alias_S11POWLK__0002_328" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1432px" x2="1730px" y1="1189px" y2="1189px" />
+
+    
+    </g></g>
+
+    
+    </g>
+
+  
+  <g class="AnLayer" id="Equipment">
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S02POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID045" id="_alias_S02POWLK__0002_386" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1123px" x2="836px" y1="390px" y2="390px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S02POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID044" id="_alias_S02POWLK__0001_387" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="798px" x2="510px" y1="390px" y2="390px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S05POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID096" id="_alias_S05POWLK__0002_623" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2817px" x2="2619px" y1="391px" y2="391px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S05POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B01ID095" id="_alias_S05POWLK__0001_624" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2566px" x2="2338px" y1="391px" y2="391px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S08POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID052" id="_alias_S08POWLK__0001_944" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2597px" x2="2339px" y1="791px" y2="791px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S08POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B02ID053" id="_alias_S08POWLK__0002_945" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="2858px" x2="2630px" y1="791px" y2="791px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S15POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID079" id="_alias_S15POWLK__0001_1684" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1026px" x2="768px" y1="1514px" y2="1514px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S15POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B03ID080" id="_alias_S15POWLK__0002_1685" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1318px" x2="1060px" y1="1514px" y2="1514px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S18POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID030" id="_alias_S18POWLK__0001_1915" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="933px" x2="675px" y1="1843px" y2="1843px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S18POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B04ID031" id="_alias_S18POWLK__0002_1916" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1226px" x2="969px" y1="1843px" y2="1843px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S22POWLK__0001" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID006" id="_alias_S22POWLK__0001_2320" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1089px" x2="831px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    <g anclass="IntrusionActiveBackdrop" anpath="&lt;alias&gt;S22POWLK__0002" class="Pscada_PSCADA_PowerLine_33kV ActiveBackdrop" cmn_acla="IntrusionActiveBackdrop" hv_id="B05ID007" id="_alias_S22POWLK__0002_2321" style="fill:none; stroke:#D2D2D2; stroke-width:4px; ">
+
+      
+      <g transform="matrix(1.000000, 0.000000, 0.000000, 1.000000, 3.000000, 0.000000)"><line class="AnLine" x1="1385px" x2="1128px" y1="2168px" y2="2168px" />
+
+    
+    </g></g>
+
+    
+    </g>
+
+  
+  </g></svg>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_xdKOQPMZEeSpBq9YtNivOA" type="Aspect" name="valve_symbol.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_6tfKIfMZEeSpBq9YtNivOA" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKIvMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKI_MZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_KYyv8PMbEeSpBq9YtNivOA" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_KYo-8PMbEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KYyv8fMbEeSpBq9YtNivOA" x="69" y="53"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKJvMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_6tfKJ_MZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKKPMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_6tfKKfMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_6tfKKvMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6tfKK_MZEeSpBq9YtNivOA" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6tfKLPMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKLfMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_6tfKmfMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKLvMZEeSpBq9YtNivOA"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_6tfKl_MZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKL_MZEeSpBq9YtNivOA" x="100" y="80"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKMPMZEeSpBq9YtNivOA" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKMfMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKMvMZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_NHnGovMbEeSpBq9YtNivOA" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_NHnGoPMbEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NHnGo_MbEeSpBq9YtNivOA" x="53" y="69"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKNfMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_6tfKNvMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKN_MZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_6tfKOPMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_6tfKOfMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6tfKOvMZEeSpBq9YtNivOA" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6tfKO_MZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKPPMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_6to7LfMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKPfMZEeSpBq9YtNivOA" x="120" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_6to7K_MZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKPvMZEeSpBq9YtNivOA" x="585" y="55"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKP_MZEeSpBq9YtNivOA" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKQPMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKQfMZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_OMm_0vMbEeSpBq9YtNivOA" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_OMm_0PMbEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_OMm_0_MbEeSpBq9YtNivOA" x="44" y="45" width="112" height="110"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKRPMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_6tfKRfMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKRvMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_6tfKR_MZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_6tfKSPMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6tfKSfMZEeSpBq9YtNivOA" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6tfKSvMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKS_MZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_6to7JPMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKTPMZEeSpBq9YtNivOA"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_6to7IvMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKTfMZEeSpBq9YtNivOA" x="55" y="420"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKTvMZEeSpBq9YtNivOA" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKT_MZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKUPMZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_N1W9cvMbEeSpBq9YtNivOA" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_N1W9cPMbEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_N1W9c_MbEeSpBq9YtNivOA" x="52" y="53"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKU_MZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_6tfKVPMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKVfMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_6tfKVvMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_6tfKV_MZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6tfKWPMZEeSpBq9YtNivOA" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6tfKWfMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKWvMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_6tfKnvMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKW_MZEeSpBq9YtNivOA" x="-39" y="60"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_6tfKm_MZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKXPMZEeSpBq9YtNivOA" x="920" y="505"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKXfMZEeSpBq9YtNivOA" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKXvMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKX_MZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_h2qIkfMbEeSpBq9YtNivOA" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_h2qIkPMbEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_h2qIkvMbEeSpBq9YtNivOA" x="51" y="58" width="97" height="83"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKYvMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_6tfKY_MZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKZPMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_6tfKZfMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_6tfKZvMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6tfKZ_MZEeSpBq9YtNivOA" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6tfKaPMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKafMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_6to7KfMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKavMZEeSpBq9YtNivOA"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_6to7J_MZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKa_MZEeSpBq9YtNivOA" x="100" y="760"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKbPMZEeSpBq9YtNivOA" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKbfMZEeSpBq9YtNivOA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKbvMZEeSpBq9YtNivOA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="ValveRep.scsrepresentation#_6to7LvMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKb_MZEeSpBq9YtNivOA" x="470" y="465"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKcPMZEeSpBq9YtNivOA" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKcfMZEeSpBq9YtNivOA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKcvMZEeSpBq9YtNivOA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="ValveRep.scsrepresentation#_6to7KvMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKc_MZEeSpBq9YtNivOA" x="470" y="825"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_6tfKdPMZEeSpBq9YtNivOA" type="2001" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKdfMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_6tfKdvMZEeSpBq9YtNivOA" type="7001">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKd_MZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_6tfKePMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_6tfKefMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_6tfKevMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_6tfKe_MZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_6tfKfPMZEeSpBq9YtNivOA" type="3004" fontName="Microsoft Sans Serif">
+      <children xmi:type="notation:DecorationNode" xmi:id="_6tfKffMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6tfKfvMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_6to7IfMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKf_MZEeSpBq9YtNivOA" x="-39" y="40"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_6to7IPMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6tfKgPMZEeSpBq9YtNivOA" x="640" y="635"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_xdKOQfMZEeSpBq9YtNivOA"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="ValveRep.scsrepresentation#_ZlfOgfMZEeSpBq9YtNivOA"/>
+  <edges xmi:type="notation:Connector" xmi:id="_6tfKgfMZEeSpBq9YtNivOA" type="4001" source="_6tfKSfMZEeSpBq9YtNivOA" target="_6tfKbPMZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_6tfKgvMZEeSpBq9YtNivOA"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6tfKg_MZEeSpBq9YtNivOA" points="[20, -12, -131, 78]$[146, -95, -5, -5]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6tfKhPMZEeSpBq9YtNivOA" id="(0.05714285714285714,0.6857142857142857)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_6tfKhfMZEeSpBq9YtNivOA" type="4001" source="_6tfKK_MZEeSpBq9YtNivOA" target="_6tfKbPMZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_6tfKhvMZEeSpBq9YtNivOA"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6tfKh_MZEeSpBq9YtNivOA" points="[17, 20, -235, -262]$[253, 300, 1, 18]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6tfKiPMZEeSpBq9YtNivOA" id="(0.05714285714285714,0.2857142857142857)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_6tfKifMZEeSpBq9YtNivOA" type="4001" source="_6tfKOvMZEeSpBq9YtNivOA" target="_6tfKbPMZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_6tfKivMZEeSpBq9YtNivOA"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6tfKi_MZEeSpBq9YtNivOA" points="[-13, 20, 170, -257]$[-180, 295, 3, 18]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_6tfKjPMZEeSpBq9YtNivOA" type="4001" source="_6tfKWPMZEeSpBq9YtNivOA" target="_6tfKbPMZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_6tfKjfMZEeSpBq9YtNivOA"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6tfKjvMZEeSpBq9YtNivOA" points="[-20, -18, 123, 106]$[-141, -106, 2, 18]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_6tfKj_MZEeSpBq9YtNivOA" type="4001" source="_6tfKZ_MZEeSpBq9YtNivOA" target="_6tfKcPMZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_6tfKkPMZEeSpBq9YtNivOA"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6tfKkfMZEeSpBq9YtNivOA" points="[20, 4, -144, -35]$[162, 57, -2, 18]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6tfKkvMZEeSpBq9YtNivOA" id="(0.22857142857142856,0.7714285714285715)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_6tfKk_MZEeSpBq9YtNivOA" type="4001" source="_6tfKfPMZEeSpBq9YtNivOA" target="_6tfKcPMZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_6tfKlPMZEeSpBq9YtNivOA" fontName="Microsoft Sans Serif"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6tfKlfMZEeSpBq9YtNivOA" points="[-20, -10, 116, 53]$[-133, -80, 3, -17]"/>
+  </edges>
+</notation:Diagram>

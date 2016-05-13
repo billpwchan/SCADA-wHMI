@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_huLfMDKCEeSzz6R-HX6lfQ" prototypeRefId="_qtIXkeSsEeOf1q-xWG7sCw_1401091600265" name="BasementRep" defaultAspect="_tw3OAzKCEeSzz6R-HX6lfQ" category="_huLfNDKCEeSzz6R-HX6lfQ">
+    <aspectPackage xmi:id="_huLfMTKCEeSzz6R-HX6lfQ" name="Aspect Container">
+      <ownedAspect xmi:id="_oOz7aTKCEeSzz6R-HX6lfQ" name="Basement_Invalid">
+        <ownedDecoratedSymbol xmi:id="_oOz7ajKCEeSzz6R-HX6lfQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_oOz7aDKCEeSzz6R-HX6lfQ">
+          <displayModule href="../../../DisplayModules/Invalid_Color/Invalid_Color.scsrepresentation#_Z0Ij4QPoEeKc87xBBBABUw"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_oOz7azKCEeSzz6R-HX6lfQ" value="3" attribute="_oOz7bzKCEeSzz6R-HX6lfQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_oOz7bDKCEeSzz6R-HX6lfQ" name="Basement_OK">
+        <ownedDecoratedSymbol xmi:id="_oOz7bTKCEeSzz6R-HX6lfQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_oOz7aDKCEeSzz6R-HX6lfQ">
+          <displayModule href="../../../DisplayModules/OK_Color/OK_Color.scsrepresentation#_uaspcf2sEeGHEeSpO4ABcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_oOz7bjKCEeSzz6R-HX6lfQ" value="0" attribute="_oOz7bzKCEeSzz6R-HX6lfQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_oOz7cTKCEeSzz6R-HX6lfQ" name="Basement_NOK_NotAck">
+        <ownedDecoratedSymbol xmi:id="_oO9roDKCEeSzz6R-HX6lfQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_oOz7aDKCEeSzz6R-HX6lfQ">
+          <displayModule href="../../../DisplayModules/NOk_NotAck_Color/NOk_NotAck_Color.scsrepresentation#_t_eVcQPgEeK5GNCQx86A1A"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_oO9roTKCEeSzz6R-HX6lfQ" value="2" attribute="_oOz7bzKCEeSzz6R-HX6lfQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_oO9rojKCEeSzz6R-HX6lfQ" name="Basement_OK_NotAck">
+        <ownedDecoratedSymbol xmi:id="_oO9rozKCEeSzz6R-HX6lfQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_oOz7aDKCEeSzz6R-HX6lfQ">
+          <displayModule href="../../../DisplayModules/OK_NotAck_Color/OK_NotAck_Color.scsrepresentation#_TSo00SmPEeKsld7zxDrFcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_oO9rpDKCEeSzz6R-HX6lfQ" value="4" attribute="_oOz7bzKCEeSzz6R-HX6lfQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_oO9rpjKCEeSzz6R-HX6lfQ" name="Basement_NotConnected">
+        <ownedDecoratedSymbol xmi:id="_oO9rpzKCEeSzz6R-HX6lfQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_oOz7aDKCEeSzz6R-HX6lfQ">
+          <displayModule href="../../../DisplayModules/NotConnected_Color/NotConnected_Color.scsrepresentation#_5wXQ8TSxEeKRsMR2qRENfw"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_oO9rqDKCEeSzz6R-HX6lfQ" value="5" attribute="_oOz7bzKCEeSzz6R-HX6lfQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_oO9rqTKCEeSzz6R-HX6lfQ" name="Basement_NOK">
+        <ownedDecoratedSymbol xmi:id="_oO9rqjKCEeSzz6R-HX6lfQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_oOz7aDKCEeSzz6R-HX6lfQ">
+          <displayModule href="../../../DisplayModules/NOK_Color/NOK_Color.scsrepresentation#_QYKNcf2tEeGHEeSpO4ABcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_oO9rqzKCEeSzz6R-HX6lfQ" value="1" attribute="_oOz7bzKCEeSzz6R-HX6lfQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_tw3OAzKCEeSzz6R-HX6lfQ" name="Basement_symbol">
+        <ownedDecoratedSymbol xmi:id="_tw3OBDKCEeSzz6R-HX6lfQ" x="40.0" y="60.0" width="128.0" height="81.0" ratio_width="1.0023911" ratio_height="0.9986177" symbol="_tw3OAjKCEeSzz6R-HX6lfQ" cx="4.0" cy="0.5"/>
+        <ownedElement xsi:type="scsRepresentation:DecoratedText" xmi:id="_tw3OBTKCEeSzz6R-HX6lfQ" name="eqpNameDT" x="47.5" y="159.0" width="105.0" height="21.0" ratio_width="1.0" ratio_height="1.0" fontSize="18" textAlign="CENTER" value="eqpNameDT" defaultValue="Basement" runtimeY="80.0" MWTCSSClass="eqpNameDT" bold="true">
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_tw3OBjKCEeSzz6R-HX6lfQ"/>
+        </ownedElement>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_oOz7ZzKCEeSzz6R-HX6lfQ" id="alarm.value" relativePath="alarm.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_oOz7bzKCEeSzz6R-HX6lfQ" id="widgetglobalstate" defaultValue="5" condition="_oO9rpDKCEeSzz6R-HX6lfQ _oO9rqDKCEeSzz6R-HX6lfQ _oO9roTKCEeSzz6R-HX6lfQ _oOz7azKCEeSzz6R-HX6lfQ _oOz7bjKCEeSzz6R-HX6lfQ _oO9rqzKCEeSzz6R-HX6lfQ" refAttributes="_oO9rpTKCEeSzz6R-HX6lfQ _oO9rrDKCEeSzz6R-HX6lfQ _oOz7ZzKCEeSzz6R-HX6lfQ _oOz7cDKCEeSzz6R-HX6lfQ" qualifiedName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_oOz7cDKCEeSzz6R-HX6lfQ" id="online.value" relativePath="online.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_oO9rpTKCEeSzz6R-HX6lfQ" id="validity.value" defaultValue="" relativePath="validity.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_oO9rrDKCEeSzz6R-HX6lfQ" id="needack.value" relativePath="needack.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_tw3OBzKCEeSzz6R-HX6lfQ" id="eqpName" defaultValue="building" relativePath="eqpName.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_huLfMjKCEeSzz6R-HX6lfQ">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_oOz7aDKCEeSzz6R-HX6lfQ" filePath="Symbols/symbol_frame.svg" id="symbol_frame" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_tw3OAjKCEeSzz6R-HX6lfQ" filePath="Symbols/floor.svg" id="FLOOR_SYMBOL" width="127.694664" height="81.11212"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_huLfMzKCEeSzz6R-HX6lfQ">
+    <ownedCategories xmi:id="_huLfNDKCEeSzz6R-HX6lfQ" name="Functional"/>
+    <ownedCategories xmi:id="_huLfNTKCEeSzz6R-HX6lfQ" name="Geographical"/>
+    <ownedCategories xmi:id="_huLfNjKCEeSzz6R-HX6lfQ" name="Outline"/>
+    <ownedCategories xmi:id="_huLfNzKCEeSzz6R-HX6lfQ" name="Synthesis"/>
+    <ownedCategories xmi:id="_huLfODKCEeSzz6R-HX6lfQ" name="System"/>
+    <ownedCategories xmi:id="_huLfOTKCEeSzz6R-HX6lfQ" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

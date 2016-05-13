@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_ZlfOivMZEeSpBq9YtNivOA" type="Aspect" name="default.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_0Ms9sfMZEeSpBq9YtNivOA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9svMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9s_MZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_0Ms9tPMZEeSpBq9YtNivOA" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_0Ms-U_MZEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9tfMZEeSpBq9YtNivOA" x="12" y="12" width="65" height="58"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms9tvMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms9t_MZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms9uPMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms9ufMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms9uvMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_0Ms9u_MZEeSpBq9YtNivOA" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9vPMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms9vfMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_0Ms-VPMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9vvMZEeSpBq9YtNivOA" x="88" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-UvMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9v_MZEeSpBq9YtNivOA" x="50" y="90"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms9wPMZEeSpBq9YtNivOA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9wfMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9wvMZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_0Ms9w_MZEeSpBq9YtNivOA" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_0Ms-PfMZEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9xPMZEeSpBq9YtNivOA" x="127" y="128" width="64" height="55"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms9xfMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms9xvMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms9x_MZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms9yPMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms9yfMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_0Ms9yvMZEeSpBq9YtNivOA" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9y_MZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms9zPMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_0Ms-PvMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9zfMZEeSpBq9YtNivOA" x="75" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-PPMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9zvMZEeSpBq9YtNivOA" x="335" y="80"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms9z_MZEeSpBq9YtNivOA" type="2003" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms90PMZEeSpBq9YtNivOA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms90fMZEeSpBq9YtNivOA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="ValveRep.scsrepresentation#_0Ms-UPMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms90vMZEeSpBq9YtNivOA" x="490" y="600"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms90_MZEeSpBq9YtNivOA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms91PMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms91fMZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_0Ms91vMZEeSpBq9YtNivOA" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_0Ms-TfMZEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms91_MZEeSpBq9YtNivOA" x="127" y="128" width="64" height="55"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_0Ms92PMZEeSpBq9YtNivOA" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_0Ms-TvMZEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms92fMZEeSpBq9YtNivOA" x="12" y="12" width="65" height="58"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms92vMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms92_MZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms93PMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms93fMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms93vMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_0Ms93_MZEeSpBq9YtNivOA" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_0Ms94PMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms94fMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_0Ms-T_MZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms94vMZEeSpBq9YtNivOA" x="89" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-TPMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms94_MZEeSpBq9YtNivOA" x="596" y="80"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms95PMZEeSpBq9YtNivOA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms95fMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms95vMZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_0Ms95_MZEeSpBq9YtNivOA" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="ValveRep.scsrepresentation#_0Ms-SPMZEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms96PMZEeSpBq9YtNivOA" x="14" y="128" width="40" height="55"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms96fMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms96vMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms96_MZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms97PMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms97fMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_0Ms97vMZEeSpBq9YtNivOA" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_0Ms97_MZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms98PMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_0Ms-SfMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms98fMZEeSpBq9YtNivOA" x="85" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-R_MZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms98vMZEeSpBq9YtNivOA" x="1135" y="60"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms98_MZEeSpBq9YtNivOA" type="2003" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms99PMZEeSpBq9YtNivOA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms99fMZEeSpBq9YtNivOA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="ValveRep.scsrepresentation#_0Ms-P_MZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms99vMZEeSpBq9YtNivOA" x="1325" y="630"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms99_MZEeSpBq9YtNivOA" type="2002" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9-PMZEeSpBq9YtNivOA" type="5003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms9-fMZEeSpBq9YtNivOA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:CalculatedAttribute" href="ValveRep.scsrepresentation#_0Ms-SvMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms9-vMZEeSpBq9YtNivOA" x="1305" y="505"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms9-_MZEeSpBq9YtNivOA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9_PMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms9_fMZEeSpBq9YtNivOA" type="7001">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms9_vMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms9__MZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms-APMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms-AfMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms-AvMZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_0Ms-A_MZEeSpBq9YtNivOA" type="3004" fontName="Microsoft Sans Serif">
+      <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-BPMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms-BfMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_0Ms-VvMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-BvMZEeSpBq9YtNivOA" x="90" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-VfMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-B_MZEeSpBq9YtNivOA" x="855" y="75"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms-CPMZEeSpBq9YtNivOA" type="2001" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-CfMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-CvMZEeSpBq9YtNivOA" type="7001">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms-C_MZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms-DPMZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms-DfMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms-DvMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms-D_MZEeSpBq9YtNivOA"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_0Ms-EPMZEeSpBq9YtNivOA" type="3004" fontName="Microsoft Sans Serif">
+      <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-EfMZEeSpBq9YtNivOA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms-EvMZEeSpBq9YtNivOA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="ValveRep.scsrepresentation#_0Ms-QfMZEeSpBq9YtNivOA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-E_MZEeSpBq9YtNivOA" x="45" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-QPMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-FPMZEeSpBq9YtNivOA" x="1425" y="70"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms-FfMZEeSpBq9YtNivOA" type="2001" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-FvMZEeSpBq9YtNivOA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-F_MZEeSpBq9YtNivOA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_0Ms-GPMZEeSpBq9YtNivOA" type="3013" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedText" href="ValveRep.scsrepresentation#_0Ms-Q_MZEeSpBq9YtNivOA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-GfMZEeSpBq9YtNivOA" x="47" y="159" width="105" height="21"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms-GvMZEeSpBq9YtNivOA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_0Ms-G_MZEeSpBq9YtNivOA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_0Ms-HPMZEeSpBq9YtNivOA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_0Ms-HfMZEeSpBq9YtNivOA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_0Ms-HvMZEeSpBq9YtNivOA"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="ValveRep.scsrepresentation#_0Ms-QvMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-H_MZEeSpBq9YtNivOA" x="975" y="455"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_0Ms-IPMZEeSpBq9YtNivOA" type="2003" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_0Ms-IfMZEeSpBq9YtNivOA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_0Ms-IvMZEeSpBq9YtNivOA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="ValveRep.scsrepresentation#_0Ms-UfMZEeSpBq9YtNivOA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0Ms-I_MZEeSpBq9YtNivOA" x="1315" y="725"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_ZlfOi_MZEeSpBq9YtNivOA"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="ValveRep.scsrepresentation#_ZlfOgfMZEeSpBq9YtNivOA"/>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-JPMZEeSpBq9YtNivOA" type="4001" source="_0Ms9yvMZEeSpBq9YtNivOA" target="_0Ms9z_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-JfMZEeSpBq9YtNivOA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-JvMZEeSpBq9YtNivOA" points="[-20, 16, 138, -112]$[-164, 124, -6, -4]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0Ms-J_MZEeSpBq9YtNivOA" id="(0.17142857142857143,0.3142857142857143)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-KPMZEeSpBq9YtNivOA" type="4001" source="_0Ms9u_MZEeSpBq9YtNivOA" target="_0Ms9z_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-KfMZEeSpBq9YtNivOA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-KvMZEeSpBq9YtNivOA" points="[17, 20, -100, -114]$[118, 117, 1, -17]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-K_MZEeSpBq9YtNivOA" type="4001" source="_0Ms93_MZEeSpBq9YtNivOA" target="_0Ms9z_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-LPMZEeSpBq9YtNivOA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-LfMZEeSpBq9YtNivOA" points="[-20, 5, 357, -108]$[-380, 105, -3, -8]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0Ms-LvMZEeSpBq9YtNivOA" id="(0.42857142857142855,0.22857142857142856)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-L_MZEeSpBq9YtNivOA" type="4002" source="_0Ms99_MZEeSpBq9YtNivOA" target="_0Ms98_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-MPMZEeSpBq9YtNivOA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-MfMZEeSpBq9YtNivOA" points="[-38, 19, 108, -50]$[-145, 87, 1, 18]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-MvMZEeSpBq9YtNivOA" type="4001" source="_0Ms97vMZEeSpBq9YtNivOA" target="_0Ms99_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-M_MZEeSpBq9YtNivOA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-NPMZEeSpBq9YtNivOA" points="[-14, 20, 63, -89]$[-49, 71, 28, -38]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-NfMZEeSpBq9YtNivOA" type="4001" source="_0Ms-A_MZEeSpBq9YtNivOA" target="_0Ms9z_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-NvMZEeSpBq9YtNivOA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-N_MZEeSpBq9YtNivOA" points="[-20, 4, 503, -119]$[-521, 141, 2, 18]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_0Ms-OPMZEeSpBq9YtNivOA" type="4001" source="_0Ms-EPMZEeSpBq9YtNivOA" target="_0Ms99_MZEeSpBq9YtNivOA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_0Ms-OfMZEeSpBq9YtNivOA" fontName="Microsoft Sans Serif"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0Ms-OvMZEeSpBq9YtNivOA" points="[-20, 12, 222, -120]$[-241, 171, 1, 39]"/>
+  </edges>
+</notation:Diagram>

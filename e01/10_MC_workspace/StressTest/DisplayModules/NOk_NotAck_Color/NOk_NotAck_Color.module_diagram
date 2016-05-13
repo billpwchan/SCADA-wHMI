@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" type="Aspect" name="NOk_NotAck_Color.module_diagram" measurementUnit="Pixel">
+  <children xsi:type="notation:Shape" type="2005" lineColor="0">
+    <children xsi:type="notation:DecorationNode" type="5006"/>
+    <children xsi:type="notation:DecorationNode" type="7003">
+      <children xsi:type="notation:Shape" type="3012">
+        <element href="NOk_NotAck_Color.scsrepresentation#_vkWokAPgEeK5GNCQx86A1A"/>
+        <layoutConstraint xsi:type="notation:Bounds"/>
+      </children>
+      <children xsi:type="notation:Shape" type="3008">
+        <element href="NOk_NotAck_Color.scsrepresentation#_wIaX4APgEeK5GNCQx86A1A"/>
+        <layoutConstraint xsi:type="notation:Bounds"/>
+      </children>
+      <styles xsi:type="notation:SortingStyle"/>
+      <styles xsi:type="notation:FilteringStyle"/>
+    </children>
+    <element href="NOk_NotAck_Color.scsrepresentation#_t_eVcQPgEeK5GNCQx86A1A"/>
+    <layoutConstraint xsi:type="notation:Bounds"/>
+  </children>
+  <styles xsi:type="notation:DiagramStyle"/>
+  <element href="NOk_NotAck_Color.scsrepresentation#_t_eVcAPgEeK5GNCQx86A1A"/>
+</notation:Diagram>

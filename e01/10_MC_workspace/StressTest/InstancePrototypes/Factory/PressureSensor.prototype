@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibrary/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibrary/Class ../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="_8zoFYfTIEeSVQNc0eVK6Kw_1431010463926" hvqname="myproject.data.config.equipment.PressureSensor" nom_instance="PressureSensor" functionalCat="5" scstype="Press">
+  <status xsi:type="HV:HvStatusFloat" xmi:id="_86x2QPTIEeSVQNc0eVK6Kw_1431010464676" nom_instance="pressure" hvqname="myproject.data.config.equipment.PressureSensor.pressure"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_87OiMPTIEeSVQNc0eVK6Kw_1431010464723" nom_instance="fault" hvdatatype="Integer" hvqname="myproject.data.config.equipment.BasicEquipment.fault"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_87qnEPTIEeSVQNc0eVK6Kw_1431010464769" nom_instance="validity" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.validity"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_87qnEfTIEeSVQNc0eVK6Kw_1431010464769" nom_instance="alarm" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.alarm"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_870YEPTIEeSVQNc0eVK6Kw_1431010464785" nom_instance="needack" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.needack"/>
+  <status xsi:type="HV:HvStatusString" xmi:id="_87-JEPTIEeSVQNc0eVK6Kw_1431010464801" nom_instance="eqpName" hvdatatype="String" hvqname="scadasoft.data.config.equipment.SCSEquipment.eqpName"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_87-JEfTIEeSVQNc0eVK6Kw_1431010464801" nom_instance="tagstatus" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.tagstatus"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_88HTAPTIEeSVQNc0eVK6Kw_1431010464816" nom_instance="inhibsynthesis" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.inhibsynthesis"/>
+  <status xsi:type="HV:HvStatusString" xmi:id="_88REAPTIEeSVQNc0eVK6Kw_1431010464832" nom_instance="reservedBy" hvdatatype="String" hvqname="scadasoft.data.config.equipment.SCSEquipment.reservedBy"/>
+  <operation xmi:id="_88REAfTIEeSVQNc0eVK6Kw_1431010464832" nom_instance="OpEqpChangeEqpStatus" hvqname="scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatus"/>
+  <operation xmi:id="_88a1APTIEeSVQNc0eVK6Kw_1431010464848" nom_instance="OpEqpChangeVarStatus" hvqname="scadasoft.data.config.equipment.operation.OpEqpChangeVarStatus"/>
+  <operation xmi:id="_88a1AfTIEeSVQNc0eVK6Kw_1431010464848" nom_instance="OpEqpChangeEqpTag" hvqname="scadasoft.data.config.equipment.operation.OpEqpChangeEqpTag"/>
+  <operation xmi:id="_88a1AvTIEeSVQNc0eVK6Kw_1431010464848" nom_instance="OpEqpChangeVarForceInt" hvqname="scadasoft.data.config.equipment.operation.OpEqpChangeVarForceInt"/>
+  <operation xmi:id="_88j-8PTIEeSVQNc0eVK6Kw_1431010464863" nom_instance="OpEqpChangeVarForceFloat" hvqname="scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloat"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

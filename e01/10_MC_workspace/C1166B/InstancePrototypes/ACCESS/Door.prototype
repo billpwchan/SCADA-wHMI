@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibrary/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibrary/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibrary/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibrary/Class ../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A http://www.thalesgroup.com/prototypeLibrary/Class/SCDM/INPUT_VAR ../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibrary/Class/SCDM/OUTPUT_VAR ../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509" hvqname="myproject.data.config.equipment.Door" nom_instance="Door" functionalCat="2" scstype="DoorType">
+  <status xsi:type="HV:HvStatusString" xmi:id="_e6dN8KhXEeOn0d32U9AjFQ_1394457944143door" nom_instance="eqpName" hvdatatype="String" subsysMapping="scsvalue=&quot;.label&quot;" hvqname=""/>
+  <status xsi:type="HV:HvStatusBoolean" xmi:id="_e6dN8KhXEeOn0d32U9AjFQ_1394457944143" nom_instance="online" hvdatatype="Boolean" hvqname="hypervisor.data.common.configuration.SupervisedObject.online"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_or0yMCdyEeOv1umJyfC8qA_1380285906131" nom_instance="validity" hvdatatype="Int" subsysMapping="scsvalue=&quot;.validSynthesis&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_t_G2sKhIEeOW79l_VMvVow_1394451602843" nom_instance="alarm" hvdatatype="Int" subsysMapping="scsvalue=&quot;.alarmSynthesis(0)&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_x-9XcKhIEeOW79l_VMvVow_1394451629671" nom_instance="needack" hvdatatype="Int" subsysMapping="scsvalue=&quot;.alarmSynthesis(2)&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_xq_SkKhIEeOW79l_VMvVow_1394451627577" nom_instance="inhibsynthesis" hvdatatype="Int" subsysMapping="scsvalue=&quot;.inhibSynthesis&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_5TAM0KhIEeOW79l_VMvVow_1394451678749" nom_instance="tagstatus" hvdatatype="Int" subsysMapping="scsvalue=&quot;.tagStatus&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_7W5qUTC_EeO_CqpVN0OWUA_1381308663157" nom_instance="fault" hvdatatype="Int" subsysMapping="scsvalue=&quot;dciFault.value&quot; scsforce=&quot;dciFault&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_FLVtUCdTEeOv1umJyfC8qA_1380272353445" nom_instance="openstatus" hvdatatype="Int" subsysMapping="scsvalue=&quot;dciOpenClose.value&quot; scsforce=&quot;dciOpenClose&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_96Kb0DDAEeOTMuWgGQG__g_1381309109773" nom_instance="locked" subsysMapping="scsvalue=&quot;dciLocked.value&quot; scsforce=&quot;dciLocked&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_sOdjAKhJEeOW79l_VMvVow_1394452020528" nom_instance="intrusion" hvdatatype="Int" subsysMapping="scsvalue=&quot;dciLocked.value&quot; scsforce=&quot;dciLocked&quot;"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_Xj1QMH7jEeSOuccylxlnhA_1418047573171" nom_instance="cmdInP"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="_au7_MfHoEeGDk64BndtiKQ_1346251632658" nom_instance="dioOpenClose" hmiOrder="1" label="Open/Close command">
+    <valueTable xmi:id="_au7_MvHoEeGDk64BndtiKQ_1346251632658" dovname="open" label="&amp;open" value="1"/>
+    <valueTable xmi:id="_au7_M_HoEeGDk64BndtiKQ_1346251632658" dovname="close" label="&amp;close" value="2"/>
+    <valueTable xmi:id="_au7_NPHoEeGDk64BndtiKQ_1346251632658"/>
+    <valueTable xmi:id="_au7_NfHoEeGDk64BndtiKQ_1346251632658"/>
+    <valueTable xmi:id="_au7_NvHoEeGDk64BndtiKQ_1346251632658"/>
+    <valueTable xmi:id="_au7_N_HoEeGDk64BndtiKQ_1346251632658"/>
+    <valueTable xmi:id="_au7_OPHoEeGDk64BndtiKQ_1346251632658"/>
+    <DOV xmi:id="_au7_OvHoEeGDk64BndtiKQ_1346251632658" initCondTO="1" returnCondTO="10" nom_instance="open" ctlvalue="1">
+      <initCondTable xmi:id="_au7_O_HoEeGDk64BndtiKQ_1346251632658" condInfo="command is disabled"/>
+      <initCondTable xmi:id="_au7_PPHoEeGDk64BndtiKQ_1346251632658" condInfo="allready open"/>
+      <initCondTable xmi:id="_au7_PfHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_PvHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_P_HoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_QPHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_QfHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_QvHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_Q_HoEeGDk64BndtiKQ_1346251632658" condInfo="not open"/>
+      <retCondTable xmi:id="_au7_RPHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_RfHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_RvHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_R_HoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_SPHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_SfHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_SvHoEeGDk64BndtiKQ_1346251632658"/>
+    </DOV>
+    <DOV xmi:id="_au7_S_HoEeGDk64BndtiKQ_1346251632658" initCondTO="1" returnCondTO="10" nom_instance="close" ctlvalue="2">
+      <initCondTable xmi:id="_au7_TPHoEeGDk64BndtiKQ_1346251632658" condInfo="command is disabled"/>
+      <initCondTable xmi:id="_au7_TfHoEeGDk64BndtiKQ_1346251632658" condInfo="allready closed"/>
+      <initCondTable xmi:id="_au7_TvHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_T_HoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_UPHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_UfHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_UvHoEeGDk64BndtiKQ_1346251632658"/>
+      <initCondTable xmi:id="_au7_U_HoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_VPHoEeGDk64BndtiKQ_1346251632658" condInfo="not closed"/>
+      <retCondTable xmi:id="_au7_VfHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_VvHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_V_HoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_WPHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_WfHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_WvHoEeGDk64BndtiKQ_1346251632658"/>
+      <retCondTable xmi:id="_au7_W_HoEeGDk64BndtiKQ_1346251632658"/>
+    </DOV>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:sio_string_type" xmi:id="_au7_S_HoEeGDk64BndtiKQ_1346251632658_g" nom_instance="sioUnlock" hmiOrder="1" label="unlock door" initCondTO="2">
+    <initCondTable xmi:id="_H5Ff0WvAEeKfoZX0fSP06Q_1359648368205" condInfo="command is disabled"/>
+    <initCondTable xmi:id="_H5Ff0mvAEeKfoZX0fSP06Q_1359648368205"/>
+    <initCondTable xmi:id="_H5Ff02vAEeKfoZX0fSP06Q_1359648368205"/>
+    <initCondTable xmi:id="_H5Ff1GvAEeKfoZX0fSP06Q_1359648368205"/>
+    <initCondTable xmi:id="_H5Ff1WvAEeKfoZX0fSP06Q_1359648368205"/>
+    <initCondTable xmi:id="_H5Ff1mvAEeKfoZX0fSP06Q_1359648368205"/>
+    <initCondTable xmi:id="_H5Ff12vAEeKfoZX0fSP06Q_1359648368205"/>
+    <initCondTable xmi:id="_H5Ff2GvAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff2WvAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff2mvAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff22vAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff3GvAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff3WvAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff3mvAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff32vAEeKfoZX0fSP06Q_1359648368205"/>
+    <retCondTable xmi:id="_H5Ff4GvAEeKfoZX0fSP06Q_1359648368205"/>
+    <value xsi:nil="true"/>
+    <value xsi:nil="true"/>
+    <previousValue xsi:nil="true"/>
+    <previousValue xsi:nil="true"/>
+  </outputs>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_au7_IfHoEeGDk64BndtiKQ_1346251632658" nom_instance="dciOpenClose" hmiOrder="2" label="State" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_au7_IvHoEeGDk64BndtiKQ_1346251632658" nom_instance="dac" reference_import="">
+      <veTable xmi:id="_au7_I_HoEeGDk64BndtiKQ_1346251632658"/>
+      <veTable xmi:id="_au7_JPHoEeGDk64BndtiKQ_1346251632658"/>
+      <veTable xmi:id="_au7_JfHoEeGDk64BndtiKQ_1346251632658"/>
+      <veTable xmi:id="_au7_JvHoEeGDk64BndtiKQ_1346251632658"/>
+    </DAC>
+    <DAL xmi:id="_au7_J_HoEeGDk64BndtiKQ_1346251632658" nom_instance="dal" theme="1" ackAutomaton="Ack2HVLog" DIAlmCEBehaviour="1" valueAutomaton="DIBasic3StateTimerLog 10">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_au7_KPHoEeGDk64BndtiKQ_1346251632658" format="1" label="moving" severity="2" state="T"/>
+      <valueTable xmi:id="_au7_KfHoEeGDk64BndtiKQ_1346251632658" format="1" label="opened" severity="1" state="N" value="2"/>
+      <valueTable xmi:id="_au7_KvHoEeGDk64BndtiKQ_1346251632658" format="1" label="closed" severity="1" state="N" value="1"/>
+      <valueTable xmi:id="_au7_K_HoEeGDk64BndtiKQ_1346251632658" format="1" label="discordant" severity="2" state="A" value="3"/>
+      <valueTable xmi:id="_au7_LPHoEeGDk64BndtiKQ_1346251632658"/>
+      <valueTable xmi:id="_au7_LfHoEeGDk64BndtiKQ_1346251632658"/>
+      <valueTable xmi:id="_au7_LvHoEeGDk64BndtiKQ_1346251632658"/>
+      <valueTable xmi:id="_au7_L_HoEeGDk64BndtiKQ_1346251632658"/>
+    </DAL>
+    <DFO xmi:id="_au7_MPHoEeGDk64BndtiKQ_1346251632658" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_p665wPHrEeGDk64BndtiKQ_1346253023068" nom_instance="dciFault" hmiOrder="1" label="Failure" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_p665wfHrEeGDk64BndtiKQ_1346253023068" nom_instance="dac">
+      <veTable xmi:id="_p665wvHrEeGDk64BndtiKQ_1346253023068"/>
+      <veTable xmi:id="_p665w_HrEeGDk64BndtiKQ_1346253023068"/>
+      <veTable xmi:id="_p665xPHrEeGDk64BndtiKQ_1346253023068"/>
+      <veTable xmi:id="_p665xfHrEeGDk64BndtiKQ_1346253023068"/>
+    </DAC>
+    <DAL xmi:id="_zXVw4PHrEeGDk64BndtiKQ_1346253086446" nom_instance="dal" theme="2" ackAutomaton="Ack2HVLog" DIAlmCEBehaviour="1" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_zXVw4fHrEeGDk64BndtiKQ_1346253086446" format="1" label="normal" severity="1" state="N"/>
+      <valueTable xmi:id="_zXVw4vHrEeGDk64BndtiKQ_1346253086446" format="1" label="in fault" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="_zXVw4_HrEeGDk64BndtiKQ_1346253086446"/>
+      <valueTable xmi:id="_zXVw5PHrEeGDk64BndtiKQ_1346253086446"/>
+      <valueTable xmi:id="_zXVw5fHrEeGDk64BndtiKQ_1346253086446"/>
+      <valueTable xmi:id="_zXVw5vHrEeGDk64BndtiKQ_1346253086446"/>
+      <valueTable xmi:id="_zXVw5_HrEeGDk64BndtiKQ_1346253086446"/>
+      <valueTable xmi:id="_zXVw6PHrEeGDk64BndtiKQ_1346253086446"/>
+    </DAL>
+    <DFO xmi:id="_p665z_HrEeGDk64BndtiKQ_1346253023068" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_goc8kGvAEeKfoZX0fSP06Q_1359648534233" nom_instance="dciLocked" hmiOrder="1" label="lock state" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_goc8kWvAEeKfoZX0fSP06Q_1359648534233" nom_instance="dac">
+      <veTable xmi:id="_goc8kmvAEeKfoZX0fSP06Q_1359648534233"/>
+      <veTable xmi:id="_goc8k2vAEeKfoZX0fSP06Q_1359648534233"/>
+      <veTable xmi:id="_goc8lGvAEeKfoZX0fSP06Q_1359648534233"/>
+      <veTable xmi:id="_goc8lWvAEeKfoZX0fSP06Q_1359648534233"/>
+    </DAC>
+    <DAL xmi:id="_goc8lmvAEeKfoZX0fSP06Q_1359648534233" nom_instance="dal" theme="1" ackAutomaton="Ack2HVLog" DIAlmCEBehaviour="1" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_goc8l2vAEeKfoZX0fSP06Q_1359648534233" format="1" label="unlocked" severity="1" state="N"/>
+      <valueTable xmi:id="_goc8mGvAEeKfoZX0fSP06Q_1359648534233" format="1" label="locked" severity="1" state="N" value="1"/>
+      <valueTable xmi:id="_goc8mWvAEeKfoZX0fSP06Q_1359648534233"/>
+      <valueTable xmi:id="_goc8mmvAEeKfoZX0fSP06Q_1359648534233"/>
+      <valueTable xmi:id="_goc8m2vAEeKfoZX0fSP06Q_1359648534233"/>
+      <valueTable xmi:id="_goc8nGvAEeKfoZX0fSP06Q_1359648534233"/>
+      <valueTable xmi:id="_goc8nWvAEeKfoZX0fSP06Q_1359648534233"/>
+      <valueTable xmi:id="_goc8nmvAEeKfoZX0fSP06Q_1359648534233"/>
+    </DAL>
+    <DFO xmi:id="_goc8n2vAEeKfoZX0fSP06Q_1359648534233" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_j_2RwTKAEeSzz6R-HX6lfQ_1409648848092" nom_instance="dciIntrusion" hmiOrder="1" label="intrusion" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_j_2RwjKAEeSzz6R-HX6lfQ_1409648848092" nom_instance="dac">
+      <veTable xmi:id="_j_2RwzKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <veTable xmi:id="_j_2RxDKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <veTable xmi:id="_j_2RxTKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <veTable xmi:id="_j_2RxjKAEeSzz6R-HX6lfQ_1409648848092"/>
+    </DAC>
+    <DAL xmi:id="_j_2RxzKAEeSzz6R-HX6lfQ_1409648848092" nom_instance="dal" theme="1" ackAutomaton="Ack2HVLog" DIAlmCEBehaviour="1" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_j_2RyDKAEeSzz6R-HX6lfQ_1409648848092" format="1" label="normal" severity="1" state="N"/>
+      <valueTable xmi:id="_j_2RyTKAEeSzz6R-HX6lfQ_1409648848092" format="1" label="tripped" severity="1" state="A" value="1"/>
+      <valueTable xmi:id="_j_2RyjKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <valueTable xmi:id="_j_2RyzKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <valueTable xmi:id="_j_2RzDKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <valueTable xmi:id="_j_2RzTKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <valueTable xmi:id="_j_2RzjKAEeSzz6R-HX6lfQ_1409648848092"/>
+      <valueTable xmi:id="_j_2RzzKAEeSzz6R-HX6lfQ_1409648848092"/>
+    </DAL>
+    <DFO xmi:id="_j_2R0DKAEeSzz6R-HX6lfQ_1409648848092" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

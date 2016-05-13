@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="GIS1" kind="Functional" businessId="C1166B">
+  <canvas viewBoxWidth="292" viewBoxHeight="339" name="GIS">
+    <ownedItem name="B01FD002" height="20" width="20" x="100" y="190" scale="0.1" uri="B01FD002" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513" representationId="_G1vCoa6XEeOOJ5q__kIEkw">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/FIRE/FireDet.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513"/>
+    </ownedItem>
+    <background url="http://10.198.165.221/geoserver/" projection="EPSG:2100" colour="#c0c0c0" port="8089" workspace="tvs" requestScale="0.5">
+      <maxExtent left="-376.759" bottom="-154.013" right="207.916" top="524.654"/>
+      <resolution>0.2</resolution>
+      <resolution>0.5</resolution>
+      <resolution>1.0</resolution>
+      <resolution>2.0</resolution>
+      <layers name="ptf_tvs" style=""/>
+      <ownRequestProperties bboxMinX="-376.759" bboxMaxX="207.916" bboxMinY="-154.013" bboxMaxY="524.654"/>
+    </background>
+  </canvas>
+  <preferences/>
+</imageeditor:GraphicalViewer>

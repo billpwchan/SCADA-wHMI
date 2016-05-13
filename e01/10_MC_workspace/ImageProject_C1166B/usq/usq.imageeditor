@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="usq" kind="Functional" businessId="C1166B">
+  <canvas viewBoxWidth="4574" viewBoxHeight="2640" mode="SVG" displayScaleLine="true" displayScale="true" displayMousePosition="true" resolutionList="0.1 0.2 0.4 0.5 0.6 0.8 1.0 1.2 1.4 1.5 1.6 1.8 2.0 4.0 6 8 10 20" name="SVG" maxExtent_top="10000.0" initialExtent_left="3300.0" initialExtent_right="4500.0" initialExtent_top="1500.0" initialExtent_bottom="400.0" restrictedExtent_left="3300.0" restrictedExtent_right="4500.0" restrictedExtent_top="1500.0" restrictedExtent_bottom="400.0">
+    <ownedItem name="B01DO001" height="50" width="50" x="3950" y="1465" scale="0.25" uri="B01DO001" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509" representationId="_PnicwTAiEeO8B7CBO7jMYg">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/ACCESS/Door.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509"/>
+    </ownedItem>
+    <ownedItem name="B01DO002" height="50" width="50" x="3635" y="1485" scale="0.25" uri="B01DO002" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509" representationId="_PnicwTAiEeO8B7CBO7jMYg">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/ACCESS/Door.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509"/>
+    </ownedItem>
+    <ownedItem name="B01DO003" height="50" width="50" x="3860" y="1495" scale="0.25" uri="B01DO003" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509" representationId="_PnicwTAiEeO8B7CBO7jMYg">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/ACCESS/Door.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509"/>
+    </ownedItem>
+    <ownedItem name="B01FD001" height="50" width="50" x="3974" y="1710" scale="0.25" uri="B01FD001" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513" representationId="_G1vCoa6XEeOOJ5q__kIEkw">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/FIRE/FireDet.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513"/>
+    </ownedItem>
+    <ownedItem name="B01FD002" height="50" width="50" x="4325" y="1710" scale="0.25" uri="B01FD002" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513" representationId="_G1vCoa6XEeOOJ5q__kIEkw">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/FIRE/FireDet.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513"/>
+    </ownedItem>
+    <ownedItem name="B01CA001" height="50" width="50" x="4475" y="1740" scale="0.24752475" uri="B01CA001" referenceId="_EfYh0PHqEeGDk64BndtiKQ_1346252342381" representationId="_AbfkEK6MEeOn4p88u7MSdQ">
+      <eObjectPrototype href="../../C1166B/InstancePrototypes/CCTV/Camera.prototype#_EfYh0PHqEeGDk64BndtiKQ_1346252342381"/>
+    </ownedItem>
+  </canvas>
+  <preferences/>
+</imageeditor:GraphicalViewer>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scsRepresentation:AspectPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_5wXQ8DSxEeKRsMR2qRENfw" name="NotConnected_Color">
+  <ownedDisplayModule xmi:id="_5wXQ8TSxEeKRsMR2qRENfw" name="NotConnected_Color">
+    <displayProperties xsi:type="scsRepresentation:StrokeColor" xmi:id="_L9VXsTSyEeKf8ruiurKcPQ" value="#DDDDDD"/>
+  </ownedDisplayModule>
+</scsRepresentation:AspectPackage>

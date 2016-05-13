@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SYS:LogicalEnv xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SYS="http://www.thalesgroup.com/prototypeLibrary/Class/SCDM/SYS" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibrary/Class/SCDM/SYS ../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:SYS" xmi:id="_lHJHAOTOEeO-n9x2U70F7A_1401106165616" hvqname="dummy" nom_instance="LOGENV" functionalCat="4" scstype="LogicalEnv">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <stateVector>Down</stateVector>
+  <stateVector>Init</stateVector>
+  <stateVector>Online</stateVector>
+  <stateVector>OnlineNoStandby</stateVector>
+  <stateVector>OnlineSnapshot</stateVector>
+  <stateVector>Standby</stateVector>
+  <stateVector>OnlineIsolated</stateVector>
+  <stateVector>StandbyIsolated</stateVector>
+  <stateVector>StandbySync</stateVector>
+  <stateVector>Down</stateVector>
+  <stateVector>Down</stateVector>
+  <stateVector>Down</stateVector>
+</SYS:LogicalEnv>

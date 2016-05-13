@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="im" kind="Functional" businessId="StressTest">
+  <canvas viewBoxWidth="1358" viewBoxHeight="1178" mode="SVG" name="SVG">
+    <ownedItem name="B01SP001" height="77" width="77" x="451" y="426" scale="0.38308457" generated="true" uri=":a1:c" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511" representationId="_-wqCQeQ_EeSQvcbQ5Z-qUw">
+      <eObjectPrototype href="../../StressTest/InstancePrototypes/FIRE/Sprinkler.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511"/>
+    </ownedItem>
+    <ownedItem name="B01SP002" height="77" width="77" x="1101" y="426" scale="0.38308457" generated="true" uri=":a2:c" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511" representationId="_-wqCQeQ_EeSQvcbQ5Z-qUw">
+      <eObjectPrototype href="../../StressTest/InstancePrototypes/FIRE/Sprinkler.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511"/>
+    </ownedItem>
+    <ownedItem name="B01SP003" height="38" width="38" x="294" y="736" scale="0.18905473" generated="true" uri=":a3:c" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511" representationId="_-wqCQeQ_EeSQvcbQ5Z-qUw">
+      <eObjectPrototype href="../../StressTest/InstancePrototypes/FIRE/Sprinkler.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511"/>
+    </ownedItem>
+    <ownedItem name="B01SP004" height="77" width="77" x="1101" y="826" scale="0.38308457" generated="true" uri=":a4:c" referenceId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511" representationId="_-wqCQeQ_EeSQvcbQ5Z-qUw">
+      <eObjectPrototype href="../../StressTest/InstancePrototypes/FIRE/Sprinkler.prototype#_WxAs0fHvEeGt4fUAjcK1dQ_1346254612511"/>
+    </ownedItem>
+    <svglayers name="im_shapes.svg"/>
+  </canvas>
+  <preferences/>
+</imageeditor:GraphicalViewer>

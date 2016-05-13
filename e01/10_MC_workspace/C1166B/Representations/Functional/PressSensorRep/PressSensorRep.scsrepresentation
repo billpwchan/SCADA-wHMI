@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_Qd3wgPTLEeSVQNc0eVK6Kw" prototypeRefId="_8zoFYfTIEeSVQNc0eVK6Kw_1431010463926" name="PressSensorRep" defaultAspect="_GHogAPTMEeSVQNc0eVK6Kw" category="_Qd3whPTLEeSVQNc0eVK6Kw">
+    <aspectPackage xmi:id="_Qd3wgfTLEeSVQNc0eVK6Kw" name="Aspect Container">
+      <ownedAspect xmi:id="_hPRRIPTLEeSVQNc0eVK6Kw" name="pressure">
+        <ownedElement xsi:type="scsRepresentation:DecoratedText" xmi:id="_jgshMPTLEeSVQNc0eVK6Kw" name="pressText" x="100.0" y="78.0" width="149.0" height="22.0" ratio_width="1.0" ratio_height="1.0" fontSize="22" font="Batang" value="1.2" defaultValue="XXX" runtimeX="-70.0" runtimeY="87.0" MWTTemplate="pres: {} bar" MWTCSSClass="pressValue" bold="true">
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_lzm_APTLEeSVQNc0eVK6Kw" attribute="_nS0vAPTLEeSVQNc0eVK6Kw"/>
+          <displayProperties xsi:type="scsRepresentation:ColorProperty" xmi:id="_3ZVfkPTLEeSVQNc0eVK6Kw" MWTBindings="" value="#999900"/>
+        </ownedElement>
+        <ownedElement xsi:type="scsRepresentation:DecoratedNumber" xmi:id="_IzuOEPlGEeS5xusnEemadQ" name="pressValue" x="31.0" y="80.0" width="137.0" height="20.0" ratio_width="1.0" ratio_height="1.0" fontSize="18" textAlign="CENTER" font="Microsoft Sans Serif" value="1.2356" defaultValue="1.2" MWTCSSClass="pressNumber" bold="true" textDecoration="UNDERLINE" prefix="Press: " suffix=" bar" format="0.00">
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_gnmWIPlKEeS5xusnEemadQ" attribute="_nS0vAPTLEeSVQNc0eVK6Kw"/>
+          <displayProperties xsi:type="scsRepresentation:ColorProperty" xmi:id="_tHsGoP79EeS1cNTL35WchQ" value="blue"/>
+          <displayProperties xsi:type="scsRepresentation:StrokeColor" xmi:id="_u51ZsP79EeS1cNTL35WchQ" value="red" width="0.5"/>
+        </ownedElement>
+      </ownedAspect>
+      <ownedAspect xmi:id="_GHogAPTMEeSVQNc0eVK6Kw" name="dummy_pressure">
+        <ownedDecoratedSymbol xmi:id="_LGzvwPTMEeSVQNc0eVK6Kw" name="" y="10.0" width="75.0" height="124.0" ratio_width="1.0045393" ratio_height="1.0083116" symbol="_LGzvwfTMEeSVQNc0eVK6Kw" cx="-62.5" cy="-28.0"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_nS0vAPTLEeSVQNc0eVK6Kw" id="pressure.value" defaultValue="12.5" relativePath="pressure.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_Qd3wgvTLEeSVQNc0eVK6Kw">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_LGzvwfTMEeSVQNc0eVK6Kw" filePath="Symbols/StressTest/osa/osa_ics_thermometer.svg" id="_STRESSTEST_SYMBOLS_STRESSTEST_OSA_OSA_ICS_THERMOMETER_SVG" width="74.661095" height="122.97786"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_Qd3wg_TLEeSVQNc0eVK6Kw">
+    <ownedCategories xmi:id="_Qd3whPTLEeSVQNc0eVK6Kw" name="Functional"/>
+    <ownedCategories xmi:id="_Qd3whfTLEeSVQNc0eVK6Kw" name="Geographical"/>
+    <ownedCategories xmi:id="_Qd3whvTLEeSVQNc0eVK6Kw" name="Outline"/>
+    <ownedCategories xmi:id="_Qd3wh_TLEeSVQNc0eVK6Kw" name="Synthesis"/>
+    <ownedCategories xmi:id="_Qd3wiPTLEeSVQNc0eVK6Kw" name="System"/>
+    <ownedCategories xmi:id="_Qd3wifTLEeSVQNc0eVK6Kw" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

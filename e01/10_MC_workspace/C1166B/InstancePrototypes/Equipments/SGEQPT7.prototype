@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<common:SGEQPT7 xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:HV="http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV" xmlns:common="http://www.thalesgroup.com/prototypeLibrary/Class/Melody/config/Equipment/common" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibrary/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A http://www.thalesgroup.com/prototypeLibrary/Class/Melody/config/Equipment/common ../../Generated/config.ecore#_lG_PPRKoEea7gOG8GF6d-w" xmi:id="_bgGwQBKvEealM5WDUDWgdQ_1462445535556" hvqname="myproject.data.config.equipment.common.SGEQPT7" nom_instance="SGEQPT7" scstype="SGEQPT7">
+  <status xsi:type="HV:HvStatusBoolean" xmi:id="_bgGwQRKvEealM5WDUDWgdQ_1462445535556" nom_instance="online" hvdatatype="Boolean" hvqname="hypervisor.data.common.configuration.SupervisedObject.online"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgGwQhKvEealM5WDUDWgdQ_1462445535556" nom_instance="symbol7" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT7.symbol7"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhQBKvEealM5WDUDWgdQ_1462445535572" nom_instance="symbol6" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT6.symbol6"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhQRKvEealM5WDUDWgdQ_1462445535572" nom_instance="symbol5" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT5.symbol5"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhQhKvEealM5WDUDWgdQ_1462445535572" nom_instance="symbol4" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT4.symbol4"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhQxKvEealM5WDUDWgdQ_1462445535572" nom_instance="symbol3" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT3.symbol3"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhRBKvEealM5WDUDWgdQ_1462445535572" nom_instance="symbol2" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT2.symbol2"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhRRKvEealM5WDUDWgdQ_1462445535572" nom_instance="tag1" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT1.tag1"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgQhRhKvEealM5WDUDWgdQ_1462445535572" nom_instance="tag2" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT1.tag2"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgZrMBKvEealM5WDUDWgdQ_1462445535587" nom_instance="tag3" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT1.tag3"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgZrMRKvEealM5WDUDWgdQ_1462445535587" nom_instance="tag4" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT1.tag4"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgZrMhKvEealM5WDUDWgdQ_1462445535587" nom_instance="symbol1" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT1.symbol1"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgZrMxKvEealM5WDUDWgdQ_1462445535587" nom_instance="fault" hvdatatype="Integer" hvqname="myproject.data.config.equipment.BasicEquipment.fault"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgZrNBKvEealM5WDUDWgdQ_1462445535587" nom_instance="validity" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.validity"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgZrNRKvEealM5WDUDWgdQ_1462445535587" nom_instance="alarm" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.alarm"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgjcMBKvEealM5WDUDWgdQ_1462445535603" nom_instance="needack" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.needack"/>
+  <status xsi:type="HV:HvStatusString" xmi:id="_bgjcMRKvEealM5WDUDWgdQ_1462445535603" nom_instance="eqpName" hvdatatype="String" hvqname="scadasoft.data.config.equipment.SCSEquipment.eqpName"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgjcMhKvEealM5WDUDWgdQ_1462445535603" nom_instance="tagstatus" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.tagstatus"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="_bgjcMxKvEealM5WDUDWgdQ_1462445535603" nom_instance="inhibsynthesis" hvdatatype="Integer" hvqname="scadasoft.data.config.equipment.SCSEquipment.inhibsynthesis"/>
+  <status xsi:type="HV:HvStatusString" xmi:id="_bgjcNBKvEealM5WDUDWgdQ_1462445535603" nom_instance="reservedBy" hvdatatype="String" hvqname="scadasoft.data.config.equipment.SCSEquipment.reservedBy"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</common:SGEQPT7>

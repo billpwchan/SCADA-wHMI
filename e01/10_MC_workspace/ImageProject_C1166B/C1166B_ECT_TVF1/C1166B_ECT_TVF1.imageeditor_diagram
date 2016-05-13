@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_D2fJcBW2EeaKDLgud1PopA" type="Imageeditor" name="C1166B_ECT_TVF1.imageeditor_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_iVxWYBW2EeaKDLgud1PopA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_iVxWYhW2EeaKDLgud1PopA" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_iVxWYxW2EeaKDLgud1PopA" y="5"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_iVxWZBW2EeaKDLgud1PopA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_QoCuQBdUEeaRiqynFMMhsQ" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_QoCuQhdUEeaRiqynFMMhsQ" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_QoCuQxdUEeaRiqynFMMhsQ" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_C1166B/C1166B_ECT_TVF1/C1166B_ECT_TVF1.imageeditor#//@canvas/@ownedItem.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QoCuQRdUEeaRiqynFMMhsQ" x="2084" y="608"/>
+      </children>
+    </children>
+    <element xmi:type="imageeditor:GraphicalCanvas" href="/ImageProject_C1166B/C1166B_ECT_TVF1/C1166B_ECT_TVF1.imageeditor#//@canvas"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_iVxWYRW2EeaKDLgud1PopA" x="641" y="319"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_D2fJcRW2EeaKDLgud1PopA"/>
+  <styles xmi:type="notation:FillStyle" xmi:id="_D6EB4BW2EeaKDLgud1PopA" fillColor="13816530"/>
+  <element xmi:type="imageeditor:GraphicalViewer" href="/ImageProject_C1166B/C1166B_ECT_TVF1/C1166B_ECT_TVF1.imageeditor#/"/>
+</notation:Diagram>

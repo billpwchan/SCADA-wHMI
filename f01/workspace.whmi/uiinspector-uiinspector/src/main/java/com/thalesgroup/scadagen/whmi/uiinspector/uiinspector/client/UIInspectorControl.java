@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -21,13 +20,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorControl.class.getName());
+	
+	private String tagname			= "control";
 	
 	private String strLabel			= ".label";
 	private String strValueTable	= ".valueTable";
@@ -103,7 +102,7 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 					widgetBoxes[x].setWidth("100%");
 					widgetBoxes[x].getElement().getStyle().setPadding(5, Unit.PX);
 					inlineLabels[x] = new InlineLabel();
-					inlineLabels[x].addStyleName("project-gwt-label-inspector-control");
+					inlineLabels[x].addStyleName("project-gwt-label-inspector"+tagname+"-control");
 					inlineLabels[x].setText("Control: "+(x+1));
 					widgetBoxes[x].add(inlineLabels[x]);
 					
@@ -113,21 +112,10 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 						btnCtrl.setText("Control "+y);
 						btnCtrl.setWidth(btnWidth);
 						btnCtrl.setHeight(btnHeight);
-						btnCtrl.addStyleName("project-gwt-button-inspector-control-button");
+						btnCtrl.addStyleName("project-gwt-button-inspector"+tagname+"-button");
 						controlboxes[x].add(btnCtrl);
 					}
 					widgetBoxes[x].add(controlboxes[x]);
-					
-//					HorizontalPanel hp2 = new HorizontalPanel();
-//					for(int y=numOfCtrlBtnRow;y<=numOfCtrlBtnRow+numOfCtrlBtnRow-1;++y){
-//						Button btnCtrl = new Button();
-//						btnCtrl.setText("Control "+y);
-//						btnCtrl.setWidth(btnWidth);
-//						btnCtrl.setHeight(btnHeight);
-//						btnCtrl.addStyleName("project-gwt-button");
-//						hp2.add(btnCtrl);
-//					}
-//					widgetBoxes[x].add(hp2);
 					
 					vpCtrls.add(widgetBoxes[x]);
 				}
@@ -254,7 +242,7 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 //										labels[i] = RTDB_Helper.removeDBStringWrapper(labels[i]);
 										if ( labels[i].length() > 0 ) {
 											UIButtonToggle btnCtrl = new UIButtonToggle(labels[i]);
-											btnCtrl.addStyleName("project-gwt-button-inspector-control-ctrl");
+											btnCtrl.addStyleName("project-gwt-button-inspector"+tagname+"-ctrl");
 											btnCtrl.addClickHandler(new ClickHandler() {
 												
 												@Override
@@ -344,7 +332,7 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 							controlboxes[x].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 							
 							TextBox textBox = new TextBox();
-							textBox.addStyleName("project-gwt-textbox-inspector-control");
+							textBox.addStyleName("project-gwt-textbox-inspector"+tagname+"-control");
 							controlboxes[x].add(textBox);
 							
 							widgetControls.put(textBox, new Control("sio", scsEnvId, sioaddress, label));
@@ -408,7 +396,7 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 		Button btnExecute = new Button();
 		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
 		btnExecute.setText("Execute");
-		btnExecute.addStyleName("project-gwt-button-inspector-tag-execute");
+		btnExecute.addStyleName("project-gwt-button-inspector"+tagname+"-execute");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -421,7 +409,7 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 		});
 		
 		Button btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-tag-up");
+		btnUp.addStyleName("project-gwt-button-inspector"+tagname+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -431,11 +419,11 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 		});
 		
 		InlineLabel lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-tag-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector"+tagname+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-tag-down");
+		btnDown.addStyleName("project-gwt-button-inspector"+tagname+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -489,7 +477,10 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 		
 		for ( Widget widget : widgetControls.keySet() ) {
 			if ( null != widget ) {
+				
 				if ( widget instanceof TextBox ) {
+					
+					// AIO, SIO
 					logger.log(Level.SEVERE, "getMainPanel onClick widget IS TextBox");
 					TextBox textBox = (TextBox)widget;
 					String value = textBox.getText().trim();
@@ -497,22 +488,32 @@ public class UIInspectorControl implements UIInspectorTab_i, IClientLifeCycle {
 					if ( value.length() > 0 && 0 != value.compareTo("") ) {
 						Control control = widgetControls.get(widget);
 						if ( 0 == control.io.compareTo("sio") ) {
+							
 							logger.log(Level.SEVERE, "getMainPanel onClick TextBox control.io["+control.io+"]");
-							ctlMgr.sendControl(control.io, control.scsEnvId, new String[]{control.dbaddress}, value, 1, 1, 1);
+							
+							ctlMgr.sendControl(control.scsEnvId, new String[]{control.dbaddress}, value, 1, 1, 1);
+							
 						} else if ( 0 == control.io.compareTo("aio") ) {
+							
 							logger.log(Level.SEVERE, "getMainPanel onClick TextBox control.io["+control.io+"]");
-							ctlMgr.sendControl(control.io, control.scsEnvId, new String[]{control.dbaddress}, value, 1, 1, 1);
+							
+							ctlMgr.sendControl(control.scsEnvId, new String[]{control.dbaddress}, Float.parseFloat(value), 1, 1, 1);
+							
 						}
 						break;
 					}
 				} else if ( widget instanceof UIButtonToggle ) {
+					
+					// DIO
 					logger.log(Level.SEVERE, "getMainPanel onClick widget IS UIButtonControl");
 					UIButtonToggle uiButtonControl = (UIButtonToggle)widget;
 					if ( uiButtonControl.isHightLight() ) {
 						
 						Control control = widgetControls.get(widget);
+						
 						logger.log(Level.SEVERE, "getMainPanel onClick TextBox control.io["+control.io+"]");
-						ctlMgr.sendControl(control.io, control.scsEnvId, new String[]{control.dbaddress}, control.value, 1, 1, 1);
+						
+						ctlMgr.sendControl(control.scsEnvId, new String[]{control.dbaddress}, Integer.parseInt(control.value), 1, 1, 1);
 						
 						break;
 					}

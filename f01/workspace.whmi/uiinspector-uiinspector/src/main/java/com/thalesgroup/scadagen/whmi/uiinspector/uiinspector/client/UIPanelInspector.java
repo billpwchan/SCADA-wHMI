@@ -40,17 +40,7 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
 public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UIInspector_i, IClientLifeCycle {
 	
 	private static Logger logger = Logger.getLogger(UIPanelInspector.class.getName());
-	
-//	// Testing
-//	InlineLabel lblScsEnvId		= null;
-//	TextBox txtScsEnvId			= null;
-//	InlineLabel lblDBAddress	= null;
-//	TextBox txtDBAddress		= null;
-//	InlineLabel lblPeriodMillis	= null;
-//	TextBox txtPeriodMillis		= null;
-//	Button btnRefresh			= null;
-//	//
-	
+
 	private String strTabNames [] = new String[] {"Info","Control","Tagging","Advance"};
 
 	private String strLabel			= ".label";
@@ -139,8 +129,8 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 				keyAndValue.put(dbaddresses[i], dbvalues[i]);
 			}
-			((UIInspectorInfo)uiInspectorInfo).updateValue(clientKey, keyAndValue);
-			((UIInspectorAdvance)uiInspectorAdvance).updateValue(clientKey, keyAndValue);
+			((UIInspectorInfo)		uiInspectorInfo)		.updateValue(clientKey, keyAndValue);
+			((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(clientKey, keyAndValue);
 		}
 		
 		String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "inspectorcontrol" + "static" + parent;
@@ -151,7 +141,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 				keyAndValue.put(dbaddresses[i], dbvalues[i]);
 			}
-			((UIInspectorControl)uiInspectorControl).updateValue(clientKey, keyAndValue);
+			((UIInspectorControl)	uiInspectorControl)		.updateValue(clientKey, keyAndValue);
 		}
 		
 		String clientKey_multiReadValue_inspectortag_static = "multiReadValue" + "inspectortag" + "static" + parent;
@@ -162,7 +152,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 				keyAndValue.put(dbaddresses[i], dbvalues[i]);
 			}
-			((UIInspectorTag)uiInspectorTag).updateValue(clientKey, keyAndValue);
+			((UIInspectorTag)		uiInspectorTag)			.updateValue(clientKey, keyAndValue);
 		}
 
 		String clientKey_multiReadValue_inspector_dynamic = "multiReadValue" + "inspector" + "dynamic" + parent;
@@ -180,10 +170,10 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 				if ( null != value ) txtAttributeStatus[0].setText((0==value.compareTo("0")?"No":"Yes"));
 			}
 			
-			((UIInspectorInfo)uiInspectorInfo).updateValue(clientKey, dynamicvalues);
-			((UIInspectorControl)uiInspectorControl).updateValue(clientKey, dynamicvalues);
-			((UIInspectorTag)uiInspectorTag).updateValue(clientKey, dynamicvalues);
-			((UIInspectorAdvance)uiInspectorAdvance).updateValue(clientKey, dynamicvalues);
+			((UIInspectorInfo)		uiInspectorInfo)		.updateValue(clientKey, dynamicvalues);
+			((UIInspectorControl)	uiInspectorControl)		.updateValue(clientKey, dynamicvalues);
+			((UIInspectorTag)		uiInspectorTag)			.updateValue(clientKey, dynamicvalues);
+			((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(clientKey, dynamicvalues);
 		}
 
 	}
@@ -974,15 +964,15 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		for ( String dbaddress : tags )		{ logger.log(Level.FINE, "makeTabsSetAddress tags dbaddress["+dbaddress+"]"); }
 		for ( String dbaddress : advances )	{ logger.log(Level.FINE, "makeTabsSetAddress advances dbaddress["+dbaddress+"]"); }
 		
-		uiInspectorInfo.setParent(parent);
-		uiInspectorControl.setParent(parent);
-		uiInspectorTag.setParent(parent);
-		uiInspectorAdvance.setParent(parent);
+		uiInspectorInfo		.setParent(parent);
+		uiInspectorControl	.setParent(parent);
+		uiInspectorTag		.setParent(parent);
+		uiInspectorAdvance	.setParent(parent);
 		
-		uiInspectorInfo.setAddresses	(scsEnvId, infos.toArray(new String[0]));
-		uiInspectorControl.setAddresses	(scsEnvId, controls.toArray(new String[0]));
-		uiInspectorTag.setAddresses		(scsEnvId, tags.toArray(new String[0]));
-		uiInspectorAdvance.setAddresses	(scsEnvId, advances.toArray(new String[0]));
+		uiInspectorInfo.setAddresses	(scsEnvId, infos		.toArray(new String[0]));
+		uiInspectorControl.setAddresses	(scsEnvId, controls		.toArray(new String[0]));
+		uiInspectorTag.setAddresses		(scsEnvId, tags			.toArray(new String[0]));
+		uiInspectorAdvance.setAddresses	(scsEnvId, advances		.toArray(new String[0]));
 		
 		logger.log(Level.FINE, "makeTabsSetAddress End");
 	}
@@ -1052,97 +1042,6 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
-		
-//		//
-//		lblScsEnvId		= new InlineLabel("Scs Env ID: ");
-//		lblScsEnvId.addStyleName("project-gwt-inlinelabel-inspector-scsenvid");
-//		
-//		txtScsEnvId		= new TextBox();
-//		txtScsEnvId.addStyleName("project-gwt-textbox-inspector-scsenvid");
-//		
-//		lblDBAddress	= new InlineLabel("DB Address: ");
-//		lblDBAddress.addStyleName("project-gwt-inlinelabel-inspector-dbaddress");
-//		
-//		txtDBAddress	= new TextBox();
-//		txtDBAddress.addStyleName("project-gwt-textbox-inspector-dbaddress");
-//		
-//		lblPeriodMillis		= new InlineLabel("DB Address: ");
-//		lblPeriodMillis.addStyleName("project-gwt-inlinelabel-inspector-timer");
-//		
-//		txtPeriodMillis		= new TextBox();
-//		txtPeriodMillis.addStyleName("project-gwt-textbox-inspector-timer");
-//		
-//		btnRefresh		= new Button("Refresh");
-//		btnRefresh.addStyleName("project-gwt-button-inspector-refresh");
-//		
-//		btnRefresh.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent event) {
-////				Button btn = (Button)event.getSource();
-////				if (0 == btn.getText().compareTo("Refresh")) {
-//					
-//					disconnect();
-//					
-//					String scsEnvId = txtScsEnvId.getText();
-//					String dbAddress = txtDBAddress.getText();
-//					String periodMillis = txtPeriodMillis.getText();
-//					
-//					setParent(dbAddress);
-//					setAddresses(scsEnvId, new String[]{dbAddress});
-//					setPeriodMillis(periodMillis);
-//					
-//					connect();
-////				}
-//			}
-//		});
-		
-//		if ( null != this.scsEnvId ) txtScsEnvId.setText(this.scsEnvId);
-//		if ( null != this.parent ) txtDBAddress.setText(this.parent);
-//		if ( this.periodMillis > 0 ) txtPeriodMillis.setText(String.valueOf(this.periodMillis));
-//		
-//		HorizontalPanel upperBar1 = new HorizontalPanel();
-//		upperBar1.addStyleName("project-gwt-panel-inspector-upperBar1");
-//		
-//		upperBar1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//		upperBar1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		
-//		upperBar1.add(lblScsEnvId);
-//		upperBar1.add(txtScsEnvId);
-//		
-//		HorizontalPanel upperBar2 = new HorizontalPanel();
-//		upperBar2.addStyleName("project-gwt-panel-inspector-upperBar2");
-//		
-//		upperBar2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//		upperBar2.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		
-//		upperBar2.add(lblDBAddress);
-//		upperBar2.add(txtDBAddress);
-//		
-//		HorizontalPanel upperBar3 = new HorizontalPanel();
-//		upperBar3.addStyleName("project-gwt-panel-inspector-upperBar3");
-//		
-//		upperBar3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//		upperBar3.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		
-//		upperBar3.add(lblPeriodMillis);
-//		upperBar3.add(txtPeriodMillis);
-//		
-//		HorizontalPanel upperBar4 = new HorizontalPanel();
-//		upperBar4.addStyleName("project-gwt-panel-inspector-upperBar4");
-//		
-//		upperBar4.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-//		upperBar4.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		upperBar4.add(btnRefresh);
-//		
-//		VerticalPanel upperBar = new VerticalPanel();
-//		upperBar.addStyleName("project-gwt-panel-inspector-upperBar");
-//		
-//		upperBar.add(upperBar1);
-//		upperBar.add(upperBar2);
-//		upperBar.add(upperBar3);
-//		upperBar.add(upperBar4);
-		//
 		
 		String strHeadersLabel [] = new String[] { "Control Right","Control Right Reserved","Handover Right" };
 		String strHeadersStatus [] = new String[] { "Yes / No","Not Reserved / Not", "Central / Station" };
@@ -1244,19 +1143,19 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			}
 		});
 		
-		ComplexPanel panelInfo		= uiInspectorInfo.getMainPanel(this.uiNameCard);
-		ComplexPanel panelCtrl		= uiInspectorControl.getMainPanel(this.uiNameCard);
-		ComplexPanel panelTag		= uiInspectorTag.getMainPanel(this.uiNameCard);
-		ComplexPanel panelAdv		= uiInspectorAdvance.getMainPanel(this.uiNameCard);
+		ComplexPanel panelInfo		= uiInspectorInfo		.getMainPanel(this.uiNameCard);
+		ComplexPanel panelCtrl		= uiInspectorControl	.getMainPanel(this.uiNameCard);
+		ComplexPanel panelTag		= uiInspectorTag		.getMainPanel(this.uiNameCard);
+		ComplexPanel panelAdv		= uiInspectorAdvance	.getMainPanel(this.uiNameCard);
 		
 		TabPanel tabPanel = new TabPanel();
 		tabPanel.getElement().getStyle().setWidth(400, Unit.PX);
 		tabPanel.getElement().getStyle().setFontSize(16, Unit.PX);
 		
-		tabPanel.add(panelInfo, strTabNames[0]);
-		tabPanel.add(panelCtrl, strTabNames[1]);
-		tabPanel.add(panelTag, strTabNames[2]);
-		tabPanel.add(panelAdv, strTabNames[3]);
+		tabPanel.add(panelInfo	, strTabNames[0]);
+		tabPanel.add(panelCtrl	, strTabNames[1]);
+		tabPanel.add(panelTag	, strTabNames[2]);
+		tabPanel.add(panelAdv	, strTabNames[3]);
 		tabPanel.selectTab(0);
 		
 		Button btnClose = new Button("Close");

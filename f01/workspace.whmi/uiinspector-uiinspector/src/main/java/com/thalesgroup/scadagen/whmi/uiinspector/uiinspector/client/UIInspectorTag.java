@@ -8,29 +8,25 @@ import java.util.logging.Logger;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ICTLComponentClient;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsCTLComponentAccess;
 
 public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorTag.class.getName());
+	
+	private String tagname			= "tag";
 	
 	private String strLabel			= ".label";
 	private String strValueTable	= ".valueTable";
@@ -45,8 +41,12 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	private String dynamicAttibutes[]	= new String[] {};
 	
 	private String dio = "dio";
+	private String aio = "aio";
+	private String sio = "sio";
 		
 	private LinkedList<String> dios = new LinkedList<String>();
+	private LinkedList<String> aios = new LinkedList<String>();
+	private LinkedList<String> sios = new LinkedList<String>();	
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -102,37 +102,20 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 					widgetBoxes[x].setWidth("100%");
 					widgetBoxes[x].getElement().getStyle().setPadding(5, Unit.PX);
 					inlineLabels[x] = new InlineLabel();
-					inlineLabels[x].addStyleName("project-gwt-label-inspector-tag-control");
+					inlineLabels[x].addStyleName("project-gwt-label-inspector"+tagname+"-control");
 					inlineLabels[x].setText("Control: "+(x+1));
 					widgetBoxes[x].add(inlineLabels[x]);
 					
 					controlboxes[x] = new HorizontalPanel();
 					for(int y=1;y<=numOfCtrlBtnRow;++y){
-						UIButtonToggle btnCtrl = new UIButtonToggle("Control "+y);
+						Button btnCtrl = new Button();
+						btnCtrl.setText("Control "+y);
 						btnCtrl.setWidth(btnWidth);
 						btnCtrl.setHeight(btnHeight);
-						btnCtrl.addStyleName("project-gwt-button-inspector-tag-option");
+						btnCtrl.addStyleName("project-gwt-button-inspector"+tagname+"-button");
 						controlboxes[x].add(btnCtrl);
 					}
 					widgetBoxes[x].add(controlboxes[x]);
-					
-					HorizontalPanel hp2 = new HorizontalPanel();
-					hp2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-					Button btnCtrl = new Button();
-					btnCtrl.setText("Execute");
-					btnCtrl.setWidth(btnWidth);
-					btnCtrl.setHeight(btnHeight);
-					btnCtrl.addStyleName("project-gwt-button-inspector-tag-execute");
-					btnCtrl.addClickHandler(new ClickHandler() {
-						
-						@Override
-						public void onClick(ClickEvent event) {
-							onButton(event);
-						}
-					});
-					hp2.add(btnCtrl);
-
-					widgetBoxes[x].add(hp2);
 					
 					vpCtrls.add(widgetBoxes[x]);
 				}
@@ -159,6 +142,14 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 						dios.add(dbaddress);
 						continue;
 					}
+					if ( point.endsWith(aio) ) {
+						aios.add(dbaddress);
+						continue;
+					}
+					if ( point.startsWith(sio) ) {
+						sios.add(dbaddress);
+						continue;
+					}
 				}
 			} else {
 				logger.log(Level.FINE, "buildWidgetList dbaddress IS NULL");
@@ -169,13 +160,33 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		
 	}
 	
-	private HashMap<Widget, Control> widgetControls = new HashMap<Widget, Control>();
+	class ControlPoint {
+		private HashMap<String, String> hashmap = new HashMap<String, String>();
+		public ControlPoint(String point, String scsenvid, String dbaddress) {
+			hashmap.put("point", point);
+			hashmap.put("scsenvid", scsenvid);
+			hashmap.put("dbaddress", dbaddress);
+		}
+		public ControlPoint(String point, String scsenvid, String dbaddress, String value) {
+			this( point, scsenvid, dbaddress);
+			hashmap.put("value", value);
+		}
+		public String getValue(String key) {
+			return hashmap.get(key);
+		}
+	}
+	
+	private HashMap<Widget, ControlPoint> widgetPoints = new HashMap<Widget, ControlPoint>();
+	private HashMap<String, Widget[]> widgetGroups = new HashMap<String, Widget[]>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
 		logger.log(Level.SEVERE, "updateValue Begin");
 		
-		String clientKey_multiReadValue_inspectortag_static = "multiReadValue" + "inspectortag" + "static" + parent;
-		if ( 0 == clientKey_multiReadValue_inspectortag_static.compareTo(clientKey) ) {
+		String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "inspector" + tagname + "static" + parent;
+		if ( 0 == clientKey_multiReadValue_inspectorcontrol_static.compareTo(clientKey) ) {
+			
+			widgetPoints.clear();
+			widgetGroups.clear();
 			
 			for ( int y = 0 ; y < dios.size() ; ++y ) {
 				
@@ -218,63 +229,47 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 							controlboxes[x].clear();
 							
 							String value = keyAndValue.get(diovaluetabledbaddress);
-										
-							String btnWidth = "90px";
-							String btnHeight = "26px";
+
 							{
 								int numOfRow = 12;
 								String points[] = new String[numOfRow];
 								String labels[] = new String[numOfRow];
 								String values[] = new String[numOfRow];
 								for( int r = 0 ; r < numOfRow ; ++r ) {
+									
 									points[r] = RTDB_Helper.getArrayValues(value, 0, r );
-									labels[r] = RTDB_Helper.getArrayValues(value, 1, r );
-									values[r] = RTDB_Helper.getArrayValues(value, 2, r );
-									
-									logger.log(Level.SEVERE, "updateValue points[r]["+points[r]+"] BF");
-									logger.log(Level.SEVERE, "updateValue labels[r]["+labels[r]+"] BF");
-									logger.log(Level.SEVERE, "updateValue values[r]["+values[r]+"] BF");
-									
 									points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
-									labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
-									values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);
 									
-									logger.log(Level.SEVERE, "updateValue points[r]["+points[r]+"] AF");
-									logger.log(Level.SEVERE, "updateValue labels[r]["+labels[r]+"] AF");
-									logger.log(Level.SEVERE, "updateValue values[r]["+values[r]+"] AF");
-															
+									labels[r] = RTDB_Helper.getArrayValues(value, 1, r );
+									labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+									
+									values[r] = RTDB_Helper.getArrayValues(value, 2, r );
+									values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
 								}
 								
+								LinkedList<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
 								for ( int i = 0 ; i < points.length ; ++i ) {
-									if ( null != labels[i] ) {
-//										labels[i] = RTDB_Helper.removeDBStringWrapper(labels[i]);
-										if ( labels[i].length() > 0 ) {
-											UIButtonToggle btnCtrl = new UIButtonToggle(labels[i]);
-											btnCtrl.setWidth(btnWidth);
-											btnCtrl.setHeight(btnHeight);
-											btnCtrl.addStyleName("project-gwt-button-inspector-tag-control");
-											btnCtrl.addClickHandler(new ClickHandler() {
-												
-												@Override
-												public void onClick(ClickEvent event) {
-													UIButtonToggle button = (UIButtonToggle) event.getSource();
-													if ( ! button.isHightLight() ) {
-														button.setHightLight(true);
-													} else {
-														button.setHightLight(false);
-													}
-												}
-											});
-											controlboxes[x].add(btnCtrl);
-											
-											logger.log(Level.SEVERE, "updateValue points[r]["+points[i]+"] => RTDB_Helper.removeDBStringWrapper["+RTDB_Helper.removeDBStringWrapper(points[i])+"]");
-											logger.log(Level.SEVERE, "updateValue labels[r]["+labels[i]+"] => RTDB_Helper.removeDBStringWrapper["+RTDB_Helper.removeDBStringWrapper(labels[i])+"]");
-											logger.log(Level.SEVERE, "updateValue values[r]["+values[i]+"] => RTDB_Helper.removeDBStringWrapper["+RTDB_Helper.removeDBStringWrapper(values[i])+"]");
-											
-											
-											widgetControls.put(btnCtrl, new Control("dio", scsEnvId, dioaddress, points[i], labels[i], values[i]));
+									
+									if ( labels[i].length() == 0  ) break;
+									
+									UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
+									btnOption.addStyleName("project-gwt-button-inspector"+tagname+"-ctrl");
+									btnOption.addClickHandler(new ClickHandler() {
+										
+										@Override
+										public void onClick(ClickEvent event) {
+											onButton(event);
 										}
-									}
+									});
+									
+									btnOptions.add(btnOption);
+									
+									controlboxes[x].add(btnOption);
+									
+									widgetGroups.put(dioaddress, btnOptions.toArray(new UIButtonToggle[0]));
+									
+									widgetPoints.put(btnOption, new ControlPoint("dio", dbaddress, values[i]));
+
 								}
 							}
 						}
@@ -282,21 +277,98 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 				}
 				
 			}
+			
+			for ( int y = 0 ; y < aios.size() ; ++y ) {
+				String aioaddress = aios.get(y);
+				String aiodbaddresslabel = aioaddress + strLabel;
+				
+				logger.log(Level.SEVERE, "updateValue aiodbaddress["+aiodbaddresslabel+"]");
+				
+				if ( keyAndValue.containsKey(aiodbaddresslabel) ) {
+					for ( int x = 0 ; x < addresses.length ; ++x ) {
+						String dbaddress = addresses[x];
+						
+						logger.log(Level.SEVERE, "updateValue aiodbaddress dbaddress["+dbaddress+"]");
+						
+						if ( aiodbaddresslabel.startsWith(dbaddress) ) {
+							String label = keyAndValue.get(aiodbaddresslabel);
+							label = RTDB_Helper.removeDBStringWrapper(label);
+							
+							logger.log(Level.SEVERE, "updateValue label["+label+"]");
+							
+							inlineLabels[x].setText(label);
+							
+							// AI and SI Value Box
+							TextBox textBox = new TextBox();
+							textBox.setWidth("250px");							
+							
+							controlboxes[x].clear();
+							
+							controlboxes[x].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+							
+							controlboxes[x].add(textBox);
+							
+							widgetGroups.put(aioaddress, new TextBox[]{textBox});
+							
+							widgetPoints.put(textBox, new ControlPoint("aio", scsEnvId, dbaddress));
+							
+						}
+					}
+				}
+			}
 
+			for ( int y = 0 ; y < sios.size() ; ++y ) {
+				String sioaddress = sios.get(y);
+				String siodbaddress = sioaddress + strLabel;
+				
+				logger.log(Level.SEVERE, "updateValue siodbaddress["+siodbaddress+"]");
+				
+				if ( keyAndValue.containsKey(siodbaddress) ) {
+					for ( int x = 0 ; x < addresses.length ; ++x ) {
+						String dbaddress = addresses[x];
+						
+						logger.log(Level.SEVERE, "updateValue siodbaddress dbaddress["+dbaddress+"]");
+						
+						if ( siodbaddress.startsWith(dbaddress) ) {
+							String label = keyAndValue.get(siodbaddress);
+							label = RTDB_Helper.removeDBStringWrapper(label);
+							
+							logger.log(Level.SEVERE, "updateValue label["+label+"]");
+							
+							inlineLabels[x].setText(label);
+							
+							// AI and SI Value Box
+							TextBox textBox = new TextBox();
+							textBox.setWidth("250px");							
+							
+							controlboxes[x].clear();
+							
+							controlboxes[x].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+							
+							controlboxes[x].add(textBox);
+							
+							widgetGroups.put(sioaddress, new TextBox[]{textBox});
+							
+							widgetPoints.put(textBox, new ControlPoint("sio", scsEnvId, dbaddress));
+							
+						}
+					}
+				}
+			}
 		}
 		
 		logger.log(Level.SEVERE, "updateValue End");
 	}
 	
-	private CtlMgr controlMgr = null;
+	private CtlMgr ctlMgr = null;
 //	private Observer observer = null;
 //	private Subject controlMgrSubject = null;
 	@Override
 	public void connect() {
 		logger.log(Level.SEVERE, "connect Begin");
 		
-		controlMgr = CtlMgr.getInstance();
-//		controlMgrSubject = controlMgr.getSubject();
+		ctlMgr = CtlMgr.getInstance();
+//		controlMgrSubject = CtlMgr.getSubject();
 //		
 //		observer = new Observer() {
 //			@Override
@@ -323,24 +395,90 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		logger.log(Level.SEVERE, "disconnect End");
 	}
 	
-
+	private Button btnExecute = null;
+	
 	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
 		logger.log(Level.SEVERE, "getMainPanel Begin");
-
+		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
-		
-		vpCtrls = new VerticalPanel();
+
+		vpCtrls  = new VerticalPanel();
 		vpCtrls.setWidth("100%");
 		
+		btnExecute = new Button();
+		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
+		btnExecute.setText("Execute");
+		btnExecute.addStyleName("project-gwt-button-inspector"+tagname+"-execute");
+		btnExecute.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				logger.log(Level.SEVERE, "getMainPanel onClick Begin");
+				
+				onButton(event);
+				
+				logger.log(Level.SEVERE, "getMainPanel onClick End");
+			}
+		});
+		
+		Button btnUp = new Button();
+		btnUp.addStyleName("project-gwt-button-inspector"+tagname+"-up");
+		btnUp.setText("▲");
+		btnUp.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		InlineLabel lblPageNum = new InlineLabel();
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector"+tagname+"-pagenum");
+		lblPageNum.setText("1 / 1");
+		
+		Button btnDown = new Button();
+		btnDown.addStyleName("project-gwt-button-inspector"+tagname+"-down");
+		btnDown.setText("▼");
+		btnDown.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});	
+
+		HorizontalPanel pageBar = new HorizontalPanel();
+
+		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		pageBar.add(btnUp);
+		
+		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		pageBar.add(lblPageNum);
+		
+		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		pageBar.add(btnDown);
+		
+		HorizontalPanel bottomBar = new HorizontalPanel();
+		bottomBar.setWidth("100%");
+		
+		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomBar.add(pageBar);
+		
+		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomBar.add(btnExecute);
+				
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
+		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
 		VerticalPanel vp = new VerticalPanel();
@@ -351,35 +489,159 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		return vp;
 	}
 	
-	private void onButton(ClickEvent event) {
-		logger.log(Level.SEVERE, "onButton Begin");
-		
-		for ( Widget widget : widgetControls.keySet() ) {
-			if ( null != widget ) {
-				if ( widget instanceof UIButtonToggle ) {
-					logger.log(Level.SEVERE, "getMainPanel onClick widget IS UIButtonControl");
-					UIButtonToggle uiButtonControl = (UIButtonToggle)widget;
-					if ( uiButtonControl.isHightLight() ) {
-						
-						Control control = widgetControls.get(widget);
-						logger.log(Level.SEVERE, "getMainPanel onClick TextBox control.io["+control.io+"]");
-						controlMgr.sendControl(control.io, control.scsEnvId, new String[]{control.dbaddress}, control.value, 1, 1, 1);
-						
-						break;
-					}
+
+	private void toggleButtonGroup ( UIButtonToggle btnSource, UIButtonToggle[] btnGroup ) {
+		boolean toggled = btnSource.isHightLight();
+		if ( !toggled ) {
+			for ( UIButtonToggle btn : btnGroup ) {
+				if ( btn != btnSource )
+					btn.setHightLight(false);
+			}
+			btnSource.setHightLight(true);
+		} else {
+			btnSource.setHightLight(false);
+		}
+	}
+	private void toggleButtonGroup ( Widget btnSource, Widget[] btnGroup ) {
+		toggleButtonGroup((UIButtonToggle)btnSource, (UIButtonToggle[])btnGroup);
+	}
+	
+	private Widget[] getSelectedGroup(Widget btn) {
+		Widget[] targetGroups = null;
+		for ( String address : widgetGroups.keySet() ) {
+			if ( targetGroups != null ) break;
+			Widget[] widgets = widgetGroups.get(address);
+			for ( Widget widget : widgets ) {
+				if ( targetGroups != null ) break;
+				if ( widget == btn ) {
+					targetGroups = widgets;
 				}
 			}
 		}
-		
-		logger.log(Level.SEVERE, "onButton End");
+		return targetGroups;
 	}
 	
+	private Widget getActivateWidget() {
+		logger.log(Level.SEVERE, "getActivateWidget Begin");
+		Widget target = null;
+		for ( String address : widgetGroups.keySet() ) {
+			if ( target != null ) break;
+			Widget[] widgets = widgetGroups.get(address);
+			for ( Widget widget : widgets ) {
+				if ( target != null ) break;
+				if ( null != widget ) {
+					if ( widget instanceof TextBox ) {
+						TextBox txt = (TextBox)widget;
+						String s = txt.getText();
+						if ( s.length() > 0 ) {
+							target = widget;
+						}
+					} else if ( widget instanceof UIButtonToggle ) {
+						UIButtonToggle btn = (UIButtonToggle)widget;
+						boolean b = btn.isHightLight();
+						if ( b ) {
+							target = widget;
+						}
+					} else {
+						logger.log(Level.SEVERE, "getActivateWidget widget IS NOT SUPPORTED");
+					}
+				} else {
+					logger.log(Level.SEVERE, "getActivateWidget btn IS NULL");
+				}
+			}
+		}
+		logger.log(Level.SEVERE, "getActivateWidget End");
+		return target;
+	}
+	
+	private void onButton(ClickEvent event) {
+		Button btn = (Button)event.getSource();
+		if ( btn instanceof UIButtonToggle ) {
+			
+			logger.log(Level.SEVERE, "onButton Button IS UIButtonToggle");
+			
+			Widget[] targetGroups = getSelectedGroup(btn);
+			if ( null != targetGroups ) {
+				toggleButtonGroup(btn, targetGroups);
+			}
+			
+		} else if ( btn instanceof Button ) {
+			logger.log(Level.SEVERE, "onButton Button IS Button");
+			
+			if ( btnExecute == btn ) {
+				
+				logger.log(Level.SEVERE, "onButton btn IS btnExecute");
+				
+				Widget widget = getActivateWidget();
+				
+				if ( null != widget ) {
+					
+					// Send Control
+					if ( widgetPoints.containsKey(widget) ) {
+						
+						ControlPoint controlPoint = widgetPoints.get(widget);
+						
+						if ( null != controlPoint ) {
+							
+							String sPoint		= controlPoint.getValue("point");
+							String sScsEnvId	= controlPoint.getValue("scsenvid");
+							String sDbAddress	= controlPoint.getValue("dbaddress");
+							String sValue		= controlPoint.getValue("value");
+							
+							logger.log(Level.SEVERE, "onButton sPoint["+sPoint+"]");
+							logger.log(Level.SEVERE, "onButton sScsEnvId["+sScsEnvId+"]");
+							logger.log(Level.SEVERE, "onButton sDbAddress["+sDbAddress+"]");
+							logger.log(Level.SEVERE, "onButton sValue["+sValue+"]");
+							
+							if ( 0 == sPoint.compareTo("dio") ) {
+								
+								logger.log(Level.SEVERE, "onButton controlPoint.dbaddress["+sDbAddress+"] Integer ["+Integer.parseInt(sValue)+"]");
+								
+								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Integer.valueOf(sValue), 1, 1, 1);
+								
+							} else if ( 0 == sPoint.compareTo("aio") ) {
+								
+								logger.log(Level.SEVERE, "onButton controlPoint.dbaddress["+sDbAddress+"] Float ["+Float.parseFloat(sValue)+"]");
+								
+								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Float.parseFloat(sValue), 1, 1, 1);
+								
+							} else if ( 0 == sPoint.compareTo("sio") ) {
+								
+								logger.log(Level.SEVERE, "onButton controlPoint.dbaddress["+sDbAddress+"] String ["+sValue+"]");
+								
+								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, sValue, 1, 1, 1);
+								
+							} else {
+								
+								logger.log(Level.SEVERE, "onButton INVALID controlPoint.point");
+								
+							}
+						} else {
+							
+							logger.log(Level.SEVERE, "onButton controlPoint IS NULL");
+							
+						}
+
+					} else {
+						
+						logger.log(Level.SEVERE, "onButton controlPoint NOT CONTAIN the Key");
+						
+					}
+				} else {
+					
+					logger.log(Level.SEVERE, "onButton controlPoint widget IS NULL");
+					
+				}
+			}
+		}
+	}
+
 	private MessageBoxEvent messageBoxEvent = null;
 	@Override
 	public void setMessageBoxEvent(MessageBoxEvent messageBoxEvent) {
 		this.messageBoxEvent = messageBoxEvent;
 	}
-
+	
 	@Override
 	public void terminate() {
 		logger.log(Level.SEVERE, "terminate Begin");

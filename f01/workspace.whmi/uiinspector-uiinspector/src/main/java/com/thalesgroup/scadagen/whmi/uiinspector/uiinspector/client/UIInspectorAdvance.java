@@ -23,6 +23,8 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorAdvance.class.getName());
+	
+	String tagname								= "advance";
 
 	// Static Attribute
 	private final String strLabel				= ".label";
@@ -214,143 +216,17 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
 
 				}
-
-				flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspector-advance-status-col0");
-				flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspector-advance-status-col1");
-				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspector-advance-status-col2");
-				flexTableAttibutes.getColumnFormatter().addStyleName(3, "project-gwt-flextable-inspector-advance-status-col3");
-				flexTableAttibutes.getColumnFormatter().addStyleName(4, "project-gwt-flextable-inspector-advance-status-col4");
-				flexTableAttibutes.getColumnFormatter().addStyleName(5, "project-gwt-flextable-inspector-advance-status-col5");
-				flexTableAttibutes.getColumnFormatter().addStyleName(6, "project-gwt-flextable-inspector-advance-status-col6");
-				flexTableAttibutes.getColumnFormatter().addStyleName(7, "project-gwt-flextable-inspector-advance-status-col7");
+				
+				for ( int i = 0 ; i < 8 ; ++i ) {
+					flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-advance-status-col"+i);
+				}
 
 			} else {
 				logger.log(Level.FINE, "buildWidgets this.pointStatics IS NULL");
 			}
 			
 			vpCtrls.add(flexTableAttibutes);
-			
-//			if ( null != this.addresses ) {
-//				
-//				widgetBoxes			= new VerticalPanel[addresses.length];
-//				
-//				lblEquipmentPoint	= new InlineLabel[addresses.length];
-//				
-//				lstValues			= new ListBox[addresses.length];
-//				txtValues			= new TextBox[addresses.length];
-//				
-//				chkDPMs				= new CheckBox[addresses.length][3];
-//				
-//				btnApplys			= new UIButtonToggle[addresses.length];
-//				btnCancels			= new UIButtonToggle[addresses.length];
-//				
-//				for ( int x = 0 ; x < numOfWidgets ; ++x ) {
-//					
-//					widgetBoxes[x] = new VerticalPanel();
-//					widgetBoxes[x].addStyleName("project-gwt-panel-inspectoradvance-widgetBoxes");
-//					
-//					lblEquipmentPoint[x] = new InlineLabel();
-//					lblEquipmentPoint[x].setText("DataPoint: "+(x+1));
-//					lblEquipmentPoint[x].addStyleName("project-gwt-inlinelabel-inspectoradvance-points-label");
-//					
-//					lstValues[x] = new ListBox();
-//					lstValues[x].setVisibleItemCount(1);
-//					lstValues[x].addStyleName("project-gwt-listbox-inspectoradvance-points-value");
-//					
-//					txtValues[x] = new TextBox();
-//					txtValues[x].setVisible(false);
-//					txtValues[x].addStyleName("project-gwt-textbox-inspectoradvance-points-value");
-//					
-//					
-//					chkDPMs[x] = new CheckBox[3];
-//					chkDPMs[x][0] = new CheckBox();
-//					chkDPMs[x][0].addStyleName("project-gwt-checkbox-inspectoradvance-points-ai");
-//					chkDPMs[x][1] = new CheckBox();
-//					chkDPMs[x][1].addStyleName("project-gwt-checkbox-inspectoradvance-points-ss");
-//					chkDPMs[x][2] = new CheckBox();
-//					chkDPMs[x][2].addStyleName("project-gwt-checkbox-inspectoradvance-points-mo");
-//					
-//					btnApplys[x] = new UIButtonToggle(strApply);
-//					btnApplys[x].addStyleName("project-gwt-button-inspectoradvance-point-apply");
-//					
-//					btnApplys[x].addClickHandler(new ClickHandler() {
-//						
-//						@Override
-//						public void onClick(ClickEvent event) {
-//
-//							logger.log(Level.SEVERE, "buildWidgets onClick Begin");
-//							
-//							sendControl(event);
-//							
-//							logger.log(Level.SEVERE, "buildWidgets onClick End");
-//						}
-//					});
-//					
-//					btnCancels[x] = new UIButtonToggle(strCancel);
-//					btnCancels[x].addStyleName("project-gwt-button-inspectoradvance-point-cancel");
-//					
-//					btnCancels[x].addClickHandler(new ClickHandler() {
-//						
-//						@Override
-//						public void onClick(ClickEvent event) {
-//
-//							logger.log(Level.SEVERE, "buildWidgets onClick Begin");
-//							
-//							sendControl(event);
-//							
-//							logger.log(Level.SEVERE, "buildWidgets onClick End");
-//						}
-//					});
-//					
-//						HorizontalPanel hp1 = new HorizontalPanel();
-//						hp1.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//						hp1.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//						hp1.addStyleName("project-gwt-panel-inspectoradvance-hp1");
-//						
-//						hp1.add(lblEquipmentPoint[x]);
-//						
-//						HorizontalPanel hp2 = new HorizontalPanel();
-//						hp2.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//						hp2.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//						hp2.addStyleName("project-gwt-panel-inspectoradvance-hp2");
-//						
-//						hp2.add(chkDPMs[x][0]);
-//						hp2.add(chkDPMs[x][1]);
-//						hp2.add(chkDPMs[x][2]);
-//						
-//						HorizontalPanel hp3 = new HorizontalPanel();
-//						hp3.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//						hp3.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//						hp3.addStyleName("project-gwt-panel-inspectoradvance-hp3");
-//						
-//						hp3.add(lstValues[x]);
-//						hp3.add(txtValues[x]);
-//						
-//						HorizontalPanel hp4 = new HorizontalPanel();
-//						hp4.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//						hp4.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//						hp4.addStyleName("project-gwt-panel-inspectoradvance-hp4");
-//						
-//						hp4.add(btnApplys[x]);
-//						hp4.add(btnCancels[x]);
-//
-//					HorizontalPanel hp = new HorizontalPanel();
-//					hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//					hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//					hp.addStyleName("project-gwt-panel-inspectoradvance-hp");
-//					
-//					hp.add(hp1);
-//					hp.add(hp2);
-//					hp.add(hp3);
-//					hp.add(hp4);
-//					
-//					widgetBoxes[x].add(hp);
-//					
-//					vpCtrls.add(widgetBoxes[x]);
-//				}
-//			} else {
-//				logger.log(Level.SEVERE, "updateDisplay this.pointStatics IS NULL");
-//			}
+
 		} else {
 			logger.log(Level.SEVERE, "updateDisplay points IS NULL");
 		}
@@ -517,8 +393,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 				// Update the value Once time
 				{
 					if ( !valueRefreshed ) {
-						
-						valueRefreshed = true;
 					
 						String value = null;
 						{
@@ -584,6 +458,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 						}
 					}
 				}
+			}
+			
+			if ( !valueRefreshed ) {
+				
+				valueRefreshed = true;
+				
 			}
 		}
 

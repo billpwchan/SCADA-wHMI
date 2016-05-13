@@ -50,17 +50,17 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 			while ( tagIterator.hasNext() ) {
 				String tag = tagIterator.next();
 				
-				System.out.println(" **** dictionaryServer path["+path+"] tag["+tag+"]");
+				System.out.println(" **** dictionariesServer path["+path+"] tag["+tag+"]");
 
 //				String path = base + File.separator + module + File.separator + xmlFile;
 				
 				int index = path.lastIndexOf(File.pathSeparator);
 				String xmlFile = path.substring(index+1);
 				
-				System.out.println(" **** dictionaryServer base["+base+"]");
-				System.out.println(" **** dictionaryServer module["+module+"]");
-				System.out.println(" **** dictionaryServer xmlFile["+xmlFile+"]");
-				System.out.println(" **** dictionaryServer path["+path+"]");
+				System.out.println(" **** dictionariesServer base["+base+"]");
+				System.out.println(" **** dictionariesServer module["+module+"]");
+				System.out.println(" **** dictionariesServer xmlFile["+xmlFile+"]");
+				System.out.println(" **** dictionariesServer path["+path+"]");
 				
 				Dictionary dictionary = new Dictionary();
 				

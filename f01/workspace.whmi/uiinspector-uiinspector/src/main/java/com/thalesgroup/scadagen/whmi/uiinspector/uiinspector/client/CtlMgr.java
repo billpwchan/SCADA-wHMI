@@ -114,11 +114,10 @@ public class CtlMgr {
 		logger.log(Level.SEVERE, "disconnect End");
 	}
 	
-	public void sendControl (String type, String envName, String [] address, String commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
+	public void sendControl ( String envName, String [] address, float commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
 		
 		logger.log(Level.SEVERE, "sendControl Begin");
 		
-		logger.log(Level.SEVERE, "sendControl type["+type+"]");
 		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
 		for ( int i = 0 ; i < address.length ; ++i ) {
 			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
@@ -133,59 +132,101 @@ public class CtlMgr {
 		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
 		
 		if ( null != subject ) {
-    		subject.setState("send message to type["+type+"] envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
+    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
     	}
 		
-		if ( 0 == type.compareTo("aio") ) {
-			String [] analogValueAddress = address;
-			float floatCommandValue = Float.valueOf(commandValue);
-			
-			logger.log(Level.SEVERE, "sendControl type["+type+"] floatCommandValue["+floatCommandValue+"]");
-			logger.log(Level.SEVERE, "sendControl type["+type+"] analogValueAddress(0)["+analogValueAddress[0]+"]");
-			
-			if ( null != ctlAccess ) {
-				ctlAccess.sendFloatCommand("sendFloatCommand", envName, analogValueAddress, floatCommandValue, bypassInitCond, bypassRetCond, sendAnyway);
-				if ( null != subject ) {
-	        		subject.setState("sendFloatCommand sent");
-		    	}				
-			} else {
-				logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
-			}
+		String [] analogValueAddress = address;
+		
+		if ( null != ctlAccess ) {
+			ctlAccess.sendFloatCommand("sendFloatCommand", envName, analogValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
+			if ( null != subject ) {
+        		subject.setState("sendFloatCommand sent");
+	    	}				
+		} else {
+			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
+		}
 
-		} else if ( 0 == type.compareTo("sio") ) {
-			String [] structuredValueAddress = address;
+		
+		logger.log(Level.SEVERE, "sendControl End");
+		
+	}
+	
+	public void sendControl (String envName, String [] address, int commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
+		
+		logger.log(Level.SEVERE, "sendControl Begin");
+		
+		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
+		for ( int i = 0 ; i < address.length ; ++i ) {
+			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
 			
-			logger.log(Level.SEVERE, "sendControl type["+type+"] structuredValueAddress(0)["+structuredValueAddress[0]+"]");
+			address[i] = "<alias>" + address[i].replace(":", "");
 			
-			if ( null != ctlAccess ) {
-				if ( null != subject ) {
-	        		subject.setState("sendStringCommand sent");
-		    	}				
-			} else {
-				logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
-			}
-			ctlAccess.sendStringCommand("sendStringCommand", envName, structuredValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
-
-		} else if ( 0 == type.compareTo("dio") ) {
-			String [] digitalValueAddress = address;
-			int intCommandValue = Integer.valueOf(commandValue);
-			
-			logger.log(Level.SEVERE, "sendControl type["+type+"] intCommandValue["+intCommandValue+"]");
-			logger.log(Level.SEVERE, "sendControl type["+type+"] digitalValueAddress(0)["+digitalValueAddress[0]+"]");
-			
-			if ( null != ctlAccess ) {
-				ctlAccess.sendIntCommand("sendIntCommand", envName, digitalValueAddress, intCommandValue, bypassInitCond, bypassRetCond, sendAnyway);
-				if ( null != subject ) {
-	        		subject.setState("sendIntCommand sent");
-		    	}				
-			} else {
-				logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
-			}
+			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] AF");
+		}
+		logger.log(Level.SEVERE, "sendControl commandValue["+commandValue+"]");
+		logger.log(Level.SEVERE, "sendControl bypassInitCond["+bypassInitCond+"]");
+		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
+		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
+		
+		if ( null != subject ) {
+    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
+    	}
+		
+		String [] digitalValueAddress = address;
+		
+		if ( null != ctlAccess ) {
+			ctlAccess.sendIntCommand("sendIntCommand", envName, digitalValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
+			if ( null != subject ) {
+        		subject.setState("sendIntCommand sent");
+	    	}				
+		} else {
+			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
 		}
 		
 		logger.log(Level.SEVERE, "sendControl End");
 		
 	}
+	
+	public void sendControl (String envName, String [] address, String commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
+		
+		logger.log(Level.SEVERE, "sendControl Begin");
+		
+		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
+		for ( int i = 0 ; i < address.length ; ++i ) {
+			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
+			
+			address[i] = "<alias>" + address[i].replace(":", "");
+			
+			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] AF");
+		}
+		logger.log(Level.SEVERE, "sendControl commandValue["+commandValue+"]");
+		logger.log(Level.SEVERE, "sendControl bypassInitCond["+bypassInitCond+"]");
+		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
+		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
+		
+		if ( null != subject ) {
+    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
+    	}
+
+		String [] structuredValueAddress = address;
+		
+		logger.log(Level.SEVERE, "sendControl structuredValueAddress(0)["+structuredValueAddress[0]+"]");
+		
+		if ( null != ctlAccess ) {
+			if ( null != subject ) {
+        		subject.setState("sendStringCommand sent");
+	    	}				
+		} else {
+			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
+		}
+		ctlAccess.sendStringCommand("sendStringCommand", envName, structuredValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
+
+		
+		logger.log(Level.SEVERE, "sendControl End");
+		
+	}
+	
+
 	
 
 }

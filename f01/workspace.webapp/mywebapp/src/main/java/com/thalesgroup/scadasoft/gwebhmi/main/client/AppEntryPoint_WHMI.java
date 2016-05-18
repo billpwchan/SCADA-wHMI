@@ -28,6 +28,7 @@ public class AppEntryPoint_WHMI extends MwtEntryPointApp {
     protected void onContextReadyEventAfter(final AppContextReadyEvent event) {
 
         String module = null;
+        String folder = "UIConfig";
         String xml = "UILauncher.xml";
         String tag = "header";
         String key = "entrypoint";
@@ -47,7 +48,7 @@ public class AppEntryPoint_WHMI extends MwtEntryPointApp {
 //			}
 //		});
         
-        web.getWebConfig( module, xml, tag, key, new WebConfigMgrEvent() {
+        web.getWebConfig( module, folder, xml, tag, key, new WebConfigMgrEvent() {
 			
 			@Override
 			public void updated(String value) {

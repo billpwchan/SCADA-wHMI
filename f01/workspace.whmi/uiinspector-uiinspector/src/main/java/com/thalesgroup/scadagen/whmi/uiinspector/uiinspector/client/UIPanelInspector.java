@@ -2,6 +2,8 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +14,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -30,6 +33,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -55,10 +59,10 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	private String scsEnvId		= null;
 	private String parent		= null;
 //	private String[] addresses	= null;
-	private int periodMillis	= 1000;
+	private int periodMillis	= 500;
 	
-	public void setPeriodMillis(String periodMillis) {
-		this.periodMillis = Integer.parseInt(periodMillis);
+	public void setPeriodMillis(int periodMillis) {
+		this.periodMillis = periodMillis;
 	}
 
 	@Override
@@ -67,7 +71,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	}
 	
 	@Override
-	public void setAddresses(String scsEnvId, String[] addresses) {
+	public void setAddresses(String scsEnvId, String[] addresses, String period) {
 		logger.log(Level.FINE, "setAddresses Begin");
 		
 		this.scsEnvId = scsEnvId;
@@ -77,6 +81,8 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 //		this.addresses = addresses;
 		
 //		RTDB_Helper.addressesIsValid(this.addresses);
+		
+		this.periodMillis = Integer.parseInt(period);
 		
 		logger.log(Level.FINE, "setAddresses End");
 	}
@@ -103,6 +109,12 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			connectInspectorInfo();
 			connectInspectorControl();
 			connectInspectorTag();
+			
+			if ( infos.size() <= 0 )		tabPanel.remove(panelInfo);
+			if ( controls.size() <= 0 )		tabPanel.remove(panelCtrl);
+			if ( tags.size() <= 0 )			tabPanel.remove(panelTag);
+			if ( advances.size() <= 0 )		tabPanel.remove(panelAdv);
+
 		}
 		
 		String clientKey_multiReadValue_inspector_static = "multiReadValue" + "inspector" + "static" + parent;
@@ -213,22 +225,22 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			@Override
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
 				
-				logger.log(Level.SEVERE, "setReadResult Begin");
+				logger.log(Level.FINE, "setReadResult Begin");
 				
-		    	logger.log(Level.SEVERE, "setReadResult Begin");
-		    	logger.log(Level.SEVERE, "setReadResult key["+key+"]");
-		    	logger.log(Level.SEVERE, "setReadResult errorCode["+errorCode+"]");
-		    	logger.log(Level.SEVERE, "setReadResult errorMessage["+errorMessage+"]");
+		    	logger.log(Level.FINE, "setReadResult Begin");
+		    	logger.log(Level.FINE, "setReadResult key["+key+"]");
+		    	logger.log(Level.FINE, "setReadResult errorCode["+errorCode+"]");
+		    	logger.log(Level.FINE, "setReadResult errorMessage["+errorMessage+"]");
 		    	
 				for(int i = 0; i < value.length; ++i) {
-					logger.log(Level.SEVERE, "setReadResult value["+i+"]["+value[i]+"]");
+					logger.log(Level.FINE, "setReadResult value["+i+"]["+value[i]+"]");
 				}
 		    	
 		    	KeyAndValues.put(key, value);
 		    	
 		    	updateValue(key, value);
 
-				logger.log(Level.SEVERE, "setReadResult End");
+				logger.log(Level.FINE, "setReadResult End");
 				
 			}
 
@@ -293,22 +305,22 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			@Override
 			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
 				
-				logger.log(Level.SEVERE, "setGetChildrenResult Begin");
+				logger.log(Level.FINE, "setGetChildrenResult Begin");
 				
-		    	logger.log(Level.SEVERE, "setGetChildrenResult Begin");
-		    	logger.log(Level.SEVERE, "setGetChildrenResult clientKey["+clientKey+"]");
-		    	logger.log(Level.SEVERE, "setGetChildrenResult errorCode["+errorCode+"]");
-		    	logger.log(Level.SEVERE, "setGetChildrenResult errorMessage["+errorMessage+"]");
+		    	logger.log(Level.FINE, "setGetChildrenResult Begin");
+		    	logger.log(Level.FINE, "setGetChildrenResult clientKey["+clientKey+"]");
+		    	logger.log(Level.FINE, "setGetChildrenResult errorCode["+errorCode+"]");
+		    	logger.log(Level.FINE, "setGetChildrenResult errorMessage["+errorMessage+"]");
 		    	
 				for(int i = 0; i < instances.length; ++i) {
-					logger.log(Level.SEVERE, "setGetChildrenResult instances["+i+"]["+instances[i]+"]");
+					logger.log(Level.FINE, "setGetChildrenResult instances["+i+"]["+instances[i]+"]");
 				}		    	
 		    	
 				KeyAndValues.put(clientKey, instances);
 				
 				updateValue(clientKey, instances);
 				
-				logger.log(Level.SEVERE, "setGetChildrenResult End");
+				logger.log(Level.FINE, "setGetChildrenResult End");
 				
 			}
 
@@ -408,7 +420,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	
 	private void connectInspectorMain() {
 		{
-			logger.log(Level.SEVERE, "GetChildren Begin");
+			logger.log(Level.FINE, "GetChildren Begin");
 
 			String clientKey = "GetChildren" + "inspector" + "static" + parent;
 
@@ -416,11 +428,11 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			
 			KeyAndAddress.put(clientKey, new String[]{parent});
 			
-			logger.log(Level.SEVERE, "GetChildren End");
+			logger.log(Level.FINE, "GetChildren End");
 		}
 
 		{
-			logger.log(Level.SEVERE, "multiReadValue Begin");
+			logger.log(Level.FINE, "multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "inspector" + "static" + parent;
 			
@@ -433,22 +445,22 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					dbaddresses[r++]=parents[x]+staticAttibutes[y];
 				}
 			}
-			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 
 			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddresses));
 
 			KeyAndAddress.put(clientKey, dbaddresses);
 			
-			logger.log(Level.SEVERE, "multiReadValue End");
+			logger.log(Level.FINE, "multiReadValue End");
 		}
 		
 		{
 			
-			logger.log(Level.SEVERE, "multiReadValue Begin");
+			logger.log(Level.FINE, "multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "inspector" + "dynamic" + parent;
 
@@ -463,14 +475,14 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			}
 
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 			
 			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddresses));
 
 			KeyAndAddress.put(clientKey, dbaddresses);
 			
-			logger.log(Level.SEVERE, "multiReadValue End");
+			logger.log(Level.FINE, "multiReadValue End");
 		}
 	
 	}
@@ -502,12 +514,12 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		}
 		
 		for(int i=0;i<parents.length;i++) {
-			logger.log(Level.SEVERE, "connectInspectorInfo parents("+i+")["+parents[i]+"]");
+			logger.log(Level.FINE, "connectInspectorInfo parents("+i+")["+parents[i]+"]");
 		}
 		
 		// Read static
 		{
-			logger.log(Level.SEVERE, "multiReadValue Begin");
+			logger.log(Level.FINE, "multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "inspectorinfo" + "static" + parent;
 
@@ -519,22 +531,22 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 				}
 			}
 			
-			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 
 			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddresses));
 
 			KeyAndAddress.put(clientKey, dbaddresses);
 			
-			logger.log(Level.SEVERE, "multiReadValue End");
+			logger.log(Level.FINE, "multiReadValue End");
 		}
 		
 		// Read dynamic
 		{
-			logger.log(Level.SEVERE, "multiReadValue Begin");
+			logger.log(Level.FINE, "multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "inspectorinfo" + "dynamic" + parent;
 
@@ -546,17 +558,17 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 				}
 			}
 			
-			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 			
 			requestDynamics.put(clientKey, dbaddresses);
 
 			KeyAndAddress.put(clientKey, dbaddresses);
 		
-			logger.log(Level.SEVERE, "multiReadValue End");
+			logger.log(Level.FINE, "multiReadValue End");
 		}
 		logger.log(Level.FINE, "connectInspectorInfo End");
 	}
@@ -572,7 +584,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	private LinkedList<String> sios = new LinkedList<String>();	
 	private void connectInspectorControl() {
 		
-		logger.log(Level.SEVERE, "connectInspectorControl Begin");
+		logger.log(Level.FINE, "connectInspectorControl Begin");
 		
 		((UIInspectorControl)uiInspectorControl).buildWidgetList();
 		
@@ -608,18 +620,18 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					}
 				}
 			} else {
-				logger.log(Level.FINE, "connectInspectorControl dbaddress IS NULL");
+				logger.log(Level.SEVERE, "connectInspectorControl dbaddress IS NULL");
 			}
 		}
 		
 		for(int i = 0; i < controldios.size(); ++i ) {
-			logger.log(Level.SEVERE, "multiReadValue dios.get("+i+")["+controldios.get(i)+"]");
+			logger.log(Level.FINE, "multiReadValue dios.get("+i+")["+controldios.get(i)+"]");
 		}
 		for(int i = 0; i < aios.size(); ++i ) {
-			logger.log(Level.SEVERE, "multiReadValue aios.get("+i+")["+aios.get(i)+"]");
+			logger.log(Level.FINE, "multiReadValue aios.get("+i+")["+aios.get(i)+"]");
 		}
 		for(int i = 0; i < sios.size(); ++i ) {
-			logger.log(Level.SEVERE, "multiReadValue sios.get("+i+")["+sios.get(i)+"]");
+			logger.log(Level.FINE, "multiReadValue sios.get("+i+")["+sios.get(i)+"]");
 		}
 		
 		{
@@ -648,7 +660,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			String [] dbaddress = iolist.toArray(new String[0]);
 			
 			for(int i = 0; i < dbaddress.length; ++i ) {
-				logger.log(Level.SEVERE, "multiReadValue dbaddress("+i+")["+dbaddress[i]+"]");
+				logger.log(Level.FINE, "multiReadValue dbaddress("+i+")["+dbaddress[i]+"]");
 			}
 			
 			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddress));
@@ -660,9 +672,9 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			for ( int i = 0 ; i < controldios.size() ; ++i ) {
 				String dbaddress = controldios.get(i);
 				{
-					logger.log(Level.SEVERE, "GetChildren Begin");
+					logger.log(Level.FINE, "GetChildren Begin");
 					
-					logger.log(Level.SEVERE, "GetChildren dbaddress["+dbaddress+"]");
+					logger.log(Level.FINE, "GetChildren dbaddress["+dbaddress+"]");
 	
 					String clientKey = "GetChildren" + "inspectorcontrol" + "static" + dbaddress;
 	
@@ -670,18 +682,18 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					
 					KeyAndAddress.put(clientKey, new String[]{dbaddress});
 					
-					logger.log(Level.SEVERE, "GetChildren End");
+					logger.log(Level.FINE, "GetChildren End");
 				}			
 			}
 		}
 		
-		logger.log(Level.SEVERE, "connectInspectorControl End");
+		logger.log(Level.FINE, "connectInspectorControl End");
 
 	}
 	
 	private void connectInspectorTag() {
 		
-		logger.log(Level.SEVERE, "connectInspectorTag Begin");
+		logger.log(Level.FINE, "connectInspectorTag Begin");
 		
 		((UIInspectorTag)uiInspectorTag).buildWidgetList();
 		
@@ -714,7 +726,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		}
 		
 		for(int i = 0; i < controldios.size(); ++i ) {
-			logger.log(Level.SEVERE, "multiReadValue dios.get("+i+")["+controldios.get(i)+"]");
+			logger.log(Level.FINE, "multiReadValue dios.get("+i+")["+controldios.get(i)+"]");
 		}
 		
 		{
@@ -731,7 +743,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			String [] dbaddress = iolist.toArray(new String[0]);
 			
 			for(int i = 0; i < dbaddress.length; ++i ) {
-				logger.log(Level.SEVERE, "multiReadValue dbaddress("+i+")["+dbaddress[i]+"]");
+				logger.log(Level.FINE, "multiReadValue dbaddress("+i+")["+dbaddress[i]+"]");
 			}
 			
 			requestStatics.add(new JSONRequest("multiReadValue", clientKey, scsEnvId, dbaddress));
@@ -743,9 +755,9 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			for ( int i = 0 ; i < controldios.size() ; ++i ) {
 				String dbaddress = controldios.get(i);
 				{
-					logger.log(Level.SEVERE, "GetChildren Begin");
+					logger.log(Level.FINE, "GetChildren Begin");
 					
-					logger.log(Level.SEVERE, "GetChildren dbaddress["+dbaddress+"]");
+					logger.log(Level.FINE, "GetChildren dbaddress["+dbaddress+"]");
 	
 					String clientKey = "GetChildren" + "inspectortag" + "static" + dbaddress;
 	
@@ -753,12 +765,12 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					
 					KeyAndAddress.put(clientKey, new String[]{dbaddress});
 					
-					logger.log(Level.SEVERE, "GetChildren End");
+					logger.log(Level.FINE, "GetChildren End");
 				}			
 			}
 		}
 		
-		logger.log(Level.SEVERE, "connectInspectorControl End");
+		logger.log(Level.FINE, "connectInspectorControl End");
 
 	}
 	
@@ -774,7 +786,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					
 						if ( requestStatics.size() > 0 ) {
 							
-							logger.log(Level.SEVERE, "sendJSONRequest Begin");
+							logger.log(Level.FINE, "sendJSONRequest Begin");
 							
 							JSONRequest jsonRequest = requestStatics.removeFirst();
 							
@@ -785,7 +797,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 								String scsEnvId = jsonRequest.scsEnvId;
 								String dbaddress = jsonRequest.dbaddress;
 								
-								logger.log(Level.SEVERE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+								logger.log(Level.FINE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 						    	
 								JSONObject jsparam = new JSONObject();
 								
@@ -803,7 +815,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 								String scsEnvId = jsonRequest.scsEnvId;
 								String[] dbaddresses = jsonRequest.dbaddresses;
 								
-								logger.log(Level.SEVERE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+								logger.log(Level.FINE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 								
 								JSONObject jsparam = new JSONObject();
 								
@@ -820,7 +832,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
 							}
 
-							logger.log(Level.SEVERE, "sendJSONRequest End");
+							logger.log(Level.FINE, "sendJSONRequest End");
 
 							
 						} else if ( requestDynamics.size() > 0 ) {
@@ -839,7 +851,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 									
 							String api = "multiReadValue";
 		
-							logger.log(Level.SEVERE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+							logger.log(Level.FINE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 									
 							JSONObject jsparam = new JSONObject();
 									
@@ -969,10 +981,10 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		uiInspectorTag		.setParent(parent);
 		uiInspectorAdvance	.setParent(parent);
 		
-		uiInspectorInfo.setAddresses	(scsEnvId, infos		.toArray(new String[0]));
-		uiInspectorControl.setAddresses	(scsEnvId, controls		.toArray(new String[0]));
-		uiInspectorTag.setAddresses		(scsEnvId, tags			.toArray(new String[0]));
-		uiInspectorAdvance.setAddresses	(scsEnvId, advances		.toArray(new String[0]));
+		uiInspectorInfo.setAddresses	(scsEnvId, infos		.toArray(new String[0]), "0");
+		uiInspectorControl.setAddresses	(scsEnvId, controls		.toArray(new String[0]), "0");
+		uiInspectorTag.setAddresses		(scsEnvId, tags			.toArray(new String[0]), "0");
+		uiInspectorAdvance.setAddresses	(scsEnvId, advances		.toArray(new String[0]), "0");
 		
 		logger.log(Level.FINE, "makeTabsSetAddress End");
 	}
@@ -985,7 +997,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.buildWidgets();
 			} else {
-				logger.log(Level.FINE, "makeTabsBuildWidgets uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, "makeTabsBuildWidgets uiPanelInspector_i IS NULL");
 			}
 		}
 
@@ -1000,7 +1012,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.connect();
 			} else {
-				logger.log(Level.FINE, "makeTabsConnect uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, "makeTabsConnect uiPanelInspector_i IS NULL");
 			}
 		}
 
@@ -1015,7 +1027,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.disconnect();
 			} else {
-				logger.log(Level.FINE, "tagsDisconnect uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, "tagsDisconnect uiPanelInspector_i IS NULL");
 			}
 		}
 
@@ -1026,6 +1038,13 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	private UIInspectorTab_i uiInspectorControl	= null;
 	private UIInspectorTab_i uiInspectorTag		= null;
 	private UIInspectorTab_i uiInspectorAdvance	= null;
+	
+	private TabPanel tabPanel 			= null;
+	
+	private ComplexPanel panelInfo		= null;
+	private ComplexPanel panelCtrl		= null;
+	private ComplexPanel panelTag		= null;
+	private ComplexPanel panelAdv		= null;
 	
 	private LinkedList<UIInspectorTab_i> uiInspectorTabs = null;
 	
@@ -1143,12 +1162,12 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			}
 		});
 		
-		ComplexPanel panelInfo		= uiInspectorInfo		.getMainPanel(this.uiNameCard);
-		ComplexPanel panelCtrl		= uiInspectorControl	.getMainPanel(this.uiNameCard);
-		ComplexPanel panelTag		= uiInspectorTag		.getMainPanel(this.uiNameCard);
-		ComplexPanel panelAdv		= uiInspectorAdvance	.getMainPanel(this.uiNameCard);
+		panelInfo		= uiInspectorInfo		.getMainPanel(this.uiNameCard);
+		panelCtrl		= uiInspectorControl	.getMainPanel(this.uiNameCard);
+		panelTag		= uiInspectorTag		.getMainPanel(this.uiNameCard);
+		panelAdv		= uiInspectorAdvance	.getMainPanel(this.uiNameCard);
 		
-		TabPanel tabPanel = new TabPanel();
+		tabPanel = new TabPanel();
 		tabPanel.getElement().getStyle().setWidth(400, Unit.PX);
 		tabPanel.getElement().getStyle().setFontSize(16, Unit.PX);
 		
@@ -1187,7 +1206,6 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		bottomBar.add(btnClose);
 		
 		basePanel = new VerticalPanel();
-//		if ( null != upperBar ) basePanel.add(upperBar);
 		basePanel.add(flexTableHeader);
 		basePanel.add(tabPanel);
 		basePanel.add(bottomBar);
@@ -1254,6 +1272,12 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		}
 		rtdb=null;
 		logger.log(Level.FINE, "terminate End");
+	}
+
+	@Override
+	public void position(int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

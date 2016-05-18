@@ -36,7 +36,7 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 	 */
 	private final DictionaryServiceAsync dictionaryService = GWT.create(DictionaryService.class);
 	
-	public void getDictionary(String module, String xml, String tag, DictionaryMgrEvent dictionaryMgrEvent) {
+	public void getDictionary(String module, String folder, String xml, String tag, DictionaryMgrEvent dictionaryMgrEvent) {
 		
 		logger.log(Level.FINE, "getDictionary Begin");
 		
@@ -47,7 +47,7 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 		
 		this.dictionaryMgrEvents.add(dictionaryMgrEvent);
 		
-		dictionaryService.dictionaryServer(module, xml, tag, this);
+		dictionaryService.dictionaryServer(module, folder, xml, tag, this);
 		
 		logger.log(Level.FINE, "getDictionary End");
 	}

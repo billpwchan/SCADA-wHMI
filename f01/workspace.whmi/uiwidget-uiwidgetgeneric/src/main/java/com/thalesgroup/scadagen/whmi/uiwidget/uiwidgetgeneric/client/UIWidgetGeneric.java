@@ -98,7 +98,7 @@ public class UIWidgetGeneric implements UIWidget_i {
     	
     	logger.log(Level.SEVERE, "init this.xmlFile["+this.xmlFile+"]");
     	
-		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance();
+		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
 		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
 		ready(this.dictionaryHeader);

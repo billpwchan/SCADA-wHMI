@@ -14,10 +14,18 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(DictionariesCache.class.getName());
 	
-	private static DictionariesCache instance = null;
+//	private static DictionariesCache instance = null;
+//	private DictionariesCache () {}
+//	public static DictionariesCache getInstance() {
+//		if ( null == instance ) { instance = new DictionariesCache(); }
+//		return instance;
+//	}
+	
+	private static HashMap<String, DictionariesCache> instances = new HashMap<String, DictionariesCache>();
 	private DictionariesCache () {}
-	public static DictionariesCache getInstance() {
-		if ( null == instance ) { instance = new DictionariesCache(); }
+	public static DictionariesCache getInstance(String key) {
+		if ( ! instances.containsKey(key) ) {	instances.put(key, new DictionariesCache()); }
+		DictionariesCache instance = instances.get(key);
 		return instance;
 	}
 		

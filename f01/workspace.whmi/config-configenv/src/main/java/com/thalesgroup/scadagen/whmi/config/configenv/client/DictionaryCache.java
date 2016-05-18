@@ -14,10 +14,18 @@ public class DictionaryCache implements DictionaryMgrEvent {
 	
 	private static Logger logger = Logger.getLogger(DictionaryCache.class.getName());
 	
-	private static DictionaryCache instance = null;
+//	private static DictionaryCache instance = null;
+//	private DictionaryCache () {}
+//	public static DictionaryCache getInstance() {
+//		if ( null == instance ) { instance = new DictionaryCache(); }
+//		return instance;
+//	}
+	
+	private static HashMap<String, DictionaryCache> instances = new HashMap<String, DictionaryCache>();
 	private DictionaryCache () {}
-	public static DictionaryCache getInstance() {
-		if ( null == instance ) { instance = new DictionaryCache(); }
+	public static DictionaryCache getInstance(String key) {
+		if ( ! instances.containsKey(key) ) {	instances.put(key, new DictionaryCache()); }
+		DictionaryCache instance = instances.get(key);
 		return instance;
 	}
 		
@@ -46,7 +54,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		logger.log(Level.FINE, "add End");
 	}
 	
-	public void init(String module, DictionaryCacheEvent dictionaryCacheEvent) {
+	public void init(String module, String folder, DictionaryCacheEvent dictionaryCacheEvent) {
 		
 		logger.log(Level.FINE, "init");
 		
@@ -70,7 +78,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			
 			dictionaryMgrs.add(dictionaryMgr);
 			
-			dictionaryMgr.getDictionary(module, xmlTags[0], xmlTags[1], this);
+			dictionaryMgr.getDictionary(module, folder, xmlTags[0], xmlTags[1], this);
 			
 		    iterator.remove();
 		}

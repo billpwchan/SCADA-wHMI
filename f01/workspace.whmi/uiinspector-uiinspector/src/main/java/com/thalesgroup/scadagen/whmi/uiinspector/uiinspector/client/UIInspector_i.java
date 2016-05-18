@@ -7,4 +7,5 @@ public interface UIInspector_i {
 	void makeTabsBuildWidgets();
 	void makeTabsConnect();
 	void makeTabsDisconnect();
+	void position(int x, int y);
 }

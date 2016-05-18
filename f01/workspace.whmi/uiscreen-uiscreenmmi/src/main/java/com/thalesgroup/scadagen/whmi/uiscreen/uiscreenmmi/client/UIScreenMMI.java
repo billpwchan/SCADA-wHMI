@@ -1,15 +1,21 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gwt.logging.client.LogConfiguration;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -102,17 +108,42 @@ public class UIScreenMMI implements UIScreen_i {
 
 						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {
 
-							String scsEnvId = "B001";
-							String dbaddress = ":SITE1:B001:F001:ACCESS:DO001";
+							String scsEnvId		= taskLaunch.getOption()[0];
+							String hvid			= taskLaunch.getOption()[1];
+							String period		= taskLaunch.getOption()[2];
+							
+							if ( null == scsEnvId ) scsEnvId = "B001";
+							if ( null == hvid ) hvid = "B01DO001";
+							if ( null == period ) period = "500";
+							
+							if ( 0 == hvid.compareTo("B01DO001") ) {
+								hvid = "LMCECTLCP_0001";
+							}
+							
+							String dbaddress0 = hvid.substring(0, 3);
+							String dbaddress1 = hvid.substring(3, 6);
+							String dbaddress3 = hvid.substring(6);
+							
+							String dbaddress = ":" + dbaddress0 + ":" + dbaddress1 + ":" + dbaddress3;
+							
+							logger.log(Level.SEVERE, "onUIEvent hvid["+hvid+"]");
+							
+							logger.log(Level.SEVERE, "onUIEvent scsEnvId["+scsEnvId+"]");
+							
+							logger.log(Level.SEVERE, "onUIEvent dbaddress["+dbaddress+"]");
 							
 							UIInspectorTab_i uiPanelInspector = new UIPanelInspector();
 							uiPanelInspector.setParent(dbaddress);
-							uiPanelInspector.setAddresses(scsEnvId, new String[]{dbaddress});
+							uiPanelInspector.setAddresses(scsEnvId, new String[]{dbaddress}, period);
 							uiPanelInspector.getMainPanel(this.uiNameCard);
 							((DialogBox)uiPanelInspector).show();
 							uiPanelInspector.connect();
 							
-
+						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIInspectorConnectionBox")) { 
+							
+							UIInspectorConnectionBox uiInspectorConnectionBox = new UIInspectorConnectionBox();
+							uiInspectorConnectionBox.getMainPanel(this.uiNameCard);
+							uiInspectorConnectionBox.show();
 						}
 					}
 				}

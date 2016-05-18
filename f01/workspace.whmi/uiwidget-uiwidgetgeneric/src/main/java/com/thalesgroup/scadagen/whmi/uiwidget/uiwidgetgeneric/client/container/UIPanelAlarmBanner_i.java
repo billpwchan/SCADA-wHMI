@@ -5,6 +5,7 @@ public interface UIPanelAlarmBanner_i {
 		  alarm("alarm")
 		, event("event")
 		, alarmsound("alarmsound")
+		, ackpage("ackpage")
 		;
 		private final String text;
 		private WidgetArrtibute(final String text) { this.text = text; }

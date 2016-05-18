@@ -62,7 +62,7 @@ public class UIGwsWebConfigMgr {
 		
 	}
 	
-	public void getWebConfig(final String module, final String xml, final String tag, final String key, final WebConfigMgrEvent webConfigMgrEvent) {
+	public void getWebConfig(final String module, final String folder, final String xml, final String tag, final String key, final WebConfigMgrEvent webConfigMgrEvent) {
 		
 		logger.log(Level.SEVERE, "getWebConfig Begin");
 		
@@ -76,7 +76,7 @@ public class UIGwsWebConfigMgr {
 		
 		DictionaryMgr dictionaryMgr = new DictionaryMgr();
 		
-		dictionaryMgr.getDictionary(module, xml, tag, new DictionaryMgrEvent() {
+		dictionaryMgr.getDictionary(module, folder, xml, tag, new DictionaryMgrEvent() {
 			
 			@Override
 			public void dictionaryMgrEventReady(Dictionary dictionary) {

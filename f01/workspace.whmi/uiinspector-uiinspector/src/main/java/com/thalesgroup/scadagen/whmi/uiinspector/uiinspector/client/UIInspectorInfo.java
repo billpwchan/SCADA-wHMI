@@ -24,10 +24,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private static Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
 	
-	public final String strCSSStatusGreen		= "project-gwt-inlinelabel-inspector-info-status-green";
-	public final String strCSSStatusRed			= "project-gwt-inlinelabel-inspector-info-status-red";
-	public final String strCSSStatusBlue		= "project-gwt-inlinelabel-inspector-info-status-blue";
-	public final String strCSSStatusGrey		= "project-gwt-inlinelabel-inspector-info-status-grey";
+	private String tagname			= "info";
+	
+	public final String strCSSStatusGreen		= "project-gwt-inlinelabel-inspector"+tagname+"status-green";
+	public final String strCSSStatusRed			= "project-gwt-inlinelabel-inspector"+tagname+"status-red";
+	public final String strCSSStatusBlue		= "project-gwt-inlinelabel-inspector"+tagname+"status-blue";
+	public final String strCSSStatusGrey		= "project-gwt-inlinelabel-inspector"+tagname+"status-grey";
 
 	// Static Attribute
 	private final String strLabel				= ".label";
@@ -56,7 +58,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	}
 	
 	@Override
-	public void setAddresses(String scsEnvId, String[] addresses) {
+	public void setAddresses(String scsEnvId, String[] addresses, String period) {
 		logger.log(Level.FINE, "setAddresses Begin");
 		
 		this.scsEnvId = scsEnvId;
@@ -97,11 +99,16 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.log(Level.FINE, "buildWidgets Begin");
 		
-		logger.log(Level.SEVERE, "buildWidgets numOfWidgets["+numOfWidgets+"]");
+		logger.log(Level.FINE, "buildWidgets numOfWidgets["+numOfWidgets+"]");
 		
 		if ( null != vpCtrls ) {
 			
 			vpCtrls.clear();
+			
+//			UIInspectorInfoPanel info = new UIInspectorInfoPanel();
+//			ComplexPanel infoPanel = info.getMainPanel(this.uiNameCard);
+//			
+//			vpCtrls.add(infoPanel);
 			
 			if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
 				
@@ -117,13 +124,13 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
-					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-info-label");
+					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
 					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
 					flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
 					txtAttribute[i] = new TextBox();
 					txtAttribute[i].setWidth("95%");
 					txtAttribute[i].setText("ATTRIBUTE_STATUS_"+(i+1));
-					txtAttribute[i].addStyleName("project-gwt-textbox-inspector-info-value");
+					txtAttribute[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-value");
 					txtAttribute[i].setReadOnly(true);
 					txtAttribute[i].setMaxLength(16);
 					flexTableAttibutes.setWidget(i+1, 1, txtAttribute[i]);
@@ -133,9 +140,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					flexTableAttibutes.setWidget(i+1, 2, txtAttibuteColor[i]);
 				}
 
-				flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspector-info-label-col");
-				flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspector-info-value-col");
-				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspector-info-status-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspectorlabel-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspectorvalue-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspectorstatus-col");
 
 			} else {
 				logger.log(Level.FINE, "buildWidgets this.pointStatics IS NULL");
@@ -153,24 +160,24 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.SEVERE, "updateValue Begin");
-		logger.log(Level.SEVERE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
 		}
 		
 		for ( int i = 0 ; i < this.addresses.length ; ++i ) {
-			logger.log(Level.SEVERE, "updateValue addresses("+i+")["+addresses[i]+"]");
+			logger.log(Level.FINE, "updateValue addresses("+i+")["+addresses[i]+"]");
 		}
 		
 		for ( String key : dbvalues.keySet() ) {
-			logger.log(Level.SEVERE, "updateValue dbvalues.get("+key+")["+dbvalues.get(key)+"]");
+			logger.log(Level.FINE, "updateValue dbvalues.get("+key+")["+dbvalues.get(key)+"]");
 		}
 
 		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "inspectorinfo" + "static" + parent;
 		
-		logger.log(Level.SEVERE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
+		logger.log(Level.FINE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
 		
 		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
 
@@ -187,12 +194,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
 				String address = this.addresses[i];
 				
-				logger.log(Level.SEVERE, "updateValue address["+address+"]");
+				logger.log(Level.FINE, "updateValue address["+address+"]");
 				
 				String value = null;
 				{
 					String dbaddress = address + strValue;
-					logger.log(Level.SEVERE, "updateValue strValue["+strValue+"] dbaddress["+dbaddress+"]");
+					logger.log(Level.FINE, "updateValue strValue["+strValue+"] dbaddress["+dbaddress+"]");
 					if ( dbvalues.containsKey(dbaddress) ) {
 						value = dbvalues.get(dbaddress);
 					} else {
@@ -200,12 +207,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					}
 				}		
 				
-				logger.log(Level.SEVERE, "updateValue value["+value+"]");
+				logger.log(Level.FINE, "updateValue value["+value+"]");
 				
 				String valueTable = null;
 				{
 					String dbaddress = address + strValueTable;
-					logger.log(Level.SEVERE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
+					logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
 					if ( dbvalues.containsKey(dbaddress) ) {
 						valueTable = dbvalues.get(dbaddress);
 					} else {
@@ -213,7 +220,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					}					
 				}
 				
-				logger.log(Level.SEVERE, "updateValue valueTable["+valueTable+"]");
+				logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
 				
 				String name = null;
 				{
@@ -227,7 +234,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					}					
 				}
 				
-				logger.log(Level.SEVERE, "updateValue name["+name+"]");
+				logger.log(Level.FINE, "updateValue name["+name+"]");
 				
 				if ( null != name ) {
 					name = RTDB_Helper.removeDBStringWrapper(name);
@@ -243,7 +250,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				{
 					{
 						String dbaddress = address + strValueAlarmVector;
-						logger.log(Level.SEVERE, "updateValue strValueAlarmVector["+strValueAlarmVector+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, "updateValue strValueAlarmVector["+strValueAlarmVector+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							valueAlarmVector = dbvalues.get(dbaddress);
 						} else {
@@ -251,11 +258,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						}
 					}
 					
-					logger.log(Level.SEVERE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
+					logger.log(Level.FINE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
 					
 					{
 						String dbaddress = address + strValidity;
-						logger.log(Level.SEVERE, "updateValue strValidity["+strValidity+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, "updateValue strValidity["+strValidity+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							validity = dbvalues.get(dbaddress);
 						} else {
@@ -263,11 +270,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						}
 					}
 					
-					logger.log(Level.SEVERE, "updateValue validity["+validity+"]");
+					logger.log(Level.FINE, "updateValue validity["+validity+"]");
 					
 					{
 						String dbaddress = address + strForcedStatus;
-						logger.log(Level.SEVERE, "updateValue strForcedStatus["+strForcedStatus+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, "updateValue strForcedStatus["+strForcedStatus+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							forcedStatus = dbvalues.get(dbaddress);
 						} else {
@@ -275,19 +282,19 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						}
 					}
 					
-					logger.log(Level.SEVERE, "updateValue forcedStatus["+forcedStatus+"]");
+					logger.log(Level.FINE, "updateValue forcedStatus["+forcedStatus+"]");
 
 				}
 				
 				String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 				txtAttibuteColor[i].setStyleName(strColorCSS);
 				
-				logger.log(Level.SEVERE, "updateValue strColorCSS["+strColorCSS+"]");
+				logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
 
 			}
 		}
 
-		logger.log(Level.SEVERE, "updateValue End");
+		logger.log(Level.FINE, "updateValue End");
 	}
 	
 	FlexTable flexTableAttibutes = null;
@@ -310,7 +317,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		vpCtrls.setWidth("100%");
 		
 		Button btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-info-up");
+		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -320,11 +327,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});
 		
 		InlineLabel lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-info-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-info-down");
+		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -334,17 +341,15 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});	
 		
 		Button btnAckCurPage = new Button();
-		btnAckCurPage.addStyleName("project-gwt-button-inspector-info-ackpage");
+		btnAckCurPage.addStyleName("project-gwt-button-inspector-"+tagname+"-ackpage");
 		btnAckCurPage.setText("Ack. Page");
 		btnAckCurPage.addClickHandler(new ClickHandler() {
-			
 			@Override
 			public void onClick(ClickEvent event) {
 				// TODO Auto-generated method stub
-				
 			}
-		});
-
+		});	
+		
 		HorizontalPanel pageBar = new HorizontalPanel();
 
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
@@ -360,7 +365,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		pageBar.add(btnDown);
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.addStyleName("project-gwt-panel-inspector-info-bottom");
+		bottomBar.addStyleName("project-gwt-panel-inspector-"+tagname+"-bottom");
 		
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);

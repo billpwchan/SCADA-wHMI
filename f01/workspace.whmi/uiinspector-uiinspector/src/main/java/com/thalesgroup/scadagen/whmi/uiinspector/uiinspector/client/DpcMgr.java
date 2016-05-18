@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,12 +15,19 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.ScsDPCCompon
 public class DpcMgr {
 	
 	private static Logger logger = Logger.getLogger(DpcMgr.class.getName());
-	
-	private static DpcMgr instance = null;
-	public static DpcMgr getInstance() {
-		if ( null == instance ) instance = new DpcMgr(); 
+
+	private static HashMap<String, DpcMgr> instances = new HashMap<String, DpcMgr>();
+	public static DpcMgr getInstance(String key) {
+		if ( ! instances.containsKey(key) ) {	instances.put(key, new DpcMgr()); }
+		DpcMgr instance = instances.get(key);
 		return instance;
 	}
+	
+//	private static DpcMgr instance = null;
+//	public static DpcMgr getInstance() {
+//		if ( null == instance ) instance = new DpcMgr(); 
+//		return instance;
+//	}
 	
 	private Subject subject = null;
 	public Subject getSubject() { return subject; }

@@ -12,6 +12,6 @@ public interface DictionaryServiceAsync {
      * GWT-RPC service  asynchronous (client-side) interface
      * @see com.thalesgroup.mmi.task.client.ConfigService
      */
-	void dictionaryServer(String module, String xml, String tag, AsyncCallback<Dictionary> callback)
+	void dictionaryServer(String module, String folder, String xml, String tag, AsyncCallback<Dictionary> callback)
 			throws IllegalArgumentException;
 }

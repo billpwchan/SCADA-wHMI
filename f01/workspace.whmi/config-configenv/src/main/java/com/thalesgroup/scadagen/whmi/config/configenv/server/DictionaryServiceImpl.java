@@ -16,7 +16,7 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class DictionaryServiceImpl extends RemoteServiceServlet implements DictionaryService {
 
-	public Dictionary dictionaryServer(String module, String xmlFile, String tag) {
+	public Dictionary dictionaryServer(String module, String folder, String xmlFile, String tag) {
 		
 		System.out.println(" **** dictionaryServer module["+module+"] ["+xmlFile+"] tag["+tag+"]");
 		
@@ -26,7 +26,7 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 		}
 
 		String base = getServletContext().getRealPath("/");
-		String path = base + File.separator + module + File.separator + xmlFile;
+		String path = base + File.separator + module + File.separator + folder + File.separator + xmlFile;
 		
 		System.out.println(" **** dictionaryServer base["+base+"]");
 		System.out.println(" **** dictionaryServer module["+module+"]");

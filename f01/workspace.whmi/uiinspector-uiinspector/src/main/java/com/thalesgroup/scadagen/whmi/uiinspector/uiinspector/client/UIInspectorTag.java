@@ -20,6 +20,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
@@ -55,20 +57,20 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	@Override
 	public void setParent(String parent) {
 		this.parent = parent;
-		logger.log(Level.SEVERE, "setParent this.parent["+this.parent+"]");
+		logger.log(Level.FINE, "setParent this.parent["+this.parent+"]");
 	}
 	
 	@Override
-	public void setAddresses(String scsEnvId, String[] addresses) {
-		logger.log(Level.SEVERE, "setAddresses Begin");
+	public void setAddresses(String scsEnvId, String[] addresses, String period) {
+		logger.log(Level.FINE, "setAddresses Begin");
 		
 		this.scsEnvId = scsEnvId;
 		
-		logger.log(Level.SEVERE, "setAddresses this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, "setAddresses this.scsEnvId["+this.scsEnvId+"]");
 		
 		this.addresses = addresses;
 		
-		logger.log(Level.SEVERE, "setAddresses End");
+		logger.log(Level.FINE, "setAddresses End");
 	}
 
 	@Override
@@ -81,7 +83,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	private HorizontalPanel[] controlboxes = null;
 	private void buildWidgets(int numOfWidgets) {
 		
-		logger.log(Level.SEVERE, "buildWidgets Begin");
+		logger.log(Level.FINE, "buildWidgets Begin");
 		
 		if ( null != vpCtrls ) {
 			
@@ -102,7 +104,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 					widgetBoxes[x].setWidth("100%");
 					widgetBoxes[x].getElement().getStyle().setPadding(5, Unit.PX);
 					inlineLabels[x] = new InlineLabel();
-					inlineLabels[x].addStyleName("project-gwt-label-inspector"+tagname+"-control");
+					inlineLabels[x].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
 					inlineLabels[x].setText("Control: "+(x+1));
 					widgetBoxes[x].add(inlineLabels[x]);
 					
@@ -112,7 +114,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 						btnCtrl.setText("Control "+y);
 						btnCtrl.setWidth(btnWidth);
 						btnCtrl.setHeight(btnHeight);
-						btnCtrl.addStyleName("project-gwt-button-inspector"+tagname+"-button");
+						btnCtrl.addStyleName("project-gwt-button-inspector-"+tagname+"-button");
 						controlboxes[x].add(btnCtrl);
 					}
 					widgetBoxes[x].add(controlboxes[x]);
@@ -126,12 +128,12 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 			logger.log(Level.SEVERE, "buildWidgets points IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "buildWidgets End");
+		logger.log(Level.FINE, "buildWidgets End");
 	}
 	
 	public void buildWidgetList() {
 		
-		logger.log(Level.SEVERE, "buildWidgetList Begin");
+		logger.log(Level.FINE, "buildWidgetList Begin");
 		
 		for ( int i = 0 ; i < addresses.length ; ++i ) {
 			String dbaddress = addresses[i];
@@ -156,7 +158,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 			}
 		}
 		
-		logger.log(Level.SEVERE, "buildWidgetList End");
+		logger.log(Level.FINE, "buildWidgetList End");
 		
 	}
 	
@@ -180,7 +182,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	private HashMap<String, Widget[]> widgetGroups = new HashMap<String, Widget[]>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.SEVERE, "updateValue Begin");
+		logger.log(Level.FINE, "updateValue Begin");
 		
 		String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "inspector" + tagname + "static" + parent;
 		if ( 0 == clientKey_multiReadValue_inspectorcontrol_static.compareTo(clientKey) ) {
@@ -194,19 +196,19 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 				
 				String diolabeldbaddress = dioaddress + strLabel;
 				
-				logger.log(Level.SEVERE, "updateValue diolabeldbaddress["+diolabeldbaddress+"]");
+				logger.log(Level.FINE, "updateValue diolabeldbaddress["+diolabeldbaddress+"]");
 				
 				if ( keyAndValue.containsKey(diolabeldbaddress) ) {
 					for ( int x = 0 ; x < addresses.length ; ++x ) {
 						String dbaddress = addresses[x];
 						
-						logger.log(Level.SEVERE, "updateValue diolabeldbaddress dbaddress["+diolabeldbaddress+"]");
+						logger.log(Level.FINE, "updateValue diolabeldbaddress dbaddress["+diolabeldbaddress+"]");
 						
 						if ( diolabeldbaddress.startsWith(dbaddress) ) {
 							String value = keyAndValue.get(diolabeldbaddress);
 							value = RTDB_Helper.removeDBStringWrapper(value);
 							
-							logger.log(Level.SEVERE, "updateValue value["+value+"]");
+							logger.log(Level.FINE, "updateValue value["+value+"]");
 							
 							inlineLabels[x].setText(value);
 						}
@@ -216,13 +218,13 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 				
 				String diovaluetabledbaddress = dioaddress + strValueTable;
 				
-				logger.log(Level.SEVERE, "updateValue siodbaddress["+diovaluetabledbaddress+"]");
+				logger.log(Level.FINE, "updateValue siodbaddress["+diovaluetabledbaddress+"]");
 				
 				if ( keyAndValue.containsKey(diovaluetabledbaddress) ) {
 					for ( int x = 0 ; x < addresses.length ; ++x ) {
 						String dbaddress = addresses[x];
 						
-						logger.log(Level.SEVERE, "updateValue siodbaddress dbaddress["+diovaluetabledbaddress+"]");
+						logger.log(Level.FINE, "updateValue siodbaddress dbaddress["+diovaluetabledbaddress+"]");
 						
 						if ( diovaluetabledbaddress.startsWith(dbaddress) ) {
 							
@@ -253,7 +255,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 									if ( labels[i].length() == 0  ) break;
 									
 									UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-									btnOption.addStyleName("project-gwt-button-inspector"+tagname+"-ctrl");
+									btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
 									btnOption.addClickHandler(new ClickHandler() {
 										
 										@Override
@@ -268,7 +270,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 									
 									widgetGroups.put(dioaddress, btnOptions.toArray(new UIButtonToggle[0]));
 									
-									widgetPoints.put(btnOption, new ControlPoint("dio", dbaddress, values[i]));
+									widgetPoints.put(btnOption, new ControlPoint("dio", scsEnvId, dbaddress, values[i]));
 
 								}
 							}
@@ -282,19 +284,19 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 				String aioaddress = aios.get(y);
 				String aiodbaddresslabel = aioaddress + strLabel;
 				
-				logger.log(Level.SEVERE, "updateValue aiodbaddress["+aiodbaddresslabel+"]");
+				logger.log(Level.FINE, "updateValue aiodbaddress["+aiodbaddresslabel+"]");
 				
 				if ( keyAndValue.containsKey(aiodbaddresslabel) ) {
 					for ( int x = 0 ; x < addresses.length ; ++x ) {
 						String dbaddress = addresses[x];
 						
-						logger.log(Level.SEVERE, "updateValue aiodbaddress dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, "updateValue aiodbaddress dbaddress["+dbaddress+"]");
 						
 						if ( aiodbaddresslabel.startsWith(dbaddress) ) {
 							String label = keyAndValue.get(aiodbaddresslabel);
 							label = RTDB_Helper.removeDBStringWrapper(label);
 							
-							logger.log(Level.SEVERE, "updateValue label["+label+"]");
+							logger.log(Level.FINE, "updateValue label["+label+"]");
 							
 							inlineLabels[x].setText(label);
 							
@@ -321,19 +323,19 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 				String sioaddress = sios.get(y);
 				String siodbaddress = sioaddress + strLabel;
 				
-				logger.log(Level.SEVERE, "updateValue siodbaddress["+siodbaddress+"]");
+				logger.log(Level.FINE, "updateValue siodbaddress["+siodbaddress+"]");
 				
 				if ( keyAndValue.containsKey(siodbaddress) ) {
 					for ( int x = 0 ; x < addresses.length ; ++x ) {
 						String dbaddress = addresses[x];
 						
-						logger.log(Level.SEVERE, "updateValue siodbaddress dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, "updateValue siodbaddress dbaddress["+dbaddress+"]");
 						
 						if ( siodbaddress.startsWith(dbaddress) ) {
 							String label = keyAndValue.get(siodbaddress);
 							label = RTDB_Helper.removeDBStringWrapper(label);
 							
-							logger.log(Level.SEVERE, "updateValue label["+label+"]");
+							logger.log(Level.FINE, "updateValue label["+label+"]");
 							
 							inlineLabels[x].setText(label);
 							
@@ -357,42 +359,57 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 			}
 		}
 		
-		logger.log(Level.SEVERE, "updateValue End");
+		logger.log(Level.FINE, "updateValue End");
 	}
 	
 	private CtlMgr ctlMgr = null;
-//	private Observer observer = null;
-//	private Subject controlMgrSubject = null;
+	private Observer observer = null;
+	private Subject controlMgrSubject = null;
 	@Override
 	public void connect() {
-		logger.log(Level.SEVERE, "connect Begin");
+		logger.log(Level.FINE, "connect Begin");
 		
-		ctlMgr = CtlMgr.getInstance();
-//		controlMgrSubject = CtlMgr.getSubject();
-//		
-//		observer = new Observer() {
-//			@Override
-//			public void setSubject(Subject subject){
-//				this.subject = subject;
-//				this.subject.attach(this);
-//			}
-//			
-//			@Override
-//			public void update() {
-//
-//			}
-//		};
-//		
-//		observer.setSubject(controlMgrSubject);
+		ctlMgr = CtlMgr.getInstance("tag");
+		controlMgrSubject = ctlMgr.getSubject();
 		
-		logger.log(Level.SEVERE, "connect End");
+		observer = new Observer() {
+			@Override
+			public void setSubject(Subject subject){
+				this.subject = subject;
+				this.subject.attach(this);
+			}
+			
+			@Override
+			public void update() {
+				if ( null != messageBoxEvent ) {
+					
+					String message = subject.getState();
+					
+					if ( 0 == "sendFloatCommand sent".compareTo(message) ) {
+						message = "Command Sent.";
+					} else if ( 0 == "sendIntCommand sent".compareTo(message) ) {
+						message = "Command Sent.";
+					} else if ( 0 == "sendStringCommand sent".compareTo(message) ) {
+						message = "Command Sent.";
+					} else if ( 0 == "command executed successfully".compareTo(message) ) {
+						message = "Command Executed Successfully.";
+					}
+					
+					messageBoxEvent.setMessage(message);
+				}
+			}
+		};
+		
+		observer.setSubject(controlMgrSubject);
+		
+		logger.log(Level.FINE, "connect End");
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.SEVERE, "disconnect Begin");
+		logger.log(Level.FINE, "disconnect Begin");
 		
-		logger.log(Level.SEVERE, "disconnect End");
+		logger.log(Level.FINE, "disconnect End");
 	}
 	
 	private Button btnExecute = null;
@@ -402,7 +419,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -413,20 +430,20 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		btnExecute = new Button();
 		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
 		btnExecute.setText("Execute");
-		btnExecute.addStyleName("project-gwt-button-inspector"+tagname+"-execute");
+		btnExecute.addStyleName("project-gwt-button-inspector-"+tagname+"-execute");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				logger.log(Level.SEVERE, "getMainPanel onClick Begin");
+				logger.log(Level.FINE, "getMainPanel onClick Begin");
 				
 				onButton(event);
 				
-				logger.log(Level.SEVERE, "getMainPanel onClick End");
+				logger.log(Level.FINE, "getMainPanel onClick End");
 			}
 		});
 		
 		Button btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector"+tagname+"-up");
+		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -436,11 +453,11 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		});
 		
 		InlineLabel lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector"+tagname+"-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		Button btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector"+tagname+"-down");
+		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -484,7 +501,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(basePanel);
 		
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 		return vp;
 	}
@@ -522,7 +539,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	}
 	
 	private Widget getActivateWidget() {
-		logger.log(Level.SEVERE, "getActivateWidget Begin");
+		logger.log(Level.FINE, "getActivateWidget Begin");
 		Widget target = null;
 		for ( String address : widgetGroups.keySet() ) {
 			if ( target != null ) break;
@@ -543,14 +560,14 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 							target = widget;
 						}
 					} else {
-						logger.log(Level.SEVERE, "getActivateWidget widget IS NOT SUPPORTED");
+						logger.log(Level.FINE, "getActivateWidget widget IS NOT SUPPORTED");
 					}
 				} else {
-					logger.log(Level.SEVERE, "getActivateWidget btn IS NULL");
+					logger.log(Level.FINE, "getActivateWidget btn IS NULL");
 				}
 			}
 		}
-		logger.log(Level.SEVERE, "getActivateWidget End");
+		logger.log(Level.FINE, "getActivateWidget End");
 		return target;
 	}
 	
@@ -558,7 +575,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		Button btn = (Button)event.getSource();
 		if ( btn instanceof UIButtonToggle ) {
 			
-			logger.log(Level.SEVERE, "onButton Button IS UIButtonToggle");
+			logger.log(Level.FINE, "onButton Button IS UIButtonToggle");
 			
 			Widget[] targetGroups = getSelectedGroup(btn);
 			if ( null != targetGroups ) {
@@ -566,11 +583,11 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 			}
 			
 		} else if ( btn instanceof Button ) {
-			logger.log(Level.SEVERE, "onButton Button IS Button");
+			logger.log(Level.FINE, "onButton Button IS Button");
 			
 			if ( btnExecute == btn ) {
 				
-				logger.log(Level.SEVERE, "onButton btn IS btnExecute");
+				logger.log(Level.FINE, "onButton btn IS btnExecute");
 				
 				Widget widget = getActivateWidget();
 				
@@ -588,26 +605,26 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 							String sDbAddress	= controlPoint.getValue("dbaddress");
 							String sValue		= controlPoint.getValue("value");
 							
-							logger.log(Level.SEVERE, "onButton sPoint["+sPoint+"]");
-							logger.log(Level.SEVERE, "onButton sScsEnvId["+sScsEnvId+"]");
-							logger.log(Level.SEVERE, "onButton sDbAddress["+sDbAddress+"]");
-							logger.log(Level.SEVERE, "onButton sValue["+sValue+"]");
+							logger.log(Level.FINE, "onButton sPoint["+sPoint+"]");
+							logger.log(Level.FINE, "onButton sScsEnvId["+sScsEnvId+"]");
+							logger.log(Level.FINE, "onButton sDbAddress["+sDbAddress+"]");
+							logger.log(Level.FINE, "onButton sValue["+sValue+"]");
 							
 							if ( 0 == sPoint.compareTo("dio") ) {
 								
-								logger.log(Level.SEVERE, "onButton controlPoint.dbaddress["+sDbAddress+"] Integer ["+Integer.parseInt(sValue)+"]");
+								logger.log(Level.FINE, "onButton controlPoint.dbaddress["+sDbAddress+"] Integer ["+Integer.parseInt(sValue)+"]");
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Integer.valueOf(sValue), 1, 1, 1);
 								
 							} else if ( 0 == sPoint.compareTo("aio") ) {
 								
-								logger.log(Level.SEVERE, "onButton controlPoint.dbaddress["+sDbAddress+"] Float ["+Float.parseFloat(sValue)+"]");
+								logger.log(Level.FINE, "onButton controlPoint.dbaddress["+sDbAddress+"] Float ["+Float.parseFloat(sValue)+"]");
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Float.parseFloat(sValue), 1, 1, 1);
 								
 							} else if ( 0 == sPoint.compareTo("sio") ) {
 								
-								logger.log(Level.SEVERE, "onButton controlPoint.dbaddress["+sDbAddress+"] String ["+sValue+"]");
+								logger.log(Level.FINE, "onButton controlPoint.dbaddress["+sDbAddress+"] String ["+sValue+"]");
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, sValue, 1, 1, 1);
 								
@@ -644,9 +661,9 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	
 	@Override
 	public void terminate() {
-		logger.log(Level.SEVERE, "terminate Begin");
+		logger.log(Level.FINE, "terminate Begin");
 
-		logger.log(Level.SEVERE, "terminate End");
+		logger.log(Level.FINE, "terminate End");
 	}
 
 }

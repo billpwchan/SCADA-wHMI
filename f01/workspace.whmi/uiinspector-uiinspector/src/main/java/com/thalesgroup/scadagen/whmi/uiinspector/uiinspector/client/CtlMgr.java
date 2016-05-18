@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,11 +16,18 @@ public class CtlMgr {
 	
 	private static Logger logger = Logger.getLogger(CtlMgr.class.getName());
 	
-	private static CtlMgr instance = null;
-	public static CtlMgr getInstance() {
-		if ( null == instance ) instance = new CtlMgr(); 
+	private static HashMap<String, CtlMgr> instances = new HashMap<String, CtlMgr>();
+	public static CtlMgr getInstance(String key) {
+		if ( ! instances.containsKey(key) ) {	instances.put(key, new CtlMgr()); }
+		CtlMgr instance = instances.get(key);
 		return instance;
 	}
+	
+//	private static CtlMgr instance = null;
+//	public static CtlMgr getInstance() {
+//		if ( null == instance ) {				instance = new CtlMgr(); }
+//		return instance;
+//	}
 	
 	private Subject subject = null;
 	public Subject getSubject() { return subject; }
@@ -177,7 +185,7 @@ public class CtlMgr {
 		if ( null != ctlAccess ) {
 			ctlAccess.sendIntCommand("sendIntCommand", envName, digitalValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			if ( null != subject ) {
-        		subject.setState("sendIntCommand sent");
+        		subject.setState("Command sent");
 	    	}				
 		} else {
 			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
@@ -214,7 +222,7 @@ public class CtlMgr {
 		
 		if ( null != ctlAccess ) {
 			if ( null != subject ) {
-        		subject.setState("sendStringCommand sent");
+        		subject.setState("Command sent");
 	    	}				
 		} else {
 			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");

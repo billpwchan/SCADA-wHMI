@@ -137,6 +137,16 @@ public class UIPanelAlarmBanner implements UIWidget_i, UIPanel_i {
 			} else {
 				logger.log(Level.SEVERE, "onButton status IS NULL");
 			}
+		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.ackpage.equalsName(element) ) {
+			
+			String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
+			
+			UITaskLaunch taskLaunch = new UITaskLaunch();
+			taskLaunch.setUiPanel("UIInspectorConnectionBox");
+			taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
+			taskLaunch.setUiPath(UIPathUIScreenMMI);
+			uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+			
 		} else {
 			logger.log(Level.SEVERE, "onButton element UNKNOW");
 		}

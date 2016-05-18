@@ -7,10 +7,13 @@ import java.util.logging.Logger;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -18,6 +21,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
@@ -51,7 +56,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	}
 	
 	@Override
-	public void setAddresses(String scsEnvId, String[] addresses) {
+	public void setAddresses(String scsEnvId, String[] addresses, String period) {
 		logger.log(Level.FINE, "setAddresses Begin");
 		
 		this.scsEnvId = scsEnvId;
@@ -64,29 +69,29 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	}
 
 	private DpcMgr dpcAccess = null;
-//	private Observer observer = null;
-//	private Subject dpcMgrSubject = null;
+	private Observer observer = null;
+	private Subject dpcMgrSubject = null;
 	@Override
 	public void connect() {
 		logger.log(Level.FINE, "connect Begin");
 		
-		dpcAccess = DpcMgr.getInstance();
-//		dpcMgrSubject = DpcMgr.getSubject();
-//		
-//		observer = new Observer() {
-//			@Override
-//			public void setSubject(Subject subject){
-//				this.subject = subject;
-//				this.subject.attach(this);
-//			}
-//			
-//			@Override
-//			public void update() {
-//
-//			}
-//		};
-//		
-//		observer.setSubject(controlMgrSubject);
+		dpcAccess = DpcMgr.getInstance("advance");
+		dpcMgrSubject = dpcAccess.getSubject();
+		
+		observer = new Observer() {
+			@Override
+			public void setSubject(Subject subject){
+				this.subject = subject;
+				this.subject.attach(this);
+			}
+			
+			@Override
+			public void update() {
+
+			}
+		};
+		
+		observer.setSubject(dpcMgrSubject);
 		
 		logger.log(Level.FINE, "connect End");
 	}
@@ -124,7 +129,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private void buildWidgets(int numOfWidgets) {
 		
-		logger.log(Level.SEVERE, "updateDisplay Begin");
+		logger.log(Level.FINE, "updateDisplay Begin");
 		
 		if ( null != vpCtrls ) {
 			
@@ -150,7 +155,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					for ( int i = 0 ; i < header.length ; ++i ) {
 						InlineLabel label = new InlineLabel();
 						label.setWidth("100%");
-						label.addStyleName("project-gwt-inlinelabel-inspector-advance-header-label");
+						label.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-header-label");
 						label.setText(header[i]);
 						flexTableAttibutes.setWidget(1, i, label);
 					}
@@ -164,33 +169,33 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
-					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-advance-label");
+					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
 					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
 					flexTableAttibutes.setWidget(i+1+1, r++, lblAttibuteLabel[i]);
 					
 					chkDPMs[i] = new CheckBox[3];
 					chkDPMs[i][0] = new CheckBox();
-					chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-advance-points-ai");
+					chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ai");
 					
 					flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][0]);
 					
 					chkDPMs[i][1] = new CheckBox();
-					chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-advance-points-ss");
+					chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ss");
 					
 					flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][1]);
 					
 					chkDPMs[i][2] = new CheckBox();
-					chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-advance-points-mo");
+					chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-mo");
 					
 					flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][2]);
 					
 					lstValues[i] = new ListBox();
 					lstValues[i].setVisibleItemCount(1);
-					lstValues[i].addStyleName("project-gwt-listbox-inspector-advance-points-value");
+					lstValues[i].addStyleName("project-gwt-listbox-inspector-"+tagname+"-points-value");
 
 					txtValues[i] = new TextBox();
 					txtValues[i].setVisible(false);
-					txtValues[i].addStyleName("project-gwt-textbox-inspectoradvance-points-value");
+					txtValues[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-points-value");
 
 					HorizontalPanel hp = new HorizontalPanel();
 					hp.add(lstValues[i]);
@@ -199,18 +204,18 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					flexTableAttibutes.setWidget(i+1+1, r++, hp);
 					
 					btnApplys[i] = new UIButtonToggle(strApply);
-					btnApplys[i].addStyleName("project-gwt-button-inspectoradvance-point-apply");
+					btnApplys[i].addStyleName("project-gwt-button-inspector-"+tagname+"-point-apply");
 					
 					btnApplys[i].addClickHandler(new ClickHandler() {
 						
 						@Override
 						public void onClick(ClickEvent event) {
 
-							logger.log(Level.SEVERE, "buildWidgets onClick Begin");
+							logger.log(Level.FINE, "buildWidgets onClick Begin");
 							
 							sendControl(event);
 							
-							logger.log(Level.SEVERE, "buildWidgets onClick End");
+							logger.log(Level.FINE, "buildWidgets onClick End");
 						}
 					});
 					flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
@@ -218,28 +223,28 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 				}
 				
 				for ( int i = 0 ; i < 8 ; ++i ) {
-					flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-advance-status-col"+i);
+					flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-"+tagname+"-status-col"+i);
 				}
 
 			} else {
 				logger.log(Level.FINE, "buildWidgets this.pointStatics IS NULL");
 			}
 			
-			vpCtrls.add(flexTableAttibutes);
+			vpCtrls.add(flexTableAttibutes); 
 
 		} else {
 			logger.log(Level.SEVERE, "updateDisplay points IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "updateDisplay End");
+		logger.log(Level.FINE, "updateDisplay End");
 	}
 	
 	private boolean valueRefreshed = false;
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 
-		logger.log(Level.SEVERE, "updateValue Begin");
-		logger.log(Level.SEVERE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -255,7 +260,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 
 		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "inspectorinfo" + "static" + parent;
 		
-		logger.log(Level.SEVERE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
+		logger.log(Level.FINE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
 		
 		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
 			
@@ -274,7 +279,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 							label = RTDB_Helper.removeDBStringWrapper(label);
 						}
 					}
-					logger.log(Level.SEVERE, "updateValue label["+label+"]");
+					logger.log(Level.FINE, "updateValue label["+label+"]");
 					
 					// Set the Label
 					lblAttibuteLabel[i].setText(label);
@@ -299,14 +304,14 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					String valueTable = null;
 					{
 						String dbaddress = address + strValueTable;
-						logger.log(Level.SEVERE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							valueTable = dbvalues.get(dbaddress);
 						} else {
-							logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+							logger.log(Level.FINE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 						}
 					}
-					logger.log(Level.SEVERE, "updateValue valueTable["+valueTable+"]");
+					logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
 					
 					if ( null != valueTable ) {
 						String names[]	= new String[12];
@@ -327,7 +332,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 							
 							lstValues[i].addItem(names[r]);
 							
-							logger.log(Level.SEVERE, "updateValue names["+r+"]["+names[r]+"] values["+r+"]["+values[r]+"]");
+							logger.log(Level.FINE, "updateValue names["+r+"]["+names[r]+"] values["+r+"]["+values[r]+"]");
 						}
 					} else {
 						logger.log(Level.SEVERE, "updateValue valueTable IS NULL!");
@@ -404,7 +409,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 								logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 							}
 						}
-						logger.log(Level.SEVERE, "updateValue value["+value+"]");
+						logger.log(Level.FINE, "updateValue value["+value+"]");
 						
 						
 						if ( null != value ) {
@@ -467,7 +472,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 			}
 		}
 
-		logger.log(Level.SEVERE, "updateValue End");
+		logger.log(Level.FINE, "updateValue End");
 	}
 	
 	private String getStatusValue(String address) {
@@ -489,7 +494,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private void sendControl(ClickEvent event) {
 		
-		logger.log(Level.SEVERE, "setValue Begin");
+		logger.log(Level.FINE, "setValue Begin");
 		
 		UIButtonToggle button = (UIButtonToggle) event.getSource();
 		int index = -1;
@@ -500,13 +505,13 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 			}
 		}
 		
-		logger.log(Level.SEVERE, "setValue index["+index+"]");
+		logger.log(Level.FINE, "setValue index["+index+"]");
 		
 		if ( -1 != index ) {
 			
 			String dbaddress = addresses[index];
 			
-			logger.log(Level.SEVERE, "setValue dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "setValue dbaddress["+dbaddress+"]");
 			
 			if ( null != dbaddress ) {
 				
@@ -516,9 +521,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 				
 				String alias	= "<alias>" + dbaddress.replace(":", "");
 				
-				logger.log(Level.SEVERE, "setValue scsEnvId["+scsEnvId+"] alias["+alias+"]");				
+				logger.log(Level.FINE, "setValue scsEnvId["+scsEnvId+"] alias["+alias+"]");				
 				
-				logger.log(Level.SEVERE, "setValue point["+point+"] type["+type+"]");
+				logger.log(Level.FINE, "setValue point["+point+"] type["+type+"]");
 				
 				if ( null != chkDPMs[index] ) {
 					
@@ -563,24 +568,24 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 							
 							int moIndex = lstValues[index].getSelectedIndex();
 							
-							logger.log(Level.SEVERE, "updateValue moIndex["+moIndex+"]");
+							logger.log(Level.FINE, "updateValue moIndex["+moIndex+"]");
 							
 							String valueTable = null;
 							{
 								String address = dbaddress + strValueTable;
-								logger.log(Level.SEVERE, "updateValue strValueTable["+strValueTable+"] dbaddress["+address+"]");
+								logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+address+"]");
 								if ( dbvalues.containsKey(address) ) {
 									valueTable = dbvalues.get(address);
 								} else {
-									logger.log(Level.SEVERE, "updateValue dbaddress["+address+"] VALUE NOT EXISTS!");
+									logger.log(Level.FINE, "updateValue dbaddress["+address+"] VALUE NOT EXISTS!");
 								}
 							}
-							logger.log(Level.SEVERE, "updateValue valueTable["+valueTable+"]");
+							logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
 
 							String sValue	= RTDB_Helper.getArrayValues(valueTable, 4, moIndex);
 							sValue			= RTDB_Helper.removeDBStringWrapper(sValue);
 							
-							logger.log(Level.SEVERE, "updateValue sValue["+sValue+"]");
+							logger.log(Level.FINE, "updateValue sValue["+sValue+"]");
 							
 							moIValue = Integer.parseInt(sValue);
 
@@ -681,7 +686,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 		} else {
 			logger.log(Level.SEVERE, "setValue index["+index+"] IS INVALID");
 		}
-		logger.log(Level.SEVERE, "setValue End");
+		logger.log(Level.FINE, "setValue End");
 		
 	}
 	
@@ -690,40 +695,90 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	public void setMessageBoxEvent(MessageBoxEvent messageBoxEvent) {
 		this.messageBoxEvent = messageBoxEvent;
 	}
-	
+
 	private FlexTable flexTableAttibutes = null;
 	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
 	@Override
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
+		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
+
+		Button btnUp = new Button();
+		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
+		btnUp.setText("▲");
+		btnUp.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});
+		
+		InlineLabel lblPageNum = new InlineLabel();
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
+		lblPageNum.setText("1 / 1");
+		
+		Button btnDown = new Button();
+		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
+		btnDown.setText("▼");
+		btnDown.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+			}
+		});	
+
+		HorizontalPanel pageBar = new HorizontalPanel();
+
+		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		pageBar.add(btnUp);
+		
+		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		pageBar.add(lblPageNum);
+		
+		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		pageBar.add(btnDown);
+		
+		HorizontalPanel bottomBar = new HorizontalPanel();
+		bottomBar.setWidth("100%");
+		
+		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		bottomBar.add(pageBar);
+		
+//		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+//		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		bottomBar.add(btnExecute);
 		
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addStyleName("project-gwt-panel-inspector");
 		basePanel.setHeight("400px");
 		basePanel.setWidth("400px");
+		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
 		VerticalPanel vp = new VerticalPanel();
 		vp.add(basePanel);
 		
-		logger.log(Level.SEVERE, "getMainPanel End");
+		logger.log(Level.FINE, "getMainPanel End");
 		
 		return vp;
 	}
 
 	@Override
 	public void terminate() {
-		logger.log(Level.SEVERE, "terminate Begin");
+		logger.log(Level.FINE, "terminate Begin");
 
-		logger.log(Level.SEVERE, "terminate End");
+		logger.log(Level.FINE, "terminate End");
 	}
 
 }

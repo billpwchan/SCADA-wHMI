@@ -67,7 +67,7 @@ public class UILayoutGeneric implements UIWidget_i {
 		
 		logger.log(Level.SEVERE, "init xmlFile["+this.xmlFile+"]");
 		
-		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance();
+		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
 		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
 		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );

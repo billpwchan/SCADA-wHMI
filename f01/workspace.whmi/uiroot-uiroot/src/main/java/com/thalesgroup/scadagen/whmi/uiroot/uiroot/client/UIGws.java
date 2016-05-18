@@ -150,26 +150,51 @@ public class UIGws {
 		
 		logger.log(Level.FINE, "initCaches Begin");
 		
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance();
-		
-		String module = null;
-		
-		String folder = "UIPanelGeneric";
-		
-		String extention = ".xml";
-		
-		dictionariesCache.add(folder, extention);
-		
-		dictionariesCache.init(module, new DictionariesCacheEvent() {
+		{
+			DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
-			@Override
-			public void dictionariesCacheEventReady(int received) {
-				logger.log(Level.SEVERE, "dictionariesCacheEventReady");
+			String module = null;
+			
+			String folder = "UIPanelGeneric";
+			
+			String extention = ".xml";
+			
+			dictionariesCache.add(folder, extention);
+			
+			dictionariesCache.init(module, new DictionariesCacheEvent() {
 				
-				ready(received);
+				@Override
+				public void dictionariesCacheEventReady(int received) {
+					logger.log(Level.SEVERE, "dictionariesCacheEventReady");
+					
+//					ready(received);
+					
+				}
+			});
+		}
+		
+		{
+			DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UICaches");
+			
+			String header = "header";
+			String option = "option";
+			
+			//Login Panel
+			uiPanelSettingCache.add("hvid_alias.xml", header);
+			uiPanelSettingCache.add("hvid_alias.xml", option);
+			
+			String module = null;
+			
+			uiPanelSettingCache.init(module, "UICaches", new DictionaryCacheEvent() {
 				
-			}
-		});
+				@Override
+				public void dictionaryCacheEventReady(int received) {
+
+					logger.log(Level.SEVERE, "dictionaryCacheEventReady");
+					
+				}
+			});
+		}
 		
 		logger.log(Level.FINE, "initCaches End");
 	}
@@ -178,7 +203,7 @@ public class UIGws {
 		
 		logger.log(Level.FINE, "initCache Begin");
 		
-		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance();
+		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
 		String header = "header";
 		String option = "option";
@@ -264,7 +289,7 @@ public class UIGws {
 		
 		String module = null;
 		
-		uiPanelSettingCache.init(module, new DictionaryCacheEvent() {
+		uiPanelSettingCache.init(module, "UIPanelGeneric", new DictionaryCacheEvent() {
 			
 			@Override
 			public void dictionaryCacheEventReady(int received) {

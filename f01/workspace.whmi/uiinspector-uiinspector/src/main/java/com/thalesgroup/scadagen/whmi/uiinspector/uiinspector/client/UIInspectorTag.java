@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,11 +73,33 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		
 		logger.log(Level.FINE, "setAddresses End");
 	}
+	
+	private void updatePager() {
+		
+		logger.log(Level.FINE, "updatePager Begin");
+		
+		pageCounter.calc(pageIndex);
+				
+		if ( pageCounter.hasPreview || pageCounter.hasNext ) {
+			btnUp.setEnabled(pageCounter.hasPreview);
+			lblPageNum.setText(String.valueOf(pageIndex+1) + " / " + String.valueOf(pageCounter.pageCount));
+			btnDown.setEnabled(pageCounter.hasNext);
+		} else {
+			btnUp.setVisible(false);
+			lblPageNum.setVisible(false);
+			btnDown.setVisible(false);
+		}
+		
+		logger.log(Level.FINE, "updatePager End");
+	}
 
 	@Override
 	public void buildWidgets() {
 		buildWidgets(this.addresses.length);
 	}
+	
+	private int pageIndex = 0;
+	private PageCounter pageCounter = null;
 	
 	private VerticalPanel[] widgetBoxes = null;
 	private InlineLabel[] inlineLabels = null;
@@ -89,17 +112,24 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 			
 			vpCtrls.clear();
 			
+			pageCounter = new PageCounter(numOfWidgets, 3);
+			pageCounter.calc(pageIndex);
+			
+			updatePager();
+			
+			int numOfWidgetShow = pageCounter.pageRowCount;
+			
 			if ( null != this.addresses ) {
 				
 				String btnWidth = "90px";
 				String btnHeight = "26px";
 				
-				widgetBoxes = new VerticalPanel[addresses.length];
-				inlineLabels = new InlineLabel[addresses.length];
-				controlboxes = new HorizontalPanel[addresses.length];
+				widgetBoxes		= new VerticalPanel[numOfWidgetShow];
+				inlineLabels	= new InlineLabel[numOfWidgetShow];
+				controlboxes	= new HorizontalPanel[numOfWidgetShow];
 				
 				int numOfCtrlBtnRow = 4;
-				for(int x=0;x<addresses.length;++x){
+				for(int x=0;x<numOfWidgetShow;++x){
 					widgetBoxes[x] = new VerticalPanel();
 					widgetBoxes[x].setWidth("100%");
 					widgetBoxes[x].getElement().getStyle().setPadding(5, Unit.PX);
@@ -178,185 +208,225 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 		}
 	}
 	
+	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
+	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
 	private HashMap<Widget, ControlPoint> widgetPoints = new HashMap<Widget, ControlPoint>();
 	private HashMap<String, Widget[]> widgetGroups = new HashMap<String, Widget[]>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
 		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
 		
-		String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "inspector" + tagname + "static" + parent;
-		if ( 0 == clientKey_multiReadValue_inspectorcontrol_static.compareTo(clientKey) ) {
+		if ( 0 == "static".compareTo(clientKey.split("_")[2]) ) {
 			
-			widgetPoints.clear();
-			widgetGroups.clear();
+			keyAndValuesStatic.put(clientKey, keyAndValue);
 			
-			for ( int y = 0 ; y < dios.size() ; ++y ) {
+			updateValue(true);
+			
+		} else if ( 0 == "dynamic".compareTo(clientKey.split("_")[2]) ) {
+			
+			keyAndValuesDynamic.put(clientKey, keyAndValue);
+			
+			updateValue(false);
+		}
+		
+		logger.log(Level.FINE, "updateValue End");
+	}
+	
+	private void updateValue(boolean withStatic) {
+		
+		logger.log(Level.FINE, "updateValue Begin");
+		
+		pageCounter.calc(pageIndex);
+		
+		int rowBegin	= pageCounter.pageRowBegin;
+		int rowEnd		= pageCounter.pageRowEnd;
+		
+		if ( withStatic ) {
+			for ( String clientKey : keyAndValuesStatic.keySet() ) {
+					
+				HashMap<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
 				
-				String dioaddress = dios.get(y);
-				
-				String diolabeldbaddress = dioaddress + strLabel;
-				
-				logger.log(Level.FINE, "updateValue diolabeldbaddress["+diolabeldbaddress+"]");
-				
-				if ( keyAndValue.containsKey(diolabeldbaddress) ) {
-					for ( int x = 0 ; x < addresses.length ; ++x ) {
-						String dbaddress = addresses[x];
+				String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
+				if ( 0 == clientKey_multiReadValue_inspectorcontrol_static.compareTo(clientKey) ) {
+					
+					widgetPoints.clear();
+					widgetGroups.clear();
+					
+					for ( int z = 0 ; z < dios.size() ; ++z ) {
 						
-						logger.log(Level.FINE, "updateValue diolabeldbaddress dbaddress["+diolabeldbaddress+"]");
+						String dioaddress = dios.get(z);
 						
-						if ( diolabeldbaddress.startsWith(dbaddress) ) {
-							String value = keyAndValue.get(diolabeldbaddress);
-							value = RTDB_Helper.removeDBStringWrapper(value);
-							
-							logger.log(Level.FINE, "updateValue value["+value+"]");
-							
-							inlineLabels[x].setText(value);
+						String diolabeldbaddress = dioaddress + strLabel;
+						
+						logger.log(Level.FINE, "updateValue diolabeldbaddress["+diolabeldbaddress+"]");
+						
+						if ( keyAndValue.containsKey(diolabeldbaddress) ) {
+							for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+								String dbaddress = addresses[x];
+								
+								logger.log(Level.FINE, "updateValue diolabeldbaddress dbaddress["+diolabeldbaddress+"]");
+								
+								if ( diolabeldbaddress.startsWith(dbaddress) ) {
+									String value = keyAndValue.get(diolabeldbaddress);
+									value = RTDB_Helper.removeDBStringWrapper(value);
+									
+									logger.log(Level.FINE, "updateValue value["+value+"]");
+									
+									inlineLabels[y].setText(value);
+								}
+							}
+						}
+						
+						
+						String diovaluetabledbaddress = dioaddress + strValueTable;
+						
+						logger.log(Level.FINE, "updateValue siodbaddress["+diovaluetabledbaddress+"]");
+						
+						if ( keyAndValue.containsKey(diovaluetabledbaddress) ) {
+							for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+								String dbaddress = addresses[x];
+								
+								logger.log(Level.FINE, "updateValue siodbaddress dbaddress["+diovaluetabledbaddress+"]");
+								
+								if ( diovaluetabledbaddress.startsWith(dbaddress) ) {
+									
+									controlboxes[y].clear();
+									
+									String value = keyAndValue.get(diovaluetabledbaddress);
+
+									{
+										int numOfRow = 12;
+										String points[] = new String[numOfRow];
+										String labels[] = new String[numOfRow];
+										String values[] = new String[numOfRow];
+										for( int r = 0 ; r < numOfRow ; ++r ) {
+											
+											points[r] = RTDB_Helper.getArrayValues(value, 0, r );
+											points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+											
+											labels[r] = RTDB_Helper.getArrayValues(value, 1, r );
+											labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+											
+											values[r] = RTDB_Helper.getArrayValues(value, 2, r );
+											values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+										}
+										
+										LinkedList<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
+										for ( int i = 0 ; i < points.length ; ++i ) {
+											
+											if ( labels[i].length() == 0  ) break;
+											
+											UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
+											btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+											btnOption.addClickHandler(new ClickHandler() {
+												
+												@Override
+												public void onClick(ClickEvent event) {
+													onButton(event);
+												}
+											});
+											
+											btnOptions.add(btnOption);
+											
+											controlboxes[y].add(btnOption);
+											
+											widgetGroups.put(dioaddress, btnOptions.toArray(new UIButtonToggle[0]));
+											
+											widgetPoints.put(btnOption, new ControlPoint("dio", scsEnvId, dbaddress, values[i]));
+
+										}
+									}
+								}
+							}
+						}
+						
+					}
+					
+					for ( int z = 0 ; z < aios.size() ; ++z ) {
+						String aioaddress = aios.get(z);
+						String aiodbaddresslabel = aioaddress + strLabel;
+						
+						logger.log(Level.FINE, "updateValue aiodbaddress["+aiodbaddresslabel+"]");
+						
+						if ( keyAndValue.containsKey(aiodbaddresslabel) ) {
+							for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+								String dbaddress = addresses[x];
+								
+								logger.log(Level.FINE, "updateValue aiodbaddress dbaddress["+dbaddress+"]");
+								
+								if ( aiodbaddresslabel.startsWith(dbaddress) ) {
+									String label = keyAndValue.get(aiodbaddresslabel);
+									label = RTDB_Helper.removeDBStringWrapper(label);
+									
+									logger.log(Level.FINE, "updateValue label["+label+"]");
+									
+									inlineLabels[y].setText(label);
+									
+									// AI and SI Value Box
+									TextBox textBox = new TextBox();
+									textBox.setWidth("250px");							
+									
+									controlboxes[y].clear();
+									
+									controlboxes[y].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+									
+									controlboxes[y].add(textBox);
+									
+									widgetGroups.put(aioaddress, new TextBox[]{textBox});
+									
+									widgetPoints.put(textBox, new ControlPoint("aio", scsEnvId, dbaddress));
+									
+								}
+							}
 						}
 					}
-				}
-				
-				
-				String diovaluetabledbaddress = dioaddress + strValueTable;
-				
-				logger.log(Level.FINE, "updateValue siodbaddress["+diovaluetabledbaddress+"]");
-				
-				if ( keyAndValue.containsKey(diovaluetabledbaddress) ) {
-					for ( int x = 0 ; x < addresses.length ; ++x ) {
-						String dbaddress = addresses[x];
-						
-						logger.log(Level.FINE, "updateValue siodbaddress dbaddress["+diovaluetabledbaddress+"]");
-						
-						if ( diovaluetabledbaddress.startsWith(dbaddress) ) {
-							
-							controlboxes[x].clear();
-							
-							String value = keyAndValue.get(diovaluetabledbaddress);
 
-							{
-								int numOfRow = 12;
-								String points[] = new String[numOfRow];
-								String labels[] = new String[numOfRow];
-								String values[] = new String[numOfRow];
-								for( int r = 0 ; r < numOfRow ; ++r ) {
-									
-									points[r] = RTDB_Helper.getArrayValues(value, 0, r );
-									points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
-									
-									labels[r] = RTDB_Helper.getArrayValues(value, 1, r );
-									labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
-									
-									values[r] = RTDB_Helper.getArrayValues(value, 2, r );
-									values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
-								}
+					for ( int z = 0 ; z < sios.size() ; ++z ) {
+						String sioaddress = sios.get(z);
+						String siodbaddress = sioaddress + strLabel;
+						
+						logger.log(Level.FINE, "updateValue siodbaddress["+siodbaddress+"]");
+						
+						if ( keyAndValue.containsKey(siodbaddress) ) {
+							for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+								String dbaddress = addresses[x];
 								
-								LinkedList<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
-								for ( int i = 0 ; i < points.length ; ++i ) {
+								logger.log(Level.FINE, "updateValue siodbaddress dbaddress["+dbaddress+"]");
+								
+								if ( siodbaddress.startsWith(dbaddress) ) {
+									String label = keyAndValue.get(siodbaddress);
+									label = RTDB_Helper.removeDBStringWrapper(label);
 									
-									if ( labels[i].length() == 0  ) break;
+									logger.log(Level.FINE, "updateValue label["+label+"]");
 									
-									UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-									btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
-									btnOption.addClickHandler(new ClickHandler() {
-										
-										@Override
-										public void onClick(ClickEvent event) {
-											onButton(event);
-										}
-									});
+									inlineLabels[y].setText(label);
 									
-									btnOptions.add(btnOption);
+									// AI and SI Value Box
+									TextBox textBox = new TextBox();
+									textBox.setWidth("250px");							
 									
-									controlboxes[x].add(btnOption);
+									controlboxes[y].clear();
 									
-									widgetGroups.put(dioaddress, btnOptions.toArray(new UIButtonToggle[0]));
+									controlboxes[y].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 									
-									widgetPoints.put(btnOption, new ControlPoint("dio", scsEnvId, dbaddress, values[i]));
-
+									controlboxes[y].add(textBox);
+									
+									widgetGroups.put(sioaddress, new TextBox[]{textBox});
+									
+									widgetPoints.put(textBox, new ControlPoint("sio", scsEnvId, dbaddress));
+									
 								}
 							}
 						}
 					}
 				}
-				
-			}
-			
-			for ( int y = 0 ; y < aios.size() ; ++y ) {
-				String aioaddress = aios.get(y);
-				String aiodbaddresslabel = aioaddress + strLabel;
-				
-				logger.log(Level.FINE, "updateValue aiodbaddress["+aiodbaddresslabel+"]");
-				
-				if ( keyAndValue.containsKey(aiodbaddresslabel) ) {
-					for ( int x = 0 ; x < addresses.length ; ++x ) {
-						String dbaddress = addresses[x];
-						
-						logger.log(Level.FINE, "updateValue aiodbaddress dbaddress["+dbaddress+"]");
-						
-						if ( aiodbaddresslabel.startsWith(dbaddress) ) {
-							String label = keyAndValue.get(aiodbaddresslabel);
-							label = RTDB_Helper.removeDBStringWrapper(label);
-							
-							logger.log(Level.FINE, "updateValue label["+label+"]");
-							
-							inlineLabels[x].setText(label);
-							
-							// AI and SI Value Box
-							TextBox textBox = new TextBox();
-							textBox.setWidth("250px");							
-							
-							controlboxes[x].clear();
-							
-							controlboxes[x].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-							
-							controlboxes[x].add(textBox);
-							
-							widgetGroups.put(aioaddress, new TextBox[]{textBox});
-							
-							widgetPoints.put(textBox, new ControlPoint("aio", scsEnvId, dbaddress));
-							
-						}
-					}
-				}
-			}
 
-			for ( int y = 0 ; y < sios.size() ; ++y ) {
-				String sioaddress = sios.get(y);
-				String siodbaddress = sioaddress + strLabel;
-				
-				logger.log(Level.FINE, "updateValue siodbaddress["+siodbaddress+"]");
-				
-				if ( keyAndValue.containsKey(siodbaddress) ) {
-					for ( int x = 0 ; x < addresses.length ; ++x ) {
-						String dbaddress = addresses[x];
-						
-						logger.log(Level.FINE, "updateValue siodbaddress dbaddress["+dbaddress+"]");
-						
-						if ( siodbaddress.startsWith(dbaddress) ) {
-							String label = keyAndValue.get(siodbaddress);
-							label = RTDB_Helper.removeDBStringWrapper(label);
-							
-							logger.log(Level.FINE, "updateValue label["+label+"]");
-							
-							inlineLabels[x].setText(label);
-							
-							// AI and SI Value Box
-							TextBox textBox = new TextBox();
-							textBox.setWidth("250px");							
-							
-							controlboxes[x].clear();
-							
-							controlboxes[x].setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-							
-							controlboxes[x].add(textBox);
-							
-							widgetGroups.put(sioaddress, new TextBox[]{textBox});
-							
-							widgetPoints.put(textBox, new ControlPoint("sio", scsEnvId, dbaddress));
-							
-						}
-					}
-				}
-			}
+			}//End of for keyAndValuesStatic
+		}
+	
+		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
+		
 		}
 		
 		logger.log(Level.FINE, "updateValue End");
@@ -369,7 +439,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	public void connect() {
 		logger.log(Level.FINE, "connect Begin");
 		
-		ctlMgr = CtlMgr.getInstance("tag");
+		ctlMgr = CtlMgr.getInstance(tagname);
 		controlMgrSubject = ctlMgr.getSubject();
 		
 		observer = new Observer() {
@@ -414,6 +484,10 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private Button btnExecute = null;
 	
+	private Button btnUp			= null;
+	private InlineLabel lblPageNum	= null;
+	private Button btnDown			= null;
+	
 	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
 	@Override
@@ -442,27 +516,29 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 			}
 		});
 		
-		Button btnUp = new Button();
+		btnUp = new Button();
 		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				
+				onButton(event);
 			}
 		});
 		
-		InlineLabel lblPageNum = new InlineLabel();
+		lblPageNum = new InlineLabel();
 		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
-		Button btnDown = new Button();
+		btnDown = new Button();
 		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				
+				onButton(event);
 			}
 		});	
 
@@ -593,6 +669,13 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 				
 				if ( null != widget ) {
 					
+					// Reset the Widget
+					if ( widget instanceof UIButtonToggle ) {
+						((UIButtonToggle) widget).setHightLight(false);
+					} else if ( widget instanceof TextBox ) {
+						((TextBox) widget).setText("");
+					}
+					
 					// Send Control
 					if ( widgetPoints.containsKey(widget) ) {
 						
@@ -649,6 +732,14 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 					logger.log(Level.SEVERE, "onButton controlPoint widget IS NULL");
 					
 				}
+			} else if ( btn == btnUp || btn == btnDown ) {
+				if ( btn == btnUp) {
+					--pageIndex;
+				} else if ( btn == btnDown ) {
+					++pageIndex;
+				}
+				updatePager();
+				updateValue(true);
 			}
 		}
 	}

@@ -426,7 +426,7 @@
                     <!-- URL that should be opened by DevMode (gwt:run). -->
                     <runTarget>http://localhost:8081/mywebapp/scsmain/initialize?page=/scsmain/ScsMain.html </runTarget>
                     <noServer>true</noServer>
-                    <logLevel>DEBUG</logLevel>
+                    <logLevel>INFO</logLevel>
                     <debugPort>9045</debugPort>
 
 

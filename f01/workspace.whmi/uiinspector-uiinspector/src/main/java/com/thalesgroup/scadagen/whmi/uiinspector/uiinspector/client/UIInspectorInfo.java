@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -86,8 +87,45 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.log(Level.FINE, "disconnect End");
 	}
 	
+	private void updatePager() {
+		
+		logger.log(Level.FINE, "updatePager Begin");
+		
+		pageCounter.calc(pageIndex);
+				
+		if ( pageCounter.hasPreview || pageCounter.hasNext ) {
+			btnUp.setEnabled(pageCounter.hasPreview);
+			lblPageNum.setText(String.valueOf(pageIndex+1) + " / " + String.valueOf(pageCounter.pageCount));
+			btnDown.setEnabled(pageCounter.hasNext);
+		} else {
+			btnUp.setVisible(false);
+			lblPageNum.setVisible(false);
+			btnDown.setVisible(false);
+		}
+		
+		logger.log(Level.FINE, "updatePager End");
+	}
+	
+	private void onButton(Button btn) {
+		
+		logger.log(Level.FINE, "onButton Begin");
+		
+		if (  btn == btnUp || btn == btnDown ) {
+			if ( btn == btnUp) {
+				--pageIndex;
+			} else if ( btn == btnDown ) {
+				++pageIndex;
+			}
+			updatePager();
+			updateValue(true);
+		}
+		
+		logger.log(Level.FINE, "onButton End");
+	}
+	
 	@Override
 	public void buildWidgets() {
+		
 		logger.log(Level.FINE, "buildWidgets Begin");
 		
 		buildWidgets(this.addresses.length);
@@ -95,6 +133,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.log(Level.FINE, "buildWidgets End");
 	}
 	
+	private int pageIndex = 0;
+	private PageCounter pageCounter = null;
 	void buildWidgets(int numOfWidgets) {
 		
 		logger.log(Level.FINE, "buildWidgets Begin");
@@ -105,20 +145,22 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			vpCtrls.clear();
 			
-//			UIInspectorInfoPanel info = new UIInspectorInfoPanel();
-//			ComplexPanel infoPanel = info.getMainPanel(this.uiNameCard);
-//			
-//			vpCtrls.add(infoPanel);
+			pageCounter = new PageCounter(numOfWidgets, 3);
+			pageCounter.calc(pageIndex);
+			
+			updatePager();
+			
+			int numOfWidgetShow = pageCounter.pageRowCount;
 			
 			if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
 				
-				txtAttribute = new TextBox[numOfWidgets];
-				lblAttibuteLabel = new InlineLabel[numOfWidgets];
-				txtAttibuteColor = new InlineLabel[numOfWidgets];
+				lblAttibuteLabel	= new InlineLabel[numOfWidgetShow];
+				txtAttributeValue	= new TextBox[numOfWidgetShow];
+				txtAttibuteColor	= new InlineLabel[numOfWidgetShow];
 
 				flexTableAttibutes = new FlexTable();
 				flexTableAttibutes.setWidth("100%");
-				for( int i = 0 ; i < numOfWidgets ; ++i ) {
+				for( int i = 0 ; i < numOfWidgetShow ; ++i ) {
 					
 					logger.log(Level.FINE, "buildWidgets i["+i+"]");
 						
@@ -127,13 +169,13 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
 					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
 					flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
-					txtAttribute[i] = new TextBox();
-					txtAttribute[i].setWidth("95%");
-					txtAttribute[i].setText("ATTRIBUTE_STATUS_"+(i+1));
-					txtAttribute[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-value");
-					txtAttribute[i].setReadOnly(true);
-					txtAttribute[i].setMaxLength(16);
-					flexTableAttibutes.setWidget(i+1, 1, txtAttribute[i]);
+					txtAttributeValue[i] = new TextBox();
+					txtAttributeValue[i].setWidth("95%");
+					txtAttributeValue[i].setText("ATTRIBUTE_STATUS_"+(i+1));
+					txtAttributeValue[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-value");
+					txtAttributeValue[i].setReadOnly(true);
+					txtAttributeValue[i].setMaxLength(16);
+					flexTableAttibutes.setWidget(i+1, 1, txtAttributeValue[i]);
 					txtAttibuteColor[i] = new InlineLabel();
 					txtAttibuteColor[i].setText("R");
 					txtAttibuteColor[i].setStyleName(strCSSStatusGrey);
@@ -157,6 +199,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.log(Level.FINE, "buildWidgets End");
 	}
 	
+	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
+	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
@@ -165,34 +209,67 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
-		}
+		}		
 		
-		for ( int i = 0 ; i < this.addresses.length ; ++i ) {
-			logger.log(Level.FINE, "updateValue addresses("+i+")["+addresses[i]+"]");
-		}
-		
-		for ( String key : dbvalues.keySet() ) {
-			logger.log(Level.FINE, "updateValue dbvalues.get("+key+")["+dbvalues.get(key)+"]");
+		if ( 0 == "static".compareTo(clientKey.split("_")[2]) ) {
+			
+			keyAndValuesStatic.put(clientKey, keyAndValue);
+			
+			updateValue(true);
+			
+		} else if ( 0 == "dynamic".compareTo(clientKey.split("_")[2]) ) {
+			
+			keyAndValuesDynamic.put(clientKey, keyAndValue);
+			
+			updateValue(false);
+			
 		}
 
-		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "inspectorinfo" + "static" + parent;
+		logger.log(Level.FINE, "updateValue End");
+	}
+	
+	private void updateValue(boolean withStatic) {
 		
-		logger.log(Level.FINE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
+		logger.log(Level.FINE, "updateValue Begin");
 		
-		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
-
-			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
-				String address = this.addresses[i];
-				String dbaddress = address + strLabel;
-				if ( dbvalues.containsKey(dbaddress) ) {
-					String value = dbvalues.get(dbaddress);
-					value = RTDB_Helper.removeDBStringWrapper(value);
-					lblAttibuteLabel[i].setText(value);
+		pageCounter.calc(pageIndex);
+		
+		int rowBegin	= pageCounter.pageRowBegin;
+		int rowEnd		= pageCounter.pageRowEnd;
+		
+		if ( withStatic ) {
+			for ( String clientKey : keyAndValuesStatic.keySet() ) {
+				
+				logger.log(Level.FINE, "updateValue Begin");
+				logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+				
+				String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "_" + "inspectorinfo" + "_" + "static" + "_" + parent;
+				
+				logger.log(Level.FINE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
+				
+				if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
+					
+					for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+						String address = this.addresses[x];
+						String dbaddress = address + strLabel;
+						if ( dbvalues.containsKey(dbaddress) ) {
+							String value = dbvalues.get(dbaddress);
+							value = RTDB_Helper.removeDBStringWrapper(value);
+							lblAttibuteLabel[y].setText(value);
+						}
+					}
 				}
-			}
-		} else {
-			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
-				String address = this.addresses[i];
+				
+			}//End of for keyAndValuesStatic
+		}
+		
+		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
+			
+			logger.log(Level.FINE, "updateValue Begin");
+			logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+			
+			for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
+				String address = this.addresses[x];
 				
 				logger.log(Level.FINE, "updateValue address["+address+"]");
 				
@@ -238,10 +315,10 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				
 				if ( null != name ) {
 					name = RTDB_Helper.removeDBStringWrapper(name);
-					txtAttribute[i].setText(name);	
+					txtAttributeValue[y].setText(name);	
 				} else {
 					value = RTDB_Helper.removeDBStringWrapper(value);
-					txtAttribute[i].setText(value);	
+					txtAttributeValue[y].setText(value);	
 				}
 				
 				String valueAlarmVector = null;
@@ -287,21 +364,27 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				}
 				
 				String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
-				txtAttibuteColor[i].setStyleName(strColorCSS);
+				txtAttibuteColor[y].setStyleName(strColorCSS);
 				
 				logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
 
 			}
-		}
-
+		}//End of for keyAndValuesDynamic
+			
+		
 		logger.log(Level.FINE, "updateValue End");
 	}
 	
 	FlexTable flexTableAttibutes = null;
 
-	private TextBox txtAttribute[];
+	private TextBox txtAttributeValue[];
 	private InlineLabel lblAttibuteLabel[];
 	private InlineLabel txtAttibuteColor[];
+	
+	
+	private Button btnUp			= null;
+	private InlineLabel lblPageNum	= null;
+	private Button btnDown			= null;
 	
 	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
@@ -316,27 +399,31 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
 		
-		Button btnUp = new Button();
+		btnUp = new Button();
 		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+
+				onButton((Button)event.getSource());
+
 			}
 		});
 		
-		InlineLabel lblPageNum = new InlineLabel();
+		lblPageNum = new InlineLabel();
 		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
-		Button btnDown = new Button();
+		btnDown = new Button();
 		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+
+				onButton((Button)event.getSource());
+
 			}
 		});	
 		

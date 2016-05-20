@@ -1,0 +1,552 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thalesgroup.hv.mwt</groupId>
+        <artifactId>mwt</artifactId>
+        <version>3.5.0</version>
+    </parent>
+
+    <properties>
+        <myproject.version>1.2.3</myproject.version>
+        <scadasoft.model.version>6.2.4.2</scadasoft.model.version>
+        <scadasoft.version>6.2.4.2</scadasoft.version>
+        <hv.common.integ.version>1.8.0</hv.common.integ.version>
+
+        <jettyVersion>8.1.16.v20140903</jettyVersion>
+        <jetty.port>8081</jetty.port>
+
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+    </properties>
+
+    <groupId>com.thalesgroup.scadasoft.myproject</groupId>
+    <artifactId>mywebapp</artifactId>
+    <version>1.2.3</version>
+    <packaging>war</packaging>
+    <name>SCADAsoft HMI Web Application</name>
+
+    <distributionManagement>  
+        <snapshotRepository>  
+            <id>scadasoft-repo-deployment</id>  
+            <name>scadasoft maven repository - SNAPSHOTS</name>  
+            <url>http://thsnexapp01p.thales-security.com:9001/nexus/content/repositories/scadasoft_snapshots/</url>  
+        </snapshotRepository>  
+        <repository>  
+            <id>scadasoft-repo-deployment</id>  
+            <name>scadasoft maven repository - RELEASES</name>  
+            <url>http://thsnexapp01p.thales-security.com:9001/nexus/content/repositories/scadasoft_releases/</url>  
+        </repository>  
+    </distributionManagement>  
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.thalesgroup.hv.common</groupId>
+            <artifactId>data-model-jaxb</artifactId>
+            <version>${hv.common.integ.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Selenium dependencies -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-ie-driver</artifactId>
+            <version>2.43.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>2.43.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <!-- <version>2.45.0</version> -->
+            <version>2.43.0</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <!-- <version>2.45.0</version> -->
+            <version>2.43.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- SCADAsoft dependencies -->
+        <dependency>
+            <groupId>com.thalesgroup.scadasoft</groupId>
+            <artifactId>scswebapp</artifactId>
+            <version>${scadasoft.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.4.4</version>
+        </dependency>
+
+        <!-- MWT dependencies -->
+        <dependency>
+            <groupId>com.thalesgroup.hv.mwt</groupId>
+            <artifactId>mwt-webapp</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-servlet_3.0_spec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.thalesgroup.hv.common</groupId>
+                    <artifactId>data-model-jaxb</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.thalesgroup.hv.mwt</groupId>
+            <artifactId>mwt-connector-impl</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.thalesgroup.hv.common</groupId>
+                    <artifactId>data-model-jaxb</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- GWT dependencies -->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+        </dependency>
+        <!-- Because of gwt maven plugin's bug -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <!-- Dependencies to test historization component -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Logging implementation -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+		
+	<!-- Merge WHMI Start -->
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.uiroot.uiroot</groupId>
+          <artifactId>uiroot-uiroot</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>provided</scope>
+        </dependency>
+	<!--
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
+          <artifactId>wrapper-wrapper</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>provided</scope>
+        </dependency>
+	-->
+		
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
+          <artifactId>config-config</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>provided</scope>
+        </dependency>
+		
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
+          <artifactId>config-configenv</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>provided</scope>
+        </dependency>
+		
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.config.confignav</groupId>
+          <artifactId>config-confignav</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <scope>provided</scope>
+        </dependency>
+		
+		<dependency>
+			<groupId>com.thalesgroup.hv.myproject</groupId>
+			<artifactId>myproject-webapp-func</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>		
+		
+		
+	<!-- End of merge -->
+	
+		<!--
+		<dependency>
+		  <groupId>com.thalesgroup.hv.gzcocc</groupId>
+          <artifactId>gzcocc-webapp-func</artifactId>
+          <version>1.3.5-SNAPSHOT</version>
+          <scope>provided</scope>
+		</dependency>
+		
+		-->
+
+		
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>test-profile</id>
+            <build>
+                <plugins>
+
+                    <!-- failsafe plugin -->
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.7.2</version>
+                        <!-- <version>2.12.4</version> -->
+                        <configuration>
+                            <skip>false</skip>
+                            <reportsDirectory>${basedir}/target/failsafe-reports</reportsDirectory>
+                            <includes>
+                                <include>**/*Test.java</include>
+								... inclure les tests Selenium
+                            </includes>
+                            <systemPropertyVariables>
+                                <jetty.port>${jetty.port}</jetty.port>
+                                <jetty.context>${project.artifactId}</jetty.context>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- surefire plugin -->
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.7.2</version>
+                        <!-- <version>2.12.4</version> -->
+                        <configuration>
+                            <skip>false</skip>
+                            <excludes>
+                                <exclude>**/*Test.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+
+                    <!-- selenium plugin -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>selenium-maven-plugin</artifactId>
+                        <!-- <version>2.3</version> -->
+                        <version>1.0.1</version>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-selenium-server</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start-server</goal>
+                                </goals>
+                                <configuration>
+                                    <background>true</background>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-selenium-server</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop-server</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+
+                    <!-- Jetty plugin -->
+
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>${jettyVersion}</version>
+                        <configuration>
+                            <skip>false</skip>
+                            <connectors>
+                                <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                                    <port>${jetty.port}</port>
+                                    <maxIdleTime>60000</maxIdleTime>
+                                </connector>
+                            </connectors>
+                            <stopPort>9966</stopPort>
+                            <stopKey>foo</stopKey>
+                            <stopWait>10</stopWait>
+                            <webApp>
+                                <extraClasspath>${project.basedir}/src/test/resources/</extraClasspath>
+                            </webApp>
+                        </configuration>
+
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.thalesgroup.hv.common</groupId>
+                                <artifactId>data-model-jaxb</artifactId>
+                                <version>${hv.common.integ.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.thalesgroup.myproject</groupId>
+                                <artifactId>my-data-model</artifactId>
+                                <version>${myproject.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.thalesgroup.scadasoft</groupId>
+                                <artifactId>scs-data-model</artifactId>
+                                <version>${scadasoft.model.version}</version>
+                            </dependency>
+                        </dependencies>
+
+                        <executions>
+                            <execution>
+                                <id>start-jetty</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                                    <daemon>true</daemon>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>stop-jetty</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+
+        </profile>
+    </profiles>
+
+    <build>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
+        <plugins>
+            <!-- GWT Maven Plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <executions>
+                    <!-- Compilation -->
+                    <execution>
+                        <id>GWT compilation</id>
+                        <configuration />
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>GWT clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+                <configuration>
+                    <inplace>true</inplace>
+                    <!-- <draftCompile>true</draftCompile> -->
+
+                    <style>PRETTY</style>
+                    <compileReport>true</compileReport>
+                    <optimizationLevel>1</optimizationLevel>
+
+
+                    <!-- Needed because of the dependency on incubator get from MWT: otherwise 
+						error with css with _ (ex datagrid) -->
+                    <gwtSdkFirstInClasspath>true</gwtSdkFirstInClasspath>
+
+                    <!-- URL that should be opened by DevMode (gwt:run). -->
+                    <runTarget>http://localhost:8081/mywebapp/scsmain/initialize?page=/scsmain/ScsMain.html </runTarget>
+                    <noServer>true</noServer>
+                    <logLevel>INFO</logLevel>
+                    <debugPort>9045</debugPort>
+
+
+                </configuration>
+            </plugin>
+            <!-- Copy static web files before executing gwt:run -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <webappDirectory>${webappDirectory}</webappDirectory>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                    <!-- GWT compilation creates a 'deploy' directory in war/WEB-INF that 
+						is not useful on RUNTIME So we exclude this directory from WAR package -->
+                    <packagingExcludes>WEB-INF/deploy/**,WEB-INF/lib/**</packagingExcludes>
+                </configuration>
+            </plugin>
+
+            <!-- eclipse plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <additionalProjectFacets>
+                        <jst.web>2.5</jst.web>
+                    </additionalProjectFacets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <deployAtEnd>true</deployAtEnd>
+                </configuration>
+            </plugin>
+
+            <!-- failsafe plugin -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.7.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- surefire plugin -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.7.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+
+            <!-- selenium plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>selenium-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+            <!-- Jetty plugin -->
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jettyVersion}</version>
+
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,4 @@
+com.thalesgroup.scadasoft.gwebhmi.main.server.PresenterFactoryMyProject
+com.thalesgroup.prj_gz_cocc.gwebhmi.main.server.presenter.CoccPresenterFactory
+com.thalesgroup.scadasoft.gwebhmi.ui.server.PresenterFactoryScs
+com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.mvp.presenter.factory.PresenterFactoryHv

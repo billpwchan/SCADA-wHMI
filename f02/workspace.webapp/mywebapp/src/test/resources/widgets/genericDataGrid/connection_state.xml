@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:genericDataGridConfiguration 
+  xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common"
+  xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd
+                      http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
+
+    <p:gridConfiguration name="connectionState" pageSize="20" fastForwardPages="2"/>
+
+    <p:subjectDescription>
+        <cmn:transientEntitySubject entityType="com.thalesgroup.hv.data_v1.connection.ConnectionType"/>
+    </p:subjectDescription>
+
+
+    <p:column xsi:type="p:textTemplateColumnType" template="{}" templateMarker="{}" i18n="false"
+              filterable="true" sortable="true" widthUnit="PX" width="80" name="connectionState_monitoredService_name">
+        <p:source xsi:type="cmn:statusDataSourceType" name="monitoredService"/>
+    </p:column>
+    <p:column xsi:type="p:textTemplateColumnType" template="{}" templateMarker="{}" i18n="false"
+              filterable="true" sortable="true" widthUnit="PX" width="80" name="connectionState_connectionState_name">
+        <p:source xsi:type="cmn:statusDataSourceType" name="connectionState"/>
+    </p:column>
+
+    <p:column xsi:type="p:numberColumnType" type="INTEGER" format=""
+              filterable="true" sortable="true" widthUnit="PX" width="60" name="connectionState_nbAliveNodesCurrent_name">
+        <p:source xsi:type="cmn:statusDataSourceType" name="nbAliveNodesCurrent"/>
+    </p:column>
+
+    <p:column xsi:type="p:numberColumnType" type="INTEGER" format=""
+              filterable="true" sortable="true" widthUnit="PX" width="60" name="connectionState_nbAliveNodesMaximum_name">
+        <p:source xsi:type="cmn:statusDataSourceType" name="nbAliveNodesMaximum"/>
+    </p:column>
+
+    <p:defaultSort>
+        <p:simpleSort columnName="connectionState_monitoredService_name" ascending="false"/>
+    </p:defaultSort>
+
+</p:genericDataGridConfiguration>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<module rename-to='Common'>
+
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User' />
+
+  <!-- Inherit the default GWT style sheet.  You can change       -->
+  <!-- the theme of your GWT application by uncommenting          -->
+  <!-- any one of the following lines.                            -->
+  <inherits name='com.google.gwt.user.theme.standard.Standard' />
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+  <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/>   -->
+  
+  <!-- Inherit the UiBinder module.                               -->
+  <inherits name="com.google.gwt.uibinder.UiBinder"/>
+  
+  <!-- Inherit the Debug module.                               -->
+  <inherits name='com.google.gwt.user.Debug' /> 
+  <inherits name="com.google.gwt.logging.Logging"/>
+
+  <!-- Other module inherits                                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.UINameCard' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uievent.uievent.UIEvent' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.config.config.Config' />
+  <inherits name='com.thalesgroup.scadagen.whmi.config.configenv.ConfigEnv' />
+  <inherits name='com.thalesgroup.scadagen.whmi.config.confignav.ConfigNav' />
+
+  <inherits name='com.thalesgroup.scadagen.whmi.opm.authentication.OpmAuthentication' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitask.UITask' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.UITaskMgr' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.UITaskHistory' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.UITaskLaunch' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasktitle.UITaskTitle' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasksplit.UITaskSplit' />  
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.UIWidget' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.UIWidgetGeneric' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanel.UIPanel' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.UIPanelMgr' />
+  <!--
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.UIPanelAlarmBanner' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelempty.UIPanelEmpty' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelstatusbar.UIPanelStatusBar' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar.UIPanelToolBar' />
+  -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.UIPanelNavigation' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.UIPanelViewLayout' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiview.UIView' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.UIViewMgr' />
+  <!--
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewimage.UIViewImage' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewempty.UIViewEmpty' />
+  -->  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.UIScreen' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.UIScreenMgr' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.UIScreenEmpty' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.UIScreenDSS' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.UIScreenLogin' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.UIScreenMMI' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.UIDialogMsg' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.UIInspector' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.UIScreenRoot' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiroot.uiroot.UIRoot' />
+  
+  <inherits name='com.thalesgroup.scadagen.wrapper.mwt.Mwt' />
+  <inherits name='com.thalesgroup.scadagen.wrapper.wrapper.Wrapper' />
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client' />
+  <source path='shared' />
+
+  <!-- To change the default logLevel -->
+  <set-property name="gwt.logging.logLevel" value="SEVERE"/>
+  <!-- To enable logging -->
+  <set-property name="gwt.logging.enabled" value="TRUE"/>
+  <!-- To disable a default Handler -->
+  <set-property name="gwt.logging.consoleHandler" value="DISABLED"/>
+  <!-- To disable a popup Handler -->
+  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
+  <!-- Remote Logging Enable -->
+  <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED" />
+
+  <set-property name="user.agent" value="safari" /> 
+
+</module>

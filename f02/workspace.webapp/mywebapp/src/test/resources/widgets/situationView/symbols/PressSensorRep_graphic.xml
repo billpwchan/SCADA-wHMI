@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="PressSensorRep_graphic">
+        <root>
+            <svgRef brickId="dummy_pressure" id="dummy_pressure_node"></svgRef>
+            <svgText verticalAlignment="bottom" horizontalAlignment="start" initValue="1.2" ty="87.0" tx="-70.0" cssClass="pressValue" id="PressSensorRep_pressure_pressText"></svgText>
+            <svgText verticalAlignment="bottom" horizontalAlignment="middle" initValue="1.2356" ty="0.0" tx="0.0" cssClass="pressNumber" id="PressSensorRep_pressure_pressValue"></svgText>
+        </root>
+    </graphic>
+</graphicConfiguration>

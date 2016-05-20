@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<viewConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/view">
+    <view units="m" srs="EPSG:23030" resolutionReference="1.0" restrictedExtent="0.0 0.0 1920.0 895.0" initialExtent="0.0 0.0 1920.0 895.0" maxExtent="0.0 0.0 1920.0 895.0" resolution="0.2 0.4 0.5 0.6 0.8 1.0 1.2 1.4 1.5 1.6 1.8 2.0 4.0" id="STG_PCD">
+        <controls displayPanZoomBar="true" displayMousePosition="false" displayScale="false" displayScaleLine="false" displayLayerSwitcher="true"></controls>
+        <imageLayer bounds="0.0 0.0 1920.0 895.0" height="895.0" width="1920.0" path="images/STG_PCD.svg" type="BASE_LAYER" name="STG_PCD"></imageLayer>
+        <symbolLayer type="OVERLAY" name="PCD_AT_L1_shapes">
+            <entitiesShapesEntry shapesResourcePath="views/images/PCD_AT_L1_shapes.svg">
+                <entityShapeEntry elementId=":PCCL01:EN:ZNA:SEC_00_1" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD001"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNB:SEC_02_2" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD003"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNA:SEC_01_3" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD002"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNA:SEC_00_4" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD001"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNB:SEC_02_5" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD003"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNC:SEC_03_6" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD004"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_10_7" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD010"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNE:SEC_09_8" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD009"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNE:SEC_09_9" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD009"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNE:SEC_09_10" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD009"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZND:SEC_05_11" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD006"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNC:SEC_04_12" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD005"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_10:SER_001_53" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID012"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNE:SEC_09:SER_002_54" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID011"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZND:SEC_05:SER_001_55" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID008"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNC:SEC_04:SER_001_56" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID007"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNC:SEC_03:SER_001_57" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID006"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNB:SEC_02:SER_002_58" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID005"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNB:SEC_02:SER_001_59" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID004"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNA:SEC_01:SER_001_60" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID003"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNA:SEC_00:SER_002_61" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID002"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNA:SEC_00:SER_001_62" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID001"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNE:SEC_08_76" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD008"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZND:SEC_07_77" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD007"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNE:SEC_08:SER_001_86" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID010"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZND:SEC_07:SER_001_87" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID009"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_15:SER_002_99" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID017"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_15:SER_001_100" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID016"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_15_101" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD013"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_15_102" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD013"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_12:SER_002_107" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID013"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_12_108" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD011"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_12_109" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD011"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_12:SER_003_117" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID014"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_12_118" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD011"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNF:SEC_12_119" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD011"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_13:SER_001_126" animationId="IntrusionActiveBackdrop_animation" entityId="B01ID015"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_13_127" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD012"></entityShapeEntry>
+                <entityShapeEntry elementId=":PCCL01:EN:ZNG:SEC_13_128" animationId="FireZoneActiveBackdrop_animation" entityId="B01FD012"></entityShapeEntry>
+            </entitiesShapesEntry>
+        </symbolLayer>
+        <symbolLayer type="OVERLAY" name="Door_layer">
+            <entityEntry y="638.0" x="253.0" entityId="B01DO009" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="307.0" entityId="B01DO012" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="439.0" entityId="B01DO015" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="492.0" entityId="B01DO018" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="625.0" entityId="B01DO021" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="679.0" entityId="B01DO024" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1012.0" entityId="B01DO034" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1175.0" entityId="B01DO038" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="67.0" entityId="B01DO003" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="113.0" entityId="B01DO006" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="253.0" entityId="B01DO010" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="307.0" entityId="B01DO013" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="438.0" entityId="B01DO016" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="492.0" entityId="B01DO019" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="625.0" entityId="B01DO022" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="679.0" entityId="B01DO025" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1012.0" entityId="B01DO035" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1175.0" entityId="B01DO039" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="67.0" entityId="B01DO004" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="113.0" entityId="B01DO007" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="67.0" entityId="B01DO001" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="86.0" entityId="B01DO002" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="141.0" entityId="B01DO005" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="253.0" entityId="B01DO008" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="307.0" entityId="B01DO011" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="439.0" entityId="B01DO014" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="492.0" entityId="B01DO017" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="625.0" entityId="B01DO020" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="679.0" entityId="B01DO023" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="985.0" entityId="B01DO032" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1040.0" entityId="B01DO033" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1147.0" entityId="B01DO036" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1202.0" entityId="B01DO037" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="810.0" entityId="B01DO027" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="865.0" entityId="B01DO030" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="811.0" entityId="B01DO028" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="865.0" entityId="B01DO031" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="810.0" entityId="B01DO026" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="865.0" entityId="B01DO029" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1669.0" entityId="B01DO054" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1669.0" entityId="B01DO057" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1669.0" entityId="B01DO053" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1669.0" entityId="B01DO056" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1338.0" entityId="B01DO042" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1338.0" entityId="B01DO043" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1311.0" entityId="B01DO040" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1365.0" entityId="B01DO041" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1669.0" entityId="B01DO055" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1669.0" entityId="B01DO052" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1491.0" entityId="B01DO046" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1491.0" entityId="B01DO047" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1464.0" entityId="B01DO045" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1518.0" entityId="B01DO044" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="638.0" x="1602.0" entityId="B01DO050" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="392.0" x="1602.0" entityId="B01DO051" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1575.0" entityId="B01DO048" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="287.0" x="1629.0" entityId="B01DO049" symbolId="DoorRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+        </symbolLayer>
+        <symbolLayer type="OVERLAY" name="Sprinkler_layer">
+            <entityEntry y="737.0" x="1669.0" entityId="B01SP001" symbolId="SprinklerRepVS9" scale="0.2238806039094925" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+        </symbolLayer>
+    </view>
+</viewConfiguration>

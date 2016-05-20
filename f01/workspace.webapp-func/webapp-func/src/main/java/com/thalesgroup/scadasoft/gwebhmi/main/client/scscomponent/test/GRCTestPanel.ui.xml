@@ -1,0 +1,252 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	
+	@external mwt-ProgressBar-bar;
+	.mwt-ProgressBar-bar {
+	background-color: #FFFFFF;
+	}
+	
+	
+	@external .Panel;
+	.Panel {
+		background-color: #b3b3b3;
+		border-radius: 5px;
+		border-color: #FFFFFF;
+		border-left: 1px solid #FFFFFF;
+		border-right: 1px solid #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		color: #000000;
+	}
+	</ui:style>
+	<g:VerticalPanel width="" height=""
+		horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
+
+		<g:HorizontalPanel width="750px" height="270px"
+			horizontalAlignment="ALIGN_CENTER">
+
+			<g:VerticalPanel width="300px" height="265px"
+				styleName="{style.Panel}" horizontalAlignment="ALIGN_CENTER"
+				verticalAlignment="ALIGN_MIDDLE">
+
+				<g:Label text="Environment name : " />
+				<g:TextBox readOnly="false" ui:field="envNameTB" width="300px" />
+				<g:Label text="GRC List : " />
+				<g:ListBox visibleItemCount="30" height="135px" width="300px"
+					ui:field="grcLB" />
+
+			</g:VerticalPanel>
+
+			<g:VerticalPanel width="300px" height="265px"
+				styleName="{style.Panel}" horizontalAlignment="ALIGN_CENTER"
+				verticalAlignment="ALIGN_MIDDLE">
+
+				<g:InlineLabel text="Selected GRC : no GRC selected" ui:field="grcLabel"/>
+				<g:Grid width="" height="220px">
+					<g:row>
+						<g:customCell>
+							<g:Label text="Name :" horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox readOnly="true" ui:field="nameTB" width="" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Label :" horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox readOnly="true" ui:field="labelTB" width="" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Last execution time :"
+								horizontalAlignment="ALIGN_LEFT" />
+
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox readOnly="true" ui:field="lastExecTimeTB"
+								width="" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Inhibition flag :" horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox readOnly="true" ui:field="inhibFlagTB"
+								width="" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Initial condition :" horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox readOnly="true" ui:field="initCondTB" width="" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Grc state : " horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox width="" ui:field="stateTB"
+								readOnly="true" />
+						</g:customCell>
+					</g:row>
+				</g:Grid>
+
+			</g:VerticalPanel>
+
+		</g:HorizontalPanel>
+
+		<g:HorizontalPanel width="750px" height="290px"
+			ui:field="bhp" horizontalAlignment="ALIGN_CENTER">
+
+			<g:VerticalPanel width="300px" height="285px"
+				styleName="{style.Panel}">
+
+				<g:VerticalPanel width="300px" height="150px"
+					horizontalAlignment="ALIGN_CENTER">
+
+					<g:HorizontalPanel width="" height="40px"
+						horizontalAlignment="ALIGN_CENTER">
+
+						<g:RadioButton name="option" ui:field="autoCB">Auto</g:RadioButton>
+						<g:RadioButton name="option" ui:field="stopOnFailedCB">Stop On Failed</g:RadioButton>
+						<g:RadioButton name="option" ui:field="stopOnFirstBrcCB">Stop On First Brc</g:RadioButton>
+
+					</g:HorizontalPanel>
+
+					<g:HorizontalPanel ui:field="progressBarHP"
+						height="45px">
+					</g:HorizontalPanel>
+
+					<g:HorizontalPanel width="100%" height="50px"
+						horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
+
+						<g:Button text="Launch" ui:field="launchButton" height="40px" />
+						<g:Button text="Prepare" ui:field="prepareButton" height="40px" />
+						
+						<g:ToggleButton ui:field="toggleButton" height="40px" width="40px">
+						<g:upFace><img src="img/Resume.png" height="40px"/></g:upFace>
+						<g:downFace><img src="img/Suspend.png" height="40px"/></g:downFace>
+						</g:ToggleButton>
+						
+<!-- 						<g:HorizontalPanel width="" height="40px" -->
+<!-- 							horizontalAlignment="ALIGN_CENTER" ui:field="progBarButtons" -->
+<!-- 							verticalAlignment="ALIGN_MIDDLE"> -->
+<!-- 						</g:HorizontalPanel> -->
+						
+						<g:Button text="Abort Grc preparation" ui:field="abortPreparationButton" height="40px" />
+						<g:Button text="Abort" ui:field="abortButton" height="40px" />
+
+					</g:HorizontalPanel>
+				</g:VerticalPanel>
+
+				<g:DisclosurePanel animationEnabled="true" width="300px"
+					height="100px" open="true">
+					<g:header>Advanced Options</g:header>
+					<g:Grid width="300px">
+						<g:row>
+							<g:customCell>
+								<g:Label text="First step : " horizontalAlignment="ALIGN_LEFT" />
+							</g:customCell>
+							<g:customCell>
+								<g:TextBox width="" ui:field="firstStepTB" readOnly="false" />
+							</g:customCell>
+							<g:customCell>
+								<g:CheckBox ui:field="firstStepCB" />
+							</g:customCell>
+						</g:row>
+						<g:row>
+							<g:customCell>
+								<g:Label text="Only step : " horizontalAlignment="ALIGN_LEFT" />
+							</g:customCell>
+							<g:customCell>
+								<g:TextBox width="" ui:field="onlyStepTB" readOnly="false" />
+							</g:customCell>
+							<g:customCell>
+								<g:CheckBox ui:field="onlyStepCB" />
+							</g:customCell>
+						</g:row>
+						<g:row>
+							<g:customCell>
+								<g:Label text="Skip step : " horizontalAlignment="ALIGN_LEFT" />
+							</g:customCell>
+							<g:customCell>
+								<g:TextBox width="" ui:field="skipStepTB" readOnly="false" />
+							</g:customCell>
+							<g:customCell>
+								<g:CheckBox ui:field="skipStepCB" />
+							</g:customCell>
+						</g:row>
+					</g:Grid>
+
+				</g:DisclosurePanel>
+
+			</g:VerticalPanel>
+
+			<g:VerticalPanel width="300px" height="285px"
+				styleName="{style.Panel}" horizontalAlignment="ALIGN_CENTER"
+				verticalAlignment="ALIGN_MIDDLE">
+
+				<g:Grid height="195px">
+					<g:row>
+						<g:customCell>
+							<g:Label text="GRC : " horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox width="" ui:field="GRCTB" readOnly="false" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Env : " horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox width="" ui:field="envTB" readOnly="false" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="GRC Status : " horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox width="" ui:field="currentStatusTB" readOnly="false" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+						<g:customCell>
+							<g:Label text="Step : " horizontalAlignment="ALIGN_LEFT" />
+						</g:customCell>
+						<g:customCell>
+							<g:TextBox width="" ui:field="stepTB" readOnly="false" />
+						</g:customCell>
+					</g:row>
+					<g:row>
+                        <g:customCell>
+                            <g:Label text="Step status : " horizontalAlignment="ALIGN_LEFT" />
+                        </g:customCell>
+                        <g:customCell>
+                            <g:TextBox width="" ui:field="stepStatusTB" readOnly="false" />
+                        </g:customCell>
+                    </g:row>
+				</g:Grid>
+
+				<g:Button text="Refresh" ui:field="refreshButton" />
+				<g:InlineLabel text="Message Label :" ui:field="messageLabel" />
+
+			</g:VerticalPanel>
+
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
+
+</ui:UiBinder> 

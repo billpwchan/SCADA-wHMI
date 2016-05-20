@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+    <animationRules id="FireRepVS9_animation">
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="eqpName"></source>
+            <sourceType>STRING</sourceType>
+            <textAnimation defaultValue="" i18n="false" nodeId="FireRepVS9_eqp_name_eqpNameDT"></textAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="tagstatus"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="empty" nodeId="tagstatus.value_node">
+                <enumerationBinding>
+                    <item value="fid_lockeAndwork" inputValue="768"></item>
+                    <item value="empty" inputValue="0"></item>
+                    <item value="fid_workOrder" inputValue="512"></item>
+                    <item value="fid_locked" inputValue="256"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState" name="WidgetGlobalState"></source>
+            <sourceType>STRING</sourceType>
+            <svgRefAnimation defaultValue="fid_NotConnected" nodeId="WidgetGlobalState_node">
+                <enumerationBinding>
+                    <item value="fid_NOK_NotAck" inputValue="2"></item>
+                    <item value="fid_NOK" inputValue="1"></item>
+                    <item value="fid_OK" inputValue="0"></item>
+                    <item value="fid_NotConnected" inputValue="5"></item>
+                    <item value="fid_OK_NotAck" inputValue="4"></item>
+                    <item value="fid_Invalid" inputValue="3"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetInhibSynthesis" name="WidgetInhibSynthesis"></source>
+            <sourceType>STRING</sourceType>
+            <svgRefAnimation defaultValue="empty2" nodeId="WidgetInhibSynthesis_node">
+                <enumerationBinding>
+                    <item value="empty2" inputValue="0"></item>
+                    <item value="fid_overriden" inputValue="1"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="smoke"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="fid_NotTripped" nodeId="smoke.value_node">
+                <enumerationBinding>
+                    <item value="fid_NotTripped" inputValue="0"></item>
+                    <item value="fid_Tripped" inputValue="1"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+    </animationRules>
+</animationConfiguration>

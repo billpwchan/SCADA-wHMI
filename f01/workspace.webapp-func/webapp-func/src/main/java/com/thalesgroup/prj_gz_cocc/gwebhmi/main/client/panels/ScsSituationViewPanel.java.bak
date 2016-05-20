@@ -1,0 +1,107 @@
+
+package com.thalesgroup.scadasoft.gwebhmi.main.client.panels;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.ResizeComposite;
+import com.google.gwt.user.client.ui.SimpleLayoutPanel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.EqptSelectionChangeEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.SituationViewPanel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.presenter.SituationViewPresenterClient;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.SituationView;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.selection.MultipleSelectionModel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.WidgetFactory;
+
+/**
+ * A widget implementing a situation view widget.
+ */
+public class ScsSituationViewPanel extends ResizeComposite implements IClientLifeCycle {
+
+    /**
+     * The configuration id
+     */
+    private final String configId_;
+
+    /**
+     * Main panel wrapping this widget and passed to its {@link ResizeComposite} parent
+     */
+    private final SimpleLayoutPanel mainPanel_;
+
+    /**
+     * Presenter managing the view
+     */
+    private SituationViewPresenterClient svPresenter_;
+
+    /**
+     * Bus used to publish and listen to equipment events
+     */
+    private final EventBus eventBus_;
+
+    /**
+     * Used to remove event handler
+     */
+    private List<HandlerRegistration> handlerRegistrations_;
+
+    /** Logger */
+    private final ClientLogger s_logger = ClientLogger.getClientLogger();
+
+    /**
+     * Builds a {@link ScsSituationViewPanel}.
+     *
+     * @param configurationId configuration id
+     * @param eventBus a bus used to subscribe to and publish events
+     */
+    public ScsSituationViewPanel(final String configurationId, final EventBus eventBus) {
+        configId_ = configurationId;
+        eventBus_ = eventBus;
+        handlerRegistrations_ = new ArrayList<HandlerRegistration>();
+
+        mainPanel_ = new SimpleLayoutPanel();
+        initWidget(mainPanel_);
+        
+//        final WidgetFactory widgetFactory = new CoccWidgetFactory();
+        final WidgetFactory widgetFactory = new WidgetFactory();
+        
+        // A view
+        final SituationView svView = new SituationView(widgetFactory);
+        
+        // A presenter
+        svPresenter_ = new SituationViewPresenterClient(configId_, svView, eventBus_);
+        mainPanel_.add(svPresenter_.getView().asWidget());
+
+        svPresenter_.setEquipmentSelectionModel(new MultipleSelectionModel("com.thalesgroup.hv.data_v1.equipment.AbstractEquipmentStatusesType"));
+        svPresenter_.setAlarmSelectionModel(new MultipleSelectionModel("com.thalesgroup.hv.data_v1.alarm.AbstractAlarmType"));
+
+        // Register in order to react to equipment selection events
+        if (eventBus_ != null) {
+            handlerRegistrations_.add(eventBus_.addHandler(EqptSelectionChangeEvent.TYPE, svPresenter_));
+            handlerRegistrations_.add(eventBus_.addHandler(AlarmSelectionChangeEvent.TYPE, svPresenter_));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void terminate() {
+        for (final HandlerRegistration registration : handlerRegistrations_) {
+            registration.removeHandler();
+        }
+        handlerRegistrations_.clear();
+
+        try {
+            svPresenter_.terminate();
+        } catch (final IllegalStatePresenterException e) {
+            s_logger.error("An error occurred when the situation view presenter ["
+                    + svPresenter_.getConfigurationId() + "] try to terminate.", e);
+        }
+    }
+
+}

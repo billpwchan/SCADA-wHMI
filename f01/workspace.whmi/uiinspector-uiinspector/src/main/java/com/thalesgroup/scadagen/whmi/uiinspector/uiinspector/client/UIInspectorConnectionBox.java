@@ -40,7 +40,7 @@ public class UIInspectorConnectionBox extends DialogBox {
 	
 	private String scsEnvId					= "B001";
 	private String dbAddress				= "LMCSYSCOMM0001";
-	private String periodMillis				= "500";
+	private String periodMillis				= "250";
 	
 	public void setScsEnvId(String scsEnvId)		{ this.scsEnvId = scsEnvId; }
 	public String getScsEnvId()						{ return scsEnvId; }

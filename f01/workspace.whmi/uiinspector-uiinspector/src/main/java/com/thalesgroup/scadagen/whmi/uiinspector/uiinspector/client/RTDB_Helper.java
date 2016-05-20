@@ -61,15 +61,15 @@ public class RTDB_Helper {
 		if ( null != addresses ) {
 			if ( addresses.length > 0 ) {
 				result = true;
-				logger.log(Level.SEVERE, "setAddresses addresses.length["+addresses.length+"]");
-				for ( int i = 0 ; i < addresses.length ; ++i ) {
-					logger.log(Level.SEVERE, "setAddresses addresses("+i+")["+addresses[i]+"]");
-				}
+//				logger.log(Level.FINE, "addressesIsValid addresses.length["+addresses.length+"]");
+//				for ( int i = 0 ; i < addresses.length ; ++i ) {
+//					logger.log(Level.FINE, "addressesIsValid addresses("+i+")["+addresses[i]+"]");
+//				}
 			} else {
-				logger.log(Level.SEVERE, "setAddresses addresses length IS ZERO");
+				logger.log(Level.SEVERE, "addressesIsValid addresses length IS ZERO");
 			}
 		} else {
-			logger.log(Level.SEVERE, "setAddresses addresses IS NULL");
+			logger.log(Level.SEVERE, "addressesIsValid addresses IS NULL");
 		}		
 		return result;
 	}
@@ -128,32 +128,43 @@ public class RTDB_Helper {
 		logger.log(Level.FINE, "getColorCSS Begin");
 		
 		String colorCSS	= RTDB_i.strCSSStatusGrey;
-		int intAlarmVector	= 0;
-		int intValidity		= 0;
-		int intForcedStatus	= 0;
-		try {
-			intAlarmVector	= Integer.parseInt(alarmVector.split(",")[1]);
-			intValidity		= Integer.parseInt(validity);
-			intForcedStatus	= Integer.parseInt(forcedStatus);
-		} catch ( NumberFormatException e ) {
-			logger.log(Level.FINE, "getColorCSS NumberFormatException["+e.toString()+"]");
-		}
 		
-		// 2=MO, AI=8, 512=SS
-		if ( isMO(intForcedStatus) || isAI(intForcedStatus) || isSS(intForcedStatus) ) {
-			colorCSS = RTDB_i.strCSSStatusBlue;
-			
-		// 0=invalid, 1=valid	
-		} else if ( intValidity == 0 ) {
-			colorCSS = RTDB_i.strCSSStatusGrey;
-			
-		// 0=normal, 1=alarm
-		} else if ( intAlarmVector == 1 ) {
-			colorCSS = RTDB_i.strCSSStatusRed;
-			
-		// Grey
+		if ( null != alarmVector && null != validity && null != forcedStatus ) {
+			if ( alarmVector.length() > 0 && validity.length() > 0 && forcedStatus.length() > 0 ) {
+				
+				int intAlarmVector	= 0;
+				int intValidity		= 0;
+				int intForcedStatus	= 0;
+				try {
+		
+					intAlarmVector	= Integer.parseInt(alarmVector.split(",")[1]);
+					intValidity		= Integer.parseInt(validity);
+					intForcedStatus	= Integer.parseInt(forcedStatus);
+				} catch ( NumberFormatException e ) {
+					logger.log(Level.SEVERE, "getColorCSS NumberFormatException["+e.toString()+"]");
+				}
+				
+				// 2=MO, AI=8, 512=SS
+				if ( isMO(intForcedStatus) || isAI(intForcedStatus) || isSS(intForcedStatus) ) {
+					colorCSS = RTDB_i.strCSSStatusBlue;
+					
+				// 0=invalid, 1=valid	
+				} else if ( intValidity == 0 ) {
+					colorCSS = RTDB_i.strCSSStatusGrey;
+					
+				// 0=normal, 1=alarm
+				} else if ( intAlarmVector == 1 ) {
+					colorCSS = RTDB_i.strCSSStatusRed;
+					
+				// Grey
+				} else {
+					colorCSS = RTDB_i.strCSSStatusGreen;
+				}
+			} else {
+				logger.log(Level.SEVERE, "getColorCSS alarmVector["+alarmVector.length()+"] validity["+validity.length()+"] forcedStatus["+forcedStatus.length()+"] length IS INVALID");
+			}
 		} else {
-			colorCSS = RTDB_i.strCSSStatusGreen;
+			logger.log(Level.SEVERE, "getColorCSS alarmVector["+alarmVector+"] validity["+validity+"] forcedStatus["+forcedStatus+"] IS NULL");
 		}
 		
 		logger.log(Level.FINE, "getColorCSS colorCode["+colorCSS+"]");

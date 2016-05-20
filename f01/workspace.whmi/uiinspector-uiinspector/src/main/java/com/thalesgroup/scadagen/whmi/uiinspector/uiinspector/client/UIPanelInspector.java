@@ -2,8 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +12,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
-import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
@@ -33,7 +30,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -99,93 +95,106 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 	}
 	private HashMap<String, String> dynamicvalues = new HashMap<String, String>();
 	void updateValue(String clientKey, String [] values) {
-		String clientKey_GetChildren_inspector_static = "GetChildren" + "inspector" + "static" + parent;
-		if ( 0 == clientKey_GetChildren_inspector_static.compareTo(clientKey) ) {
-			buildTabsAddress(values);
-			makeTabsSetAddress();
-			makeTabsBuildWidgets();
-			makeTabsConnect();
-			
-			connectInspectorInfo();
-			connectInspectorControl();
-			connectInspectorTag();
-			
-			if ( infos.size() <= 0 )		tabPanel.remove(panelInfo);
-			if ( controls.size() <= 0 )		tabPanel.remove(panelCtrl);
-			if ( tags.size() <= 0 )			tabPanel.remove(panelTag);
-			if ( advances.size() <= 0 )		tabPanel.remove(panelAdv);
-
+		{
+			String clientKey_GetChildren_inspector_static = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
+			if ( 0 == clientKey_GetChildren_inspector_static.compareTo(clientKey) ) {
+				buildTabsAddress(values);
+				makeTabsSetAddress();
+				makeTabsBuildWidgets();
+				makeTabsConnect();
+				
+				connectInspectorInfo();
+				connectInspectorControl();
+				connectInspectorTag();
+				
+				if ( infos.size() <= 0 )		tabPanel.remove(panelInfo);
+				if ( controls.size() <= 0 )		tabPanel.remove(panelCtrl);
+				if ( tags.size() <= 0 )			tabPanel.remove(panelTag);
+				if ( advances.size() <= 0 )		tabPanel.remove(panelAdv);
+	
+			}			
 		}
 		
-		String clientKey_multiReadValue_inspector_static = "multiReadValue" + "inspector" + "static" + parent;
-		if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(clientKey) ) {
-			String [] dbaddresses = KeyAndAddress.get(clientKey);
-			String [] dbvalues = KeyAndValues.get(clientKey);
-			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				String dbaddress = dbaddresses[i];
 
-				if ( dbaddress.endsWith(strLabel) ) {
-					String value = dbvalues[i];
-					value = RTDB_Helper.removeDBStringWrapper(value);
-					if ( null != value) this.setText(value);
-					break;
+		{
+			String clientKey_multiReadValue_inspector_static = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
+			if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(clientKey) ) {
+				String [] dbaddresses = KeyAndAddress.get(clientKey);
+				String [] dbvalues = KeyAndValues.get(clientKey);
+				for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+					String dbaddress = dbaddresses[i];
+	
+					if ( dbaddress.endsWith(strLabel) ) {
+						String value = dbvalues[i];
+						value = RTDB_Helper.removeDBStringWrapper(value);
+						if ( null != value) this.setText(value);
+						break;
+					}
 				}
-			}
-		}
-		
-		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "inspectorinfo" + "static" + parent;
-		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
-			String [] dbaddresses = KeyAndAddress.get(clientKey);
-			String [] dbvalues = KeyAndValues.get(clientKey);
-			HashMap<String, String> keyAndValue = new HashMap<String, String>();
-			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				keyAndValue.put(dbaddresses[i], dbvalues[i]);
-			}
-			((UIInspectorInfo)		uiInspectorInfo)		.updateValue(clientKey, keyAndValue);
-			((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(clientKey, keyAndValue);
-		}
-		
-		String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "inspectorcontrol" + "static" + parent;
-		if ( 0 == clientKey_multiReadValue_inspectorcontrol_static.compareTo(clientKey) ) {
-			String [] dbaddresses = KeyAndAddress.get(clientKey);
-			String [] dbvalues = KeyAndValues.get(clientKey);
-			HashMap<String, String> keyAndValue = new HashMap<String, String>();
-			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				keyAndValue.put(dbaddresses[i], dbvalues[i]);
-			}
-			((UIInspectorControl)	uiInspectorControl)		.updateValue(clientKey, keyAndValue);
-		}
-		
-		String clientKey_multiReadValue_inspectortag_static = "multiReadValue" + "inspectortag" + "static" + parent;
-		if ( 0 == clientKey_multiReadValue_inspectortag_static.compareTo(clientKey) ) {
-			String [] dbaddresses = KeyAndAddress.get(clientKey);
-			String [] dbvalues = KeyAndValues.get(clientKey);
-			HashMap<String, String> keyAndValue = new HashMap<String, String>();
-			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				keyAndValue.put(dbaddresses[i], dbvalues[i]);
-			}
-			((UIInspectorTag)		uiInspectorTag)			.updateValue(clientKey, keyAndValue);
+			}			
 		}
 
-		String clientKey_multiReadValue_inspector_dynamic = "multiReadValue" + "inspector" + "dynamic" + parent;
-		if ( 0 == clientKey_multiReadValue_inspector_dynamic.compareTo(clientKey) ) {
-			String [] dbaddresses = KeyAndAddress.get(clientKey);
-			String [] dbvalues = KeyAndValues.get(clientKey);
-			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				dynamicvalues.put(dbaddresses[i], dbvalues[i]);
-			}
-			
-			String key = parent+ strIsControlable;
-			if ( dynamicvalues.containsKey(key) ) {
-				String value = dynamicvalues.get(key);
-				value = RTDB_Helper.removeDBStringWrapper(value);
-				if ( null != value ) txtAttributeStatus[0].setText((0==value.compareTo("0")?"No":"Yes"));
-			}
-			
-			((UIInspectorInfo)		uiInspectorInfo)		.updateValue(clientKey, dynamicvalues);
-			((UIInspectorControl)	uiInspectorControl)		.updateValue(clientKey, dynamicvalues);
-			((UIInspectorTag)		uiInspectorTag)			.updateValue(clientKey, dynamicvalues);
-			((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(clientKey, dynamicvalues);
+		{
+			String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "_" + "inspectorinfo" + "_" + "static" + "_" + parent;
+			if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
+				String [] dbaddresses = KeyAndAddress.get(clientKey);
+				String [] dbvalues = KeyAndValues.get(clientKey);
+				HashMap<String, String> keyAndValue = new HashMap<String, String>();
+				for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+					keyAndValue.put(dbaddresses[i], dbvalues[i]);
+				}
+				((UIInspectorInfo)		uiInspectorInfo)		.updateValue(clientKey, keyAndValue);
+				((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(clientKey, keyAndValue);
+			}			
+		}
+		
+		{
+			String clientKey_multiReadValue_inspectorcontrol_static = "multiReadValue" + "_" + "inspectorcontrol" + "_" + "static" + "_" + parent;
+			if ( 0 == clientKey_multiReadValue_inspectorcontrol_static.compareTo(clientKey) ) {
+				String [] dbaddresses = KeyAndAddress.get(clientKey);
+				String [] dbvalues = KeyAndValues.get(clientKey);
+				HashMap<String, String> keyAndValue = new HashMap<String, String>();
+				for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+					keyAndValue.put(dbaddresses[i], dbvalues[i]);
+				}
+				((UIInspectorControl)	uiInspectorControl)		.updateValue(clientKey, keyAndValue);
+			}			
+		}
+		
+		{
+			String clientKey_multiReadValue_inspectortag_static = "multiReadValue" + "_" + "inspectortag" + "_" + "static" + "_" + parent;
+			if ( 0 == clientKey_multiReadValue_inspectortag_static.compareTo(clientKey) ) {
+				String [] dbaddresses = KeyAndAddress.get(clientKey);
+				String [] dbvalues = KeyAndValues.get(clientKey);
+				HashMap<String, String> keyAndValue = new HashMap<String, String>();
+				for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+					keyAndValue.put(dbaddresses[i], dbvalues[i]);
+				}
+				((UIInspectorTag)		uiInspectorTag)			.updateValue(clientKey, keyAndValue);
+			}			
+		}
+		
+		{
+			String clientKey_multiReadValue_inspector_dynamic = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
+			if ( 0 == clientKey_multiReadValue_inspector_dynamic.compareTo(clientKey) ) {
+				String [] dbaddresses = KeyAndAddress.get(clientKey);
+				String [] dbvalues = KeyAndValues.get(clientKey);
+				for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+					dynamicvalues.put(dbaddresses[i], dbvalues[i]);
+				}
+				
+				String key = parent+ strIsControlable;
+				if ( dynamicvalues.containsKey(key) ) {
+					String value = dynamicvalues.get(key);
+					value = RTDB_Helper.removeDBStringWrapper(value);
+					if ( null != value ) txtAttributeStatus[0].setText((0==value.compareTo("0")?"No":"Yes"));
+				}
+				
+				((UIInspectorInfo)		uiInspectorInfo)		.updateValue(clientKey, dynamicvalues);
+				((UIInspectorControl)	uiInspectorControl)		.updateValue(clientKey, dynamicvalues);
+				((UIInspectorTag)		uiInspectorTag)			.updateValue(clientKey, dynamicvalues);
+				((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(clientKey, dynamicvalues);
+			}			
 		}
 
 	}
@@ -227,14 +236,13 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 				
 				logger.log(Level.FINE, "setReadResult Begin");
 				
-		    	logger.log(Level.FINE, "setReadResult Begin");
-		    	logger.log(Level.FINE, "setReadResult key["+key+"]");
-		    	logger.log(Level.FINE, "setReadResult errorCode["+errorCode+"]");
-		    	logger.log(Level.FINE, "setReadResult errorMessage["+errorMessage+"]");
-		    	
-				for(int i = 0; i < value.length; ++i) {
-					logger.log(Level.FINE, "setReadResult value["+i+"]["+value[i]+"]");
-				}
+//		    	logger.log(Level.FINE, "setReadResult key["+key+"]");
+//		    	logger.log(Level.FINE, "setReadResult errorCode["+errorCode+"]");
+//		    	logger.log(Level.FINE, "setReadResult errorMessage["+errorMessage+"]");
+//		    	
+//				for(int i = 0; i < value.length; ++i) {
+//					logger.log(Level.FINE, "setReadResult value["+i+"]["+value[i]+"]");
+//				}
 		    	
 		    	KeyAndValues.put(key, value);
 		    	
@@ -306,15 +314,14 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
 				
 				logger.log(Level.FINE, "setGetChildrenResult Begin");
-				
-		    	logger.log(Level.FINE, "setGetChildrenResult Begin");
-		    	logger.log(Level.FINE, "setGetChildrenResult clientKey["+clientKey+"]");
-		    	logger.log(Level.FINE, "setGetChildrenResult errorCode["+errorCode+"]");
-		    	logger.log(Level.FINE, "setGetChildrenResult errorMessage["+errorMessage+"]");
-		    	
-				for(int i = 0; i < instances.length; ++i) {
-					logger.log(Level.FINE, "setGetChildrenResult instances["+i+"]["+instances[i]+"]");
-				}		    	
+
+//		    	logger.log(Level.FINE, "setGetChildrenResult clientKey["+clientKey+"]");
+//		    	logger.log(Level.FINE, "setGetChildrenResult errorCode["+errorCode+"]");
+//		    	logger.log(Level.FINE, "setGetChildrenResult errorMessage["+errorMessage+"]");
+//		    	
+//				for(int i = 0; i < instances.length; ++i) {
+//					logger.log(Level.FINE, "setGetChildrenResult instances["+i+"]["+instances[i]+"]");
+//				}		    	
 		    	
 				KeyAndValues.put(clientKey, instances);
 				
@@ -422,7 +429,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		{
 			logger.log(Level.FINE, "GetChildren Begin");
 
-			String clientKey = "GetChildren" + "inspector" + "static" + parent;
+			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
 
 			requestStatics.add(new JSONRequest("GetChildren", clientKey, scsEnvId, parent));
 			
@@ -434,7 +441,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		{
 			logger.log(Level.FINE, "multiReadValue Begin");
 			
-			String clientKey = "multiReadValue" + "inspector" + "static" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
 			
 			String[] parents = new String[]{parent};
 			
@@ -462,7 +469,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			
 			logger.log(Level.FINE, "multiReadValue Begin");
 			
-			String clientKey = "multiReadValue" + "inspector" + "dynamic" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
 
 			String[] parents = new String[]{parent};
 			
@@ -509,19 +516,22 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		logger.log(Level.FINE, "connectInspectorInfo Begin");
 		String[] parents = new String[]{parent+":dciLocked"};
 		
-		if ( KeyAndValues.containsKey("GetChildren" + "inspector" + "static" + parent) ) {
-			parents = KeyAndValues.get("GetChildren" + "inspector" + "static" + parent);
+		{
+			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
+			if ( KeyAndValues.containsKey(clientKey) ) {
+				parents = KeyAndValues.get(clientKey);
+			}			
 		}
 		
-		for(int i=0;i<parents.length;i++) {
-			logger.log(Level.FINE, "connectInspectorInfo parents("+i+")["+parents[i]+"]");
-		}
+//		for(int i=0;i<parents.length;i++) {
+//			logger.log(Level.FINE, "connectInspectorInfo parents("+i+")["+parents[i]+"]");
+//		}
 		
 		// Read static
 		{
 			logger.log(Level.FINE, "multiReadValue Begin");
 			
-			String clientKey = "multiReadValue" + "inspectorinfo" + "static" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspectorinfo" + "_" + "static" + "_" + parent;
 
 			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
 			int r=0;
@@ -548,7 +558,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		{
 			logger.log(Level.FINE, "multiReadValue Begin");
 			
-			String clientKey = "multiReadValue" + "inspectorinfo" + "dynamic" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspectorinfo" + "_" + "dynamic" + "_" + parent;
 
 			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
 			int r=0;
@@ -624,18 +634,18 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			}
 		}
 		
-		for(int i = 0; i < controldios.size(); ++i ) {
-			logger.log(Level.FINE, "multiReadValue dios.get("+i+")["+controldios.get(i)+"]");
-		}
-		for(int i = 0; i < aios.size(); ++i ) {
-			logger.log(Level.FINE, "multiReadValue aios.get("+i+")["+aios.get(i)+"]");
-		}
-		for(int i = 0; i < sios.size(); ++i ) {
-			logger.log(Level.FINE, "multiReadValue sios.get("+i+")["+sios.get(i)+"]");
-		}
+//		for(int i = 0; i < controldios.size(); ++i ) {
+//			logger.log(Level.FINE, "multiReadValue dios.get("+i+")["+controldios.get(i)+"]");
+//		}
+//		for(int i = 0; i < aios.size(); ++i ) {
+//			logger.log(Level.FINE, "multiReadValue aios.get("+i+")["+aios.get(i)+"]");
+//		}
+//		for(int i = 0; i < sios.size(); ++i ) {
+//			logger.log(Level.FINE, "multiReadValue sios.get("+i+")["+sios.get(i)+"]");
+//		}
 		
 		{
-			String clientKey = "multiReadValue" + "inspectorcontrol" + "static" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspectorcontrol" + "_" + "static" + "_" + parent;
 			
 			LinkedList<String> iolist = new LinkedList<String>();
 			for ( int i = 0 ; i < controldios.size() ; ++i ) {
@@ -676,7 +686,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					
 					logger.log(Level.FINE, "GetChildren dbaddress["+dbaddress+"]");
 	
-					String clientKey = "GetChildren" + "inspectorcontrol" + "static" + dbaddress;
+					String clientKey = "GetChildren" + "_" + "inspectorcontrol" + "_" + "static" + "_" + dbaddress;
 	
 					requestStatics.add(new JSONRequest("GetChildren", clientKey, scsEnvId, dbaddress));
 					
@@ -730,7 +740,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		}
 		
 		{
-			String clientKey = "multiReadValue" + "inspectortag" + "static" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspectortag" + "_" + "static" + "_" + parent;
 			
 			LinkedList<String> iolist = new LinkedList<String>();
 			for ( int i = 0 ; i < controldios.size() ; ++i ) {
@@ -759,7 +769,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					
 					logger.log(Level.FINE, "GetChildren dbaddress["+dbaddress+"]");
 	
-					String clientKey = "GetChildren" + "inspectortag" + "static" + dbaddress;
+					String clientKey = "GetChildren" + "_" + "inspectortag" + "_" + "static" + "_" + dbaddress;
 	
 					requestStatics.add(new JSONRequest("GetChildren", clientKey, scsEnvId, dbaddress));
 					
@@ -845,7 +855,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 							}
 							String[] dbaddresses = dbaddresslist.toArray(new String[0]);
 							
-							String clientKey = "multiReadValue" + "inspector" + "dynamic" + parent;
+							String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
 							
 							KeyAndAddress.put(clientKey, dbaddresses);
 									

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="scslogin">
+	<inherits name="com.google.gwt.user.User" />
+
+	<inherits name='com.thalesgroup.scadasoft.common.Common'/>
+	
+	<inherits name='com.thalesgroup.scadagen.whmi.common.Common'/>
+	
+	<inherits name='com.thalesgroup.prj_gz_cocc.gwebhmi.security.scslogin'/>
+	
+	<stylesheet src='resources/project/css/project-login.css'/>
+	
+	<entry-point class='com.thalesgroup.scadasoft.gwebhmi.security.client.ScsLoginEntryPoint_WHMI'/>
+	
+	<!-- <entry-point class='com.thalesgroup.scadasoft.gwebhmi.security.client.ScsLoginEntryPoint'/> -->
+	
+</module>

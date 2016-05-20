@@ -1,0 +1,5 @@
+monitoring-local.properties
+mwt-connector-configuration.xml
+monitoring-configuration.xml
+systemConfiguration/local.properties
+widgets/situationView/gis-server.xml

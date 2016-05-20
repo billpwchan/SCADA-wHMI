@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<viewConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/view">
+  <geoView 
+                   id="geo_velizy_view"
+                   maxExtent="-180 -90 180 90"
+
+
+                   restrictedExtent="1.75336636 48.48415569 2.89594448 49.05269817"
+                   initialExtent="2.20414914 48.78322200 2.21290923 48.78765301"
+
+                   resolution="
+                               0.0006866455078125
+                               0.0003433227539062
+                               0.0001716613769531
+                               0.0000858306884766
+                               0.0000429153442383
+                               0.0000214576721191
+                               0.0000107288360596
+                               0.0000053644180298
+                               "
+
+                               resolutionReference="0.0000107288360596" >
+
+    <controls displayPanZoomBar="true" miniMapLayerName="geo_velizy_base_layer" displayMousePosition="true" displayScale="true" displayScaleLine="true" displayLayerSwitcher="true"/>
+
+    <rasterLayer serverLayers="idfrance:idfrance_background" format="image/png" gisConfId="defaultwms" type="BASE_LAYER" name="geo_velizy_base_layer"/>
+    <rasterLayer serverLayers="idfrance:railways" format="image/png" gisConfId="defaultwms" type="OVERLAY" name="geo_velizy_railways_layer"/>
+    <rasterLayer serverLayers="idfrance:buildings" format="image/png" gisConfId="defaultwms" type="OVERLAY" name="geo_velizy_building_layer"/>
+
+    <symbolLayer type="OVERLAY" name="geo_velizy_equipement_layer">
+      <entityEntry entityId="B01CA001" symbolId="CameraRepVS9" scale="0.2"/>
+
+      <entityEntry entityId="B01DO001" scale="0.2" symbolId="DoorRepVS9" navigationId="site1" />
+
+      <entityEntry entityId="B01DO002" scale="0.2" symbolId="DoorRepVS9" navigationId="usq" />
+      <entityEntry entityId="B01ID001" scale="0.2" symbolId="MotionDetRepVS9"  navigationId="site1" />
+
+      <entityEntry entityId="B01ID002" scale="0.2" symbolId="MotionDetRepVS9" navigationId="usq" />
+
+      <graphicEntry id="go_to_site1" symbolId="BuildingRep" scale="0.3" x="2.20885" y="48.783" navigationId="site1"/>
+    </symbolLayer>
+
+
+
+  </geoView>
+</viewConfiguration>

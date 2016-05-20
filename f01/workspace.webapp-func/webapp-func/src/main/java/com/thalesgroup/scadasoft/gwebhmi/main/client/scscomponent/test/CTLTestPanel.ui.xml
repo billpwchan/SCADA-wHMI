@@ -1,0 +1,200 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	
+	@external .DecoratedVP;
+	.DecoratedVP {
+		background-color: #b3b3b3;
+		border-radius: 5px;
+		border-color: #FFFFFF;
+		border-left: 1px solid #FFFFFF;
+		border-right: 1px solid #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		color: #000000;
+	}
+	
+	@external .TabPanel;
+	.TabPanel {
+		
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelTabs;
+	.TabPanel .gwt-TabLayoutPanelTabs {
+		padding-left: 5px;
+		padding-top: 6px;
+		border-bottom: 0;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelContentContainer;
+	.TabPanel .gwt-TabLayoutPanelContentContainer {
+		border-color: #000000;
+		border-style: solid;
+		border-width: 0 1px 1px;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelContent;
+	.TabPanel .gwt-TabLayoutPanelContent {
+		overflow: hidden;
+		padding: 6px;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelTab;
+	.TabPanel .gwt-TabLayoutPanelTab {
+		background: none repeat scroll 0 0 #8E8E8E;
+		border-radius: 5px 5px 0 0;
+		color: #FFFFFF;
+		cursor: pointer;
+		font-weight: normal;
+		margin-left: 4px;
+		padding: 4px 8px;
+		text-align: center;
+		border-right-width: 1px;
+		margin-top: 7px;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelTab-selected;
+	.TabPanel .gwt-TabLayoutPanelTab-selected {
+		background: none repeat scroll 0 0 #FFFFFF;
+		color: #333333;
+		cursor: default;
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:VerticalPanel width="600px" height="390px"
+		horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
+		<g:HorizontalPanel width="600px" height="390px"
+			ui:field="thp">
+			<g:TabLayoutPanel barUnit="PX" barHeight="30"
+				height="390px" ui:field="tabPanel" styleName="{style.TabPanel}">
+				<g:tab>
+					<g:header>Digital
+					</g:header>
+					<g:ListBox visibleItemCount="10" width="100%" height="100%"
+						ui:field="digitalListBox" />
+				</g:tab>
+				<g:tab>
+					<g:header>Analog
+					</g:header>
+					<g:ListBox visibleItemCount="10" width="100%" height="100%"
+						ui:field="analogListBox" />
+				</g:tab>
+				<g:tab>
+					<g:header>Structured
+					</g:header>
+					<g:ListBox visibleItemCount="10" width="100%" height="100%"
+						ui:field="structuredListBox" />
+				</g:tab>
+			</g:TabLayoutPanel>
+		</g:HorizontalPanel>
+
+		<g:HorizontalPanel width="600px" height="" ui:field="bhp">
+			<g:VerticalPanel width="600px" height="390px"
+				horizontalAlignment="ALIGN_CENTER">
+				<g:CaptionPanel captionText="Instance selected : "
+					width="600px" height="" ui:field="instanceCP">
+					<g:VerticalPanel width="600px" height=""
+						horizontalAlignment="ALIGN_CENTER">
+						<g:Grid width="" height="245px">
+							<g:row>
+								<g:customCell>
+									<g:Label text="Environment name :" horizontalAlignment="ALIGN_LEFT" />
+								</g:customCell>
+								<g:customCell>
+									<g:TextBox readOnly="false" ui:field="envNameTB"
+										width="300px" />
+								</g:customCell>
+							</g:row>
+							<g:row>
+								<g:customCell>
+									<g:Label text="VeCoord :" horizontalAlignment="ALIGN_LEFT" />
+								</g:customCell>
+								<g:customCell>
+									<g:TextBox readOnly="true" ui:field="veCoordTB"
+										width="300px" />
+								</g:customCell>
+							</g:row>
+							<g:row>
+								<g:customCell>
+									<g:Label text="Label :" horizontalAlignment="ALIGN_LEFT" />
+
+								</g:customCell>
+								<g:customCell>
+									<g:TextBox readOnly="true" ui:field="labelTB" width="300px" />
+								</g:customCell>
+							</g:row>
+							<g:row>
+								<g:customCell>
+									<g:Label text="Status :" horizontalAlignment="ALIGN_LEFT" />
+								</g:customCell>
+								<g:customCell>
+									<g:TextBox readOnly="true" ui:field="statusTB" width="300px" />
+								</g:customCell>
+							</g:row>
+							<g:row>
+								<g:customCell>
+									<g:Label text="ExecStatus :" horizontalAlignment="ALIGN_LEFT" />
+								</g:customCell>
+								<g:customCell>
+									<g:TextBox readOnly="true" ui:field="execStatusTB"
+										width="300px" />
+								</g:customCell>
+							</g:row>
+							<g:row>
+								<g:customCell>
+									<g:Label text="Digital command Value : "
+										horizontalAlignment="ALIGN_LEFT" />
+								</g:customCell>
+								<g:customCell>
+									<g:ListBox visibleItemCount="5" width="300px" height="40px"
+										ui:field="commandValueLB" />
+								</g:customCell>
+							</g:row>
+							<g:row>
+								<g:customCell>
+									<g:Label text="Command Value : " horizontalAlignment="ALIGN_LEFT" />
+								</g:customCell>
+								<g:customCell>
+									<g:TextBox readOnly="false" ui:field="commandValueTB"
+										width="300px" />
+								</g:customCell>
+							</g:row>
+						</g:Grid>
+						<g:VerticalPanel width="100%" height=""
+							horizontalAlignment="ALIGN_CENTER" styleName="{style.DecoratedVP}">
+							<g:HorizontalPanel width="80%" height="25px"
+								horizontalAlignment="ALIGN_CENTER">
+								<g:Label text="Bypass return condition" width=""
+									horizontalAlignment="ALIGN_RIGHT" />
+								<g:CheckBox ui:field="bypassInitCondCB" />
+								<g:Label text="Bypass init condition" width=""
+									horizontalAlignment="ALIGN_RIGHT" />
+								<g:CheckBox ui:field="bypassRetCondCB" />
+								<g:Label text="Send anyway" width=""
+									horizontalAlignment="ALIGN_RIGHT" />
+								<g:CheckBox ui:field="sendAnywayCB" />
+
+							</g:HorizontalPanel>
+							<g:HorizontalPanel width="80%" height="30px"
+								horizontalAlignment="ALIGN_CENTER">
+								<g:Button text="Send Command" ui:field="sendButton"
+									width="" />
+								<g:InlineLabel text="RESULT" ui:field="stateLabel" />
+								<g:Button text="Test divers" ui:field="diversTestButton"
+									width="" />
+
+							</g:HorizontalPanel>
+						</g:VerticalPanel>
+					</g:VerticalPanel>
+				</g:CaptionPanel>
+				<g:Button text="Refresh" ui:field="refreshButton" />
+				<g:InlineLabel text="Message Label :" ui:field="messageLabel" />
+			</g:VerticalPanel>
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
+
+</ui:UiBinder> 

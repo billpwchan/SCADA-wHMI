@@ -1,0 +1,8 @@
+<module rename-to="scsmain">
+    <inherits name='com.google.gwt.user.User'/>
+
+	<inherits name='com.thalesgroup.scadasoft.gwebhmi.ui.ScsUI'/>
+	
+	<source path="client/" />
+
+</module>

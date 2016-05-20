@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://navtree.util.core.mwt.hypervisor.thalesgroup.com">
+    <navigationTreeType scrollIntoViewOnSelection="false" id="Site1_object_tree">
+        <rootNodeDef isOpen="true" navId="Site1_object_tree">
+            <categoryNodeDef labelName="camera_layer_desc" isOpen="true" navId="camera_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Camera_REP" entityId="B01CA001" isOpen="false" navId="Camera_layer_B01CA001"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="door_layer_desc" isOpen="true" navId="door_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO001" isOpen="false" navId="Door_layer_B01DO001"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="firedet_layer_desc" isOpen="true" navId="firedet_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.FireDet_REP" entityId="B01FD001" isOpen="false" navId="FireDet_layer_B01FD001"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="motiondet_layer_desc" isOpen="true" navId="motiondet_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.MotionDet_REP" entityId="B01ID001" isOpen="false" navId="MotionDet_layer_B01ID001"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="scsfep_layer_desc" isOpen="true" navId="scsfep_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.FEP_REP" entityId="B01RT001" isOpen="false" navId="SCSFEP_layer_B01RT001"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="sprinkler_layer_desc" isOpen="true" navId="sprinkler_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Sprinkler_REP" entityId="B01SP001" isOpen="false" navId="Sprinkler_layer_B01SP001"></entityNodeDef>
+            </categoryNodeDef>
+        </rootNodeDef>
+    </navigationTreeType>
+</ns2:maestroHMIConfiguration>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="RTURep_graphic">
+        <root>
+            <svgGroup id="RTURep_rtu_OUM_rtu_OUS_rtu_INS">
+                <svgRef brickId="rtu_OUS" id="comState.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="RTURep_rtu_Spy_rtu_NoSpy">
+                <svgRef brickId="rtu_Spy" id="spyMode.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="RTURep_rtu_NotConnected_rtu_Invalid_rtu_OK_NotAck_rtu_NOK_NotAck_rtu_OK_rtu_NOK">
+                <svgRef brickId="rtu_NotConnected" id="WidgetGlobalState_node"></svgRef>
+            </svgGroup>
+            <svgText verticalAlignment="bottom" horizontalAlignment="middle" initValue="eqpNameDT" ty="80.0" tx="0.0" cssClass="eqpNameDT" id="RTURep_eqp_name_eqpNameDT"></svgText>
+        </root>
+    </graphic>
+</graphicConfiguration>

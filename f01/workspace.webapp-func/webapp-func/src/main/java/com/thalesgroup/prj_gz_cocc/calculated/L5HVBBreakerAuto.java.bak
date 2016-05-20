@@ -1,0 +1,67 @@
+package com.thalesgroup.prj_gz_cocc.calculated;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.computers.StatusComputer;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.BooleanAttribute;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.IntAttribute;
+
+public class L5HVBBreakerAuto implements StatusComputer {
+
+	private static final String SCSVALIDSYN = "scsvalidsyn";
+	private static final String AUTOENTRY = "autoentry";
+	private static final String AUTOEXIT = "autoexit";
+	
+	@Override
+	public AttributeClientAbstract<?> compute(OperatorOpmInfo operatorOpmInfo, String entityId,
+            Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName) {
+		BooleanAttribute scsvalidsyn = (BooleanAttribute) inputStatusByName.get(SCSVALIDSYN);
+		IntAttribute autoentry = (IntAttribute) inputStatusByName.get(AUTOENTRY);
+		IntAttribute autoexit = (IntAttribute) inputStatusByName.get(AUTOEXIT);
+		Integer symbolId = 3; // default Unknown status symbol
+		if (scsvalidsyn != null) {
+			if (scsvalidsyn.getValue() == false) {
+				symbolId = 2; // COM FAULT symbol
+			} else if (autoentry != null && autoexit != null) {
+			    if (autoentry.getValue() == 1 && autoexit.getValue() == 0) {
+			        symbolId = 0; // Inserted symbol
+			    } else if (autoentry.getValue() == 0 && autoexit.getValue() == 1) {
+			        symbolId = 1; // Normal symbol
+			    }
+			}
+		}
+		IntAttribute toReturn = new IntAttribute();
+		toReturn.setAttributeClass(Integer.class.getName());
+		toReturn.setTimestamp((scsvalidsyn != null) ? scsvalidsyn.getTimestamp() : new Date());
+		toReturn.setValid((scsvalidsyn != null) ? scsvalidsyn.isValid() : true);
+		toReturn.setValue(symbolId);
+		
+		return toReturn;
+	}
+
+	@Override
+	public String getComputerId() {
+		return L5HVBBreakerAuto.class.getName();
+	}
+
+	@Override
+	public Set<String> getInputProperties() {
+		return Collections.emptySet();
+	}
+
+	@Override
+	public Set<String> getInputStatuses() {
+		final Set<String> result = new HashSet<String>();
+		result.add(SCSVALIDSYN);
+		result.add(AUTOENTRY);
+		result.add(AUTOEXIT);
+		return result;
+	}
+
+}

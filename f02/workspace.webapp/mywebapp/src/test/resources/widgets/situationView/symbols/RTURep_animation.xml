@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+    <animationRules id="RTURep_animation">
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="eqpName"></source>
+            <sourceType>STRING</sourceType>
+            <textAnimation defaultValue="" i18n="false" nodeId="RTURep_eqp_name_eqpNameDT"></textAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="spyMode"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="rtu_Spy" nodeId="spyMode.value_node">
+                <enumerationBinding>
+                    <item value="rtu_Spy" inputValue="5"></item>
+                    <item value="rtu_NoSpy" inputValue="6"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState" name="WidgetGlobalState"></source>
+            <sourceType>STRING</sourceType>
+            <svgRefAnimation defaultValue="rtu_NotConnected" nodeId="WidgetGlobalState_node">
+                <enumerationBinding>
+                    <item value="rtu_NotConnected" inputValue="5"></item>
+                    <item value="rtu_Invalid" inputValue="3"></item>
+                    <item value="rtu_OK_NotAck" inputValue="4"></item>
+                    <item value="rtu_NOK_NotAck" inputValue="2"></item>
+                    <item value="rtu_OK" inputValue="0"></item>
+                    <item value="rtu_NOK" inputValue="1"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="comState"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="rtu_OUS" nodeId="comState.value_node">
+                <enumerationBinding>
+                    <item value="rtu_OUM" inputValue="2"></item>
+                    <item value="rtu_OUS" inputValue="1"></item>
+                    <item value="rtu_INS" inputValue="3"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+    </animationRules>
+</animationConfiguration>

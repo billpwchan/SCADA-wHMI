@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="ValveRep_graphic">
+        <root>
+            <svgGroup id="ValveRep_valve_lockeAndwork_valve_empty_valve_workOrder_valve_locked">
+                <svgRef brickId="valve_empty" id="tagstatus.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="ValveRep_valve_empty2_valve_overriden">
+                <svgRef brickId="valve_empty2" id="widgetinhibsynthesis_node"></svgRef>
+            </svgGroup>
+            <svgText verticalAlignment="bottom" horizontalAlignment="middle" initValue="eqpNameDT" ty="80.0" tx="0.0" cssClass="eqpNameDT" id="ValveRep_valve_eqp_name_eqpNameDT"></svgText>
+            <svgGroup id="ValveRep_valve_NOK_valve_NotConnected_valve_NOK_NotAck_valve_OK_valve_Invalid_valve_OK_NotAck">
+                <svgRef brickId="valve_NotConnected" id="widgetglobalstate_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="ValveRep_valveMoving_valveOpen_valveUnknown_valveClosed">
+                <svgRef brickId="valveClosed" id="openstatus.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="ValveRep_valveCard_valveCard_empty">
+                <svgRef brickId="valveCard_empty" id="locked.value_node"></svgRef>
+            </svgGroup>
+        </root>
+    </graphic>
+</graphicConfiguration>

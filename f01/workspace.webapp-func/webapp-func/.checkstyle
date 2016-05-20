@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileset-config file-format-version="1.2.0" simple-config="false">
+    <fileset name="all" enabled="true" check-config-name="MWT Checks" local="false">
+        <file-match-pattern match-pattern="." include-pattern="true" />
+                <file-match-pattern match-pattern="target/generated-sources" include-pattern="false" />
+                <file-match-pattern match-pattern="target/.generated" include-pattern="false" />
+                <file-match-pattern match-pattern="./target" include-pattern="false" />
+                <file-match-pattern match-pattern="config/jaxb" include-pattern="false" />
+                <file-match-pattern match-pattern="maps/jaxb" include-pattern="false" />
+                <file-match-pattern match-pattern="common/i18n/Labels" include-pattern="false" />
+                <file-match-pattern match-pattern="PropertiesLoader" include-pattern="false" />
+                <file-match-pattern match-pattern="UUID" include-pattern="false" />
+                <file-match-pattern match-pattern="src/test/java" include-pattern="false" />
+                <file-match-pattern match-pattern=".svg" include-pattern="false" />
+                <file-match-pattern match-pattern=".png" include-pattern="false" />
+                <file-match-pattern match-pattern=".PNG" include-pattern="false" />
+                <file-match-pattern match-pattern=".css" include-pattern="false" />  
+                <file-match-pattern match-pattern=".gif" include-pattern="false" />
+                <file-match-pattern match-pattern=".xml" include-pattern="false" />
+                <file-match-pattern match-pattern=".xsd" include-pattern="false" />
+                <file-match-pattern match-pattern=".mp3" include-pattern="false" />
+                <file-match-pattern match-pattern=".wav" include-pattern="false" />
+                <file-match-pattern match-pattern=".jpg" include-pattern="false" />
+                <file-match-pattern match-pattern=".html" include-pattern="false" />
+                <file-match-pattern match-pattern=".dtd" include-pattern="false" />
+    </fileset>
+</fileset-config>

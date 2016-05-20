@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<viewConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/view">
+    <view units="m" srs="EPSG:23030" resolutionReference="1.0" restrictedExtent="0.0 0.0 3298.0 2208.0" initialExtent="0.0 0.0 3298.0 2208.0" maxExtent="0.0 0.0 3298.0 2208.0" resolution="0.2 0.4 0.5 0.6 0.8 1.0 1.2 1.4 1.5 1.6 1.8 2.0 4.0" id="factory">
+        <controls displayPanZoomBar="true" displayMousePosition="false" displayScale="false" displayScaleLine="false" displayLayerSwitcher="true"></controls>
+        <imageLayer bounds="0.0 0.0 3298.0 2208.0" height="2208.0" width="3298.0" path="images/factory.svg" type="BASE_LAYER" name="factory"></imageLayer>
+        <symbolLayer type="OVERLAY" name="factory_shapes">
+            <entitiesShapesEntry shapesResourcePath="views/images/factory_shapes.svg">
+                <entityShapeEntry elementId="SITE1:B001:F002:ACCESS:DO011_1" animationId="DoorActiveBackdrop_animation" entityId="B01DO011"></entityShapeEntry>
+            </entitiesShapesEntry>
+        </symbolLayer>
+        <symbolLayer type="OVERLAY" name="Equipement">
+            <entityEntry y="1610.0" x="989.0" entityId="B01VA001" symbolId="ValveRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="1436.0" x="1207.0" entityId="B01VA002" symbolId="ValveRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="1623.0" x="2195.0" entityId="B02VA001" symbolId="ValveRep" scale="1.0" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="1444.0" x="2415.0" entityId="B02VA002" symbolId="ValveRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="979.0" x="1614.0" entityId="B01VA003" symbolId="ValveRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="752.0" x="1856.0" entityId="B01VA004" symbolId="ValveRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="512.0" x="1624.0" entityId="B01VA005" symbolId="ValveRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+        </symbolLayer>
+        <symbolLayer type="OVERLAY" name="EquipementText">
+            <entityEntry y="1610.0" x="674.0" entityId="F01001" symbolId="FloorRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="1486.0" x="1007.0" entityId="B01PS001" symbolId="PressSensorRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="1618.0" x="1882.0" entityId="F02001" symbolId="FloorRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+            <entityEntry y="1494.0" x="2215.0" entityId="B02PS001" symbolId="PressSensorRep" scale="0.9950248599052429" vFlip="false" hFlip="false" rotate="0.0" ty="0.0" tx="0.0"></entityEntry>
+        </symbolLayer>
+    </view>
+</viewConfiguration>

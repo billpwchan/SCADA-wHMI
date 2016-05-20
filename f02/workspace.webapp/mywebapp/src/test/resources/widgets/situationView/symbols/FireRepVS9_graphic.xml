@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+    <graphic id="FireRepVS9_graphic">
+        <root>
+            <svgGroup id="FireRepVS9_fid_lockeAndwork_empty_fid_workOrder_fid_locked">
+                <svgRef brickId="empty" id="tagstatus.value_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="FireRepVS9_empty2_fid_overriden">
+                <svgRef brickId="empty2" id="WidgetInhibSynthesis_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="FireRepVS9_fid_NOK_NotAck_fid_NOK_fid_OK_fid_NotConnected_fid_OK_NotAck_fid_Invalid">
+                <svgRef brickId="fid_NotConnected" id="WidgetGlobalState_node"></svgRef>
+            </svgGroup>
+            <svgGroup id="FireRepVS9_fid_NotTripped_fid_Tripped">
+                <svgRef brickId="fid_NotTripped" id="smoke.value_node"></svgRef>
+            </svgGroup>
+            <svgText verticalAlignment="bottom" horizontalAlignment="middle" initValue="eqpNameDT" ty="80.0" tx="0.0" cssClass="eqpNameDT" id="FireRepVS9_eqp_name_eqpNameDT"></svgText>
+        </root>
+    </graphic>
+</graphicConfiguration>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.thalesgroup.com/prj_gz_cocc/train"
+  xmlns="http://www.thalesgroup.com/prj_gz_cocc/train"
+  elementFormDefault="qualified">
+  <xs:element name="mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="defaultPosition" type="Coordinates" minOccurs="1"  maxOccurs="1" />
+        <xs:element name="trackPosition" type="TrackSectionCoordinates" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+    <xs:unique name="trackSectionUnicity">
+      <xs:selector xpath="./trackPosition" />
+      <xs:field xpath="@id" />
+    </xs:unique>
+</xs:element>
+
+  <xs:complexType name="Coordinates">
+    <xs:attribute name="x" type="xs:double" />
+    <xs:attribute name="y" type="xs:double" />
+	<xs:attribute name="rot" type="xs:double" />
+  </xs:complexType>
+  
+
+  <xs:complexType name="TrackSectionCoordinates">
+    <xs:complexContent>
+      <xs:extension base="Coordinates">
+        <xs:attribute name="id" type="xs:int" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>

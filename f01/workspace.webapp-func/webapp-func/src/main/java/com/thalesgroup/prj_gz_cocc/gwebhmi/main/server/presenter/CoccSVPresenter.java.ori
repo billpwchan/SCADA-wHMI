@@ -1,0 +1,175 @@
+package com.thalesgroup.scadasoft.gwebhmi.main.server.presenter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.thalesgroup.gzcocc.situation_view_mapping.Button;
+import com.thalesgroup.gzcocc.situation_view_mapping.Mapping;
+import com.thalesgroup.gzcocc.situation_view_mapping.View;
+import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.hv.common.configuration.api.IConfiguration;
+import com.thalesgroup.hv.common.tools.MarshallersPool;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.context.IPresenterContext;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.context.PresenterInitContext;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.PresenterException;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.life.StateTransitionReturn;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.SVInitializeTransitionReturn;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.mvp.presenter.PresenterParams;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.situation.SituationViewPresenter;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.situation.module.clusterc.IClusterContainer;
+import com.thalesgroup.prj_gz_cocc.data.mcs.configuration.equipment.cctv.configuration.CameraType;
+import com.thalesgroup.scadasoft.gwebhmi.main.client.presenter.life.CoccSVInitStateTransitionReturn;
+import com.thalesgroup.scadasoft.gwebhmi.main.server.presenter.cluster.CoccClusterContainer;
+
+/**
+ * Custom implementation of the Situation View Presenter to be able 
+ * to override the counter mechanism
+ */
+public class CoccSVPresenter extends SituationViewPresenter {
+	/** Server logger */
+	private static final Logger LOGGER = LoggerFactory.getLogger(CoccSVPresenter.class);
+
+	/** System Configuration */
+	private final IConfiguration configuration_;
+
+	/**
+	 * Constructs a situation view presenter
+	 * @param currentContext Current present context
+	 * @param authorizationChecker Authorization checker
+	 * @param operationConnector Operation connector
+	 * @param subscriptionConnector Subscription connector
+	 * @param updateService Update service
+	 * @param computerManager Computer manager
+	 */
+    public CoccSVPresenter(PresenterParams params) {
+        super(params);
+        configuration_ = getTools().getSystemConfiguration();
+    }
+
+    /**
+     * {@inheritDoc}.
+     * Change the default implementation in order to be able to change the computer management.
+     * It should be nicer if we add a factory to create the cluster container but at this
+     * time this method is the only one to do it cleanly.
+     */
+    @Override
+    protected void createComponents() {
+        super.createComponents();
+        //override the cluster container to ensure the GZ behavior
+        
+        //first keep a reference to the old container
+        final IClusterContainer oldContainer = getClusterContainer();
+        //create the new container
+        final IClusterContainer clusterContainer = 
+                new CoccClusterContainer(data_.getClusteringOptions(), getClusterIdGenerator());
+        clusterContainer.setConsumer(getClusterCompressor());
+
+        //change reference in the node container
+        getNodeContainer().removeConsumer(oldContainer);
+        getNodeContainer().setConsumer(clusterContainer);
+
+        //change reference in the view user action manager
+        getViewUserActionManager().setClusterContainer(clusterContainer);
+
+        //ensure the reference in the presenter object
+        setClusterContainer(clusterContainer);
+    }
+
+	/**
+	 * Returns a list of buttons associated to the view
+	 * @param inConfigID Config ID of the view
+	 * @return List of buttons associated to the view
+	 */
+	private List<Map<String, String>> getButtons(final String inConfigID) {
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		try {
+			// Setup Marchallers Pool with the Schema
+			final MarshallersPool pool = new MarshallersPool(
+					Mapping.class.getPackage().getName(),
+					"schemas/situation_view_mapping.xsd");
+
+			// Retrieve Mapping from XML File
+			Mapping mapping = pool.unmarshal("situation_view_mapping.xml", Mapping.class);
+
+			// Go through each View and Retrieve Mapped Buttons
+			for(View view : mapping.getView()) {
+				// Get the Navigation ID of the View
+				final String navID = view.getNavID();
+				//LOGGER.info("View navID: " + navID);
+
+				if(navID != null && navID.equals(inConfigID)) {
+					// Navigation IDs Matched, Retrieve Buttons
+					for(final Button button : view.getButton()) {
+						final Map<String, String> map = new HashMap<String, String>();
+						String value;
+
+						// Retrieve properties of the button
+						if((value = button.getNavID()) != null) {
+							map.put("navID", value);
+						}
+						if((value = button.getDesc()) != null) {
+							map.put("desc", value);
+						}
+						if((value = button.getTop()) != null) {
+							map.put("top", value);
+						}
+						if((value = button.getRight()) != null) {
+							map.put("right", value);
+						}
+						if((value = button.getBottom()) != null) {
+							map.put("bottom", value);
+						}
+						if((value = button.getLeft()) != null) {
+							map.put("left", value);
+						}
+						if((value = button.getMarginTop()) != null) {
+							map.put("marginTop", value);
+						}
+
+						// Include the properties to the list
+						list.add(map);
+					} // End For-each Button
+				} // End If NavID = ConfigID
+			} // End For-each View
+		} catch(HypervisorException e) {
+			LOGGER.error("Hypervisor Error: " + e.getMessage());
+		} catch(Exception e) {
+			LOGGER.error("Error: " + e.getMessage());
+		}
+		return list;
+    }
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public StateTransitionReturn onInitialize(IPresenterContext context) throws PresenterException {
+		StateTransitionReturn toReturn = super.onInitialize(context);
+
+		if(context instanceof PresenterInitContext && toReturn instanceof SVInitializeTransitionReturn) {
+			// Initialize, Overwrite the Return Message
+			final PresenterInitContext presenterInitContext = (PresenterInitContext)context;
+			final Map<String, CameraType> cameras = configuration_.getEntitiesAsMap(CameraType.class);
+			Map<String, String> cameraIDs = new HashMap<String, String>();
+
+			//LOGGER.info("onInitialize - PresenterInit: " + presenterInitContext.getConfigurationId());
+
+			// Construct a Mapping from Entity ID to Camera ID
+			for(final String key : cameras.keySet()) {
+				cameraIDs.put(key, cameras.get(key).getCameraID());
+			}
+
+			// Overwrite the Return Message with a Customized Transition Return
+			toReturn = new CoccSVInitStateTransitionReturn(
+					((SVInitializeTransitionReturn)toReturn).getViewInit(),
+					getButtons(presenterInitContext.getConfigurationId()),
+					cameraIDs);
+		}
+		return toReturn;
+	}
+}

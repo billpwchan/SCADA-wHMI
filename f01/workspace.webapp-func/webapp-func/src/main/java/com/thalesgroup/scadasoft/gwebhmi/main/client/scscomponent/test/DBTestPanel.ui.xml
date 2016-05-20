@@ -1,0 +1,457 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+    xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:t="urn:import:javax.swing.table"
+    xmlns:c="urn:import:com.google.common.collect" xmlns:d="urn:import:com.google.gwt.user.datepicker.client">
+    <ui:style>
+    /* Add CSS here. See the GWT docs on UI Binder for more details */
+    .important {
+        font-weight: bold;
+    }
+    
+    @external .cw-FlexTable;
+    .cw-FlexTable td {
+        border: 1px solid #BBBBBB;
+        padding: 3px;
+    }
+    
+    @external .cw-FlexTable;
+    .cw-FlexTable-buttonPanel td {
+        border: 0px;
+    }
+    
+    @external .TabPanel;
+    .TabPanel {
+        
+    }
+    
+    @external .TabPanel .gwt-TabLayoutPanelTabs;
+    .TabPanel .gwt-TabLayoutPanelTabs {
+        padding-left: 5px;
+        padding-top: 6px;
+        border-bottom: 0;
+    }
+    
+    @external .TabPanel .gwt-TabLayoutPanelContentContainer;
+    .TabPanel .gwt-TabLayoutPanelContentContainer {
+        border-color: #000000;
+        border-style: solid;
+        border-width: 0 1px 1px;
+    }
+    
+    @external .TabPanel .gwt-TabLayoutPanelContent;
+    .TabPanel .gwt-TabLayoutPanelContent {
+        overflow: hidden;
+        padding: 6px;
+    }
+    
+    @external .TabPanel .gwt-TabLayoutPanelTab;
+    .TabPanel .gwt-TabLayoutPanelTab {
+        background: none repeat scroll 0 0 #8E8E8E;
+        border-radius: 5px 5px 0 0;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-weight: normal;
+        margin-left: 4px;
+        padding: 4px 8px;
+        text-align: center;
+        border-right-width: 1px;
+        margin-top: 7px;
+    }
+    
+    @external .TabPanel .gwt-TabLayoutPanelTab-selected;
+    .TabPanel .gwt-TabLayoutPanelTab-selected {
+        background: none repeat scroll 0 0 #FFFFFF;
+        color: #333333;
+        cursor: default;
+        font-weight: bold;
+    }
+    </ui:style>
+    <g:VerticalPanel width="" height="" verticalAlignment="ALIGN_MIDDLE"
+        horizontalAlignment="ALIGN_CENTER">
+
+        <g:HorizontalPanel width="" height="650px">
+
+            <g:TabLayoutPanel barUnit="PX" barHeight="30" width="410px"
+                height="630px" ui:field="tabPanel" styleName="{style.TabPanel}">
+                <g:tab>
+                    <g:header>Classes
+                    </g:header>
+                    <g:VerticalPanel height="" width="406px">
+                        <g:Label ui:field="nbClassLabel">Number of classes :</g:Label>
+                        <g:Label ui:field="nbInstLabel">Number of instances in this classe:</g:Label>
+                        <g:Label ui:field="nbAttLabel">Number of attributes of this classe:</g:Label>
+                        <g:ListBox visibleItemCount="10" width="395px" height="530px"
+                            ui:field="classListBox" />
+                    </g:VerticalPanel>
+                </g:tab>
+                <g:tab>
+                    <g:header>Instances
+                    </g:header>
+                    <g:VerticalPanel height="" width="405px">
+                        <g:Label ui:field="instanceNbLabel">Total number of instances:</g:Label>
+                        <g:Label ui:field="classNameLabel">Class name of this instance:</g:Label>
+                        <g:Label ui:field="attNbLabel">Number of attributes of this instance:</g:Label>
+                        <g:ListBox visibleItemCount="10" width="395px" height="530px"
+                            ui:field="instanceListBox" />
+                    </g:VerticalPanel>
+                </g:tab>
+                <g:tab>
+                    <g:header>
+                        Children Aliases
+                    </g:header>
+                    <g:VerticalPanel height="" width="405px">
+                        <g:ListBox visibleItemCount="5" width="395px" height="590px"
+                            ui:field="childrenAliasesListBox" />
+                    </g:VerticalPanel>
+                </g:tab>
+            </g:TabLayoutPanel>
+
+            <g:StackLayoutPanel unit='PX' width="480px"
+                height="630px">
+                <g:stack>
+                    <g:header size='30'>Classes Info
+                    </g:header>
+                    <g:Grid width="470px" height="150px">
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Id:" width="" horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="classIdTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="User Id:" width=" " horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="userClassIdTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Nb Inst:" horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="nbInstTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:Button text="Refresh" ui:field="refreshB" />
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                </g:stack>
+                <g:stack>
+                    <g:header size='30'>Instances Info
+                    </g:header>
+                    <g:Grid width="470px" height="150px">
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Class Name:" width=""
+                                    horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="classNameTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Alias:" width="" horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="aliasTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Full Path:" width="" horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="fullPathTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Nb Att:" width=" " horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="nbAttTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="User Id:" width=" " horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="instancesUserClassIdTB" />
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                </g:stack>
+                <g:stack>
+                    <g:header size='30'>DataBase Info
+                    </g:header>
+                    <g:Grid width="470px" height="150px">
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Size:" width="" horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" width="" ui:field="sizeTB" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Nb Classes:" width=""
+                                    horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="nbClassesTB"
+                                    width="" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Nb Formula:" width=""
+                                    horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="nbFormulaTB"
+                                    width="" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Nb Instances:" width=""
+                                    horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="nbInstancesTB"
+                                    width="" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Scs Path:" width="" horizontalAlignment="ALIGN_RIGHT" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="true" ui:field="scsPathTB" width="" />
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                </g:stack>
+                <g:stack>
+                    <g:header size='30'>Attributes info
+                    </g:header>
+                    <g:VerticalPanel width="445px" height="150px">
+                        <g:CaptionPanel captionText="Attributes info"
+                            width="440px" height="115px">
+                            <g:Grid width="450px" height="90px">
+                                <g:row>
+                                    <g:customCell>
+                                        <g:ListBox visibleItemCount="5" width="297px"
+                                            height="90px" ui:field="attributeListBox" />
+                                    </g:customCell>
+                                    <g:customCell>
+                                        <g:VerticalPanel>
+                                            <g:Label ui:field="attNb" width="150px">Number of attributes:</g:Label>
+                                            <g:Button text="Read current value of selected item"
+                                                ui:field="readButton" width="136px" height="50px" />
+                                        </g:VerticalPanel>
+                                    </g:customCell>
+                                </g:row>
+                            </g:Grid>
+                        </g:CaptionPanel>
+                        <g:CaptionPanel captionText="Write" width="440px"
+                            height="119px">
+                            <g:VerticalPanel>
+                                <g:Grid width="415px" height="30px">
+                                    <g:row>
+                                        <g:customCell>
+                                            <g:Button text="Add Date" ui:field="addDateButton"
+                                                width="" height="30px" />
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:Label>h:</g:Label>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:ListBox visibleItemCount="1" width="35px"
+                                                height="40px" ui:field="hourValueLB">
+                                            </g:ListBox>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:Label>m:</g:Label>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:ListBox visibleItemCount="1" width="35px"
+                                                height="40px" ui:field="minuteValueLB">
+                                            </g:ListBox>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:Label>s:</g:Label>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:ListBox visibleItemCount="1" width="35px"
+                                                height="40px" ui:field="secondValueLB">
+                                            </g:ListBox>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:TextBox text="miliseconds..." ui:field="msecondValueTB"></g:TextBox>
+                                        </g:customCell>
+                                    </g:row>
+                                </g:Grid>
+                                <d:DateBox ui:field="dateBox" width="300px">
+                                </d:DateBox>
+                                <g:Grid width="415px" height="34px">
+                                    <g:row>
+                                        <g:customCell>
+                                            <g:Button text="Add value" ui:field="addValueButton"
+                                                width="" height="30px" />
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:RadioButton name="type" ui:field="stringValue">String</g:RadioButton>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:RadioButton name="type" ui:field="intValue">Int</g:RadioButton>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:RadioButton name="type" ui:field="floatValue">Float</g:RadioButton>
+                                        </g:customCell>
+                                        <g:customCell>
+                                            <g:TextBox readOnly="false" ui:field="typedValueTB"
+                                                width="" />
+                                        </g:customCell>
+                                    </g:row>
+                                </g:Grid>
+                            </g:VerticalPanel>
+                        </g:CaptionPanel>
+
+
+                        <g:CaptionPanel captionText="Formulas info" width="440px"
+                            height="105px">
+                            <g:Grid width="333px" height="91px">
+                                <g:row>
+                                    <g:customCell>
+                                        <g:Label text="Formula:" width="" />
+                                    </g:customCell>
+                                    <g:customCell>
+                                        <g:TextBox readOnly="true" ui:field="formulaTB"
+                                            width="" />
+                                    </g:customCell>
+                                </g:row>
+                                <g:row>
+                                    <g:customCell>
+                                        <g:Button text="Add Formula" ui:field="addButton"
+                                            width="" />
+                                    </g:customCell>
+                                    <g:customCell>
+                                        <g:TextBox readOnly="false" ui:field="setFormulaTB"
+                                            width="" />
+                                    </g:customCell>
+                                </g:row>
+                                <g:row>
+                                    <g:customCell>
+                                        <g:Button text="Get CE" ui:field="getCEButton" width="" />
+                                    </g:customCell>
+                                    <g:customCell>
+                                        <g:TextBox readOnly="true" ui:field="CEMode" width="" />
+                                    </g:customCell>
+                                </g:row>
+                            </g:Grid>
+                        </g:CaptionPanel>
+                    </g:VerticalPanel>
+                </g:stack>
+                <g:stack>
+                    <g:header size='30'>Explorator
+                    </g:header>
+                    <g:Grid width="470px" height="150px">
+                        <g:row>
+                            <g:customCell>
+                                <g:Button text="Parent" ui:field="upButton" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:Button text="Child" ui:field="downButton" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:ListBox visibleItemCount="5" width="410px" height="100px"
+                                    ui:field="exploratorListBox" />
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                </g:stack>
+                <g:stack>
+                    <g:header size='30'>
+                        DataBase Request
+                    </g:header>
+                    <g:Grid width="470px" height="">
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Instance Name:" width="" height="" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="false" ui:field="queryTB" width="220px" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Label text="Address:" width="" height="" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:TextBox readOnly="false" ui:field="queryAddressTB"
+                                    width="220px" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:Button text="Query" ui:field="queryButton" width="" />
+                            </g:customCell>
+                            <g:customCell>
+                                <g:ListBox visibleItemCount="5" width="365px" height="85px"
+                                    ui:field="queryListBox" />
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                </g:stack>
+                <g:stack>
+                    <g:header size='30'>
+                        Informations
+                    </g:header>
+                    <g:Grid width="470px" height="107px">
+                        <g:row>
+                            <g:customCell>
+                                <g:Label>Address selected :</g:Label>
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:TextBox readOnly="false" value="(:SITE1:B001:F000:CCTV)"
+                                    ui:field="setAddressTB" width="280px" />
+                            </g:customCell>
+                        </g:row>
+                        <g:row>
+                            <g:customCell>
+                                <g:InlineLabel text="New InlineLabel" ui:field="messageLabel"
+                                    width="121px" height="34px" />
+                            </g:customCell>
+                        </g:row>
+                    </g:Grid>
+                </g:stack>
+            </g:StackLayoutPanel>
+            <g:CustomScrollPanel width="400px" height="630px"
+                visible="true">
+                <g:FlexTable width="400px" height="625px" ui:field="flexTable"
+                    styleName="{style.cw-FlexTable}">
+                </g:FlexTable>
+            </g:CustomScrollPanel>
+
+        </g:HorizontalPanel>
+
+    </g:VerticalPanel>
+</ui:UiBinder> 

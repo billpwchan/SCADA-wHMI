@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.thalesgroup.com/prj_gz_cocc/local_config" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.thalesgroup.com/prj_gz_cocc/local_config">
+    <xsd:complexType name="ConfigItem">
+    	<xsd:attribute name="id" type="xsd:string"></xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="IntegerConfigItem">
+    	<xsd:complexContent>
+    		<xsd:extension base="ConfigItem">
+    			<xsd:attribute name="value" type="xsd:int"></xsd:attribute>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="DoubleConfigItem">
+    	<xsd:complexContent>
+    		<xsd:extension base="ConfigItem">
+    			<xsd:attribute name="value" type="xsd:double"></xsd:attribute>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="StringConfigItem">
+    	<xsd:complexContent>
+    		<xsd:extension base="ConfigItem">
+    			<xsd:attribute name="value" type="xsd:string"></xsd:attribute>
+    		</xsd:extension>
+    	</xsd:complexContent>
+    </xsd:complexType>
+
+
+
+    <xsd:element name="localConfiguration">
+    	<xsd:complexType>
+    		<xsd:sequence>
+    			<xsd:element name="doubleItem" type="DoubleConfigItem"
+    				minOccurs="0" maxOccurs="unbounded">
+    			</xsd:element>
+    			<xsd:element name="intItem" type="IntegerConfigItem"
+    				minOccurs="0" maxOccurs="unbounded">
+    			</xsd:element>
+    			<xsd:element name="stringItem" type="StringConfigItem" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    		</xsd:sequence>
+    	</xsd:complexType></xsd:element>
+</xsd:schema>

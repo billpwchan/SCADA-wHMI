@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+    <animationRules id="ValveRep_animation">
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState" name="widgetglobalstate"></source>
+            <sourceType>STRING</sourceType>
+            <svgRefAnimation defaultValue="valve_NotConnected" nodeId="widgetglobalstate_node">
+                <enumerationBinding>
+                    <item value="valve_NOK" inputValue="1"></item>
+                    <item value="valve_NotConnected" inputValue="5"></item>
+                    <item value="valve_NOK_NotAck" inputValue="2"></item>
+                    <item value="valve_OK" inputValue="0"></item>
+                    <item value="valve_Invalid" inputValue="3"></item>
+                    <item value="valve_OK_NotAck" inputValue="4"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="eqpName"></source>
+            <sourceType>STRING</sourceType>
+            <textAnimation defaultValue="" i18n="false" nodeId="ValveRep_valve_eqp_name_eqpNameDT"></textAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="locked"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="valveCard_empty" nodeId="locked.value_node">
+                <enumerationBinding>
+                    <item value="valveCard" inputValue="1"></item>
+                    <item value="valveCard_empty" inputValue="0"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="tagstatus"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="valve_empty" nodeId="tagstatus.value_node">
+                <enumerationBinding>
+                    <item value="valve_lockeAndwork" inputValue="768"></item>
+                    <item value="valve_empty" inputValue="0"></item>
+                    <item value="valve_workOrder" inputValue="512"></item>
+                    <item value="valve_locked" inputValue="256"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="openstatus"></source>
+            <sourceType>INT</sourceType>
+            <svgRefAnimation defaultValue="valveClosed" nodeId="openstatus.value_node">
+                <enumerationBinding>
+                    <item value="valveMoving" inputValue="0"></item>
+                    <item value="valveOpen" inputValue="2"></item>
+                    <item value="valveUnknown" inputValue="3"></item>
+                    <item value="valveClosed" inputValue="1"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+        <animationRule>
+            <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetInhibSynthesis" name="widgetinhibsynthesis"></source>
+            <sourceType>STRING</sourceType>
+            <svgRefAnimation defaultValue="valve_empty2" nodeId="widgetinhibsynthesis_node">
+                <enumerationBinding>
+                    <item value="valve_empty2" inputValue="0"></item>
+                    <item value="valve_overriden" inputValue="1"></item>
+                </enumerationBinding>
+            </svgRefAnimation>
+        </animationRule>
+    </animationRules>
+</animationConfiguration>

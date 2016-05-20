@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+******************************************
+ Generated with MetaConfigurator v3.0.6.0
+     Project: StressTest
+     Version: 1.2.4
+
+        User: T0009042
+    Computer: L269975
+          OS: Windows XP v5.1 (arch x86)
+******************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://navtree.util.core.mwt.hypervisor.thalesgroup.com">
+    <navigationTreeType scrollIntoViewOnSelection="false" id="STG_PCD_object_tree">
+        <rootNodeDef isOpen="true" navId="STG_PCD_object_tree">
+            <categoryNodeDef labelName="door_layer_desc" isOpen="true" navId="door_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO009" isOpen="false" navId="Door_layer_B01DO009"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO012" isOpen="false" navId="Door_layer_B01DO012"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO015" isOpen="false" navId="Door_layer_B01DO015"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO018" isOpen="false" navId="Door_layer_B01DO018"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO021" isOpen="false" navId="Door_layer_B01DO021"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO024" isOpen="false" navId="Door_layer_B01DO024"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO034" isOpen="false" navId="Door_layer_B01DO034"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO038" isOpen="false" navId="Door_layer_B01DO038"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO003" isOpen="false" navId="Door_layer_B01DO003"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO006" isOpen="false" navId="Door_layer_B01DO006"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO010" isOpen="false" navId="Door_layer_B01DO010"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO013" isOpen="false" navId="Door_layer_B01DO013"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO016" isOpen="false" navId="Door_layer_B01DO016"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO019" isOpen="false" navId="Door_layer_B01DO019"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO022" isOpen="false" navId="Door_layer_B01DO022"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO025" isOpen="false" navId="Door_layer_B01DO025"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO035" isOpen="false" navId="Door_layer_B01DO035"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO039" isOpen="false" navId="Door_layer_B01DO039"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO004" isOpen="false" navId="Door_layer_B01DO004"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO007" isOpen="false" navId="Door_layer_B01DO007"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO001" isOpen="false" navId="Door_layer_B01DO001"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO002" isOpen="false" navId="Door_layer_B01DO002"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO005" isOpen="false" navId="Door_layer_B01DO005"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO008" isOpen="false" navId="Door_layer_B01DO008"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO011" isOpen="false" navId="Door_layer_B01DO011"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO014" isOpen="false" navId="Door_layer_B01DO014"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO017" isOpen="false" navId="Door_layer_B01DO017"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO020" isOpen="false" navId="Door_layer_B01DO020"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO023" isOpen="false" navId="Door_layer_B01DO023"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO032" isOpen="false" navId="Door_layer_B01DO032"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO033" isOpen="false" navId="Door_layer_B01DO033"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO036" isOpen="false" navId="Door_layer_B01DO036"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO037" isOpen="false" navId="Door_layer_B01DO037"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO027" isOpen="false" navId="Door_layer_B01DO027"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO030" isOpen="false" navId="Door_layer_B01DO030"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO028" isOpen="false" navId="Door_layer_B01DO028"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO031" isOpen="false" navId="Door_layer_B01DO031"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO026" isOpen="false" navId="Door_layer_B01DO026"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO029" isOpen="false" navId="Door_layer_B01DO029"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO054" isOpen="false" navId="Door_layer_B01DO054"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO057" isOpen="false" navId="Door_layer_B01DO057"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO053" isOpen="false" navId="Door_layer_B01DO053"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO056" isOpen="false" navId="Door_layer_B01DO056"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO042" isOpen="false" navId="Door_layer_B01DO042"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO043" isOpen="false" navId="Door_layer_B01DO043"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO040" isOpen="false" navId="Door_layer_B01DO040"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO041" isOpen="false" navId="Door_layer_B01DO041"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO055" isOpen="false" navId="Door_layer_B01DO055"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO052" isOpen="false" navId="Door_layer_B01DO052"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO046" isOpen="false" navId="Door_layer_B01DO046"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO047" isOpen="false" navId="Door_layer_B01DO047"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO045" isOpen="false" navId="Door_layer_B01DO045"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO044" isOpen="false" navId="Door_layer_B01DO044"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO050" isOpen="false" navId="Door_layer_B01DO050"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO051" isOpen="false" navId="Door_layer_B01DO051"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO048" isOpen="false" navId="Door_layer_B01DO048"></entityNodeDef>
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Door_REP" entityId="B01DO049" isOpen="false" navId="Door_layer_B01DO049"></entityNodeDef>
+            </categoryNodeDef>
+            <categoryNodeDef labelName="sprinkler_layer_desc" isOpen="true" navId="sprinkler_layer">
+                <entityNodeDef entityTypeRepId="com.thalesgroup.myproject.data.config.equipment.Sprinkler_REP" entityId="B01SP001" isOpen="false" navId="Sprinkler_layer_B01SP001"></entityNodeDef>
+            </categoryNodeDef>
+        </rootNodeDef>
+    </navigationTreeType>
+</ns2:maestroHMIConfiguration>

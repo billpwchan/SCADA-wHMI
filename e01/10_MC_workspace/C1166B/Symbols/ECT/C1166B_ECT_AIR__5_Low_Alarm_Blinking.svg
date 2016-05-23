@@ -1,0 +1,15 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_C1166B_SYMBOLS_ECT_C1166B_ECT_AIR__5_LOW_ALARM_BLINKING_SVG"><rect x="59.0" fill="red" width="82.0" height="166.0" y="17.0" opacity="0"/><g id="ECT/C1166B_ECT_AIR__5_Low_Alarm_Blinking" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polyline fill="none" stroke-width="2px" class="AnPolyline" points="-40,67 -40,-17 -40,-17 -38,-31 -36,-41 -34,-49 -30,-59 -26,-65 -22,-71 -20,-73 -18,-75 -16,-77 -10,-81 -4,-83 1,-83 2,-83 8,-81 12,-79 18,-75 20,-73 22,-71 26,-65 30,-57 32,-53 34,-47 38,-35 38,-35 38,-35 40,-17 40,-11 40,-11 40,67 -40,67 " stroke="#FF0000"/>
+
+  
+  <polygon fill="#FF0000" class="AnPolygon" fill-rule="evenodd" points="40,66 40,82 26,82 26,66 "/>
+
+  
+  <polygon fill="#FF0000" class="AnPolygon" fill-rule="evenodd" points="-26,66 -26,82 -40,82 -40,66 "/>
+
+  
+  <polygon fill="#FF0000" class="AnPolygon" fill-rule="evenodd" points="40,53 40,67 -40,67 -40,53 "/>
+
+</g></g></svg>

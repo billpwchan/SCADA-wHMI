@@ -1,0 +1,14 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_C1166B_SYMBOLS_ECT_C1166B_ECT_AIR1_3_BLINKING_SVG"><rect x="59.0" fill="red" width="82.0" height="166.0" y="17.0" opacity="0"/><g id="ECT/C1166B_ECT_AIR1_3_Blinking" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <rect x="-40px" y="-6px" fill="#FF0000" width="80px" fill-rule="evenodd" class="AnRectangle" height="74px"/>
+
+  
+  <rect x="-40px" y="67px" fill="#FF0000" width="14px" fill-rule="evenodd" class="AnRectangle" height="16px"/>
+
+  
+  <rect x="26px" y="67px" fill="#FF0000" width="14px" fill-rule="evenodd" class="AnRectangle" height="16px"/>
+
+  
+  <path fill="none" stroke-width="2px" d="M40,-8 C40,-48 22,-78 0,-82 -22,-82 -38,-48 -40,-8 -40,32 -22,62 0,66 22,66 38,32 40,-4 40,-8 40,-8 40,-8 40,-8 40,-8 40,-8 Z" class="AnClosedSpline" stroke="#FF0000"/>
+</g></g></svg>

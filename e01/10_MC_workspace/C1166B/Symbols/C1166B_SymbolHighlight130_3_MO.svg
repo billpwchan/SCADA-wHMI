@@ -1,0 +1,15 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_C1166B_SYMBOLS_C1166B_SYMBOLHIGHLIGHT130_3_MO_SVG"><rect x="0.0" fill="red" width="200.0" height="130.0" y="35.0" opacity="0"/><g id="C1166B_SymbolHighling130_MO" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="-100,-65 -86,-65 -86,64 -100,64 "/>
+
+  
+  <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="-100,-65 99,-65 99,-51 -100,-51 "/>
+
+  
+  <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="99,64 99,-65 85,-65 85,64 "/>
+
+  
+  <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="99,64 -100,64 -100,50 99,50 "/>
+
+</g></g></svg>

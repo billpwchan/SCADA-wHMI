@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="C1166B_TECS_L02SUMCAIR" kind="Functional" businessId="C1166B">
+  <canvas viewBoxWidth="4320" viewBoxHeight="2404" mode="SVG" name="SVG" maxExtent_right="4320.0" maxExtent_top="2404.0">
+    <ownedItem name="B001" height="200" width="200" x="730" y="2010" scale="1.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_akJRAB5lEeat3LML2nTf0Q">
+      <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
+    </ownedItem>
+    <ownedItem name="B001" height="200" width="200" x="1090" y="1995" scale="1.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_akJRAB5lEeat3LML2nTf0Q">
+      <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
+    </ownedItem>
+    <ownedItem name="B001" height="200" width="200" x="1596" y="2108" scale="1.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_akJRAB5lEeat3LML2nTf0Q">
+      <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
+    </ownedItem>
+  </canvas>
+  <preferences/>
+</imageeditor:GraphicalViewer>

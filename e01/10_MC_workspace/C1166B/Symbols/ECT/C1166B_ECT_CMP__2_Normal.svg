@@ -1,0 +1,27 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_C1166B_SYMBOLS_ECT_C1166B_ECT_CMP__2_NORMAL_SVG"><rect x="36.0" fill="red" width="128.0" height="86.0" y="57.0" opacity="0"/><g id="ECT/C1166B_ECT_CMP__2_Normal" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polyline fill="none" stroke-width="2px" class="AnPolyline" points="-44,-42 11,-42 23,-34 " stroke="#218A21"/>
+
+  
+  <rect x="-47px" y="-12px" fill="#218A21" width="90px" fill-rule="evenodd" class="AnRectangle" height="35px"/>
+
+  
+  <circle fill="#218A21" r="17.00px" cx="-47px" class="AnCircle" fill-rule="evenodd" cy="5px"/>
+
+  
+  <circle fill="#218A21" r="18.00px" cx="46px" class="AnCircle" fill-rule="evenodd" cy="6px"/>
+
+  
+  <circle fill="#218A21" r="15.00px" cx="-42px" class="AnCircle" fill-rule="evenodd" cy="-27px"/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="23,-12 23,-34 43,-34 43,-12 "/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="-47,21 -57,31 -47,41 -37,31 -47,21 "/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="43,21 33,31 43,41 53,31 43,21 "/>
+
+</g></g></svg>

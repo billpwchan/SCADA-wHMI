@@ -1,0 +1,24 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_C1166B_SYMBOLS_ECT_C1166B_ECT_TTVF_2_EXHAUST_SVG"><rect x="45.0" fill="red" width="110.0" height="80.0" y="60.0" opacity="0"/><g id="ECT/C1166B_ECT_TTVF_2_Exhaust" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <line fill="none" x1="-31px" x2="-31px" y1="-39px" y2="40px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <line fill="none" x1="30px" x2="30px" y1="-39px" y2="40px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <line fill="none" x1="-31px" x2="30px" y1="-29px" y2="-29px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <line fill="none" x1="-31px" x2="30px" y1="32px" y2="32px" class="AnLine" stroke="#218A21" stroke-width="2px"/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="-21,-27 20,-27 -21,28 20,28 -21,-27 "/>
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="33,-29 33,32 54,1 33,-29 "/>
+
+  
+  <polygon fill="#FF0000" class="AnPolygon" fill-rule="evenodd" points="-34,32 -34,-29 -55,1 -34,32 "/>
+
+</g></g></svg>

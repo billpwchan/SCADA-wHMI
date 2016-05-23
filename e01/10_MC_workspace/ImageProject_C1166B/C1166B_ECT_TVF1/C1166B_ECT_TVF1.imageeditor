@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="C1166B_ECT_TVF1" kind="Functional" businessId="C1166B">
   <canvas viewBoxWidth="4320" viewBoxHeight="2404" mode="SVG" name="SVG" maxExtent_right="4320.0" maxExtent_top="2404.0">
-    <ownedItem name="B001" height="200" width="200" x="2184" y="708" scale="1.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_VnF-EBaXEeaV08fiHh5ImQ">
+    <ownedItem name="B001" height="200" width="200" x="2692" y="712" scale="1.0" rotation="90.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_QjWnwBsTEeaMYdBVfA1N7g">
+      <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
+    </ownedItem>
+    <ownedItem name="B001" height="200" width="200" x="1864" y="628" scale="1.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_CXfPABcuEea8gcqN7ZFDFQ">
+      <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
+    </ownedItem>
+    <ownedItem name="B001" height="200" width="200" x="2264" y="766" scale="1.0" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_CXfPABcuEea8gcqN7ZFDFQ">
+      <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
+    </ownedItem>
+    <ownedItem name="B001" height="200" width="456" x="1540" y="724" scale="1.8612245" uri=":SITE_1:B001" referenceId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" representationId="_CXfPABcuEea8gcqN7ZFDFQ">
       <eObjectPrototype href="platform:/resource/C1166B/InstancePrototypes/Equipments/SGEQPT1.prototype#_O0G-wBKvEealM5WDUDWgdQ_1462445450412"/>
     </ownedItem>
   </canvas>

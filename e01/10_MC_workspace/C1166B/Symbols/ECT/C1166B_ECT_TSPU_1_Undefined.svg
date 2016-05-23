@@ -1,0 +1,18 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_C1166B_SYMBOLS_ECT_C1166B_ECT_TSPU_1_UNDEFINED_SVG"><rect x="49.0" fill="red" width="102.0" height="102.0" y="49.0" opacity="0"/><g id="ECT/C1166B_ECT_TSPU_1_Undefined" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polygon fill="#989898" class="AnPolygon" fill-rule="evenodd" points="-5,-50 -5,50 5,50 5,-50 "/>
+
+  
+  <polygon fill="#989898" class="AnPolygon" fill-rule="evenodd" points="-50,-5 50,-5 50,5 -50,5 "/>
+
+  
+  <circle fill="#989898" r="40.00px" cx="0px" class="AnCircle" fill-rule="evenodd" cy="0px"/>
+
+  
+  <text x="0px" font-size="8" y="8px" transform="matrix(5.131590,0.000000,0.000000,5.156250,-27.000000,-21.750000)" text-decoration="none" fill="#000000" font-family="Arial" class="AnText" font-style="normal" font-weight="normal">SP </text>
+
+  
+  <circle fill="none" r="50.00px" cx="0px" class="AnCircle" cy="0px" stroke="#989898" stroke-width="5px"/>
+
+</g></g></svg>

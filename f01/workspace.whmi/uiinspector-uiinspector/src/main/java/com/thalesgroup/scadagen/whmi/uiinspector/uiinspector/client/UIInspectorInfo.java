@@ -145,7 +145,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			vpCtrls.clear();
 			
-			pageCounter = new PageCounter(numOfWidgets, 3);
+			pageCounter = new PageCounter(numOfWidgets, 10);
 			pageCounter.calc(pageIndex);
 			
 			updatePager();

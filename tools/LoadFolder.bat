@@ -13,8 +13,15 @@ echo Folder Path for sp_wrapper is [%sp_wrapper%]
 SET sp_whmi=workspace.whmi
 echo Folder Path for sp_whmi is [%sp_whmi%]
 
-SET sp_webapp=workspace.webapp%sp_ver%
+SET sp_webapp=..\f02\workspace.webapp%sp_ver%
+SET sp_webapp_name=workspace.webapp%sp_ver%
 echo Folder Path for sp_webapp is [%sp_webapp%]
+echo Folder Path for sp_webapp_name is [%sp_webapp_name%]
+
+SET sp_webapp_func=workspace.webapp-func%sp_ver%
+SET sp_webapp_func_name=workspace.webapp-func%sp_ver%
+echo Folder Path for sp_webapp_func is [%sp_webapp_func%]
+echo Folder Path for sp_webapp_func_name is [%sp_webapp_func_name%]
 
 SET scstraning_loc=S:\scstraining\
 echo Folder Path for scstraning_loc is [%scstraning_loc%]

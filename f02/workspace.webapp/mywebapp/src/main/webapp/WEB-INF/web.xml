@@ -14,17 +14,17 @@
   
   <context-param>
 	<param-name>project.dictionary.module</param-name>
-	<param-value>/../../conf/project/resources/config</param-value>
+	<param-value>/../../conf/p01-func-current/project/config</param-value>
   </context-param>
   
   <context-param>
 	<param-name>project.dictionaries.module</param-name>
-	<param-value>/../../conf/project/resources/config</param-value>
+	<param-value>/../../conf/p01-func-current/project/config</param-value>
   </context-param>
   
   <context-param>
 	<param-name>project.navigation.module</param-name>
-	<param-value>/../../conf/project/resources/config/UIPanelNavigation</param-value>
+	<param-value>/../../conf/p01-func-current/project/config/UIPanelNavigation</param-value>
   </context-param>
   
   <context-param>

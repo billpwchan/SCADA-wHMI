@@ -175,7 +175,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 			
 			vpCtrls.clear();
 			
-			pageCounter = new PageCounter(numOfWidgets, 3);
+			pageCounter = new PageCounter(numOfWidgets, 10);
 			pageCounter.calc(pageIndex);
 			
 			updatePager();

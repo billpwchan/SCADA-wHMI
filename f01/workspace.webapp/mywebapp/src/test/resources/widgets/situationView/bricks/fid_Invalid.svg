@@ -1,7 +1,0 @@
-<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="fid_Invalid"><g style="stroke: rgb(0, 0, 221);
-" id="symbol_frame" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
-   <rect x="0" y="0" fill="red" width="200" style="stroke: rgb(0, 0, 221);
-" height="200" opacity="0"/>
-   <rect x="10" stroke-linecap="square" y="10" fill="none" width="180" style="stroke: rgb(0, 0, 221);
-" stroke-linejoin="round" rx="30" height="180" ry="30" stroke="#216ca8" stroke-width="6"/>
- </g></g></svg>

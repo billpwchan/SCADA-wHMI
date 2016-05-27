@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_POsroBcmEea8gcqN7ZFDFQ" prototypeRefId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" name="C1166B_ECT_AICC" defaultAspect="_ps7XcB2IEea0nr-pJLo2BA" category="_POsrpBcmEea8gcqN7ZFDFQ">
+    <aspectPackage xmi:id="_POsroRcmEea8gcqN7ZFDFQ" name="Aspect Container">
+      <ownedAspect xmi:id="_pKQvQB2IEea0nr-pJLo2BA" name="AICC_Symbol_Default">
+        <ownedDecoratedSymbol xmi:id="_Wud80R2dEeaJjpk_v4JGBA" x="35.0" y="75.0" width="130.0" height="50.0" ratio_width="1.0" ratio_height="1.0" symbol="_Wud80h2dEeaJjpk_v4JGBA"/>
+        <condition xmi:id="_YLsqcB2KEea0nr-pJLo2BA" value="0" attribute="_kHo4AB2KEea0nr-pJLo2BA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_ps7XcB2IEea0nr-pJLo2BA" name="AICC_Symbol_Auto">
+        <ownedDecoratedSymbol xmi:id="_Ytq0cB2dEeaJjpk_v4JGBA" x="35.0" y="75.0" width="130.0" height="50.0" ratio_width="1.0" ratio_height="1.0" symbol="_Ytq0cR2dEeaJjpk_v4JGBA"/>
+        <condition xmi:id="_eBagoB2KEea0nr-pJLo2BA" value="1" attribute="_kHo4AB2KEea0nr-pJLo2BA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_qpefQB2IEea0nr-pJLo2BA" name="AICC_Symbol_Manual">
+        <ownedDecoratedSymbol xmi:id="_ZiotkB2dEeaJjpk_v4JGBA" x="35.0" y="75.0" width="130.0" height="50.0" ratio_width="1.0" ratio_height="1.0" symbol="_ZiotkR2dEeaJjpk_v4JGBA"/>
+        <condition xmi:id="_fkMiAB2KEea0nr-pJLo2BA" value="2" attribute="_kHo4AB2KEea0nr-pJLo2BA"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_kHo4AB2KEea0nr-pJLo2BA" id="symbol1.value" condition="_YLsqcB2KEea0nr-pJLo2BA _eBagoB2KEea0nr-pJLo2BA _fkMiAB2KEea0nr-pJLo2BA" relativePath="symbol1.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_POsrohcmEea8gcqN7ZFDFQ">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_-ySAkB2IEea0nr-pJLo2BA" filePath="Symbols/ECT/C1166B_ECT_TESA_PRE_1_Undefined.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_TESA_PRE_1_UNDEFINED_SVG" width="194.0" height="54.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_E3BKMR2JEea0nr-pJLo2BA" filePath="Symbols/ECT/C1166B_ECT_TESA_PRE_2_Normal.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_TESA_PRE_2_NORMAL_SVG" width="194.0" height="54.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_S_vi8R2KEea0nr-pJLo2BA" filePath="Symbols/ECT/C1166B_ECT_TESA_PRE_3_Blinking.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_TESA_PRE_3_BLINKING_SVG" width="194.0" height="54.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_VLlIYR2KEea0nr-pJLo2BA" filePath="Symbols/ECT/C1166B_ECT_TESA_PRE_4_Alarm.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_TESA_PRE_4_ALARM_SVG" width="194.0" height="54.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_Wud80h2dEeaJjpk_v4JGBA" filePath="Symbols/ECT/C1166B_ECT_AICC_1_Undefined.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_AICC_1_UNDEFINED_SVG" width="130.0" height="50.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_Ytq0cR2dEeaJjpk_v4JGBA" filePath="Symbols/ECT/C1166B_ECT_AICC_2_Auto.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_AICC_2_AUTO_SVG" width="130.0" height="50.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_ZiotkR2dEeaJjpk_v4JGBA" filePath="Symbols/ECT/C1166B_ECT_AICC_3_Manual.svg" id="_C1166B_SYMBOLS_ECT_C1166B_ECT_AICC_3_MANUAL_SVG" width="130.0" height="50.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_POsroxcmEea8gcqN7ZFDFQ">
+    <ownedCategories xmi:id="_POsrpBcmEea8gcqN7ZFDFQ" name="Functional"/>
+    <ownedCategories xmi:id="_POsrpRcmEea8gcqN7ZFDFQ" name="Geographical"/>
+    <ownedCategories xmi:id="_POsrphcmEea8gcqN7ZFDFQ" name="Outline"/>
+    <ownedCategories xmi:id="_POsrpxcmEea8gcqN7ZFDFQ" name="Synthesis"/>
+    <ownedCategories xmi:id="_POsrqBcmEea8gcqN7ZFDFQ" name="System"/>
+    <ownedCategories xmi:id="_POsrqRcmEea8gcqN7ZFDFQ" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

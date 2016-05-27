@@ -38,7 +38,6 @@ www-test/
 target
 
 #eclipse
-.project
 .classpath
 .metadata
 .settings

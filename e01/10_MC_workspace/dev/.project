@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>dev</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>04_imp</name>
+			<type>2</type>
+			<location>$%7BPARENT-2-PROJECT_LOC%7D/11_SCDM_dev/04_imp</location>
+		</link>
+		<link>
+			<name>src</name>
+			<type>2</type>
+			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/11_SCDM_dev/04_imp/src</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

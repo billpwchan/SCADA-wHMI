@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_aZ6tQBcuEea8gcqN7ZFDFQ" prototypeRefId="_O0G-wBKvEealM5WDUDWgdQ_1462445450412" name="C1166B_ECT_TESS" category="_aZ6tRBcuEea8gcqN7ZFDFQ">
+    <aspectPackage xmi:id="_aZ6tQRcuEea8gcqN7ZFDFQ" name="Aspect Container"/>
+    <symbolLibrary xmi:id="_aZ6tQhcuEea8gcqN7ZFDFQ"/>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_aZ6tQxcuEea8gcqN7ZFDFQ">
+    <ownedCategories xmi:id="_aZ6tRBcuEea8gcqN7ZFDFQ" name="Functional"/>
+    <ownedCategories xmi:id="_aZ6tRRcuEea8gcqN7ZFDFQ" name="Geographical"/>
+    <ownedCategories xmi:id="_aZ6tRhcuEea8gcqN7ZFDFQ" name="Outline"/>
+    <ownedCategories xmi:id="_aZ6tRxcuEea8gcqN7ZFDFQ" name="Synthesis"/>
+    <ownedCategories xmi:id="_aZ6tSBcuEea8gcqN7ZFDFQ" name="System"/>
+    <ownedCategories xmi:id="_aZ6tSRcuEea8gcqN7ZFDFQ" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

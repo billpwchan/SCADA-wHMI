@@ -5,9 +5,11 @@ call LoadPath.bat
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
-SET LOG_FILE=%LOG_HOME%\build.%sp_webapp%.%v_strdt%.log
+SET LOG_FILE=%LOG_HOME%\build.%sp_webapp_name%.%v_strdt%.log
 
 echo & echo. >> %SOURCE_BASE%/%sp_webapp%\mywebapp\src\main\resources\com\thalesgroup\scadasoft\gwebhmi\main\ScsMain.gwt.xml
+
+echo & echo. >> %SOURCE_BASE%/%sp_webapp%\mywebapp\src\main\resources\com\thalesgroup\scadasoft\gwebhmi\security\ScsLogin.gwt.xml
 
 echo "" > %LOG_FILE%
 
@@ -15,7 +17,7 @@ start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
 cd /d %SOURCE_BASE%/%sp_webapp%
 
-echo Starting build %sp_webapp% process and log to %LOG_FILE%...
+echo Starting build %sp_webapp_name% process and log to %LOG_FILE%...
 
 cd mywebapp
 
@@ -30,6 +32,6 @@ cd ..
 
 cd tools
  
-echo End of build %sp_webapp%
+echo End of build %sp_webapp_name%
 
 REM PAUSE

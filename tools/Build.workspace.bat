@@ -19,6 +19,8 @@ call %TOOLS_BASE%/Build.workspace.wrapper.bat %strdt%
 
 call %TOOLS_BASE%/Build.workspace.whmi.bat %strdt%
 
+call %TOOLS_BASE%/Build.workspace.webapp-fun.bat %strdt%
+
 call %TOOLS_BASE%/Build.workspace.webapp.bat %strdt%
  
 echo End of build

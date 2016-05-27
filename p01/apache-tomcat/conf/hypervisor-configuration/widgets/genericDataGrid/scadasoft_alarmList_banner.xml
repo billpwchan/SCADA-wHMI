@@ -142,7 +142,7 @@
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_supercritical_unack" scope="VIEW">
-		<cmn:soundConfiguration  soundID="MCS_SuperCritical" soundPriority="30"/>
+		<cmn:soundConfiguration  soundID="danger_mp3" soundPriority="30"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>CRITICAL</cmn:equalTo>
             </cmn:columnCounterCriterion>
@@ -157,7 +157,7 @@
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_critical_unack" scope="VIEW">
-		<cmn:soundConfiguration soundID="MCS_Critical" soundPriority="20"/>
+		<cmn:soundConfiguration soundID="alert_mp3" soundPriority="20"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>HIGH</cmn:equalTo>
             </cmn:columnCounterCriterion>
@@ -173,7 +173,7 @@
             </cmn:columnCounterCriterion>
         </cmn:counter>
         <cmn:counter name="alarmlist_counter_lesscritical_unack" scope="VIEW">
-		<cmn:soundConfiguration  soundID="MCS_LessCritical" soundPriority="10"/>
+		<cmn:soundConfiguration  soundID="warning_mp3" soundPriority="10"/>
             <cmn:columnCounterCriterion columnName="scsalarmList_priority_name">
                 <cmn:equalTo>MEDIUM</cmn:equalTo>
 				<!-- <cmn:equalTo>LOW</cmn:equalTo> -->

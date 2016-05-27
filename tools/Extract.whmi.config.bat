@@ -5,7 +5,7 @@ CALL LoadPath.bat
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
-SET LOG_FILE=%LOG_HOME%\build.%sp_webapp%.%v_strdt%.log
+SET LOG_FILE=%LOG_HOME%\build.%sp_webapp_name%.%v_strdt%.log
 
 SET DESTINATION_BASE_e01=%TOOLS_BASE%\..\..\hmi.extract\e01
 SET DESTINATION_BASE_e02=%TOOLS_BASE%\..\..\hmi.extract\e02

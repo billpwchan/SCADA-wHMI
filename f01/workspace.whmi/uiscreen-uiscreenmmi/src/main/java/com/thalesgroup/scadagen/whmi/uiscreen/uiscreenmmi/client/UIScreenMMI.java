@@ -1,15 +1,10 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.logging.client.LogConfiguration;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
@@ -20,11 +15,21 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorT
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetMgrEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAccessBar;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBanner;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBannerList;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelEmpty;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelSoundServerController;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelStatusBar;
 
 public class UIScreenMMI implements UIScreen_i {
 
@@ -49,6 +54,39 @@ public class UIScreenMMI implements UIScreen_i {
 			}
 		});
 		
+		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
+		
+		uiWidgetMgr.clearUIWidgetEvents();
+		uiWidgetMgr.addUIWidgetEvent("UIScreenMMI", new UIWidgetMgrEvent() {
+			
+			@Override
+			public UIWidget_i getUIWidget(String widget) {
+				logger.log(Level.FINE, "getUIWidget Begin");
+				logger.log(Level.FINE, "getUIWidget widget["+widget+"]");
+				
+				UIWidget_i uiWIdget = null;
+				if ( 0 == widget.compareTo("UIPanelSoundServerController") ) {
+					uiWIdget = new UIPanelSoundServerController();
+				} else if ( 0 == widget.compareTo("UIPanelAccessBar") ) {
+					uiWIdget = new UIPanelAccessBar();
+				} else if ( 0 == widget.compareTo("UIPanelAlarmBanner") ) {
+					uiWIdget = new UIPanelAlarmBanner();
+				} else if ( 0 == widget.compareTo("UIPanelStatusBar") ) {
+					uiWIdget = new UIPanelStatusBar();
+				} else if ( 0 == widget.compareTo("UIPanelAlarmBannerList") ) {
+					uiWIdget = new UIPanelAlarmBannerList();
+				} else if ( 0 == widget.compareTo("UIPanelViewLayout") ) {
+					uiWIdget = new UIPanelViewLayout();
+				} else if ( 0 == widget.compareTo("UIPanelEmpty") ) {
+					uiWIdget = new UIPanelEmpty();
+				}
+				logger.log(Level.FINE, "getUIWidget uiWIdget["+uiWIdget+"]");
+				logger.log(Level.FINE, "getUIWidget End");
+				
+				return uiWIdget;
+			}
+		});
+
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.init(strUIScreenMMI);
 		
@@ -107,28 +145,54 @@ public class UIScreenMMI implements UIScreen_i {
 							uiDialgogMsg.popUp();
 
 						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {
-
-							String scsEnvId		= taskLaunch.getOption()[0];
-							String hvid			= taskLaunch.getOption()[1];
-							String period		= taskLaunch.getOption()[2];
 							
-							if ( null == scsEnvId ) scsEnvId = "B001";
-							if ( null == hvid ) hvid = "B01DO001";
-							if ( null == period ) period = "500";
+							String hvid			= taskLaunch.getOption()[0];
 							
-							if ( 0 == hvid.compareTo("B01DO001") ) {
-								hvid = "LMCECTLCP_0001";
+							String period		= "250";
+							if ( taskLaunch.getOption().length >= 2 && null != taskLaunch.getOption()[1] ) {
+								period		= taskLaunch.getOption()[1];
 							}
 							
-							String dbaddress0 = hvid.substring(0, 3);
-							String dbaddress1 = hvid.substring(3, 6);
-							String dbaddress3 = hvid.substring(6);
-							
-							String dbaddress = ":" + dbaddress0 + ":" + dbaddress1 + ":" + dbaddress3;
+							String scsEnvId		= null;
+							String dbaddress	= null;
+
+							String dbaddresses	= null;
+							String hvides[] = hvid.split("_");
+							if ( null != hvides ) {
+								if ( hvides.length >= 1 && null != hvides[0] ) {
+									scsEnvId = hvides[0];
+								}
+								dbaddresses = "";
+								for ( int i = 1 ; i < hvides.length ; i++ ) {
+									if ( dbaddresses.length() > 0 ) {
+										dbaddresses += "_";
+									}
+									dbaddresses += hvides[i];
+								}
+								if ( dbaddresses.length() > 0 ) {
+									
+									int s = 0, n = 0;
+									
+									s = n;
+									n = s+3;
+									String dbaddress0	= dbaddresses.substring(s, n);
+									
+									s = n;
+									n = s+3;
+									String dbaddress1	= dbaddresses.substring(s, n);
+									
+									s = n;
+									n = s+3;
+									String dbaddress2	= dbaddresses.substring(s);
+									
+									dbaddress	= ":" + dbaddress0 + ":" + dbaddress1 + ":" + dbaddress2;
+								}
+								
+							}
+									
+//							Window.alert("dbaddress0["+dbaddress0+"] dbaddress1["+dbaddress1+"] dbaddress2["+dbaddress2+"] dbaddress3["+dbaddress3+"]");
 							
 							logger.log(Level.SEVERE, "onUIEvent hvid["+hvid+"]");
-							
-							logger.log(Level.SEVERE, "onUIEvent scsEnvId["+scsEnvId+"]");
 							
 							logger.log(Level.SEVERE, "onUIEvent dbaddress["+dbaddress+"]");
 							

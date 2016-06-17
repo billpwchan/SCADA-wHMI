@@ -29,8 +29,8 @@ public class UIInspectorConnectionBox extends DialogBox {
 	
 	private String widgetname				= "connectionbox";
 	
-	private InlineLabel lblScsEnvId			= null;
-	private TextBox txtScsEnvId				= null;
+//	private InlineLabel lblScsEnvId			= null;
+//	private TextBox txtScsEnvId				= null;
 	private InlineLabel lblDBAddress		= null;
 	private TextBox txtDBAddress			= null;
 	private InlineLabel lblPeriodMillis		= null;
@@ -38,12 +38,12 @@ public class UIInspectorConnectionBox extends DialogBox {
 	private Button btnConnect				= null;
 	private Button btnClose					= null;
 	
-	private String scsEnvId					= "B001";
-	private String dbAddress				= "LMCSYSCOMM0001";
+//	private String scsEnvId					= "B001";
+	private String dbAddress				= "OCC_CTVECTTTVF0001";
 	private String periodMillis				= "250";
 	
-	public void setScsEnvId(String scsEnvId)		{ this.scsEnvId = scsEnvId; }
-	public String getScsEnvId()						{ return scsEnvId; }
+//	public void setScsEnvId(String scsEnvId)		{ this.scsEnvId = scsEnvId; }
+//	public String getScsEnvId()						{ return scsEnvId; }
 	
 	public void setDBAddress(String dbaddress)		{ this.dbAddress = dbaddress; }
 	public String getDBAddress()					{ return dbAddress; }
@@ -68,11 +68,11 @@ public class UIInspectorConnectionBox extends DialogBox {
 	
 	public void exchange(boolean isSet) {
 		if ( isSet ) {
-			txtScsEnvId.setText(scsEnvId);
+//			txtScsEnvId.setText(scsEnvId);
 			txtDBAddress.setText(dbAddress);
 			txtPeriodMillis.setText(periodMillis);
 		} else {
-			scsEnvId = txtScsEnvId.getText();
+//			scsEnvId = txtScsEnvId.getText();
 			dbAddress = txtDBAddress.getText();
 			periodMillis = txtPeriodMillis.getText();
 		}
@@ -83,7 +83,7 @@ public class UIInspectorConnectionBox extends DialogBox {
 		taskLaunch.setUiPanel("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
 		taskLaunch.setUiPath(UIPathUIScreenMMI);
-		taskLaunch.setOption(new String[]{scsEnvId, dbAddress, String.valueOf(periodMillis)});
+		taskLaunch.setOption(new String[]{dbAddress, String.valueOf(periodMillis)});
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 	}
 	
@@ -109,11 +109,11 @@ public class UIInspectorConnectionBox extends DialogBox {
 		FlexTable flexTable 		= new FlexTable();
 		flexTable.addStyleName("project-gwt-flexTable-inspector-"+widgetname);
 
-		lblScsEnvId		= new InlineLabel("Scs Env ID: ");
-		lblScsEnvId.addStyleName("project-gwt-inlinelabel-inspector-"+widgetname+"-scsenvid");
-		
-		txtScsEnvId		= new TextBox();
-		txtScsEnvId.addStyleName("project-gwt-textbox-inspector-"+widgetname+"-scsenvid");
+//		lblScsEnvId		= new InlineLabel("Scs Env ID: ");
+//		lblScsEnvId.addStyleName("project-gwt-inlinelabel-inspector-"+widgetname+"-scsenvid");
+//		
+//		txtScsEnvId		= new TextBox();
+//		txtScsEnvId.addStyleName("project-gwt-textbox-inspector-"+widgetname+"-scsenvid");
 		
 		lblDBAddress	= new InlineLabel("DB Address: ");
 		lblDBAddress.addStyleName("project-gwt-inlinelabel-inspector-"+widgetname+"-dbaddress");
@@ -152,15 +152,15 @@ public class UIInspectorConnectionBox extends DialogBox {
 			}
 		});
 		
-		if ( null != this.scsEnvId ) txtScsEnvId.setText(this.scsEnvId);
+//		if ( null != this.scsEnvId ) txtScsEnvId.setText(this.scsEnvId);
 		if ( null != this.dbAddress ) txtDBAddress.setText(this.dbAddress);
 		if ( null != this.periodMillis ) txtPeriodMillis.setText(this.periodMillis);
 		
 		int row = 1, col = 0;
-		flexTable.setWidget(row, col++, lblScsEnvId);
-		flexTable.setWidget(row, col++, txtScsEnvId);
-		
-		++row;
+//		flexTable.setWidget(row, col++, lblScsEnvId);
+//		flexTable.setWidget(row, col++, txtScsEnvId);
+//		
+//		++row;
 		col = 0;
 		flexTable.setWidget(row, col++, lblDBAddress);
 		flexTable.setWidget(row, col++, txtDBAddress);

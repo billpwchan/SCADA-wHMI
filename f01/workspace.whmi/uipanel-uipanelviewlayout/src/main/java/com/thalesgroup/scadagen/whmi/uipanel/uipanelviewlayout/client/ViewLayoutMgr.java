@@ -88,7 +88,7 @@ public class ViewLayoutMgr {
 		
 		logger.log(Level.FINE, "triggerSplitChange taskSplit1 fire");
 
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit1));
+//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit1));
 		
 		UITaskSplit taskSplit2 = new UITaskSplit();
 		taskSplit2.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -112,7 +112,7 @@ public class ViewLayoutMgr {
 		
 		logger.log(Level.FINE, "triggerSplitChange taskSplit2 fire");
 
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit2));
+//		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit2));
 
 		logger.log(Level.FINE, "triggerSplitChange End");
 		
@@ -458,19 +458,19 @@ public class ViewLayoutMgr {
 
 		logger.log(Level.FINE, "onUIEvent Begin");
 		
-//		if ( null != uiNameCard ) {
-//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
-//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
-//		} else {
-//			logger.log(Level.SEVERE, "onUIEvent uiNameCard IS NULL");
-//		}
-//		
-//		if ( null != uiEvent ) {
-//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
-//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
-//		} else {
-//			logger.log(Level.SEVERE, "onUIEvent uiEvent IS NULL");
-//		}
+		if ( null != uiNameCard ) {
+			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
+			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
+		} else {
+			logger.log(Level.SEVERE, "onUIEvent uiNameCard IS NULL");
+		}
+		
+		if ( null != uiEvent ) {
+			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
+			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
+		} else {
+			logger.log(Level.SEVERE, "onUIEvent uiEvent IS NULL");
+		}
 
 		if (null != uiEvent) {
 
@@ -658,7 +658,7 @@ public class ViewLayoutMgr {
 			taskLaunchToSend.setUiPath(UIPathUIPanelViewLayout);
 			UIEvent uiEvent = new UIEvent(taskLaunchToSend);
 			
-			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);
+//			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);
 		} else {
 			logger.log(Level.FINE, "triggerMenuChange taskLaunch is null");
 		}

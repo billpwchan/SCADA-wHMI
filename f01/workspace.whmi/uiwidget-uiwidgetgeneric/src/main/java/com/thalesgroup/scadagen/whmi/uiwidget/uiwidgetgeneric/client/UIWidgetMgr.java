@@ -1,18 +1,12 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAccessBar;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBanner;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBannerList;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelEmpty;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelSoundServerController;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelStatusBar;
 
 public class UIWidgetMgr {
 	
@@ -39,31 +33,44 @@ public class UIWidgetMgr {
 		return complexPanel;
 	}
 	
+	private HashMap<String, UIWidgetMgrEvent> uiWidgetMgrEvents = new HashMap<String, UIWidgetMgrEvent>();
+	public void clearUIWidgetEvents() { this.uiWidgetMgrEvents.clear(); }
+	public void addUIWidgetEvent(String name, UIWidgetMgrEvent uiWidgetMgrEvent) { this.uiWidgetMgrEvents.put(name, uiWidgetMgrEvent); }
+	public void removeUIWidgetEvent(UIWidgetMgrEvent uiWidgetMgrEvent) { this.uiWidgetMgrEvents.remove(uiWidgetMgrEvent); }
+
 	public UIWidget_i getUIWidget(String widget) {
 		
 		logger.log(Level.FINE, "getPanel Begin");
 		
 		logger.log(Level.SEVERE, "getPanel uiPanel["+widget+"]");
 		
-		UIWidget_i uiWIdget = null;
-		if ( 0 == widget.compareTo("UIPanelSoundServerController") ) {
-			uiWIdget = new UIPanelSoundServerController();
-		} else if ( 0 == widget.compareTo("UIPanelAccessBar") ) {
-			uiWIdget = new UIPanelAccessBar();
-		} else if ( 0 == widget.compareTo("UIPanelAlarmBanner") ) {
-			uiWIdget = new UIPanelAlarmBanner();
-		} else if ( 0 == widget.compareTo("UIPanelStatusBar") ) {
-			uiWIdget = new UIPanelStatusBar();
-		} else if ( 0 == widget.compareTo("UIPanelAlarmBannerList") ) {
-			uiWIdget = new UIPanelAlarmBannerList();
-		} else if ( 0 == widget.compareTo("UIPanelViewLayout") ) {
-			uiWIdget = new UIPanelViewLayout();
-		} else if ( 0 == widget.compareTo("UIPanelEmpty") ) {
-			uiWIdget = new UIPanelEmpty();
+		UIWidget_i uiWidget = null;
+		
+		for ( String name : uiWidgetMgrEvents.keySet() ) {
+			
+			UIWidgetMgrEvent uiWidgetMgrEvent = uiWidgetMgrEvents.get(name);
+			
+			if ( null != uiWidgetMgrEvent ) {
+			
+				logger.log(Level.SEVERE, "getUIWidget uiWidgetMgrEvent");
+			
+				uiWidget = uiWidgetMgrEvent.getUIWidget(widget);
+				
+				if ( null != uiWidget ) break;
+			
+			} else {
+			
+				logger.log(Level.SEVERE, "getUIWidget uiWidgetMgrEvent IS NULL");
+			}
+		}
+		
+		if ( null == uiWidget ) {
+			logger.log(Level.SEVERE, "getUIWidget uiWIdget IS NULL");
+			logger.log(Level.SEVERE, "getUIWidget widget["+widget+"] NOT FOUND");
 		}
 		
 		logger.log(Level.FINE, "getPanel End");
 
-		return uiWIdget;
+		return uiWidget;
 	}
 }

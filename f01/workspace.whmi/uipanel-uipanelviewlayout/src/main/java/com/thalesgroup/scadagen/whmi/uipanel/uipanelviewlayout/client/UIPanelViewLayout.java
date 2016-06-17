@@ -132,6 +132,7 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 			
 			VerticalPanel vp = new VerticalPanel();
 			vp.addStyleName("project-gwt-panel-viewlayout-outer-view-vp");
+			
 			DockLayoutPanel v0 = uiPanelViews[0].getPanel();
 			vp.add(v0);
 			

@@ -209,6 +209,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
+			
+			logger.log(Level.SEVERE, "updateValue key["+key+"] keyAndValue.get(key)["+keyAndValue.get(key)+"]");
 		}		
 		
 		if ( 0 == "static".compareTo(clientKey.split("_")[2]) ) {
@@ -230,7 +232,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private void updateValue(boolean withStatic) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.SEVERE, "updateValue Begin");
+		logger.log(Level.SEVERE, "updateValue withStatic["+withStatic+"]");
 		
 		pageCounter.calc(pageIndex);
 		
@@ -240,12 +243,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
 				
-				logger.log(Level.FINE, "updateValue Begin");
-				logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+				logger.log(Level.SEVERE, "updateValue Begin");
+				logger.log(Level.SEVERE, "updateValue clientkey["+clientKey+"]");
 				
 				String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "_" + "inspectorinfo" + "_" + "static" + "_" + parent;
 				
-				logger.log(Level.FINE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
+				logger.log(Level.SEVERE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
 				
 				if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
 					
@@ -265,18 +268,18 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
 			
-			logger.log(Level.FINE, "updateValue Begin");
-			logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+			logger.log(Level.SEVERE, "updateValue Begin");
+			logger.log(Level.SEVERE, "updateValue clientkey["+clientKey+"]");
 			
 			for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
 				String address = this.addresses[x];
 				
-				logger.log(Level.FINE, "updateValue address["+address+"]");
+				logger.log(Level.SEVERE, "updateValue address["+address+"]");
 				
 				String value = null;
 				{
 					String dbaddress = address + strValue;
-					logger.log(Level.FINE, "updateValue strValue["+strValue+"] dbaddress["+dbaddress+"]");
+					logger.log(Level.SEVERE, "updateValue strValue["+strValue+"] dbaddress["+dbaddress+"]");
 					if ( dbvalues.containsKey(dbaddress) ) {
 						value = dbvalues.get(dbaddress);
 					} else {
@@ -284,12 +287,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					}
 				}		
 				
-				logger.log(Level.FINE, "updateValue value["+value+"]");
+				logger.log(Level.SEVERE, "updateValue value["+value+"]");
 				
 				String valueTable = null;
 				{
 					String dbaddress = address + strValueTable;
-					logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
+					logger.log(Level.SEVERE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
 					if ( dbvalues.containsKey(dbaddress) ) {
 						valueTable = dbvalues.get(dbaddress);
 					} else {
@@ -297,25 +300,30 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					}					
 				}
 				
-				logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
+				logger.log(Level.SEVERE, "updateValue valueTable["+valueTable+"]");
 				
-				String name = null;
+				String label = null;
 				{
+					int valueCol = 0, labelCol = 1;
+					
+					logger.log(Level.SEVERE, "updateValue valueCol["+valueCol+"] nameCol["+labelCol+"]");
+					
 					for( int r = 0 ; r < 12 ; ++r ) {
-						String v = RTDB_Helper.getArrayValues(valueTable, 4, r );
-						logger.log(Level.FINE, "updateValue getArrayValues r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+						String v = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
+						logger.log(Level.SEVERE, "updateValue getvalue r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
 						if ( 0 == v.compareTo(value) ) {
-							name = RTDB_Helper.getArrayValues(valueTable, 1, r );
+							logger.log(Level.SEVERE, "updateValue getname r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+							label = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
 							break;
 						}
-					}					
+					}
 				}
 				
-				logger.log(Level.FINE, "updateValue name["+name+"]");
+				logger.log(Level.SEVERE, "updateValue name["+label+"]");
 				
-				if ( null != name ) {
-					name = RTDB_Helper.removeDBStringWrapper(name);
-					txtAttributeValue[y].setText(name);	
+				if ( null != label ) {
+					label = RTDB_Helper.removeDBStringWrapper(label);
+					txtAttributeValue[y].setText(label);	
 				} else {
 					value = RTDB_Helper.removeDBStringWrapper(value);
 					txtAttributeValue[y].setText(value);	
@@ -327,7 +335,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				{
 					{
 						String dbaddress = address + strValueAlarmVector;
-						logger.log(Level.FINE, "updateValue strValueAlarmVector["+strValueAlarmVector+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.SEVERE, "updateValue strValueAlarmVector["+strValueAlarmVector+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							valueAlarmVector = dbvalues.get(dbaddress);
 						} else {
@@ -339,7 +347,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					
 					{
 						String dbaddress = address + strValidity;
-						logger.log(Level.FINE, "updateValue strValidity["+strValidity+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.SEVERE, "updateValue strValidity["+strValidity+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							validity = dbvalues.get(dbaddress);
 						} else {
@@ -347,7 +355,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						}
 					}
 					
-					logger.log(Level.FINE, "updateValue validity["+validity+"]");
+					logger.log(Level.SEVERE, "updateValue validity["+validity+"]");
 					
 					{
 						String dbaddress = address + strForcedStatus;
@@ -359,20 +367,20 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						}
 					}
 					
-					logger.log(Level.FINE, "updateValue forcedStatus["+forcedStatus+"]");
+					logger.log(Level.SEVERE, "updateValue forcedStatus["+forcedStatus+"]");
 
 				}
 				
 				String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 				txtAttibuteColor[y].setStyleName(strColorCSS);
 				
-				logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
+				logger.log(Level.SEVERE, "updateValue strColorCSS["+strColorCSS+"]");
 
 			}
 		}//End of for keyAndValuesDynamic
 			
 		
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.SEVERE, "updateValue End");
 	}
 	
 	FlexTable flexTableAttibutes = null;

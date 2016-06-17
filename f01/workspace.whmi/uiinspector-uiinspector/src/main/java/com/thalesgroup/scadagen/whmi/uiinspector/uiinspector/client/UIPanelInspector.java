@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -30,8 +31,11 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.H
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
@@ -183,7 +187,7 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 					dynamicvalues.put(dbaddresses[i], dbvalues[i]);
 				}
 				
-				String key = parent+ strIsControlable;
+				String key = parent + strIsControlable;
 				if ( dynamicvalues.containsKey(key) ) {
 					String value = dynamicvalues.get(key);
 					value = RTDB_Helper.removeDBStringWrapper(value);
@@ -445,13 +449,27 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			
 			String[] parents = new String[]{parent};
 			
-			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
-			int r=0;
-			for(int x=0;x<parents.length;++x) {
-				for(int y=0;y<staticAttibutes.length;++y) {
-					dbaddresses[r++]=parents[x]+staticAttibutes[y];
+//			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
+//			int r=0;
+//			for(int x=0;x<parents.length;++x) {
+//				for(int y=0;y<staticAttibutes.length;++y) {
+//					dbaddresses[r++]=parents[x]+staticAttibutes[y];
+//				}
+//			}
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for(int x=0;x<parents.length;++x) {
+					if ( ! parents[x].endsWith("HMI") ) {
+						for(int y=0;y<staticAttibutes.length;++y) {
+							dbaddressesArrayList.add(parents[x]+staticAttibutes[y]);
+						}
+					}
 				}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
+			
+			
 			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			
 			for(int i = 0; i < dbaddresses.length; ++i ) {
@@ -473,12 +491,24 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 
 			String[] parents = new String[]{parent};
 			
-			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
-			int r=0;
-			for(int x=0;x<parents.length;++x) {
-				for(int y=0;y<dynamicAttibutes.length;++y) {
-					dbaddresses[r++]=parents[x]+dynamicAttibutes[y];
+//			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
+//			int r=0;
+//			for(int x=0;x<parents.length;++x) {
+//				for(int y=0;y<dynamicAttibutes.length;++y) {
+//					dbaddresses[r++]=parents[x]+dynamicAttibutes[y];
+//				}
+//			}
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for(int x=0;x<parents.length;++x) {
+					if ( ! parents[x].endsWith("HMI") ) {
+						for(int y=0;y<dynamicAttibutes.length;++y) {
+							dbaddressesArrayList.add(parents[x]+dynamicAttibutes[y]);
+						}
+					}
 				}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 
 			for(int i = 0; i < dbaddresses.length; ++i ) {
@@ -514,8 +544,8 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 		String dynamicAttibutes [] = new String[] {strValue, strValidity, strValueAlarmVector, strForcedStatus};
 		
 		logger.log(Level.FINE, "connectInspectorInfo Begin");
-		String[] parents = new String[]{parent+":dciLocked"};
-		
+//		String[] parents = new String[]{parent+":dciLocked"};
+		String[] parents = new String[]{parent};
 		{
 			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
 			if ( KeyAndValues.containsKey(clientKey) ) {
@@ -532,14 +562,26 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			logger.log(Level.FINE, "multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "_" + "inspectorinfo" + "_" + "static" + "_" + parent;
-
-			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
-			int r=0;
-			for(int x=0;x<parents.length;++x) {
-				for(int y=0;y<staticAttibutes.length;++y) {
-					dbaddresses[r++]=parents[x]+staticAttibutes[y];
+			
+//			String[] dbaddresses = new String[parents.length*staticAttibutes.length];
+//			int r=0;
+//			for(int x=0;x<parents.length;++x) {
+//				for(int y=0;y<staticAttibutes.length;++y) {
+//					dbaddresses[r++]=parents[x]+staticAttibutes[y];
+//				}
+//			}
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for(int x=0;x<parents.length;++x) {
+					if ( ! parents[x].endsWith("HMI") ) {
+						for(int y=0;y<staticAttibutes.length;++y) {
+							dbaddressesArrayList.add(parents[x]+staticAttibutes[y]);
+						}
+					}
 				}
-			}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+			}			
 			
 			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			
@@ -560,12 +602,24 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 			
 			String clientKey = "multiReadValue" + "_" + "inspectorinfo" + "_" + "dynamic" + "_" + parent;
 
-			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
-			int r=0;
-			for(int x=0;x<parents.length;++x) {
-				for(int y=0;y<dynamicAttibutes.length;++y) {
-					dbaddresses[r++]=parents[x]+dynamicAttibutes[y];
+//			String[] dbaddresses = new String[parents.length*dynamicAttibutes.length];
+//			int r=0;
+//			for(int x=0;x<parents.length;++x) {
+//				for(int y=0;y<dynamicAttibutes.length;++y) {
+//					dbaddresses[r++]=parents[x]+dynamicAttibutes[y];
+//				}
+//			}
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for(int x=0;x<parents.length;++x) {
+					if ( ! parents[x].endsWith("HMI") ) {
+						for(int y=0;y<dynamicAttibutes.length;++y) {
+							dbaddressesArrayList.add(parents[x]+dynamicAttibutes[y]);
+						}
+					}
 				}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 			
 			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
@@ -887,12 +941,11 @@ public class UIPanelInspector extends DialogBox implements UIInspectorTab_i, UII
 
 	}
 
-
 	@Override
 	public void connect() {
 		
 		logger.log(Level.FINE, "connect Begin");
-				
+
 		connectScsRTDBComponentAccess();
 		connectInspectorMain();
 		connectTimer(this.periodMillis);

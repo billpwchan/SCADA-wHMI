@@ -408,25 +408,26 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
 					
 					if ( null != valueTable ) {
-						String names[]	= new String[12];
+						int valueCol = 0, labelCol = 1;
+						String labels[]	= new String[12];
 						String values[]	= new String[12];
 						{
 							for( int r = 0 ; r < 12 ; ++r ) {
-								values[r]	= RTDB_Helper.getArrayValues(valueTable, 4, r );
+								values[r]	= RTDB_Helper.getArrayValues(valueTable, valueCol, r );
 								values[r]	= RTDB_Helper.removeDBStringWrapper(values[r]);
-								names[r]	= RTDB_Helper.getArrayValues(valueTable, 1, r );
-								names[r]	= RTDB_Helper.removeDBStringWrapper(names[r]);
+								labels[r]	= RTDB_Helper.getArrayValues(valueTable, labelCol, r );
+								labels[r]	= RTDB_Helper.removeDBStringWrapper(labels[r]);
 							}					
 						}
 						
 						lstValues[y].clear();
 						for( int r = 0 ; r < 12 ; ++r ) {
 							
-							if ( 0 == names[r].compareTo("") ) break;
+							if ( 0 == labels[r].compareTo("") ) break;
 							
-							lstValues[y].addItem(names[r]);
+							lstValues[y].addItem(labels[r]);
 							
-							logger.log(Level.FINE, "updateValue names["+r+"]["+names[r]+"] values["+r+"]["+values[r]+"]");
+							logger.log(Level.FINE, "updateValue names["+r+"]["+labels[r]+"] values["+r+"]["+values[r]+"]");
 						}
 					} else {
 						logger.log(Level.SEVERE, "updateValue valueTable IS NULL!");
@@ -547,10 +548,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 									logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
 									
 									if ( null != valueTable ) {
+										int valueCol = 0, nameCol = 1;
 										String sValue = String.valueOf(value);
 										String tValue = "";
 										for( int r = 0 ; r < 12 ; ++r ) {
-											tValue	= RTDB_Helper.getArrayValues(valueTable, 4, r );
+											tValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, r );
 											tValue	= RTDB_Helper.removeDBStringWrapper(tValue);
 											
 											if ( 0 == sValue.compareTo(tValue) ) {
@@ -683,7 +685,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 							}
 							logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
 
-							String sValue	= RTDB_Helper.getArrayValues(valueTable, 4, moIndex);
+							int valueCol = 0, nameCol = 1;
+							String sValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, moIndex);
 							sValue			= RTDB_Helper.removeDBStringWrapper(sValue);
 							
 							logger.log(Level.FINE, "updateValue sValue["+sValue+"]");

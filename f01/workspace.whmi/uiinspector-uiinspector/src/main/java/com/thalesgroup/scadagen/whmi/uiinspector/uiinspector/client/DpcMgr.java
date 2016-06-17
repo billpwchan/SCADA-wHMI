@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.IDPCComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.ScsDPCComponentAccess;
@@ -233,6 +234,11 @@ public class DpcMgr {
 //		dpcAccess.changeVarStatus(key, scsEnvId, alias, status.getValue());
 //		
 //	}
+	public void sendChangeEqpTag(String key, String scsEnvId, String name, TaggingStatus status, String taggingLabel1, String taggingLabel2) {
+
+		dpcAccess.changeEqpTag(key, scsEnvId, name, status.getValue(), taggingLabel1, taggingLabel2);
+		
+	}
 	
 	public void sendChangeVarForce ( String key, String scsEnvId, String alias, boolean enable, int value) {
 		if ( enable ) {

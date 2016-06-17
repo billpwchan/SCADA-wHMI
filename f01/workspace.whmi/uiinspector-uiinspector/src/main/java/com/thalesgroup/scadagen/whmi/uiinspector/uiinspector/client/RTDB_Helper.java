@@ -74,37 +74,49 @@ public class RTDB_Helper {
 		return result;
 	}
 	
-	public static String getArrayValues(String string, int row, int col) {
+	private static String removeBegin(String string, char begin) {
+		if (string.charAt(0) == begin)
+			string = string.substring(1);
+		return string;
+	}
+	
+	private static String removeEnd(String string, char end) {
+		if (string.charAt(string.length() - 1) == end)
+			string = string.substring(0, string.length() - 1);
+		return string;
+	}
+	
+	public static String getArrayValues(String string, int col, int row) {
 		String str = null;
 		
 		logger.log(Level.FINE, "getArrayValues Begin");
-		logger.log(Level.FINE, "getArrayValues string["+string+"] x["+row+"] y["+row+"]");
+		logger.log(Level.SEVERE, "getArrayValues string["+string+"] col["+col+"] row["+row+"]");
 				
 		if (null != string && string.length() > 0) {
-			if (string.charAt(0) == '[')
-				string = string.substring(1);
-			if (string.charAt(string.length() - 1) == ']')
-				string = string.substring(0, string.length() - 1);
+
+			string = removeBegin(string, '[');
+			string = removeBegin(string, ']');
+					
 			String[] strs = string.split("\\],\\[");
-			if (strs.length > 0 && row < strs.length) {
-				String s = strs[row];
+			if (strs.length > 0 && col < strs.length) {
+				String s = strs[col];
+				s = removeBegin(s, '[');
+				s = removeBegin(s, ']');
 				logger.log(Level.FINE, "getArrayValues s["+s+"]");
-				//for (String s : strs) {
-					//System.out.println("s [" + s + "]");
-					String str2s[] = s.split(",");
-					if ( str2s.length > 0 && col < str2s.length ) {
-						str = str2s[col];
-						logger.log(Level.FINE, "getArrayValues str["+str+"]");
-						//for (String s2 : str2s) {
-						//	System.out.println("s2 [" + s2 + "]");
-						//}						
-					}
-				//}
+//				String str2s[] = s.split(",");
+				String str2s[] = s.split("\\s*,\\s*");
+				logger.log(Level.FINE, "getArrayValues str2s["+row+"]["+str2s[row]+"]");
+				if ( str2s.length > 0 && row < str2s.length ) {
+					str = str2s[row];
+					logger.log(Level.FINE, "getArrayValues str["+str+"]");				
+				}
 			} else {
 				// Invalid str length or index
 				logger.log(Level.SEVERE, "getArrayValues Invalid str length or index");
 			}
 		}
+		
+		logger.log(Level.SEVERE, "getArrayValues str["+str+"]");
 		
 		logger.log(Level.FINE, "getArrayValues End");
 

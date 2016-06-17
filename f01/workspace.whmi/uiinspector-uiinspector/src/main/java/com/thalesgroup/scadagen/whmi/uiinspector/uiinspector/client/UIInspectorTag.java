@@ -283,6 +283,7 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 						
 						logger.log(Level.FINE, "updateValue siodbaddress["+diovaluetabledbaddress+"]");
 						
+						int dovnameCol = 0, labelCol = 1, valueCol = 2;
 						if ( keyAndValue.containsKey(diovaluetabledbaddress) ) {
 							for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
 								String dbaddress = addresses[x];
@@ -302,13 +303,13 @@ public class UIInspectorTag implements UIInspectorTab_i, IClientLifeCycle {
 										String values[] = new String[numOfRow];
 										for( int r = 0 ; r < numOfRow ; ++r ) {
 											
-											points[r] = RTDB_Helper.getArrayValues(value, 0, r );
+											points[r] = RTDB_Helper.getArrayValues(value, dovnameCol, r );
 											points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
 											
-											labels[r] = RTDB_Helper.getArrayValues(value, 1, r );
+											labels[r] = RTDB_Helper.getArrayValues(value, labelCol, r );
 											labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
 											
-											values[r] = RTDB_Helper.getArrayValues(value, 2, r );
+											values[r] = RTDB_Helper.getArrayValues(value, valueCol, r );
 											values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
 										}
 										

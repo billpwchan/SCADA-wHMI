@@ -21,15 +21,15 @@ import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAccessBar;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAlarmBanner;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAlarmBannerList;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelEmpty;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelSoundServerController;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelStatusBar;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetMgrEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAccessBar;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBanner;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelAlarmBannerList;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelEmpty;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelSoundServerController;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.container.UIPanelStatusBar;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
 public class UIScreenMMI implements UIScreen_i {
 
@@ -37,9 +37,11 @@ public class UIScreenMMI implements UIScreen_i {
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
-	private UINameCard uiNameCard;
+	private UINameCard uiNameCard = null;
 	
 	private String strUIScreenMMI = "UIScreenMMI.xml";
+	
+	public UINameCard getUINameCard() { return this.uiNameCard; }
 
 	private UILayoutGeneric uiPanelGeneric = null;
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
@@ -56,41 +58,79 @@ public class UIScreenMMI implements UIScreen_i {
 		
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		
-		uiWidgetMgr.clearUIWidgetEvents();
-		uiWidgetMgr.addUIWidgetEvent("UIScreenMMI", new UIWidgetMgrEvent() {
+		uiWidgetMgr.clearUIWidgetFactorys();
+		uiWidgetMgr.addUIWidgetFactory("UIScreenMMI", new UIWidgetMgrFactory() {
 			
 			@Override
 			public UIWidget_i getUIWidget(String widget) {
 				logger.log(Level.FINE, "getUIWidget Begin");
 				logger.log(Level.FINE, "getUIWidget widget["+widget+"]");
 				
-				UIWidget_i uiWIdget = null;
-				if ( 0 == widget.compareTo("UIPanelSoundServerController") ) {
-					uiWIdget = new UIPanelSoundServerController();
-				} else if ( 0 == widget.compareTo("UIPanelAccessBar") ) {
-					uiWIdget = new UIPanelAccessBar();
-				} else if ( 0 == widget.compareTo("UIPanelAlarmBanner") ) {
-					uiWIdget = new UIPanelAlarmBanner();
-				} else if ( 0 == widget.compareTo("UIPanelStatusBar") ) {
-					uiWIdget = new UIPanelStatusBar();
-				} else if ( 0 == widget.compareTo("UIPanelAlarmBannerList") ) {
-					uiWIdget = new UIPanelAlarmBannerList();
-				} else if ( 0 == widget.compareTo("UIPanelViewLayout") ) {
-					uiWIdget = new UIPanelViewLayout();
-				} else if ( 0 == widget.compareTo("UIPanelEmpty") ) {
-					uiWIdget = new UIPanelEmpty();
+				UIWidget_i uiWidget = null;
+				
+				if ( null != widget) {
+					
+					if ( widget.startsWith("WidgetFactory") ) {
+						
+						String params [] = widget.split("_");
+						
+						if ( params[1].equals("UINavigationMenu") ) {
+							
+							uiWidget = UIPanelNavigation.getInstance();
+							
+							logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] widgetType["+params[1]+"] menuLevel["+params[2]+"] menuType["+params[3]+"]");
+								
+							uiWidget.setParameter("menuLevel", params[2]);
+							uiWidget.setParameter("menuType", params[3]);
+							uiWidget.setUINameCard(getUINameCard());
+							uiWidget.getMainPanel();
+						}
+						
+					} else if ( widget.equals("UIPanelSoundServerController") ) {
+						uiWidget = new UIPanelSoundServerController();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					} else if ( widget.equals("UIPanelAccessBar") ) {
+						uiWidget = new UIPanelAccessBar();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					} else if ( widget.equals("UIPanelAlarmBanner") ) {
+						uiWidget = new UIPanelAlarmBanner();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					} else if ( widget.equals("UIPanelStatusBar") ) {
+						uiWidget = new UIPanelStatusBar();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					} else if ( widget.equals("UIPanelAlarmBannerList") ) {
+						uiWidget = new UIPanelAlarmBannerList();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					} else if ( widget.equals("UIPanelViewLayout") ) {
+						uiWidget = new UIPanelViewLayout();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					} else if ( widget.equals("UIPanelEmpty") ) {
+						uiWidget = new UIPanelEmpty();
+						uiWidget.setUINameCard(getUINameCard());
+						uiWidget.init(widget);
+					}
+				} else {
+					logger.log(Level.SEVERE, "getUIWidget widget IS NULL");
 				}
-				logger.log(Level.FINE, "getUIWidget uiWIdget["+uiWIdget+"]");
+				
+
+				logger.log(Level.FINE, "getUIWidget uiWIdget["+uiWidget+"]");
 				logger.log(Level.FINE, "getUIWidget End");
 				
-				return uiWIdget;
+				return uiWidget;
 			}
 		});
 
 		uiPanelGeneric = new UILayoutGeneric();
+		uiPanelGeneric.setUINameCard(this.uiNameCard);
 		uiPanelGeneric.init(strUIScreenMMI);
-		
-		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(this.uiNameCard);
+		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel();
 		
 		//Start the Navigation Menu
 		logger.log(Level.FINE, "getMainPanel Start the Navigation Menu Begin");

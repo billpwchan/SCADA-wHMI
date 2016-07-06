@@ -65,16 +65,27 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ComplexPanel getMenu(int level, String menuType) {
+	public ComplexPanel getMenu(String menuLevel, String menuType) {
 		logger.log(Level.FINE, "getMenu Begin");
-		logger.log(Level.SEVERE, "getMenu level["+level+"] menuType["+menuType+"]");
+		logger.log(Level.SEVERE, "getMenu level["+menuLevel+"] menuType["+menuType+"]");
+		int level = -1;
+		try {
+			level = Integer.parseInt(menuLevel);
+		} catch ( NumberFormatException e) {
+			logger.log(Level.SEVERE, "getMainPanel menuLevel["+menuLevel+"] IS INVALID");
+			logger.log(Level.SEVERE, "getMainPanel e["+e.toString()+"]");
+		}
 		ComplexPanel complexPanel = null;
-		if ( 0 == menuType.compareTo("HorizontalPanel") ) {
-			complexPanel = this.getHorizontalMenu(level);
-		} else if ( 0 == menuType.compareTo("VerticalPanel") ) {
-			complexPanel = this.getVerticalMenu(level);
-		} else if ( 0 == menuType.compareTo("FlowPanel") ) {
+		
+		 if ( 0 == menuType.compareTo("0") ) {
+			 // FlowPanel = 0
 			complexPanel = this.getFlowMenu(level);
+		} else if ( 0 == menuType.compareTo("1") ) {
+			// HorizontalPanel = 1
+			complexPanel = this.getHorizontalMenu(level);
+		} else if ( 0 == menuType.compareTo("2") ) {
+			// VerticalPanel = 2
+			complexPanel = this.getVerticalMenu(level);
 		} else {
 			logger.log(Level.SEVERE, "getMenu menuType["+menuType+"] IS INVALID");
 		}
@@ -318,6 +329,11 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 		
 		logger.log(Level.SEVERE, "isReady End");
 	}
+	
+	@Override
+	public void setUINameCard(UINameCard uiNameCard) {
+		
+	};
 
 	@Override
 	public void init(String xmlFile) {
@@ -326,7 +342,7 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 	}
 
 	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+	public ComplexPanel getMainPanel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -369,6 +385,12 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 
 	@Override
 	public void setWidgetStatus(String element, String up) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParameter(String key, String value) {
 		// TODO Auto-generated method stub
 		
 	}

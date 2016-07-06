@@ -50,8 +50,9 @@ public class UIScreenLogin implements UIScreen_i {
 		this.uiNameCard.appendUIPanel(this);
 		
 		uiPanelGeneric = new UILayoutGeneric();
+		uiPanelGeneric.setUINameCard(this.uiNameCard);
 		uiPanelGeneric.init(strUIPanelLogin);
-		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel(this.uiNameCard);
+		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel();
 		
 		uiPanelGenericInfo		= uiPanelGeneric.getUIWidget(strUIPanelLoginInfo);
 		uiPanelGenericButton	= uiPanelGeneric.getUIWidget(strUIPanelLoginButton);

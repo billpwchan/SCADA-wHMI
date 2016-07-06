@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="TranslationMgr">
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.translation.translationmgr.TranslationMgr' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/TranslationMgr/greet" class="com.thalesgroup.scadagen.whmi.translation.translationmgr.server.GreetingServiceImpl" />
+
+</module>

@@ -1,0 +1,19 @@
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
+
+public interface UIPanelAlarmBanner_i {
+	public enum WidgetArrtibute {
+		  alarm("alarm")
+		, event("event")
+		, alarmsound("alarmsound")
+		, ackpage("ackpage")
+		;
+		private final String text;
+		private WidgetArrtibute(final String text) { this.text = text; }
+		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() { return this.text; }
+	}
+}

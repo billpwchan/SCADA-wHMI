@@ -10,6 +10,12 @@ SET TOMCAT_VER=-8.0.23
 SET sp_wrapper=workspace.wrapper%sp_ver%
 echo Folder Path for sp_wrapper is [%sp_wrapper%]
 
+SET sp_integration=workspace.integration%sp_ver%
+echo Folder Path for sp_integration is [%sp_integration%]
+
+SET sp_uiwidget=workspace.whmi.uiwidget%sp_ver%
+echo Folder Path for sp_uiwidget is [%sp_uiwidget%]
+
 SET sp_whmi=workspace.whmi
 echo Folder Path for sp_whmi is [%sp_whmi%]
 
@@ -23,5 +29,5 @@ SET sp_webapp_func_name=workspace.webapp-func%sp_ver%
 echo Folder Path for sp_webapp_func is [%sp_webapp_func%]
 echo Folder Path for sp_webapp_func_name is [%sp_webapp_func_name%]
 
-SET scstraning_loc=S:\scstraining\
+SET scstraning_loc=C:\BuildPlatform\SCSTraining\
 echo Folder Path for scstraning_loc is [%scstraning_loc%]

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -20,12 +21,15 @@ public class UIPanelEmpty implements UIWidget_i {
 	private static Logger logger = Logger.getLogger(UIPanelEmpty.class.getName());
 
 	private UINameCard uiNameCard;
-	@Override
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
-		logger.log(Level.FINE, "getMainPanel Begin");
-
+	public void setUINameCard(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
+	};
+	
+	private ComplexPanel root = null;
+	@Override
+	public void init(String xmlFile) {
+		logger.log(Level.FINE, "init Begin");
 
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -33,10 +37,14 @@ public class UIPanelEmpty implements UIWidget_i {
 		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
-		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
+		root = new DockLayoutPanel(Unit.PX);
 		root.add(hp);
 
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.log(Level.FINE, "init End");
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel() {
 
 		return root;
 	}
@@ -55,11 +63,7 @@ public class UIPanelEmpty implements UIWidget_i {
 		}
 	}
 
-	@Override
-	public void init(String xmlFile) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public Widget getWidget(String widget) {
@@ -99,6 +103,12 @@ public class UIPanelEmpty implements UIWidget_i {
 
 	@Override
 	public void setWidgetStatus(String element, String up) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParameter(String key, String value) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -15,9 +15,6 @@ cd /d %SOURCE_BASE%/%sp_webapp%
 
 echo Starting Clean %sp_webapp_name% process and log to %LOG_FILE%...
 
-cd mywebapp
-
-echo Cleaning webapp before Clean...
 call mvn clean -V > %LOG_FILE%
 
 cd ..

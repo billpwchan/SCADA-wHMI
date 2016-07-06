@@ -15,7 +15,6 @@ cd /d %SOURCE_BASE%/%sp_wrapper%
 
 echo Starting Clean %sp_wrapper% process and log to %LOG_FILE%...
 
-echo Cleaning before Clean...
 call mvn clean -V > %LOG_FILE%
 
 cd ..

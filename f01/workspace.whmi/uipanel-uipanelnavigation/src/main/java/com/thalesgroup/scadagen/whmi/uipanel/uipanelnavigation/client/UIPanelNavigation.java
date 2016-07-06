@@ -5,9 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelNavigation {
+public class UIPanelNavigation implements UIWidget_i {
 	
 	private static Logger logger = Logger.getLogger(UIPanelNavigation.class.getName());
 	
@@ -42,7 +45,8 @@ public class UIPanelNavigation {
 
 		return uiPanelMenus;
 	}
-	public ComplexPanel getMenu(UINameCard uiNameCard, int level, String menuType) {
+	
+	public ComplexPanel getMenu(UINameCard uiNameCard, String menuLevel, String menuType) {
 		
 		logger.log(Level.FINE, "getMenu Begin");
 		
@@ -50,10 +54,68 @@ public class UIPanelNavigation {
 		
 		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
 		
-		ComplexPanel complexPanel = uiPanelMenus.getMenu(level, menuType);
+		ComplexPanel complexPanel = uiPanelMenus.getMenu(menuLevel, menuType);
 		
 		logger.log(Level.FINE, "getMenu End");
 		
 		return complexPanel;
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel() {
+		ComplexPanel menu = getMenu(this.uiNameCard, parameters.get("menuLevel"), parameters.get("menuType"));
+		return menu;
+	}
+	
+	private HashMap<String, String> parameters = new HashMap<String, String>();
+	@Override
+	public void setParameter(String key, String value) {
+		parameters.put(key, value);
+	}
+	
+	private UINameCard uiNameCard = null;
+	@Override
+	public void setUINameCard(UINameCard uiNameCard) {
+		this.uiNameCard = new UINameCard(uiNameCard);
+	}
+	@Override
+	public void init(String xmlFile) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Widget getWidget(String widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getWidgetElement(Widget widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setValue(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setValue(String name, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getWidgetStatus(String element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setWidgetStatus(String element, String up) {
+		// TODO Auto-generated method stub
+		
 	}
 }

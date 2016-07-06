@@ -4,21 +4,26 @@ call LoadPath.bat
 
 echo delete war file...
 
-echo DELETE "%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\mywebapp.war"
+set PATH_FOLDER="%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\scadagen-f02-webapp-generic"
+set PATH_WAR="%PATH_FOLDER%.war"
 
-del /s /f /q "%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\mywebapp.war"
+echo DELETE 
+
+del /s /f /q %PATH_WAR%
 
 echo remove war folder...
 
-echo DELETE  "%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\mywebapp"
+echo DELETE  %PATH_FOLDER%
 
-rmdir /s /q "%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\mywebapp"
+rmdir /s /q %PATH_FOLDER%
 
 echo copy war file
 
-echo FROM "%SOURCE_BASE%\%sp_webapp%\mywebapp\target\mywebapp-%war_ver%.war"
-echo TO   "%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\mywebapp.war"
+set PATH_RELEASE="%SOURCE_BASE%\%sp_webapp%\mywebapp\target\mywebapp-%war_ver%.war"
 
-copy /B /Y /V "%SOURCE_BASE%\%sp_webapp%\mywebapp\target\mywebapp-%war_ver%.war" "%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\mywebapp.war"
+echo FROM %PATH_RELEASE%
+echo TO   %PATH_WAR%
+
+copy /B /Y /V %PATH_RELEASE% %PATH_WAR%
 
 REM PAUSE

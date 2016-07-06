@@ -13,6 +13,7 @@ SET MAVEN_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-maven-3.3.9
 SET CATALINA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-tomcat-8.0.30-x86_64
 SET ECLIPSE_HOME=%SOFTS_BASE%/%SOFTS_DIR%/eclipse-jee-mars-R-win32-x86_64
 SET CHROME_HOME=C:\Users\syau\PortableApps\GoogleChromePortable\GoogleChromePortable.exe
+SET SEVEN_ZIP_HOME=C:\Users\syau\PortableApps\7-ZipPortable\App\7-Zip64\7z.exe
 
 SET TAIL_EXE=%SOFTS_BASE%/%SOFTS_DIR%/Tail-4.2.12\Tail.exe
 

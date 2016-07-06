@@ -25,10 +25,45 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 	
 	private UIPanelView[] uiPanelViews;
 	
-	private DockLayoutPanel basePanel;
+	private ComplexPanel root;
 	
 	private ComplexPanel upperMainPanel;
-
+	
+	private UINameCard uiNameCard;
+	@Override
+	public void setUINameCard(UINameCard uiNameCard) {
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
+	}
+	
+	@Override
+	public void init(String xmlFile) {
+		logger.log(Level.FINE, "getMainPanel Begin...");
+		
+		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
+		
+		logger.log(Level.SEVERE, "setLayout this.uiNameCard.getUiScreen() ["+this.uiNameCard.getUiScreen()+"] this.uiNameCard.getUiPath()	["+this.uiNameCard.getUiPath()+"]");
+		
+		root = new DockLayoutPanel(Unit.PX);
+		root.addStyleName("project-gwt-panel-viewlayout-main");
+		
+		logger.log(Level.FINE, "getMainPanel End.");
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel() 
+	{ 
+		return root; 
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) 
+	{ 
+		setUINameCard(uiNameCard);
+		init(null);
+		return root; 
+	}
+	
 	/**
 	 * @param viewId
 	 * @return
@@ -64,25 +99,7 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 		return vs;
 	}
 	
-	private UINameCard uiNameCard;
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) 
-	{ 
-		logger.log(Level.FINE, "getMainPanel Begin...");
-		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-		
-		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
-		
-		logger.log(Level.SEVERE, "setLayout this.uiNameCard.getUiScreen() ["+this.uiNameCard.getUiScreen()+"] this.uiNameCard.getUiPath()	["+this.uiNameCard.getUiPath()+"]");
-		
-		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-viewlayout-main");
-		
-		logger.log(Level.FINE, "getMainPanel End.");
-				
-		return basePanel; 
-	}
+
 	
 
 	@Override
@@ -96,10 +113,12 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 //		upperMainPanel = uiPanelFactoryMgr.getMainPanel("UIPanelEmpty", uiNameCard);
 		
 		UIPanelEmpty uiPanelEmpty = new UIPanelEmpty();
-		upperMainPanel = uiPanelEmpty.getMainPanel(uiNameCard);
+		uiPanelEmpty.setUINameCard(uiNameCard);
+		uiPanelEmpty.init(null);
+		upperMainPanel = uiPanelEmpty.getMainPanel();
 		
-		basePanel.clear();
-		basePanel.add(upperMainPanel);
+		root.clear();
+		root.add(upperMainPanel);
 		
 		boolean borderVisible = false;
 		
@@ -260,12 +279,6 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 	}
 
 	@Override
-	public void init(String xmlFile) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Widget getWidget(String widget) {
 		// TODO Auto-generated method stub
 		return null;
@@ -303,6 +316,12 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 
 	@Override
 	public void setWidgetStatus(String element, String up) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setParameter(String name, String value) {
 		// TODO Auto-generated method stub
 		
 	}

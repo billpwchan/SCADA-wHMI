@@ -102,13 +102,25 @@
           <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
+	  <artifactId>uiwidget-uiwidget</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
+	  <artifactId>uiwidget-uiwidgetgeneric</artifactId>
+          <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
 	<!-- Wrapper -->
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
 	  <artifactId>wrapper-wrapper</artifactId>
 	  <version>1.0-SNAPSHOT</version>
 	</dependency>
-    
+
   </dependencies>
 
   <build>

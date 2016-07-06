@@ -17,7 +17,6 @@ cd /d %SOURCE_BASE%/%sp_whmi%
 
 echo Starting Clean %softpackage% process and log to %LOG_FILE%...
 
-echo Cleaning all module(s) before Clean
 call mvn clean -V > %LOG_FILE%
 
 cd ..

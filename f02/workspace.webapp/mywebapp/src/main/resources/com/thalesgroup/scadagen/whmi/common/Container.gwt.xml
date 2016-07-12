@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<module rename-to='Container'>
+
+  <!-- Other module inherits                                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.config.confignav.ConfigNav' />
+
+  <inherits name='com.thalesgroup.scadagen.whmi.opm.authentication.OpmAuthentication' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.UITaskMgr' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.UITaskHistory' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.UITaskLaunch' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasktitle.UITaskTitle' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasksplit.UITaskSplit' />  
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanel.UIPanel' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr.UIPanelMgr' />
+
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.UIPanelNavigation' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.UIPanelViewLayout' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiview.UIView' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.UIViewMgr' />
+ 
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.UIScreen' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.UIScreenMgr' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.UIScreenEmpty' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.UIScreenDSS' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.UIScreenLogin' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.UIScreenMMI' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.UIDialogMsg' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.UIInspector' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.UIScreenRoot' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiroot.uiroot.UIRoot' />
+  
+  <inherits name='com.thalesgroup.scadagen.wrapper.mwt.Mwt' />
+  <inherits name='com.thalesgroup.scadagen.wrapper.wrapper.Wrapper' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.UIWidgetContainer' />
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client' />
+  <source path='shared' />
+
+</module>

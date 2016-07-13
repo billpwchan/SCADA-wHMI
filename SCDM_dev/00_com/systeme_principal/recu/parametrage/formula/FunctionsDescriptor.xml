@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XML Spy v3.5 NT (http://www.xmlspy.com) by De Castro Domingos (THALES INFORMATION SYSTEMS) -->
+<FunctionsDescriptor createDate="" version="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SchemaFunctionsDescriptor.xsd">
+	<!-- INTERNAL FUNCTION -->
+	<!-- Arith. Operators -->
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name="+" labelEditor="+"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name="-" labelEditor="-"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name="*" labelEditor="*"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name="/" labelEditor="/"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name="(" labelEditor="("/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name=")" labelEditor=")"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Arith." domaineEditor="Arith." name="," labelEditor=","/>
+	<!-- Math Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="ABS" labelEditor="ABS" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="POW" labelEditor="POW" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="N" index="1" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Arith." name="INT" labelEditor="INT" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="ROUND" labelEditor="ROUND" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="N" index="1" type="Integer"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="SQRT" labelEditor="SQRT" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Arith." name="MOD" labelEditor="MOD" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur1" index="0" type="Double"/>
+		<FunctionArg name="Valeur2" index="1" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="EXP" labelEditor="EXP" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Logique" name="FOR" labelEditor="FOR" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="N" index="0" type="Integer"/>
+		<FunctionArg name="Expr" index="1" type="Unknown"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="LOG" labelEditor="LOG" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="LOG10" labelEditor="LOG10" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="Math." domaineEditor="Math." name="MULTIPLICATION" labelEditor="MULTIPLICATION" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Math." domaineEditor="Math." name="SUM" labelEditor="SUM" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="Math." domaineEditor="Math." name="WEIGHTEDSUM" labelEditor="Somme Pondérée" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<!-- Trigonometric Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="ACOS" labelEditor="ACOS" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="ASIN" labelEditor="ASIN" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="ATAN" labelEditor="ATAN" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="ATAN2" labelEditor="ATAN2" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="Valeur" index="1" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="COS" labelEditor="COS" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="SIN" labelEditor="SIN" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="TAN" labelEditor="TAN" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="COSH" labelEditor="COSH" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="SINH" labelEditor="SINH" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Trigo." domaineEditor="Trigo." name="TANH" labelEditor="TANH" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<!-- Statistical Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Stat." domaineEditor="Arith." name="MAX" labelEditor="MAX" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Stat." domaineEditor="Arith." name="MIN" labelEditor="MIN" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Stat." domaineEditor="Math." name="AVERAGE" labelEditor="AVERAGE" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<!-- Logical Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="IF" labelEditor="IF" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="Cond" index="0" type="Boolean"/>
+		<FunctionArg name="Expr1" index="1" type="Unknown"/>
+		<FunctionArg name="Expr2" index="2" type="Unknown"/>
+	</FunctionDesc>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="&amp;&amp;" labelEditor="&amp;&amp;"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="||" labelEditor="||"/>
+	<!--OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="NOT" labelEditor="NOT"/-->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="NOT" labelEditor="NOT" typeReturn="Boolean" argsUnlimited="false">
+		<FunctionArg name="Expr" index="0" type="Boolean"/>
+	</FunctionDesc>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="&lt;&gt;" labelEditor="&lt;&gt;"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="&gt;" labelEditor="&gt;"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="&lt;" labelEditor="&lt;"/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="=" labelEditor="="/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="&gt;=" labelEditor="&gt;="/>
+	<OperatorDesc domaineName="InternalFunction" subDomaine="Logic." domaineEditor="Logique" name="&lt;=" labelEditor="&lt;="/>
+	<!-- Bit manipulation Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Bit" domaineEditor="" name="AND" labelEditor="AND" typeReturn="Boolean" argsUnlimited="true">
+		<FunctionArg name="" index="0" type="Boolean"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Bit" domaineEditor="" name="OR" labelEditor="OR" typeReturn="Boolean" argsUnlimited="true">
+		<FunctionArg name="" index="0" type="Boolean"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Bit" domaineEditor="" name="XOR" labelEditor="XOR" typeReturn="Boolean" argsUnlimited="true">
+		<FunctionArg name="" index="0" type="Boolean"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Bit" domaineEditor="" name="LEFTSHIFT" labelEditor="LEFTSHIFT" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer" optionnal="Y"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Bit" domaineEditor="" name="RIGHTSHIFT" labelEditor="RIGHTSHIFT" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer" optionnal="Y"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Bit" domaineEditor="" name="UNPACK" labelEditor="UNPACK" typeReturn="Vector" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+	</FunctionDesc>
+	<!-- Time Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Time" domaineEditor="Date" name="NOW" labelEditor="NOW" typeReturn="Date" argsUnlimited="false"/>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Time" domaineEditor="Date" name="DAYOFMON" labelEditor="DAYOFMON" typeReturn="Integer" argsUnlimited="false"/>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Time" domaineEditor="Date" name="DAYOFWK" labelEditor="DAYOFWK" typeReturn="Integer" argsUnlimited="false"/>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Time" domaineEditor="Date" name="MINOFDAY" labelEditor="MINOFDAY" typeReturn="Integer" argsUnlimited="false"/>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Time" domaineEditor="Date" name="TIMEDIFF" labelEditor="TIMEDIFF" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="Date1" index="0" type="Date"/>
+		<FunctionArg name="Date2" index="1" type="Date"/>
+	</FunctionDesc>
+	<!-- Adressing Functions ARevoir -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Addr." domaineEditor="" name="READSYM" labelEditor="READSYM" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Unknown"/>
+		<FunctionArg name="" index="1" type="Unknown" optionnal="Y"/>
+	</FunctionDesc>
+	<!-- Data movement Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Data" domaineEditor="" name="PUT" labelEditor="PUT" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Unknown"/>
+		<FunctionArg name="" index="1" type="Unknown"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Data" domaineEditor="" name="PUTVECTOR" labelEditor="PUTVECTOR" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Unknown"/>
+		<FunctionArg name="" index="1" type="Unknown"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Data" domaineEditor="" name="INDEX" labelEditor="INDEX" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Unknown"/>
+		<FunctionArg name="" index="1" type="Unknown"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Data" domaineEditor="" name="SHIFT" labelEditor="SHIFT" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Unknown"/>
+	</FunctionDesc>
+	<!-- OS Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="OS" domaineEditor="" name="UID" labelEditor="UID" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="String"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="OS" domaineEditor="" name="UNAME" labelEditor="UNAME" typeReturn="String" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+	</FunctionDesc>
+	<!-- Real-time Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Temps réel" domaineEditor="" name="TIMER" labelEditor="TIMER" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer" optionnal="Y"/>
+		<FunctionArg name="" index="1" type="Integer" optionnal="Y"/>
+		<FunctionArg name="" index="2" type="Integer" optionnal="Y"/>
+		<FunctionArg name="" index="3" type="Integer" optionnal="Y"/>
+		<FunctionArg name="" index="4" type="Integer" optionnal="Y"/>
+		<FunctionArg name="" index="5" type="Integer"/>
+		<FunctionArg name="" index="6" type="Integer"/>
+		<FunctionArg name="" index="7" type="Integer"/>
+		<FunctionArg name="" index="8" type="Integer"/>
+		<FunctionArg name="" index="9" type="Integer"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Temps réel" domaineEditor="Math." name="SCALE" labelEditor="SCALE" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="Ymin" index="1" type="Double"/>
+		<FunctionArg name="Ymax" index="2" type="Double"/>
+		<FunctionArg name="Xmin" index="3" type="Double"/>
+		<FunctionArg name="Xmax" index="4" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Temps réel" domaineEditor="" name="QUALITY" labelEditor="QUALITY" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Double"/>
+	</FunctionDesc>
+	<!-- Alarm Functions -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Alarm" domaineEditor="" name="ALARM" labelEditor="ALARM" typeReturn="Unknown" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Alarm" domaineEditor="" name="SCS_ALARM_DI" labelEditor="SCS_ALARM_DI" typeReturn="" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer"/>
+		<!-- Pb deux types possibles Integer ou Vector, actuellement un seul type géré -->
+		<FunctionArg name="" index="2" type="String"/>
+		<FunctionArg name="" index="3" type="String"/>
+		<FunctionArg name="" index="4" type="Date"/>
+		<FunctionArg name="" index="5" type="Date"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Alarm" domaineEditor="" name="SCS_ALARM_AI" labelEditor="SCS_ALARM_AI" typeReturn="" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer"/>
+		<!-- Pb deux types possibles Integer ou Vector, actuellement un seul type géré -->
+		<FunctionArg name="" index="2" type="String"/>
+		<FunctionArg name="" index="3" type="String"/>
+		<FunctionArg name="" index="4" type="Date"/>
+		<FunctionArg name="" index="5" type="Date"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Alarm" domaineEditor="" name="SCS_EVENT" labelEditor="SCS_EVENT" typeReturn="" argsUnlimited="false"/>
+	<!-- Non implementé -->
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Non dispo." domaineEditor="" name="SEND_EVENT" labelEditor="SEND_EVENT" typeReturn="" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="String"/>
+		<FunctionArg name="" index="1" type="String"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Non dispo." domaineEditor="" name="SCS_NTP" labelEditor="SCS_NTP" typeReturn="Integer" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer"/>
+		<FunctionArg name="" index="2" type="Integer"/>
+		<FunctionArg name="" index="3" type="Integer"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Non dispo." domaineEditor="" name="SCS_HISTORIZE" labelEditor="SCS_HISTORIZE" typeReturn="" argsUnlimited="false"/>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Non dispo." domaineEditor="" name="SCS_GUARD_DI" labelEditor="SCS_GUARD_DI" typeReturn="" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer"/>
+		<!-- Pb deux types possibles Integer ou Vector, actuellement un seul type géré -->
+		<FunctionArg name="" index="2" type="String"/>
+		<FunctionArg name="" index="3" type="String"/>
+		<FunctionArg name="" index="4" type="Date"/>
+		<FunctionArg name="" index="5" type="Date"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="InternalFunction" subDomaine="Non dispo." domaineEditor="" name="SCS_GUARD_AI" labelEditor="SCS_GUARD_AI" typeReturn="" argsUnlimited="false">
+		<FunctionArg name="" index="0" type="Integer"/>
+		<FunctionArg name="" index="1" type="Integer"/>
+		<!-- Pb deux types possibles Integer ou Vector, actuellement un seul type géré -->
+		<FunctionArg name="" index="2" type="String"/>
+		<FunctionArg name="" index="3" type="String"/>
+		<FunctionArg name="" index="4" type="Date"/>
+		<FunctionArg name="" index="5" type="Date"/>
+	</FunctionDesc>
+	<!-- USER FUNCTIONS -->
+	<!-- Functions Mesure Abaque -->
+	<FunctionDesc domaineName="UserFunction" subDomaine=" MesureAbaque" domaineEditor="SRC" name="ElaborerMesureAbaque1Entree" labelEditor="ElaborerMesureAbaque1Entree" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="Validité" index="1" type="Boolean"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine=" MesureAbaque" domaineEditor="SRC" name="ElaborerMesureAbaque2Entree" labelEditor="ElaborerMesureAbaque2Entree" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur1" index="0" type="Double"/>
+		<FunctionArg name="Valeur2" index="1" type="Double"/>
+		<FunctionArg name="Validité1" index="2" type="Boolean"/>
+		<FunctionArg name="Validité2" index="3" type="Boolean"/>
+	</FunctionDesc>
+	<!-- Functions Debit Puissance -->
+	<FunctionDesc domaineName="UserFunction" subDomaine="DebitPuissance" domaineEditor="SRC" name="ElaborerDebitPuissancePrevi" labelEditor="ElaborerDebitPuissancePrevi" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="ValeurPrev" index="1" type="Double"/>
+		<FunctionArg name="Validité" index="2" type="Boolean"/>
+	</FunctionDesc>
+	<!-- Functions Retard -->
+	<FunctionDesc domaineName="UserFunction" subDomaine="Retard" domaineEditor="SRC" name="MT_DELAY" labelEditor="Retard" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="NbPer" index="1" type="Integer"/>
+	</FunctionDesc>
+	<!-- Functions Aiguillage -->
+	<FunctionDesc domaineName="UserFunction" subDomaine="Aiguillage" domaineEditor="SRC" name="POSITIVE" labelEditor="Aiguillage Positif" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="Aiguillage" domaineEditor="SRC" name="NEGATIVE" labelEditor="Aiguillage Négatif" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<!-- Functions Moyenne -->
+	<FunctionDesc domaineName="UserFunction" subDomaine="Moyenne" domaineEditor="SRC" name="MT_AVERAGE" labelEditor="Moyenne sur T" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="NbPer" index="1" type="Integer"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="Moyenne" domaineEditor="SRC" name="MT_AND" labelEditor="Validité Moyenne sur T" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="GPH" index="0" type="String"/>
+		<FunctionArg name="NbPer" index="1" type="Integer"/>
+	</FunctionDesc>
+	<!-- Functions Bornes -->
+	<FunctionDesc domaineName="UserFunction" subDomaine="Bornes" domaineEditor="SRC" name="FORCE_RANGE" labelEditor="Bornes" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+		<FunctionArg name="Binf" index="1" type="Double"/>
+		<FunctionArg name="Bsup" index="2" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="Bornes" domaineEditor="SRC" name="SWITCH" labelEditor="Condition" typeReturn="Double" argsUnlimited="true">
+		<FunctionArg name="Valeur" index="0" type="Double"/>
+	</FunctionDesc>
+	<!-- Time Functions -->
+	<FunctionDesc domaineName="UserFunction" subDomaine="Time" domaineEditor="Date" name="MONTH" labelEditor="MONTH" typeReturn="Integer" argsUnlimited="false"/>
+	<FunctionDesc domaineName="UserFunction" subDomaine="MargesReactif" domaineEditor="SRC" name="MargesReactifAThermique" labelEditor="MargesReactifAThermique" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="noeud_raccordement " index="0" type="Integer"/>
+		<FunctionArg name="Valeur_GPH_P" index="1" type="Double"/>
+		<FunctionArg name="Validite_GPH_P" index="2" type="Boolean"/>
+		<FunctionArg name="Valeur_GPH_Q" index="3" type="Double"/>
+		<FunctionArg name="Validite_GPH_Q" index="4" type="Boolean"/>
+		<FunctionArg name="P_Min" index="5" type="Double"/>
+		<FunctionArg name="P_Max" index="6" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="MargesReactif" domaineEditor="SRC" name="MargesReactifAHydraulique" labelEditor="MargesReactifAHydraulique" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="noeud_raccordement " index="0" type="Integer"/>
+		<FunctionArg name="Valeur_GPH_P" index="1" type="Double"/>
+		<FunctionArg name="Validite_GPH_P" index="2" type="Boolean"/>
+		<FunctionArg name="Valeur_GPH_Q" index="3" type="Double"/>
+		<FunctionArg name="Validite_GPH_Q" index="4" type="Boolean"/>
+		<FunctionArg name="P_Min_Turbine" index="5" type="Double"/>
+		<FunctionArg name="P_Max_Turbine" index="6" type="Double"/>
+		<FunctionArg name="P_Min_Pompe" index="7" type="Double"/>
+		<FunctionArg name="P_Max_Pompe" index="8" type="Double"/>
+		<FunctionArg name="P_Min_Compensateur" index="9" type="Double"/>
+		<FunctionArg name="P_Max_Compensateur" index="10" type="Double"/>
+		<FunctionArg name="mode_fonctionnement" index="11" type="Integer"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="MargesReactif" domaineEditor="SRC" name="MargesReactifFThermique" labelEditor="MargesReactifFThermique" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="noeud_raccordement " index="0" type="Integer"/>
+		<FunctionArg name="Valeur_GPH_P" index="1" type="Double"/>
+		<FunctionArg name="Validite_GPH_P" index="2" type="Boolean"/>
+		<FunctionArg name="Valeur_GPH_Q" index="3" type="Double"/>
+		<FunctionArg name="Validite_GPH_Q" index="4" type="Boolean"/>
+		<FunctionArg name="P_Min" index="5" type="Double"/>
+		<FunctionArg name="P_Max" index="6" type="Double"/>
+	</FunctionDesc>
+	<FunctionDesc domaineName="UserFunction" subDomaine="MargesReactif" domaineEditor="SRC" name="MargesReactifFHydraulique" labelEditor="MargesReactifFHydraulique" typeReturn="Double" argsUnlimited="false">
+		<FunctionArg name="noeud_raccordement " index="0" type="Integer"/>
+		<FunctionArg name="Valeur_GPH_P" index="1" type="Double"/>
+		<FunctionArg name="Validite_GPH_P" index="2" type="Boolean"/>
+		<FunctionArg name="Valeur_GPH_Q" index="3" type="Double"/>
+		<FunctionArg name="Validite_GPH_Q" index="4" type="Boolean"/>
+		<FunctionArg name="P_Min_Turbine" index="5" type="Double"/>
+		<FunctionArg name="P_Max_Turbine" index="6" type="Double"/>
+		<FunctionArg name="P_Min_Pompe" index="7" type="Double"/>
+		<FunctionArg name="P_Max_Pompe" index="8" type="Double"/>
+		<FunctionArg name="P_Min_Compensateur" index="9" type="Double"/>
+		<FunctionArg name="P_Max_Compensateur" index="10" type="Double"/>
+		<FunctionArg name="mode_fonctionnement" index="11" type="Integer"/>
+	</FunctionDesc>
+</FunctionsDescriptor>

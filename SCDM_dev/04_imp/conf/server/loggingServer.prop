@@ -1,0 +1,49 @@
+##################################################################
+#                                                                #
+# logging.prop : fichier de configuration du serveur pour le log #
+#                                                                #
+##################################################################
+
+######################################
+# Propritétés de logging
+######################################
+
+# Appender A1 attaché à la racine.
+log4j.rootCategory=INFO, A1
+
+# Priorité pour chaque catégorie : DEBUG < INFO < WARN < ERROR < FATAL
+log4j.category.STORAGE=INFO
+log4j.category.BUSINESS=INFO
+log4j.category.USER=INFO
+log4j.category.EXCHANGE=INFO
+log4j.category.PERF=INFO, A2
+log4j.category.TEST=INFO, A3
+
+# Sortie fichier "roulant" avec sauvegarde
+log4j.appender.A1=org.apache.log4j.RollingFileAppender
+log4j.appender.A1.File=${application.home}/log/src.log
+log4j.appender.A1.MaxFileSize=10000KB
+log4j.appender.A1.MaxBackupIndex=10
+
+# Formatage temps, thread, catégorie and information imbriquée
+log4j.appender.A1.layout=org.apache.log4j.PatternLayout
+log4j.appender.A1.layout.ConversionPattern=%d{yyyy/MM/dd-HH:mm:ss,SSS} %-5p - %x - %c{1} - %m%n
+
+# Sortie fichier écrasé
+log4j.appender.A2=org.apache.log4j.RollingFileAppender
+log4j.appender.A2.File=${application.home}/log/perf.log
+log4j.appender.A2.MaxFileSize=10000KB
+log4j.appender.A2.MaxBackupIndex=10
+
+# Formatage temps, thread, catégorie and information imbriquée
+log4j.appender.A2.layout=org.apache.log4j.PatternLayout
+log4j.appender.A2.layout.ConversionPattern=%d{yyyy/MM/dd-HH:mm:ss,SSS} %-5p - %x - %c{1} - %m%n
+
+# Sortie fichier écrasé
+log4j.appender.A3=org.apache.log4j.FileAppender
+log4j.appender.A3.File=${application.home}/log/test.log
+log4j.appender.A3.Append=false
+
+# Formatage temps, thread, catégorie and information imbriquée
+log4j.appender.A3.layout=org.apache.log4j.PatternLayout
+log4j.appender.A3.layout.ConversionPattern=%d{yyyy/MM/dd-HH:mm:ss,SSS} %-5p - %x - %c{1} - %m%n

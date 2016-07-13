@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Thales -->
+<!-- This file gives the available profiles by user -->
+<users>
+	<user name="T0009054" profile="Administration"/>
+	<user name="T0126039" profile="Administration"/>
+	<user name="T0120787" profile="Administration"/>
+	<user name="metaconf" profile="Configuration"/>
+	<user name="metaconf" profile="Consultation"/>
+	<user name="metaconf" profile="Administration"/>
+	<user name="demo" profile="Administration"/>
+</users>

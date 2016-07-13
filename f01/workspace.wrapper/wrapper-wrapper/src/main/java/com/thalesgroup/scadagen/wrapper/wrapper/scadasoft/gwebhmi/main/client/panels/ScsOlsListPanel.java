@@ -177,15 +177,8 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
-            	
-            	String CSS_EVENT_		= "CSS_EVENT";
-            	            	
-                String _SUPER_CRITICAL	= "_SUPER_CRITICAL";
-                String _CRITICAL		= "_CRITICAL";
-                String _LESS_CRITIICAL	= "_LESS_CRITIICAL";
-                String _EVENT			= "_EVENT";
-                
-                String strCssResult		= CSS_EVENT_;
+
+                String strCssResult		= null;
             	
                 logger.log(Level.FINE, "getStyleNames Begin");
 				logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"]");
@@ -207,40 +200,11 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
                             return "gdg_invalid";
                         }
                     }
-                    if ( null != severity ) {
-                    	if ( severity.isValid() ) {
-                    		
-                    		int iValue = severity.getValue();
-                    		
-                    		switch ( iValue ) {
-                    		case 4:
-                    			strCssResult += _SUPER_CRITICAL;
-                    			break;
-                    		case 3:
-                    			strCssResult += _CRITICAL;
-                    			break;
-                    		case 2:
-                    			strCssResult += _LESS_CRITIICAL;
-                    			break;
-                    		case 1:
-                    		case 0:
-                    			strCssResult += _EVENT;
-                    			default:
-                    		break;
-                    		}
-                    		
-                    		logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] iValue["+iValue+"] => strCssResult["+strCssResult+"]");
-                    		
-                    		return strCssResult;
-                    		
-                    		//CSS_EVENT_SUPER_CRITICAL
-                    		//CSS_EVENT_CRITICAL
-                    		//CSS_EVENT_LESS_CRITIICAL
-                    		//CSS_EVENT_EVENT
-
-                    	} else {
-                    		logger.log(Level.FINE, "getStyleNames severity.isValid()");
-                    	}
+                    if ( null != severity && severity.isValid() ) {
+                    	int iValue = severity.getValue();
+                    	strCssResult = "CSS_OLS_LIST_PANEL_SEVERITY_" + iValue;	
+                    	logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] iValue["+iValue+"] => strCssResult["+strCssResult+"]");
+                    	return strCssResult;
                     } else {
                     	logger.log(Level.FINE, "getStyleNames severity is null");
                     }

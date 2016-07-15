@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_7sp3EBcfEea8gcqN7ZFDFQ" type="Aspect" name="BC___Symbol.aspect_diagram" measurementUnit="Pixel">
-  <styles xmi:type="notation:DiagramStyle" xmi:id="_7sp3ERcfEea8gcqN7ZFDFQ"/>
-  <element xmi:type="scsRepresentation:AspectPackage" href="C1166B_POW_BC__.scsrepresentation#_1a-doRcfEea8gcqN7ZFDFQ"/>
-</notation:Diagram>

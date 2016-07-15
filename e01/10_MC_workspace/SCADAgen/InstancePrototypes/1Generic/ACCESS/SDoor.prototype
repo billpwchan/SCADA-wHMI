@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES" xmi:id="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509" hvqname="myproject.data.config.equipment.Door" nom_instance="SDoor" functionalCat="2" scstype="DoorType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

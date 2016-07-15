@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:AdvNode xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES" xmi:id="_DH0McJIQEeKDnMhq6XZWRA_1363860840119" nom_instance="SBuilding" label="Building" name="" scstype="BuildingType" hvqname="myproject.data.config.equipment.Building" DX="12.0">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <LISTIMAG xmi:id="_DH0McZIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0McpIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0Mc5IQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0MdJIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0MdZIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0MdpIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0Md5IQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0MeJIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0MeZIQEeKDnMhq6XZWRA_1363860840119"/>
+  <LISTIMAG xmi:id="_DH0MepIQEeKDnMhq6XZWRA_1363860840119"/>
+</Class:AdvNode>

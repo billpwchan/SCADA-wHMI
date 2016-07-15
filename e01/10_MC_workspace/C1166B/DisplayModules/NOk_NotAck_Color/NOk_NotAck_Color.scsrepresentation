@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<scsRepresentation:AspectPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_t_eVcAPgEeK5GNCQx86A1A" name="NOk_NotAck_Color">
-  <ownedDisplayModule xmi:id="_t_eVcQPgEeK5GNCQx86A1A" name="NOk_NotAck_Color">
-    <displayProperties xsi:type="scsRepresentation:StrokeColor" xmi:id="_vkWokAPgEeK5GNCQx86A1A" value="#FF0000"/>
-    <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_wIaX4APgEeK5GNCQx86A1A" Id="" value="true"/>
-  </ownedDisplayModule>
-</scsRepresentation:AspectPackage>

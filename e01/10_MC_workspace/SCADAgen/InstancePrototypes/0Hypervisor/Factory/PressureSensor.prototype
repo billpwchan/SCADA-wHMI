@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="BasicEquipment_PressureSensor_F9BhQCJxEeadBLsIIQVFSA_1464177980756" hvqname="myproject.data.config.equipment.PressureSensor" nom_instance="PressureSensor" scstype="PressureSensor">
+  <status xsi:type="HV:HvStatusFloat" xmi:id="HvStatusFloat_pressure_F_aG4CJxEeadBLsIIQVFSA_1464177981006" nom_instance="pressure" hvqname="myproject.data.config.equipment.PressureSensor.pressure"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

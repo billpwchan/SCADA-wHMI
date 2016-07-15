@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="_EfYh0PHqEeGDk64BndtiKQ_1346252342381" hvqname="myproject.data.config.equipment.Camera" nom_instance="SCamera" label="Camera" shortname="Cam" scstype="Camera">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <outputs xsi:type="OUTPUT_VAR:aio_type" xmi:id="_EfYh8fHqEeGDk64BndtiKQ_1346252342381" nom_instance="aioAngle" hmiOrder="3" label="Angle Control">
+    <initCondTable xmi:id="_EfYh8vHqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh8_HqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh9PHqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh9fHqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh9vHqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh9_HqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh-PHqEeGDk64BndtiKQ_1346252342381"/>
+    <initCondTable xmi:id="_EfYh-fHqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYh-vHqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYh-_HqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYh_PHqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYh_fHqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYh_vHqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYh__HqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYiAPHqEeGDk64BndtiKQ_1346252342381"/>
+    <retCondTable xmi:id="_EfYiAfHqEeGDk64BndtiKQ_1346252342381"/>
+    <valueLimits>-0.01</valueLimits>
+    <valueLimits>360.01</valueLimits>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:aio_type" xmi:id="_LwsKQfIAEeG0mrJLt82IQw_1346261840100" nom_instance="aioZoom" hmiOrder="3" label="Zoom Control">
+    <initCondTable xmi:id="_LwsKQvIAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKQ_IAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKRPIAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKRfIAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKRvIAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKR_IAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKSPIAEeG0mrJLt82IQw_1346261840100"/>
+    <initCondTable xmi:id="_LwsKSfIAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKSvIAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKS_IAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKTPIAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKTfIAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKTvIAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKT_IAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKUPIAEeG0mrJLt82IQw_1346261840100"/>
+    <retCondTable xmi:id="_LwsKUfIAEeG0mrJLt82IQw_1346261840100"/>
+    <valueLimits>0.0</valueLimits>
+    <valueLimits>100.0</valueLimits>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="_EfYiMvHqEeGDk64BndtiKQ_1346252342381" nom_instance="dioState" hmiOrder="1" label="Camera Status">
+    <valueTable xmi:id="_EfYiM_HqEeGDk64BndtiKQ_1346252342381" dovname="on" label="Power on" value="1"/>
+    <valueTable xmi:id="_EfYiNPHqEeGDk64BndtiKQ_1346252342381" dovname="off" label="Power off" value="2"/>
+    <valueTable xmi:id="_EfYiNfHqEeGDk64BndtiKQ_1346252342381"/>
+    <valueTable xmi:id="_EfYiNvHqEeGDk64BndtiKQ_1346252342381"/>
+    <DOV xmi:id="_EfYiO_HqEeGDk64BndtiKQ_1346252342381" nom_instance="on" ctlvalue="1">
+      <initCondTable xmi:id="_EfYiPPHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiPfHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiPvHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiP_HqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiQPHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiQfHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiQvHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiQ_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiRPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiRfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiRvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiR_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiSPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiSfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiSvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiS_HqEeGDk64BndtiKQ_1346252342381"/>
+    </DOV>
+    <DOV xmi:id="_EfYiTPHqEeGDk64BndtiKQ_1346252342381" nom_instance="off">
+      <initCondTable xmi:id="_EfYiTfHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiTvHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiT_HqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiUPHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiUfHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiUvHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiU_HqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiVPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiVfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiVvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiV_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiWPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiWfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiWvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiW_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYiXPHqEeGDk64BndtiKQ_1346252342381"/>
+    </DOV>
+  </outputs>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="_EfYiXfHqEeGDk64BndtiKQ_1346252342381" nom_instance="dioRec" hmiOrder="2" label="Record Control">
+    <valueTable xmi:id="_EfYiXvHqEeGDk64BndtiKQ_1346252342381" dovname="on" label="record" value="1"/>
+    <valueTable xmi:id="_EfYiX_HqEeGDk64BndtiKQ_1346252342381" dovname="off" label="stop recording" value="2"/>
+    <valueTable xmi:id="_EfYiYPHqEeGDk64BndtiKQ_1346252342381"/>
+    <valueTable xmi:id="_EfYiYfHqEeGDk64BndtiKQ_1346252342381"/>
+    <DOV xmi:id="_EfYiZvHqEeGDk64BndtiKQ_1346252342381" nom_instance="on" ctlvalue="1">
+      <initCondTable xmi:id="_EfYiZ_HqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiaPHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiafHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiavHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYia_HqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYibPHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYibfHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYibvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYib_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYicPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYicfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYicvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYic_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYidPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYidfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYidvHqEeGDk64BndtiKQ_1346252342381"/>
+    </DOV>
+    <DOV xmi:id="_EfYid_HqEeGDk64BndtiKQ_1346252342381" nom_instance="off">
+      <initCondTable xmi:id="_EfYiePHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiefHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYievHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYie_HqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYifPHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYiffHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYifvHqEeGDk64BndtiKQ_1346252342381"/>
+      <initCondTable xmi:id="_EfYif_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYigPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYigfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYigvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYig_HqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYihPHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYihfHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYihvHqEeGDk64BndtiKQ_1346252342381"/>
+      <retCondTable xmi:id="_EfYih_HqEeGDk64BndtiKQ_1346252342381"/>
+    </DOV>
+  </outputs>
+  <inputs xsi:type="INPUT_VAR:aci_cb_type" xmi:id="_EfYh0fHqEeGDk64BndtiKQ_1346252342381" nom_instance="aciAngle" hmiOrder="1" label="angle" NumDec="1" Unit="deg" Archive="TM_ARCHIVE">
+    <AAC xmi:id="_EfYh0vHqEeGDk64BndtiKQ_1346252342381" nom_instance="aac">
+      <veTable xmi:id="_EfYh0_HqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYh1PHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYh1fHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYh1vHqEeGDk64BndtiKQ_1346252342381"/>
+    </AAC>
+    <AAL xmi:id="_EfYh1_HqEeGDk64BndtiKQ_1346252342381" nom_instance="aal" theme="1" AIAlmCEBehaviour="1" valueAutomaton="AIBasic2StateHisterisisLog" ackAutomaton="Ack2HVLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueLimits>0.0</valueLimits>
+      <valueLimits>0.0</valueLimits>
+      <valueLimits>0.0</valueLimits>
+      <valueLimits>360.0</valueLimits>
+      <valueLimits>360.0</valueLimits>
+      <valueTable xmi:id="_EfYh2PHqEeGDk64BndtiKQ_1346252342381" format="2" index="1" label="negative" severity="2" state="A"/>
+      <valueTable xmi:id="_EfYh2fHqEeGDk64BndtiKQ_1346252342381" format="2" index="2" label="negative" severity="2" state="A"/>
+      <valueTable xmi:id="_EfYh2vHqEeGDk64BndtiKQ_1346252342381" format="2" index="3" label="authorized" severity="1" state="N"/>
+      <valueTable xmi:id="_EfYh2_HqEeGDk64BndtiKQ_1346252342381" format="2" index="4" label="too high" severity="2" state="A"/>
+      <valueTable xmi:id="_EfYh3PHqEeGDk64BndtiKQ_1346252342381" format="2" index="5" label="too high" severity="2" state="A"/>
+      <valueTable xmi:id="_EfYh3fHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYh3vHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYh3_HqEeGDk64BndtiKQ_1346252342381"/>
+    </AAL>
+    <AFO xmi:id="_EfYh4PHqEeGDk64BndtiKQ_1346252342381" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:aci_cb_type" xmi:id="_EfYh4fHqEeGDk64BndtiKQ_1346252342381" nom_instance="aciZoom" hmiOrder="2" label="zoom" Archive="TM_ARCHIVE">
+    <AAC xmi:id="_EfYh4vHqEeGDk64BndtiKQ_1346252342381" nom_instance="aac">
+      <veTable xmi:id="_EfYh4_HqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYh5PHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYh5fHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYh5vHqEeGDk64BndtiKQ_1346252342381"/>
+    </AAC>
+    <AAL xmi:id="_EfYh5_HqEeGDk64BndtiKQ_1346252342381" nom_instance="aal" theme="1" AIAlmCEBehaviour="1" valueAutomaton="AIBasic2StateHisterisisLog" ackAutomaton="Ack2HVLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueLimits>0.0</valueLimits>
+      <valueLimits>10.0</valueLimits>
+      <valueLimits>20.0</valueLimits>
+      <valueLimits>30.0</valueLimits>
+      <valueLimits>40.0</valueLimits>
+      <valueTable xmi:id="_EfYh6PHqEeGDk64BndtiKQ_1346252342381" format="2" index="1" label="too low" severity="3" state="A"/>
+      <valueTable xmi:id="_EfYh6fHqEeGDk64BndtiKQ_1346252342381" format="2" index="2" label="low" severity="1" state="N"/>
+      <valueTable xmi:id="_EfYh6vHqEeGDk64BndtiKQ_1346252342381" format="2" index="3" label="normal" severity="1" state="N"/>
+      <valueTable xmi:id="_EfYh6_HqEeGDk64BndtiKQ_1346252342381" format="2" index="4" label="high" severity="1" state="N"/>
+      <valueTable xmi:id="_EfYh7PHqEeGDk64BndtiKQ_1346252342381" format="2" index="5" label="too high" severity="3" state="A"/>
+      <valueTable xmi:id="_EfYh7fHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYh7vHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYh7_HqEeGDk64BndtiKQ_1346252342381"/>
+    </AAL>
+    <AFO xmi:id="_EfYh8PHqEeGDk64BndtiKQ_1346252342381" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_EfYiAvHqEeGDk64BndtiKQ_1346252342381" nom_instance="dciRecState" hmiOrder="3" label="Recording Status" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_EfYiA_HqEeGDk64BndtiKQ_1346252342381" nom_instance="dac" nature="1">
+      <veTable xmi:id="_EfYiBPHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYiBfHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYiBvHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYiB_HqEeGDk64BndtiKQ_1346252342381"/>
+    </DAC>
+    <DAL xmi:id="_EfYiCPHqEeGDk64BndtiKQ_1346252342381" nom_instance="dal" theme="3" ackAutomaton="Ack2HVLog" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_EfYiCfHqEeGDk64BndtiKQ_1346252342381" format="1" label="not recording" severity="1" state="N"/>
+      <valueTable xmi:id="_EfYiCvHqEeGDk64BndtiKQ_1346252342381" format="1" label="recording" severity="1" state="N" value="1"/>
+      <valueTable xmi:id="_EfYiC_HqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYiDPHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYiDfHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYiDvHqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYiD_HqEeGDk64BndtiKQ_1346252342381"/>
+      <valueTable xmi:id="_EfYiEPHqEeGDk64BndtiKQ_1346252342381"/>
+    </DAL>
+    <DFO xmi:id="_Gx1-AA7FEeKD6pnhKQeK1g_1349425050080" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_EfYiEvHqEeGDk64BndtiKQ_1346252342381" nom_instance="dciState" hmiOrder="4" label="State" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_EfYiE_HqEeGDk64BndtiKQ_1346252342381" nom_instance="dac" nature="1">
+      <veTable xmi:id="_EfYiFPHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYiFfHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYiFvHqEeGDk64BndtiKQ_1346252342381"/>
+      <veTable xmi:id="_EfYiF_HqEeGDk64BndtiKQ_1346252342381"/>
+    </DAC>
+    <DAL xmi:id="_CJqMAfNoEeGXhYUCYaoyDQ_1346416394432" nom_instance="dal" theme="3" ackAutomaton="Ack2HVLog" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_CJqMAvNoEeGXhYUCYaoyDQ_1346416394432" format="1" label="out of order" severity="1" state="N"/>
+      <valueTable xmi:id="_CJqMA_NoEeGXhYUCYaoyDQ_1346416394432" format="1" label="in service" severity="1" state="N" value="1"/>
+      <valueTable xmi:id="_CJqMBPNoEeGXhYUCYaoyDQ_1346416394432"/>
+      <valueTable xmi:id="_CJqMBfNoEeGXhYUCYaoyDQ_1346416394432"/>
+      <valueTable xmi:id="_CJqMBvNoEeGXhYUCYaoyDQ_1346416394432"/>
+      <valueTable xmi:id="_CJqMB_NoEeGXhYUCYaoyDQ_1346416394432"/>
+      <valueTable xmi:id="_CJqMCPNoEeGXhYUCYaoyDQ_1346416394432"/>
+      <valueTable xmi:id="_CJqMCfNoEeGXhYUCYaoyDQ_1346416394432"/>
+    </DAL>
+    <DFO xmi:id="_EfYiIfHqEeGDk64BndtiKQ_1346252342381" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

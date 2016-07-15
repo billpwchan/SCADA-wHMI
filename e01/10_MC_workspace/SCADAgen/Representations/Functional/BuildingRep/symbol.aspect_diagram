@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_nlKiMJIvEeKDnMhq6XZWRA" type="Aspect" name="symbol.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_pTz1UJIvEeKDnMhq6XZWRA" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_pTz1UpIvEeKDnMhq6XZWRA" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_pTz1U5IvEeKDnMhq6XZWRA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_3QlSMZIvEeKDnMhq6XZWRA" type="3013">
+        <element xmi:type="scsRepresentation:DecoratedText" href="BuildingRep.scsrepresentation#_3QlSMJIvEeKDnMhq6XZWRA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3QlSMpIvEeKDnMhq6XZWRA" x="47" y="159" width="105" height="21"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_HgOs8a6eEeOOJ5q__kIEkw" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="BuildingRep.scsrepresentation#_HgOs8K6eEeOOJ5q__kIEkw"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HgOs8q6eEeOOJ5q__kIEkw" x="34" y="54" width="132" height="92"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_pTz1VJIvEeKDnMhq6XZWRA" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_pTz1VZIvEeKDnMhq6XZWRA" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_pTz1VpIvEeKDnMhq6XZWRA" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_pTz1V5IvEeKDnMhq6XZWRA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_pTz1WJIvEeKDnMhq6XZWRA"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="BuildingRep.scsrepresentation#_pTqEUJIvEeKDnMhq6XZWRA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pTz1UZIvEeKDnMhq6XZWRA" x="169" y="57"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_HJtHAZIwEeKDnMhq6XZWRA" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_HJtHA5IwEeKDnMhq6XZWRA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_HJtHBJIwEeKDnMhq6XZWRA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="BuildingRep.scsrepresentation#_HJtHAJIwEeKDnMhq6XZWRA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HJtHApIwEeKDnMhq6XZWRA" x="560" y="325"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_nlKiMZIvEeKDnMhq6XZWRA"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="BuildingRep.scsrepresentation#_gs3gkZIiEeKDnMhq6XZWRA"/>
+</notation:Diagram>

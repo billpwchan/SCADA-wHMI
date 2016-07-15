@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_FfTlwK6YEeOOJ5q__kIEkw" type="Aspect" name="sprinkler_symbol.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_GOG6ka6aEeOOJ5q__kIEkw" type="2003">
+    <children xmi:type="notation:DecorationNode" xmi:id="_GOG6kq6aEeOOJ5q__kIEkw" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_GOG6k66aEeOOJ5q__kIEkw" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="SprinklerRepVS9.scsrepresentation#_GOG6u66aEeOOJ5q__kIEkw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6lK6aEeOOJ5q__kIEkw" x="405" y="485"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_GOG6la6aEeOOJ5q__kIEkw" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_GOG6lq6aEeOOJ5q__kIEkw" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_GOG6l66aEeOOJ5q__kIEkw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_GOG6mK6aEeOOJ5q__kIEkw" type="3001">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SprinklerRepVS9.scsrepresentation#_GOG6wq6aEeOOJ5q__kIEkw"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6ma6aEeOOJ5q__kIEkw" width="200" height="200"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_GOG6mq6aEeOOJ5q__kIEkw" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_GOG6m66aEeOOJ5q__kIEkw" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_GOG6nK6aEeOOJ5q__kIEkw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_GOG6na6aEeOOJ5q__kIEkw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_GOG6nq6aEeOOJ5q__kIEkw"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_GOG6n66aEeOOJ5q__kIEkw" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_GOG6oK6aEeOOJ5q__kIEkw" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_GOG6oa6aEeOOJ5q__kIEkw" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="SprinklerRepVS9.scsrepresentation#_GOG6w66aEeOOJ5q__kIEkw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6oq6aEeOOJ5q__kIEkw" x="75" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SprinklerRepVS9.scsrepresentation#_GOG6wa6aEeOOJ5q__kIEkw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6o66aEeOOJ5q__kIEkw" x="500" y="20"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_GOG6pK6aEeOOJ5q__kIEkw" type="2001">
+    <children xmi:type="notation:DecorationNode" xmi:id="_GOG6pa6aEeOOJ5q__kIEkw" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_GOG6pq6aEeOOJ5q__kIEkw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_GOG6p66aEeOOJ5q__kIEkw" type="3001">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SprinklerRepVS9.scsrepresentation#_GOG6vq6aEeOOJ5q__kIEkw"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6qK6aEeOOJ5q__kIEkw" width="200" height="200"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_GOG6qa6aEeOOJ5q__kIEkw" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_GOG6qq6aEeOOJ5q__kIEkw" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_GOG6q66aEeOOJ5q__kIEkw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_GOG6rK6aEeOOJ5q__kIEkw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_GOG6ra6aEeOOJ5q__kIEkw"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_GOG6rq6aEeOOJ5q__kIEkw" type="3004">
+      <children xmi:type="notation:DecorationNode" xmi:id="_GOG6r66aEeOOJ5q__kIEkw" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_GOG6sK6aEeOOJ5q__kIEkw" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="SprinklerRepVS9.scsrepresentation#_GOG6v66aEeOOJ5q__kIEkw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6sa6aEeOOJ5q__kIEkw" x="105" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SprinklerRepVS9.scsrepresentation#_GOG6va6aEeOOJ5q__kIEkw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GOG6sq6aEeOOJ5q__kIEkw" x="100" y="30"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_FfTlwa6YEeOOJ5q__kIEkw"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="SprinklerRepVS9.scsrepresentation#_QywFYa6XEeOOJ5q__kIEkw"/>
+  <edges xmi:type="notation:Connector" xmi:id="_GOG6s66aEeOOJ5q__kIEkw" type="4001" source="_GOG6n66aEeOOJ5q__kIEkw" target="_GOG6ka6aEeOOJ5q__kIEkw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_GOG6tK6aEeOOJ5q__kIEkw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GOG6ta6aEeOOJ5q__kIEkw" points="[-20, 17, 142, -125]$[-155, 141, 7, -1]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GOG6tq6aEeOOJ5q__kIEkw" id="(0.8,0.45714285714285713)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_GOG6t66aEeOOJ5q__kIEkw" type="4001" source="_GOG6rq6aEeOOJ5q__kIEkw" target="_GOG6ka6aEeOOJ5q__kIEkw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_GOG6uK6aEeOOJ5q__kIEkw"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GOG6ua6aEeOOJ5q__kIEkw" points="[20, 12, -177, -112]$[196, 116, -1, -8]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GOG6uq6aEeOOJ5q__kIEkw" id="(0.4857142857142857,0.22857142857142856)"/>
+  </edges>
+</notation:Diagram>

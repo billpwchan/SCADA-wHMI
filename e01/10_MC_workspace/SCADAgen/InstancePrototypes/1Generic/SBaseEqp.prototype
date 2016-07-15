@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281" hvqname="myproject.data.config.equipment.Door" nom_instance="SBaseEqp" functionalCat="2" scstype="BaseType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477" nom_instance="dciFault" hmiOrder="1" label="Failure" Archive="TS_ARCHIVE">
+    <DAC xmi:id="dac_type_dac_wPXxUi8OEeaul9GY7JaXAg_1465565109477" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_wPXxUy8OEeaul9GY7JaXAg_1465565109477"/>
+      <veTable xmi:id="struct_veTable_dac_type_wPXxVC8OEeaul9GY7JaXAg_1465565109477"/>
+      <veTable xmi:id="struct_veTable_dac_type_wPXxVS8OEeaul9GY7JaXAg_1465565109477"/>
+      <veTable xmi:id="struct_veTable_dac_type_wPXxVi8OEeaul9GY7JaXAg_1465565109477"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477" nom_instance="dal" theme="2" ackAutomaton="Ack2HVLog" DIAlmCEBehaviour="1" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxWC8OEeaul9GY7JaXAg_1465565109477" format="1" label="normal" severity="1" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxWS8OEeaul9GY7JaXAg_1465565109477" format="1" label="in fault" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxWi8OEeaul9GY7JaXAg_1465565109477"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxWy8OEeaul9GY7JaXAg_1465565109477"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxXC8OEeaul9GY7JaXAg_1465565109477"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxXS8OEeaul9GY7JaXAg_1465565109477"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxXi8OEeaul9GY7JaXAg_1465565109477"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_wPXxXy8OEeaul9GY7JaXAg_1465565109477"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_wPXxYC8OEeaul9GY7JaXAg_1465565109477" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

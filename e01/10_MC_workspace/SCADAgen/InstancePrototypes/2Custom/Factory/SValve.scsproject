@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="3056">
+  <ownedPrototype id="_NWm00PMvEeS3M9U-DpUWFQ_1430834481309">
+    <ownedAttributes frozen="true" name="functionalCat" partialUri="_NWm00PMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="_NWm00PMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="label" partialUri="_TCpxoPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_TCpxoPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="_TCpxoPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^.status] = 1, 1 , 0 ), {.initCondTable(0,condVal)})" name="initCond1" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 1, 1 , 0 ), {.initCondTable(1,condVal)})" name="initCond2" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 2, 1 , 0 ), {.retCondTable(0,condVal)})" name="returnCond1" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^.status] = 1, 1 , 0 ), {.initCondTable(0,condVal)})" name="initCond1" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 2, 1 , 0 ), {.initCondTable(1,condVal)})" name="initCond2" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 1, 1 , 0 ), {.retCondTable(0,condVal)})" name="returnCond1" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^.status] = 1, 1 , 0 ), {.initCondTable(0,condVal)})" name="initCond1" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciLocked.value] = 0, 1 , 0 ), {.initCondTable(1,condVal)})" name="initCond2" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciLocked.value] = 1, 1 , 0 ), {.retCondTable(1,condVal)})" name="returnCond1" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciLocked.value] = 0, 1 , 0 ), {.retCondTable(1,condVal)})" name="returnCond1" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^.status] = 1, 1 , 0 ), {.initCondTable(0,condVal)})" name="initCond1" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciLocked.value] = 1, 1 , 0 ), {.initCondTable(1,condVal)})" name="initCond2" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="_NWm05fMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_NWm09vMvEeS3M9U-DpUWFQ_1430834481309"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="_TCpxqPMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="_TCpxufMvEeS3M9U-DpUWFQ_1430834519482"/>
+    <parentPrototypes>BasicEquipment_Valve_FzgY4CJxEeadBLsIIQVFSA_1464177979758</parentPrototypes>
+    <parentPrototypes>BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

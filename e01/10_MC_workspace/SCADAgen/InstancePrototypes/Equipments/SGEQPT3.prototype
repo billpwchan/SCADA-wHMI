@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<common:SGEQPT3 xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:HV="http://www.thalesgroup.com/prototypeLibrarySCADAgen/Class/CoreModel/HV" xmlns:common="http://www.thalesgroup.com/prototypeLibrarySCADAgen/Class/Melody/config/Equipment/common" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibrarySCADAgen/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A http://www.thalesgroup.com/prototypeLibrarySCADAgen/Class/Melody/config/Equipment/common ../../Generated/config.ecore#_lG_PPRKoEea7gOG8GF6d-w" xmi:id="SGEQPT3_SGEQPT3_pKT04EpyEeaL86LnHtw4ig_1468576693038" hvqname="myproject.data.config.equipment.common.SGEQPT3" nom_instance="SGEQPT3" scstype="SGEQPT3">
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_symbol3_pNz00EpyEeaL86LnHtw4ig_1468576693405" nom_instance="symbol3" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT3.symbol3"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_colorNumber3_pN6igEpyEeaL86LnHtw4ig_1468576693416" nom_instance="colorNumber3" hvdatatype="Integer" hvqname="myproject.data.config.equipment.common.SGEQPT3.colorNumber3"/>
+  <status xsi:type="HV:HvStatusFloat" xmi:id="HvStatusFloat_floating3_pN_bAEpyEeaL86LnHtw4ig_1468576693424" nom_instance="floating3" hvqname="myproject.data.config.equipment.common.SGEQPT3.floating3"/>
+  <status xsi:type="HV:HvStatusString" xmi:id="HvStatusString_string3_pOETgEpyEeaL86LnHtw4ig_1468576693432" nom_instance="string3" hvdatatype="String" hvqname="myproject.data.config.equipment.common.SGEQPT3.string3"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</common:SGEQPT3>

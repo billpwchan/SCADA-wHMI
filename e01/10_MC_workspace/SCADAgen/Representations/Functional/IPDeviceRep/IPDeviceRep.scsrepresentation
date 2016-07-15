@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_gAh2MGuaEeKrcrds-cfSRw" prototypeRefId="_O6LWYPd0EeGgZfhlMBw5DQ_1346861438662" name="IPDeviceRep" defaultAspect="_yi6SoG7XEeKIgc0KEYbnew" category="_gAh2NGuaEeKrcrds-cfSRw">
+    <aspectPackage xmi:id="_gAh2MWuaEeKrcrds-cfSRw" name="Aspect Container">
+      <ownedAspect xmi:id="_yi6SoG7XEeKIgc0KEYbnew" name="ipd_symbolOK">
+        <ownedDecoratedSymbol xmi:id="_yi6SoW7XEeKIgc0KEYbnew" x="52.0" y="40.0" width="97.0" height="120.0" ratio_width="0.9968539" ratio_height="0.99401236" symbol="_XcVeMGuzEeKfoZX0fSP06Q"/>
+        <condition xmi:id="_yi6Som7XEeKIgc0KEYbnew" value="0" attribute="_uEUnYG7XEeKIgc0KEYbnew"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_XFFb0GuzEeKfoZX0fSP06Q" name="ipd_symbolFault">
+        <ownedDecoratedSymbol xmi:id="_XbcGUGuzEeKfoZX0fSP06Q" x="52.0" y="40.0" width="98.0" height="121.0" ratio_width="1.0071307" ratio_height="1.0022957" symbol="_XcVeMGuzEeKfoZX0fSP06Q"/>
+        <ownedDecoratedSymbol xmi:id="_hyEtgMGAEeONMbnJnxpvyQ" x="43.0" y="54.0" width="75.0" height="72.0" ratio_width="0.14773168" ratio_height="0.14711109" symbol="_hyhZcMGAEeONMbnJnxpvyQ"/>
+        <condition xmi:id="_nse7kG7XEeKIgc0KEYbnew" value="1" attribute="_uEUnYG7XEeKIgc0KEYbnew"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_FJqnl8F5EeOYyNVAzvLQCA" name="ipd_Invalid">
+        <ownedDecoratedSymbol xmi:id="_FJqnmMF5EeOYyNVAzvLQCA" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_Jc9NGGujEeKrcrds-cfSRw">
+          <displayModule href="../../../DisplayModules/Invalid_Color/Invalid_Color.scsrepresentation#_Z0Ij4QPoEeKc87xBBBABUw"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_FJqnmcF5EeOYyNVAzvLQCA" value="3" attribute="_FJqnqcF5EeOYyNVAzvLQCA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_FJqnnMF5EeOYyNVAzvLQCA" name="ipd_OK">
+        <ownedDecoratedSymbol xmi:id="_FJqnncF5EeOYyNVAzvLQCA" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_Jc9NGGujEeKrcrds-cfSRw">
+          <displayModule href="../../../DisplayModules/OK_Color/OK_Color.scsrepresentation#_uaspcf2sEeGHEeSpO4ABcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_FJqnnsF5EeOYyNVAzvLQCA" value="0" attribute="_FJqnqcF5EeOYyNVAzvLQCA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_FJqnn8F5EeOYyNVAzvLQCA" name="ipd_OK_NotAck">
+        <ownedDecoratedSymbol xmi:id="_FJqnoMF5EeOYyNVAzvLQCA" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_Jc9NGGujEeKrcrds-cfSRw">
+          <displayModule href="../../../DisplayModules/OK_NotAck_Color/OK_NotAck_Color.scsrepresentation#_TSo00SmPEeKsld7zxDrFcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_FJqnocF5EeOYyNVAzvLQCA" value="4" attribute="_FJqnqcF5EeOYyNVAzvLQCA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_FJqno8F5EeOYyNVAzvLQCA" name="ipd_NotConnected">
+        <ownedDecoratedSymbol xmi:id="_FJqnpMF5EeOYyNVAzvLQCA" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_Jc9NGGujEeKrcrds-cfSRw">
+          <displayModule href="../../../DisplayModules/NotConnected_Color/NotConnected_Color.scsrepresentation#_5wXQ8TSxEeKRsMR2qRENfw"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_FJqnpcF5EeOYyNVAzvLQCA" value="5" attribute="_FJqnqcF5EeOYyNVAzvLQCA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_FJqnpsF5EeOYyNVAzvLQCA" name="ipd_NOK_NotAck">
+        <ownedDecoratedSymbol xmi:id="_FJqnp8F5EeOYyNVAzvLQCA" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_Jc9NGGujEeKrcrds-cfSRw">
+          <displayModule href="../../../DisplayModules/NOk_NotAck_Color/NOk_NotAck_Color.scsrepresentation#_t_eVcQPgEeK5GNCQx86A1A"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_FJqnqMF5EeOYyNVAzvLQCA" value="2" attribute="_FJqnqcF5EeOYyNVAzvLQCA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_FJqnq8F5EeOYyNVAzvLQCA" name="ipd_NOK">
+        <ownedDecoratedSymbol xmi:id="_FJqnrMF5EeOYyNVAzvLQCA" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_Jc9NGGujEeKrcrds-cfSRw">
+          <displayModule href="../../../DisplayModules/NOK_Color/NOK_Color.scsrepresentation#_QYKNcf2tEeGHEeSpO4ABcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_FJqnrcF5EeOYyNVAzvLQCA" value="1" attribute="_FJqnqcF5EeOYyNVAzvLQCA"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_uEUnYG7XEeKIgc0KEYbnew" id="fault.value" defaultValue="0" condition="_nse7kG7XEeKIgc0KEYbnew _yi6Som7XEeKIgc0KEYbnew" relativePath="fault.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_FJqnqsF5EeOYyNVAzvLQCA" id="online.value" relativePath="online.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_FJqnmsF5EeOYyNVAzvLQCA" id="validity.value" relativePath="validity.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_FJqnm8F5EeOYyNVAzvLQCA" id="alarm.value" relativePath="alarm.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_FJqnosF5EeOYyNVAzvLQCA" id="needack.value" relativePath="needack.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_FJqnqcF5EeOYyNVAzvLQCA" id="WidgetGlobalState" defaultValue="5" condition="_FJqnrcF5EeOYyNVAzvLQCA _FJqnqMF5EeOYyNVAzvLQCA _FJqnpcF5EeOYyNVAzvLQCA _FJqnocF5EeOYyNVAzvLQCA _FJqnnsF5EeOYyNVAzvLQCA _FJqnmcF5EeOYyNVAzvLQCA" refAttributes="_FJqnqsF5EeOYyNVAzvLQCA _FJqnmsF5EeOYyNVAzvLQCA _FJqnm8F5EeOYyNVAzvLQCA _FJqnosF5EeOYyNVAzvLQCA" qualifiedName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_gAh2MmuaEeKrcrds-cfSRw">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_vyD1XWuaEeKrcrds-cfSRw" filePath="Symbols/symbol_select.svg" id="symbol_select" width="210.0" height="210.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_Jc9NGGujEeKrcrds-cfSRw" filePath="Symbols/symbol_frame.svg" id="symbol_frame" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_XcVeMGuzEeKfoZX0fSP06Q" filePath="Symbols/StressTest/osa/osa_ics_plc.svg" id="_STRESSTEST_SYMBOLS_STRESSTEST_OSA_OSA_ICS_PLC_SVG" width="97.30614" height="120.72285"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_hyhZcMGAEeONMbnJnxpvyQ" filePath="Symbols/Skull_and_crossbones.svg" id="_STRESSTEST_SYMBOLS_SKULL_AND_CROSSBONES_SVG" width="507.67715" height="489.42606"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_gAh2M2uaEeKrcrds-cfSRw">
+    <ownedCategories xmi:id="_gAh2NGuaEeKrcrds-cfSRw" name="Functional"/>
+    <ownedCategories xmi:id="_gAh2NWuaEeKrcrds-cfSRw" name="Geographical"/>
+    <ownedCategories xmi:id="_gAh2NmuaEeKrcrds-cfSRw" name="Synthesis"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="12">
+  <ownedPrototype id="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281">
+    <ownedAttributes name="functionalCat" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="type" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="NumDec" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="dci_cb_type_dciOpenClose_kAunzSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="NumDec" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="NumDec" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dio_type_dioOpenClose_kAunkiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dio_type_dioOpenClose_kAunkiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_dioOpenClose_kAunkiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hvtypeId" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="qname" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dac_type_dac_kAunziNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_kAunziNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_dac_kAunziNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_kAun0yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dfo_type_dfo_kAun3CNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dfo_type_dfo_kAun3CNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dac_type_dac_kAun3iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_kAun3iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_dac_kAun3iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_kAun4yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dfo_type_dfo_kAun7CNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dfo_type_dfo_kAun7CNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dac_type_dac_kAun7iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_kAun7iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_dac_kAun7iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_kAun8yNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dfo_type_dfo_kAun_CNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dfo_type_dfo_kAun_CNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="initCondTO" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="label" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueLength" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dio_type_dioOpenClose_kAunkiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond1" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond2" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond1" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="sio_string_type_sioUnlock_kAunvCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dci_cb_type_dciFault_kAun3SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dci_cb_type_dciLocked_kAun7SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^.status] = 1, 1 , 0 ), {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 1, 1 , 0 ), {.initCondTable(1,condVal)})" name="initCond2" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 2, 1 , 0 ), {.retCondTable(0,condVal)})" name="returnCond1" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="dov_type_open_kAunmiNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^.status] = 1, 1 , 0 ), {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 2, 1 , 0 ), {.initCondTable(1,condVal)})" name="initCond2" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( [^:^:dciOpenClose.value] = 1, 1 , 0 ), {.retCondTable(0,condVal)})" name="returnCond1" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond3" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond4" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond5" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond6" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond7" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="initCond8" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond8" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond7" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond6" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond5" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond4" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond3" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" formula="&#xa3;1" name="returnCond2" partialUri="dov_type_close_kAunqyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="NumDec" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dci_cb_type_dciIntrusion_kAun_SNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dac_type_dac_kAun_iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_kAun_iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_dac_kAun_iNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_kAuoAyNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dfo_type_dfo_kAuoDCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dfo_type_dfo_kAuoDCNEEeacmJFPQQ8tfg_1464268806281"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="NumDec" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dac_type_dac_Os-xES5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_Os-xES5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_dac_Os-xES5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_Os-xFi5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dfo_type_dfo_Os-xHy5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dfo_type_dfo_Os-xHy5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dci_cb_type_dciFault_Os-xEC5QEea75bJnsP1_uQ_1465483280033"/>
+    <ownedAttributes frozen="true" name="Archive" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="NumDec" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dac_type_dac_wPXxUi8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_wPXxUi8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_dac_wPXxUi8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_wPXxVy8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="class_id" partialUri="dfo_type_dfo_wPXxYC8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dfo_type_dfo_wPXxYC8OEeaul9GY7JaXAg_1465565109477"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="dci_cb_type_dciFault_wPXxUS8OEeaul9GY7JaXAg_1465565109477"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

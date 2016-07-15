@@ -1,13 +1,0 @@
-<svg id="motiondet_inactive"       style="background-color:#1C1C20;"       xmlns="http://www.w3.org/2000/svg"        height="200"       width="200"        version="1.1">
-<g id="symbol_motiondet_inactive">  <rect id="dummy_box" height="200" width="200" y="0" x="0" fill="red" opacity="0"/>
-
-  <path style="stroke-linejoin:round;stroke:#216ca8;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-width:6;fill:none;" d="m165.67857,100.58965s-66.58929,84.85715 -135.53572,-2.13911c71.89286,-100.17857 135.53572,2.13911 135.53572,2.13911z"/>
-  <path style="fill:#216ca8;" d="m63.84999,110.87858c5.76911,12.66964 18.56251,21.56785 33.35358,21.56785c14.79107,0 27.57856,-8.89821 33.35357,-21.56785c-2.74018,0.61285 -5.64536,0.97231 -8.66251,1.47321c-5.33893,7.89642 -14.37856,13.25893 -24.69106,13.25893c-10.19466,0 -19.15179,-5.2859 -24.5143,-13.08215c-2.91696,-0.47495 -5.84571,-0.9782 -8.83929,-1.65589l0,0.00591zm20.625,3.1291c3.58876,2.48678 8.01429,4.05428 12.72858,4.05428s9.07499,-1.5675 12.72857,-4.05428c-7.89643,0.68945 -16.44108,0.72482 -25.39821,0l-0.05894,0z"/>
-  <path style="stroke-linejoin:miter;stroke:#216ca8;stroke-linecap:butt;stroke-width:6;fill:none;" d="m30.73214,98.45644c68.35715,19.50535 68.35715,19.2107 133.76786,2.27464c-72.48215,-99 -133.76786,-2.27464 -133.76786,-2.27464z"/>
-  <g id="zzz">
-   <path style="stroke-linejoin:round;stroke:#aaaaaa;stroke-linecap:butt;stroke-width:3;fill:none;" d="m91.60535,68.50893l21.15536,-1.37893l-19.8,13.78928l21.15536,-1.37892"/>
-   <path style="stroke-linejoin:round;stroke:#aaaaaa;stroke-linecap:butt;stroke-width:4;fill:none;" d="m118.9482,58.84465l21.21429,-1.35535l-19.8,13.78927l21.15536,-1.35535"/>
-   <path style="stroke-linejoin:round;stroke:#aaaaaa;stroke-linecap:butt;stroke-width:4.5;fill:none;" d="m146.58571,49.18037l21.15536,-1.37894l-19.8,13.78929l21.15535,-1.37894"/>
-  </g>
- </g>   
-</svg>

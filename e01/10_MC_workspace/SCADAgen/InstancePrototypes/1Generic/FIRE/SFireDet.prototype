@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612513" hvqname="myproject.data.config.equipment.FireDet" nom_instance="SFireDet" functionalCat="3" scstype="FireDetectorType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_au7_IfHoEeGDk64BndtiKQ_1346251632658" nom_instance="dciSmoke" hmiOrder="2" label="Smoke Detected" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_au7_IvHoEeGDk64BndtiKQ_1346251632658" nom_instance="dac" reference_import="">
+      <veTable xmi:id="_au7_I_HoEeGDk64BndtiKQ_1346251632658"/>
+      <veTable xmi:id="_au7_JPHoEeGDk64BndtiKQ_1346251632658"/>
+      <veTable xmi:id="_au7_JfHoEeGDk64BndtiKQ_1346251632658"/>
+      <veTable xmi:id="_au7_JvHoEeGDk64BndtiKQ_1346251632658"/>
+    </DAC>
+    <DAL xmi:id="_0oxAYPNHEeGREvDOjWK0TQ_1346402559846" nom_instance="dal" theme="1" ackAutomaton="Ack2HVLog" DIAlmCEBehaviour="1" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_0oxAYfNHEeGREvDOjWK0TQ_1346402559846" format="1" label="normal" severity="1" state="N"/>
+      <valueTable xmi:id="_0oxAYvNHEeGREvDOjWK0TQ_1346402559846" format="1" label="tripped" severity="4" state="A" value="1"/>
+      <valueTable xmi:id="_0oxAY_NHEeGREvDOjWK0TQ_1346402559846"/>
+      <valueTable xmi:id="_0oxAZPNHEeGREvDOjWK0TQ_1346402559846"/>
+      <valueTable xmi:id="_0oxAZfNHEeGREvDOjWK0TQ_1346402559846"/>
+      <valueTable xmi:id="_0oxAZvNHEeGREvDOjWK0TQ_1346402559846"/>
+      <valueTable xmi:id="_0oxAZ_NHEeGREvDOjWK0TQ_1346402559846"/>
+      <valueTable xmi:id="_0oxAaPNHEeGREvDOjWK0TQ_1346402559846"/>
+    </DAL>
+    <DFO xmi:id="_au7_MPHoEeGDk64BndtiKQ_1346251632658" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

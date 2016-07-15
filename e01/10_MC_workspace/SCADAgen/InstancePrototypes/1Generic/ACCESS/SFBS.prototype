@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:AdvNode xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES" xmi:id="_qtIXkeSsEeOf1q-xWG7sCw_1401091600265" nom_instance="SFBS" label="Basement" name="Floor" scstype="FloorType" hvqname="myproject.data.config.equipment.Floor">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <groups xsi:type="Class:BasicNode" xmi:id="_qtIXl-SsEeOf1q-xWG7sCw_1401091600265" nom_instance="ACCESS" functionalCat="2" label="Access Control Group" scstype="LogicalGroupProcType">
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+  </groups>
+  <groups xsi:type="Class:BasicNode" xmi:id="_qtIXmOSsEeOf1q-xWG7sCw_1401091600265" nom_instance="CCTV" functionalCat="1" label="CCTV Group" scstype="LogicalGroupProcType">
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+  </groups>
+  <groups xsi:type="Class:BasicNode" xmi:id="_qtIXmeSsEeOf1q-xWG7sCw_1401091600265" nom_instance="FIRE" functionalCat="3" label="Fire Protection Group" scstype="LogicalGroupProcType">
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+  </groups>
+  <groups xsi:type="Class:BasicNode" xmi:id="_vhLVYOSsEeOf1q-xWG7sCw_1401091632566" nom_instance="SYSTEM" functionalCat="4" label="System group" scstype="LogicalGroupProcType">
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <alarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+    <prevAlarmSynthesis xsi:nil="true"/>
+  </groups>
+  <LISTIMAG xmi:id="_qtIXmuSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXm-SsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXnOSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXneSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXnuSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXn-SsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXoOSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXoeSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXouSsEeOf1q-xWG7sCw_1401091600265"/>
+  <LISTIMAG xmi:id="_qtIXo-SsEeOf1q-xWG7sCw_1401091600265"/>
+</Class:AdvNode>

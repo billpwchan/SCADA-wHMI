@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="BasicEquipment_Door_l0y4QCG6EeaH-9rxZUskPQ_1464099596740" hvqname="myproject.data.config.equipment.Door" nom_instance="Door" scstype="Door">
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_locked_l2SGASG6EeaH-9rxZUskPQ_1464099596896" nom_instance="locked" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Door.locked"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_openstatus_l2b3ACG6EeaH-9rxZUskPQ_1464099596912" nom_instance="openstatus" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Door.openstatus"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_intrusion_l2b3ASG6EeaH-9rxZUskPQ_1464099596912" nom_instance="intrusion" hvdatatype="Integer" hvqname="myproject.data.config.equipment.Door.intrusion"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

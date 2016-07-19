@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 public class GDGEventMessage extends GDGMessage {
 	
-	private static final Logger s_logger		= LoggerFactory.getLogger(GDGEventMessage.class.getName());
+	private final Logger s_logger		= LoggerFactory.getLogger(GDGEventMessage.class.getName());
 	
 	@Override
 	public String getComputerId() {
@@ -18,10 +18,10 @@ public class GDGEventMessage extends GDGMessage {
 		super();
     	
     	String classnames [] = getComputerId().split(Pattern.quote("."));
-    	propertiesname = classnames[classnames.length-1];
+    	classname = classnames[classnames.length-1];
     	
-    	s_logger.info(propertiesname+" getComputerId()["+getComputerId()+"]");
-    	s_logger.info(propertiesname+" propertiesname["+propertiesname+"]");
+    	s_logger.info("{} getComputerId()[{}]", classname, getComputerId());
+    	s_logger.info("{} classname[{}]", classname, classname);
     	
     }
 }

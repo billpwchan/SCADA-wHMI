@@ -91,3 +91,14 @@ property.file.scsconf=${directory.conf}/scsconfServer.prop
 # Must be separated by a space, exemple: :OGT:ActiveBackdrop:dummy1 :OGT:ActiveSymbol:dummy2 ...       #
 ########################################################################################################
 graphic.objects.to.not.take.into.account=:OGT:ActiveText:buildingName
+
+#######################################################################################################
+##
+## SCADAgen Specific Configurations
+##
+#######################################################################################################
+
+###########################################################################################
+# Hypervisor Extraction output file indentation property (true to indent, false otherwise) #
+###########################################################################################
+exchange.extract.hypervisor.HypervisorExtractor.indent=true

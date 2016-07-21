@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- edited with XML Spy v4.0 U (http://www.xmlspy.com) by T0019850 (THALES INFORMATION SYSTEMS) -->
+<export ID="export" ELEMENT_STATUS="VALID">
+
+    <targets ID="SystemContainer" ELEMENT_STATUS="VALID" />
+    
+    <process ID="ScadaBDTR" ELEMENT_STATUS="VALID">
+    
+        <extract ID="01xml-extract" ELEMENT_STATUS="VALID" class="com.thalesis.config.exchange.ExtractDataService">
+
+            <filter ID="01BDTR" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.BDTRExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/Database/xml"
+                    exportSchema="%export.conf.dir;/BDTR_Schema.xml"
+                    instancesFilter="%export.conf.dir;/BDTR_Filter.xml"
+                    type="param&#233;trable" />
+
+            <filter ID="POLE" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.DacComExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/dac"
+                    exportSchema="%export.conf.dir;/Classes_Schema.xml"
+                    type="param&#233;trable" />
+
+            <filter ID="POLEExchange" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.DacComExchangeExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/dac2"
+                    exportSchema="%export.conf.dir;/Classes_Schema.xml"
+                    type="param&#233;trable" />
+
+            <filter ID="Hypervisor" ELEMENT_STATUS="VALID" 
+                    class="com.thalesgroup.config.scdm.extract.hypervisor.HypervisorExtractorHelper" 
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/Hypervisor" 
+                    exportSchema="%export.conf.dir;/Classes_Schema.xml" 
+                    type="param&#233;trable"/>
+
+            <filter ID="TSC" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.TscExtracterHelper"
+                    destinationDir="%scada.dir;%version.name;_%version.number;/tsc"
+                    exportSchema="%export.conf.dir;/Classes_Schema.xml"
+                    type="param&#233;trable" />
+
+            
+
+            <filter ID="ClassConfig" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.ClassConfigExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/Database/classConfig"
+                    exportSchema="%export.conf.dir;/BDTR_Schema.xml"
+                    instancesFilter="%export.conf.dir;/BDTR_Filter.xml"
+                    type="param&#233;trable" />
+
+            <filter ID="HIS" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.HistoryExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/Archives"
+                    exportSchema="%export.conf.dir;/BDTR_Schema.xml"
+                    type="param&#233;trable" />
+
+            <filter ID="CSV" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.CSVExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/Csv/Csv"
+                    exportSchema="%export.conf.dir;/BDTR_Schema.xml"
+                    type="configurable" />
+
+            <filter ID="ALA" ELEMENT_STATUS="VALID"
+                    class="com.thalesis.config.exchange.extract.ALAExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/ala"
+                    exportSchema="%export.conf.dir;/Classes_Schema.xml"
+                    instancesFilter="%export.conf.dir;/Classes_Filter.xml"
+                    type="param&#233;trable" />
+                    
+            <filter ID="EPG" ELEMENT_STATUS="VALID"
+                    class="com.thalesgroup.config.scdm.extract.EpgExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/epg/src"
+                    exportSchema="%export.conf.dir;/BDTR_Schema.xml"
+                    instancesFilter="%export.conf.dir;/BDTR_Filter.xml"
+                    type="param&#233;trable" />
+                    
+            <filter ID="OPM" ELEMENT_STATUS="VALID"
+                    class="com.thalesgroup.config.scdm.extract.OPMExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/opm"
+                    exportSchema="%export.conf.dir;/BDTR_Schema.xml"
+                    type="param&#233;trable" />
+
+            <filter ID="HV_SCS_Connector" ELEMENT_STATUS="VALID"
+                    class="com.thalesgroup.config.scdm.extract.HV2SCSExtracterHelper"
+                    destinationDir="%scada.dir;/%version.name;_%version.number;/hvscs"
+                    exportSchema="%export.conf.dir;/Classes_Schema.xml"
+                    type="param&#233;trable" />
+                    
+        </extract>
+        
+        <transcode ID="02mergeClassConfig" ELEMENT_STATUS="VALID"
+                class="com.thalesis.config.exchange.transcode.TranscodeMergeDataBase"
+                destinationDir="%scada.dir;/%version.name;_%version.number;/Database/xml"
+                sourceDir="%scada.dir;/%version.name;_%version.number;/Database/xml">
+
+            <property ID="sourcePath" ELEMENT_STATUS="VALID"
+                    name="sourcePath"
+                    value="%scada.dir;/%version.name;_%version.number;/Database/classConfig" />
+        </transcode>
+        
+    </process>
+</export>

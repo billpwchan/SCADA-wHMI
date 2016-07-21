@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema>
+  <Class calculation="OPTIMISED" name="advEquipment"
+  numAttributes="32" numInstances="0" numPeriod_MT=""
+  numPeriod_ST="" period_MT="" period_ST="" trigramme="AEQ">
+    <AttributeDescription attrType="VOLATILE" name="LISTIMAG"
+    replicated="0">
+      <StructVector numElementsList="10" numElementsStruct="2">
+        <StructFieldDescription name="name">
+          <Scalar size="257" valueType="CHARN" />
+        </StructFieldDescription>
+        <StructFieldDescription name="type">
+          <Scalar size="4" valueType="INT32" />
+        </StructFieldDescription>
+      </StructVector>
+      <StructVectorDefaultValue numElementsList="10">
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+        <StructFieldDefaultValue>
+          <ScalarDefaultValue defaultValue="" />
+          <ScalarDefaultValue defaultValue="0" />
+        </StructFieldDefaultValue>
+      </StructVectorDefaultValue>
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="DX"
+    replicated="0">
+      <Scalar size="4" valueType="FLOAT" />
+      <ScalarDefaultValue defaultValue="0.0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="DY"
+    replicated="0">
+      <Scalar size="4" valueType="FLOAT" />
+      <ScalarDefaultValue defaultValue="0.0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="DZ"
+    replicated="0">
+      <Scalar size="4" valueType="FLOAT" />
+      <ScalarDefaultValue defaultValue="0.0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION1"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION2"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION3"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION4"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="UNIVNAME"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="X"
+    replicated="0">
+      <Scalar size="4" valueType="FLOAT" />
+      <ScalarDefaultValue defaultValue="0.0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="Y"
+    replicated="0">
+      <Scalar size="4" valueType="FLOAT" />
+      <ScalarDefaultValue defaultValue="0.0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="Z"
+    replicated="0">
+      <Scalar size="4" valueType="FLOAT" />
+      <ScalarDefaultValue defaultValue="0.0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="alarmSynthesis"
+    replicated="0">
+      <Vector numElements="4">
+        <Scalar size="4" valueType="INT32" />
+      </Vector>
+      <VectorDefaultValue>
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+      </VectorDefaultValue>
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="forcedSynthesis"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="functionalCat"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="geographicalCat"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="inhibStatus"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="1" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="inhibSynthesis"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="isControlable"
+    replicated="0">
+      <Scalar size="1" valueType="BOOLEAN" />
+      <ScalarDefaultValue defaultValue="false" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="label"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="name"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="opDate"
+    replicated="0">
+      <Scalar size="8" valueType="DATE" />
+      <ScalarDefaultValue defaultValue="01/01/2000 00:00:00.000" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="opSource"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC"
+    name="prevAlarmSynthesis" replicated="0">
+      <Vector numElements="4">
+        <Scalar size="4" valueType="INT32" />
+      </Vector>
+      <VectorDefaultValue>
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+      </VectorDefaultValue>
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC"
+    name="prevValidSynthesis" replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="shortname"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="tag1Label"
+    replicated="0">
+      <Scalar size="9" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="tag2Label"
+    replicated="0">
+      <Scalar size="9" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="tagStatus"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="1" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="type"
+    replicated="0">
+      <Scalar size="21" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="user_class"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="1102" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="validSynthesis"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+  </Class>
+  <Class calculation="OPTIMISED" name="basicEquipment"
+  numAttributes="24" numInstances="0" numPeriod_MT=""
+  numPeriod_ST="" period_MT="" period_ST="" trigramme="BEQ">
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION1"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION2"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION3"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="EQPT_ACTION4"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="UNIVNAME"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="alarmSynthesis"
+    replicated="0">
+      <Vector numElements="4">
+        <Scalar size="4" valueType="INT32" />
+      </Vector>
+      <VectorDefaultValue>
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+      </VectorDefaultValue>
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="forcedSynthesis"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="functionalCat"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="geographicalCat"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="inhibStatus"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="1" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="inhibSynthesis"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="isControlable"
+    replicated="0">
+      <Scalar size="1" valueType="BOOLEAN" />
+      <ScalarDefaultValue defaultValue="false" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="label"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="name"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="opDate"
+    replicated="0">
+      <Scalar size="8" valueType="DATE" />
+      <ScalarDefaultValue defaultValue="01/01/2000 00:00:00.000" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="opSource"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC"
+    name="prevAlarmSynthesis" replicated="0">
+      <Vector numElements="4">
+        <Scalar size="4" valueType="INT32" />
+      </Vector>
+      <VectorDefaultValue>
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+        <ScalarDefaultValue defaultValue="0" />
+      </VectorDefaultValue>
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC"
+    name="prevValidSynthesis" replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="shortname"
+    replicated="0">
+      <Scalar size="65" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="tag1Label"
+    replicated="0">
+      <Scalar size="9" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="tag2Label"
+    replicated="0">
+      <Scalar size="9" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="tagStatus"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="1" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="type"
+    replicated="0">
+      <Scalar size="21" valueType="CHARN" />
+      <ScalarDefaultValue defaultValue="" />
+    </AttributeDescription>
+    <AttributeDescription attrType="STATIC" name="validSynthesis"
+    replicated="0">
+      <Scalar size="4" valueType="INT32" />
+      <ScalarDefaultValue defaultValue="0" />
+    </AttributeDescription>
+  </Class>
+</schema>

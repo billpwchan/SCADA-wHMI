@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--Capella_Version_0.8.2-->
+<!--Capella_Version_0.8.3-->
 <org.polarsys.capella.core.data.capellamodeller:Library xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:libraries="http://www.polarsys.org/capella/common/libraries/1.0.0"
     xmlns:org.polarsys.capella.core.data.capellacommon="http://www.polarsys.org/capella/core/common/0.8.0"
@@ -42,7 +42,7 @@
   <ownedModelRoots xsi:type="org.polarsys.capella.core.data.capellamodeller:SystemEngineering"
       id="7a64490e-0aa1-485f-8ae8-ed439a8e2415" name="lib-shared-assets" appliedPropertyValues="#38df4ac7-1a58-4597-a4a2-67d1ce0c34e9">
     <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-        id="38df4ac7-1a58-4597-a4a2-67d1ce0c34e9" name="ModelVersion" value="1.5.1"/>
+        id="38df4ac7-1a58-4597-a4a2-67d1ce0c34e9" name="ModelVersion" value="1.5.3"/>
     <ownedArchitectures xsi:type="org.polarsys.capella.core.data.oa:OperationalAnalysis"
         id="48c34270-d9b0-42ba-aa82-e04b0d035b51" name="Shared Assets">
       <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalActivityPkg"
@@ -3129,6 +3129,8 @@
         </ownedExchangeItems>
         <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface" id="2714a8dd-dc31-41b6-8e3a-9e7b9cb9fa5e"
             name="HTTPFrontEnd"/>
+        <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface" id="99a7b783-eb31-4212-a1f7-39e565526ecf"
+            name="Cluster" summary="Interface used to reference other clusters (and therefore the supervised external equipment)"/>
         <ownedInterfacePkgs xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
             id="3c0dc28a-6d77-49a6-89d7-1d7f0c91dabf" name="configuration">
           <ownedInterfacePkgs xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
@@ -3509,6 +3511,13 @@
                 name="a service instance" abstractType="#fac68267-051d-4f40-ad5d-8340b4330fbe"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="58d899f9-818b-4060-8049-d9142a8f801b"
                 name="another service instance" abstractType="#fac68267-051d-4f40-ad5d-8340b4330fbe"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="3cbdc3a2-c946-42ca-a522-9390f4f5749c" name="connectedCluster"
+                requiredInterfaces="#99a7b783-eb31-4212-a1f7-39e565526ecf" orientation="IN"
+                kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="459ec4a1-fc86-45a5-b7a7-3ff7880a9c1d" name="CP 4" providedInterfaces="#99a7b783-eb31-4212-a1f7-39e565526ecf"
+                orientation="OUT" kind="FLOW"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                 id="ed0346b8-a1d8-4aa4-ae59-478565317a3e" kind="ACCESS" protocol="READ"
                 exchangeItem="#f2e50c05-a0ec-45cd-81db-a085ee8c71e5"/>

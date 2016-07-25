@@ -49,7 +49,7 @@
       id="a25dcdf7-d8b6-4406-81e0-97ba30478fe2" name="lib-hypervisor" appliedPropertyValues="#6a9509c0-a2cd-4226-a7c7-c605d6c0dc44"
       appliedPropertyValueGroups="#c15a0c7f-9e3b-4e32-a6f0-e6e751c64940">
     <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-        id="6a9509c0-a2cd-4226-a7c7-c605d6c0dc44" name="ModelVersion" value="1.5.1"/>
+        id="6a9509c0-a2cd-4226-a7c7-c605d6c0dc44" name="ModelVersion" value="1.5.3"/>
     <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
         id="c15a0c7f-9e3b-4e32-a6f0-e6e751c64940" name="PomInfos">
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
@@ -57,7 +57,7 @@
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
           id="69667cf8-bb27-47b3-b13a-71d82cbc8006" name="artifactId" value="data-model-jaxb"/>
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-          id="38b1ede8-2850-4b06-bc3b-1f8c073edc24" name="version" value="1.8.0"/>
+          id="38b1ede8-2850-4b06-bc3b-1f8c073edc24" name="version" value="1.8.0_P03"/>
     </ownedPropertyValueGroups>
     <ownedArchitectures xsi:type="org.polarsys.capella.core.data.oa:OperationalAnalysis"
         id="b1552101-6e89-4305-989b-eb064b046065" name="Operational Analysis">
@@ -10936,8 +10936,7 @@
                 <ownedEvents xsi:type="org.polarsys.capella.core.data.interaction:EventSentOperation"
                     id="7b38a3b2-4cf8-4639-b150-007e5adb460d" name="sndOp_RequestAlarmAck_SYNCHRONOUS_CALL"/>
                 <ownedEvents xsi:type="org.polarsys.capella.core.data.interaction:EventSentOperation"
-                    id="8cf0c745-8239-45b3-b661-e535fac25439" name="sndOp_HistorizeAlarmAck_SYNCHRONOUS_CALL"
-                    operation="#e4254aaa-2b4b-4d0f-b085-010cd319bed2"/>
+                    id="8cf0c745-8239-45b3-b661-e535fac25439" name="sndOp_HistorizeAlarmAck_SYNCHRONOUS_CALL"/>
                 <ownedEvents xsi:type="org.polarsys.capella.core.data.interaction:EventSentOperation"
                     id="59c5a163-9b61-476d-8fe0-98acb25a47c7" name="sndOp_ExchangeItemAllocation 1_ASYNCHRONOUS_CALL"
                     operation="#590e9331-e66c-400f-a1d2-dbd01462f9f9"/>
@@ -13777,10 +13776,6 @@
                     sub="#a9592878-a1ab-4294-98c5-64c131f670cd"/>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                     id="fc86048b-f1c0-43bc-88b4-33b94f5d4847" allocatedItem="#c700baca-45c3-40d2-b569-c8b43c0ffaa9"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="554d26e6-9b94-45ea-9bb9-fc4fead830e6" allocatedItem="#aad191be-6cab-449b-bd9d-150ba4259202"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="62ba945b-9e26-464e-83f8-602e0122cc91" allocatedItem="#8214e0bc-137a-4a1d-afbe-e19fc070a9eb"/>
               </ownedInterfaces>
               <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface"
                   id="9a0273e4-aebc-4a8f-84fc-09b28b181e11" name="ToEquipmentManager">
@@ -13857,10 +13852,6 @@
                     sub="#dac8f1ef-1722-4106-b19b-7f707b105c29"/>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                     id="9606dca8-d54e-4cb0-9afc-c729d4b8e48e" allocatedItem="#af8917af-9b15-44f4-891e-3cab9e154a59"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="f3a47ebb-e65b-4f51-9a10-be43634debd5" allocatedItem="#97174a40-3035-48fa-ac7c-54b5b695e2d0"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="985ef774-fc09-453a-976f-c707e938c130" allocatedItem="#17b547a9-0f2d-41d8-a40c-dd7e24a10751"/>
               </ownedInterfaces>
               <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface"
                   id="b2afed39-cacd-4f09-ba0e-d16bb56850b6" name="ToAlarmProducer">
@@ -14526,7 +14517,8 @@
                   </ownedElements>
                   <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
                       id="f7bbc015-18fe-4b5f-aa8c-f860fa58330e" name="monitoredService"
-                      unique="true" direction="UNSET">
+                      unique="true" abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#ef433d89-1522-4f00-94a8-37ac1e515a70"
+                      direction="UNSET">
                     <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                         id="29c23335-8699-4323-8561-11669ab7a9a0" value="1"/>
                     <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
@@ -14805,41 +14797,6 @@
                   </ownedElements>
                 </ownedExchangeItems>
                 <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-                    id="17b547a9-0f2d-41d8-a40c-dd7e24a10751" name="" exchangeMechanism="OPERATION">
-                  <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
-                      id="0c5009fc-ea21-4b43-b08d-5299965854b9" name="data" kind="MEMBER"
-                      composite="true">
-                    <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                        id="d2d70bae-540e-46f4-80fa-ec2196192c7b" name="" value="1"/>
-                    <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                        id="f4e5f648-0c7b-41af-8034-f02296e12810" name="" value="1"/>
-                  </ownedElements>
-                </ownedExchangeItems>
-                <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-                    id="97174a40-3035-48fa-ac7c-54b5b695e2d0" name="" exchangeMechanism="OPERATION">
-                  <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
-                      id="6b57731b-fda0-4496-8d40-8217d11e7b37" name="data" abstractType="org.polarsys.capella.core.data.information:Class ../lib-shared-assets/lib-shared-assets.melodymodeller#c304d3bf-0718-4d8e-8211-e9275f1dea6d"
-                      kind="MEMBER" composite="true">
-                    <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                        id="33f529a3-41cf-4a8c-94bd-46ea4b71a625" name="" value="1"/>
-                    <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                        id="66f90dae-5be5-4fcd-9054-dcbe87494cfc" name="" value="1"/>
-                  </ownedElements>
-                </ownedExchangeItems>
-                <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-                    id="8214e0bc-137a-4a1d-afbe-e19fc070a9eb" name="" exchangeMechanism="OPERATION">
-                  <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
-                      id="98f6752f-68d8-4e05-9cf3-91334086c0bb" name="data" kind="MEMBER"
-                      composite="true">
-                    <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                        id="ed400065-fdac-4a7f-b88a-18f2c29075ee" name="" value="1"/>
-                    <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                        id="9bffaec0-fb42-4742-bf06-27a09eccdb67" name="" value="1"/>
-                  </ownedElements>
-                </ownedExchangeItems>
-                <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-                    id="aad191be-6cab-449b-bd9d-150ba4259202" name="" exchangeMechanism="OPERATION"/>
-                <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
                     id="9e129489-aa49-4a2a-8616-f5bffb9c7e46" name="HistorizeEvent"
                     exchangeMechanism="OPERATION">
                   <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
@@ -14851,8 +14808,6 @@
                         id="b0f76435-a2b5-40b0-818a-78d666a39244" name="" value="1"/>
                   </ownedElements>
                 </ownedExchangeItems>
-                <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-                    id="b93483ea-a27c-458d-b20e-2bbc845233a7" name="" exchangeMechanism="OPERATION"/>
                 <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
                     id="d76cb54b-8a05-49b1-ba13-b4ab0e6bc92b" name="SearchHistory"
                     exchangeMechanism="OPERATION">
@@ -23682,21 +23637,7 @@ else need a grahpic definition per instance layer entry</bodies>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                     id="ddf0cb1a-b660-4232-a47e-7905cf3e931f" name="" allocatedItem="#846cf771-cf71-4f15-a7e3-e166f8aacf5e"/>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="7291ec10-388a-4d0a-b556-27c8f9424e3b" name="HistorizeEquipmentOperation"
-                    allocatedItem="#8214e0bc-137a-4a1d-afbe-e19fc070a9eb"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="e4254aaa-2b4b-4d0f-b085-010cd319bed2" name="HistorizeAlarmAck"
-                    allocatedItem="#17b547a9-0f2d-41d8-a40c-dd7e24a10751"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                     id="a5e7df27-cc52-4aae-a243-95ea74f88785" name="" allocatedItem="#d76cb54b-8a05-49b1-ba13-b4ab0e6bc92b"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="4dfed8b5-7afe-45a3-8a77-4dccc367c222" allocatedItem="#97174a40-3035-48fa-ac7c-54b5b695e2d0"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="518e16f1-1f63-4992-b554-3f9c57e46868" allocatedItem="#17b547a9-0f2d-41d8-a40c-dd7e24a10751"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="18046466-2ebd-4144-955c-c11a670d39e2" allocatedItem="#8214e0bc-137a-4a1d-afbe-e19fc070a9eb"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="d744c105-77ed-4711-9eae-6e9450998eee" allocatedItem="#aad191be-6cab-449b-bd9d-150ba4259202"/>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                     id="0d0b39bc-102e-4b27-8ac6-363ca57f3048" allocatedItem="#9e129489-aa49-4a2a-8616-f5bffb9c7e46"/>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
@@ -23707,15 +23648,9 @@ else need a grahpic definition per instance layer entry</bodies>
                     id="14a6a1d1-286c-4079-9fab-1cf8ddaefd81" allocatedItem="#ff1eebb9-9166-4bd0-b258-1f88e67cdd5d"/>
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                     id="73f08ed9-84b8-4da9-b777-a9cc2b6d397a" allocatedItem="#846cf771-cf71-4f15-a7e3-e166f8aacf5e"/>
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="891c1604-b21d-4d55-b42c-e740b163d26f" allocatedItem="#b93483ea-a27c-458d-b20e-2bbc845233a7"/>
               </ownedInterfaces>
               <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface"
-                  id="da1868c5-5a27-438b-8df9-a87462d1d64d" name="FromAMStoHIS">
-                <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                    id="34322654-95b6-4cf3-9bc0-5b52625d21a0" name="HistorizeAlarm"
-                    allocatedItem="#97174a40-3035-48fa-ac7c-54b5b695e2d0"/>
-              </ownedInterfaces>
+                  id="da1868c5-5a27-438b-8df9-a87462d1d64d" name="FromAMStoHIS"/>
               <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface"
                   id="b5b625ec-a562-4070-9ae4-53793ffa4298" name="toAMS">
                 <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
@@ -24306,25 +24241,15 @@ else need a grahpic definition per instance layer entry</bodies>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="2e1097c3-3d87-48df-9532-4d59ee58b642"
                   name="aHSC" abstractType="#bdd78aa7-ed80-4d38-9e41-c3a1ef2b3d67"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                  id="0c89030a-cfac-478e-9754-4f56415e45c7" kind="EXECUTE" exchangeItem="#b93483ea-a27c-458d-b20e-2bbc845233a7"/>
-              <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                   id="b00ea54c-9b0e-4195-b24f-af1d4a4fb0cf" kind="EXECUTE" exchangeItem="#1ef7c580-f988-4bb3-99d8-42def4cb36d6"/>
-              <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                  id="cc4fc5b8-5f9a-4d4e-a22a-74d9c3a55e6a" kind="EXECUTE" exchangeItem="#97174a40-3035-48fa-ac7c-54b5b695e2d0"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                   id="86525de0-58c1-4f66-abbf-df33b2783e6e" kind="EXECUTE" exchangeItem="#ff1eebb9-9166-4bd0-b258-1f88e67cdd5d"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                   id="cfca613b-44f3-4ced-b11f-dd689a7e297a" kind="EXECUTE" exchangeItem="#9e129489-aa49-4a2a-8616-f5bffb9c7e46"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                  id="b2802ccc-1d99-42c0-93da-6118beae86b9" kind="EXECUTE" exchangeItem="#aad191be-6cab-449b-bd9d-150ba4259202"/>
-              <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                   id="e52bf8ff-7936-4921-84e5-ea40b39726b1" kind="EXECUTE" exchangeItem="#846cf771-cf71-4f15-a7e3-e166f8aacf5e"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                   id="59b5d582-1945-4713-9682-9078d6f86b79" kind="EXECUTE" exchangeItem="#8fca1d8a-1248-4ad2-856b-fc47508b0084"/>
-              <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                  id="ac116b60-d6d4-4790-8768-2a1da8663925" kind="EXECUTE" exchangeItem="#8214e0bc-137a-4a1d-afbe-e19fc070a9eb"/>
-              <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                  id="1343694a-9728-4662-b764-cfd870fb0f70" kind="EXECUTE" exchangeItem="#17b547a9-0f2d-41d8-a40c-dd7e24a10751"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                   id="8a64d7be-dbf1-4af3-80a3-74f83e836962" kind="EXECUTE" exchangeItem="#d76cb54b-8a05-49b1-ba13-b4ab0e6bc92b"/>
               <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
@@ -26966,10 +26891,6 @@ else need a grahpic definition per instance layer entry</bodies>
                   <ownedInterfaces xsi:type="org.polarsys.capella.core.data.cs:Interface"
                       id="9e0ebe3b-f19d-4712-9f2e-265e71a30670" name="IJavaHistorize">
                     <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                        id="a0ac900f-0ed8-42f3-b559-e79182c9188d" name="" allocatedItem="#97174a40-3035-48fa-ac7c-54b5b695e2d0"/>
-                    <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
-                        id="71e25b5b-dcc1-49a3-8790-04611b7fbdcf" name="" allocatedItem="#17b547a9-0f2d-41d8-a40c-dd7e24a10751"/>
-                    <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                         id="4807d247-35ea-434f-af14-4323116ef1f3" name="" allocatedItem="#8fca1d8a-1248-4ad2-856b-fc47508b0084"/>
                     <ownedExchangeItemAllocations xsi:type="org.polarsys.capella.core.data.cs:ExchangeItemAllocation"
                         id="325af4fc-80de-4ee7-b207-527cd2e4233b" name="" allocatedItem="#ff1eebb9-9166-4bd0-b258-1f88e67cdd5d"/>
@@ -27238,9 +27159,6 @@ else need a grahpic definition per instance layer entry</bodies>
                 exchangeItem="#af8917af-9b15-44f4-891e-3cab9e154a59"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                 id="7802bdcb-5b73-48a3-9200-b425da3405dd" kind="EXECUTE" exchangeItem="#5e8f5bcf-4ad4-4df6-b158-b9c6248ef9f0"/>
-            <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                id="4e4052e5-6c81-4da1-b6ce-24d7d87b71ea" kind="CALL" protocol="SYNCHRONOUS"
-                exchangeItem="#97174a40-3035-48fa-ac7c-54b5b695e2d0"/>
             <ownedInterfaceUses xsi:type="org.polarsys.capella.core.data.cs:InterfaceUse"
                 id="a335d072-af22-4f43-84ad-ae600e3748a6" usedInterface="org.polarsys.capella.core.data.cs:Interface ../lib-brokers/lib-brokers.melodymodeller#de6e49ad-2d67-4859-b774-34c1fe0764e6"/>
             <ownedInterfaceUses xsi:type="org.polarsys.capella.core.data.cs:InterfaceUse"
@@ -27266,9 +27184,6 @@ else need a grahpic definition per instance layer entry</bodies>
                 exchangeItem="#5e8f5bcf-4ad4-4df6-b158-b9c6248ef9f0"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                 id="c26c0cb0-1de5-4786-8454-e7d707821c47" kind="RECEIVE" exchangeItem="#af8917af-9b15-44f4-891e-3cab9e154a59"/>
-            <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                id="2e98195c-d68b-436f-8621-6ca396c323d8" kind="CALL" protocol="SYNCHRONOUS"
-                exchangeItem="#17b547a9-0f2d-41d8-a40c-dd7e24a10751"/>
             <ownedInterfaceUses xsi:type="org.polarsys.capella.core.data.cs:InterfaceUse"
                 id="a1654ffd-4f58-410f-96be-1bb6a67f80ef" usedInterface="#253ce7ff-48b3-46a8-9f52-33eab1eb0712"/>
             <ownedInterfaceUses xsi:type="org.polarsys.capella.core.data.cs:InterfaceUse"
@@ -27435,9 +27350,6 @@ else need a grahpic definition per instance layer entry</bodies>
                 exchangeItem="#7305132e-0b16-4bb3-84da-955a6371d648"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                 id="3fb3c11e-4f65-4f8d-8b09-bbecfb93f529" kind="RECEIVE" exchangeItem="#c700baca-45c3-40d2-b569-c8b43c0ffaa9"/>
-            <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                id="d8cc548b-2693-4ae9-b162-1df6a642b67e" kind="CALL" protocol="SYNCHRONOUS"
-                exchangeItem="#8214e0bc-137a-4a1d-afbe-e19fc070a9eb"/>
             <ownedInterfaceUses xsi:type="org.polarsys.capella.core.data.cs:InterfaceUse"
                 id="c3098574-ecb8-4dd2-8062-6d2ffd9197c6" usedInterface="#41bd051f-20f6-49b3-827a-22c175db817e"/>
             <ownedInterfaceImplementations xsi:type="org.polarsys.capella.core.data.cs:InterfaceImplementation"
@@ -27467,9 +27379,6 @@ else need a grahpic definition per instance layer entry</bodies>
                 id="4a926259-0379-4077-b1b4-5e88090ef130" kind="EXECUTE" exchangeItem="#adaf5ed9-aa56-4d27-84f0-83d7b7d000e8"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                 id="a10742b1-41e8-4464-b6e5-b171d8feacdd" kind="EXECUTE" exchangeItem="#aaf5563a-95d3-4b7d-96b1-198bc61c487a"/>
-            <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
-                id="2ffc3eb5-d5a3-4855-bf1c-0a2fbb62fea4" kind="CALL" protocol="SYNCHRONOUS"
-                exchangeItem="#aad191be-6cab-449b-bd9d-150ba4259202"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                 id="5909c421-bdf5-41a1-b537-10048623880a" kind="EXECUTE" exchangeItem="org.polarsys.capella.core.data.information:ExchangeItem ../lib-brokers/lib-brokers.melodymodeller#8a62e250-e1ec-455d-81e8-fed761dc7df2"/>
             <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
@@ -27889,7 +27798,7 @@ else need a grahpic definition per instance layer entry</bodies>
                     aggregationKind="COMPOSITION">
                   <ownedDefaultValue xsi:type="org.polarsys.capella.core.data.information.datavalue:BooleanReference"
                       id="b4281625-0a25-492d-83d4-ec1d2252d347" name="" abstractType="org.polarsys.capella.core.data.information.datatype:BooleanType ../lib-shared-assets/lib-shared-assets.melodymodeller#c5525565-9819-4c8a-aff0-6373c15e6e74"
-                      referencedValue="org.polarsys.capella.core.data.information.datavalue:LiteralBooleanValue ../lib-shared-assets/lib-shared-assets.melodymodeller#8233e220-83d8-4648-a2b1-77bf702d2a9d"/>
+                      referencedValue="#25dd8ba2-63e0-4310-ac36-a0e24a47da39"/>
                   <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                       id="a4533039-f805-4928-b42e-aa704dc1624d" name="" value="1"/>
                   <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
@@ -29014,7 +28923,7 @@ else need a grahpic definition per instance layer entry</bodies>
                 id="67ff5fe1-0e9f-42ef-b55b-63c0cd3394ac" name="Hypervisor Service Cluster_AMS"
                 kind="SOFTWARE" nature="BEHAVIOR">
               <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
-                  id="a5d6eb10-816e-49d0-9625-c10960a82266" super="#7835627f-28a7-4cfe-accb-1649fdd91226"
+                  id="a5d6eb10-816e-49d0-9625-c10960a82266" review="" super="#40eeea7e-9384-4bb9-9bd5-cc6b23acf8f2"
                   sub="#67ff5fe1-0e9f-42ef-b55b-63c0cd3394ac"/>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f5c3eedc-489f-4e16-a182-c917d9872944"
                   name="a AMS instance" abstractType="#95cfa398-a105-43aa-8e84-e31c9803bce5"/>
@@ -29027,7 +28936,7 @@ else need a grahpic definition per instance layer entry</bodies>
                   id="95cfa398-a105-43aa-8e84-e31c9803bce5" name="Hypervisor Service_AMS"
                   kind="SOFTWARE" nature="BEHAVIOR">
                 <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
-                    id="664241ee-17ea-4405-860d-ddbc4eb74013" super="#f52459f8-633a-4553-b28f-f635c8810398"
+                    id="664241ee-17ea-4405-860d-ddbc4eb74013" super="#6d382e1f-c85e-4eeb-82a4-65e618351169"
                     sub="#95cfa398-a105-43aa-8e84-e31c9803bce5"/>
                 <ownedCommunicationLinks xsi:type="org.polarsys.capella.core.data.information.communication:CommunicationLink"
                     id="ed975c84-79e5-484d-8bcb-b6fbc71325d0" kind="ACCESS" protocol="READ"

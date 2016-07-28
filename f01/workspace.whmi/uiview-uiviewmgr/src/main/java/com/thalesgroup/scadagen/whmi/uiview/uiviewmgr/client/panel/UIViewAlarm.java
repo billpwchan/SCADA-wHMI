@@ -7,19 +7,21 @@ import java.util.logging.Logger;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiview.client.UIView_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 
-public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
+public class UIViewAlarm implements UIWidget_i {
 	
 	private static Logger logger = Logger.getLogger(UIViewAlarm.class.getName());
 
@@ -46,16 +48,17 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 			
 	};
 	private InlineLabel[] inlineLabel;
-		
+	
 	private UINameCard uiNameCard;
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard){
-		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
+	@Override
+	public void setUINameCard(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
-		
-
+	}
+	
+	private ComplexPanel root = null;
+	@Override
+	public void init(String xmlFile) {
 		FlexTable flexTableFilters = new FlexTable();
 		flexTableFilters.setWidth("100%");
 		
@@ -116,7 +119,23 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(SCS_ALARM_LIST_ID, false, false, true);
 	    wrapperScsAlarmListPanel.setSize("100%", "100%");
 	    wrapperScsAlarmListPanel.setBorderWidth(1);
-	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(this);
+	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
+			
+	    	@Override
+	    	public void valueChanged(String name, String value) {
+	    		logger.log(Level.FINE, "valueChanged Begin");
+	    		
+	    		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
+	    		for ( int i = 0 ; i < counterNames.length; ++i) {
+	    			if ( 0 == name.compareTo(counterNames[i]) ) {
+	    				inlineLabel[(i*2)+1].setText(value);
+	    			}			
+	    		}
+
+	    		logger.log(Level.FINE, "valueChanged End");
+	    		
+	    	}
+		});
 
 		basePanel.add(wrapperScsAlarmListPanel.getMainPanel());
 
@@ -131,32 +150,59 @@ public class UIViewAlarm implements UIView_i, WrapperScsAlarmListPanelEvent {
 		
 //		uiPanelPanelToolBar.setButton("Alarm Summary", true);
 		
-		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
+		root = new DockLayoutPanel(Unit.PX);
 //		root.addSouth(toolBarPanel, 50);
 		root.add(basePanel);
 
 		logger.log(Level.FINE, "getMainPanel End");
 		
-	    return root;
 	}
 	@Override
-	public void setTaskProvide(UITask_i taskProvide) {
+	public ComplexPanel getMainPanel() {
+		return root;
+	}
+	
+	@Override
+	public void setParameter(String key, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Widget getWidget(String widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getWidgetElement(Widget widget) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setValue(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setValue(String name, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public String getWidgetStatus(String element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setWidgetStatus(String element, String up) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@Override
-	public void valueChanged(String name, String value) {
-		logger.log(Level.FINE, "valueChanged Begin");
-		
-		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
-		for ( int i = 0 ; i < counterNames.length; ++i) {
-			if ( 0 == name.compareTo(counterNames[i]) ) {
-				this.inlineLabel[(i*2)+1].setText(value);
-			}			
-		}
 
-		logger.log(Level.FINE, "valueChanged End");
-		
-	}
 }

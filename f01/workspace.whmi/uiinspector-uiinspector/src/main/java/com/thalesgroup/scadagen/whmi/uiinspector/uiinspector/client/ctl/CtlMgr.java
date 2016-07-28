@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.ctl;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -139,16 +139,16 @@ public class CtlMgr {
 		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
 		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
 		
-		if ( null != subject ) {
-    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
-    	}
+//		if ( null != subject ) {
+//    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
+//    	}
 		
 		String [] analogValueAddress = address;
 		
 		if ( null != ctlAccess ) {
 			ctlAccess.sendFloatCommand("sendFloatCommand", envName, analogValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			if ( null != subject ) {
-        		subject.setState("sendFloatCommand sent");
+        		subject.setState("COMMAND SENT");
 	    	}				
 		} else {
 			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
@@ -176,16 +176,16 @@ public class CtlMgr {
 		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
 		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
 		
-		if ( null != subject ) {
-    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
-    	}
+//		if ( null != subject ) {
+//    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
+//    	}
 		
 		String [] digitalValueAddress = address;
 		
 		if ( null != ctlAccess ) {
 			ctlAccess.sendIntCommand("sendIntCommand", envName, digitalValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			if ( null != subject ) {
-        		subject.setState("Command sent");
+        		subject.setState("COMMAND SENT");
 	    	}				
 		} else {
 			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
@@ -212,9 +212,9 @@ public class CtlMgr {
 		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
 		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
 		
-		if ( null != subject ) {
-    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
-    	}
+//		if ( null != subject ) {
+//    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
+//    	}
 
 		String [] structuredValueAddress = address;
 		
@@ -222,7 +222,7 @@ public class CtlMgr {
 		
 		if ( null != ctlAccess ) {
 			if ( null != subject ) {
-        		subject.setState("Command sent");
+        		subject.setState("COMMAND SENT");
 	    	}				
 		} else {
 			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");

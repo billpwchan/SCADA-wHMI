@@ -1,11 +1,9 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
 
-public interface UIInspector_i {
-	
+public interface UIInspectorTag_i {
 	void buildTabsAddress(String[] instances);
 	void makeTabsSetAddress();
 	void makeTabsBuildWidgets();
 	void makeTabsConnect();
 	void makeTabsDisconnect();
-	void position(int x, int y);
 }

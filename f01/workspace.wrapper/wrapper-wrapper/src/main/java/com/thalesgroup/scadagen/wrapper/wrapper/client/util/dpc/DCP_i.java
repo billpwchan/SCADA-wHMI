@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.util.dpc;
 
 public interface DCP_i {
 	  /**@name Typedefs / defines*/

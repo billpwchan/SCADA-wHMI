@@ -46,7 +46,7 @@ public class PageCounter {
 		this.hasPreview		= ( this.pageCount > 1 && pageIndex-1 >= 0 );
 		this.hasNext		= ( this.pageCount > 1 && pageIndex+1 < this.pageCount );
 
-		logger.log(Level.SEVERE, "calc numOfPoint["+numOfPoint+"] pageSize["+pageSize+"] pageCount:pageMod["+pageCount+":"+pageMod+"] pageRowBegin:pageRowEnd:pageRowCount["+pageRowBegin+":"+pageRowEnd+":"+pageRowCount+"] hasPreview:hasNext["+hasPreview+":"+hasNext+"]");
+		logger.log(Level.FINE, "calc numOfPoint["+numOfPoint+"] pageSize["+pageSize+"] pageCount:pageMod["+pageCount+":"+pageMod+"] pageRowBegin:pageRowEnd:pageRowCount["+pageRowBegin+":"+pageRowEnd+":"+pageRowCount+"] hasPreview:hasNext["+hasPreview+":"+hasNext+"]");
 
 	}
 }

@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.logging.Level;
@@ -20,53 +21,56 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.Database;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.DatabaseEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dpc.DCP_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dpc.DpcMgr;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
-public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
+public class UIInspectorAdvance implements UIInspectorPage_i {
 	
-	private static Logger logger = Logger.getLogger(UIInspectorAdvance.class.getName());
+	private final Logger logger = Logger.getLogger(UIInspectorAdvance.class.getName());
 	
-	String tagname								= "advance";
-
-	// Static Attribute
-	private final String strLabel				= ".label";
-	private final String strValueTable			= ":dal.valueTable";
-	private final String strHmiOrder			= ".hmiOrder";
-	
-	// Dynamic Attribute
-	private final String strValue				= ".value";
-	private final String strForcedStatus		= ":dfo.forcedStatus"; // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+	private final String tagname				= "advance";
 
 	// Static Attribute List
-	private String staticAttibutes [] = new String[] {strLabel, strValueTable, strHmiOrder};
-
+	private final String staticDciAttibutes []		= new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
+	private final String staticAciAttibutes []		= new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
+	
 	// Dynamic Attribute List
-	private String dynamicAttibutes [] = new String[] {strValue, strForcedStatus};
+	private final String dynamicDciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.dfoForcedStatus.toString()};
+	private final String dynamicAciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.afoForcedStatus.toString()};
 
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
 	
 	@Override
-	public void setParent(String parent) {
+	public void setParent(String scsEnvId, String parent) {
+		this.scsEnvId = scsEnvId;
 		this.parent = parent;
+		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, "setConnection this.parent["+this.parent+"]");
 	}
 	
 	@Override
-	public void setAddresses(String scsEnvId, String[] addresses, String period) {
+	public void setAddresses(String[] addresses) {
 		logger.log(Level.FINE, "setAddresses Begin");
-		
-		this.scsEnvId = scsEnvId;
-		
-		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
 		
 		this.addresses = addresses;
 		
 		logger.log(Level.FINE, "setAddresses End");
+	}
+	
+	@Override
+	public String[] getAddresses() {
+		return this.addresses;
 	}
 	
 	private void updatePager() {
@@ -108,28 +112,142 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	private DpcMgr dpcAccess = null;
 	private Observer observer = null;
 	private Subject dpcMgrSubject = null;
+	
+	private Database database = Database.getInstance();
+	
 	@Override
 	public void connect() {
 		logger.log(Level.FINE, "connect Begin");
-		
-		dpcAccess = DpcMgr.getInstance("advance");
-		dpcMgrSubject = dpcAccess.getSubject();
-		
-		observer = new Observer() {
-			@Override
-			public void setSubject(Subject subject){
-				this.subject = subject;
-				this.subject.attach(this);
+
+		// Read static
+		{
+			logger.log(Level.FINE, "multiReadValue Begin");
+			
+			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
+
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for ( String dbaddress : this.addresses ) {
+					String point = RTDB_Helper.getPoint(dbaddress);
+					if ( null != point ) {
+						PointType pointType = RTDB_Helper.getPointType(point);
+						if ( pointType == PointType.RTDB_DCI ) {
+							for ( String attribute : staticDciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
+						} else if ( pointType == PointType.RTDB_ACI ) {
+							for ( String attribute : staticAciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
+						} else if ( pointType == PointType.RTDB_SCI ) {
+
+						} else {
+							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
+						}
+					}
+				}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+			}			
+			
+			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 			
-			@Override
-			public void update() {
+			String api = "multiReadValue";
+			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+				
+				@Override
+				public void update(String key, String[] value) {
+					Database database = Database.getInstance();
+					String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
+					if ( clientKeyStatic.equals(key) ) {
+						String [] dbaddresses	= database.getKeyAndAddress(key);
+						String [] dbvalues		= database.getKeyAndValues(key);
+						HashMap<String, String> keyAndValue = new HashMap<String, String>();
+						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+							keyAndValue.put(dbaddresses[i], dbvalues[i]);
+						}
 
+						updateValue(key, keyAndValue);
+					}
+				}
+			});
+			
+			logger.log(Level.FINE, "multiReadValue End");
+		}
+		
+		// Read dynamic
+		{
+			logger.log(Level.FINE, "multiReadValue Begin");
+			
+			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
+
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for ( String dbaddress : this.addresses ) {
+					String point = RTDB_Helper.getPoint(dbaddress);
+					if ( null != point ) {
+						PointType pointType = RTDB_Helper.getPointType(point);
+						if ( pointType == PointType.RTDB_DCI ) {
+							for ( String attribute : dynamicDciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
+						} else if ( pointType == PointType.RTDB_ACI ) {
+							for ( String attribute : dynamicAciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
+						} else if ( pointType == PointType.RTDB_SCI ) {
+
+						} else {
+							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
+						}
+					}
+				}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
-		};
+			
+			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+			}
+			
+			Database database = Database.getInstance();
+			database.addDynamicRequest(clientKey, dbaddresses, new DatabaseEvent() {
+
+				@Override
+				public void update(String key, String[] value) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 		
-		observer.setSubject(dpcMgrSubject);
+			logger.log(Level.FINE, "multiReadValue End");
+		}
 		
+		{
+			dpcAccess = DpcMgr.getInstance("advance");
+			dpcMgrSubject = dpcAccess.getSubject();
+			
+			observer = new Observer() {
+				@Override
+				public void setSubject(Subject subject){
+					this.subject = subject;
+					this.subject.attach(this);
+				}
+				
+				@Override
+				public void update() {
+	
+				}
+			};
+			
+			observer.setSubject(dpcMgrSubject);			
+		}
+
 		logger.log(Level.FINE, "connect End");
 	}
 	
@@ -156,8 +274,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 
 	String strRestore = "Restore";
 	String strOverride = "Override";
-	
-	private VerticalPanel[] widgetBoxes			= null;
 	
 	private InlineLabel[] lblAttibuteLabel		= null;
 	private ListBox[] lstValues					= null;
@@ -299,13 +415,13 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 			dbvalues.put(key, keyAndValue.get(key));
 		}
 	
-		if ( 0 == "static".compareTo(clientKey.split("_")[2]) ) {
+		if ( "static".equals(clientKey.split("_")[2]) ) {
 			
 			keyAndValuesStatic.put(clientKey, keyAndValue);
 			
 			updateValue(true);
 			
-		} else if ( 0 == "dynamic".compareTo(clientKey.split("_")[2]) ) {
+		} else if ( "dynamic".equals(clientKey.split("_")[2]) ) {
 			
 			keyAndValuesDynamic.put(clientKey, keyAndValue);
 			
@@ -352,14 +468,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 		int rowBegin	= pageCounter.pageRowBegin;
 		int rowEnd		= pageCounter.pageRowEnd;
 		
-		String clientKey_multiReadValue_inspectorinfo_static = "multiReadValue" + "_" + "inspectorinfo" + "_" + "static" + "_" + parent;
+		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		
-		logger.log(Level.FINE, "updateValue clientKey_multiReadValue_inspectorinfo_static["+clientKey_multiReadValue_inspectorinfo_static+"]");
+		logger.log(Level.FINE, "updateValue clientKeyStatic["+clientKeyStatic+"]");
 		
-		if ( 0 == clientKey_multiReadValue_inspectorinfo_static.compareTo(clientKey) ) {
-			
-//			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
-//				String address = this.addresses[i];
+		if ( clientKeyStatic.equals(clientKey) ) {
+	
 			for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
 				String address = addresses[x];
 				
@@ -367,7 +481,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 				{
 					String label = null;
 					{
-						String dbaddress = address + strLabel;
+						String dbaddress = address + PointName.label.toString();
 						if ( dbvalues.containsKey(dbaddress) ) {
 							label = dbvalues.get(dbaddress);
 							label = RTDB_Helper.removeDBStringWrapper(label);
@@ -383,22 +497,17 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 				// DCI, Show the ListBox and store the valueTable
 
 				String point = RTDB_Helper.getPoint(address);
-				String type = RTDB_Helper.getPointType(point);
+				PointType pointType = RTDB_Helper.getPointType(point);
 				
-				if ( 0 != type.compareTo("dci") ) {
-					
-					txtValues[y].setVisible(true);
-					lstValues[y].setVisible(false);
-
-				} else if ( 0 == type.compareTo("dci") ) {
+				if ( PointType.RTDB_DCI == pointType ) {
 					
 					txtValues[y].setVisible(false);
 					lstValues[y].setVisible(true);
 					
 					String valueTable = null;
 					{
-						String dbaddress = address + strValueTable;
-						logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
+						String dbaddress = address + PointName.dalValueTable.toString();
+						logger.log(Level.FINE, "updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							valueTable = dbvalues.get(dbaddress);
 						} else {
@@ -432,7 +541,24 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					} else {
 						logger.log(Level.SEVERE, "updateValue valueTable IS NULL!");
 					}
-				}
+				} else if ( PointType.RTDB_ACI == pointType ) {
+					
+					txtValues[y].setVisible(true);
+					lstValues[y].setVisible(false);
+					
+					String value = null;
+					{
+						String dbaddress = address + PointName.value.toString();
+						if ( dbvalues.containsKey(dbaddress) ) {
+							value = dbvalues.get(dbaddress);
+						} else {
+							logger.log(Level.FINE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+						}
+					}
+					
+					txtValues[y].setText(value);
+					
+				} 
 			}
 			
 		}
@@ -453,9 +579,20 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 			
 			// Update the AI, SS and MO status
 			{
-				String stylename = "project-gwt-checkbox-inspectoradvance-points-activated";
+				String stylename = "project-gwt-checkbox-inspector" + tagname + "-points-activated";
 				
-				String sForcedStatus = getStatusValue(address);
+				String point = RTDB_Helper.getPoint(address);
+				PointType pointType = RTDB_Helper.getPointType(point);
+				
+				String sForcedStatus = null;
+				
+				if ( PointType.RTDB_DCI == pointType ) {
+					sForcedStatus = getStatusValue(address, PointName.dfoForcedStatus.toString());
+				} else if ( PointType.RTDB_ACI == pointType ){
+					sForcedStatus = getStatusValue(address, PointName.afoForcedStatus.toString());
+				} else if ( PointType.RTDB_SCI == pointType ) {
+					
+				}
 				
 				if ( null != sForcedStatus ) {
 					int forcedStatus = Integer.parseInt(sForcedStatus);
@@ -506,8 +643,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 				
 					String value = null;
 					{
-						String dbaddress = address + strValue;
-						logger.log(Level.FINE, "updateValue strValue["+strValue+"] dbaddress["+dbaddress+"]");
+						String dbaddress = address + PointName.value.toString();
+						logger.log(Level.FINE, "updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							value = dbvalues.get(dbaddress);
 						} else {
@@ -520,50 +657,45 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 					if ( null != value ) {
 						String point = RTDB_Helper.getPoint(address);
 						if ( null != point ) {
-							
-							String type = RTDB_Helper.getPointType(point);
-							
+							PointType pointType = RTDB_Helper.getPointType(point);
+
 							logger.log(Level.FINE, "updateValue point["+point+"]");
 							
-							if ( null != type ) {
+							if ( PointType.RTDB_DCI == pointType ) {
 								
-								logger.log(Level.FINE, "updateValue type["+type+"]");
-								
-								if ( 0 != type.compareTo("dci") ) {
-									txtValues[y].setValue(value);
-								} else {
-//									int index = Integer.parseInt(value);
-//									lstValues[y].setSelectedIndex(index);
-									
-									String valueTable = null;
-									{
-										String dbaddress = address + strValueTable;
-										logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+dbaddress+"]");
-										if ( dbvalues.containsKey(dbaddress) ) {
-											valueTable = dbvalues.get(dbaddress);
-										} else {
-											logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
-										}
+								String valueTable = null;
+								{
+									String dbaddress = address + PointName.dalValueTable.toString();
+									logger.log(Level.FINE, "updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
+									if ( dbvalues.containsKey(dbaddress) ) {
+										valueTable = dbvalues.get(dbaddress);
+									} else {
+										logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 									}
-									logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
-									
-									if ( null != valueTable ) {
-										int valueCol = 0, nameCol = 1;
-										String sValue = String.valueOf(value);
-										String tValue = "";
-										for( int r = 0 ; r < 12 ; ++r ) {
-											tValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-											tValue	= RTDB_Helper.removeDBStringWrapper(tValue);
-											
-											if ( 0 == sValue.compareTo(tValue) ) {
-												lstValues[y].setSelectedIndex(r);
-												break;
-											}
+								}
+								logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
+								
+								if ( null != valueTable ) {
+									int valueCol = 0;
+									String sValue = String.valueOf(value);
+									String tValue = "";
+									for( int r = 0 ; r < 12 ; ++r ) {
+										tValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, r );
+										tValue	= RTDB_Helper.removeDBStringWrapper(tValue);
+										
+										if ( 0 == sValue.compareTo(tValue) ) {
+											lstValues[y].setSelectedIndex(r);
+											break;
 										}
 									}
 								}
+							} else if ( PointType.RTDB_ACI == pointType ) {
+								txtValues[y].setValue(value);
+							} else if ( PointType.RTDB_SCI == pointType ) {
+								
 							}
-						}							
+
+						}
 					} else {
 						logger.log(Level.SEVERE, "updateValue value IS NULL!");
 					}
@@ -578,11 +710,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 		}
 	}
 	
-	private String getStatusValue(String address) {
+	private String getStatusValue(String address, String strForcedStatus) {
 		String sforcedStatus = null;
 		{
 			String dbaddress = address + strForcedStatus;
-			logger.log(Level.FINE, "updateValue strForcedStatus["+strForcedStatus+"] dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "updateValue strForcedStatus["+PointName.dfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
 			
 			if ( dbvalues.containsKey(dbaddress) ) {
 				sforcedStatus = dbvalues.get(dbaddress);	
@@ -597,7 +729,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 	
 	private void sendControl(ClickEvent event) {
 		
-		logger.log(Level.FINE, "setValue Begin");
+		logger.log(Level.FINE, "sendControl Begin");
 		
 		UIButtonToggle button = (UIButtonToggle) event.getSource();
 		int index = -1;
@@ -608,196 +740,230 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 			}
 		}
 		
-		logger.log(Level.FINE, "setValue index["+index+"]");
+		logger.log(Level.FINE, "sendControl index["+index+"]");
 		
 		if ( -1 != index ) {
 			
 			String dbaddress = addresses[index];
 			
-			logger.log(Level.FINE, "setValue dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "sendControl dbaddress["+dbaddress+"]");
 			
 			if ( null != dbaddress ) {
 				
 				String point	= RTDB_Helper.getPoint(dbaddress);
-					
-				String type		= RTDB_Helper.getPointType(point);
-				
-				String alias	= "<alias>" + dbaddress.replace(":", "");
-				
-				logger.log(Level.FINE, "setValue scsEnvId["+scsEnvId+"] alias["+alias+"]");				
-				
-				logger.log(Level.FINE, "setValue point["+point+"] type["+type+"]");
-				
-				if ( null != chkDPMs[index] ) {
-					
-					int indexAI = 0;
-					int indexSS = 1;
-					int indexMO = 2;
-					
-					boolean isAIApply	= false;
-					boolean isAICancel	= false;
-					
-					boolean isSSApply	= false;
-					boolean isSSCancel	= false;
-					
-					boolean isManualOverrideApply	= false;
-					boolean isManualOverrideCancel	= false;
-					
-					String sForcedStatus = getStatusValue(dbaddress);
-					
-					if ( null != sForcedStatus ) {
-						int forcedStatus = Integer.parseInt(sForcedStatus);
-						
-						if ( !RTDB_Helper.isAI(forcedStatus) && chkDPMs[index][indexAI].getValue() ) {	isAIApply = true;	}
-						if ( RTDB_Helper.isAI(forcedStatus) && !chkDPMs[index][indexAI].getValue() ) {	isAICancel = true;	}
-						
-						if ( !RTDB_Helper.isSS(forcedStatus) && chkDPMs[index][indexSS].getValue() ) {	isSSApply = true;	}
-						if ( RTDB_Helper.isSS(forcedStatus) && !chkDPMs[index][indexSS].getValue() ) {	isSSCancel = true;	}
-						
-						if ( !RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	isManualOverrideApply = true;	}
-						if ( RTDB_Helper.isMO(forcedStatus) && !chkDPMs[index][indexMO].getValue() ) {	isManualOverrideCancel = true;	}						
-					}
-					
-					int moIValue = 0;
-					
-					float moFValue	= 0.0f;
-					
-					String moSValue	= "";					
-					
-					if ( isAIApply || isAICancel || isSSApply || isSSCancel || isManualOverrideApply || isManualOverrideCancel ) {
 
+				if ( null != point ) {
+					PointType pointType = RTDB_Helper.getPointType(point);
+					
+					String alias	= "<alias>" + dbaddress.replace(":", "");
+					
+					logger.log(Level.FINE, "sendControl scsEnvId["+scsEnvId+"] alias["+alias+"]");				
+					
+					logger.log(Level.FINE, "sendControl point["+point+"] type["+pointType+"]");
+					
+					if ( null != chkDPMs[index] ) {
 						
-						if ( 0 == type.compareTo("dci") ) {
+						int indexAI = 0;
+						int indexSS = 1;
+						int indexMO = 2;
+						
+						boolean isAIApply	= false;
+						boolean isAICancel	= false;
+						
+						boolean isSSApply	= false;
+						boolean isSSCancel	= false;
+						
+						boolean isManualOverrideApply	= false;
+						boolean isManualOverrideCancel	= false;
+						
+						String sForcedStatus = null;
+						
+						if ( PointType.RTDB_DCI == pointType ) {
+							sForcedStatus = getStatusValue(dbaddress, PointName.dfoForcedStatus.toString());
+						} else if ( PointType.RTDB_ACI == pointType ){
+							sForcedStatus = getStatusValue(dbaddress, PointName.afoForcedStatus.toString());
+						} else if ( PointType.RTDB_SCI == pointType ) {
 							
-							int moIndex = lstValues[index].getSelectedIndex();
+						}
+						
+						if ( null != sForcedStatus ) {
+							int forcedStatus = 0;
+							try {
+								forcedStatus = Integer.parseInt(sForcedStatus);
+							} catch ( NumberFormatException e ) {
+								logger.log(Level.SEVERE, "sendControl NumberFormatException["+e.toString()+"]");
+								logger.log(Level.SEVERE, "sendControl Integer.parseInt("+sForcedStatus+")");
+							}
+							if ( !RTDB_Helper.isAI(forcedStatus) && chkDPMs[index][indexAI].getValue() ) {	isAIApply = true;	}
+							if ( RTDB_Helper.isAI(forcedStatus) && !chkDPMs[index][indexAI].getValue() ) {	isAICancel = true;	}
 							
-							logger.log(Level.FINE, "updateValue moIndex["+moIndex+"]");
+							if ( !RTDB_Helper.isSS(forcedStatus) && chkDPMs[index][indexSS].getValue() ) {	isSSApply = true;	}
+							if ( RTDB_Helper.isSS(forcedStatus) && !chkDPMs[index][indexSS].getValue() ) {	isSSCancel = true;	}
 							
-							String valueTable = null;
-							{
-								String address = dbaddress + strValueTable;
-								logger.log(Level.FINE, "updateValue strValueTable["+strValueTable+"] dbaddress["+address+"]");
-								if ( dbvalues.containsKey(address) ) {
-									valueTable = dbvalues.get(address);
-								} else {
-									logger.log(Level.FINE, "updateValue dbaddress["+address+"] VALUE NOT EXISTS!");
+							if ( !RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	isManualOverrideApply = true;	}
+							if ( RTDB_Helper.isMO(forcedStatus) && !chkDPMs[index][indexMO].getValue() ) {	isManualOverrideCancel = true;	}						
+						}
+						
+						int moIValue = 0;
+						
+						float moFValue	= 0.0f;
+						
+						String moSValue	= "";					
+						
+						if ( isAIApply || isAICancel || isSSApply || isSSCancel || isManualOverrideApply || isManualOverrideCancel ) {
+
+							
+							if ( PointType.RTDB_DCI == pointType ) {
+								
+								int moIndex = lstValues[index].getSelectedIndex();
+								
+								logger.log(Level.FINE, "sendControl moIndex["+moIndex+"]");
+								
+								String valueTable = null;
+								{
+									String address = dbaddress + PointName.dalValueTable.toString();
+									logger.log(Level.FINE, "sendControl PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+address+"]");
+									if ( dbvalues.containsKey(address) ) {
+										valueTable = dbvalues.get(address);
+									} else {
+										logger.log(Level.FINE, "sendControl dbaddress["+address+"] VALUE NOT EXISTS!");
+									}
+								}
+								logger.log(Level.FINE, "sendControl valueTable["+valueTable+"]");
+
+								int valueCol = 0;
+								String sValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, moIndex);
+								sValue			= RTDB_Helper.removeDBStringWrapper(sValue);
+								
+								logger.log(Level.FINE, "sendControl sValue["+sValue+"]");
+								try {
+									moIValue = Integer.parseInt(sValue);
+								} catch ( NumberFormatException e ) {
+									logger.log(Level.SEVERE, "sendControl NumberFormatException["+e.toString()+"]");
+									logger.log(Level.SEVERE, "sendControl Integer.parseInt("+sValue+")");
+								}
+
+							} else if ( PointType.RTDB_ACI == pointType || PointType.RTDB_SCI == pointType ) {
+								
+								moSValue = txtValues[index].getText();
+								
+								logger.log(Level.FINE, "sendControl moSValue["+moSValue+"]");
+								
+								if ( PointType.RTDB_ACI == pointType ) {
+									
+									try {
+										moFValue = Float.parseFloat(moSValue);
+									} catch ( NumberFormatException e ) {
+										logger.log(Level.SEVERE, "sendControl NumberFormatException["+e.toString()+"]");
+										logger.log(Level.SEVERE, "sendControl Float.parseFloat("+moSValue+")");
+									}
 								}
 							}
-							logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
+							
+							logger.log(Level.FINE, "sendControl moIValue["+moIValue+"] setValue moFValue["+moFValue+"] moSValue["+moSValue+"]");
+						}
+						
+						// Alarm Inhibit
+						if ( isAIApply ) {
+							
+							// SCSDPC ALARM_INHIBIT_VAR
+							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
+							
+							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
+							
+							chkDPMs[index][indexAI].setValue(true);
+						} 
 
-							int valueCol = 0, nameCol = 1;
-							String sValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, moIndex);
-							sValue			= RTDB_Helper.removeDBStringWrapper(sValue);
+						if (isAICancel ) {
+							// SCSDPC NO_ALARM_INHIBIT_VAR
+							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
 							
-							logger.log(Level.FINE, "updateValue sValue["+sValue+"]");
-							
-							moIValue = Integer.parseInt(sValue);
+							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
 
-						} else if ( 0 == type.compareTo("aci") || 0 == type.compareTo("sci")) {
+							chkDPMs[index][indexAI].setValue(false);
+						}
+						
+						// Scan Suspend
+						if ( isSSApply ) {
+							// SS
+							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
 							
-							moSValue = txtValues[index].getText();
+							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
 							
-							if ( 0 == type.compareTo("aci") ) {
-								
-								moFValue = Float.parseFloat(moSValue);
+							chkDPMs[index][indexSS].setValue(true);
+							
+						} 
+
+						if ( isSSCancel ) {
+							
+							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
+							
+							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
+							
+							chkDPMs[index][indexSS].setValue(false);
+						}
+						
+						// Manual Override
+						{
+							String key = null;
+							boolean forceAction = false;
+							if ( isManualOverrideApply ) {
+								key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "manualoverride" + "_"+ "true" + "_" + dbaddress;
+								forceAction = true;
 							}
-						}
-						
-						logger.log(Level.FINE, "setValue moIValue["+moIValue+"] setValue moFValue["+moFValue+"] moSValue["+moSValue+"]");
-					}
-					
-					// Alarm Inhibit
-					if ( isAIApply ) {
-						
-						// SCSDPC ALARM_INHIBIT_VAR
-						String key = "changeEqpStatus" + "_"+ "inspectoradvance" + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
-						
-						dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
-						
-						chkDPMs[index][indexAI].setValue(true);
-					} 
-
-					if (isAICancel ) {
-						// SCSDPC NO_ALARM_INHIBIT_VAR
-						String key = "changeEqpStatus" + "_"+ "inspectoradvance" + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
-						
-						dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
-
-						chkDPMs[index][indexAI].setValue(false);
-					}
-					
-					// Scan Suspend
-					if ( isSSApply ) {
-						// SS
-						String key = "changeEqpStatus" + "_"+ "inspectoradvance" + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
-						
-						dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
-						
-						chkDPMs[index][indexSS].setValue(true);
-						
-					} 
-
-					if ( isSSCancel ) {
-						
-						String key = "changeEqpStatus" + "_"+ "inspectoradvance" + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
-						
-						dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
-						
-						chkDPMs[index][indexSS].setValue(false);
-					}
-					
-					// Manual Override
-					{
-						String key = null;
-						boolean forceAction = false;
-						if ( isManualOverrideApply ) {
-							key = "changeEqpStatus" + "_"+ "inspectoradvance" + "_"+ "manualoverride" + "_"+ "true" + "_" + dbaddress;
-							forceAction = true;
-						}
-						if ( isManualOverrideCancel ){
-							key = "changeEqpStatus" + "_"+ "inspectoradvance" + "_"+ "manualoverride" + "_"+ "false" + "_" + dbaddress;
-							forceAction = false;
-						}
-						
-						if ( null != key ) {
-							if ( 0 == type.compareTo("dci") ) {
-								
-								dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
-								
-							} else if ( 0 == type.compareTo("aci") ) {
-								
-								dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
-								
-							} else if ( 0 == type.compareTo("sci") ) {
-								
-								dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
-								
+							if ( isManualOverrideCancel ){
+								key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "manualoverride" + "_"+ "false" + "_" + dbaddress;
+								forceAction = false;
 							}
 							
-							chkDPMs[index][indexMO].setValue(forceAction);
-							
-						} else {
-							logger.log(Level.SEVERE, "setValue Manual Override Point Type IS INVALID");
+							if ( null != key ) {
+								
+								logger.log(Level.SEVERE, "sendControl pointType["+pointType+"]");
+								
+								if ( PointType.RTDB_DCI == pointType ) {
+									
+									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moIValue["+moIValue+"]");
+									
+									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
+									
+								} else if ( PointType.RTDB_ACI == pointType ) {
+									
+									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moFValue["+moFValue+"]");
+									
+									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
+									
+								} else if ( PointType.RTDB_SCI == pointType ) {
+									
+									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moSValue["+moSValue+"]");
+									
+									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
+									
+								}
+								
+								chkDPMs[index][indexMO].setValue(forceAction);
+								
+							} else {
+								logger.log(Level.SEVERE, "sendControl Manual Override Point Type IS INVALID");
+							}
 						}
-					
-					}
-				} else {
-					logger.log(Level.SEVERE, "setValue chkDPMs["+dbaddress+"] IS NULL");
+					} else {
+						logger.log(Level.SEVERE, "sendControl chkDPMs["+dbaddress+"] IS NULL");
+					}					
 				}
 			} else {
-				logger.log(Level.SEVERE, "setValue dbaddress["+dbaddress+"] IS NULL");
+				logger.log(Level.SEVERE, "sendControl dbaddress["+dbaddress+"] IS NULL");
 			}
 		} else {
-			logger.log(Level.SEVERE, "setValue index["+index+"] IS INVALID");
+			logger.log(Level.SEVERE, "sendControl index["+index+"] IS INVALID");
 		}
-		logger.log(Level.FINE, "setValue End");
+		logger.log(Level.FINE, "sendControl End");
 		
 	}
 	
-	private MessageBoxEvent messageBoxEvent = null;
+//	private MessageBoxEvent messageBoxEvent = null;
 	@Override
 	public void setMessageBoxEvent(MessageBoxEvent messageBoxEvent) {
-		this.messageBoxEvent = messageBoxEvent;
+//		this.messageBoxEvent = messageBoxEvent;
 	}
 	
 	private Button btnUp			= null;
@@ -867,14 +1033,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(pageBar);
 		
-//		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-//		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//		bottomBar.add(btnExecute);
-		
 		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-inspector");
-		basePanel.setHeight("400px");
-		basePanel.setWidth("400px");
+		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
@@ -884,13 +1044,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i, IClientLifeCycle {
 		logger.log(Level.FINE, "getMainPanel End");
 		
 		return vp;
-	}
-
-	@Override
-	public void terminate() {
-		logger.log(Level.FINE, "terminate Begin");
-
-		logger.log(Level.FINE, "terminate End");
 	}
 
 }

@@ -1,8 +1,8 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.ctl;
 
 import java.util.LinkedHashMap;
 
-class Control {
+public class Control {
 	String io;
 	String scsEnvId;
 	String dbaddress;

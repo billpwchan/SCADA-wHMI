@@ -111,9 +111,9 @@ public class UITaskLaunch implements UITask_i {
 		
 	}
 	
-	private String[] options;
-	public String[] getOption() { return options; }
-	public void setOption(String[] options) { this.options = options; }
+	private Object[] options;
+	public Object[] getOption() { return options; }
+	public void setOption(Object[] options) { this.options = options; }
 
 	public String getHeader() {
 		

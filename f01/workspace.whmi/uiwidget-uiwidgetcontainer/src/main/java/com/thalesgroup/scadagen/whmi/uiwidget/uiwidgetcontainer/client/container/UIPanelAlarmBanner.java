@@ -156,13 +156,21 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 			}
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.ackpage.equalsName(element) ) {
 			
-			String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
+//			String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
+//			
+//			UITaskLaunch taskLaunch = new UITaskLaunch();
+//			taskLaunch.setUiPanel("UIInspectorConnectionBox");
+//			taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
+//			taskLaunch.setUiPath(UIPathUIScreenMMI);
+//			uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			
 			UITaskLaunch taskLaunch = new UITaskLaunch();
-			taskLaunch.setUiPanel("UIInspectorConnectionBox");
-			taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
-			taskLaunch.setUiPath(UIPathUIScreenMMI);
-			uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+			taskLaunch.setType("P");
+			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
+			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
+			taskLaunch.setUiPanel("PTWPanel");
+			taskLaunch.setTitle("PTW DPC Panel");
+			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			
 		} else {
 			logger.log(Level.SEVERE, "onButton element UNKNOW");

@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -14,7 +15,7 @@ public class UIGwsCache {
 	private static Logger logger = Logger.getLogger(UIGwsCache.class.getName());
 	
 	private UINameCard uiNameCard = null;
-	public HorizontalPanel getMainPanel(UINameCard uiNameCard) {
+	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		

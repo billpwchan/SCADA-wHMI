@@ -3,11 +3,11 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiview.uiview.client.UIView_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.PTWPanel;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIViewMgr {
 	
@@ -16,44 +16,34 @@ public class UIViewMgr {
 	private UIViewMgr() {};
 	private static UIViewMgr instance = null;
 	public static UIViewMgr getInstance() {
-		if ( null == instance ) 
-			instance = new UIViewMgr();
+		if ( null == instance ) instance = new UIViewMgr();
 		return instance;
 	}
-	
 
-	public DockLayoutPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
-		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
-		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
-		
-		DockLayoutPanel dockLayoutPanel = this.getPanel(uiPanel).getMainPanel(uiNameCard);
-		
-		logger.log(Level.FINE, "getMainPanel End");
-
-		return dockLayoutPanel;
-	}
-	
-	public UIView_i getPanel(String uiView) {
+	public UIWidget_i getPanel(String panel, UINameCard uiNameCard) {
 		
 		logger.log(Level.FINE, "getPanel Begin");
 		
-		logger.log(Level.FINE, "getPanel uiPanel["+uiView+"]");
+		logger.log(Level.FINE, "getPanel uiPanel["+panel+"]");
+
+		UIWidget_i uiWidget_i = null;
 		
-		UIView_i uiView_i = null;
-		
-		if ( 0 == uiView.compareTo("UIViewAlarm") ) {
-			uiView_i = new UIViewAlarm();
-		} else if ( 0 == uiView.compareTo("UIViewEvent") ) {
-			uiView_i = new UIViewEvent();
+		if ( 0 == panel.compareTo("UIViewAlarm") ) {
+			uiWidget_i = new UIViewAlarm();
+		} else if ( 0 == panel.compareTo("UIViewEvent") ) {
+			uiWidget_i = new UIViewEvent();
+		} else if ( 0 == panel.compareTo("PTWPanel") ) {		
+			uiWidget_i = new PTWPanel();
 		} else {
-			//uiView_i = new UIViewEmpty();
+			//uiWidget_i = new UIViewEmpty();
 		}
+		
+		uiWidget_i.setUINameCard(uiNameCard);
+		uiWidget_i.init("");		
 
 		logger.log(Level.FINE, "getPanel End");
 
-		return uiView_i;
+		return uiWidget_i;
 		
 	}
 }

@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,33 +7,82 @@ public class RTDB_Helper {
 	
 	private static Logger logger = Logger.getLogger(RTDB_Helper.class.getName());
 	
+	public static final int valueAlarmVectorIndex = 1;
+	
+	public enum PointType {
+		RTDB_UNKNOW("RTDB_POINT_UNKNOW")
+		, RTDB_ACI("aci")
+		, RTDB_DCI("dci")
+		, RTDB_SCI("sci")
+		, RTDB_AIO("aio")
+		, RTDB_DIO("dio")
+		, RTDB_SIO("sio")
+		;
+		
+		private final String text;
+		private PointType(final String text) { this.text = text; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return this.text; }
+	}
+
+	public enum PointName {
+		
+		// Static 
+		label(".label")
+		, shortLabel(".shortLabel")
+		, geographicalCat(".geographicalCat")
+		, aalValueTable(":aal.valueTable")
+		, dalValueTable(":dal.valueTable")		
+		
+		, hmiOrder(".hmiOrder")
+		, valueTable(".valueTable")
+		
+		// Dynamic
+		, value(".value")
+		, validity(".validity") // 0=invalid, 1=valid
+		, isControlable(".isControlable")
+		
+		, aalValueAlarmVector(":aal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
+		, dalValueAlarmVector(":dal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
+		
+		, afoForcedStatus(":afo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+		, dfoForcedStatus(":dfo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+		;
+		private final String text;
+		private PointName(final String text) { this.text = text; }
+//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
 	public static String getPoint(String dbaddress) {
 		String dbaddressTokenes[] = dbaddress.split(":");
 		return dbaddressTokenes[dbaddressTokenes.length-1];
 	}
-	
-	public static String getPointType(String point) {
+
+	public static PointType getPointType(String point) {
 		if ( null != point ) {
-			if ( point.startsWith("aci") ) {
-				return "aci";
+			if ( point.startsWith(PointType.RTDB_ACI.toString()) ) {
+				return PointType.RTDB_ACI;
 			}
-			if ( point.startsWith("dci") ) {
-				return "dci";
+			if ( point.startsWith(PointType.RTDB_DCI.toString()) ) {
+				return PointType.RTDB_DCI;
 			}
-			if ( point.startsWith("sci") ) {
-				return "sci";
+			if ( point.startsWith(PointType.RTDB_SCI.toString()) ) {
+				return PointType.RTDB_SCI;
 			}
-			if ( point.startsWith("aio") ) {
-				return "aio";
+			if ( point.startsWith(PointType.RTDB_AIO.toString()) ) {
+				return PointType.RTDB_AIO;
 			}
-			if ( point.startsWith("dio") ) {
-				return "dio";
+			if ( point.startsWith(PointType.RTDB_DIO.toString()) ) {
+				return PointType.RTDB_DIO;
 			}
-			if ( point.startsWith("sio") ) {
-				return "sio";
+			if ( point.startsWith(PointType.RTDB_SIO.toString()) ) {
+				return PointType.RTDB_SIO;
 			}
 		}
-		return null;
+		return PointType.RTDB_UNKNOW;
 	}
 	
 	public static String removeDBStringWrapper(String value) {
@@ -80,17 +129,17 @@ public class RTDB_Helper {
 		return string;
 	}
 	
-	private static String removeEnd(String string, char end) {
-		if (string.charAt(string.length() - 1) == end)
-			string = string.substring(0, string.length() - 1);
-		return string;
-	}
+//	private static String removeEnd(String string, char end) {
+//		if (string.charAt(string.length() - 1) == end)
+//			string = string.substring(0, string.length() - 1);
+//		return string;
+//	}
 	
 	public static String getArrayValues(String string, int col, int row) {
 		String str = null;
 		
 		logger.log(Level.FINE, "getArrayValues Begin");
-		logger.log(Level.SEVERE, "getArrayValues string["+string+"] col["+col+"] row["+row+"]");
+		logger.log(Level.FINE, "getArrayValues string["+string+"] col["+col+"] row["+row+"]");
 				
 		if (null != string && string.length() > 0) {
 
@@ -116,7 +165,7 @@ public class RTDB_Helper {
 			}
 		}
 		
-		logger.log(Level.SEVERE, "getArrayValues str["+str+"]");
+		logger.log(Level.FINE, "getArrayValues str["+str+"]");
 		
 		logger.log(Level.FINE, "getArrayValues End");
 
@@ -149,7 +198,7 @@ public class RTDB_Helper {
 				int intForcedStatus	= 0;
 				try {
 		
-					intAlarmVector	= Integer.parseInt(alarmVector.split(",")[1]);
+					intAlarmVector	= Integer.parseInt(alarmVector.split(",")[valueAlarmVectorIndex]);
 					intValidity		= Integer.parseInt(validity);
 					intForcedStatus	= Integer.parseInt(forcedStatus);
 				} catch ( NumberFormatException e ) {

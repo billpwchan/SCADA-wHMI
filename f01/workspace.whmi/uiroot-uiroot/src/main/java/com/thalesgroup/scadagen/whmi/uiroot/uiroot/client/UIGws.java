@@ -10,13 +10,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.logging.client.HasWidgetsLogHandler;
-import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
@@ -31,13 +26,15 @@ public class UIGws {
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
 	private static Logger logger = Logger.getLogger("");
+	
+//	private SplitLayoutPanel root = null;
+//	private HorizontalPanel main = null;
+	
+	private SimplePanel root = null;
 
-	private SplitLayoutPanel root = null;
-	private HorizontalPanel main = null;
-
-	public SplitLayoutPanel getMainPanel() {
-		this.root = new SplitLayoutPanel();
-		this.main = new HorizontalPanel();
+	public SimplePanel getMainPanel() {
+//		this.root = new SplitLayoutPanel();
+//		this.main = new HorizontalPanel();
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
 		
@@ -48,7 +45,7 @@ public class UIGws {
 	}
 
 	private UINameCard uiNameCard = null;
-	public SplitLayoutPanel getMainPanel(UINameCard uiNameCard) { 
+	public SimplePanel getMainPanel(UINameCard uiNameCard) { 
 
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
@@ -73,26 +70,31 @@ public class UIGws {
 		String strLogModule = setting.get("logmodule");
 		String strLogModuleLevel = setting.get("logmodulelevel");
 		
+		logger.log(Level.SEVERE, "getMainPanel Debug strLogModule["+strLogModule+"]");
+		logger.log(Level.SEVERE, "getMainPanel Debug strLogModuleLevel["+strLogModuleLevel+"]");
+		
 		if ( null != strLogModule && null != strLogModuleLevel ) {
 			Level level = Level.FINE;
-			if ( 0 == strLogModule.compareToIgnoreCase("ALL") ) {
+			if ( 0 == strLogModuleLevel.compareToIgnoreCase("ALL") ) {
 				level = Level.ALL;
-			} else if ( 0 == strLogModule.compareToIgnoreCase("FINE") ) {
+			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("FINE") ) {
 				level = Level.FINE;
-			} else if ( 0 == strLogModule.compareToIgnoreCase("INFO") ) {
+			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("INFO") ) {
 				level = Level.INFO;
-			} else if ( 0 == strLogModule.compareToIgnoreCase("CONFIG") ) {
+			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("CONFIG") ) {
 				level = Level.CONFIG;
-			} else if ( 0 == strLogModule.compareToIgnoreCase("WARNING") ) {
+			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("WARNING") ) {
 				level = Level.WARNING;
-			} else if ( 0 == strLogModule.compareToIgnoreCase("SEVERE") ) {
+			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("SEVERE") ) {
 				level = Level.SEVERE;
 			}
 			
-			String strLogModules [] = strLogModule.split("\\|");
-			for ( String s: strLogModules ) {
-				Logger.getLogger(s).setLevel(level);
-			}
+			Logger.getLogger(strLogModule).setLevel(level);
+			
+//			String strLogModules [] = strLogModule.split("\\|");
+//			for ( String s: strLogModules ) {
+//				Logger.getLogger(s).setLevel(level);
+//			}
 		}
 		
 		
@@ -116,23 +118,27 @@ public class UIGws {
 			}
 		}
 		
-		this.root = new SplitLayoutPanel();
+//		this.root = new SplitLayoutPanel();
+//		
+//		String strDebug = setting.get("debug");
+//
+//		if ( null != strDebug && 0==strDebug.compareToIgnoreCase("true") && LogConfiguration.loggingIsEnabled() ) {
+//			int hight = 200;
+//			VerticalPanel logArea = new VerticalPanel();
+//			logArea.addStyleName("project-gwt-panel-gws-logarea");
+//			ScrollPanel scrollPanel = new ScrollPanel(logArea);
+//			scrollPanel.addStyleName("project-gwt-panel-gws-logarea-scrollpanel");
+//			this.root.addSouth(scrollPanel, hight);
+//			logger.addHandler(new HasWidgetsLogHandler(logArea));
+//		}
+//		
+//		this.root.add(main);
+//		this.main.addStyleName("project-gwt-panel-gws-main");
+//		this.main.add(new UIGwsCache().getMainPanel(this.uiNameCard));
 		
-		String strDebug = setting.get("debug");
-
-		if ( null != strDebug && 0==strDebug.compareToIgnoreCase("true") && LogConfiguration.loggingIsEnabled() ) {
-			int hight = 200;
-			VerticalPanel logArea = new VerticalPanel();
-			logArea.addStyleName("project-gwt-panel-gws-logarea");
-			ScrollPanel scrollPanel = new ScrollPanel(logArea);
-			scrollPanel.addStyleName("project-gwt-panel-gws-logarea-scrollpanel");
-			this.root.addSouth(scrollPanel, hight);
-			logger.addHandler(new HasWidgetsLogHandler(logArea));
-		}
-		
-		this.root.add(main);
-		this.main.addStyleName("project-gwt-panel-gws-main");
-		this.main.add(new UIGwsCache().getMainPanel(this.uiNameCard));
+		this.root = new SimplePanel();
+		this.root.addStyleName("project-gwt-panel-gws-main");
+		this.root.add(new UIGwsCache().getMainPanel(this.uiNameCard));
 
 		// Debug
 		HashMap<String, String> hashMap = setting.getMaps();
@@ -173,28 +179,28 @@ public class UIGws {
 			});
 		}
 		
-		{
-			DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UICaches");
-			
-			String header = "header";
-			String option = "option";
-			
-			//Login Panel
-			uiPanelSettingCache.add("hvid_alias.xml", header);
-			uiPanelSettingCache.add("hvid_alias.xml", option);
-			
-			String module = null;
-			
-			uiPanelSettingCache.init(module, "UICaches", new DictionaryCacheEvent() {
-				
-				@Override
-				public void dictionaryCacheEventReady(int received) {
-
-					logger.log(Level.SEVERE, "dictionaryCacheEventReady");
-					
-				}
-			});
-		}
+//		{
+//			DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UICaches");
+//			
+//			String header = "header";
+//			String option = "option";
+//			
+//			//Login Panel
+//			uiPanelSettingCache.add("hvid_alias.xml", header);
+//			uiPanelSettingCache.add("hvid_alias.xml", option);
+//			
+//			String module = null;
+//			
+//			uiPanelSettingCache.init(module, "UICaches", new DictionaryCacheEvent() {
+//				
+//				@Override
+//				public void dictionaryCacheEventReady(int received) {
+//
+//					logger.log(Level.SEVERE, "dictionaryCacheEventReady");
+//					
+//				}
+//			});
+//		}
 		
 		logger.log(Level.FINE, "initCaches End");
 	}
@@ -287,6 +293,16 @@ public class UIGws {
 		uiPanelSettingCache.add("UIPanelNavigation_3.xml", header);
 		uiPanelSettingCache.add("UIPanelNavigation_3.xml", option);
 		
+		// PTW
+		uiPanelSettingCache.add("UIPanelPTWSummary.xml", header);
+		uiPanelSettingCache.add("UIPanelPTWSummary.xml", option);
+					
+		uiPanelSettingCache.add("UIPanelPTWViewer.xml", header);
+		uiPanelSettingCache.add("UIPanelPTWViewer.xml", option);
+		
+		uiPanelSettingCache.add("UIPanelPTWViewerButton.xml", header);
+		uiPanelSettingCache.add("UIPanelPTWViewerButton.xml", option);
+		
 		String module = null;
 		
 		uiPanelSettingCache.init(module, "UIPanelGeneric", new DictionaryCacheEvent() {
@@ -315,10 +331,13 @@ public class UIGws {
 //		logger.log(Level.SEVERE, "ready AF");
 		
 		logger.log(Level.FINE, "ready AF");
-
 		
-		this.main.clear();
-		this.main.add(new UIPanelScreen().getMainPanel(this.uiNameCard));
+//		this.main.clear();
+//		this.main.add(new UIPanelScreen().getMainPanel(this.uiNameCard));
+		
+		this.root.clear();
+		this.root.add(new UIPanelScreen().getMainPanel(this.uiNameCard));
+		
 		logger.log(Level.FINE, "ready End");
 	}
 }

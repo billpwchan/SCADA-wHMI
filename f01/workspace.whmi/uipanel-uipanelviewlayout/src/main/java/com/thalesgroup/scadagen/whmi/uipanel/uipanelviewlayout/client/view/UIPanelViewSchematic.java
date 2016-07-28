@@ -61,17 +61,14 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 
 		return root;
 	}
+	
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
 		
 		logger.log(Level.FINE, "setTaskProvide Begin");
-		
 		if ( UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) ) {
-			
 			UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
-			
 			if ( null != taskLaunch) {
-				
 				String header = taskLaunch.getHeader();
 				String uiPanel = taskLaunch.getUiPanel();
 				
@@ -83,55 +80,28 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 				wrapperScsSituationViewPanel.setSize("100%", "100%");
 				wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(new WrapperScsSituationViewPanelEvent() {
 					@Override
-					public void triggerSymbolWidget(String hv_id) {
-						showInspectorPanel(hv_id);
+					public void triggerSymbolWidget(String hv_id, int mouseX, int mouseY) {
+						showInspectorPanel(hv_id, mouseX, mouseY);
 					}
 				});
-				
-				
+
 				root.add(wrapperScsSituationViewPanel.getMainPanel());
-				
-//				HorizontalPanel scsViewPanel = wrapperScsSituationViewPanel.getMainPanel();
-//				scsViewPanel.setWidth("100%");
-//				scsViewPanel.setWidth("100%");
-//				scsViewPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//				scsViewPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//				
-//				root.add(scsViewPanel);
-
-//				HorizontalPanel hp = new HorizontalPanel();
-//				hp.setWidth("100%");
-//				hp.setHeight("100%");
-//				hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-//				hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-//					
-//				InlineLabel equipmenpLabel = new InlineLabel();
-//				equipmenpLabel.setText("Schematic: "+header);
-//				hp.add(equipmenpLabel);
-//								
-//				root.add(hp);
-
 			} else {
-				
 				logger.log(Level.FINE, "setTaskProvide taskLaunch is null");
-				
 			}
-			
 		} else {
-			
 			logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
-			
 		}
 		
 		logger.log(Level.FINE, "setTaskProvide End");
 	}
 
-	private void showInspectorPanel (String hv_id) {
+	private void showInspectorPanel (String hv_id, int mouseX, int mouseY) {
 		UITaskLaunch taskLaunch = new UITaskLaunch();
 		taskLaunch.setUiPanel("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 		taskLaunch.setUiPath(UIPathUIScreenMMI);
-		taskLaunch.setOption(new String[]{hv_id});
+		taskLaunch.setOption(new Object[]{hv_id, mouseX, mouseY});
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 	}
 

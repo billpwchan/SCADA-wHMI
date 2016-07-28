@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -14,9 +15,8 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
-import com.thalesgroup.scadagen.whmi.uiview.uiview.client.UIView_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelViewPanel implements UIPanelViewProvide {
 	
@@ -72,12 +72,12 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 		
 		logger.log(Level.FINE, "setTaskProvide Begin");
 		
-		if ( UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) ) {
-			
-			UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
-			
-			if ( null != taskLaunch) {
+		if ( null != taskProvide) {
+		
+			if ( taskProvide instanceof UITaskLaunch ) {
 				
+				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
+
 				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getUiPanel()+"]");
 				
 				this.equipmenpLabel.setText("Panel: ---- ");
@@ -88,9 +88,9 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 				
 				logger.log(Level.FINE, "setTaskProvide viewFactoryMgr.getPanel["+taskLaunch.getUiPanel()+"]");
 				
-				UIView_i uiViewProvide = viewFactoryMgr.getPanel(taskLaunch.getUiPanel());
+				UIWidget_i uiWidget_i = viewFactoryMgr.getPanel(taskLaunch.getUiPanel(), uiNameCard);
 				
-				if ( null != uiViewProvide ) {
+				if ( null != uiWidget_i ) {
 					
 					logger.log(Level.FINE, "setTaskProvide root.clear");
 				
@@ -98,7 +98,7 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 
 					logger.log(Level.FINE, "setTaskProvide uiViewProvide.getMainPanel["+uiNameCard.getUiPath()+"]");
 				
-					DockLayoutPanel dockLayoutPanel = uiViewProvide.getMainPanel(uiNameCard);
+					ComplexPanel dockLayoutPanel = uiWidget_i.getMainPanel();
 					
 					logger.log(Level.FINE, "setTaskProvide root.add");
 				
@@ -113,20 +113,12 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 					logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+header+"]");
 				
 					this.equipmenpLabel.setText("Panel: "+header);					
-					
 				}
-				
 			} else {
-
-				
-				logger.log(Level.FINE, "setTaskProvide taskLaunch is null");
-				
+				logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
 			}
-			
 		} else {
-			
-			logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
-			
+			logger.log(Level.FINE, "setTaskProvide taskProvide is null");
 		}
 		
 		logger.log(Level.FINE, "setTaskProvide End");

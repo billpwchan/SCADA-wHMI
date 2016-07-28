@@ -89,7 +89,10 @@ public class ScsWidgetFactory extends WidgetFactory {
 					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						
-						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id);
+						int mouseX = event.getClientX();
+						int mouseY = event.getClientY();
+						
+						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id, mouseX, mouseY);
 						
 					}
 					

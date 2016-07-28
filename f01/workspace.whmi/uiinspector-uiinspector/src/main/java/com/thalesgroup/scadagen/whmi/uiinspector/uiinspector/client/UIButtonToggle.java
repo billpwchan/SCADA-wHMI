@@ -2,8 +2,9 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import com.google.gwt.user.client.ui.Button;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.ctl.Control;
+
 
 public class UIButtonToggle extends Button {
 	

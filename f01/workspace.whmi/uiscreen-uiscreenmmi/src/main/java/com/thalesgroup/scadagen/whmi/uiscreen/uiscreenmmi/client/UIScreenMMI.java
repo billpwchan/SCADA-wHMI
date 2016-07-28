@@ -4,15 +4,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspector;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBox;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
@@ -58,7 +56,7 @@ public class UIScreenMMI implements UIScreen_i {
 		
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		
-		uiWidgetMgr.clearUIWidgetFactorys();
+//		uiWidgetMgr.clearUIWidgetFactorys();
 		uiWidgetMgr.addUIWidgetFactory("UIScreenMMI", new UIWidgetMgrFactory() {
 			
 			@Override
@@ -143,20 +141,6 @@ public class UIScreenMMI implements UIScreen_i {
 	void onUIEvent(UIEvent uiEvent) {
 
 		logger.log(Level.FINE, "onUIEvent Begin");
-		
-//		if ( null != uiNameCard ) {
-//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
-//			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
-//		} else {
-//			logger.log(Level.SEVERE, "onUIEvent uiNameCard IS NULL");
-//		}
-//		
-//		if ( null != uiEvent ) {
-//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
-//			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
-//		} else {
-//			logger.log(Level.SEVERE, "onUIEvent uiEvent IS NULL");
-//		}
 
 		if (null != uiEvent) {
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -186,12 +170,48 @@ public class UIScreenMMI implements UIScreen_i {
 
 						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {
 							
-							String hvid			= taskLaunch.getOption()[0];
 							
-							String period		= "250";
-							if ( taskLaunch.getOption().length >= 2 && null != taskLaunch.getOption()[1] ) {
-								period		= taskLaunch.getOption()[1];
+							String hvid = null;
+							if ( taskLaunch.getOption().length > 0 && null != taskLaunch.getOption()[0] ) {
+								Object obj = taskLaunch.getOption()[0];
+								if ( obj instanceof String ) {
+									hvid		= (String)obj;
+								} else {
+									logger.log(Level.SEVERE, "onUIEvent hvid IS NOT A STRING");
+								}
 							}
+							
+							int mouseX			= -1;
+							if ( taskLaunch.getOption().length > 1 && null != taskLaunch.getOption()[1] ) {
+								Object obj = taskLaunch.getOption()[1];
+								if ( obj instanceof Integer ) {
+									mouseX		= (Integer)obj;
+								} else {
+									logger.log(Level.SEVERE, "onUIEvent mouseX IS NOT A Integer");
+								}
+							}
+							
+							int mouseY			= -1;
+							if ( taskLaunch.getOption().length > 2 && null != taskLaunch.getOption()[2] ) {
+								Object obj = taskLaunch.getOption()[2];
+								if ( obj instanceof Integer ) {
+									mouseY		= (Integer)obj;
+								} else {
+									logger.log(Level.SEVERE, "onUIEvent mouseY IS NOT A Integer");
+								}
+							}
+							
+							String period	= "250";
+							if ( taskLaunch.getOption().length > 3 && null != taskLaunch.getOption()[3] ) {
+								Object obj = taskLaunch.getOption()[3];
+								if ( obj instanceof String ) {
+									period		= (String)obj;
+								} else {
+									logger.log(Level.SEVERE, "onUIEvent period IS NOT A STRING");
+								}
+							}
+							
+
 							
 							String scsEnvId		= null;
 							String dbaddress	= null;
@@ -229,19 +249,24 @@ public class UIScreenMMI implements UIScreen_i {
 								}
 								
 							}
-									
-//							Window.alert("dbaddress0["+dbaddress0+"] dbaddress1["+dbaddress1+"] dbaddress2["+dbaddress2+"] dbaddress3["+dbaddress3+"]");
-							
+					
 							logger.log(Level.SEVERE, "onUIEvent hvid["+hvid+"]");
 							
 							logger.log(Level.SEVERE, "onUIEvent dbaddress["+dbaddress+"]");
 							
-							UIInspectorTab_i uiPanelInspector = new UIPanelInspector();
-							uiPanelInspector.setParent(dbaddress);
-							uiPanelInspector.setAddresses(scsEnvId, new String[]{dbaddress}, period);
-							uiPanelInspector.getMainPanel(this.uiNameCard);
-							((DialogBox)uiPanelInspector).show();
-							uiPanelInspector.connect();
+							UIPanelInspectorDialogBox uiInspectorDialogbox = new UIPanelInspectorDialogBox();
+							
+							uiInspectorDialogbox.setUINameCard(this.uiNameCard);
+							uiInspectorDialogbox.init(null);
+							uiInspectorDialogbox.getMainPanel();
+							
+							uiInspectorDialogbox.setMousePosition(mouseX, mouseY);
+							uiInspectorDialogbox.show();
+							
+							uiInspectorDialogbox.setParent(scsEnvId, dbaddress);
+							uiInspectorDialogbox.setPeriod(period);
+											
+							uiInspectorDialogbox.connect();
 							
 						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIInspectorConnectionBox")) { 
 							

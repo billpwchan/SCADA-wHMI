@@ -24,12 +24,12 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.ctl.CtlMgr;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.Database;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.DatabaseEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class UIInspectorTag implements UIInspectorPage_i {
 	
@@ -231,11 +231,11 @@ public class UIInspectorTag implements UIInspectorPage_i {
 					String point = RTDB_Helper.getPoint(dbaddress);
 					if ( null != point ) {
 						RTDB_Helper.PointType pointType = RTDB_Helper.getPointType(point);
-						if ( PointType.RTDB_DIO == pointType ) {
+						if ( PointType.dio == pointType ) {
 							widget = updateDioControl(dbaddress, y);
-						} else if ( PointType.RTDB_AIO == pointType ) {
+						} else if ( PointType.aio == pointType ) {
 							widget = updateAioControl(dbaddress, y);
-						} else if ( PointType.RTDB_SIO == pointType ) {
+						} else if ( PointType.sio == pointType ) {
 							widget = updateSioControl(dbaddress, y);
 						}
 					}
@@ -250,9 +250,6 @@ public class UIInspectorTag implements UIInspectorPage_i {
 			connectDIOinitConds();		
 			
 		}
-
-
-
 
 		logger.log(Level.FINE, "updateValueStatic End");
 	}
@@ -329,7 +326,7 @@ public class UIInspectorTag implements UIInspectorPage_i {
 				
 				widgetGroups.put(address, btnOptions.toArray(new UIButtonToggle[0]));
 				
-				widgetPoints.put(btnOption, new ControlPoint(PointType.RTDB_DIO.toString(), scsEnvId, address, values[i]));
+				widgetPoints.put(btnOption, new ControlPoint(PointType.dio.toString(), scsEnvId, address, values[i]));
 
 				initCondGLAndWidget.put(address+":"+points[i]+".initCondGL", btnOption);
 			
@@ -342,15 +339,191 @@ public class UIInspectorTag implements UIInspectorPage_i {
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
+		logger.log(Level.FINE, "updateDioControl End");
+		
 		return widgetBoxes[row];
 	}
 	
 	private ComplexPanel updateAioControl(String address, int row) {
-		return null;
+		
+		logger.log(Level.FINE, "updateAioControl Begin");
+		logger.log(Level.FINE, "updateAioControl address["+address+"] row["+row+"]");
+		
+		int dovnameCol = 0, labelCol = 1, valueCol = 2;
+
+		inlineLabels[row] = new InlineLabel();
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+
+		String label = null; 
+		{
+			String dbaddress = address + PointName.label.toString();
+			if ( dbvalues.containsKey(dbaddress) ) {
+				label = dbvalues.get(dbaddress);
+				label = RTDB_Helper.removeDBStringWrapper(label);
+				logger.log(Level.FINE, "updateValue label["+label+"]");
+				inlineLabels[row].setText(label);
+			}			
+		}
+		
+		controlboxes[row] = new HorizontalPanel();
+
+		String valueTable = null;
+		{
+			String dbaddress = address + PointName.valueTable.toString();
+			valueTable = dbvalues.get(dbaddress);
+		}
+
+		if ( null !=  valueTable ) {
+			
+			int numOfRow = 12;
+			String points[] = new String[numOfRow];
+			String labels[] = new String[numOfRow];
+			String values[] = new String[numOfRow];
+			for( int r = 0 ; r < numOfRow ; ++r ) {
+					
+				points[r] = RTDB_Helper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+					
+				labels[r] = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+					
+				values[r] = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
+				values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+			}
+			
+//			LinkedList<String> initCondGLList = new LinkedList<String>();
+			
+			// Loop Control Point
+			LinkedList<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
+			for ( int i = 0 ; i < points.length ; ++i ) {
+				
+				if ( labels[i].length() == 0  ) break;
+				
+				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
+				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						onButton(event);
+					}
+				});
+				
+				btnOption.setEnabled(false);
+				
+				btnOptions.add(btnOption);
+				
+				controlboxes[row].add(btnOption);
+				
+				widgetGroups.put(address, btnOptions.toArray(new UIButtonToggle[0]));
+				
+				widgetPoints.put(btnOption, new ControlPoint(PointType.dio.toString(), scsEnvId, address, values[i]));
+
+				initCondGLAndWidget.put(address+":"+points[i]+".initCondGL", btnOption);
+			
+			}
+			
+		}
+		
+		widgetBoxes[row] = new VerticalPanel();
+		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+		widgetBoxes[row].add(inlineLabels[row]);
+		widgetBoxes[row].add(controlboxes[row]);
+		
+		logger.log(Level.FINE, "updateAioControl End");
+		
+		return widgetBoxes[row];
 	}
 		
 	private ComplexPanel updateSioControl(String address, int row) {
-		return null;	
+		
+		logger.log(Level.FINE, "updateSioControl Begin");
+		logger.log(Level.FINE, "updateSioControl address["+address+"] row["+row+"]");
+		
+		int dovnameCol = 0, labelCol = 1, valueCol = 2;
+
+		inlineLabels[row] = new InlineLabel();
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+
+		String label = null; 
+		{
+			String dbaddress = address + PointName.label.toString();
+			if ( dbvalues.containsKey(dbaddress) ) {
+				label = dbvalues.get(dbaddress);
+				label = RTDB_Helper.removeDBStringWrapper(label);
+				logger.log(Level.FINE, "updateSioControl label["+label+"]");
+				inlineLabels[row].setText(label);
+			}			
+		}
+		
+		controlboxes[row] = new HorizontalPanel();
+
+		String valueTable = null;
+		{
+			String dbaddress = address + PointName.valueTable.toString();
+			valueTable = dbvalues.get(dbaddress);
+		}
+
+		if ( null !=  valueTable ) {
+			
+			int numOfRow = 12;
+			String points[] = new String[numOfRow];
+			String labels[] = new String[numOfRow];
+			String values[] = new String[numOfRow];
+			for( int r = 0 ; r < numOfRow ; ++r ) {
+					
+				points[r] = RTDB_Helper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+					
+				labels[r] = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+					
+				values[r] = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
+				values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+			}
+			
+//			LinkedList<String> initCondGLList = new LinkedList<String>();
+			
+			// Loop Control Point
+			LinkedList<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
+			for ( int i = 0 ; i < points.length ; ++i ) {
+				
+				if ( labels[i].length() == 0  ) break;
+				
+				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
+				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						onButton(event);
+					}
+				});
+				
+				btnOption.setEnabled(false);
+				
+				btnOptions.add(btnOption);
+				
+				controlboxes[row].add(btnOption);
+				
+				widgetGroups.put(address, btnOptions.toArray(new UIButtonToggle[0]));
+				
+				widgetPoints.put(btnOption, new ControlPoint(PointType.dio.toString(), scsEnvId, address, values[i]));
+
+				initCondGLAndWidget.put(address+":"+points[i]+".initCondGL", btnOption);
+			
+			}
+			
+		}
+		
+		widgetBoxes[row] = new VerticalPanel();
+		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+		widgetBoxes[row].add(inlineLabels[row]);
+		widgetBoxes[row].add(controlboxes[row]);
+		
+		logger.log(Level.FINE, "updateSioControl End");
+		
+		return widgetBoxes[row];	
 	}
 	
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
@@ -409,15 +582,15 @@ public class UIInspectorTag implements UIInspectorPage_i {
 				String point = RTDB_Helper.getPoint(dbaddress);
 				RTDB_Helper.PointType pointType = RTDB_Helper.getPointType(point);
 				
-				if ( PointType.RTDB_DIO == pointType ) {
+				if ( PointType.dio == pointType ) {
 					for ( String attribute : dioStaticAttibutes ) {
 						dbaddressesArrayList.add(dbaddress+attribute);
 					}
-				} else if ( PointType.RTDB_AIO == pointType ) {
+				} else if ( PointType.aio == pointType ) {
 					for ( String attribute : aioStaticAttibutes ) {
 						dbaddressesArrayList.add(dbaddress+attribute);
 					}
-				} else if ( PointType.RTDB_SIO == pointType ) {
+				} else if ( PointType.sio == pointType ) {
 					for ( String attribute : sioStaticAttibutes ) {
 						dbaddressesArrayList.add(dbaddress+attribute);
 					}

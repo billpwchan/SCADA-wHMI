@@ -71,8 +71,8 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		if ( null != raw ) {
 			content = raw.split( regexp );
 		} else {
-			s_logger.warn("{} split content IS NULL", logPrefix);
-			s_logger.warn("{} split regexp[{}] rawMessage[{}]", new Object[]{logPrefix, regexp, raw});
+			s_logger.error("{} split content IS NULL", logPrefix);
+			s_logger.error("{} split regexp[{}] rawMessage[{}]", new Object[]{logPrefix, regexp, raw});
 		}
 		return content;
 	}
@@ -144,7 +144,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		if ( isInteger(keyindex1) ) {
 			keyindex = Integer.parseInt(keyindex1);
 		} else {
-			s_logger.warn("{} keyindex[{}]", logPrefix, keyindex);
+			s_logger.error("{} keyindex[{}]", logPrefix, keyindex);
 		}
 		
 		s_logger.info("{} keyindex[{}]", logPrefix, keyindex);
@@ -169,7 +169,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 				s_logger.info("{} getStringAttribute MapStringByStringAttribute getValue IS NULL", logPrefix);
 			}
 		} else {
-			s_logger.warn("{} getStringAttribute AttributeClientAbstract IS NULL", logPrefix);
+			s_logger.error("{} getStringAttribute AttributeClientAbstract IS NULL", logPrefix);
 		}
 		return result;
 	}
@@ -199,7 +199,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 				value += statusname+":"+inputPropertiesByName.get(statusname);
 			}
 		} else {
-			s_logger.warn("{} printInputStatusByName PRINT inputPropertiesByName IS NULL");
+			s_logger.error("{} printInputStatusByName PRINT inputPropertiesByName IS NULL");
 		}
 		return value;
 	}
@@ -215,7 +215,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 				s_logger.info("{} printStringArray PRINT rawToken[{}]", logPrefix, rawToken);
 			}
 		} else {
-			s_logger.info("{} printStringArray PRINT rawToken IS NULL", logPrefix);
+			s_logger.error("{} printStringArray PRINT rawToken IS NULL", logPrefix);
 		}
 	}
 	
@@ -261,39 +261,42 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	            	String rawTokens []	= split(sperater, inValue1);
 	            	
 	            	if ( null != rawTokens ) {
-	                	
-	                	String inValueType	= rawTokens[keyindex];
-	                	s_logger.warn("{} compute inValueType[{}]", logPrefix, inValueType);
-	                
-	                	// Find mapping
-	                	String keyToMap = mappingname+inValueType;
-	            	    s_logger.info("{} compute keyToMap[{}]", logPrefix, keyToMap);
-	            	    
-	            	    String inValueFormat = mappings.get(keyToMap);
-	                	s_logger.info("{} compute inValueFormat[{}]", logPrefix, inValueFormat);
-	                	
-	                	if ( null != inValueFormat ) {
-		                	try {
-		                		outValue1 = String.format(inValueFormat, (Object[])rawTokens);
-		                		isvalid = true;
-		                	} catch ( IllegalFormatException e) {
-		                		s_logger.warn("{} compute Exception String.format inValueFormat[{}]", logPrefix, inValueFormat);
-		                		s_logger.warn("{} compute String.format Exception[{}]", logPrefix, e.toString());
-		                		printStringArray(rawTokens);
-		                	}
+	            		
+	            		if ( rawTokens.length > keyindex) {
+		                	String inValueType	= rawTokens[keyindex];
+		                	s_logger.warn("{} compute inValueType[{}]", logPrefix, inValueType);
+		                
+		                	// Find mapping
+		                	String keyToMap = mappingname+inValueType;
+		            	    s_logger.info("{} compute keyToMap[{}]", logPrefix, keyToMap);
+		            	    
+		            	    String inValueFormat = mappings.get(keyToMap);
+		                	s_logger.info("{} compute inValueFormat[{}]", logPrefix, inValueFormat);
 		                	
-	                	} else {
-	                		s_logger.info("{} compute inValueFormat IS NULL", logPrefix);
-	                	}
+		                	if ( null != inValueFormat ) {
+			                	try {
+			                		outValue1 = String.format(inValueFormat, (Object[])rawTokens);
+			                		isvalid = true;
+			                	} catch ( IllegalFormatException e) {
+			                		s_logger.warn("{} compute Exception String.format inValueFormat[{}]", logPrefix, inValueFormat);
+			                		s_logger.warn("{} compute String.format Exception[{}]", logPrefix, e.toString());
+			                		printStringArray(rawTokens);
+			                	}
+		                	} else {
+		                		s_logger.error("{} compute inValueFormat IS NULL", logPrefix);
+		                	}
+	            		} else {
+	            			s_logger.error("{} compute rawTokens.length[{}] <= keyindex[{}]", new Object[]{logPrefix, rawTokens.length, keyindex});
+	            		}
 	            	} else {
-	            		s_logger.info("{} compute inValue1[{}]", logPrefix, inValue1);
+	            		s_logger.error("{} compute inValue1[{}]", logPrefix, inValue1);
 	            	}
 	        	}
 	    	} else {
-	    		s_logger.info("{} compute obj1 IS NULL", logPrefix);
+	    		s_logger.error("{} compute obj1 IS NULL", logPrefix);
 	    	}
 	    } else {
-			s_logger.info("{} compute keyindex IS INVALID", logPrefix);
+			s_logger.error("{} compute keyindex IS INVALID", logPrefix);
 		}
 		
 		// Print original value if invalid

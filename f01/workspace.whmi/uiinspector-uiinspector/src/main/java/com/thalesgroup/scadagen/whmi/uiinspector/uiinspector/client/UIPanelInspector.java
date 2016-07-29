@@ -21,9 +21,9 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTag_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.Database;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.DatabaseEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
 public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	
@@ -261,6 +261,9 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		controlRegExpPatternWhileList	.add("(dio|aio)");
 		tagRegExpPatternWhileList		.add("(dioECT-PTW)");
 		advanceRegExpPatternWhileList	.add("(dci|aci)");
+		
+		
+		controlRegExpPatternBlackList	.add("(dioECT-PTW)");
 			
 		logger.log(Level.FINE, "buildTabsAddress Iterator Begin");
 		

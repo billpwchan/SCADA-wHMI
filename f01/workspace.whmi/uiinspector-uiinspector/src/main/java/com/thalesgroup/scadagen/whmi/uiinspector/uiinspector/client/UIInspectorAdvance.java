@@ -25,13 +25,13 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.Database;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.DatabaseEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dpc.DCP_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dpc.DpcMgr;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Observer;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class UIInspectorAdvance implements UIInspectorPage_i {
 	
@@ -42,10 +42,13 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	// Static Attribute List
 	private final String staticDciAttibutes []		= new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
 	private final String staticAciAttibutes []		= new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
+	private final String staticSciAttibutes []		= new String[] {PointName.label.toString(), PointName.salValueTable.toString(), PointName.hmiOrder.toString()};
 	
 	// Dynamic Attribute List
 	private final String dynamicDciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.dfoForcedStatus.toString()};
 	private final String dynamicAciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.afoForcedStatus.toString()};
+	private final String dynamicSciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.sfoForcedStatus.toString()};
+
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -132,16 +135,18 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					String point = RTDB_Helper.getPoint(dbaddress);
 					if ( null != point ) {
 						PointType pointType = RTDB_Helper.getPointType(point);
-						if ( pointType == PointType.RTDB_DCI ) {
+						if ( pointType == PointType.dci ) {
 							for ( String attribute : staticDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_ACI ) {
+						} else if ( pointType == PointType.aci ) {
 							for ( String attribute : staticAciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_SCI ) {
-
+						} else if ( pointType == PointType.sci ) {
+							for ( String attribute : staticSciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
 						} else {
 							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
 						}
@@ -191,16 +196,18 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					String point = RTDB_Helper.getPoint(dbaddress);
 					if ( null != point ) {
 						PointType pointType = RTDB_Helper.getPointType(point);
-						if ( pointType == PointType.RTDB_DCI ) {
+						if ( pointType == PointType.dci ) {
 							for ( String attribute : dynamicDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_ACI ) {
+						} else if ( pointType == PointType.aci ) {
 							for ( String attribute : dynamicAciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_SCI ) {
-
+						} else if ( pointType == PointType.sci ) {
+							for ( String attribute : dynamicSciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
 						} else {
 							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
 						}
@@ -499,7 +506,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 				String point = RTDB_Helper.getPoint(address);
 				PointType pointType = RTDB_Helper.getPointType(point);
 				
-				if ( PointType.RTDB_DCI == pointType ) {
+				if ( PointType.dci == pointType ) {
 					
 					txtValues[y].setVisible(false);
 					lstValues[y].setVisible(true);
@@ -541,7 +548,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					} else {
 						logger.log(Level.SEVERE, "updateValue valueTable IS NULL!");
 					}
-				} else if ( PointType.RTDB_ACI == pointType ) {
+				} else if ( PointType.aci == pointType ) {
 					
 					txtValues[y].setVisible(true);
 					lstValues[y].setVisible(false);
@@ -558,7 +565,24 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					
 					txtValues[y].setText(value);
 					
-				} 
+				} else if ( PointType.sci == pointType ) {
+					
+					txtValues[y].setVisible(true);
+					lstValues[y].setVisible(false);
+					
+					String value = null;
+					{
+						String dbaddress = address + PointName.value.toString();
+						if ( dbvalues.containsKey(dbaddress) ) {
+							value = dbvalues.get(dbaddress);
+						} else {
+							logger.log(Level.FINE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+						}
+					}
+					
+					txtValues[y].setText(value);
+					
+				}
 			}
 			
 		}
@@ -586,12 +610,12 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 				
 				String sForcedStatus = null;
 				
-				if ( PointType.RTDB_DCI == pointType ) {
+				if ( PointType.dci == pointType ) {
 					sForcedStatus = getStatusValue(address, PointName.dfoForcedStatus.toString());
-				} else if ( PointType.RTDB_ACI == pointType ){
+				} else if ( PointType.aci == pointType ){
 					sForcedStatus = getStatusValue(address, PointName.afoForcedStatus.toString());
-				} else if ( PointType.RTDB_SCI == pointType ) {
-					
+				} else if ( PointType.sci == pointType ) {
+					sForcedStatus = getStatusValue(address, PointName.sfoForcedStatus.toString());
 				}
 				
 				if ( null != sForcedStatus ) {
@@ -661,7 +685,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 
 							logger.log(Level.FINE, "updateValue point["+point+"]");
 							
-							if ( PointType.RTDB_DCI == pointType ) {
+							if ( PointType.dci == pointType ) {
 								
 								String valueTable = null;
 								{
@@ -689,10 +713,10 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 										}
 									}
 								}
-							} else if ( PointType.RTDB_ACI == pointType ) {
+							} else if ( PointType.aci == pointType ) {
 								txtValues[y].setValue(value);
-							} else if ( PointType.RTDB_SCI == pointType ) {
-								
+							} else if ( PointType.sci == pointType ) {
+								txtValues[y].setValue(value);
 							}
 
 						}
@@ -778,12 +802,12 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						
 						String sForcedStatus = null;
 						
-						if ( PointType.RTDB_DCI == pointType ) {
+						if ( PointType.dci == pointType ) {
 							sForcedStatus = getStatusValue(dbaddress, PointName.dfoForcedStatus.toString());
-						} else if ( PointType.RTDB_ACI == pointType ){
+						} else if ( PointType.aci == pointType ){
 							sForcedStatus = getStatusValue(dbaddress, PointName.afoForcedStatus.toString());
-						} else if ( PointType.RTDB_SCI == pointType ) {
-							
+						} else if ( PointType.sci == pointType ) {
+							sForcedStatus = getStatusValue(dbaddress, PointName.sfoForcedStatus.toString());
 						}
 						
 						if ( null != sForcedStatus ) {
@@ -813,7 +837,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						if ( isAIApply || isAICancel || isSSApply || isSSCancel || isManualOverrideApply || isManualOverrideCancel ) {
 
 							
-							if ( PointType.RTDB_DCI == pointType ) {
+							if ( PointType.dci == pointType ) {
 								
 								int moIndex = lstValues[index].getSelectedIndex();
 								
@@ -843,13 +867,13 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 									logger.log(Level.SEVERE, "sendControl Integer.parseInt("+sValue+")");
 								}
 
-							} else if ( PointType.RTDB_ACI == pointType || PointType.RTDB_SCI == pointType ) {
+							} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
 								
 								moSValue = txtValues[index].getText();
 								
 								logger.log(Level.FINE, "sendControl moSValue["+moSValue+"]");
 								
-								if ( PointType.RTDB_ACI == pointType ) {
+								if ( PointType.aci == pointType ) {
 									
 									try {
 										moFValue = Float.parseFloat(moSValue);
@@ -920,19 +944,19 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 								
 								logger.log(Level.SEVERE, "sendControl pointType["+pointType+"]");
 								
-								if ( PointType.RTDB_DCI == pointType ) {
+								if ( PointType.dci == pointType ) {
 									
 									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moIValue["+moIValue+"]");
 									
 									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
 									
-								} else if ( PointType.RTDB_ACI == pointType ) {
+								} else if ( PointType.aci == pointType ) {
 									
 									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moFValue["+moFValue+"]");
 									
 									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
 									
-								} else if ( PointType.RTDB_SCI == pointType ) {
+								} else if ( PointType.sci == pointType ) {
 									
 									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moSValue["+moSValue+"]");
 									

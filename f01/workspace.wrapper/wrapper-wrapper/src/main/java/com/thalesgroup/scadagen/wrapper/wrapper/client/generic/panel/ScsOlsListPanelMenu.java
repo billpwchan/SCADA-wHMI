@@ -121,7 +121,7 @@ public class ScsOlsListPanelMenu extends GDGContextMenuAbstract implements Comma
 
         @Override
         public void execute() {
-            EntityClient entity = entities_.iterator().next();
+//            EntityClient entity = entities_.iterator().next();
 //            OpenSituationViewEvent event = new OpenSituationViewEvent(
 //                    (String) entity.getAttribute(DEFAULT_IMAGE).getValue());
 //            eventBus_.fireEventFromSource(event, this);

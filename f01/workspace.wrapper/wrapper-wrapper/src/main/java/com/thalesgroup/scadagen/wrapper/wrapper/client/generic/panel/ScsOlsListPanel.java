@@ -19,7 +19,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.component.Capti
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterChangeEventAbstract;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.SingleSelectionModel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
@@ -114,8 +114,8 @@ public class ScsOlsListPanel implements IClientLifeCycle, UIWidget_i {
     private void initPresenter() {
         if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
             gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
-//            gridPresenter_.setSelectionModel(new MultipleSelectionModel());
-            gridPresenter_.setSelectionModel(new SingleSelectionModel());
+            gridPresenter_.setSelectionModel(new MultipleSelectionModel());
+//            gridPresenter_.setSelectionModel(new SingleSelectionModel());
             gridPresenter_.setMenu(contextMenu_);
 
             initHandler();

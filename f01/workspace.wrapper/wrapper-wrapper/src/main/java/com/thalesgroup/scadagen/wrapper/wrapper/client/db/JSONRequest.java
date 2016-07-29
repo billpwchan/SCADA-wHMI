@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 
 class JSONRequest {
 	String api;

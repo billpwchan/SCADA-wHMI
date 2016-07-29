@@ -15,8 +15,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.common.PT
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.common.PTWCommonEventHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.dpc.DCP_i.TaggingStatus;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.dpc.DpcMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
 public class PTWAction implements UIWidget_i {
 	

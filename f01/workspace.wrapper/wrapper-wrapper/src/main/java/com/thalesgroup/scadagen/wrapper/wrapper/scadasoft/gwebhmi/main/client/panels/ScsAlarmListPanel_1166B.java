@@ -339,4 +339,12 @@ logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+str
         	logger.log(Level.FINE, "onCounterChange End");
     	}
     }
+    
+    public void ackVisible() {
+    	if ( null != gridView_ )	gridView_.ackVisible();
+    }
+    
+    public void ackVisibleSelected() {
+    	if ( null != gridView_ )	gridView_.ackVisibleSelected();
+    }
 }

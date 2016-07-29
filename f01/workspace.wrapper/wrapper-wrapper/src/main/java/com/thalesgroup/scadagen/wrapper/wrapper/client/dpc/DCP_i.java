@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.client.util.dpc;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.dpc;
 
 public interface DCP_i {
 	  /**@name Typedefs / defines*/

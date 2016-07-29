@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.observer;
 
 import java.util.ArrayList;
 import java.util.List;

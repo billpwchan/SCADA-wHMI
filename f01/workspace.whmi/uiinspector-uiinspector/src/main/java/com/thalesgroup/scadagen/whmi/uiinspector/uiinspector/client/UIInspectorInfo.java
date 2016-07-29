@@ -23,9 +23,9 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.Database;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database.DatabaseEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
 public class UIInspectorInfo implements UIInspectorPage_i {
 	
@@ -41,11 +41,13 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 	// Static Attribute List
 	private final String staticAciAttibutes [] = new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
 	private final String staticDciAttibutes [] = new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
+	private final String staticSciAttibutes [] = new String[] {PointName.label.toString(), PointName.salValueTable.toString(), PointName.hmiOrder.toString()};
 	
 	// Dynamic Attribute List
 	private final String dynamicAciAttibutes [] = new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.aalValueAlarmVector.toString(), PointName.afoForcedStatus.toString()};
 	private final String dynamicDciAttibutes [] = new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.dalValueAlarmVector.toString(), PointName.dfoForcedStatus.toString()};
-
+	private final String dynamicSciAttibutes [] = new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.salValueAlarmVector.toString(), PointName.sfoForcedStatus.toString()};
+	
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
@@ -89,16 +91,18 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 					String point = RTDB_Helper.getPoint(dbaddress);
 					if ( null != point ) {
 						PointType pointType = RTDB_Helper.getPointType(point);
-						if ( pointType == PointType.RTDB_DCI ) {
+						if ( pointType == PointType.dci ) {
 							for ( String attribute : staticDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_ACI ) {
+						} else if ( pointType == PointType.aci ) {
 							for ( String attribute : staticAciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_SCI ) {
-
+						} else if ( pointType == PointType.sci ) {
+							for ( String attribute : staticSciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
 						} else {
 							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
 						}
@@ -151,16 +155,18 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 					if ( null != point ) {
 						
 						PointType pointType = RTDB_Helper.getPointType(point);
-						if ( pointType == PointType.RTDB_DCI ) {
+						if ( pointType == PointType.dci ) {
 							for ( String attribute : dynamicDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}							
-						} else if ( pointType == PointType.RTDB_ACI ) {
+						} else if ( pointType == PointType.aci ) {
 							for ( String attribute : dynamicAciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
-						} else if ( pointType == PointType.RTDB_SCI ) {
-							
+						} else if ( pointType == PointType.sci ) {
+							for ( String attribute : dynamicSciAttibutes ) {
+								dbaddressesArrayList.add(dbaddress+attribute);
+							}
 						} else {
 							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
 						}
@@ -416,11 +422,11 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			String point = RTDB_Helper.getPoint(address);
 			PointType pointType = RTDB_Helper.getPointType(point);
 
-			if ( PointType.RTDB_DCI == pointType ) {
+			if ( PointType.dci == pointType ) {
 				updateDci(address, y);
-			} else if ( PointType.RTDB_ACI == pointType ){
+			} else if ( PointType.aci == pointType ){
 				updateAci(address, y);
-			} else if ( PointType.RTDB_SCI == pointType ) {
+			} else if ( PointType.sci == pointType ) {
 				updateSci(address, y);
 			}
 
@@ -597,7 +603,68 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 	}
 	
 	void updateSci(String address, int row) {
+		String value = null;
+		{
+			String dbaddress = address + PointName.value.toString();
+			logger.log(Level.FINE, "updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			if ( dbvalues.containsKey(dbaddress) ) {
+				value = dbvalues.get(dbaddress);
+			} else {
+				logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+			}
+		}		
 		
+		logger.log(Level.FINE, "updateValue value["+value+"]");
+		
+		value = RTDB_Helper.removeDBStringWrapper(value);
+		txtAttributeValue[row].setText(value);	
+
+		String valueAlarmVector = null;
+		String validity = null;
+		String forcedStatus = null;
+		{
+			{
+				String dbaddress = address + PointName.salValueAlarmVector.toString();
+				logger.log(Level.FINE, "updateValue PointName.value.toString()AlarmVector["+PointName.salValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
+				if ( dbvalues.containsKey(dbaddress) ) {
+					valueAlarmVector = dbvalues.get(dbaddress);
+				} else {
+					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				}
+			}
+			
+			logger.log(Level.FINE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
+			
+			{
+				String dbaddress = address + PointName.validity.toString();
+				logger.log(Level.FINE, "updateValue PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
+				if ( dbvalues.containsKey(dbaddress) ) {
+					validity = dbvalues.get(dbaddress);
+				} else {
+					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				}
+			}
+			
+			logger.log(Level.FINE, "updateValue validity["+validity+"]");
+			
+			{
+				String dbaddress = address + PointName.sfoForcedStatus.toString();
+				logger.log(Level.FINE, "updateValue strForcedStatus["+PointName.sfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				if ( dbvalues.containsKey(dbaddress) ) {
+					forcedStatus = dbvalues.get(dbaddress);
+				} else {
+					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				}
+			}
+			
+			logger.log(Level.FINE, "updateValue forcedStatus["+forcedStatus+"]");
+
+		}
+		
+		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		txtAttibuteColor[row].setStyleName(strColorCSS);
+		
+		logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
 	}
 	
 	FlexTable flexTableAttibutes = null;
@@ -646,9 +713,7 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-
 				onButton((Button)event.getSource());
-
 			}
 		});	
 		

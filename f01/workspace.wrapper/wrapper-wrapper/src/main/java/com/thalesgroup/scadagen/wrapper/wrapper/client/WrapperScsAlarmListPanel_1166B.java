@@ -63,4 +63,11 @@ public class WrapperScsAlarmListPanel_1166B {
 	    return alarmPanel;
 	}
 
+    public void ackVisible() {
+    	if ( null != scsAlarmListPanel )	scsAlarmListPanel.ackVisible();
+    }
+    
+    public void ackVisibleSelected() {
+    	if ( null != scsAlarmListPanel )	scsAlarmListPanel.ackVisibleSelected();
+    }
 }

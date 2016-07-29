@@ -21,13 +21,14 @@ public class UIPanelAlarmBannerList implements UIWidget_i, WrapperScsAlarmListPa
 		this.uiNameCard.appendUIPanel(this);
 	};
 	
+	private WrapperScsAlarmListPanel_1166B wrapperScsAlarmListPanel = null;
 	private ComplexPanel complexPanel = null;
 	@Override
 	public void init(String xmlFile) {
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
 	    String ALARM_LIST_BANNER_ID = "alarmListBanner";
-	    WrapperScsAlarmListPanel_1166B wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel_1166B(ALARM_LIST_BANNER_ID, false, false, false);
+	    wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel_1166B(ALARM_LIST_BANNER_ID, false, false, false);
 	    wrapperScsAlarmListPanel.setSize("1450px", "160px");
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
 			@Override
@@ -56,7 +57,7 @@ public class UIPanelAlarmBannerList implements UIWidget_i, WrapperScsAlarmListPa
 	
 	@Override
 	public void valueChanged(String name, String value) {
-		logger.log(Level.SEVERE, "valueChanged name["+name+"] value["+value+"]");
+		logger.log(Level.FINE, "valueChanged name["+name+"] value["+value+"]");
 		if ( null != wrapperScsAlarmListPanelEvent ) 
 			this.wrapperScsAlarmListPanelEvent.valueChanged(name, value);
 	}
@@ -69,8 +70,18 @@ public class UIPanelAlarmBannerList implements UIWidget_i, WrapperScsAlarmListPa
 
 	@Override
 	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
+		logger.log(Level.FINE, "setValue name["+name+"] value["+value+"]");
+		if ( null != name ) {
+			if ( "ackVisible".equals(name) ) {
+				if ( null != wrapperScsAlarmListPanel ) {
+					wrapperScsAlarmListPanel.ackVisible();
+				} else {
+					logger.log(Level.SEVERE, "setValue wrapperScsAlarmListPanel IS NULL");
+				}
+			}
+		} else {
+			logger.log(Level.SEVERE, "setValue name IS NULL");
+		}
 	}
 
 	@Override

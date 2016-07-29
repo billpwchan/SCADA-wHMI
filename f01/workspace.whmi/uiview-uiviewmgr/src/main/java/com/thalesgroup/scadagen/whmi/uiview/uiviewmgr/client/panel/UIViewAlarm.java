@@ -5,6 +5,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -37,6 +39,15 @@ public class UIViewAlarm implements UIWidget_i {
 		}
 	}
 	
+	private final String strAcknowledge = "Ack";
+	private final String strAcknowledgePage = "Ack. Page";
+	private final String strPrint = "Print";
+	private final String strFilterReset = "Filter Reset";
+	private final String strFilterApplied = "Filter Applied";
+	private final String [] strFilters = new String [] {
+			strAcknowledge, strAcknowledgePage, strPrint, strFilterReset, strFilterApplied
+	};
+	
 	private String [] counterNames = { 
 			"alarmlist_counter_all_unack", "alarmlist_counter_critical_unack", "alarmlist_counter_hight_unack", "alarmlist_counter_medium_unack"/*, "alarmlist_counter_low_unack"*/
 			, "alarmlist_counter_all", "alarmlist_counter_critical", "alarmlist_counter_hight", "alarmlist_counter_medium"/*, "alarmlist_counter_low"*/
@@ -56,7 +67,30 @@ public class UIViewAlarm implements UIWidget_i {
 		this.uiNameCard.appendUIPanel(this);
 	}
 	
+	private void onButton(Button button) {
+		if ( null != button ) {
+			String text = button.getText();
+			logger.log(Level.FINE, "onButton text["+text+"]");
+			if ( null != text ) {
+				if ( null != wrapperScsAlarmListPanel ) {
+					if ( strAcknowledge.equals(text) ) {
+						wrapperScsAlarmListPanel.ackVisibileSelected();
+					} else if ( strAcknowledgePage.equals(text) ) {
+						wrapperScsAlarmListPanel.ackVisibile();
+					}
+				} else {
+					logger.log(Level.SEVERE, "onButton wrapperScsAlarmListPanel IS NULL");
+				}
+			} else {
+				logger.log(Level.SEVERE, "onButton text IS NULL");
+			}
+		} else {
+			logger.log(Level.SEVERE, "onButton button IS NULL");
+		}
+	}
+	
 	private ComplexPanel root = null;
+	private WrapperScsAlarmListPanel wrapperScsAlarmListPanel = null;
 	@Override
 	public void init(String xmlFile) {
 		FlexTable flexTableFilters = new FlexTable();
@@ -76,15 +110,6 @@ public class UIViewAlarm implements UIWidget_i {
 			flexTableFilters.setWidget(i/8, i%8, inlineLabel[i]);
 		}
 
-		String strAcknowledge = "Ack";
-		String strAcknowledgePage = "Ack. Page";
-		String strPrint = "Print";
-		String strFilterReset = "Filter Reset";
-		String strFilterApplied = "Filter Applied";
-		String [] strFilters = new String [] {
-				strAcknowledge, strAcknowledgePage, strPrint, strFilterReset, strFilterApplied
-		};
-		
 		String strAcknowledgeCss		= "project-gwt-button-alarmsummary-ack";
 		String strAcknowledgePageCss	= "project-gwt-button-alarmsummary-ackpage";
 		String strPrintCss 				= "project-gwt-button-alarmsummary-print";
@@ -96,10 +121,17 @@ public class UIViewAlarm implements UIWidget_i {
 		for(int i=0;i<strFilters.length;++i){
 			Button button = new Button(strFilters[i]);
 			button.addStyleName(strFilterCsss[i]);
-
 			filterBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 			filterBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 			filterBar.add(button);
+			
+			button.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					onButton((Button) event.getSource());
+				}
+			});
 		}
 		
 		HorizontalPanel upperBar = new HorizontalPanel();
@@ -116,7 +148,7 @@ public class UIViewAlarm implements UIWidget_i {
 		basePanel.addNorth(upperBar, 60);
 
 	    String SCS_ALARM_LIST_ID = "scsalarmList";
-	    WrapperScsAlarmListPanel wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(SCS_ALARM_LIST_ID, false, false, true);
+	    wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(SCS_ALARM_LIST_ID, false, false, true);
 	    wrapperScsAlarmListPanel.setSize("100%", "100%");
 	    wrapperScsAlarmListPanel.setBorderWidth(1);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {

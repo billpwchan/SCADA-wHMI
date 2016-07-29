@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.ctl;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
 import java.util.LinkedHashMap;
 

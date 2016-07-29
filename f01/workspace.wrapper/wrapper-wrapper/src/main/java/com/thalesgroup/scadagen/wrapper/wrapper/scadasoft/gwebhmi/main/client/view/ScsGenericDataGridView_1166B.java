@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.view;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -21,6 +23,21 @@ public class ScsGenericDataGridView_1166B extends GenericDataGridView {
         DataGrid<EntityClient> dataGrid = getInnerDataGrid();
         List<EntityClient> visibleEntityClient = dataGrid.getVisibleItems();
         AlarmUtils.acknowledge(visibleEntityClient);
+    }
+    
+    public void ackVisible() {
+    	ackPage();
+    }
+    
+    public void ackVisibleSelected() {
+        Set<EntityClient> selectedEntities = new HashSet<EntityClient>();
+        List<EntityClient> visibleItems = getInnerDataGrid().getVisibleItems();
+        for (EntityClient entity : visibleItems) {
+            if (getInnerDataGrid().getSelectionModel().isSelected(entity)) {
+                selectedEntities.add(entity);
+            }
+        }
+        AlarmUtils.acknowledge(selectedEntities);
     }
 
     public void ackVisibleItems() {

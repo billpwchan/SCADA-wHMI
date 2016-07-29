@@ -10,13 +10,13 @@ public class RTDB_Helper {
 	public static final int valueAlarmVectorIndex = 1;
 	
 	public enum PointType {
-		RTDB_UNKNOW("RTDB_POINT_UNKNOW")
-		, RTDB_ACI("aci")
-		, RTDB_DCI("dci")
-		, RTDB_SCI("sci")
-		, RTDB_AIO("aio")
-		, RTDB_DIO("dio")
-		, RTDB_SIO("sio")
+		unknow("POINT_TYPE_UNKNOW")
+		, aci("aci")
+		, dci("dci")
+		, sci("sci")
+		, aio("aio")
+		, dio("dio")
+		, sio("sio")
 		;
 		
 		private final String text;
@@ -33,7 +33,8 @@ public class RTDB_Helper {
 		, shortLabel(".shortLabel")
 		, geographicalCat(".geographicalCat")
 		, aalValueTable(":aal.valueTable")
-		, dalValueTable(":dal.valueTable")		
+		, dalValueTable(":dal.valueTable")
+		, salValueTable(":sal.valueTable")
 		
 		, hmiOrder(".hmiOrder")
 		, valueTable(".valueTable")
@@ -45,9 +46,11 @@ public class RTDB_Helper {
 		
 		, aalValueAlarmVector(":aal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
 		, dalValueAlarmVector(":dal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
+		, salValueAlarmVector(":sal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
 		
 		, afoForcedStatus(":afo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
 		, dfoForcedStatus(":dfo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+		, sfoForcedStatus(":sfo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
 		;
 		private final String text;
 		private PointName(final String text) { this.text = text; }
@@ -63,26 +66,26 @@ public class RTDB_Helper {
 
 	public static PointType getPointType(String point) {
 		if ( null != point ) {
-			if ( point.startsWith(PointType.RTDB_ACI.toString()) ) {
-				return PointType.RTDB_ACI;
+			if ( point.startsWith(PointType.aci.toString()) ) {
+				return PointType.aci;
 			}
-			if ( point.startsWith(PointType.RTDB_DCI.toString()) ) {
-				return PointType.RTDB_DCI;
+			if ( point.startsWith(PointType.dci.toString()) ) {
+				return PointType.dci;
 			}
-			if ( point.startsWith(PointType.RTDB_SCI.toString()) ) {
-				return PointType.RTDB_SCI;
+			if ( point.startsWith(PointType.sci.toString()) ) {
+				return PointType.sci;
 			}
-			if ( point.startsWith(PointType.RTDB_AIO.toString()) ) {
-				return PointType.RTDB_AIO;
+			if ( point.startsWith(PointType.aio.toString()) ) {
+				return PointType.aio;
 			}
-			if ( point.startsWith(PointType.RTDB_DIO.toString()) ) {
-				return PointType.RTDB_DIO;
+			if ( point.startsWith(PointType.dio.toString()) ) {
+				return PointType.dio;
 			}
-			if ( point.startsWith(PointType.RTDB_SIO.toString()) ) {
-				return PointType.RTDB_SIO;
+			if ( point.startsWith(PointType.sio.toString()) ) {
+				return PointType.sio;
 			}
 		}
-		return PointType.RTDB_UNKNOW;
+		return PointType.unknow;
 	}
 	
 	public static String removeDBStringWrapper(String value) {

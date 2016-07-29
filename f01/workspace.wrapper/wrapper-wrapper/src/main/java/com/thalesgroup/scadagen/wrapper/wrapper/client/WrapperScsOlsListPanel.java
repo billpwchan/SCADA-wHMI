@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanel;
 
 /**

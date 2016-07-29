@@ -5,16 +5,12 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class AbsolutePanelOlsList implements UIWidget_i {
-
-	/** Logger */
-    private final ClientLogger s_logger = ClientLogger.getClientLogger();
 
     /**
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}

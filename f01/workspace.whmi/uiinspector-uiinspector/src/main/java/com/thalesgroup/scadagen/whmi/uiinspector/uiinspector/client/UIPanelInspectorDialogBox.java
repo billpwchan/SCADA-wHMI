@@ -78,7 +78,7 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		int windowWidth = 1920; //Window.getClientWidth();
 		int windowHeight = screenHeight;
 		
-		int curScreenID = mouseX / screenWidth;
+		int curScreenID = this.uiNameCard.getUiScreen();
 		
 		int widthMultBase = 2;
 		int widthMultValue = 1;

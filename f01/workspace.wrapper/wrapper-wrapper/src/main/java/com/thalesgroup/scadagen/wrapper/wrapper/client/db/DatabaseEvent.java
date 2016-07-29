@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.database;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 
 public interface DatabaseEvent {
 	void update(String key, String value[]);

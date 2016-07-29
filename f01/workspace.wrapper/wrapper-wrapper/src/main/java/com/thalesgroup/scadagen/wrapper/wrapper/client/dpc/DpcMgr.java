@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dpc;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.dpc;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -8,9 +8,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.WrapperScsDPCComponentAccess;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dpc.DCP_i.TaggingStatus;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.observer.Subject;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.IDPCComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dpc.ScsDPCComponentAccess;
 
@@ -40,7 +39,7 @@ public class DpcMgr {
 		
 		this.subject = new Subject();
 		
-		dpcAccess = new WrapperScsDPCComponentAccess(new IDPCComponentClient() {
+		dpcAccess = new ScsDPCComponentAccess(new IDPCComponentClient() {
 			
 			@Override
 			public void destroy() {

@@ -11,6 +11,7 @@ public class Translation {
 	private static final String JS_DICTIONARY_VAR_NAME = "table";
 	private static final Dictionary dictionary = Dictionary.getDictionary(JS_DICTIONARY_VAR_NAME);
 	public static String getWording(String key) {
+		logger.log(Level.SEVERE, "getWording[{}] ");
 		String value = key;
         try {
             if (dictionary != null) value = dictionary.get(key);

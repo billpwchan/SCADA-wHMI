@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.IllegalFormatException;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 
 /**
@@ -24,7 +27,7 @@ import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
  */
 public abstract class GDGMessage extends SCSStatusComputer {
 	
-	private final Logger s_logger			= LoggerFactory.getLogger(GDGMessage.class.getName());
+	private final Logger logger			= LoggerFactory.getLogger(GDGMessage.class.getName());
 	
 	protected String classname				= null;
 	
@@ -71,8 +74,8 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		if ( null != raw ) {
 			content = raw.split( regexp );
 		} else {
-			s_logger.error("{} split content IS NULL", logPrefix);
-			s_logger.error("{} split regexp[{}] rawMessage[{}]", new Object[]{logPrefix, regexp, raw});
+			logger.error("{} split content IS NULL", logPrefix);
+			logger.error("{} split regexp[{}] rawMessage[{}]", new Object[]{logPrefix, regexp, raw});
 		}
 		return content;
 	}
@@ -115,8 +118,8 @@ public abstract class GDGMessage extends SCSStatusComputer {
     	classname = classnames[classnames.length-1];
     	logPrefix = classname;
     	
-    	s_logger.info("{} getComputerId[{}]", logPrefix, getComputerId());
-    	s_logger.info("{} classname[{}]", logPrefix, classname);
+    	logger.info("{} getComputerId[{}]", logPrefix, getComputerId());
+    	logger.info("{} classname[{}]", logPrefix, classname);
     	
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
 		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
@@ -136,18 +139,18 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		key1		= mappings.get(keyname1);
 		sperater	= mappings.get(speratername);
 		
-		s_logger.info("{} {} field1[{}]", 		new Object[]{logPrefix,fieldname1,field1});
-		s_logger.info("{} {} keyindex1[{}]", 	new Object[]{logPrefix,keyindexname1,keyindex1});
-		s_logger.info("{} {} key1[{}]", 		new Object[]{logPrefix,keyname1,key1});
-		s_logger.info("{} {} sperater[{}]", 	new Object[]{logPrefix,sperater,sperater});
+		logger.info("{} {} field1[{}]", 		new Object[]{logPrefix,fieldname1,field1});
+		logger.info("{} {} keyindex1[{}]", 	new Object[]{logPrefix,keyindexname1,keyindex1});
+		logger.info("{} {} key1[{}]", 		new Object[]{logPrefix,keyname1,key1});
+		logger.info("{} {} sperater[{}]", 	new Object[]{logPrefix,sperater,sperater});
 
 		if ( isInteger(keyindex1) ) {
 			keyindex = Integer.parseInt(keyindex1);
 		} else {
-			s_logger.error("{} keyindex[{}]", logPrefix, keyindex);
+			logger.error("{} keyindex[{}]", logPrefix, keyindex);
 		}
 		
-		s_logger.info("{} keyindex[{}]", logPrefix, keyindex);
+		logger.info("{} keyindex[{}]", logPrefix, keyindex);
 		
 		m_statusSet.add(field1);
 		
@@ -166,10 +169,10 @@ public abstract class GDGMessage extends SCSStatusComputer {
 			if ( null != map ) {
 				result = map.get( key1 );
 			} else {
-				s_logger.info("{} getStringAttribute MapStringByStringAttribute getValue IS NULL", logPrefix);
+				logger.info("{} getStringAttribute MapStringByStringAttribute getValue IS NULL", logPrefix);
 			}
 		} else {
-			s_logger.error("{} getStringAttribute AttributeClientAbstract IS NULL", logPrefix);
+			logger.error("{} getStringAttribute AttributeClientAbstract IS NULL", logPrefix);
 		}
 		return result;
 	}
@@ -183,7 +186,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		String value = "";
 		if ( null != inputStatusByName ) {
 			for ( String statusname : inputStatusByName.keySet() ) {
-				s_logger.warn("{} printInputStatusByName PRINT inputStatusByName statusname[{}] value[{}]", new Object[]{logPrefix, statusname, inputStatusByName.get(statusname)});
+				logger.warn("{} printInputStatusByName PRINT inputStatusByName statusname[{}] value[{}]", new Object[]{logPrefix, statusname, inputStatusByName.get(statusname)});
 				value += statusname+":"+inputStatusByName.get(statusname);
 				
 			}
@@ -195,13 +198,36 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		}
 		if ( null != inputPropertiesByName ) {
 			for ( String statusname : inputPropertiesByName.keySet() ) {
-				s_logger.info("{} printInputStatusByName PRINT inputStatusByName statusname[{}] value[{}]", new Object[]{logPrefix, statusname, inputPropertiesByName.get(statusname)});
+				logger.info("{} printInputStatusByName PRINT inputStatusByName statusname[{}] value[{}]", new Object[]{logPrefix, statusname, inputPropertiesByName.get(statusname)});
 				value += statusname+":"+inputPropertiesByName.get(statusname);
 			}
 		} else {
-			s_logger.error("{} printInputStatusByName PRINT inputPropertiesByName IS NULL");
+			logger.error("{} printInputStatusByName PRINT inputPropertiesByName IS NULL", logPrefix);
 		}
 		return value;
+	}
+	
+	private String getDBMessage(String regex, String input) {
+		logger.error("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, input});
+		String ret = input;
+		try {
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(input);
+			while(m.find()) {
+				String key = m.group();
+				logger.error("{} m.group()[{}]", "getDBMessage", key);
+				String translation = Translation.getWording(key);
+				
+				logger.error("{} m.group()[{}] key[{}] t[{}]", new Object[]{"getDBMessage", key, translation});
+				if ( null != translation ) {
+					ret = ret.replaceAll(key, translation);
+				}
+			}
+		} catch ( PatternSyntaxException e ) {
+			logger.error("{} PatternSyntaxException[{}]", "getDBMessage", e.toString());
+		}
+
+		return ret;
 	}
 	
 	/**
@@ -212,10 +238,10 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	private void printStringArray(String [] rawTokens) {
 		if ( null != rawTokens ) {
 			for ( String rawToken : rawTokens ) {
-				s_logger.info("{} printStringArray PRINT rawToken[{}]", logPrefix, rawToken);
+				logger.info("{} printStringArray PRINT rawToken[{}]", logPrefix, rawToken);
 			}
 		} else {
-			s_logger.error("{} printStringArray PRINT rawToken IS NULL", logPrefix);
+			logger.error("{} printStringArray PRINT rawToken IS NULL", logPrefix);
 		}
 	}
 	
@@ -227,12 +253,12 @@ public abstract class GDGMessage extends SCSStatusComputer {
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     { 
-		s_logger.info("{} compute Begin", logPrefix);
-		s_logger.info("{} compute getComputerId()[{}]", logPrefix, getComputerId());
-    	s_logger.info("{} compute field1[{}]", logPrefix, field1);
+		logger.info("{} compute Begin", logPrefix);
+		logger.info("{} compute getComputerId()[{}]", logPrefix, getComputerId());
+    	logger.info("{} compute field1[{}]", logPrefix, field1);
     	
-		s_logger.info("{} compute PRINT operatorOpmInfo[{}]", logPrefix, operatorOpmInfo);
-		s_logger.info("{} compute PRINT entityId[{}]", logPrefix, entityId);
+		logger.info("{} compute PRINT operatorOpmInfo[{}]", logPrefix, operatorOpmInfo);
+		logger.info("{} compute PRINT entityId[{}]", logPrefix, entityId);
 		
 		boolean isvalid = false;
 		
@@ -253,55 +279,58 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	        	} else if ( obj1 instanceof MapStringByStringAttribute ) {
 	        		inValue1 = getMapStringByStringAttribute(obj1, key1);
 	        	} else {
-	    			s_logger.warn("{} getStringAttribute AttributeClientAbstract IS NULL", logPrefix);
+	    			logger.warn("{} getStringAttribute AttributeClientAbstract IS NULL", logPrefix);
 	    		}
-	        	s_logger.info("{} compute inValue1[{}]", logPrefix, inValue1);
+	        	logger.info("{} compute inValue1[{}]", logPrefix, inValue1);
 	        	
 	        	if ( null != inValue1 ) {
+	        		
+	        		inValue1 = getDBMessage("&[0-9a-zA-Z/$_-]+", inValue1);
+	        		
 	            	String rawTokens []	= split(sperater, inValue1);
 	            	
 	            	if ( null != rawTokens ) {
 	            		
 	            		if ( rawTokens.length > keyindex) {
 		                	String inValueType	= rawTokens[keyindex];
-		                	s_logger.warn("{} compute inValueType[{}]", logPrefix, inValueType);
+		                	logger.warn("{} compute inValueType[{}]", logPrefix, inValueType);
 		                
 		                	// Find mapping
 		                	String keyToMap = mappingname+inValueType;
-		            	    s_logger.info("{} compute keyToMap[{}]", logPrefix, keyToMap);
+		            	    logger.info("{} compute keyToMap[{}]", logPrefix, keyToMap);
 		            	    
 		            	    String inValueFormat = mappings.get(keyToMap);
-		                	s_logger.info("{} compute inValueFormat[{}]", logPrefix, inValueFormat);
+		                	logger.info("{} compute inValueFormat[{}]", logPrefix, inValueFormat);
 		                	
 		                	if ( null != inValueFormat ) {
 			                	try {
 			                		outValue1 = String.format(inValueFormat, (Object[])rawTokens);
 			                		isvalid = true;
 			                	} catch ( IllegalFormatException e) {
-			                		s_logger.warn("{} compute Exception String.format inValueFormat[{}]", logPrefix, inValueFormat);
-			                		s_logger.warn("{} compute String.format Exception[{}]", logPrefix, e.toString());
+			                		logger.warn("{} compute Exception String.format inValueFormat[{}]", logPrefix, inValueFormat);
+			                		logger.warn("{} compute String.format Exception[{}]", logPrefix, e.toString());
 			                		printStringArray(rawTokens);
 			                	}
 		                	} else {
-		                		s_logger.error("{} compute inValueFormat IS NULL", logPrefix);
+		                		logger.error("{} compute inValueFormat IS NULL", logPrefix);
 		                	}
 	            		} else {
-	            			s_logger.error("{} compute rawTokens.length[{}] <= keyindex[{}]", new Object[]{logPrefix, rawTokens.length, keyindex});
+	            			logger.error("{} compute rawTokens.length[{}] <= keyindex[{}]", new Object[]{logPrefix, rawTokens.length, keyindex});
 	            		}
 	            	} else {
-	            		s_logger.error("{} compute inValue1[{}]", logPrefix, inValue1);
+	            		logger.error("{} compute inValue1[{}]", logPrefix, inValue1);
 	            	}
 	        	}
 	    	} else {
-	    		s_logger.error("{} compute obj1 IS NULL", logPrefix);
+	    		logger.error("{} compute obj1 IS NULL", logPrefix);
 	    	}
 	    } else {
-			s_logger.error("{} compute keyindex IS INVALID", logPrefix);
+			logger.error("{} compute keyindex IS INVALID", logPrefix);
 		}
 		
 		// Print original value if invalid
 		if ( !isvalid ) {
-			s_logger.info("{} compute process IS INVALID", logPrefix);
+			logger.info("{} compute process IS INVALID", logPrefix);
 			outValue1 = printAndJoin(inputStatusByName, inputPropertiesByName);
 		}
 
@@ -313,8 +342,8 @@ public abstract class GDGMessage extends SCSStatusComputer {
 //		ret.setValid(obj1.isValid());
 		ret.setValue(outValue1);
 
-        s_logger.info("{} compute ret.getValue()[{}]", logPrefix, ret.getValue());
-        s_logger.info("{} compute End", logPrefix);
+        logger.info("{} compute ret.getValue()[{}]", logPrefix, ret.getValue());
+        logger.info("{} compute End", logPrefix);
 		
 		return ret;
     }

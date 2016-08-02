@@ -1,9 +1,11 @@
-package com.thalesgroup.scadagen.calculated;
+package com.thalesgroup.scadagen.common.calculated;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.IllegalFormatException;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -17,7 +19,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.computers.StatusComputer;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 
@@ -25,11 +27,28 @@ import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
  * @author syau
  *
  */
-public abstract class GDGMessage extends SCSStatusComputer {
+public abstract class GDGMessage implements StatusComputer {
 	
-	private final Logger logger			= LoggerFactory.getLogger(GDGMessage.class.getName());
+    protected Set<String> m_statusSet = new HashSet<String>();
+    protected Set<String> m_propertySet = new HashSet<String>();
+    protected String m_name = "";
+
+    @Override
+    public String getComputerId() {
+        return m_name;
+    }
+
+    @Override
+    public Set<String> getInputStatuses() {
+        return m_statusSet;
+    }
+
+    @Override
+    public Set<String> getInputProperties() {
+        return m_propertySet;
+    }
 	
-	protected String classname				= null;
+	protected Logger logger					= null;
 	
 	protected String logPrefix				= null;
 	
@@ -54,15 +73,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	protected int keyindex					= -1;
 	
 	protected Map<String, String> mappings	= new HashMap<String, String>();
-	
-	/* (non-Javadoc)
-	 * @see com.thalesgroup.scadagen.calculated.SCSStatusComputer#getComputerId()
-	 */
-	@Override
-	public String getComputerId() {
-		return this.getClass().getName();
-	}
-	
+
 	/**
 	 * Split input string
 	 * @param regexp : Regexp Rule to
@@ -108,26 +119,25 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	    }
 	    return true;
 	}
-	
+
 	/**
 	 * Loading and store the configuration according to the class name as prefix
 	 */
-	public GDGMessage () {
+	protected void loadCnf() {
+
+		logger = LoggerFactory.getLogger(GDGMessage.class.getName());
 		
-    	String classnames [] = getComputerId().split(Pattern.quote("."));
-    	classname = classnames[classnames.length-1];
-    	logPrefix = classname;
+    	logPrefix = m_name;
     	
     	logger.info("{} getComputerId[{}]", logPrefix, getComputerId());
-    	logger.info("{} classname[{}]", logPrefix, classname);
     	
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
 		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
 		if (properties != null) {
-			int classNameLength = classname.length();
+			int classNameLength = m_name.length();
 			// Load all setting with class prefix into buffer
 			for ( String key : properties.keySet() ) {
-				if ( key.startsWith(classname) ) {
+				if ( key.startsWith(m_name) ) {
 					String keyname = key.substring(classNameLength);
 					mappings.put(keyname, properties.get(key));
 				}
@@ -153,7 +163,6 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		logger.info("{} keyindex[{}]", logPrefix, keyindex);
 		
 		m_statusSet.add(field1);
-		
 	}
 	
 	/**
@@ -218,7 +227,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 				logger.error("{} m.group()[{}]", "getDBMessage", key);
 				String translation = Translation.getWording(key);
 				
-				logger.error("{} m.group()[{}] key[{}] t[{}]", new Object[]{"getDBMessage", key, translation});
+				logger.error("{} key[{}] translation[{}]", new Object[]{"getDBMessage", key, translation});
 				if ( null != translation ) {
 					ret = ret.replaceAll(key, translation);
 				}
@@ -253,12 +262,23 @@ public abstract class GDGMessage extends SCSStatusComputer {
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     { 
-		logger.info("{} compute Begin", logPrefix);
-		logger.info("{} compute getComputerId()[{}]", logPrefix, getComputerId());
+		logger.info("{} compute m_name[{}]", logPrefix, m_name);
     	logger.info("{} compute field1[{}]", logPrefix, field1);
     	
-		logger.info("{} compute PRINT operatorOpmInfo[{}]", logPrefix, operatorOpmInfo);
-		logger.info("{} compute PRINT entityId[{}]", logPrefix, entityId);
+//		logger.info("{} compute PRINT operatorOpmInfo[{}]", logPrefix, operatorOpmInfo);
+//		logger.info("{} compute PRINT entityId[{}]", logPrefix, entityId);
+//		
+//		for ( AttributeClientAbstract<?> obj1 : inputStatusByName.values() ) {
+//			if ( obj1 instanceof StringAttribute ) {
+//				logger.warn("{} compute inputStatusByName obj1[{}]", logPrefix, ((StringAttribute) obj1).getValue());
+//			} else {
+//				logger.warn("{} compute inputStatusByName obj1 IS NOT instanceof StringAttribute ");
+//			}
+//		}
+//
+//		for ( String key : inputPropertiesByName.keySet() ) {
+//			logger.warn("{} compute inputPropertiesByName key[{}] value[{}] ", new Object[]{logPrefix, key, inputPropertiesByName.get(key)});
+//		}
 		
 		boolean isvalid = false;
 		
@@ -343,7 +363,6 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		ret.setValue(outValue1);
 
         logger.info("{} compute ret.getValue()[{}]", logPrefix, ret.getValue());
-        logger.info("{} compute End", logPrefix);
 		
 		return ret;
     }

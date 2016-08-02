@@ -2,7 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server;
 
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
-import com.thalesgroup.scadagen.calculated.GDGMessage;
+import com.thalesgroup.scadagen.common.calculated.GDGMessage;
 
 import java.util.MissingResourceException;
 

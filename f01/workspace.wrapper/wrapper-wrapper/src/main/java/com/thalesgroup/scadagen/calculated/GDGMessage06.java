@@ -1,26 +1,15 @@
 package com.thalesgroup.scadagen.calculated;
 
-import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.thalesgroup.scadagen.common.calculated.GDGMessage;
 
 public class GDGMessage06 extends GDGMessage {
-	private final Logger s_logger		= LoggerFactory.getLogger(GDGMessage06.class.getName());
-
-	@Override
-	public String getComputerId() {
-		return this.getClass().getName();
-	}
 	
 	public GDGMessage06 () {
-		super();
-    	
-    	String classnames [] = getComputerId().split(Pattern.quote("."));
-    	classname = classnames[classnames.length-1];
-    	
-    	s_logger.info("{} getComputerId()[{}]", classname, getComputerId());
-    	s_logger.info("{} classname[{}]", classname, classname);
-    	
+		
+		m_name = this.getClass().getSimpleName();
+
+		loadCnf();
+		
     }
+
 }

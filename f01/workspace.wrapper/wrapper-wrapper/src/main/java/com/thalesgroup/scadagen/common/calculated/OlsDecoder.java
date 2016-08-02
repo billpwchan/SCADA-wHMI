@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.calculated.common;
+package com.thalesgroup.scadagen.common.calculated;
 
 import java.io.IOException;
 import java.util.Date;

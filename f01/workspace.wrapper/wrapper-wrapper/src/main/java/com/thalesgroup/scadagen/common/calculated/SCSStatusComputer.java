@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.calculated.common;
+package com.thalesgroup.scadagen.common.calculated;
 
 import java.util.HashSet;
 import java.util.Set;

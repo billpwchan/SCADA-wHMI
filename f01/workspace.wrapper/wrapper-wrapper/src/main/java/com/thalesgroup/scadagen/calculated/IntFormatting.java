@@ -14,7 +14,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.IntAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
+import com.thalesgroup.scadagen.common.calculated.SCSStatusComputer;
 
 public class IntFormatting extends SCSStatusComputer {
 	

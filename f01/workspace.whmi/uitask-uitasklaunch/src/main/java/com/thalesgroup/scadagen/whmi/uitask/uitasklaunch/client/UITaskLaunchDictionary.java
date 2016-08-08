@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
 
 public class UITaskLaunchDictionary extends UITaskDictionary {
 	
-	private static Logger logger = Logger.getLogger(UITaskLaunchDictionary.class.getName());
+	private Logger logger = Logger.getLogger(UITaskLaunchDictionary.class.getName());
 	
 	public enum TaskLaunchType {
 		MENU("MENU")

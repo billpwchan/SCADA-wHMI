@@ -4,20 +4,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueUpdate;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
-public class UIPanelAlarmBanner implements UIWidget_i {
+public class UIPanelAlarmBanner extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIPanelAlarmBanner.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelAlarmBanner.class.getName());
 	
 	private final String 		UIPathUIPanelViewLayout = ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
@@ -29,28 +28,21 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 	private UIWidget_i uiPanelAlarmBannerList			= null;
 	private UIWidget_i uiWidgetAccessBarButton 			= null;
 	private UIWidget_i uiWidgetOlsCounter 				= null;
-	
-	private UINameCard uiNameCard = null;
+
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
-	
-	private ComplexPanel complexPanel = null;
-	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		logger.log(Level.FINE, "init Begin");
 		logger.log(Level.FINE, "init xmlFile["+xmlFile+"]");
 		
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.init(xmlFile+".xml");
-		complexPanel = uiPanelGeneric.getMainPanel();
+		uiPanelGeneric.setXMLFile(xmlFile+".xml");
+		uiPanelGeneric.init();
+		rootPanel = uiPanelGeneric.getMainPanel();
 		
 		uiPanelAlarmBannerList = uiPanelGeneric.getUIWidget(strUIPanelAlarmBannerList);
 		if ( null != uiPanelAlarmBannerList ) {
-			uiPanelAlarmBannerList.setUIWidgetEvent(new UIWidgetEvent() {
+			uiPanelAlarmBannerList.setUIWidgetEvent(new UIWidgetEventOnValueUpdate() {
 				
 				@Override
 				public void onValueChange(String name, String value) {
@@ -61,18 +53,6 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 						logger.log(Level.SEVERE, "onValueChange uiWidgetOlsCounter IS NULL");
 					}
 				}
-				
-				@Override
-				public void onKeyPressHandler(KeyPressEvent event) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onClickHandler(ClickEvent event) {
-					// TODO Auto-generated method stub
-					
-				}
 			});
 		} else {
 			logger.log(Level.SEVERE, "init uiPanelAlarmBannerList IS NULL");
@@ -80,7 +60,7 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 		
 		uiWidgetAccessBarButton = uiPanelGeneric.getUIWidget(strUIWidgetAccessBarButton);
 		if ( null != uiWidgetAccessBarButton ) {
-			uiWidgetAccessBarButton.setUIWidgetEvent(new UIWidgetEvent() {
+			uiWidgetAccessBarButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 				@Override
 				public void onClickHandler(ClickEvent event) {
 					Widget widget = (Widget) event.getSource();
@@ -90,16 +70,6 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 					} else {
 						logger.log(Level.SEVERE, "onClickHandler onClickHandler button IS NULL");
 					}
-				}
-				@Override
-				public void onKeyPressHandler(KeyPressEvent event) {
-					// TODO Auto-generated method stub
-					
-				}
-				@Override
-				public void onValueChange(String name, String value) {
-					// TODO Auto-generated method stub
-					
 				}
 			});
 		} else {
@@ -115,7 +85,7 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 	@Override
 	public ComplexPanel getMainPanel() {
 		
-	    return complexPanel;
+	    return rootPanel;
 	}
 	
 	
@@ -159,22 +129,22 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 			if ( null != uiPanelAlarmBannerList ) 
 				uiPanelAlarmBannerList.setValue("ackVisible", "");
 				
-			
+			// Call Inspector Panel
 //			String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
-//			
 //			UITaskLaunch taskLaunch = new UITaskLaunch();
 //			taskLaunch.setUiPanel("UIInspectorConnectionBox");
 //			taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
 //			taskLaunch.setUiPath(UIPathUIScreenMMI);
 //			uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			
-//			UITaskLaunch taskLaunch = new UITaskLaunch();
-//			taskLaunch.setType("P");
-//			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-//			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-//			taskLaunch.setUiPanel("PTWPanel");
-//			taskLaunch.setTitle("PTW DPC Panel");
-//			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+			// Call PTW Panel
+			UITaskLaunch taskLaunch = new UITaskLaunch();
+			taskLaunch.setType("P");
+			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
+			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
+			taskLaunch.setUiPanel("PTWPanel");
+			taskLaunch.setTitle("PTW Summary");
+			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			
 		} else {
 			logger.log(Level.SEVERE, "onButton element UNKNOW");
@@ -183,57 +153,4 @@ public class UIPanelAlarmBanner implements UIWidget_i {
 		logger.log(Level.FINE, "onButton End");
 	}
 
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
-	}
 }

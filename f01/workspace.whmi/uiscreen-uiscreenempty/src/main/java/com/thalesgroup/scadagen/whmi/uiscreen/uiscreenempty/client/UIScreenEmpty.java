@@ -11,12 +11,11 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIScreenEmpty implements UIScreen_i {
+public class UIScreenEmpty extends UIWidget_i {
 
-	private static Logger logger = Logger.getLogger(UIScreenEmpty.class.getName());
+	private Logger logger = Logger.getLogger(UIScreenEmpty.class.getName());
 
 	public static final String UNIT_PX = "px";
 	public static final int LAYOUT_BORDER = 0;
@@ -31,27 +30,21 @@ public class UIScreenEmpty implements UIScreen_i {
 
 	public static final String RGB_PAL_BG = "#BEBEBE";
 
-	private UINameCard uiNameCard;
-
 	@Override
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
-		logger.log(Level.FINE, "getMainPanel Begin");
-
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-
+	public void init() {
+		
+		logger.log(Level.FINE, "init Begin");
+		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
 		hp.setHeight("100%");
 		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
-		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
-		root.add(hp);
+		rootPanel = new DockLayoutPanel(Unit.PX);
+		rootPanel.add(hp);
 
-		logger.log(Level.FINE, "getMainPanel End");
-
-		return root;
+		logger.log(Level.FINE, "init End");
 	}
 
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();

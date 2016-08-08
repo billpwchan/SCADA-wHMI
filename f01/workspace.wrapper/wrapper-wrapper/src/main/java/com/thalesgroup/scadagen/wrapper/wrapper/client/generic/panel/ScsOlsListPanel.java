@@ -7,9 +7,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.RowStyles;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
@@ -23,14 +21,12 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.s
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 /**
  * A widget displaying an alamm list panel.
  */
-public class ScsOlsListPanel implements IClientLifeCycle, UIWidget_i {
+public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
 
     /** Logger */
     private final ClientLogger s_logger = ClientLogger.getClientLogger();
@@ -39,7 +35,7 @@ public class ScsOlsListPanel implements IClientLifeCycle, UIWidget_i {
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}
      * parent
      */
-    private ComplexPanel mainPanel_;
+//    private ComplexPanel rootPanel;
 
     /**
      * s Client presenter of this alarm list widget
@@ -151,15 +147,15 @@ public class ScsOlsListPanel implements IClientLifeCycle, UIWidget_i {
      */
     private void initMainPanel() {
         if (withCaption_) {
-            mainPanel_ = new CaptionPanel();
+            rootPanel = new CaptionPanel();
             final String captionLabel = Dictionary.getWording(listConfigId_ + DICTIONATY_CAPTION_SUFFIX);
-            ((CaptionPanel) mainPanel_).setCaption(captionLabel);
+            ((CaptionPanel) rootPanel).setCaption(captionLabel);
 
         } else {
-            mainPanel_ = new DockLayoutPanel(Unit.PX);
+            rootPanel = new DockLayoutPanel(Unit.PX);
         }
         
-        mainPanel_.addStyleName("project-gwt-panel-scsolslistpanel");
+        rootPanel.addStyleName("project-gwt-panel-scsolslistpanel");
 
         // Create datagrid container
         DockLayoutPanel containerPanel = new DockLayoutPanel(Unit.PX);
@@ -168,7 +164,7 @@ public class ScsOlsListPanel implements IClientLifeCycle, UIWidget_i {
 
         // Add containers in the main panel
         containerPanel.add(gridWidget);
-        mainPanel_.add(containerPanel);
+        rootPanel.add(containerPanel);
     }
 
     /**
@@ -218,60 +214,11 @@ public class ScsOlsListPanel implements IClientLifeCycle, UIWidget_i {
             s_logger.error("Error while trying to terminate the Alarm List Panel.", e);
         }
     }
+
 	@Override
-	public void init(String xmlFile) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public ComplexPanel getMainPanel() {
-		return mainPanel_;
-	}
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setWidgetStatus(String element, String up) {
+	public void init() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
-	}
 }

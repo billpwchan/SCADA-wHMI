@@ -5,16 +5,16 @@ import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.client.UIScreenDSS;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.client.UIScreenEmpty;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client.UIScreenLogin;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client.UIScreenOPM;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIScreenMgr {
 	
-	private static Logger logger = Logger.getLogger(UIScreenMgr.class.getName());
+	private Logger logger = Logger.getLogger(UIScreenMgr.class.getName());
 	
 	private UIScreenMgr() {}
 	private static UIScreenMgr instance = null;
@@ -31,35 +31,52 @@ public class UIScreenMgr {
 		
 		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
-		ComplexPanel complexPanel = this.getPanel(uiPanel).getMainPanel(uiNameCard);
+		UIWidget_i uiWidget_i = this.getPanel(uiPanel, uiNameCard);
+		ComplexPanel rootPanel = uiWidget_i.getMainPanel();
 		
 		logger.log(Level.FINE, "getMainPanel End");
 
-		return complexPanel;
+		return rootPanel;
 	}
 
-	public UIScreen_i getPanel(String uiPanel){
+	public UIWidget_i getPanel(String uiPanel, UINameCard uiNameCard){
 		
 		logger.log(Level.FINE, "getPanel Begin");
 		logger.log(Level.FINE, "getPanel uiPanel["+uiPanel+"]");
 		
-		UIScreen_i uiPanel_i = null;
+		String xmlFile = null;
+		UIWidget_i uiWidget_i = null;
 		
 		if ( 0 == uiPanel.compareTo("UIScreenLogin") ) {
-			uiPanel_i = new UIScreenLogin();
+			uiWidget_i = new UIScreenLogin();
+			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setXMLFile(xmlFile);
+			uiWidget_i.init();
 		} else if ( 0 == uiPanel.compareTo("UIScreenMMI") ) {
-			uiPanel_i = new UIScreenMMI();
+			uiWidget_i = new UIScreenMMI();
+			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setXMLFile(xmlFile);
+			uiWidget_i.init();
 		} else if ( 0 == uiPanel.compareTo("UIScreenDSS") ) {
-			uiPanel_i = new UIScreenDSS();
+			uiWidget_i = new UIScreenDSS();
+			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setXMLFile(xmlFile);
+			uiWidget_i.init();
 		} else if ( 0 == uiPanel.compareTo("UIScreenOPM") ) {
-			uiPanel_i = new UIScreenOPM();
+			uiWidget_i = new UIScreenOPM();
+			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setXMLFile(xmlFile);
+			uiWidget_i.init();
 		} else {
-			uiPanel_i = new UIScreenEmpty();
+			uiWidget_i = new UIScreenEmpty();
+			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setXMLFile(xmlFile);
+			uiWidget_i.init();
 		}
 		
 		logger.log(Level.FINE, "getPanel End");
 
-		return uiPanel_i;
+		return uiWidget_i;
 	}
 	
 }

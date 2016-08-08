@@ -19,15 +19,13 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIScreenDSS implements UIScreen_i{
+public class UIScreenDSS extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIScreenDSS.class.getName());
+	private  Logger logger = Logger.getLogger(UIScreenDSS.class.getName());
 	
 	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 
@@ -42,23 +40,12 @@ public class UIScreenDSS implements UIScreen_i{
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 	
-	private UINameCard uiNameCard;
-	public DockLayoutPanel getMainPanel (UINameCard uiNameCard) {
+	
+	@Override
+	public void init() {
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-		
-		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-			@Override
-			public void onEvenBusUIChanged(UIEvent uiEvent) {
-				onUIEvent(uiEvent);
-			}
-		});
-			
-		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
+		rootPanel = new DockLayoutPanel(Unit.PX);
+		rootPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
 		
 		// Top
 		HorizontalPanel stationBar = new HorizontalPanel();
@@ -256,14 +243,12 @@ public class UIScreenDSS implements UIScreen_i{
 		bottom.setCellWidth(descisionSupportToolPanel, 50+"%");
 		// End of Bottom
 		
-		basePanel.addNorth(top, 50);
-		basePanel.addSouth(bottom, 350);
-		basePanel.add(main);
+		((DockLayoutPanel)rootPanel).addNorth(top, 50);
+		((DockLayoutPanel)rootPanel).addSouth(bottom, 350);
+		((DockLayoutPanel)rootPanel).add(main);
 		
 		logger.log(Level.FINE, "getMainPanel End");
 		
-		return basePanel;
-
 	}
 	
 	public class HightLightableButton extends Button {

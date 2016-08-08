@@ -4,22 +4,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelStatusBar implements UIWidget_i {
+public class UIPanelStatusBar extends UIWidget_i {
 
-	private static Logger logger = Logger.getLogger(UIPanelStatusBar.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelStatusBar.class.getName());
 	
 	private String strUIPanelCompany					= "UIPanelCompany.xml";
 	private String strUIPanelCompanyTitle				= "UIPanelCompanyTitle.xml";
@@ -39,17 +34,9 @@ public class UIPanelStatusBar implements UIWidget_i {
 	
 	private String strOperator = "";
 	private String strProfile = "";
-	
-	private UINameCard uiNameCard;
+
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	};
-	
-	private ComplexPanel complexPanel = null;
-	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		
 		logger.log(Level.FINE, "init Begin");
 
@@ -62,8 +49,9 @@ public class UIPanelStatusBar implements UIWidget_i {
 		
 		uiScreenGeneric = new UILayoutGeneric();
 		uiScreenGeneric.setUINameCard(this.uiNameCard);
-		uiScreenGeneric.init(xmlFile+".xml");
-		complexPanel = uiScreenGeneric.getMainPanel();
+		uiScreenGeneric.setXMLFile(xmlFile+".xml");
+		uiScreenGeneric.init();
+		rootPanel = uiScreenGeneric.getMainPanel();
 		
 		uiPanelGenericCompany		 = uiScreenGeneric.getUIWidget(strUIPanelCompany);
 		uiPanelGenericCompanyTitle	 = uiScreenGeneric.getUIWidget(strUIPanelCompanyTitle);
@@ -83,13 +71,7 @@ public class UIPanelStatusBar implements UIWidget_i {
 		logger.log(Level.FINE, "init End");
 		
 	}
-	
-	@Override
-	public ComplexPanel getMainPanel(){
 
-		return complexPanel;
-	}
-	
 	private void onUIEvent(UIEvent uiEvent) {
 
 		logger.log(Level.FINE, "onUIEvent Begin");
@@ -105,7 +87,7 @@ public class UIPanelStatusBar implements UIWidget_i {
 
 				logger.log(Level.FINE, "onUIEvent UIScreen is match and UIPath is match");
 
-				if (UITaskMgr.isInstanceOf(UITaskTitle.class, taskProvide)) {
+				if ( taskProvide instanceof UITaskTitle ) {
 
 					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
 
@@ -117,7 +99,7 @@ public class UIPanelStatusBar implements UIWidget_i {
 					
 					uiPanelGenericTitle.setValue("title", this.strTitle);
 					
-				} else if (UITaskMgr.isInstanceOf(UITaskProfile.class, taskProvide)) {
+				} else if ( taskProvide instanceof UITaskProfile ) {
 
 					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
 
@@ -137,54 +119,6 @@ public class UIPanelStatusBar implements UIWidget_i {
 		}
 
 		logger.log(Level.FINE, "onUIEvent End");
-	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String name, String value) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

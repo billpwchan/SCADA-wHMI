@@ -12,25 +12,22 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelViewPanel implements UIPanelViewProvide {
+public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i {
 	
-	private static Logger logger = Logger.getLogger(UIPanelViewPanel.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelViewPanel.class.getName());
 
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	@Override
-	public
-	void addHandlerRegistration(HandlerRegistration handlerRegistration) {
+	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
 		handlerRegistrations.add(handlerRegistration);
 	}
 	@Override
-	public
-	void removeHandlerRegistrations() {
+	public void removeHandlerRegistrations() {
 		HandlerRegistration handlerRegistration = handlerRegistrations.poll();
 		while ( null != handlerRegistration ) {
 			handlerRegistration.removeHandler();
@@ -38,16 +35,11 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 		}
 	}
 	InlineLabel equipmenpLabel = null;
-
-	private UINameCard uiNameCard = null;
-
-	private DockLayoutPanel root = null;
+	
 	@Override
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
-		logger.log(Level.FINE, "getMainPanel Begin");
+	public void init() {
 		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
+		logger.log(Level.FINE, "init Begin");
 		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -59,14 +51,12 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 		equipmenpLabel.setText("Panel: ----");
 		hp.add(equipmenpLabel);
 
-		root = new DockLayoutPanel(Unit.PX);
-		root.add(hp);
+		rootPanel = new DockLayoutPanel(Unit.PX);
+		rootPanel.add(hp);
 		
-		logger.log(Level.FINE, "getMainPanel End");
-
-		return root;
+		logger.log(Level.FINE, "init End");
 	}
-	
+
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
 		
@@ -94,7 +84,7 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 					
 					logger.log(Level.FINE, "setTaskProvide root.clear");
 				
-					this.root.clear();
+					this.rootPanel.clear();
 
 					logger.log(Level.FINE, "setTaskProvide uiViewProvide.getMainPanel["+uiNameCard.getUiPath()+"]");
 				
@@ -102,7 +92,7 @@ public class UIPanelViewPanel implements UIPanelViewProvide {
 					
 					logger.log(Level.FINE, "setTaskProvide root.add");
 				
-					this.root.add(dockLayoutPanel);					
+					this.rootPanel.add(dockLayoutPanel);					
 				
 				} else {
 					

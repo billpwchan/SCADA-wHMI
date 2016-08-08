@@ -4,25 +4,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
-public class UIPanelAccessBar implements UIWidget_i {
+public class UIPanelAccessBar extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIPanelAccessBar.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelAccessBar.class.getName());
 	
 	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 	private final String UIPathUIScreenMMI			= ":UIGws:UIPanelScreen:UIScreenMMI";
@@ -31,24 +27,16 @@ public class UIPanelAccessBar implements UIWidget_i {
 	private UIWidgetGeneric uiWidgetAccessBarButton = null;
 	private String strUIPanelAccessBarButton		= "UIPanelAccessBarButton.xml";
 	
-	private UINameCard uiNameCard;
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
-	
-	private ComplexPanel complexPanel = null;
-	@Override
-	public void init(String xmlFile) {
-
+	public void init() {
 		logger.log(Level.FINE, "init Begin");
 		logger.log(Level.FINE, "init xmlFile["+xmlFile+"]");
 
 		uiWidgetAccessBarButton = new UIWidgetGeneric();
 		uiWidgetAccessBarButton.setUINameCard(this.uiNameCard);
-		uiWidgetAccessBarButton.init(strUIPanelAccessBarButton);
-		uiWidgetAccessBarButton.setUIWidgetEvent(new UIWidgetEvent() {
+		uiWidgetAccessBarButton.setXMLFile(strUIPanelAccessBarButton);
+		uiWidgetAccessBarButton.init();
+		uiWidgetAccessBarButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
 			public void onClickHandler(ClickEvent event) {
 				Widget widget = (Widget) event.getSource();
@@ -59,19 +47,9 @@ public class UIPanelAccessBar implements UIWidget_i {
 					logger.log(Level.SEVERE, "onClickHandler onClickHandler button IS NULL");
 				}
 			}
-			@Override
-			public void onKeyPressHandler(KeyPressEvent event) {
-				// TODO Auto-generated method stub
-				
-			}
-			@Override
-			public void onValueChange(String name, String value) {
-				// TODO Auto-generated method stub
-				
-			}
 		});
 		
-		complexPanel = uiWidgetAccessBarButton.getMainPanel();
+		rootPanel = uiWidgetAccessBarButton.getMainPanel();
 
 		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 			@Override
@@ -82,12 +60,6 @@ public class UIPanelAccessBar implements UIWidget_i {
 
  		logger.log(Level.FINE, "init End");
  		
-	}
-	
-	@Override
-	public ComplexPanel getMainPanel() {
-		
-		return complexPanel;
 	}
 	
 	private void setHistoryButton(UITaskHistory taskHistory) {
@@ -183,13 +155,13 @@ public class UIPanelAccessBar implements UIWidget_i {
 				if ( uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 					&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath()) ) {
 					
-					if ( UITaskMgr.isInstanceOf(UITaskHistory.class, taskProvide)){
+					if ( taskProvide instanceof UITaskHistory ){
 						
 						logger.log(Level.FINE, "onUIEvent taskProvide is TaskHistory");
 						
 						setHistoryButton((UITaskHistory)taskProvide);
 						
-					} else if ( UITaskMgr.isInstanceOf(UITaskSplit.class, taskProvide)){
+					} else if ( taskProvide instanceof UITaskSplit){
 						
 						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
 					
@@ -299,54 +271,6 @@ public class UIPanelAccessBar implements UIWidget_i {
 				logger.log(Level.SEVERE, "onButtonClick strHelp");
 			}
 		}
-	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

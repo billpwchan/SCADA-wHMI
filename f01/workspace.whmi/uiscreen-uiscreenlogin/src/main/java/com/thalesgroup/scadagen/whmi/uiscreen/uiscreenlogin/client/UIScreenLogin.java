@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyPressEvent;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -15,20 +14,19 @@ import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnKeyPressHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
-public class UIScreenLogin implements UIScreen_i {
+public class UIScreenLogin extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIScreenLogin.class.getName());
+	private Logger logger = Logger.getLogger(UIScreenLogin.class.getName());
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
-	String strUIPanelLogin				= "UIPanelLogin.xml";
+	private String strUIPanelLogin				= "UIPanelLogin.xml";
 	
 	private String strUIPanelLoginInfo			= "UIPanelLoginInfo.xml";
 	private String strUIPanelLoginButton		= "UIPanelLoginButton.xml";
@@ -39,26 +37,24 @@ public class UIScreenLogin implements UIScreen_i {
 	private String EMPTY						= "";
 	
     private UILayoutGeneric uiPanelGeneric		= null;
-	
-	private UINameCard uiNameCard;
+    
 	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard){
+	public void init() {
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-		
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.init(strUIPanelLogin);
-		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel();
+		uiPanelGeneric.setXMLFile(strUIPanelLogin);
+		uiPanelGeneric.init();
+		
+		rootPanel = uiPanelGeneric.getMainPanel();
 		
 		uiPanelGenericInfo		= uiPanelGeneric.getUIWidget(strUIPanelLoginInfo);
 		uiPanelGenericButton	= uiPanelGeneric.getUIWidget(strUIPanelLoginButton);
 		
 		if ( null != uiPanelGenericInfo ) {
-			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEvent() {
+			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEventOnKeyPressHandler() {
 
 				@Override
 				public void onKeyPressHandler(KeyPressEvent event) {
@@ -85,25 +81,13 @@ public class UIScreenLogin implements UIScreen_i {
 					}
 				}
 
-				@Override
-				public void onValueChange(String name, String value) {
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onClickHandler(ClickEvent event) {
-					// TODO Auto-generated method stub
-					
-				}
-
 			});
 		} else {
 			logger.log(Level.SEVERE, "getMainPanel uiPanelGeneric.get(strUIPanelLoginInfo) IS NULL");
 		}
 	
 		if ( null != uiPanelGenericButton ) {
-			uiPanelGenericButton.setUIWidgetEvent(new UIWidgetEvent() {
+			uiPanelGenericButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 				
 				@Override
 				public void onClickHandler(ClickEvent event) {
@@ -136,17 +120,6 @@ public class UIScreenLogin implements UIScreen_i {
 						logger.log(Level.SEVERE, "getMainPanel button IS NULL");
 					}
 				}
-				
-				@Override
-				public void onKeyPressHandler(KeyPressEvent event) {
-					// TODO Auto-generated method stub
-				}
-
-				@Override
-				public void onValueChange(String name, String value) {
-					// TODO Auto-generated method stub
-					
-				}
 			});
 			
 		} else {
@@ -155,7 +128,6 @@ public class UIScreenLogin implements UIScreen_i {
 
 		logger.log(Level.FINE, "getMainPanel End");
 		
-		return complexPanel;
 	}
 	
 	private void verify(String element, String operator, String profile, String password) {

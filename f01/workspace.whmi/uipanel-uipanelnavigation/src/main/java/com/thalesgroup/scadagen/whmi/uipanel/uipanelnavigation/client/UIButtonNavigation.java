@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 
 public class UIButtonNavigation extends Button {
 	
-	private static Logger logger = Logger.getLogger(UIButtonNavigation.class.getName());
+	private Logger logger = Logger.getLogger(UIButtonNavigation.class.getName());
 	
 	private UITaskLaunch taskLaunch = null;
 	public UITaskLaunch getTaskLaunch() { return taskLaunch; }

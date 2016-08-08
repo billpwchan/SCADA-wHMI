@@ -11,7 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIViewMgr {
 	
-	private static Logger logger = Logger.getLogger(UIViewMgr.class.getName());
+	private Logger logger = Logger.getLogger(UIViewMgr.class.getName());
 	
 	private UIViewMgr() {};
 	private static UIViewMgr instance = null;
@@ -39,7 +39,8 @@ public class UIViewMgr {
 		}
 		
 		uiWidget_i.setUINameCard(uiNameCard);
-		uiWidget_i.init("");		
+		uiWidget_i.setXMLFile(null);
+		uiWidget_i.init();		
 
 		logger.log(Level.FINE, "getPanel End");
 

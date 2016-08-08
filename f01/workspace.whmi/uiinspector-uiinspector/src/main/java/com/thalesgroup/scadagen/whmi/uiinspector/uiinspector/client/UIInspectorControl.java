@@ -768,15 +768,19 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	private InlineLabel lblPageNum	= null;
 	private Button btnDown			= null;
 	
-	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
 	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
-		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
+	public void setUINameCard(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
+	}
+	
+	private VerticalPanel vpCtrls = null;
+	private DockLayoutPanel basePanel = null;
+	@Override
+	public void init(String xml) {
+		
+		logger.log(Level.FINE, "init Begin");
 
 		vpCtrls  = new VerticalPanel();
 		vpCtrls.setWidth("100%");
@@ -788,11 +792,11 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				logger.log(Level.FINE, "getMainPanel onClick Begin");
+				logger.log(Level.FINE, "init onClick Begin");
 				
 				onButton(event);
 				
-				logger.log(Level.FINE, "getMainPanel onClick End");
+				logger.log(Level.FINE, "init onClick End");
 			}
 		});
 //		btnExecute.setEnabled(false);
@@ -803,8 +807,11 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
+				logger.log(Level.FINE, "init onClick Begin");
 				
 				onButton(event);
+				
+				logger.log(Level.FINE, "init onClick End");
 			}
 		});
 		
@@ -848,17 +855,18 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(btnExecute);
 				
-		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
+		basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
-		VerticalPanel vp = new VerticalPanel();
-		vp.add(basePanel);
+		logger.log(Level.FINE, "init End");
 		
-		logger.log(Level.FINE, "getMainPanel End");
-		
-		return vp;
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel() {
+		return basePanel;
 	}
 	
 
@@ -976,6 +984,9 @@ public class UIInspectorControl implements UIInspectorPage_i {
 							logger.log(Level.FINE, "onButton sScsEnvId["+sScsEnvId+"]");
 							logger.log(Level.FINE, "onButton sDbAddress["+sDbAddress+"]");
 							logger.log(Level.FINE, "onButton sValue["+sValue+"]");
+							
+							String alias = "<alias>";
+							if ( ! sDbAddress.startsWith(alias) ) sDbAddress = alias + sDbAddress;
 							
 							if ( 0 == sPoint.compareTo("dio") ) {
 								

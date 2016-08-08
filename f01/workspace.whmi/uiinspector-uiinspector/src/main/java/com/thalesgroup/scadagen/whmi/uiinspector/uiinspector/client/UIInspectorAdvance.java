@@ -995,16 +995,21 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	private Button btnDown			= null;
 
 	private FlexTable flexTableAttibutes = null;
-	private VerticalPanel vpCtrls = null;
+	
 	private UINameCard uiNameCard = null;
 	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
-		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
+	public void setUINameCard(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
+	}
+	
+	private VerticalPanel vpCtrls = null;
+	private DockLayoutPanel basePanel = null;
+	@Override
+	public void init(String xml) {
 
+		logger.log(Level.FINE, "init Begin");
+		
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
 
@@ -1057,17 +1062,17 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(pageBar);
 		
-		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
+		basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
-		VerticalPanel vp = new VerticalPanel();
-		vp.add(basePanel);
-		
-		logger.log(Level.FINE, "getMainPanel End");
-		
-		return vp;
+		logger.log(Level.FINE, "init End");
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel() {
+		return basePanel;
 	}
 
 }

@@ -200,10 +200,11 @@ public class CtlMgr {
 		logger.log(Level.SEVERE, "sendControl Begin");
 		
 		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
+		
 		for ( int i = 0 ; i < address.length ; ++i ) {
 			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
 			
-			address[i] = "<alias>" + address[i].replace(":", "");
+			address[i] = address[i].replace(":", "");
 			
 			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] AF");
 		}

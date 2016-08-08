@@ -11,21 +11,17 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelPanelToolBarEvent.UIPanelPanelToolBarEventType;
 
-public class UIPanelPanelToolBar implements UIWidget_i {
+public class UIPanelPanelToolBar extends UIWidget_i {
 
-	private static Logger logger = Logger.getLogger(UIPanelPanelToolBar.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelPanelToolBar.class.getName());
 	
 	private final String UIPathNavigationMgr	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
@@ -64,21 +60,10 @@ public class UIPanelPanelToolBar implements UIWidget_i {
 
 	private HashMap<String, UIPanelPanelToolBarEventType> panelMaps;
 
-	private UINameCard uiNameCard = null;
-	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);		
-	}
-	
-	private ComplexPanel hp = null;
-	@Override
-	public void init(String xmlFile) {
-		logger.log(Level.FINE, "init Begin");
-		logger.log(Level.FINE, "init xmlFile["+xmlFile+"]");
 
-		
-//		this.uiPanelPanelToolBarEvent = uiPanelPanelToolBarEvent;
+	@Override
+	public void init() {
+		logger.log(Level.FINE, "init Begin");
 
 		hashMap = new HashMap<String, HashMap<String, UIPanelPanelToolBarEventType>>();
 		btnMap = new HashMap<UIPanelPanelToolBarEventType, Button>();
@@ -134,12 +119,6 @@ public class UIPanelPanelToolBar implements UIWidget_i {
 		logger.log(Level.FINE, "init Begin");
 	}
 
-	@Override
-	public ComplexPanel getMainPanel() {
-
-		return hp;
-	}
-	
 	private void onButton( String label ) {
 		if ( 0 == label.compareToIgnoreCase("Alarm Summary") ){
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -173,54 +152,6 @@ public class UIPanelPanelToolBar implements UIWidget_i {
 		} else {
 			btn.getElement().getStyle().setBackgroundColor(RGB_BTN_BG);
 		}
-	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

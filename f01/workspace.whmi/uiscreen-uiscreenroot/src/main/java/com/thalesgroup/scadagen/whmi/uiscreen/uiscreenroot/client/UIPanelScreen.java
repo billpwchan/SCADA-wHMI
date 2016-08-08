@@ -12,11 +12,10 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 
 public class UIPanelScreen {
 	
-	private static Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
@@ -95,7 +94,7 @@ public class UIPanelScreen {
 				if ( this.uiNameCard.getUiScreen() == taskProvide.getTaskUiScreen()
 						&& 0 == this.uiNameCard.getUiPath().compareToIgnoreCase(taskProvide.getUiPath()) ) {
 
-					if ( UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide)) {
+					if ( taskProvide instanceof UITaskLaunch ) {
 					
 						UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 						

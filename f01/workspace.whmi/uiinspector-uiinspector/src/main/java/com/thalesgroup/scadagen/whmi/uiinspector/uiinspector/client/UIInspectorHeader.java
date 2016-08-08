@@ -276,15 +276,19 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 		logger.log(Level.FINE, "updateValueDynamic End");
 
 	}
-
-	private VerticalPanel vpCtrls = null;
+	
 	private UINameCard uiNameCard = null;
-
 	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
-		
+	public void setUINameCard(UINameCard uiNameCard) {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
+	}
+	
+	private VerticalPanel vpCtrls = null;
+	@Override
+	public void init(String xml) {
+		
+		logger.log(Level.FINE, "init Begin");
 		
 		String strHeadersLabel [] = new String[] { "Equipment Description", "Location", "Control Right","Control Right Reserved","Handover Right" };
 		String strHeadersStatus [] = new String[] { "-", "-", "Yes / No","Not Reserved / Not", "Central / Station" };
@@ -308,6 +312,12 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 		vpCtrls = new VerticalPanel();
 		vpCtrls.addStyleName("project-gwt-panel-header");
 		vpCtrls.add(flexTableHeader);
+		
+		logger.log(Level.FINE, "init End");
+	}
+	
+	@Override
+	public ComplexPanel getMainPanel() {
 		return vpCtrls;
 	}
 

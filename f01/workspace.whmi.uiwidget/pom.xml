@@ -91,10 +91,11 @@
     <module>uinamecard</module>
     <module>config-config</module>
     <module>config-configenv</module>
-	<module>uiwidget-uiwidget</module>
+    <module>uiwidget-uiwidget</module>
+    <module>translation-translationmgr</module>
     <module>uiwidget-uiwidgetgeneric</module>
     <module>uiwidget-uiwidgetmgr</module>
-    <module>translation-translationmgr</module>
+    
   </modules>
   
 </project>

@@ -11,29 +11,24 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-
-public class UIPanelViewEmpty implements UIPanelViewProvide {
+public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i {
 	
-	private static Logger logger = Logger.getLogger(UIPanelViewEmpty.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelViewEmpty.class.getName());
 	
 	public static final String UNIT_PX		= "px";
 
 	public static final String IMAGE_PATH	= "imgs";
 	
-	private UINameCard uiNameCard;
-
 	InlineLabel equipmenpLabel = null;
+	
 	@Override
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
-		logger.log(Level.FINE, "getMainPanel Begin");
+	public void init() {
 		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
+		logger.log(Level.FINE, "init Begin");
 		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -53,14 +48,12 @@ public class UIPanelViewEmpty implements UIPanelViewProvide {
 //			}
 //		});
 
-		DockLayoutPanel root = new DockLayoutPanel(Unit.PX);
-		root.add(hp);
+		rootPanel = new DockLayoutPanel(Unit.PX);
+		rootPanel.add(hp);
 		
-		logger.log(Level.FINE, "getMainPanel End");
-
-		return root;
+		logger.log(Level.FINE, "init End");
 	}
-	
+
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
 		handlerRegistrations.add(handlerRegistration);
@@ -78,29 +71,20 @@ public class UIPanelViewEmpty implements UIPanelViewProvide {
 		
 		logger.log(Level.FINE, "setTaskProvide Begin");
 		
-		if ( UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) ) {
-			
-			UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
-			
-			if ( null != taskLaunch) {
+		if ( null != taskProvide ) {
+			if ( taskProvide instanceof UITaskLaunch ) {
 				
-				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getHeader()+"]");
+				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 				
-				this.equipmenpLabel.setText("Empty: "+taskLaunch.getHeader()+" can't be found!");
-				
-			} else {
-				
-				logger.log(Level.FINE, "setTaskProvide taskLaunch is null");
-				
-			}
-			
+				if ( null != taskLaunch) {
+					logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getHeader()+"]");
+					this.equipmenpLabel.setText("Empty: "+taskLaunch.getHeader()+" can't be found!");
+				}
+			}			
 		} else {
-			
-			logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
-			
+				logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
 		}
-		
+
 		logger.log(Level.FINE, "setTaskProvide End");
 	}
-	
 }

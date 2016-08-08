@@ -5,7 +5,11 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEv
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 public interface UIInspectorPage_i {
-	ComplexPanel getMainPanel(UINameCard uiNameCard);
+	
+	void setUINameCard(UINameCard uiNameCard);
+	void init(String xml);
+	ComplexPanel getMainPanel();
+	
 	void setParent(String scsEnvId, String parent);
 	void setAddresses(String[] addresses);
 	String[] getAddresses();

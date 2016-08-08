@@ -22,14 +22,13 @@ import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIScreenOPM implements UIScreen_i {
+public class UIScreenOPM extends UIWidget_i {
 
-	private static Logger logger = Logger.getLogger(UIScreenOPM.class.getName());
+	private Logger logger = Logger.getLogger(UIScreenOPM.class.getName());
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
@@ -45,16 +44,11 @@ public class UIScreenOPM implements UIScreen_i {
     private String strCancel				= "Exit";
     private String [] strBtns				= new String[] { strSave, strCancel};
     private Button [] buttons				= new Button[strBtns.length];
-	
-	private UINameCard uiNameCard;
-
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
-
-		logger.log(Level.FINE, "getMainPanel Begin");
-
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-
+    
+    
+    
+    @Override
+    public void init() {
 		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 			@Override
 			public void onEvenBusUIChanged(UIEvent uiEvent) {
@@ -168,9 +162,7 @@ public class UIScreenOPM implements UIScreen_i {
 
 
 		logger.log(Level.FINE, "getMainPanel End");
-
-		return dockLayoutPanel;
-	}
+    }
 	
 	enum VerifyReason {
 		UNKNOW

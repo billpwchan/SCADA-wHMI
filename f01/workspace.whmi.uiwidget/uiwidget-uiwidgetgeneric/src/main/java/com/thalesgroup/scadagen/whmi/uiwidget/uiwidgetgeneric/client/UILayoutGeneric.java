@@ -15,21 +15,18 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIPanelGeneric_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
-public class UILayoutGeneric implements UIWidget_i {
+public class UILayoutGeneric extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UILayoutGeneric.class.getName());
+	private Logger logger = Logger.getLogger(UILayoutGeneric.class.getName());
 	
-	private String xmlFile = null;
+//	private String xmlFile = null;
 
 	private HashMap<String, UIWidget_i> uiWidgetGeneric = new HashMap<String, UIWidget_i>();
 	
@@ -58,24 +55,8 @@ public class UILayoutGeneric implements UIWidget_i {
 		return uiWidgetGeneric.get(xmlFile);
 	}
 	
-    private HashMap<String, String> paramaters = new HashMap<String, String>();
-    @Override
-    public void setParameter(String key, String value) {
-    	paramaters.put(key, value);
-    }
-	
-	private UINameCard uiNameCard = null;
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		if ( null != uiNameCard ) {
-			this.uiNameCard = new UINameCard(uiNameCard);
-			this.uiNameCard.appendUIPanel(this);
-		}
-	}
-	
-	private ComplexPanel outerPanel = null;
-	public void init(String xmlFile) {
-		this.xmlFile = xmlFile;
+	public void init() {
 		
 		logger.log(Level.SEVERE, "init xmlFile["+this.xmlFile+"]");
 		
@@ -92,34 +73,33 @@ public class UILayoutGeneric implements UIWidget_i {
 		logger.log(Level.FINE, "getMainPanel Begin");
 		logger.log(Level.SEVERE, "getMainPanel xmlFile["+this.xmlFile+"]");
 		
-		
-		
+
 		logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] strOuterCSS["+strOuterCSS+"]");
 		logger.log(Level.SEVERE, "getMainPanel strInnerPanel["+strInnerPanel+"] strInnerCSS["+strInnerCSS+"]");
 		logger.log(Level.SEVERE, "getMainPanel innerHorizontalAlignment["+innerHorizontalAlignment+"] innerVerticalAlignment["+innerVerticalAlignment+"]");
 		logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment["+outerHorizontalAlignment+"] outerVerticalAlignment["+outerVerticalAlignment+"]");
 		
-		outerPanel = null;
+		rootPanel = null;
 		if ( null != strOuterPanel ) {
 			if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strOuterPanel) ) {
-				outerPanel = new VerticalPanel();
+				rootPanel = new VerticalPanel();
 			} else if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strOuterPanel) ) {
-				outerPanel = new HorizontalPanel();
+				rootPanel = new HorizontalPanel();
 			} else if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strOuterPanel) ) {
-				outerPanel = new DockLayoutPanel(Unit.PX);
-				Element e = outerPanel.getElement();
+				rootPanel = new DockLayoutPanel(Unit.PX);
+				Element e = rootPanel.getElement();
 				DOM.setStyleAttribute(e, "position", "absolute");
 			} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strOuterPanel) ) {
-				outerPanel = new AbsolutePanel();
-				Element e = outerPanel.getElement();
+				rootPanel = new AbsolutePanel();
+				Element e = rootPanel.getElement();
 				DOM.setStyleAttribute(e, "position", "absolute");
 			} else {
 				logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] IS INVALID");
 			}
 
-			if ( null != outerPanel ) {
+			if ( null != rootPanel ) {
 				if ( null != strOuterCSS ) {
-					outerPanel.addStyleName(strOuterCSS);
+					rootPanel.addStyleName(strOuterCSS);
 				} else {
 					logger.log(Level.SEVERE, "getMainPanel outerPanel IS NULL");
 				}
@@ -135,36 +115,36 @@ public class UILayoutGeneric implements UIWidget_i {
 						if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strOuterPanel) ) {
 							
 							if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(outerHorizontalAlignment) ) {
-								((HorizontalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+								((HorizontalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(outerHorizontalAlignment) ) {
-								((HorizontalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+								((HorizontalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(outerHorizontalAlignment) ) {
-								((HorizontalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+								((HorizontalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 							}
 							
 							if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(outerVerticalAlignment) ) {
-								((HorizontalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+								((HorizontalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
 							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(outerVerticalAlignment) ) {
-								((HorizontalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+								((HorizontalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(outerVerticalAlignment) ) {	
-								((HorizontalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+								((HorizontalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
 							}
 						} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strOuterPanel) ) {
 							
 							if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(outerHorizontalAlignment) ) {
-								((VerticalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+								((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(outerHorizontalAlignment) ) {
-								((VerticalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+								((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(outerHorizontalAlignment) ) {
-								((VerticalPanel)outerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+								((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 							}
 							
 							if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(outerVerticalAlignment) ) {
-								((VerticalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
+								((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
 							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(outerVerticalAlignment) ) {
-								((VerticalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+								((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(outerVerticalAlignment) ) {	
-								((VerticalPanel)outerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
+								((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
 							}
 						} else {
 							
@@ -260,7 +240,7 @@ public class UILayoutGeneric implements UIWidget_i {
 
 		if ( null != innerPanel ) {
 			
-			outerPanel.add(innerPanel);
+			rootPanel.add(innerPanel);
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
@@ -348,10 +328,10 @@ public class UILayoutGeneric implements UIWidget_i {
 								// predefine
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
 								uiWidgetGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget));
-								UIWidget_i uiWIdget = uiWidgetGeneric.get(widget);
-								if ( null != uiWIdget ) {
-									uiWIdget.setUINameCard(this.uiNameCard);
-									complexPanel = uiWIdget.getMainPanel();
+								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
+								if ( null != uiWidget ) {
+									uiWidget.setUINameCard(this.uiNameCard);
+									complexPanel = uiWidget.getMainPanel();
 								} else {
 									logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
 								}
@@ -359,11 +339,12 @@ public class UILayoutGeneric implements UIWidget_i {
 								
 								// layoutconfiguration
 								uiWidgetGeneric.put(widget, new UILayoutGeneric());
-								UIWidget_i uiWIdget = uiWidgetGeneric.get(widget);
-								if ( null != uiWIdget ) {
-									uiWIdget.setUINameCard(this.uiNameCard);
-									uiWIdget.init(widget);
-									complexPanel = uiWIdget.getMainPanel();
+								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
+								if ( null != uiWidget ) {
+									uiWidget.setUINameCard(this.uiNameCard);
+									uiWidget.setXMLFile(widget);
+									uiWidget.init();
+									complexPanel = uiWidget.getMainPanel();
 								} else {
 									logger.log(Level.SEVERE, "getMainPanel created UIPanelGeneric widget["+widget+"] IS NULL");
 								}
@@ -371,11 +352,12 @@ public class UILayoutGeneric implements UIWidget_i {
 								
 								//configuration
 								uiWidgetGeneric.put(widget, new UIWidgetGeneric());
-								UIWidget_i uiWIdget = uiWidgetGeneric.get(widget);
-								if ( null != uiWIdget ) {
-									uiWIdget.setUINameCard(this.uiNameCard);
-									uiWIdget.init(widget);
-									complexPanel = uiWIdget.getMainPanel();
+								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
+								if ( null != uiWidget ) {
+									uiWidget.setUINameCard(this.uiNameCard);
+									uiWidget.setXMLFile(widget);
+									uiWidget.init();
+									complexPanel = uiWidget.getMainPanel();
 								} else {
 									logger.log(Level.SEVERE, "getMainPanel created UIWidgetGeneric widget["+widget+"] IS NULL");
 								}
@@ -598,58 +580,9 @@ public class UILayoutGeneric implements UIWidget_i {
 		logger.log(Level.FINE, "ready End");
 		
 	}
-	
-	public ComplexPanel getMainPanel(){
-		return outerPanel;
-	}
-	
+
 	public UIWidget_i getPredefineWidget(String widget) {
 		return uiWidgetGeneric.get(widget);
 	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element,
-			String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 }

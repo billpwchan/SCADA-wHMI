@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class PageCounter {
 	
-	private static Logger logger = Logger.getLogger(PageCounter.class.getName());
+	private Logger logger = Logger.getLogger(PageCounter.class.getName());
 		
 	int numOfPoint		= 0;
 	int pageSize		= 0;

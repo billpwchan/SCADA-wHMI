@@ -7,6 +7,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -16,10 +17,11 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelView {
 	
-	private static Logger logger = Logger.getLogger(UIPanelView.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelView.class.getName());
 		
 	private int viewId;
 	private boolean activate;
@@ -201,21 +203,21 @@ public class UIPanelView {
 			panel.clear();
 			
 			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
-			UIPanelViewProvide uiPanelViewProvide = null;
-			DockLayoutPanel dockLayoutPanel = null;
+			UIWidget_i uiWidget_i = null;
+			ComplexPanel dockLayoutPanel = null;
 			
 			switch ( this.taskLaunch.getTaskLaunchType() ) {
 			case PANEL:
-				uiPanelViewProvide = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewPanel);
-				dockLayoutPanel = uiPanelViewProvide.getMainPanel(uiNameCard);				
+				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewPanel, uiNameCard);
+				dockLayoutPanel = uiWidget_i.getMainPanel();				
 				break;
 			case IMAGE:
-				uiPanelViewProvide = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic);
-				dockLayoutPanel = uiPanelViewProvide.getMainPanel(uiNameCard);
+				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic, uiNameCard);
+				dockLayoutPanel = uiWidget_i.getMainPanel();
 				break;
 			default:
-				uiPanelViewProvide = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty);
-				dockLayoutPanel = uiPanelViewProvide.getMainPanel(uiNameCard);				
+				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty, uiNameCard);
+				dockLayoutPanel = uiWidget_i.getMainPanel();				
 				break;			
 			}
 
@@ -233,7 +235,7 @@ public class UIPanelView {
 			panel.addStyleName("project-gwt-panel-panelview-container");
 			panel.add(dockLayoutPanel);
 			
-			uiPanelViewProvide.setTaskProvide(taskLaunch);
+			((UIPanelViewProvide_i)uiWidget_i).setTaskProvide(taskLaunch);
 			
 			setTitle(this.taskLaunch.getTitle());
 

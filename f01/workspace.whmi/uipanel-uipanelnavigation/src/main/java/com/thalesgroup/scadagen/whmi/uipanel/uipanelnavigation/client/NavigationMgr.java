@@ -13,12 +13,11 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 
 
 public class NavigationMgr implements TaskMgrEvent {
 	
-	private static Logger logger = Logger.getLogger(NavigationMgr.class.getName());
+	private Logger logger = Logger.getLogger(NavigationMgr.class.getName());
 	
 	// Caches
 	private ArrayList<UITaskLaunch> taskLaunchs = null;
@@ -174,7 +173,7 @@ public class NavigationMgr implements TaskMgrEvent {
 				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-					if (UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide)) {
+					if ( taskProvide instanceof UITaskLaunch ) {
 
 						logger.log(Level.FINE, "onUIEvent taskProvide is TaskLaunch");
 						

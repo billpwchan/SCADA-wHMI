@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayout
 
 public class ViewLayoutHistoryMgr {
 	
-	private static Logger logger = Logger.getLogger(ViewLayoutHistoryMgr.class.getName());
+	private Logger logger = Logger.getLogger(ViewLayoutHistoryMgr.class.getName());
 
 	private static int HISTORY_LIMIT = 20;
 	

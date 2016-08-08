@@ -25,16 +25,12 @@ public class UIGws {
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private static Logger logger = Logger.getLogger("");
-	
-//	private SplitLayoutPanel root = null;
-//	private HorizontalPanel main = null;
-	
+	private Logger logger = Logger.getLogger("");
+
 	private SimplePanel root = null;
 
 	public SimplePanel getMainPanel() {
-//		this.root = new SplitLayoutPanel();
-//		this.main = new HorizontalPanel();
+
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
 		
@@ -117,25 +113,7 @@ public class UIGws {
 				setting.set("numofscreen", Integer.toString(1));
 			}
 		}
-		
-//		this.root = new SplitLayoutPanel();
-//		
-//		String strDebug = setting.get("debug");
-//
-//		if ( null != strDebug && 0==strDebug.compareToIgnoreCase("true") && LogConfiguration.loggingIsEnabled() ) {
-//			int hight = 200;
-//			VerticalPanel logArea = new VerticalPanel();
-//			logArea.addStyleName("project-gwt-panel-gws-logarea");
-//			ScrollPanel scrollPanel = new ScrollPanel(logArea);
-//			scrollPanel.addStyleName("project-gwt-panel-gws-logarea-scrollpanel");
-//			this.root.addSouth(scrollPanel, hight);
-//			logger.addHandler(new HasWidgetsLogHandler(logArea));
-//		}
-//		
-//		this.root.add(main);
-//		this.main.addStyleName("project-gwt-panel-gws-main");
-//		this.main.add(new UIGwsCache().getMainPanel(this.uiNameCard));
-		
+
 		this.root = new SimplePanel();
 		this.root.addStyleName("project-gwt-panel-gws-main");
 		this.root.add(new UIGwsCache().getMainPanel(this.uiNameCard));
@@ -300,6 +278,9 @@ public class UIGws {
 		uiPanelSettingCache.add("UIPanelPTWViewer.xml", header);
 		uiPanelSettingCache.add("UIPanelPTWViewer.xml", option);
 		
+		uiPanelSettingCache.add("UIPanelPTWAction.xml", header);
+		uiPanelSettingCache.add("UIPanelPTWAction.xml", option);		
+		
 		uiPanelSettingCache.add("UIPanelPTWViewerButton.xml", header);
 		uiPanelSettingCache.add("UIPanelPTWViewerButton.xml", option);
 		
@@ -321,19 +302,6 @@ public class UIGws {
 	
 	private void ready(int received) {
 		logger.log(Level.FINE, "ready Begin");
-		
-		logger.log(Level.FINE, "ready BF");
-		
-//		logger.log(Level.SEVERE, "ready BF");
-//		SimpleRemoteLogHandler handler = new SimpleRemoteLogHandler();
-//		handler.setLevel(Level.FINE);
-//		Logger.getLogger("").addHandler(handler);
-//		logger.log(Level.SEVERE, "ready AF");
-		
-		logger.log(Level.FINE, "ready AF");
-		
-//		this.main.clear();
-//		this.main.add(new UIPanelScreen().getMainPanel(this.uiNameCard));
 		
 		this.root.clear();
 		this.root.add(new UIPanelScreen().getMainPanel(this.uiNameCard));

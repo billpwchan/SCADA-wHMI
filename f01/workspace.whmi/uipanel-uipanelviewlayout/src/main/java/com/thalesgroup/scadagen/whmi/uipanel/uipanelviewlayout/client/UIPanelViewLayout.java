@@ -8,62 +8,35 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanel.client.UIPanel_i;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelView;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEvent, ViewLayoutMgrEvent {
+public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, ViewLayoutMgrEvent {
 	
-	private static Logger logger = Logger.getLogger(UIPanelViewLayout.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelViewLayout.class.getName());
 
 	private ViewLayoutMgr viewLayoutMgr;
 	
 	private UIPanelView[] uiPanelViews;
 	
-	private ComplexPanel root;
-	
 	private ComplexPanel upperMainPanel;
 	
-	private UINameCard uiNameCard;
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
-	
-	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		logger.log(Level.FINE, "getMainPanel Begin...");
 		
 		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
 		
 		logger.log(Level.SEVERE, "setLayout this.uiNameCard.getUiScreen() ["+this.uiNameCard.getUiScreen()+"] this.uiNameCard.getUiPath()	["+this.uiNameCard.getUiPath()+"]");
 		
-		root = new DockLayoutPanel(Unit.PX);
-		root.addStyleName("project-gwt-panel-viewlayout-main");
-		
+		rootPanel = new DockLayoutPanel(Unit.PX);
+		rootPanel.addStyleName("project-gwt-panel-viewlayout-main");
+
 		logger.log(Level.FINE, "getMainPanel End.");
 	}
-	
-	@Override
-	public ComplexPanel getMainPanel() 
-	{ 
-		return root; 
-	}
-	
-	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) 
-	{ 
-		setUINameCard(uiNameCard);
-		init(null);
-		return root; 
-	}
-	
+
 	/**
 	 * @param viewId
 	 * @return
@@ -99,9 +72,6 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 		return vs;
 	}
 	
-
-	
-
 	@Override
 	public void setLayout(ViewLayoutMode viewLayoutMode, ViewLayoutAction viewLayoutAction)
 	{
@@ -114,11 +84,12 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 		
 		UIPanelEmpty uiPanelEmpty = new UIPanelEmpty();
 		uiPanelEmpty.setUINameCard(uiNameCard);
-		uiPanelEmpty.init(null);
+		uiPanelEmpty.setXMLFile(xmlFile);
+		uiPanelEmpty.init();
 		upperMainPanel = uiPanelEmpty.getMainPanel();
 		
-		root.clear();
-		root.add(upperMainPanel);
+		rootPanel.clear();
+		rootPanel.add(upperMainPanel);
 		
 		boolean borderVisible = false;
 		
@@ -223,8 +194,7 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 	}
 
 	@Override
-	public void setViewIdActivate(int viewId) 
-	{
+	public void setViewIdActivate(int viewId) {
 		logger.log(Level.FINE, "setViewIdActivate Begin");
 		
 		this.viewLayoutMgr.setViewIdActivate(viewId);
@@ -235,38 +205,29 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 	}
 
 	@Override
-	public void setTaskLaunch(UITaskLaunch taskLaunch, int viewId) 
-	{
+	public void setTaskLaunch(UITaskLaunch taskLaunch, int viewId) {
 		logger.log(Level.FINE, "setTaskLaunch Begin");
 		
-		if ( null != this.uiPanelViews ) 
-		{
+		if ( null != this.uiPanelViews ) {
 			if ( viewId >= 0 && viewId < this.uiPanelViews.length ) {
 				this.uiPanelViews[viewId].setTaskLaunch(taskLaunch);
 			} else {
 				logger.log(Level.FINE, "setTaskLaunch is INVALID viewId["+viewId+"] set to this.uiPanelViews.length["+this.uiPanelViews.length+"]");
 			}
-		}
-		else 
-		{
+		} else {
 			logger.log(Level.FINE, "setTaskLaunch this.uiPanelViews is null");
 		}
 		logger.log(Level.FINE, "setTaskLaunch End");
 	}
 
 	@Override
-	public void onViewIdActivateEvent(int viewId) 
-	{
+	public void onViewIdActivateEvent(int viewId) {
 		logger.log(Level.FINE, "onViewIdActivateEvent Begin");
 		
-		for(UIPanelView uiPanelView: uiPanelViews)
-		{
-			if ( uiPanelView.getViewId() != viewId ) 
-			{
+		for(UIPanelView uiPanelView: uiPanelViews){
+			if ( uiPanelView.getViewId() != viewId ) {
 				uiPanelView.setActivate(false);
-			} 
-			else 
-			{
+			} else {
 				uiPanelView.setActivate(true);
 			}
 		}
@@ -278,52 +239,4 @@ public class UIPanelViewLayout implements UIWidget_i, UIPanel_i, UIPanelViewEven
 		onViewIdActivateEvent(viewIdActivate);
 	}
 
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

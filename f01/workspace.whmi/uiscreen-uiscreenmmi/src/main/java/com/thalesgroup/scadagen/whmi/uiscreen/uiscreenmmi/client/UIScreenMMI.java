@@ -3,7 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
@@ -11,13 +10,10 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBox;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.client.UIScreen_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAccessBar;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAlarmBanner;
@@ -29,23 +25,18 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
-public class UIScreenMMI implements UIScreen_i {
+public class UIScreenMMI extends UIWidget_i {
 
-	private static Logger logger = Logger.getLogger(UIScreenMMI.class.getName());
+	private Logger logger = Logger.getLogger(UIScreenMMI.class.getName());
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
-
-	private UINameCard uiNameCard = null;
 	
 	private String strUIScreenMMI = "UIScreenMMI.xml";
-	
-	public UINameCard getUINameCard() { return this.uiNameCard; }
 
 	private UILayoutGeneric uiPanelGeneric = null;
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
-		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
+	
+	@Override
+	public void init() {
 		
 		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 			@Override
@@ -64,7 +55,7 @@ public class UIScreenMMI implements UIScreen_i {
 				logger.log(Level.FINE, "getUIWidget Begin");
 				logger.log(Level.FINE, "getUIWidget widget["+widget+"]");
 				
-				UIWidget_i uiWidget = null;
+				UIWidget_i uiWidget_i = null;
 				
 				if ( null != widget) {
 					
@@ -74,68 +65,75 @@ public class UIScreenMMI implements UIScreen_i {
 						
 						if ( params[1].equals("UINavigationMenu") ) {
 							
-							uiWidget = UIPanelNavigation.getInstance();
+							uiWidget_i = UIPanelNavigation.getInstance();
 							
 							logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] widgetType["+params[1]+"] menuLevel["+params[2]+"] menuType["+params[3]+"]");
 								
-							uiWidget.setParameter("menuLevel", params[2]);
-							uiWidget.setParameter("menuType", params[3]);
-							uiWidget.setUINameCard(getUINameCard());
-							uiWidget.getMainPanel();
+							uiWidget_i.setParameter("menuLevel", params[2]);
+							uiWidget_i.setParameter("menuType", params[3]);
+							uiWidget_i.setUINameCard(uiNameCard);
+							uiWidget_i.getMainPanel();
 						}
 						
 					} else if ( widget.equals("UIPanelSoundServerController") ) {
-						uiWidget = new UIPanelSoundServerController();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelSoundServerController();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					} else if ( widget.equals("UIPanelAccessBar") ) {
-						uiWidget = new UIPanelAccessBar();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelAccessBar();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					} else if ( widget.equals("UIPanelAlarmBanner") ) {
-						uiWidget = new UIPanelAlarmBanner();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelAlarmBanner();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					} else if ( widget.equals("UIPanelStatusBar") ) {
-						uiWidget = new UIPanelStatusBar();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelStatusBar();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					} else if ( widget.equals("UIPanelAlarmBannerList") ) {
-						uiWidget = new UIPanelAlarmBannerList();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelAlarmBannerList();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					} else if ( widget.equals("UIPanelViewLayout") ) {
-						uiWidget = new UIPanelViewLayout();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelViewLayout();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					} else if ( widget.equals("UIPanelEmpty") ) {
-						uiWidget = new UIPanelEmpty();
-						uiWidget.setUINameCard(getUINameCard());
-						uiWidget.init(widget);
+						uiWidget_i = new UIPanelEmpty();
+						uiWidget_i.setUINameCard(uiNameCard);
+						uiWidget_i.setXMLFile(widget);
+						uiWidget_i.init();
 					}
 				} else {
 					logger.log(Level.SEVERE, "getUIWidget widget IS NULL");
 				}
 				
 
-				logger.log(Level.FINE, "getUIWidget uiWIdget["+uiWidget+"]");
+				logger.log(Level.FINE, "getUIWidget uiWIdget["+uiWidget_i+"]");
 				logger.log(Level.FINE, "getUIWidget End");
 				
-				return uiWidget;
+				return uiWidget_i;
 			}
 		});
 
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.init(strUIScreenMMI);
-		ComplexPanel complexPanel = uiPanelGeneric.getMainPanel();
+		uiPanelGeneric.setXMLFile(strUIScreenMMI);
+		uiPanelGeneric.init();
+		
+		rootPanel = uiPanelGeneric.getMainPanel();
 		
 		//Start the Navigation Menu
 		logger.log(Level.FINE, "getMainPanel Start the Navigation Menu Begin");
 		
 		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
-
-		return complexPanel;
 	}
 	
 	void onUIEvent(UIEvent uiEvent) {
@@ -148,7 +146,7 @@ public class UIScreenMMI implements UIScreen_i {
 				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-					if (UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide)) {
+					if ( taskProvide instanceof UITaskLaunch ) {
 
 						UITaskLaunch taskLaunch = (UITaskLaunch) taskProvide;
 
@@ -213,15 +211,15 @@ public class UIScreenMMI implements UIScreen_i {
 							
 
 							
-							String scsEnvId		= null;
-							String dbaddress	= null;
+							String scsEnvId		= hvid;
+							String dbaddress	= hvid;
 
 							String dbaddresses	= null;
 							String hvides[] = hvid.split("_");
 							if ( null != hvides ) {
-								if ( hvides.length >= 1 && null != hvides[0] ) {
-									scsEnvId = hvides[0];
-								}
+//								if ( hvides.length >= 1 && null != hvides[0] ) {
+//									scsEnvId = hvides[0];
+//								}
 								dbaddresses = "";
 								for ( int i = 1 ; i < hvides.length ; i++ ) {
 									if ( dbaddresses.length() > 0 ) {
@@ -264,6 +262,7 @@ public class UIScreenMMI implements UIScreen_i {
 							uiInspectorDialogbox.show();
 							
 							uiInspectorDialogbox.setParent(scsEnvId, dbaddress);
+							
 							uiInspectorDialogbox.setPeriod(period);
 											
 							uiInspectorDialogbox.connect();

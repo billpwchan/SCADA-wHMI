@@ -23,7 +23,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 
 public class UIInspectorConnectionBox extends DialogBox {
 	
-	private static Logger logger = Logger.getLogger(UIInspectorConnectionBox.class.getName());
+	private Logger logger = Logger.getLogger(UIInspectorConnectionBox.class.getName());
 	
 	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
 	

@@ -11,7 +11,7 @@ import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
 
 public class TaskMgr implements AsyncCallback<Tasks> {
 	
-	private static Logger logger = Logger.getLogger(TaskMgr.class.getName());
+	private Logger logger = Logger.getLogger(TaskMgr.class.getName());
 	
 	private boolean ready = false;
 	private boolean failded = false;

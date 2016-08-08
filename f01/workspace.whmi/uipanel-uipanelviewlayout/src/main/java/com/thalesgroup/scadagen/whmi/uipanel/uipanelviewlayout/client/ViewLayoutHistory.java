@@ -9,7 +9,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 
 public class ViewLayoutHistory {
 	
-	private static Logger logger = Logger.getLogger(ViewLayoutHistory.class.getName());
+	private Logger logger = Logger.getLogger(ViewLayoutHistory.class.getName());
 
 	private ViewLayoutMode viewLayoutMode;
 	private ViewLayoutAction viewLayoutAction;

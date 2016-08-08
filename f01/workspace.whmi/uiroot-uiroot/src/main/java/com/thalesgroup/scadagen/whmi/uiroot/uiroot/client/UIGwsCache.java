@@ -12,7 +12,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 public class UIGwsCache {
 	
-	private static Logger logger = Logger.getLogger(UIGwsCache.class.getName());
+	private Logger logger = Logger.getLogger(UIGwsCache.class.getName());
 	
 	private UINameCard uiNameCard = null;
 	public ComplexPanel getMainPanel(UINameCard uiNameCard) {

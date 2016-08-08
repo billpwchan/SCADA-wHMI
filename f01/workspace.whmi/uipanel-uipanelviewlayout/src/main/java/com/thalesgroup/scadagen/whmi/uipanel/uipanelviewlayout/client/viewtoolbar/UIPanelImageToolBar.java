@@ -20,7 +20,7 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.viewtoolba
 
 public class UIPanelImageToolBar {
 	
-	private static Logger logger = Logger.getLogger(UIPanelImageToolBar.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelImageToolBar.class.getName());
 	
 	public static final String UNIT_PX		= "px";
 	

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -13,11 +12,13 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.common.PTWCommonEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.common.PTWCommonEventHandler;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.PTW_i.PTW;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.PTW_i.PTWOperation;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.PTW_i.PTWOperationDetail;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
@@ -27,21 +28,19 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterE
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
 
-public class PTWViewer implements UIWidget_i {
+public class PTWViewer extends UIWidget_i {
 	
     /** Logger */
     private final ClientLogger s_logger = ClientLogger.getClientLogger();
+    
+    private String panelname = "ptwviewer";
+    
+    private String logPrefix = "PTWViewer";
 
 	// External
 	private SimpleEventBus eventBus = null;
-	
-	public SimpleEventBus getEventBus() {
-		return eventBus;
-	}
-
-	public void setEventBus(SimpleEventBus eventBus) {
-		this.eventBus = eventBus;
-	}
+	public SimpleEventBus getEventBus() { return eventBus; }
+	public void setEventBus(SimpleEventBus eventBus) { this.eventBus = eventBus; }
 
 	private String listConfigId = null;
 	public String getListConfigId() { return listConfigId; }
@@ -51,7 +50,6 @@ public class PTWViewer implements UIWidget_i {
 	public String getListConfigId2() { return listConfigId2; }
 	public void setListConfigId2(String listConfigId2) { this.listConfigId2 = listConfigId2; }
 
-	private ComplexPanel root = null;
 	public PTWViewer (SimpleEventBus eventBus, String listConfigId) {
 		this( eventBus, listConfigId, listConfigId);
 	}
@@ -62,64 +60,73 @@ public class PTWViewer implements UIWidget_i {
 		this.listConfigId = listConfigId;
 		this.listConfigId2 = listConfigId2;
 		
-		s_logger.debug(PTWViewer.class.getName() + "this.listConfigId[" + this.listConfigId + "]");
+		s_logger.debug(logPrefix + "this.listConfigId[" + this.listConfigId + "]");
 		
-		s_logger.debug(PTWViewer.class.getName() + "this.listConfigId2[" + this.listConfigId2 + "]");
+		s_logger.debug(logPrefix + "this.listConfigId2[" + this.listConfigId2 + "]");
 		
-		this.eventBus.addHandler(PTWCommonEvent.TYPE, new PTWCommonEventHandler() {
+		this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
 			
 			@Override
-			public void onOperation(PTWCommonEvent ptwCommonEvent) {
-
-				if ( ptwCommonEvent.getSource() != this ) {
+			public void onAction(UIEventAction uiEventAction) {
+				if ( uiEventAction.getSource() != this ) {
+					String op = uiEventAction.getAction(PTW.Operation.toString());
+					String od1 = uiEventAction.getAction(PTW.OperationDetail1.toString());
+//					String od2 = uiEventAction.getAction(PTW.OperationDetail2.toString());
 					
-					String operation = ptwCommonEvent.getOperation();
-					String operationDetails = ptwCommonEvent.getOperationDetails();
+					s_logger.debug(logPrefix + PTW.Operation.toString() + ": [" + op + "]");
+					s_logger.debug(logPrefix + PTW.OperationDetail1.toString() + " : [" + od1 + "]");
+//					s_logger.debug(logPrefix + PTW.OperationDetail2.toString() + " : [" + od2 + "]");
 					
-					s_logger.debug(PTWViewer.class.getName() + "Operation: [" + operation + "]");
-					
-					s_logger.debug(PTWViewer.class.getName() + "Operation Details: [" + operationDetails + "]");
-					
-					if ( null != operation ) {
-						if ( null != operationDetails ) {
-							if ( "Filter".equals(operation) ) {
-								if ( "NAN".equals(operationDetails) ) {
+					if ( null != op ) {
+						if ( null != od1 ) {
+							if ( PTWOperation.Filter.toString().equals(op) ) {
+								if ( PTWOperationDetail.NAN.toString().equals(od1) ) {
 									removeFilter();
 								}
+							} else {
+								s_logger.error(logPrefix + "operationDetail IS NULL");
 							}
+						} else {
+							s_logger.error(logPrefix + "operation IS NULL");
 						}
 					}
-					
 				} else {
-					
-					s_logger.debug(PTWViewer.class.getName() + "Event from itself");
-					
+					s_logger.debug(logPrefix + "Event from itself");
 				}
 			}
 		});
+
 	}
 	
 	private void fireSelecionEvent(HashMap<String, String> entities) {
-		String message = "NAN";
+		String column_alias		= "ptwdciset_alias";
+		String column_status	= "ptwdciset_value";
+		String alias			= PTWOperationDetail.NAN.toString();
+		String status			= PTWOperationDetail.NAN.toString();
 		if ( null != entities && entities.size() > 0 ) {
-			message = entities.get("alias");
+			if ( entities.containsKey(column_alias) ) 	alias	= entities.get(column_alias);
+			if ( entities.containsKey(column_status) ) 	status	= entities.get(column_status);
 		}
-		if ( null != entities ) {
-			for ( String key :  entities.keySet() ) {
-				if ( "alias".equals(key) ) {
-					message = entities.get(key);
-				}
-			}
-		}
-		this.eventBus.fireEventFromSource(new PTWCommonEvent("Selection", message), this);
+		
+		UIEventAction uiEventAction = new UIEventAction();
+		uiEventAction.setAction(PTW.Operation.toString(), PTWOperation.Selection.toString());
+		uiEventAction.setAction(PTW.OperationDetail1.toString(), alias);
+		uiEventAction.setAction(PTW.OperationDetail2.toString(), status);
+		
+		this.eventBus.fireEventFromSource(uiEventAction, this);
 	}
 	
 	private void fireFilterEvent(ArrayList<String> columns) {
-		String message = "NAN";
+		String message = PTWOperationDetail.NAN.toString();
 		if ( null != columns && columns.size() > 0 ) {
-			message = "Set";
+			message = PTWOperationDetail.Set.toString();
 		}
-		this.eventBus.fireEventFromSource(new PTWCommonEvent("Filter", message), this);
+		
+		UIEventAction event = new UIEventAction();
+		event.setAction(PTW.Operation.toString(), PTWOperation.Filter.toString());
+		event.setAction(PTW.OperationDetail1.toString(), message);
+		
+		this.eventBus.fireEventFromSource(event, this);
 		
 	}
 	
@@ -136,12 +143,6 @@ public class PTWViewer implements UIWidget_i {
 	
 	private ScsOlsListPanel gridView12						= null;
 	private ScsAlarmDataGridPresenterClient gridPresenter12	= null;	
-
-	private UINameCard uiNameCard = null;
-	public void setUINameCard (UINameCard uiNameCard) { 
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
 
 	public void removeFilter() {
 
@@ -170,7 +171,7 @@ public class PTWViewer implements UIWidget_i {
 	}
 
 	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -185,59 +186,48 @@ public class PTWViewer implements UIWidget_i {
 			
 			@Override
 			public UIWidget_i getUIWidget(String widget) {
-				UIWidget_i uiWidget = null;
+				UIWidget_i uiWidget_i = null;
 				if ( 0 == widget.compareTo("AbsolutePanelOlsList") ) {
-					uiWidget = new AbsolutePanelOlsList(getListConfigId(), getListConfigId2());
-					uiWidget.init(null);
+					uiWidget_i = new AbsolutePanelOlsList(getListConfigId(), getListConfigId2());
+					uiWidget_i.init();
 				}
-				return uiWidget;
+				return uiWidget_i;
 			}
 		});
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.init(strUIPanelPTWViewer);
+		uiLayoutGeneric.setXMLFile(strUIPanelPTWViewer);
+		uiLayoutGeneric.init();
 		ComplexPanel complexPanel = uiLayoutGeneric.getMainPanel();
 		
 		uiPanelGenericButton	= uiLayoutGeneric.getUIWidget(strUIPanelPTWViewerButton);
 	
 		if ( null != uiPanelGenericButton ) {
-			uiPanelGenericButton.setUIWidgetEvent(new UIWidgetEvent() {
+			uiPanelGenericButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 				
 				@Override
 				public void onClickHandler(ClickEvent event) {
-					
 					Widget widget = (Widget) event.getSource();
 					String element = uiPanelGenericButton.getWidgetElement(widget);
 					if ( null != element ) {
-						if ( 0 == element.compareTo("ptwset") ) {
+						if ( 0 == element.compareTo( PTWOperationDetail.Set.toString() ) ) {
 							
-							gridView10.getMainPanel().addStyleName("project-gwt-panel-ptwviewer-grid-invisible");
-							gridView10.getMainPanel().removeStyleName("project-gwt-panel-ptwviewer-grid-visible");
+							gridView10.getMainPanel().addStyleName("project-gwt-panel-"+panelname+"-grid-invisible");
+							gridView10.getMainPanel().removeStyleName("project-gwt-panel-"+panelname+"-grid-visible");
 							
-							gridView12.getMainPanel().removeStyleName("project-gwt-panel-ptwviewer-grid2-invisible");
-							gridView12.getMainPanel().addStyleName("project-gwt-panel-ptwviewer-grid2-visible");							
+							gridView12.getMainPanel().removeStyleName("project-gwt-panel-"+panelname+"-grid2-invisible");
+							gridView12.getMainPanel().addStyleName("project-gwt-panel-"+panelname+"-grid2-visible");							
 							
-						} else if ( 0 == element.compareTo("ptwunset") ){
+						} else if ( 0 == element.compareTo( PTWOperationDetail.UnSet.toString() ) ){
 
-							gridView10.getMainPanel().addStyleName("project-gwt-panel-ptwviewer-grid-visible");
-							gridView10.getMainPanel().removeStyleName("project-gwt-panel-ptwviewer-grid-invisible");
+							gridView10.getMainPanel().addStyleName("project-gwt-panel-"+panelname+"-grid-visible");
+							gridView10.getMainPanel().removeStyleName("project-gwt-panel-"+panelname+"-grid-invisible");
 							
-							gridView12.getMainPanel().removeStyleName("project-gwt-panel-ptwviewer-grid2-visible");
-							gridView12.getMainPanel().addStyleName("project-gwt-panel-ptwviewer-grid2-invisible");
+							gridView12.getMainPanel().removeStyleName("project-gwt-panel-"+panelname+"-grid2-visible");
+							gridView12.getMainPanel().addStyleName("project-gwt-panel-"+panelname+"-grid2-invisible");
 							
 						}
 					}
-				}
-				
-				@Override
-				public void onKeyPressHandler(KeyPressEvent event) {
-					// TODO Auto-generated method stub
-				}
-
-				@Override
-				public void onValueChange(String name, String value) {
-					// TODO Auto-generated method stub
-					
 				}
 			});
 			
@@ -305,63 +295,10 @@ public class PTWViewer implements UIWidget_i {
 			});
 		}
 		
-		root = new VerticalPanel();
-		root.addStyleName("project-gwt-panel-ptwviewer-root");
-		root.add(complexPanel);
+		rootPanel = new VerticalPanel();
+		rootPanel.addStyleName("project-gwt-panel-"+panelname+"-root");
+		rootPanel.add(complexPanel);
 
-	}
-
-	@Override
-	public ComplexPanel getMainPanel() {
-		return root;
-	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

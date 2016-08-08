@@ -67,8 +67,8 @@
 	</dependency>
 	
 	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreen</groupId>
-	  <artifactId>uiscreen-uiscreen</artifactId>
+	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
+	  <artifactId>uiwidget-uiwidget</artifactId>
           <version>1.0-SNAPSHOT</version>
 	</dependency>
     

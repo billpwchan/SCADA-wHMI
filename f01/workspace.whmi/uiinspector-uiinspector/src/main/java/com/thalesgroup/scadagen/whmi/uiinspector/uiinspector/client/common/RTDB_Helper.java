@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 public class RTDB_Helper {
 	
-	private static Logger logger = Logger.getLogger(RTDB_Helper.class.getName());
+	private static final Logger logger = Logger.getLogger(RTDB_Helper.class.getName());
 	
 	public static final int valueAlarmVectorIndex = 1;
 	

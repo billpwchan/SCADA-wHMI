@@ -15,14 +15,13 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory.TaskType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 
 public class ViewLayoutMgr {
 
-	private static Logger logger = Logger.getLogger(ViewLayoutMgr.class.getName());
+	private Logger logger = Logger.getLogger(ViewLayoutMgr.class.getName());
 
 	private ViewLayoutMgrEvent viewLayoutMgrEvent = null;
 	private ViewLayoutHistoryMgr viewLayoutHistoryMgr = null;
@@ -479,18 +478,18 @@ public class ViewLayoutMgr {
 				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-					if (UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide)) {
+					if ( taskProvide instanceof UITaskLaunch ) {
 
 						logger.log(Level.FINE, "onUIEvent taskProvide is TaskLaunch");
 
 						setTaskLaunch((UITaskLaunch) taskProvide, true);
 
-					} else if (UITaskMgr.isInstanceOf(UITaskHistory.class, taskProvide)) {
+					} else if ( taskProvide instanceof UITaskHistory ) {
 
 						logger.log(Level.FINE, "onUIEvent taskProvide is TaskHistory");
 
 						setTaskHistory((UITaskHistory) taskProvide);
-					} else if (UITaskMgr.isInstanceOf(UITaskSplit.class, taskProvide)) {
+					} else if ( taskProvide instanceof UITaskSplit ) {
 						
 						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
 						

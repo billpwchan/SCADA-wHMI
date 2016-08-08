@@ -12,17 +12,15 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
+public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 	
-	private static Logger logger = Logger.getLogger(UIPanelMenus.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelMenus.class.getName());
 		
 	private NavigationMgr navigationMgr = null;
 
@@ -329,69 +327,11 @@ public class UIPanelMenus implements UIWidget_i, NavigationMgrEvent {
 		
 		logger.log(Level.SEVERE, "isReady End");
 	}
-	
-	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		
-	};
 
 	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public ComplexPanel getMainPanel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
-	}
 }

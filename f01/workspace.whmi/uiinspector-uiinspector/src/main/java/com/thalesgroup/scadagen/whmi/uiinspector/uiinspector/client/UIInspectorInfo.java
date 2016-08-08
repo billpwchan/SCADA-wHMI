@@ -439,20 +439,20 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		String value = null;
 		{
 			String dbaddress = address + PointName.value.toString();
-			logger.log(Level.FINE, "updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "updateDci PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
 			if ( dbvalues.containsKey(dbaddress) ) {
 				value = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.log(Level.SEVERE, "updateDci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 			}
 		}		
 		
-		logger.log(Level.FINE, "updateValue value["+value+"]");
+		logger.log(Level.FINE, "updateDci value["+value+"]");
 		
 		String valueTable = null;
 		{
 			String dbaddress = address + PointName.dalValueTable.toString();
-			logger.log(Level.FINE, "updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "updateDci PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
 			if ( dbvalues.containsKey(dbaddress) ) {
 				valueTable = dbvalues.get(dbaddress);
 			} else {
@@ -460,26 +460,26 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			}					
 		}
 		
-		logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
+		logger.log(Level.FINE, "updateDci valueTable["+valueTable+"]");
 		
 		String label = null;
 		{
 			int valueCol = 0, labelCol = 1;
 			
-			logger.log(Level.FINE, "updateValue valueCol["+valueCol+"] nameCol["+labelCol+"]");
+			logger.log(Level.FINE, "updateDci valueCol["+valueCol+"] nameCol["+labelCol+"]");
 			
 			for( int r = 0 ; r < 12 ; ++r ) {
 				String v = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-				logger.log(Level.FINE, "updateValue getvalue r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+				logger.log(Level.FINE, "updateDci getvalue r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
 				if ( 0 == v.compareTo(value) ) {
-					logger.log(Level.FINE, "updateValue getname r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+					logger.log(Level.FINE, "updateDci getname r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
 					label = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
 					break;
 				}
 			}
 		}
 		
-		logger.log(Level.FINE, "updateValue name["+label+"]");
+		logger.log(Level.FINE, "updateDci name["+label+"]");
 		
 		if ( null != label ) {
 			label = RTDB_Helper.removeDBStringWrapper(label);
@@ -494,8 +494,8 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		String forcedStatus = null;
 		{
 			{
-				String dbaddress = address + PointName.dalValueTable.toString();
-				logger.log(Level.FINE, "updateValue PointName.value.toString()AlarmVector["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
+				String dbaddress = address + PointName.dalValueAlarmVector.toString();
+				logger.log(Level.FINE, "updateDci PointName.value.toString() dalValueAlarmVector["+PointName.dalValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					valueAlarmVector = dbvalues.get(dbaddress);
 				} else {
@@ -503,7 +503,9 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
+			logger.log(Level.SEVERE, "updateDci row["+row+"] valueAlarmVector["+valueAlarmVector+"] address["+address+"] PointName.dalValueTable.toString()["+PointName.dalValueTable.toString()+"]");
+			
+			logger.log(Level.FINE, "updateDci valueAlarmVector["+valueAlarmVector+"]");
 			
 			{
 				String dbaddress = address + PointName.validity.toString();
@@ -515,41 +517,41 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue validity["+validity+"]");
+			logger.log(Level.FINE, "updateDci validity["+validity+"]");
 			
 			{
 				String dbaddress = address + PointName.dfoForcedStatus.toString();
-				logger.log(Level.FINE, "updateValue strForcedStatus["+PointName.dfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateDci strForcedStatus["+PointName.dfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					forcedStatus = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateDci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue forcedStatus["+forcedStatus+"]");
+			logger.log(Level.FINE, "updateDci forcedStatus["+forcedStatus+"]");
 
 		}
 		
 		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
+		logger.log(Level.FINE, "updateDci strColorCSS["+strColorCSS+"]");
 	}
 
 	private void updateAci(String address, int row) {
 		String value = null;
 		{
 			String dbaddress = address + PointName.value.toString();
-			logger.log(Level.FINE, "updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "updateAci PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
 			if ( dbvalues.containsKey(dbaddress) ) {
 				value = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.log(Level.SEVERE, "updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 			}
 		}		
 		
-		logger.log(Level.FINE, "updateValue value["+value+"]");
+		logger.log(Level.FINE, "updateAci value["+value+"]");
 		
 		value = RTDB_Helper.removeDBStringWrapper(value);
 		txtAttributeValue[row].setText(value);	
@@ -560,61 +562,61 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		{
 			{
 				String dbaddress = address + PointName.aalValueAlarmVector.toString();
-				logger.log(Level.FINE, "updateValue PointName.value.toString()AlarmVector["+PointName.aalValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateAci PointName.value.toString()AlarmVector["+PointName.aalValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					valueAlarmVector = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
+			logger.log(Level.FINE, "updateAci valueAlarmVector["+valueAlarmVector+"]");
 			
 			{
 				String dbaddress = address + PointName.validity.toString();
-				logger.log(Level.FINE, "updateValue PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateAci PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					validity = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue validity["+validity+"]");
+			logger.log(Level.FINE, "updateAci validity["+validity+"]");
 			
 			{
 				String dbaddress = address + PointName.afoForcedStatus.toString();
-				logger.log(Level.FINE, "updateValue strForcedStatus["+PointName.afoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateAci strForcedStatus["+PointName.afoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					forcedStatus = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue forcedStatus["+forcedStatus+"]");
+			logger.log(Level.FINE, "updateAci forcedStatus["+forcedStatus+"]");
 
 		}
 		
 		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
+		logger.log(Level.FINE, "updateAci strColorCSS["+strColorCSS+"]");
 	}
 	
 	void updateSci(String address, int row) {
 		String value = null;
 		{
 			String dbaddress = address + PointName.value.toString();
-			logger.log(Level.FINE, "updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, "updateSci PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
 			if ( dbvalues.containsKey(dbaddress) ) {
 				value = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.log(Level.SEVERE, "updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 			}
 		}		
 		
-		logger.log(Level.FINE, "updateValue value["+value+"]");
+		logger.log(Level.FINE, "updateSci value["+value+"]");
 		
 		value = RTDB_Helper.removeDBStringWrapper(value);
 		txtAttributeValue[row].setText(value);	
@@ -625,46 +627,46 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		{
 			{
 				String dbaddress = address + PointName.salValueAlarmVector.toString();
-				logger.log(Level.FINE, "updateValue PointName.value.toString()AlarmVector["+PointName.salValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateSci PointName.value.toString()AlarmVector["+PointName.salValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					valueAlarmVector = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue valueAlarmVector["+valueAlarmVector+"]");
+			logger.log(Level.FINE, "updateSci valueAlarmVector["+valueAlarmVector+"]");
 			
 			{
 				String dbaddress = address + PointName.validity.toString();
-				logger.log(Level.FINE, "updateValue PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateSci PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					validity = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue validity["+validity+"]");
+			logger.log(Level.FINE, "updateSci validity["+validity+"]");
 			
 			{
 				String dbaddress = address + PointName.sfoForcedStatus.toString();
-				logger.log(Level.FINE, "updateValue strForcedStatus["+PointName.sfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, "updateSci strForcedStatus["+PointName.sfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					forcedStatus = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.log(Level.SEVERE, "updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 				}
 			}
 			
-			logger.log(Level.FINE, "updateValue forcedStatus["+forcedStatus+"]");
+			logger.log(Level.FINE, "updateSci forcedStatus["+forcedStatus+"]");
 
 		}
 		
 		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.log(Level.FINE, "updateValue strColorCSS["+strColorCSS+"]");
+		logger.log(Level.FINE, "updateSci strColorCSS["+strColorCSS+"]");
 	}
 	
 	FlexTable flexTableAttibutes = null;
@@ -673,17 +675,23 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 	private InlineLabel lblAttibuteLabel[];
 	private InlineLabel txtAttibuteColor[];
 	
-	
 	private Button btnUp			= null;
 	private InlineLabel lblPageNum	= null;
 	private Button btnDown			= null;
 	
-	private VerticalPanel vpCtrls = null;
 	private UINameCard uiNameCard = null;
 	@Override
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+	public void setUINameCard(UINameCard uiNameCard) {
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
+	}
+	
+	private VerticalPanel vpCtrls = null;
+	private DockLayoutPanel basePanel = null;
+	@Override
+	public void init(String xml) {
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.log(Level.FINE, "init Begin");
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -752,13 +760,17 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(btnAckCurPage);
 
-		DockLayoutPanel basePanel = new DockLayoutPanel(Unit.PX);
+		basePanel = new DockLayoutPanel(Unit.PX);
 		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
-		logger.log(Level.FINE, "getMainPanel End");
-		
+		logger.log(Level.FINE, "init End");
+	}
+	
+
+	@Override
+	public ComplexPanel getMainPanel() {
 		return basePanel;
 	}
 	

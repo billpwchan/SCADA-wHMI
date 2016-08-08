@@ -12,10 +12,11 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
 import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -32,9 +33,6 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIPanelGeneric_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootWidgetType;
@@ -44,7 +42,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
-public class UIWidgetGeneric implements UIWidget_i {
+public class UIWidgetGeneric extends UIWidget_i {
 	
 	private static Logger logger = Logger.getLogger(UIWidgetGeneric.class.getName());
 	
@@ -54,7 +52,6 @@ public class UIWidgetGeneric implements UIWidget_i {
 	private int cols	= 0;
 	private int totals	= 0;
 	
-    private VerticalPanel rootPanel;
     private String strCSSStatPanel;
     private String strRootWidget;
 
@@ -64,10 +61,6 @@ public class UIWidgetGeneric implements UIWidget_i {
     
     private HashMap<Integer, Widget> widgets = new HashMap<Integer, Widget>();
 
-	private UIWidgetEvent uiWidgetEvent = null;
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) { this.uiWidgetEvent = uiWidgetEvent; };
-    
     public String [] getElementValues(WidgetAttribute element) {
     	String elements [] = new String[this.values.size()];
 		for( int i=0 ; i < this.values.size(); ++i ) {
@@ -83,30 +76,12 @@ public class UIWidgetGeneric implements UIWidget_i {
 		}
     	return elements;
     }
-    
-    private String xmlFile;
 
     private Dictionary dictionaryHeader = null;
     private Dictionary dictionaryOption = null;
-    
-    private HashMap<String, String> paramaters = new HashMap<String, String>();
-    @Override
-    public void setParameter(String key, String value) {
-    	paramaters.put(key, value);
-    }
-    
-    private UINameCard uiNameCard = null;
+
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		if ( null != uiNameCard ) {
-			this.uiNameCard = new UINameCard(uiNameCard);
-			this.uiNameCard.appendUIPanel(this);
-		}
-	}
-	
-    public void init(String xmlFile) {
-    	
-    	this.xmlFile = xmlFile;
+    public void init() {
     	
     	logger.log(Level.SEVERE, "init this.xmlFile["+this.xmlFile+"]");
     	
@@ -138,8 +113,8 @@ public class UIWidgetGeneric implements UIWidget_i {
 			logger.log(Level.SEVERE, "getMainPanel appling root panel css strCSSStatPanel["+strCSSStatPanel+"]");
 			
 		    rootPanel.addStyleName(strCSSStatPanel);
-		    rootPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		    rootPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		    ((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		    ((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
 	    	FlexTable flexTable = null;
 	    	
@@ -244,8 +219,17 @@ public class UIWidgetGeneric implements UIWidget_i {
 							((TextBox)w).addKeyPressHandler(new KeyPressHandler() {
 								@Override
 								public void onKeyPress(KeyPressEvent event) {
-									if ( null != uiWidgetEvent ) {
-										uiWidgetEvent.onKeyPressHandler(event);
+									if ( null != uiWidgetEventOnKeyPressHandler ) {
+										uiWidgetEventOnKeyPressHandler.onKeyPressHandler(event);
+									}
+								}
+							});
+							((TextBox)w).addValueChangeHandler(new ValueChangeHandler<String>() {
+								
+								@Override
+								public void onValueChange(ValueChangeEvent<String> event) {
+									if ( null != uiWidgetEventOnValueChangeHandler ) {
+										uiWidgetEventOnValueChangeHandler.setUIWidgetEventOnValueChangeHandler(event);
 									}
 								}
 							});
@@ -291,8 +275,8 @@ public class UIWidgetGeneric implements UIWidget_i {
 							((Button)w).addClickHandler(new ClickHandler() {
 								@Override
 								public void onClick(ClickEvent event) {
-									if ( null != uiWidgetEvent ) {
-										uiWidgetEvent.onClickHandler(event);
+									if ( null != uiWidgetEventOnClickHandler ) {
+										uiWidgetEventOnClickHandler.onClickHandler(event);
 									}
 								}
 							});
@@ -325,8 +309,8 @@ public class UIWidgetGeneric implements UIWidget_i {
 							((Button)w).addClickHandler(new ClickHandler() {
 								@Override
 								public void onClick(ClickEvent event) {
-									if ( null != uiWidgetEvent ) {
-										uiWidgetEvent.onClickHandler(event);
+									if ( null != uiWidgetEventOnClickHandler ) {
+										uiWidgetEventOnClickHandler.onClickHandler(event);
 									}
 								}
 							});
@@ -458,7 +442,8 @@ public class UIWidgetGeneric implements UIWidget_i {
 		return element;
     	
     }
-
+    
+    @Override
     public Widget getWidget(String elementValue) {
     	
     	logger.log(Level.FINE, "getWidget Begin");
@@ -491,6 +476,7 @@ public class UIWidgetGeneric implements UIWidget_i {
 		return widget;
     }
     
+    @Override
     public String getWidgetStatus ( String element ) {
     	logger.log(Level.FINE, "setWidgetStatus Begin");
     	
@@ -764,6 +750,7 @@ public class UIWidgetGeneric implements UIWidget_i {
     	logger.log(Level.FINE, "setWidgetStatus End");
     }
     
+    @Override
 	public void setValue (String elementValue) {
     	
     	logger.log(Level.FINE, " **** updateValue Begin");
@@ -776,6 +763,7 @@ public class UIWidgetGeneric implements UIWidget_i {
     	
     }
 	
+	@Override
 	public void setValue (String elementValue, String value) {
 		
 		logger.log(Level.FINE, " **** updateValue Begin");
@@ -997,11 +985,5 @@ public class UIWidgetGeneric implements UIWidget_i {
 		}
 		return index;
     }
-	
-
-    @Override
-	public ComplexPanel getMainPanel() {
-		return rootPanel;
-	}
-
+    
 }

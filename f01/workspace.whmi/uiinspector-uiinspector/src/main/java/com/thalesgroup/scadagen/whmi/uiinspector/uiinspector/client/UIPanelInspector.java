@@ -47,7 +47,6 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	@Override
 	public void setParent(String scsEnvId, String parent) {
 
-		if ( null == scsEnvId ) scsEnvId = parent;
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
 		
@@ -507,11 +506,26 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			}
 		});
 		
-		panelHeader		= uiInspectorHeader		.getMainPanel(this.uiNameCard);
-		panelInfo		= uiInspectorInfo		.getMainPanel(this.uiNameCard);
-		panelCtrl		= uiInspectorControl	.getMainPanel(this.uiNameCard);
-		panelTag		= uiInspectorTag		.getMainPanel(this.uiNameCard);
-		panelAdv		= uiInspectorAdvance	.getMainPanel(this.uiNameCard);
+
+		uiInspectorHeader.setUINameCard(this.uiNameCard);
+		uiInspectorHeader.init(null);
+		panelHeader	= uiInspectorHeader.getMainPanel();
+		
+		uiInspectorInfo.setUINameCard(this.uiNameCard);
+		uiInspectorInfo.init(null);
+		panelInfo = uiInspectorInfo.getMainPanel();
+		
+		uiInspectorControl.setUINameCard(this.uiNameCard);
+		uiInspectorControl.init(null);
+		panelCtrl = uiInspectorControl.getMainPanel();
+		
+		uiInspectorTag.setUINameCard(this.uiNameCard);
+		uiInspectorTag.init(null);
+		panelTag = uiInspectorTag.getMainPanel();
+		
+		uiInspectorAdvance.setUINameCard(this.uiNameCard);
+		uiInspectorAdvance.init(null);
+		panelAdv = uiInspectorAdvance.getMainPanel();
 		
 		panelTab = new TabPanel();
 		panelTab.addStyleName("project-gwt-button-inspector-tabpanel");

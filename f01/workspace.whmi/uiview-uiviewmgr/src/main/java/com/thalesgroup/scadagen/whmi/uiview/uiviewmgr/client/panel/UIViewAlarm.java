@@ -9,23 +9,19 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 
-public class UIViewAlarm implements UIWidget_i {
+public class UIViewAlarm extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIViewAlarm.class.getName());
+	private Logger logger = Logger.getLogger(UIViewAlarm.class.getName());
 
 	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	public void addHandlerRegistration(HandlerRegistration handlerRegistration){
@@ -60,13 +56,6 @@ public class UIViewAlarm implements UIWidget_i {
 	};
 	private InlineLabel[] inlineLabel;
 	
-	private UINameCard uiNameCard;
-	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
-	
 	private void onButton(Button button) {
 		if ( null != button ) {
 			String text = button.getText();
@@ -88,11 +77,11 @@ public class UIViewAlarm implements UIWidget_i {
 			logger.log(Level.SEVERE, "onButton button IS NULL");
 		}
 	}
-	
-	private ComplexPanel root = null;
+
 	private WrapperScsAlarmListPanel wrapperScsAlarmListPanel = null;
+	
 	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		FlexTable flexTableFilters = new FlexTable();
 		flexTableFilters.setWidth("100%");
 		
@@ -182,59 +171,12 @@ public class UIViewAlarm implements UIWidget_i {
 		
 //		uiPanelPanelToolBar.setButton("Alarm Summary", true);
 		
-		root = new DockLayoutPanel(Unit.PX);
+		rootPanel = new DockLayoutPanel(Unit.PX);
 //		root.addSouth(toolBarPanel, 50);
-		root.add(basePanel);
+		rootPanel.add(basePanel);
 
 		logger.log(Level.FINE, "getMainPanel End");
 		
 	}
-	@Override
-	public ComplexPanel getMainPanel() {
-		return root;
-	}
-	
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 
 }

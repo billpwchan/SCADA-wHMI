@@ -32,25 +32,6 @@ public class UITaskMgr {
 			uitask_i = new UITaskSplit();
 		}
 
-		/*
-		switch (taskname) {
-		case "UITaskLaunch": {
-			uitask_i = new UITaskLaunch();
-		}
-			break;
-		case "UITaskTitle": {
-			uitask_i = new UITaskTitle();
-		}
-			break;
-		case "UITaskHistory": {
-			uitask_i = new UITaskHistory();
-		}
-			break;
-		default:
-			break;
-		}
-		*/
-		
 		logger.log(Level.FINE, "getTask End");
 
 		return uitask_i;
@@ -67,55 +48,4 @@ public class UITaskMgr {
 		// return strClassName;
 	// }
 
-	public static <T> boolean isInstanceOf(Class<T> type, Object object) {
-
-		logger.log(Level.FINE, "isInstanceOf Begin");
-		logger.log(Level.FINE, "isInstanceOf type["+type+"]");
-		logger.log(Level.FINE, "isInstanceOf object["+object+"]");
-		
-		boolean result = false;
-		
-		String strClassName1 = "";
-		String strFullClassName1 = type.getName();
-		int firstChar1;
-		firstChar1 = strFullClassName1.lastIndexOf ('.') + 1;
-		if ( firstChar1 > 0 ) {
-			strClassName1 = strFullClassName1.substring ( firstChar1 );
-		}
-		
-		String strClassName2 = "";
-		String strFullClassName2 = object.getClass().getName();
-		int firstChar2;
-		firstChar2 = strFullClassName2.lastIndexOf ('.') + 1;
-		if ( firstChar2 > 0 ) {
-			strClassName2 = strFullClassName2.substring ( firstChar2 );
-		}
-		
-		String strTypeClassName = strClassName1;
-
-		String strObjectClassName = strClassName2;
-		
-		//String strTypeClassName = type.getName();
-		
-		//String strObjectClassName = object.getClass().getName();
-		
-		logger.log(Level.FINE, "isInstanceOf strTypeClassName["+strTypeClassName+"] == strObjectClassName["+strObjectClassName+"]");
-		
-		if ( 0 == strTypeClassName.compareTo(strObjectClassName) ) {
-			result = true;
-		}
-		
-//		try {
-//			T objectAsType = (T) object;
-//			result = true;
-//		} catch (ClassCastException exception) {
-//
-//		}
-		
-		logger.log(Level.FINE, "isInstanceOf result["+result+"]");
-		
-		logger.log(Level.FINE, "isInstanceOf End");
-		
-		return result;
-	}
 }

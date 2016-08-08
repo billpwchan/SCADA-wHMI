@@ -11,16 +11,15 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.client.UITaskMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanelEvent;
 
-public class UIPanelViewSchematic implements UIPanelViewProvide {
+public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvide_i {
 	
-	private static Logger logger = Logger.getLogger(UIPanelViewSchematic.class.getName());
+	private Logger logger = Logger.getLogger(UIPanelViewSchematic.class.getName());
 	
 	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
 
@@ -37,44 +36,38 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 			handlerRegistration = handlerRegistrations.poll();
 		}
 	}
-
-	private DockLayoutPanel root = null;
 	
-	private UINameCard uiNameCard;
-	public DockLayoutPanel getMainPanel(UINameCard uiNameCard) {
+	@Override
+	public void init() {
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.log(Level.FINE, "init Begin");
 		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
 		hp.setHeight("100%");
 		hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		hp.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
-		root = new DockLayoutPanel(Unit.PX);
-		root.add(hp);
+		rootPanel = new DockLayoutPanel(Unit.PX);
+		rootPanel.add(hp);
 		
-		logger.log(Level.FINE, "getMainPanel End");
-
-		return root;
+		logger.log(Level.FINE, "init End");
 	}
-	
+
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
 		
 		logger.log(Level.FINE, "setTaskProvide Begin");
-		if ( UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) ) {
-			UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
-			if ( null != taskLaunch) {
+		if ( null != taskProvide ) {
+			if ( taskProvide instanceof UITaskLaunch ) {
+				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
+
 				String header = taskLaunch.getHeader();
 				String uiPanel = taskLaunch.getUiPanel();
 				
 				logger.log(Level.SEVERE, "setTaskProvide header["+header+"] uiPanel["+uiPanel+"]");
 				
-				root.clear();
+				rootPanel.clear();
 
 				WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel(uiPanel);
 				wrapperScsSituationViewPanel.setSize("100%", "100%");
@@ -85,9 +78,7 @@ public class UIPanelViewSchematic implements UIPanelViewProvide {
 					}
 				});
 
-				root.add(wrapperScsSituationViewPanel.getMainPanel());
-			} else {
-				logger.log(Level.FINE, "setTaskProvide taskLaunch is null");
+				rootPanel.add(wrapperScsSituationViewPanel.getMainPanel());
 			}
 		} else {
 			logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");

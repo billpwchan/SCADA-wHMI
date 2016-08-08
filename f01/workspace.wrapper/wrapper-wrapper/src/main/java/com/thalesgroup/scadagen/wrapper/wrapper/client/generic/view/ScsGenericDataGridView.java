@@ -1,9 +1,5 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view;
 
-import java.util.List;
-
-import com.google.gwt.user.cellview.client.DataGrid;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.GenericDataGridView;
 
 /**
@@ -12,8 +8,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.G
 public class ScsGenericDataGridView extends GenericDataGridView {
 
     public void ackPage() {
-        DataGrid<EntityClient> dataGrid = getInnerDataGrid();
-        List<EntityClient> visibleEntityClient = dataGrid.getVisibleItems();
+//        DataGrid<EntityClient> dataGrid = getInnerDataGrid();
+//        List<EntityClient> visibleEntityClient = dataGrid.getVisibleItems();
 //        AlarmUtils.acknowledge(visibleEntityClient);
     }
 

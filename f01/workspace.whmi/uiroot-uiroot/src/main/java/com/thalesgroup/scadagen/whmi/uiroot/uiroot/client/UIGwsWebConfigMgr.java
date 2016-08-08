@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigServiceAsy
 
 public class UIGwsWebConfigMgr {
 	
-	private static Logger logger = Logger.getLogger(UIGwsWebConfigMgr.class.getName());
+	private Logger logger = Logger.getLogger(UIGwsWebConfigMgr.class.getName());
 
 	String key = "scadagen.launcher.module";
 	

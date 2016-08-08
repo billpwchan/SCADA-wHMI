@@ -6,23 +6,19 @@ import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanelEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 
-public class UIViewEvent implements UIWidget_i {
+public class UIViewEvent extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIViewEvent.class.getName());
+	private Logger logger = Logger.getLogger(UIViewEvent.class.getName());
 	
 	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
@@ -45,17 +41,10 @@ public class UIViewEvent implements UIWidget_i {
 	};	
 	private String [] counterNames = { "eventlist_counter_all"};
 	private InlineLabel[] inlineLabel;
-		
-	private UINameCard uiNameCard;
+
+
 	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
-	
-	private ComplexPanel root = new DockLayoutPanel(Unit.PX);
-	@Override
-	public void init(String xmlFile) {
+	public void init() {
 		
 		HorizontalPanel numOfEventBar = new HorizontalPanel();
 		numOfEventBar.getElement().getStyle().setPadding(20, Unit.PX);
@@ -147,57 +136,11 @@ public class UIViewEvent implements UIWidget_i {
 //		
 //		uiPanelPanelToolBar.setButton("Event Summary", true);
 //		
-		root = new DockLayoutPanel(Unit.PX);
+		rootPanel = new DockLayoutPanel(Unit.PX);
 //		root.addSouth(toolBarPanel, 50);
-		root.add(basePanel);
+		rootPanel.add(basePanel);
 
 		logger.log(Level.FINE, "getMainPanel End");
 	}
-	
-	@Override
-	public ComplexPanel getMainPanel() {
-	    return root;
-	}
-	
-	@Override
-	public void setParameter(String key, String value) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public Widget getWidget(String widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getWidgetElement(Widget widget) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setValue(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setValue(String name, String value) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public String getWidgetStatus(String element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setWidgetStatus(String element, String up) {
-		// TODO Auto-generated method stub
-		
-	}
 }

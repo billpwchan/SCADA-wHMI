@@ -6,7 +6,7 @@ import com.google.gwt.user.client.ui.Button;
 
 public class UIButtonToggle extends Button {
 	
-	private static Logger logger = Logger.getLogger(UIButtonToggle.class.getName());
+	private Logger logger = Logger.getLogger(UIButtonToggle.class.getName());
 	
 	private Control control = null;
 	public Control getControl() { return control; }

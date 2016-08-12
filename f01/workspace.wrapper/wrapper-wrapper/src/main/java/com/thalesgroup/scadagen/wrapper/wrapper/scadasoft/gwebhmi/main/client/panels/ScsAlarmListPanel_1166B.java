@@ -197,53 +197,34 @@ public class ScsAlarmListPanel_1166B extends ResizeComposite
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
-                AttributeClientAbstract<String> severity = row.getAttribute("priority");
-                AttributeClientAbstract<String> state = row.getAttribute("state");
-                if (!state.isValid()) {
-                    return "gdg_invalid";
-                }
-                	
-                String CSS_ALARM_		= "CSS_ALARM";
+            	
+            	String strCssResult		= "gdg_invalid";
+            	
+            	String strPriority		= "priority";
+            	String strState			= "state";
+            	
+            	String priorityValue	= null;
+            	String stateValue	= null;
+            	
+            	if ( null == row ) return strCssResult;
+            	
+                AttributeClientAbstract<String> priority	= row.getAttribute(strPriority);
+                AttributeClientAbstract<String> state		= row.getAttribute(strState);
                 
-//                String EVENT			= "LOW";
-                String LESS_CRITIICAL	= "MEDIUM";
-                String CRITICAL			= "HIGH";
-                String SUPER_CRITICAL	= "CRITICAL";
+                if (!priority.isValid()) return strCssResult;
+                if (!state.isValid()) return strCssResult;
                 
-                String YES1				= "NPA";
-                String YES2				= "PA";
-                String NO1				= "NPNA";
-                String NO2				= "PNA";
-                
-                String _NA				= "_NA";
-                String _A				= "_A";
-                String _SUPER_CRITICAL	= "_SUPER_CRITICAL";
-                String _CRITICAL		= "_CRITICAL";
-                String _LESS_CRITICAL	= "_LESS_CRITICAL";
-                String _EVENT			= "_EVENT";
-                
-                String strSeverity		= severity.getValue();
-                String strState			= state.getValue();
-                
-                String strCssResult		= CSS_ALARM_;
-                
-                if ( 0 == strSeverity.compareTo(SUPER_CRITICAL) ) {
-                	strCssResult += _SUPER_CRITICAL;
-                } else if ( 0 == strSeverity.compareTo(CRITICAL) ) {
-                	strCssResult += _CRITICAL;
-                } else if ( 0 == strSeverity.compareTo(LESS_CRITIICAL) ) {
-                	strCssResult += _LESS_CRITICAL;
-                } else {
-                	strCssResult += _EVENT;
+                if ( null != priority && priority.isValid() ) {
+                	priorityValue = priority.getValue();	
                 }
                 
-                if ( 0 == strState.compareTo(YES1) || 0 == strState.compareTo(YES2) ) {
-                	strCssResult += _A;
-                } else if ( 0 == strState.compareTo(NO1) || 0 == strState.compareTo(NO2) ) {
-                	strCssResult += _NA;
+                if ( null != strState && state.isValid() ) {
+                	stateValue = state.getValue();
                 }
                 
-logger.log(Level.SEVERE, "getStyleNames rowIndex["+rowIndex+"] strSeverity["+strSeverity+"] strState["+strState+"] => strCssResult["+strCssResult+"]");
+                strCssResult = "CSS_OLS_LIST_PANEL_SEVERITY" + "_" + priorityValue + "_" + stateValue;
+                
+                logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] priorityValue["+priorityValue+"] stateValue["+stateValue+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
 

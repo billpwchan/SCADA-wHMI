@@ -1,13 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnKeyPressHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
@@ -48,9 +50,9 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		return rootPanel;
 	}
 	
-	protected HashMap<String, String> parameters = new HashMap<String, String>();
+	protected HashMap<String, Object> parameters = new HashMap<String, Object>();
     @Override
-    public void setParameter(String key, String value) {
+    public void setParameter(String key, Object value) {
     	logger.log(Level.FINE, "setParameter key["+key+"] value["+value+"]");
     	parameters.put(key, value);
     }
@@ -92,12 +94,31 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		}
 		return null;
 	}
-	
-	protected UIEvent_i uiEvent_i = null;
+//	
+//	protected UIEvent_i uiEvent_i = null;
+//	@Override
+//	public void setUIEvent(UIEvent_i uiEvent_i) {
+//		this.uiEvent_i = uiEvent_i;
+//	}
+//	
+	protected LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
 	@Override
-	public void setUIEvent(UIEvent_i uiEvent_i) {
-		this.uiEvent_i = uiEvent_i;
+	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
+		handlerRegistrations.add(handlerRegistration);
 	}
+	@Override
+	public void removeHandlerRegistrations() {
+		HandlerRegistration handlerRegistration = handlerRegistrations.poll();
+		while ( null != handlerRegistration ) {
+			handlerRegistration.removeHandler();
+			handlerRegistration = handlerRegistrations.poll();
+		}
+	}
+	
+	@Override
+	public void terminate() {
+		removeHandlerRegistrations();
+	};
 	
 	@Override
 	public Widget getWidget(String widget) {
@@ -124,13 +145,13 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	}
 
 	@Override
-	public String getWidgetStatus(String element) {
+	public WidgetStatus getWidgetStatus(String element) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setWidgetStatus(String element, String up) {
+	public void setWidgetStatus(String element, WidgetStatus status) {
 		// TODO Auto-generated method stub
 		
 	}

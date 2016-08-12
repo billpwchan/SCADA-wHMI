@@ -11,6 +11,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -19,6 +20,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCacheEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIGws {
 
@@ -281,8 +283,8 @@ public class UIGws {
 		uiPanelSettingCache.add("UIPanelPTWAction.xml", header);
 		uiPanelSettingCache.add("UIPanelPTWAction.xml", option);		
 		
-		uiPanelSettingCache.add("UIPanelPTWViewerButton.xml", header);
-		uiPanelSettingCache.add("UIPanelPTWViewerButton.xml", option);
+		uiPanelSettingCache.add("UIPanelPTWFilter.xml", header);
+		uiPanelSettingCache.add("UIPanelPTWFilter.xml", option);
 		
 		String module = null;
 		
@@ -302,9 +304,14 @@ public class UIGws {
 	
 	private void ready(int received) {
 		logger.log(Level.FINE, "ready Begin");
+
+		UIWidget_i uiWidget_i = new UIPanelScreen();
+		uiWidget_i.setUINameCard(this.uiNameCard);
+		uiWidget_i.init();
+		ComplexPanel rootPanel = uiWidget_i.getMainPanel();
 		
-		this.root.clear();
-		this.root.add(new UIPanelScreen().getMainPanel(this.uiNameCard));
+		this.root.clear();	
+		this.root.add(rootPanel);
 		
 		logger.log(Level.FINE, "ready End");
 	}

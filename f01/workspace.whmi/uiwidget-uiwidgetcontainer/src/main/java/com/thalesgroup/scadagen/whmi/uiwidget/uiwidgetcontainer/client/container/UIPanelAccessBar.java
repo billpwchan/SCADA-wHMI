@@ -51,12 +51,14 @@ public class UIPanelAccessBar extends UIWidget_i {
 		
 		rootPanel = uiWidgetAccessBarButton.getMainPanel();
 
-		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-			@Override
-			public void onEvenBusUIChanged(UIEvent uiEvent) {
-				onUIEvent(uiEvent);
-			}
-		});
+		handlerRegistrations.add(
+			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+				@Override
+				public void onEvenBusUIChanged(UIEvent uiEvent) {
+					onUIEvent(uiEvent);
+				}
+			})
+		);
 
  		logger.log(Level.FINE, "init End");
  		
@@ -200,7 +202,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 				logger.log(Level.SEVERE, "onButtonClick previous["+UIPanelAccessBarInterface.WidgetArrtibute.previous+"]");
 				
-				WidgetStatus status = WidgetStatus.valueOf(uiWidgetAccessBarButton.getWidgetStatus(element));
+				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
 					logger.log(Level.SEVERE, "onButtonClick strPreviousDisable");
@@ -218,7 +220,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 				logger.log(Level.SEVERE, "onButtonClick next["+UIPanelAccessBarInterface.WidgetArrtibute.next+"]");
 				
-				WidgetStatus status = WidgetStatus.valueOf(uiWidgetAccessBarButton.getWidgetStatus(element));
+				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
 					logger.log(Level.SEVERE, "onButtonClick strNextDisable");
@@ -233,7 +235,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				}
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.splith.equalsName(element) ) {
 				
-				WidgetStatus status = WidgetStatus.valueOf(uiWidgetAccessBarButton.getWidgetStatus(element));
+				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
 					logger.log(Level.SEVERE, "onButtonClick strSplitHDisable");
@@ -248,7 +250,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				}
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.splitv.equalsName(element) ) {
 				
-				WidgetStatus status = WidgetStatus.valueOf(uiWidgetAccessBarButton.getWidgetStatus(element));
+				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
 					logger.log(Level.SEVERE, "onButtonClick strSplitVDisable");

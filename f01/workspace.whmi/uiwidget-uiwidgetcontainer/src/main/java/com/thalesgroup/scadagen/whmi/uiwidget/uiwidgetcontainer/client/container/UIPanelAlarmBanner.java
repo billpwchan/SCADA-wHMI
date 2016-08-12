@@ -113,13 +113,13 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.alarmsound.equalsName(element) ) {
 			
-			WidgetStatus status = WidgetStatus.valueOf(uiWidgetAccessBarButton.getWidgetStatus(element));
+			WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 			
 			if ( null != status ) {
 				if ( WidgetStatus.Up == status ) {
-					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Down.toString());
+					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Down);
 				} else {
-					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Up.toString());
+					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Up);
 				}
 			} else {
 				logger.log(Level.SEVERE, "onButton status IS NULL");
@@ -128,23 +128,6 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			
 			if ( null != uiPanelAlarmBannerList ) 
 				uiPanelAlarmBannerList.setValue("ackVisible", "");
-				
-			// Call Inspector Panel
-//			String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
-//			UITaskLaunch taskLaunch = new UITaskLaunch();
-//			taskLaunch.setUiPanel("UIInspectorConnectionBox");
-//			taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
-//			taskLaunch.setUiPath(UIPathUIScreenMMI);
-//			uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-			
-			// Call PTW Panel
-			UITaskLaunch taskLaunch = new UITaskLaunch();
-			taskLaunch.setType("P");
-			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-			taskLaunch.setUiPanel("PTWPanel");
-			taskLaunch.setTitle("PTW Summary");
-			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			
 		} else {
 			logger.log(Level.SEVERE, "onButton element UNKNOW");

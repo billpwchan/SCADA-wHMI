@@ -24,18 +24,6 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
 
 	public static final String UNIT_PX = "px";
-
-	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
-	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
-		handlerRegistrations.add(handlerRegistration);
-	}
-	public void removeHandlerRegistrations() {
-		HandlerRegistration handlerRegistration = handlerRegistrations.poll();
-		while ( null != handlerRegistration ) {
-			handlerRegistration.removeHandler();
-			handlerRegistration = handlerRegistrations.poll();
-		}
-	}
 	
 	@Override
 	public void init() {

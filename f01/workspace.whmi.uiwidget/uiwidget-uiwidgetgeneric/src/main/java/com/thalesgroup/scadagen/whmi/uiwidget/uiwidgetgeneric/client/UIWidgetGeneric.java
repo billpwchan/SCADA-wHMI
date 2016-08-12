@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
+import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -167,221 +168,254 @@ public class UIWidgetGeneric extends UIWidget_i {
 					
 					if ( index < values.size() ) {
 						
-						Widget w = null;
-						
 						HashMap<String, String> valueMap = this.values.get(index);
-						String widget			= valueMap.get(WidgetAttribute.widget.toString());
-						String label			= valueMap.get(WidgetAttribute.label.toString());
-						String tooltip			= valueMap.get(WidgetAttribute.tooltip.toString());
-						String css				= valueMap.get(WidgetAttribute.css.toString());
-						String readonly			= valueMap.get(WidgetAttribute.readonly.toString());
-						String maxlength		= valueMap.get(WidgetAttribute.maxlength.toString());
-						String visibleitemcount	= valueMap.get(WidgetAttribute.visibleitemcount.toString());
 						
-						String labelDown		= valueMap.get(WidgetAttribute.labelDown.toString());
-						String labelDisable		= valueMap.get(WidgetAttribute.labelDisable.toString());
-						
-						String icon				= valueMap.get(WidgetAttribute.icon.toString());
-						String iconDown			= valueMap.get(WidgetAttribute.iconDown.toString());
-						String iconDisable		= valueMap.get(WidgetAttribute.iconDisable.toString());
-						
-						String iconDivWidth		= valueMap.get(WidgetAttribute.iconDivWidth.toString());
-						String iconDivHeight	= valueMap.get(WidgetAttribute.iconDivHeight.toString());
-						String iconImgWidth		= valueMap.get(WidgetAttribute.iconImgWidth.toString());
-						String iconImgHeight	= valueMap.get(WidgetAttribute.iconImgHeight.toString());
-						
-						String cssDown			= valueMap.get(WidgetAttribute.cssDown.toString());
-						String cssDisable		= valueMap.get(WidgetAttribute.cssDisable.toString());
-						
-						String left				= valueMap.get(WidgetAttribute.left.toString());
-						String top				= valueMap.get(WidgetAttribute.top.toString());
-						
-						String menuType			= valueMap.get(WidgetAttribute.menuType.toString());
-						String menuLevel		= valueMap.get(WidgetAttribute.menuLevel.toString());
-						
-						logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] widget["+widget+"]");
-						logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] label["+label+"]");
-						logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] css["+css+"]");
-						
-						TranslationMgr translationMgr = TranslationMgr.getInstance();
-						if ( null != translationMgr ) {
-							label = translationMgr.getTranslation(label);
-						} else {
-							logger.log(Level.SEVERE, "getMainPanel getTranslation IS NULL");
-						}
-						
-						if ( null == widget || 0 == widget.length() || WidgetType.TextBox.equalsName(widget) ) {
-							w = new TextBox();
+						if ( null != valueMap ) {
 							
-							if ( null != label )	((TextBox)w).setText(label);
-							if ( null != tooltip )	((TextBox)w).setTitle(tooltip);
-							if ( null != css )		((TextBox)w).addStyleName(css);
-							((TextBox)w).addKeyPressHandler(new KeyPressHandler() {
-								@Override
-								public void onKeyPress(KeyPressEvent event) {
-									if ( null != uiWidgetEventOnKeyPressHandler ) {
-										uiWidgetEventOnKeyPressHandler.onKeyPressHandler(event);
-									}
-								}
-							});
-							((TextBox)w).addValueChangeHandler(new ValueChangeHandler<String>() {
-								
-								@Override
-								public void onValueChange(ValueChangeEvent<String> event) {
-									if ( null != uiWidgetEventOnValueChangeHandler ) {
-										uiWidgetEventOnValueChangeHandler.setUIWidgetEventOnValueChangeHandler(event);
-									}
-								}
-							});
+							Widget w = null;
 							
-							if ( null != maxlength && maxlength.length() > 0 )
-								((TextBox)w).setMaxLength(Integer.parseInt(maxlength));
+							String widget			= valueMap.get(WidgetAttribute.widget.toString());
+							String label			= valueMap.get(WidgetAttribute.label.toString());
+							String tooltip			= valueMap.get(WidgetAttribute.tooltip.toString());
+							String css				= valueMap.get(WidgetAttribute.css.toString());
+							String readonly			= valueMap.get(WidgetAttribute.readonly.toString());
+							String maxlength		= valueMap.get(WidgetAttribute.maxlength.toString());
+							String visibleitemcount	= valueMap.get(WidgetAttribute.visibleitemcount.toString());
 							
-							if ( null != readonly )
-								((TextBox)w).setReadOnly(true);
+//							String labelDown		= valueMap.get(WidgetAttribute.labelDown.toString());
+//							String labelDisable		= valueMap.get(WidgetAttribute.labelDisable.toString());
 							
-							this.widgets.put(index, w);
-						} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
+							String icon				= valueMap.get(WidgetAttribute.icon.toString());
+//							String iconDown			= valueMap.get(WidgetAttribute.iconDown.toString());
+//							String iconDisable		= valueMap.get(WidgetAttribute.iconDisable.toString());
 							
-							w = new PasswordTextBox();
+							String iconDivWidth		= valueMap.get(WidgetAttribute.iconDivWidth.toString());
+							String iconDivHeight	= valueMap.get(WidgetAttribute.iconDivHeight.toString());
+							String iconImgWidth		= valueMap.get(WidgetAttribute.iconImgWidth.toString());
+							String iconImgHeight	= valueMap.get(WidgetAttribute.iconImgHeight.toString());
 							
-							if ( null != label )	((PasswordTextBox)w).setText(label);
-							if ( null != css )		((PasswordTextBox)w).addStyleName(css);
+//							String cssUp			= valueMap.get(WidgetAttribute.cssUp.toString());
+//							String cssDown			= valueMap.get(WidgetAttribute.cssDown.toString());
+//							String cssDisable		= valueMap.get(WidgetAttribute.cssDisable.toString());
 							
-							if ( WidgetAttribute.maxlength.equalsName(maxlength) )
-								((PasswordTextBox)w).setMaxLength(Integer.parseInt(maxlength));
+							String left				= valueMap.get(WidgetAttribute.left.toString());
+							String top				= valueMap.get(WidgetAttribute.top.toString());
 							
-							if ( WidgetAttribute.readonly.equalsName(readonly) )
-								((PasswordTextBox)w).setReadOnly(true);
+//							String menuType			= valueMap.get(WidgetAttribute.menuType.toString());
+//							String menuLevel		= valueMap.get(WidgetAttribute.menuLevel.toString());
 							
-							this.widgets.put(index, w);
-						} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
+							String groupName		= valueMap.get(WidgetAttribute.groupName.toString());
 							
-							w = new InlineLabel();
+							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] widget["+widget+"]");
+							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] label["+label+"]");
+							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] css["+css+"]");
 							
-							if ( null != label )	((InlineLabel)w).setText(label);
-							if ( null != tooltip )	((InlineLabel)w).setTitle(tooltip);
-							if ( null != css )		((InlineLabel)w).addStyleName(css);
-
-							this.widgets.put(index, w);
-						} else if ( WidgetType.Button.equalsName(widget) ) {
-							
-							w = new Button();
-							
-							if ( null != label )	((Button)w).setText(label);
-							if ( null != tooltip )	((Button)w).setTitle(tooltip);
-							if ( null != css )		((Button)w).addStyleName(css);
-							
-							((Button)w).addClickHandler(new ClickHandler() {
-								@Override
-								public void onClick(ClickEvent event) {
-									if ( null != uiWidgetEventOnClickHandler ) {
-										uiWidgetEventOnClickHandler.onClickHandler(event);
-									}
-								}
-							});
-
-							this.widgets.put(index, w);
-						} else if ( WidgetType.ImageButton.equalsName(widget) || WidgetType.ImageToggleButton.equalsName(widget) ) {
-							
-							w = new Button();
-							
-							if ( null != css )		((Button)w).addStyleName(css);
-
-							if ( null != tooltip )	((Button)w).setTitle(tooltip);
-							
-							if ( null != iconDivWidth && null != iconDivHeight ) {
-								String img = null;
-								String lbl = null;
-								if ( null != icon && null != iconImgWidth && null != iconImgHeight ) {
-									img = "<img src=\""+basePath+icon+"\" width=\""+iconImgWidth+"\" height=\""+iconImgHeight+"\">";
-								}
-								if ( null != label ) {
-									lbl = "<label>"+label+"</label>";
-								}
-								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></br></div>";
-								
-								logger.log(Level.FINE, "getMainPanel html["+html+"]");
-								
-								((Button)w).setHTML(html);
-							}
-							
-							((Button)w).addClickHandler(new ClickHandler() {
-								@Override
-								public void onClick(ClickEvent event) {
-									if ( null != uiWidgetEventOnClickHandler ) {
-										uiWidgetEventOnClickHandler.onClickHandler(event);
-									}
-								}
-							});
-							
-							this.widgets.put(index, w);
-						} else if ( WidgetType.Image.equalsName(widget) ) {
-							w = new Image();
-							if ( null != tooltip )	((Image)w).setTitle(tooltip);
-							if ( null != label )	((Image)w).setUrl(basePath+label);
-							if ( null != css )		((Image)w).addStyleName(css);
-							
-							this.widgets.put(index, w);
-						} else if ( WidgetType.ListBox.equalsName(widget) ) {
-							
-							w = new ListBox();
-							if ( null != label )	((ListBox)w).addItem(label);
-							if ( null != css )		((ListBox)w).addStyleName(css);
-							
-							if ( WidgetAttribute.visibleitemcount.equalsName(visibleitemcount) ) {
-								((ListBox)w).setVisibleItemCount(Integer.parseInt(visibleitemcount));
-							}
-							
-							this.widgets.put(index, w);
-						} else if ( WidgetType.HTML.equalsName(widget) ) {
-							
-							if ( null != label ) 	w = new HTML(label);
-							
-							if ( null != css )		w.addStyleName(css);									
-					
-							this.widgets.put(index, w);
-						} else if ( widget.startsWith(WidgetType.WidgetFactory.toString()) ) {
-								
-							UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
-							UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget);
-
-							if ( null != uiWIdget ) {
-								uiWIdget.setUINameCard(this.uiNameCard);
-								w = uiWIdget.getMainPanel();
+							TranslationMgr translationMgr = TranslationMgr.getInstance();
+							if ( null != translationMgr ) {
+								label = translationMgr.getTranslation(label);
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
+								logger.log(Level.SEVERE, "getMainPanel getTranslation IS NULL");
 							}
-
-							if ( null != css )		w.addStyleName(css);
 							
-							this.widgets.put(index, w);
-						} else {
-							logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] IS INVALID");
-						}
-						
-						if ( null != w ) {
-							if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
-								horizontalPanel.add(w);
-							} else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
-								verticalPanel.add(w);
-							} else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {	
-								flexTable.setWidget(i, j, w);
-							} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
-								int x = -1;
-								int y = -1;
-								try {
-									if ( null != left )	x = Integer.parseInt(left);
-									if ( null != top )	y = Integer.parseInt(top);
-								} catch ( NumberFormatException e ) {
-									logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
-								}
-								absolutePanel.add(w, x, y);
-							}
+							if ( WidgetType.TextBox.equalsName(widget)
+									|| null == widget || 0 == widget.length() ) {
+								w = new TextBox();
 								
+								if ( null != label )	((TextBox)w).setText(label);
+								if ( null != tooltip )	((TextBox)w).setTitle(tooltip);
+								if ( null != css )		((TextBox)w).addStyleName(css);
+								((TextBox)w).addKeyPressHandler(new KeyPressHandler() {
+									@Override
+									public void onKeyPress(KeyPressEvent event) {
+										if ( null != uiWidgetEventOnKeyPressHandler ) {
+											uiWidgetEventOnKeyPressHandler.onKeyPressHandler(event);
+										}
+									}
+								});
+								((TextBox)w).addValueChangeHandler(new ValueChangeHandler<String>() {
+									
+									@Override
+									public void onValueChange(ValueChangeEvent<String> event) {
+										if ( null != uiWidgetEventOnValueChangeHandler ) {
+											uiWidgetEventOnValueChangeHandler.setUIWidgetEventOnValueChangeHandler(event);
+										}
+									}
+								});
+								
+								if ( null != maxlength && maxlength.length() > 0 )
+									((TextBox)w).setMaxLength(Integer.parseInt(maxlength));
+								
+								if ( null != readonly )
+									((TextBox)w).setReadOnly(true);
+								
+								this.widgets.put(index, w);
+							} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
+								
+								w = new PasswordTextBox();
+								
+								if ( null != label )	((PasswordTextBox)w).setText(label);
+								if ( null != css )		((PasswordTextBox)w).addStyleName(css);
+								
+								if ( WidgetAttribute.maxlength.equalsName(maxlength) )
+									((PasswordTextBox)w).setMaxLength(Integer.parseInt(maxlength));
+								
+								if ( WidgetAttribute.readonly.equalsName(readonly) )
+									((PasswordTextBox)w).setReadOnly(true);
+								
+								this.widgets.put(index, w);
+							} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
+								
+								w = new InlineLabel();
+								
+								if ( null != label )	((InlineLabel)w).setText(label);
+								if ( null != tooltip )	((InlineLabel)w).setTitle(tooltip);
+								if ( null != css )		((InlineLabel)w).addStyleName(css);
+
+								this.widgets.put(index, w);
+							} else if ( WidgetType.Button.equalsName(widget) ) {
+								
+								w = new Button();
+								
+								if ( null != label )	((Button)w).setText(label);
+								if ( null != tooltip )	((Button)w).setTitle(tooltip);
+								if ( null != css )		((Button)w).addStyleName(css);
+								
+								((Button)w).addClickHandler(new ClickHandler() {
+									@Override
+									public void onClick(ClickEvent event) {
+										if ( null != uiWidgetEventOnClickHandler ) {
+											uiWidgetEventOnClickHandler.onClickHandler(event);
+										}
+									}
+								});
+
+								this.widgets.put(index, w);
+							} else if ( WidgetType.ImageButton.equalsName(widget) || WidgetType.ImageToggleButton.equalsName(widget) ) {
+								
+								w = new Button();
+								
+								if ( null != css )		((Button)w).addStyleName(css);
+
+								if ( null != tooltip )	((Button)w).setTitle(tooltip);
+								
+								if ( null != iconDivWidth && null != iconDivHeight ) {
+									String img = null;
+									String lbl = null;
+									if ( null != icon && null != iconImgWidth && null != iconImgHeight ) {
+										img = "<img src=\""+basePath+icon+"\" width=\""+iconImgWidth+"\" height=\""+iconImgHeight+"\">";
+									}
+									if ( null != label ) {
+										lbl = "<label>"+label+"</label>";
+									}
+									String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
+									
+									logger.log(Level.FINE, "getMainPanel html["+html+"]");
+									
+									((Button)w).setHTML(html);
+								}
+								
+								((Button)w).addClickHandler(new ClickHandler() {
+									@Override
+									public void onClick(ClickEvent event) {
+										if ( null != uiWidgetEventOnClickHandler ) {
+											uiWidgetEventOnClickHandler.onClickHandler(event);
+										}
+									}
+								});
+								
+								this.widgets.put(index, w);
+							} else if ( WidgetType.Image.equalsName(widget) ) {
+								w = new Image();
+								if ( null != tooltip )	((Image)w).setTitle(tooltip);
+								if ( null != label )	((Image)w).setUrl(basePath+label);
+								if ( null != css )		((Image)w).addStyleName(css);
+								
+								this.widgets.put(index, w);
+							} else if ( WidgetType.ListBox.equalsName(widget) ) {
+								
+								w = new ListBox();
+								if ( null != label )	((ListBox)w).addItem(label);
+								if ( null != css )		((ListBox)w).addStyleName(css);
+								
+								if ( WidgetAttribute.visibleitemcount.equalsName(visibleitemcount) ) {
+									((ListBox)w).setVisibleItemCount(Integer.parseInt(visibleitemcount));
+								}
+								
+								this.widgets.put(index, w);
+							} else if ( WidgetType.HTML.equalsName(widget) ) {
+								
+								if ( null != label ) 	w = new HTML(label);
+								
+								if ( null != css )		w.addStyleName(css);									
+						
+								this.widgets.put(index, w);
+							} else if ( WidgetType.RadioButton.equalsName(widget) ) {
+								
+								if ( null == groupName )
+									logger.log(Level.SEVERE, "getMainPanel created widget["+widget+"] groupName IS NULL");
+								
+								if ( null != groupName ) 	w = new RadioButton(groupName);
+								
+								if ( null != label )		((RadioButton)w).setText(label);
+								if ( null != tooltip )		((RadioButton)w).setTitle(tooltip);
+								if ( null != css )			((RadioButton)w).addStyleName(css);
+								
+								((RadioButton)w).addClickHandler(new ClickHandler() {
+									@Override
+									public void onClick(ClickEvent event) {
+										if ( null != uiWidgetEventOnClickHandler ) {
+											uiWidgetEventOnClickHandler.onClickHandler(event);
+										}
+									}
+								});
+								
+								this.widgets.put(index, w);
+							} else if ( widget.startsWith(WidgetType.WidgetFactory.toString()) ) {
+									
+								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
+								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget);
+
+								if ( null != uiWIdget ) {
+									uiWIdget.setUINameCard(this.uiNameCard);
+									w = uiWIdget.getMainPanel();
+								} else {
+									logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
+								}
+
+								if ( null != css )		w.addStyleName(css);
+								
+								this.widgets.put(index, w);
+							} else {
+								logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] IS INVALID");
+							}
+							
+							if ( null != w ) {
+								if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
+									horizontalPanel.add(w);
+								} else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
+									verticalPanel.add(w);
+								} else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {	
+									flexTable.setWidget(i, j, w);
+								} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
+									int x = -1;
+									int y = -1;
+									try {
+										if ( null != left )	x = Integer.parseInt(left);
+										if ( null != top )	y = Integer.parseInt(top);
+									} catch ( NumberFormatException e ) {
+										logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
+									}
+									absolutePanel.add(w, x, y);
+								}
+							} else {
+								logger.log(Level.SEVERE, "getMainPanel w IS NULL");
+							}
 						} else {
-							logger.log(Level.SEVERE, "getMainPanel w IS NULL");
+							logger.log(Level.SEVERE, "getMainPanel index["+index+"], check index please, valueMap IS NULL");
 						}
+
+								
+
 					} else {
 						logger.log(Level.SEVERE, "getMainPanel Build Filter INVALID index["+index +"] > values.length["+values.size()+"]");
 					}
@@ -444,11 +478,11 @@ public class UIWidgetGeneric extends UIWidget_i {
     }
     
     @Override
-    public Widget getWidget(String elementValue) {
+    public Widget getWidget(String element) {
     	
     	logger.log(Level.FINE, "getWidget Begin");
     	
-    	logger.log(Level.SEVERE, "getWidget element["+elementValue+"]");
+    	logger.log(Level.SEVERE, "getWidget element["+element+"]");
     	
     	Widget widget = null;
     	Set<Integer> keys = this.values.keySet();
@@ -459,7 +493,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 	    		HashMap<String, String> valueMap = this.values.get(integer);
 	    		if ( null != valueMap ) {
 	 				String e = valueMap.get(WidgetAttribute.element.toString());
-					if ( e != null && 0 == elementValue.compareTo(e) ) {
+					if ( e != null && 0 == element.compareTo(e) ) {
 						widget = widgets.get(integer);
 						break;
 					}
@@ -468,7 +502,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	}
     	
     	if ( null == widget ) {
-    		logger.log(Level.SEVERE, "getWidget widget IS NULL");
+    		logger.log(Level.SEVERE, "getWidget elementValue["+element+"] widget IS NULL");
     	}
     	
     	logger.log(Level.FINE, "getWidget End");
@@ -477,14 +511,12 @@ public class UIWidgetGeneric extends UIWidget_i {
     }
     
     @Override
-    public String getWidgetStatus ( String element ) {
+    public WidgetStatus getWidgetStatus ( String element ) {
     	logger.log(Level.FINE, "setWidgetStatus Begin");
     	
     	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"]");
     	
-    	String status = null;
-    	
-    	status = getWidgetStatus(getWidget(element));
+    	WidgetStatus status = getWidgetStatus(getWidget(element));
     	
     	logger.log(Level.SEVERE, "setWidgetStatus status["+status+"]");
     	
@@ -493,7 +525,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	return status;
     }
     
-    public String getWidgetStatus ( Widget widget ) {
+    public WidgetStatus getWidgetStatus ( Widget widget ) {
     	
     	logger.log(Level.FINE, "getWidgetStatus Begin");
     	
@@ -601,32 +633,19 @@ public class UIWidgetGeneric extends UIWidget_i {
     	
     	logger.log(Level.FINE, "getWidgetStatus End");
     	
-    	return status.toString();
+    	return status;
     }
     
 	@Override
-	public void setWidgetStatus(String element, String status) {
+	public void setWidgetStatus(String element, WidgetStatus status) {
     	logger.log(Level.FINE, "setWidgetStatus Begin");
     	
-    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"] status["+status+"]");
-    	
-    	WidgetStatus widgetStatus = WidgetStatus.valueOf(status);
-    	
-    	setWidgetStatus(getWidget(element), widgetStatus);
-    	
-    	logger.log(Level.FINE, "setWidgetStatus End");
-	}
-    
-    public void setWidgetStatus ( String element, WidgetStatus status ) {
-    	
-    	logger.log(Level.FINE, "setWidgetStatus Begin");
-    	
-    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"] status["+status+"]");
+    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"] status["+status.toString()+"]");
     	
     	setWidgetStatus(getWidget(element), status);
     	
     	logger.log(Level.FINE, "setWidgetStatus End");
-    }
+	}
     
     public void setWidgetStatus ( Widget widget, WidgetStatus status ) {
     	
@@ -650,13 +669,13 @@ public class UIWidgetGeneric extends UIWidget_i {
 					String label	= null;
 					String icon		= null;
 					String toolTip	= null;
-					String css		= null;
-					String enable	= null;
+//					String css		= null;
+//					String enable	= null;
 	    			
-					if ( WidgetType.ImageButton.equalsName(strWidget) || WidgetType.ImageToggleButton.equalsName(strWidget) 
-							|| WidgetType.Button.equalsName(strWidget) || WidgetType.InlineLabel.equalsName(strWidget)) {
+					if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+							|| WidgetType.Button.toString().equals(strWidget) || WidgetType.InlineLabel.toString().equals(strWidget)) {
 						
-						String cssUp		= valueMap.get(WidgetAttribute.css.toString());
+						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
 						String cssDown		= valueMap.get(WidgetAttribute.cssDown.toString());
 						String cssDisable	= valueMap.get(WidgetAttribute.cssDisable.toString());
 						
@@ -664,20 +683,20 @@ public class UIWidgetGeneric extends UIWidget_i {
 							label		= valueMap.get(WidgetAttribute.label.toString());
 							toolTip		= valueMap.get(WidgetAttribute.tooltip.toString());
 							icon		= valueMap.get(WidgetAttribute.icon.toString());
-							css			= valueMap.get(WidgetAttribute.css.toString());
-							enable		= valueMap.get(WidgetAttribute.enable.toString());
+//							css			= valueMap.get(WidgetAttribute.css.toString());
+//							enable		= valueMap.get(WidgetAttribute.enable.toString());
 						} else if ( WidgetStatus.Down == status ) {
 							label		= valueMap.get(WidgetAttribute.labelDown.toString());
 							toolTip		= valueMap.get(WidgetAttribute.tooltipDown.toString());
 							icon		= valueMap.get(WidgetAttribute.iconDown.toString());
-							css			= valueMap.get(WidgetAttribute.cssDown.toString());
-							enable		= valueMap.get(WidgetAttribute.enableDown.toString());
+//							css			= valueMap.get(WidgetAttribute.cssDown.toString());
+//							enable		= valueMap.get(WidgetAttribute.enableDown.toString());
 						} else if ( WidgetStatus.Disable == status ) {
 							label		= valueMap.get(WidgetAttribute.labelDisable.toString());
 							toolTip		= valueMap.get(WidgetAttribute.tooltipDisable.toString());
 							icon		= valueMap.get(WidgetAttribute.iconDisable.toString());
-							css			= valueMap.get(WidgetAttribute.cssDisable.toString());
-							enable		= valueMap.get(WidgetAttribute.enableDisable.toString());
+//							css			= valueMap.get(WidgetAttribute.cssDisable.toString());
+//							enable		= valueMap.get(WidgetAttribute.enableDisable.toString());
 						}
 						
 						TranslationMgr translationMgr = TranslationMgr.getInstance();
@@ -696,7 +715,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 							if ( null != label ) {
 								lbl = "<label>"+label+"</lable>";
 							}
-							String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></br></div>";
+							String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
 							
 							logger.log(Level.FINE, "setWidgetStatus html["+html+"]");
 							
@@ -732,7 +751,14 @@ public class UIWidgetGeneric extends UIWidget_i {
 							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] addStyleName["+cssAdd+"]");
 						}
 						
-						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
+//						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
+						
+						if ( WidgetType.RadioButton.toString().equals(strWidget) ) {
+							((RadioButton)widget).setValue(WidgetStatus.Down == status);
+						}
+						
+						if ( WidgetType.Button.toString().equals(strWidget) )	
+							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
 		    			
 					} else {
 						logger.log(Level.SEVERE, "setWidgetStatus widget IS INVALID");

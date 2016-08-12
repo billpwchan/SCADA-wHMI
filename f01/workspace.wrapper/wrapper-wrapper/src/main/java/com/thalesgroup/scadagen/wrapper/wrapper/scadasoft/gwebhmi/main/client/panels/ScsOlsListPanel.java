@@ -177,43 +177,29 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
-
-                String strCssResult		= null;
             	
-                logger.log(Level.FINE, "getStyleNames Begin");
-				logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"]");
-				
-                if (row != null) {
-                	
-                	AttributeClientAbstract<Integer> severity = null;
-                    try {
-                    	severity = row.getAttribute("severity");
-                    } catch ( ClassCastException e) {
-                    	logger.log(Level.FINE, "getStyleNames ClassCastException e["+e.toString()+"]");
-                    }                    	
-                	
-                    for (String attname : row.attributeNames()) {
-                    	logger.log(Level.FINE, "getStyleNames attname["+attname+"]");
-                        AttributeClientAbstract<Object> att = row.getAttribute(attname);
-                        if (!att.isValid()) {
-                        	logger.log(Level.FINE, "getStyleNames !att.isValid()");
-                            return "gdg_invalid";
-                        }
-                    }
-                    if ( null != severity && severity.isValid() ) {
-                    	int iValue = severity.getValue();
-                    	strCssResult = "CSS_OLS_LIST_PANEL_SEVERITY_" + iValue;	
-                    	logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] iValue["+iValue+"] => strCssResult["+strCssResult+"]");
-                    	return strCssResult;
-                    } else {
-                    	logger.log(Level.FINE, "getStyleNames severity is null");
-                    }
-                } else {
-                	logger.log(Level.FINE, "getStyleNames row is null");
+            	String strCssResult		= "gdg_invalid";
+            	
+            	String strPriority		= "priority";
+            	
+            	String priorityValue	= null;
+            	
+            	if ( null == row ) return strCssResult;
+            	
+                AttributeClientAbstract<String> priority	= row.getAttribute(strPriority);
+                
+                if (!priority.isValid()) return strCssResult;
+                
+                if ( null != priority && priority.isValid() ) {
+                	priorityValue = priority.getValue();	
                 }
+                
+                strCssResult = "CSS_OLS_LIST_PANEL_SEVERITY" + "_" + priorityValue;
+                
+                logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] priorityValue["+priorityValue+"] => strCssResult["+strCssResult+"]");
+                
+                return strCssResult;
 
-                logger.log(Level.FINE, "getStyleNames End");
-                return "gdg_normal";
             }
         });
     }

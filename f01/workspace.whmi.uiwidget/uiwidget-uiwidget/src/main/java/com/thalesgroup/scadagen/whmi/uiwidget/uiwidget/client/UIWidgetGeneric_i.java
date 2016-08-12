@@ -64,6 +64,7 @@ public interface UIWidgetGeneric_i {
 		, iconImgWidth("iconImgWidth")
 		, iconImgHeight("iconImgHeight")
 		
+		, cssUp("cssUp")
 		, cssDown("cssDown")
 		, cssDisable("cssDisable")
 		
@@ -75,6 +76,8 @@ public interface UIWidgetGeneric_i {
 		
 		, menuType("menuType")
 		, menuLevel("menuLevel")
+		
+		, groupName("groupName")
 		
 		;
 		
@@ -99,6 +102,7 @@ public interface UIWidgetGeneric_i {
 		, ImageToggleButton("ImageToggleButton")
 		, UIMenu("UIMenu")
 		, HTML("HTML")
+		, RadioButton("RadioButton")
 		, WidgetFactory("WidgetFactory")
 		;
 		

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.event.shared.EventBus;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
@@ -17,15 +16,18 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.h
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterRemoveEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.presenter.SituationViewPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
+
 
 /**
  * SCADAsoft AlarmDataGridPresenterClient implementation.
  */
 public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClient {
-	
-	/** Logger */
-    private final ClientLogger s_logger = ClientLogger.getClientLogger();
-	
+
+	/** logger */
+    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
+    private static final String LOG_PREFIX = "[ScsAlarmDataGridPresenterClient] ";
+
 	private SelectionEvent selectionEvent = null;
 	public SelectionEvent getSelectionEvent() { return selectionEvent; }
 	public void setSelectionEvent(SelectionEvent selectionEvent) { this.selectionEvent = selectionEvent; }
@@ -59,7 +61,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 
     @Override
     public void onFilterChange(final FilterChangeEventAbstract event) {
-    	
+		LOGGER.warn(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange BF");
     	super.onFilterChange(event);
 		if (event instanceof FilterSetEvent) {
 			final FilterSetEvent filterSetEvent = (FilterSetEvent) event;
@@ -68,7 +70,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 			final FilterRemoveEvent filterRemoveEvent = (FilterRemoveEvent) event;
 			filterColumns.remove(filterRemoveEvent.getColumnName());
 		}
-		
+		LOGGER.warn(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange CALLING");
 		ArrayList<String> columns = new ArrayList<String>(); 
 		for ( String column : filterColumns ) {
 			columns.add(column);
@@ -76,6 +78,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 		if ( null != filterEvent ) {
 			filterEvent.onFilterChange(columns);
 		}
+		LOGGER.warn(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange AF");
     }
 
     /**
@@ -88,6 +91,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     @Override
     public void onSelectionChange(AlarmSelectionChangeEvent event) {
         if (event.getSource() instanceof SituationViewPresenterClient) {
+        	LOGGER.warn(LOG_PREFIX+"call selection change");
             super.onSelectionChange(event);
         }
     }
@@ -99,33 +103,21 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     @Override
     protected void onSelectionChange(Set<EntityClient> selectedEntities) {
         super.onSelectionChange(selectedEntities);
-        
-        s_logger.debug(ScsAlarmDataGridPresenterClient.class.getName() + selectedEntities);
-        
-        s_logger.debug(ScsAlarmDataGridPresenterClient.class.getName() + "selected filter");
-        
-        HashMap<String, String> values = new HashMap<String, String>();
-//        ArrayList<String> ids = new ArrayList<String>(); 
+        LOGGER.warn(LOG_PREFIX+"selected filter");
+        Set<HashMap<String, String>> set = new HashSet<HashMap<String, String>>();
         for ( EntityClient ec : selectedEntities ) {
-//        	ids.add(ec.getAttribute("equipmentname").getValue().toString());
+        	HashMap<String, String> details = new HashMap<String, String>();
         	for ( String attributeName : ec.attributeNames() ) {
-        		
-        		s_logger.debug(ScsAlarmDataGridPresenterClient.class.getName() + " *** attributeName value[" + ec.getAttribute(attributeName).getValue().toString() + "]");	
-        		
-        		values.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
+        		LOGGER.warn(LOG_PREFIX+"attributeName["+attributeName+"] value[" + ec.getAttribute(attributeName).getValue().toString() + "]");	
+        		details.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
         	}
+        	set.add(details);
         }
-        
-        s_logger.debug(ScsAlarmDataGridPresenterClient.class.getName() + "call");
-        
+        LOGGER.warn(LOG_PREFIX+"call");
         if ( null != selectionEvent ) { 
-//        	this.selectionEvent.onSelection(ids); 
-        	this.selectionEvent.onSelection(values);
-//        	s_logger.debug(ScsAlarmDataGridPresenterClient.class.getName() + " *** equipmentname.value[" + ids + "]");	
+        	this.selectionEvent.onSelection(set);
         }
-        
-        s_logger.debug(ScsAlarmDataGridPresenterClient.class.getName() + "end");
-
+        LOGGER.warn(LOG_PREFIX+"end");
     }
 
     /**
@@ -142,7 +134,5 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
         }
         return selectedEntities;
     }
-
-
 
 }

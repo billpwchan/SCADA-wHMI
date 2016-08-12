@@ -18,10 +18,10 @@ public class UIEventAction extends GwtEvent<UIEventActionHandler> {
 		handler.onAction(this);
 	}
 
-	private HashMap<String, String> hashMap = new HashMap<String, String>();
+	private HashMap<String, Object> hashMap = new HashMap<String, Object>();
 	public UIEventAction() {}
 	public UIEventAction(String key, String value) { this.hashMap.put(key, value);}
-	public void setAction(String key, String value) { this.hashMap.put(key, value); }
-	public String getAction(String key) { return this.hashMap.get(key);	}
+	public void setParameters(String key, Object value) { this.hashMap.put(key, value); }
+	public Object getAction(String key) { return this.hashMap.get(key);	}
 	public String[] getActionKeys(String key) { return this.hashMap.keySet().toArray(new String[0]);	}
 }

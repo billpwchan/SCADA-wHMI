@@ -9,33 +9,30 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.component.CaptionPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterChangeEventAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 
 /**
  * A widget displaying an alamm list panel.
  */
-public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
+public class ScsOlsListPanel extends UIWidget_i {
 
     /** Logger */
-    private final ClientLogger s_logger = ClientLogger.getClientLogger();
-
+    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
+    private static final String LOG_PREFIX = "[ScsOlsListPanel] ";
+    
     /**
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}
      * parent
      */
-//    private ComplexPanel rootPanel;
+//    private HasWidgets mainPanel_;
 
     /**
      * s Client presenter of this alarm list widget
@@ -58,14 +55,9 @@ public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
     private ScsOlsListPanelMenu contextMenu_;
 
     /**
-     * Include or not the banner in a CaptionPanel
-     */
-    private final boolean withCaption_;
-
-    /**
      * The configuration id of the datagrid
      */
-    private final String listConfigId_;
+    private String listConfigId_;
 
     /**
      * The view that represents the alarm datagrid
@@ -73,32 +65,6 @@ public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
     private ScsGenericDataGridView gridView_;
 
     private boolean isTerminated_ = false;
-
-    /**
-     * To get the label of the list for the panel caption
-     */
-    private static final String DICTIONATY_CAPTION_SUFFIX = "_caption";
-
-    /**
-     * Builds an alarm list panel which uses a given event bus.
-     *
-     * @param eventBus
-     *            bus used to subscribe to and publish alarm-related events
-     * @param listConfigId
-     *            the id of the datagrid configuration
-     * @param withCaption
-     *            display or not a caption with the name of the alarm list
-     */
-    public ScsOlsListPanel(final EventBus eventBus, String listConfigId, boolean withCaption) {
-
-        eventBus_ = eventBus;
-        withCaption_ = withCaption;
-        listConfigId_ = listConfigId;
-        initComponents();
-        initPresenter();
-//        initWidget((Widget) mainPanel_);
-    }
-
     public boolean isTerminated() {
         return isTerminated_;
     }
@@ -111,12 +77,11 @@ public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
         if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
             gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
             gridPresenter_.setSelectionModel(new MultipleSelectionModel());
-//            gridPresenter_.setSelectionModel(new SingleSelectionModel());
             gridPresenter_.setMenu(contextMenu_);
 
             initHandler();
         } else {
-            s_logger.error(ScsOlsListPanel.class.getName()
+            LOGGER.error(LOG_PREFIX
                     + " initPresenter : listConfigId_,gridView_,eventBus_,contextMenu_ should not be null");
         }
     }
@@ -126,6 +91,48 @@ public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
             handlerRegistrations_ = new ArrayList<HandlerRegistration>();
             handlerRegistrations_.add(eventBus_.addHandler(AlarmSelectionChangeEvent.TYPE, gridPresenter_));
             handlerRegistrations_.add(eventBus_.addHandler(FilterChangeEventAbstract.TYPE, gridPresenter_));
+
+//            handlerRegistrations_.add(
+//            		eventBus_.addHandler(AlarmSelectionChangeEvent.TYPE, new AlarmSelectionChangeEvent.AlarmSelectionEventHandler() {
+//				
+//						@Override
+//						public void onSelectionChange(AlarmSelectionChangeEvent event) {
+//							LOGGER.error(LOG_PREFIX
+//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange Begin");
+//							if ( null != event ) {
+//								LOGGER.error(LOG_PREFIX
+//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange ["+event+"]");
+//							} else {
+//								LOGGER.error(LOG_PREFIX
+//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange event IS NULL");
+//							}
+//							LOGGER.error(LOG_PREFIX
+//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange End");
+//						}
+//					})
+//            );
+//
+//            handlerRegistrations_.add(
+//            		eventBus_.addHandler(FilterChangeEventAbstract.TYPE, new FilterChangeEventAbstract.Handler() {
+//				
+//						@Override
+//						public void onFilterChange(FilterChangeEventAbstract event) {
+//							LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange Begin");
+//							if ( null != event ) {
+//								if (event instanceof FilterSetEvent) {
+//						            LOGGER.error(LOG_PREFIX + " FilterChangeEventAbstract onFilterChange FilterSetEvent");
+//								} else if (event instanceof FilterRemoveEvent) {
+//						            LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange FilterRemoveEvent");
+//								} else {
+//									LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange event IS UNKNOW");
+//								}
+//							} else {
+//								LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange event IS NULL");
+//							}
+//							LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange End");
+//						}
+//					})
+//            );
         }
     }
     
@@ -146,25 +153,14 @@ public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
      * Create the main container with a Caption or not
      */
     private void initMainPanel() {
-        if (withCaption_) {
-            rootPanel = new CaptionPanel();
-            final String captionLabel = Dictionary.getWording(listConfigId_ + DICTIONATY_CAPTION_SUFFIX);
-            ((CaptionPanel) rootPanel).setCaption(captionLabel);
 
-        } else {
-            rootPanel = new DockLayoutPanel(Unit.PX);
-        }
-        
+        rootPanel = new DockLayoutPanel(Unit.PX);
         rootPanel.addStyleName("project-gwt-panel-scsolslistpanel");
-
-        // Create datagrid container
-        DockLayoutPanel containerPanel = new DockLayoutPanel(Unit.PX);
         Widget gridWidget = gridView_.asWidget();
         gridWidget.setVisible(true);
 
         // Add containers in the main panel
-        containerPanel.add(gridWidget);
-        rootPanel.add(containerPanel);
+        rootPanel.add(gridWidget);
     }
 
     /**
@@ -191,34 +187,12 @@ public class ScsOlsListPanel extends UIWidget_i implements IClientLifeCycle  {
         });
     }
 
-//    @Override
-//    public void onResize() {
-//        super.onResize();
-//        gridView_.onResize();
-//    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void terminate() {
-        isTerminated_ = true;
-        for (final HandlerRegistration registration : handlerRegistrations_) {
-            registration.removeHandler();
-        }
-        handlerRegistrations_.clear();
-
-        try {
-            gridPresenter_.terminate();
-        } catch (final IllegalStatePresenterException e) {
-            s_logger.error("Error while trying to terminate the Alarm List Panel.", e);
-        }
-    }
-
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+        eventBus_		= (EventBus) parameters.get("MwtEventBus");
+        listConfigId_	= (String) parameters.get("ListConfigId");
 		
+        initComponents();
+        initPresenter();
 	}
-
 }

@@ -72,7 +72,7 @@ public class UIPanelNavigation extends UIWidget_i {
 	
 	@Override
 	public ComplexPanel getMainPanel() {
-		return getMenu(this.uiNameCard, parameters.get("menuLevel"), parameters.get("menuType"));
+		return getMenu(this.uiNameCard, (String)parameters.get("menuLevel"), (String)parameters.get("menuType"));
 	}
 
 }

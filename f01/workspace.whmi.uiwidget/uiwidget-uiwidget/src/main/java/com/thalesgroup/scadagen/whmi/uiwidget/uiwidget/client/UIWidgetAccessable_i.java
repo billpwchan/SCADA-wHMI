@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 
 /**
  * @author syau
@@ -8,7 +9,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public interface UIWidgetAccessable_i extends UIWidgetEventable_i {
 	
-	void setParameter(String key, String value);
+	void setParameter(String key, Object value);
 
 	Widget getWidget(String widget);
 	String getWidgetElement(Widget widget);
@@ -19,6 +20,9 @@ public interface UIWidgetAccessable_i extends UIWidgetEventable_i {
 	void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent);
 	UIWidgetEvent getUIWidgetEvent(UIWidgetEvent uiWidgetEvent);
 	
-	String getWidgetStatus(String element);
-	void setWidgetStatus(String element, String up);
+	WidgetStatus getWidgetStatus(String element);
+	void setWidgetStatus(String element, WidgetStatus status);
+	
+//	String getWidgetStatus(String element);
+//	void setWidgetStatus(String element, String up);
 }

@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.PTWPanel;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.SummaryView;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIViewMgr {
@@ -33,7 +33,7 @@ public class UIViewMgr {
 		} else if ( 0 == panel.compareTo("UIViewEvent") ) {
 			uiWidget_i = new UIViewEvent();
 		} else if ( 0 == panel.compareTo("PTWPanel") ) {		
-			uiWidget_i = new PTWPanel();
+			uiWidget_i = new SummaryView();
 		} else {
 			//uiWidget_i = new UIViewEmpty();
 		}

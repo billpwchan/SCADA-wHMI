@@ -1,6 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel;
 
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +13,6 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanelEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
 
 public class UIViewEvent extends UIWidget_i {
 	
@@ -23,19 +21,7 @@ public class UIViewEvent extends UIWidget_i {
 	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
 	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
-	
-	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
-	public void addHandlerRegistration(HandlerRegistration handlerRegistration){
-		handlerRegistrations.add(handlerRegistration);
-	}
-	public void removeHandlerRegistrations(){
-		HandlerRegistration handlerRegistration = handlerRegistrations.poll();
-		while ( null != handlerRegistration ) {
-			handlerRegistration.removeHandler();
-			handlerRegistration = handlerRegistrations.poll();
-		}		
-	}
-	
+
 	private String [] strNoOfEvents = new String [] {
 			"No. of Event", "0"
 	};	

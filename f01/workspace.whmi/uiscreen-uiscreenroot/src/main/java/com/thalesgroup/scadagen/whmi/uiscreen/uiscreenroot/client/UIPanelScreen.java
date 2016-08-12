@@ -12,26 +12,21 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelScreen {
+public class UIPanelScreen extends UIWidget_i {
 	
 	private Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
-	private HorizontalPanel hp;
-	
-	private UINameCard uiNameCard = null;
-	public HorizontalPanel getMainPanel(UINameCard uiNameCard) {
-		
-		logger.log(Level.FINE, "getMainPanel Begin.");
-		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	  
-		this.hp = new HorizontalPanel();
-    	this.hp.setWidth("100%");
-    	this.hp.setHeight("100%");
+	@Override
+	public void init() {
+		logger.log(Level.FINE, "init Begin.");
+
+		this.rootPanel = new HorizontalPanel();
+    	this.rootPanel.setWidth("100%");
+    	this.rootPanel.setHeight("100%");
  
     	resetEventBus();
     	
@@ -41,9 +36,7 @@ public class UIPanelScreen {
     	taskLaunch.setUiPanel("UIScreenLogin");
     	this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
     	
-    	logger.log(Level.FINE, "getMainPanel End");
-		
-    	return this.hp;
+    	logger.log(Level.FINE, "init End");
 	}
 	
 	private void resetEventBus() {
@@ -77,7 +70,7 @@ public class UIPanelScreen {
 		logger.log(Level.FINE, "onUIEventDebug End");
 	}
 	
-	private HorizontalPanel onUIEvent( UIEvent uiEvent ) {
+	private void onUIEvent( UIEvent uiEvent ) {
 		
 		logger.log(Level.FINE, "onUIEvent Begin");
 		
@@ -100,7 +93,7 @@ public class UIPanelScreen {
 						
 						logger.log(Level.FINE, "switchPanel taskLaunch.getUiPanel()["+taskLaunch.getUiPanel()+"]");
 	
-						hp.clear();
+						rootPanel.clear();
 							
 						resetEventBus();
 							
@@ -109,7 +102,7 @@ public class UIPanelScreen {
 						complexPanel.setWidth("100%");
 						complexPanel.setHeight("100%");
 							
-						hp.add(complexPanel);
+						rootPanel.add(complexPanel);
 						
 						Settings setting = Settings.getInstance();
 						String strNumOfScreen = setting.get("numofscreen");
@@ -135,7 +128,7 @@ public class UIPanelScreen {
 								}
 								complexPanelOthers.setWidth("100%");
 								complexPanelOthers.setHeight("100%");
-								hp.add(complexPanelOthers);
+								rootPanel.add(complexPanelOthers);
 							}
 						}
 					
@@ -153,8 +146,7 @@ public class UIPanelScreen {
 			logger.log(Level.FINE, "onUIEvent uiEvent IS NULL");
 		}
 		logger.log(Level.FINE, "onUIEvent End");
-		
-		return hp;
+
 	}
 
 }

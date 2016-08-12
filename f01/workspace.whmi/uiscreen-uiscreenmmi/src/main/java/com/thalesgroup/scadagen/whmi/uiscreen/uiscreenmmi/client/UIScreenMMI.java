@@ -38,12 +38,14 @@ public class UIScreenMMI extends UIWidget_i {
 	@Override
 	public void init() {
 		
-		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-			@Override
-			public void onEvenBusUIChanged(UIEvent uiEvent) {
-				onUIEvent(uiEvent);
-			}
-		});
+		handlerRegistrations.add(		
+			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+				@Override
+				public void onEvenBusUIChanged(UIEvent uiEvent) {
+					onUIEvent(uiEvent);
+				}
+			})
+		);
 		
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		

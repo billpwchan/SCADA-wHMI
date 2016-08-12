@@ -1,11 +1,9 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -30,20 +28,6 @@ public class UIPanelEmpty extends UIWidget_i {
 		rootPanel.add(hp);
 
 		logger.log(Level.FINE, "init End");
-	}
-
-	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
-
-	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
-		handlerRegistrations.add(handlerRegistration);
-	}
-
-	public void removeHandlerRegistrations() {
-		HandlerRegistration handlerRegistration = handlerRegistrations.poll();
-		while ( null != handlerRegistration ) {
-			handlerRegistration.removeHandler();
-			handlerRegistration = handlerRegistrations.poll();
-		}
 	}
 
 }

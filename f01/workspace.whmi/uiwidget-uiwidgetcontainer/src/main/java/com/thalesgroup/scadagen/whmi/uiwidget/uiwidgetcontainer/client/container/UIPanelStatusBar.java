@@ -40,12 +40,14 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		logger.log(Level.FINE, "init Begin");
 
-		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-			@Override
-			public void onEvenBusUIChanged(UIEvent uiEvent) {
-				onUIEvent(uiEvent);
-			}
-		});
+		handlerRegistrations.add(
+			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+				@Override
+				public void onEvenBusUIChanged(UIEvent uiEvent) {
+					onUIEvent(uiEvent);
+				}
+			})
+		);
 		
 		uiScreenGeneric = new UILayoutGeneric();
 		uiScreenGeneric.setUINameCard(this.uiNameCard);

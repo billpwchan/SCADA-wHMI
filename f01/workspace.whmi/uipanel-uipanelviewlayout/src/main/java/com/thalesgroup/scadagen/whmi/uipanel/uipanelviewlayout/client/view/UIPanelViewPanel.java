@@ -1,11 +1,9 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
-import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -21,19 +19,6 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 	
 	private Logger logger = Logger.getLogger(UIPanelViewPanel.class.getName());
 
-	LinkedList<HandlerRegistration> handlerRegistrations = new LinkedList<HandlerRegistration>();
-	@Override
-	public void addHandlerRegistration(HandlerRegistration handlerRegistration) {
-		handlerRegistrations.add(handlerRegistration);
-	}
-	@Override
-	public void removeHandlerRegistrations() {
-		HandlerRegistration handlerRegistration = handlerRegistrations.poll();
-		while ( null != handlerRegistration ) {
-			handlerRegistration.removeHandler();
-			handlerRegistration = handlerRegistrations.poll();
-		}
-	}
 	InlineLabel equipmenpLabel = null;
 	
 	@Override

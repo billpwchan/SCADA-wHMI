@@ -10,6 +10,8 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.EntitySelectionInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.EqptSelectionChangeEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.NavigationActivationEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.factory.NavigationEventFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.menu.GDGContextMenuAbstract;
@@ -33,8 +35,9 @@ public class ScsOlsListPanelMenu extends GDGContextMenuAbstract implements Comma
     /**
      * Logger
      */
-    private final ClientLogger s_logger = ClientLogger.getClientLogger();
-
+    private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
+    private static final String LOG_PREFIX = "[ScsOlsListPanelMenu] ";
+    
     public ScsOlsListPanelMenu(EventBus eventBus) {
         eventBus_ = eventBus;
     }
@@ -79,7 +82,7 @@ public class ScsOlsListPanelMenu extends GDGContextMenuAbstract implements Comma
             }
             result = true;
         } catch (Exception e) {
-            s_logger.error("OlsListPanelMenu: " + e.getMessage());
+            LOGGER.error(LOG_PREFIX + e.getMessage(), e);
         }
         return result;
     }
@@ -112,7 +115,7 @@ public class ScsOlsListPanelMenu extends GDGContextMenuAbstract implements Comma
 
             }
         } catch (final Exception e) {
-            s_logger.error("AlarmListPanelMenu: " + e.getMessage());
+            LOGGER.error(LOG_PREFIX + e.getMessage(), e);
         }
 
     }
@@ -121,10 +124,10 @@ public class ScsOlsListPanelMenu extends GDGContextMenuAbstract implements Comma
 
         @Override
         public void execute() {
-//            EntityClient entity = entities_.iterator().next();
-//            OpenSituationViewEvent event = new OpenSituationViewEvent(
-//                    (String) entity.getAttribute(DEFAULT_IMAGE).getValue());
-//            eventBus_.fireEventFromSource(event, this);
+            EntityClient entity = entities_.iterator().next();
+            NavigationActivationEvent event = NavigationEventFactory.buildNavImageEvent((String) entity.getAttribute(DEFAULT_IMAGE).getValue(), 
+            		(String) entity.getAttribute(DEFAULT_IMAGE).getValue(), null);
+            eventBus_.fireEventFromSource(event, this);
             closeMenu();
         }
 

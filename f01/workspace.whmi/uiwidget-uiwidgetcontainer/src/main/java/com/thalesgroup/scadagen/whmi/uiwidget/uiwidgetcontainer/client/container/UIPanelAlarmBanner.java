@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
@@ -83,7 +83,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 	}
 	
 	@Override
-	public ComplexPanel getMainPanel() {
+	public Panel getMainPanel() {
 		
 	    return rootPanel;
 	}

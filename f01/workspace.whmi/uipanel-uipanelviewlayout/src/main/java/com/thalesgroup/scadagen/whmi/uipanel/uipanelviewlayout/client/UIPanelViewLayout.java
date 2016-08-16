@@ -4,9 +4,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelView;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view.UIPanelViewEvent;
@@ -21,7 +21,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 	
 	private UIPanelView[] uiPanelViews;
 	
-	private ComplexPanel upperMainPanel;
+	private Panel upperMainPanel;
 	
 	@Override
 	public void init() {

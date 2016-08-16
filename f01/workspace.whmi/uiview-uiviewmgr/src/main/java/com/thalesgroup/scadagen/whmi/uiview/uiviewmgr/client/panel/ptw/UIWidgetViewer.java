@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.ColumnFilterData;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
@@ -20,9 +21,11 @@ import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.Translati
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.FilterViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.PrintViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewWidget;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewerViewEvent;
@@ -35,58 +38,26 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterE
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
 
-public class ViewerView extends UIWidget_i {
+public class UIWidgetViewer extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(ViewerView.class.getName());
+	private Logger logger = Logger.getLogger(UIWidgetViewer.class.getName());
 	
-    private String logPrefix		= "[ViewerView] ";
+	private String className		= UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
+	
+	private String logPrefix		= "["+className+"] ";
 
 	// External
-	private SimpleEventBus eventBus	= null;
-	private String listConfigId	= null;
-
-	private void fireSelecionEvent(Set<HashMap<String, String>> entities) {
-		
-		logger.log(Level.SEVERE, logPrefix+"fireSelecionEvent Begin");
-
-//		Set<HashMap<String, String>> set = new HashSet<HashMap<String, String>>();
-//		for ( HashMap<String, String> entitie : entities ) {
-//			HashMap<String, String> hashMap = new HashMap<String, String>();
-//			for ( String columnName : entitie.keySet() ) {
-//				hashMap.put(columnName, entitie.get(columnName));
-//			}
-//			set.add(hashMap);
-//		}
-		
-		UIEventAction uiEventAction = new UIEventAction();
-		uiEventAction.setParameters(ViewAttribute.Operation.toString(), ViewerViewEvent.RowSelected.toString());
-		uiEventAction.setParameters(ViewAttribute.OperationObject1.toString(), entities);
-		
-//		uiEventAction.setParameters(ViewAttribute.OperationObject1.toString(), set);
-		
-		this.eventBus.fireEventFromSource(uiEventAction, this);
-		
-		logger.log(Level.SEVERE, logPrefix+"fireSelecionEvent End");
-	}
+	private SimpleEventBus eventBus		= null;
 	
-	private void fireFilterEvent(ArrayList<String> columns) {
-		logger.log(Level.SEVERE, logPrefix+"fireFilterEvent Begin");
-		
-		UIEventAction event = new UIEventAction();
-		ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
-		if ( null != columns && columns.size() > 0 ) {
-			viewerViewEvent = ViewerViewEvent.FilterAdded;
-		}
-		event.setParameters(ViewAttribute.Operation.toString(), viewerViewEvent.toString());
-		this.eventBus.fireEventFromSource(event, this);
-		logger.log(Level.SEVERE, logPrefix+"fireFilterEvent Begin");
-	}
+	private String listConfigId			= "ptwdciset";
+	private String menuEnable			= "false";
+	private String selectionMode		= "Multiple";
 	
 	private UILayoutGeneric uiLayoutGeneric					= null;
 	
 	private ScsOlsListPanel scsOlsListPanel					= null;
-	private ScsAlarmDataGridPresenterClient gridPresenter	= null;	
-
+	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
+	
 	public void removeFilter() {
 		logger.log(Level.SEVERE, logPrefix+"removeFilter Begin");
 		if ( null != gridPresenter ) {
@@ -144,6 +115,8 @@ public class ViewerView extends UIWidget_i {
 				}
 			} else if ( op.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 				removeFilter();
+			} else if ( op.equals(PrintViewEvent.Print.toString()) ) {
+				Window.alert("Print Event");
 			}
 		} else {
 			logger.log(Level.SEVERE, logPrefix+"op IS NULL");
@@ -156,11 +129,39 @@ public class ViewerView extends UIWidget_i {
 	public void init() {
 		
 		logger.log(Level.FINE, logPrefix+"init Begin");
-
-		this.eventBus		= (SimpleEventBus) parameters.get(ParameterName.SimpleEventBus.toString());
-		this.listConfigId	= (String) parameters.get(ParameterName.ListConfigId.toString());
 		
+		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
+			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
+			if ( null != o ) {
+				String eventBusName = (String) o;
+				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
+			}
+		}
+		
+		if ( containsParameterKey(ParameterName.ListConfigId.toString()) ) {
+			Object o = parameters.get(ParameterName.ListConfigId.toString());
+			if ( null != o ) {
+				this.listConfigId = (String) o;
+			}
+		}
+		
+		if ( containsParameterKey(ParameterName.MenuEnable.toString()) ) {
+			Object o = parameters.get(ParameterName.MenuEnable.toString());
+			if ( null != o ) {
+				this.menuEnable = (String) o;
+			}
+		}
+		
+		if ( containsParameterKey(ParameterName.SelectionMode.toString()) ) {
+			Object o = parameters.get(ParameterName.SelectionMode.toString());
+			if ( null != o ) {
+				this.selectionMode = (String) o;
+			}
+		}
+
 		logger.log(Level.FINE, logPrefix+"init this.listConfigId1[" + this.listConfigId + "]");
+		logger.log(Level.FINE, logPrefix+"init this.menuEnable[" + this.menuEnable + "]");
+		logger.log(Level.FINE, logPrefix+"init this.selectionMode[" + this.selectionMode + "]");
 		
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -171,7 +172,7 @@ public class ViewerView extends UIWidget_i {
 		
 		uiLayoutGeneric = new UILayoutGeneric();
 		
-		UIWidgetMgr.getInstance().addUIWidgetFactory(ViewWidget.UIPanelPTWViewer.toString(), new UIWidgetMgrFactory() {
+		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			
 			@Override
 			public UIWidget_i getUIWidget(String widget) {
@@ -180,6 +181,8 @@ public class ViewerView extends UIWidget_i {
 					uiWidget_i = new ScsOlsListPanel();
 					uiWidget_i.setParameter(ParameterName.MwtEventBus.toString(), new MwtEventBus());
 					uiWidget_i.setParameter(ParameterName.ListConfigId.toString(), listConfigId);
+					uiWidget_i.setParameter(ParameterName.MenuEnable.toString(), menuEnable);
+					uiWidget_i.setParameter(ParameterName.SelectionMode.toString(), selectionMode);
 					uiWidget_i.init();
 				}
 				return uiWidget_i;
@@ -187,7 +190,7 @@ public class ViewerView extends UIWidget_i {
 		});
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setXMLFile(ViewWidget.UIPanelPTWViewer.toString());
+		uiLayoutGeneric.setXMLFile(xmlFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
@@ -225,7 +228,14 @@ public class ViewerView extends UIWidget_i {
 						
 						logger.log(Level.FINE, logPrefix+"onSelection columns.size()");
 						
-						fireSelecionEvent(entities);
+						logger.log(Level.SEVERE, logPrefix+"fireSelecionEvent Begin");
+
+						UIEventAction uiEventAction = new UIEventAction();
+						uiEventAction.setParameters(ViewAttribute.Operation.toString(), ViewerViewEvent.RowSelected.toString());
+						uiEventAction.setParameters(ViewAttribute.OperationObject1.toString(), entities);
+						eventBus.fireEventFromSource(uiEventAction, this);
+						
+						logger.log(Level.SEVERE, logPrefix+"fireSelecionEvent End");
 					}
 				});
 				
@@ -236,7 +246,17 @@ public class ViewerView extends UIWidget_i {
 
 						logger.log(Level.FINE, logPrefix+"onFilterChange columns.size()");
 						
-						fireFilterEvent(columns);
+						logger.log(Level.SEVERE, logPrefix+"fireFilterEvent Begin");
+						
+						UIEventAction event = new UIEventAction();
+						ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
+						if ( null != columns && columns.size() > 0 ) {
+							viewerViewEvent = ViewerViewEvent.FilterAdded;
+						}
+						event.setParameters(ViewAttribute.Operation.toString(), viewerViewEvent.toString());
+						eventBus.fireEventFromSource(event, this);
+						
+						logger.log(Level.SEVERE, logPrefix+"fireFilterEvent Begin");
 					}
 				});
 			} else {

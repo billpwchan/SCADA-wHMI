@@ -7,12 +7,12 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
@@ -30,7 +30,7 @@ public class UIPanelView {
 	private ViewLayoutAction viewLayoutAction;
 	private UIPanelViewEvent uiPanelViewEvent;
 	private UITaskLaunch taskLaunch;
-	private DockLayoutPanel panel = null;
+	private DockLayoutPanel rootPanel = null;
 	
 	private InlineLabel lblTitle;
 	
@@ -44,10 +44,10 @@ public class UIPanelView {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		this.uiNameCard.appendUIPath(Integer.toString(viewId));
-		this.panel = new DockLayoutPanel(Unit.PX);
+		this.rootPanel = new DockLayoutPanel(Unit.PX);
 		
-		this.panel.sinkEvents(Event.ONCLICK);
-		this.panel.addHandler(new ClickHandler() {
+		this.rootPanel.sinkEvents(Event.ONCLICK);
+		this.rootPanel.addHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
             	onMouseClick(event);
@@ -68,7 +68,7 @@ public class UIPanelView {
 		
 		logger.log(Level.FINE, "getMainPanel Begin/End");
 		
-		return this.panel;
+		return this.rootPanel;
 	}
 	public int getViewId() {
 		
@@ -114,7 +114,7 @@ public class UIPanelView {
 			
 			logger.log(Level.FINE, "setActivateBorder stylePrimaryName["+stylePrimaryName+"]");
 			
-			this.panel.setStylePrimaryName(stylePrimaryName);
+			this.rootPanel.setStylePrimaryName(stylePrimaryName);
 		} else {
 			logger.log(Level.FINE, "setActivateBorder stylePrimaryName IS NULL");
 		}
@@ -151,13 +151,13 @@ public class UIPanelView {
 		
 		logger.log(Level.FINE, "getPanel Begin/End");
 		
-		return panel;
+		return rootPanel;
 	}
 	public void setPanel(DockLayoutPanel panel) {
 		
 		logger.log(Level.FINE, "setPanel Begin/End");
 		
-		this.panel = panel;
+		this.rootPanel = panel;
 	}
 	public ViewLayoutAction getViewAction() {
 		
@@ -200,24 +200,24 @@ public class UIPanelView {
 		if ( null != taskLaunch ) {
 		
 			this.taskLaunch = new UITaskLaunch(taskLaunch);
-			panel.clear();
+			rootPanel.clear();
 			
 			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
 			UIWidget_i uiWidget_i = null;
-			ComplexPanel dockLayoutPanel = null;
+			Panel panel = null;
 			
 			switch ( this.taskLaunch.getTaskLaunchType() ) {
 			case PANEL:
 				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewPanel, uiNameCard);
-				dockLayoutPanel = uiWidget_i.getMainPanel();				
+				panel = uiWidget_i.getMainPanel();				
 				break;
 			case IMAGE:
 				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic, uiNameCard);
-				dockLayoutPanel = uiWidget_i.getMainPanel();
+				panel = uiWidget_i.getMainPanel();
 				break;
 			default:
 				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty, uiNameCard);
-				dockLayoutPanel = uiWidget_i.getMainPanel();				
+				panel = uiWidget_i.getMainPanel();				
 				break;			
 			}
 
@@ -230,10 +230,10 @@ public class UIPanelView {
 			lblTitle.addStyleName("project-gwt-inlinelabel-panelview-title");
 			hp.add(lblTitle);
 			
-			panel.addNorth(hp, 40);
+			((DockLayoutPanel)rootPanel).addNorth(hp, 40);
 			
-			panel.addStyleName("project-gwt-panel-panelview-container");
-			panel.add(dockLayoutPanel);
+			rootPanel.addStyleName("project-gwt-panel-panelview-container");
+			rootPanel.add(panel);
 			
 			((UIPanelViewProvide_i)uiWidget_i).setTaskProvide(taskLaunch);
 			

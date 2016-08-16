@@ -4,12 +4,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
@@ -73,11 +73,11 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 
 					logger.log(Level.FINE, "setTaskProvide uiViewProvide.getMainPanel["+uiNameCard.getUiPath()+"]");
 				
-					ComplexPanel dockLayoutPanel = uiWidget_i.getMainPanel();
+					Panel panel = uiWidget_i.getMainPanel();
 					
 					logger.log(Level.FINE, "setTaskProvide root.add");
 				
-					this.rootPanel.add(dockLayoutPanel);					
+					this.rootPanel.add(panel);					
 				
 				} else {
 					

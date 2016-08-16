@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
@@ -41,9 +41,9 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		}
 	}
 	
-	protected ComplexPanel rootPanel = null;
+	protected Panel rootPanel = null;
 	@Override
-	public ComplexPanel getMainPanel() {
+	public Panel getMainPanel() {
 		if ( null == rootPanel ) {
 			logger.log(Level.SEVERE, "getMainPanel rootPanel IS NULL");
 		}
@@ -55,6 +55,12 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
     public void setParameter(String key, Object value) {
     	logger.log(Level.FINE, "setParameter key["+key+"] value["+value+"]");
     	parameters.put(key, value);
+    }
+    public Object getParameter(String key) {
+    	return parameters.get(key);
+    }
+    public boolean containsParameterKey(String key) {
+    	return parameters.containsKey(key);
     }
     
     protected UIWidgetEventOnValueUpdate			uiWidgetEventOnValueUpdate			= null;

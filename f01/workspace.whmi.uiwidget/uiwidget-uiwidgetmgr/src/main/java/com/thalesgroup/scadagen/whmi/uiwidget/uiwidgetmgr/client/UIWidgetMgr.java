@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
@@ -20,19 +20,29 @@ public class UIWidgetMgr {
 		return instance;
 	}
 
-	public ComplexPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
+	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
-		logger.log(Level.SEVERE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
+		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
+		Panel panel = null;
 		UIWidget_i uiwidget = this.getUIWidget(uiPanel);
-		uiwidget.setUINameCard(uiNameCard);
-		ComplexPanel complexPanel = uiwidget.getMainPanel();
+		
+		if ( null != uiwidget ) {
+			uiwidget.setUINameCard(uiNameCard);
+			panel = uiwidget.getMainPanel();
+		} else {
+			logger.log(Level.SEVERE, "getMainPanel IS NULL");
+		}
+
+		if ( null == panel ) {
+			logger.log(Level.SEVERE, "getMainPanel complexPanel IS NULL");
+		}
 		
 		logger.log(Level.FINE, "getMainPanel End");
 
-		return complexPanel;
+		return panel;
 	}
 	
 	private HashMap<String, UIWidgetMgrFactory> uiWidgetMgrFactorys = new HashMap<String, UIWidgetMgrFactory>();

@@ -11,7 +11,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -274,17 +274,23 @@ public class UIGws {
 		uiPanelSettingCache.add("UIPanelNavigation_3.xml", option);
 		
 		// PTW
-		uiPanelSettingCache.add("UIPanelPTWSummary.xml", header);
-		uiPanelSettingCache.add("UIPanelPTWSummary.xml", option);
+		uiPanelSettingCache.add("UIWidgetSummary.xml", header);
+		uiPanelSettingCache.add("UIWidgetSummary.xml", option);
 					
-		uiPanelSettingCache.add("UIPanelPTWViewer.xml", header);
-		uiPanelSettingCache.add("UIPanelPTWViewer.xml", option);
+		uiPanelSettingCache.add("UIWidgetViewer.xml", header);
+		uiPanelSettingCache.add("UIWidgetViewer.xml", option);
 		
-		uiPanelSettingCache.add("UIPanelPTWAction.xml", header);
-		uiPanelSettingCache.add("UIPanelPTWAction.xml", option);		
+		uiPanelSettingCache.add("UIWidgetControl.xml", header);
+		uiPanelSettingCache.add("UIWidgetControl.xml", option);		
 		
-		uiPanelSettingCache.add("UIPanelPTWFilter.xml", header);
-		uiPanelSettingCache.add("UIPanelPTWFilter.xml", option);
+		uiPanelSettingCache.add("UIWidgetFilter.xml", header);
+		uiPanelSettingCache.add("UIWidgetFilter.xml", option);
+		
+		uiPanelSettingCache.add("UIWidgetPrint.xml", header);
+		uiPanelSettingCache.add("UIWidgetPrint.xml", option);
+		
+		uiPanelSettingCache.add("UIWidgetAction.xml", header);
+		uiPanelSettingCache.add("UIWidgetAction.xml", option);
 		
 		String module = null;
 		
@@ -308,10 +314,10 @@ public class UIGws {
 		UIWidget_i uiWidget_i = new UIPanelScreen();
 		uiWidget_i.setUINameCard(this.uiNameCard);
 		uiWidget_i.init();
-		ComplexPanel rootPanel = uiWidget_i.getMainPanel();
+		Panel panel = uiWidget_i.getMainPanel();
 		
 		this.root.clear();	
-		this.root.add(rootPanel);
+		this.root.add(panel);
 		
 		logger.log(Level.FINE, "ready End");
 	}

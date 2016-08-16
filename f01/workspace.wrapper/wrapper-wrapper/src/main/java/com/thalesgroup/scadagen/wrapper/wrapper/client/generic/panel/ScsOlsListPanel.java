@@ -14,7 +14,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.Alarm
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterChangeEventAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.ISelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.SingleSelectionModel;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
@@ -27,6 +29,16 @@ public class ScsOlsListPanel extends UIWidget_i {
     /** Logger */
     private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
     private static final String LOG_PREFIX = "[ScsOlsListPanel] ";
+    
+    private final String strTrue = "true";
+    private final String strMultiple		= "Multiple";
+    
+    private final String strMwtEventBus		= "MwtEventBus";
+    private final String strListConfigId	= "ListConfigId";
+    private final String strMenuEnable		= "MenuEnable";
+    private final String strSelectionMode	= "SelectionMode";
+    
+    private String selectionMode = null;
     
     /**
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}
@@ -53,6 +65,8 @@ public class ScsOlsListPanel extends UIWidget_i {
      * The alarm list context menu
      */
     private ScsOlsListPanelMenu contextMenu_;
+    
+    private String menuEnable = null;
 
     /**
      * The configuration id of the datagrid
@@ -74,10 +88,30 @@ public class ScsOlsListPanel extends UIWidget_i {
      * context menu and Handlers
      */
     private void initPresenter() {
-        if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
+        if (listConfigId_ != null && gridView_ != null && eventBus_ != null ) {
             gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
-            gridPresenter_.setSelectionModel(new MultipleSelectionModel());
-            gridPresenter_.setMenu(contextMenu_);
+            
+            ISelectionModel iSelectionModel = null;
+            if ( null != selectionMode ) {
+            	if ( selectionMode.equals(strMultiple) ) {
+            		iSelectionModel = new MultipleSelectionModel();
+            	} else {
+            		iSelectionModel = new SingleSelectionModel();
+            	}
+            }
+            if ( null != iSelectionModel ) {
+            	gridPresenter_.setSelectionModel(iSelectionModel);
+            } else {
+            	LOGGER.error(LOG_PREFIX
+                        + " initPresenter : iSelectionModel IS null");
+            }
+            
+            if ( null != contextMenu_) {
+            	gridPresenter_.setMenu(contextMenu_);
+            } else {
+            	LOGGER.error(LOG_PREFIX
+                        + " initPresenter : contextMenu_ IS null");
+            }
 
             initHandler();
         } else {
@@ -144,7 +178,9 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Initialize and create all needed components
      */
     private void initComponents() {
-        contextMenu_ = new ScsOlsListPanelMenu(eventBus_);
+    	if ( null != menuEnable && menuEnable.equals(strTrue)) {
+    		contextMenu_ = new ScsOlsListPanelMenu(eventBus_);
+    	}
         initDataGridView();
         initMainPanel();
     }
@@ -189,9 +225,11 @@ public class ScsOlsListPanel extends UIWidget_i {
 
 	@Override
 	public void init() {
-        eventBus_		= (EventBus) parameters.get("MwtEventBus");
-        listConfigId_	= (String) parameters.get("ListConfigId");
-		
+        eventBus_			= (EventBus) parameters.get(strMwtEventBus);
+        listConfigId_		= (String) parameters.get(strListConfigId);
+        menuEnable			= (String) parameters.get(strMenuEnable);
+        selectionMode		= (String) parameters.get(strSelectionMode);
+        
         initComponents();
         initPresenter();
 	}

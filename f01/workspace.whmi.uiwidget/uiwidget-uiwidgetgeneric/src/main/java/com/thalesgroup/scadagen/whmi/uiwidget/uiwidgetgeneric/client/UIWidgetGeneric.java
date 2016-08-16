@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyPressEvent;
@@ -15,12 +16,11 @@ import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -53,14 +53,25 @@ public class UIWidgetGeneric extends UIWidget_i {
 	private int cols	= 0;
 	private int totals	= 0;
 	
-    private String strCSSStatPanel;
-    private String strRootWidget;
+    private String strRootContainerCss;
+    private String strRootPanel;
 
-    private String strCSSFlexTable;
+    private String strRootCss;
     
     private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
     
     private HashMap<Integer, Widget> widgets = new HashMap<Integer, Widget>();
+    
+    protected String getDefaultDebugId(String element) {
+    	String debugId = null;
+		if ( null != uiNameCard && null != element ) {
+			String uiPath = uiNameCard.getUiPath();
+			if ( null != uiPath ) {
+				debugId = uiPath + ":" + element;
+			}
+		}
+    	return debugId;
+	}
 
     public String [] getElementValues(WidgetAttribute element) {
     	String elements [] = new String[this.values.size()];
@@ -94,16 +105,14 @@ public class UIWidgetGeneric extends UIWidget_i {
 		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
 		ready(this.dictionaryOption);
     	
-		
 		//UIGeneric
-		
 		
 		logger.log(Level.SEVERE, "getMainPanel Begin");
 		logger.log(Level.SEVERE, "getMainPanel this.xmlFile["+this.xmlFile+"]");
 		
-		rootPanel = new VerticalPanel();
-		
 		if ( null == dictionaryHeader || null == dictionaryOption ) {
+			
+			rootPanel = new VerticalPanel();
 			
 			if ( null == dictionaryHeader ) rootPanel.add( new InlineLabel( "Faild to load xmlFile["+this.xmlFile+"] strHeader["+DictionaryCacheInterface.Header+"]" ));
 			
@@ -111,49 +120,51 @@ public class UIWidgetGeneric extends UIWidget_i {
 			
 		} else {
 			
-			logger.log(Level.SEVERE, "getMainPanel appling root panel css strCSSStatPanel["+strCSSStatPanel+"]");
+			logger.log(Level.SEVERE, "getMainPanel appling root panel css strCSSStatPanel["+strRootContainerCss+"]");
 			
-		    rootPanel.addStyleName(strCSSStatPanel);
-		    ((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-		    ((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+//		    rootPanel.addStyleName(strRootContainerCss);
+//		    ((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+//		    ((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
-	    	FlexTable flexTable = null;
+//	    	FlexTable flexTable = null;
+//	    	
+//	    	HorizontalPanel horizontalPanel = null;
+//	    	
+//	    	VerticalPanel verticalPanel = null;
+//	    	
+//	    	AbsolutePanel absolutePanel = null;
+			
+			
 	    	
-	    	HorizontalPanel horizontalPanel = null;
+	    	logger.log(Level.SEVERE, "getMainPanel strRootWidget["+strRootPanel+"]");
 	    	
-	    	VerticalPanel verticalPanel = null;
-	    	
-	    	AbsolutePanel absolutePanel = null;
-	    	
-	    	logger.log(Level.SEVERE, "getMainPanel strRootWidget["+strRootWidget+"]");
-	    	
-	    	if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
+	    	if ( RootWidgetType.HorizontalPanel.equalsName(strRootPanel) ) {
 	    		
 	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.HorizontalPanel+"]");
 	    		
-	    		horizontalPanel = new HorizontalPanel();
-	    		if ( null != strCSSFlexTable )	horizontalPanel.addStyleName(strCSSFlexTable);
+	    		rootPanel = new HorizontalPanel();
+	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    		
-	    	} else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {
+	    	} else if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {
 	    		
 	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.FlexTable+"]");
 	    	
-	    		flexTable = new FlexTable();
-	    		if ( null != strCSSFlexTable )	flexTable.addStyleName(strCSSFlexTable);
+	    		rootPanel = new FlexTable();
+	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    		
-	    	} else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
-	    		
-	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.VerticalPanel+"]");
-	    	
-	    		verticalPanel = new VerticalPanel();
-	    		if ( null != strCSSFlexTable )	verticalPanel.addStyleName(strCSSFlexTable);
-	    		
-	    	} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
+	    	} else if ( RootWidgetType.VerticalPanel.equalsName(strRootPanel) ) {
 	    		
 	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.VerticalPanel+"]");
 	    	
-	    		absolutePanel = new AbsolutePanel();
-	    		if ( null != strCSSFlexTable )	absolutePanel.addStyleName(strCSSFlexTable);
+	    		rootPanel = new VerticalPanel();
+	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
+	    		
+	    	} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootPanel) ) {
+	    		
+	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.VerticalPanel+"]");
+	    	
+	    		rootPanel = new AbsolutePanel();
+	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    	}
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
@@ -198,6 +209,8 @@ public class UIWidgetGeneric extends UIWidget_i {
 //							String cssDown			= valueMap.get(WidgetAttribute.cssDown.toString());
 //							String cssDisable		= valueMap.get(WidgetAttribute.cssDisable.toString());
 							
+							String cssContainer		= valueMap.get(WidgetAttribute.cssContainer.toString());
+							
 							String left				= valueMap.get(WidgetAttribute.left.toString());
 							String top				= valueMap.get(WidgetAttribute.top.toString());
 							
@@ -205,6 +218,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 //							String menuLevel		= valueMap.get(WidgetAttribute.menuLevel.toString());
 							
 							String groupName		= valueMap.get(WidgetAttribute.groupName.toString());
+							
+							String element			= valueMap.get(WidgetAttribute.element.toString());
+							String debugId			= valueMap.get(WidgetAttribute.debugId.toString());
 							
 							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] widget["+widget+"]");
 							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] label["+label+"]");
@@ -223,7 +239,6 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								if ( null != label )	((TextBox)w).setText(label);
 								if ( null != tooltip )	((TextBox)w).setTitle(tooltip);
-								if ( null != css )		((TextBox)w).addStyleName(css);
 								((TextBox)w).addKeyPressHandler(new KeyPressHandler() {
 									@Override
 									public void onKeyPress(KeyPressEvent event) {
@@ -247,21 +262,20 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								if ( null != readonly )
 									((TextBox)w).setReadOnly(true);
-								
+
 								this.widgets.put(index, w);
 							} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
 								
 								w = new PasswordTextBox();
 								
 								if ( null != label )	((PasswordTextBox)w).setText(label);
-								if ( null != css )		((PasswordTextBox)w).addStyleName(css);
-								
+
 								if ( WidgetAttribute.maxlength.equalsName(maxlength) )
 									((PasswordTextBox)w).setMaxLength(Integer.parseInt(maxlength));
 								
 								if ( WidgetAttribute.readonly.equalsName(readonly) )
 									((PasswordTextBox)w).setReadOnly(true);
-								
+
 								this.widgets.put(index, w);
 							} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
 								
@@ -269,7 +283,6 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								if ( null != label )	((InlineLabel)w).setText(label);
 								if ( null != tooltip )	((InlineLabel)w).setTitle(tooltip);
-								if ( null != css )		((InlineLabel)w).addStyleName(css);
 
 								this.widgets.put(index, w);
 							} else if ( WidgetType.Button.equalsName(widget) ) {
@@ -278,7 +291,6 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								if ( null != label )	((Button)w).setText(label);
 								if ( null != tooltip )	((Button)w).setTitle(tooltip);
-								if ( null != css )		((Button)w).addStyleName(css);
 								
 								((Button)w).addClickHandler(new ClickHandler() {
 									@Override
@@ -294,8 +306,6 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								w = new Button();
 								
-								if ( null != css )		((Button)w).addStyleName(css);
-
 								if ( null != tooltip )	((Button)w).setTitle(tooltip);
 								
 								if ( null != iconDivWidth && null != iconDivHeight ) {
@@ -322,32 +332,28 @@ public class UIWidgetGeneric extends UIWidget_i {
 										}
 									}
 								});
-								
+
 								this.widgets.put(index, w);
 							} else if ( WidgetType.Image.equalsName(widget) ) {
 								w = new Image();
 								if ( null != tooltip )	((Image)w).setTitle(tooltip);
 								if ( null != label )	((Image)w).setUrl(basePath+label);
-								if ( null != css )		((Image)w).addStyleName(css);
-								
+
 								this.widgets.put(index, w);
 							} else if ( WidgetType.ListBox.equalsName(widget) ) {
 								
 								w = new ListBox();
 								if ( null != label )	((ListBox)w).addItem(label);
-								if ( null != css )		((ListBox)w).addStyleName(css);
 								
 								if ( WidgetAttribute.visibleitemcount.equalsName(visibleitemcount) ) {
 									((ListBox)w).setVisibleItemCount(Integer.parseInt(visibleitemcount));
 								}
-								
+
 								this.widgets.put(index, w);
 							} else if ( WidgetType.HTML.equalsName(widget) ) {
 								
 								if ( null != label ) 	w = new HTML(label);
-								
-								if ( null != css )		w.addStyleName(css);									
-						
+
 								this.widgets.put(index, w);
 							} else if ( WidgetType.RadioButton.equalsName(widget) ) {
 								
@@ -358,7 +364,6 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								if ( null != label )		((RadioButton)w).setText(label);
 								if ( null != tooltip )		((RadioButton)w).setTitle(tooltip);
-								if ( null != css )			((RadioButton)w).addStyleName(css);
 								
 								((RadioButton)w).addClickHandler(new ClickHandler() {
 									@Override
@@ -368,7 +373,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 										}
 									}
 								});
-								
+
 								this.widgets.put(index, w);
 							} else if ( widget.startsWith(WidgetType.WidgetFactory.toString()) ) {
 									
@@ -382,21 +387,28 @@ public class UIWidgetGeneric extends UIWidget_i {
 									logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
 								}
 
-								if ( null != css )		w.addStyleName(css);
-								
 								this.widgets.put(index, w);
 							} else {
 								logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] IS INVALID");
 							}
 							
 							if ( null != w ) {
-								if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
-									horizontalPanel.add(w);
-								} else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
-									verticalPanel.add(w);
-								} else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {	
-									flexTable.setWidget(i, j, w);
-								} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
+								
+								if ( null != css )		w.addStyleName(css);
+								
+								String strDebugId = getDefaultDebugId(element);
+								if ( strDebugId != null ) {
+									w.ensureDebugId(strDebugId);
+								}
+								if ( null != debugId ) w.ensureDebugId(debugId);									
+								
+								if ( RootWidgetType.HorizontalPanel.equalsName(strRootPanel) ) {
+									rootPanel.add(w);
+								} else if ( RootWidgetType.VerticalPanel.equalsName(strRootPanel) ) {
+									rootPanel.add(w);
+								} else if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {	
+									((FlexTable)rootPanel).setWidget(i, j, w);
+								} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootPanel) ) {
 									int x = -1;
 									int y = -1;
 									try {
@@ -405,10 +417,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 									} catch ( NumberFormatException e ) {
 										logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
 									}
-									absolutePanel.add(w, x, y);
+									((AbsolutePanel)rootPanel).add(w, x, y);
+								}
+								
+								if ( null != cssContainer ) {
+									Element container = DOM.getParent(w.getElement());
+									container.setClassName(cssContainer);
 								}
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel w IS NULL");
+								logger.log(Level.SEVERE, "getMainPanel can't createt widget index["+index+"], w IS NULL");
 							}
 						} else {
 							logger.log(Level.SEVERE, "getMainPanel index["+index+"], check index please, valueMap IS NULL");
@@ -423,21 +440,21 @@ public class UIWidgetGeneric extends UIWidget_i {
 				logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] End");
 		    }
 		    
-		    if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {
+		    if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {
 		    	for ( int j = 0 ; j < cols ; ++j ) {
-		    		flexTable.getColumnFormatter().setWidth(j, "40px");
+		    		((FlexTable)rootPanel).getColumnFormatter().setWidth(j, "40px");
 		    	}
 		    }
 		    
-		    if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
-		    	rootPanel.add(horizontalPanel);
-		    } else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
-		    	rootPanel.add(verticalPanel);
-		    } else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {
-		    	rootPanel.add(flexTable);
-			} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
-		    	rootPanel.add(absolutePanel);
-			}
+//		    if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
+//		    	rootPanel.add(horizontalPanel);
+//		    } else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
+//		    	rootPanel.add(verticalPanel);
+//		    } else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {
+//		    	rootPanel.add(flexTable);
+//			} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
+//		    	rootPanel.add(absolutePanel);
+//			}
 		
 	    }
 		
@@ -669,8 +686,6 @@ public class UIWidgetGeneric extends UIWidget_i {
 					String label	= null;
 					String icon		= null;
 					String toolTip	= null;
-//					String css		= null;
-//					String enable	= null;
 	    			
 					if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
 							|| WidgetType.Button.toString().equals(strWidget) || WidgetType.InlineLabel.toString().equals(strWidget)) {
@@ -683,46 +698,47 @@ public class UIWidgetGeneric extends UIWidget_i {
 							label		= valueMap.get(WidgetAttribute.label.toString());
 							toolTip		= valueMap.get(WidgetAttribute.tooltip.toString());
 							icon		= valueMap.get(WidgetAttribute.icon.toString());
-//							css			= valueMap.get(WidgetAttribute.css.toString());
-//							enable		= valueMap.get(WidgetAttribute.enable.toString());
 						} else if ( WidgetStatus.Down == status ) {
 							label		= valueMap.get(WidgetAttribute.labelDown.toString());
 							toolTip		= valueMap.get(WidgetAttribute.tooltipDown.toString());
 							icon		= valueMap.get(WidgetAttribute.iconDown.toString());
-//							css			= valueMap.get(WidgetAttribute.cssDown.toString());
-//							enable		= valueMap.get(WidgetAttribute.enableDown.toString());
 						} else if ( WidgetStatus.Disable == status ) {
 							label		= valueMap.get(WidgetAttribute.labelDisable.toString());
 							toolTip		= valueMap.get(WidgetAttribute.tooltipDisable.toString());
 							icon		= valueMap.get(WidgetAttribute.iconDisable.toString());
-//							css			= valueMap.get(WidgetAttribute.cssDisable.toString());
-//							enable		= valueMap.get(WidgetAttribute.enableDisable.toString());
 						}
 						
 						TranslationMgr translationMgr = TranslationMgr.getInstance();
 						if ( null !=  translationMgr.getTranslationEngine() ) {
 							label = translationMgr.getTranslation(label);
 						}
-						
-						if ( null != label )	((Button)widget).setText(label);
-	
-						if ( null != iconDivWidth && null != iconDivHeight ) {
-							String img = null;
-							String lbl = null;
-							if ( null != icon && null != iconImgWidth && null != iconImgHeight ) {
-								img = "<img src=\""+basePath+icon+"\" width=\""+iconImgWidth+"\" height=\""+iconImgHeight+"\">";
-							}
-							if ( null != label ) {
-								lbl = "<label>"+label+"</lable>";
-							}
-							String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
-							
-							logger.log(Level.FINE, "setWidgetStatus html["+html+"]");
-							
-							((Button)widget).setHTML(html);
+
+						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
+							if ( null != label )	((InlineLabel)widget).setText(label);
+						} else {
+							if ( null != label )	((Button)widget).setText(label);
+						}
+
+						if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+							|| WidgetType.Button.toString().equals(strWidget)  ) {
+							if ( null != iconDivWidth && null != iconDivHeight ) {
+								String img = null;
+								String lbl = null;
+								if ( null != icon && null != iconImgWidth && null != iconImgHeight ) {
+									img = "<img src=\""+basePath+icon+"\" width=\""+iconImgWidth+"\" height=\""+iconImgHeight+"\">";
+								}
+								if ( null != label ) {
+									lbl = "<label>"+label+"</lable>";
+								}
+								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
+								
+								logger.log(Level.FINE, "setWidgetStatus html["+html+"]");
+								
+								((Button)widget).setHTML(html);
+							}							
 						}
 						
-						if ( null != toolTip )	((Button)widget).setTitle(toolTip);
+						if ( null != toolTip )	widget.setTitle(toolTip);
 	
 						String cssAdd = null, cssRemove1 = null, cssRemove2 = null;
 						if ( WidgetStatus.Disable == status ) {
@@ -739,15 +755,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 							cssAdd		= cssUp;
 						}
 						if ( null != cssRemove1 ) {
-							((Button)widget).removeStyleName(cssRemove1);
+							widget.removeStyleName(cssRemove1);
 							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] removeStyleName["+cssRemove1+"]");
 						}
 						if ( null != cssRemove2 ) {
-							((Button)widget).removeStyleName(cssRemove2);
+							widget.removeStyleName(cssRemove2);
 							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] removeStyleName["+cssRemove2+"]");
 						}
 						if ( null != cssAdd ) {
-							((Button)widget).addStyleName(cssAdd);
+							widget.addStyleName(cssAdd);
 							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] addStyleName["+cssAdd+"]");
 						}
 						
@@ -868,12 +884,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 									rows = Integer.parseInt(v);
 								} else if ( RootAttribute.cols.equalsName(k) ) {
 									cols = Integer.parseInt(v);
-								} else if ( RootAttribute.cssVerticalPanel.equalsName(k) ) {
-									strCSSStatPanel = v;
+								} else if ( RootAttribute.rootCss.equalsName(k) ) {
+									strRootContainerCss = v;
 								} else if ( RootAttribute.cssFlexTable.equalsName(k)  ) {
-									strCSSFlexTable = v;
-								} else if ( RootAttribute.widget.equalsName(k) ) {
-									strRootWidget = v;
+									strRootCss = v;
+								} else if ( RootAttribute.rootPanel.equalsName(k) ) {
+									strRootPanel = v;
 								}
 								// Get Header End								
 							}

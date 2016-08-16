@@ -10,6 +10,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 public interface UIWidgetAccessable_i extends UIWidgetEventable_i {
 	
 	void setParameter(String key, Object value);
+	public Object getParameter(String key);
+	public boolean containsParameterKey(String key);
 
 	Widget getWidget(String widget);
 	String getWidgetElement(Widget widget);
@@ -22,7 +24,5 @@ public interface UIWidgetAccessable_i extends UIWidgetEventable_i {
 	
 	WidgetStatus getWidgetStatus(String element);
 	void setWidgetStatus(String element, WidgetStatus status);
-	
-//	String getWidgetStatus(String element);
-//	void setWidgetStatus(String element, String up);
+
 }

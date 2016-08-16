@@ -503,7 +503,7 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				}
 			}
 			
-			logger.log(Level.SEVERE, "updateDci row["+row+"] valueAlarmVector["+valueAlarmVector+"] address["+address+"] PointName.dalValueTable.toString()["+PointName.dalValueTable.toString()+"]");
+			logger.log(Level.FINE, "updateDci row["+row+"] valueAlarmVector["+valueAlarmVector+"] address["+address+"] PointName.dalValueTable.toString()["+PointName.dalValueTable.toString()+"]");
 			
 			logger.log(Level.FINE, "updateDci valueAlarmVector["+valueAlarmVector+"]");
 			

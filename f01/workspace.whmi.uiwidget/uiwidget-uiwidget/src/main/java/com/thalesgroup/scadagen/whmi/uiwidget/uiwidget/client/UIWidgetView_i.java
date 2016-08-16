@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
 /**
@@ -17,6 +17,6 @@ public interface UIWidgetView_i {
 	void setUINameCard(UINameCard uiNameCard);
 	void setXMLFile(String xml);
 	void init();
-	ComplexPanel getMainPanel();
+	Panel getMainPanel();
 
 }

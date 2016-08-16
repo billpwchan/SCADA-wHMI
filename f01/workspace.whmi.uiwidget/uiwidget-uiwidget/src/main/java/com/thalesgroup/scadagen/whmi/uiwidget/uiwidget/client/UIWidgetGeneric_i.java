@@ -5,9 +5,10 @@ public interface UIWidgetGeneric_i {
 	public enum RootAttribute {
 		  rows("rows")
 		, cols("cols")
-		, cssVerticalPanel("cssVerticalPanel")
+		, rootPanel("rootPanel")
+		, rootCss("rootCss")
 		, cssFlexTable("cssFlexTable")
-		, widget("widget");
+		;
 		
 		private final String text;
 		private RootAttribute(final String text) { this.text = text; }
@@ -68,6 +69,8 @@ public interface UIWidgetGeneric_i {
 		, cssDown("cssDown")
 		, cssDisable("cssDisable")
 		
+		, cssContainer("cssContainer")
+		
 		, enableDown("enableDown")
 		, enableDisable("enableDisable")
 		
@@ -78,6 +81,8 @@ public interface UIWidgetGeneric_i {
 		, menuLevel("menuLevel")
 		
 		, groupName("groupName")
+		
+		, debugId("debugId")
 		
 		;
 		

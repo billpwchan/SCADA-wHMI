@@ -5,7 +5,9 @@ public interface View_i
 	enum ParameterName {
 		SimpleEventBus("SimpleEventBus")
 		, MwtEventBus("MwtEventBus")
-		, ListConfigId("ListConfigId");
+		, ListConfigId("ListConfigId")
+		, MenuEnable("MenuEnable")
+		, SelectionMode("SelectionMode")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }
@@ -15,16 +17,13 @@ public interface View_i
 	
 	enum ViewWidget {
 		ScsOlsListPanel("ScsOlsListPanel")
-		, UIPanelPTWSummary("UIPanelPTWSummary.xml")
-		, UIPanelPTWAction("UIPanelPTWAction.xml")
-		, UIPanelPTWViewer("UIPanelPTWViewer.xml")
-		, UIPanelPTWFilter("UIPanelPTWFilter.xml")
 		;
 		private final String text;
 		private ViewWidget(final String text) { this.text = text; }
 		@Override
 		public String toString() { return this.text; }
 	}
+	
 	enum ViewAttribute {
 		Operation("operation")
 		, OperationString1("operationstring1")
@@ -40,6 +39,24 @@ public interface View_i
 		public String toString() { return this.text; }
 	}
 
+	enum PrintViewEvent {
+		Print("Print")
+		;
+		private final String text;
+		private PrintViewEvent(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
+	enum SummaryViewEvent {
+		SetDefaultFilter("SetDefaultFilter")
+		;
+		private final String text;
+		private SummaryViewEvent(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
 	// Event Send from View
 	enum ViewerViewEvent {
 		FilterAdded("FilterAdded")
@@ -62,11 +79,11 @@ public interface View_i
 		public String toString() { return this.text; }
 	}
 	
-	// Event Send from Action
-	enum ActionViewEvent {
+	// Event Send from Control
+	enum ControlViewEvent {
 		;
 		private final String text;
-		private ActionViewEvent(final String text) { this.text = text; }
+		private ControlViewEvent(final String text) { this.text = text; }
 		@Override
 		public String toString() { return this.text; }
 	}

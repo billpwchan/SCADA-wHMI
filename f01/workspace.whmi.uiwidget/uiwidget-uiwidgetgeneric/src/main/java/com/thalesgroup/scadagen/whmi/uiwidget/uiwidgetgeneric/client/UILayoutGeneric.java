@@ -9,11 +9,9 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.CellPanel;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
@@ -25,8 +23,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 public class UILayoutGeneric extends UIWidget_i {
 	
 	private Logger logger = Logger.getLogger(UILayoutGeneric.class.getName());
-	
-//	private String xmlFile = null;
 
 	private HashMap<String, UIWidget_i> uiWidgetGeneric = new HashMap<String, UIWidget_i>();
 	
@@ -36,18 +32,9 @@ public class UILayoutGeneric extends UIWidget_i {
 	private int cols;
 	private int totals;
 	
-	private String strOuterPanel;
-	private String strOuterCSS;
-	
-	private String strInnerPanel;
-	private String strInnerCSS;
-	
-	private String outerHorizontalAlignment;
-	private String outerVerticalAlignment;
-		
-	private String innerHorizontalAlignment;
-	private String innerVerticalAlignment;
-	
+	private String strPanel;
+	private String strCSS;
+
 	private Dictionary dictionaryHeader = null;
 	private Dictionary dictionaryOption = null;
 	
@@ -68,179 +55,38 @@ public class UILayoutGeneric extends UIWidget_i {
 		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
 		
-		
 		// Start the UIGeneric
 		logger.log(Level.FINE, "getMainPanel Begin");
 		logger.log(Level.SEVERE, "getMainPanel xmlFile["+this.xmlFile+"]");
-		
 
-		logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] strOuterCSS["+strOuterCSS+"]");
-		logger.log(Level.SEVERE, "getMainPanel strInnerPanel["+strInnerPanel+"] strInnerCSS["+strInnerCSS+"]");
-		logger.log(Level.SEVERE, "getMainPanel innerHorizontalAlignment["+innerHorizontalAlignment+"] innerVerticalAlignment["+innerVerticalAlignment+"]");
-		logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment["+outerHorizontalAlignment+"] outerVerticalAlignment["+outerVerticalAlignment+"]");
+		logger.log(Level.SEVERE, "getMainPanel strPanel["+strPanel+"] strCSS["+strCSS+"]");
 		
 		rootPanel = null;
-		if ( null != strOuterPanel ) {
-			if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strOuterPanel) ) {
-				rootPanel = new VerticalPanel();
-			} else if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strOuterPanel) ) {
+		if ( null != strPanel ) {
+			if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strPanel) ) {
 				rootPanel = new HorizontalPanel();
-			} else if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strOuterPanel) ) {
+			} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strPanel) ) {
+				rootPanel = new VerticalPanel();
+			} else if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
 				rootPanel = new DockLayoutPanel(Unit.PX);
-				Element e = rootPanel.getElement();
-				DOM.setStyleAttribute(e, "position", "absolute");
-			} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strOuterPanel) ) {
+			} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 				rootPanel = new AbsolutePanel();
 				Element e = rootPanel.getElement();
 				DOM.setStyleAttribute(e, "position", "absolute");
 			} else {
-				logger.log(Level.SEVERE, "getMainPanel strOuterPanel["+strOuterPanel+"] IS INVALID");
 			}
 
-			if ( null != rootPanel ) {
-				if ( null != strOuterCSS ) {
-					rootPanel.addStyleName(strOuterCSS);
-				} else {
-					logger.log(Level.SEVERE, "getMainPanel outerPanel IS NULL");
-				}
-				
-				if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strOuterPanel) ) {
-					
-				} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strOuterPanel) ) {
-					
-				} else {
-				
-					if ( null != outerHorizontalAlignment && null != outerVerticalAlignment ) {
-					
-						if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strOuterPanel) ) {
-							
-							if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(outerHorizontalAlignment) ) {
-								((HorizontalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(outerHorizontalAlignment) ) {
-								((HorizontalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(outerHorizontalAlignment) ) {
-								((HorizontalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-							}
-							
-							if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(outerVerticalAlignment) ) {
-								((HorizontalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(outerVerticalAlignment) ) {
-								((HorizontalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(outerVerticalAlignment) ) {	
-								((HorizontalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-							}
-						} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strOuterPanel) ) {
-							
-							if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(outerHorizontalAlignment) ) {
-								((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(outerHorizontalAlignment) ) {
-								((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(outerHorizontalAlignment) ) {
-								((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-							}
-							
-							if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(outerVerticalAlignment) ) {
-								((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(outerVerticalAlignment) ) {
-								((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(outerVerticalAlignment) ) {	
-								((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-							}
-						} else {
-							
-						}
-					
-					} else {
-						logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment IS NULL or outerVerticalAlignment IS NULL or");
-					}
-				}
-				
-			}
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel strOuterPanel IS NULL");
-		}
-		
-		ComplexPanel innerPanel = null;
-		if ( null != strInnerPanel ) {
-			if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strInnerPanel) ) {
-				innerPanel = new HorizontalPanel();
-			} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strInnerPanel) ) {
-				innerPanel = new VerticalPanel();
-			} else if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
-				innerPanel = new DockLayoutPanel(Unit.PX);
-			} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
-				innerPanel = new AbsolutePanel();
-				Element e = innerPanel.getElement();
-				DOM.setStyleAttribute(e, "position", "absolute");
-			} else {
-			}
-			
-			if ( null != innerPanel ) {
-				
-				if ( null != strInnerCSS ) {
-					innerPanel.addStyleName(strInnerCSS);
-				} else {
-					logger.log(Level.SEVERE, "getMainPanel strInnerCSS IS NULL");
-				}
-				
-				if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
-					
-				} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
-					
-				} else {
-				
-					if ( null != innerHorizontalAlignment && null != innerVerticalAlignment ) {
-						
-						if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strInnerPanel) ) {
-							
-							if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(innerHorizontalAlignment) ) {
-								((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(innerHorizontalAlignment) ) {
-								((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(innerHorizontalAlignment) ) {
-								((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-							}
-							
-							if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(innerVerticalAlignment) ) {
-								((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(innerVerticalAlignment) ) {
-								((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(innerVerticalAlignment) ) {	
-								((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-							}
-							
-						} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strInnerPanel) ) {
-							
-							if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(innerHorizontalAlignment) ) {
-								((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(innerHorizontalAlignment) ) {
-								((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-							} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(innerHorizontalAlignment) ) {
-								((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-							}
-							
-							if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(innerVerticalAlignment) ) {
-								((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(innerVerticalAlignment) ) {
-								((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-							} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(innerVerticalAlignment) ) {	
-								((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-							}
-						}
-					} else {
-						logger.log(Level.SEVERE, "getMainPanel outerHorizontalAlignment IS NULL or outerVerticalAlignment IS NULL or");
-					}
-				}
-			} else {
-				logger.log(Level.SEVERE, "getMainPanel innerPanel IS NULL");
-			}
-		} else {
-			logger.log(Level.SEVERE, "getMainPanel strInnerPanel IS NULL");
+			logger.log(Level.SEVERE, "getMainPanel strPanel IS NULL");
 		}
 
-		if ( null != innerPanel ) {
+		if ( null != rootPanel ) {
 			
-			rootPanel.add(innerPanel);
+			if ( null != strCSS ) {
+				rootPanel.addStyleName(strCSS);
+			} else {
+				logger.log(Level.SEVERE, "getMainPanel strCSS IS NULL");
+			}
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
@@ -257,71 +103,20 @@ public class UILayoutGeneric extends UIWidget_i {
 					if ( null != valueMap ) {
 						String type					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.type.toString());
 						String widget 				= valueMap.get(UIPanelGeneric_i.WidgetAttribute.widget.toString());
-						String horizontalalignment 	= valueMap.get(UIPanelGeneric_i.WidgetAttribute.horizontalalignment.toString());
-						String verticalalignment	= valueMap.get(UIPanelGeneric_i.WidgetAttribute.verticalalignment.toString());
 						String direction			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.direction.toString());
 						String size					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.width.toString());
 						String cellwidth			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.cellwidth.toString());
 						String cellheight			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.cellheight.toString());
 						String left					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.left.toString());
 						String top					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.top.toString());
+						String csscontainer			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.csscontainer.toString());
 						
 						logger.log(Level.SEVERE, "getMainPanel type["+type+"] widget["+widget+"]");
-						logger.log(Level.SEVERE, "getMainPanel horizontalalignment["+horizontalalignment+"] verticalalignment["+verticalalignment+"]");
 						logger.log(Level.SEVERE, "getMainPanel direction["+direction+"] size["+size+"]");
 						
 						if ( null != widget ) {
-							
-							if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
-								
-							} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
-								
-							} else {
-								if ( null != horizontalalignment && null != verticalalignment ) {
-									
-									if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strInnerPanel) ) {
-									
-										if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(horizontalalignment) ) {
-											((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-										} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(horizontalalignment) ) {
-											((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-										} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(horizontalalignment) ) {
-											((HorizontalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-										}
-										
-										if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(verticalalignment) ) {
-											((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
-										} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(verticalalignment) ) {
-											((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-										} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(verticalalignment) ) {
-											((HorizontalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-										}
-										
-									} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strInnerPanel) ) {
-										
-										if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_LEFT.equalsName(horizontalalignment) ) {
-											((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-										} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_CENTER.equalsName(horizontalalignment) ) {
-											((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-										} else if ( UIPanelGeneric_i.HorizontalAlignmentAttribute.ALIGN_RIGHT.equalsName(horizontalalignment) ) {
-											((VerticalPanel)innerPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
-										}
-										
-										if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_TOP.equalsName(verticalalignment) ) {
-											((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_TOP);
-										} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_MIDDLE.equalsName(verticalalignment) ) {
-											((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-										} else if ( UIPanelGeneric_i.VerticalAlignmentAttribute.ALIGN_BOTTOM.equalsName(verticalalignment) ) {
-											((VerticalPanel)innerPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
-										}
-									}
-									
-								} else {
-									logger.log(Level.SEVERE, "getMainPanel horizontalalignment IS NULL or verticalalignment IS NULL");
-								}								
-							}
-							
-							ComplexPanel complexPanel = null;
+
+							Panel panel = null;
 							
 							if ( UIPanelGeneric_i.TypeAttribute.predefine.equalsName(type) ) {
 								
@@ -331,7 +126,7 @@ public class UILayoutGeneric extends UIWidget_i {
 								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
-									complexPanel = uiWidget.getMainPanel();
+									panel = uiWidget.getMainPanel();
 								} else {
 									logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
 								}
@@ -344,7 +139,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.setUINameCard(this.uiNameCard);
 									uiWidget.setXMLFile(widget);
 									uiWidget.init();
-									complexPanel = uiWidget.getMainPanel();
+									panel = uiWidget.getMainPanel();
 								} else {
 									logger.log(Level.SEVERE, "getMainPanel created UIPanelGeneric widget["+widget+"] IS NULL");
 								}
@@ -357,7 +152,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.setUINameCard(this.uiNameCard);
 									uiWidget.setXMLFile(widget);
 									uiWidget.init();
-									complexPanel = uiWidget.getMainPanel();
+									panel = uiWidget.getMainPanel();
 								} else {
 									logger.log(Level.SEVERE, "getMainPanel created UIWidgetGeneric widget["+widget+"] IS NULL");
 								}
@@ -365,8 +160,8 @@ public class UILayoutGeneric extends UIWidget_i {
 								logger.log(Level.SEVERE, "getMainPanel type IS INVALID");
 							}
 							
-							if ( null != complexPanel ) {
-								if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strInnerPanel) ) {
+							if ( null != panel ) {
+								if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
 									
 									//DockLayoutPanel
 									if ( null != direction ) {
@@ -381,22 +176,22 @@ public class UILayoutGeneric extends UIWidget_i {
 										}
 										
 										if ( UIPanelGeneric_i.DirectionAttribute.North.equalsName(direction) ) {
-											((DockLayoutPanel)innerPanel).addNorth(complexPanel, width);
+											((DockLayoutPanel)rootPanel).addNorth(panel, width);
 										} else if ( UIPanelGeneric_i.DirectionAttribute.East.equalsName(direction) ) {
-											((DockLayoutPanel)innerPanel).addEast(complexPanel, width);
+											((DockLayoutPanel)rootPanel).addEast(panel, width);
 										} else if ( UIPanelGeneric_i.DirectionAttribute.South.equalsName(direction) ) {
-											((DockLayoutPanel)innerPanel).addSouth(complexPanel, width);
+											((DockLayoutPanel)rootPanel).addSouth(panel, width);
 										} else if ( UIPanelGeneric_i.DirectionAttribute.West.equalsName(direction) ) {
-											((DockLayoutPanel)innerPanel).addWest(complexPanel, width);
+											((DockLayoutPanel)rootPanel).addWest(panel, width);
 										} else if ( UIPanelGeneric_i.DirectionAttribute.Center.equalsName(direction) ) {
-											((DockLayoutPanel)innerPanel).add(complexPanel);
+											((DockLayoutPanel)rootPanel).add(panel);
 										} else {
 											logger.log(Level.SEVERE, "getMainPanel direction IS INVALID");
 										}
 									} else {
 										logger.log(Level.SEVERE, "getMainPanel direction IS null");
 									}
-								} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strInnerPanel) ) {
+								} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 								
 									//AbsolutePanel
 									int x = -1;
@@ -407,14 +202,24 @@ public class UILayoutGeneric extends UIWidget_i {
 									} catch ( NumberFormatException e ) {
 										logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
 									}
-									((AbsolutePanel)innerPanel).add(complexPanel, x, y);
+									((AbsolutePanel)rootPanel).add(panel, x, y);
 								
 								} else {
-									innerPanel.add(complexPanel);
+									rootPanel.add(panel);
 									
-									if ( null != cellwidth ) 	((CellPanel) innerPanel).setCellWidth(complexPanel, cellwidth);
-									if ( null != cellheight )	((CellPanel) innerPanel).setCellHeight(complexPanel, cellwidth);
-								}								
+									if ( null != cellwidth ) 	((CellPanel) rootPanel).setCellWidth(panel, cellwidth);
+									if ( null != cellheight )	((CellPanel) rootPanel).setCellHeight(panel, cellwidth);
+								}
+								
+								logger.log(Level.SEVERE, "getMainPanel csscontainer["+csscontainer+"]");
+								
+								if ( null != panel ) {
+									if ( null != csscontainer ) {
+										Element container = DOM.getParent(panel.getElement());
+										container.setClassName(csscontainer);
+									}
+								}
+								
 							} else {
 								logger.log(Level.SEVERE, "getMainPanel complexPanel IS NULL");
 							}
@@ -425,7 +230,7 @@ public class UILayoutGeneric extends UIWidget_i {
 				}
 		    }
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel innerPanel IS NULL");
+			logger.log(Level.SEVERE, "getMainPanel Panel IS NULL");
 		}
 		
 		logger.log(Level.FINE, "getMainPanel End");
@@ -460,22 +265,10 @@ public class UILayoutGeneric extends UIWidget_i {
 									rows = Integer.parseInt(v);
 								} else if ( UIPanelGeneric_i.RootAttribute.cols.equalsName(k) ) {
 									cols = Integer.parseInt(v);
-								} else if ( UIPanelGeneric_i.RootAttribute.innerPanel.equalsName(k) ) {
-									strInnerPanel = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.innerCSS.equalsName(k) ) {
-									strInnerCSS = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.outerPanel.equalsName(k)  ) {
-									strOuterPanel = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.outerCSS.equalsName(k)  ) {
-									strOuterCSS = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.outerhorizontalalignment.equalsName(k)  ) {
-									outerHorizontalAlignment = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.outerverticalalignment.equalsName(k)  ) {
-									outerVerticalAlignment = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.innerhorizontalalignment.equalsName(k)  ) {
-									innerHorizontalAlignment = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.innerverticalalignment.equalsName(k)  ) {
-									innerVerticalAlignment = v;
+								} else if ( UIPanelGeneric_i.RootAttribute.rootPanel.equalsName(k) ) {
+									strPanel = v;
+								} else if ( UIPanelGeneric_i.RootAttribute.rootCSS.equalsName(k) ) {
+									strCSS = v;
 								}
 								// Get Header End								
 							}

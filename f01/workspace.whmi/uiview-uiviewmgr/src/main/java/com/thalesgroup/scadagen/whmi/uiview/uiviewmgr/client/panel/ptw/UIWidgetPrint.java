@@ -1,0 +1,167 @@
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
+import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+
+public class UIWidgetPrint extends UIWidget_i {
+	
+	private Logger logger = Logger.getLogger(UIWidgetPrint.class.getName());
+	
+	private String logPrefix				= "[UIWidgetPrint] ";
+	
+	private SimpleEventBus eventBus 		= null;
+	
+	final String strPrint					= "print";
+	
+	final String strViewOnly				= "viewonly";
+	final String strGlobal					= "global";
+	
+//	private Widget widgetPrint				= null;
+	
+	private UIWidgetGeneric uiWidgetGeneric	= null;
+	
+	@Override
+	public Widget getWidget(String element) {
+		Widget widget = null;
+		widget = uiWidgetGeneric.getWidget(element);
+		return widget;
+	}
+	
+	private void onButton(ClickEvent event) {
+		if ( null != event ) {
+			Widget widget = (Widget) event.getSource();
+			if ( null != widget ) {
+				String element = uiWidgetGeneric.getWidgetElement(widget);
+				if ( null != element ) {
+
+					if ( element.equals(strPrint) ) {
+						
+						// Set Filter 
+						// Value as 1
+
+						UIEventAction action = new UIEventAction();
+						action.setParameters(ViewAttribute.Operation.toString(), PrintViewEvent.Print.toString());
+						action.setParameters(ViewAttribute.OperationString1.toString(), strViewOnly);
+						eventBus.fireEventFromSource(action, this);
+						
+					}
+
+				} else {
+					
+				}
+			}
+		} else {
+			logger.log(Level.SEVERE, logPrefix+"onClickHandler onClickHandler button IS NULL");
+		}
+	}
+		
+	void onUIEvent(UIEvent uiEvent ) {
+	}
+		
+	void onActionReceived(UIEventAction uiEventAction) {
+		
+//		String op	= (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
+//		String od1	= (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
+//		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
+//		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
+//		
+//		logger.log(Level.SEVERE, logPrefix+"onActionReceived op["+op+"]");
+//		logger.log(Level.SEVERE, logPrefix+"onActionReceived od1["+od1+"]");
+//		logger.log(Level.SEVERE, logPrefix+"onActionReceived od2["+od2+"]");
+//		logger.log(Level.SEVERE, logPrefix+"onActionReceived od3["+od3+"]");
+//		
+//		if ( null != op ) {
+//			
+//			WidgetStatus statusClear		= null;
+//			
+//			// Filter Action
+//			if ( op.equals(View_i.ViewerViewEvent.FilterAdded.toString()) ) {
+//				
+//				statusClear		= WidgetStatus.Down;
+//				
+//			} else if ( op.equals(View_i.ViewerViewEvent.FilterRemoved.toString()) ) {
+//				
+//				statusClear		= WidgetStatus.Disable;
+//				
+//			} else {
+//				logger.log(Level.SEVERE, logPrefix+"onActionReceived ViewerViewEvent type IS UNKNOW");
+//			}
+//
+//			if ( null != widgetClear && null != statusClear ) 	uiWidgetGeneric.setWidgetStatus(strClear, statusClear);
+//		}
+		
+	}
+
+	@Override
+	public void init() {
+		
+		logger.log(Level.FINE, logPrefix+"init Begin");
+		
+		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
+			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
+			if ( null != o ) {
+				String eventBusName = (String) o;
+				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
+			}
+		}
+
+		uiWidgetGeneric = new UIWidgetGeneric();
+		uiWidgetGeneric.setUINameCard(this.uiNameCard);
+		uiWidgetGeneric.setXMLFile(xmlFile);
+		uiWidgetGeneric.init();
+		
+//		widgetPrint	= uiWidgetGeneric.getWidget( strPrint );
+		
+		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
+			@Override
+			public void onClickHandler(ClickEvent event) {
+				onButton(event);
+			}
+		});
+		
+		rootPanel = uiWidgetGeneric.getMainPanel();
+
+		handlerRegistrations.add(
+			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+				@Override
+				public void onEvenBusUIChanged(UIEvent uiEvent) {
+					if ( uiEvent.getSource() != this ) {
+						onUIEvent(uiEvent);
+					}
+				}
+			})
+		);
+
+		handlerRegistrations.add(
+			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
+				@Override
+				public void onAction(UIEventAction uiEventAction) {
+					if ( uiEventAction.getSource() != this ) {
+						onActionReceived(uiEventAction);
+					}
+				}
+			})
+		);
+
+//		uiWidgetGeneric.setWidgetStatus( strSet1,  WidgetStatus.Down );
+//		uiWidgetGeneric.setWidgetStatus( strClear,  WidgetStatus.Disable );
+		
+		logger.log(Level.FINE, logPrefix+"init End");
+	}
+
+}

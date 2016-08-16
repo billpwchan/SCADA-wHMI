@@ -11,10 +11,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewWidget;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
@@ -22,11 +22,13 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 
-public class ActionView extends UIWidget_i {
+public class UIWidgetControl extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(ActionView.class.getName());
+	private Logger logger = Logger.getLogger(UIWidgetControl.class.getName());
 	
-	private String logPrefix			= "[ActionView] ";
+	private String className		= UIWidgetUtil.getClassSimpleName(UIWidgetControl.class.getName());
+	
+	private String logPrefix		= "["+className+"] ";
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -47,13 +49,14 @@ public class ActionView extends UIWidget_i {
 	private Widget widgetUnSet			= null;
 	private Widget widgetApply			= null;
 	
-//	private String selectedServiceOwner	= null;
-//	private String selectedAlias		= null;
-//	private String selectedStatus		= null;
-	
 	private Set<HashMap<String, String>> selectedSet = null;
 	
 	private void onButton(ClickEvent event) {
+		
+		int byPassInitCond = 0;
+		int byPassRetCond = 0;
+		int sendAnyway = 0;
+		
 		if ( null != event ) {
 			Widget widget = (Widget) event.getSource();
 			if ( null != widget ) {
@@ -84,7 +87,6 @@ public class ActionView extends UIWidget_i {
 						
 						for ( HashMap<String, String> hashMap : selectedSet ) {
 							String selectedAlias = hashMap.get(column_alias);
-//							String selectedStatus = hashMap.get(column_status);
 							String selectedServiceOwner = hashMap.get(column_serviceOwner);
 							
 							String scsEnvId = selectedServiceOwner;
@@ -103,7 +105,7 @@ public class ActionView extends UIWidget_i {
 								value = 1;
 							}
 							
-							ctlMgr.sendControl(scsEnvId, new String[]{alias}, value, 1, 1, 1);
+							ctlMgr.sendControl(scsEnvId, new String[]{alias}, value, byPassInitCond, byPassRetCond, sendAnyway);
 						}
 
 					}
@@ -160,10 +162,7 @@ public class ActionView extends UIWidget_i {
 				
 				String selectedStatus1 = null;
 				for ( HashMap<String, String> hashMap : selectedSet ) {
-//					String selectedAlias = hashMap.get(column_alias);
-//					String selectedStatus = hashMap.get(column_status);
-//					String selectedServiceOwner = hashMap.get(column_serviceOwner);
-					
+
 					selectedStatus1 = hashMap.get(column_status);;
 				}
 
@@ -195,11 +194,17 @@ public class ActionView extends UIWidget_i {
 		
 		ctlMgr = CtlMgr.getInstance("ptw");
 		
-		eventBus = (SimpleEventBus) parameters.get(ParameterName.SimpleEventBus.toString());
+		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
+			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
+			if ( null != o ) {
+				String eventBusName = (String) o;
+				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
+			}
+		}
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
-		uiWidgetGeneric.setXMLFile(ViewWidget.UIPanelPTWAction.toString());
+		uiWidgetGeneric.setXMLFile(xmlFile);
 		uiWidgetGeneric.init();
 		
 		widgetSet			= uiWidgetGeneric.getWidget( strSet );

@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -17,7 +17,7 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnKeyPressHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UIScreenLogin extends UIWidget_i {
@@ -36,52 +36,66 @@ public class UIScreenLogin extends UIWidget_i {
 
 	private String EMPTY						= "";
 	
-    private UILayoutGeneric uiPanelGeneric		= null;
+    private UILayoutGeneric uiLayoutGeneric		= null;
+    
+    private void onButtonEvent(Widget widget) {
+		TextBox textbox = (TextBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.name.toString());
+		if ( null != textbox ) {
+			String operator = textbox.getText();
+			logger.log(Level.FINE, "getMainPanel operator["+operator+"]");
+			if ( null != operator ) {
+				OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
+				String profile = opmAuthentication.getProfile(operator);
+				if ( null == profile ) {
+					profile = EMPTY;
+				}
+
+				ListBox listbox = (ListBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.profile.toString());
+				if ( null != listbox ) {
+					listbox.clear();
+					listbox.addItem(profile);
+					listbox.setSelectedIndex(0);
+				} else {
+					logger.log(Level.SEVERE, "getMainPanel element["+profile+"] IS NULL");
+				}
+			}
+		}
+    }
     
 	@Override
 	public void init() {
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
-		uiPanelGeneric = new UILayoutGeneric();
-		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.setXMLFile(strUIPanelLogin);
-		uiPanelGeneric.init();
+		uiLayoutGeneric = new UILayoutGeneric();
+		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setXMLFile(strUIPanelLogin);
+		uiLayoutGeneric.init();
 		
-		rootPanel = uiPanelGeneric.getMainPanel();
+		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		uiPanelGenericInfo		= uiPanelGeneric.getUIWidget(strUIPanelLoginInfo);
-		uiPanelGenericButton	= uiPanelGeneric.getUIWidget(strUIPanelLoginButton);
+		uiPanelGenericInfo		= uiLayoutGeneric.getUIWidget(strUIPanelLoginInfo);
+		uiPanelGenericButton	= uiLayoutGeneric.getUIWidget(strUIPanelLoginButton);
 		
 		if ( null != uiPanelGenericInfo ) {
-			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEventOnKeyPressHandler() {
-
+//			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEventOnKeyPressHandler() {
+//
+//				@Override
+//				public void onKeyPressHandler(KeyPressEvent event) {
+//					onButtonEvent(null);
+//				}
+//
+//			});
+			
+			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
+				
 				@Override
-				public void onKeyPressHandler(KeyPressEvent event) {
-					TextBox textbox = (TextBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.name.toString());
-					if ( null != textbox ) {
-						String operator = textbox.getText();
-						logger.log(Level.FINE, "getMainPanel operator["+operator+"]");
-						if ( null != operator ) {
-							OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
-							String profile = opmAuthentication.getProfile(operator);
-							if ( null == profile ) {
-								profile = EMPTY;
-							}
-
-							ListBox listbox = (ListBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.profile.toString());
-							if ( null != listbox ) {
-								listbox.clear();
-								listbox.addItem(profile);
-								listbox.setSelectedIndex(0);
-							} else {
-								logger.log(Level.SEVERE, "getMainPanel element["+profile+"] IS NULL");
-							}
-						}
-					}
+				public void setUIWidgetEventOnValueChangeHandler(ValueChangeEvent<String> event) {
+					onButtonEvent(null);
 				}
-
 			});
+			
+			
 		} else {
 			logger.log(Level.SEVERE, "getMainPanel uiPanelGeneric.get(strUIPanelLoginInfo) IS NULL");
 		}

@@ -199,7 +199,6 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
                 logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] priorityValue["+priorityValue+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
-
             }
         });
     }

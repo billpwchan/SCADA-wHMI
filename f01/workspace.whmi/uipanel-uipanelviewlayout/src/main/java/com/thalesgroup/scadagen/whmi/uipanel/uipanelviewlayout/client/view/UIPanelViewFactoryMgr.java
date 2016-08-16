@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
@@ -15,14 +15,14 @@ public class UIPanelViewFactoryMgr {
 	public static String UIPanelViewSchematic	= "UIPanelViewSchematic";
 	public static String UIPanelViewEmpty		= "UIPanelViewEmpty";
 
-	public ComplexPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
+	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
 		UIWidget_i uiWidget_i =  this.getPanel(uiPanel, uiNameCard);
-		ComplexPanel rootPanel = uiWidget_i.getMainPanel();
+		Panel rootPanel = uiWidget_i.getMainPanel();
 
 		logger.log(Level.FINE, "getMainPanel End");
 

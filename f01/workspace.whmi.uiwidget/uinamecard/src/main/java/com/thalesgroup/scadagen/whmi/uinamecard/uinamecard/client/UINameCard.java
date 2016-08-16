@@ -9,7 +9,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 
 public class UINameCard {
 	
-	private static Logger logger = Logger.getLogger(UINameCard.class.getName());
+	private Logger logger = Logger.getLogger(UINameCard.class.getName());
 	
 	private int uiScreen = 0;
 	private String uiPath = "";

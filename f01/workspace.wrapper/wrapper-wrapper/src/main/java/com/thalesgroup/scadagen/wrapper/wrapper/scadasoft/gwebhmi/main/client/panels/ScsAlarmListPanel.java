@@ -234,7 +234,6 @@ public class ScsAlarmListPanel extends ResizeComposite
                 logger.log(Level.FINE, "getStyleNames rowIndex["+rowIndex+"] priorityValue["+priorityValue+"] stateValue["+stateValue+"] => strCssResult["+strCssResult+"]");
                 
                 return strCssResult;
-
             }
         });
     }

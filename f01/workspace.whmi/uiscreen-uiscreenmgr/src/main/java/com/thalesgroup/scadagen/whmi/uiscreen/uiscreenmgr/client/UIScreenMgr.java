@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.client.UIScreenDSS;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.client.UIScreenEmpty;
@@ -25,18 +25,18 @@ public class UIScreenMgr {
 		return instance;
 	}
 	
-	public ComplexPanel getMainPanel(String uiPanel, UINameCard uiNameCard){
+	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
 		
 		logger.log(Level.FINE, "getMainPanel Begin");
 		
 		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
 		
 		UIWidget_i uiWidget_i = this.getPanel(uiPanel, uiNameCard);
-		ComplexPanel rootPanel = uiWidget_i.getMainPanel();
+		Panel panel = uiWidget_i.getMainPanel();
 		
 		logger.log(Level.FINE, "getMainPanel End");
 
-		return rootPanel;
+		return panel;
 	}
 
 	public UIWidget_i getPanel(String uiPanel, UINameCard uiNameCard){

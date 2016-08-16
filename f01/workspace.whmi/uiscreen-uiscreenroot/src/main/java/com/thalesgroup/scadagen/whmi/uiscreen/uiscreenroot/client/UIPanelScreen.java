@@ -3,8 +3,10 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -18,22 +20,33 @@ public class UIPanelScreen extends UIWidget_i {
 	
 	private Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
 	
+	private final String strCssRoot				= "project-gwt-panel-root";
+
+	private final String strCssRootContainer	= "project-gwt-panel-root-container";
+	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
+	
+	private final String strNumOfScreen			= "numofscreen";
+	
+	private final String strUIScreenLogin		= "UIScreenLogin";
+	
+	private final String strUIScreenOPM			= "UIScreenOPM";
+	
+	private final String strUIScreenEmpty		= "UIScreenEmpty";
 
 	@Override
 	public void init() {
 		logger.log(Level.FINE, "init Begin.");
 
 		this.rootPanel = new HorizontalPanel();
-    	this.rootPanel.setWidth("100%");
-    	this.rootPanel.setHeight("100%");
+		this.rootPanel.addStyleName(strCssRoot);
  
     	resetEventBus();
     	
     	UITaskLaunch taskLaunch = new UITaskLaunch();
     	taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
     	taskLaunch.setUiPath(UIPathUIPanelScreen);
-    	taskLaunch.setUiPanel("UIScreenLogin");
+    	taskLaunch.setUiPanel(strUIScreenLogin);
     	this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
     	
     	logger.log(Level.FINE, "init End");
@@ -98,14 +111,17 @@ public class UIPanelScreen extends UIWidget_i {
 						resetEventBus();
 							
 						UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
-						ComplexPanel complexPanel = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), this.uiNameCard);
-						complexPanel.setWidth("100%");
-						complexPanel.setHeight("100%");
+						Panel panel = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), this.uiNameCard);
 							
-						rootPanel.add(complexPanel);
+						rootPanel.add(panel);
+						
+						if ( null != strCssRootContainer ) {
+							Element container = DOM.getParent(panel.getElement());
+							container.setClassName(strCssRootContainer + "-0");
+						}
 						
 						Settings setting = Settings.getInstance();
-						String strNumOfScreen = setting.get("numofscreen");
+						String strNumOfScreen = setting.get(this.strNumOfScreen);
 						if ( null != strNumOfScreen ) {
 							int intNumOfScreen = 1;
 							try {
@@ -113,22 +129,25 @@ public class UIPanelScreen extends UIWidget_i {
 							} catch (NumberFormatException e) {
 								logger.log(Level.FINE, "onUIEvent Number format exception!");
 							}
-							if ( 0 == "UIScreenLogin".compareTo(taskLaunch.getUiPanel()) ) {
+							if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) ) {
 								intNumOfScreen=1;
 							}
-							ComplexPanel complexPanelOthers = null;
+							Panel complexPanelOthers = null;
 							for ( int screen=1;screen<intNumOfScreen;++screen){
 								UINameCard uiNameCard = new UINameCard(this.uiNameCard);
 								uiNameCard.setUiScreen(screen);
-								if ( 0 == "UIScreenLogin".compareTo(taskLaunch.getUiPanel()) 
-										|| 0 == "UIScreenOPM".compareTo(taskLaunch.getUiPanel()) ) {
-									complexPanelOthers = uiPanelFactoryMgr.getMainPanel("UIScreenEmpty", uiNameCard);
+								if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) 
+										|| 0 == strUIScreenOPM.compareTo(taskLaunch.getUiPanel()) ) {
+									complexPanelOthers = uiPanelFactoryMgr.getMainPanel(strUIScreenEmpty, uiNameCard);
 								} else {
 									complexPanelOthers = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), uiNameCard);
 								}
-								complexPanelOthers.setWidth("100%");
-								complexPanelOthers.setHeight("100%");
 								rootPanel.add(complexPanelOthers);
+								
+								if ( null != strCssRootContainer ) {
+									Element container = DOM.getParent(complexPanelOthers.getElement());
+									container.setClassName(strCssRootContainer+"-"+strNumOfScreen);
+								}
 							}
 						}
 					

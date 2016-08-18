@@ -1,39 +1,48 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+
 
 public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_i {
 	
-	private final Logger logger = Logger.getLogger(UIPanelInspectorDialogBox.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspectorDialogBox.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	int baseBoderX = 28, baseBoderY = 28;
 	int baseWidth = 600, baseHeight = 620;
 	
 	private UIPanelInspector uiPanelInspector = null;
-	private ComplexPanel basePanel = null;
+	private Panel rootPanel = null;
 	
 	private UINameCard uiNameCard = null;
 	@Override
 	public void setUINameCard(UINameCard uiNameCard) {
-		logger.log(Level.FINE, "setUINameCard Begin");
+		final String function = "setUINameCard";
+		logger.begin(className, function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
+		
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void init(String xml) {
-		logger.log(Level.FINE, "init Begin");
+		final String function = "init";
+		
+		logger.begin(className, function);
+		logger.info(className, function, "xml[{}]", xml);
+		
 		
 		uiPanelInspector = new UIPanelInspector();
 		uiPanelInspector.setUINameCard(this.uiNameCard);
@@ -50,21 +59,21 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 			}
 		});
 		uiPanelInspector.init(xml);
-		basePanel = uiPanelInspector.getMainPanel();
-		logger.log(Level.SEVERE, "onUIEvent mouseX["+mouseX+"] mouseY["+mouseY+"]");
+		rootPanel = uiPanelInspector.getMainPanel();
+		logger.error(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
 
-		this.add(basePanel);
+		this.add(rootPanel);
 		this.addStyleName("project-gwt-panel-inspector-dialogbox");
 		
 		this.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
 
-        logger.log(Level.FINE, "init End");
+		logger.end(className, function);
 	}
 	
 	
 	@Override
-	public ComplexPanel getMainPanel() {
-        return basePanel;
+	public Panel getMainPanel() {
+        return rootPanel;
 	}
 	
 	private int mouseX = 0, mouseY = 0;
@@ -91,42 +100,48 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
         int top		= (windowHeight / 2) - ( baseHeight / 2 ) - (baseBoderY / 2);
 
         this.setPopupPosition(left, top);
-		
 	}
-	
 
 	@Override
 	public void setParent(String scsEnvId, String parent) {
-		logger.log(Level.FINE, "setParent Begin");
+		final String function = "setParent";
+		
+		logger.begin(className, function);
 		uiPanelInspector.setParent(scsEnvId, parent);
-		logger.log(Level.FINE, "setParent End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void setPeriod(String period) {
-		logger.log(Level.FINE, "setPeriod Begin");
+		final String function = "setPeriod";
+		
+		logger.begin(className, function);
 		uiPanelInspector.setPeriod(period);
-		logger.log(Level.FINE, "setPeriod End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void connect() {
-		logger.log(Level.FINE, "connect Begin");
+		final String function = "connect";
+		
+		logger.begin(className, function);
 		uiPanelInspector.connect();
-		logger.log(Level.FINE, "connect End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, "disconnect Begin");
+		final String function = "disconnect";
+		
+		logger.begin(className, function);
 		uiPanelInspector.disconnect();
-		logger.log(Level.FINE, "disconnect End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void onMouseMove(Widget sender, int x, int y) {
 		super.onMouseMove(sender, x, y);
-		if ( basePanel != null ) {
+		if ( rootPanel != null ) {
 			boolean XtoMoveInvalid = false, YtoMoveInvalid = false;
 			int XtoMove = 0, YtoMove = 0;
 			if ( this.getPopupLeft() < 0 ) {

@@ -2,16 +2,17 @@ package com.thalesgroup.scadagen.whmi.config.configenv.client;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class DictionaryMgr implements AsyncCallback<Dictionary> {
 	
-	private static Logger logger = Logger.getLogger(DictionaryMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(DictionaryMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private String xml = null;
 	private String tag = null;
@@ -24,11 +25,11 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 	private LinkedList<DictionaryMgrEvent> dictionaryMgrEvents = new LinkedList<DictionaryMgrEvent>();
 	public void setDictionaryMgrEvent ( DictionaryMgrEvent dictionaryMgrEvent ) {
 		
-		logger.log(Level.FINE, "setDictionaryMgrEvent Begin");
+		logger.info(className, "setDictionaryMgrEvent", "Begin");
 		
 		this.dictionaryMgrEvents.add(dictionaryMgrEvent);
 		
-		logger.log(Level.FINE, "setDictionaryMgrEvent End");
+		logger.info(className, "setDictionaryMgrEvent", "End");
 	}
 	
 	/**
@@ -37,25 +38,27 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 	private final DictionaryServiceAsync dictionaryService = GWT.create(DictionaryService.class);
 	
 	public void getDictionary(String module, String folder, String xml, String tag, DictionaryMgrEvent dictionaryMgrEvent) {
+		final String function = "getDictionary";
 		
-		logger.log(Level.FINE, "getDictionary Begin");
+		logger.begin(className, function);
 		
 		this.xml = xml;
 		this.tag = tag;
 		
-		logger.log(Level.SEVERE, "getDictionary this.xml["+this.xml+"] this.tag["+this.tag+"]");
+		logger.error(className, function, "this.xml[{}] this.tag[{}]", this.xml, this.tag);
 		
 		this.dictionaryMgrEvents.add(dictionaryMgrEvent);
 		
 		dictionaryService.dictionaryServer(module, folder, xml, tag, this);
 		
-		logger.log(Level.FINE, "getDictionary End");
+		logger.end(className, function);
 	}
 
 	public void onFailure(Throwable caught) {
+		final String function = "onFailure";
 		// Show the RPC error message to the user
 		
-		logger.log(Level.FINE, "onFailure Begin");
+		logger.begin(className, function);
 				
 		for (Iterator<DictionaryMgrEvent> iterator = dictionaryMgrEvents.iterator(); iterator.hasNext();) {
 			DictionaryMgrEvent dictionaryMgrEvent = iterator.next();
@@ -63,33 +66,29 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 		    iterator.remove();
 		}
 
-		logger.log(Level.FINE, "onFailure End");
+		logger.end(className, function);
 	}// onFailure
 
 	public void onSuccess(Dictionary dictionaryCur) {
+		final String function = "onSuccess";
 		// Success on get Menu from server
 		
-		logger.log(Level.FINE, "onSuccess Begin");
+		logger.begin(className, function);
 
 		if ( null != dictionaryCur ) {
-
-//			logger.log(Level.FINE, "onSuccess cfgsCur.size()["+dictionaryCur.getObjectSize()+"]");
 					
-			logger.log(Level.FINE, "onSuccess calling the callback: dictionaryMgrEvent.DictionaryMgrEventReady()");
+			logger.info(className, function, "calling the callback: dictionaryMgrEvent.DictionaryMgrEventReady()");
 			
 			for (Iterator<DictionaryMgrEvent> iterator = dictionaryMgrEvents.iterator(); iterator.hasNext();) {
 				DictionaryMgrEvent dictionaryMgrEvent = iterator.next();
 				dictionaryMgrEvent.dictionaryMgrEventReady(dictionaryCur);
 			    iterator.remove();
 			}
-
 		} else {
-			
-			logger.log(Level.FINE, "onSuccess dictionaryMgrEvent is null");
-			
+			logger.info(className, function, "dictionaryMgrEvent is null");
 		}
 		
-		logger.log(Level.FINE, "onSuccess End");
+		logger.end(className, function);
 
 	}// onSuccess
 

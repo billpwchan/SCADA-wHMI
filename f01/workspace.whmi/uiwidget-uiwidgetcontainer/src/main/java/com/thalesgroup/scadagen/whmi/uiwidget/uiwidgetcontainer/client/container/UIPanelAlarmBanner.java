@@ -1,13 +1,13 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueUpdate;
@@ -16,7 +16,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 
 public class UIPanelAlarmBanner extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIPanelAlarmBanner.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelAlarmBanner.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String 		UIPathUIPanelViewLayout = ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
@@ -31,8 +32,10 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 
 	@Override
 	public void init() {
-		logger.log(Level.FINE, "init Begin");
-		logger.log(Level.FINE, "init xmlFile["+xmlFile+"]");
+		final String function = "init";
+		
+		logger.begin(className, function);
+		logger.info(className, function, "xmlFile[{}]", xmlFile);
 		
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.setUINameCard(this.uiNameCard);
@@ -46,16 +49,16 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 				
 				@Override
 				public void onValueChange(String name, String value) {
-					logger.log(Level.FINE, "onValueChange name["+name+"] value["+value+"]");
+					logger.info(className, function, "onValueChange name[{}] value[{}]", name, value);
 					if ( null != uiWidgetOlsCounter ) {
 						uiWidgetOlsCounter.setValue(name, value);
 					} else {
-						logger.log(Level.SEVERE, "onValueChange uiWidgetOlsCounter IS NULL");
+						logger.error(className, function, "onValueChange uiWidgetOlsCounter IS NULL");
 					}
 				}
 			});
 		} else {
-			logger.log(Level.SEVERE, "init uiPanelAlarmBannerList IS NULL");
+			logger.error(className, function, "uiPanelAlarmBannerList IS NULL");
 		}
 		
 		uiWidgetAccessBarButton = uiPanelGeneric.getUIWidget(strUIWidgetAccessBarButton);
@@ -68,17 +71,17 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 					if ( null != element ) {
 						onButton(element);
 					} else {
-						logger.log(Level.SEVERE, "onClickHandler onClickHandler button IS NULL");
+						logger.error(className, function, "onClickHandler onClickHandler button IS NULL");
 					}
 				}
 			});
 		} else {
-			logger.log(Level.SEVERE, "init uiWidgetAccessBarButton IS NULL");
+			logger.error(className, function, "uiWidgetAccessBarButton IS NULL");
 		}
 		
 		uiWidgetOlsCounter = uiPanelGeneric.getUIWidget(strUIWidgetOlsCounter);
 
-	    logger.log(Level.FINE, "getMainPanel End");
+	    logger.end(className, function);
 	    
 	}
 	
@@ -90,10 +93,10 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 	
 	
 	private void onButton(String element) {
+		final String function = "onButton";
 		
-		logger.log(Level.FINE, "onButton Begin");
-		
-		logger.log(Level.SEVERE, "onButton element["+element+"]");
+		logger.info(className, function, "Begin");
+		logger.error(className, function, "element[{}]", element);
 		
 		if ( UIPanelAlarmBanner_i.WidgetArrtibute.alarm.equalsName(element) ) {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -122,7 +125,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Up);
 				}
 			} else {
-				logger.log(Level.SEVERE, "onButton status IS NULL");
+				logger.error(className, function, "status IS NULL");
 			}
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.ackpage.equalsName(element) ) {
 			
@@ -130,10 +133,10 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 				uiPanelAlarmBannerList.setValue("ackVisible", "");
 			
 		} else {
-			logger.log(Level.SEVERE, "onButton element UNKNOW");
+			logger.error(className, function, "element UNKNOW");
 		}
 		
-		logger.log(Level.FINE, "onButton End");
+		logger.info(className, function, "End");
 	}
 
 }

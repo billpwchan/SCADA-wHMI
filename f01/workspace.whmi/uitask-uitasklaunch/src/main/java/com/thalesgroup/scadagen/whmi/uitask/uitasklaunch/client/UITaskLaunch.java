@@ -9,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 public class UITaskLaunch implements UITask_i {
 	
 	private Logger logger = Logger.getLogger(UITaskLaunch.class.getName());
+	private final String logPrefix = "[UITaskLaunch] ";
 	
 //	private String uiScreen = "";
 //	private String uiPath = "";

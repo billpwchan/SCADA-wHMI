@@ -1,9 +1,9 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.UIWidgetSummary;
@@ -11,7 +11,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIViewMgr {
 	
-	private Logger logger = Logger.getLogger(UIViewMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIViewMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private UIViewMgr() {};
 	private static UIViewMgr instance = null;
@@ -21,10 +22,11 @@ public class UIViewMgr {
 	}
 
 	public UIWidget_i getPanel(String panel, UINameCard uiNameCard) {
+		final String function = "getPanel";
 		
-		logger.log(Level.FINE, "getPanel Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.FINE, "getPanel uiPanel["+panel+"]");
+		logger.info(className, function, "uiPanel[{}]", panel);
 
 		UIWidget_i uiWidget_i = null;
 		
@@ -44,7 +46,7 @@ public class UIViewMgr {
 			//uiWidget_i = new UIViewEmpty();
 		}
 
-		logger.log(Level.FINE, "getPanel End");
+		logger.end(className, function);
 
 		return uiWidget_i;
 		

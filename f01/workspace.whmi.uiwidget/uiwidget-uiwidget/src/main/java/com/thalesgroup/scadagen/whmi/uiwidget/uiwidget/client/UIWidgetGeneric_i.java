@@ -7,7 +7,7 @@ public interface UIWidgetGeneric_i {
 		, cols("cols")
 		, rootPanel("rootPanel")
 		, rootCss("rootCss")
-		, cssFlexTable("cssFlexTable")
+		, rootContainerCss("rootContainerCss")
 		;
 		
 		private final String text;

@@ -1,8 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.thalesgroup.scadagen.whmi.config.confignav.client.TaskMgr;
 import com.thalesgroup.scadagen.whmi.config.confignav.client.TaskMgrEvent;
@@ -13,11 +11,14 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class NavigationMgr implements TaskMgrEvent {
 	
-	private Logger logger = Logger.getLogger(NavigationMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(NavigationMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	// Caches
 	private ArrayList<UITaskLaunch> taskLaunchs = null;
@@ -30,13 +31,14 @@ public class NavigationMgr implements TaskMgrEvent {
 	
 	private UINameCard uiNameCard = null;
 	public NavigationMgr (UINameCard uiNameCard ) {
+		final String function = "NavigationMgr";
 		
-		logger.log(Level.FINE, "NavigationMgr Begin");
+		logger.begin(className, function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendMgr(this);
 		
-		logger.log(Level.FINE, "NavigationMgr this.uiNameCard.getUiPath()["+this.uiNameCard.getUiPath()+"]");
+		logger.info(className, function, "this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiPath());
 		
 		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 			@Override
@@ -45,31 +47,33 @@ public class NavigationMgr implements TaskMgrEvent {
 			}	
 		});
 		
-		logger.log(Level.FINE, "NavigationMgr End");
+		logger.end(className, function);
 	}
 
 
 	public void setNavigationMgrEvent (NavigationMgrEvent navigationMgrEvent) {
+		final String function = "setNavigationMgrEvent";
 		
-		logger.log(Level.FINE, "setNavigationMgrEvent Begin");
+		logger.begin(className, function);
 		
 		this.navigationMgrEvent = navigationMgrEvent;
 		
-		logger.log(Level.FINE, "setNavigationMgrEvent End");
+		logger.end(className, function);
 	}
 		
 
 	public ArrayList<UITaskLaunch> getTasks ( int level, String header ) {
+		final String function = "getTasks";
 		
-		logger.log(Level.FINE, "getTasks Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.FINE, "getTaskLaunchs level["+level+"] header["+header+"]");
+		logger.info(className, function, "level[{}] header[{}]", level, header);
 		
 		ArrayList<UITaskLaunch> menu = null;
 		
 		if ( null != this.taskLaunchs ) {
 		
-			logger.log(Level.FINE, "getTaskLaunchs this.taskLaunchs["+this.taskLaunchs.size()+"]");
+			logger.info(className, function, "this.taskLaunchs[{}]", this.taskLaunchs.size());
 			
 			menu = new ArrayList<UITaskLaunch>();
 			
@@ -82,17 +86,18 @@ public class NavigationMgr implements TaskMgrEvent {
 			}
 			
 		} else {
-			logger.log(Level.FINE, "getTaskLaunchs this.taskLaunchs is null");
+			logger.error(className, function, "this.taskLaunchs is null");
 		}
 		
-		logger.log(Level.FINE, "getTasks End");
+		logger.end(className, function);
 		
 		return menu;
 	}
 	
 	public void initCache(int level, String header) {
+		final String function = "initCache";
 		
-		logger.log(Level.FINE, "initCache Begin");
+		logger.begin(className, function);
 		
 		String profile = "";
 		String location = "";
@@ -104,15 +109,15 @@ public class NavigationMgr implements TaskMgrEvent {
 		this.taskMgr.setTaskMgrEvent(this);
 		this.taskMgr.initTasks(profile, location, level, header);
 		
-		logger.log(Level.FINE, "initCache End");
+		logger.end(className, function);
 		
 	}
 	
-	
 	@Override
 	public void ready(Tasks tasks) {
+		final String function = "ready";
 		
-		logger.log(Level.FINE, "ready Begin");
+		logger.begin(className, function);
 		
 		taskLaunchs = null;
 		
@@ -125,45 +130,39 @@ public class NavigationMgr implements TaskMgrEvent {
 				this.taskLaunchsParentLevel = tasks.getParentLevel();
 				this.taskLaunchsParentHeader = tasks.getParentHeader();
 				
-				logger.log(Level.FINE, "ready this.taskLaunchsParentLevel["+this.taskLaunchsParentLevel+"]");
-				logger.log(Level.FINE, "ready this.taskLaunchsParentHeader["+this.taskLaunchsParentHeader+"]");
+				logger.info(className, function, "this.taskLaunchsParentLevel[{}]", this.taskLaunchsParentLevel);
+				logger.info(className, function, "this.taskLaunchsParentHeader[{}]", this.taskLaunchsParentHeader);
 				
 				for ( Task task: tasks){
 					UITaskLaunch taskLaunch = new UITaskLaunch(task);
 					this.taskLaunchs.add(taskLaunch);
 				}
-				
-				logger.log(Level.FINE, "ready tasks.size["+this.taskLaunchs.size()+"]");
-				
+				logger.info(className, function, "tasks.size[{}]", this.taskLaunchs.size());
 			} else {
-				
-				logger.log(Level.FINE, "ready tasks is zero size");
-				
+				logger.info(className, function, "tasks is zero size");
 			}
-			
 		} else {
-			
-			logger.log(Level.FINE, "ready tasks is null");
-			
+			logger.info(className, function, "tasks is null");
 		}
 		
-		logger.log(Level.FINE, "ready calling navigationMgrEvent.isReady...");
+		logger.info(className, function, "calling navigationMgrEvent.isReady...");
 		
 		navigationMgrEvent.isReady(this.taskLaunchsParentLevel, this.taskLaunchsParentHeader);
 		
-		logger.log(Level.FINE, "ready End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void failed() {
-		
-		logger.log(Level.FINE, "failed Begin/End");
+		final String function = "failed";
+		logger.beginEnd(className, function);
 		
 	}
 	
-	private void onUIEvent(UIEvent uiEvent){
+	private void onUIEvent(UIEvent uiEvent) {
+		final String function = "onUIEvent";
 		
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.begin(className, function);
 		
 		if (null != uiEvent) {
 
@@ -175,18 +174,17 @@ public class NavigationMgr implements TaskMgrEvent {
 
 					if ( taskProvide instanceof UITaskLaunch ) {
 
-						logger.log(Level.FINE, "onUIEvent taskProvide is TaskLaunch");
+						logger.info(className, function, "taskProvide is TaskLaunch");
 						
 						UITaskLaunch tasklaunch = (UITaskLaunch)taskProvide;
 
 						this.navigationMgrEvent.setMenu(0, "", tasklaunch.getHeader(), false);
-
 					}
 				}
 			}
 		}
 
-		logger.log(Level.FINE, "onUIEvent End");
+		logger.end(className, function);
 	}
 
 }

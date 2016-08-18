@@ -1,15 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client;
 
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.shared.ResettableEventBus;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 
 public class UINameCard {
 	
-	private Logger logger = Logger.getLogger(UINameCard.class.getName());
+	private final String className = "UINameCard";
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private int uiScreen = 0;
 	private String uiPath = "";
@@ -51,15 +51,15 @@ public class UINameCard {
 	}
 	public void appendMgr(Object object) {
 		this.appendUIPath(getSimpleName(object));
-		logger.log(Level.FINE, "appendMgr uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
+		logger.info(className, "appendMgr", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
 	}
 	public void appendUIPanel(Object object) {
 		this.appendUIPath(getSimpleName(object));
-		logger.log(Level.FINE, "appendUIPanel uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
+		logger.info(className, "appendUIPanel", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
 	}
 	public void appendUIPath(String uiPath) {
 		this.uiPath += ":" + uiPath;
-		logger.log(Level.FINE, "appendUIPath uiScreen["+this.uiScreen+"] uiPath["+this.uiPath+"]");
+		logger.info(className, "appendUIPath", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
 	}
 	public ResettableEventBus getUiEventBus() {
 		return this.uiEventBus;

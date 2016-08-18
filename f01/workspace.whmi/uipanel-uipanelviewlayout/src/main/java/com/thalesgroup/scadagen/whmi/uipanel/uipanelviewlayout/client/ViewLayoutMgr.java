@@ -22,6 +22,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 public class ViewLayoutMgr {
 
 	private Logger logger = Logger.getLogger(ViewLayoutMgr.class.getName());
+	
+	private final String logPrefix = "[ViewLayoutMgr] ";
 
 	private ViewLayoutMgrEvent viewLayoutMgrEvent = null;
 	private ViewLayoutHistoryMgr viewLayoutHistoryMgr = null;
@@ -63,7 +65,7 @@ public class ViewLayoutMgr {
 	 */
 	private void triggerSplitChange() {
 		
-		logger.log(Level.FINE, "triggerSplitChange Begin");
+		logger.log(Level.FINE, logPrefix+"triggerSplitChange Begin");
 		
 		UITaskSplit taskSplit1 = new UITaskSplit();
 		taskSplit1.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -83,9 +85,9 @@ public class ViewLayoutMgr {
 			
 		}
 		
-		logger.log(Level.FINE, "triggerSplitChange taskSplit1.getTaskType["+taskSplit1.getTaskType()+"]");
+		logger.log(Level.FINE, logPrefix+"triggerSplitChange taskSplit1.getTaskType["+taskSplit1.getTaskType()+"]");
 		
-		logger.log(Level.FINE, "triggerSplitChange taskSplit1 fire");
+		logger.log(Level.FINE, logPrefix+"triggerSplitChange taskSplit1 fire");
 
 //		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit1));
 		
@@ -107,19 +109,19 @@ public class ViewLayoutMgr {
 			
 		}
 		
-		logger.log(Level.FINE, "triggerSplitChange taskSplit2.getTaskType["+taskSplit2.getTaskType()+"]");
+		logger.log(Level.FINE, logPrefix+"triggerSplitChange taskSplit2.getTaskType["+taskSplit2.getTaskType()+"]");
 		
-		logger.log(Level.FINE, "triggerSplitChange taskSplit2 fire");
+		logger.log(Level.FINE, logPrefix+"triggerSplitChange taskSplit2 fire");
 
 //		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit2));
 
-		logger.log(Level.FINE, "triggerSplitChange End");
+		logger.log(Level.FINE, logPrefix+"triggerSplitChange End");
 		
 	}
 	
 	public void setSplitScreen(UITaskSplit uiTaskSplit) {
 		
-		logger.log(Level.FINE, "setSplitScreen Begin");
+		logger.log(Level.FINE, logPrefix+"setSplitScreen Begin");
 		
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -128,11 +130,11 @@ public class ViewLayoutMgr {
 			viewLayoutHistory = getCurrentAsHistory();
 		}
 		
-		logger.log(Level.FINE, "setSplitScreen uiTaskSplit.getSplitType()["+uiTaskSplit.getTaskType()+"]");
+		logger.log(Level.FINE, logPrefix+"setSplitScreen uiTaskSplit.getSplitType()["+uiTaskSplit.getTaskType()+"]");
 		
 		if (UITaskSplit.SplitType.Vertical == uiTaskSplit.getTaskType()) {
 			
-			logger.log(Level.FINE, "setSplitScreen UITaskSplit.SplitType.Vertical");
+			logger.log(Level.FINE, logPrefix+"setSplitScreen UITaskSplit.SplitType.Vertical");
 
 			if (ViewLayoutAction.VDoubleLayout == this.viewLayoutAction) {
 				setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
@@ -159,7 +161,7 @@ public class ViewLayoutMgr {
 		historySnapshot();
 		
 		
-		logger.log(Level.FINE, "setSplitScreen End");
+		logger.log(Level.FINE, logPrefix+"setSplitScreen End");
 	}
 
 	/**
@@ -170,7 +172,7 @@ public class ViewLayoutMgr {
 	 */
 	private void setLayout(ViewLayoutMode viewLayoutMode, ViewLayoutAction viewLayoutAction) {
 
-		logger.log(Level.FINE, "setLayout Begin");
+		logger.log(Level.FINE, logPrefix+"setLayout Begin");
 
 		this.viewLayoutMode = viewLayoutMode;
 
@@ -188,9 +190,9 @@ public class ViewLayoutMgr {
 			this.taskLaunchs[i] = null;
 		}
 
-		logger.log(Level.FINE, "setLayout created taskLaunchs.length[" + this.taskLaunchs.length + "]");
+		logger.log(Level.FINE, logPrefix+"setLayout created taskLaunchs.length[" + this.taskLaunchs.length + "]");
 
-		logger.log(Level.FINE, "setLayout End");
+		logger.log(Level.FINE, logPrefix+"setLayout End");
 	}
 
 	private boolean isValidActivateId(int activateId) {
@@ -201,7 +203,7 @@ public class ViewLayoutMgr {
 		if( this.viewIdActivate >= 0 && this.viewIdActivate < this.taskLaunchs.length ) {
 			result = true;
 		}
-		logger.log(Level.FINE, "isValidActivate result[" + result + "]");
+		logger.log(Level.FINE, logPrefix+"isValidActivate result[" + result + "]");
 		return result;
 	}
 	
@@ -214,25 +216,25 @@ public class ViewLayoutMgr {
 	 */
 	public void setTaskLaunch(UITaskLaunch taskLaunch, boolean makeSnapshot) {
 
-		logger.log(Level.FINE, "setTaskLaunch Begin");
+		logger.log(Level.FINE, logPrefix+"setTaskLaunch Begin");
 
 		// boolean change = false;
 
 		if (TaskLaunchType.IMAGE == taskLaunch.getTaskLaunchType()) {
-			logger.log(Level.FINE, "setTaskLaunch TaskType.IMAGE");
+			logger.log(Level.FINE, logPrefix+"setTaskLaunch TaskType.IMAGE");
 
 			if (ViewLayoutMode.Image != this.viewLayoutMode) {
-				logger.log(Level.FINE, "setTaskLaunch ViewLayoutMode.Image != [" + this.viewLayoutMode + "]");
+				logger.log(Level.FINE, logPrefix+"setTaskLaunch ViewLayoutMode.Image != [" + this.viewLayoutMode + "]");
 
 				setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
 
 			}
 
 		} else if (TaskLaunchType.PANEL == taskLaunch.getTaskLaunchType()) {
-			logger.log(Level.FINE, "setTaskLaunch TaskType.PANEL");
+			logger.log(Level.FINE, logPrefix+"setTaskLaunch TaskType.PANEL");
 
 			if (ViewLayoutMode.Panel != this.viewLayoutMode) {
-				logger.log(Level.FINE, "setTaskLaunch ViewLayoutMode.Panel != [" + this.viewLayoutMode + "]");
+				logger.log(Level.FINE, logPrefix+"setTaskLaunch ViewLayoutMode.Panel != [" + this.viewLayoutMode + "]");
 
 				setLayout(ViewLayoutMode.Panel, ViewLayoutAction.SingleLayout);
 
@@ -241,10 +243,10 @@ public class ViewLayoutMgr {
 
 		viewLayoutMgrEvent.setTaskLaunch(taskLaunch, this.viewIdActivate);
 
-		logger.log(Level.FINE, "setTaskLaunch this.viewLayoutAction[" + this.viewLayoutAction + "]");
+		logger.log(Level.FINE, logPrefix+"setTaskLaunch this.viewLayoutAction[" + this.viewLayoutAction + "]");
 
 		if (null == this.taskLaunchs) {
-			logger.log(Level.FINE, "setTaskLaunch this.taskLaunchs is null, creating...");
+			logger.log(Level.FINE, logPrefix+"setTaskLaunch this.taskLaunchs is null, creating...");
 			this.taskLaunchs = new UITaskLaunch[this.viewLayoutAction.getValue()];
 			logger.log(Level.FINE,
 					"setTaskLaunch this.taskLaunchs created this.taskLaunchs.length[" + this.taskLaunchs.length + "]");
@@ -254,7 +256,7 @@ public class ViewLayoutMgr {
 		if ( isValidActivateId(this.viewIdActivate) ) {
 			this.taskLaunchs[this.viewIdActivate] = taskLaunch;
 		} else {
-			logger.log(Level.FINE, "setTaskLaunch this.viewIdActivate is INVALUD[" + this.viewIdActivate
+			logger.log(Level.FINE, logPrefix+"setTaskLaunch this.viewIdActivate is INVALUD[" + this.viewIdActivate
 					+ "] taskLaunchs.length[" + this.taskLaunchs.length + "]");
 		}
 		
@@ -262,7 +264,7 @@ public class ViewLayoutMgr {
 
 		triggerProfileChange();
 
-		logger.log(Level.FINE, "setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
+		logger.log(Level.FINE, logPrefix+"setTaskLaunch hasSnapshot[" + makeSnapshot + "]");
 
 		if (makeSnapshot) {
 
@@ -273,7 +275,7 @@ public class ViewLayoutMgr {
 
 		triggerHistoryChange();
 
-		logger.log(Level.FINE, "setTaskLaunch End");
+		logger.log(Level.FINE, logPrefix+"setTaskLaunch End");
 
 	}
 
@@ -284,7 +286,7 @@ public class ViewLayoutMgr {
 	 */
 	private void restoreCurrentStatus(ViewLayoutHistory viewLayoutHistory) {
 
-		logger.log(Level.FINE, "restoreCurrentStatus Begin");
+		logger.log(Level.FINE, logPrefix+"restoreCurrentStatus Begin");
 
 		UITaskLaunch taskLaunchs[] = viewLayoutHistory.getTaskLaunchs();
 
@@ -306,7 +308,7 @@ public class ViewLayoutMgr {
 			triggerSplitChange();
 		}
 
-		logger.log(Level.FINE, "restoreCurrentStatus End");
+		logger.log(Level.FINE, logPrefix+"restoreCurrentStatus End");
 	}
 
 	/**
@@ -314,13 +316,13 @@ public class ViewLayoutMgr {
 	 */
 	public void setLayoutAction(ViewLayoutHistory viewLayoutHistory) {
 
-		logger.log(Level.FINE, "setLayoutAction Begin");
+		logger.log(Level.FINE, logPrefix+"setLayoutAction Begin");
 
 		setLayout(viewLayoutHistory.getViewLayoutMode(), viewLayoutHistory.getViewLayoutAction());
 
 		restoreCurrentStatus(viewLayoutHistory);
 
-		logger.log(Level.FINE, "setLayoutAction End");
+		logger.log(Level.FINE, logPrefix+"setLayoutAction End");
 	}
 
 	/**
@@ -329,7 +331,7 @@ public class ViewLayoutMgr {
 	 */
 	public void setLayoutAction(ViewLayoutAction viewLayoutAction, boolean restorePreviousViews) {
 
-		logger.log(Level.FINE, "setLayoutAction Begin");
+		logger.log(Level.FINE, logPrefix+"setLayoutAction Begin");
 
 		ViewLayoutHistory viewLayoutHistory = null;
 
@@ -344,7 +346,7 @@ public class ViewLayoutMgr {
 
 		historySnapshot();
 
-		logger.log(Level.FINE, "setLayoutAction End");
+		logger.log(Level.FINE, logPrefix+"setLayoutAction End");
 	}
 
 	/**
@@ -353,7 +355,7 @@ public class ViewLayoutMgr {
 	 */
 	private void triggerHistoryChange() {
 
-		logger.log(Level.FINE, "triggerHistoryUIUpdate Begin");
+		logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate Begin");
 
 		UITaskHistory taskHistoryPrevious = new UITaskHistory();
 		taskHistoryPrevious.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -361,18 +363,18 @@ public class ViewLayoutMgr {
 
 		if (this.viewLayoutHistoryMgr.hasPrevious()) {
 
-			logger.log(Level.FINE, "triggerHistoryUIUpdate viewLayoutHistoryMgr has Previous");
+			logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate viewLayoutHistoryMgr has Previous");
 
 			taskHistoryPrevious.setTaskType(TaskType.PreviousEnable);
 
 		} else {
 
-			logger.log(Level.FINE, "triggerHistoryUIUpdate viewLayoutHistoryMgr haven't Previous");
+			logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate viewLayoutHistoryMgr haven't Previous");
 
 			taskHistoryPrevious.setTaskType(TaskType.PreviousDisable);
 		}
 
-		logger.log(Level.FINE, "triggerHistoryUIUpdate taskHistoryPrevious fire");
+		logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate taskHistoryPrevious fire");
 
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistoryPrevious));
 
@@ -382,21 +384,21 @@ public class ViewLayoutMgr {
 
 		if (this.viewLayoutHistoryMgr.hasNext()) {
 
-			logger.log(Level.FINE, "triggerHistoryUIUpdate viewLayoutHistoryMgr has Next");
+			logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate viewLayoutHistoryMgr has Next");
 
 			taskHistoryNext.setTaskType(TaskType.NextEnable);
 		} else {
 
-			logger.log(Level.FINE, "triggerHistoryUIUpdate viewLayoutHistoryMgr is haven't Next ");
+			logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate viewLayoutHistoryMgr is haven't Next ");
 
 			taskHistoryNext.setTaskType(TaskType.NextDisable);
 		}
 
-		logger.log(Level.FINE, "triggerHistoryUIUpdate taskHistoryNext fire");
+		logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate taskHistoryNext fire");
 
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistoryNext));
 
-		logger.log(Level.FINE, "triggerHistoryUIUpdate End");
+		logger.log(Level.FINE, logPrefix+"triggerHistoryUIUpdate End");
 	}
 
 	/**
@@ -406,13 +408,13 @@ public class ViewLayoutMgr {
 	 */
 	private void setTaskHistory(UITaskHistory taskHistory) {
 
-		logger.log(Level.FINE, "setTaskHistory Begin");
+		logger.log(Level.FINE, logPrefix+"setTaskHistory Begin");
 
 		ViewLayoutHistory viewLayoutHistory = null;
 
 		if (TaskType.Previous == taskHistory.getTaskType()) {
 
-			logger.log(Level.FINE, "setTaskHistory taskHistory is TaskType.Previous");
+			logger.log(Level.FINE, logPrefix+"setTaskHistory taskHistory is TaskType.Previous");
 
 			if (viewLayoutHistoryMgr.hasPrevious()) {
 
@@ -420,12 +422,12 @@ public class ViewLayoutMgr {
 
 			} else {
 
-				logger.log(Level.FINE, "setTaskHistory viewLayoutHistoryMgr haven't previous");
+				logger.log(Level.FINE, logPrefix+"setTaskHistory viewLayoutHistoryMgr haven't previous");
 
 			}
 		} else if (TaskType.Next == taskHistory.getTaskType()) {
 
-			logger.log(Level.FINE, "setTaskHistory taskHistory is TaskType.Next ");
+			logger.log(Level.FINE, logPrefix+"setTaskHistory taskHistory is TaskType.Next ");
 
 			if (viewLayoutHistoryMgr.hasNext()) {
 
@@ -433,21 +435,21 @@ public class ViewLayoutMgr {
 
 			} else {
 
-				logger.log(Level.FINE, "setTaskHistory viewLayoutHistoryMgr haven't next");
+				logger.log(Level.FINE, logPrefix+"setTaskHistory viewLayoutHistoryMgr haven't next");
 
 			}
 		}
 
 		if (null != viewLayoutHistory) {
 
-			logger.log(Level.FINE, "setTaskHistory viewLayoutHistory is not null");
+			logger.log(Level.FINE, logPrefix+"setTaskHistory viewLayoutHistory is not null");
 
 			setLayoutAction(viewLayoutHistory);
 		}
 
 		triggerHistoryChange();
 
-		logger.log(Level.FINE, "setTaskHistory End");
+		logger.log(Level.FINE, logPrefix+"setTaskHistory End");
 	}
 
 	/**
@@ -455,20 +457,20 @@ public class ViewLayoutMgr {
 	 */
 	private void onUIEvent(UIEvent uiEvent) {
 
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.log(Level.FINE, logPrefix+"onUIEvent Begin");
 		
 		if ( null != uiNameCard ) {
-			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
-			logger.log(Level.SEVERE, "onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
+			logger.log(Level.SEVERE, logPrefix+"onUIEvent uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
+			logger.log(Level.SEVERE, logPrefix+"onUIEvent uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
 		} else {
-			logger.log(Level.SEVERE, "onUIEvent uiNameCard IS NULL");
+			logger.log(Level.SEVERE, logPrefix+"onUIEvent uiNameCard IS NULL");
 		}
 		
 		if ( null != uiEvent ) {
-			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
-			logger.log(Level.SEVERE, "onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
+			logger.log(Level.SEVERE, logPrefix+"onUIEvent uiEvent.getTaskProvide().getTaskUiScreen()["+uiEvent.getTaskProvide().getTaskUiScreen()+"]");
+			logger.log(Level.SEVERE, logPrefix+"onUIEvent uiEvent.getTaskProvide().getUiPath()["+uiEvent.getTaskProvide().getUiPath()+"]");
 		} else {
-			logger.log(Level.SEVERE, "onUIEvent uiEvent IS NULL");
+			logger.log(Level.SEVERE, logPrefix+"onUIEvent uiEvent IS NULL");
 		}
 
 		if (null != uiEvent) {
@@ -480,18 +482,18 @@ public class ViewLayoutMgr {
 
 					if ( taskProvide instanceof UITaskLaunch ) {
 
-						logger.log(Level.FINE, "onUIEvent taskProvide is TaskLaunch");
+						logger.log(Level.FINE, logPrefix+"onUIEvent taskProvide is TaskLaunch");
 
 						setTaskLaunch((UITaskLaunch) taskProvide, true);
 
 					} else if ( taskProvide instanceof UITaskHistory ) {
 
-						logger.log(Level.FINE, "onUIEvent taskProvide is TaskHistory");
+						logger.log(Level.FINE, logPrefix+"onUIEvent taskProvide is TaskHistory");
 
 						setTaskHistory((UITaskHistory) taskProvide);
 					} else if ( taskProvide instanceof UITaskSplit ) {
 						
-						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
+						logger.log(Level.FINE, logPrefix+"onUIEvent taskProvide is UITaskSplit");
 						
 						setSplitScreen((UITaskSplit) taskProvide);
 						
@@ -501,7 +503,7 @@ public class ViewLayoutMgr {
 			}
 		}
 
-		logger.log(Level.FINE, "onUIEvent End");
+		logger.log(Level.FINE, logPrefix+"onUIEvent End");
 	}
 
 	/**
@@ -509,7 +511,7 @@ public class ViewLayoutMgr {
 	 */
 	public ViewLayoutMode getViewMode() {
 
-		logger.log(Level.FINE, "getViewMode Begin/End");
+		logger.log(Level.FINE, logPrefix+"getViewMode Begin/End");
 
 		return this.viewLayoutMode;
 	}
@@ -519,7 +521,7 @@ public class ViewLayoutMgr {
 	 */
 	public ViewLayoutAction getViewAction() {
 
-		logger.log(Level.FINE, "getViewAction Begin/End");
+		logger.log(Level.FINE, logPrefix+"getViewAction Begin/End");
 
 		return this.viewLayoutAction;
 	}
@@ -529,7 +531,7 @@ public class ViewLayoutMgr {
 	 */
 	public void setViewIdActivate(int viewIdActivate) {
 
-		logger.log(Level.FINE, "setViewIdActivate Begin/End");
+		logger.log(Level.FINE, logPrefix+"setViewIdActivate Begin/End");
 
 		this.viewIdActivate = viewIdActivate;
 		
@@ -539,7 +541,7 @@ public class ViewLayoutMgr {
 			triggerTitleChange(taskLaunch);		
 		}
 		
-		logger.log(Level.FINE, "setViewIdActivate Begin/End");
+		logger.log(Level.FINE, logPrefix+"setViewIdActivate Begin/End");
 	}
 
 	/**
@@ -549,9 +551,9 @@ public class ViewLayoutMgr {
 	 */
 	private ViewLayoutHistory getCurrentAsHistory() {
 
-		logger.log(Level.FINE, "getCurrentAsHistory Begin");
+		logger.log(Level.FINE, logPrefix+"getCurrentAsHistory Begin");
 
-		logger.log(Level.FINE, "getCurrentAsHistory this.taskLaunchs.length[" + this.taskLaunchs.length + "]");
+		logger.log(Level.FINE, logPrefix+"getCurrentAsHistory this.taskLaunchs.length[" + this.taskLaunchs.length + "]");
 
 		ViewLayoutHistory history = new ViewLayoutHistory();
 		history.setViewLayoutAction(this.viewLayoutAction);
@@ -559,7 +561,7 @@ public class ViewLayoutMgr {
 		history.setViewLayoutMode(this.viewLayoutMode);
 		history.setTaskLaunchs(this.taskLaunchs);
 
-		logger.log(Level.FINE, "getCurrentAsHistory End");
+		logger.log(Level.FINE, logPrefix+"getCurrentAsHistory End");
 
 		return history;
 	}
@@ -569,7 +571,7 @@ public class ViewLayoutMgr {
 	 */
 	private void historySnapshot() {
 
-		logger.log(Level.FINE, "historySnapshot Begin");
+		logger.log(Level.FINE, logPrefix+"historySnapshot Begin");
 
 		ViewLayoutHistory history = getCurrentAsHistory();
 
@@ -579,7 +581,7 @@ public class ViewLayoutMgr {
 		
 		viewLayoutHistoryMgr.debug("AF");
 
-		logger.log(Level.FINE, "historySnapshot End");
+		logger.log(Level.FINE, logPrefix+"historySnapshot End");
 	}
 	
 	private UITaskLaunch getTaskLaunchActivate() {
@@ -589,18 +591,18 @@ public class ViewLayoutMgr {
 			if ( isValidActivateId(viewIdActivate) ) {
 				if ( null != this.taskLaunchs[viewIdActivate] ) {
 					
-					logger.log(Level.FINE, "getTaskLaunchFromTaskLaunchs viewIdActivate["+viewIdActivate+"]");
+					logger.log(Level.FINE, logPrefix+"getTaskLaunchFromTaskLaunchs viewIdActivate["+viewIdActivate+"]");
 					
 					taskLaunch = this.taskLaunchs[viewIdActivate];
 					
 				} else {
-					logger.log(Level.FINE, "getTaskLaunchFromTaskLaunchs taskLaunchs["+viewIdActivate+"] is null");
+					logger.log(Level.FINE, logPrefix+"getTaskLaunchFromTaskLaunchs taskLaunchs["+viewIdActivate+"] is null");
 				}
 			} else {
-				logger.log(Level.FINE, "getTaskLaunchFromTaskLaunchs isValidActivateId is false");
+				logger.log(Level.FINE, logPrefix+"getTaskLaunchFromTaskLaunchs isValidActivateId is false");
 			}
 		} else {
-			logger.log(Level.FINE, "getTaskLaunchFromTaskLaunchs taskLaunchs is null");
+			logger.log(Level.FINE, logPrefix+"getTaskLaunchFromTaskLaunchs taskLaunchs is null");
 			
 		}
 		return taskLaunch;
@@ -608,7 +610,7 @@ public class ViewLayoutMgr {
 	
 	private void triggerProfileChange () {
 		
-		logger.log(Level.FINE, "triggerProfileChange Begin");
+		logger.log(Level.FINE, logPrefix+"triggerProfileChange Begin");
 		
 		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
 		String profile = opmAuthentication.getCurrentProfile();
@@ -621,21 +623,21 @@ public class ViewLayoutMgr {
 		taskProfile.setOperator(operator);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
 		
-		logger.log(Level.FINE, "triggerProfileChange End");
+		logger.log(Level.FINE, logPrefix+"triggerProfileChange End");
 	}
 	
 	private void triggerTitleChange ( UITaskLaunch taskLaunch ) {
 		
-		logger.log(Level.FINE, "triggerTitleChange Begin");
+		logger.log(Level.FINE, logPrefix+"triggerTitleChange Begin");
 		
 		String title = "";
 		if ( null != taskLaunch ) {
 			title = taskLaunch.getTitle();
 		} else {
-			logger.log(Level.FINE, "triggerTitleChange tasLaunch is null");
+			logger.log(Level.FINE, logPrefix+"triggerTitleChange tasLaunch is null");
 		}
 		
-		logger.log(Level.FINE, "triggerMenuChange UITaskTitle title["+title+"]");
+		logger.log(Level.FINE, logPrefix+"triggerMenuChange UITaskTitle title["+title+"]");
 		
 		UITaskTitle taskTitle = new UITaskTitle();
 		taskTitle.setTitle(title);
@@ -643,12 +645,12 @@ public class ViewLayoutMgr {
 		taskTitle.setUiPath(UIPathUIPanelStatusBar);
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskTitle));
 		
-		logger.log(Level.FINE, "triggerTitleChange End");
+		logger.log(Level.FINE, logPrefix+"triggerTitleChange End");
 	}
 	
 	private void triggerMenuChange( UITaskLaunch taskLaunch ) {
 		
-		logger.log(Level.FINE, "triggerMenuChange Begin");
+		logger.log(Level.FINE, logPrefix+"triggerMenuChange Begin");
 		
 		if ( null != taskLaunch ) {
 		
@@ -659,10 +661,10 @@ public class ViewLayoutMgr {
 			
 //			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);
 		} else {
-			logger.log(Level.FINE, "triggerMenuChange taskLaunch is null");
+			logger.log(Level.FINE, logPrefix+"triggerMenuChange taskLaunch is null");
 		}
 		
-		logger.log(Level.FINE, "triggerMenuChange End");
+		logger.log(Level.FINE, logPrefix+"triggerMenuChange End");
 	}
 
 }

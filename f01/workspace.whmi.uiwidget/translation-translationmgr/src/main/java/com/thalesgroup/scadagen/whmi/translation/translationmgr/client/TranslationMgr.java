@@ -1,11 +1,12 @@
 package com.thalesgroup.scadagen.whmi.translation.translationmgr.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 
 public class TranslationMgr {
 	
-	private static Logger logger = Logger.getLogger(TranslationMgr.class.getName());
+	private final String className = "TranslationMgr";
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private TranslationMgr() {};
 	private static TranslationMgr instance = null;
@@ -20,9 +21,9 @@ public class TranslationMgr {
 	public TranslationEngine getTranslationEngine() { return this.engines; }
 	
 	public String getTranslation(String message) {
-		logger.log(Level.FINE, "getTranslation message["+message+"]");		
+		logger.info(className, "getTranslation", "message[{}]", message);		
 		String translation = (null != engines?engines.getMessage(message):message);
-		logger.log(Level.FINE, "getTranslation translation["+translation+"]");
+		logger.info(className, "getTranslation", "translation[{}]", translation);
 		return translation;
 	}
 

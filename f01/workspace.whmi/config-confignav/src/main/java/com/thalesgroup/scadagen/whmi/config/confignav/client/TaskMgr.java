@@ -12,6 +12,7 @@ import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
 public class TaskMgr implements AsyncCallback<Tasks> {
 	
 	private Logger logger = Logger.getLogger(TaskMgr.class.getName());
+	private final String logPrefix		= "[TaskMgr] ";
 	
 	private boolean ready = false;
 	private boolean failded = false;
@@ -28,11 +29,11 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 	private LinkedList<TaskMgrEvent> taskMgrEvents = new LinkedList<TaskMgrEvent>();
 	public void setTaskMgrEvent ( TaskMgrEvent taskMgrEvent ) {
 		
-		logger.log(Level.FINE, "setTaskMgrEvent Begin");
+		logger.log(Level.FINE, logPrefix+"setTaskMgrEvent Begin");
 		
 		this.taskMgrEvents.add(taskMgrEvent);
 		
-		logger.log(Level.FINE, "setTaskMgrEvent End");
+		logger.log(Level.FINE, logPrefix+"setTaskMgrEvent End");
 	}
 	
 	/**
@@ -42,9 +43,9 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 	
 	public void initTasks(String profile, String location, int level, String header) {
 		
-		logger.log(Level.FINE, "initTasks Begin");
+		logger.log(Level.FINE, logPrefix+"initTasks Begin");
 		
-		logger.log(Level.SEVERE, "initTasks this.level["+level+"] this.header["+header+"]");
+		logger.log(Level.SEVERE, logPrefix+"initTasks this.level["+level+"] this.header["+header+"]");
 		
 		String module		= null;
 		
@@ -54,13 +55,13 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		
 		taskMgrService.taskServer(module, mappingFile, settingFile, profile, location, level, header, this);
 		
-		logger.log(Level.FINE, "initTasks End");
+		logger.log(Level.FINE, logPrefix+"initTasks End");
 	}
 
 	public void onFailure(Throwable caught) {
 		// Show the RPC error message to the user
 		
-		logger.log(Level.SEVERE, "onFailure Begin");
+		logger.log(Level.SEVERE, logPrefix+"onFailure Begin");
 		
 		this.failded = true;
 		
@@ -70,17 +71,17 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		    iterator.remove();
 		}
 
-		logger.log(Level.SEVERE, "onFailure End");
+		logger.log(Level.SEVERE, logPrefix+"onFailure End");
 	}// onFailure
 
 	public void onSuccess(Tasks tsksCur) {
 		// Success on get Menu from server
 		
-		logger.log(Level.FINE, "onSuccess Begin");
+		logger.log(Level.FINE, logPrefix+"onSuccess Begin");
 
 		if ( null != tsksCur ) {
 
-			logger.log(Level.SEVERE, "onSuccess tsksCur.size()["+tsksCur.size()+"] calling the callback: taskMgrEvent.ready()");
+			logger.log(Level.SEVERE, logPrefix+"onSuccess tsksCur.size()["+tsksCur.size()+"] calling the callback: taskMgrEvent.ready()");
 		
 			this.ready = true;
 			
@@ -92,33 +93,33 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 		} else {
 			
-			logger.log(Level.SEVERE, "onSuccess tsksCur is null");
+			logger.log(Level.SEVERE, logPrefix+"onSuccess tsksCur is null");
 			
 		}
 		
-		logger.log(Level.FINE, "onSuccess End");
+		logger.log(Level.FINE, logPrefix+"onSuccess End");
 
 	}// onSuccess
 	public boolean isReady() {
 		
-		logger.log(Level.SEVERE, "isReady Begin/End");
+		logger.log(Level.SEVERE, logPrefix+"isReady Begin/End");
 		
 		return ready;
 	}
 	public boolean isFailded() {
 		
-		logger.log(Level.SEVERE, "isFailded Begin/End");
+		logger.log(Level.SEVERE, logPrefix+"isFailded Begin/End");
 		
 		return failded;
 	}
 	public void reset(){
 		
-		logger.log(Level.FINE, "reset Begin");
+		logger.log(Level.FINE, logPrefix+"reset Begin");
 		
 		this.ready = false;
 		this.failded = false;
 		
-		logger.log(Level.FINE, "reset End");
+		logger.log(Level.FINE, logPrefix+"reset End");
 	}
 
 }

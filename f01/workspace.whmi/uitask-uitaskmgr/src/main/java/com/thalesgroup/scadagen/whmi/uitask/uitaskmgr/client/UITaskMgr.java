@@ -13,6 +13,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 public class UITaskMgr {
 	
 	private static Logger logger = Logger.getLogger(UITaskMgr.class.getName());
+
 	
 	public static UITask_i getTask(String taskname) {
 		

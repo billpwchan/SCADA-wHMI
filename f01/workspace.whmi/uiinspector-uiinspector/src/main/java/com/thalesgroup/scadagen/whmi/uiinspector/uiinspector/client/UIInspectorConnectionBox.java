@@ -1,29 +1,30 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIInspectorConnectionBox extends DialogBox {
 	
-	private Logger logger = Logger.getLogger(UIInspectorConnectionBox.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorConnectionBox.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
 	
@@ -97,9 +98,10 @@ public class UIInspectorConnectionBox extends DialogBox {
 
 	private UINameCard uiNameCard = null;
 
-	public ComplexPanel getMainPanel(UINameCard uiNameCard) {
+	public Panel getMainPanel(UINameCard uiNameCard) {
+		final String function = "getMainPanel";
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.begin(className, function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -193,7 +195,7 @@ public class UIInspectorConnectionBox extends DialogBox {
     
 		exchange(true);
 		
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 		
 		return basePanel;
 		

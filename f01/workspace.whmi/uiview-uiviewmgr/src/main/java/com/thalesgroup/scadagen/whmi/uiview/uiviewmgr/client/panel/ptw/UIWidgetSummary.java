@@ -1,11 +1,11 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ParameterName;
@@ -18,11 +18,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 
 public class UIWidgetSummary extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIWidgetSummary.class.getName());
-	
-	private String className			= UIWidgetUtil.getClassSimpleName(UIWidgetSummary.class.getName());
-	
-	private String logPrefix			= "["+className+"] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSummary.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String strXml			= ".xml";
 	
@@ -39,8 +36,9 @@ public class UIWidgetSummary extends UIWidget_i {
 
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.SEVERE, logPrefix+"init Begin");
+		logger.begin(className, function);
 		
 		eventBus = UIEventActionBus.getInstance().getEventBus(strSummary);
 
@@ -112,6 +110,6 @@ public class UIWidgetSummary extends UIWidget_i {
 			eventBus.fireEventFromSource(action1, this);
 		}
 		
-		logger.log(Level.SEVERE, logPrefix+"init End");
+		logger.end(className, function);
 	}
 }

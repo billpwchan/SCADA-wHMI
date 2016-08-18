@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;
@@ -18,6 +20,9 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextArea;
 
 public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEvent {
+	
+	private Logger logger 			= Logger.getLogger(UIDialogMsg.class.getName());
+	private final String logPrefix	= "[UIDialogMsg] ";
 	
 	private static final String basePath	= GWT.getModuleBaseURL();
 	private static final String folder		= "/resources/project/img/dialog/";

@@ -16,13 +16,16 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIInspectorHeader implements UIInspectorPage_i {
 	
-	private final Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
+	private final Logger logger = Logger.getLogger(UIInspectorHeader.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorHeader.class.getName());
+	private final String logPrefix = "["+className+"] ";
 
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.shortLabel.toString(), PointName.geographicalCat.toString()};
@@ -38,15 +41,15 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 	public void setParent(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
-		logger.log(Level.FINE, "setConnection this.parent["+this.parent+"]");
+		logger.log(Level.FINE, logPrefix+"setConnection this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, logPrefix+"setConnection this.parent["+this.parent+"]");
 	}
 	
 	@Override
 	public void setAddresses(String[] addresses) {
-		logger.log(Level.FINE, "setAddresses Begin");
+		logger.log(Level.FINE, logPrefix+"setAddresses Begin");
 		
-		logger.log(Level.FINE, "setAddresses End");
+		logger.log(Level.FINE, logPrefix+"setAddresses End");
 	}
 	
 	@Override
@@ -58,10 +61,10 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 	
 	@Override
 	public void connect() {
-		logger.log(Level.FINE, "connect Begin");
+		logger.log(Level.FINE, logPrefix+"connect Begin");
 
 			{
-				logger.log(Level.FINE, "multiReadValue Begin");
+				logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
 				
 				String clientKey = "multiReadValue" + "_" + "inspectorheader" + "_" + "static" + "_" + parent;
 				
@@ -78,9 +81,9 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
 				
-				logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+				logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+					logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 				}
 
 				String api = "multiReadValue";
@@ -105,12 +108,12 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 					}
 				});
 				
-				logger.log(Level.FINE, "multiReadValue End");
+				logger.log(Level.FINE, logPrefix+"multiReadValue End");
 			}
 			
 			{
 				
-				logger.log(Level.FINE, "multiReadValue Begin");
+				logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
 
 				String clientKey = "multiReadValue" + "_" + "inspectorheader" + "_" + "dynamic" + "_" + parent;
 				String[] dbaddresses = null;
@@ -122,9 +125,9 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
 
-				logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+				logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+					logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 				}
 
 				database.addDynamicRequest(clientKey, dbaddresses, new DatabaseEvent() {
@@ -147,27 +150,27 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 					}
 				});
 				
-				logger.log(Level.FINE, "multiReadValue End");
+				logger.log(Level.FINE, logPrefix+"multiReadValue End");
 			}
 		
-		logger.log(Level.FINE, "connect End");
+		logger.log(Level.FINE, logPrefix+"connect End");
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, "disconnect Begin");
+		logger.log(Level.FINE, logPrefix+"disconnect Begin");
 		
-		logger.log(Level.FINE, "disconnect End");
+		logger.log(Level.FINE, logPrefix+"disconnect End");
 	}
 	
 	@Override
 	public void buildWidgets() {
 		
-		logger.log(Level.FINE, "buildWidgets Begin");
+		logger.log(Level.FINE, logPrefix+"buildWidgets Begin");
 		
 		buildWidgets(this.addresses.length);
 	
-		logger.log(Level.FINE, "buildWidgets End");
+		logger.log(Level.FINE, logPrefix+"buildWidgets End");
 	}
 	
 	private TextBox txtAttributeStatus[] = null;
@@ -180,8 +183,8 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 
-		logger.log(Level.FINE, "updateValue Begin");
-		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -201,12 +204,12 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 			
 		}
 
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.FINE, logPrefix+"updateValue End");
 	}
 	
 	private void updateValue(boolean withStatic) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
@@ -225,12 +228,12 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 			
 		}// End of keyAndValuesDynamic
 		
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.FINE, logPrefix+"updateValue End");
 	}
 	
 	private void updateValueStatic(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValueStatic Begin");
+		logger.log(Level.FINE, logPrefix+"updateValueStatic Begin");
 
 		// Equipment Description
 		{
@@ -251,18 +254,18 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 					String wordPrefix = "scsalarmList_area_location";
 					String wordkey = wordPrefix + value;
 					value = Translation.getWording(wordkey);
-					logger.log(Level.SEVERE, "Translation.getHVWording wordPrefix["+wordPrefix+"] value["+value+"] => wordkey["+wordkey+"] => value["+value+"]");
+					logger.log(Level.SEVERE, logPrefix+"Translation.getHVWording wordPrefix["+wordPrefix+"] value["+value+"] => wordkey["+wordkey+"] => value["+value+"]");
 					txtAttributeStatus[1].setText(value);
 				}
 			}
 		}
 		
-		logger.log(Level.FINE, "updateValueStatic End");
+		logger.log(Level.FINE, logPrefix+"updateValueStatic End");
 	}
 	
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValueDynamic Begin");
+		logger.log(Level.FINE, logPrefix+"updateValueDynamic Begin");
 		
 		{
 			String key = parent + PointName.isControlable.toString();
@@ -273,7 +276,7 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 			}
 		}
 		
-		logger.log(Level.FINE, "updateValueDynamic End");
+		logger.log(Level.FINE, logPrefix+"updateValueDynamic End");
 
 	}
 	
@@ -288,7 +291,7 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 	@Override
 	public void init(String xml) {
 		
-		logger.log(Level.FINE, "init Begin");
+		logger.log(Level.FINE, logPrefix+"init Begin");
 		
 		String strHeadersLabel [] = new String[] { "Equipment Description", "Location", "Control Right","Control Right Reserved","Handover Right" };
 		String strHeadersStatus [] = new String[] { "-", "-", "Yes / No","Not Reserved / Not", "Central / Station" };
@@ -313,7 +316,7 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 		vpCtrls.addStyleName("project-gwt-panel-header");
 		vpCtrls.add(flexTableHeader);
 		
-		logger.log(Level.FINE, "init End");
+		logger.log(Level.FINE, logPrefix+"init End");
 	}
 	
 	@Override

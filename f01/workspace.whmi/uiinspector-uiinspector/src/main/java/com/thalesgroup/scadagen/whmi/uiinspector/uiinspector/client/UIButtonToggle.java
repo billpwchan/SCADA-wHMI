@@ -1,12 +1,14 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import com.google.gwt.user.client.ui.Button;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIButtonToggle extends Button {
 	
-	private Logger logger = Logger.getLogger(UIButtonToggle.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIButtonToggle.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private Control control = null;
 	public Control getControl() { return control; }
@@ -27,13 +29,16 @@ public class UIButtonToggle extends Button {
 	 */
 	public void setHightLight ( boolean hightLight ) {
 		
-		logger.log(Level.FINE, "setHightLight Begin hightLight["+hightLight+"]");
+		final String function = "setHightLight";
+		
+		logger.begin(className, function);
+		logger.info(className, function, "setHightLight Begin hightLight[{}]", hightLight);
 
 		this.hightLight = hightLight;
 		
 		String styleName = "project-gwt-button-inspector-control-selected";
 		
-		logger.log(Level.FINE, "setHightLight addStyleName["+styleName+"] hightLight["+hightLight+"]");
+		logger.info(className, function, "setHightLight addStyleName[{}] hightLight[{}]", styleName, hightLight);
 
 		if ( hightLight ) {
 			this.addStyleName(styleName);
@@ -41,7 +46,7 @@ public class UIButtonToggle extends Button {
 			this.removeStyleName(styleName);
 		}
 		
-		logger.log(Level.FINE, "setHightLight End");
+		logger.end(className, function);
 	}
 	
 }

@@ -2,13 +2,14 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnKeyPressHandler;
@@ -17,8 +18,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 
 public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	
-	protected Logger logger = Logger.getLogger(UIWidget_i.class.getName());
-	protected String logPrefix = "UIWidget_i ";
+	protected String className = UIWidgetUtil.getClassSimpleName(UIWidget_i.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
 
 	protected UINameCard uiNameCard = null;
 	@Override
@@ -27,17 +29,18 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 			this.uiNameCard = new UINameCard(uiNameCard);
 			this.uiNameCard.appendUIPanel(this);
 		} else {
-			logger.log(Level.SEVERE, logPrefix + "setUINameCard uiNameCard IS NULL");
+			logger.info(className, "setUINameCard", "uiNameCard IS NULL");
 		}
 	}
 	
 	protected String xmlFile = null;
 	@Override
 	public void setXMLFile(String xmlFile) {
+		final String function = "setXMLFile";
 		this.xmlFile = xmlFile;
-		logger.log(Level.FINE, "setXMLFile xmlFile["+this.xmlFile+"]");
+		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
 		if ( null == this.xmlFile ) {
-			logger.log(Level.SEVERE, "setXMLFile xmlFile IS NULL");
+			logger.error(className, function, "xmlFile IS NULL");
 		}
 	}
 	
@@ -45,7 +48,7 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	@Override
 	public Panel getMainPanel() {
 		if ( null == rootPanel ) {
-			logger.log(Level.SEVERE, "getMainPanel rootPanel IS NULL");
+			logger.error(className, "getMainPanel", "rootPanel IS NULL");
 		}
 		return rootPanel;
 	}
@@ -53,7 +56,7 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	protected HashMap<String, Object> parameters = new HashMap<String, Object>();
     @Override
     public void setParameter(String key, Object value) {
-    	logger.log(Level.FINE, "setParameter key["+key+"] value["+value+"]");
+    	logger.info(className, "setParameter", "key[{}] value[{}]", key, value);
     	parameters.put(key, value);
     }
     public Object getParameter(String key) {

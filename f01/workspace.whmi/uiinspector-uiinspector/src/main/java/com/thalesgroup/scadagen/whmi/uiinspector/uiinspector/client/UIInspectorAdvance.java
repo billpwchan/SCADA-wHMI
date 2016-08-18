@@ -26,6 +26,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
@@ -36,6 +37,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	private final Logger logger = Logger.getLogger(UIInspectorAdvance.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
+	private final String logPrefix = "["+className+"] ";
 	
 	private final String tagname				= "advance";
 
@@ -58,17 +61,17 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	public void setParent(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
-		logger.log(Level.FINE, "setConnection this.parent["+this.parent+"]");
+		logger.log(Level.FINE, logPrefix+"setConnection this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, logPrefix+"setConnection this.parent["+this.parent+"]");
 	}
 	
 	@Override
 	public void setAddresses(String[] addresses) {
-		logger.log(Level.FINE, "setAddresses Begin");
+		logger.log(Level.FINE, logPrefix+"setAddresses Begin");
 		
 		this.addresses = addresses;
 		
-		logger.log(Level.FINE, "setAddresses End");
+		logger.log(Level.FINE, logPrefix+"setAddresses End");
 	}
 	
 	@Override
@@ -78,7 +81,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	private void updatePager() {
 		
-		logger.log(Level.FINE, "updatePager Begin");
+		logger.log(Level.FINE, logPrefix+"updatePager Begin");
 		
 		pageCounter.calc(pageIndex);
 		
@@ -92,12 +95,12 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 			btnDown.setVisible(false);
 		}
 		
-		logger.log(Level.FINE, "updatePager End");
+		logger.log(Level.FINE, logPrefix+"updatePager End");
 	}
 
 	private void onButton(Button btn) {
 		
-		logger.log(Level.FINE, "onButton Begin");
+		logger.log(Level.FINE, logPrefix+"onButton Begin");
 		
 		if (  btn == btnUp || btn == btnDown ) {
 			if ( btn == btnUp) {
@@ -109,7 +112,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 			updateValue(true);
 		}
 		
-		logger.log(Level.FINE, "onButton End");
+		logger.log(Level.FINE, logPrefix+"onButton End");
 	}
 	
 	private DpcMgr dpcAccess = null;
@@ -120,11 +123,11 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	@Override
 	public void connect() {
-		logger.log(Level.FINE, "connect Begin");
+		logger.log(Level.FINE, logPrefix+"connect Begin");
 
 		// Read static
 		{
-			logger.log(Level.FINE, "multiReadValue Begin");
+			logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 
@@ -148,16 +151,16 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
 						} else {
-							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
+							logger.log(Level.SEVERE, logPrefix+"connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
 						}
 					}
 				}
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}			
 			
-			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 			
 			String api = "multiReadValue";
@@ -180,12 +183,12 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 				}
 			});
 			
-			logger.log(Level.FINE, "multiReadValue End");
+			logger.log(Level.FINE, logPrefix+"multiReadValue End");
 		}
 		
 		// Read dynamic
 		{
-			logger.log(Level.FINE, "multiReadValue Begin");
+			logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
 
@@ -209,16 +212,16 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
 						} else {
-							logger.log(Level.SEVERE, "connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
+							logger.log(Level.SEVERE, logPrefix+"connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
 						}
 					}
 				}
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 			
-			logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 			}
 			
 			Database database = Database.getInstance();
@@ -232,7 +235,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 				
 			});
 		
-			logger.log(Level.FINE, "multiReadValue End");
+			logger.log(Level.FINE, logPrefix+"multiReadValue End");
 		}
 		
 		{
@@ -255,14 +258,14 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 			observer.setSubject(dpcMgrSubject);			
 		}
 
-		logger.log(Level.FINE, "connect End");
+		logger.log(Level.FINE, logPrefix+"connect End");
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, "disconnect Begin");
+		logger.log(Level.FINE, logPrefix+"disconnect Begin");
 		
-		logger.log(Level.FINE, "disconnect End");
+		logger.log(Level.FINE, logPrefix+"disconnect End");
 	}
 
 	@Override
@@ -292,7 +295,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	private void buildWidgets(int numOfWidgets) {
 		
-		logger.log(Level.FINE, "updateDisplay Begin");
+		logger.log(Level.FINE, logPrefix+"updateDisplay Begin");
 		
 		if ( null != vpCtrls ) {
 			
@@ -335,7 +338,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					
 					int r = 0;
 					
-					logger.log(Level.FINE, "buildWidgets i["+i+"]");
+					logger.log(Level.FINE, logPrefix+"buildWidgets i["+i+"]");
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
@@ -381,11 +384,11 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						@Override
 						public void onClick(ClickEvent event) {
 
-							logger.log(Level.FINE, "buildWidgets onClick Begin");
+							logger.log(Level.FINE, logPrefix+"buildWidgets onClick Begin");
 							
 							sendControl(event);
 							
-							logger.log(Level.FINE, "buildWidgets onClick End");
+							logger.log(Level.FINE, logPrefix+"buildWidgets onClick End");
 						}
 					});
 					flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
@@ -397,16 +400,16 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 				}
 
 			} else {
-				logger.log(Level.FINE, "buildWidgets this.pointStatics IS NULL");
+				logger.log(Level.FINE, logPrefix+"buildWidgets this.pointStatics IS NULL");
 			}
 			
 			vpCtrls.add(flexTableAttibutes); 
 
 		} else {
-			logger.log(Level.SEVERE, "updateDisplay points IS NULL");
+			logger.log(Level.SEVERE, logPrefix+"updateDisplay points IS NULL");
 		}
 		
-		logger.log(Level.FINE, "updateDisplay End");
+		logger.log(Level.FINE, logPrefix+"updateDisplay End");
 	}
 	
 	private boolean valueRefreshed = false;
@@ -415,8 +418,8 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 
-		logger.log(Level.FINE, "updateValue Begin");
-		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -436,12 +439,12 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 			
 		}
 
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.FINE, logPrefix+"updateValue End");
 	}
 	
 	private void updateValue(boolean withStatic) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
@@ -460,13 +463,13 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 			
 		}// End of keyAndValuesDynamic
 		
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.FINE, logPrefix+"updateValue End");
 	}
 	
 	public void updateValueStatic(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
-		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
 		
 		valueRefreshed = false;
 		
@@ -477,7 +480,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		
 		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		
-		logger.log(Level.FINE, "updateValue clientKeyStatic["+clientKeyStatic+"]");
+		logger.log(Level.FINE, logPrefix+"updateValue clientKeyStatic["+clientKeyStatic+"]");
 		
 		if ( clientKeyStatic.equals(clientKey) ) {
 	
@@ -494,7 +497,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							label = RTDB_Helper.removeDBStringWrapper(label);
 						}
 					}
-					logger.log(Level.FINE, "updateValue label["+label+"]");
+					logger.log(Level.FINE, logPrefix+"updateValue label["+label+"]");
 					
 					// Set the Label
 					lblAttibuteLabel[y].setText(label);
@@ -514,14 +517,14 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					String valueTable = null;
 					{
 						String dbaddress = address + PointName.dalValueTable.toString();
-						logger.log(Level.FINE, "updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, logPrefix+"updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							valueTable = dbvalues.get(dbaddress);
 						} else {
-							logger.log(Level.FINE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+							logger.log(Level.FINE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 						}
 					}
-					logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
+					logger.log(Level.FINE, logPrefix+"updateValue valueTable["+valueTable+"]");
 					
 					if ( null != valueTable ) {
 						int valueCol = 0, labelCol = 1;
@@ -543,10 +546,10 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							
 							lstValues[y].addItem(labels[r]);
 							
-							logger.log(Level.FINE, "updateValue names["+r+"]["+labels[r]+"] values["+r+"]["+values[r]+"]");
+							logger.log(Level.FINE, logPrefix+"updateValue names["+r+"]["+labels[r]+"] values["+r+"]["+values[r]+"]");
 						}
 					} else {
-						logger.log(Level.SEVERE, "updateValue valueTable IS NULL!");
+						logger.log(Level.SEVERE, logPrefix+"updateValue valueTable IS NULL!");
 					}
 				} else if ( PointType.aci == pointType ) {
 					
@@ -559,7 +562,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						if ( dbvalues.containsKey(dbaddress) ) {
 							value = dbvalues.get(dbaddress);
 						} else {
-							logger.log(Level.FINE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+							logger.log(Level.FINE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 						}
 					}
 					
@@ -576,7 +579,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						if ( dbvalues.containsKey(dbaddress) ) {
 							value = dbvalues.get(dbaddress);
 						} else {
-							logger.log(Level.FINE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+							logger.log(Level.FINE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 						}
 					}
 					
@@ -590,8 +593,8 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	public void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
-		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
 		
 		pageCounter.calc(pageIndex);
 		
@@ -656,7 +659,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						}
 					}
 				} else {
-					logger.log(Level.SEVERE, "updateValue sForcedStatus IS NULL!");
+					logger.log(Level.SEVERE, logPrefix+"updateValue sForcedStatus IS NULL!");
 				}
 
 			}
@@ -668,14 +671,14 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					String value = null;
 					{
 						String dbaddress = address + PointName.value.toString();
-						logger.log(Level.FINE, "updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+						logger.log(Level.FINE, logPrefix+"updateValue PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
 						if ( dbvalues.containsKey(dbaddress) ) {
 							value = dbvalues.get(dbaddress);
 						} else {
-							logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+							logger.log(Level.SEVERE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 						}
 					}
-					logger.log(Level.FINE, "updateValue value["+value+"]");
+					logger.log(Level.FINE, logPrefix+"updateValue value["+value+"]");
 					
 					
 					if ( null != value ) {
@@ -683,21 +686,21 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						if ( null != point ) {
 							PointType pointType = RTDB_Helper.getPointType(point);
 
-							logger.log(Level.FINE, "updateValue point["+point+"]");
+							logger.log(Level.FINE, logPrefix+"updateValue point["+point+"]");
 							
 							if ( PointType.dci == pointType ) {
 								
 								String valueTable = null;
 								{
 									String dbaddress = address + PointName.dalValueTable.toString();
-									logger.log(Level.FINE, "updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
+									logger.log(Level.FINE, logPrefix+"updateValue PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
 									if ( dbvalues.containsKey(dbaddress) ) {
 										valueTable = dbvalues.get(dbaddress);
 									} else {
-										logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+										logger.log(Level.SEVERE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 									}
 								}
-								logger.log(Level.FINE, "updateValue valueTable["+valueTable+"]");
+								logger.log(Level.FINE, logPrefix+"updateValue valueTable["+valueTable+"]");
 								
 								if ( null != valueTable ) {
 									int valueCol = 0;
@@ -721,7 +724,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 
 						}
 					} else {
-						logger.log(Level.SEVERE, "updateValue value IS NULL!");
+						logger.log(Level.SEVERE, logPrefix+"updateValue value IS NULL!");
 					}
 				}
 			}
@@ -738,22 +741,22 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		String sforcedStatus = null;
 		{
 			String dbaddress = address + strForcedStatus;
-			logger.log(Level.FINE, "updateValue strForcedStatus["+PointName.dfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, logPrefix+"updateValue strForcedStatus["+PointName.dfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
 			
 			if ( dbvalues.containsKey(dbaddress) ) {
 				sforcedStatus = dbvalues.get(dbaddress);	
 			} else {
-				logger.log(Level.SEVERE, "updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.log(Level.SEVERE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
 			}
 			
-			logger.log(Level.FINE, "updateValue forcedStatus["+sforcedStatus+"]");
+			logger.log(Level.FINE, logPrefix+"updateValue forcedStatus["+sforcedStatus+"]");
 		}
 		return sforcedStatus;
 	}
 	
 	private void sendControl(ClickEvent event) {
 		
-		logger.log(Level.FINE, "sendControl Begin");
+		logger.log(Level.FINE, logPrefix+"sendControl Begin");
 		
 		UIButtonToggle button = (UIButtonToggle) event.getSource();
 		int index = -1;
@@ -764,13 +767,13 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 			}
 		}
 		
-		logger.log(Level.FINE, "sendControl index["+index+"]");
+		logger.log(Level.FINE, logPrefix+"sendControl index["+index+"]");
 		
 		if ( -1 != index ) {
 			
 			String dbaddress = addresses[index];
 			
-			logger.log(Level.FINE, "sendControl dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, logPrefix+"sendControl dbaddress["+dbaddress+"]");
 			
 			if ( null != dbaddress ) {
 				
@@ -781,9 +784,9 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 					
 					String alias	= "<alias>" + dbaddress.replace(":", "");
 					
-					logger.log(Level.FINE, "sendControl scsEnvId["+scsEnvId+"] alias["+alias+"]");				
+					logger.log(Level.FINE, logPrefix+"sendControl scsEnvId["+scsEnvId+"] alias["+alias+"]");				
 					
-					logger.log(Level.FINE, "sendControl point["+point+"] type["+pointType+"]");
+					logger.log(Level.FINE, logPrefix+"sendControl point["+point+"] type["+pointType+"]");
 					
 					if ( null != chkDPMs[index] ) {
 						
@@ -815,8 +818,8 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							try {
 								forcedStatus = Integer.parseInt(sForcedStatus);
 							} catch ( NumberFormatException e ) {
-								logger.log(Level.SEVERE, "sendControl NumberFormatException["+e.toString()+"]");
-								logger.log(Level.SEVERE, "sendControl Integer.parseInt("+sForcedStatus+")");
+								logger.log(Level.SEVERE, logPrefix+"sendControl NumberFormatException["+e.toString()+"]");
+								logger.log(Level.SEVERE, logPrefix+"sendControl Integer.parseInt("+sForcedStatus+")");
 							}
 							if ( !RTDB_Helper.isAI(forcedStatus) && chkDPMs[index][indexAI].getValue() ) {	isAIApply = true;	}
 							if ( RTDB_Helper.isAI(forcedStatus) && !chkDPMs[index][indexAI].getValue() ) {	isAICancel = true;	}
@@ -841,50 +844,50 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 								
 								int moIndex = lstValues[index].getSelectedIndex();
 								
-								logger.log(Level.FINE, "sendControl moIndex["+moIndex+"]");
+								logger.log(Level.FINE, logPrefix+"sendControl moIndex["+moIndex+"]");
 								
 								String valueTable = null;
 								{
 									String address = dbaddress + PointName.dalValueTable.toString();
-									logger.log(Level.FINE, "sendControl PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+address+"]");
+									logger.log(Level.FINE, logPrefix+"sendControl PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+address+"]");
 									if ( dbvalues.containsKey(address) ) {
 										valueTable = dbvalues.get(address);
 									} else {
-										logger.log(Level.FINE, "sendControl dbaddress["+address+"] VALUE NOT EXISTS!");
+										logger.log(Level.FINE, logPrefix+"sendControl dbaddress["+address+"] VALUE NOT EXISTS!");
 									}
 								}
-								logger.log(Level.FINE, "sendControl valueTable["+valueTable+"]");
+								logger.log(Level.FINE, logPrefix+"sendControl valueTable["+valueTable+"]");
 
 								int valueCol = 0;
 								String sValue	= RTDB_Helper.getArrayValues(valueTable, valueCol, moIndex);
 								sValue			= RTDB_Helper.removeDBStringWrapper(sValue);
 								
-								logger.log(Level.FINE, "sendControl sValue["+sValue+"]");
+								logger.log(Level.FINE, logPrefix+"sendControl sValue["+sValue+"]");
 								try {
 									moIValue = Integer.parseInt(sValue);
 								} catch ( NumberFormatException e ) {
-									logger.log(Level.SEVERE, "sendControl NumberFormatException["+e.toString()+"]");
-									logger.log(Level.SEVERE, "sendControl Integer.parseInt("+sValue+")");
+									logger.log(Level.SEVERE, logPrefix+"sendControl NumberFormatException["+e.toString()+"]");
+									logger.log(Level.SEVERE, logPrefix+"sendControl Integer.parseInt("+sValue+")");
 								}
 
 							} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
 								
 								moSValue = txtValues[index].getText();
 								
-								logger.log(Level.FINE, "sendControl moSValue["+moSValue+"]");
+								logger.log(Level.FINE, logPrefix+"sendControl moSValue["+moSValue+"]");
 								
 								if ( PointType.aci == pointType ) {
 									
 									try {
 										moFValue = Float.parseFloat(moSValue);
 									} catch ( NumberFormatException e ) {
-										logger.log(Level.SEVERE, "sendControl NumberFormatException["+e.toString()+"]");
-										logger.log(Level.SEVERE, "sendControl Float.parseFloat("+moSValue+")");
+										logger.log(Level.SEVERE, logPrefix+"sendControl NumberFormatException["+e.toString()+"]");
+										logger.log(Level.SEVERE, logPrefix+"sendControl Float.parseFloat("+moSValue+")");
 									}
 								}
 							}
 							
-							logger.log(Level.FINE, "sendControl moIValue["+moIValue+"] setValue moFValue["+moFValue+"] moSValue["+moSValue+"]");
+							logger.log(Level.FINE, logPrefix+"sendControl moIValue["+moIValue+"] setValue moFValue["+moFValue+"] moSValue["+moSValue+"]");
 						}
 						
 						// Alarm Inhibit
@@ -942,23 +945,23 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							
 							if ( null != key ) {
 								
-								logger.log(Level.SEVERE, "sendControl pointType["+pointType+"]");
+								logger.log(Level.SEVERE, logPrefix+"sendControl pointType["+pointType+"]");
 								
 								if ( PointType.dci == pointType ) {
 									
-									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moIValue["+moIValue+"]");
+									logger.log(Level.SEVERE, logPrefix+"sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moIValue["+moIValue+"]");
 									
 									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
 									
 								} else if ( PointType.aci == pointType ) {
 									
-									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moFValue["+moFValue+"]");
+									logger.log(Level.SEVERE, logPrefix+"sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moFValue["+moFValue+"]");
 									
 									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
 									
 								} else if ( PointType.sci == pointType ) {
 									
-									logger.log(Level.SEVERE, "sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moSValue["+moSValue+"]");
+									logger.log(Level.SEVERE, logPrefix+"sendControl key["+key+"] scsEnvId["+scsEnvId+"] alias["+alias+"] forceAction["+forceAction+"] moSValue["+moSValue+"]");
 									
 									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
 									
@@ -967,20 +970,20 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 								chkDPMs[index][indexMO].setValue(forceAction);
 								
 							} else {
-								logger.log(Level.SEVERE, "sendControl Manual Override Point Type IS INVALID");
+								logger.log(Level.SEVERE, logPrefix+"sendControl Manual Override Point Type IS INVALID");
 							}
 						}
 					} else {
-						logger.log(Level.SEVERE, "sendControl chkDPMs["+dbaddress+"] IS NULL");
+						logger.log(Level.SEVERE, logPrefix+"sendControl chkDPMs["+dbaddress+"] IS NULL");
 					}					
 				}
 			} else {
-				logger.log(Level.SEVERE, "sendControl dbaddress["+dbaddress+"] IS NULL");
+				logger.log(Level.SEVERE, logPrefix+"sendControl dbaddress["+dbaddress+"] IS NULL");
 			}
 		} else {
-			logger.log(Level.SEVERE, "sendControl index["+index+"] IS INVALID");
+			logger.log(Level.SEVERE, logPrefix+"sendControl index["+index+"] IS INVALID");
 		}
-		logger.log(Level.FINE, "sendControl End");
+		logger.log(Level.FINE, logPrefix+"sendControl End");
 		
 	}
 	
@@ -1008,7 +1011,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	@Override
 	public void init(String xml) {
 
-		logger.log(Level.FINE, "init Begin");
+		logger.log(Level.FINE, logPrefix+"init Begin");
 		
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
@@ -1067,7 +1070,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
-		logger.log(Level.FINE, "init End");
+		logger.log(Level.FINE, logPrefix+"init End");
 	}
 	
 	@Override

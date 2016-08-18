@@ -9,6 +9,10 @@
   <name>GWT Maven Archetype</name>
 
   <properties>
+  
+  <gwt.log.version>3.1.3</gwt.log.version>
+  <commons.logging.version>1.1.1</commons.logging.version>
+  
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>
 
@@ -55,7 +59,37 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-
+	
+	<!-- Logging implementation -->
+      <dependency>
+        <groupId>com.google.code.gwt-log</groupId>
+        <artifactId>gwt-log</artifactId>
+        <version>${gwt.log.version}</version>
+      </dependency>
+      <!-- server log -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.6.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>1.6.1</version>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.16</version>
+      </dependency>
+      <!-- Spring need commons logging -->
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>${commons.logging.version}</version>
+        <scope>compile</scope>
+      </dependency>
+	  
   </dependencies>
 
   <build>
@@ -86,6 +120,8 @@
   </build>
   
   <modules>
+    <module>uiutil-uilogger</module>
+	<module>uiutil-uiutil</module>
     <module>uitask-uitask</module>
     <module>uievent</module>
     <module>uinamecard</module>
@@ -95,7 +131,6 @@
     <module>translation-translationmgr</module>
     <module>uiwidget-uiwidgetgeneric</module>
     <module>uiwidget-uiwidgetmgr</module>
-    
   </modules>
   
 </project>

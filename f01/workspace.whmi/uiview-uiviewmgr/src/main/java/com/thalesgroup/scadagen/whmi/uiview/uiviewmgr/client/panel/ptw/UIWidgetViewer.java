@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.ColumnFilterData;
@@ -20,6 +17,9 @@ import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.Translati
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
@@ -40,11 +40,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.Selecti
 
 public class UIWidgetViewer extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIWidgetViewer.class.getName());
-	
-	private String className		= UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
-	
-	private String logPrefix		= "["+className+"] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	// External
 	private SimpleEventBus eventBus		= null;
@@ -59,19 +56,23 @@ public class UIWidgetViewer extends UIWidget_i {
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
 	
 	public void removeFilter() {
-		logger.log(Level.SEVERE, logPrefix+"removeFilter Begin");
+		final String function = "removeFilter";
+		
+		logger.error(className, function, "Begin");
 		if ( null != gridPresenter ) {
 			LinkedList<String> entitles = gridPresenter.getFilterColumns();
 			for ( String entitle : entitles ) {
-				logger.log(Level.SEVERE, logPrefix+"removeFilter : entitle[" + entitle + "]");
+				logger.error(className, function, "entitle[{}]", entitle);
 				gridPresenter.removeContainerFilter(entitle);
 			}
 		}
-		logger.log(Level.SEVERE, logPrefix+"removeFilter End");
+		logger.error(className, function, "End");
 	}
 	
 	public void applyFilter(String column, String value) {
-		logger.log(Level.SEVERE, logPrefix+"applyFilter : column[" + column + "] value[" + value + "]");
+		final String function = "applyFilter";
+		
+		logger.error(className, function, "column[{}] value[{}]", column, value);
 
 		ColumnFilterData cfd = new ColumnFilterData(column, value);
 		
@@ -86,32 +87,33 @@ public class UIWidgetViewer extends UIWidget_i {
 		}
 		
 		gridPresenter.setContainerFilter(cfd.getColumnName(), fd);
-		
+		logger.info(className, function, "column[{}] value[{}]", column, value);
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
 	}
 	
 	void onActionReceived(UIEventAction uiEventAction) {
+		final String function = "onActionReceived";
 		
-		logger.log(Level.SEVERE, logPrefix+" onActionReceived Begin");
+		logger.error(className, function, "Begin");
 		
 		String op = (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
 		String od1 = (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
 		String od2 = (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 		
-		logger.log(Level.SEVERE, logPrefix+"op[" + op + "]");
-		logger.log(Level.SEVERE, logPrefix+"od1[" + od1 + "]");
-		logger.log(Level.SEVERE, logPrefix+"od2[" + od2 + "]");
+		logger.error(className, function, "op[{}]", op);
+		logger.error(className, function, "od1[{}]", od1);
+		logger.error(className, function, "od2[{}]", od2);
 		
 		if ( null != op ) {
 			if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
 				if ( null != od1 && null != od2) {
 					applyFilter(od1, od2);
 				} else if ( null == od1 ) {
-					logger.log(Level.SEVERE, logPrefix+"od1 IS NULL");
+					logger.error(className, function, "od1 IS NULL");
 				} else if ( null == od2 ) {
-					logger.log(Level.SEVERE, logPrefix+"od2 IS NULL");
+					logger.error(className, function, "od2 IS NULL");
 				}
 			} else if ( op.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 				removeFilter();
@@ -119,16 +121,17 @@ public class UIWidgetViewer extends UIWidget_i {
 				Window.alert("Print Event");
 			}
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"op IS NULL");
+			logger.error(className, function, "op IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived End");
+		logger.error(className, function, "End");
 	}
 
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init Begin");
+		logger.info(className, function, "Begin");
 		
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
@@ -159,9 +162,9 @@ public class UIWidgetViewer extends UIWidget_i {
 			}
 		}
 
-		logger.log(Level.FINE, logPrefix+"init this.listConfigId1[" + this.listConfigId + "]");
-		logger.log(Level.FINE, logPrefix+"init this.menuEnable[" + this.menuEnable + "]");
-		logger.log(Level.FINE, logPrefix+"init this.selectionMode[" + this.selectionMode + "]");
+		logger.info(className, function, "this.listConfigId1[{}]", this.listConfigId);
+		logger.info(className, function, "this.menuEnable[{}]", this.menuEnable);
+		logger.info(className, function, "this.selectionMode[{}]", this.selectionMode);
 		
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -226,16 +229,14 @@ public class UIWidgetViewer extends UIWidget_i {
 					@Override
 					public void onSelection(Set<HashMap<String, String>> entities) {
 						
-						logger.log(Level.FINE, logPrefix+"onSelection columns.size()");
-						
-						logger.log(Level.SEVERE, logPrefix+"fireSelecionEvent Begin");
+						logger.error(className, function, "fireSelecionEvent Begin");
 
 						UIEventAction uiEventAction = new UIEventAction();
 						uiEventAction.setParameters(ViewAttribute.Operation.toString(), ViewerViewEvent.RowSelected.toString());
 						uiEventAction.setParameters(ViewAttribute.OperationObject1.toString(), entities);
 						eventBus.fireEventFromSource(uiEventAction, this);
 						
-						logger.log(Level.SEVERE, logPrefix+"fireSelecionEvent End");
+						logger.error(className, function, "fireSelecionEvent End");
 					}
 				});
 				
@@ -244,9 +245,7 @@ public class UIWidgetViewer extends UIWidget_i {
 					@Override
 					public void onFilterChange(ArrayList<String> columns) {
 
-						logger.log(Level.FINE, logPrefix+"onFilterChange columns.size()");
-						
-						logger.log(Level.SEVERE, logPrefix+"fireFilterEvent Begin");
+						logger.error(className, function, "fireFilterEvent Begin");
 						
 						UIEventAction event = new UIEventAction();
 						ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
@@ -256,16 +255,16 @@ public class UIWidgetViewer extends UIWidget_i {
 						event.setParameters(ViewAttribute.Operation.toString(), viewerViewEvent.toString());
 						eventBus.fireEventFromSource(event, this);
 						
-						logger.log(Level.SEVERE, logPrefix+"fireFilterEvent Begin");
+						logger.error(className, function, "fireFilterEvent Begin");
 					}
 				});
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"init gridPresenter columns.size()");
+				logger.error(className, function, "gridPresenter columns.size()");
 			}
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"init scsOlsListPanel columns.size()");
+			logger.error(className, function, "scsOlsListPanel columns.size()");
 		}
 		
-		logger.log(Level.FINE, logPrefix+"init End");
+		logger.info(className, function, "End");
 	}
 }

@@ -1,13 +1,13 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
@@ -16,13 +16,13 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.Pr
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
 public class UIWidgetPrint extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIWidgetPrint.class.getName());
-	
-	private String logPrefix				= "[UIWidgetPrint] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetPrint.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 		= null;
 	
@@ -43,6 +43,10 @@ public class UIWidgetPrint extends UIWidget_i {
 	}
 	
 	private void onButton(ClickEvent event) {
+		final String function = "onButton";
+		
+		logger.begin(className, function);
+		
 		if ( null != event ) {
 			Widget widget = (Widget) event.getSource();
 			if ( null != widget ) {
@@ -66,8 +70,10 @@ public class UIWidgetPrint extends UIWidget_i {
 				}
 			}
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"onClickHandler onClickHandler button IS NULL");
+			logger.error(className, function, "button IS NULL");
 		}
+		
+		logger.end(className, function);
 	}
 		
 	void onUIEvent(UIEvent uiEvent ) {
@@ -80,10 +86,10 @@ public class UIWidgetPrint extends UIWidget_i {
 //		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 //		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
 //		
-//		logger.log(Level.SEVERE, logPrefix+"onActionReceived op["+op+"]");
-//		logger.log(Level.SEVERE, logPrefix+"onActionReceived od1["+od1+"]");
-//		logger.log(Level.SEVERE, logPrefix+"onActionReceived od2["+od2+"]");
-//		logger.log(Level.SEVERE, logPrefix+"onActionReceived od3["+od3+"]");
+//		logger.error(className, function, "onActionReceived op["+op+"]");
+//		logger.error(className, function, "onActionReceived od1["+od1+"]");
+//		logger.error(className, function, "onActionReceived od2["+od2+"]");
+//		logger.error(className, function, "onActionReceived od3["+od3+"]");
 //		
 //		if ( null != op ) {
 //			
@@ -99,7 +105,7 @@ public class UIWidgetPrint extends UIWidget_i {
 //				statusClear		= WidgetStatus.Disable;
 //				
 //			} else {
-//				logger.log(Level.SEVERE, logPrefix+"onActionReceived ViewerViewEvent type IS UNKNOW");
+//				logger.error(className, function, "onActionReceived ViewerViewEvent type IS UNKNOW");
 //			}
 //
 //			if ( null != widgetClear && null != statusClear ) 	uiWidgetGeneric.setWidgetStatus(strClear, statusClear);
@@ -109,8 +115,9 @@ public class UIWidgetPrint extends UIWidget_i {
 
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init Begin");
+		logger.begin(className, function);
 		
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
@@ -161,7 +168,7 @@ public class UIWidgetPrint extends UIWidget_i {
 //		uiWidgetGeneric.setWidgetStatus( strSet1,  WidgetStatus.Down );
 //		uiWidgetGeneric.setWidgetStatus( strClear,  WidgetStatus.Disable );
 		
-		logger.log(Level.FINE, logPrefix+"init End");
+		logger.end(className, function);
 	}
 
 }

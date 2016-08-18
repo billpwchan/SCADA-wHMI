@@ -4,15 +4,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class DictionaryCache implements DictionaryMgrEvent {
 	
-	private static Logger logger = Logger.getLogger(DictionaryCache.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(DictionaryCache.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
 	
 //	private static DictionaryCache instance = null;
 //	private DictionaryCache () {}
@@ -44,23 +46,24 @@ public class DictionaryCache implements DictionaryMgrEvent {
 	private DictionaryCacheEvent dictionaryCacheEvent = null;
 	
 	public void add(String xml, String tag) {
+		final String function = "add";
 		
-		logger.log(Level.FINE, "add Begin");
-		
-		logger.log(Level.SEVERE, "add xml["+xml+"] tag["+tag+"] ");
+		logger.begin(className, function);
+		logger.error(className, function, "xml[{}] tag[{}] ", xml, tag);
 		
 		incoming.add(xml+"|"+tag);
 		
-		logger.log(Level.FINE, "add End");
+		logger.end(className, function);
 	}
 	
 	public void init(String module, String folder, DictionaryCacheEvent dictionaryCacheEvent) {
+		final String function = "init";
 		
-		logger.log(Level.FINE, "init");
+		logger.begin(className, function);
 		
 		this.dictionaryCacheEvent = dictionaryCacheEvent;
 
-		logger.log(Level.SEVERE, "init module["+module+"]");
+		logger.error(className, function, "module[{}]", module);
 		
 		for (Iterator<String> iterator = incoming.iterator(); iterator.hasNext();) {
 			
@@ -68,7 +71,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			
 			String xmlTag = iterator.next();
 			
-			logger.log(Level.FINE, "init xmlWithHeader["+xmlTag+"]");
+			logger.info(className, function, "xmlWithHeader[{}]", xmlTag);
 			
 			String xmlTags[] = xmlTag.split("\\|");
 			
@@ -83,14 +86,15 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		    iterator.remove();
 		}
 		
-		logger.log(Level.FINE, "init End");
+		logger.end(className, function);
 
 	}
 	
 	@Override
 	public void dictionaryMgrEventFailed(String xmlFile) {
+		final String function = "dictionaryMgrEventFailed";
 		
-		logger.log(Level.SEVERE, "dictionaryMgrEventFailed xmlFile["+xmlFile+"]");
+		logger.error(className, function, "xmlFile[{}]", xmlFile);
 		
 		received++;
 
@@ -102,19 +106,20 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		}
 		fails.add(xmlFile);
 		
-		logger.log(Level.SEVERE, "dictionaryMgrEventFailed received["+received+"] >= sent["+sent+"]");
+		logger.error(className, function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionaryCacheEvent )
 				dictionaryCacheEvent.dictionaryCacheEventReady(received);
 		
-		logger.log(Level.SEVERE, "dictionaryMgrEventFailed End");
+		logger.error(className, function, "End");
 	}
 	
 	@Override
 	public void dictionaryMgrEventReady(Dictionary dictionary) {
+		final String function = "dictionaryMgrEventReady";
 		
-		logger.log(Level.FINE, "dictionaryMgrEventReady Begin");
+		logger.begin(className, function);
 		
 		received++;
 		
@@ -123,7 +128,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			String XmlTag = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary XmlFile["+xmlFile+"] XmlTag["+XmlTag+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
+			logger.error(className, function, "dictionaryMgrEventReady dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});		
 			
 			String xmlWithHeader = xmlFile + "|"+ XmlTag;
 		
@@ -137,16 +142,16 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			}
 			
 		} else {
-			logger.log(Level.SEVERE, "dictionaryMgrEventReady dictionary IS NULL");
+			logger.error(className, function, "dictionary IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "dictionaryMgrEventReady received["+received+"] >= sent["+sent+"]");
+		logger.error(className, function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionaryCacheEvent )
 				dictionaryCacheEvent.dictionaryCacheEventReady(received);
 		
-		logger.log(Level.FINE, "dictionaryMgrEventReady End");
+		logger.end(className, function);
 	}
 
 }

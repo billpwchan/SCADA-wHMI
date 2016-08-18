@@ -20,7 +20,7 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 
 	public Dictionary dictionariesServer(String module, String folder, String extension) {
 		
-		System.out.println(" **** dictionariesServer Begin");
+//		System.out.println(" **** dictionariesServer Begin");
 		
 		System.out.println(" **** dictionariesServer module["+module+"] folder["+folder+"] extension["+extension+"]");
 		
@@ -50,17 +50,17 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 			while ( tagIterator.hasNext() ) {
 				String tag = tagIterator.next();
 				
-				System.out.println(" **** dictionariesServer path["+path+"] tag["+tag+"]");
+//				System.out.println(" **** dictionariesServer path["+path+"] tag["+tag+"]");
 
 //				String path = base + File.separator + module + File.separator + xmlFile;
 				
 				int index = path.lastIndexOf(File.pathSeparator);
 				String xmlFile = path.substring(index+1);
 				
-				System.out.println(" **** dictionariesServer base["+base+"]");
-				System.out.println(" **** dictionariesServer module["+module+"]");
-				System.out.println(" **** dictionariesServer xmlFile["+xmlFile+"]");
-				System.out.println(" **** dictionariesServer path["+path+"]");
+//				System.out.println(" **** dictionariesServer base["+base+"]");
+//				System.out.println(" **** dictionariesServer module["+module+"]");
+//				System.out.println(" **** dictionariesServer xmlFile["+xmlFile+"]");
+//				System.out.println(" **** dictionariesServer path["+path+"]");
 				
 				Dictionary dictionary = new Dictionary();
 				
@@ -81,7 +81,7 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 			
 		}
 		
-		System.out.println(" **** dictionariesServer End");
+//		System.out.println(" **** dictionariesServer End");
 		
 		return dictionaries;
 

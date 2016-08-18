@@ -1,16 +1,18 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelNavigation extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIPanelNavigation.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelNavigation.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static UIPanelNavigation uiPanelNavigation = null;
 	private UIPanelNavigation() {}
@@ -21,13 +23,14 @@ public class UIPanelNavigation extends UIWidget_i {
 	
 	private HashMap<Integer, UIPanelMenus> hashMap = new HashMap<Integer, UIPanelMenus>();
 	public UIPanelMenus getMenus(UINameCard uiNameCard) {
+		final String function = "getMenus";
 		
-		logger.log(Level.FINE, "getMenu Begin");
-		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"] uiNameCard.getUiPath()["+uiNameCard.getUiPath()+"]");
+		logger.begin(className, function);
+		logger.info(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiNameCard.getUiPath()[{}]", uiNameCard.getUiScreen(), uiNameCard.getUiPath());
 		
 		Integer screen = Integer.valueOf(uiNameCard.getUiScreen());
 		
-		logger.log(Level.FINE, "getMenu screen["+screen+"]");
+		logger.info(className, function, "getMenu screen["+screen+"]");
 		
 		UIPanelMenus uiPanelMenus = this.hashMap.get(screen);
 		if ( null == uiPanelMenus ) {
@@ -35,33 +38,38 @@ public class UIPanelNavigation extends UIWidget_i {
 		}
 		uiPanelMenus = this.hashMap.get(screen);
 		
-		logger.log(Level.FINE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"] uiPanelMenus["+uiPanelMenus+"] hash code");
+		logger.info(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiPanelMenus[{}] hash code", uiNameCard.getUiScreen(), uiPanelMenus);
 			
 		if ( null == uiPanelMenus ) {
-			logger.log(Level.SEVERE, "getMenu uiPanelMenus["+uiPanelMenus+"] IS NULL");
+			logger.error(className, function, "getMenu uiPanelMenus[{}] IS NULL", uiPanelMenus);
 		}
 
+		logger.end(className, function);
 		return uiPanelMenus;
 	}
 	
-	public ComplexPanel getMenu(UINameCard uiNameCard, String menuLevel, String menuType) {
+	public Panel getMenu(UINameCard uiNameCard, String menuLevel, String menuType) {
+		final String function = "getMenu";
 		
-		logger.log(Level.FINE, "getMenu Begin");
+		logger.begin(className, function);
 		
 		UIPanelMenus uiPanelMenus = getMenus(uiNameCard);
 		
-		logger.log(Level.SEVERE, "getMenu uiNameCard.getUiScreen()["+uiNameCard.getUiScreen()+"]");
+		logger.info(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
 		
-		ComplexPanel complexPanel = uiPanelMenus.getMenu(menuLevel, menuType);
+		Panel panel = uiPanelMenus.getMenu(menuLevel, menuType);
 		
-		logger.log(Level.FINE, "getMenu End");
+		logger.end(className, function);
 		
-		return complexPanel;
+		return panel;
 	}
 	
 	@Override
 	public void setUINameCard(UINameCard uiNameCard) {
+		final String function = "setUINameCard";
+		logger.begin(className, function);
 		this.uiNameCard = new UINameCard(uiNameCard);
+		logger.end(className, function);
 	}
 	
 	@Override
@@ -71,7 +79,7 @@ public class UIPanelNavigation extends UIWidget_i {
 	}
 	
 	@Override
-	public ComplexPanel getMainPanel() {
+	public Panel getMainPanel() {
 		return getMenu(this.uiNameCard, (String)parameters.get("menuLevel"), (String)parameters.get("menuType"));
 	}
 

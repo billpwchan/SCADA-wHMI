@@ -1,22 +1,25 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelEmpty extends UIWidget_i {
 
-	private Logger logger = Logger.getLogger(UIPanelEmpty.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelEmpty.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	@Override
 	public void init() {
-		logger.log(Level.FINE, "init Begin");
+		final String function = "init";
+		
+		logger.begin(className, function);
 
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -27,7 +30,7 @@ public class UIPanelEmpty extends UIWidget_i {
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.add(hp);
 
-		logger.log(Level.FINE, "init End");
+		logger.end(className, function);
 	}
 
 }

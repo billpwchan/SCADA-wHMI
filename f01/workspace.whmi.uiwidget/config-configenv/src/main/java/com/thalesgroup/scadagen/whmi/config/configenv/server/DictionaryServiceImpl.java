@@ -22,16 +22,16 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 		
 		if ( null == module ) {
 			module = getServletContext().getInitParameter("project.dictionary.module");
-			System.out.println(" **** dictionaryServer module["+module+"]");
+//			System.out.println(" **** dictionaryServer module["+module+"]");
 		}
 
 		String base = getServletContext().getRealPath("/");
 		String path = base + File.separator + module + File.separator + folder + File.separator + xmlFile;
 		
-		System.out.println(" **** dictionaryServer base["+base+"]");
-		System.out.println(" **** dictionaryServer module["+module+"]");
-		System.out.println(" **** dictionaryServer xmlFile["+xmlFile+"]");
-		System.out.println(" **** dictionaryServer path["+path+"]");
+//		System.out.println(" **** dictionaryServer base["+base+"]");
+//		System.out.println(" **** dictionaryServer module["+module+"]");
+//		System.out.println(" **** dictionaryServer xmlFile["+xmlFile+"]");
+//		System.out.println(" **** dictionaryServer path["+path+"]");
 		
 		Dictionary dictionary = new Dictionary();
 		
@@ -44,7 +44,7 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 			dictionary.setValue(cfg, cfg);
 		}
 		
-		System.out.println(" **** dictionaryServer XmlFile["+dictionary.getAttribute(DictionaryCacheInterface.XmlFile)+"] XmlTag["+dictionary.getAttribute(DictionaryCacheInterface.XmlTag)+"]  CreateDateTimeLabel["+dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel)+"]");
+//		System.out.println(" **** dictionaryServer XmlFile["+dictionary.getAttribute(DictionaryCacheInterface.XmlFile)+"] XmlTag["+dictionary.getAttribute(DictionaryCacheInterface.XmlTag)+"]  CreateDateTimeLabel["+dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel)+"]");
 		
 		return dictionary;
 	}

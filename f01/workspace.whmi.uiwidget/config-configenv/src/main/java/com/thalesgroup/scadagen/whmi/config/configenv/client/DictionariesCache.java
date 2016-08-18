@@ -12,7 +12,8 @@ import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionariesCacheIn
 
 public class DictionariesCache implements DictionariesMgrEvent {
 	
-	private static Logger logger = Logger.getLogger(DictionariesCache.class.getName());
+	private Logger logger = Logger.getLogger(DictionariesCache.class.getName());
+	private final String logPrefix = "[DictionariesCache] ";
 	
 //	private static DictionariesCache instance = null;
 //	private DictionariesCache () {}
@@ -45,22 +46,22 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	
 	public void add(String folder, String extention) {
 		
-		logger.log(Level.FINE, "add Begin");
+		logger.log(Level.FINE, logPrefix+"add Begin");
 		
-		logger.log(Level.FINE, "add path["+folder+"] extention["+extention+"] ");
+		logger.log(Level.FINE, logPrefix+"add path["+folder+"] extention["+extention+"] ");
 		
 		incoming.add(folder+"|"+extention);
 		
-		logger.log(Level.FINE, "add End");
+		logger.log(Level.FINE, logPrefix+"add End");
 	}
 	
 	public void init(String module, DictionariesCacheEvent dictionariesCacheEvent) {
 		
-		logger.log(Level.FINE, "init");
+		logger.log(Level.FINE, logPrefix+"init");
 		
 		this.dictionariesCacheEvent = dictionariesCacheEvent;
 
-		logger.log(Level.FINE, "init module["+module+"]");
+		logger.log(Level.FINE, logPrefix+"init module["+module+"]");
 		
 		for (Iterator<String> iterator = incoming.iterator(); iterator.hasNext();) {
 			
@@ -68,7 +69,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			
 			String xmlTag = iterator.next();
 			
-			logger.log(Level.SEVERE, "init xmlWithHeader["+xmlTag+"]");
+			logger.log(Level.SEVERE, logPrefix+"init xmlWithHeader["+xmlTag+"]");
 			
 			String xmlTags[] = xmlTag.split("\\|");
 			
@@ -78,21 +79,21 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			
 			dictionariesMgrs.add(dictionariesMgr);
 			
-			logger.log(Level.SEVERE, "init xmlTags[0]["+xmlTags[0]+"] xmlTags[1]["+xmlTags[1]+"]");
+			logger.log(Level.SEVERE, logPrefix+"init xmlTags[0]["+xmlTags[0]+"] xmlTags[1]["+xmlTags[1]+"]");
 			
 			dictionariesMgr.getDictionaries(module, xmlTags[0], xmlTags[1], this);
 			
 		    iterator.remove();
 		}
 		
-		logger.log(Level.FINE, "init End");
+		logger.log(Level.FINE, logPrefix+"init End");
 
 	}
 	
 	@Override
 	public void dictionariesMgrEventFailed(String xmlFile) {
 		
-		logger.log(Level.FINE, "dictionariesMgrEventFailed xmlFile["+xmlFile+"]");
+		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventFailed xmlFile["+xmlFile+"]");
 		
 		received++;
 
@@ -104,19 +105,19 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		}
 		fails.add(xmlFile);
 		
-		logger.log(Level.SEVERE, "dictionariesMgrEventFailed received["+received+"] >= sent["+sent+"]");
+		logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventFailed received["+received+"] >= sent["+sent+"]");
 		
 		if ( received >= sent )
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.log(Level.FINE, "dictionariesMgrEventFailed End");
+		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventFailed End");
 	}
 	
 	@Override
 	public void dictionariesMgrEventReady(Dictionary dictionary) {
 		
-		logger.log(Level.FINE, "dictionariesMgrEventReady Begin");
+		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventReady Begin");
 		
 		received++;
 		
@@ -125,7 +126,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			String XmlFile = (String)dictionary.getAttribute(DictionariesCacheInterface.XmlFile);
 			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionariesCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary xmlType["+xmlType+"] XmlFile["+XmlFile+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
+			logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventReady dictionary xmlType["+xmlType+"] XmlFile["+XmlFile+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
 			
 			String xmlWithHeader = xmlType + "|"+ XmlFile;
 		
@@ -139,16 +140,16 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			}
 			
 		} else {
-			logger.log(Level.SEVERE, "dictionariesMgrEventReady dictionary IS NULL");
+			logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventReady dictionary IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "dictionariesMgrEventReady received["+received+"] >= sent["+sent+"]");
+		logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventReady received["+received+"] >= sent["+sent+"]");
 		
 		if ( received >= sent )
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.log(Level.FINE, "dictionariesMgrEventReady End");
+		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventReady End");
 	}
 
 }

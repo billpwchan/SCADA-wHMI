@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
-public interface UIPanelGeneric_i {
+public interface UILayoutGeneric_i {
 	
 	public enum UIPanelGenericElement {
 		  header("header")

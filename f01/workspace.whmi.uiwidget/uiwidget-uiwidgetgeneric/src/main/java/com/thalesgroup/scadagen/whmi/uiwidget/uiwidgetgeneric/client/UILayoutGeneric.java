@@ -1,9 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
@@ -16,14 +13,23 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIPanelGeneric_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.DirectionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.PanelAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.RootAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.TypeAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.WidgetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
 public class UILayoutGeneric extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UILayoutGeneric.class.getName());
-
+	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	
 	private HashMap<String, UIWidget_i> uiWidgetGeneric = new HashMap<String, UIWidget_i>();
 	
 	private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
@@ -44,8 +50,9 @@ public class UILayoutGeneric extends UIWidget_i {
 	
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.SEVERE, "init xmlFile["+this.xmlFile+"]");
+		logger.trace(className, function, "xmlFile[{}]", this.xmlFile);
 		
 		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
@@ -56,20 +63,19 @@ public class UILayoutGeneric extends UIWidget_i {
 		ready(this.dictionaryOption);
 		
 		// Start the UIGeneric
-		logger.log(Level.FINE, "getMainPanel Begin");
-		logger.log(Level.SEVERE, "getMainPanel xmlFile["+this.xmlFile+"]");
 
-		logger.log(Level.SEVERE, "getMainPanel strPanel["+strPanel+"] strCSS["+strCSS+"]");
+		logger.begin(className, function);
+		logger.info(className, function, "strPanel[{}] strCSS[{}]", strPanel, strCSS);
 		
 		rootPanel = null;
 		if ( null != strPanel ) {
-			if ( UIPanelGeneric_i.PanelAttribute.HorizontalPanel.equalsName(strPanel) ) {
+			if ( PanelAttribute.HorizontalPanel.equalsName(strPanel) ) {
 				rootPanel = new HorizontalPanel();
-			} else if ( UIPanelGeneric_i.PanelAttribute.VerticalPanel.equalsName(strPanel) ) {
+			} else if ( PanelAttribute.VerticalPanel.equalsName(strPanel) ) {
 				rootPanel = new VerticalPanel();
-			} else if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
+			} else if ( PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
 				rootPanel = new DockLayoutPanel(Unit.PX);
-			} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
+			} else if ( PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 				rootPanel = new AbsolutePanel();
 				Element e = rootPanel.getElement();
 				DOM.setStyleAttribute(e, "position", "absolute");
@@ -77,7 +83,7 @@ public class UILayoutGeneric extends UIWidget_i {
 			}
 
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel strPanel IS NULL");
+			logger.error(className, function, "strPanel IS NULL");
 		}
 
 		if ( null != rootPanel ) {
@@ -85,40 +91,40 @@ public class UILayoutGeneric extends UIWidget_i {
 			if ( null != strCSS ) {
 				rootPanel.addStyleName(strCSS);
 			} else {
-				logger.log(Level.SEVERE, "getMainPanel strCSS IS NULL");
+				logger.error(className, function, "strCSS IS NULL");
 			}
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-				logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] Begin");
+		    	logger.info(className, function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] => index["+index+"]");
+					logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
 					HashMap<String, String> valueMap = this.values.get(index);
 					
 					if ( null != valueMap ) {
-						String type					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.type.toString());
-						String widget 				= valueMap.get(UIPanelGeneric_i.WidgetAttribute.widget.toString());
-						String direction			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.direction.toString());
-						String size					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.width.toString());
-						String cellwidth			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.cellwidth.toString());
-						String cellheight			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.cellheight.toString());
-						String left					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.left.toString());
-						String top					= valueMap.get(UIPanelGeneric_i.WidgetAttribute.top.toString());
-						String csscontainer			= valueMap.get(UIPanelGeneric_i.WidgetAttribute.csscontainer.toString());
+						String type					= valueMap.get(WidgetAttribute.type.toString());
+						String widget 				= valueMap.get(WidgetAttribute.widget.toString());
+						String direction			= valueMap.get(WidgetAttribute.direction.toString());
+						String size					= valueMap.get(WidgetAttribute.width.toString());
+						String cellwidth			= valueMap.get(WidgetAttribute.cellwidth.toString());
+						String cellheight			= valueMap.get(WidgetAttribute.cellheight.toString());
+						String left					= valueMap.get(WidgetAttribute.left.toString());
+						String top					= valueMap.get(WidgetAttribute.top.toString());
+						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
 						
-						logger.log(Level.SEVERE, "getMainPanel type["+type+"] widget["+widget+"]");
-						logger.log(Level.SEVERE, "getMainPanel direction["+direction+"] size["+size+"]");
+						logger.info(className, function, "type[{}] widget[{}]", new Object[]{type, widget});
+						logger.info(className, function, "direction[{}] size[{}]", new Object[]{direction, size});
 						
 						if ( null != widget ) {
 
 							Panel panel = null;
 							
-							if ( UIPanelGeneric_i.TypeAttribute.predefine.equalsName(type) ) {
+							if ( TypeAttribute.predefine.equalsName(type) ) {
 								
 								// predefine
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
@@ -128,9 +134,9 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
+									logger.error(className, function, "created UIPredefinePanelMgr widget[{}] IS NULL", widget);
 								}
-							} else if ( UIPanelGeneric_i.TypeAttribute.layoutconfiguration.equalsName(type) ) {
+							} else if ( TypeAttribute.layoutconfiguration.equalsName(type) ) {
 								
 								// layoutconfiguration
 								uiWidgetGeneric.put(widget, new UILayoutGeneric());
@@ -141,9 +147,9 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.init();
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.log(Level.SEVERE, "getMainPanel created UIPanelGeneric widget["+widget+"] IS NULL");
+									logger.error(className, function, "created UIPanelGeneric widget[{}] IS NULL", widget);
 								}
-							} else if ( UIPanelGeneric_i.TypeAttribute.configuration.equalsName(type) ) {
+							} else if ( TypeAttribute.configuration.equalsName(type) ) {
 								
 								//configuration
 								uiWidgetGeneric.put(widget, new UIWidgetGeneric());
@@ -154,14 +160,14 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.init();
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.log(Level.SEVERE, "getMainPanel created UIWidgetGeneric widget["+widget+"] IS NULL");
+									logger.error(className, function, "created UIWidgetGeneric widget[{}] IS NULL", widget);
 								}
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel type IS INVALID");
+								logger.info(className, function, "type IS INVALID");
 							}
 							
 							if ( null != panel ) {
-								if ( UIPanelGeneric_i.PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
+								if ( PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
 									
 									//DockLayoutPanel
 									if ( null != direction ) {
@@ -170,28 +176,28 @@ public class UILayoutGeneric extends UIWidget_i {
 											try {
 												width = Integer.parseInt(size);
 											} catch ( NumberFormatException e) {
-												logger.log(Level.SEVERE, "getMainPanel size IS INVALID");
-												logger.log(Level.SEVERE, "getMainPanel e["+e.toString()+"]");
+												logger.error(className, function, "size IS INVALID");
+												logger.error(className, function, "e[{}]", e.toString());
 											}
 										}
 										
-										if ( UIPanelGeneric_i.DirectionAttribute.North.equalsName(direction) ) {
+										if ( DirectionAttribute.North.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).addNorth(panel, width);
-										} else if ( UIPanelGeneric_i.DirectionAttribute.East.equalsName(direction) ) {
+										} else if ( DirectionAttribute.East.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).addEast(panel, width);
-										} else if ( UIPanelGeneric_i.DirectionAttribute.South.equalsName(direction) ) {
+										} else if ( DirectionAttribute.South.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).addSouth(panel, width);
-										} else if ( UIPanelGeneric_i.DirectionAttribute.West.equalsName(direction) ) {
+										} else if ( DirectionAttribute.West.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).addWest(panel, width);
-										} else if ( UIPanelGeneric_i.DirectionAttribute.Center.equalsName(direction) ) {
+										} else if ( DirectionAttribute.Center.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).add(panel);
 										} else {
-											logger.log(Level.SEVERE, "getMainPanel direction IS INVALID");
+											logger.error(className, function, "direction IS INVALID");
 										}
 									} else {
-										logger.log(Level.SEVERE, "getMainPanel direction IS null");
+										logger.info(className, function, "direction IS null");
 									}
-								} else if ( UIPanelGeneric_i.PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
+								} else if ( PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 								
 									//AbsolutePanel
 									int x = -1;
@@ -200,7 +206,7 @@ public class UILayoutGeneric extends UIWidget_i {
 										if ( null != left )	x = Integer.parseInt(left);
 										if ( null != top )	y = Integer.parseInt(top);
 									} catch ( NumberFormatException e ) {
-										logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
+										logger.info(className, function, "left or top IS INVALID");
 									}
 									((AbsolutePanel)rootPanel).add(panel, x, y);
 								
@@ -211,7 +217,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									if ( null != cellheight )	((CellPanel) rootPanel).setCellHeight(panel, cellwidth);
 								}
 								
-								logger.log(Level.SEVERE, "getMainPanel csscontainer["+csscontainer+"]");
+								logger.info(className, function, "csscontainer["+csscontainer+"]");
 								
 								if ( null != panel ) {
 									if ( null != csscontainer ) {
@@ -221,31 +227,33 @@ public class UILayoutGeneric extends UIWidget_i {
 								}
 								
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel complexPanel IS NULL");
+								logger.error(className, function, "complexPanel IS NULL");
 							}
 						} else {
-							logger.log(Level.SEVERE, "getMainPanel config IS NULL");
+							logger.error(className, function, "config IS NULL");
 						}					
 					}
 				}
 		    }
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel Panel IS NULL");
+			logger.error(className, function, "Panel IS NULL");
 		}
 		
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.trace(className, function, "End");
 	}
 
 	public void ready(Dictionary dictionary) {
-		logger.log(Level.FINE, "ready Begin");
-		logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"]");
+		final String function = "ready";
+		
+		logger.begin(className, function);
+		logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"] XmlTag["+XmlTag+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
+			logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -261,13 +269,13 @@ public class UILayoutGeneric extends UIWidget_i {
 								// Get Header Begin
 								String k = (String)o2;
 								String v = (String)d2.getValue(o2);
-								if ( UIPanelGeneric_i.RootAttribute.rows.equalsName(k) ) {
+								if ( RootAttribute.rows.equalsName(k) ) {
 									rows = Integer.parseInt(v);
-								} else if ( UIPanelGeneric_i.RootAttribute.cols.equalsName(k) ) {
+								} else if ( RootAttribute.cols.equalsName(k) ) {
 									cols = Integer.parseInt(v);
-								} else if ( UIPanelGeneric_i.RootAttribute.rootPanel.equalsName(k) ) {
+								} else if ( RootAttribute.rootPanel.equalsName(k) ) {
 									strPanel = v;
-								} else if ( UIPanelGeneric_i.RootAttribute.rootCSS.equalsName(k) ) {
+								} else if ( RootAttribute.rootCSS.equalsName(k) ) {
 									strCSS = v;
 								}
 								// Get Header End								
@@ -278,7 +286,7 @@ public class UILayoutGeneric extends UIWidget_i {
 				
 				totals = rows * cols;
 				
-				logger.log(Level.FINE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
+				logger.info(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
@@ -309,7 +317,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.log(Level.FINE, "ready dictionary key["+key+"]");
+										logger.info(className, function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -319,7 +327,7 @@ public class UILayoutGeneric extends UIWidget_i {
 							}
 						}
 						
-						logger.log(Level.FINE, "ready dictionary key["+key+"]");
+						logger.info(className, function, "dictionary key[{}]", key);
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -330,15 +338,15 @@ public class UILayoutGeneric extends UIWidget_i {
 									
 									isvalid=true;
 								} catch ( NumberFormatException e ) {
-									logger.log(Level.SEVERE, "ready NumberFormatException e["+e+"]");
+									logger.error(className, function, "NumberFormatException e[{}]", e);
 								}
 								
 								if ( isvalid ) {
-									logger.log(Level.FINE, "ready dictionary row["+row+"] col["+col+"]");
+									logger.info(className, function, "dictionary row[{}] col[{}]", new Object[]{row, col});
 									
 									index = (row * cols) + col;
 									
-									logger.log(Level.FINE, "ready dictionary row["+row+"] col["+col+"] => index["+index+"]");
+									logger.info(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -347,34 +355,33 @@ public class UILayoutGeneric extends UIWidget_i {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.log(Level.FINE, "ready dictionary k["+k+"] v["+v+"]");
+												logger.info(className, function, "dictionary k[{}] v[{}]", new Object[]{k, v});
 				
 												hashMap.put(k, v);
 											}
 										}
 									} else {
-										logger.log(Level.SEVERE, "ready row["+row+"] col["+col+"] => index["+index+"] Index NOT EXISTS");
+										logger.error(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
 									}
 								} else {
-									logger.log(Level.SEVERE, "ready keys[0]["+keys[0]+"] OR keys[1]["+keys[1]+"] is not a number");
+									logger.error(className, function, "keys[0][{}] OR keys[1][{}] is not a number", new Object[]{keys[0], keys[1]});
 								}
 							}
 						} else {
-							logger.log(Level.SEVERE, "ready key IS NULL");
+							logger.error(className, function, "key IS NULL");
 						}
 					}
 				}
 			}
 
 		} else {
-			logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"] dictionary IS NULL");
+			logger.error(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
 		}
-		
-		logger.log(Level.FINE, "ready End");
-		
+		logger.info(className, function, "End");
 	}
 
 	public UIWidget_i getPredefineWidget(String widget) {
+		logger.info(className, "getPredefineWidget", "widget[{}]", widget);
 		return uiWidgetGeneric.get(widget);
 	}
 

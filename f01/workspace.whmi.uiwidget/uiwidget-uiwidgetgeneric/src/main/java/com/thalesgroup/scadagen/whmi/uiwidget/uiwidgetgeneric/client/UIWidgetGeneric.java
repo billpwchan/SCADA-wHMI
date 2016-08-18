@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -34,6 +32,9 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootWidgetType;
@@ -45,7 +46,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
 public class UIWidgetGeneric extends UIWidget_i {
 	
-	private static Logger logger = Logger.getLogger(UIWidgetGeneric.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
 	
 	private static final String basePath = GWT.getModuleBaseURL();
 	
@@ -84,7 +87,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 			}
 		}
 		for( int i=0 ; i < values.size(); ++i ) {
-			logger.log(Level.SEVERE, " **** getValues name["+i+"]["+elements[i]+"]");
+			logger.info(className, "getElementValues", "name[{}][{}]", i, elements[i]);
 		}
     	return elements;
     }
@@ -94,8 +97,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 
 	@Override
     public void init() {
+		final String function = "init";
     	
-    	logger.log(Level.SEVERE, "init this.xmlFile["+this.xmlFile+"]");
+    	logger.trace(className, function, "this.xmlFile[{}]", this.xmlFile);
     	
 		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
@@ -107,11 +111,12 @@ public class UIWidgetGeneric extends UIWidget_i {
     	
 		//UIGeneric
 		
-		logger.log(Level.SEVERE, "getMainPanel Begin");
-		logger.log(Level.SEVERE, "getMainPanel this.xmlFile["+this.xmlFile+"]");
+		logger.begin(className, function);
 		
 		if ( null == dictionaryHeader || null == dictionaryOption ) {
 			
+			logger.error(className, function, "dictionaryHeader OR dictionaryOption IS NULL");
+						
 			rootPanel = new VerticalPanel();
 			
 			if ( null == dictionaryHeader ) rootPanel.add( new InlineLabel( "Faild to load xmlFile["+this.xmlFile+"] strHeader["+DictionaryCacheInterface.Header+"]" ));
@@ -119,63 +124,39 @@ public class UIWidgetGeneric extends UIWidget_i {
 			if ( null == dictionaryOption ) rootPanel.add( new InlineLabel( "Faild to load xmlFile["+this.xmlFile+"] strOption["+DictionaryCacheInterface.Option+"]" ));
 			
 		} else {
-			
-			logger.log(Level.SEVERE, "getMainPanel appling root panel css strCSSStatPanel["+strRootContainerCss+"]");
-			
-//		    rootPanel.addStyleName(strRootContainerCss);
-//		    ((VerticalPanel)rootPanel).setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
-//		    ((VerticalPanel)rootPanel).setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
-//	    	FlexTable flexTable = null;
-//	    	
-//	    	HorizontalPanel horizontalPanel = null;
-//	    	
-//	    	VerticalPanel verticalPanel = null;
-//	    	
-//	    	AbsolutePanel absolutePanel = null;
-			
-			
-	    	
-	    	logger.log(Level.SEVERE, "getMainPanel strRootWidget["+strRootPanel+"]");
+			logger.info(className, function, "strRootPanel[{}]", strRootPanel);
+			logger.info(className, function, "strRootContainerCss[{}]", strRootContainerCss);
+	    	logger.info(className, function, "strRootCss[{}]", strRootCss);
 	    	
 	    	if ( RootWidgetType.HorizontalPanel.equalsName(strRootPanel) ) {
-	    		
-	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.HorizontalPanel+"]");
-	    		
+
 	    		rootPanel = new HorizontalPanel();
-	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    		
 	    	} else if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {
-	    		
-	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.FlexTable+"]");
-	    	
+
 	    		rootPanel = new FlexTable();
-	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    		
 	    	} else if ( RootWidgetType.VerticalPanel.equalsName(strRootPanel) ) {
-	    		
-	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.VerticalPanel+"]");
-	    	
+
 	    		rootPanel = new VerticalPanel();
-	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    		
 	    	} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootPanel) ) {
-	    		
-	    		logger.log(Level.SEVERE, "getMainPanel appling sub panel is ["+RootWidgetType.VerticalPanel+"]");
-	    	
+
 	    		rootPanel = new AbsolutePanel();
-	    		if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 	    	}
+	    	
+	    	if ( null != strRootCss )	rootPanel.addStyleName(strRootCss);
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-				logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] Begin");
+				logger.info(className, function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] => index["+index+"]");
+					logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
 					if ( index < values.size() ) {
 						
@@ -222,15 +203,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 							String element			= valueMap.get(WidgetAttribute.element.toString());
 							String debugId			= valueMap.get(WidgetAttribute.debugId.toString());
 							
-							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] widget["+widget+"]");
-							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] label["+label+"]");
-							logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] j["+j+"] css["+css+"]");
+							logger.error(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
+							logger.error(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
+							logger.error(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
 							
 							TranslationMgr translationMgr = TranslationMgr.getInstance();
 							if ( null != translationMgr ) {
 								label = translationMgr.getTranslation(label);
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel getTranslation IS NULL");
+								logger.error(className, function, "getTranslation IS NULL");
 							}
 							
 							if ( WidgetType.TextBox.equalsName(widget)
@@ -319,7 +300,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 									}
 									String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
 									
-									logger.log(Level.FINE, "getMainPanel html["+html+"]");
+									logger.info(className, function, "getMainPanel html["+html+"]");
 									
 									((Button)w).setHTML(html);
 								}
@@ -358,7 +339,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 							} else if ( WidgetType.RadioButton.equalsName(widget) ) {
 								
 								if ( null == groupName )
-									logger.log(Level.SEVERE, "getMainPanel created widget["+widget+"] groupName IS NULL");
+									logger.error(className, function, "getMainPanel created widget["+widget+"] groupName IS NULL");
 								
 								if ( null != groupName ) 	w = new RadioButton(groupName);
 								
@@ -384,12 +365,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 									uiWIdget.setUINameCard(this.uiNameCard);
 									w = uiWIdget.getMainPanel();
 								} else {
-									logger.log(Level.SEVERE, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
+									logger.error(className, function, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
 								}
 
 								this.widgets.put(index, w);
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] IS INVALID");
+								logger.error(className, function, "getMainPanel widget["+widget+"] IS INVALID");
 							}
 							
 							if ( null != w ) {
@@ -415,7 +396,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 										if ( null != left )	x = Integer.parseInt(left);
 										if ( null != top )	y = Integer.parseInt(top);
 									} catch ( NumberFormatException e ) {
-										logger.log(Level.SEVERE, "getMainPanel left or top IS INVALID");
+										logger.error(className, function, "getMainPanel left or top IS INVALID");
 									}
 									((AbsolutePanel)rootPanel).add(w, x, y);
 								}
@@ -425,46 +406,28 @@ public class UIWidgetGeneric extends UIWidget_i {
 									container.setClassName(cssContainer);
 								}
 							} else {
-								logger.log(Level.SEVERE, "getMainPanel can't createt widget index["+index+"], w IS NULL");
+								logger.error(className, function, "can't createt widget index[{}], w IS NULL", index);
 							}
 						} else {
-							logger.log(Level.SEVERE, "getMainPanel index["+index+"], check index please, valueMap IS NULL");
+							logger.error(className, function, "index[{}], check index please, valueMap IS NULL", index);
 						}
-
-								
-
 					} else {
-						logger.log(Level.SEVERE, "getMainPanel Build Filter INVALID index["+index +"] > values.length["+values.size()+"]");
+						logger.error(className, function, "Build Filter INVALID index[{}] > values.length[{}]", index, values.size());
 					}
 				}
-				logger.log(Level.SEVERE, "getMainPanel Build Filter Table Loop i["+i+"] End");
+				logger.error(className, function, "Build Filter Table Loop i[{}] End", i);
 		    }
-		    
-		    if ( RootWidgetType.FlexTable.equalsName(strRootPanel) ) {
-		    	for ( int j = 0 ; j < cols ; ++j ) {
-		    		((FlexTable)rootPanel).getColumnFormatter().setWidth(j, "40px");
-		    	}
-		    }
-		    
-//		    if ( RootWidgetType.HorizontalPanel.equalsName(strRootWidget) ) {
-//		    	rootPanel.add(horizontalPanel);
-//		    } else if ( RootWidgetType.VerticalPanel.equalsName(strRootWidget) ) {
-//		    	rootPanel.add(verticalPanel);
-//		    } else if ( RootWidgetType.FlexTable.equalsName(strRootWidget) ) {
-//		    	rootPanel.add(flexTable);
-//			} else if ( RootWidgetType.AbsolutePanel.equalsName(strRootWidget) ) {
-//		    	rootPanel.add(absolutePanel);
-//			}
-		
+
 	    }
 		
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.trace(className, function, "End");
 		
     }
     
     public String getWidgetElement(Widget widget) {
+    	final String function = "getWidgetElement";
     	
-    	logger.log(Level.FINE, "getWidgetName Begin");
+    	logger.begin(className, function);
     	
     	String element = null;
     	Set<Integer> keys = this.widgets.keySet();
@@ -478,17 +441,17 @@ public class UIWidgetGeneric extends UIWidget_i {
     					HashMap<String, String> hashMap = this.values.get(key);
     					if ( null != hashMap) {
     						element = hashMap.get(WidgetAttribute.element.toString());
-    						logger.log(Level.SEVERE, "getWidgetName key["+key+"] element["+element+"]");
+    						logger.info(className, function, "key[{}] element[{}]", key, element);
     						break;
     					} else {
-    						logger.log(Level.SEVERE, "getWidgetName hashMap at key["+key+"] IS NULL");
+    						logger.error(className, function, "hashMap at key[{}] IS NULL", key);
     					}
     				}
     			}
     		}
     	}
     	
-    	logger.log(Level.FINE, "getWidgetName End");
+    	logger.end(className, function);
     	
 		return element;
     	
@@ -496,10 +459,11 @@ public class UIWidgetGeneric extends UIWidget_i {
     
     @Override
     public Widget getWidget(String element) {
+    	final String function = "getWidget";
     	
-    	logger.log(Level.FINE, "getWidget Begin");
+    	logger.begin(className, function);
     	
-    	logger.log(Level.SEVERE, "getWidget element["+element+"]");
+    	logger.info(className, function, "element[{}]", element);
     	
     	Widget widget = null;
     	Set<Integer> keys = this.values.keySet();
@@ -519,34 +483,36 @@ public class UIWidgetGeneric extends UIWidget_i {
     	}
     	
     	if ( null == widget ) {
-    		logger.log(Level.SEVERE, "getWidget elementValue["+element+"] widget IS NULL");
+    		logger.error(className, function, "elementValue[{}] widget IS NULL", element);
     	}
     	
-    	logger.log(Level.FINE, "getWidget End");
+    	logger.end(className, function);
     	
 		return widget;
     }
     
     @Override
     public WidgetStatus getWidgetStatus ( String element ) {
-    	logger.log(Level.FINE, "setWidgetStatus Begin");
+    	final String function = "getWidgetStatus";
+    	logger.begin(className, function);
     	
-    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"]");
+    	logger.error(className, function, "element[{}]", element);
     	
     	WidgetStatus status = getWidgetStatus(getWidget(element));
     	
-    	logger.log(Level.SEVERE, "setWidgetStatus status["+status+"]");
+    	logger.error(className, function, "status[{}]", status);
     	
-    	logger.log(Level.FINE, "setWidgetStatus End");
+    	logger.end(className, function);
     	
     	return status;
     }
     
     public WidgetStatus getWidgetStatus ( Widget widget ) {
+    	final String function = "getWidgetStatus";
     	
-    	logger.log(Level.FINE, "getWidgetStatus Begin");
+    	logger.begin(className, function);
     	
-    	logger.log(Level.SEVERE, "getWidgetStatus widget["+widget+"]");
+    	logger.error(className, function, "widget[{}]", widget);
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
@@ -575,7 +541,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				
 				String html = ((Button)widget).getHTML();
 				
-				logger.log(Level.SEVERE, "getWidgetStatus html["+html+"]");
+				logger.info(className, function, "html[{}]", html);
 				
 				if ( null != label ) {
 					if ( null != labelDisable && html.indexOf(labelDisable) != -1 ) {
@@ -606,12 +572,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 					tooltip = ((Button)widget).getTitle();
 					stylename = ((Button)widget).getStyleName();
 				} else {
-					logger.log(Level.SEVERE, "getWidgetStatus widget type IS VALID");
+					logger.error(className, function, "widget type IS VALID");
 				}
 
 				if ( null != tooltipDown || null != tooltipDisable ) {
 					
-					logger.log(Level.SEVERE, "getWidgetStatus stylename["+stylename+"]");
+					logger.error(className, function, "stylename[{}]", stylename);
 					
 					if ( null != tooltip ) {
 						if ( null != tooltipDisable && 0 == tooltip.compareTo(tooltipDisable) ) {
@@ -624,7 +590,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 					}
 				} else if ( null != cssDown || null != cssDisable ) {
 					
-					logger.log(Level.SEVERE, "getWidgetStatus stylename["+stylename+"]");
+					logger.error(className, function, "stylename[{}]", stylename);
 					
 					if ( null != stylename ) {
 		//				String stylenames [] = stylename.split("\\s");
@@ -637,38 +603,39 @@ public class UIWidgetGeneric extends UIWidget_i {
 						}					
 					}					
 				} else {
-					logger.log(Level.SEVERE, "getWidgetStatus status checking IS INALID");
+					logger.error(className, function, "status checking IS INALID");
 				}
 			} else {
-				logger.log(Level.SEVERE, "getWidgetStatus widget type IS VALID");
+				logger.error(className, function, "widget type IS VALID");
 			}
     	} else {
-    		logger.log(Level.SEVERE, "getWidgetStatus widget IS NULL");
+    		logger.error(className, function, "widget IS NULL");
     	}
     	
-    	logger.log(Level.SEVERE, "getWidgetStatus status["+status+"]");
+    	logger.info(className, function, "status[{}]", status);
     	
-    	logger.log(Level.FINE, "getWidgetStatus End");
+    	logger.end(className, function);
     	
     	return status;
     }
     
 	@Override
 	public void setWidgetStatus(String element, WidgetStatus status) {
-    	logger.log(Level.FINE, "setWidgetStatus Begin");
-    	
-    	logger.log(Level.SEVERE, "setWidgetStatus element["+element+"] status["+status.toString()+"]");
+		final String function = "setWidgetStatus";
+		
+    	logger.begin(className, function);
+    	logger.error(className, function, "element[{}] status[{}]", element, status.toString());
     	
     	setWidgetStatus(getWidget(element), status);
     	
-    	logger.log(Level.FINE, "setWidgetStatus End");
+    	logger.end(className, function);
 	}
     
     public void setWidgetStatus ( Widget widget, WidgetStatus status ) {
+    	final String function = "setWidgetStatus";
     	
-    	logger.log(Level.FINE, "setWidgetStatus Begin");
-    	
-    	logger.log(Level.SEVERE, "setWidgetStatus widget["+widget+"] status["+status+"]");
+    	logger.begin(className, function);
+    	logger.error(className, function, "widget[{}] status[{}]", widget, status);
     	
     	if ( null != widget ) {
     		 
@@ -732,7 +699,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 								}
 								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
 								
-								logger.log(Level.FINE, "setWidgetStatus html["+html+"]");
+								logger.info(className, function, "html["+html+"]");
 								
 								((Button)widget).setHTML(html);
 							}							
@@ -756,15 +723,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 						}
 						if ( null != cssRemove1 ) {
 							widget.removeStyleName(cssRemove1);
-							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] removeStyleName["+cssRemove1+"]");
+							logger.error(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
 						}
 						if ( null != cssRemove2 ) {
 							widget.removeStyleName(cssRemove2);
-							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] removeStyleName["+cssRemove2+"]");
+							logger.error(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
 						}
 						if ( null != cssAdd ) {
 							widget.addStyleName(cssAdd);
-							logger.log(Level.SEVERE, "setWidgetStatus status["+status+"] addStyleName["+cssAdd+"]");
+							logger.error(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
 						}
 						
 //						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
@@ -777,40 +744,40 @@ public class UIWidgetGeneric extends UIWidget_i {
 							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
 		    			
 					} else {
-						logger.log(Level.SEVERE, "setWidgetStatus widget IS INVALID");
+						logger.error(className, function, "widget IS INVALID");
 					}
     			} else {
-    				logger.log(Level.SEVERE, "setWidgetStatus valueMap IS INVALID");
+    				logger.error(className, function, "valueMap IS INVALID");
     			}
     		} else {
-    			logger.log(Level.SEVERE, "setWidgetStatus status IS NULL");
+    			logger.error(className, function, "status IS NULL");
     		}
     	} else {
-    		logger.log(Level.SEVERE, "setWidgetStatus widget IS NULL");
+    		logger.error(className, function, "widget IS NULL");
     	}
     	
-    	logger.log(Level.FINE, "setWidgetStatus End");
+    	logger.end(className, function);
     }
     
     @Override
 	public void setValue (String elementValue) {
+    	final String function = "setValue";
     	
-    	logger.log(Level.FINE, " **** updateValue Begin");
-    	
-    	logger.log(Level.FINE, " **** updateValue name["+elementValue+"]");
+    	logger.begin(className, function);
+    	logger.info(className, function, "name[{}]", elementValue);
     	
     	setValue(elementValue, null);
     	
-    	logger.log(Level.FINE, " **** updateValue End");
+    	logger.end(className, function);
     	
     }
 	
 	@Override
 	public void setValue (String elementValue, String value) {
+		final String function = "setValue";
 		
-		logger.log(Level.FINE, " **** updateValue Begin");
-		
-		logger.log(Level.FINE, " **** updateValue name["+elementValue+"] value["+value+"]");
+		logger.begin(className, function);
+		logger.info(className, function, "name[{}] value[{}]", elementValue, value);
 
 		int index = getElementIndex(WidgetAttribute.element, elementValue);
 		
@@ -826,7 +793,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				String label		= valueMap.get(WidgetAttribute.label.toString());
 				String format		= valueMap.get(WidgetAttribute.format.toString());
 				
-				logger.log(Level.FINE, "updateValue index["+index+"] widget["+widget+"] media["+media+"]");
+				logger.info(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
 
 				if ( null != value ) label = value;
 				
@@ -841,30 +808,31 @@ public class UIWidgetGeneric extends UIWidget_i {
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
 				} else {
-					logger.log(Level.SEVERE, "updateValue WidgetType IS NULL");
+					logger.error(className, function, "WidgetType IS NULL");
 				}
 				
 				
 			} else {
-				logger.log(Level.FINE, " **** updateValue widget IS NULL");
+				logger.info(className, function, "widget IS NULL");
 			}
 		} else {
-			logger.log(Level.FINE, " **** updateValue index IS INVALID index["+index+"] this.widgets.size()["+this.widgets.size()+"]");
+			logger.error(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
 		}
 		
-		logger.log(Level.FINE, " **** updateValue End");
+		logger.end(className, function);
 	}
 	
 	public void ready(Dictionary dictionary) {
-		logger.log(Level.FINE, "ready Begin");
-		logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"]");
+		final String function = "ready";
+		logger.begin(className, function);
+		logger.error(className, function, "this.xmlFile[{}]", this.xmlFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.log(Level.SEVERE, "ready dictionary XmlFile["+xmlFile+"] XmlTag["+XmlTag+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");			
+			logger.error(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -885,9 +853,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 								} else if ( RootAttribute.cols.equalsName(k) ) {
 									cols = Integer.parseInt(v);
 								} else if ( RootAttribute.rootCss.equalsName(k) ) {
-									strRootContainerCss = v;
-								} else if ( RootAttribute.cssFlexTable.equalsName(k)  ) {
 									strRootCss = v;
+								} else if ( RootAttribute.rootContainerCss.equalsName(k)  ) {
+									strRootContainerCss = v;
 								} else if ( RootAttribute.rootPanel.equalsName(k) ) {
 									strRootPanel = v;
 								}
@@ -899,13 +867,13 @@ public class UIWidgetGeneric extends UIWidget_i {
 				
 				totals = rows * cols;
 				
-				logger.log(Level.FINE, "ready dictionary cols["+cols+"] rows["+rows+"] => totals["+totals+"]");
+				logger.info(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
 				}				
 				
-				logger.log(Level.FINE, "FINE dictionary ");
+				logger.info(className, function, "dictionary ");
 
 			} else if ( 0 == DictionaryCacheInterface.Option.compareTo(XmlTag) ) {
 				
@@ -932,7 +900,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.log(Level.FINE, "FINE dictionary key["+key+"]");
+										logger.info(className, function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -942,7 +910,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 							}
 						}
 						
-						logger.log(Level.FINE, "dictionary key["+key+"]");
+						logger.info(className, function, "dictionary key[{}]", key);
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -953,15 +921,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 									
 									isvalid=true;
 								} catch ( NumberFormatException e ) {
-									logger.log(Level.SEVERE, "ready NumberFormatException e["+e+"]");
+									logger.error(className, function, "NumberFormatException e[{}]", e);
 								}
 								
 								if ( isvalid ) {
-									logger.log(Level.FINE, "ready dictionary row["+row+"] col["+col+"]");
+									logger.info(className, function, "dictionary row[{}] col[{}]", row, col);
 									
 									index = (row * cols) + col;
 									
-									logger.log(Level.FINE, "dictionary row["+row+"] col["+col+"] => index["+index+"]");
+									logger.info(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -970,30 +938,30 @@ public class UIWidgetGeneric extends UIWidget_i {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.log(Level.FINE, "ready dictionary k["+k+"] v["+v+"]");
+												logger.info(className, function, "dictionary k[{}] v[{}]", k, v);
 				
 												hashMap.put(k, v);
 											}
 										}
 									} else {
-										logger.log(Level.SEVERE, "ready row["+row+"] col["+col+"] => index["+index+"] Index NOT EXISTS");
+										logger.error(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
 									}
 								} else {
-									logger.log(Level.SEVERE, "ready keys[0]["+keys[0]+"] OR keys[1]["+keys[1]+"] is not a number");
+									logger.error(className, function, "keys[0][{}] OR keys[1][{}] is not a number", keys[0], keys[1]);
 								}
 							}
 						} else {
-							logger.log(Level.SEVERE, "ready key IS NULL");
+							logger.error(className, function, "key IS NULL");
 						}
 					}
 				}
 			}
 
 		} else {
-			logger.log(Level.SEVERE, "ready this.xmlFile["+this.xmlFile+"] dictionary IS NULL");
+			logger.error(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
 		}
 		
-		logger.log(Level.FINE, "ready End");
+		logger.end(className, function);
 		
 	}
 	

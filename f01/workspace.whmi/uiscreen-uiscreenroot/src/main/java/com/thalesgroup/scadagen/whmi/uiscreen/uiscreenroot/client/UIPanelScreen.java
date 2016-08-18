@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -14,11 +11,15 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client.UIScreenMgr;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelScreen extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIPanelScreen.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelScreen.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String strCssRoot				= "project-gwt-panel-root";
 
@@ -36,7 +37,9 @@ public class UIPanelScreen extends UIWidget_i {
 
 	@Override
 	public void init() {
-		logger.log(Level.FINE, "init Begin.");
+		final String function = "init";
+		
+		logger.begin(className, function);
 
 		this.rootPanel = new HorizontalPanel();
 		this.rootPanel.addStyleName(strCssRoot);
@@ -49,12 +52,13 @@ public class UIPanelScreen extends UIWidget_i {
     	taskLaunch.setUiPanel(strUIScreenLogin);
     	this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
     	
-    	logger.log(Level.FINE, "init End");
+    	logger.end(className, function);
 	}
 	
 	private void resetEventBus() {
+		final String function = "resetEventBus";
 		
-		logger.log(Level.FINE, "resetEventBus Begin");
+		logger.begin(className, function);
 		
 		this.uiNameCard.getUiEventBus().removeHandlers();
 		
@@ -73,19 +77,16 @@ public class UIPanelScreen extends UIWidget_i {
 			}
 		});
 		
-		logger.log(Level.FINE, "resetEventBus End");
+		logger.end(className, function);
 	}
 	
 	private void onUIEventDebug(UIEvent uiEvent) {
-		
-		logger.log(Level.FINE, "onUIEventDebug Begin");
-		
-		logger.log(Level.FINE, "onUIEventDebug End");
 	}
 	
 	private void onUIEvent( UIEvent uiEvent ) {
+		final String function = "onUIEvent";
 		
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.begin(className, function);
 		
 		if ( null != uiEvent ) {
 
@@ -93,9 +94,9 @@ public class UIPanelScreen extends UIWidget_i {
 
 			if ( null != taskProvide ) {
 				
-				logger.log(Level.FINE, "onUIEvent this.uiNameCard.getUiScreen()["+this.uiNameCard.getUiScreen()+"] == taskProvide.getTaskUiScreen()["+taskProvide.getTaskUiScreen()+"]");
+				logger.info(className, function, "onUIEvent this.uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", this.uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
 				
-				logger.log(Level.FINE, "onUIEvent this.uiNameCard.getUiPath()["+this.uiNameCard.getUiPath()+"] == taskProvide.getUiPath()["+taskProvide.getUiPath()+"]");
+				logger.info(className, function, "onUIEvent this.uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", this.uiNameCard.getUiPath(), taskProvide.getUiPath());
 				
 				if ( this.uiNameCard.getUiScreen() == taskProvide.getTaskUiScreen()
 						&& 0 == this.uiNameCard.getUiPath().compareToIgnoreCase(taskProvide.getUiPath()) ) {
@@ -104,7 +105,7 @@ public class UIPanelScreen extends UIWidget_i {
 					
 						UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 						
-						logger.log(Level.FINE, "switchPanel taskLaunch.getUiPanel()["+taskLaunch.getUiPanel()+"]");
+						logger.info(className, function, "switchPanel taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
 	
 						rootPanel.clear();
 							
@@ -127,7 +128,7 @@ public class UIPanelScreen extends UIWidget_i {
 							try {
 								intNumOfScreen = Integer.parseInt(strNumOfScreen);
 							} catch (NumberFormatException e) {
-								logger.log(Level.FINE, "onUIEvent Number format exception!");
+								logger.error(className, function, "onUIEvent Number format exception!");
 							}
 							if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) ) {
 								intNumOfScreen=1;
@@ -152,19 +153,19 @@ public class UIPanelScreen extends UIWidget_i {
 						}
 					
 					} else {
-						logger.log(Level.FINE, "onUIEvent UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) IS NOT");
+						logger.error(className, function, "UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) IS NOT");
 					}
 				
 				} else {
-					logger.log(Level.FINE, "onUIEvent UIScreen and UIPath IS NOT EQUAL");
+					logger.error(className, function, "UIScreen and UIPath IS NOT EQUAL");
 				}
 			} else {
-				logger.log(Level.FINE, "onUIEvent taskProvide IS NULL");
+				logger.error(className, function, "taskProvide IS NULL");
 			}
 		} else {
-			logger.log(Level.FINE, "onUIEvent uiEvent IS NULL");
+			logger.error(className, function, "uiEvent IS NULL");
 		}
-		logger.log(Level.FINE, "onUIEvent End");
+		logger.end(className, function);
 
 	}
 

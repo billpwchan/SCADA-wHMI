@@ -2,9 +2,6 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -16,11 +13,16 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+
 
 public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 	
-	private Logger logger = Logger.getLogger(UIPanelMenus.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelMenus.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 		
 	private NavigationMgr navigationMgr = null;
 
@@ -29,33 +31,41 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 	private HashMap<String, UIButtonNavigation> buttons = new HashMap<String, UIButtonNavigation>();
 	
 	public void addMenuBar(int index, Panel menu) {
+		final String function = "addMenuBar";
 		
-		logger.log(Level.FINE, "addMenuBar Begin");
-		logger.log(Level.SEVERE, "addMenuBar index["+index+"] ==> Integer.valueOf(index)["+Integer.valueOf(index)+"]");
+		logger.begin(className, function);
 		
-		menus.put(Integer.valueOf(index), menu);
+		Integer iIndex = Integer.valueOf(index);
+		logger.error(className, function, "addMenuBar index[{}] ==> iIndex[{}]", index, iIndex);
 		
-		logger.log(Level.FINE, "addMenuBar End");
+		menus.put(iIndex, menu);
+		
+		logger.end(className, function);
 	}
 
 	public Panel getMenuBar(int index) {
+		final String function = "getMenuBar";
 		
-		logger.log(Level.FINE, "getMenuBar Begin/End");
+		logger.begin(className, function);
 		
-		return menus.get(Integer.valueOf(index));
+		Panel panel = menus.get(Integer.valueOf(index));
+		
+		logger.end(className, function);
+		return panel;
 	}
 
 	private UINameCard uiNameCard = null;
 	public UIPanelMenus(UINameCard uiNameCard) {
+		final String function = "UIPanelMenus";
 		
-		logger.log(Level.FINE, "UIPanelMenus Begin");
+		logger.begin(className, function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		
 		navigationMgr = new NavigationMgr(uiNameCard);
 		navigationMgr.setNavigationMgrEvent(this);
 		
-		logger.log(Level.FINE, "UIPanelMenus End");
+		logger.end(className, function);
 			
 	}
 
@@ -63,82 +73,89 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ComplexPanel getMenu(String menuLevel, String menuType) {
-		logger.log(Level.FINE, "getMenu Begin");
-		logger.log(Level.SEVERE, "getMenu level["+menuLevel+"] menuType["+menuType+"]");
+	public Panel getMenu(String menuLevel, String menuType) {
+		final String function = "getMenu";
+		
+		logger.begin(className, function);
+		logger.error(className, function, "level[{}] menuType[{}]", menuLevel, menuType);
 		int level = -1;
 		try {
 			level = Integer.parseInt(menuLevel);
 		} catch ( NumberFormatException e) {
-			logger.log(Level.SEVERE, "getMainPanel menuLevel["+menuLevel+"] IS INVALID");
-			logger.log(Level.SEVERE, "getMainPanel e["+e.toString()+"]");
+			logger.error(className, function, "menuLevel[{}] IS INVALID", menuLevel);
+			logger.error(className, function, "e[{}]", e.toString());
 		}
-		ComplexPanel complexPanel = null;
+		Panel panel = null;
 		
 		 if ( 0 == menuType.compareTo("0") ) {
 			 // FlowPanel = 0
-			complexPanel = this.getFlowMenu(level);
+			 panel = this.getFlowMenu(level);
 		} else if ( 0 == menuType.compareTo("1") ) {
 			// HorizontalPanel = 1
-			complexPanel = this.getHorizontalMenu(level);
+			panel = this.getHorizontalMenu(level);
 		} else if ( 0 == menuType.compareTo("2") ) {
 			// VerticalPanel = 2
-			complexPanel = this.getVerticalMenu(level);
+			panel = this.getVerticalMenu(level);
 		} else {
-			logger.log(Level.SEVERE, "getMenu menuType["+menuType+"] IS INVALID");
+			logger.error(className, function, "menuType[{}] IS INVALID", menuType);
 		}
-		logger.log(Level.FINE, "getMenu End");
-		return complexPanel;
+		logger.end(className, function);
+		return panel;
 	}
 
 	public HorizontalPanel getHorizontalMenu(int level) {
+		final String function = "getHorizontalMenu";
 		
-		logger.log(Level.FINE, "getHorizontalMenu Begin");
-		logger.log(Level.SEVERE, "getHorizontalMenu level["+level+"]");
+		logger.begin(className, function);
+		logger.info(className, function, "getHorizontalMenu level[{}]", level);
 		
 		HorizontalPanel menuBar = new HorizontalPanel();
 		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
 		addMenuBar(level, menuBar);
 		
-		logger.log(Level.FINE, "getHorizontalMenu End");
+		logger.end(className, function);
 		
 		return menuBar;
 	}
 
 	public VerticalPanel getVerticalMenu(int level) {
+		final String function = "getVerticalMenu";
 		
-		logger.log(Level.FINE, "getVerticalMenu Begin");
-		logger.log(Level.SEVERE, "getVerticalMenu level["+level+"]");
+		logger.begin(className, function);
+		logger.info(className, function, "getVerticalMenu level[{}]", level);
 		
 		VerticalPanel menuBar = new VerticalPanel();
 		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
 		addMenuBar(level, menuBar);
 		
-		logger.log(Level.FINE, "getVerticalMenu End");
+		logger.end(className, function);
 		
 		return menuBar;
 	}
 
 	public FlowPanel getFlowMenu(int level) {
+		final String function = "getFlowMenu";
 		
-		logger.log(Level.FINE, "getFlowMenu Begin");
-		logger.log(Level.SEVERE, "getFlowMenu level["+level+"]");
+		logger.begin(className, function);
+		
+		logger.info(className, function, "getFlowMenu level[{}]", level);
 		
 		FlowPanel menuBar = new FlowPanel();
 		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
 		addMenuBar(level, menuBar);
 		
-		logger.log(Level.FINE, "getFlowMenu End");
+		logger.end(className, function);
 		
 		return menuBar;
 	}
 
 	@Override
 	public void setMenu(int level, String header, String launchHeader, boolean executeTask) {
+		final String function = "setMenu";
 		
-		logger.log(Level.FINE, "setMenu Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "setMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.info(className, function, "setMenu level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
 
 		cascadeClearMenu(level);
 		
@@ -146,19 +163,20 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		
 		if ( null != taskLaunchs ) {
 			
-			logger.log(Level.SEVERE, "setMenu taskLaunchs.size["+taskLaunchs.size()+"]");
+			logger.error(className, function, "taskLaunchs.size[{}]", taskLaunchs.size());
 			
 			addTaskToMenu(level, header, taskLaunchs, launchHeader, executeTask);
 		} else {
-			logger.log(Level.SEVERE, "setMenu is null");
+			logger.error(className, function, "setMenu is null");
 		}
 
-		logger.log(Level.FINE, "setMenu End");
+		logger.end(className, function);
 	}
 
 	private void cascadeClearMenu(int panelLevelToClear) {
+		final String function = "cascadeClearMenu";
 		
-		logger.log(Level.FINE, "cascadeClearMenu Begin");
+		logger.begin(className, function);
 		
 		while (menus.containsKey(panelLevelToClear)) {
 			ComplexPanel panelToClear = null;
@@ -166,19 +184,20 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			panelToClear.clear();
 			++panelLevelToClear;
 
-			logger.log(Level.SEVERE, "cascadeClearMenu Level of Menu Bar to clear:"+panelLevelToClear);
+			logger.error(className, function, "Level of Menu Bar to clear: [{}]", panelLevelToClear);
 		}
 		
-		logger.log(Level.FINE, "cascadeClearMenu End");
+		logger.end(className, function);
 	}
 
 	private void addTaskToMenu(int level, String header, ArrayList<UITaskLaunch> taskLaunchs, String launchHeader, boolean executeTask) {
+		final String function = "addTaskToMenu";
 		
-		logger.log(Level.FINE, "addTaskToMenu Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "addTaskToMenu level["+level+"] header["+header+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.info(className, function, "level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
 		
-		logger.log(Level.SEVERE, "addTaskToMenu taskLaunchs.size()["+taskLaunchs.size()+"]");
+		logger.info(className, function, "taskLaunchs.size()[{}]", taskLaunchs.size());
 		
 		ComplexPanel menuBar = (ComplexPanel) this.getMenuBar(level);
 		
@@ -206,17 +225,17 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			// Auto select menu item by first expand
 			if (menuBar.getWidgetCount() > 0) {
 				
-				logger.log(Level.FINE, "addTaskToMenu menuBar.getWidgetCount() > 0 Begin");
+				logger.info(className, function, "menuBar.getWidgetCount() > 0 Begin");
 				UIButtonNavigation navigationMenuButton = null;
 				if ( null != launchHeader ) {
 					String headers[] = launchHeader.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 					
-					logger.log(Level.FINE, "addTaskToMenu headers["+headers+"]");
+					logger.info(className, function, "headers[{}]", headers);
 					
 	//				int headersCounter = headers.length;
 					String headerCur = headers[level];
 					
-					logger.log(Level.SEVERE, "addTaskToMenu level["+level+"] headerCur["+headerCur+"]");
+					logger.info(className, function, "level[{}] headerCur[{}]", level, headerCur);
 					
 					UIButtonNavigation btn = null;
 					for ( int i = 0 ; i < menuBar.getWidgetCount(); ++i ) {
@@ -225,12 +244,12 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 						String headerComma = taskLaunch.getHeader();
 						String headerCommas[] = headerComma.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 						
-						logger.log(Level.SEVERE, "addTaskToMenu headerComma["+headerComma+"] headerCommas["+headerCommas+"]");
-						logger.log(Level.SEVERE, "addTaskToMenu headerCommas["+level+"]["+headerCommas[level]+"] headerCommas["+headerCommas+"]");
+						logger.info(className, function, "headerComma[{}] headerCommas[{}]", headerComma, headerCommas);
+						logger.info(className, function, "headerCommas[{}][{}] headerCommas[{}]", new Object[]{level, headerCommas[level], headerCommas});
 						
 						String btnHeaderElement = headerCommas[level]; 
 						
-						logger.log(Level.SEVERE, "addTaskToMenu level["+level+"] btnHeaderElement["+btnHeaderElement+"] == headerCur["+headerCur+"]");
+						logger.info(className, function, "level[{}] btnHeaderElement[{}] == headerCur[{}]", new Object[]{level, btnHeaderElement, headerCur});
 						
 						if ( 0 == btnHeaderElement.compareToIgnoreCase(headerCur) ) {
 							navigationMenuButton = btn;
@@ -244,26 +263,27 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 				if ( null != navigationMenuButton ) {
 					onClickAction(navigationMenuButton, launchHeader, executeTask);
 				} else {
-					logger.log(Level.SEVERE, "addTaskToMenu menuBar.getWidgetCount() > 0 navigationMenuButton is null");
+					logger.error(className, function, "menuBar.getWidgetCount() > 0 navigationMenuButton is null");
 				}
 				
-				logger.log(Level.FINE, "addTaskToMenu menuBar.getWidgetCount() > 0 End");
+				logger.info(className, function, "menuBar.getWidgetCount() > 0 End");
 			} else {
-				logger.log(Level.SEVERE, "addTaskToMenu menuBar.getWidgetCount()["+menuBar.getWidgetCount()+"] <= 0");
+				logger.error(className, function, "menuBar.getWidgetCount()[{}] <= 0", menuBar.getWidgetCount());
 			}
 		} else {
-			logger.log(Level.SEVERE, "addTaskToMenu menuBar IS NULL");
+			logger.error(className, function, "menuBar IS NULL");
 		}
 		
-		logger.log(Level.FINE, "addTaskToMenu End");
+		logger.end(className, function);
 
 	}// addTaskToMenu
 	
 	private void onClickAction(UIButtonNavigation btnSel, String launchHeader, boolean executeTask) {
+		final String function = "onClickAction";
 		
-		logger.log(Level.FINE, "onClickAction Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "onClickAction btnSel.getText()["+btnSel.getText()+"] launchHeader["+launchHeader+"] executeTask["+executeTask+"]");
+		logger.info(className, function, "btnSel.getText()[{}] launchHeader[{}] executeTask[{}]", new Object[]{btnSel.getText(), launchHeader, executeTask});
 
 		ComplexPanel parent = (ComplexPanel) btnSel.getParent();
 		
@@ -282,56 +302,58 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		
 		btnSel.setHightLight(true);
 		
-		logger.log(Level.FINE, "onClickAction Selected Button Header["+task.getHeader()+"]");
+		logger.info(className, function, "Selected Button Header[{}]", task.getHeader());
 
 		if ( TaskLaunchType.MENU == task.getTaskLaunchType()) {
 			
-			logger.log(Level.SEVERE, "onClickAction is TaskType.MENU");
+			logger.error(className, function, "is TaskType.MENU");
 			
 			setMenu(levelNext, task.getHeader(), launchHeader, executeTask);
 			
 		} else {
 			
-			logger.log(Level.SEVERE, "onClickAction executeTask["+executeTask+"]");
+			logger.error(className, function, "executeTask[{}]", executeTask);
 			
 			if ( executeTask ) {
 			
 				task.setTaskUiScreen(this.uiNameCard.getUiScreen());
 				
-				logger.log(Level.SEVERE, "onClickAction Execute Task["+task.getHeader()+"] on Screen["+task.getTaskUiScreen()+"]");
+				logger.error(className, function, "Execute Task[{}] on Screen[{}]", task.getHeader(), task.getTaskUiScreen());
 				
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(task));
 			}
 		}
 		
-		logger.log(Level.FINE, "onClickAction End");
+		logger.end(className, function);
 	}
 
 	public void readyToGetMenu(String profile, String location, int level, String header) {
+		final String function = "readyToGetMenu";
 		
-		logger.log(Level.FINE, "getMenu Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "getMenu profile["+profile+"] location["+location+"] level["+level+"] header["+header+"]");
+		logger.info(className, function, "profile[{}] location[{}] level[{}] header[{}]", new Object[]{profile, location, level, header});
 		
 		navigationMgr.initCache(level, header);
 		
-		logger.log(Level.FINE, "getMenu End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void isReady(int level, String header) {
+		final String function = "isReady";
 		
-		logger.log(Level.SEVERE, "isReady Begin");
+		logger.begin(className, function);
 		
 		setMenu(level, header, null, true);
 		
-		logger.log(Level.SEVERE, "isReady End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		final String function = "init";
+		logger.beginEnd(className, function);
 	}
 
 }

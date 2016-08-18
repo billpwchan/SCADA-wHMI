@@ -1,47 +1,40 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UIWidgetAction extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIWidgetAction.class.getName());
-	
-	private String className		= UIWidgetUtil.getClassSimpleName(UIWidgetAction.class.getName());
-	
-	private String logPrefix		= "["+className+"] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetAction.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	// External
 	private SimpleEventBus eventBus		= null;
 
-
 	private UILayoutGeneric uiLayoutGeneric					= null;
-
 	
 	void onUIEvent(UIEvent uiEvent ) {
 	}
 	
 	void onActionReceived(UIEventAction uiEventAction) {
-		
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived Begin");
-
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived End");
 	}
 
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init Begin");
+		logger.info(className, function, "Begin");
 
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
@@ -59,15 +52,15 @@ public class UIWidgetAction extends UIWidget_i {
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
 		handlerRegistrations.add(
-				this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-					@Override
-					public void onEvenBusUIChanged(UIEvent uiEvent) {
-						if ( uiEvent.getSource() != this ) {
-							onUIEvent(uiEvent);
-						}
+			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+				@Override
+				public void onEvenBusUIChanged(UIEvent uiEvent) {
+					if ( uiEvent.getSource() != this ) {
+						onUIEvent(uiEvent);
 					}
-				})
-			);
+				}
+			})
+		);
 			
 		handlerRegistrations.add(
 			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
@@ -80,6 +73,6 @@ public class UIWidgetAction extends UIWidget_i {
 			})
 		);
 		
-		logger.log(Level.FINE, logPrefix+"init End");
+		logger.info(className, function, "End");
 	}
 }

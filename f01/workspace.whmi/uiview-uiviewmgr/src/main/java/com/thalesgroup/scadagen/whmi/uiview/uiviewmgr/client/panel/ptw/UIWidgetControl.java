@@ -2,14 +2,15 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
 
 import java.util.HashMap;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
@@ -19,16 +20,14 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.Vi
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 
 public class UIWidgetControl extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIWidgetControl.class.getName());
-	
-	private String className		= UIWidgetUtil.getClassSimpleName(UIWidgetControl.class.getName());
-	
-	private String logPrefix		= "["+className+"] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetControl.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -52,6 +51,9 @@ public class UIWidgetControl extends UIWidget_i {
 	private Set<HashMap<String, String>> selectedSet = null;
 	
 	private void onButton(ClickEvent event) {
+		final String function = "onButton";
+		
+		logger.begin(className, function);
 		
 		int byPassInitCond = 0;
 		int byPassRetCond = 0;
@@ -92,11 +94,11 @@ public class UIWidgetControl extends UIWidget_i {
 							String scsEnvId = selectedServiceOwner;
 							String alias = selectedAlias;
 							
-							logger.log(Level.SEVERE, logPrefix + "onClickHandler alias BF ["+alias+"]");
+							logger.info(className, function, "alias BF [{}]", alias);
 							
 							alias = selectedAlias.replace(strDci, strDio);
 							
-							logger.log(Level.SEVERE, logPrefix + "onClickHandler alias AF ["+alias+"]");
+							logger.info(className, function, "alias AF [{}]", alias);
 							
 							WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(widgetSet);
 							
@@ -116,9 +118,11 @@ public class UIWidgetControl extends UIWidget_i {
 					
 				}
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"onClickHandler onClickHandler button IS NULL");
+				logger.error(className, function, "button IS NULL");
 			}
 		}
+		
+		logger.end(className, function);
 	}
 
 
@@ -129,6 +133,9 @@ public class UIWidgetControl extends UIWidget_i {
 	
 	@SuppressWarnings("unchecked")
 	void onActionReceived(UIEventAction uiEventAction) {
+		final String function = "onActionReceived";
+		
+		logger.begin(className, function);
 		
 		String op	= (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
 		String od1	= (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
@@ -137,10 +144,10 @@ public class UIWidgetControl extends UIWidget_i {
 		
 		Object obj1 = uiEventAction.getAction(ViewAttribute.OperationObject1.toString());
 		
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived op["+op+"]");
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived od1["+od1+"]");
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived od2["+od2+"]");
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived od3["+od3+"]");
+		logger.error(className, function, "onActionReceived op[{}]", op);
+		logger.error(className, function, "onActionReceived od1[{}]", od1);
+		logger.error(className, function, "onActionReceived od2[{}]", od2);
+		logger.error(className, function, "onActionReceived od3[{}]", od3);
 		
 		if ( null != op ) {
 			
@@ -178,19 +185,22 @@ public class UIWidgetControl extends UIWidget_i {
 				
 				statusApply				= WidgetStatus.Disable;
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"onActionReceived ViewerViewEvent type IS UNKNOW");
+				logger.error(className, function, "onActionReceived ViewerViewEvent type IS UNKNOW");
 			}
 			
 			if ( null != widgetSet && null != statusSet )		uiWidgetGeneric.setWidgetStatus(widgetSet, statusSet);
 			if ( null != widgetUnSet && null != statusUnSet )	uiWidgetGeneric.setWidgetStatus(widgetUnSet, statusUnSet);
 			if ( null != widgetApply && null != statusApply )	uiWidgetGeneric.setWidgetStatus(widgetApply, statusApply);
 		}
+		
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init Begin");
+		logger.begin(className, function);
 		
 		ctlMgr = CtlMgr.getInstance("ptw");
 		
@@ -211,9 +221,9 @@ public class UIWidgetControl extends UIWidget_i {
 		widgetUnSet			= uiWidgetGeneric.getWidget( strUnSet );
 		widgetApply			= uiWidgetGeneric.getWidget( strApply );
 		
-		if ( null == widgetSet ) 	{ logger.log(Level.SEVERE, logPrefix+"init widgetSet IS NULL"); }
-		if ( null == widgetUnSet )	{ logger.log(Level.SEVERE, logPrefix+"init widgetUnSet IS NULL"); }
-		if ( null == widgetApply )	{ logger.log(Level.SEVERE, logPrefix+"init widgetApply IS NULL"); }
+		if ( null == widgetSet ) 	{ logger.error(className, function, "widgetSet IS NULL"); }
+		if ( null == widgetUnSet )	{ logger.error(className, function, "widgetUnSet IS NULL"); }
+		if ( null == widgetApply )	{ logger.error(className, function, "widgetApply IS NULL"); }
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
@@ -250,7 +260,7 @@ public class UIWidgetControl extends UIWidget_i {
 		uiWidgetGeneric.setWidgetStatus( widgetUnSet, WidgetStatus.Disable );
 		uiWidgetGeneric.setWidgetStatus( widgetApply, WidgetStatus.Disable );
 		
-		logger.log(Level.FINE, logPrefix + "init End");
+		logger.end(className, function);
 	}
 
 }

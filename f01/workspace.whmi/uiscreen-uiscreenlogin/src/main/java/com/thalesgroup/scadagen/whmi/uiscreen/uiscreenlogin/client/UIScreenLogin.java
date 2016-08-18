@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.user.client.ui.ListBox;
@@ -14,15 +11,21 @@ import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
+import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client.UIScreenLogin_i.Attribute;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
+
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UIScreenLogin extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIScreenLogin.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenLogin.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
@@ -31,18 +34,20 @@ public class UIScreenLogin extends UIWidget_i {
 	private String strUIPanelLoginInfo			= "UIPanelLoginInfo.xml";
 	private String strUIPanelLoginButton		= "UIPanelLoginButton.xml";
 	
-	private UIWidget_i uiPanelGenericInfo	= null;
-	private UIWidget_i uiPanelGenericButton	= null;
+	private UIWidget_i uiPanelGenericInfo		= null;
+	private UIWidget_i uiPanelGenericButton		= null;
 
 	private String EMPTY						= "";
 	
     private UILayoutGeneric uiLayoutGeneric		= null;
     
     private void onButtonEvent(Widget widget) {
-		TextBox textbox = (TextBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.name.toString());
+    	final String function = "onButtonEvent";
+    	
+		TextBox textbox = (TextBox)uiPanelGenericInfo.getWidget(Attribute.name.toString());
 		if ( null != textbox ) {
 			String operator = textbox.getText();
-			logger.log(Level.FINE, "getMainPanel operator["+operator+"]");
+			logger.info(className, function, "operator[{}]", operator);
 			if ( null != operator ) {
 				OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
 				String profile = opmAuthentication.getProfile(operator);
@@ -50,13 +55,13 @@ public class UIScreenLogin extends UIWidget_i {
 					profile = EMPTY;
 				}
 
-				ListBox listbox = (ListBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.profile.toString());
+				ListBox listbox = (ListBox)uiPanelGenericInfo.getWidget(Attribute.profile.toString());
 				if ( null != listbox ) {
 					listbox.clear();
 					listbox.addItem(profile);
 					listbox.setSelectedIndex(0);
 				} else {
-					logger.log(Level.SEVERE, "getMainPanel element["+profile+"] IS NULL");
+					logger.error(className, function, "element[{}] IS NULL", profile);
 				}
 			}
 		}
@@ -64,8 +69,9 @@ public class UIScreenLogin extends UIWidget_i {
     
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.begin(className, function);
 		
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
@@ -97,7 +103,7 @@ public class UIScreenLogin extends UIWidget_i {
 			
 			
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel uiPanelGeneric.get(strUIPanelLoginInfo) IS NULL");
+			logger.error(className, function, "uiPanelGeneric.get(strUIPanelLoginInfo) IS NULL");
 		}
 	
 		if ( null != uiPanelGenericButton ) {
@@ -108,20 +114,20 @@ public class UIScreenLogin extends UIWidget_i {
 					Widget widget = (Widget) event.getSource();
 					String element = uiPanelGenericButton.getWidgetElement(widget);
 					if ( null != element ) {
-						if ( UIScreenLogin_i.Attribute.login.equalsName(element)
-								|| UIScreenLogin_i.Attribute.changepassword.equalsName(element)
+						if ( Attribute.login.equalsName(element)
+								|| Attribute.changepassword.equalsName(element)
 								) {
 							// Operation: Login
-							TextBox txtOperator = (TextBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.name.toString());
-							ListBox lstProfile = (ListBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.profile.toString());
-							PasswordTextBox txtpwdPassword = (PasswordTextBox)uiPanelGenericInfo.getWidget(UIScreenLogin_i.Attribute.password.toString());
+							TextBox txtOperator = (TextBox)uiPanelGenericInfo.getWidget(Attribute.name.toString());
+							ListBox lstProfile = (ListBox)uiPanelGenericInfo.getWidget(Attribute.profile.toString());
+							PasswordTextBox txtpwdPassword = (PasswordTextBox)uiPanelGenericInfo.getWidget(Attribute.password.toString());
 							
 							if ( null == txtOperator ) {
-								logger.log(Level.SEVERE, "setUIPanelGenericEvent onClickHandler widget element["+UIScreenLogin_i.Attribute.name.toString()+"] IS NULL");
+								logger.error(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.name.toString());
 							} else if ( null == lstProfile ) {
-								logger.log(Level.SEVERE, "setUIPanelGenericEvent onClickHandler widget element["+UIScreenLogin_i.Attribute.profile.toString()+"] IS NULL");
+								logger.error(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.profile.toString());
 							} else if ( null == txtpwdPassword) {
-								logger.log(Level.SEVERE, "setUIPanelGenericEvent onClickHandler widget element["+UIScreenLogin_i.Attribute.password.toString()+"] IS NULL");
+								logger.error(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.password.toString());
 							} else {
 								String operator		= txtOperator.getText();
 								String profile		= lstProfile.getValue(lstProfile.getSelectedIndex());
@@ -131,25 +137,27 @@ public class UIScreenLogin extends UIWidget_i {
 							}
 						} 						
 					} else {
-						logger.log(Level.SEVERE, "getMainPanel button IS NULL");
+						logger.error(className, function, "button IS NULL");
 					}
 				}
 			});
 			
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel uiPanelGeneric.get(strUIPanelLoginButton) IS NULL");
+			logger.error(className, function, "uiPanelGeneric.get(strUIPanelLoginButton) IS NULL");
 		}
 
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 		
 	}
 	
 	private void verify(String element, String operator, String profile, String password) {
-		logger.log(Level.FINE, "verify Begin");
+		final String function = "verify";
+		
+		logger.begin(className, function);
 		
 		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
 		
-		if ( UIScreenLogin_i.Attribute.login.equalsName(element) ) {
+		if ( Attribute.login.equalsName(element) ) {
 			if ( 0 == profile.compareTo(EMPTY) ) {
 				
 				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
@@ -178,7 +186,7 @@ public class UIScreenLogin extends UIWidget_i {
 				uiDialgogMsg.popUp();
 				
 			}
-		} else if ( UIScreenLogin_i.Attribute.cancel.equalsName(element) ) {
+		} else if ( Attribute.cancel.equalsName(element) ) {
 			
 			if ( ! opmAuthentication.hasRight("M", "PASSWORD", profile) ) {
 				
@@ -210,7 +218,7 @@ public class UIScreenLogin extends UIWidget_i {
 			}
 		}
 		
-		logger.log(Level.FINE, "verify End");
+		logger.end(className, function);
 	}
 	
 	

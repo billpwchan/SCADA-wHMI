@@ -81,7 +81,7 @@ System.out.println("getDictionary Reading from the path["+path+"] elm["+elm+"]")
         				String key = attr.getNodeName();
         				String value = attr.getNodeValue();
         				
-System.out.println("getDictionary key[" + key + "] value[" + value + "]");
+//System.out.println("getDictionary key[" + key + "] value[" + value + "]");
 						config.setAttribute(key, value);
         			}
         			
@@ -93,7 +93,7 @@ System.out.println("getDictionary key[" + key + "] value[" + value + "]");
 	        				String name = node.getNodeName();
 	        				String content = node.getTextContent();
 
-System.out.println("getDictionary name[" + name + "] content[" + content + "]");						
+//System.out.println("getDictionary name[" + name + "] content[" + content + "]");						
 
 							config.setValue(name, content);
 		                    dictionarys.add(config);

@@ -11,11 +11,6 @@ public class DialogMsgMgr {
 	}
 	public UIDialog_i getDialog(String dialog) {
 		UIDialog_i uiDialog = null;
-//		switch (dialog) {
-//		case "UIDialogMsg":
-//			uiDialog = new UIDialogMsg();
-//			break;
-//		}
 		if ( 0 == dialog.compareTo("UIDialogMsg") ) {
 			uiDialog = new UIDialogMsg();
 		}

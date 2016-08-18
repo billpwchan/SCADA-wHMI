@@ -35,7 +35,7 @@ public class ReadConfigXML implements ReadConfigInterface {
 		        Node node = nodeList.item(i);
 		        if (node.getNodeType() == Node.ELEMENT_NODE) {
 		        			        	
-		            System.out.println(node.getNodeName());
+//System.out.println(node.getNodeName());
 		            configs.add(node.getNodeName());
 		        }
 		    }
@@ -50,7 +50,7 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 	}
 	
 	private ArrayList<Dictionary> getXMLDictionary(String path, String elm) {
-System.out.println("getXMLDictionary Reading from the path["+path+"] elm["+elm+"]");
+//System.out.println("getXMLDictionary Reading from the path["+path+"] elm["+elm+"]");
 		
 		ArrayList<Dictionary> dictionarys = new ArrayList<Dictionary>();
 
@@ -80,7 +80,7 @@ System.out.println("getXMLDictionary Reading from the path["+path+"] elm["+elm+"
         			    Node attr = eElementAttr.item(i);
         				String key = attr.getNodeName();
         				String value = attr.getNodeValue();
-System.out.println("getXMLDictionary key[" + key + "] value[" + value + "]");
+//System.out.println("getXMLDictionary key[" + key + "] value[" + value + "]");
 						config.setAttribute(key, value);
         			}
         			
@@ -94,7 +94,7 @@ System.out.println("getXMLDictionary key[" + key + "] value[" + value + "]");
 //	        				String value = node.getNodeValue();
 	        				String content = node.getTextContent();
 	        			
-System.out.println("getXMLDictionary name[" + name + "] content[" + content + "]");						
+//System.out.println("getXMLDictionary name[" + name + "] content[" + content + "]");						
 //		                    config.getHashMap().put(name, content);
 							config.setValue(name, content);
 		                    dictionarys.add(config);
@@ -118,7 +118,7 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 	@Override
 	public ArrayList<Task> getTasks(String mappingPath, String settingPath, String tag) {
 		
-System.out.println("getTasks Reading from the mappingPath["+mappingPath+"] settingPath["+settingPath+"] tag["+tag+"]");
+//System.out.println("getTasks Reading from the mappingPath["+mappingPath+"] settingPath["+settingPath+"] tag["+tag+"]");
 
 		ArrayList<Task> tasks = new ArrayList<Task>();
 
@@ -158,7 +158,7 @@ System.out.println("getTasks Reading from the key["+key+"] dictionary["+dictiona
 			String key = (String) dictionaryMapping.getAttribute(strKey);
 			String setting = (String) dictionaryMapping.getValue(strSetting);
 			
-System.out.println("getTasks Reading from the key["+key+"] setting["+setting+"]");
+//System.out.println("getTasks Reading from the key["+key+"] setting["+setting+"]");
 			
 			mappingMap.put(key, setting);
 			
@@ -166,7 +166,7 @@ System.out.println("getTasks Reading from the key["+key+"] setting["+setting+"]"
 			
 			if ( dictionarySetting != null ) {
 			
-System.out.println("getTasks dictionarySetting.getAttibute("+strKey+")["+dictionarySetting.getAttribute(strKey)+"]");
+//System.out.println("getTasks dictionarySetting.getAttibute("+strKey+")["+dictionarySetting.getAttribute(strKey)+"]");
 
 				HashMap<String, String> values = new HashMap<String, String>();
 				values.put(strKey, key);
@@ -186,10 +186,10 @@ System.out.println("getTasks dictionarySetting.getAttibute("+strKey+")["+diction
 						, values.get(strUiScreen), values.get(strUiPath));
 				tasks.add(task);
 				
-System.out.println("getTasks task.getHeader()["+task.getHeader()+"]");
-System.out.println("getTasks task.getType()["+task.getType()+"]");
-System.out.println("getTasks task.getUiPanel()["+task.getUiPanel()+"]");
-System.out.println("getTasks task.getUiPath()["+task.getUiPath()+"]");
+//System.out.println("getTasks task.getHeader()["+task.getHeader()+"]");
+//System.out.println("getTasks task.getType()["+task.getType()+"]");
+//System.out.println("getTasks task.getUiPanel()["+task.getUiPanel()+"]");
+//System.out.println("getTasks task.getUiPath()["+task.getUiPath()+"]");
 				
 			} else {
 System.out.println("getTasks setting["+setting+"] is null");

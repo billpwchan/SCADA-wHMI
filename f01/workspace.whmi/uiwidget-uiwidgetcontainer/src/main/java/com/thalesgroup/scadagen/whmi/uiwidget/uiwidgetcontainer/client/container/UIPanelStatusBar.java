@@ -1,20 +1,21 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelStatusBar extends UIWidget_i {
 
-	private Logger logger = Logger.getLogger(UIPanelStatusBar.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelStatusBar.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private String strUIPanelCompany					= "UIPanelCompany.xml";
 	private String strUIPanelCompanyTitle				= "UIPanelCompanyTitle.xml";
@@ -38,7 +39,9 @@ public class UIPanelStatusBar extends UIWidget_i {
 	@Override
 	public void init() {
 		
-		logger.log(Level.FINE, "init Begin");
+		final String function = "init";
+		
+		logger.info(className, function, "Begin");
 
 		handlerRegistrations.add(
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -70,13 +73,15 @@ public class UIPanelStatusBar extends UIWidget_i {
 		// Schedule the timer to run once every second, 250 ms.
 		t.scheduleRepeating(250);
 		
-		logger.log(Level.FINE, "init End");
+		logger.info(className, function, "End");
 		
 	}
 
 	private void onUIEvent(UIEvent uiEvent) {
+		
+		final String function = "onUIEvent";
 
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.info(className, function, "Begin");
 
 		UITask_i taskProvide = null;
 
@@ -87,29 +92,29 @@ public class UIPanelStatusBar extends UIWidget_i {
 			if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
 					&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-				logger.log(Level.FINE, "onUIEvent UIScreen is match and UIPath is match");
+				logger.info(className, function, "UIScreen is match and UIPath is match");
 
 				if ( taskProvide instanceof UITaskTitle ) {
 
-					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
+					logger.info(className, function, "TaskTitle is match");
 
 					UITaskTitle taskTitle = (UITaskTitle) taskProvide;
 					String strTitle = taskTitle.getTitle();
 
-					logger.log(Level.FINE, "onUIEvent strTitle[" + strTitle + "]");
+					logger.info(className, function, "strTitle[{}]", strTitle);
 					if (null != strTitle)		this.strTitle = strTitle;
 					
 					uiPanelGenericTitle.setValue("title", this.strTitle);
 					
 				} else if ( taskProvide instanceof UITaskProfile ) {
 
-					logger.log(Level.FINE, "onUIEvent TaskTitle is match");
+					logger.info(className, function, "TaskTitle is match");
 
 					UITaskProfile taskOperator = (UITaskProfile) taskProvide;
 					String strOperator = taskOperator.getOperator();
 					String strProfile = taskOperator.getProfile();
 
-					logger.log(Level.FINE, "onUIEvent strTitle[" + strProfile + "]");
+					logger.info(className, function, "strTitle[{}]", strProfile);
 					if (null != strOperator)	this.strOperator = strOperator; 
 					if (null != strProfile) 	this.strProfile = strProfile;
 
@@ -120,7 +125,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 			}
 		}
 
-		logger.log(Level.FINE, "onUIEvent End");
+		logger.info(className, function, "End");
 	}
 
 }

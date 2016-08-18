@@ -1,16 +1,17 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIWidgetMgr {
 	
-	private static Logger logger = Logger.getLogger(UIWidgetMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private UIWidgetMgr() {};
 	private static UIWidgetMgr instance = null;
@@ -21,10 +22,10 @@ public class UIWidgetMgr {
 	}
 
 	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
+		final String function = "getMainPanel";
 		
-		logger.log(Level.FINE, "getMainPanel Begin");
-		
-		logger.log(Level.FINE, "getMainPanel uiNameCard["+uiNameCard.getUiPath()+"]");
+		logger.begin(className, function);
+		logger.info(className, function, "uiNameCard[{}]", uiNameCard.getUiPath());
 		
 		Panel panel = null;
 		UIWidget_i uiwidget = this.getUIWidget(uiPanel);
@@ -33,14 +34,14 @@ public class UIWidgetMgr {
 			uiwidget.setUINameCard(uiNameCard);
 			panel = uiwidget.getMainPanel();
 		} else {
-			logger.log(Level.SEVERE, "getMainPanel IS NULL");
+			logger.error(className, function, "IS NULL");
 		}
 
 		if ( null == panel ) {
-			logger.log(Level.SEVERE, "getMainPanel complexPanel IS NULL");
+			logger.error(className, function, "complexPanel IS NULL");
 		}
 		
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 
 		return panel;
 	}
@@ -51,10 +52,10 @@ public class UIWidgetMgr {
 	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
 
 	public UIWidget_i getUIWidget(String widget) {
+		final String function = "getUIWidget";
 		
-		logger.log(Level.FINE, "getUIWidget Begin");
-		
-		logger.log(Level.SEVERE, "getUIWidget uiPanel["+widget+"]");
+		logger.begin(className, function);
+		logger.error(className, function, "uiPanel[{}]", widget);
 		
 		UIWidget_i uiWidget = null;
 		
@@ -64,7 +65,7 @@ public class UIWidgetMgr {
 			
 			if ( null != uiWidgetMgrFactory ) {
 			
-				logger.log(Level.SEVERE, "getUIWidget uiWidgetMgrFactory");
+				logger.error(className, function, "uiWidgetMgrFactory");
 			
 				uiWidget = uiWidgetMgrFactory.getUIWidget(widget);
 				
@@ -72,16 +73,16 @@ public class UIWidgetMgr {
 			
 			} else {
 			
-				logger.log(Level.SEVERE, "getUIWidget uiWidgetMgrFactory IS NULL");
+				logger.error(className, function, "uiWidgetMgrFactory IS NULL");
 			}
 		}
 		
 		if ( null == uiWidget ) {
-			logger.log(Level.SEVERE, "getUIWidget uiWIdget IS NULL");
-			logger.log(Level.SEVERE, "getUIWidget widget["+widget+"] NOT FOUND");
+			logger.error(className, function, "uiWIdget IS NULL");
+			logger.error(className, function, "widget[{}] NOT FOUND", widget);
 		}
 		
-		logger.log(Level.FINE, "getPanel End");
+		logger.end(className, function);
 
 		return uiWidget;
 	}

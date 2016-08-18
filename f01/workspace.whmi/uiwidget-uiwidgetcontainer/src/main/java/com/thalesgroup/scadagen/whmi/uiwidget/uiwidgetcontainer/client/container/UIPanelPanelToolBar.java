@@ -4,9 +4,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,12 +13,16 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelPanelToolBarEvent.UIPanelPanelToolBarEventType;
 
 public class UIPanelPanelToolBar extends UIWidget_i {
-
-	private Logger logger = Logger.getLogger(UIPanelPanelToolBar.class.getName());
+	
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelPanelToolBar.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathNavigationMgr	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
@@ -63,7 +64,9 @@ public class UIPanelPanelToolBar extends UIWidget_i {
 
 	@Override
 	public void init() {
-		logger.log(Level.FINE, "init Begin");
+		final String function = "init";
+		
+		logger.begin(className, function);
 
 		hashMap = new HashMap<String, HashMap<String, UIPanelPanelToolBarEventType>>();
 		btnMap = new HashMap<UIPanelPanelToolBarEventType, Button>();
@@ -116,7 +119,7 @@ public class UIPanelPanelToolBar extends UIWidget_i {
 			eventMap.put(btn, pair.getValue());
 		}
 
-		logger.log(Level.FINE, "init Begin");
+		logger.end(className, function);
 	}
 
 	private void onButton( String label ) {

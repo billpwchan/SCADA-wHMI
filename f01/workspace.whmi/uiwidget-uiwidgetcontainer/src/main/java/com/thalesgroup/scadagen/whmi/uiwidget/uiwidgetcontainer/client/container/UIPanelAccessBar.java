@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -11,14 +8,19 @@ import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
+
 public class UIPanelAccessBar extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIPanelAccessBar.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelAccessBar.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 	private final String UIPathUIScreenMMI			= ":UIGws:UIPanelScreen:UIScreenMMI";
@@ -29,8 +31,10 @@ public class UIPanelAccessBar extends UIWidget_i {
 	
 	@Override
 	public void init() {
-		logger.log(Level.FINE, "init Begin");
-		logger.log(Level.FINE, "init xmlFile["+xmlFile+"]");
+		final String function = "function";
+		
+		logger.info(className, function, "Begin");
+		logger.info(className, function, "xmlFile[{}]", xmlFile);
 
 		uiWidgetAccessBarButton = new UIWidgetGeneric();
 		uiWidgetAccessBarButton.setUINameCard(this.uiNameCard);
@@ -44,7 +48,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 					String element = uiWidgetAccessBarButton.getWidgetElement(widget);
 					onButtonClick(element);
 				} else {
-					logger.log(Level.SEVERE, "onClickHandler onClickHandler button IS NULL");
+					logger.error(className, function, "onClickHandler onClickHandler button IS NULL");
 				}
 			}
 		});
@@ -60,15 +64,16 @@ public class UIPanelAccessBar extends UIWidget_i {
 			})
 		);
 
- 		logger.log(Level.FINE, "init End");
+ 		logger.info(className, function, "End");
  		
 	}
 	
 	private void setHistoryButton(UITaskHistory taskHistory) {
+		final String function = "setHistoryButton";
 		
-		logger.log(Level.FINE, "setHistoryButton Begin");
+		logger.info(className, function, "Begin");
 		
-		logger.log(Level.SEVERE, "setHistoryButton taskHistory.getTaskType()["+taskHistory.getTaskType()+"]");
+		logger.error(className, function, "taskHistory.getTaskType()[{}]", taskHistory.getTaskType());
 		
 		Widget widget = null;
 		WidgetStatus status = null;
@@ -98,14 +103,15 @@ public class UIPanelAccessBar extends UIWidget_i {
 			uiWidgetAccessBarButton.setWidgetStatus(widget, status);
 		}
 
-		logger.log(Level.FINE, "setHistoryButton End");
+		logger.info(className, function, "End");
 	}
 	
 	private void setSplitButton(UITaskSplit taskSplit) {
+		final String function = "setSplitButton";
 		
-		logger.log(Level.FINE, "setSplitButton Begin");
+		logger.info(className, function, "Begin");
 		
-		logger.log(Level.SEVERE, "setSplitButton taskSplit.getTaskType()["+taskSplit.getTaskType()+"]");
+		logger.error(className, function, "taskSplit.getTaskType()[{}]", taskSplit.getTaskType());
 		
 		Widget widget = null;
 		WidgetStatus status = null;
@@ -143,12 +149,13 @@ public class UIPanelAccessBar extends UIWidget_i {
 			uiWidgetAccessBarButton.setWidgetStatus(widget, status);
 		}
 
-		logger.log(Level.FINE, "setSplitButton End");
+		logger.info(className, function, "End");
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
+		final String function = "onUIEvent";
 		
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.info(className, function, "Begin");
 		if ( null != uiEvent ) {
 			
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -159,30 +166,31 @@ public class UIPanelAccessBar extends UIWidget_i {
 					
 					if ( taskProvide instanceof UITaskHistory ){
 						
-						logger.log(Level.FINE, "onUIEvent taskProvide is TaskHistory");
+						logger.info(className, function, "taskProvide is TaskHistory");
 						
 						setHistoryButton((UITaskHistory)taskProvide);
 						
 					} else if ( taskProvide instanceof UITaskSplit){
 						
-						logger.log(Level.FINE, "onUIEvent taskProvide is UITaskSplit");
+						logger.info(className, function, "taskProvide is UITaskSplit");
 					
 						setSplitButton((UITaskSplit)taskProvide);
 					}
 				}
 			}
 		}
-		logger.log(Level.FINE, "onUIEvent End");
+		logger.info(className, function, "End");
 	}
 	
 	void onButtonClick ( String element ) {
+		final String function = "onButtonClick";
 		
-		logger.log(Level.SEVERE, "onButtonClick elementValue["+element+"]");
+		logger.error(className, function, "elementValue[{}]", element);
 		
 		if ( null != element ) {
 			
 			if ( UIPanelAccessBarInterface.WidgetArrtibute.logout.equalsName(element) ) {
-				logger.log(Level.SEVERE, "onButtonClick logout["+UIPanelAccessBarInterface.WidgetArrtibute.logout+"]");
+				logger.error(className, function, "logout[{}]", UIPanelAccessBarInterface.WidgetArrtibute.logout);
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(0);
@@ -190,7 +198,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				taskLaunch.setUiPanel("UIDialogMsg");
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
-				logger.log(Level.SEVERE, "onButtonClick dss["+UIPanelAccessBarInterface.WidgetArrtibute.dss+"]");
+				logger.error(className, function, "dss[{}]", UIPanelAccessBarInterface.WidgetArrtibute.dss);
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -200,14 +208,14 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.previous.equalsName(element) ) {
 				
-				logger.log(Level.SEVERE, "onButtonClick previous["+UIPanelAccessBarInterface.WidgetArrtibute.previous+"]");
+				logger.error(className, function, "previous[{}]", UIPanelAccessBarInterface.WidgetArrtibute.previous);
 				
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.log(Level.SEVERE, "onButtonClick strPreviousDisable");
+					logger.error(className, function, "strPreviousDisable");
 				} else {
-					logger.log(Level.SEVERE, "onButtonClick strPrevious");
+					logger.error(className, function, "strPrevious");
 					
 					UITaskHistory taskHistory = new UITaskHistory();
 					taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -218,14 +226,14 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.next.equalsName(element) ) {
 				
-				logger.log(Level.SEVERE, "onButtonClick next["+UIPanelAccessBarInterface.WidgetArrtibute.next+"]");
+				logger.error(className, function, "next["+UIPanelAccessBarInterface.WidgetArrtibute.next+"]");
 				
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.log(Level.SEVERE, "onButtonClick strNextDisable");
+					logger.error(className, function, "strNextDisable");
 				} else {
-					logger.log(Level.SEVERE, "onButtonClick strNext");
+					logger.error(className, function, "strNext");
 			
 					UITaskHistory taskHistory = new UITaskHistory();
 					taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -238,9 +246,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.log(Level.SEVERE, "onButtonClick strSplitHDisable");
+					logger.error(className, function, "strSplitHDisable");
 				} else {
-					logger.log(Level.SEVERE, "onButtonClick strSplitH");
+					logger.error(className, function, "strSplitH");
 					
 					UITaskSplit taskSplit = new UITaskSplit();
 					taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -253,9 +261,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.log(Level.SEVERE, "onButtonClick strSplitVDisable");
+					logger.error(className, function, "strSplitVDisable");
 				} else {
-					logger.log(Level.SEVERE, "onButtonClick strSplitV");
+					logger.error(className, function, "strSplitV");
 					
 					UITaskSplit taskSplit = new UITaskSplit();
 					taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -264,13 +272,13 @@ public class UIPanelAccessBar extends UIWidget_i {
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.stationoperation.equalsName(element)  ) {
-				logger.log(Level.SEVERE, "onButtonClick strStationOperation");
+				logger.error(className, function, "strStationOperation");
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
-				logger.log(Level.SEVERE, "onButtonClick strDss");
+				logger.error(className, function, "strDss");
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.print.equalsName(element) ) {
-				logger.log(Level.SEVERE, "onButtonClick strPrint");
+				logger.error(className, function, "strPrint");
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.help.equalsName(element) ) {
-				logger.log(Level.SEVERE, "onButtonClick strHelp");
+				logger.error(className, function, "strHelp");
 			}
 		}
 	}

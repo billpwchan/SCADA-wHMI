@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -10,6 +7,9 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
@@ -22,15 +22,13 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
+
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
 public class UIWidgetFilter extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIWidgetFilter.class.getName());
-	
-	private String className		= UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName());
-	
-	private String logPrefix		= "["+className+"] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 			= null;
 		
@@ -55,6 +53,9 @@ public class UIWidgetFilter extends UIWidget_i {
 	}
 	
 	private void setFilter(String element) {
+		final String function = "setFilter";
+		
+		logger.begin(className, function);
 		if ( null != element ) {
 			if ( element.equals(strSet1) ) {
 				
@@ -90,34 +91,39 @@ public class UIWidgetFilter extends UIWidget_i {
 				if ( null != widgetClear ) uiWidgetGeneric.setWidgetStatus(strClear, WidgetStatus.Disable);
 			}
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"onWidgetEvent element IS NULL");
+			logger.error(className, function, "element IS NULL");
 		}
+		
+		logger.end(className, function);
 	}
 	
 	private void onWidgetEvent (Widget widget) {
+		final String function = "onWidgetEvent";
 		if ( null != widget ) {
 			String element = uiWidgetGeneric.getWidgetElement(widget);
 			setFilter(element);
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"onWidgetEvent widget IS NULL");
+			logger.error(className, function, "widget IS NULL");
 		}
 	}
 	
 	private void onButtonValueChange(ValueChangeEvent<String> event) {
+		final String function = "onButtonValueChange";
 		if ( null != event ) {
 			Widget widget = (Widget) event.getSource();
 			onWidgetEvent(widget);
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"onButtonValueChange event IS NULL");
+			logger.error(className, function, "event IS NULL");
 		}
 	}
 	
 	private void onButton(ClickEvent event) {
+		final String function = "onButton";
 		if ( null != event ) {
 			Widget widget = (Widget) event.getSource();
 			onWidgetEvent(widget);
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"onButton event IS NULL");
+			logger.error(className, function, "event IS NULL");
 		}
 	}
 		
@@ -125,16 +131,19 @@ public class UIWidgetFilter extends UIWidget_i {
 	}
 		
 	void onActionReceived(UIEventAction uiEventAction) {
+		final String function = "onActionReceived";
+		
+		logger.begin(className, function);
 		
 		String op	= (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
 		String od1	= (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
 		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
 		
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived op["+op+"]");
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived od1["+od1+"]");
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived od2["+od2+"]");
-		logger.log(Level.SEVERE, logPrefix+"onActionReceived od3["+od3+"]");
+		logger.error(className, function, "op["+op+"]");
+		logger.error(className, function, "od1["+od1+"]");
+		logger.error(className, function, "od2["+od2+"]");
+		logger.error(className, function, "od3["+od3+"]");
 		
 		if ( null != op ) {
 
@@ -155,25 +164,27 @@ public class UIWidgetFilter extends UIWidget_i {
 				if ( null != widget ) {
 					((RadioButton)widget).setValue(true);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"onActionReceived Widget strSet1["+strSet1+"] IS NULL");
+					logger.error(className, function, "Widget strSet1[{}] IS NULL", strSet1);
 				}
 
 				setFilter(strSet1);
 
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"onActionReceived ViewerViewEvent type IS UNKNOW");
+				logger.error(className, function, "ViewerViewEvent type IS UNKNOW");
 			}
 
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"onActionReceived op IS NULL");
+			logger.error(className, function, "op IS NULL");
 		}
 		
+		logger.end(className, function);
 	}
 
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init Begin");
+		logger.info(className, function, "init Begin");
 		
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
@@ -233,7 +244,7 @@ public class UIWidgetFilter extends UIWidget_i {
 		uiWidgetGeneric.setWidgetStatus( strSet1,  WidgetStatus.Down );
 		uiWidgetGeneric.setWidgetStatus( strClear,  WidgetStatus.Disable );
 		
-		logger.log(Level.FINE, logPrefix+"init End");
+		logger.end(className, function);
 	}
 
 }

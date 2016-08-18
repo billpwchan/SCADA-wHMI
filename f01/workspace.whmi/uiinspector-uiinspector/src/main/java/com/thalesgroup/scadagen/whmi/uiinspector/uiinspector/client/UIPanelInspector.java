@@ -22,12 +22,15 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
 public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	
 	private final Logger logger = Logger.getLogger(UIPanelInspector.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspector.class.getName());
+	private final String logPrefix = "["+className+"] ";
 
 	private final String strTabNames [] 	= new String[] {"Info","Control","Tagging","Advance"};
 
@@ -50,31 +53,31 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
 		
-		logger.log(Level.FINE, "setConnection this.scsEnvId["+this.scsEnvId+"]");
-		logger.log(Level.FINE, "setConnection this.parent["+this.parent+"]");
+		logger.log(Level.FINE, logPrefix+"setConnection this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, logPrefix+"setConnection this.parent["+this.parent+"]");
 		
 		database.setDynamic(scsEnvId, parent);
 	}
 	
 	@Override
 	public void setPeriod(String period) {
-		logger.log(Level.FINE, "setAddresses Begin");
+		logger.log(Level.FINE, logPrefix+"setAddresses Begin");
 
 		this.periodMillis = Integer.parseInt(period);
 		
-		logger.log(Level.FINE, "setAddresses End");
+		logger.log(Level.FINE, logPrefix+"setAddresses End");
 	}
 
 	@Override
 	public void connect() {
 		
-		logger.log(Level.FINE, "connect Begin");
+		logger.log(Level.FINE, logPrefix+"connect Begin");
 		Database database = Database.getInstance();
 		database.connect();
 		database.connectTimer(this.periodMillis);
 
 		{
-			logger.log(Level.FINE, "GetChildren Begin");
+			logger.log(Level.FINE, logPrefix+"GetChildren Begin");
 
 			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
 
@@ -137,12 +140,12 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 				}
 			});
 			
-			logger.log(Level.FINE, "GetChildren End");
+			logger.log(Level.FINE, logPrefix+"GetChildren End");
 		}
 		
 		{
 			{
-				logger.log(Level.FINE, "multiReadValue Begin");
+				logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
 				
 				String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
 				
@@ -155,9 +158,9 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
 				
-				logger.log(Level.FINE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+				logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.log(Level.FINE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+					logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 				}
 
 				String api = "multiReadValue";
@@ -189,16 +192,16 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 					}
 				});
 				
-				logger.log(Level.FINE, "multiReadValue End");
+				logger.log(Level.FINE, logPrefix+"multiReadValue End");
 			}
 		}
 		
-		logger.log(Level.FINE, "connect End");
+		logger.log(Level.FINE, logPrefix+"connect End");
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, "removeConnection Begin");
+		logger.log(Level.FINE, logPrefix+"removeConnection Begin");
 		
 		makeTabsDisconnect();
 		
@@ -208,20 +211,20 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		database.disconnectTimer();
 		database.disconnect();
 
-		logger.log(Level.FINE, "removeConnection End");
+		logger.log(Level.FINE, logPrefix+"removeConnection End");
 	}
 	
 	private boolean isRegExpMatch(RegExp regExp, String input) {
-		logger.log(Level.FINE, "isRegExpMatch regExp["+regExp+"] input["+input+"]");
+		logger.log(Level.FINE, logPrefix+"isRegExpMatch regExp["+regExp+"] input["+input+"]");
 		MatchResult matcher = regExp.exec(input);
 		boolean matchFound = matcher != null;
 		if ( matchFound ) {
 //			for ( int i = 0 ; i < matcher.getGroupCount(); i++) {
 //				String groupStr = matcher.getGroup(i);
-//				logger.log(Level.SEVERE, "isRegExpMatch input["+input+"] groupStr["+groupStr+"]");
+//				logger.log(Level.SEVERE, logPrefix+"isRegExpMatch input["+input+"] groupStr["+groupStr+"]");
 //			}
 		}
-		logger.log(Level.FINE, "isRegExpMatch matchFound["+matchFound+"]");
+		logger.log(Level.FINE, logPrefix+"isRegExpMatch matchFound["+matchFound+"]");
 		return matchFound;
 	}
 	
@@ -244,7 +247,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	@Override
 	public void buildTabsAddress(String[] instances) {
 		
-		logger.log(Level.FINE, "buildTabsAddress Begin");
+		logger.log(Level.FINE, logPrefix+"buildTabsAddress Begin");
 
 		LinkedList<String> infoRegExpPatternBlackList		= new LinkedList<String>();
 		LinkedList<String> controlRegExpPatternBlackList	= new LinkedList<String>();
@@ -264,14 +267,14 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		
 		controlRegExpPatternBlackList	.add("(dioECT-PTW)");
 			
-		logger.log(Level.FINE, "buildTabsAddress Iterator Begin");
+		logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator Begin");
 		
 		for ( String dbaddress : instances ) {
-			logger.log(Level.FINE, "buildTabsAddress Iterator dbaddress["+dbaddress+"]");
+			logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator dbaddress["+dbaddress+"]");
 			
 			if ( null != dbaddress ) {
 
-				logger.log(Level.FINE, "buildTabsAddress Iterator dbaddress["+dbaddress+"]");
+				logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator dbaddress["+dbaddress+"]");
 				
 				{
 					boolean infoBlackListMatch=false;
@@ -314,21 +317,21 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 				}
 
 			} else {
-				logger.log(Level.FINE, "buildTabsAddress Iterator dbaddress IS NULL");
+				logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator dbaddress IS NULL");
 			}
 		}
-		logger.log(Level.FINE, "buildTabsAddress End");
+		logger.log(Level.FINE, logPrefix+"buildTabsAddress End");
 	}
 	
 	@Override
 	public void makeTabsSetAddress() {
 		
-		logger.log(Level.FINE, "makeTabsSetAddress Begin");
+		logger.log(Level.FINE, logPrefix+"makeTabsSetAddress Begin");
 		
-		for ( String dbaddress : infos )	{ logger.log(Level.FINE, "makeTabsSetAddress infos dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : controls )	{ logger.log(Level.FINE, "makeTabsSetAddress controls dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : tags )		{ logger.log(Level.FINE, "makeTabsSetAddress tags dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : advances )	{ logger.log(Level.FINE, "makeTabsSetAddress advances dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : infos )	{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress infos dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : controls )	{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress controls dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : tags )		{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress tags dbaddress["+dbaddress+"]"); }
+		for ( String dbaddress : advances )	{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress advances dbaddress["+dbaddress+"]"); }
 		
 		uiInspectorHeader	.setParent(scsEnvId, parent);
 		
@@ -345,52 +348,52 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		uiInspectorTag		.setAddresses	(tags		.toArray(new String[0]));
 		uiInspectorAdvance	.setAddresses	(advances	.toArray(new String[0]));
 		
-		logger.log(Level.FINE, "makeTabsSetAddress End");
+		logger.log(Level.FINE, logPrefix+"makeTabsSetAddress End");
 	}
 	
 	@Override
 	public void makeTabsBuildWidgets() {
-		logger.log(Level.FINE, "makeTabsBuildWidgets Begin");
+		logger.log(Level.FINE, logPrefix+"makeTabsBuildWidgets Begin");
 		
 		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.buildWidgets();
 			} else {
-				logger.log(Level.SEVERE, "makeTabsBuildWidgets uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, logPrefix+"makeTabsBuildWidgets uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.FINE, "makeTabsBuildWidgets End");
+		logger.log(Level.FINE, logPrefix+"makeTabsBuildWidgets End");
 	}
 	
 	@Override
 	public void makeTabsConnect() {
-		logger.log(Level.FINE, "makeTabsConnect Begin");
+		logger.log(Level.FINE, logPrefix+"makeTabsConnect Begin");
 		
 		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.connect();
 			} else {
-				logger.log(Level.SEVERE, "makeTabsConnect uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, logPrefix+"makeTabsConnect uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.FINE, "makeTabsConnect End");
+		logger.log(Level.FINE, logPrefix+"makeTabsConnect End");
 	}
 
 	@Override
 	public void makeTabsDisconnect() {
-		logger.log(Level.FINE, "tagsDisconnect Begin");
+		logger.log(Level.FINE, logPrefix+"tagsDisconnect Begin");
 		
 		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.disconnect();
 			} else {
-				logger.log(Level.SEVERE, "tagsDisconnect uiPanelInspector_i IS NULL");
+				logger.log(Level.SEVERE, logPrefix+"tagsDisconnect uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.FINE, "tagsDisconnect End");
+		logger.log(Level.FINE, logPrefix+"tagsDisconnect End");
 	}
 	
 	private UIInspectorPage_i uiInspectorHeader		= null;
@@ -421,7 +424,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	@Override
 	public void init(String xml) {
 
-		logger.log(Level.FINE, "init Begin");
+		logger.log(Level.FINE, logPrefix+"init Begin");
 
 		uiInspectorTabs 	= new LinkedList<UIInspectorPage_i>();
 		
@@ -442,7 +445,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, "init setMessage message["+message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
 					txtMsg.setText(message);
 				}
 			}
@@ -450,11 +453,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void addMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, "init setMessage message["+message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
 					String text = txtMsg.getText();
-					logger.log(Level.FINE, "init setMessage text["+text+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage text["+text+"]");
 					if ( text.length() > 0 ) text += "\n";
-					logger.log(Level.FINE, "init setMessage text + message["+text + message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage text + message["+text + message+"]");
 					txtMsg.setText(text + message);
 				}
 			}
@@ -465,7 +468,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, "init setMessage message["+message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
 					txtMsg.setText(message);
 				}
 			}
@@ -473,11 +476,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void addMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, "init setMessage message["+message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
 					String text = txtMsg.getText();
-					logger.log(Level.FINE, "init setMessage text["+text+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage text["+text+"]");
 					if ( text.length() > 0 ) text += "\n";
-					logger.log(Level.FINE, "init setMessage text + message["+text + message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage text + message["+text + message+"]");
 					txtMsg.setText(text + message);
 				}
 			}
@@ -488,7 +491,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, "init setMessage message["+message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
 					txtMsg.setText(message);
 				}
 			}
@@ -496,11 +499,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void addMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, "init setMessage message["+message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
 					String text = txtMsg.getText();
-					logger.log(Level.FINE, "init setMessage text["+text+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage text["+text+"]");
 					if ( text.length() > 0 ) text += "\n";
-					logger.log(Level.FINE, "init setMessage text + message["+text + message+"]");
+					logger.log(Level.FINE, logPrefix+"init setMessage text + message["+text + message+"]");
 					txtMsg.setText(text + message);
 				}
 			}
@@ -565,7 +568,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		basePanel.add(bottomBar);
 		basePanel.addStyleName("project-gwt-panel-inspector");
 
-        logger.log(Level.FINE, "init End");
+        logger.log(Level.FINE, logPrefix+"init End");
 	}
 	
 	@Override

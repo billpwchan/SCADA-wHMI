@@ -25,6 +25,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
@@ -34,6 +35,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 public class UIInspectorControl implements UIInspectorPage_i {
 	
 	private final Logger logger = Logger.getLogger(UIInspectorControl.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName());
+	private final String logPrefix = "["+className+"] ";
 
 	private final String tagname				= "control";
 	
@@ -50,17 +53,17 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	public void setParent(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.log(Level.FINE, "setAddresses this.scsEnvId["+this.scsEnvId+"]");
-		logger.log(Level.FINE, "setParent this.parent["+this.parent+"]");
+		logger.log(Level.FINE, logPrefix+"setAddresses this.scsEnvId["+this.scsEnvId+"]");
+		logger.log(Level.FINE, logPrefix+"setParent this.parent["+this.parent+"]");
 	}
 	
 	@Override
 	public void setAddresses(String[] addresses) {
-		logger.log(Level.FINE, "setAddresses Begin");
+		logger.log(Level.FINE, logPrefix+"setAddresses Begin");
 		
 		this.addresses = addresses;
 		
-		logger.log(Level.FINE, "setAddresses End");
+		logger.log(Level.FINE, logPrefix+"setAddresses End");
 	}
 	
 	@Override
@@ -70,7 +73,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	
 	private void updatePager() {
 		
-		logger.log(Level.FINE, "updatePager Begin");
+		logger.log(Level.FINE, logPrefix+"updatePager Begin");
 		
 		pageCounter.calc(pageIndex);
 				
@@ -84,7 +87,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			btnDown.setVisible(false);
 		}
 		
-		logger.log(Level.FINE, "updatePager End");
+		logger.log(Level.FINE, logPrefix+"updatePager End");
 	}
 
 	@Override
@@ -100,7 +103,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	private HorizontalPanel[] controlboxes = null;
 	private void buildWidgets(int numOfWidgets) {
 		
-		logger.log(Level.FINE, "buildWidgets Begin");
+		logger.log(Level.FINE, logPrefix+"buildWidgets Begin");
 		
 		if ( null != vpCtrls ) {
 			
@@ -112,10 +115,10 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			updatePager();
 
 		} else {
-			logger.log(Level.SEVERE, "buildWidgets vpCtrls IS NULL");
+			logger.log(Level.SEVERE, logPrefix+"buildWidgets vpCtrls IS NULL");
 		}
 		
-		logger.log(Level.FINE, "buildWidgets End");
+		logger.log(Level.FINE, logPrefix+"buildWidgets End");
 	}
 	
 	class ControlPoint {
@@ -146,8 +149,8 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
-		logger.log(Level.FINE, "updateValue clientkey["+clientKey+"]");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -166,12 +169,12 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			updateValue(false);
 		}
 		
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.FINE, logPrefix+"updateValue End");
 	}
 	
 	private void updateValue(boolean withStatic) {
 		
-		logger.log(Level.FINE, "updateValue Begin");
+		logger.log(Level.FINE, logPrefix+"updateValue Begin");
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
@@ -190,12 +193,12 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			
 		}// End of keyAndValuesDynamic
 		
-		logger.log(Level.FINE, "updateValue End");
+		logger.log(Level.FINE, logPrefix+"updateValue End");
 	}
 	
 	private void updateValueStatic(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValueStatic Begin");
+		logger.log(Level.FINE, logPrefix+"updateValueStatic Begin");
 
 		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		if ( clientKeyStatic.equals(clientKey) ) {
@@ -251,12 +254,12 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			
 		}
 
-		logger.log(Level.FINE, "updateValueStatic End");
+		logger.log(Level.FINE, logPrefix+"updateValueStatic End");
 	}
 	
 	private ComplexPanel updateDioControl(String address, int row) {
 		
-		logger.log(Level.FINE, "updateDioControl address["+address+"] row["+row+"]");
+		logger.log(Level.FINE, logPrefix+"updateDioControl address["+address+"] row["+row+"]");
 		
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
@@ -269,7 +272,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			if ( dbvalues.containsKey(dbaddress) ) {
 				label = dbvalues.get(dbaddress);
 				label = RTDB_Helper.removeDBStringWrapper(label);
-				logger.log(Level.FINE, "updateValue label["+label+"]");
+				logger.log(Level.FINE, logPrefix+"updateValue label["+label+"]");
 				inlineLabels[row].setText(label);
 			}			
 		}
@@ -339,15 +342,15 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
-		logger.log(Level.FINE, "updateDioControl End");
+		logger.log(Level.FINE, logPrefix+"updateDioControl End");
 		
 		return widgetBoxes[row];
 	}
 	
 	private ComplexPanel updateAioControl(String address, int row) {
 		
-		logger.log(Level.FINE, "updateAioControl Begin");
-		logger.log(Level.FINE, "updateAioControl address["+address+"] row["+row+"]");
+		logger.log(Level.FINE, logPrefix+"updateAioControl Begin");
+		logger.log(Level.FINE, logPrefix+"updateAioControl address["+address+"] row["+row+"]");
 		
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
@@ -360,7 +363,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			if ( dbvalues.containsKey(dbaddress) ) {
 				label = dbvalues.get(dbaddress);
 				label = RTDB_Helper.removeDBStringWrapper(label);
-				logger.log(Level.FINE, "updateValue label["+label+"]");
+				logger.log(Level.FINE, logPrefix+"updateValue label["+label+"]");
 				inlineLabels[row].setText(label);
 			}			
 		}
@@ -430,15 +433,15 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
-		logger.log(Level.FINE, "updateAioControl End");
+		logger.log(Level.FINE, logPrefix+"updateAioControl End");
 		
 		return widgetBoxes[row];
 	}
 		
 	private ComplexPanel updateSioControl(String address, int row) {
 		
-		logger.log(Level.FINE, "updateSioControl Begin");
-		logger.log(Level.FINE, "updateSioControl address["+address+"] row["+row+"]");
+		logger.log(Level.FINE, logPrefix+"updateSioControl Begin");
+		logger.log(Level.FINE, logPrefix+"updateSioControl address["+address+"] row["+row+"]");
 		
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
@@ -451,7 +454,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			if ( dbvalues.containsKey(dbaddress) ) {
 				label = dbvalues.get(dbaddress);
 				label = RTDB_Helper.removeDBStringWrapper(label);
-				logger.log(Level.FINE, "updateSioControl label["+label+"]");
+				logger.log(Level.FINE, logPrefix+"updateSioControl label["+label+"]");
 				inlineLabels[row].setText(label);
 			}			
 		}
@@ -521,14 +524,14 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
-		logger.log(Level.FINE, "updateSioControl End");
+		logger.log(Level.FINE, logPrefix+"updateSioControl End");
 		
 		return widgetBoxes[row];	
 	}
 	
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
 		
-		logger.log(Level.FINE, "updateValueDynamic Begin");
+		logger.log(Level.FINE, logPrefix+"updateValueDynamic Begin");
 		
 		pageCounter.calc(pageIndex);
 //		
@@ -551,17 +554,17 @@ public class UIInspectorControl implements UIInspectorPage_i {
 								widget.setEnabled(false);
 							}
 						} else {
-							logger.log(Level.SEVERE, "updateValueDynamic uiButtonToggle IS NULL");
+							logger.log(Level.SEVERE, logPrefix+"updateValueDynamic uiButtonToggle IS NULL");
 						}
 					} else {
-						logger.log(Level.SEVERE, "updateValueDynamic value IS NULL");
+						logger.log(Level.SEVERE, logPrefix+"updateValueDynamic value IS NULL");
 					}
 				}				
 			}
 
 		}
 		
-		logger.log(Level.FINE, "updateValueDynamic End");
+		logger.log(Level.FINE, logPrefix+"updateValueDynamic End");
 	}
 	
 //	private LinkedList<String> controldios = new LinkedList<String>();
@@ -571,7 +574,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	private Subject controlMgrSubject = null;
 	@Override
 	public void connect() {
-		logger.log(Level.FINE, "connect Begin");
+		logger.log(Level.FINE, logPrefix+"connect Begin");
 			
 		String[] dbaddresses = null;
 		{
@@ -664,12 +667,12 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			observer.setSubject(controlMgrSubject);			
 		}
 		
-		logger.log(Level.FINE, "connect End");
+		logger.log(Level.FINE, logPrefix+"connect End");
 	}
 	
 	void createDioInitConds() {
 		
-		logger.log(Level.FINE, "createDioInitConds Begin");
+		logger.log(Level.FINE, logPrefix+"createDioInitConds Begin");
 		
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 		
@@ -709,19 +712,19 @@ public class UIInspectorControl implements UIInspectorPage_i {
 
 				addressAndInitCongGL.put(address, initCondGLList.toArray(new String[0]));
 			} else {
-				logger.log(Level.SEVERE, "createDioInitConds valueTable IS NULL");
+				logger.log(Level.SEVERE, logPrefix+"createDioInitConds valueTable IS NULL");
 			}
 			
 		}
 		
-		logger.log(Level.FINE, "createDioInitConds End");
+		logger.log(Level.FINE, logPrefix+"createDioInitConds End");
 	}
 	
 	void connectDIOinitConds() {
 		
 		// Read dynamic
 		{
-			logger.log(Level.FINE, "multiReadValue Begin");
+			logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
 			
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
 
@@ -736,9 +739,9 @@ public class UIInspectorControl implements UIInspectorPage_i {
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 			
-//			logger.log(Level.SEVERE, "multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+//			logger.log(Level.SEVERE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
 //			for(int i = 0; i < dbaddresses.length; ++i ) {
-//				logger.log(Level.SEVERE, "multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+//				logger.log(Level.SEVERE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
 //			}
 			
 			Database database = Database.getInstance();
@@ -751,15 +754,15 @@ public class UIInspectorControl implements UIInspectorPage_i {
 				}
 				
 			});
-			logger.log(Level.FINE, "multiReadValue End");
+			logger.log(Level.FINE, logPrefix+"multiReadValue End");
 		}
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, "disconnect Begin");
+		logger.log(Level.FINE, logPrefix+"disconnect Begin");
 		
-		logger.log(Level.FINE, "disconnect End");
+		logger.log(Level.FINE, logPrefix+"disconnect End");
 	}
 	
 	private Button btnExecute = null;
@@ -780,7 +783,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	@Override
 	public void init(String xml) {
 		
-		logger.log(Level.FINE, "init Begin");
+		logger.log(Level.FINE, logPrefix+"init Begin");
 
 		vpCtrls  = new VerticalPanel();
 		vpCtrls.setWidth("100%");
@@ -792,11 +795,11 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				logger.log(Level.FINE, "init onClick Begin");
+				logger.log(Level.FINE, logPrefix+"init onClick Begin");
 				
 				onButton(event);
 				
-				logger.log(Level.FINE, "init onClick End");
+				logger.log(Level.FINE, logPrefix+"init onClick End");
 			}
 		});
 //		btnExecute.setEnabled(false);
@@ -807,11 +810,11 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				logger.log(Level.FINE, "init onClick Begin");
+				logger.log(Level.FINE, logPrefix+"init onClick Begin");
 				
 				onButton(event);
 				
-				logger.log(Level.FINE, "init onClick End");
+				logger.log(Level.FINE, logPrefix+"init onClick End");
 			}
 		});
 		
@@ -860,7 +863,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
-		logger.log(Level.FINE, "init End");
+		logger.log(Level.FINE, logPrefix+"init End");
 		
 	}
 	
@@ -902,7 +905,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 	}
 	
 	private Widget getActivateWidget() {
-		logger.log(Level.FINE, "getActivateWidget Begin");
+		logger.log(Level.FINE, logPrefix+"getActivateWidget Begin");
 		Widget target = null;
 		for ( String address : widgetGroups.keySet() ) {
 			if ( target != null ) break;
@@ -923,14 +926,14 @@ public class UIInspectorControl implements UIInspectorPage_i {
 							target = widget;
 						}
 					} else {
-						logger.log(Level.FINE, "getActivateWidget widget IS NOT SUPPORTED");
+						logger.log(Level.FINE, logPrefix+"getActivateWidget widget IS NOT SUPPORTED");
 					}
 				} else {
-					logger.log(Level.FINE, "getActivateWidget btn IS NULL");
+					logger.log(Level.FINE, logPrefix+"getActivateWidget btn IS NULL");
 				}
 			}
 		}
-		logger.log(Level.FINE, "getActivateWidget End");
+		logger.log(Level.FINE, logPrefix+"getActivateWidget End");
 		return target;
 	}
 	
@@ -943,7 +946,7 @@ public class UIInspectorControl implements UIInspectorPage_i {
 		Button btn = (Button)event.getSource();
 		if ( btn instanceof UIButtonToggle ) {
 			
-			logger.log(Level.FINE, "onButton Button IS UIButtonToggle");
+			logger.log(Level.FINE, logPrefix+"onButton Button IS UIButtonToggle");
 			
 			Widget[] targetGroups = getSelectedGroup(btn);
 			if ( null != targetGroups ) {
@@ -951,11 +954,11 @@ public class UIInspectorControl implements UIInspectorPage_i {
 			}
 			
 		} else if ( btn instanceof Button ) {
-			logger.log(Level.FINE, "onButton Button IS Button");
+			logger.log(Level.FINE, logPrefix+"onButton Button IS Button");
 			
 			if ( btnExecute == btn ) {
 				
-				logger.log(Level.FINE, "onButton btn IS btnExecute");
+				logger.log(Level.FINE, logPrefix+"onButton btn IS btnExecute");
 				
 				Widget widget = getActivateWidget();
 				
@@ -980,43 +983,43 @@ public class UIInspectorControl implements UIInspectorPage_i {
 							String sDbAddress	= controlPoint.getValue("dbaddress");
 							String sValue		= controlPoint.getValue("value");
 							
-							logger.log(Level.FINE, "onButton sPoint["+sPoint+"]");
-							logger.log(Level.FINE, "onButton sScsEnvId["+sScsEnvId+"]");
-							logger.log(Level.FINE, "onButton sDbAddress["+sDbAddress+"]");
-							logger.log(Level.FINE, "onButton sValue["+sValue+"]");
+							logger.log(Level.FINE, logPrefix+"onButton sPoint["+sPoint+"]");
+							logger.log(Level.FINE, logPrefix+"onButton sScsEnvId["+sScsEnvId+"]");
+							logger.log(Level.FINE, logPrefix+"onButton sDbAddress["+sDbAddress+"]");
+							logger.log(Level.FINE, logPrefix+"onButton sValue["+sValue+"]");
 							
 							String alias = "<alias>";
 							if ( ! sDbAddress.startsWith(alias) ) sDbAddress = alias + sDbAddress;
 							
 							if ( 0 == sPoint.compareTo("dio") ) {
 								
-								logger.log(Level.FINE, "onButton controlPoint.dbaddress["+sDbAddress+"] Integer ["+Integer.parseInt(sValue)+"]");
+								logger.log(Level.FINE, logPrefix+"onButton controlPoint.dbaddress["+sDbAddress+"] Integer ["+Integer.parseInt(sValue)+"]");
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Integer.valueOf(sValue), byPassInitCond, byPassRetCond, sendAnyway);
 								
 							} else if ( 0 == sPoint.compareTo("aio") ) {
 								
-								logger.log(Level.FINE, "onButton controlPoint.dbaddress["+sDbAddress+"] Float ["+Float.parseFloat(sValue)+"]");
+								logger.log(Level.FINE, logPrefix+"onButton controlPoint.dbaddress["+sDbAddress+"] Float ["+Float.parseFloat(sValue)+"]");
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Float.parseFloat(sValue), byPassInitCond, byPassRetCond, sendAnyway);
 								
 							} else if ( 0 == sPoint.compareTo("sio") ) {
 								
-								logger.log(Level.FINE, "onButton controlPoint.dbaddress["+sDbAddress+"] String ["+sValue+"]");
+								logger.log(Level.FINE, logPrefix+"onButton controlPoint.dbaddress["+sDbAddress+"] String ["+sValue+"]");
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, sValue, byPassInitCond, byPassRetCond, sendAnyway);
 
 							} else {
-								logger.log(Level.SEVERE, "onButton INVALID controlPoint.point");
+								logger.log(Level.SEVERE, logPrefix+"onButton INVALID controlPoint.point");
 							}
 						} else {
-							logger.log(Level.SEVERE, "onButton controlPoint IS NULL");
+							logger.log(Level.SEVERE, logPrefix+"onButton controlPoint IS NULL");
 						}
 					} else {
-						logger.log(Level.SEVERE, "onButton controlPoint NOT CONTAIN the Key");
+						logger.log(Level.SEVERE, logPrefix+"onButton controlPoint NOT CONTAIN the Key");
 					}
 				} else {
-					logger.log(Level.SEVERE, "onButton controlPoint widget IS NULL");
+					logger.log(Level.SEVERE, logPrefix+"onButton controlPoint widget IS NULL");
 				}
 			} else if ( btn == btnUp || btn == btnDown ) {
 				if ( btn == btnUp) {

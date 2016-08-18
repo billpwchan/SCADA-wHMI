@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
@@ -14,6 +11,9 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNav
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAccessBar;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAlarmBanner;
@@ -27,7 +27,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 
 public class UIScreenMMI extends UIWidget_i {
 
-	private Logger logger = Logger.getLogger(UIScreenMMI.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 	
@@ -37,6 +38,10 @@ public class UIScreenMMI extends UIWidget_i {
 	
 	@Override
 	public void init() {
+		
+		final String function = "init";
+		
+		logger.begin(className, function);
 		
 		handlerRegistrations.add(		
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -54,8 +59,8 @@ public class UIScreenMMI extends UIWidget_i {
 			
 			@Override
 			public UIWidget_i getUIWidget(String widget) {
-				logger.log(Level.FINE, "getUIWidget Begin");
-				logger.log(Level.FINE, "getUIWidget widget["+widget+"]");
+
+				logger.info(className, function, "getUIWidget widget[{}]", widget);
 				
 				UIWidget_i uiWidget_i = null;
 				
@@ -69,7 +74,7 @@ public class UIScreenMMI extends UIWidget_i {
 							
 							uiWidget_i = UIPanelNavigation.getInstance();
 							
-							logger.log(Level.SEVERE, "getMainPanel widget["+widget+"] widgetType["+params[1]+"] menuLevel["+params[2]+"] menuType["+params[3]+"]");
+							logger.info(className, function, "getUIWidget widget[{}] widgetType[{}] menuLevel[{}] menuType[{}]", new Object[]{widget, params[1], params[2], params[3]});
 								
 							uiWidget_i.setParameter("menuLevel", params[2]);
 							uiWidget_i.setParameter("menuType", params[3]);
@@ -114,12 +119,12 @@ public class UIScreenMMI extends UIWidget_i {
 						uiWidget_i.init();
 					}
 				} else {
-					logger.log(Level.SEVERE, "getUIWidget widget IS NULL");
+					logger.error(className, function, "getUIWidget widget IS NULL");
 				}
 				
 
-				logger.log(Level.FINE, "getUIWidget uiWIdget["+uiWidget_i+"]");
-				logger.log(Level.FINE, "getUIWidget End");
+				logger.info(className, function, "getUIWidget uiWIdget[{}]", uiWidget_i);
+				
 				
 				return uiWidget_i;
 			}
@@ -133,14 +138,18 @@ public class UIScreenMMI extends UIWidget_i {
 		rootPanel = uiPanelGeneric.getMainPanel();
 		
 		//Start the Navigation Menu
-		logger.log(Level.FINE, "getMainPanel Start the Navigation Menu Begin");
+		logger.info(className, function, "Start the Navigation Menu Begin");
 		
 		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
+		
+		logger.end(className, function);
 	}
 	
 	void onUIEvent(UIEvent uiEvent) {
+		
+		final String function = "onUIEvent";
 
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.begin(className, function);
 
 		if (null != uiEvent) {
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -152,7 +161,7 @@ public class UIScreenMMI extends UIWidget_i {
 
 						UITaskLaunch taskLaunch = (UITaskLaunch) taskProvide;
 
-						logger.log(Level.FINE, "onUIEvent taskLaunch.getUiPanel()[" + taskLaunch.getUiPanel() + "]");
+						logger.info(className, function, "taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
 
 						if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIDialogMsg")) {
 
@@ -177,7 +186,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof String ) {
 									hvid		= (String)obj;
 								} else {
-									logger.log(Level.SEVERE, "onUIEvent hvid IS NOT A STRING");
+									logger.error(className, function, "hvid IS NOT A STRING");
 								}
 							}
 							
@@ -187,7 +196,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof Integer ) {
 									mouseX		= (Integer)obj;
 								} else {
-									logger.log(Level.SEVERE, "onUIEvent mouseX IS NOT A Integer");
+									logger.error(className, function, "mouseX IS NOT A Integer");
 								}
 							}
 							
@@ -197,7 +206,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof Integer ) {
 									mouseY		= (Integer)obj;
 								} else {
-									logger.log(Level.SEVERE, "onUIEvent mouseY IS NOT A Integer");
+									logger.error(className, function, "mouseY IS NOT A Integer");
 								}
 							}
 							
@@ -207,11 +216,9 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof String ) {
 									period		= (String)obj;
 								} else {
-									logger.log(Level.SEVERE, "onUIEvent period IS NOT A STRING");
+									logger.error(className, function, "period IS NOT A STRING");
 								}
 							}
-							
-
 							
 							String scsEnvId		= hvid;
 							String dbaddress	= hvid;
@@ -250,9 +257,9 @@ public class UIScreenMMI extends UIWidget_i {
 								
 							}
 					
-							logger.log(Level.SEVERE, "onUIEvent hvid["+hvid+"]");
+							logger.info(className, function, "hvid[{}]", hvid);
 							
-							logger.log(Level.SEVERE, "onUIEvent dbaddress["+dbaddress+"]");
+							logger.info(className, function, "dbaddress[{}]", dbaddress);
 							
 							UIPanelInspectorDialogBox uiInspectorDialogbox = new UIPanelInspectorDialogBox();
 							
@@ -280,7 +287,8 @@ public class UIScreenMMI extends UIWidget_i {
 			}
 
 		}
-		logger.log(Level.FINE, "onUIEvent End");
+		
+		logger.end(className, function);
 
 	}
 }

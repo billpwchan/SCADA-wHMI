@@ -83,7 +83,7 @@ public class UILayoutGeneric extends UIWidget_i {
 			}
 
 		} else {
-			logger.error(className, function, "strPanel IS NULL");
+			logger.warn(className, function, "strPanel IS NULL");
 		}
 
 		if ( null != rootPanel ) {
@@ -91,7 +91,7 @@ public class UILayoutGeneric extends UIWidget_i {
 			if ( null != strCSS ) {
 				rootPanel.addStyleName(strCSS);
 			} else {
-				logger.error(className, function, "strCSS IS NULL");
+				logger.warn(className, function, "strCSS IS NULL");
 			}
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
@@ -134,7 +134,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.error(className, function, "created UIPredefinePanelMgr widget[{}] IS NULL", widget);
+									logger.warn(className, function, "created UIPredefinePanelMgr widget[{}] IS NULL", widget);
 								}
 							} else if ( TypeAttribute.layoutconfiguration.equalsName(type) ) {
 								
@@ -147,7 +147,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.init();
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.error(className, function, "created UIPanelGeneric widget[{}] IS NULL", widget);
+									logger.warn(className, function, "created UIPanelGeneric widget[{}] IS NULL", widget);
 								}
 							} else if ( TypeAttribute.configuration.equalsName(type) ) {
 								
@@ -160,7 +160,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									uiWidget.init();
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.error(className, function, "created UIWidgetGeneric widget[{}] IS NULL", widget);
+									logger.warn(className, function, "created UIWidgetGeneric widget[{}] IS NULL", widget);
 								}
 							} else {
 								logger.info(className, function, "type IS INVALID");
@@ -176,8 +176,8 @@ public class UILayoutGeneric extends UIWidget_i {
 											try {
 												width = Integer.parseInt(size);
 											} catch ( NumberFormatException e) {
-												logger.error(className, function, "size IS INVALID");
-												logger.error(className, function, "e[{}]", e.toString());
+												logger.warn(className, function, "size IS INVALID");
+												logger.warn(className, function, "e[{}]", e.toString());
 											}
 										}
 										
@@ -192,7 +192,7 @@ public class UILayoutGeneric extends UIWidget_i {
 										} else if ( DirectionAttribute.Center.equalsName(direction) ) {
 											((DockLayoutPanel)rootPanel).add(panel);
 										} else {
-											logger.error(className, function, "direction IS INVALID");
+											logger.warn(className, function, "direction IS INVALID");
 										}
 									} else {
 										logger.info(className, function, "direction IS null");
@@ -227,16 +227,16 @@ public class UILayoutGeneric extends UIWidget_i {
 								}
 								
 							} else {
-								logger.error(className, function, "complexPanel IS NULL");
+								logger.warn(className, function, "complexPanel IS NULL");
 							}
 						} else {
-							logger.error(className, function, "config IS NULL");
+							logger.warn(className, function, "config IS NULL");
 						}					
 					}
 				}
 		    }
 		} else {
-			logger.error(className, function, "Panel IS NULL");
+			logger.warn(className, function, "Panel IS NULL");
 		}
 		
 		logger.trace(className, function, "End");
@@ -338,7 +338,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									
 									isvalid=true;
 								} catch ( NumberFormatException e ) {
-									logger.error(className, function, "NumberFormatException e[{}]", e);
+									logger.warn(className, function, "NumberFormatException e[{}]", e);
 								}
 								
 								if ( isvalid ) {
@@ -361,21 +361,21 @@ public class UILayoutGeneric extends UIWidget_i {
 											}
 										}
 									} else {
-										logger.error(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
+										logger.warn(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
 									}
 								} else {
-									logger.error(className, function, "keys[0][{}] OR keys[1][{}] is not a number", new Object[]{keys[0], keys[1]});
+									logger.warn(className, function, "keys[0][{}] OR keys[1][{}] is not a number", new Object[]{keys[0], keys[1]});
 								}
 							}
 						} else {
-							logger.error(className, function, "key IS NULL");
+							logger.warn(className, function, "key IS NULL");
 						}
 					}
 				}
 			}
 
 		} else {
-			logger.error(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
+			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
 		}
 		logger.info(className, function, "End");
 	}

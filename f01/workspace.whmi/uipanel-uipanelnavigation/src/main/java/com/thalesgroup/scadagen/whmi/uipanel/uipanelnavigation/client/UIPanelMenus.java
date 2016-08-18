@@ -18,7 +18,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-
 public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelMenus.class.getName());
@@ -36,7 +35,7 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		logger.begin(className, function);
 		
 		Integer iIndex = Integer.valueOf(index);
-		logger.error(className, function, "addMenuBar index[{}] ==> iIndex[{}]", index, iIndex);
+		logger.info(className, function, "addMenuBar index[{}] ==> iIndex[{}]", index, iIndex);
 		
 		menus.put(iIndex, menu);
 		
@@ -77,13 +76,13 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		final String function = "getMenu";
 		
 		logger.begin(className, function);
-		logger.error(className, function, "level[{}] menuType[{}]", menuLevel, menuType);
+		logger.info(className, function, "level[{}] menuType[{}]", menuLevel, menuType);
 		int level = -1;
 		try {
 			level = Integer.parseInt(menuLevel);
 		} catch ( NumberFormatException e) {
-			logger.error(className, function, "menuLevel[{}] IS INVALID", menuLevel);
-			logger.error(className, function, "e[{}]", e.toString());
+			logger.warn(className, function, "menuLevel[{}] IS INVALID", menuLevel);
+			logger.warn(className, function, "e[{}]", e.toString());
 		}
 		Panel panel = null;
 		
@@ -97,7 +96,7 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			// VerticalPanel = 2
 			panel = this.getVerticalMenu(level);
 		} else {
-			logger.error(className, function, "menuType[{}] IS INVALID", menuType);
+			logger.warn(className, function, "menuType[{}] IS INVALID", menuType);
 		}
 		logger.end(className, function);
 		return panel;
@@ -163,11 +162,11 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		
 		if ( null != taskLaunchs ) {
 			
-			logger.error(className, function, "taskLaunchs.size[{}]", taskLaunchs.size());
+			logger.info(className, function, "taskLaunchs.size[{}]", taskLaunchs.size());
 			
 			addTaskToMenu(level, header, taskLaunchs, launchHeader, executeTask);
 		} else {
-			logger.error(className, function, "setMenu is null");
+			logger.warn(className, function, "setMenu is null");
 		}
 
 		logger.end(className, function);
@@ -184,7 +183,7 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			panelToClear.clear();
 			++panelLevelToClear;
 
-			logger.error(className, function, "Level of Menu Bar to clear: [{}]", panelLevelToClear);
+			logger.info(className, function, "Level of Menu Bar to clear: [{}]", panelLevelToClear);
 		}
 		
 		logger.end(className, function);
@@ -263,15 +262,15 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 				if ( null != navigationMenuButton ) {
 					onClickAction(navigationMenuButton, launchHeader, executeTask);
 				} else {
-					logger.error(className, function, "menuBar.getWidgetCount() > 0 navigationMenuButton is null");
+					logger.warn(className, function, "menuBar.getWidgetCount() > 0 navigationMenuButton is null");
 				}
 				
 				logger.info(className, function, "menuBar.getWidgetCount() > 0 End");
 			} else {
-				logger.error(className, function, "menuBar.getWidgetCount()[{}] <= 0", menuBar.getWidgetCount());
+				logger.warn(className, function, "menuBar.getWidgetCount()[{}] <= 0", menuBar.getWidgetCount());
 			}
 		} else {
-			logger.error(className, function, "menuBar IS NULL");
+			logger.warn(className, function, "menuBar IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -306,19 +305,19 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 
 		if ( TaskLaunchType.MENU == task.getTaskLaunchType()) {
 			
-			logger.error(className, function, "is TaskType.MENU");
+			logger.info(className, function, "is TaskType.MENU");
 			
 			setMenu(levelNext, task.getHeader(), launchHeader, executeTask);
 			
 		} else {
 			
-			logger.error(className, function, "executeTask[{}]", executeTask);
+			logger.info(className, function, "executeTask[{}]", executeTask);
 			
 			if ( executeTask ) {
 			
 				task.setTaskUiScreen(this.uiNameCard.getUiScreen());
 				
-				logger.error(className, function, "Execute Task[{}] on Screen[{}]", task.getHeader(), task.getTaskUiScreen());
+				logger.info(className, function, "Execute Task[{}] on Screen[{}]", task.getHeader(), task.getTaskUiScreen());
 				
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(task));
 			}

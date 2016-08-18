@@ -115,7 +115,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 		
 		if ( null == dictionaryHeader || null == dictionaryOption ) {
 			
-			logger.error(className, function, "dictionaryHeader OR dictionaryOption IS NULL");
+			logger.warn(className, function, "dictionaryHeader OR dictionaryOption IS NULL");
 						
 			rootPanel = new VerticalPanel();
 			
@@ -203,15 +203,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 							String element			= valueMap.get(WidgetAttribute.element.toString());
 							String debugId			= valueMap.get(WidgetAttribute.debugId.toString());
 							
-							logger.error(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
-							logger.error(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
-							logger.error(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
+							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
+							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
+							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
 							
 							TranslationMgr translationMgr = TranslationMgr.getInstance();
 							if ( null != translationMgr ) {
 								label = translationMgr.getTranslation(label);
 							} else {
-								logger.error(className, function, "getTranslation IS NULL");
+								logger.warn(className, function, "getTranslation IS NULL");
 							}
 							
 							if ( WidgetType.TextBox.equalsName(widget)
@@ -339,7 +339,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 							} else if ( WidgetType.RadioButton.equalsName(widget) ) {
 								
 								if ( null == groupName )
-									logger.error(className, function, "getMainPanel created widget["+widget+"] groupName IS NULL");
+									logger.warn(className, function, "getMainPanel created widget["+widget+"] groupName IS NULL");
 								
 								if ( null != groupName ) 	w = new RadioButton(groupName);
 								
@@ -365,12 +365,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 									uiWIdget.setUINameCard(this.uiNameCard);
 									w = uiWIdget.getMainPanel();
 								} else {
-									logger.error(className, function, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
+									logger.warn(className, function, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
 								}
 
 								this.widgets.put(index, w);
 							} else {
-								logger.error(className, function, "getMainPanel widget["+widget+"] IS INVALID");
+								logger.warn(className, function, "getMainPanel widget["+widget+"] IS INVALID");
 							}
 							
 							if ( null != w ) {
@@ -396,7 +396,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 										if ( null != left )	x = Integer.parseInt(left);
 										if ( null != top )	y = Integer.parseInt(top);
 									} catch ( NumberFormatException e ) {
-										logger.error(className, function, "getMainPanel left or top IS INVALID");
+										logger.warn(className, function, "getMainPanel left or top IS INVALID");
 									}
 									((AbsolutePanel)rootPanel).add(w, x, y);
 								}
@@ -406,16 +406,16 @@ public class UIWidgetGeneric extends UIWidget_i {
 									container.setClassName(cssContainer);
 								}
 							} else {
-								logger.error(className, function, "can't createt widget index[{}], w IS NULL", index);
+								logger.warn(className, function, "can't createt widget index[{}], w IS NULL", index);
 							}
 						} else {
-							logger.error(className, function, "index[{}], check index please, valueMap IS NULL", index);
+							logger.warn(className, function, "index[{}], check index please, valueMap IS NULL", index);
 						}
 					} else {
-						logger.error(className, function, "Build Filter INVALID index[{}] > values.length[{}]", index, values.size());
+						logger.warn(className, function, "Build Filter INVALID index[{}] > values.length[{}]", index, values.size());
 					}
 				}
-				logger.error(className, function, "Build Filter Table Loop i[{}] End", i);
+				logger.info(className, function, "Build Filter Table Loop i[{}] End", i);
 		    }
 
 	    }
@@ -444,7 +444,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     						logger.info(className, function, "key[{}] element[{}]", key, element);
     						break;
     					} else {
-    						logger.error(className, function, "hashMap at key[{}] IS NULL", key);
+    						logger.warn(className, function, "hashMap at key[{}] IS NULL", key);
     					}
     				}
     			}
@@ -483,7 +483,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	}
     	
     	if ( null == widget ) {
-    		logger.error(className, function, "elementValue[{}] widget IS NULL", element);
+    		logger.warn(className, function, "elementValue[{}] widget IS NULL", element);
     	}
     	
     	logger.end(className, function);
@@ -496,11 +496,11 @@ public class UIWidgetGeneric extends UIWidget_i {
     	final String function = "getWidgetStatus";
     	logger.begin(className, function);
     	
-    	logger.error(className, function, "element[{}]", element);
+    	logger.warn(className, function, "element[{}]", element);
     	
     	WidgetStatus status = getWidgetStatus(getWidget(element));
     	
-    	logger.error(className, function, "status[{}]", status);
+    	logger.warn(className, function, "status[{}]", status);
     	
     	logger.end(className, function);
     	
@@ -512,7 +512,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	
     	logger.begin(className, function);
     	
-    	logger.error(className, function, "widget[{}]", widget);
+    	logger.warn(className, function, "widget[{}]", widget);
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
@@ -572,12 +572,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 					tooltip = ((Button)widget).getTitle();
 					stylename = ((Button)widget).getStyleName();
 				} else {
-					logger.error(className, function, "widget type IS VALID");
+					logger.warn(className, function, "widget type IS VALID");
 				}
 
 				if ( null != tooltipDown || null != tooltipDisable ) {
 					
-					logger.error(className, function, "stylename[{}]", stylename);
+					logger.warn(className, function, "stylename[{}]", stylename);
 					
 					if ( null != tooltip ) {
 						if ( null != tooltipDisable && 0 == tooltip.compareTo(tooltipDisable) ) {
@@ -590,7 +590,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 					}
 				} else if ( null != cssDown || null != cssDisable ) {
 					
-					logger.error(className, function, "stylename[{}]", stylename);
+					logger.warn(className, function, "stylename[{}]", stylename);
 					
 					if ( null != stylename ) {
 		//				String stylenames [] = stylename.split("\\s");
@@ -603,13 +603,13 @@ public class UIWidgetGeneric extends UIWidget_i {
 						}					
 					}					
 				} else {
-					logger.error(className, function, "status checking IS INALID");
+					logger.warn(className, function, "status checking IS INALID");
 				}
 			} else {
-				logger.error(className, function, "widget type IS VALID");
+				logger.warn(className, function, "widget type IS VALID");
 			}
     	} else {
-    		logger.error(className, function, "widget IS NULL");
+    		logger.warn(className, function, "widget IS NULL");
     	}
     	
     	logger.info(className, function, "status[{}]", status);
@@ -624,7 +624,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 		final String function = "setWidgetStatus";
 		
     	logger.begin(className, function);
-    	logger.error(className, function, "element[{}] status[{}]", element, status.toString());
+    	logger.info(className, function, "element[{}] status[{}]", element, status.toString());
     	
     	setWidgetStatus(getWidget(element), status);
     	
@@ -635,7 +635,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	final String function = "setWidgetStatus";
     	
     	logger.begin(className, function);
-    	logger.error(className, function, "widget[{}] status[{}]", widget, status);
+    	logger.info(className, function, "widget[{}] status[{}]", widget, status);
     	
     	if ( null != widget ) {
     		 
@@ -723,15 +723,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 						}
 						if ( null != cssRemove1 ) {
 							widget.removeStyleName(cssRemove1);
-							logger.error(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
+							logger.warn(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
 						}
 						if ( null != cssRemove2 ) {
 							widget.removeStyleName(cssRemove2);
-							logger.error(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
+							logger.warn(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
 						}
 						if ( null != cssAdd ) {
 							widget.addStyleName(cssAdd);
-							logger.error(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
+							logger.warn(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
 						}
 						
 //						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
@@ -744,16 +744,16 @@ public class UIWidgetGeneric extends UIWidget_i {
 							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
 		    			
 					} else {
-						logger.error(className, function, "widget IS INVALID");
+						logger.warn(className, function, "widget IS INVALID");
 					}
     			} else {
-    				logger.error(className, function, "valueMap IS INVALID");
+    				logger.warn(className, function, "valueMap IS INVALID");
     			}
     		} else {
-    			logger.error(className, function, "status IS NULL");
+    			logger.warn(className, function, "status IS NULL");
     		}
     	} else {
-    		logger.error(className, function, "widget IS NULL");
+    		logger.warn(className, function, "widget IS NULL");
     	}
     	
     	logger.end(className, function);
@@ -808,7 +808,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
 				} else {
-					logger.error(className, function, "WidgetType IS NULL");
+					logger.warn(className, function, "WidgetType IS NULL");
 				}
 				
 				
@@ -816,7 +816,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				logger.info(className, function, "widget IS NULL");
 			}
 		} else {
-			logger.error(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
+			logger.warn(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
 		}
 		
 		logger.end(className, function);
@@ -825,14 +825,14 @@ public class UIWidgetGeneric extends UIWidget_i {
 	public void ready(Dictionary dictionary) {
 		final String function = "ready";
 		logger.begin(className, function);
-		logger.error(className, function, "this.xmlFile[{}]", this.xmlFile);
+		logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.error(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
+			logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -921,7 +921,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 									
 									isvalid=true;
 								} catch ( NumberFormatException e ) {
-									logger.error(className, function, "NumberFormatException e[{}]", e);
+									logger.warn(className, function, "NumberFormatException e[{}]", e);
 								}
 								
 								if ( isvalid ) {
@@ -944,21 +944,21 @@ public class UIWidgetGeneric extends UIWidget_i {
 											}
 										}
 									} else {
-										logger.error(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
+										logger.warn(className, function, "row[{}] col[{}] => index[{}] Index NOT EXISTS", new Object[]{row, col, index});
 									}
 								} else {
-									logger.error(className, function, "keys[0][{}] OR keys[1][{}] is not a number", keys[0], keys[1]);
+									logger.warn(className, function, "keys[0][{}] OR keys[1][{}] is not a number", keys[0], keys[1]);
 								}
 							}
 						} else {
-							logger.error(className, function, "key IS NULL");
+							logger.warn(className, function, "key IS NULL");
 						}
 					}
 				}
 			}
 
 		} else {
-			logger.error(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
+			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
 		}
 		
 		logger.end(className, function);

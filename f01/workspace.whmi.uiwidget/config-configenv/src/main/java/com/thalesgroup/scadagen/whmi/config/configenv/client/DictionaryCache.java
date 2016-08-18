@@ -49,7 +49,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		final String function = "add";
 		
 		logger.begin(className, function);
-		logger.error(className, function, "xml[{}] tag[{}] ", xml, tag);
+		logger.info(className, function, "xml[{}] tag[{}] ", xml, tag);
 		
 		incoming.add(xml+"|"+tag);
 		
@@ -63,7 +63,11 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		
 		this.dictionaryCacheEvent = dictionaryCacheEvent;
 
-		logger.error(className, function, "module[{}]", module);
+		logger.info(className, function, "module[{}]", module);
+		
+		if (module == null ) { 
+			logger.warn(className, function, "module IS NULL", module);
+		}
 		
 		for (Iterator<String> iterator = incoming.iterator(); iterator.hasNext();) {
 			
@@ -94,7 +98,9 @@ public class DictionaryCache implements DictionaryMgrEvent {
 	public void dictionaryMgrEventFailed(String xmlFile) {
 		final String function = "dictionaryMgrEventFailed";
 		
-		logger.error(className, function, "xmlFile[{}]", xmlFile);
+		logger.begin(className, function);
+		
+		logger.info(className, function, "xmlFile[{}]", xmlFile);
 		
 		received++;
 
@@ -106,13 +112,13 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		}
 		fails.add(xmlFile);
 		
-		logger.error(className, function, "received[{}] >= sent[{}]", received, sent);
+		logger.warn(className, function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionaryCacheEvent )
 				dictionaryCacheEvent.dictionaryCacheEventReady(received);
 		
-		logger.error(className, function, "End");
+		logger.end(className, function);
 	}
 	
 	@Override
@@ -128,7 +134,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			String XmlTag = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
 			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
 			
-			logger.error(className, function, "dictionaryMgrEventReady dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});		
+			logger.info(className, function, "dictionaryMgrEventReady dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});		
 			
 			String xmlWithHeader = xmlFile + "|"+ XmlTag;
 		
@@ -142,10 +148,10 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			}
 			
 		} else {
-			logger.error(className, function, "dictionary IS NULL");
+			logger.warn(className, function, "dictionary IS NULL");
 		}
 		
-		logger.error(className, function, "received[{}] >= sent[{}]", received, sent);
+		logger.info(className, function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionaryCacheEvent )

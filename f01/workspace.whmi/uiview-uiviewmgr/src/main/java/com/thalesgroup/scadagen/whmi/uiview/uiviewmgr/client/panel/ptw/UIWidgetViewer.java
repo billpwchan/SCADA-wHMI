@@ -58,21 +58,22 @@ public class UIWidgetViewer extends UIWidget_i {
 	public void removeFilter() {
 		final String function = "removeFilter";
 		
-		logger.error(className, function, "Begin");
+		logger.begin(className, function);
 		if ( null != gridPresenter ) {
 			LinkedList<String> entitles = gridPresenter.getFilterColumns();
 			for ( String entitle : entitles ) {
-				logger.error(className, function, "entitle[{}]", entitle);
+				logger.warn(className, function, "entitle[{}]", entitle);
 				gridPresenter.removeContainerFilter(entitle);
 			}
 		}
-		logger.error(className, function, "End");
+		logger.end(className, function);
 	}
 	
 	public void applyFilter(String column, String value) {
 		final String function = "applyFilter";
 		
-		logger.error(className, function, "column[{}] value[{}]", column, value);
+		logger.begin(className, function);
+		logger.info(className, function, "column[{}] value[{}]", column, value);
 
 		ColumnFilterData cfd = new ColumnFilterData(column, value);
 		
@@ -88,6 +89,7 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		gridPresenter.setContainerFilter(cfd.getColumnName(), fd);
 		logger.info(className, function, "column[{}] value[{}]", column, value);
+		logger.end(className, function);
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
@@ -96,24 +98,24 @@ public class UIWidgetViewer extends UIWidget_i {
 	void onActionReceived(UIEventAction uiEventAction) {
 		final String function = "onActionReceived";
 		
-		logger.error(className, function, "Begin");
+		logger.begin(className, function);
 		
 		String op = (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
 		String od1 = (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
 		String od2 = (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 		
-		logger.error(className, function, "op[{}]", op);
-		logger.error(className, function, "od1[{}]", od1);
-		logger.error(className, function, "od2[{}]", od2);
+		logger.warn(className, function, "op[{}]", op);
+		logger.warn(className, function, "od1[{}]", od1);
+		logger.warn(className, function, "od2[{}]", od2);
 		
 		if ( null != op ) {
 			if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
 				if ( null != od1 && null != od2) {
 					applyFilter(od1, od2);
 				} else if ( null == od1 ) {
-					logger.error(className, function, "od1 IS NULL");
+					logger.warn(className, function, "od1 IS NULL");
 				} else if ( null == od2 ) {
-					logger.error(className, function, "od2 IS NULL");
+					logger.warn(className, function, "od2 IS NULL");
 				}
 			} else if ( op.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 				removeFilter();
@@ -121,17 +123,17 @@ public class UIWidgetViewer extends UIWidget_i {
 				Window.alert("Print Event");
 			}
 		} else {
-			logger.error(className, function, "op IS NULL");
+			logger.warn(className, function, "op IS NULL");
 		}
 		
-		logger.error(className, function, "End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void init() {
 		final String function = "init";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 		
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
@@ -228,15 +230,16 @@ public class UIWidgetViewer extends UIWidget_i {
 
 					@Override
 					public void onSelection(Set<HashMap<String, String>> entities) {
+						final String function = "onSelection fireFilterEvent";
 						
-						logger.error(className, function, "fireSelecionEvent Begin");
+						logger.begin(className, function);
 
 						UIEventAction uiEventAction = new UIEventAction();
 						uiEventAction.setParameters(ViewAttribute.Operation.toString(), ViewerViewEvent.RowSelected.toString());
 						uiEventAction.setParameters(ViewAttribute.OperationObject1.toString(), entities);
 						eventBus.fireEventFromSource(uiEventAction, this);
 						
-						logger.error(className, function, "fireSelecionEvent End");
+						logger.end(className, function);
 					}
 				});
 				
@@ -244,8 +247,9 @@ public class UIWidgetViewer extends UIWidget_i {
 					
 					@Override
 					public void onFilterChange(ArrayList<String> columns) {
+						final String function = "onFilterChange fireFilterEvent";
 
-						logger.error(className, function, "fireFilterEvent Begin");
+						logger.begin(className, function);
 						
 						UIEventAction event = new UIEventAction();
 						ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
@@ -255,16 +259,16 @@ public class UIWidgetViewer extends UIWidget_i {
 						event.setParameters(ViewAttribute.Operation.toString(), viewerViewEvent.toString());
 						eventBus.fireEventFromSource(event, this);
 						
-						logger.error(className, function, "fireFilterEvent Begin");
+						logger.end(className, function);
 					}
 				});
 			} else {
-				logger.error(className, function, "gridPresenter columns.size()");
+				logger.warn(className, function, "gridPresenter columns.size()");
 			}
 		} else {
-			logger.error(className, function, "scsOlsListPanel columns.size()");
+			logger.warn(className, function, "scsOlsListPanel columns.size()");
 		}
 		
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 }

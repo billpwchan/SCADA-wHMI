@@ -34,7 +34,7 @@ public class UIWidgetAction extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
@@ -73,6 +73,6 @@ public class UIWidgetAction extends UIWidget_i {
 			})
 		);
 		
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 }

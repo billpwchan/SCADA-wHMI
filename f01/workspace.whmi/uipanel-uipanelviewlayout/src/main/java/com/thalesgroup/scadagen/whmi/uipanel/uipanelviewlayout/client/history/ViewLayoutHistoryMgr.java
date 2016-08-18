@@ -1,14 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.history;
 
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutHistory;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class ViewLayoutHistoryMgr {
 	
-	private Logger logger = Logger.getLogger(ViewLayoutHistoryMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(ViewLayoutHistoryMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private static int HISTORY_LIMIT = 20;
 	
@@ -23,25 +24,31 @@ public class ViewLayoutHistoryMgr {
 		viewLayoutHistorys = new LinkedList<ViewLayoutHistory>();
 	}
 	public boolean hasHistory() {
-		logger.log(Level.FINE, "hasHistory Begin");
+		final String function = "hasHistory";
+		
+		logger.begin(className, function);
 		boolean result = false;
 		if ( viewLayoutHistorys.size() > 0 ) {
 			result = true;
 		}
-		logger.log(Level.FINE, "hasPrevious result["+result+"] End");
+		logger.info(className, function, "hasPrevious result[{}] End", result);
+		
+		logger.end(className, function);
 		return result;
 	}
 	public void clean() {
+		final String function = "clean";
 		
-		logger.log(Level.FINE, "clean Begin");
+		logger.begin(className, function);
 		
 		this.viewLayoutHistorys.clear();
 		
-		logger.log(Level.FINE, "clean End");
+		logger.end(className, function);
 	}
 	public void add(ViewLayoutHistory history) {
+		final String function = "add";
 		
-		logger.log(Level.FINE, "add Begin");
+		logger.begin(className, function);
 		
 		if ( viewLayoutHistorys.size() != 0 && index < viewLayoutHistorys.size() ) ++index; 
 		
@@ -52,38 +59,45 @@ public class ViewLayoutHistoryMgr {
 			if ( index > 0 ) --index;
 		}
 		
-		logger.log(Level.FINE, "add End");
+		logger.end(className, function);
 	}
 	public boolean hasPrevious() {
+		final String function = "hasPrevious";
+		
 		boolean result = false;
 		
-		logger.log(Level.FINE, "hasPrevious Begin");
+		logger.begin(className, function);
 		
 		if ( viewLayoutHistorys.size() > 1 && index > 0 ) {
 			result = true;
 		}
 		
-		logger.log(Level.FINE, "hasPrevious result["+result+"] End");
+		logger.info(className, function, "hasPrevious result[{}] End", result);
+		
+		logger.end(className, function);
 		
 		return result;
 	}
 	public boolean hasNext() {
+		final String function = "hasNext";
+		
 		boolean result = false;
 		
-		logger.log(Level.FINE, "hasNext Begin");
+		logger.begin(className, function);
 		
 		if ( viewLayoutHistorys.size() > 1 && index+1 < viewLayoutHistorys.size() ) {
 			result = true;
 		}
 		
-		logger.log(Level.FINE, "hasNext result["+result+"] End");
+		logger.end(className, function);
 		
 		return result;
 	}
 
 	public ViewLayoutHistory previous() {
+		final String function = "previous";
 		
-		logger.log(Level.FINE, "previous Begin");
+		logger.begin(className, function);
 		
 		ViewLayoutHistory previous = null;
 		
@@ -93,13 +107,14 @@ public class ViewLayoutHistoryMgr {
 			}
 		}
 		
-		logger.log(Level.FINE, "previous End");
+		logger.end(className, function);
 		
 		return previous;
 	}
 	public ViewLayoutHistory next() {
+		final String function = "next";
 		
-		logger.log(Level.FINE, "next Begin");
+		logger.begin(className, function);
 		
 		ViewLayoutHistory next = null;
 		
@@ -109,29 +124,30 @@ public class ViewLayoutHistoryMgr {
 			}
 		}
 		
-		logger.log(Level.FINE, "next End");
+		logger.end(className, function);
 		
 		return next;
 	}
 
 	public void debug(String prefix) {
+		final String function = "debug";
 		
-		logger.log(Level.FINE, "debug "+prefix+" Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.FINE, "debug "+prefix+" taskLaunchs.length: [" + viewLayoutHistorys.size() +"]");
-		logger.log(Level.FINE, "debug "+prefix+" index: [" + index +"]");
+		logger.info(className, function, "[{}] taskLaunchs.length: [{}]", prefix, viewLayoutHistorys.size());
+		logger.info(className, function, "[{}] index: [{}, ]", prefix, index);
 		
 		for ( int i = 0 ; i < viewLayoutHistorys.size() ; ++i ) {
 			ViewLayoutHistory viewLayoutHistory = viewLayoutHistorys.get(i);
 			if ( null != viewLayoutHistory ) {
-				logger.log(Level.FINE, "debug "+prefix+" viewLayoutHistory(" + i + ")[" + viewLayoutHistorys.size() + "]");
-				viewLayoutHistory.debug("viewLayoutHistory(" + i + ")");
+				logger.info(className, function, "[{}] viewLayoutHistory({})[" + viewLayoutHistorys.size() + "]", prefix, i);
+				viewLayoutHistory.debug("viewLayoutHistory("+i+")");
 			} else {
-				logger.log(Level.FINE, "debug "+prefix+" viewLayoutHistory(" + i + ") is null");
+				logger.info(className, function, "[{}] viewLayoutHistory({}) is null", prefix, i);
 			}
 		}
 		
-		logger.log(Level.FINE, "debug "+prefix+" End");
+		logger.end(className, function);
 		
 	}
 }

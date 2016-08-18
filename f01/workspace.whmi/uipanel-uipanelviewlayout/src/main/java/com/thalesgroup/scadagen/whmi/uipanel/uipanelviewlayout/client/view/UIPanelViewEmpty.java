@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -11,11 +8,15 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i {
 	
-	private Logger logger = Logger.getLogger(UIPanelViewEmpty.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewEmpty.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public static final String UNIT_PX		= "px";
 
@@ -25,8 +26,9 @@ public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i
 	
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, "init Begin");
+		logger.begin(className, function);
 		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -49,13 +51,14 @@ public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.add(hp);
 		
-		logger.log(Level.FINE, "init End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
+		final String function = "setTaskProvide";
 		
-		logger.log(Level.FINE, "setTaskProvide Begin");
+		logger.begin(className, function);
 		
 		if ( null != taskProvide ) {
 			if ( taskProvide instanceof UITaskLaunch ) {
@@ -63,14 +66,14 @@ public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i
 				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 				
 				if ( null != taskLaunch) {
-					logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getHeader()+"]");
+					logger.info(className, function, "taskLaunch.getHeader()[{}]", taskLaunch.getHeader());
 					this.equipmenpLabel.setText("Empty: "+taskLaunch.getHeader()+" can't be found!");
 				}
 			}			
 		} else {
-				logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
+			logger.info(className, function, "taskProvide is not TaskLaunch");
 		}
 
-		logger.log(Level.FINE, "setTaskProvide End");
+		logger.end(className, function);
 	}
 }

@@ -34,11 +34,11 @@ public class UIWidgetMgr {
 			uiwidget.setUINameCard(uiNameCard);
 			panel = uiwidget.getMainPanel();
 		} else {
-			logger.error(className, function, "IS NULL");
+			logger.warn(className, function, "uiwidget IS NULL");
 		}
 
 		if ( null == panel ) {
-			logger.error(className, function, "complexPanel IS NULL");
+			logger.warn(className, function, "panel IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -55,7 +55,7 @@ public class UIWidgetMgr {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
-		logger.error(className, function, "uiPanel[{}]", widget);
+		logger.info(className, function, "uiPanel[{}]", widget);
 		
 		UIWidget_i uiWidget = null;
 		
@@ -65,21 +65,20 @@ public class UIWidgetMgr {
 			
 			if ( null != uiWidgetMgrFactory ) {
 			
-				logger.error(className, function, "uiWidgetMgrFactory");
+				logger.warn(className, function, "uiWidgetMgrFactory");
 			
 				uiWidget = uiWidgetMgrFactory.getUIWidget(widget);
 				
 				if ( null != uiWidget ) break;
 			
 			} else {
-			
-				logger.error(className, function, "uiWidgetMgrFactory IS NULL");
+				logger.warn(className, function, "uiWidgetMgrFactory IS NULL");
 			}
 		}
 		
 		if ( null == uiWidget ) {
-			logger.error(className, function, "uiWIdget IS NULL");
-			logger.error(className, function, "widget[{}] NOT FOUND", widget);
+			logger.warn(className, function, "uiWIdget IS NULL");
+			logger.warn(className, function, "widget[{}] NOT FOUND", widget);
 		}
 		
 		logger.end(className, function);

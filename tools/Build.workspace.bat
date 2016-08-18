@@ -15,9 +15,9 @@ echo starting to build...
 
 echo Build all...
 
-call %TOOLS_BASE%/Build.workspace.wrapper.bat %strdt%
-
 call %TOOLS_BASE%/Build.workspace.whmi.uiwidget.bat %strdt%
+
+call %TOOLS_BASE%/Build.workspace.wrapper.bat %strdt%
 
 call %TOOLS_BASE%/Build.workspace.whmi.bat %strdt%
 

@@ -70,7 +70,7 @@ public class UIWidgetPrint extends UIWidget_i {
 				}
 			}
 		} else {
-			logger.error(className, function, "button IS NULL");
+			logger.warn(className, function, "button IS NULL");
 		}
 		
 		logger.end(className, function);

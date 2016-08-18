@@ -1,15 +1,16 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class ViewLayoutHistory {
 	
-	private Logger logger = Logger.getLogger(ViewLayoutHistory.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(ViewLayoutHistory.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private ViewLayoutMode viewLayoutMode;
 	private ViewLayoutAction viewLayoutAction;
@@ -59,8 +60,9 @@ public class ViewLayoutHistory {
 	}
 
 	public void setTaskLaunchs(UITaskLaunch taskLaunchs[]) {
+		final String function = "setTaskLaunchs";
 		
-		logger.log(Level.FINE, "setTaskLaunchs Begin");
+		logger.begin(className, function);
 		
 		this.taskLaunchs = null;
 		this.taskLaunchs = new UITaskLaunch[taskLaunchs.length];
@@ -68,34 +70,35 @@ public class ViewLayoutHistory {
 			if ( null != taskLaunchs[i] ) {
 				this.taskLaunchs[i] = new UITaskLaunch(taskLaunchs[i]);
 			} else {
-				logger.log(Level.FINE, "setTaskLaunchs this.taskLunch[" + i + "] is null");
+				logger.info(className, function, "setTaskLaunchs this.taskLunch[{}] is null", i);
 			}
 		}
 		
-		logger.log(Level.FINE, "setTaskLaunchs End");
+		logger.end(className, function);
 	}
 	
 	public void debug(String prefix) {
+		final String function = "debug["+prefix+"]";
 		
-		logger.log(Level.FINE, "debug "+prefix+" Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.FINE, "debug "+prefix+" taskLaunchs.length: [" + taskLaunchs.length +"]");
-		logger.log(Level.FINE, "debug "+prefix+" activateSelection: [" + activateSelection +"]");
+		logger.info(className, function, "taskLaunchs.length: [{}]", taskLaunchs.length);
+		logger.info(className, function, "activateSelection: [{}]", activateSelection);
 		
-		logger.log(Level.FINE, "debug "+prefix+" viewLayoutMode: [" + viewLayoutMode +"]");
-		logger.log(Level.FINE, "debug "+prefix+" viewLayoutAction: [" + viewLayoutAction +"]");
+		logger.info(className, function, "viewLayoutMode: [{}]",  viewLayoutMode);
+		logger.info(className, function, "viewLayoutAction: [{}]", viewLayoutAction);
 		
 		
 		for ( int i = 0 ; i < taskLaunchs.length ; ++i ) {
 			UITaskLaunch taskLaunch = taskLaunchs[i];
 			if ( null != taskLaunch ) {
-				logger.log(Level.FINE, "debug "+prefix+" taskLaunch[" + i + "][" + taskLaunch.getHeader() + "]");
+				logger.info(className, function, "taskLaunch[{}][{}]", i, taskLaunch.getHeader());
 			} else {
-				logger.log(Level.FINE, "debug "+prefix+" taskLunch[" + i + "] is null");
+				logger.info(className, function, "taskLunch[{}] is null", i);
 			}
 		}
 		
-		logger.log(Level.FINE, "debug "+prefix+" End");
+		logger.end(className, function);
 		
 	}
 

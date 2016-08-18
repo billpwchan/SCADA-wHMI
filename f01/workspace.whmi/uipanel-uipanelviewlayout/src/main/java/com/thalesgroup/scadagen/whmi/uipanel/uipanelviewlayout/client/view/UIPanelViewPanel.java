@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -12,19 +9,24 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i {
 	
-	private Logger logger = Logger.getLogger(UIPanelViewPanel.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewPanel.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	InlineLabel equipmenpLabel = null;
 	
 	@Override
 	public void init() {
+		final String function = "init";
 		
-		logger.log(Level.FINE, "init Begin");
+		logger.begin(className, function);
 		
 		HorizontalPanel hp = new HorizontalPanel();
 		hp.setWidth("100%");
@@ -39,13 +41,14 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.add(hp);
 		
-		logger.log(Level.FINE, "init End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
+		final String function = "setTaskProvide";
 		
-		logger.log(Level.FINE, "setTaskProvide Begin");
+		logger.begin(className, function);
 		
 		if ( null != taskProvide) {
 		
@@ -53,49 +56,49 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				
 				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 
-				logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+taskLaunch.getUiPanel()+"]");
+				logger.info(className, function, "taskLaunch.getHeader()[{}]", taskLaunch.getUiPanel());
 				
 				this.equipmenpLabel.setText("Panel: ---- ");
 				
-				logger.log(Level.FINE, "setTaskProvide root clear()");
+				logger.info(className, function, "root clear()");
 				
 				UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
 				
-				logger.log(Level.FINE, "setTaskProvide viewFactoryMgr.getPanel["+taskLaunch.getUiPanel()+"]");
+				logger.info(className, function, "viewFactoryMgr.getPanel[{}]", taskLaunch.getUiPanel());
 				
 				UIWidget_i uiWidget_i = viewFactoryMgr.getPanel(taskLaunch.getUiPanel(), uiNameCard);
 				
 				if ( null != uiWidget_i ) {
 					
-					logger.log(Level.FINE, "setTaskProvide root.clear");
+					logger.info(className, function, "root.clear");
 				
 					this.rootPanel.clear();
 
-					logger.log(Level.FINE, "setTaskProvide uiViewProvide.getMainPanel["+uiNameCard.getUiPath()+"]");
+					logger.info(className, function, "uiViewProvide.getMainPanel[{}]", uiNameCard.getUiPath());
 				
 					Panel panel = uiWidget_i.getMainPanel();
 					
-					logger.log(Level.FINE, "setTaskProvide root.add");
+					logger.info(className, function, "root.add");
 				
 					this.rootPanel.add(panel);					
 				
 				} else {
 					
-					logger.log(Level.FINE, "setTaskProvide taskLaunch.getUiPanel()["+taskLaunch.getUiPanel()+"] can't NOT FOUND!");
+					logger.info(className, function, "taskLaunch.getUiPanel()[{}] can't NOT FOUND!", taskLaunch.getUiPanel());
 					
 					String header = taskLaunch.getHeader();
 					
-					logger.log(Level.FINE, "setTaskProvide taskLaunch.getHeader()["+header+"]");
+					logger.info(className, function, "taskLaunch.getHeader()[{}]", header);
 				
 					this.equipmenpLabel.setText("Panel: "+header);					
 				}
 			} else {
-				logger.log(Level.FINE, "setTaskProvide taskProvide is not TaskLaunch");
+				logger.info(className, function, "taskProvide is not TaskLaunch");
 			}
 		} else {
-			logger.log(Level.FINE, "setTaskProvide taskProvide is null");
+			logger.info(className, function, "taskProvide is null");
 		}
 		
-		logger.log(Level.FINE, "setTaskProvide End");
+		logger.end(className, function);
 	}
 }

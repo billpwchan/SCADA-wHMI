@@ -87,11 +87,10 @@ public class UIWidgetFilter extends UIWidget_i {
 				action.setParameters(ViewAttribute.Operation.toString(), FilterViewEvent.RemoveFilter.toString());
 				eventBus.fireEventFromSource(action, this);
 				
-				
 				if ( null != widgetClear ) uiWidgetGeneric.setWidgetStatus(strClear, WidgetStatus.Disable);
 			}
 		} else {
-			logger.error(className, function, "element IS NULL");
+			logger.warn(className, function, "element IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -103,7 +102,7 @@ public class UIWidgetFilter extends UIWidget_i {
 			String element = uiWidgetGeneric.getWidgetElement(widget);
 			setFilter(element);
 		} else {
-			logger.error(className, function, "widget IS NULL");
+			logger.warn(className, function, "widget IS NULL");
 		}
 	}
 	
@@ -113,7 +112,7 @@ public class UIWidgetFilter extends UIWidget_i {
 			Widget widget = (Widget) event.getSource();
 			onWidgetEvent(widget);
 		} else {
-			logger.error(className, function, "event IS NULL");
+			logger.warn(className, function, "event IS NULL");
 		}
 	}
 	
@@ -123,7 +122,7 @@ public class UIWidgetFilter extends UIWidget_i {
 			Widget widget = (Widget) event.getSource();
 			onWidgetEvent(widget);
 		} else {
-			logger.error(className, function, "event IS NULL");
+			logger.warn(className, function, "event IS NULL");
 		}
 	}
 		
@@ -140,10 +139,10 @@ public class UIWidgetFilter extends UIWidget_i {
 		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
 		
-		logger.error(className, function, "op["+op+"]");
-		logger.error(className, function, "od1["+od1+"]");
-		logger.error(className, function, "od2["+od2+"]");
-		logger.error(className, function, "od3["+od3+"]");
+		logger.warn(className, function, "op["+op+"]");
+		logger.warn(className, function, "od1["+od1+"]");
+		logger.warn(className, function, "od2["+od2+"]");
+		logger.warn(className, function, "od3["+od3+"]");
 		
 		if ( null != op ) {
 
@@ -164,7 +163,7 @@ public class UIWidgetFilter extends UIWidget_i {
 				if ( null != widget ) {
 					((RadioButton)widget).setValue(true);
 				} else {
-					logger.error(className, function, "Widget strSet1[{}] IS NULL", strSet1);
+					logger.warn(className, function, "Widget strSet1[{}] IS NULL", strSet1);
 				}
 
 				setFilter(strSet1);
@@ -174,7 +173,7 @@ public class UIWidgetFilter extends UIWidget_i {
 			}
 
 		} else {
-			logger.error(className, function, "op IS NULL");
+			logger.warn(className, function, "op IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -184,7 +183,7 @@ public class UIWidgetFilter extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.info(className, function, "init Begin");
+		logger.begin(className, function);
 		
 		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
 			Object o = parameters.get(ParameterName.SimpleEventBus.toString());

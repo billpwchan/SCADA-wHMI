@@ -45,7 +45,7 @@ public class DictionaryMgr implements AsyncCallback<Dictionary> {
 		this.xml = xml;
 		this.tag = tag;
 		
-		logger.error(className, function, "this.xml[{}] this.tag[{}]", this.xml, this.tag);
+		logger.info(className, function, "this.xml[{}] this.tag[{}]", this.xml, this.tag);
 		
 		this.dictionaryMgrEvents.add(dictionaryMgrEvent);
 		

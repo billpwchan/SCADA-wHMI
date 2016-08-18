@@ -118,7 +118,7 @@ public class UIWidgetControl extends UIWidget_i {
 					
 				}
 			} else {
-				logger.error(className, function, "button IS NULL");
+				logger.warn(className, function, "button IS NULL");
 			}
 		}
 		
@@ -144,10 +144,10 @@ public class UIWidgetControl extends UIWidget_i {
 		
 		Object obj1 = uiEventAction.getAction(ViewAttribute.OperationObject1.toString());
 		
-		logger.error(className, function, "onActionReceived op[{}]", op);
-		logger.error(className, function, "onActionReceived od1[{}]", od1);
-		logger.error(className, function, "onActionReceived od2[{}]", od2);
-		logger.error(className, function, "onActionReceived od3[{}]", od3);
+		logger.warn(className, function, "op[{}]", op);
+		logger.warn(className, function, "od1[{}]", od1);
+		logger.warn(className, function, "od2[{}]", od2);
+		logger.warn(className, function, "od3[{}]", od3);
 		
 		if ( null != op ) {
 			
@@ -170,7 +170,7 @@ public class UIWidgetControl extends UIWidget_i {
 				String selectedStatus1 = null;
 				for ( HashMap<String, String> hashMap : selectedSet ) {
 
-					selectedStatus1 = hashMap.get(column_status);;
+					selectedStatus1 = hashMap.get(column_status);
 				}
 
 				if ( null != selectedStatus1 ) {
@@ -185,7 +185,7 @@ public class UIWidgetControl extends UIWidget_i {
 				
 				statusApply				= WidgetStatus.Disable;
 			} else {
-				logger.error(className, function, "onActionReceived ViewerViewEvent type IS UNKNOW");
+				logger.warn(className, function, "type IS UNKNOW");
 			}
 			
 			if ( null != widgetSet && null != statusSet )		uiWidgetGeneric.setWidgetStatus(widgetSet, statusSet);
@@ -221,9 +221,9 @@ public class UIWidgetControl extends UIWidget_i {
 		widgetUnSet			= uiWidgetGeneric.getWidget( strUnSet );
 		widgetApply			= uiWidgetGeneric.getWidget( strApply );
 		
-		if ( null == widgetSet ) 	{ logger.error(className, function, "widgetSet IS NULL"); }
-		if ( null == widgetUnSet )	{ logger.error(className, function, "widgetUnSet IS NULL"); }
-		if ( null == widgetApply )	{ logger.error(className, function, "widgetApply IS NULL"); }
+		if ( null == widgetSet ) 	{ logger.warn(className, function, "widgetSet IS NULL"); }
+		if ( null == widgetUnSet )	{ logger.warn(className, function, "widgetUnSet IS NULL"); }
+		if ( null == widgetApply )	{ logger.warn(className, function, "widgetApply IS NULL"); }
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override

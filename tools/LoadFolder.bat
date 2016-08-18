@@ -4,7 +4,7 @@ SET CUR_PATH=%~dp0
 SET CUR_PATH=%CUR_PATH:~0,-1%
 
 SET sp_ver=
-SET war_ver=1.2.3
+SET war_ver=1.2.5
 SET TOMCAT_VER=-8.0.23
 
 SET sp_wrapper=workspace.wrapper%sp_ver%

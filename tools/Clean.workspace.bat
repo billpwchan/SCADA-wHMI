@@ -11,7 +11,7 @@ echo starting to Clean...
 
 echo Clean all...
 
-call %TOOLS_BASE%/Clean.workspace.integration.bat %v_strdt%
+call %TOOLS_BASE%/Clean.workspace.whmi.uiwidget.bat %v_strdt%
 
 call %TOOLS_BASE%/Clean.workspace.wrapper.bat %v_strdt%
 

@@ -40,7 +40,7 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		this.xmlFile = xmlFile;
 		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
 		if ( null == this.xmlFile ) {
-			logger.error(className, function, "xmlFile IS NULL");
+			logger.warn(className, function, "xmlFile IS NULL");
 		}
 	}
 	
@@ -48,7 +48,7 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	@Override
 	public Panel getMainPanel() {
 		if ( null == rootPanel ) {
-			logger.error(className, "getMainPanel", "rootPanel IS NULL");
+			logger.warn(className, "getMainPanel", "rootPanel IS NULL");
 		}
 		return rootPanel;
 	}

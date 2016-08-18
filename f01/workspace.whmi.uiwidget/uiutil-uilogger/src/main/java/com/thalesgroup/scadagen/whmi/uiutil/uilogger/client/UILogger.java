@@ -156,48 +156,23 @@ public class UILogger {
 		addLog(level, className, function, log, objs);
 	}
 	private void addLog(int level, final String className, final String function, String log, Object[] arguments) {
-//		boolean enable = false;
-//		switch ( level ) {
-//		case Log.LOG_LEVEL_INFO: 
-//			enable = Log.isInfoEnabled();
-//			break;
-//		case Log.LOG_LEVEL_DEBUG: 
-//			enable = Log.isDebugEnabled();
-//			break;
-//		case Log.LOG_LEVEL_WARN: 
-//			enable = Log.isWarnEnabled();
-//			break;
-//		case Log.LOG_LEVEL_ERROR: 
-//			enable = Log.isErrorEnabled();
-//			break;
-//		}
-//		if ( enable ) {
-			String message = "["+className+"]" + " "+ function + " " + log;
-			
-			if ( null != arguments ) {
-//				for ( int i = 0 ; i < arguments.length ; ++i ) {
-//					if ( null != arguments[i] ) {
-//						message = message.replace("{}", arguments[i].toString());
-//					} else {
-//						message = message.replace("{}", "null");
-//					}
-//				}
-				
-				String [] splits = message.split("{}");
-				final StringBuffer buffer = new StringBuffer();
-				for ( int i = 0 ; i < splits.length ; ++i) {
-					buffer.append(splits[i]);
+		String message = "["+className+"]" + " "+ function + " " + log;
+		if ( null != arguments ) {
+			String [] splits = message.split("{}");
+			final StringBuffer buffer = new StringBuffer();
+			for ( int i = 0 ; i < splits.length ; ++i) {
+				buffer.append(splits[i]);
+				if ( i < splits.length - 1 ) {
 					if ( null != arguments[i] ) {
 						buffer.append(arguments[i]);
 					} else {
 						buffer.append("null");
 					}
-//					buffer.append(splits[splits.length-1]);
-					message = buffer.toString();
 				}
+				message = buffer.toString();
 			}
-			addLog(level, message);
-//		}
+		}
+		addLog(level, message);
 	}
 	private void addLog(int level, String message) {
 		switch ( level ) {

@@ -15,14 +15,17 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextArea;
 
 public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEvent {
 	
-	private Logger logger 			= Logger.getLogger(UIDialogMsg.class.getName());
-	private final String logPrefix	= "[UIDialogMsg] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static final String basePath	= GWT.getModuleBaseURL();
 	private static final String folder		= "/resources/project/img/dialog/";
@@ -233,7 +236,5 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i, DialogMsgMgrEv
 				break;
 		}
 	}
-
-
 
 }

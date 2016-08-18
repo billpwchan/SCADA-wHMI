@@ -2,17 +2,18 @@ package com.thalesgroup.scadagen.whmi.config.confignav.client;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class TaskMgr implements AsyncCallback<Tasks> {
 	
-	private Logger logger = Logger.getLogger(TaskMgr.class.getName());
-	private final String logPrefix		= "[TaskMgr] ";
+	private final String className = UIWidgetUtil.getClassSimpleName(TaskMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private boolean ready = false;
 	private boolean failded = false;
@@ -28,12 +29,13 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 	private LinkedList<TaskMgrEvent> taskMgrEvents = new LinkedList<TaskMgrEvent>();
 	public void setTaskMgrEvent ( TaskMgrEvent taskMgrEvent ) {
+		final String function = "setTaskMgrEvent";
 		
-		logger.log(Level.FINE, logPrefix+"setTaskMgrEvent Begin");
+		logger.begin(className, function);
 		
 		this.taskMgrEvents.add(taskMgrEvent);
 		
-		logger.log(Level.FINE, logPrefix+"setTaskMgrEvent End");
+		logger.end(className, function);
 	}
 	
 	/**
@@ -42,10 +44,11 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 	private final TaskServiceAsync taskMgrService = GWT.create(TaskService.class);
 	
 	public void initTasks(String profile, String location, int level, String header) {
+		final String function = "initTasks";
 		
-		logger.log(Level.FINE, logPrefix+"initTasks Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, logPrefix+"initTasks this.level["+level+"] this.header["+header+"]");
+		logger.info(className, function, "initTasks this.level[{}] this.header[{}]", level, header);
 		
 		String module		= null;
 		
@@ -55,13 +58,16 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		
 		taskMgrService.taskServer(module, mappingFile, settingFile, profile, location, level, header, this);
 		
-		logger.log(Level.FINE, logPrefix+"initTasks End");
+		logger.end(className, function);
 	}
 
 	public void onFailure(Throwable caught) {
+		final String function = "onFailure";
 		// Show the RPC error message to the user
 		
-		logger.log(Level.SEVERE, logPrefix+"onFailure Begin");
+		logger.begin(className, function);
+		
+		logger.error(className, function, "");
 		
 		this.failded = true;
 		
@@ -71,17 +77,18 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 		    iterator.remove();
 		}
 
-		logger.log(Level.SEVERE, logPrefix+"onFailure End");
+		logger.end(className, function);
 	}// onFailure
 
 	public void onSuccess(Tasks tsksCur) {
+		final String function = "onSuccess";
 		// Success on get Menu from server
 		
-		logger.log(Level.FINE, logPrefix+"onSuccess Begin");
+		logger.begin(className, function);
 
 		if ( null != tsksCur ) {
 
-			logger.log(Level.SEVERE, logPrefix+"onSuccess tsksCur.size()["+tsksCur.size()+"] calling the callback: taskMgrEvent.ready()");
+			logger.warn(className, function, "tsksCur.size()[{}] calling the callback: taskMgrEvent.ready()", tsksCur.size());
 		
 			this.ready = true;
 			
@@ -93,33 +100,36 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 		} else {
 			
-			logger.log(Level.SEVERE, logPrefix+"onSuccess tsksCur is null");
+			logger.warn(className, function, "tsksCur is null");
 			
 		}
 		
-		logger.log(Level.FINE, logPrefix+"onSuccess End");
+		logger.end(className, function);
 
 	}// onSuccess
 	public boolean isReady() {
+		final String function = "isReady";
 		
-		logger.log(Level.SEVERE, logPrefix+"isReady Begin/End");
+		logger.beginEnd(className, function);
 		
 		return ready;
 	}
 	public boolean isFailded() {
+		final String function = "isFailded";
 		
-		logger.log(Level.SEVERE, logPrefix+"isFailded Begin/End");
+		logger.error(className, function, "");
 		
 		return failded;
 	}
 	public void reset(){
+		final String function = "reset";
 		
-		logger.log(Level.FINE, logPrefix+"reset Begin");
+		logger.begin(className, function);
 		
 		this.ready = false;
 		this.failded = false;
 		
-		logger.log(Level.FINE, logPrefix+"reset End");
+		logger.end(className, function);
 	}
 
 }

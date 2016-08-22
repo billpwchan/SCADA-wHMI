@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 public interface View_i
 {

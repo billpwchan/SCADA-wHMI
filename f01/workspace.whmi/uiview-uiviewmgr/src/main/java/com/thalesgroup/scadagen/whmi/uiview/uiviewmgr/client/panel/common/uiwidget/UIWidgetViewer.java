@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.uiwidget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,12 +23,12 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.FilterViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.PrintViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewWidget;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw.View_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.FilterViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewWidget;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
@@ -200,15 +200,15 @@ public class UIWidgetViewer extends UIWidget_i {
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
 		handlerRegistrations.add(
-				this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-					@Override
-					public void onEvenBusUIChanged(UIEvent uiEvent) {
-						if ( uiEvent.getSource() != this ) {
-							onUIEvent(uiEvent);
-						}
+			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+				@Override
+				public void onEvenBusUIChanged(UIEvent uiEvent) {
+					if ( uiEvent.getSource() != this ) {
+						onUIEvent(uiEvent);
 					}
-				})
-			);
+				}
+			})
+		);
 			
 		handlerRegistrations.add(
 			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {

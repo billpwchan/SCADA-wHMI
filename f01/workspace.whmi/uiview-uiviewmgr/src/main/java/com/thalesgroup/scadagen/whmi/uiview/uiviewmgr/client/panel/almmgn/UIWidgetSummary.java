@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.almmgn;
 
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;

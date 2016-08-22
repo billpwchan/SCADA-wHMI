@@ -43,6 +43,9 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		logger.begin(className, function);
 		logger.info(className, function, "xml[{}]", xml);
 		
+		//Set the Inspector panel into modeless
+		this.setModal(false);
+		
 		
 		uiPanelInspector = new UIPanelInspector();
 		uiPanelInspector.setUINameCard(this.uiNameCard);

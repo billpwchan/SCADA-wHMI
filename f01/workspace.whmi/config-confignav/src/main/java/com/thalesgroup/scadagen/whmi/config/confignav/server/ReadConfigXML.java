@@ -138,17 +138,18 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 				, strFunCat = "funCat"
 				, strUiPanel = "uiPanel"
 				, strUiScreen = "uiScreen"
-				, strUiPath = "uiPath";
+				, strUiPath = "uiPath"
+				, strCss = "css";
 		
 		String names [] = new String[] {
-				strType, strOrder, strName, strTitle, strEnable, strVisible, strLocCat, strFunCat, strUiPanel, strUiScreen, strUiPath
+				strType, strOrder, strName, strTitle, strEnable, strVisible, strLocCat, strFunCat, strUiPanel, strUiScreen, strUiPath, strCss
 		};
 		
 		HashMap<String, Dictionary> settingMap = new HashMap<String, Dictionary>();
 		for ( int i = 0 ; i < settings.size() ; ++i ) {
 			Dictionary dictionary = settings.get(i);
 			String key = (String) dictionary.getAttribute(strKey);
-System.out.println("getTasks Reading from the key["+key+"] dictionary["+dictionary+"]");
+//System.out.println("getTasks Reading from the key["+key+"] dictionary["+dictionary+"]");
 			settingMap.put(key, dictionary);
 		}
 		
@@ -183,13 +184,14 @@ System.out.println("getTasks Reading from the key["+key+"] dictionary["+dictiona
 						, values.get(strType), values.get(strOrder), values.get(strName)
 						, values.get(strTitle), values.get(strEnable), values.get(strVisible)
 						, values.get(strLocCat), values.get(strFunCat), values.get(strUiPanel)
-						, values.get(strUiScreen), values.get(strUiPath));
+						, values.get(strUiScreen), values.get(strUiPath), values.get(strCss));
 				tasks.add(task);
 				
 //System.out.println("getTasks task.getHeader()["+task.getHeader()+"]");
 //System.out.println("getTasks task.getType()["+task.getType()+"]");
 //System.out.println("getTasks task.getUiPanel()["+task.getUiPanel()+"]");
 //System.out.println("getTasks task.getUiPath()["+task.getUiPath()+"]");
+//System.out.println("getTasks task.getCss()["+task.getCss()+"]");
 				
 			} else {
 System.out.println("getTasks setting["+setting+"] is null");

@@ -50,7 +50,7 @@ public class UITaskLaunch implements UITask_i {
 		
 		this.set(task.getHeader(), task.getType(), task.getOrder(), task.getName(), task.getTitle(), task.getEnable(),
 				task.getVisibile(), task.getLocCat(), task.getFunCat(), task.getUiPanel(), task.getUiScreen(),
-				task.getUiPath());
+				task.getUiPath(), task.getCss());
 		
 		logger.log(Level.FINE, "TaskLaunch Task End");
 	}
@@ -61,7 +61,7 @@ public class UITaskLaunch implements UITask_i {
 		
 		this.set(taskLaunch.getHeader(), taskLaunch.getType(), taskLaunch.getOrder(), taskLaunch.getName(), taskLaunch.getTitle(), taskLaunch.getEnable(),
 				taskLaunch.getVisibile(), taskLaunch.getLocCat(), taskLaunch.getFunCat(), taskLaunch.getUiPanel(), taskLaunch.getUiScreen(),
-				taskLaunch.getUiPath());
+				taskLaunch.getUiPath(), taskLaunch.getCss());
 		
 		logger.log(Level.FINE, "TaskLaunch TaskLaunch End");
 	}
@@ -71,14 +71,14 @@ public class UITaskLaunch implements UITask_i {
 	private String headers[] = null;
 	private String header = "";
 	private String type = "", order = "", name = "", title = "", enable = "", visible = "", locCat = "", funCat = "",
-			uiScreen = "", uiPath = "", uiPanel = "";
+			uiScreen = "", uiPath = "", uiPanel = "", css = "";
 	
 	private String first = "", last = "";
 	public void setFirst(String first) { this.first = first; }
 	public void setLast(String last) { this.last = last; }
 
 	public void set(String header, String type, String order, String name, String title, String enable, String visible,
-			String locCat, String funCat, String uiPanel, String uiScreen, String uiPath) {
+			String locCat, String funCat, String uiPanel, String uiScreen, String uiPath, String css) {
 		
 		logger.log(Level.FINE, "set Begin");
 		
@@ -94,6 +94,7 @@ public class UITaskLaunch implements UITask_i {
 		logger.log(Level.FINE, "set uiPanel["+uiPanel+"]");
 		logger.log(Level.FINE, "set uiScreen["+uiScreen+"]");
 		logger.log(Level.FINE, "set uiPath["+uiPath+"]");
+		logger.log(Level.FINE, "set css["+css+"]");
 		
 		this.header = header;
 		this.type = type;
@@ -107,6 +108,7 @@ public class UITaskLaunch implements UITask_i {
 		this.uiPanel = uiPanel;
 		this.uiScreen = uiScreen;
 		this.setUiPath(uiPath);
+		this.css = css;
 		
 		logger.log(Level.FINE, "set End");
 		
@@ -501,5 +503,14 @@ public class UITaskLaunch implements UITask_i {
 		logger.log(Level.FINE, "debug UIPanel[" + this.getUiPanel() + "] UIPath["+this.getUiPath()+"] Type["+this.getType()+"] "+str);
 		
 		logger.log(Level.FINE, "debug End");
+	}
+	public void setCss(String css) {
+		logger.log(Level.FINE, "setUiPanel Begin/End");
+		
+		this.css = css;
+	}
+	public String getCss() {
+		logger.log(Level.FINE, "getCss Begin/End");
+		return this.css;
 	}
 }

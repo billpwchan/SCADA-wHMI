@@ -20,16 +20,16 @@ public class Task implements java.io.Serializable {
 	public Task(Task task) {
 		this.set(task.getHeader(), task.getType(), task.getOrder(), task.getName(), task.getTitle(), task.getEnable(),
 				task.getVisibile(), task.getLocCat(), task.getFunCat(), task.getUiPanel(), task.getUiScreen(),
-				task.getUiPath());
+				task.getUiPath(), task.getCss());
 	}
 
 	private int counter = -1;
 	private String header = "";
 	private String type = "", order = "", name = "", title = "", enable = "", visible = "", locCat = "", funCat = "",
-			uiScreen = "", uiPath = "", uiPanel = "";
+			uiScreen = "", uiPath = "", uiPanel = "", css = "";
 
 	public void set(String head, String type, String order, String name, String title, String enable, String visible,
-			String locCat, String funCat, String uiPanel, String uiScreen, String uiPath) {
+			String locCat, String funCat, String uiPanel, String uiScreen, String uiPath, String css) {
 		this.header = head;
 		this.type = type;
 		this.order = order;
@@ -42,6 +42,7 @@ public class Task implements java.io.Serializable {
 		this.uiPanel = uiPanel;
 		this.uiScreen = uiScreen;
 		this.setUiPath(uiPath);
+		this.css = css;
 	}
 
 	public String getHeader() {
@@ -230,5 +231,12 @@ public class Task implements java.io.Serializable {
 
 	public void setUiPanel(String uiPanel) {
 		this.uiPanel = uiPanel;
+	}
+
+	public String getCss() {
+		return this.css;
+	}
+	public void setCss(String css) {
+		this.css = css;
 	}
 }

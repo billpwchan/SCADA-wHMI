@@ -205,10 +205,19 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			for (int i = 0; i < taskLaunchs.size(); i++) {
 				UITaskLaunch taskLaunch = taskLaunchs.get(i);
 				String name = taskLaunchs.get(i).getName();
+				String css = taskLaunchs.get(i).getCss();
 				UIButtonNavigation btnNew = new UIButtonNavigation(name);
 				buttons.put(taskLaunch.getHeader(), btnNew);
 				btnNew.setTaskLaunch(taskLaunch);
-				btnNew.addStyleName("project-gwt-button-navigation-"+level);
+				
+				logger.info(className, function, "getCss[{}]", css);
+				
+				if ( css != null && css.trim().length() > 0 ) {
+					btnNew.addStyleName(css);
+				} else {
+					btnNew.addStyleName("project-gwt-button-navigation-"+level);
+				}
+				
 				
 				btnNew.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {

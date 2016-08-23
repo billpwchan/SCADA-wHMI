@@ -86,17 +86,23 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		}
 		Panel panel = null;
 		
-		 if ( 0 == menuType.compareTo("0") ) {
-			 // FlowPanel = 0
-			 panel = this.getFlowMenu(level);
-		} else if ( 0 == menuType.compareTo("1") ) {
-			// HorizontalPanel = 1
-			panel = this.getHorizontalMenu(level);
-		} else if ( 0 == menuType.compareTo("2") ) {
-			// VerticalPanel = 2
-			panel = this.getVerticalMenu(level);
-		} else {
+		if ( null != menuType ) {
+			if ( 0 == menuType.compareTo("0") ) {
+				 // FlowPanel = 0
+				 panel = this.getFlowMenu(level);
+			} else if ( 0 == menuType.compareTo("1") ) {
+				// HorizontalPanel = 1
+				panel = this.getHorizontalMenu(level);
+			} else if ( 0 == menuType.compareTo("2") ) {
+				// VerticalPanel = 2
+				panel = this.getVerticalMenu(level);
+			} 
+		}
+		
+		if ( null == panel ) {
+			panel = this.getFlowMenu(level);
 			logger.warn(className, function, "menuType[{}] IS INVALID", menuType);
+			logger.warn(className, function, "Using Floaw Menu", menuType);
 		}
 		logger.end(className, function);
 		return panel;
@@ -205,19 +211,19 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			for (int i = 0; i < taskLaunchs.size(); i++) {
 				UITaskLaunch taskLaunch = taskLaunchs.get(i);
 				String name = taskLaunchs.get(i).getName();
-				String css = taskLaunchs.get(i).getCss();
+				String css = (String) taskLaunchs.get(i).getValue(UITaskLaunch.TaskLaunchAttribute.Css.toString());
 				UIButtonNavigation btnNew = new UIButtonNavigation(name);
 				buttons.put(taskLaunch.getHeader(), btnNew);
 				btnNew.setTaskLaunch(taskLaunch);
 				
 				logger.info(className, function, "getCss[{}]", css);
 				
+				btnNew.addStyleName("project-gwt-button-navigation-"+level);
+				
+				// If the addidition Css exists add on the widget.
 				if ( css != null && css.trim().length() > 0 ) {
 					btnNew.addStyleName(css);
-				} else {
-					btnNew.addStyleName("project-gwt-button-navigation-"+level);
 				}
-				
 				
 				btnNew.addClickHandler(new ClickHandler() {
 					public void onClick(ClickEvent event) {

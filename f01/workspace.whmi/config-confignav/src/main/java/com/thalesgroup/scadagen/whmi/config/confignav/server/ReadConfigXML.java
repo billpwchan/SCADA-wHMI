@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
+import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribute;
 
 public class ReadConfigXML implements ReadConfigInterface {
 	
@@ -127,24 +128,7 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 		
 		String strKey = "key";
 		String strSetting = "setting";
-		
-		String strType = "type"
-				, strOrder = "order"
-				, strName = "name"
-				, strTitle = "title"
-				, strEnable = "enable"
-				, strVisible = "visible"
-				, strLocCat = "locCat"
-				, strFunCat = "funCat"
-				, strUiPanel = "uiPanel"
-				, strUiScreen = "uiScreen"
-				, strUiPath = "uiPath"
-				, strCss = "css";
-		
-		String names [] = new String[] {
-				strType, strOrder, strName, strTitle, strEnable, strVisible, strLocCat, strFunCat, strUiPanel, strUiScreen, strUiPath, strCss
-		};
-		
+
 		HashMap<String, Dictionary> settingMap = new HashMap<String, Dictionary>();
 		for ( int i = 0 ; i < settings.size() ; ++i ) {
 			Dictionary dictionary = settings.get(i);
@@ -153,46 +137,29 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 			settingMap.put(key, dictionary);
 		}
 		
-		HashMap<String, String> mappingMap = new HashMap<String, String>();
 		for ( int i = 0 ; i < mappings.size() ; ++i) {
 			Dictionary dictionaryMapping = mappings.get(i);
 			String key = (String) dictionaryMapping.getAttribute(strKey);
 			String setting = (String) dictionaryMapping.getValue(strSetting);
 			
 //System.out.println("getTasks Reading from the key["+key+"] setting["+setting+"]");
-			
-			mappingMap.put(key, setting);
-			
+
 			Dictionary dictionarySetting = settingMap.get(setting);
 			
 			if ( dictionarySetting != null ) {
 			
 //System.out.println("getTasks dictionarySetting.getAttibute("+strKey+")["+dictionarySetting.getAttribute(strKey)+"]");
-
-				HashMap<String, String> values = new HashMap<String, String>();
-				values.put(strKey, key);
+				if ( null == key || key.length() == 0 ) continue;
 				
-				if ( null == values.get(strKey) || values.get(strKey).length() == 0 ) continue;
-				
-				for ( String n: names) {
-					String v = (String) dictionarySetting.getValue(n);
-					values.put(n, (null!=v?v:""));
-				}
-
 				Task task = new Task();
-				task.set(values.get(strKey)
-						, values.get(strType), values.get(strOrder), values.get(strName)
-						, values.get(strTitle), values.get(strEnable), values.get(strVisible)
-						, values.get(strLocCat), values.get(strFunCat), values.get(strUiPanel)
-						, values.get(strUiScreen), values.get(strUiPath), values.get(strCss));
+				for ( TaskAttribute t : TaskAttribute.values() ) {
+					String n = t.toString();
+					String v = (String) dictionarySetting.getValue(n);
+					task.setParameter(n, (null!=v?v:""));
+				}
+				task.setParameter(TaskAttribute.Key.toString(), key);
 				tasks.add(task);
-				
-//System.out.println("getTasks task.getHeader()["+task.getHeader()+"]");
-//System.out.println("getTasks task.getType()["+task.getType()+"]");
-//System.out.println("getTasks task.getUiPanel()["+task.getUiPanel()+"]");
-//System.out.println("getTasks task.getUiPath()["+task.getUiPath()+"]");
-//System.out.println("getTasks task.getCss()["+task.getCss()+"]");
-				
+
 			} else {
 System.out.println("getTasks setting["+setting+"] is null");
 			}

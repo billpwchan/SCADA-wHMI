@@ -12,8 +12,8 @@ public class UITaskProfile extends UITaskDictionary {
 		setProfile(uiTaskProfile.getProfile());
 	}
 	
-	private String strOperator = "Operator";
-	private String strProfile = "Profile";
+	private final String strOperator = "Operator";
+	private final String strProfile = "Profile";
 	public String getOperator() { return (String) getValue(strOperator); }
 	public void setOperator(String operator) { setValue(strOperator, operator); }
 	public String getProfile() { return (String) getValue(strProfile); }

@@ -21,14 +21,14 @@ public class UIWidgetMgr {
 		return instance;
 	}
 
-	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
+	public Panel getMainPanel(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options){
 		final String function = "getMainPanel";
 		
 		logger.begin(className, function);
 		logger.info(className, function, "uiNameCard[{}]", uiNameCard.getUiPath());
 		
 		Panel panel = null;
-		UIWidget_i uiwidget = this.getUIWidget(uiPanel);
+		UIWidget_i uiwidget = this.getUIWidget(widget, view, uiNameCard, options);
 		
 		if ( null != uiwidget ) {
 			uiwidget.setUINameCard(uiNameCard);
@@ -51,7 +51,7 @@ public class UIWidgetMgr {
 	public void addUIWidgetFactory(String xmlName, UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(xmlName, uiWidgetMgrEvent); }
 	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
 
-	public UIWidget_i getUIWidget(String widget) {
+	public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
@@ -67,7 +67,7 @@ public class UIWidgetMgr {
 			
 				logger.warn(className, function, "uiWidgetMgrFactory");
 			
-				uiWidget = uiWidgetMgrFactory.getUIWidget(widget);
+				uiWidget = uiWidgetMgrFactory.getUIWidget(widget, view, uiNameCard, options);
 				
 				if ( null != uiWidget ) break;
 			

@@ -1,8 +1,11 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -57,14 +60,24 @@ public class UIWidgetSummary extends UIWidget_i {
 		
 		UIWidgetMgr.getInstance().addUIWidgetFactory(strSummary, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String widget) {
+			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+				final String function = "getUIWidget";
+				
+				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
+				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
+				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
+				logger.warn(className, function, "options IS NULL[{}]", null == options);
+				
 				UIWidget_i uiWidget = null;
+				String viewSel = widget;
+				if ( null != view && view.trim().length() > 0 ) viewSel = view;
+				
 				if ( 0 == widget.compareTo(strViewer) ) {
 					
 					uiWidget = new UIWidgetViewer();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), strSummary);
 					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setXMLFile(strViewer+strXml);
+					uiWidget.setXMLFile(viewSel+strXml);
 					uiWidget.init();
 					
 				} else if ( 0 == widget.compareTo(strAction) ) {
@@ -72,7 +85,7 @@ public class UIWidgetSummary extends UIWidget_i {
 					uiWidget = new UIWidgetAction();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), strSummary);
 					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setXMLFile(strAction+strXml);
+					uiWidget.setXMLFile(viewSel+strXml);
 					uiWidget.init();
 					
 				} else if ( 0 == widget.compareTo(strControl) ) {
@@ -80,7 +93,7 @@ public class UIWidgetSummary extends UIWidget_i {
 					uiWidget = new UIWidgetControl();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), strSummary);
 					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setXMLFile(strControl+strXml);
+					uiWidget.setXMLFile(viewSel+strXml);
 					uiWidget.init();
 					
 				} else if ( 0 == widget.compareTo(strFilter) ) {
@@ -88,7 +101,7 @@ public class UIWidgetSummary extends UIWidget_i {
 					uiWidget = new UIWidgetFilter();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), strSummary);
 					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setXMLFile(strFilter+strXml);
+					uiWidget.setXMLFile(viewSel+strXml);
 					uiWidget.init();
 					
 				} else if ( 0 == widget.compareTo(strPrint) ) {
@@ -96,7 +109,7 @@ public class UIWidgetSummary extends UIWidget_i {
 					uiWidget = new UIWidgetPrint();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), strSummary);
 					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setXMLFile(strPrint+strXml);
+					uiWidget.setXMLFile(viewSel+strXml);
 					uiWidget.init();
 				}
 				return uiWidget;

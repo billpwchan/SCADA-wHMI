@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -47,6 +48,11 @@ public class UILayoutGeneric extends UIWidget_i {
 	public UIWidget_i getUIWidget(String xmlFile) {
 		return uiWidgetGeneric.get(xmlFile);
 	}
+	
+	@Override
+	public void setUINameCard(UINameCard uiNameCard) {
+		this.uiNameCard = new UINameCard(uiNameCard);
+	};
 	
 	@Override
 	public void init() {
@@ -116,6 +122,20 @@ public class UILayoutGeneric extends UIWidget_i {
 						String left					= valueMap.get(WidgetAttribute.left.toString());
 						String top					= valueMap.get(WidgetAttribute.top.toString());
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
+						String view					= valueMap.get(WidgetAttribute.view.toString());
+						
+						String option1				= valueMap.get(WidgetAttribute.option1.toString());
+						String option2				= valueMap.get(WidgetAttribute.option2.toString());
+						String option3				= valueMap.get(WidgetAttribute.option3.toString());
+						String option4				= valueMap.get(WidgetAttribute.option4.toString());
+						String option5				= valueMap.get(WidgetAttribute.option5.toString());
+						
+						HashMap<String, Object> options = new HashMap<String, Object>();
+						if ( null != option1 ) options.put(WidgetAttribute.option1.toString(), option1);
+						if ( null != option2 ) options.put(WidgetAttribute.option2.toString(), option2);
+						if ( null != option3 ) options.put(WidgetAttribute.option3.toString(), option3);
+						if ( null != option4 ) options.put(WidgetAttribute.option4.toString(), option4);
+						if ( null != option5 ) options.put(WidgetAttribute.option5.toString(), option5);
 						
 						logger.info(className, function, "type[{}] widget[{}]", new Object[]{type, widget});
 						logger.info(className, function, "direction[{}] size[{}]", new Object[]{direction, size});
@@ -128,7 +148,7 @@ public class UILayoutGeneric extends UIWidget_i {
 								
 								// predefine
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
-								uiWidgetGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget));
+								uiWidgetGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, options));
 								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);

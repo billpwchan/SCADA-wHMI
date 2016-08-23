@@ -58,6 +58,13 @@ public interface UILayoutGeneric_i {
 		, left("left")
 		, top("top")
 		, csscontainer("csscontainer")
+		, view("view")
+		
+		, option1("option1")
+		, option2("option2")
+		, option3("option3")
+		, option4("option4")
+		, option5("option5")
 		;
 		private final String text;
 		private WidgetAttribute(final String text) { this.text = text; }

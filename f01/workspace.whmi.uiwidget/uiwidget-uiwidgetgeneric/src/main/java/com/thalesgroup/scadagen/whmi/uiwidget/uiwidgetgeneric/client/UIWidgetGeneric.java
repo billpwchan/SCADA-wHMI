@@ -32,17 +32,18 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootWidgetType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetMedia;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetType;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
 public class UIWidgetGeneric extends UIWidget_i {
 	
@@ -95,6 +96,11 @@ public class UIWidgetGeneric extends UIWidget_i {
     private Dictionary dictionaryHeader = null;
     private Dictionary dictionaryOption = null;
 
+	@Override
+	public void setUINameCard(UINameCard uiNameCard) {
+		this.uiNameCard = new UINameCard(uiNameCard);
+	};
+    
 	@Override
     public void init() {
 		final String function = "init";
@@ -357,17 +363,21 @@ public class UIWidgetGeneric extends UIWidget_i {
 
 								this.widgets.put(index, w);
 							} else if ( widget.startsWith(WidgetType.WidgetFactory.toString()) ) {
-									
+								
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
-								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget);
-
+								
+								String view = null;
+								HashMap<String, Object> options = new HashMap<String, Object>();
+								
+								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, options);
+	
 								if ( null != uiWIdget ) {
 									uiWIdget.setUINameCard(this.uiNameCard);
 									w = uiWIdget.getMainPanel();
 								} else {
 									logger.warn(className, function, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
 								}
-
+	
 								this.widgets.put(index, w);
 							} else {
 								logger.warn(className, function, "getMainPanel widget["+widget+"] IS INVALID");

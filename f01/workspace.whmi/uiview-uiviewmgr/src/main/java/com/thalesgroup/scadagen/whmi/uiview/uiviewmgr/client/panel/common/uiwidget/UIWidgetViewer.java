@@ -17,6 +17,7 @@ import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.Translati
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -180,14 +181,31 @@ public class UIWidgetViewer extends UIWidget_i {
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			
 			@Override
-			public UIWidget_i getUIWidget(String widget) {
+			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+				final String function = "getUIWidget";
+				
+				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
+				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
+				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
+				logger.warn(className, function, "options IS NULL[{}]", null == options);
+				
 				UIWidget_i uiWidget_i = null;
 				if ( 0 == widget.compareTo(ViewWidget.ScsOlsListPanel.toString()) ) {
+					
+					if ( options.containsKey(ParameterName.ListConfigId.toString()) )
+						listConfigId = (String) options.get(ParameterName.ListConfigId.toString());
+					
+					if ( options.containsKey(ParameterName.MenuEnable.toString()) )
+						menuEnable = (String) options.get(ParameterName.MenuEnable.toString());
+					
+					if ( options.containsKey(ParameterName.SelectionMode.toString()) )
+						selectionMode = (String) options.get(ParameterName.SelectionMode.toString());
+					
 					uiWidget_i = new ScsOlsListPanel();
-					uiWidget_i.setParameter(ParameterName.MwtEventBus.toString(), new MwtEventBus());
-					uiWidget_i.setParameter(ParameterName.ListConfigId.toString(), listConfigId);
-					uiWidget_i.setParameter(ParameterName.MenuEnable.toString(), menuEnable);
-					uiWidget_i.setParameter(ParameterName.SelectionMode.toString(), selectionMode);
+					uiWidget_i.setParameter(ParameterName.MwtEventBus.toString(),	new MwtEventBus());
+					uiWidget_i.setParameter(ParameterName.ListConfigId.toString(),	listConfigId);
+					uiWidget_i.setParameter(ParameterName.MenuEnable.toString(),	menuEnable);
+					uiWidget_i.setParameter(ParameterName.SelectionMode.toString(),	selectionMode);
 					uiWidget_i.init();
 				}
 				return uiWidget_i;

@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
+import java.util.HashMap;
+
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
@@ -7,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBox;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
@@ -58,9 +61,13 @@ public class UIScreenMMI extends UIWidget_i {
 		uiWidgetMgr.addUIWidgetFactory("UIScreenMMI", new UIWidgetMgrFactory() {
 			
 			@Override
-			public UIWidget_i getUIWidget(String widget) {
-
-				logger.info(className, function, "getUIWidget widget[{}]", widget);
+			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+				final String function = "getUIWidget";
+				
+				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
+				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
+				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
+				logger.warn(className, function, "options IS NULL[{}]", null == options);
 				
 				UIWidget_i uiWidget_i = null;
 				

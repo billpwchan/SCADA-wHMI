@@ -1,387 +1,183 @@
 package com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
-import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
+import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribute;
+import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
 
-public class UITaskLaunch implements UITask_i {
-	
-	private Logger logger = Logger.getLogger(UITaskLaunch.class.getName());
-	private final String logPrefix = "[UITaskLaunch] ";
-	
-//	private String uiScreen = "";
-//	private String uiPath = "";
-	public String getUiScreen() {
-		return this.uiScreen;
-	}
-	public int getTaskUiScreen() {
-		return Integer.parseInt(this.uiScreen);
-	}
-	public void setTaskUiScreen(int uiScreen) {
-		this.uiScreen = Integer.toString(uiScreen);
-	}
-	public void setUiScreen(String uiScreen) {
-		this.uiScreen = uiScreen;
-	}
-	public String getUiPath() {
-		return uiPath;
-	}
-	public void setUiPath(String uiPath) {
-		this.uiPath = uiPath;
-	}
-	
+public class UITaskLaunch extends UITaskDictionary {
+
 	private final static char spliter = '|';
 	public static char getSplite() { return spliter; }
 	
 	// TaskLaunch
 	public enum TaskLaunchType {
-		MENU, PANEL, IMAGE, UNKNOW
+		MENU("M")
+		, PANEL("P")
+		, IMAGE("S")
+		, UNKNOW("U")
+		;
+		private final String text;
+		private TaskLaunchType(final String text) { this.text = text; }
+		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() { return this.text; }
 	}
 	
 	public UITaskLaunch() {
 	
 	}
 	
+	public enum TaskLaunchAttribute {
+		Key("key")
+		, Type("type")
+		, Order("order")
+		, Name("name")
+		, Title("title")
+		, Enable("enable")
+		, Visible("visible")
+		, LocCat("locCat")
+		, FunCat("funCat")
+		, UIPanel("uiPanel")
+		, UIScreen("uiScreen")
+		, UIPath("uiPath")
+		, Css("css")
+		, UIView("uiview")
+		;
+		private final String text;
+		private TaskLaunchAttribute(final String text) { this.text = text; }
+		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() { return this.text; }
+	}
+	
 	public UITaskLaunch(Task task) {
 		
-		logger.log(Level.FINE, "TaskLaunch Task Begin");
+		super.setUiScreen(task.getParameter(TaskAttribute.UIScreen.toString()));
+		super.setUiPath(task.getParameter(TaskAttribute.UIPath.toString()));
 		
-		this.set(task.getHeader(), task.getType(), task.getOrder(), task.getName(), task.getTitle(), task.getEnable(),
-				task.getVisibile(), task.getLocCat(), task.getFunCat(), task.getUiPanel(), task.getUiScreen(),
-				task.getUiPath(), task.getCss());
-		
-		logger.log(Level.FINE, "TaskLaunch Task End");
+		setValue(TaskLaunchAttribute.Key.toString()		, task.getParameter(TaskAttribute.Key.toString()));
+		setValue(TaskLaunchAttribute.Type.toString()	, task.getParameter(TaskAttribute.Type.toString()));
+		setValue(TaskLaunchAttribute.Order.toString()	, task.getParameter(TaskAttribute.Order.toString()));
+		setValue(TaskLaunchAttribute.Name.toString()	, task.getParameter(TaskAttribute.Name.toString()));
+		setValue(TaskLaunchAttribute.Title.toString()	, task.getParameter(TaskAttribute.Title.toString()));
+		setValue(TaskLaunchAttribute.Enable.toString()	, task.getParameter(TaskAttribute.Enable.toString()));
+		setValue(TaskLaunchAttribute.Visible.toString()	, task.getParameter(TaskAttribute.Visible.toString()));
+		setValue(TaskLaunchAttribute.LocCat.toString()	, task.getParameter(TaskAttribute.LocCat.toString()));
+		setValue(TaskLaunchAttribute.FunCat.toString()	, task.getParameter(TaskAttribute.FunCat.toString()));
+		setValue(TaskLaunchAttribute.UIPanel.toString()	, task.getParameter(TaskAttribute.UIPanel.toString()));
+		setValue(TaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));
+
 	}
 
 	public UITaskLaunch(UITaskLaunch taskLaunch) {
 		
-		logger.log(Level.FINE, "TaskLaunch TaskLaunch Begin");
+		super(taskLaunch);
 		
-		this.set(taskLaunch.getHeader(), taskLaunch.getType(), taskLaunch.getOrder(), taskLaunch.getName(), taskLaunch.getTitle(), taskLaunch.getEnable(),
-				taskLaunch.getVisibile(), taskLaunch.getLocCat(), taskLaunch.getFunCat(), taskLaunch.getUiPanel(), taskLaunch.getUiScreen(),
-				taskLaunch.getUiPath(), taskLaunch.getCss());
+		for ( TaskLaunchAttribute taskLaunchAttribute : TaskLaunchAttribute.values() ) { 
+			String key = taskLaunchAttribute.toString();
+			if ( key.equals(TaskLaunchAttribute.UIPath.toString()) 
+					|| key.equals(TaskLaunchAttribute.UIScreen.toString()) ) {
+				continue;
+			}
+			setValue(key, taskLaunch.getValue(key));
+		}
 		
-		logger.log(Level.FINE, "TaskLaunch TaskLaunch End");
+//		setValue(TaskLaunchAttribute.Key.toString(), taskLaunch.getValue(TaskLaunchAttribute.Key.toString()));
+//		setValue(TaskLaunchAttribute.Type.toString(), taskLaunch.getValue(TaskLaunchAttribute.Type.toString()));
+//		setValue(TaskLaunchAttribute.Order.toString(), taskLaunch.getValue(TaskLaunchAttribute.Order.toString()));
+//		setValue(TaskLaunchAttribute.Name.toString(), taskLaunch.getValue(TaskLaunchAttribute.Name.toString()));
+//		setValue(TaskLaunchAttribute.Title.toString(), taskLaunch.getValue(TaskLaunchAttribute.Title.toString()));
+//		setValue(TaskLaunchAttribute.Enable.toString(), taskLaunch.getValue(TaskLaunchAttribute.Enable.toString()));
+//		setValue(TaskLaunchAttribute.Visible.toString(), taskLaunch.getValue(TaskLaunchAttribute.Visible.toString()));
+//		setValue(TaskLaunchAttribute.LocCat.toString(), taskLaunch.getValue(TaskLaunchAttribute.LocCat.toString()));
+//		setValue(TaskLaunchAttribute.FunCat.toString(), taskLaunch.getValue(TaskLaunchAttribute.FunCat.toString()));
+//		setValue(TaskLaunchAttribute.UIPanel.toString(), taskLaunch.getValue(TaskLaunchAttribute.UIPanel.toString()));
+//		setValue(TaskLaunchAttribute.UIScreen.toString(), taskLaunch.getValue(TaskLaunchAttribute.UIScreen.toString()));
+//		setValue(TaskLaunchAttribute.UIPath.toString(), taskLaunch.getValue(TaskLaunchAttribute.UIPath.toString()));
+//		setValue(TaskLaunchAttribute.Css.toString(), taskLaunch.getValue(TaskLaunchAttribute.Css.toString()));
+
 	}
 
-	private int counter = -1;
-	private int headersCount = -1;
-	private String headers[] = null;
-	private String header = "";
-	private String type = "", order = "", name = "", title = "", enable = "", visible = "", locCat = "", funCat = "",
-			uiScreen = "", uiPath = "", uiPanel = "", css = "";
-	
-	private String first = "", last = "";
-	public void setFirst(String first) { this.first = first; }
-	public void setLast(String last) { this.last = last; }
-
-	public void set(String header, String type, String order, String name, String title, String enable, String visible,
-			String locCat, String funCat, String uiPanel, String uiScreen, String uiPath, String css) {
-		
-		logger.log(Level.FINE, "set Begin");
-		
-		logger.log(Level.FINE, "set head["+header+"]");
-		logger.log(Level.FINE, "set type["+type+"]");
-		logger.log(Level.FINE, "set order["+order+"]");
-		logger.log(Level.FINE, "set name["+name+"]");
-		logger.log(Level.FINE, "set title["+title+"]");
-		logger.log(Level.FINE, "set enable["+enable+"]");
-		logger.log(Level.FINE, "set visible["+visible+"]");
-		logger.log(Level.FINE, "set locCat["+locCat+"]");
-		logger.log(Level.FINE, "set funCat["+funCat+"]");
-		logger.log(Level.FINE, "set uiPanel["+uiPanel+"]");
-		logger.log(Level.FINE, "set uiScreen["+uiScreen+"]");
-		logger.log(Level.FINE, "set uiPath["+uiPath+"]");
-		logger.log(Level.FINE, "set css["+css+"]");
-		
-		this.header = header;
-		this.type = type;
-		this.order = order;
-		this.name = name;
-		this.title = title;
-		this.enable = enable;
-		this.visible = visible;
-		this.setLocCat(locCat);
-		this.setFunCat(funCat);
-		this.uiPanel = uiPanel;
-		this.uiScreen = uiScreen;
-		this.setUiPath(uiPath);
-		this.css = css;
-		
-		logger.log(Level.FINE, "set End");
-		
-	}
-	
 	private Object[] options;
 	public Object[] getOption() { return options; }
 	public void setOption(Object[] options) { this.options = options; }
 
 	public String getHeader() {
-		
-		logger.log(Level.FINE, "getHeader Begin/End");
-		
-		return this.header;
+
+		return (String) getValue(TaskLaunchAttribute.Key.toString());
 	}
 
 	public void setName(String name) {
-		
-		logger.log(Level.FINE, "setName Begin/End");
-		
-		this.name = name;
+
+		setValue(TaskLaunchAttribute.Name.toString(), name);
 	}
 
 	public String getName() {
-		
-		logger.log(Level.FINE, "getName Begin");
-		
-		String string = this.name;
-		if (string.length() <= 0)
-			string = getElementLast(this.header);
-		
-		logger.log(Level.FINE, "getName End");
-		
-		return string;
-	}
 
-	public String getNameWithSpace() {
-		
-		logger.log(Level.FINE, "getNameWithSpace Begin");
-		
-		String string = this.name;
-		if (string.length() <= 0) {
-			String lastElement = getElementLast(this.header);
-			string = toTitle(lastElement);
-		}
-		
-		logger.log(Level.FINE, "getNameWithSpace End");
-		
-		return string;
-	}
-	
-	public String getFirst() {
-		
-		logger.log(Level.FINE, "getFirst Begin");
-		
-		String string = getElementFirst(this.header);
-		
-		logger.log(Level.FINE, "getFirst End");
-		
-		return string;
-	}
-	
-	public String getFirstWithSpace() {
-		
-		logger.log(Level.FINE, "getFirstWithSpace Begin");
-		
-		String string = first;
-		
-		if ( 0 == first.compareTo("") )  {
-			string = toTitle(getElementFirst(this.header));
-		}
-		
-		logger.log(Level.FINE, "getFirstWithSpace End");
-		
-		return string;
-	}
-//	
-//	public String getLast() {
-//		
-//		logger.log(Level.FINE, "getLast Begin");
-//		
-//		String string = getElementFirst(this.header);
-//		
-//		logger.log(Level.FINE, "getLast End");
-//		
-//		return string;
-//	}
-//	
-	public String getLastWithSpace() {
-		
-		logger.log(Level.FINE, "getLastWithSpace Begin");
-		
-		String string = last;
-		
-		if ( 0 == last.compareTo("") ) {
-			string = toTitle(getElementLast(this.header));
-		}
-		
-		logger.log(Level.FINE, "getLastWithSpace End");
-		
+		String string = (String) getValue(TaskLaunchAttribute.Name.toString());
+
+		if (string.length() <= 0)
+			string = (String) getValue(TaskLaunchAttribute.Key.toString());
+			string = getElementLast(string);
+
 		return string;
 	}
 
 	public void setTitle(String title) {
-		
-		logger.log(Level.FINE, "setTitle Begin/End");
-		
-		this.title = title;
+
+		setValue(TaskLaunchAttribute.Title.toString(), title);
 	}
 
 	public String getTitle() {
-		
-		logger.log(Level.FINE, "getTitle Begin/End");
-		
-		return this.title;
+
+		return (String) getValue(TaskLaunchAttribute.Title.toString());
 	}
 
-	public String getTitleWithSpace() {
-		
-		logger.log(Level.FINE, "getTitleWithSpace Begin");
-		
-		String string = this.title;
-		if (string.length() <= 0) {
-			String lastElement = getElementLast(this.header);
-			string = toTitle(lastElement);
-		}
-		
-		logger.log(Level.FINE, "getTitleWithSpace End");
-		
-		return string;
-	}
-
-	public String getOrder() {
-		
-		logger.log(Level.FINE, "getOrder Begin/End");
-		
-		return this.order;
-	}
-
-	public int getTaskOrder() {
-		
-		logger.log(Level.FINE, "getTaskOrder Begin/End");
-		
-		return Integer.parseInt(this.order);
-	}
-
-	public String getLevel() {
-		
-		logger.log(Level.FINE, "getLevel Begin/End");
-		
-		return this.getLevel();
-	}
 
 	public int getTaskLevel() {
+
+		String key = (String) getValue(TaskLaunchAttribute.Key.toString());
 		
-		logger.log(Level.FINE, "getTaskLevel Begin/End");
-		
-		return letterCounter(this.header, spliter);
+		return letterCounter(key, spliter);
 	}
 
 	public void setType(String type) {
-		
-		logger.log(Level.FINE, "setType Begin/End");
-		
-		this.type = type;
-	}
 
-	public String getType() {
-		
-		logger.log(Level.FINE, "getType Begin/End");
-		
-		return this.type;
+		setValue(TaskLaunchAttribute.Type.toString(), type);
 	}
 
 	public TaskLaunchType getTaskLaunchType() {
 		
-		logger.log(Level.FINE, "getTaskLaunchType Begin");
-		
-		TaskLaunchType type;
-		if (0 == this.type.compareToIgnoreCase("M")) {
-			type = TaskLaunchType.MENU;
-		} else if (0 == this.type.compareToIgnoreCase("P")) {
-			type = TaskLaunchType.PANEL;
-		} else if (0 == this.type.compareToIgnoreCase("S")) {
-			type = TaskLaunchType.IMAGE;
-		} else {
+		String t = (String)getValue(TaskLaunchAttribute.Type.toString());
+		TaskLaunchType type = null;
+
+		// Using Igrone instead of valueOf
+		if ( null != t ) {
+			if (0 == t.compareToIgnoreCase("M")) {
+				type = TaskLaunchType.MENU;
+			} else if (0 == t.compareToIgnoreCase("P")) {
+				type = TaskLaunchType.PANEL;
+			} else if (0 == t.compareToIgnoreCase("S")) {
+				type = TaskLaunchType.IMAGE;
+			}
+		}
+
+		if ( null == t ) {
 			type = TaskLaunchType.UNKNOW;
 		}
-		
-		logger.log(Level.FINE, "getTaskLaunchType End");
-		
+
 		return type;
 	}
 
-	public String getEnable() {
-		
-		logger.log(Level.FINE, "getEnable Begin/End");
-		
-		return this.enable;
-	}
+	private int counter = -1;
+	private int letterCounter(String str, char letter) {
 
-	public boolean isTaskEnable() {
-		
-		logger.log(Level.FINE, "isTaskEnable Begin/End");
-		
-		return (this.enable.equalsIgnoreCase("1") ? true : false);
-	}
-
-	public String getVisibile() {
-		
-		logger.log(Level.FINE, "getVisibile Begin/End");
-		
-		return this.visible;
-	}
-
-	public boolean isTaskVisible() {
-		
-		logger.log(Level.FINE, "isTaskVisible Begin/End");
-		
-		return (visible.compareTo("1") == 1);
-	}
-
-	public String getLocCat() {
-		
-		logger.log(Level.FINE, "getLocCat Begin/End");
-		
-		return locCat;
-	}
-
-	public void setLocCat(String locCat) {
-		
-		logger.log(Level.FINE, "setLocCat Begin/End");
-		
-		this.locCat = locCat;
-	}
-
-	public String getFunCat() {
-		
-		logger.log(Level.FINE, "getFunCat Begin/End");
-		
-		return funCat;
-	}
-
-	public void setFunCat(String funCat) {
-		
-		logger.log(Level.FINE, "setFunCat Begin/End");
-		
-		this.funCat = funCat;
-	}
-	
-	private void splitHeader(){
-		logger.log(Level.FINE, "splitHeader Begin");
-		if ( null == headers ) {
-			headers = header.split("\\|");
-			headersCount = headers.length;
-		}
-		logger.log(Level.FINE, "splitHeader End");
-	}
-	
-	public String getHeaderElement(int index) {
-		logger.log(Level.FINE, "getHeaderElement Begin");
-		String element = "";
-		splitHeader();
-		if ( index > 0 && index < headersCount )
-			element = headers[index];
-		logger.log(Level.FINE, "getHeaderElement End");
-		return element;
-	}
-
-	public int letterCounter(String str, char letter) {
-		
-		logger.log(Level.FINE, "letterCounter Begin");
-		
 		if (counter != -1)
 			return counter;
 		counter = 0;
@@ -389,128 +185,31 @@ public class UITaskLaunch implements UITask_i {
 			if (str.charAt(i) == letter)
 				++counter;
 		}
-		
-		logger.log(Level.FINE, "letterCounter End");
-		
+
 		return counter;
 	}
-	
-	public String getElementFirst(String string) {
-		
-		logger.log(Level.FINE, "getElementLast Begin");
-		
-		String element = "";
-		String strings[] = string.split("\\|");
-		if (strings.length > 0) {
-			element = strings[0];
-		}	
-		
-		// Window.alert("getElementLast string["+string+"] >
-		// element["+element+"]");
-		
-		logger.log(Level.FINE, "getElementLast End");
-		
-		return element;
-	}
 
-	public String getElementLast(String string) {
-		
-		logger.log(Level.FINE, "getElementLast Begin");
-		
+	private String getElementLast(String string) {
+
 		String element = "";
 		String strings[] = string.split("\\|");
 		if (strings.length > 0) {
 			element = strings[strings.length - 1];
 		}	
-		
-		// Window.alert("getElementLast string["+string+"] >
-		// element["+element+"]");
-		
-		logger.log(Level.FINE, "getElementLast End");
-		
-		return element;
-	}
 
-	public String getElement(String string, int index) {
-		
-		logger.log(Level.FINE, "getElement Begin");
-		
-		String element = "";
-		String strings[] = string.split("\\|");
-		if (strings.length > 0 && strings.length > index ) {
-			element = strings[index];
-		}
-		
-		logger.log(Level.FINE, "getElement End");
-		
-		// Window.alert("getElement string["+string+"] > element["+element+"]");
 		return element;
-	}
-
-	public String toTitle(String string) {
-		
-		logger.log(Level.FINE, "toTitle Begin");
-		
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
-			boolean doubleUpperCase = false;
-			if (i != 0 && Character.isUpperCase(c) && i != string.length() - 1) {
-				if (i + 1 < string.length()) {
-					char c2 = string.charAt(i + 1);
-					if (Character.isUpperCase(c2)) {
-						doubleUpperCase = true;
-					}
-				}
-				if (!doubleUpperCase) {
-					sb.append(' ');
-				}
-			}
-			sb.append(c);
-		}
-		// Window.alert("string["+string+"] >
-		// sb.toString()["+sb.toString()+"]");
-		
-		logger.log(Level.FINE, "toTitle End");
-		
-		return sb.toString();
 	}
 
 	public String getUiPanel() {
 		
-		logger.log(Level.FINE, "getUiPanel Begin/End");
-		
-		return uiPanel;
+		return (String) getValue(TaskLaunchAttribute.UIPanel.toString());
+
 	}
 
 	public void setUiPanel(String uiPanel) {
 		
-		logger.log(Level.FINE, "setUiPanel Begin/End");
-		
-		this.uiPanel = uiPanel;
+		setValue(TaskLaunchAttribute.UIPanel.toString(), uiPanel);
+
 	}
-	
-	public void debug() {
-		
-		logger.log(Level.FINE, "debug Begin");
-		
-		String str  = "";
-		
-		if ( this.getTaskLaunchType() == TaskLaunchType.IMAGE ) {
-			str = " Header[" + this.getHeader() + "]";
-		}
-		
-		logger.log(Level.FINE, "debug UIPanel[" + this.getUiPanel() + "] UIPath["+this.getUiPath()+"] Type["+this.getType()+"] "+str);
-		
-		logger.log(Level.FINE, "debug End");
-	}
-	public void setCss(String css) {
-		logger.log(Level.FINE, "setUiPanel Begin/End");
-		
-		this.css = css;
-	}
-	public String getCss() {
-		logger.log(Level.FINE, "getCss Begin/End");
-		return this.css;
-	}
+
 }

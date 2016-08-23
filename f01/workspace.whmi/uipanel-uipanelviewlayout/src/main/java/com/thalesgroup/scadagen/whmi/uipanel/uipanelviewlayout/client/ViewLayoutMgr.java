@@ -473,18 +473,24 @@ public class ViewLayoutMgr {
 		
 		if ( null != uiNameCard ) {
 			logger.error(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
-			logger.error(className, function, "uiNameCard.getUiPath()[{}]", uiNameCard.getUiPath());
 		} else {
 			logger.error(className, function, "uiNameCard IS NULL");
 		}
 		
+		if ( null == uiNameCard.getUiPath() ) {
+			logger.error(className, function, "uiNameCard.getUiPath()[{}] IS NULL", uiNameCard.getUiPath());
+		}
+		
 		if ( null != uiEvent ) {
 			logger.error(className, function, "uiEvent.getTaskProvide().getTaskUiScreen()[{}]", uiEvent.getTaskProvide().getTaskUiScreen());
-			logger.error(className, function, "uiEvent.getTaskProvide().getUiPath()[{}]", uiEvent.getTaskProvide().getUiPath());
 		} else {
 			logger.error(className, function, "uiEvent IS NULL");
 		}
 
+		if ( null == uiEvent.getTaskProvide().getUiPath() ) {
+			logger.error(className, function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );
+		}
+		
 		if (null != uiEvent) {
 
 			UITask_i taskProvide = uiEvent.getTaskProvide();

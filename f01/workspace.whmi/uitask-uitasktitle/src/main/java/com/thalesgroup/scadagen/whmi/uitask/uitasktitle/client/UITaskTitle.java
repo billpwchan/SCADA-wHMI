@@ -11,7 +11,7 @@ public class UITaskTitle extends UITaskDictionary {
 		setTitle(uiTaskTitle.getTitle());
 	}
 	
-	private String strTitle = "Title";
+	private final String strTitle = "Title";
 	public String getTitle() { return (String) getValue(strTitle); }
 	public void setTitle(String title) { setValue(strTitle, title); }
 }

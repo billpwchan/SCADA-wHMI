@@ -1,17 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
 
-import com.google.gwt.user.client.ui.Panel;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBoxEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetView_i;
 
-public interface UIInspector_i {
+public interface UIInspector_i extends UIWidgetView_i {
 	
 	void setParent(String scsEnvId, String parent);
 	void setPeriod(String period);
 	void connect();
 	void disconnect();
 	
-	void setUINameCard(UINameCard uiNameCard);
-	void init(String xml);
-	Panel getMainPanel();
+	void setUIPanelInspectorEvent(UIPanelInspectorDialogBoxEvent uiPanelInspectorDialogBoxEvent);
 
 }

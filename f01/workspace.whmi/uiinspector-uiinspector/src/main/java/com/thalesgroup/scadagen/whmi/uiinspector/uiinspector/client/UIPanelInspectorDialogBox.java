@@ -36,14 +36,20 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		logger.end(className, function);
 	}
 	
+	private String xml = null;
 	@Override
-	public void init(String xml) {
+	public void setXMLFile(String xml) {
+		this.xml = xml;
+	}
+	
+	@Override
+	public void init() {
 		final String function = "init";
 		
 		logger.begin(className, function);
 		logger.info(className, function, "xml[{}]", xml);
 		
-		//Set the Inspector panel into modeless
+		
 		this.setModal(false);
 		
 		
@@ -61,7 +67,7 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 				hide();
 			}
 		});
-		uiPanelInspector.init(xml);
+		uiPanelInspector.init();
 		rootPanel = uiPanelInspector.getMainPanel();
 		logger.error(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
 
@@ -169,6 +175,12 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 				this.setPopupPosition(XtoMove, YtoMove);
 			}
 		}
+	}
+
+	@Override
+	public void setUIPanelInspectorEvent(UIPanelInspectorDialogBoxEvent uiPanelInspectorDialogBoxEvent) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

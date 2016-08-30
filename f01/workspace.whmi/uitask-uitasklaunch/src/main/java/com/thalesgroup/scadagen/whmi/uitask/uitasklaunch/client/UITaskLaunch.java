@@ -27,10 +27,9 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 	
 	public UITaskLaunch() {
-	
 	}
 	
-	public enum TaskLaunchAttribute {
+	public enum UITaskLaunchAttribute {
 		Key("key")
 		, Type("type")
 		, Order("order")
@@ -44,10 +43,11 @@ public class UITaskLaunch extends UITaskDictionary {
 		, UIScreen("uiScreen")
 		, UIPath("uiPath")
 		, Css("css")
-		, UIView("uiview")
+		, UIView("uiView")
+		, Tooltips("tooltips")
 		;
 		private final String text;
-		private TaskLaunchAttribute(final String text) { this.text = text; }
+		private UITaskLaunchAttribute(final String text) { this.text = text; }
 		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
 		/* (non-Javadoc)
 		 * @see java.lang.Enum#toString()
@@ -57,51 +57,33 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 	
 	public UITaskLaunch(Task task) {
-		
 		super.setUiScreen(task.getParameter(TaskAttribute.UIScreen.toString()));
 		super.setUiPath(task.getParameter(TaskAttribute.UIPath.toString()));
-		
-		setValue(TaskLaunchAttribute.Key.toString()		, task.getParameter(TaskAttribute.Key.toString()));
-		setValue(TaskLaunchAttribute.Type.toString()	, task.getParameter(TaskAttribute.Type.toString()));
-		setValue(TaskLaunchAttribute.Order.toString()	, task.getParameter(TaskAttribute.Order.toString()));
-		setValue(TaskLaunchAttribute.Name.toString()	, task.getParameter(TaskAttribute.Name.toString()));
-		setValue(TaskLaunchAttribute.Title.toString()	, task.getParameter(TaskAttribute.Title.toString()));
-		setValue(TaskLaunchAttribute.Enable.toString()	, task.getParameter(TaskAttribute.Enable.toString()));
-		setValue(TaskLaunchAttribute.Visible.toString()	, task.getParameter(TaskAttribute.Visible.toString()));
-		setValue(TaskLaunchAttribute.LocCat.toString()	, task.getParameter(TaskAttribute.LocCat.toString()));
-		setValue(TaskLaunchAttribute.FunCat.toString()	, task.getParameter(TaskAttribute.FunCat.toString()));
-		setValue(TaskLaunchAttribute.UIPanel.toString()	, task.getParameter(TaskAttribute.UIPanel.toString()));
-		setValue(TaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));
-
+		setValue(UITaskLaunchAttribute.Key.toString()		, task.getParameter(TaskAttribute.Key.toString()));
+		setValue(UITaskLaunchAttribute.Type.toString()	, task.getParameter(TaskAttribute.Type.toString()));
+		setValue(UITaskLaunchAttribute.Order.toString()	, task.getParameter(TaskAttribute.Order.toString()));
+		setValue(UITaskLaunchAttribute.Name.toString()	, task.getParameter(TaskAttribute.Name.toString()));
+		setValue(UITaskLaunchAttribute.Title.toString()	, task.getParameter(TaskAttribute.Title.toString()));
+		setValue(UITaskLaunchAttribute.Enable.toString()	, task.getParameter(TaskAttribute.Enable.toString()));
+		setValue(UITaskLaunchAttribute.Visible.toString()	, task.getParameter(TaskAttribute.Visible.toString()));
+		setValue(UITaskLaunchAttribute.LocCat.toString()	, task.getParameter(TaskAttribute.LocCat.toString()));
+		setValue(UITaskLaunchAttribute.FunCat.toString()	, task.getParameter(TaskAttribute.FunCat.toString()));
+		setValue(UITaskLaunchAttribute.UIPanel.toString()	, task.getParameter(TaskAttribute.UIPanel.toString()));
+		setValue(UITaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));
+		setValue(UITaskLaunchAttribute.UIView.toString()	, task.getParameter(TaskAttribute.UIView.toString()));
+		setValue(UITaskLaunchAttribute.Tooltips.toString()	, task.getParameter(TaskAttribute.Tooltips.toString()));
 	}
 
 	public UITaskLaunch(UITaskLaunch taskLaunch) {
-		
 		super(taskLaunch);
-		
-		for ( TaskLaunchAttribute taskLaunchAttribute : TaskLaunchAttribute.values() ) { 
+		for ( UITaskLaunchAttribute taskLaunchAttribute : UITaskLaunchAttribute.values() ) { 
 			String key = taskLaunchAttribute.toString();
-			if ( key.equals(TaskLaunchAttribute.UIPath.toString()) 
-					|| key.equals(TaskLaunchAttribute.UIScreen.toString()) ) {
+			if ( key.equals(UITaskLaunchAttribute.UIPath.toString()) 
+					|| key.equals(UITaskLaunchAttribute.UIScreen.toString()) ) {
 				continue;
 			}
 			setValue(key, taskLaunch.getValue(key));
 		}
-		
-//		setValue(TaskLaunchAttribute.Key.toString(), taskLaunch.getValue(TaskLaunchAttribute.Key.toString()));
-//		setValue(TaskLaunchAttribute.Type.toString(), taskLaunch.getValue(TaskLaunchAttribute.Type.toString()));
-//		setValue(TaskLaunchAttribute.Order.toString(), taskLaunch.getValue(TaskLaunchAttribute.Order.toString()));
-//		setValue(TaskLaunchAttribute.Name.toString(), taskLaunch.getValue(TaskLaunchAttribute.Name.toString()));
-//		setValue(TaskLaunchAttribute.Title.toString(), taskLaunch.getValue(TaskLaunchAttribute.Title.toString()));
-//		setValue(TaskLaunchAttribute.Enable.toString(), taskLaunch.getValue(TaskLaunchAttribute.Enable.toString()));
-//		setValue(TaskLaunchAttribute.Visible.toString(), taskLaunch.getValue(TaskLaunchAttribute.Visible.toString()));
-//		setValue(TaskLaunchAttribute.LocCat.toString(), taskLaunch.getValue(TaskLaunchAttribute.LocCat.toString()));
-//		setValue(TaskLaunchAttribute.FunCat.toString(), taskLaunch.getValue(TaskLaunchAttribute.FunCat.toString()));
-//		setValue(TaskLaunchAttribute.UIPanel.toString(), taskLaunch.getValue(TaskLaunchAttribute.UIPanel.toString()));
-//		setValue(TaskLaunchAttribute.UIScreen.toString(), taskLaunch.getValue(TaskLaunchAttribute.UIScreen.toString()));
-//		setValue(TaskLaunchAttribute.UIPath.toString(), taskLaunch.getValue(TaskLaunchAttribute.UIPath.toString()));
-//		setValue(TaskLaunchAttribute.Css.toString(), taskLaunch.getValue(TaskLaunchAttribute.Css.toString()));
-
 	}
 
 	private Object[] options;
@@ -109,54 +91,43 @@ public class UITaskLaunch extends UITaskDictionary {
 	public void setOption(Object[] options) { this.options = options; }
 
 	public String getHeader() {
-
-		return (String) getValue(TaskLaunchAttribute.Key.toString());
+		return (String) getValue(UITaskLaunchAttribute.Key.toString());
 	}
 
 	public void setName(String name) {
-
-		setValue(TaskLaunchAttribute.Name.toString(), name);
+		setValue(UITaskLaunchAttribute.Name.toString(), name);
 	}
-
+	
 	public String getName() {
-
-		String string = (String) getValue(TaskLaunchAttribute.Name.toString());
-
-		if (string.length() <= 0)
-			string = (String) getValue(TaskLaunchAttribute.Key.toString());
+		String string = (String) getValue(UITaskLaunchAttribute.Name.toString());
+		if (string.length() <= 0) {
+			string = (String) getValue(UITaskLaunchAttribute.Key.toString());
 			string = getElementLast(string);
-
+		}
 		return string;
 	}
 
 	public void setTitle(String title) {
-
-		setValue(TaskLaunchAttribute.Title.toString(), title);
+		setValue(UITaskLaunchAttribute.Title.toString(), title);
 	}
 
 	public String getTitle() {
-
-		return (String) getValue(TaskLaunchAttribute.Title.toString());
+		return (String) getValue(UITaskLaunchAttribute.Title.toString());
 	}
 
 
 	public int getTaskLevel() {
-
-		String key = (String) getValue(TaskLaunchAttribute.Key.toString());
-		
+		String key = (String) getValue(UITaskLaunchAttribute.Key.toString());
 		return letterCounter(key, spliter);
 	}
 
 	public void setType(String type) {
-
-		setValue(TaskLaunchAttribute.Type.toString(), type);
+		setValue(UITaskLaunchAttribute.Type.toString(), type);
 	}
 
 	public TaskLaunchType getTaskLaunchType() {
-		
-		String t = (String)getValue(TaskLaunchAttribute.Type.toString());
+		String t = (String)getValue(UITaskLaunchAttribute.Type.toString());
 		TaskLaunchType type = null;
-
 		// Using Igrone instead of valueOf
 		if ( null != t ) {
 			if (0 == t.compareToIgnoreCase("M")) {
@@ -167,17 +138,14 @@ public class UITaskLaunch extends UITaskDictionary {
 				type = TaskLaunchType.IMAGE;
 			}
 		}
-
 		if ( null == t ) {
 			type = TaskLaunchType.UNKNOW;
 		}
-
 		return type;
 	}
 
 	private int counter = -1;
 	private int letterCounter(String str, char letter) {
-
 		if (counter != -1)
 			return counter;
 		counter = 0;
@@ -185,12 +153,10 @@ public class UITaskLaunch extends UITaskDictionary {
 			if (str.charAt(i) == letter)
 				++counter;
 		}
-
 		return counter;
 	}
 
 	private String getElementLast(String string) {
-
 		String element = "";
 		String strings[] = string.split("\\|");
 		if (strings.length > 0) {
@@ -201,15 +167,30 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 
 	public String getUiPanel() {
-		
-		return (String) getValue(TaskLaunchAttribute.UIPanel.toString());
-
+		return (String) getValue(UITaskLaunchAttribute.UIPanel.toString());
 	}
-
 	public void setUiPanel(String uiPanel) {
-		
-		setValue(TaskLaunchAttribute.UIPanel.toString(), uiPanel);
-
+		setValue(UITaskLaunchAttribute.UIPanel.toString(), uiPanel);
+	}
+	
+	public void setCss(String css) {
+		setValue(UITaskLaunchAttribute.Css.toString(), css);
+	}
+	public String getCss() {
+		return (String) getValue(UITaskLaunchAttribute.Css.toString());
 	}
 
+	public void setUiView(String uiView) {
+		setValue(UITaskLaunchAttribute.UIView.toString(), uiView);
+	}
+	public String getUiView() {
+		return (String) getValue(UITaskLaunchAttribute.UIView.toString());
+	}
+
+	public void setTooltip(String toolTips) {
+		setValue(UITaskLaunchAttribute.Tooltips.toString(), toolTips);
+	}
+	public String getTooltip() {
+		return (String) getValue(UITaskLaunchAttribute.Tooltips.toString());
+	}
 }

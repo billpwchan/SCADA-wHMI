@@ -1,14 +1,13 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client;
 
 import java.util.HashMap;
-import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIWidgetMgr {
+public class UIWidgetMgr implements UIWidgetMgrFactory {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -21,36 +20,13 @@ public class UIWidgetMgr {
 		return instance;
 	}
 
-	public Panel getMainPanel(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options){
-		final String function = "getMainPanel";
-		
-		logger.begin(className, function);
-		logger.info(className, function, "uiNameCard[{}]", uiNameCard.getUiPath());
-		
-		Panel panel = null;
-		UIWidget_i uiwidget = this.getUIWidget(widget, view, uiNameCard, options);
-		
-		if ( null != uiwidget ) {
-			uiwidget.setUINameCard(uiNameCard);
-			panel = uiwidget.getMainPanel();
-		} else {
-			logger.warn(className, function, "uiwidget IS NULL");
-		}
-
-		if ( null == panel ) {
-			logger.warn(className, function, "panel IS NULL");
-		}
-		
-		logger.end(className, function);
-
-		return panel;
-	}
-	
 	private HashMap<String, UIWidgetMgrFactory> uiWidgetMgrFactorys = new HashMap<String, UIWidgetMgrFactory>();
 	public void clearUIWidgetFactorys() { this.uiWidgetMgrFactorys.clear(); }
+	public void addUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(className, uiWidgetMgrEvent); }
 	public void addUIWidgetFactory(String xmlName, UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(xmlName, uiWidgetMgrEvent); }
 	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
 
+	@Override
 	public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
 		

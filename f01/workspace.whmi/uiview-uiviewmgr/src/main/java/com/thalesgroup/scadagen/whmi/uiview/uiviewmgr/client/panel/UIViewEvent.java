@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -10,17 +7,21 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanelEvent;
 
 public class UIViewEvent extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIViewEvent.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIViewEvent.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public static final String RGB_RED		= "rgb( 255, 0, 0)";
-	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
-	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
+//	public static final String RGB_RED		= "rgb( 255, 0, 0)";
+//	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
+//	public static final String RGB_BLUE		= "rgb( 0, 0, 255)";
 
 	private String [] strNoOfEvents = new String [] {
 			"No. of Event", "0"
@@ -31,6 +32,9 @@ public class UIViewEvent extends UIWidget_i {
 
 	@Override
 	public void init() {
+		final String function = "init";
+
+		logger.begin(className, function);
 		
 		HorizontalPanel numOfEventBar = new HorizontalPanel();
 		numOfEventBar.getElement().getStyle().setPadding(20, Unit.PX);
@@ -95,16 +99,16 @@ public class UIViewEvent extends UIWidget_i {
 			
 	    	@Override
 	    	public void valueChanged(String name, int value) {
-	    		logger.log(Level.FINE, "valueChanged Begin");
+	    		logger.info(className, function, "valueChanged Begin");
 	    		
-	    		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
+	    		logger.info(className, function, "valueChanged name[{}] value[{}]", name, value);
 	    		for ( int i = 0 ; i < counterNames.length; ++i) {
 	    			if ( 0 == name.compareTo(counterNames[i]) ) {
 	    				inlineLabel[(i*2)+1].setText(String.valueOf(value));
 	    			}
 	    		}
 	    		
-	    		logger.log(Level.FINE, "valueChanged End");
+	    		logger.info(className, function, "valueChanged End");
 	    		
 	    	}
 		});
@@ -126,7 +130,7 @@ public class UIViewEvent extends UIWidget_i {
 //		root.addSouth(toolBarPanel, 50);
 		rootPanel.add(basePanel);
 
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 	}
 
 }

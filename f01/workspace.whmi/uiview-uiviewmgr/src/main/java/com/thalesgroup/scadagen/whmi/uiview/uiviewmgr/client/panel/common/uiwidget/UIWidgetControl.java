@@ -14,9 +14,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
@@ -144,10 +144,10 @@ public class UIWidgetControl extends UIWidget_i {
 		
 		Object obj1 = uiEventAction.getAction(ViewAttribute.OperationObject1.toString());
 		
-		logger.warn(className, function, "op[{}]", op);
-		logger.warn(className, function, "od1[{}]", od1);
-		logger.warn(className, function, "od2[{}]", od2);
-		logger.warn(className, function, "od3[{}]", od3);
+		logger.info(className, function, "op[{}]", op);
+		logger.info(className, function, "od1[{}]", od1);
+		logger.info(className, function, "od2[{}]", od2);
+		logger.info(className, function, "od3[{}]", od3);
 		
 		if ( null != op ) {
 			

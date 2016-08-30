@@ -17,7 +17,9 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.DirectionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.OptionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.PanelAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.TypeAttribute;
@@ -31,7 +33,7 @@ public class UILayoutGeneric extends UIWidget_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	
-	private HashMap<String, UIWidget_i> uiWidgetGeneric = new HashMap<String, UIWidget_i>();
+	private HashMap<String, UIWidget_i> uiGeneric = new HashMap<String, UIWidget_i>();
 	
 	private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
 	
@@ -46,7 +48,7 @@ public class UILayoutGeneric extends UIWidget_i {
 	private Dictionary dictionaryOption = null;
 	
 	public UIWidget_i getUIWidget(String xmlFile) {
-		return uiWidgetGeneric.get(xmlFile);
+		return uiGeneric.get(xmlFile);
 	}
 	
 	@Override
@@ -59,12 +61,7 @@ public class UILayoutGeneric extends UIWidget_i {
 		final String function = "init";
 		
 		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
-		
-//		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
-//		
-//		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
-//		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
-		
+
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
 		this.dictionaryHeader = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
@@ -127,20 +124,32 @@ public class UILayoutGeneric extends UIWidget_i {
 						String left					= valueMap.get(WidgetAttribute.left.toString());
 						String top					= valueMap.get(WidgetAttribute.top.toString());
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
-						String view					= valueMap.get(WidgetAttribute.view.toString());
+						String uiview				= valueMap.get(WidgetAttribute.uiView.toString());
 						
-						String option1				= valueMap.get(WidgetAttribute.option1.toString());
-						String option2				= valueMap.get(WidgetAttribute.option2.toString());
-						String option3				= valueMap.get(WidgetAttribute.option3.toString());
-						String option4				= valueMap.get(WidgetAttribute.option4.toString());
-						String option5				= valueMap.get(WidgetAttribute.option5.toString());
+						String option1				= valueMap.get(OptionAttribute.option1.toString());
+						String option2				= valueMap.get(OptionAttribute.option2.toString());
+						String option3				= valueMap.get(OptionAttribute.option3.toString());
+						String option4				= valueMap.get(OptionAttribute.option4.toString());
+						String option5				= valueMap.get(OptionAttribute.option5.toString());
+						
+						String action1				= valueMap.get(ActionAttribute.action1.toString());
+						String action2				= valueMap.get(ActionAttribute.action2.toString());
+						String action3				= valueMap.get(ActionAttribute.action3.toString());
+						String action4				= valueMap.get(ActionAttribute.action4.toString());
+						String action5				= valueMap.get(ActionAttribute.action5.toString());
 						
 						HashMap<String, Object> options = new HashMap<String, Object>();
-						if ( null != option1 ) options.put(WidgetAttribute.option1.toString(), option1);
-						if ( null != option2 ) options.put(WidgetAttribute.option2.toString(), option2);
-						if ( null != option3 ) options.put(WidgetAttribute.option3.toString(), option3);
-						if ( null != option4 ) options.put(WidgetAttribute.option4.toString(), option4);
-						if ( null != option5 ) options.put(WidgetAttribute.option5.toString(), option5);
+						if ( null != option1 ) options.put(OptionAttribute.option1.toString(), option1);
+						if ( null != option2 ) options.put(OptionAttribute.option2.toString(), option2);
+						if ( null != option3 ) options.put(OptionAttribute.option3.toString(), option3);
+						if ( null != option4 ) options.put(OptionAttribute.option4.toString(), option4);
+						if ( null != option5 ) options.put(OptionAttribute.option5.toString(), option5);
+						
+						if ( null != action1 ) options.put(ActionAttribute.action1.toString(), action1);
+						if ( null != action2 ) options.put(ActionAttribute.action2.toString(), action2);
+						if ( null != action3 ) options.put(ActionAttribute.action3.toString(), action3);
+						if ( null != action4 ) options.put(ActionAttribute.action4.toString(), action4);
+						if ( null != action5 ) options.put(ActionAttribute.action5.toString(), action5);
 						
 						logger.info(className, function, "type[{}] widget[{}]", new Object[]{type, widget});
 						logger.info(className, function, "direction[{}] size[{}]", new Object[]{direction, size});
@@ -163,25 +172,31 @@ public class UILayoutGeneric extends UIWidget_i {
 								}
 							} else if ( TypeAttribute.layoutconfiguration.equalsName(type) ) {
 								
+								String viewSel = widget;
+								if ( null != uiview ) viewSel = uiview;
+								
 								// layoutconfiguration
-								uiWidgetGeneric.put(widget, new UILayoutGeneric());
-								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
+								uiGeneric.put(widget, new UILayoutGeneric());
+								UIWidget_i uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
-									uiWidget.setXMLFile(widget);
+									uiWidget.setXMLFile(viewSel);
 									uiWidget.init();
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.warn(className, function, "created UIPanelGeneric widget[{}] IS NULL", widget);
+									logger.warn(className, function, "created UILayoutGeneric widget[{}] IS NULL", widget);
 								}
 							} else if ( TypeAttribute.configuration.equalsName(type) ) {
 								
+								String viewSel = widget;
+								if ( null != uiview ) viewSel = uiview;
+								
 								//configuration
-								uiWidgetGeneric.put(widget, new UIWidgetGeneric());
-								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
+								uiGeneric.put(widget, new UIWidgetGeneric());
+								UIWidget_i uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
-									uiWidget.setXMLFile(widget);
+									uiWidget.setXMLFile(viewSel);
 									uiWidget.init();
 									panel = uiWidget.getMainPanel();
 								} else {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:hvOperationConfig xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/hvoperation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/hvoperation xsd/hv-operation-action.xsd ">
+  <p:hvOperation hvOperationName="Test">
+    <p:operationEntry hvOperationEntryId="opendoor">
+      <!--<p:commandContent operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpDoorOpenRequest">-->
+      <p:commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpSCADARequest">
+        <p:commandParam paramName="entityID" paramValue="B01DO001"/>
+        <p:commandParam paramName="operatorID" paramValue="chief"/>
+        <p:commandParam paramName="action" paramValue="{&quot;component&quot;:&quot;CtlComponent&quot;, &quot;request&quot;:&quot;SendIntCommand&quot;, &quot;parameters&quot;:{&quot;names&quot;:[&quot;&lt;alias&gt;SITE1B001F001ACCESSDO001dioOpenClose&quot;], &quot;value&quot;:1, &quot;bypassInitCond&quot;:0, &quot;bypassRetCond&quot;:0, &quot;sendAnyway&quot;:0}}" />
+      </p:commandContent>
+    </p:operationEntry>
+    
+    <p:operationEntry hvOperationEntryId="closedoor">
+      <!--<p:commandContent operationJavaClassName="com.thalesgroup.myproject.data.config.equipment.operation.OpDoorCloseRequest">-->
+      <p:commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpSCADARequest">
+        <p:commandParam paramName="entityID" paramValue="B01DO001"/>
+        <p:commandParam paramName="operatorID" paramValue="chief"/>
+        <p:commandParam paramName="action" paramValue="{&quot;component&quot;:&quot;CtlComponent&quot;, &quot;request&quot;:&quot;SendIntCommand&quot;, &quot;parameters&quot;:{&quot;names&quot;:[&quot;&lt;alias&gt;SITE1B001F001ACCESSDO001dioOpenClose&quot;], &quot;value&quot;:2, &quot;bypassInitCond&quot;:0, &quot;bypassRetCond&quot;:0, &quot;sendAnyway&quot;:0}}" />
+      </p:commandContent>
+    </p:operationEntry>
+  </p:hvOperation>
+</p:hvOperationConfig>

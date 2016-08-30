@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+    <p:bpsConfiguration name="testalarm" />
+
+    <p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:transientDataSource>
+                <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.SCADAsoftAlarmType</sds:type>
+                <!--<sds:type>com.thalesgroup.myproject.data.exchange.entity.alarm.DoorIntrusionAlarmType</sds:type>-->
+			</sds:transientDataSource>
+		</p:dataSource>
+	</p:subject>
+    <!-- 
+    <p:statuses xsi:type="cmn:statusDataSourceType" name="apparitionDate"/>
+    <p:statuses xsi:type="cmn:statusDataSourceType" name="serviceOwnerID"/>
+    <p:statuses xsi:type="cmn:statusDataSourceType" name="areaID"/>
+    <p:statuses xsi:type="cmn:statusDataSourceType" name="priority"/>         
+    <p:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+    <p:statuses xsi:type="cmn:statusDataSourceType" name="previousState"/>-->
+    
+    <p:trigger>
+    	<p:criteria xsi:type="cmn:and">
+            <cmn:firstOperand xsi:type="cmn:equals" status="geographicalcategory">
+                <cmn:value>1</cmn:value>
+            </cmn:firstOperand>
+            <cmn:secondOperand xsi:type="cmn:equals" status="functionalcategory">
+                <cmn:value>2</cmn:value>
+            </cmn:secondOperand>
+        </p:criteria>
+        <p:action>
+            <p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.AlarmAction</p:actionHandler>
+            <!--<p:actionHandler>com.thalesgroup.scadagen.bps.presenter.actionhandlers.AlarmTypeAction</p:actionHandler>-->
+            <p:actionConfig>PTZFICameraCtrlLock</p:actionConfig>
+        </p:action>
+    </p:trigger>
+
+</p:bpsConfig>

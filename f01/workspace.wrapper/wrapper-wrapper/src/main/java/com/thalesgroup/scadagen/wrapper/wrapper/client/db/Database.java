@@ -46,37 +46,111 @@ public class Database {
 		this.dynaimcDatabaseEvent = dynaimcDatabaseEvent;
 	}
 	
+	/**
+	 * Store the Request: key and address
+	 */
 	private HashMap<String, String[]> KeyAndAddress			= new HashMap<String, String[]>();
 	public String[] getKeyAndAddress(String key) { return this.KeyAndAddress.get(key); }
 	
+	
+	/**
+	 * Store the Request: key and address
+	 */
 	private HashMap<String, String[]> KeyAndValues			= new HashMap<String, String[]>();
 	public String[] getKeyAndValues(String key) { return this.KeyAndValues.get(key); }
 	
+	
+	/**
+	 * SCSDatabase handle
+	 */
 	private ScsRTDBComponentAccess rtdb = null;
 	
 	private LinkedList<JSONRequest> requestStatics			= new LinkedList<JSONRequest>();
 	private HashMap<String, String[]> requestDynamics		= new HashMap<String, String[]>();
 	private HashMap<String, DatabaseEvent> databaseEvents	= new HashMap<String, DatabaseEvent>();
 	
+	private void printCachesStatic(String logPrefix) {
+		final String function = "printCachesStatic";
+		logger.info(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
+	}
+	
+	/**
+	 * @param api : Database API to call
+	 * @param clientKey : Key for the Reading and Result
+	 * @param scsEnvId : scsEnvId to connect
+	 * @param dbaddresses : database address to read
+	 * @param databaseEvent : Callback for result
+	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String [] dbaddresses, DatabaseEvent databaseEvent) {
-		requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
-		KeyAndAddress.put(clientKey, dbaddresses);
-		databaseEvents.put(clientKey, databaseEvent);
+		final String function = "addStaticRequest";
+		printCachesStatic("Before");
+		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}]", new Object[]{api, clientKey, scsEnvId});
+		if ( logger.isDebugEnabled() ) {
+			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+			}
+		}
+		if ( KeyAndValues.containsKey(clientKey) ) {
+			logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
+			String [] values = KeyAndValues.get(clientKey);
+			if ( null != databaseEvent ) {
+				databaseEvent.update(clientKey, values);
+			} else {
+				logger.warn(className, function, "databaseEvent IS NULL");
+			}
+		} else {
+			logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
+			
+			requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
+			KeyAndAddress.put(clientKey, dbaddresses);
+			databaseEvents.put(clientKey, databaseEvent);
+		}
+		printCachesStatic("After");
 	}
 	
-	// Get Child
+	/**
+	 * @param api : Database API to call
+	 * @param clientKey : Key for the Reading and Result
+	 * @param scsEnvId : scsEnvId to connect
+	 * @param dbaddresses : database address to read
+	 * @param databaseEvent : Callback for result
+	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String dbaddresses, DatabaseEvent databaseEvent) {
-		requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
-		KeyAndAddress.put(clientKey, new String[]{dbaddresses});
-		databaseEvents.put(clientKey, databaseEvent);
+		final String function = "addStaticRequest";
+		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}] dbaddresses[{}]", new Object[]{api, clientKey, scsEnvId, dbaddresses});
+		printCachesStatic("Before");
+		if ( KeyAndValues.containsKey(clientKey) ) {
+			logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
+			String [] values = KeyAndValues.get(clientKey);
+			if ( null != databaseEvent ) {
+				databaseEvent.update(clientKey, values);
+			} else {
+				logger.warn(className, function, "databaseEvent IS NULL");
+			}
+		} else {
+			logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
+			
+			requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
+			KeyAndAddress.put(clientKey, new String[]{dbaddresses});
+			databaseEvents.put(clientKey, databaseEvent);
+		}
+		printCachesStatic("After");
 	}
 	
+	/**
+	 * @param clientKey : Key for the Reading and Result
+	 * @param dbaddresses : dbaddress to read
+	 * @param databaseEvent : Callback for result
+	 */
 	public void addDynamicRequest(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
 		requestDynamics.put(clientKey, dbaddresses);
 		KeyAndAddress.put(clientKey, dbaddresses);
 		databaseEvents.put(clientKey, databaseEvent);
 	}
 	
+	/**
+	 * Init and connect to database
+	 */
 	public void connect() {
 		final String function = "connect";
 		
@@ -204,12 +278,10 @@ public class Database {
 
 				if ( logger.isDebugEnabled() ) {
 					logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
-			    	
 					for(int i = 0; i < instances.length; ++i) {
 						logger.debug(className, function, "instances[{}][{}]", i, instances[i]);
 					}	
 				}
-	    	
 		    	
 				KeyAndValues.put(clientKey, instances);
 				
@@ -217,7 +289,10 @@ public class Database {
 				
 				// Static
 				DatabaseEvent databaseEvent = databaseEvents.get(clientKey);
-				if ( null != databaseEvent ) databaseEvent.update(clientKey, instances);
+				if ( null != databaseEvent ) {
+					databaseEvent.update(clientKey, instances);
+					databaseEvents.remove(clientKey);
+				}
 				
 				logger.end(className, function);
 				
@@ -319,9 +394,20 @@ public class Database {
 		logger.end(className, function);
 	}
 	
+	/**
+	 * Timer for the database reading
+	 */
 	private Timer timer = null;
+	
+	/**
+	 * Timer to execute the request
+	 * @param periodMillis
+	 */
 	public void connectTimer(int periodMillis) {
 		final String function = "connectTimer";
+		
+		final String strGetChildren = "GetChildren";
+		final String strMultiReadValue = "multiReadValue";
 		
 		logger.begin(className, function);
 		
@@ -338,7 +424,7 @@ public class Database {
 							
 							JSONRequest jsonRequest = requestStatics.removeFirst();
 							
-							if ( 0 == "GetChildren".compareTo(jsonRequest.api) ) {
+							if ( strGetChildren.equals(jsonRequest.api) ) {
 								
 								String api = jsonRequest.api;
 								String clientKey = jsonRequest.clientKey;
@@ -356,7 +442,7 @@ public class Database {
 								    
 								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
 								
-							} else if ( 0 == "multiReadValue".compareTo(jsonRequest.api) ) {
+							} else if ( strMultiReadValue.equals(jsonRequest.api) ) {
 								
 								String api = jsonRequest.api;
 								String clientKey = jsonRequest.clientKey;
@@ -425,6 +511,9 @@ public class Database {
 		logger.end(className, function);
 	}
 	
+	/**
+	 * Connect to database
+	 */
 	public void disconnectTimer() {
 		requestStatics.clear();
 		requestDynamics.clear();
@@ -433,6 +522,9 @@ public class Database {
 		timer = null;
 	}
 	
+	/**
+	 * Disconnect to database
+	 */
 	public void disconnect() {
 
 		try {
@@ -443,6 +535,4 @@ public class Database {
 		}
 		rtdb=null;
 	}
-
-	
 }

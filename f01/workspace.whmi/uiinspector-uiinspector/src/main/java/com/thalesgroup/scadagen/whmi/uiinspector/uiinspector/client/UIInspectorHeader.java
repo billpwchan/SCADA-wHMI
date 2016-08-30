@@ -31,7 +31,7 @@ public class UIInspectorHeader implements UIInspectorPage_i {
 	private final String staticAttibutes[]	= new String[] {PointName.shortLabel.toString(), PointName.geographicalCat.toString()};
 
 	// Dynamic Attribute List
-	private final String dynamicAttibutes[]	= new String[] {PointName.isControlable.toString()};
+	private final String dynamicAttibutes[]	= new String[] {PointName.DbAttrReservedID.toString(), PointName.isControlable.toString()};
 
 	private String scsEnvId		= null;
 	private String parent		= null;

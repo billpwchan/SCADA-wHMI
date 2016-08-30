@@ -526,14 +526,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	
 	private LinkedList<UIInspectorPage_i> uiInspectorTabs = null;
 
-	private UINameCard uiNameCard = null;
-	@Override
-	public void setUINameCard(UINameCard uiNameCard) {
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-	}
-	
-	private VerticalPanel basePanel = null;
 	@Override
 	public void init() {
 		final String function = "init";
@@ -676,11 +668,11 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		bottomBar.add(txtMsg);
 		bottomBar.add(btnClose);
 		
-		basePanel = new VerticalPanel();
-		basePanel.add(panelHeader);
-		basePanel.add(panelTab);
-		basePanel.add(bottomBar);
-		basePanel.addStyleName("project-gwt-panel-inspector");
+		rootPanel = new VerticalPanel();
+		rootPanel.add(panelHeader);
+		rootPanel.add(panelTab);
+		rootPanel.add(bottomBar);
+		rootPanel.addStyleName("project-gwt-panel-inspector");
 
 		logger.end(className, function);
 	}

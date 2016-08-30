@@ -42,6 +42,8 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	private final String tagname				= "advance";
 
+	private final String applyWithoutReset		= "true";
+	
 	// Static Attribute List
 	private final String staticDciAttibutes []		= new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
 	private final String staticAciAttibutes []		= new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
@@ -287,7 +289,9 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 	
 	private InlineLabel[] lblAttibuteLabel		= null;
 	private ListBox[] lstValues					= null;
+	private int[] intValuesOri					= null;
 	private TextBox[] txtValues					= null;
+	private String[] strValuesOri				= null;
 	
 	private CheckBox[][] chkDPMs 				= null;
 	
@@ -313,7 +317,9 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 				lblAttibuteLabel	= new InlineLabel[numOfWidgetShow];
 				
 				lstValues			= new ListBox[numOfWidgetShow];
+				intValuesOri		= new int[numOfWidgetShow];
 				txtValues			= new TextBox[numOfWidgetShow];
+				strValuesOri		= new String[numOfWidgetShow];
 				
 				chkDPMs				= new CheckBox[numOfWidgetShow][3];
 				
@@ -712,14 +718,17 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 										
 										if ( 0 == sValue.compareTo(tValue) ) {
 											lstValues[y].setSelectedIndex(r);
+											intValuesOri[y] = r;
 											break;
 										}
 									}
 								}
 							} else if ( PointType.aci == pointType ) {
 								txtValues[y].setValue(value);
+								strValuesOri[y] = value;
 							} else if ( PointType.sci == pointType ) {
 								txtValues[y].setValue(value);
+								strValuesOri[y] = value;
 							}
 
 						}
@@ -801,6 +810,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						boolean isSSCancel	= false;
 						
 						boolean isManualOverrideApply	= false;
+						boolean isManualOverrideChange	= false;
 						boolean isManualOverrideCancel	= false;
 						
 						String sForcedStatus = null;
@@ -828,7 +838,29 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							if ( RTDB_Helper.isSS(forcedStatus) && !chkDPMs[index][indexSS].getValue() ) {	isSSCancel = true;	}
 							
 							if ( !RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	isManualOverrideApply = true;	}
-							if ( RTDB_Helper.isMO(forcedStatus) && !chkDPMs[index][indexMO].getValue() ) {	isManualOverrideCancel = true;	}						
+							if ( RTDB_Helper.isMO(forcedStatus) && !chkDPMs[index][indexMO].getValue() ) {	isManualOverrideCancel = true;	}
+							if ( 
+									RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() 
+									&& applyWithoutReset.equals("true") ) {	
+								boolean changed = false;
+								if ( PointType.dci == pointType ) {
+									int moIndex = lstValues[index].getSelectedIndex();
+									if ( moIndex != intValuesOri[index] ) {
+										intValuesOri[index] = moIndex;
+										changed = true;
+									}
+								} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
+									String moSValue = txtValues[index].getText();
+									if ( moSValue != strValuesOri[index] ) {
+										strValuesOri[index] = moSValue;
+										changed = true;
+									}
+								}
+								if ( changed ) {
+									isManualOverrideChange = true;
+								}
+								
+							}
 						}
 						
 						int moIValue = 0;
@@ -837,7 +869,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						
 						String moSValue	= "";					
 						
-						if ( isAIApply || isAICancel || isSSApply || isSSCancel || isManualOverrideApply || isManualOverrideCancel ) {
+						if ( isAIApply || isAICancel || isSSApply || isSSCancel || isManualOverrideApply || isManualOverrideChange || isManualOverrideCancel ) {
 
 							
 							if ( PointType.dci == pointType ) {
@@ -934,7 +966,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 						{
 							String key = null;
 							boolean forceAction = false;
-							if ( isManualOverrideApply ) {
+							if ( isManualOverrideApply || isManualOverrideChange ) {
 								key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "manualoverride" + "_"+ "true" + "_" + dbaddress;
 								forceAction = true;
 							}

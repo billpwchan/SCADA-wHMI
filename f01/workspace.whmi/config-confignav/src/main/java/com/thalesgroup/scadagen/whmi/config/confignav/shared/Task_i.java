@@ -29,7 +29,8 @@ public interface Task_i {
 		, UIScreen("uiScreen")
 		, UIPath("uiPath")
 		, Css("css")
-		, UIView("uiview")
+		, UIView("uiView")
+		, Tooltips("tooltips")
 		;
 		private final String text;
 		private TaskAttribute(final String text) { this.text = text; }

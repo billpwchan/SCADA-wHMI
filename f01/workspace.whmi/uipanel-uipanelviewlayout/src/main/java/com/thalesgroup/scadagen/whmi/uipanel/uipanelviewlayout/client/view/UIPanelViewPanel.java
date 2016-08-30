@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
+import java.util.HashMap;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -55,8 +57,14 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 			if ( taskProvide instanceof UITaskLaunch ) {
 				
 				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
+				
+				String uiPanel = taskLaunch.getUiPanel();
+				String uiView = taskLaunch.getUiView();
 
-				logger.info(className, function, "taskLaunch.getHeader()[{}]", taskLaunch.getUiPanel());
+				logger.info(className, function, "uiPanel[{}]", uiPanel);
+				logger.info(className, function, "uiView[{}]", uiView);
+				
+				HashMap<String, Object> options = new HashMap<String, Object>();
 				
 				this.equipmenpLabel.setText("Panel: ---- ");
 				
@@ -64,9 +72,7 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				
 				UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
 				
-				logger.info(className, function, "viewFactoryMgr.getPanel[{}]", taskLaunch.getUiPanel());
-				
-				UIWidget_i uiWidget_i = viewFactoryMgr.getPanel(taskLaunch.getUiPanel(), uiNameCard);
+				UIWidget_i uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, options);
 				
 				if ( null != uiWidget_i ) {
 					

@@ -13,11 +13,11 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.FilterViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.SummaryViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.FilterViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.SummaryViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
@@ -32,9 +32,9 @@ public class UIWidgetFilter extends UIWidget_i {
 	
 	private SimpleEventBus eventBus 			= null;
 		
-	private final String strFilterColumn		= "ptwdciset_SL_Cond_Res";
-	private final String strFilterValueSet1		= "1";
-	private final String strFilterValueSet0		= "0";
+	private String strFilterColumn				= "";
+	private String strFilterValueSet0			= "";
+	private String strFilterValueSet1			= "";
 
 	private final String strSet1				= "set1";
 	private final String strSet0				= "set0";
@@ -139,10 +139,10 @@ public class UIWidgetFilter extends UIWidget_i {
 		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
 		
-		logger.warn(className, function, "op["+op+"]");
-		logger.warn(className, function, "od1["+od1+"]");
-		logger.warn(className, function, "od2["+od2+"]");
-		logger.warn(className, function, "od3["+od3+"]");
+		logger.info(className, function, "op["+op+"]");
+		logger.info(className, function, "od1["+od1+"]");
+		logger.info(className, function, "od2["+od2+"]");
+		logger.info(className, function, "od3["+od3+"]");
 		
 		if ( null != op ) {
 
@@ -169,7 +169,7 @@ public class UIWidgetFilter extends UIWidget_i {
 				setFilter(strSet1);
 
 			} else {
-				logger.error(className, function, "ViewerViewEvent type IS UNKNOW");
+				logger.warn(className, function, "ViewerViewEvent type IS UNKNOW");
 			}
 
 		} else {
@@ -190,6 +190,27 @@ public class UIWidgetFilter extends UIWidget_i {
 			if ( null != o ) {
 				String eventBusName = (String) o;
 				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
+			}
+		}
+		
+		if ( containsParameterKey(ParameterName.FilterColumn.toString()) ) {
+			Object o = parameters.get(ParameterName.FilterColumn.toString());
+			if ( null != o ) {
+				this.strFilterColumn = (String) o;
+			}
+		}
+		
+		if ( containsParameterKey(ParameterName.FilterValueSet0.toString()) ) {
+			Object o = parameters.get(ParameterName.FilterValueSet0.toString());
+			if ( null != o ) {
+				this.strFilterValueSet0 = (String) o;
+			}
+		}
+		
+		if ( containsParameterKey(ParameterName.FilterValueSet1.toString()) ) {
+			Object o = parameters.get(ParameterName.FilterValueSet1.toString());
+			if ( null != o ) {
+				this.strFilterValueSet1 = (String) o;
 			}
 		}
 

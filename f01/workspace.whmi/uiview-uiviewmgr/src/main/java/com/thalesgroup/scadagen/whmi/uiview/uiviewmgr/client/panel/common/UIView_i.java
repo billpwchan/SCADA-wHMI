@@ -1,13 +1,18 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
-public interface View_i
+public interface UIView_i
 {
 	enum ParameterName {
 		SimpleEventBus("SimpleEventBus")
 		, MwtEventBus("MwtEventBus")
+		
 		, ListConfigId("ListConfigId")
 		, MenuEnable("MenuEnable")
 		, SelectionMode("SelectionMode")
+		
+		, FilterColumn("FilterColumn")
+		, FilterValueSet0("FilterValueSet0")
+		, FilterValueSet1("FilterValueSet1")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }
@@ -16,7 +21,12 @@ public interface View_i
 	}
 	
 	enum ViewWidget {
-		ScsOlsListPanel("ScsOlsListPanel")
+		UIWidgetViewer("UIWidgetViewer")
+		, UIWidgetAction("UIWidgetAction")
+		, UIWidgetControl("UIWidgetControl")
+		, UIWidgetFilter("UIWidgetFilter")
+		, UIWidgetPrint("UIWidgetPrint")
+		, ScsOlsListPanel("ScsOlsListPanel")
 		;
 		private final String text;
 		private ViewWidget(final String text) { this.text = text; }

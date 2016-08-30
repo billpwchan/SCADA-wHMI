@@ -8,7 +8,6 @@ import java.util.Set;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.ColumnFilterData;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringFilterDescription;
@@ -17,23 +16,20 @@ import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.Translati
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.FilterViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.PrintViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewWidget;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.View_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.FilterViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewWidget;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
@@ -47,9 +43,13 @@ public class UIWidgetViewer extends UIWidget_i {
 	// External
 	private SimpleEventBus eventBus		= null;
 	
-	private String listConfigId			= "ptwdciset";
-	private String menuEnable			= "false";
-	private String selectionMode		= "Multiple";
+//	private String listConfigId			= "ptwdciset";
+//	private String menuEnable			= "false";
+//	private String selectionMode		= "Multiple";
+	
+	private String listConfigId			= "";
+	private String menuEnable			= "";
+	private String selectionMode		= "";	
 	
 	private UILayoutGeneric uiLayoutGeneric					= null;
 	
@@ -105,9 +105,9 @@ public class UIWidgetViewer extends UIWidget_i {
 		String od1 = (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
 		String od2 = (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 		
-		logger.warn(className, function, "op[{}]", op);
-		logger.warn(className, function, "od1[{}]", od1);
-		logger.warn(className, function, "od2[{}]", od2);
+		logger.info(className, function, "op[{}]", op);
+		logger.info(className, function, "od1[{}]", od1);
+		logger.info(className, function, "od2[{}]", od2);
 		
 		if ( null != op ) {
 			if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
@@ -178,39 +178,41 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		uiLayoutGeneric = new UILayoutGeneric();
 		
-		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
-			
-			@Override
-			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
-				final String function = "getUIWidget";
-				
-				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
-				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
-				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
-				logger.warn(className, function, "options IS NULL[{}]", null == options);
-				
-				UIWidget_i uiWidget_i = null;
-				if ( 0 == widget.compareTo(ViewWidget.ScsOlsListPanel.toString()) ) {
-					
-					if ( options.containsKey(ParameterName.ListConfigId.toString()) )
-						listConfigId = (String) options.get(ParameterName.ListConfigId.toString());
-					
-					if ( options.containsKey(ParameterName.MenuEnable.toString()) )
-						menuEnable = (String) options.get(ParameterName.MenuEnable.toString());
-					
-					if ( options.containsKey(ParameterName.SelectionMode.toString()) )
-						selectionMode = (String) options.get(ParameterName.SelectionMode.toString());
-					
-					uiWidget_i = new ScsOlsListPanel();
-					uiWidget_i.setParameter(ParameterName.MwtEventBus.toString(),	new MwtEventBus());
-					uiWidget_i.setParameter(ParameterName.ListConfigId.toString(),	listConfigId);
-					uiWidget_i.setParameter(ParameterName.MenuEnable.toString(),	menuEnable);
-					uiWidget_i.setParameter(ParameterName.SelectionMode.toString(),	selectionMode);
-					uiWidget_i.init();
-				}
-				return uiWidget_i;
-			}
-		});
+//		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
+//			
+//			@Override
+//			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+//				final String function = "getUIWidget";
+//				
+//				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
+//				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
+//				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
+//				logger.warn(className, function, "options IS NULL[{}]", null == options);
+//				
+//				UIWidget_i uiWidget_i = null;
+//				if ( 0 == widget.compareTo(ViewWidget.ScsOlsListPanel.toString()) ) {
+//					
+//					if ( null != options ) {
+//						if ( options.containsKey(WidgetAttribute.option1.toString()) )
+//							listConfigId = (String) options.get(WidgetAttribute.option1.toString());
+//					
+//						if ( options.containsKey(WidgetAttribute.option2.toString()) )
+//							menuEnable = (String) options.get(WidgetAttribute.option2.toString());
+//					
+//						if ( options.containsKey(WidgetAttribute.option3.toString()) )
+//							selectionMode = (String) options.get(WidgetAttribute.option3.toString());
+//					}
+//					
+//					uiWidget_i = new ScsOlsListPanel();
+//					uiWidget_i.setParameter(ParameterName.MwtEventBus.toString(),	new MwtEventBus());
+//					uiWidget_i.setParameter(ParameterName.ListConfigId.toString(),	listConfigId);
+//					uiWidget_i.setParameter(ParameterName.MenuEnable.toString(),	menuEnable);
+//					uiWidget_i.setParameter(ParameterName.SelectionMode.toString(),	selectionMode);
+//					uiWidget_i.init();
+//				}
+//				return uiWidget_i;
+//			}
+//		});
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
 		uiLayoutGeneric.setXMLFile(xmlFile);

@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,13 +10,17 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 
 public class UIViewAlarm extends UIWidget_i {
 	
-	private Logger logger = Logger.getLogger(UIViewAlarm.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIViewAlarm.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private final String strAcknowledge = "Ack";
 	private final String strAcknowledgePage = "Ack. Page";
@@ -43,9 +44,12 @@ public class UIViewAlarm extends UIWidget_i {
 	private InlineLabel[] inlineLabel;
 	
 	private void onButton(Button button) {
+		final String function = "onButton";
+		
+		logger.begin(className, function);
 		if ( null != button ) {
 			String text = button.getText();
-			logger.log(Level.FINE, "onButton text["+text+"]");
+			logger.info(className, function, "onButton text[{}]", text);
 			if ( null != text ) {
 				if ( null != wrapperScsAlarmListPanel ) {
 					if ( strAcknowledge.equals(text) ) {
@@ -54,20 +58,26 @@ public class UIViewAlarm extends UIWidget_i {
 						wrapperScsAlarmListPanel.ackVisibile();
 					}
 				} else {
-					logger.log(Level.SEVERE, "onButton wrapperScsAlarmListPanel IS NULL");
+					logger.warn(className, function, "wrapperScsAlarmListPanel IS NULL");
 				}
 			} else {
-				logger.log(Level.SEVERE, "onButton text IS NULL");
+				logger.warn(className, function, "text IS NULL");
 			}
 		} else {
-			logger.log(Level.SEVERE, "onButton button IS NULL");
+			logger.warn(className, function, "button IS NULL");
 		}
+		
+		logger.end(className, function);
 	}
 
 	private WrapperScsAlarmListPanel wrapperScsAlarmListPanel = null;
 	
 	@Override
 	public void init() {
+		final String function = "init";
+		
+		logger.begin(className, function);
+		
 		FlexTable flexTableFilters = new FlexTable();
 		flexTableFilters.setWidth("100%");
 		
@@ -130,16 +140,16 @@ public class UIViewAlarm extends UIWidget_i {
 			
 	    	@Override
 	    	public void valueChanged(String name, String value) {
-	    		logger.log(Level.FINE, "valueChanged Begin");
+	    		logger.info(className, function, "valueChanged Begin");
 	    		
-	    		logger.log(Level.FINE, " **** valueChanged name["+name+"] value["+value+"]");
+	    		logger.info(className, function, "valueChanged name[{}] value[{}]", name, value);
 	    		for ( int i = 0 ; i < counterNames.length; ++i) {
 	    			if ( 0 == name.compareTo(counterNames[i]) ) {
 	    				inlineLabel[(i*2)+1].setText(value);
 	    			}			
 	    		}
 
-	    		logger.log(Level.FINE, "valueChanged End");
+	    		logger.info(className, function, "valueChanged End");
 	    		
 	    	}
 		});
@@ -161,7 +171,7 @@ public class UIViewAlarm extends UIWidget_i {
 //		root.addSouth(toolBarPanel, 50);
 		rootPanel.add(basePanel);
 
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 		
 	}
 

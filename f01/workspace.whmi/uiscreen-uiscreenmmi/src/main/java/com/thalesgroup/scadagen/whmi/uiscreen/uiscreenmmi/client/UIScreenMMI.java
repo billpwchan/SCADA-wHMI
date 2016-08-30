@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
 import java.util.HashMap;
 
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
@@ -234,6 +235,12 @@ public class UIScreenMMI extends UIWidget_i {
 							}
 							
 							String period	= "250";
+							
+							DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIInspectorPanel");
+							if ( null != dictionariesCache ) {
+								period = dictionariesCache.getStringValue("inspectorpanel.properties", "inspectorpanel.periodMillis");
+							}
+							
 							if ( taskLaunch.getOption().length > 3 && null != taskLaunch.getOption()[3] ) {
 								Object obj = taskLaunch.getOption()[3];
 								if ( obj instanceof String ) {
@@ -242,7 +249,7 @@ public class UIScreenMMI extends UIWidget_i {
 									logger.error(className, function, "period IS NOT A STRING");
 								}
 							}
-							
+
 							String scsEnvId		= hvid;
 							String dbaddress	= hvid;
 

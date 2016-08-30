@@ -19,6 +19,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
+/**
+ * @author syau
+ *
+ */
 public class ViewLayoutMgr {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(ViewLayoutMgr.class.getName());

@@ -13,25 +13,32 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTag_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
-public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
+/**
+ * @author syau
+ *
+ */
+public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIInspectorTag_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspector.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	// Order
 	private final String strTabNames [] 	= new String[] {"Info","Control","Tagging","Advance"};
+	private final String strTabConfigNames [] = {"info", "control", "tag", "advance"};
 
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
@@ -276,14 +283,93 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		LinkedList<String> tagRegExpPatternWhileList		= new LinkedList<String>();
 		LinkedList<String> advanceRegExpPatternWhileList	= new LinkedList<String>();
 		
-		infoRegExpPatternWhileList		.add("(dci|aci|sci)");
-		controlRegExpPatternWhileList	.add("(dio|aio)");
-		tagRegExpPatternWhileList		.add("(dioECT-PTW)");
-		advanceRegExpPatternWhileList	.add("(dci|aci)");
+		logger.begin(className, function + " getLists");
 		
-		
-		controlRegExpPatternBlackList	.add("(dioECT-PTW)");
+		String strConfingInstance = "UIInspectorPanel";
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strConfingInstance);
+		if ( null != dictionariesCache ) {
+
+			LinkedList<LinkedList<String>> backLists = new LinkedList<LinkedList<String>>();
+			backLists.add(infoRegExpPatternBlackList);
+			backLists.add(controlRegExpPatternBlackList);
+			backLists.add(tagRegExpPatternBlackList);
+			backLists.add(advanceRegExpPatternBlackList);
 			
+			LinkedList<LinkedList<String>> whiteLists = new LinkedList<LinkedList<String>>();
+			whiteLists.add(infoRegExpPatternWhileList);
+			whiteLists.add(controlRegExpPatternWhileList);
+			whiteLists.add(tagRegExpPatternWhileList);
+			whiteLists.add(advanceRegExpPatternWhileList);
+			
+
+			
+			for ( int i = 0 ; i < strTabConfigNames.length ; ++i ) {
+				String tab = strTabConfigNames[i];
+				logger.begin(className, function+" "+tab);
+				
+				{
+					String functionEmb = function + " get"+UIPanelInspector_i.strBlack+"Lists";
+					logger.begin(className, functionEmb);
+					LinkedList<String> backList = backLists.get(i);
+					String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+					String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
+					logger.info(className, functionEmb, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+					String strNumOfBlack = dictionariesCache.getStringValue(fileName, keyNumName);
+					logger.info(className, functionEmb, "keyNumName[{}] strNumOfBlack[{}]", keyNumName, strNumOfBlack);
+					if ( null != strNumOfBlack ) {
+						try {
+							int numOfBack = Integer.parseInt(strNumOfBlack);
+							for ( int y = 0 ; y < numOfBack ; ++y ) {
+								String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
+								String value = dictionariesCache.getStringValue(fileName, key);
+								logger.info(className, functionEmb, "key[{}] value[{}]", key, value);
+								backList.add(value);
+							}
+						} catch ( NumberFormatException e) {
+							logger.warn(className, functionEmb, "strNumOfBlack[{}] IS INVALID NUMBER STRING", strNumOfBlack);
+						}
+					} else {
+						logger.warn(className, functionEmb, "strNumOfBlack[{}] IS NULL", strNumOfBlack);
+					}
+
+					logger.end(className, functionEmb);
+				}
+
+				{
+					String functionEmb = function + " get"+UIPanelInspector_i.strWhite+"Lists";
+					logger.begin(className, functionEmb);
+					LinkedList<String> whiteList = whiteLists.get(i);
+					String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+					String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
+					logger.info(className, functionEmb, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+					String strNumOfWhite = dictionariesCache.getStringValue(fileName, keyNumName);
+					logger.info(className, functionEmb, "keyNumName[{}] strNumOfWhite[{}]", keyNumName, strNumOfWhite);
+					if ( null != strNumOfWhite ) {
+						try {
+							int numOfWhite = Integer.parseInt(strNumOfWhite);
+							for ( int y = 0 ; y < numOfWhite ; ++y ) {
+								String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
+								String value = dictionariesCache.getStringValue(fileName, key);
+								logger.info(className, functionEmb, "key[{}] value[{}]", key, value);
+								whiteList.add(value);
+							}
+						} catch ( NumberFormatException e) {
+							logger.warn(className, functionEmb, "strNumOfBlack[{}] IS INVALID NUMBER STRING", strNumOfWhite);
+						}
+					} else {
+						logger.warn(className, functionEmb, "strNumOfWhite[{}] IS NULL", strNumOfWhite);
+					}
+
+
+					logger.end(className, functionEmb);
+				}
+				
+				logger.end(className, function+" "+tab);
+			}
+		}
+
+		logger.end(className, function + " getLists");
+
 		logger.info(className, function,"Iterator Begin");
 		
 		for ( String dbaddress : instances ) {

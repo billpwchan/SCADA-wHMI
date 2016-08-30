@@ -162,8 +162,8 @@ public class UILayoutGeneric extends UIWidget_i {
 								
 								// predefine
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
-								uiWidgetGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, options));
-								UIWidget_i uiWidget = uiWidgetGeneric.get(widget);
+								uiGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget, uiview, uiNameCard, options));
+								UIWidget_i uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
@@ -422,7 +422,7 @@ public class UILayoutGeneric extends UIWidget_i {
 
 	public UIWidget_i getPredefineWidget(String widget) {
 		logger.info(className, "getPredefineWidget", "widget[{}]", widget);
-		return uiWidgetGeneric.get(widget);
+		return uiGeneric.get(widget);
 	}
 
 }

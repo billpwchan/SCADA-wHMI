@@ -294,7 +294,7 @@ public class UIScreenMMI extends UIWidget_i {
 							UIPanelInspectorDialogBox uiInspectorDialogbox = new UIPanelInspectorDialogBox();
 							
 							uiInspectorDialogbox.setUINameCard(this.uiNameCard);
-							uiInspectorDialogbox.init(null);
+							uiInspectorDialogbox.init();
 							uiInspectorDialogbox.getMainPanel();
 							
 							uiInspectorDialogbox.setMousePosition(mouseX, mouseY);

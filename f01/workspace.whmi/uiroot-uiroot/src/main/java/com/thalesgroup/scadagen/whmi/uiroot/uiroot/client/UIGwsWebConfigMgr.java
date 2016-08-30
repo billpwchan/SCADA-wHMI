@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -12,10 +9,14 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigService;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigServiceAsync;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIGwsWebConfigMgr {
 	
-	private Logger logger = Logger.getLogger(UIGwsWebConfigMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIGwsWebConfigMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	String key = "scadagen.launcher.module";
 	
@@ -39,40 +40,40 @@ public class UIGwsWebConfigMgr {
 			
 			@Override
 			public void onSuccess(String value) {
-				logger.log(Level.SEVERE, "getWebConfig onSuccess Begin");
+				final String function = "onSuccess";
+				logger.begin(className, function);
 				if ( null != webConfigMgrEvent ) {
 					webConfigMgrEvent.updated(value);
 				} else {
-					logger.log(Level.SEVERE, "getWebConfig onSuccess webConfigMgrEvent IS NULL");
+					logger.warn(className, function, "webConfigMgrEvent IS NULL");
 				}
-				logger.log(Level.SEVERE, "getWebConfig onSuccess End");
+				logger.end(className, function);
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				logger.log(Level.SEVERE, "getWebConfig onFailure Begin");
+				final String function = "onFailure";
+				logger.begin(className, function);
 				if ( null != webConfigMgrEvent ) {
 					webConfigMgrEvent.failed();
 				} else {
-					logger.log(Level.SEVERE, "getWebConfig webConfigMgrEvent IS NULL");
+					logger.warn(className, function, "webConfigMgrEvent IS NULL");
 				}
-				logger.log(Level.SEVERE, "getWebConfig onFailure End");
+				logger.end(className, function);
 			}
 		});	
 		
 	}
 	
-	public void getWebConfig(final String module, final String folder, final String xml, final String tag, final String key, final WebConfigMgrEvent webConfigMgrEvent) {
+	public void getWebConfig(final String mode, final String module, final String folder, final String xml, final String tag, final String key, final WebConfigMgrEvent webConfigMgrEvent) {
+		final String function = "getWebConfig";
 		
-		logger.log(Level.SEVERE, "getWebConfig Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "getWebConfig module["+module+"]");
-		
-		logger.log(Level.SEVERE, "getWebConfig xml["+xml+"]");
-		
-		logger.log(Level.SEVERE, "getWebConfig tag["+tag+"]");
-		
-		logger.log(Level.SEVERE, "getWebConfig key["+key+"]");
+		logger.info(className, function, "getWebConfig module[{}]", module);
+		logger.info(className, function, "getWebConfig xml[{}]", xml);
+		logger.info(className, function, "getWebConfig tag[{}]", tag);
+		logger.info(className, function, "getWebConfig key[{}]", key);
 		
 		DictionaryMgr dictionaryMgr = new DictionaryMgr();
 		
@@ -99,33 +100,36 @@ public class UIGwsWebConfigMgr {
 							}
 						}
 					} else {
-						Window.alert("getWebConfig dictionary IS NULL");
+						logger.warn(className, function, "dictionary IS NULL");
 					}
 				} else {
-					logger.log(Level.SEVERE, "getWebConfig dictionaryMgrEventReady webConfigMgrEvent IS NULL");
+					logger.warn(className, function, "webConfigMgrEvent IS NULL");
 				}
-				logger.log(Level.SEVERE, "getWebConfig dictionaryMgrEventReady End");
+				logger.end(className, function);
 			}
 			
 			@Override
 			public void dictionaryMgrEventFailed(String xmlFile) {
-				logger.log(Level.SEVERE, "getWebConfig dictionaryMgrEventFailed Begin");
+				final String function = "dictionaryMgrEventFailed";
+				
+				logger.begin(className, function);
 				if ( null != webConfigMgrEvent ) {
 					
-					Window.alert("getWebConfig dictionaryMgrEventFailed");
+					logger.error(className, function, "dictionaryMgrEventFailed");
 					
 					webConfigMgrEvent.failed();
 				} else {
-					logger.log(Level.SEVERE, "getWebConfig dictionaryMgrEventFailed webConfigMgrEvent IS NULL");
+					logger.warn(className, function, "webConfigMgrEvent IS NULL");
 				}
-				logger.log(Level.SEVERE, "getWebConfig dictionaryMgrEventFailed End");
+				logger.end(className, function+"dictionaryMgrEventFailed");
 			}
 		});
 		
-		logger.log(Level.SEVERE, "getWebConfig End");
+		logger.end(className, function);
 	}
 	
 	public void dictionaryMgrEventReady(Dictionary dictionary) {
+		final String function = "dictionaryMgrEventReady";
 		
 		if ( null != dictionary ) {
 			

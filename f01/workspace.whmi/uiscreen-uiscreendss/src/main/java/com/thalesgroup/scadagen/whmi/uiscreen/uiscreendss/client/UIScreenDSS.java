@@ -1,9 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.client;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -21,11 +18,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIScreenDSS extends UIWidget_i {
 	
-	private  Logger logger = Logger.getLogger(UIScreenDSS.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenDSS.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 
@@ -43,6 +44,9 @@ public class UIScreenDSS extends UIWidget_i {
 	
 	@Override
 	public void init() {
+		final String function = "init";
+		
+		logger.begin(className, function);
 		
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.getElement().getStyle().setBackgroundColor(RGB_PAL_BG);
@@ -247,7 +251,7 @@ public class UIScreenDSS extends UIWidget_i {
 		((DockLayoutPanel)rootPanel).addSouth(bottom, 350);
 		((DockLayoutPanel)rootPanel).add(main);
 		
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 		
 	}
 	
@@ -278,8 +282,11 @@ public class UIScreenDSS extends UIWidget_i {
 		 * @param hightLight
 		 */
 		public void setHightLight ( boolean hightLight ) {
+			final String function = "setHightLight";
 			
-			logger.log(Level.FINE, "setHightLight Begin hightLight["+hightLight+"]");
+			logger.begin(className, function);
+			
+			logger.info(className, function, "hightLight[{}]", hightLight);
 			
 			this.hightLight = hightLight;
 			if ( hightLight ) {
@@ -289,7 +296,8 @@ public class UIScreenDSS extends UIWidget_i {
 				this.getElement().getStyle().setBackgroundColor(RGB_BTN_BG);
 			}
 			
-			logger.log(Level.FINE, "setHightLight End");
+			logger.end(className, function);
+			
 		}
 	}
 	
@@ -321,8 +329,9 @@ public class UIScreenDSS extends UIWidget_i {
 	}
 	
 	private void onBtnClose () {
+		final String function = "onBtnClose";
 		
-		logger.log(Level.FINE, "onBtnClose Begin");
+		logger.begin(className, function);
 		
 		UITaskLaunch taskLaunch = new UITaskLaunch();
 		taskLaunch.setTaskUiScreen(0);
@@ -330,12 +339,13 @@ public class UIScreenDSS extends UIWidget_i {
 		taskLaunch.setUiPanel("UIScreenMMI");
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		
-		logger.log(Level.FINE, "onBtnClose End");
+		logger.end(className, function);
 	}
 	
 	void onUIEvent(UIEvent uiEvent) {
+		final String function = "onUIEvent";
 
-		logger.log(Level.FINE, "onUIEvent Begin");
+		logger.begin(className, function);
 
 		if (null != uiEvent) {
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -348,7 +358,7 @@ public class UIScreenDSS extends UIWidget_i {
 
 		}
 		
-		logger.log(Level.FINE, "onUIEvent End");
+		logger.end(className, function);
 
 	}
 	

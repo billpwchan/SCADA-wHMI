@@ -20,18 +20,31 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCacheEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
+/**
+ * @author syau
+ *
+ */
 public class UIGws {
 
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private Logger logger = Logger.getLogger("");
+//	private Logger jul_logger = Logger.getLogger("");
+	
+	private final String className = UIWidgetUtil.getClassSimpleName(UIGws.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private SimplePanel root = null;
 
-	public SimplePanel getMainPanel() {
+	public Panel getMainPanel() {
+		final String function = "getMainPanel";
+		
+		logger.begin(className, function);
 
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
@@ -39,13 +52,18 @@ public class UIGws {
 		initCache();
 		initCaches();
 
-		return getMainPanel(new UINameCard(0, "", RESETABLE_EVENT_BUS));
+		Panel panel = getMainPanel(new UINameCard(0, "", RESETABLE_EVENT_BUS));
+		
+		logger.end(className, function);
+		
+		return panel;
 	}
 
 	private UINameCard uiNameCard = null;
-	public SimplePanel getMainPanel(UINameCard uiNameCard) { 
+	public Panel getMainPanel(UINameCard uiNameCard) {
+		final String function = "getMainPanel";
 
-		logger.log(Level.FINE, "getMainPanel Begin");
+		logger.begin(className, function);
 		
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
@@ -68,22 +86,22 @@ public class UIGws {
 		String strLogModule = setting.get("logmodule");
 		String strLogModuleLevel = setting.get("logmodulelevel");
 		
-		logger.log(Level.SEVERE, "getMainPanel Debug strLogModule["+strLogModule+"]");
-		logger.log(Level.SEVERE, "getMainPanel Debug strLogModuleLevel["+strLogModuleLevel+"]");
+		logger.info(className, function, "getMainPanel Debug strLogModule[{}]", strLogModule);
+		logger.info(className, function, "getMainPanel Debug strLogModuleLevel[{}]", strLogModuleLevel);
 		
 		if ( null != strLogModule && null != strLogModuleLevel ) {
 			Level level = Level.FINE;
-			if ( 0 == strLogModuleLevel.compareToIgnoreCase("ALL") ) {
+			if ( Level.ALL.getName().equals(strLogModuleLevel) ) {
 				level = Level.ALL;
-			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("FINE") ) {
+			} else if ( Level.FINE.getName().equals(strLogModuleLevel) ) {
 				level = Level.FINE;
-			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("INFO") ) {
+			} else if ( Level.INFO.getName().equals(strLogModuleLevel) ) {
 				level = Level.INFO;
-			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("CONFIG") ) {
+			} else if ( Level.CONFIG.getName().equals(strLogModuleLevel) ) {
 				level = Level.CONFIG;
-			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("WARNING") ) {
+			} else if ( Level.WARNING.getName().equals(strLogModuleLevel) ) {
 				level = Level.WARNING;
-			} else if ( 0 == strLogModuleLevel.compareToIgnoreCase("SEVERE") ) {
+			} else if ( Level.SEVERE.getName().equals(strLogModuleLevel) ) {
 				level = Level.SEVERE;
 			}
 			
@@ -109,7 +127,7 @@ public class UIGws {
 					valid = true;
 				}
 			} catch ( NumberFormatException e) {
-				logger.log(Level.SEVERE, "getMainPanel NumberFormatException e["+e.toString()+"]");
+				logger.warn(className, function, "getMainPanel NumberFormatException e[{}]", e.toString());
 			}
 			if ( ! valid ) {
 				setting.set("numofscreen", Integer.toString(1));
@@ -123,20 +141,25 @@ public class UIGws {
 		// Debug
 		HashMap<String, String> hashMap = setting.getMaps();
 		for ( Map.Entry<String, String> entry : hashMap.entrySet() ) {
-			logger.log(Level.SEVERE, "getMainPanel Debug key["+entry.getKey()+"] value["+entry.getValue()+"]");
+			logger.info(className, function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
 		}
 		// End of Debug
 
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
 				
 		return root;
 	}
 	
 	public void initCaches () {
+		final String function = "initCaches";
+
 		
-		logger.log(Level.FINE, "initCaches Begin");
+		logger.begin(className, function);
 		
 		{
+			final String header = "header";
+			final String option = "option";			
+			
 			DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
 			String module = null;
@@ -151,7 +174,7 @@ public class UIGws {
 				
 				@Override
 				public void dictionariesCacheEventReady(int received) {
-					logger.log(Level.SEVERE, "dictionariesCacheEventReady");
+					logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
 					
 //					ready(received);
 					
@@ -309,7 +332,9 @@ public class UIGws {
 	}
 	
 	private void ready(int received) {
-		logger.log(Level.FINE, "ready Begin");
+		final String function = "ready";
+		
+		logger.begin(className, function);
 
 		UIWidget_i uiWidget_i = new UIPanelScreen();
 		uiWidget_i.setUINameCard(this.uiNameCard);
@@ -319,6 +344,6 @@ public class UIGws {
 		this.root.clear();	
 		this.root.add(panel);
 		
-		logger.log(Level.FINE, "ready End");
+		logger.end(className, function);
 	}
 }

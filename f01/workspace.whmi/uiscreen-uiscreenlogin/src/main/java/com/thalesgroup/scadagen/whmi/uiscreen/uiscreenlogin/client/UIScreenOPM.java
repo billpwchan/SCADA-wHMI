@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -20,15 +17,16 @@ import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIScreenOPM extends UIWidget_i {
 
-	private Logger logger = Logger.getLogger(UIScreenOPM.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenOPM.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
@@ -45,19 +43,20 @@ public class UIScreenOPM extends UIWidget_i {
     private String [] strBtns				= new String[] { strSave, strCancel};
     private Button [] buttons				= new Button[strBtns.length];
     
-    
-    
     @Override
     public void init() {
-    	handlerRegistrations.add(
-    		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-    			@Override
-    			public void onEvenBusUIChanged(UIEvent uiEvent) {
-    				onUIEvent(uiEvent);
-    			}
-    		})
-    	);
-
+    	final String function = "init";
+    	
+    	logger.begin(className, function);
+    	
+//    	handlerRegistrations.add(
+//    		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+//    			@Override
+//    			public void onEvenBusUIChanged(UIEvent uiEvent) {
+//    				onUIEvent(uiEvent);
+//    			}
+//    		})
+//    	);
 
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.addStyleName("project-gwt-panel-opm");
@@ -156,14 +155,14 @@ public class UIScreenOPM extends UIWidget_i {
 	    
 	    horizontalPanel.add(verticalPanel);
 
-		logger.log(Level.FINE, "getMainPanel Adding Main to base...");
+		logger.info(className, function, "Adding Main to base...");
 		dockLayoutPanel.add(horizontalPanel);
 
 		// Update Root level Menu
-		logger.log(Level.FINE, "getMainPanel setMenu...");
+		logger.info(className, function, "setMenu...");
 
 
-		logger.log(Level.FINE, "getMainPanel End");
+		logger.end(className, function);
     }
 	
 	enum VerifyReason {
@@ -181,6 +180,10 @@ public class UIScreenOPM extends UIWidget_i {
 	};
 	
 	private void verify ( String buttonText, String operator, String password, String newpassword ) {
+		final String function = "verify";
+		
+		logger.begin(className, function);
+		
 		if ( null != buttonText ) {
 			if ( 0 == buttonText.compareToIgnoreCase(strSave) ) {
 				
@@ -305,24 +308,23 @@ public class UIScreenOPM extends UIWidget_i {
 			}			
 		}
 
+		logger.end(className, function);
 	}
 
-	private void onUIEvent(UIEvent uiEvent) {
-
-		logger.log(Level.FINE, "onUIEvent Begin");
-
-		if (null != uiEvent) {
-			UITask_i taskProvide = uiEvent.getTaskProvide();
-			if (null != taskProvide) {
-				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
-						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
-
-				}
-			}
-
-		}
-		logger.log(Level.FINE, "onUIEvent End");
-
-	}
+//	private void onUIEvent(UIEvent uiEvent) {
+//		final String function = "onUIEvent";
+//
+//		logger.begin(className, function);
+//		if (null != uiEvent) {
+//			UITask_i taskProvide = uiEvent.getTaskProvide();
+//			if (null != taskProvide) {
+//				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
+//						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
+//				}
+//			}
+//		}
+//		logger.end(className, function);
+//
+//	}
 
 }

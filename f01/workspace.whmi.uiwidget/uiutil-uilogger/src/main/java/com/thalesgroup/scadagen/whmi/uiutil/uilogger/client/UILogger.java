@@ -3,6 +3,16 @@ package com.thalesgroup.scadagen.whmi.uiutil.uilogger.client;
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.core.client.JavaScriptObject;
 
+// Trace:	Begin/End
+// Debug:	More Detail Information [SC Util]
+// Info:	Normal Information
+// Warn:	Checking Warning E.g. Application Should handle it
+// Error:	Critical Error E.g Application Should be Stop
+
+/**
+ * @author syau
+ *
+ */
 public class UILogger {
 	
 	private final String BEGIN = "Begin";
@@ -17,17 +27,67 @@ public class UILogger {
 	
 	public void begin(final String className, final String function) {
 		String message = "["+className+"]" + " "+ function + " " + BEGIN;
-		Log.info(message);
+		Log.debug(message);
 	}
 	
 	public void end(final String className, final String function) {
 		String message = "["+className+"]" + " "+ function + " " + END;
-		Log.info(message);
+		Log.debug(message);
 	}
 
 	public void beginEnd(final String className, final String function) {
 		begin(className, function);
 		end(className, function);
+	}
+	
+	public boolean isTraceEnabled() { return Log.isTraceEnabled(); }
+	public boolean isDebugEnabled() { return Log.isDebugEnabled(); }
+	public boolean isInfoEnabled() { return Log.isInfoEnabled(); }
+	public boolean isWarnEnabled() { return Log.isWarnEnabled(); }
+	public boolean isErrorEnabled() { return Log.isErrorEnabled(); }
+	
+	public void trace(final String message) {
+	    Log.trace(message);
+	}
+	public void trace(final String className, final String function, String log) {
+		trace(className, function, log, null);
+	}
+	public void trace(final String className, final String function, String log, Object argument) {
+		if ( Log.isTraceEnabled() ) {
+			addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument);
+		}
+	}
+	public void trace(final String className, final String function, String log, Object argument1, Object argument2) {
+		if ( Log.isTraceEnabled() ) {
+			addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument1, argument2);
+		}
+	}
+	public void trace(final String className, final String function, String log, Object [] arguments) {
+		if ( Log.isTraceEnabled() ) {
+			addLog(Log.LOG_LEVEL_TRACE, className, function, log, arguments);
+		}
+	}
+	
+	public void debug(final String message) {
+	    Log.debug(message);
+	}
+	public void debug(final String className, final String function, String log) {
+		debug(className, function, log, null);
+	}
+	public void debug(final String className, final String function, String log, Object argument) {
+		if ( Log.isDebugEnabled() ) {
+			addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument);
+		}
+	}
+	public void debug(final String className, final String function, String log, Object argument1, Object argument2) {
+		if ( Log.isDebugEnabled() ) {
+			addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument1, argument2);
+		}
+	}
+	public void debug(final String className, final String function, String log, Object [] arguments) {
+		if ( Log.isDebugEnabled() ) {
+			addLog(Log.LOG_LEVEL_DEBUG, className, function, log, arguments);
+		}
 	}
 
 	public void info(final String message) {
@@ -52,28 +112,6 @@ public class UILogger {
 		}
 	}
 	
-	public void trace(final String message) {
-	    Log.trace(message);
-	}
-	public void trace(final String className, final String function, String log) {
-		trace(className, function, log, null);
-	}
-	public void trace(final String className, final String function, String log, Object argument) {
-		if ( Log.isTraceEnabled() ) {
-			addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument);
-		}
-	}
-	public void trace(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isTraceEnabled() ) {
-			addLog(Log.LOG_LEVEL_TRACE, className, function, log, argument1, argument2);
-		}
-	}
-	public void trace(final String className, final String function, String log, Object [] arguments) {
-		if ( Log.isTraceEnabled() ) {
-			addLog(Log.LOG_LEVEL_TRACE, className, function, log, arguments);
-		}
-	}
-	
 	public void warn(final String message) {
 	    Log.warn(message);
 	}
@@ -95,28 +133,6 @@ public class UILogger {
 			addLog(Log.LOG_LEVEL_WARN, className, function, log, arguments);
 		}
 	}	
-	
-	public void debug(final String message) {
-	    Log.debug(message);
-	}
-	public void debug(final String className, final String function, String log) {
-		debug(className, function, log, null);
-	}
-	public void debug(final String className, final String function, String log, Object argument) {
-		if ( Log.isDebugEnabled() ) {
-			addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument);
-		}
-	}
-	public void debug(final String className, final String function, String log, Object argument1, Object argument2) {
-		if ( Log.isDebugEnabled() ) {
-			addLog(Log.LOG_LEVEL_DEBUG, className, function, log, argument1, argument2);
-		}
-	}
-	public void debug(final String className, final String function, String log, Object [] arguments) {
-		if ( Log.isDebugEnabled() ) {
-			addLog(Log.LOG_LEVEL_DEBUG, className, function, log, arguments);
-		}
-	}
 	
 	public void error(final String log) {
 		Log.error(log);

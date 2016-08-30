@@ -1,7 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client;
 
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Unit;

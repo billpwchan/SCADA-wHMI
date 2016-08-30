@@ -28,6 +28,10 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
+/**
+ * @author syau
+ *
+ */
 public class UIScreenMMI extends UIWidget_i {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName());
@@ -64,10 +68,17 @@ public class UIScreenMMI extends UIWidget_i {
 			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
 				
-				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
-				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
-				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
-				logger.warn(className, function, "options IS NULL[{}]", null == options);
+				logger.info(className, function, "widget[{}] view[{}]", widget, view);
+				
+				if ( null != uiNameCard) {
+					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
+				} else {
+					logger.warn(className, function, "uiNameCard IS NULL");
+				}
+				
+				if ( null == options ) {
+					logger.warn(className, function, "options IS NULL[{}]", null == options);
+				}
 				
 				UIWidget_i uiWidget_i = null;
 				
@@ -89,37 +100,44 @@ public class UIScreenMMI extends UIWidget_i {
 							uiWidget_i.getMainPanel();
 						}
 						
-					} else if ( widget.equals("UIPanelSoundServerController") ) {
+					} else if (  UIWidgetUtil.getClassSimpleName(
+							UIPanelSoundServerController.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelSoundServerController();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
 						uiWidget_i.init();
-					} else if ( widget.equals("UIPanelAccessBar") ) {
+					} else if (  UIWidgetUtil.getClassSimpleName(
+							UIPanelAccessBar.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelAccessBar();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
 						uiWidget_i.init();
-					} else if ( widget.equals("UIPanelAlarmBanner") ) {
+					} else if (  UIWidgetUtil.getClassSimpleName(
+							UIPanelAlarmBanner.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelAlarmBanner();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
 						uiWidget_i.init();
-					} else if ( widget.equals("UIPanelStatusBar") ) {
+					} else if (  UIWidgetUtil.getClassSimpleName(
+							UIPanelStatusBar.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelStatusBar();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
 						uiWidget_i.init();
-					} else if ( widget.equals("UIPanelAlarmBannerList") ) {
+					} else if (  UIWidgetUtil.getClassSimpleName(
+							UIPanelAlarmBannerList.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelAlarmBannerList();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
 						uiWidget_i.init();
-					} else if ( widget.equals("UIPanelViewLayout") ) {
+					} else if (  UIWidgetUtil.getClassSimpleName(
+							UIPanelViewLayout.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelViewLayout();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
 						uiWidget_i.init();
-					} else if ( widget.equals("UIPanelEmpty") ) {
+					} else if ( UIWidgetUtil.getClassSimpleName(
+							UIPanelEmpty.class.getName()).equals(widget) ) {
 						uiWidget_i = new UIPanelEmpty();
 						uiWidget_i.setUINameCard(uiNameCard);
 						uiWidget_i.setXMLFile(widget);
@@ -129,10 +147,8 @@ public class UIScreenMMI extends UIWidget_i {
 					logger.error(className, function, "getUIWidget widget IS NULL");
 				}
 				
-
 				logger.info(className, function, "getUIWidget uiWIdget[{}]", uiWidget_i);
-				
-				
+
 				return uiWidget_i;
 			}
 		});
@@ -193,7 +209,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof String ) {
 									hvid		= (String)obj;
 								} else {
-									logger.error(className, function, "hvid IS NOT A STRING");
+									logger.warn(className, function, "hvid IS NOT A STRING");
 								}
 							}
 							
@@ -203,7 +219,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof Integer ) {
 									mouseX		= (Integer)obj;
 								} else {
-									logger.error(className, function, "mouseX IS NOT A Integer");
+									logger.warn(className, function, "mouseX IS NOT A Integer");
 								}
 							}
 							
@@ -213,7 +229,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof Integer ) {
 									mouseY		= (Integer)obj;
 								} else {
-									logger.error(className, function, "mouseY IS NOT A Integer");
+									logger.warn(className, function, "mouseY IS NOT A Integer");
 								}
 							}
 							

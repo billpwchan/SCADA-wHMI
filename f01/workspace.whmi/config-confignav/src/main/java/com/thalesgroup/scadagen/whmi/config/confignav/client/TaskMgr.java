@@ -88,7 +88,7 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 		if ( null != tsksCur ) {
 
-			logger.warn(className, function, "tsksCur.size()[{}] calling the callback: taskMgrEvent.ready()", tsksCur.size());
+			logger.info(className, function, "tsksCur.size()[{}]", tsksCur.size());
 		
 			this.ready = true;
 			
@@ -97,11 +97,8 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 			    taskMgrEvent.ready(tsksCur);
 			    iterator.remove();
 			}
-
 		} else {
-			
 			logger.warn(className, function, "tsksCur is null");
-			
 		}
 		
 		logger.end(className, function);

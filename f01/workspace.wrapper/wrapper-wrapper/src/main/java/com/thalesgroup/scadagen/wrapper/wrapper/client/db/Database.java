@@ -2,9 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
@@ -13,13 +10,21 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
 
+/**
+ * @author syau
+ *
+ */
 public class Database {
 	
-	private static Logger logger = Logger.getLogger(Database.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static Database instance = null;
 	public static Database getInstance () {
@@ -53,16 +58,13 @@ public class Database {
 	private HashMap<String, String[]> requestDynamics		= new HashMap<String, String[]>();
 	private HashMap<String, DatabaseEvent> databaseEvents	= new HashMap<String, DatabaseEvent>();
 	
-	public void addStaticRequest(String api, String clientKey, String scsEnvId, String dbaddress, String [] dbaddresses, DatabaseEvent databaseEvent) {
-		requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddress));
-		KeyAndAddress.put(clientKey, dbaddresses);
-		databaseEvents.put(clientKey, databaseEvent);
-	}
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String [] dbaddresses, DatabaseEvent databaseEvent) {
 		requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
 		KeyAndAddress.put(clientKey, dbaddresses);
 		databaseEvents.put(clientKey, databaseEvent);
 	}
+	
+	// Get Child
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String dbaddresses, DatabaseEvent databaseEvent) {
 		requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
 		KeyAndAddress.put(clientKey, new String[]{dbaddresses});
@@ -76,6 +78,9 @@ public class Database {
 	}
 	
 	public void connect() {
+		final String function = "connect";
+		
+		logger.begin(className, function);
 		
 		rtdb = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
 
@@ -99,16 +104,20 @@ public class Database {
 
 			@Override
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
+				final String function = "setReadResult";
 				
-				logger.log(Level.FINE, "setReadResult Begin");
+				logger.begin(className, function);
 				
-//		    	logger.log(Level.FINE, "setReadResult key["+key+"]");
-//		    	logger.log(Level.FINE, "setReadResult errorCode["+errorCode+"]");
-//		    	logger.log(Level.FINE, "setReadResult errorMessage["+errorMessage+"]");
-//		    	
-//				for(int i = 0; i < value.length; ++i) {
-//					logger.log(Level.FINE, "setReadResult value["+i+"]["+value[i]+"]");
-//				}
+				if ( logger.isDebugEnabled() ) {				
+					if ( logger.isDebugEnabled() ) {
+				    	logger.debug(className, function, "key[{}] errorCode[{}] errorMessage[{}]", new Object[]{key, errorCode, errorMessage});
+				    	
+						for(int i = 0; i < value.length; ++i) {
+							logger.debug(className, function, "value[{}][{}]", i, value[i]);
+						}	
+					}
+				}
+
 		    	
 		    	KeyAndValues.put(key, value);
 		    	
@@ -125,7 +134,7 @@ public class Database {
 					}
 				}
 
-				logger.log(Level.FINE, "setReadResult End");
+				logger.end(className, function);
 				
 			}
 
@@ -189,16 +198,18 @@ public class Database {
 
 			@Override
 			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
+				final String function = "setGetChildrenResult";
 				
-				logger.log(Level.FINE, "setGetChildrenResult Begin");
+				logger.begin(className, function);
 
-//		    	logger.log(Level.FINE, "setGetChildrenResult clientKey["+clientKey+"]");
-//		    	logger.log(Level.FINE, "setGetChildrenResult errorCode["+errorCode+"]");
-//		    	logger.log(Level.FINE, "setGetChildrenResult errorMessage["+errorMessage+"]");
-//		    	
-//				for(int i = 0; i < instances.length; ++i) {
-//					logger.log(Level.FINE, "setGetChildrenResult instances["+i+"]["+instances[i]+"]");
-//				}		    	
+				if ( logger.isDebugEnabled() ) {
+					logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+			    	
+					for(int i = 0; i < instances.length; ++i) {
+						logger.debug(className, function, "instances[{}][{}]", i, instances[i]);
+					}	
+				}
+	    	
 		    	
 				KeyAndValues.put(clientKey, instances);
 				
@@ -208,7 +219,7 @@ public class Database {
 				DatabaseEvent databaseEvent = databaseEvents.get(clientKey);
 				if ( null != databaseEvent ) databaseEvent.update(clientKey, instances);
 				
-				logger.log(Level.FINE, "setGetChildrenResult End");
+				logger.end(className, function);
 				
 			}
 
@@ -304,10 +315,15 @@ public class Database {
 			}
 			
 		});
+		
+		logger.end(className, function);
 	}
 	
 	private Timer timer = null;
 	public void connectTimer(int periodMillis) {
+		final String function = "connectTimer";
+		
+		logger.begin(className, function);
 		
 		if ( null == timer ) {
 			timer = new Timer() {
@@ -318,7 +334,7 @@ public class Database {
 					
 						if ( requestStatics.size() > 0 ) {
 							
-							logger.log(Level.FINE, "sendJSONRequest Begin");
+							logger.begin(className, function+" sendJSONRequest");
 							
 							JSONRequest jsonRequest = requestStatics.removeFirst();
 							
@@ -329,7 +345,7 @@ public class Database {
 								String scsEnvId = jsonRequest.scsEnvId;
 								String dbaddress = jsonRequest.dbaddress;
 								
-								logger.log(Level.FINE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 						    	
 								JSONObject jsparam = new JSONObject();
 								
@@ -347,7 +363,7 @@ public class Database {
 								String scsEnvId = jsonRequest.scsEnvId;
 								String[] dbaddresses = jsonRequest.dbaddresses;
 								
-								logger.log(Level.FINE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 								
 								JSONObject jsparam = new JSONObject();
 								
@@ -364,8 +380,7 @@ public class Database {
 								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
 							}
 
-							logger.log(Level.FINE, "sendJSONRequest End");
-
+							logger.end(className, function+" sendJSONRequest");
 							
 						} else if ( requestDynamics.size() > 0 ) {
 							
@@ -383,7 +398,7 @@ public class Database {
 									
 							String api = "multiReadValue";
 		
-							logger.log(Level.FINE, "api["+api+"] key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+							logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 									
 							JSONObject jsparam = new JSONObject();
 									
@@ -407,6 +422,7 @@ public class Database {
 			timer.scheduleRepeating(periodMillis);
 		}
 
+		logger.end(className, function);
 	}
 	
 	public void disconnectTimer() {

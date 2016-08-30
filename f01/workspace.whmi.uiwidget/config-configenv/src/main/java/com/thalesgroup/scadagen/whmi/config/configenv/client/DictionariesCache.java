@@ -4,24 +4,19 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
-import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionariesCacheInterface;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ContainerType;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class DictionariesCache implements DictionariesMgrEvent {
 	
-	private Logger logger = Logger.getLogger(DictionariesCache.class.getName());
-	private final String logPrefix = "[DictionariesCache] ";
-	
-//	private static DictionariesCache instance = null;
-//	private DictionariesCache () {}
-//	public static DictionariesCache getInstance() {
-//		if ( null == instance ) { instance = new DictionariesCache(); }
-//		return instance;
-//	}
-	
+	private final String className = UIWidgetUtil.getClassSimpleName(DictionariesCache.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+
 	private static HashMap<String, DictionariesCache> instances = new HashMap<String, DictionariesCache>();
 	private DictionariesCache () {}
 	public static DictionariesCache getInstance(String key) {
@@ -31,7 +26,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	}
 		
 	private LinkedList<String> incoming		= new LinkedList<String>();
-	private LinkedList<String> waiting		= new LinkedList<String>();
+//	private LinkedList<String> waiting		= new LinkedList<String>();
 	private LinkedList<String> fails		= new LinkedList<String>();
 	
 	private LinkedList<DictionariesMgr> dictionariesMgrs = new LinkedList<DictionariesMgr>();
@@ -39,29 +34,66 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	private HashMap <String, Dictionary> dictionaries = new HashMap<String, Dictionary>();
 	public Set<String> getDictionaryKeys () { return this.dictionaries.keySet(); }
 	public Dictionary getDictionary(String path, String extention) { return this.dictionaries.get(path+"|"+extention); }
+	public Dictionary getDictionary(String path) { return this.dictionaries.get(path); }
+	
+	public String getStringValue(final String fileName, final String key, final String tag) {
+		final String function = "getStringValue";
+		
+		logger.begin(className, function);
+		String value = null;
+		Dictionary dictionary = getDictionary(fileName+(null!=tag?"|"+tag:""));
+			
+    	if ( null != dictionary ) {
+    		logger.info(className, function, "begin of for dictionary");
+			for ( Object o : dictionary.getValueKeys() ) {
+				if ( null != o ) {
+					Dictionary d2 = (Dictionary) dictionary.getValue(o);
+					logger.info(className, function, "d2[{}]", d2);
+					if ( null != d2 ) {
+						value = (String) d2.getValue(key);
+						logger.info(className, function, "value[{}]", value);
+					} else {
+						logger.warn(className, function, "d2 IS NULL");
+					}
+				} else {
+					logger.warn(className, function, "o IS NULL");
+				}
+			}
+			logger.info(className, function, "end of for dictionary");
+    	} else {
+			logger.warn(className, function, "dictionary IS NULL");
+		}
+    	logger.end(className, function);
+    	return value;
+	}
+	public String getStringValue(final String fileName, final String key) {
+		return getStringValue(fileName, key, null);
+	}
 	
 	private int sent = 0;
 	private int received = 0;
 	private DictionariesCacheEvent dictionariesCacheEvent = null;
 	
-	public void add(String folder, String extention) {
+	public void add(String folder, String extention, String tag) {
+		final String function = "add";
 		
-		logger.log(Level.FINE, logPrefix+"add Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.FINE, logPrefix+"add path["+folder+"] extention["+extention+"] ");
+		logger.info(className, function, "path[{}] extention[{}] tag[{}]", new Object[]{folder, extention, tag});
 		
-		incoming.add(folder+"|"+extention);
+		incoming.add(folder+"|"+extention+"|"+tag);
 		
-		logger.log(Level.FINE, logPrefix+"add End");
+		logger.end(className, function);
 	}
 	
-	public void init(String module, DictionariesCacheEvent dictionariesCacheEvent) {
+	public void init(String mode, String module, DictionariesCacheEvent dictionariesCacheEvent) {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init");
+		logger.begin(className, function);
 		
 		this.dictionariesCacheEvent = dictionariesCacheEvent;
 
-		logger.log(Level.FINE, logPrefix+"init module["+module+"]");
+		logger.info(className, function, "module[{}]", module);
 		
 		for (Iterator<String> iterator = incoming.iterator(); iterator.hasNext();) {
 			
@@ -69,87 +101,166 @@ public class DictionariesCache implements DictionariesMgrEvent {
 			
 			String xmlTag = iterator.next();
 			
-			logger.log(Level.SEVERE, logPrefix+"init xmlWithHeader["+xmlTag+"]");
+			logger.info(className, function, "xmlWithHeader[{}]", xmlTag);
 			
 			String xmlTags[] = xmlTag.split("\\|");
 			
-			waiting.add(xmlTag);
+//			waiting.add(xmlTag);
 
 			DictionariesMgr dictionariesMgr = new DictionariesMgr();
 			
 			dictionariesMgrs.add(dictionariesMgr);
 			
-			logger.log(Level.SEVERE, logPrefix+"init xmlTags[0]["+xmlTags[0]+"] xmlTags[1]["+xmlTags[1]+"]");
+			logger.info(className, function, "xmlTags[0][{}] xmlTags[1][{}] xmlTags[2][{}]", new Object[]{xmlTags[0], xmlTags[1], xmlTags[2]});
 			
-			dictionariesMgr.getDictionaries(module, xmlTags[0], xmlTags[1], this);
+			dictionariesMgr.getDictionaries(mode, module, xmlTags[0], xmlTags[1], xmlTags[2], this);
 			
 		    iterator.remove();
 		}
 		
-		logger.log(Level.FINE, logPrefix+"init End");
+		logger.end(className, function);
 
 	}
 	
 	@Override
 	public void dictionariesMgrEventFailed(String xmlFile) {
+		final String function = "dictionariesMgrEventFailed";
 		
-		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventFailed xmlFile["+xmlFile+"]");
+		logger.begin(className, function);
+		
+		logger.info(className, function, "xmlFile[{}]", xmlFile);
 		
 		received++;
 
-		for (Iterator<String> iterator = waiting.iterator(); iterator.hasNext();) {
-			String s = iterator.next();
-			if ( 0 == s.compareTo(xmlFile) ) {
-				iterator.remove();
-			}
-		}
+//		for (Iterator<String> iterator = waiting.iterator(); iterator.hasNext();) {
+//			String s = iterator.next();
+//			if ( 0 == s.compareTo(xmlFile) ) {
+//				iterator.remove();
+//			}
+//		}
 		fails.add(xmlFile);
 		
-		logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventFailed received["+received+"] >= sent["+sent+"]");
+		logger.info(className, function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventFailed End");
+		logger.end(className, function);
 	}
 	
 	@Override
-	public void dictionariesMgrEventReady(Dictionary dictionary) {
+	public void dictionariesMgrEventReady(Dictionary dictionaries) {
+		final String function = "dictionariesMgrEventReady";
 		
-		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventReady Begin");
+		logger.begin(className, function);
 		
 		received++;
 		
-		if ( null != dictionary ) {
-			String xmlType = (String)dictionary.getAttribute(DictionariesCacheInterface.XmlType);
-			String XmlFile = (String)dictionary.getAttribute(DictionariesCacheInterface.XmlFile);
-			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionariesCacheInterface.CreateDateTimeLabel);
+		if ( null != dictionaries ) {
+
+			logger.info(className, function, "dictionaryCur.getValueKeys().size()[{}]", dictionaries.getValueKeys().size());
 			
-			logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventReady dictionary xmlType["+xmlType+"] XmlFile["+XmlFile+"] CreateDateTimeLabel["+CreateDateTimeLabel+"]");		
+			String containerType = (String) dictionaries.getAttribute(DictionaryCacheInterface.strContainerType);
 			
-			String xmlWithHeader = xmlType + "|"+ XmlFile;
-		
-			this.dictionaries.put(xmlType+"|"+XmlFile, dictionary);
-			
-			for (Iterator<String> iterator = waiting.iterator(); iterator.hasNext();) {
-				String s = iterator.next();
-				if ( 0 == s.compareTo(xmlWithHeader) ) {
-					iterator.remove();
+			if ( ContainerType.Dictionaries.toString().equals(containerType) ) {
+				
+				String configurationType = (String) dictionaries.getAttribute(DictionaryCacheInterface.strConfigurationType);
+				
+				if ( ConfigurationType.XMLFile.toString().equals(configurationType) ) {
+					
+					for ( Object key : dictionaries.getValueKeys() ) {
+						
+						logger.info(className, function, "key[{}]", key);
+						
+						Object value = dictionaries.getValue(key);
+						
+						if ( null != value ) {
+							
+							if ( value instanceof Dictionary ) {
+								Dictionary dictionary = (Dictionary) value;
+								
+								String fileName = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
+								String tag = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
+								String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
+								
+								logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{fileName, tag, CreateDateTimeLabel});		
+
+								this.dictionaries.put(fileName+"|"+tag, dictionary);
+
+							} else {
+								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);
+							}
+						} else {
+							logger.warn(className, function, "value[{}] IS NULL", value);
+						}
+					}
+					
+				} else if ( ConfigurationType.PropertiesFile.toString().equals(configurationType) ) {
+					
+					for ( Object key : dictionaries.getValueKeys() ) {
+						
+						logger.info(className, function, "key[{}]", key);
+						
+						Object value = dictionaries.getValue(key);
+						
+						if ( null != value ) {
+							
+							if ( value instanceof Dictionary ) {
+								
+								Dictionary dictionary = (Dictionary) value;
+								
+								String fileName = (String)dictionary.getAttribute(DictionaryCacheInterface.PropertiesAttribute.FileName.toString());
+								String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.PropertiesAttribute.DateTime.toString());
+								String dictionariesKey = fileName;
+								
+								logger.info(className, function, "dictionary XmlFile[{}] CreateDateTimeLabel[{}]", fileName, CreateDateTimeLabel);
+								logger.info(className, function, "dictionariesKey[{}]", dictionariesKey);
+								
+								this.dictionaries.put(dictionariesKey, dictionary);
+								
+//								// Debug
+//								for ( Object o : dictionary.getValueKeys() ) {
+//									if ( null != o ) {
+//										Dictionary d2 = (Dictionary) dictionary.getValue(o);
+//										for ( Object o2 : d2.getAttributeKeys() ) {
+//											if ( null != o2 ) {
+//											}
+//										}
+//										for ( Object o2 : d2.getValueKeys() ) {
+//											String s = (String) o2;
+//											String v = (String) d2.getValue(o2);
+//											
+//											logger.info(className, function, "s[{}] v[{}]",s, v);
+//										}
+//									}
+//								}
+//								// End of Debug
+							} else {
+								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);
+							}
+						} else {
+							logger.warn(className, function, "value[{}] IS NULL", value);
+						}
+					}
+				} else {
+					logger.warn(className, function, "configurationType[{}] IS UNKNOW!", configurationType);
 				}
+			} else {
+				logger.warn(className, function, "containerType[{}] IS UNKNOW!", containerType);
 			}
 			
 		} else {
-			logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventReady dictionary IS NULL");
+			logger.warn(className, function, "dictionary IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, logPrefix+"dictionariesMgrEventReady received["+received+"] >= sent["+sent+"]");
+		logger.info(className, function, "received[{}] >= sent[{}]", received, sent);
 		
 		if ( received >= sent )
 			if ( null != dictionariesCacheEvent )
 				dictionariesCacheEvent.dictionariesCacheEventReady(received);
 		
-		logger.log(Level.FINE, logPrefix+"dictionariesMgrEventReady End");
+		logger.end(className, function);
 	}
 
 }

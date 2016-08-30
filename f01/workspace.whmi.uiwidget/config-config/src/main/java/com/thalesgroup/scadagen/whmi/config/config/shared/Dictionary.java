@@ -14,7 +14,7 @@ public class Dictionary implements Dictionary_i, java.io.Serializable {
 	public Dictionary() {}
 	public Dictionary(Dictionary dictionary) {
 		for ( Object o : dictionary.getAttributeKeys() ) { this.setAttribute(o, dictionary.getAttribute(o)); }
-		for ( Object o : dictionary.getValueKeys() ) { this.setValue(o, dictionary.getValue(o)); }
+		for ( Object o : dictionary.getValueKeys() ) { this.addValue(o, dictionary.getValue(o)); }
 	}
 	
 	private HashMap<Object, Object> attributeMap = new HashMap<Object, Object>();
@@ -23,12 +23,12 @@ public class Dictionary implements Dictionary_i, java.io.Serializable {
 	public Set<Object> getAttributeKeys() { return this.attributeMap.keySet(); }
 	
 	private HashMap<Object, Object> valueMap = new HashMap<Object, Object>();
-	public void setValue(Object key, Object value) { this.valueMap.put(key, value); }
+	public void addValue(Object key, Object value) { this.valueMap.put(key, value); }
 	public Object getValue(Object key) { return this.valueMap.get(key); }
 	public Set<Object> getValueKeys() { return this.valueMap.keySet(); }
 	
 	private List<Object> valueSet = new ArrayList<Object>();
-	public void setValue(Object key) { this.valueSet.add(key); }
+	public void addValue(Object key) { this.valueSet.add(key); }
 	public Object[] getValues() { return this.valueSet.toArray((new Object[valueSet.size()])); }
 	
 }

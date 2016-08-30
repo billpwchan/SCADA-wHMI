@@ -56,7 +56,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		logger.end(className, function);
 	}
 	
-	public void init(String module, String folder, DictionaryCacheEvent dictionaryCacheEvent) {
+	public void init(String mode, String module, String folder, DictionaryCacheEvent dictionaryCacheEvent) {
 		final String function = "init";
 		
 		logger.begin(className, function);
@@ -85,7 +85,7 @@ public class DictionaryCache implements DictionaryMgrEvent {
 			
 			dictionaryMgrs.add(dictionaryMgr);
 			
-			dictionaryMgr.getDictionary(module, folder, xmlTags[0], xmlTags[1], this);
+			dictionaryMgr.getDictionary(mode, module, folder, xmlTags[0], xmlTags[1], this);
 			
 		    iterator.remove();
 		}
@@ -130,9 +130,9 @@ public class DictionaryCache implements DictionaryMgrEvent {
 		received++;
 		
 		if ( null != dictionary ) {
-			String xmlFile = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
-			String XmlTag = (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
-			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
+			String xmlFile = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
+			String XmlTag = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
+			String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 			
 			logger.info(className, function, "dictionaryMgrEventReady dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});		
 			

@@ -11,7 +11,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -60,10 +60,15 @@ public class UILayoutGeneric extends UIWidget_i {
 		
 		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
 		
-		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
+//		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
+//		
+//		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
+//		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
 		
-		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
-		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
+			
+		this.dictionaryHeader = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
+		this.dictionaryOption = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
 		
 		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
@@ -269,9 +274,9 @@ public class UILayoutGeneric extends UIWidget_i {
 		logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
 		
 		if ( null != dictionary ) {
-			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
-			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
-			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
+			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
+			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
+			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 			
 			logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			

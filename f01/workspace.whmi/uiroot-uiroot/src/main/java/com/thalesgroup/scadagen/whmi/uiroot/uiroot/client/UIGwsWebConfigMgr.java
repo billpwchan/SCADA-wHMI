@@ -77,7 +77,7 @@ public class UIGwsWebConfigMgr {
 		
 		DictionaryMgr dictionaryMgr = new DictionaryMgr();
 		
-		dictionaryMgr.getDictionary(module, folder, xml, tag, new DictionaryMgrEvent() {
+		dictionaryMgr.getDictionary(mode, module, folder, xml, tag, new DictionaryMgrEvent() {
 			
 			@Override
 			public void dictionaryMgrEventReady(Dictionary dictionary) {

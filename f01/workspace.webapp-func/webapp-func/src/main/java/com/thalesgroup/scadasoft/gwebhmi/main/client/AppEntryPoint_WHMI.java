@@ -6,10 +6,11 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.entry.base.MwtE
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.entry.event.AppContextReadyEvent;
 import com.thalesgroup.prj_gz_cocc.gwebhmi.main.client.layout.CoccAppPanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGwsWebConfigMgr;
+import com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint_WHMI_i.ProjectName;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.layout.AppPanel;
-import com.thalesgroup.prj_gz_cocc.gwebhmi.main.client.layout.CoccAppPanel;
 
 /**
  * Hypervisor showcase's entry point : everything starts here !
@@ -29,6 +30,7 @@ public class AppEntryPoint_WHMI extends MwtEntryPointApp {
     @Override
     protected void onContextReadyEventAfter(final AppContextReadyEvent event) {
 
+    	String mode = ConfigurationType.XMLFile.toString();
         String module = null;
         String folder = "UIConfig";
         String xml = "UILauncher.xml";
@@ -37,39 +39,22 @@ public class AppEntryPoint_WHMI extends MwtEntryPointApp {
         
         UIGwsWebConfigMgr web = UIGwsWebConfigMgr.getInstance();
         
-//        web.getWebConfig( key, new WebConfigMgrEvent() {
-//			@Override
-//			public void updated(String value) {
-//				launch(value);
-//			}
-//
-//			@Override
-//			public void failed() {
-//				
-//        		launch("");
-//			}
-//		});
-        
-        web.getWebConfig( module, folder, xml, tag, key, new WebConfigMgrEvent() {
-			
+        web.getWebConfig( mode,  module, folder, xml, tag, key, new WebConfigMgrEvent() {
 			@Override
 			public void updated(String value) {
-				
 				launch(value);
 			}
-
 			@Override
 			public void failed() {
-				
-				launch("");
+				launch(null);
 			}
         });
     	
     }
     private void launch(String key) {
-    	if ( 0 == key.compareTo("C1166B") )  {
+    	if ( ProjectName.C1166B.toString().equals(key) )  {
     		launch_WHMI();
-    	} else if ( 0 == key.compareTo("COCC") )  {
+    	} else if ( ProjectName.COCC.toString().equals(key) )  {
     		launch_COCC();
 		} else {
 			launch_scstraining();

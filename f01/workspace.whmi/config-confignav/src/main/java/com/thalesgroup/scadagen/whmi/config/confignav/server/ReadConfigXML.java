@@ -21,34 +21,34 @@ import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribut
 
 public class ReadConfigXML implements ReadConfigInterface {
 	
-	@Override
-	public ArrayList<String> getTags(String path) {
-		ArrayList<String> configs = new ArrayList<String>();
-		try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
-            factory.setIgnoringComments (true);
-            factory.setIgnoringElementContentWhitespace (true);
-            factory.setValidating (false);
-            DocumentBuilder builder = factory.newDocumentBuilder ();
-            Document document = builder.parse (path);
-		    NodeList nodeList = document.getElementsByTagName("*");
-		    for (int i = 0; i < nodeList.getLength(); i++) {
-		        Node node = nodeList.item(i);
-		        if (node.getNodeType() == Node.ELEMENT_NODE) {
-		        			        	
-//System.out.println(node.getNodeName());
-		            configs.add(node.getNodeName());
-		        }
-		    }
-		} catch (ParserConfigurationException e) {
-System.out.println("\nParserConfigurationException:" + e.toString());
-			e.printStackTrace();
-		} catch (SAXException | IOException e) {
-System.out.println("\nSAXException | IOException e" + e.toString());
-			e.printStackTrace();
-		}
-		return configs;
-	}
+//	@Override
+//	public ArrayList<String> getTags(String path) {
+//		ArrayList<String> configs = new ArrayList<String>();
+//		try {
+//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
+//            factory.setIgnoringComments (true);
+//            factory.setIgnoringElementContentWhitespace (true);
+//            factory.setValidating (false);
+//            DocumentBuilder builder = factory.newDocumentBuilder ();
+//            Document document = builder.parse (path);
+//		    NodeList nodeList = document.getElementsByTagName("*");
+//		    for (int i = 0; i < nodeList.getLength(); i++) {
+//		        Node node = nodeList.item(i);
+//		        if (node.getNodeType() == Node.ELEMENT_NODE) {
+//		        			        	
+////System.out.println(node.getNodeName());
+//		            configs.add(node.getNodeName());
+//		        }
+//		    }
+//		} catch (ParserConfigurationException e) {
+//System.out.println("\nParserConfigurationException:" + e.toString());
+//			e.printStackTrace();
+//		} catch (SAXException | IOException e) {
+//System.out.println("\nSAXException | IOException e" + e.toString());
+//			e.printStackTrace();
+//		}
+//		return configs;
+//	}
 	
 	private ArrayList<Dictionary> getXMLDictionary(String path, String elm) {
 //System.out.println("getXMLDictionary Reading from the path["+path+"] elm["+elm+"]");
@@ -97,7 +97,7 @@ System.out.println("\nSAXException | IOException e" + e.toString());
 	        			
 //System.out.println("getXMLDictionary name[" + name + "] content[" + content + "]");						
 //		                    config.getHashMap().put(name, content);
-							config.setValue(name, content);
+							config.addValue(name, content);
 		                    dictionarys.add(config);
 	        			}
 	                }       			

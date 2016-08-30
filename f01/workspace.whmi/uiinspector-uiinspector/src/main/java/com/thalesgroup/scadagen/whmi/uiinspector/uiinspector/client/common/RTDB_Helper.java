@@ -51,6 +51,12 @@ public class RTDB_Helper {
 		, afoForcedStatus(":afo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
 		, dfoForcedStatus(":dfo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
 		, sfoForcedStatus(":sfo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
+		
+		// Equipment Reservation
+		, DbAttrReserved(".reserved")
+		, DbAttrReservedID(".resrvReservedID")
+		, DbAttrReserveReqID(".resrvReserveReqID")
+		, DbAttrUnReserveReqID(".resrvUnreserveReqID")
 		;
 		private final String text;
 		private PointName(final String text) { this.text = text; }

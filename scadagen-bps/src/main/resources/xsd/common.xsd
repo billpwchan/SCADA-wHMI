@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/bps/conf/common"
+    xmlns:tns="http://www.thalesgroup.com/scadagen/bps/conf/common" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.thalesgroup.com/scadagen/bps/conf/common"
+    elementFormDefault="qualified" attributeFormDefault="unqualified"
+    version="1.0.0">
+
+    <!-- Subscription Types -->
+
+    <!-- <xsd:element name="subscriptionConfiguration"> -->
+    <!-- <xsd:complexType> -->
+    <!-- <xsd:sequence> -->
+    <!-- <xsd:element name="subjectDescription" type="subjectDescriptionType" 
+        minOccurs="1" maxOccurs="1"> -->
+    <!-- <xsd:unique name="subjectEntityTypeUniqueness"> -->
+    <!-- <xsd:selector xpath="./*"/> -->
+    <!-- <xsd:field xpath="@entityType"/> -->
+    <!-- </xsd:unique> -->
+    <!-- </xsd:element> -->
+    <!-- </xsd:sequence> -->
+    <!-- </xsd:complexType> -->
+    <!-- </xsd:element> -->
+
+    <xsd:complexType name="entitySubjectType" abstract="true">
+        <xsd:attribute name="entityType" type="notEmptyStringType"
+            use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="operator" abstract="true">
+    </xsd:complexType>
+
+    <xsd:complexType name="statusOperator" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="operator">
+                <xsd:attribute name="status" type="xsd:string" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="in">
+        <xsd:complexContent>
+            <xsd:extension base="statusOperator">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:string"
+                        minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="equals">
+        <xsd:complexContent>
+            <xsd:extension base="statusOperator">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:string"
+                        minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="and">
+        <xsd:complexContent>
+            <xsd:extension base="operator">
+                <xsd:sequence>
+                    <xsd:element name="firstOperand" type="operator"
+                        minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="secondOperand" type="operator"
+                        minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType abstract="true" name="dataSource" />
+
+    <!-- <xsd:complexType name="subjectDescriptionType"> -->
+    <!-- <xsd:sequence> -->
+    <!-- <xsd:choice> -->
+    <!-- <xsd:sequence minOccurs="1" maxOccurs="unbounded"> -->
+    <!-- <xsd:element name="configuredEntitySubject" type="configuredEntitySubjectType"> -->
+    <!-- <xsd:unique name="subjectEntityInstanceUniqueness"> -->
+    <!-- <xsd:selector xpath="."/> -->
+    <!-- <xsd:field xpath="name"/> -->
+    <!-- </xsd:unique> -->
+    <!-- </xsd:element> -->
+    <!-- </xsd:sequence> -->
+    <!-- <xsd:sequence minOccurs="1" maxOccurs="unbounded"> -->
+    <!-- <xsd:element name="transientEntitySubject" type="transientEntitySubjectType"/> -->
+    <!-- </xsd:sequence> -->
+    <!-- </xsd:choice> -->
+    <!-- <xsd:element name="criteria" type="operator" minOccurs="0" maxOccurs="unbounded"/> -->
+    <!-- </xsd:sequence> -->
+    <!-- </xsd:complexType> -->
+
+    <!-- <xsd:complexType name="transientEntitySubjectType"> -->
+    <!-- <xsd:complexContent> -->
+    <!-- <xsd:extension base="entitySubjectType"/> -->
+    <!-- </xsd:complexContent> -->
+    <!-- </xsd:complexType> -->
+
+    <!-- <xsd:complexType name="configuredEntitySubjectType"> -->
+    <!-- <xsd:complexContent> -->
+    <!-- <xsd:extension base="entitySubjectType"> -->
+    <!-- <xsd:sequence minOccurs="1" maxOccurs="unbounded"> -->
+    <!-- <xsd:element name="name" type="notEmptyStringType"/> -->
+    <!-- </xsd:sequence> -->
+    <!-- </xsd:extension> -->
+    <!-- </xsd:complexContent> -->
+    <!-- </xsd:complexType> -->
+
+    <xsd:simpleType name="notEmptyStringType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Data Source Types -->
+
+    <xsd:complexType name="attributeDataSourceType"
+        abstract="true">
+        <xsd:attribute name="name" type="notEmptyStringType"
+            use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="statusDataSourceType">
+        <xsd:complexContent>
+            <xsd:extension base="attributeDataSourceType" />
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="propertyDataSourceType">
+        <xsd:complexContent>
+            <xsd:extension base="attributeDataSourceType" />
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="computedStatusDataSourceType">
+        <xsd:complexContent>
+            <xsd:extension base="attributeDataSourceType">
+                <xsd:attribute name="statusComputerName"
+                    type="notEmptyStringType" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- Counter Types -->
+
+    <xsd:complexType name="countersConfigurationType">
+        <xsd:sequence minOccurs="1" maxOccurs="10">
+            <xsd:element name="counter" type="counterType" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="counterType">
+        <xsd:sequence>
+            <xsd:element name="soundConfiguration" type="soundConfigurationType"
+                minOccurs="0" />
+            <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="columnCounterCriterion"
+                    type="columnCounterCriterionType" />
+            </xsd:sequence>
+        </xsd:sequence>
+        <xsd:attribute name="scope" type="counterScopeType"
+            use="required" />
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+        <!-- sound triggered configuration for the counter, optional -->
+        <xsd:attribute name="soundID" type="xsd:string"
+            use="optional" />
+        <xsd:attribute name="soundThreshold" type="xsd:int"
+            default="1" />
+        <xsd:attribute name="soundPriority" type="xsd:int"
+            default="1" />
+    </xsd:complexType>
+
+    <xsd:complexType name="soundConfigurationType">
+        <xsd:attribute name="soundID" type="xsd:string"
+            use="required" />
+        <xsd:attribute name="soundPriority" type="xsd:int"
+            use="optional" default="1" />
+        <xsd:attribute name="soundThreshold" type="xsd:int"
+            use="optional" default="1" />
+        <xsd:attribute name="triggersOnIncrease" type="xsd:boolean"
+            use="optional" default="true" />
+    </xsd:complexType>
+
+    <xsd:simpleType name="counterScopeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="VIEW" />
+            <xsd:enumeration value="GLOBAL" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+
+    <!-- Criterion Types -->
+
+    <xsd:complexType name="columnCounterCriterionType">
+        <xsd:sequence>
+            <xsd:element name="equalTo" type="equalToType"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="differentFrom" type="differentFromType"
+                minOccurs="0" maxOccurs="unbounded" />
+            <xsd:choice>
+                <xsd:sequence>
+                    <xsd:element name="olderThan" type="olderThanType"
+                        minOccurs="0" maxOccurs="1" />
+                    <xsd:element name="youngerThan" type="youngerThanType"
+                        minOccurs="0" maxOccurs="1" />
+                </xsd:sequence>
+                <xsd:sequence>
+                    <xsd:choice minOccurs="0" maxOccurs="1">
+                        <xsd:element name="greaterThan"
+                            type="greaterThanType" />
+                        <xsd:element name="greaterThanEqual"
+                            type="greaterThanEqualType" />
+                    </xsd:choice>
+                    <xsd:choice minOccurs="0" maxOccurs="1">
+                        <xsd:element name="lessThan" type="lessThanType" />
+                        <xsd:element name="lessThanEqual"
+                            type="lessThanEqualType" />
+                    </xsd:choice>
+                </xsd:sequence>
+            </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute name="columnName" type="xsd:string"
+            use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType abstract="true" name="counterCriterionType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType abstract="true"
+        name="counterCriterionDurationType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:duration">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="durationType">
+        <xsd:restriction base="xsd:duration">
+            <xsd:minInclusive value="PT1M" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="olderThanType">
+        <xsd:simpleContent>
+            <xsd:restriction base="counterCriterionDurationType">
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="youngerThanType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionDurationType"></xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="equalToType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionType">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="differentFromType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionType">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lessThanType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionType">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lessThanEqualType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionType">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="greaterThanType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionType">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="greaterThanEqualType">
+        <xsd:simpleContent>
+            <xsd:extension base="counterCriterionType">
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+</xsd:schema>

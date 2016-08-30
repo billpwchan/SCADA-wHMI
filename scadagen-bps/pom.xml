@@ -1,0 +1,180 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>com.thalesgroup.scadagen.bps</groupId>
+	<artifactId>scadagen-bps</artifactId>
+	<packaging>jar</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+	<name>BPS Library</name>
+	
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+        <hv.connector.sdk.version>2.9.0_P03</hv.connector.sdk.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <log4j.version>1.2.16</log4j.version>
+        <scadasoft.version>6.2.4.5</scadasoft.version>
+	</properties>
+	
+	<dependencies>
+
+		<dependency>
+			<groupId>com.thalesgroup.hv.sdk.connector</groupId>
+			<artifactId>connector-sdk-impl</artifactId>
+			<version>${hv.connector.sdk.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.thalesgroup.hv.common</groupId>
+					<artifactId>data-model-jaxb</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>	
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+        <dependency>
+			<groupId>com.thalesgroup.hv.common</groupId>
+			<artifactId>data-model-jaxb</artifactId>
+			<version>1.8.0_P03</version>
+            <scope>provided</scope>
+		</dependency>
+        
+		<dependency>
+			<groupId>com.thalesgroup.scadasoft</groupId>
+			<artifactId>scs-data-model</artifactId>
+			<version>${scadasoft.version}</version>
+            <scope>provided</scope>
+		</dependency>
+	
+		<dependency> 
+		    <groupId>org.mockito</groupId> 
+		    <artifactId>mockito-all</artifactId> 
+		    <version>1.10.19</version> 
+		</dependency>
+		
+		<dependency>
+  			<groupId>junit</groupId>
+  			<artifactId>junit</artifactId>
+  			<version>4.12</version>
+		</dependency>
+		
+		<dependency>
+  			<groupId>org.powermock</groupId>
+  			<artifactId>powermock-module-junit4</artifactId>
+  			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+  			<groupId>org.powermock</groupId>
+  			<artifactId>powermock-api-mockito</artifactId>
+  			<version>1.6.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+		</dependency>
+
+	</dependencies>
+	
+	<build>
+        <resources>
+         <resource>
+           <directory>src/main/resources</directory>
+           <!--<excludes>
+             <exclude>**/*</exclude>
+           </excludes>-->
+           <includes>
+             <include>xsd/*</include>
+           </includes>
+         </resource>
+        </resources>
+        
+		<!-- plugin managment added by JYF -->
+		<pluginManagement>
+			<plugins>
+				<!--
+					If we e.g. execute on JDK 1.7, we should compile for Java 7 to get
+					the same (or higher) JAXB API version as used during the xjc execution.
+				-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+                    <!--<version>3.1</version>-->
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		<plugins>
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-eclipse-plugin</artifactId>
+			<configuration>
+				<source>1.6</source>
+				<target>1.6</target>
+				<buildOutputDirectory>target/classes</buildOutputDirectory>
+			</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+                <version>2.2</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sources>
+						<source>src/main/resources/xsd</source>
+					</sources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/jaxb</source>
+							</sources>
+						</configuration>
+					</execution>	
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

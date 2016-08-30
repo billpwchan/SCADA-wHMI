@@ -58,7 +58,7 @@ public class UILayoutGeneric extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.trace(className, function, "xmlFile[{}]", this.xmlFile);
+		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
 		
 		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
@@ -259,7 +259,7 @@ public class UILayoutGeneric extends UIWidget_i {
 			logger.warn(className, function, "Panel IS NULL");
 		}
 		
-		logger.trace(className, function, "End");
+		logger.end(className, function);
 	}
 
 	public void ready(Dictionary dictionary) {
@@ -397,7 +397,7 @@ public class UILayoutGeneric extends UIWidget_i {
 		} else {
 			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
 		}
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 
 	public UIWidget_i getPredefineWidget(String widget) {

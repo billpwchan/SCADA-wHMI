@@ -1,20 +1,25 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.ctl;
 
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ICTLComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsCTLComponentAccess;
 
+/**
+ * @author syau
+ *
+ */
 public class CtlMgr {
 	
-	private static Logger logger = Logger.getLogger(CtlMgr.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(CtlMgr.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static HashMap<String, CtlMgr> instances = new HashMap<String, CtlMgr>();
 	public static CtlMgr getInstance(String key) {
@@ -23,18 +28,14 @@ public class CtlMgr {
 		return instance;
 	}
 	
-//	private static CtlMgr instance = null;
-//	public static CtlMgr getInstance() {
-//		if ( null == instance ) {				instance = new CtlMgr(); }
-//		return instance;
-//	}
-	
 	private Subject subject = null;
 	public Subject getSubject() { return subject; }
 	
 	private ScsCTLComponentAccess ctlAccess = null;
 	private CtlMgr () {
-		logger.log(Level.SEVERE, "CtlMgr Begin");
+		final String function = "CtlMgr";
+		
+		logger.begin(className, function);
 		
 		this.subject = new Subject();
 		
@@ -103,15 +104,19 @@ public class CtlMgr {
 		    }
 		});
 		
-		logger.log(Level.SEVERE, "CtlMgr End");
+		logger.end(className, function);
 	}
 	
 	public void connect() {
-		logger.log(Level.SEVERE, "connect Begin");
-		logger.log(Level.SEVERE, "connect End");
+		final String function = "connect";
+		
+		logger.beginEnd(className, function);
 	}
 	public void disconnect() {
-		logger.log(Level.SEVERE, "disconnect Begin");
+		final String function = "disconnect";
+		
+		
+		logger.begin(className, function);
 		try {
 			ctlAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
@@ -119,25 +124,23 @@ public class CtlMgr {
 			e.printStackTrace();
 		}
 		ctlAccess=null;
-		logger.log(Level.SEVERE, "disconnect End");
+		logger.end(className, function);
 	}
 	
 	public void sendControl ( String envName, String [] address, float commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
+		final String function = "sendControl";
 		
-		logger.log(Level.SEVERE, "sendControl Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
+		logger.info(className, function, "envName[{}]", envName);
 		for ( int i = 0 ; i < address.length ; ++i ) {
-			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
+			logger.info(className, function, "address({})[{}] BF", i, address[i]);
 			
 			address[i] = address[i].replace(":", "");
 			
-			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] AF");
+			logger.info(className, function, "address({})[{}] AF", i, address[i]);
 		}
-		logger.log(Level.SEVERE, "sendControl commandValue["+commandValue+"]");
-		logger.log(Level.SEVERE, "sendControl bypassInitCond["+bypassInitCond+"]");
-		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
-		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
+		logger.info(className, function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
 		
 //		if ( null != subject ) {
 //    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
@@ -151,30 +154,28 @@ public class CtlMgr {
         		subject.setState("COMMAND SENT");
 	    	}				
 		} else {
-			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
+			logger.warn(className, function, "m_CTLAccess IS NULL");
 		}
 
 		
-		logger.log(Level.SEVERE, "sendControl End");
+		logger.end(className, function);
 		
 	}
 	
 	public void sendControl (String envName, String [] address, int commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
+		final String function = "sendControl";
 		
-		logger.log(Level.SEVERE, "sendControl Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
+		logger.info(className, function, "envName[{}]", envName);
 		for ( int i = 0 ; i < address.length ; ++i ) {
-			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
+			logger.info(className, function, "address({})[{}] BF", i, address[i]);
 			
 			address[i] = address[i].replace(":", "");
 			
-			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] AF");
+			logger.info(className, function, "address({})[{}] AF", i, address[i]);
 		}
-		logger.log(Level.SEVERE, "sendControl commandValue["+commandValue+"]");
-		logger.log(Level.SEVERE, "sendControl bypassInitCond["+bypassInitCond+"]");
-		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
-		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
+		logger.info(className, function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
 		
 //		if ( null != subject ) {
 //    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
@@ -188,30 +189,28 @@ public class CtlMgr {
         		subject.setState("COMMAND SENT");
 	    	}				
 		} else {
-			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
+			logger.warn(className, function, "m_CTLAccess IS NULL");
 		}
 		
-		logger.log(Level.SEVERE, "sendControl End");
+		logger.end(className, function);
 		
 	}
 	
 	public void sendControl (String envName, String [] address, String commandValue, int bypassInitCond, int bypassRetCond, int sendAnyway) {
+		final String function = "sendControl";
 		
-		logger.log(Level.SEVERE, "sendControl Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.SEVERE, "sendControl envName["+envName+"]");
+		logger.info(className, function, "envName[{}]", envName);
 		
 		for ( int i = 0 ; i < address.length ; ++i ) {
-			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] BF");
+			logger.info(className, function, "address({})[{}] BF", i, address[i]);
 			
 			address[i] = address[i].replace(":", "");
 			
-			logger.log(Level.SEVERE, "sendControl address("+i+")["+address[i]+"] AF");
+			logger.info(className, function, "address({})[{}] AF", i, address[i]);
 		}
-		logger.log(Level.SEVERE, "sendControl commandValue["+commandValue+"]");
-		logger.log(Level.SEVERE, "sendControl bypassInitCond["+bypassInitCond+"]");
-		logger.log(Level.SEVERE, "sendControl bypassRetCond["+bypassRetCond+"]");
-		logger.log(Level.SEVERE, "sendControl sendAnyway["+sendAnyway+"]");
+		logger.info(className, function, "commandValue[{}] bypassInitCond[{}] bypassRetCond[{}] sendAnyway[{}] ", new Object[]{commandValue, bypassInitCond, bypassRetCond, sendAnyway});
 		
 //		if ( null != subject ) {
 //    		subject.setState("send message to envName["+envName+"] address[0]["+address[0]+"] commandValue["+commandValue+"] bypassInitCond["+bypassInitCond+"] bypassRetCond["+bypassRetCond+"] sendAnyway["+sendAnyway+"]");
@@ -219,23 +218,17 @@ public class CtlMgr {
 
 		String [] structuredValueAddress = address;
 		
-		logger.log(Level.SEVERE, "sendControl structuredValueAddress(0)["+structuredValueAddress[0]+"]");
+		logger.info(className, function, "structuredValueAddress(0)[{}]", structuredValueAddress[0]);
 		
 		if ( null != ctlAccess ) {
 			if ( null != subject ) {
         		subject.setState("COMMAND SENT");
 	    	}				
 		} else {
-			logger.log(Level.SEVERE, "sendControl m_CTLAccess IS NULL");
+			logger.warn(className, function, "m_CTLAccess IS NULL");
 		}
 		ctlAccess.sendStringCommand("sendStringCommand", envName, structuredValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 
-		
-		logger.log(Level.SEVERE, "sendControl End");
-		
+		logger.end(className, function);
 	}
-	
-
-	
-
 }

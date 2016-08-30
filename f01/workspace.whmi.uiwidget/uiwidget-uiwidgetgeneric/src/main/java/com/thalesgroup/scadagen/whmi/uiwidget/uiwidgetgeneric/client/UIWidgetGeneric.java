@@ -47,7 +47,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 
 public class UIWidgetGeneric extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetGeneric.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	
@@ -105,7 +105,15 @@ public class UIWidgetGeneric extends UIWidget_i {
     public void init() {
 		final String function = "init";
     	
-    	logger.trace(className, function, "this.xmlFile[{}]", this.xmlFile);
+    	logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
+
+//		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
+//		
+//		this.dictionaryHeader = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
+//		this.dictionaryOption = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
+//		
+//		ready(this.dictionaryHeader);
+//		ready(this.dictionaryOption);
     	
 		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
 		
@@ -430,7 +438,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 
 	    }
 		
-		logger.trace(className, function, "End");
+		logger.end(className, function);
 		
     }
     
@@ -506,11 +514,11 @@ public class UIWidgetGeneric extends UIWidget_i {
     	final String function = "getWidgetStatus";
     	logger.begin(className, function);
     	
-    	logger.warn(className, function, "element[{}]", element);
+    	logger.info(className, function, "element[{}]", element);
     	
     	WidgetStatus status = getWidgetStatus(getWidget(element));
     	
-    	logger.warn(className, function, "status[{}]", status);
+    	logger.info(className, function, "status[{}]", status);
     	
     	logger.end(className, function);
     	
@@ -522,7 +530,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	
     	logger.begin(className, function);
     	
-    	logger.warn(className, function, "widget[{}]", widget);
+    	logger.info(className, function, "widget[{}]", widget);
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
@@ -733,15 +741,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 						}
 						if ( null != cssRemove1 ) {
 							widget.removeStyleName(cssRemove1);
-							logger.warn(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
+							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
 						}
 						if ( null != cssRemove2 ) {
 							widget.removeStyleName(cssRemove2);
-							logger.warn(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
+							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
 						}
 						if ( null != cssAdd ) {
 							widget.addStyleName(cssAdd);
-							logger.warn(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
+							logger.info(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
 						}
 						
 //						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
@@ -774,7 +782,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	final String function = "setValue";
     	
     	logger.begin(className, function);
-    	logger.info(className, function, "name[{}]", elementValue);
+    	logger.debug(className, function, "name[{}]", elementValue);
     	
     	setValue(elementValue, null);
     	
@@ -787,7 +795,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 		final String function = "setValue";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "name[{}] value[{}]", elementValue, value);
+		logger.debug(className, function, "name[{}] value[{}]", elementValue, value);
 
 		int index = getElementIndex(WidgetAttribute.element, elementValue);
 		
@@ -803,7 +811,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				String label		= valueMap.get(WidgetAttribute.label.toString());
 				String format		= valueMap.get(WidgetAttribute.format.toString());
 				
-				logger.info(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
+				logger.debug(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
 
 				if ( null != value ) label = value;
 				
@@ -823,7 +831,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				
 				
 			} else {
-				logger.info(className, function, "widget IS NULL");
+				logger.debug(className, function, "widget IS NULL");
 			}
 		} else {
 			logger.warn(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());

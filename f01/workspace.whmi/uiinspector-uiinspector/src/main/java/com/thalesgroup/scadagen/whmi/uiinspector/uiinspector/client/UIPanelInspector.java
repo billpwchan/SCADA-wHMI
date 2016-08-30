@@ -3,9 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.regexp.shared.MatchResult;
@@ -21,6 +18,8 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTag_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
@@ -28,10 +27,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
 public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	
-	private final Logger logger = Logger.getLogger(UIPanelInspector.class.getName());
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspector.class.getName());
-	private final String logPrefix = "["+className+"] ";
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
+	// Order
 	private final String strTabNames [] 	= new String[] {"Info","Control","Tagging","Advance"};
 
 	// Static Attribute List
@@ -49,35 +48,43 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 
 	@Override
 	public void setParent(String scsEnvId, String parent) {
+		final String function = "setParent";
+		
+		logger.begin(className, function);
 
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
 		
-		logger.log(Level.FINE, logPrefix+"setConnection this.scsEnvId["+this.scsEnvId+"]");
-		logger.log(Level.FINE, logPrefix+"setConnection this.parent["+this.parent+"]");
+		logger.info(className, function, "this.scsEnvId[{}]", this.scsEnvId);
+		logger.info(className, function, "this.parent[{}]", this.parent);
 		
 		database.setDynamic(scsEnvId, parent);
+		
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void setPeriod(String period) {
-		logger.log(Level.FINE, logPrefix+"setAddresses Begin");
+		final String function = "setPeriod";
+		
+		logger.begin(className, function);
 
 		this.periodMillis = Integer.parseInt(period);
 		
-		logger.log(Level.FINE, logPrefix+"setAddresses End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void connect() {
+		final String function = "connect";
 		
-		logger.log(Level.FINE, logPrefix+"connect Begin");
+		logger.begin(className, function);
 		Database database = Database.getInstance();
 		database.connect();
 		database.connectTimer(this.periodMillis);
 
 		{
-			logger.log(Level.FINE, logPrefix+"GetChildren Begin");
+			logger.begin(className, function+" GetChildren");
 
 			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
 
@@ -140,12 +147,12 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 				}
 			});
 			
-			logger.log(Level.FINE, logPrefix+"GetChildren End");
+			logger.end(className, function+" GetChildren");
 		}
 		
 		{
 			{
-				logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
+				logger.begin(className, function+" multiReadValue");
 				
 				String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
 				
@@ -158,9 +165,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
 				
-				logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
-				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				if ( logger.isDebugEnabled() ) {
+					logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+					for(int i = 0; i < dbaddresses.length; ++i ) {
+						logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+					}
 				}
 
 				String api = "multiReadValue";
@@ -191,17 +200,18 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 						}
 					}
 				});
-				
-				logger.log(Level.FINE, logPrefix+"multiReadValue End");
+				logger.end(className, function+" multiReadValue");
 			}
 		}
-		
-		logger.log(Level.FINE, logPrefix+"connect End");
+
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, logPrefix+"removeConnection Begin");
+		final String function = "disconnect";
+		
+		logger.begin(className, function);
 		
 		makeTabsDisconnect();
 		
@@ -211,20 +221,26 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		database.disconnectTimer();
 		database.disconnect();
 
-		logger.log(Level.FINE, logPrefix+"removeConnection End");
+		logger.end(className, function);
 	}
 	
 	private boolean isRegExpMatch(RegExp regExp, String input) {
-		logger.log(Level.FINE, logPrefix+"isRegExpMatch regExp["+regExp+"] input["+input+"]");
+		final String function = "isRegExpMatch";
+		
+		logger.begin(className, function);
+		logger.debug(className, function, "regExp[{}] input[{}]", regExp, input);
 		MatchResult matcher = regExp.exec(input);
 		boolean matchFound = matcher != null;
 		if ( matchFound ) {
-//			for ( int i = 0 ; i < matcher.getGroupCount(); i++) {
-//				String groupStr = matcher.getGroup(i);
-//				logger.log(Level.SEVERE, logPrefix+"isRegExpMatch input["+input+"] groupStr["+groupStr+"]");
-//			}
+			if ( logger.isDebugEnabled() ) {
+				for ( int i = 0 ; i < matcher.getGroupCount(); i++) {
+					String groupStr = matcher.getGroup(i);
+					logger.debug(className, function, "input[{}] groupStr[{}]", input, groupStr);
+				}
+			}
 		}
-		logger.log(Level.FINE, logPrefix+"isRegExpMatch matchFound["+matchFound+"]");
+		logger.debug(className, function, "matchFound[{}]", matchFound);
+		logger.end(className, function);
 		return matchFound;
 	}
 	
@@ -246,8 +262,9 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	private LinkedList<String> advances	= new LinkedList<String>();
 	@Override
 	public void buildTabsAddress(String[] instances) {
+		final String function = "buildTabsAddress";
 		
-		logger.log(Level.FINE, logPrefix+"buildTabsAddress Begin");
+		logger.begin(className, function);
 
 		LinkedList<String> infoRegExpPatternBlackList		= new LinkedList<String>();
 		LinkedList<String> controlRegExpPatternBlackList	= new LinkedList<String>();
@@ -267,14 +284,14 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		
 		controlRegExpPatternBlackList	.add("(dioECT-PTW)");
 			
-		logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator Begin");
+		logger.info(className, function,"Iterator Begin");
 		
 		for ( String dbaddress : instances ) {
-			logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator dbaddress["+dbaddress+"]");
+			logger.info(className, function,"Iterator dbaddress[{}]", dbaddress);
 			
 			if ( null != dbaddress ) {
 
-				logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator dbaddress["+dbaddress+"]");
+				logger.info(className, function, "Iterator dbaddress[{}]", dbaddress);
 				
 				{
 					boolean infoBlackListMatch=false;
@@ -317,21 +334,25 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 				}
 
 			} else {
-				logger.log(Level.FINE, logPrefix+"buildTabsAddress Iterator dbaddress IS NULL");
+				logger.warn(className, function, "Iterator dbaddress IS NULL");
 			}
 		}
-		logger.log(Level.FINE, logPrefix+"buildTabsAddress End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void makeTabsSetAddress() {
+		final String function = "makeTabsSetAddress";
 		
-		logger.log(Level.FINE, logPrefix+"makeTabsSetAddress Begin");
+		logger.begin(className, function);
 		
-		for ( String dbaddress : infos )	{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress infos dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : controls )	{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress controls dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : tags )		{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress tags dbaddress["+dbaddress+"]"); }
-		for ( String dbaddress : advances )	{ logger.log(Level.FINE, logPrefix+"makeTabsSetAddress advances dbaddress["+dbaddress+"]"); }
+		if ( logger.isDebugEnabled() ) {
+			for ( String dbaddress : infos )	{ logger.debug(className, function, "infos dbaddress[{}]", dbaddress); }
+			for ( String dbaddress : controls )	{ logger.debug(className, function, "controls dbaddress[{}]", dbaddress); }
+			for ( String dbaddress : tags )		{ logger.debug(className, function, "tags dbaddress[{}]", dbaddress); }
+			for ( String dbaddress : advances )	{ logger.debug(className, function, "advances dbaddress[{}]", dbaddress); }			
+		}
+
 		
 		uiInspectorHeader	.setParent(scsEnvId, parent);
 		
@@ -348,52 +369,58 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		uiInspectorTag		.setAddresses	(tags		.toArray(new String[0]));
 		uiInspectorAdvance	.setAddresses	(advances	.toArray(new String[0]));
 		
-		logger.log(Level.FINE, logPrefix+"makeTabsSetAddress End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void makeTabsBuildWidgets() {
-		logger.log(Level.FINE, logPrefix+"makeTabsBuildWidgets Begin");
+		final String function = "makeTabsBuildWidgets";
+		
+		logger.begin(className, function);
 		
 		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.buildWidgets();
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"makeTabsBuildWidgets uiPanelInspector_i IS NULL");
+				logger.warn(className, function, " uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.FINE, logPrefix+"makeTabsBuildWidgets End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void makeTabsConnect() {
-		logger.log(Level.FINE, logPrefix+"makeTabsConnect Begin");
+		final String function = "makeTabsConnect";
+		
+		logger.begin(className, function);
 		
 		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.connect();
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"makeTabsConnect uiPanelInspector_i IS NULL");
+				logger.warn(className, function, "uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.FINE, logPrefix+"makeTabsConnect End");
+		logger.end(className, function);
 	}
 
 	@Override
 	public void makeTabsDisconnect() {
-		logger.log(Level.FINE, logPrefix+"tagsDisconnect Begin");
+		final String function = "makeTabsDisconnect";
+		
+		logger.begin(className, function);
 		
 		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.disconnect();
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"tagsDisconnect uiPanelInspector_i IS NULL");
+				logger.warn(className, function, "uiPanelInspector_i IS NULL");
 			}
 		}
 
-		logger.log(Level.FINE, logPrefix+"tagsDisconnect End");
+		logger.end(className, function);
 	}
 	
 	private UIInspectorPage_i uiInspectorHeader		= null;
@@ -422,9 +449,10 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 	
 	private VerticalPanel basePanel = null;
 	@Override
-	public void init(String xml) {
+	public void init() {
+		final String function = "init";
 
-		logger.log(Level.FINE, logPrefix+"init Begin");
+		logger.begin(className, function);
 
 		uiInspectorTabs 	= new LinkedList<UIInspectorPage_i>();
 		
@@ -445,7 +473,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
+					logger.info(className, function, "setMessage message[{}]", message);
 					txtMsg.setText(message);
 				}
 			}
@@ -453,11 +481,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void addMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
+					logger.info(className, function, "setMessage message[{}]", message);
 					String text = txtMsg.getText();
-					logger.log(Level.FINE, logPrefix+"init setMessage text["+text+"]");
+					logger.info(className, function, "setMessage text[{}]", text);
 					if ( text.length() > 0 ) text += "\n";
-					logger.log(Level.FINE, logPrefix+"init setMessage text + message["+text + message+"]");
+					logger.info(className, function, "setMessage text + message[{}]", text + message);
 					txtMsg.setText(text + message);
 				}
 			}
@@ -468,7 +496,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
+					logger.info(className, function, "setMessage message[{}]", message);
 					txtMsg.setText(message);
 				}
 			}
@@ -476,11 +504,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void addMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
+					logger.info(className, function, "setMessage message[{}]", message);
 					String text = txtMsg.getText();
-					logger.log(Level.FINE, logPrefix+"init setMessage text["+text+"]");
+					logger.info(className, function, "setMessage text[{}]", text);
 					if ( text.length() > 0 ) text += "\n";
-					logger.log(Level.FINE, logPrefix+"init setMessage text + message["+text + message+"]");
+					logger.info(className, function, "setMessage text + message[{}]", text + message);
 					txtMsg.setText(text + message);
 				}
 			}
@@ -491,7 +519,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
+					logger.info(className, function, "setMessage message[{}]", message);
 					txtMsg.setText(message);
 				}
 			}
@@ -499,11 +527,11 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 			@Override
 			public void addMessage(String message) {
 				if ( null != txtMsg ) {
-					logger.log(Level.FINE, logPrefix+"init setMessage message["+message+"]");
+					logger.info(className, function, "setMessage message[{}]", message);
 					String text = txtMsg.getText();
-					logger.log(Level.FINE, logPrefix+"init setMessage text["+text+"]");
+					logger.info(className, function, "setMessage text[{}]", text);
 					if ( text.length() > 0 ) text += "\n";
-					logger.log(Level.FINE, logPrefix+"init setMessage text + message["+text + message+"]");
+					logger.info(className, function, "setMessage text + message[{}]", text + message);
 					txtMsg.setText(text + message);
 				}
 			}
@@ -568,12 +596,7 @@ public class UIPanelInspector implements UIInspector_i, UIInspectorTag_i {
 		basePanel.add(bottomBar);
 		basePanel.addStyleName("project-gwt-panel-inspector");
 
-        logger.log(Level.FINE, logPrefix+"init End");
-	}
-	
-	@Override
-	public ComplexPanel getMainPanel() {
-        return basePanel;
+		logger.end(className, function);
 	}
 	
 	private UIPanelInspectorDialogBoxEvent uiPanelInspectorEvent = null;

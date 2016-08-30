@@ -54,7 +54,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 				String header = taskLaunch.getHeader();
 				String uiPanel = taskLaunch.getUiPanel();
 				
-				logger.warn(className, function, "header[{}] uiPanel[{}]", header, uiPanel);
+				logger.info(className, function, "header[{}] uiPanel[{}]", header, uiPanel);
 				
 				rootPanel.clear();
 

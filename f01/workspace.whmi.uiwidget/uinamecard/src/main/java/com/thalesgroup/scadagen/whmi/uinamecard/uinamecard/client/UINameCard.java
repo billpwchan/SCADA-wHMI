@@ -51,15 +51,15 @@ public class UINameCard {
 	}
 	public void appendMgr(Object object) {
 		this.appendUIPath(getSimpleName(object));
-		logger.info(className, "appendMgr", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
+		logger.debug(className, "appendMgr", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
 	}
 	public void appendUIPanel(Object object) {
 		this.appendUIPath(getSimpleName(object));
-		logger.info(className, "appendUIPanel", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
+		logger.debug(className, "appendUIPanel", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
 	}
 	public void appendUIPath(String uiPath) {
 		this.uiPath += ":" + uiPath;
-		logger.info(className, "appendUIPath", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
+		logger.debug(className, "appendUIPath", "uiScreen[{}] uiPath[{}]", this.uiScreen, this.uiPath);
 	}
 	public ResettableEventBus getUiEventBus() {
 		return this.uiEventBus;

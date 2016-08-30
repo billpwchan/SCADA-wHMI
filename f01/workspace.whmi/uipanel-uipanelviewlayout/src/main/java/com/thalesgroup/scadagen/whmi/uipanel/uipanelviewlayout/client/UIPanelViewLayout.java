@@ -32,7 +32,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		this.viewLayoutMgr = new ViewLayoutMgr(this, this.uiNameCard);
 		
-		logger.warn(className, function, "this.uiNameCard.getUiScreen()[{}] this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiScreen(), this.uiNameCard.getUiPath());
+		logger.info(className, function, "this.uiNameCard.getUiScreen()[{}] this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiScreen(), this.uiNameCard.getUiPath());
 		
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.addStyleName("project-gwt-panel-viewlayout-main");

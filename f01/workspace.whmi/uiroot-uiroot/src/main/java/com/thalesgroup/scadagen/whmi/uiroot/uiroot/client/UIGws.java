@@ -14,10 +14,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
+import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCacheEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -49,7 +48,7 @@ public class UIGws {
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
 		
-		initCache();
+//		initCache();
 		initCaches();
 
 		Panel panel = getMainPanel(new UINameCard(0, "", RESETABLE_EVENT_BUS));
@@ -162,174 +161,87 @@ public class UIGws {
 			
 			DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
+			String mode = ConfigurationType.XMLFile.toString();
+			
 			String module = null;
 			
 			String folder = "UIPanelGeneric";
 			
 			String extention = ".xml";
 			
-			dictionariesCache.add(folder, extention);
+			dictionariesCache.add(folder, extention, header);
+			dictionariesCache.add(folder, extention, option);
 			
-			dictionariesCache.init(module, new DictionariesCacheEvent() {
+			dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 				
 				@Override
 				public void dictionariesCacheEventReady(int received) {
 					logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
 					
-//					ready(received);
+					ready(received);
 					
 				}
 			});
 		}
 		
-//		{
-//			DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UICaches");
-//			
-//			String header = "header";
-//			String option = "option";
-//			
-//			//Login Panel
-//			uiPanelSettingCache.add("hvid_alias.xml", header);
-//			uiPanelSettingCache.add("hvid_alias.xml", option);
-//			
-//			String module = null;
-//			
-//			uiPanelSettingCache.init(module, "UICaches", new DictionaryCacheEvent() {
-//				
-//				@Override
-//				public void dictionaryCacheEventReady(int received) {
-//
-//					logger.log(Level.SEVERE, "dictionaryCacheEventReady");
-//					
-//				}
-//			});
-//		}
 		
-		logger.log(Level.FINE, "initCaches End");
-	}
-	
-	public void initCache () {
-		
-		logger.log(Level.FINE, "initCache Begin");
-		
-		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
-		
-		String header = "header";
-		String option = "option";
-		
-		//Login Panel
-		uiPanelSettingCache.add("UIPanelLogin.xml", header);
-		uiPanelSettingCache.add("UIPanelLogin.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelLoginLogo.xml", header);
-		uiPanelSettingCache.add("UIPanelLoginLogo.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelLoginInfo.xml", header);
-		uiPanelSettingCache.add("UIPanelLoginInfo.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelLoginButton.xml", header);
-		uiPanelSettingCache.add("UIPanelLoginButton.xml", option);
-		
-		//Alarm Banner
-		uiPanelSettingCache.add("UIPanelAlarmBanner.xml", header);
-		uiPanelSettingCache.add("UIPanelAlarmBanner.xml", option);		
-
-		uiPanelSettingCache.add("UIPanelAlarmBannerButton.xml", header);
-		uiPanelSettingCache.add("UIPanelAlarmBannerButton.xml", option);		
-		
-		uiPanelSettingCache.add("UIPanelOlsCounter.xml", header);
-		uiPanelSettingCache.add("UIPanelOlsCounter.xml", option);
-		
-		//Static Bar
-		uiPanelSettingCache.add("UIPanelStatusBar.xml", header);
-		uiPanelSettingCache.add("UIPanelStatusBar.xml", option);		
-		
-		uiPanelSettingCache.add("UIPanelCompany.xml", header);
-		uiPanelSettingCache.add("UIPanelCompany.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelCompanyTitle.xml", header);
-		uiPanelSettingCache.add("UIPanelCompanyTitle.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelTitle.xml", header);
-		uiPanelSettingCache.add("UIPanelTitle.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelOperatorProfile.xml", header);
-		uiPanelSettingCache.add("UIPanelOperatorProfile.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelDateTime.xml", header);
-		uiPanelSettingCache.add("UIPanelDateTime.xml", option);
-		
-		//Access Bar
-		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", header);
-		uiPanelSettingCache.add("UIPanelAccessBarButton.xml", option);
-		
-		//UIPanelVerticalSpliter
-		uiPanelSettingCache.add("UIPanelVerticalSpliter.xml", header);
-		uiPanelSettingCache.add("UIPanelVerticalSpliter.xml", option);
-		
-		//UIScreenMMI
-		uiPanelSettingCache.add("UIScreenMMI.xml", header);
-		uiPanelSettingCache.add("UIScreenMMI.xml", option);
-		
-		uiPanelSettingCache.add("UIScreenMMINorthPanel.xml", header);
-		uiPanelSettingCache.add("UIScreenMMINorthPanel.xml", option);
-		
-		uiPanelSettingCache.add("UIScreenMMIEastPanel.xml", header);
-		uiPanelSettingCache.add("UIScreenMMIEastPanel.xml", option);
-		
-		uiPanelSettingCache.add("UIScreenMMISouthPanel.xml", header);
-		uiPanelSettingCache.add("UIScreenMMISouthPanel.xml", option);
-		
-		uiPanelSettingCache.add("UIScreenMMIWestPanel.xml", header);
-		uiPanelSettingCache.add("UIScreenMMIWestPanel.xml", option);
-		
-		// UIPanelMenu
-		uiPanelSettingCache.add("UIPanelNavigation_0.xml", header);
-		uiPanelSettingCache.add("UIPanelNavigation_0.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelNavigation_1.xml", header);
-		uiPanelSettingCache.add("UIPanelNavigation_1.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelNavigation_2.xml", header);
-		uiPanelSettingCache.add("UIPanelNavigation_2.xml", option);
-		
-		uiPanelSettingCache.add("UIPanelNavigation_3.xml", header);
-		uiPanelSettingCache.add("UIPanelNavigation_3.xml", option);
-		
-		// PTW
-		uiPanelSettingCache.add("UIWidgetSummary.xml", header);
-		uiPanelSettingCache.add("UIWidgetSummary.xml", option);
-					
-		uiPanelSettingCache.add("UIWidgetViewer.xml", header);
-		uiPanelSettingCache.add("UIWidgetViewer.xml", option);
-		
-		uiPanelSettingCache.add("UIWidgetControl.xml", header);
-		uiPanelSettingCache.add("UIWidgetControl.xml", option);		
-		
-		uiPanelSettingCache.add("UIWidgetFilter.xml", header);
-		uiPanelSettingCache.add("UIWidgetFilter.xml", option);
-		
-		uiPanelSettingCache.add("UIWidgetPrint.xml", header);
-		uiPanelSettingCache.add("UIWidgetPrint.xml", option);
-		
-		uiPanelSettingCache.add("UIWidgetAction.xml", header);
-		uiPanelSettingCache.add("UIWidgetAction.xml", option);
-		
-		String module = null;
-		
-		uiPanelSettingCache.init(module, "UIPanelGeneric", new DictionaryCacheEvent() {
+		{
+			DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIInspectorPanel");
 			
-			@Override
-			public void dictionaryCacheEventReady(int received) {
-
-				logger.log(Level.SEVERE, "dictionaryCacheEventReady");
+			String mode = ConfigurationType.PropertiesFile.toString();
+			
+			String module = null;
+			
+			String folder = "UIInspectorPanel";
+			
+			String extention = ".properties";
+			
+			dictionariesCache.add(folder, extention, null);
+			
+			dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
+				
+				@Override
+				public void dictionariesCacheEventReady(int received) {
+					logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
 					
-				ready(received);
-			}
-		});
+					ready(received);
+					
+				}
+			});
+		}
 		
-		logger.log(Level.FINE, "initCache End");
+		logger.end(className, function);
 	}
+
+//	public void initCache () {
+//		final String function = "initCache";
+//		
+//		logger.begin(className, function);
+//		
+//		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
+//		
+//		String header = "header";
+//		String option = "option";
+//		
+//		//Login Panel
+//		uiPanelSettingCache.add("UIPanelLogin.xml", header);
+//		uiPanelSettingCache.add("UIPanelLogin.xml", option);
+//		String mode = ConfigurationType.XMLFile.toString();
+//		String module = null;
+//		
+//		uiPanelSettingCache.init(mode, module, "UIPanelGeneric", new DictionaryCacheEvent() {
+//			
+//			@Override
+//			public void dictionaryCacheEventReady(int received) {
+//
+//				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+//					
+//				ready(received);
+//			}
+//		});
+//		
+//		logger.end(className, function);
+//	}
 	
 	private void ready(int received) {
 		final String function = "ready";

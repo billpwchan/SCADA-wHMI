@@ -29,7 +29,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryCache;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -115,7 +115,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 //		ready(this.dictionaryHeader);
 //		ready(this.dictionaryOption);
     	
-		DictionaryCache uiPanelSettingCache = DictionaryCache.getInstance("UIWidgetGeneric");
+    	DictionariesCache uiPanelSettingCache = DictionariesCache.getInstance("UIWidgetGeneric");
 		
 		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
 		ready(this.dictionaryHeader);
@@ -846,9 +846,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 		logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
 		
 		if ( null != dictionary ) {
-			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlFile);
-			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XmlTag);
-			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel);
+			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
+			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
+			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 			
 			logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			

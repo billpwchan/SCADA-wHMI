@@ -18,38 +18,47 @@ import org.xml.sax.SAXException;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 
 public class ReadConfigXML implements ReadConfigInterface {
+	private final String className = "ReadConfigXML";
+	private final String logPrefix = "["+className+"]";
 	
+//	@Override
+//	public List<String> getTags(String path) {
+//		final String function = "getTags";
+//		List<String> configs = new ArrayList<String>();
+//		try {
+//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
+//            factory.setIgnoringComments (true);
+//            factory.setIgnoringElementContentWhitespace (true);
+//            factory.setValidating (false);
+//            DocumentBuilder builder = factory.newDocumentBuilder ();
+//            Document document = builder.parse (path);
+//		    NodeList nodeList = document.getElementsByTagName("*");
+//		    for (int i = 0; i < nodeList.getLength(); i++) {
+//		        Node node = nodeList.item(i);
+//		        if (node.getNodeType() == Node.ELEMENT_NODE) {
+//		        			        	
+//		            System.out.println(node.getNodeName());
+//		            configs.add(node.getNodeName());
+//		        }
+//		    }
+//		} catch (ParserConfigurationException e) {
+//			System.out.println(logPrefix+function+" \nParserConfigurationException:" + e.toString());
+//			e.printStackTrace();
+//		} catch (SAXException | IOException e) {
+//			System.out.println(logPrefix+function+" \nSAXException | IOException e" + e.toString());
+//			e.printStackTrace();
+//		}
+//		return configs;
+//	}
 	@Override
-	public List<String> getTags(String path) {
-		List<String> configs = new ArrayList<String>();
-		try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
-            factory.setIgnoringComments (true);
-            factory.setIgnoringElementContentWhitespace (true);
-            factory.setValidating (false);
-            DocumentBuilder builder = factory.newDocumentBuilder ();
-            Document document = builder.parse (path);
-		    NodeList nodeList = document.getElementsByTagName("*");
-		    for (int i = 0; i < nodeList.getLength(); i++) {
-		        Node node = nodeList.item(i);
-		        if (node.getNodeType() == Node.ELEMENT_NODE) {
-		        			        	
-		            System.out.println(node.getNodeName());
-		            configs.add(node.getNodeName());
-		        }
-		    }
-		} catch (ParserConfigurationException e) {
-System.out.println("\nParserConfigurationException:" + e.toString());
-			e.printStackTrace();
-		} catch (SAXException | IOException e) {
-System.out.println("\nSAXException | IOException e" + e.toString());
-			e.printStackTrace();
-		}
-		return configs;
+	public List<Dictionary> getDictionary(String path) {
+		return getDictionary( path, null);
 	}
-	
+	@Override
 	public List<Dictionary> getDictionary(String path, String elm) {
-System.out.println("getDictionary Reading from the path["+path+"] elm["+elm+"]");
+		final String function = "getDictionary";
+		System.out.println(logPrefix+function+" Begin");
+		System.out.println(logPrefix+function+" Reading from the path["+path+"] elm["+elm+"]");
 		
 		List<Dictionary> dictionarys = new ArrayList<Dictionary>();
 
@@ -81,7 +90,7 @@ System.out.println("getDictionary Reading from the path["+path+"] elm["+elm+"]")
         				String key = attr.getNodeName();
         				String value = attr.getNodeValue();
         				
-//System.out.println("getDictionary key[" + key + "] value[" + value + "]");
+//System.out.println(logPrefix+function+" getDictionary key[" + key + "] value[" + value + "]");
 						config.setAttribute(key, value);
         			}
         			
@@ -93,9 +102,9 @@ System.out.println("getDictionary Reading from the path["+path+"] elm["+elm+"]")
 	        				String name = node.getNodeName();
 	        				String content = node.getTextContent();
 
-//System.out.println("getDictionary name[" + name + "] content[" + content + "]");						
+//System.out.println(logPrefix+function+" getDictionary name[" + name + "] content[" + content + "]");						
 
-							config.setValue(name, content);
+							config.addValue(name, content);
 		                    dictionarys.add(config);
 	        			}
 	                }       			
@@ -104,12 +113,14 @@ System.out.println("getDictionary Reading from the path["+path+"] elm["+elm+"]")
         	}
 
 		} catch (ParserConfigurationException e) {
-System.out.println("\ngetDictionary ParserConfigurationException:" + e.toString());
+			System.out.println(logPrefix+function+" getDictionary ParserConfigurationException:" + e.toString());
 			e.printStackTrace();
 		} catch (SAXException | IOException e) {
-System.out.println("\ngetDictionary SAXException | IOException e" + e.toString());
+			System.out.println(logPrefix+function+" getDictionary SAXException | IOException e" + e.toString());
 			e.printStackTrace();
 		}
+		
+		System.out.println(logPrefix+function+" End");
 		
 		return dictionarys;
 	}

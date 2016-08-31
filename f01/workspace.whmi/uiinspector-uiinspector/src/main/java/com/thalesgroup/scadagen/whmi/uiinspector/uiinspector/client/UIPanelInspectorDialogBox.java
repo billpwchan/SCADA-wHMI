@@ -69,7 +69,7 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		});
 		uiPanelInspector.init();
 		rootPanel = uiPanelInspector.getMainPanel();
-		logger.error(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
+		logger.info(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
 
 		this.add(rootPanel);
 		this.addStyleName("project-gwt-panel-inspector-dialogbox");

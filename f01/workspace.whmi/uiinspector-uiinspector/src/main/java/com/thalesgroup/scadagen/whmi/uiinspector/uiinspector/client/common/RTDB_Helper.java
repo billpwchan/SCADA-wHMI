@@ -1,11 +1,13 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class RTDB_Helper {
 	
-	private static final Logger logger = Logger.getLogger(RTDB_Helper.class.getName());
+	private static final String className = UIWidgetUtil.getClassSimpleName(RTDB_Helper.class.getName());
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public static final int valueAlarmVectorIndex = 1;
 	
@@ -106,28 +108,32 @@ public class RTDB_Helper {
 	}
 	
 	public static boolean addressIsValid (String addresses) {
+		final String function = "addressIsValid";
 		boolean result = false;
 		if ( null != addresses ) {
 			result = true;
 		} else {
-			logger.log(Level.SEVERE, "addressIsValid addresses IS NULL");
+			logger.warn(className, function, "addresses IS NULL");
 		}		
 		return result;
 	}
 	public static boolean addressesIsValid (String[] addresses) {
+		final String function = "addressesIsValid";
 		boolean result = false;
 		if ( null != addresses ) {
 			if ( addresses.length > 0 ) {
 				result = true;
-//				logger.log(Level.FINE, "addressesIsValid addresses.length["+addresses.length+"]");
-//				for ( int i = 0 ; i < addresses.length ; ++i ) {
-//					logger.log(Level.FINE, "addressesIsValid addresses("+i+")["+addresses[i]+"]");
-//				}
+				if ( logger.isDebugEnabled() ) {
+					logger.debug(className, function, "addresses.length[{}]", addresses.length);
+					for ( int i = 0 ; i < addresses.length ; ++i ) {
+						logger.debug(className, function, "addresses({})[{}]", i, addresses[i]);
+					}					
+				}
 			} else {
-				logger.log(Level.SEVERE, "addressesIsValid addresses length IS ZERO");
+				logger.warn(className, function, "addresses length IS ZERO");
 			}
 		} else {
-			logger.log(Level.SEVERE, "addressesIsValid addresses IS NULL");
+			logger.warn(className, function, "addresses IS NULL");
 		}		
 		return result;
 	}
@@ -145,10 +151,12 @@ public class RTDB_Helper {
 //	}
 	
 	public static String getArrayValues(String string, int col, int row) {
+		final String function = "getArrayValues";
+		
 		String str = null;
 		
-		logger.log(Level.FINE, "getArrayValues Begin");
-		logger.log(Level.FINE, "getArrayValues string["+string+"] col["+col+"] row["+row+"]");
+		logger.begin(className, function);
+		logger.debug(className, function, "string[{}] col[{}] row[{}]", new Object[]{string, col, row});
 				
 		if (null != string && string.length() > 0) {
 
@@ -160,23 +168,23 @@ public class RTDB_Helper {
 				String s = strs[col];
 				s = removeBegin(s, '[');
 				s = removeBegin(s, ']');
-				logger.log(Level.FINE, "getArrayValues s["+s+"]");
+				logger.debug(className, function, "s[{}]", s);
 //				String str2s[] = s.split(",");
 				String str2s[] = s.split("\\s*,\\s*");
-				logger.log(Level.FINE, "getArrayValues str2s["+row+"]["+str2s[row]+"]");
+				logger.debug(className, function, "str2s[{}][{}]", row, str2s[row]);
 				if ( str2s.length > 0 && row < str2s.length ) {
 					str = str2s[row];
-					logger.log(Level.FINE, "getArrayValues str["+str+"]");				
+					logger.debug(className, function, "str[{}]", str);				
 				}
 			} else {
 				// Invalid str length or index
-				logger.log(Level.SEVERE, "getArrayValues Invalid str length or index");
+				logger.warn(className, function, "Invalid str length or index");
 			}
 		}
 		
-		logger.log(Level.FINE, "getArrayValues str["+str+"]");
+		logger.debug(className, function, "str[{}]", str);
 		
-		logger.log(Level.FINE, "getArrayValues End");
+		logger.end(className, function);
 
 		return str;
 	}
@@ -194,8 +202,9 @@ public class RTDB_Helper {
 	}
 	
 	public static String getColorCSS(String alarmVector, String validity, String forcedStatus) {
+		final String function = "getColorCSS";
 		
-		logger.log(Level.FINE, "getColorCSS Begin");
+		logger.begin(className, function);
 		
 		String colorCSS	= RTDB_i.strCSSStatusGrey;
 		
@@ -211,7 +220,7 @@ public class RTDB_Helper {
 					intValidity		= Integer.parseInt(validity);
 					intForcedStatus	= Integer.parseInt(forcedStatus);
 				} catch ( NumberFormatException e ) {
-					logger.log(Level.SEVERE, "getColorCSS NumberFormatException["+e.toString()+"]");
+					logger.warn(className, function, "NumberFormatException[{}]", e.toString());
 				}
 				
 				// 2=MO, AI=8, 512=SS
@@ -231,15 +240,16 @@ public class RTDB_Helper {
 					colorCSS = RTDB_i.strCSSStatusGreen;
 				}
 			} else {
-				logger.log(Level.SEVERE, "getColorCSS alarmVector["+alarmVector.length()+"] validity["+validity.length()+"] forcedStatus["+forcedStatus.length()+"] length IS INVALID");
+				logger.warn(className, function, "alarmVector[{}] validity[{}] forcedStatus[{}] length IS INVALID",
+						new Object[]{alarmVector.length(), validity.length(), forcedStatus.length()});
 			}
 		} else {
-			logger.log(Level.SEVERE, "getColorCSS alarmVector["+alarmVector+"] validity["+validity+"] forcedStatus["+forcedStatus+"] IS NULL");
+			logger.warn(className, function, "alarmVector[{}] validity[{}] forcedStatus[{}] IS NULL", new Object[]{alarmVector, validity, forcedStatus});
 		}
 		
-		logger.log(Level.FINE, "getColorCSS colorCode["+colorCSS+"]");
+		logger.debug(className, function, "colorCode[{}]", colorCSS);
 		
-		logger.log(Level.FINE, "getColorCSS End");
+		logger.end(className, function);
 
 		return colorCSS;
 	}

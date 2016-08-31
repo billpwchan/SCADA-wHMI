@@ -33,7 +33,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 	public void init() {
 		final String function = "function";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 		logger.info(className, function, "xmlFile[{}]", xmlFile);
 
 		uiWidgetAccessBarButton = new UIWidgetGeneric();
@@ -48,7 +48,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 					String element = uiWidgetAccessBarButton.getWidgetElement(widget);
 					onButtonClick(element);
 				} else {
-					logger.error(className, function, "onClickHandler onClickHandler button IS NULL");
+					logger.warn(className, function, "onClickHandler onClickHandler button IS NULL");
 				}
 			}
 		});
@@ -64,16 +64,16 @@ public class UIPanelAccessBar extends UIWidget_i {
 			})
 		);
 
- 		logger.info(className, function, "End");
+		logger.end(className, function);
  		
 	}
 	
 	private void setHistoryButton(UITaskHistory taskHistory) {
 		final String function = "setHistoryButton";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 		
-		logger.error(className, function, "taskHistory.getTaskType()[{}]", taskHistory.getTaskType());
+		logger.info(className, function, "taskHistory.getTaskType()[{}]", taskHistory.getTaskType());
 		
 		Widget widget = null;
 		WidgetStatus status = null;
@@ -103,15 +103,15 @@ public class UIPanelAccessBar extends UIWidget_i {
 			uiWidgetAccessBarButton.setWidgetStatus(widget, status);
 		}
 
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 	
 	private void setSplitButton(UITaskSplit taskSplit) {
 		final String function = "setSplitButton";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 		
-		logger.error(className, function, "taskSplit.getTaskType()[{}]", taskSplit.getTaskType());
+		logger.info(className, function, "taskSplit.getTaskType()[{}]", taskSplit.getTaskType());
 		
 		Widget widget = null;
 		WidgetStatus status = null;
@@ -149,13 +149,13 @@ public class UIPanelAccessBar extends UIWidget_i {
 			uiWidgetAccessBarButton.setWidgetStatus(widget, status);
 		}
 
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 	
 	void onUIEvent(UIEvent uiEvent ) {
 		final String function = "onUIEvent";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 		if ( null != uiEvent ) {
 			
 			UITask_i taskProvide = uiEvent.getTaskProvide();
@@ -179,18 +179,18 @@ public class UIPanelAccessBar extends UIWidget_i {
 				}
 			}
 		}
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 	
 	void onButtonClick ( String element ) {
 		final String function = "onButtonClick";
 		
-		logger.error(className, function, "elementValue[{}]", element);
+		logger.info(className, function, "elementValue[{}]", element);
 		
 		if ( null != element ) {
 			
 			if ( UIPanelAccessBarInterface.WidgetArrtibute.logout.equalsName(element) ) {
-				logger.error(className, function, "logout[{}]", UIPanelAccessBarInterface.WidgetArrtibute.logout);
+				logger.info(className, function, "logout[{}]", UIPanelAccessBarInterface.WidgetArrtibute.logout);
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(0);
@@ -198,7 +198,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				taskLaunch.setUiPanel("UIDialogMsg");
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
-				logger.error(className, function, "dss[{}]", UIPanelAccessBarInterface.WidgetArrtibute.dss);
+				logger.info(className, function, "dss[{}]", UIPanelAccessBarInterface.WidgetArrtibute.dss);
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -208,14 +208,14 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.previous.equalsName(element) ) {
 				
-				logger.error(className, function, "previous[{}]", UIPanelAccessBarInterface.WidgetArrtibute.previous);
+				logger.info(className, function, "previous[{}]", UIPanelAccessBarInterface.WidgetArrtibute.previous);
 				
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.error(className, function, "strPreviousDisable");
+					logger.info(className, function, "strPreviousDisable");
 				} else {
-					logger.error(className, function, "strPrevious");
+					logger.info(className, function, "strPrevious");
 					
 					UITaskHistory taskHistory = new UITaskHistory();
 					taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -226,14 +226,14 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.next.equalsName(element) ) {
 				
-				logger.error(className, function, "next["+UIPanelAccessBarInterface.WidgetArrtibute.next+"]");
+				logger.warn(className, function, "next["+UIPanelAccessBarInterface.WidgetArrtibute.next+"]");
 				
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.error(className, function, "strNextDisable");
+					logger.info(className, function, "strNextDisable");
 				} else {
-					logger.error(className, function, "strNext");
+					logger.info(className, function, "strNext");
 			
 					UITaskHistory taskHistory = new UITaskHistory();
 					taskHistory.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -246,9 +246,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.error(className, function, "strSplitHDisable");
+					logger.info(className, function, "strSplitHDisable");
 				} else {
-					logger.error(className, function, "strSplitH");
+					logger.info(className, function, "strSplitH");
 					
 					UITaskSplit taskSplit = new UITaskSplit();
 					taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -261,9 +261,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 				WidgetStatus status = uiWidgetAccessBarButton.getWidgetStatus(element);
 				
 				if ( WidgetStatus.Disable == status ) {
-					logger.error(className, function, "strSplitVDisable");
+					logger.info(className, function, "strSplitVDisable");
 				} else {
-					logger.error(className, function, "strSplitV");
+					logger.info(className, function, "strSplitV");
 					
 					UITaskSplit taskSplit = new UITaskSplit();
 					taskSplit.setTaskUiScreen(this.uiNameCard.getUiScreen());
@@ -272,13 +272,13 @@ public class UIPanelAccessBar extends UIWidget_i {
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.stationoperation.equalsName(element)  ) {
-				logger.error(className, function, "strStationOperation");
+				logger.info(className, function, "strStationOperation");
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
-				logger.error(className, function, "strDss");
+				logger.info(className, function, "strDss");
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.print.equalsName(element) ) {
-				logger.error(className, function, "strPrint");
+				logger.info(className, function, "strPrint");
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.help.equalsName(element) ) {
-				logger.error(className, function, "strHelp");
+				logger.info(className, function, "strHelp");
 			}
 		}
 	}

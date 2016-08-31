@@ -41,7 +41,7 @@ public class UIPanelNavigation extends UIWidget_i {
 		logger.info(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiPanelMenus[{}] hash code", uiNameCard.getUiScreen(), uiPanelMenus);
 			
 		if ( null == uiPanelMenus ) {
-			logger.error(className, function, "getMenu uiPanelMenus[{}] IS NULL", uiPanelMenus);
+			logger.warn(className, function, "getMenu uiPanelMenus[{}] IS NULL", uiPanelMenus);
 		}
 
 		logger.end(className, function);

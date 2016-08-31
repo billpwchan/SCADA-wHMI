@@ -71,7 +71,7 @@ public class Database {
 	
 	private void printCachesStatic(String logPrefix) {
 		final String function = "printCachesStatic";
-		logger.info(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
+		logger.debug(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
 	}
 	
 	/**
@@ -83,29 +83,30 @@ public class Database {
 	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String [] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addStaticRequest";
-		printCachesStatic("Before");
+		logger.begin(className, function);
 		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}]", new Object[]{api, clientKey, scsEnvId});
+		printCachesStatic("Before");		
 		if ( logger.isDebugEnabled() ) {
 			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 		}
-		if ( KeyAndValues.containsKey(clientKey) ) {
-			logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
-			String [] values = KeyAndValues.get(clientKey);
-			if ( null != databaseEvent ) {
+		if ( null != databaseEvent ) {
+			if ( KeyAndValues.containsKey(clientKey) ) {
+				logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
+				String [] values = KeyAndValues.get(clientKey);
 				databaseEvent.update(clientKey, values);
 			} else {
-				logger.warn(className, function, "databaseEvent IS NULL");
-			}
+				logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
+				requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
+				KeyAndAddress.put(clientKey, dbaddresses);
+				databaseEvents.put(clientKey, databaseEvent);
+			}			
 		} else {
-			logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
-			
-			requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
-			KeyAndAddress.put(clientKey, dbaddresses);
-			databaseEvents.put(clientKey, databaseEvent);
-		}
+			logger.warn(className, function, "databaseEvent IS NULL");
+		}		
 		printCachesStatic("After");
+		logger.end(className, function);
 	}
 	
 	/**
@@ -117,24 +118,25 @@ public class Database {
 	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addStaticRequest";
+		logger.begin(dbaddresses, function);
 		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}] dbaddresses[{}]", new Object[]{api, clientKey, scsEnvId, dbaddresses});
 		printCachesStatic("Before");
-		if ( KeyAndValues.containsKey(clientKey) ) {
-			logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
-			String [] values = KeyAndValues.get(clientKey);
-			if ( null != databaseEvent ) {
+		if ( null != databaseEvent ) {
+			if ( KeyAndValues.containsKey(clientKey) ) {
+				logger.info(className, function, "clientKey[{}] found in caches, return the value in caches", clientKey);
+				String [] values = KeyAndValues.get(clientKey);
 				databaseEvent.update(clientKey, values);
 			} else {
-				logger.warn(className, function, "databaseEvent IS NULL");
+				logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
+				requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
+				KeyAndAddress.put(clientKey, new String[]{dbaddresses});
+				databaseEvents.put(clientKey, databaseEvent);
 			}
 		} else {
-			logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
-			
-			requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
-			KeyAndAddress.put(clientKey, new String[]{dbaddresses});
-			databaseEvents.put(clientKey, databaseEvent);
+			logger.warn(className, function, "databaseEvent IS NULL");
 		}
 		printCachesStatic("After");
+		logger.end(dbaddresses, function);
 	}
 	
 	/**
@@ -143,9 +145,18 @@ public class Database {
 	 * @param databaseEvent : Callback for result
 	 */
 	public void addDynamicRequest(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
-		requestDynamics.put(clientKey, dbaddresses);
-		KeyAndAddress.put(clientKey, dbaddresses);
-		databaseEvents.put(clientKey, databaseEvent);
+		final String function = "addDynamicRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
+		if ( null != databaseEvent) {
+			logger.info(className, function, "send request to database", clientKey);
+			requestDynamics.put(clientKey, dbaddresses);
+			KeyAndAddress.put(clientKey, dbaddresses);
+			databaseEvents.put(clientKey, databaseEvent);
+		} else {
+			logger.warn(className, function, "databaseEvent IS NULL");
+		}
+		logger.end(className, function);
 	}
 	
 	/**

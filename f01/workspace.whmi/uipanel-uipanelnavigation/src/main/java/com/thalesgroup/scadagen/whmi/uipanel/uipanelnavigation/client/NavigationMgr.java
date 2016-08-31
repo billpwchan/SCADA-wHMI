@@ -86,7 +86,7 @@ public class NavigationMgr implements TaskMgrEvent {
 			}
 			
 		} else {
-			logger.error(className, function, "this.taskLaunchs is null");
+			logger.warn(className, function, "this.taskLaunchs is null");
 		}
 		
 		logger.end(className, function);

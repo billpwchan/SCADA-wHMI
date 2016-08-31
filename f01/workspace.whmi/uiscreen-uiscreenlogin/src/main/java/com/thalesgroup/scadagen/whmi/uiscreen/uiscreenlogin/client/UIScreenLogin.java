@@ -61,7 +61,7 @@ public class UIScreenLogin extends UIWidget_i {
 					listbox.addItem(profile);
 					listbox.setSelectedIndex(0);
 				} else {
-					logger.error(className, function, "element[{}] IS NULL", profile);
+					logger.warn(className, function, "element[{}] IS NULL", profile);
 				}
 			}
 		}
@@ -101,9 +101,8 @@ public class UIScreenLogin extends UIWidget_i {
 				}
 			});
 			
-			
 		} else {
-			logger.error(className, function, "uiPanelGeneric.get(strUIPanelLoginInfo) IS NULL");
+			logger.warn(className, function, "uiPanelGenericInfo IS NULL");
 		}
 	
 		if ( null != uiPanelGenericButton ) {
@@ -123,11 +122,11 @@ public class UIScreenLogin extends UIWidget_i {
 							PasswordTextBox txtpwdPassword = (PasswordTextBox)uiPanelGenericInfo.getWidget(Attribute.password.toString());
 							
 							if ( null == txtOperator ) {
-								logger.error(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.name.toString());
+								logger.warn(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.name.toString());
 							} else if ( null == lstProfile ) {
-								logger.error(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.profile.toString());
+								logger.warn(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.profile.toString());
 							} else if ( null == txtpwdPassword) {
-								logger.error(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.password.toString());
+								logger.warn(className, function, "setUIPanelGenericEvent onClickHandler widget element[{}] IS NULL", Attribute.password.toString());
 							} else {
 								String operator		= txtOperator.getText();
 								String profile		= lstProfile.getValue(lstProfile.getSelectedIndex());
@@ -137,17 +136,16 @@ public class UIScreenLogin extends UIWidget_i {
 							}
 						} 						
 					} else {
-						logger.error(className, function, "button IS NULL");
+						logger.warn(className, function, "button IS NULL");
 					}
 				}
 			});
 			
 		} else {
-			logger.error(className, function, "uiPanelGeneric.get(strUIPanelLoginButton) IS NULL");
+			logger.warn(className, function, "uiPanelGenericButton IS NULL");
 		}
 
 		logger.end(className, function);
-		
 	}
 	
 	private void verify(String element, String operator, String profile, String password) {
@@ -220,6 +218,4 @@ public class UIScreenLogin extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
-	
-	
 }

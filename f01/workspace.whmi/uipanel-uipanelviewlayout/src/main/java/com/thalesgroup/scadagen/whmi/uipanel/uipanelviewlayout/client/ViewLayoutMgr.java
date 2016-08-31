@@ -476,53 +476,42 @@ public class ViewLayoutMgr {
 		logger.begin(className, function);
 		
 		if ( null != uiNameCard ) {
-			logger.error(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
+			logger.info(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
+			if ( null == uiNameCard.getUiPath() ) {
+				logger.warn(className, function, "uiNameCard.getUiPath()[{}] IS NULL", uiNameCard.getUiPath());
+			}			
 		} else {
-			logger.error(className, function, "uiNameCard IS NULL");
-		}
-		
-		if ( null == uiNameCard.getUiPath() ) {
-			logger.error(className, function, "uiNameCard.getUiPath()[{}] IS NULL", uiNameCard.getUiPath());
+			logger.warn(className, function, "uiNameCard IS NULL");
 		}
 		
 		if ( null != uiEvent ) {
-			logger.error(className, function, "uiEvent.getTaskProvide().getTaskUiScreen()[{}]", uiEvent.getTaskProvide().getTaskUiScreen());
-		} else {
-			logger.error(className, function, "uiEvent IS NULL");
-		}
+			logger.info(className, function, "uiEvent.getTaskProvide().getTaskUiScreen()[{}]", uiEvent.getTaskProvide().getTaskUiScreen());
+			UITask_i uiTask = uiEvent.getTaskProvide();
+			if ( null != uiTask ) {
+					if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
+							&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
+						if ( uiTask instanceof UITaskLaunch ) {
 
-		if ( null == uiEvent.getTaskProvide().getUiPath() ) {
-			logger.error(className, function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );
-		}
-		
-		if (null != uiEvent) {
+							logger.info(className, function, "taskProvide is TaskLaunch");
 
-			UITask_i taskProvide = uiEvent.getTaskProvide();
-			if (null != taskProvide) {
-				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
-						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
+							setTaskLaunch((UITaskLaunch) uiTask, true);
+						} else if ( uiTask instanceof UITaskHistory ) {
 
-					if ( taskProvide instanceof UITaskLaunch ) {
+							logger.info(className, function, "taskProvide is TaskHistory");
 
-						logger.info(className, function, "taskProvide is TaskLaunch");
-
-						setTaskLaunch((UITaskLaunch) taskProvide, true);
-
-					} else if ( taskProvide instanceof UITaskHistory ) {
-
-						logger.info(className, function, "taskProvide is TaskHistory");
-
-						setTaskHistory((UITaskHistory) taskProvide);
-					} else if ( taskProvide instanceof UITaskSplit ) {
-						
-						logger.info(className, function, "taskProvide is UITaskSplit");
-						
-						setSplitScreen((UITaskSplit) taskProvide);
-						
+							setTaskHistory((UITaskHistory) uiTask);
+						} else if ( uiTask instanceof UITaskSplit ) {
+							
+							logger.info(className, function, "taskProvide is UITaskSplit");
+							
+							setSplitScreen((UITaskSplit) uiTask);
+						}
 					}
-
-				}
+			} else {
+				logger.warn(className, function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );
 			}
+		} else {
+			logger.warn(className, function, "uiEvent IS NULL");
 		}
 
 		logger.end(className, function);

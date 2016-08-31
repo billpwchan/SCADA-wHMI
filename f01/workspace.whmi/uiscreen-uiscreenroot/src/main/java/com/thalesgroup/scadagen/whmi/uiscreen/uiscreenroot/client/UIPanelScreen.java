@@ -128,7 +128,7 @@ public class UIPanelScreen extends UIWidget_i {
 							try {
 								intNumOfScreen = Integer.parseInt(strNumOfScreen);
 							} catch (NumberFormatException e) {
-								logger.error(className, function, "onUIEvent Number format exception!");
+								logger.warn(className, function, "onUIEvent Number format exception!");
 							}
 							if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) ) {
 								intNumOfScreen=1;
@@ -153,17 +153,14 @@ public class UIPanelScreen extends UIWidget_i {
 						}
 					
 					} else {
-						logger.error(className, function, "UITaskMgr.isInstanceOf(UITaskLaunch.class, taskProvide) IS NOT");
+						logger.warn(className, function, "taskProvide IS UNKNOW");
 					}
-				
-				} else {
-					logger.error(className, function, "UIScreen and UIPath IS NOT EQUAL");
 				}
 			} else {
-				logger.error(className, function, "taskProvide IS NULL");
+				logger.warn(className, function, "taskProvide IS NULL");
 			}
 		} else {
-			logger.error(className, function, "uiEvent IS NULL");
+			logger.warn(className, function, "uiEvent IS NULL");
 		}
 		logger.end(className, function);
 

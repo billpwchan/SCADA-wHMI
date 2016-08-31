@@ -3,9 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,15 +21,16 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
 public class UIInspectorInfo implements UIInspectorPage_i {
 	
-	private final Logger logger = Logger.getLogger(UIInspectorInfo.class.getName());
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName());
-	private final String logPrefix = "["+className+"] ";
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String tagname			= "info";
 	
@@ -57,19 +55,22 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
-		this.parent = parent;
+		final String function = "setParent";
 		this.scsEnvId = scsEnvId;
-		logger.log(Level.FINE, logPrefix+"setConnection this.parent["+this.parent+"]");
-		logger.log(Level.FINE, logPrefix+"setConnection this.scsEnvId["+this.scsEnvId+"]");
+		this.parent = parent;
+		logger.info(className, function, "this.scsEnvId[{}]", this.scsEnvId);
+		logger.info(className, function, "this.parent[{}]", this.parent);
 	}
 	
 	@Override
 	public void setAddresses(String[] addresses) {
-		logger.log(Level.FINE, logPrefix+"setAddresses Begin");
+		final String function = "setAddresses";
+		
+		logger.begin(className, function);
 		
 		this.addresses = addresses;
 		
-		logger.log(Level.FINE, logPrefix+"setAddresses End");
+		logger.end(className, function);
 	}
 	
 	@Override
@@ -79,11 +80,13 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 
 	@Override
 	public void connect() {
-		logger.log(Level.FINE, logPrefix+"connect Begin");
+		final String function = "connect";
+		
+		logger.begin(className, function);
 
 		// Read static
 		{
-			logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
+			logger.begin(className, function);
 			
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 
@@ -107,16 +110,16 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
 						} else {
-							logger.log(Level.SEVERE, logPrefix+"connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
+							logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
 						}
 					}
 				}
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}			
 			
-			logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 
 			Database database = Database.getInstance();
@@ -141,12 +144,12 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				}
 			});
 			
-			logger.log(Level.FINE, logPrefix+"multiReadValue End");
+			logger.end(className, function);
 		}
 		
 		// Read dynamic
 		{
-			logger.log(Level.FINE, logPrefix+"multiReadValue Begin");
+			logger.begin(className, function);
 			
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
 
@@ -156,12 +159,11 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				for ( String dbaddress : this.addresses ) {
 					String point = RTDB_Helper.getPoint(dbaddress);
 					if ( null != point ) {
-						
 						PointType pointType = RTDB_Helper.getPointType(point);
 						if ( pointType == PointType.dci ) {
 							for ( String attribute : dynamicDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
-							}							
+							}
 						} else if ( pointType == PointType.aci ) {
 							for ( String attribute : dynamicAciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
@@ -171,18 +173,18 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 								dbaddressesArrayList.add(dbaddress+attribute);
 							}
 						} else {
-							logger.log(Level.SEVERE, logPrefix+"connectInspector"+tagname+" dbaddress IS UNKNOW TYPE");
+							logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
 						}
 					} else {
-						logger.log(Level.SEVERE, logPrefix+"connectInspector"+tagname+" point IS NULL");
+						logger.warn(className, function, "point IS NULL");
 					}
 				}
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 			
-			logger.log(Level.FINE, logPrefix+"multiReadValue key["+clientKey+"] scsEnvId["+scsEnvId+"]");
+			logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.log(Level.FINE, logPrefix+"multiReadValue dbaddresses("+i+")["+dbaddresses[i]+"]");
+				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 			
 			Database database = Database.getInstance();
@@ -196,22 +198,22 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				
 			});
 		
-			logger.log(Level.FINE, logPrefix+"multiReadValue End");
+			logger.begin(className, function);
 		}
 		
-		logger.log(Level.FINE, logPrefix+"connect End");
+		logger.end(className, function);
 	}
 	
 	@Override
 	public void disconnect() {
-		logger.log(Level.FINE, logPrefix+"disconnect Begin");
-		
-		logger.log(Level.FINE, logPrefix+"disconnect End");
+		final String function = "disconnect";
+		logger.beginEnd(className, function);
 	}
 	
 	private void updatePager() {
+		final String function = "updatePager";
 		
-		logger.log(Level.FINE, logPrefix+"updatePager Begin");
+		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
 				
@@ -225,12 +227,13 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			btnDown.setVisible(false);
 		}
 		
-		logger.log(Level.FINE, logPrefix+"updatePager End");
+		logger.end(className, function);
 	}
 	
 	private void onButton(Button btn) {
+		final String function = "onButton";
 		
-		logger.log(Level.FINE, logPrefix+"onButton Begin");
+		logger.begin(className, function);
 		
 		if (  btn == btnUp || btn == btnDown ) {
 			if ( btn == btnUp) {
@@ -242,26 +245,28 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			updateValue(true);
 		}
 		
-		logger.log(Level.FINE, logPrefix+"onButton End");
+		logger.begin(className, function);
 	}
 	
 	@Override
 	public void buildWidgets() {
+		final String function = "buildWidgets";
 		
-		logger.log(Level.FINE, logPrefix+"buildWidgets Begin");
+		logger.begin(className, function);
 		
 		buildWidgets(this.addresses.length);
 	
-		logger.log(Level.FINE, logPrefix+"buildWidgets End");
+		logger.end(className, function);
 	}
 	
 	private int pageIndex = 0;
 	private PageCounter pageCounter = null;
 	void buildWidgets(int numOfWidgets) {
+		final String function = "buildWidgets";
 		
-		logger.log(Level.FINE, logPrefix+"buildWidgets Begin");
+		logger.begin(className, function);
 		
-		logger.log(Level.FINE, logPrefix+"buildWidgets numOfWidgets["+numOfWidgets+"]");
+		logger.info(className, function, "numOfWidgets[{}]", numOfWidgets);
 		
 		if ( null != vpCtrls ) {
 			
@@ -284,7 +289,7 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				flexTableAttibutes.setWidth("100%");
 				for( int i = 0 ; i < numOfWidgetShow ; ++i ) {
 					
-					logger.log(Level.FINE, logPrefix+"buildWidgets i["+i+"]");
+					logger.info(className, function, "i[{}]", i);
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
@@ -309,25 +314,26 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspectorstatus-col");
 
 			} else {
-				logger.log(Level.FINE, logPrefix+"buildWidgets this.pointStatics IS NULL");
+				logger.info(className, function, "this.pointStatics IS NULL");
 			}
 			
 			vpCtrls.add(flexTableAttibutes);
 			
 		} else {
-			logger.log(Level.FINE, logPrefix+"buildWidgets points IS NULL");
+			logger.info(className, function, "points IS NULL");
 		}
 		
-		logger.log(Level.FINE, logPrefix+"buildWidgets End");
+		logger.end(className, function);
 	}
 	
 	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
 	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
 	private HashMap<String, String> dbvalues = new HashMap<String, String>();
 	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
+		final String function = "updateValue";
 
-		logger.log(Level.FINE, logPrefix+"updateValue Begin");
-		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
+		logger.begin(className, function);
+		logger.debug(className, function, "clientkey[{}]", clientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -347,12 +353,13 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			
 		}
 
-		logger.log(Level.FINE, logPrefix+"updateValue End");
+		logger.end(className, function);
 	}
 	
 	private void updateValue(boolean withStatic) {
+		final String function = "updateValue";
 		
-		logger.log(Level.FINE, logPrefix+"updateValue Begin");
+		logger.begin(className, function);
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
@@ -371,23 +378,24 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			
 		}// End of keyAndValuesDynamic
 		
-		logger.log(Level.FINE, logPrefix+"updateValue End");
+		logger.end(className, function);
 	}
 	
 	private void updateValueStatic(String clientKey, HashMap<String, String> keyAndValue) {
-		logger.log(Level.FINE, logPrefix+"updateValueStatic Begin");
+		final String function = "updateValueStatic";
+		
+		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
 		
 		int rowBegin	= pageCounter.pageRowBegin;
 		int rowEnd		= pageCounter.pageRowEnd;
 
-		logger.log(Level.FINE, logPrefix+"updateValue Begin");
-		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
+		logger.info(className, function, "clientkey[{}]", clientKey);
 		
 		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		
-		logger.log(Level.FINE, logPrefix+"updateValue clientKeyStatic["+clientKeyStatic+"]");
+		logger.info(className, function, "clientKeyStatic[{}]", clientKeyStatic);
 		
 		if ( clientKeyStatic.equals(clientKey) ) {
 			
@@ -402,25 +410,25 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 			}
 		}
 		
-		logger.log(Level.FINE, logPrefix+"updateValueStatic End");
+		logger.end(className, function);
 	}
 	
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
+		final String function = "updateValueDynamic";
 		
-		logger.log(Level.FINE, logPrefix+"updateValueDynamic Begin");
+		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
 		
 		int rowBegin	= pageCounter.pageRowBegin;
 		int rowEnd		= pageCounter.pageRowEnd;
 
-		logger.log(Level.FINE, logPrefix+"updateValue Begin");
-		logger.log(Level.FINE, logPrefix+"updateValue clientkey["+clientKey+"]");
+		logger.debug(className, function, "clientkey[{}]", clientKey);
 		
 		for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
 			String address = this.addresses[x];
 			
-			logger.log(Level.FINE, logPrefix+"updateValue address["+address+"]");
+			logger.debug(className, function, "address[{}]", address);
 			
 			String point = RTDB_Helper.getPoint(address);
 			PointType pointType = RTDB_Helper.getPointType(point);
@@ -435,54 +443,58 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 
 		}
 
-		logger.log(Level.FINE, logPrefix+"updateValueDynamic End");
+		logger.end(className, function);
 	}
 	
 	private void updateDci(String address, int row) {
+		final String function = "updateDci";
+		
+		logger.begin(className, function);
+		
 		String value = null;
 		{
 			String dbaddress = address + PointName.value.toString();
-			logger.log(Level.FINE, logPrefix+"updateDci PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			logger.debug(className, function, "PointName.value.toString()[{}] dbaddress[{}]", PointName.value.toString(), dbaddress);
 			if ( dbvalues.containsKey(dbaddress) ) {
 				value = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"updateDci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 			}
 		}		
 		
-		logger.log(Level.FINE, logPrefix+"updateDci value["+value+"]");
+		logger.debug(className, function, "value[{}]", value);
 		
 		String valueTable = null;
 		{
 			String dbaddress = address + PointName.dalValueTable.toString();
-			logger.log(Level.FINE, logPrefix+"updateDci PointName.value.toString()Table["+PointName.dalValueTable.toString()+"] dbaddress["+dbaddress+"]");
+			logger.debug(className, function, "PointName.value.toString()Table[{}] dbaddress[{}]", PointName.dalValueTable.toString(), dbaddress);
 			if ( dbvalues.containsKey(dbaddress) ) {
 				valueTable = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 			}					
 		}
 		
-		logger.log(Level.FINE, logPrefix+"updateDci valueTable["+valueTable+"]");
+		logger.debug(className, function, "valueTable[{}]", valueTable);
 		
 		String label = null;
 		{
 			int valueCol = 0, labelCol = 1;
 			
-			logger.log(Level.FINE, logPrefix+"updateDci valueCol["+valueCol+"] nameCol["+labelCol+"]");
+			logger.debug(className, function, "valueCol[{}] nameCol[{}]", valueCol, labelCol);
 			
 			for( int r = 0 ; r < 12 ; ++r ) {
 				String v = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-				logger.log(Level.FINE, logPrefix+"updateDci getvalue r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+				logger.debug(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
 				if ( 0 == v.compareTo(value) ) {
-					logger.log(Level.FINE, logPrefix+"updateDci getname r["+r+"] v["+v+"] == valueTable[i]["+valueTable+"]");
+					logger.debug(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
 					label = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
 					break;
 				}
 			}
 		}
 		
-		logger.log(Level.FINE, logPrefix+"updateDci name["+label+"]");
+		logger.debug(className, function, "name[{}]", label);
 		
 		if ( null != label ) {
 			label = RTDB_Helper.removeDBStringWrapper(label);
@@ -498,63 +510,70 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		{
 			{
 				String dbaddress = address + PointName.dalValueAlarmVector.toString();
-				logger.log(Level.FINE, logPrefix+"updateDci PointName.value.toString() dalValueAlarmVector["+PointName.dalValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "PointName.value.toString() dalValueAlarmVector[{}] dbaddress[{}]", PointName.dalValueAlarmVector.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					valueAlarmVector = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateDci row["+row+"] valueAlarmVector["+valueAlarmVector+"] address["+address+"] PointName.dalValueTable.toString()["+PointName.dalValueTable.toString()+"]");
+			logger.debug(className, function, "row[{}] valueAlarmVector[{}] address[{}] PointName.dalValueTable.toString()[{}]"
+					, new Object[]{row, valueAlarmVector, address, PointName.dalValueTable.toString()});
 			
-			logger.log(Level.FINE, logPrefix+"updateDci valueAlarmVector["+valueAlarmVector+"]");
+			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
 			
 			{
 				String dbaddress = address + PointName.validity.toString();
-				logger.log(Level.FINE, logPrefix+"updateValue PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "PointName.validity.toString()[{}] dbaddress[{}]", PointName.validity.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					validity = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateValue dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateDci validity["+validity+"]");
+			logger.debug(className, function, "validity[{}]", validity);
 			
 			{
 				String dbaddress = address + PointName.dfoForcedStatus.toString();
-				logger.log(Level.FINE, logPrefix+"updateDci strForcedStatus["+PointName.dfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "strForcedStatus[{}] dbaddress[{}]", PointName.dfoForcedStatus.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					forcedStatus = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateDci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateDci forcedStatus["+forcedStatus+"]");
+			logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
 
 		}
 		
 		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.log(Level.FINE, logPrefix+"updateDci strColorCSS["+strColorCSS+"]");
+		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
+		
+		logger.end(className, function);
 	}
 
 	private void updateAci(String address, int row) {
+		final String function = "updateAci";
+		
+		logger.begin(className, function);
+		
 		String value = null;
 		{
 			String dbaddress = address + PointName.value.toString();
-			logger.log(Level.FINE, logPrefix+"updateAci PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			logger.debug(className, function, "PointName.value.toString()[{}] dbaddress[{}]", PointName.value.toString(), dbaddress);
 			if ( dbvalues.containsKey(dbaddress) ) {
 				value = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 			}
 		}		
 		
-		logger.log(Level.FINE, logPrefix+"updateAci value["+value+"]");
+		logger.debug(className, function, "value[{}]", value);
 		
 		value = RTDB_Helper.removeDBStringWrapper(value);
 		txtAttributeValue[row].setText(value);	
@@ -565,64 +584,70 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		{
 			{
 				String dbaddress = address + PointName.aalValueAlarmVector.toString();
-				logger.log(Level.FINE, logPrefix+"updateAci PointName.value.toString()AlarmVector["+PointName.aalValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "PointName.value.toString()AlarmVector[{}] dbaddress[{}]", PointName.aalValueAlarmVector.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					valueAlarmVector = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateAci valueAlarmVector["+valueAlarmVector+"]");
+			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
 			
 			{
 				String dbaddress = address + PointName.validity.toString();
-				logger.log(Level.FINE, logPrefix+"updateAci PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
+				logger.info(className, function, "PointName.validity.toString()[{}] dbaddress[{}]", PointName.validity.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					validity = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateAci validity["+validity+"]");
+			logger.debug(className, function, "validity[{}]", validity);
 			
 			{
 				String dbaddress = address + PointName.afoForcedStatus.toString();
-				logger.log(Level.FINE, logPrefix+"updateAci strForcedStatus["+PointName.afoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				logger.info(className, function, "strForcedStatus[{}] dbaddress[{}]", PointName.afoForcedStatus.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					forcedStatus = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateAci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.info(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateAci forcedStatus["+forcedStatus+"]");
+			logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
 
 		}
 		
 		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.log(Level.FINE, logPrefix+"updateAci strColorCSS["+strColorCSS+"]");
+		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
+		
+		logger.end(className, function);
 	}
 	
 	void updateSci(String address, int row) {
+		final String function = "updateSci";
+		
+		logger.begin(className, function);
+		
 		String value = null;
 		{
 			String dbaddress = address + PointName.value.toString();
-			logger.log(Level.FINE, logPrefix+"updateSci PointName.value.toString()["+PointName.value.toString()+"] dbaddress["+dbaddress+"]");
+			logger.debug(className, function, "PointName.value.toString()[{}] dbaddress[{}]", PointName.value.toString(), dbaddress);
 			if ( dbvalues.containsKey(dbaddress) ) {
 				value = dbvalues.get(dbaddress);
 			} else {
-				logger.log(Level.SEVERE, logPrefix+"updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 			}
 		}		
 		
-		logger.log(Level.FINE, logPrefix+"updateSci value["+value+"]");
+		logger.debug(className, function, "value[{}]", value);
 		
 		value = RTDB_Helper.removeDBStringWrapper(value);
-		txtAttributeValue[row].setText(value);	
+		txtAttributeValue[row].setText(value);
 
 		String valueAlarmVector = null;
 		String validity = null;
@@ -630,46 +655,48 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		{
 			{
 				String dbaddress = address + PointName.salValueAlarmVector.toString();
-				logger.log(Level.FINE, logPrefix+"updateSci PointName.value.toString()AlarmVector["+PointName.salValueAlarmVector.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "PointName.value.toString()AlarmVector[{}] dbaddress[{}]", PointName.salValueAlarmVector.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					valueAlarmVector = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateSci valueAlarmVector["+valueAlarmVector+"]");
+			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
 			
 			{
 				String dbaddress = address + PointName.validity.toString();
-				logger.log(Level.FINE, logPrefix+"updateSci PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
 				if ( dbvalues.containsKey(dbaddress) ) {
 					validity = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateSci validity["+validity+"]");
+			logger.debug(className, function, "validity[{}]", validity);
 			
 			{
 				String dbaddress = address + PointName.sfoForcedStatus.toString();
-				logger.log(Level.FINE, logPrefix+"updateSci strForcedStatus["+PointName.sfoForcedStatus.toString()+"] dbaddress["+dbaddress+"]");
+				logger.debug(className, function, "strForcedStatus[{}] dbaddress[{}]", PointName.sfoForcedStatus.toString(), dbaddress);
 				if ( dbvalues.containsKey(dbaddress) ) {
 					forcedStatus = dbvalues.get(dbaddress);
 				} else {
-					logger.log(Level.SEVERE, logPrefix+"updateSci dbaddress["+dbaddress+"] VALUE NOT EXISTS!");
+					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!",  dbaddress);
 				}
 			}
 			
-			logger.log(Level.FINE, logPrefix+"updateSci forcedStatus["+forcedStatus+"]");
+			logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
 
 		}
 		
 		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.log(Level.FINE, logPrefix+"updateSci strColorCSS["+strColorCSS+"]");
+		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
+		
+		logger.end(className, function);
 	}
 	
 	FlexTable flexTableAttibutes = null;
@@ -693,11 +720,9 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 	private DockLayoutPanel basePanel = null;
 	@Override
 	public void init(String xml) {
+		final String function = "init";
 		
-		logger.log(Level.FINE, logPrefix+"init Begin");
-		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
+		logger.begin(className, function);
 		
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
@@ -768,7 +793,7 @@ public class UIInspectorInfo implements UIInspectorPage_i {
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 		
-		logger.log(Level.FINE, logPrefix+"init End");
+		logger.begin(className, function);
 	}
 	
 

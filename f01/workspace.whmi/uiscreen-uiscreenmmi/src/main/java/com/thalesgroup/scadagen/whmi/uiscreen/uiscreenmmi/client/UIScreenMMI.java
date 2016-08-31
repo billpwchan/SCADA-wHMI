@@ -145,7 +145,7 @@ public class UIScreenMMI extends UIWidget_i {
 						uiWidget_i.init();
 					}
 				} else {
-					logger.error(className, function, "getUIWidget widget IS NULL");
+					logger.warn(className, function, "getUIWidget widget IS NULL");
 				}
 				
 				logger.info(className, function, "getUIWidget uiWIdget[{}]", uiWidget_i);
@@ -246,7 +246,7 @@ public class UIScreenMMI extends UIWidget_i {
 								if ( obj instanceof String ) {
 									period		= (String)obj;
 								} else {
-									logger.error(className, function, "period IS NOT A STRING");
+									logger.warn(className, function, "period IS NOT A STRING");
 								}
 							}
 

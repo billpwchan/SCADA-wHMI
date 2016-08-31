@@ -29,7 +29,7 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 			this.uiNameCard = new UINameCard(uiNameCard);
 			this.uiNameCard.appendUIPanel(this);
 		} else {
-			logger.info(className, "setUINameCard", "uiNameCard IS NULL");
+			logger.warn(className, "setUINameCard", "uiNameCard IS NULL");
 		}
 	}
 	

@@ -41,7 +41,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		final String function = "init";
 		
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 
 		handlerRegistrations.add(
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -73,7 +73,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 		// Schedule the timer to run once every second, 250 ms.
 		t.scheduleRepeating(250);
 		
-		logger.info(className, function, "End");
+		logger.end(className, function);
 		
 	}
 
@@ -81,51 +81,56 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		final String function = "onUIEvent";
 
-		logger.info(className, function, "Begin");
+		logger.begin(className, function);
 
-		UITask_i taskProvide = null;
+		if ( null != uiEvent ) {
+			
+			UITask_i taskProvide = uiEvent.getTaskProvide();
+			
+			if (null != taskProvide) {
 
-		taskProvide = uiEvent.getTaskProvide();
+				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
+						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
 
-		if (null != taskProvide) {
+					logger.info(className, function, "UIScreen is match and UIPath is match");
 
-			if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
-					&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
+					if ( taskProvide instanceof UITaskTitle ) {
 
-				logger.info(className, function, "UIScreen is match and UIPath is match");
+						logger.info(className, function, "TaskTitle is match");
 
-				if ( taskProvide instanceof UITaskTitle ) {
+						UITaskTitle taskTitle = (UITaskTitle) taskProvide;
+						String strTitle = taskTitle.getTitle();
 
-					logger.info(className, function, "TaskTitle is match");
+						logger.info(className, function, "strTitle[{}]", strTitle);
+						if (null != strTitle)		this.strTitle = strTitle;
+						
+						uiPanelGenericTitle.setValue("title", this.strTitle);
+						
+					} else if ( taskProvide instanceof UITaskProfile ) {
 
-					UITaskTitle taskTitle = (UITaskTitle) taskProvide;
-					String strTitle = taskTitle.getTitle();
+						logger.info(className, function, "TaskTitle is match");
 
-					logger.info(className, function, "strTitle[{}]", strTitle);
-					if (null != strTitle)		this.strTitle = strTitle;
-					
-					uiPanelGenericTitle.setValue("title", this.strTitle);
-					
-				} else if ( taskProvide instanceof UITaskProfile ) {
+						UITaskProfile taskOperator = (UITaskProfile) taskProvide;
+						String strOperator = taskOperator.getOperator();
+						String strProfile = taskOperator.getProfile();
 
-					logger.info(className, function, "TaskTitle is match");
+						logger.info(className, function, "strTitle[{}]", strProfile);
+						if (null != strOperator)	this.strOperator = strOperator; 
+						if (null != strProfile) 	this.strProfile = strProfile;
 
-					UITaskProfile taskOperator = (UITaskProfile) taskProvide;
-					String strOperator = taskOperator.getOperator();
-					String strProfile = taskOperator.getProfile();
-
-					logger.info(className, function, "strTitle[{}]", strProfile);
-					if (null != strOperator)	this.strOperator = strOperator; 
-					if (null != strProfile) 	this.strProfile = strProfile;
-
-					uiPanelGenericOperator.setValue("operator", this.strOperator);
-					uiPanelGenericOperator.setValue("profile", this.strProfile);
-					
+						uiPanelGenericOperator.setValue("operator", this.strOperator);
+						uiPanelGenericOperator.setValue("profile", this.strProfile);
+						
+					}
 				}
+			} else {
+				logger.warn(className, function, "taskProvide IS NULL");
 			}
+		} else {
+			logger.warn(className, function, "uiEvent IS NULL");
 		}
 
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 
 }

@@ -86,10 +86,10 @@ public class UIWidgetPrint extends UIWidget_i {
 //		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
 //		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
 //		
-//		logger.error(className, function, "onActionReceived op["+op+"]");
-//		logger.error(className, function, "onActionReceived od1["+od1+"]");
-//		logger.error(className, function, "onActionReceived od2["+od2+"]");
-//		logger.error(className, function, "onActionReceived od3["+od3+"]");
+//		logger.info(className, function, "onActionReceived op["+op+"]");
+//		logger.info(className, function, "onActionReceived od1["+od1+"]");
+//		logger.info(className, function, "onActionReceived od2["+od2+"]");
+//		logger.info(className, function, "onActionReceived od3["+od3+"]");
 //		
 //		if ( null != op ) {
 //			
@@ -105,7 +105,7 @@ public class UIWidgetPrint extends UIWidget_i {
 //				statusClear		= WidgetStatus.Disable;
 //				
 //			} else {
-//				logger.error(className, function, "onActionReceived ViewerViewEvent type IS UNKNOW");
+//				logger.warn(className, function, "onActionReceived ViewerViewEvent type IS UNKNOW");
 //			}
 //
 //			if ( null != widgetClear && null != statusClear ) 	uiWidgetGeneric.setWidgetStatus(strClear, statusClear);

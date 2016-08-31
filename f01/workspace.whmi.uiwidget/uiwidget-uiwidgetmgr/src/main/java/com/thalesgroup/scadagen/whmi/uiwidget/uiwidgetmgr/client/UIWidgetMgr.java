@@ -41,7 +41,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 			
 			if ( null != uiWidgetMgrFactory ) {
 			
-				logger.warn(className, function, "uiWidgetMgrFactory");
+				logger.info(className, function, "uiWidgetMgrFactory");
 			
 				uiWidget = uiWidgetMgrFactory.getUIWidget(widget, view, uiNameCard, options);
 				
@@ -53,8 +53,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 		}
 		
 		if ( null == uiWidget ) {
-			logger.warn(className, function, "uiWIdget IS NULL");
-			logger.warn(className, function, "widget[{}] NOT FOUND", widget);
+			logger.warn(className, function, "uiWIdget IS NULL, widget[{}] NOT FOUND", widget);
 		}
 		
 		logger.end(className, function);

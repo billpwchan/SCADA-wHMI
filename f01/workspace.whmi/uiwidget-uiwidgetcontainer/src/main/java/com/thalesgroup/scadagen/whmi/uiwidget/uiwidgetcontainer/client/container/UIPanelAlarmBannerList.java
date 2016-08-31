@@ -33,7 +33,7 @@ public class UIPanelAlarmBannerList extends UIWidget_i implements WrapperScsAlar
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
 			@Override
 			public void valueChanged(String name, String value) {
-				logger.error(className, function, "valueChanged name[{}] value[{}]", name, value);
+				logger.warn(className, function, "valueChanged name[{}] value[{}]", name, value);
 				if ( null != uiWidgetEventOnValueUpdate ) {
 					uiWidgetEventOnValueUpdate.onValueChange(name, value);
 				}
@@ -68,11 +68,11 @@ public class UIPanelAlarmBannerList extends UIWidget_i implements WrapperScsAlar
 				if ( null != wrapperScsAlarmListPanel ) {
 					wrapperScsAlarmListPanel.ackVisible();
 				} else {
-					logger.error(className, function, "setValue wrapperScsAlarmListPanel IS NULL");
+					logger.warn(className, function, "setValue wrapperScsAlarmListPanel IS NULL");
 				}
 			}
 		} else {
-			logger.error(className, function, "setValue name IS NULL");
+			logger.warn(className, function, "setValue name IS NULL");
 		}
 	}
 

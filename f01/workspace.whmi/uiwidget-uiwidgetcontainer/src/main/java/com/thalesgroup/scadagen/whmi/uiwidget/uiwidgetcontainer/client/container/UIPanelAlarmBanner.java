@@ -53,12 +53,12 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 					if ( null != uiWidgetOlsCounter ) {
 						uiWidgetOlsCounter.setValue(name, value);
 					} else {
-						logger.error(className, function, "onValueChange uiWidgetOlsCounter IS NULL");
+						logger.warn(className, function, "onValueChange uiWidgetOlsCounter IS NULL");
 					}
 				}
 			});
 		} else {
-			logger.error(className, function, "uiPanelAlarmBannerList IS NULL");
+			logger.warn(className, function, "uiPanelAlarmBannerList IS NULL");
 		}
 		
 		uiWidgetAccessBarButton = uiPanelGeneric.getUIWidget(strUIWidgetAccessBarButton);
@@ -71,12 +71,12 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 					if ( null != element ) {
 						onButton(element);
 					} else {
-						logger.error(className, function, "onClickHandler onClickHandler button IS NULL");
+						logger.warn(className, function, "onClickHandler onClickHandler button IS NULL");
 					}
 				}
 			});
 		} else {
-			logger.error(className, function, "uiWidgetAccessBarButton IS NULL");
+			logger.warn(className, function, "uiWidgetAccessBarButton IS NULL");
 		}
 		
 		uiWidgetOlsCounter = uiPanelGeneric.getUIWidget(strUIWidgetOlsCounter);
@@ -95,8 +95,8 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 	private void onButton(String element) {
 		final String function = "onButton";
 		
-		logger.info(className, function, "Begin");
-		logger.error(className, function, "element[{}]", element);
+		logger.begin(className, function);
+		logger.info(className, function, "element[{}]", element);
 		
 		if ( UIPanelAlarmBanner_i.WidgetArrtibute.alarm.equalsName(element) ) {
 			UITaskLaunch taskLaunch = new UITaskLaunch();
@@ -125,7 +125,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 					uiWidgetAccessBarButton.setWidgetStatus(element, WidgetStatus.Up);
 				}
 			} else {
-				logger.error(className, function, "status IS NULL");
+				logger.warn(className, function, "status IS NULL");
 			}
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.ackpage.equalsName(element) ) {
 			
@@ -133,10 +133,10 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 				uiPanelAlarmBannerList.setValue("ackVisible", "");
 			
 		} else {
-			logger.error(className, function, "element UNKNOW");
+			logger.warn(className, function, "element UNKNOW");
 		}
 		
-		logger.info(className, function, "End");
+		logger.end(className, function);
 	}
 
 }

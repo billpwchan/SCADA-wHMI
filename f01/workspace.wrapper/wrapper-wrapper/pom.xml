@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>com.thalesgroup.hv.mwt</groupId>
 		<artifactId>mwt</artifactId>
-		<version>3.5.0_P03</version>	
+		<version>3.5.0_P03</version>
 	</parent>
   
   <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
@@ -19,14 +19,10 @@
   <name>GWT Maven Archetype</name>
 
   <properties>
-  
-  	<!--
-        <myproject.version>1.2.3</myproject.version>
-        <scadasoft.model.version>6.2.4.2</scadasoft.model.version>
-	-->
-        <scadasoft.version>6.2.4.5</scadasoft.version>
-	<jackson.version>2.7.4</jackson.version>
-        <hv.common.integ.version>1.8.0_P03</hv.common.integ.version>
+
+		<scadasoft.version>6.2.4.5</scadasoft.version>
+        <jackson.version>2.7.4</jackson.version>
+		<hv.common.integ.version>1.8.0_P03</hv.common.integ.version>
 		
 		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
   
@@ -89,7 +85,7 @@
 			<artifactId>scswebapp</artifactId>
 			<version>${scadasoft.version}</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -132,11 +128,13 @@
 		</dependency>
 		
 	<!-- Wrapper-mwt -->
+	<!--
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
 	  <artifactId>wrapper-mwt</artifactId>
 	  <version>1.0-SNAPSHOT</version>
 	</dependency>
+	-->
 	
         <!-- UIGeneric -->
 		<dependency>

@@ -6,7 +6,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <parent>
         <groupId>com.thalesgroup.hv.mwt</groupId>
         <artifactId>mwt</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.0_P03</version>
     </parent>
     <!--<parent>
     	<groupId>com.thalesgroup.hv.gzcocc</groupId>
@@ -29,8 +29,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	-->
     <properties>
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-        <mwt.version>3.5.0</mwt.version>
-        <scadasoft.version>6.2.4.2</scadasoft.version>
+        <mwt.version>3.5.0_P03</mwt.version>
+        <scadasoft.version>6.2.4.5</scadasoft.version>
         <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
     <dependencies>

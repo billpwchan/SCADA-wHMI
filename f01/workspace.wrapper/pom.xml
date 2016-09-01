@@ -18,7 +18,6 @@
   <name>ScsTraining :: Reactor</name>
 	  
   <modules>
-    <module>wrapper-mwt</module>
     <module>wrapper-wrapper</module>
   </modules>
   

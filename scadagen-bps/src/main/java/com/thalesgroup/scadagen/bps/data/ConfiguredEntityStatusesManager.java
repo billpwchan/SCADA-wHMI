@@ -1,18 +1,16 @@
 package com.thalesgroup.scadagen.bps.data;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.hv.data.exception.EntityManipulationException;
 import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.IntAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.StringAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
-import com.thalesgroup.hv.data_v1.entity.configuration.AbstractConfiguredEntityType;
 import com.thalesgroup.hv.data_v1.notification.ElementModificationType;
 import com.thalesgroup.hv.data_v1.notification.EntityNotificationElementType;
 import com.thalesgroup.hv.sdk.connector.notification.tools.ConfiguredSubscriptionBuilder;
@@ -20,6 +18,8 @@ import com.thalesgroup.hv.ws.notification_v1.xsd.FilterType;
 import com.thalesgroup.scadagen.bps.conf.actions.ActionsManager;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
 import com.thalesgroup.scadagen.bps.conf.bps.ActionType;
+import com.thalesgroup.scadagen.bps.conf.bps.CriteriaType;
+import com.thalesgroup.scadagen.bps.conf.bps.EntityCriteriaType;
 import com.thalesgroup.scadagen.bps.conf.bps.TriggerType;
 import com.thalesgroup.scadagen.bps.conf.common.And;
 import com.thalesgroup.scadagen.bps.conf.common.Equals;
@@ -51,107 +51,6 @@ public class ConfiguredEntityStatusesManager
 		}
 	}
 
-//	@SuppressWarnings("unchecked")
-//	private void notifyFirstInsert(Set<ConfiguredEntityStatusesDataDescriptionAbstract> filteredDescription) {
-//		List<NotificationElement> notifList = new ArrayList<NotificationElement>();
-//
-//		for (ConfiguredEntityStatusesDataDescriptionAbstract desc : filteredDescription) {
-//			if (!desc.getPropertiesName().isEmpty()) {
-//				if ((desc instanceof ConfiguredEntityStatusesInstancesDataDescription)) {
-//					ConfiguredEntityStatusesInstancesDataDescription dataDescription = (ConfiguredEntityStatusesInstancesDataDescription) desc;
-//
-//					Set<String> entityIds = dataDescription.getEntityIds();
-//
-//					for (String entityId : entityIds) {
-//						GenericEntity gEntity = getEntity(entityId, desc.getPropertiesName());
-//
-//						notifList.add(getNotifElem(gEntity));
-//					}
-//				} else if ((desc instanceof ConfiguredEntityStatusesTypeDataDescription)) {
-//					ConfiguredEntityStatusesTypeDataDescription dataDescription = (ConfiguredEntityStatusesTypeDataDescription) desc;
-//
-//					String type = ConfigurationTools.getConfiguredClassName(dataDescription.getEntityType());
-//
-//					try {
-//						Class<? extends AbstractConfiguredEntityType> clazz = (Class<? extends AbstractConfiguredEntityType>) Class.forName(type);
-//
-//						Map<String, ? extends AbstractConfiguredEntityType> entitiesAsMap = getSubscriptionConnector()
-//								.getTools().getSystemConfiguration().getEntitiesAsMap(clazz);
-//
-//						Set<String> entityIds = entitiesAsMap.keySet();
-//						for (String entityId : entityIds) {
-//							GenericEntity gEntity = getEntity(entityId, desc.getPropertiesName());
-//
-//							notifList.add(getNotifElem(gEntity));
-//						}
-//					} catch (Exception e) {
-//						LOGGER.error("Cannot get the list of entities of type [" + type + "].", e);
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	private static NotificationElement getNotifElem(GenericEntity entity) {
-//		return new NotificationElement(NotificationElementType.INSERT, entity);
-//	}
-//
-//	private GenericEntity getEntity(String entityId, Set<String> propertiesName) {
-//		AbstractConfiguredEntityType entity = getSubscriptionConnector().getTools().getSystemConfiguration().getEntity(entityId);
-//
-//		GenericEntity genEntity = new GenericEntity();
-//		String entityClass = EntityTool.getEntityClassName(entity);
-//		genEntity.setEntityClass(entityClass);
-//
-//		if (propertiesName.contains("_type_")) {
-//			genEntity.addAttribute("_type_", getStringAttribute(entityClass));
-//		}
-//		try {
-//			String baseTypeName = EntityTool.getBaseType(entity).getName();
-//			genEntity.setEntityBaseClass(baseTypeName);
-//
-//			if (propertiesName.contains("_base_type_")) {
-//				genEntity.addAttribute("_base_type_", getStringAttribute(baseTypeName));
-//			}
-//		} catch (ClassNotFoundException e) {
-//			LOGGER.error("Error while getting the base type of the entity [" + entityId + "].", e);
-//		}
-//
-//		genEntity.setId(entityId);
-//
-//		for (String propertyName : propertiesName) {
-//
-//			if ((!"_type_".equals(propertyName)) && (!"_base_type_".equals(propertyName))) {
-//				genEntity.addAttribute(propertyName, getProperty(entityId, propertyName));
-//			}
-//		}
-//
-//		return genEntity;
-//	}
-//
-//	private static StringAttributeType getStringAttribute(String attributeValue) {
-//		StringAttributeType stringAttribute = new StringAttributeType();
-//		stringAttribute.setTimestamp(System.currentTimeMillis());
-//		stringAttribute.setValid(true);
-//		stringAttribute.setValue(attributeValue);
-//		return stringAttribute;
-//	}
-//
-//	private AbstractAttributeType getProperty(String entityId, String propertyName) {
-//		AbstractConfiguredEntityType entity = getSubscriptionConnector().getTools().getSystemConfiguration()
-//				.getEntity(entityId);
-//
-//		AbstractAttributeType attribute = null;
-//		try {
-//			attribute = getSubscriptionConnector().getTools().getDataHelper().getBeanEditor().getValue(entity,
-//					propertyName);
-//		} catch (BeanManipulationException e) {
-//			LOGGER.error("Error while getting the property [" + propertyName + "] of the entity [" + entityId + "].");
-//		}
-//
-//		return attribute;
-//	}
-	
 	public List<FilterType> getFilter(Set<ConfiguredEntityStatusesDataDescriptionAbstract> entityDataDescriptions)
 			throws HypervisorConversionException {
 		ConfiguredSubscriptionBuilder builder = new ConfiguredSubscriptionBuilder(getSubscriptionConnector().getTools());
@@ -184,26 +83,43 @@ public class ConfiguredEntityStatusesManager
 
 		return builder.build();
 	}
-	
+
 	@Override
 	protected void onNotificationElement( EntityNotificationElementType notifElem) {
 		super.onNotificationElement(notifElem);
 		
 		if (notifElem.getModificationType() == ElementModificationType.INSERT ||
 				notifElem.getModificationType() == ElementModificationType.UPDATE) {
-			
-			AbstractEntityStatusesType entity = notifElem.getEntity();
-
-			Set<AbstractEntityStatusesType> entities = new HashSet<AbstractEntityStatusesType>();
-			entities.add(entity);
 	
 			if (!triggerList_.isEmpty()) {
 				for (TriggerType trigger: triggerList_) {
-					if (CompareOperator(entity, trigger.getCriteria())) {
-						for (ActionType actionHandler: trigger.getAction()) {
-							IAction action = ActionsManager.getInstance().getAction(actionHandler.getActionHandler());
-							if (action != null) {
-								action.execute(getOperationConnector(), actionHandler.getActionConfig(), entities);
+					CriteriaType criteria = trigger.getCriteria();
+					if (criteria != null) {
+						if (criteria.getStatusCriteria() != null) {
+							if (CompareOperator(notifElem.getEntity(), criteria.getStatusCriteria())) {
+								LOGGER.trace("CompareOperator return true. trigger.getAction return {} entries", trigger.getAction().size());
+								for (ActionType actionHandler: trigger.getAction()) {
+									IAction action = ActionsManager.getInstance().getAction(actionHandler.getActionHandler());
+									if (action != null) {
+										LOGGER.trace("Execute action [{}] with config [{}]", actionHandler.getActionHandler(), actionHandler.getActionConfig());
+										action.execute(getOperationConnector(), actionHandler.getActionConfig(), new HashSet<AbstractEntityStatusesType>(getEntityMap().values()));
+									} else {
+										LOGGER.error("Error getting action handler [{}] is null", actionHandler.getActionHandler());
+									}
+								}
+							}
+						} else {
+							if (CompareEntitiesCriteria(criteria.getEntityCriteria()) == true) {
+								LOGGER.trace("CompareEntitiesCriteria return true. trigger.getAction return {} entries", trigger.getAction().size());
+								for (ActionType actionHandler: trigger.getAction()) {
+									IAction action = ActionsManager.getInstance().getAction(actionHandler.getActionHandler());
+									if (action != null) {
+										LOGGER.trace("Execute action [{}] with config [{}]", actionHandler.getActionHandler(), actionHandler.getActionConfig());
+										action.execute(getOperationConnector(), actionHandler.getActionConfig(), new HashSet<AbstractEntityStatusesType>(getEntityMap().values()));
+									} else {
+										LOGGER.error("Error getting action handler [{}] is null", actionHandler.getActionHandler());
+									}
+								}
 							}
 						}
 					}
@@ -212,35 +128,45 @@ public class ConfiguredEntityStatusesManager
 		}
 	}
 
+	private boolean CompareEntitiesCriteria(List<EntityCriteriaType> entityCriteria) {
+
+		for (EntityCriteriaType criteria: entityCriteria) {
+			for (String entityID: criteria.getEntityID()) {
+				if (getEntityMap().containsKey(entityID)) {
+					if (!CompareOperator(getEntityMap().get(entityID), criteria.getStatusCriteria())) {
+						LOGGER.trace("CompareOperator entityID [{}] return false", entityID);
+						return false;
+					}
+				} else {
+					LOGGER.trace("EntityID [{}] not found. CompareEntitiesCriteria return false", entityID);
+					return false;
+				}
+			}
+		}
+		LOGGER.trace("CompareEntitiesCriteria return true");
+		return true;
+	}
+
 	private boolean CompareOperator(AbstractEntityStatusesType entity, Operator op) {
 		if (op instanceof And) {
 			return CompareOperator(entity, ((And)op).getFirstOperand()) && CompareOperator(entity, ((And)op).getSecondOperand());
 		} else if (op instanceof StatusOperator){
-			LOGGER.trace("Compare operator {}", ((StatusOperator) op).getStatus());
+			LOGGER.trace("Compare operator [{}]", ((StatusOperator) op).getStatus());
 			StatusOperator statusOp = (StatusOperator)op;
 			String statusName = statusOp.getStatus();
 			
 			try {
-				String entityType = getOperationConnector().getTools().getEquipmentTypeFromId(entity.getId());
-				Class<? extends AbstractConfiguredEntityType> clazz = (Class<? extends AbstractConfiguredEntityType>) Class.forName(entityType);
+				AbstractAttributeType att = getOperationConnector().getTools().getDataHelper().getAttribute(entity, statusName);
 				
-				String methodName = "get" + statusName.substring(0,1).toUpperCase() + statusName.substring(1);
-
-				Method m = clazz.getMethod(methodName, new Class[]{});
-				m.setAccessible(true);
-
-				LOGGER.trace("Invoke method {} for entity {}", methodName, entity.getId());
-				AbstractAttributeType att = (AbstractAttributeType)m.invoke(clazz.cast(entity));
-	
 				if (att instanceof IntAttributeType) {
 					int val = ((IntAttributeType) att).getValue();
 					
 					if (statusOp instanceof Equals) {
 						if (Integer.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare int value {} return true", statusName);
+							LOGGER.trace("Compare int value [{}] return true", statusName);
 							return true;
 						} else {
-							LOGGER.trace("Compare int value {} return false", statusName);
+							LOGGER.trace("Compare int value [{}] return false", statusName);
 							return false;
 						}
 					} else if (statusOp instanceof In) {
@@ -254,10 +180,10 @@ public class ConfiguredEntityStatusesManager
 				} else if (att instanceof StringAttributeType) {
 					if (statusOp instanceof Equals) {
 						if (((StringAttributeType)att).getValue().compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare String value {} return true", statusName);
+							LOGGER.trace("Compare String value [{}] return true", statusName);
 							return true;
 						} else {
-							LOGGER.trace("Compare String value {} return false", statusName);
+							LOGGER.trace("Compare String value [{}] return false", statusName);
 							return false;
 						}
 					} else if (statusOp instanceof In) {
@@ -269,22 +195,66 @@ public class ConfiguredEntityStatusesManager
 						}
 					}
 				}
-			} catch (HypervisorException e) {
-				LOGGER.error("Error getting entity type. {}", e);
-			} catch (ClassNotFoundException e) {
-				LOGGER.error("Error getting entity type. {}", e);
-			} catch (NoSuchMethodException e) {
-				LOGGER.error("Error getting entity type. {}", e);
 			} catch (SecurityException e) {
-				LOGGER.error("Error getting entity type. {}", e);
-			} catch (IllegalAccessException e) {
-				LOGGER.error("Error getting entity type. {}", e);
+				LOGGER.error("Error getting entity type. [{}]", e);
 			} catch (IllegalArgumentException e) {
-				LOGGER.error("Error getting entity type. {}", e);
-			} catch (InvocationTargetException e) {
-				LOGGER.error("Error getting entity type. {}", e);
-			}	
+				LOGGER.error("Error getting entity type. [{}]", e);
+			} catch (EntityManipulationException e) {
+				LOGGER.error("Error getting entity type. [{}]", e);
+			} 
 		}
+		return false;
+	}
+	
+	//
+	// This is a fix to handle duplicate notifications when putting different equipment types
+	// in the same subscription request
+	// This also handles the duplicate notifications sent repeatedly by TVS connector
+	@Override
+	protected boolean needEntityUpdate(EntityNotificationElementType notifElem) throws HypervisorException {
+		if (notifElem.getModificationType() == ElementModificationType.INSERT ||
+			notifElem.getModificationType() == ElementModificationType.UPDATE) {
+			AbstractEntityStatusesType entity = notifElem.getEntity();
+
+			if (!getEntityMap().containsKey(entity.getId())) {
+				LOGGER.trace("Entity [{}] not exists in entityMap", entity.getId());
+				return true;
+			}
+					
+			Set<String> statusesNames = new HashSet<String>();
+			for (ConfiguredEntityStatusesDataDescriptionAbstract desc: desc_) {
+				if (desc instanceof ConfiguredEntityStatusesInstancesDataDescription) {
+					ConfiguredEntityStatusesInstancesDataDescription cfgEntity = (ConfiguredEntityStatusesInstancesDataDescription)desc;
+					if (!cfgEntity.getEntityIds().contains(entity.getId())) {
+						continue;
+					}
+				} else if (desc instanceof ConfiguredEntityStatusesTypeDataDescription) {
+					ConfiguredEntityStatusesTypeDataDescription cfgEntity = (ConfiguredEntityStatusesTypeDataDescription)desc;
+					String entityType = getOperationConnector().getTools().getEquipmentTypeFromId(entity.getId());
+					if (!cfgEntity.getEntityType().equals(entityType)) {
+						continue;
+					}
+				} else {
+					continue;
+				}
+				statusesNames = desc.getStatusesName();
+
+				for (String statusName: statusesNames) {
+					AbstractAttributeType attNew = getOperationConnector().getTools().getDataHelper().getAttribute(entity, statusName);
+					AbstractAttributeType attSaved = getOperationConnector().getTools().getDataHelper().getAttribute(getEntityMap().get(entity.getId()), statusName);
+					if (!attNew.isValueEqual(attSaved)) {
+						LOGGER.trace("Entity [{}] [{}] value has changed", entity.getId(), statusName);
+						return true;
+					} else {
+						LOGGER.trace("Entity [{}] [{}] value not changed", entity.getId(), statusName);
+					}
+				}
+			}
+
+		} else if (notifElem.getModificationType() == ElementModificationType.DELETE) {
+			return true;
+		}
+		
 		return false;
 	}
 

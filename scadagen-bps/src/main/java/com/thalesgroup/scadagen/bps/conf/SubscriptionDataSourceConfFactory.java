@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.sdk.connector.notification.tools.operator.IOperator;
-import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
 import com.thalesgroup.scadagen.bps.conf.common.AttributeDataSourceType;
 import com.thalesgroup.scadagen.bps.conf.common.Operator;
 import com.thalesgroup.scadagen.bps.conf.common.PropertyDataSourceType;
@@ -27,13 +26,15 @@ import com.thalesgroup.scadagen.bps.data.subscription.OperatorTool;
 public class SubscriptionDataSourceConfFactory {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionDataSourceConfFactory.class);
 
-	private BpsConfig config_;
+	//private BpsConfig config_;
 
 	private SubscriptionDataSource dataSource_;
+	
+	private Operator criteria_;
 
-	public SubscriptionDataSourceConfFactory(BpsConfig conf, SubscriptionDataSource dataSource) {
-		config_ = conf;
+	public SubscriptionDataSourceConfFactory(SubscriptionDataSource dataSource, Operator criteria) {
 		dataSource_ = dataSource;
+		criteria_ = criteria;
 	}
 
 	public boolean isConfiguredSubject() {
@@ -43,21 +44,16 @@ public class SubscriptionDataSourceConfFactory {
 	public Set<ConfiguredEntityStatusesDataDescriptionAbstract> getConfiguredEntityDataSubscription() {
 		ConfiguredDataSource configuredDataSource = dataSource_.getConfiguredDataSource();
 
-		return getConfiguredEntityDataSubscription(configuredDataSource, config_.getSubject().getCriteria(),
-				getBpsDataSources(config_));
+		return getConfiguredEntityDataSubscription(configuredDataSource, criteria_,
+				getBpsDataSourceStatuses(configuredDataSource));
 	}
 
-	private List<AttributeDataSourceType> getBpsDataSources(BpsConfig config) {
+	private List<AttributeDataSourceType> getBpsDataSourceStatuses(ConfiguredDataSource configuredDataSource) {
 		List<AttributeDataSourceType> listSources = new ArrayList<AttributeDataSourceType>();
-		
-//		if (config.getStatuses().isEmpty()) {
-//			ConfiguredDataSource configuredDataSource = dataSource_.getConfiguredDataSource();
-//			Class<? extends AbstractConfiguredEntityType> clazz = (Class<? extends AbstractConfiguredEntityType>) Class.forName();
-//		} else {
-			for (AttributeDataSourceType att: config.getStatuses()) {
-				listSources.add(att);
-			}
-//		}
+
+		for (AttributeDataSourceType att: configuredDataSource.getStatuses()) {
+			listSources.add(att);
+		}
 
 		return listSources;
 	}
@@ -121,13 +117,11 @@ public class SubscriptionDataSourceConfFactory {
 	public Set<TransientEntityDataDescription> getTransientEntityDataSubscription() {
 		SubscriptionDataSource.TransientDataSource transientDataSource = dataSource_.getTransientDataSource();
 
-		return getTransientEntityDataSubscription(transientDataSource, config_.getSubject().getCriteria(),
-				getBpsDataSources(config_));
+		return getTransientEntityDataSubscription(transientDataSource, criteria_);
 	}
 
 	private static Set<TransientEntityDataDescription> getTransientEntityDataSubscription(
-			SubscriptionDataSource.TransientDataSource transientDataSource, Operator confCriteria,
-			List<AttributeDataSourceType> listSources) {
+			SubscriptionDataSource.TransientDataSource transientDataSource, Operator confCriteria) {
 		Set<TransientEntityDataDescription> toReturn = new HashSet<TransientEntityDataDescription>();
 
 		for (String type : transientDataSource.getType()) {

@@ -25,6 +25,7 @@
              <xsd:sequence>
                <xsd:element name="type" type="cmn:notEmptyStringType" minOccurs="0" maxOccurs="unbounded"/>
                <xsd:element name="id" type="cmn:notEmptyStringType" minOccurs="0" maxOccurs="unbounded"/>
+               <xsd:element name="statuses" type="cmn:attributeDataSourceType" minOccurs="0" maxOccurs="30"/>
              </xsd:sequence>
            </xsd:complexType>
           </xsd:element>

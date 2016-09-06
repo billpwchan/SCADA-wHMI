@@ -56,7 +56,7 @@ public class ActionsConfigurationLoader {
         final Set<String> toReturn = new HashSet<String>();
 
         if (marshallersPool_ != null) {
-            LOGGER.debug("Reading action configuration file {}.", xmlRelativePath);
+            LOGGER.debug("Reading action configuration file [{}].", xmlRelativePath);
 
             // get URL of the configuration file, can be null if file doesn't exist
             Source xmlFile = null;

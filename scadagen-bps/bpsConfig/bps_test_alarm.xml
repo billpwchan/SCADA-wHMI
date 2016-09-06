@@ -17,22 +17,17 @@
 			</sds:transientDataSource>
 		</p:dataSource>
 	</p:subject>
-    <!-- 
-    <p:statuses xsi:type="cmn:statusDataSourceType" name="apparitionDate"/>
-    <p:statuses xsi:type="cmn:statusDataSourceType" name="serviceOwnerID"/>
-    <p:statuses xsi:type="cmn:statusDataSourceType" name="areaID"/>
-    <p:statuses xsi:type="cmn:statusDataSourceType" name="priority"/>         
-    <p:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
-    <p:statuses xsi:type="cmn:statusDataSourceType" name="previousState"/>-->
-    
+
     <p:trigger>
-    	<p:criteria xsi:type="cmn:and">
-            <cmn:firstOperand xsi:type="cmn:equals" status="geographicalcategory">
-                <cmn:value>1</cmn:value>
-            </cmn:firstOperand>
-            <cmn:secondOperand xsi:type="cmn:equals" status="functionalcategory">
-                <cmn:value>2</cmn:value>
-            </cmn:secondOperand>
+        <p:criteria>
+            <p:statusCriteria xsi:type="cmn:and">
+                <cmn:firstOperand xsi:type="cmn:equals" status="geographicalcategory">
+                    <cmn:value>1</cmn:value>
+                </cmn:firstOperand>
+                <cmn:secondOperand xsi:type="cmn:equals" status="functionalcategory">
+                    <cmn:value>2</cmn:value>
+                </cmn:secondOperand>
+            </p:statusCriteria>
         </p:criteria>
         <p:action>
             <p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.AlarmAction</p:actionHandler>

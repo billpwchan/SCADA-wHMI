@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.bps.datasource;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -11,6 +13,7 @@ import com.thalesgroup.hv.sdk.connector.IConnectorTools;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
 import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
 import com.thalesgroup.scadagen.bps.conf.common.DataSource;
+import com.thalesgroup.scadagen.bps.conf.subscription_data_source.SubscriptionDataSource;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.subscription.IGenericSubscriptionConnector;
 
@@ -55,16 +58,11 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		type_ = type;
 	}
 
-	public final void initProtected(BpsConfig config, DataSource dataSource) throws HypervisorException {
-		T cast;
-		try {
-			cast = (T) type_.cast(dataSource);
-		} catch (Exception e) {
-			throw new HypervisorException("Error while casting the BPS Data Source from [" + dataSource.getClass()
-					+ "] to [" + type_.getName() + "].", e);
-		}
+	@SuppressWarnings("unchecked")
+	public final void initProtected(BpsConfig config, Set<DataSource> dataSources) throws HypervisorException {
+		Set<SubscriptionDataSource> ds = new HashSet(dataSources);
 
-		init(config, cast);
+		init(config, (Set<T>) ds);
 
 		if ((readLock_ == null) || (writeLock_ == null)) {
 			LOGGER.trace("BPS data source [{}]: not any lock was set, create the default lock.", getDataSourceType());
@@ -106,12 +104,12 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		return connectorTools_;
 	}
 
-	protected abstract void init(BpsConfig config, T paramT) throws HypervisorException;
+	protected abstract void init(BpsConfig config, Set<T> paramT) throws HypervisorException;
 
-	public final void startProtected() throws HypervisorException {
+	public final void startSubscriptionProtected() throws HypervisorException {
 		getWriteLock().lock();
 		try {
-			start();
+			startSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while starting the BPS [" + configName_ + "] using the data source ["
 					+ getDataSourceType() + "].", e);
@@ -120,12 +118,12 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		}
 	}
 
-	protected abstract void start() throws HypervisorException;
+	protected abstract void startSubscription() throws HypervisorException;
 
-	public final void pauseProtected() throws HypervisorException {
+	public final void pauseSubscriptionProtected() throws HypervisorException {
 		getWriteLock().lock();
 		try {
-			pause();
+			pauseSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while pausing the BPS [" + configName_ + "] using the data source ["
 					+ getDataSourceType() + "].", e);
@@ -134,12 +132,12 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		}
 	}
 
-	protected abstract void pause() throws HypervisorException;
+	protected abstract void pauseSubscription() throws HypervisorException;
 
-	public final void resumeProtected() throws HypervisorException {
+	public final void resumeSubscriptionProtected() throws HypervisorException {
 		getWriteLock().lock();
 		try {
-			resume();
+			resumeSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while resuming the BPS [" + configName_ + "] using the data source ["
 					+ getDataSourceType() + "].", e);
@@ -148,12 +146,12 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		}
 	}
 
-	protected abstract void resume() throws HypervisorException;
+	protected abstract void resumeSubscription() throws HypervisorException;
 
-	public final void stopProtected() throws HypervisorException {
+	public final void stopProtectedSubscription() throws HypervisorException {
 		getWriteLock().lock();
 		try {
-			stop();
+			stopSubscription();
 		} catch (Exception e) {
 			LOGGER.error("Error while stopping the BPS [" + configName_ + "] using the data source ["
 					+ getDataSourceType() + "].", e);
@@ -162,7 +160,7 @@ public abstract class DataSourceAbstract<T extends DataSource> {
 		}
 	}
 
-	protected abstract void stop() throws HypervisorException;
+	protected abstract void stopSubscription() throws HypervisorException;
 
 	private String getDataSourceType() {
 		return getClass().getSimpleName();

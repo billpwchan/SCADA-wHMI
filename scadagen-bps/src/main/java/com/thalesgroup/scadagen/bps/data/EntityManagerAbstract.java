@@ -104,25 +104,36 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 
 	@Override
 	public void onNotificationListReception(UUID subscriptionId, NotificationList notificationList) {
-		LOGGER.trace("onNotificationListReception {}", subscriptionId.toString());
+		LOGGER.trace("onNotificationListReception [{}]", subscriptionId.toString());
 		if (subscriptionId.compareTo(subscriptionId_) == 0) {
 			onNotificationList(notificationList);
 		}
 	}
 
 	public void onNotificationList(NotificationList notificationList) {
-		LOGGER.trace("onNotificationList {} ", notificationList.toString());
+		LOGGER.trace("onNotificationList [{}] ", notificationList.toString());
 
 		getWriteLock().lock();
 		try {
 			for (EntityNotificationElementType notifElem : notificationList.getEntityNotificationElement()) {
-				onNotificationElement(notifElem);
+				if (needEntityUpdate(notifElem)) {
+					LOGGER.trace("needEntityUpdate return true");
+					onNotificationElement(notifElem);
+				} else {
+					LOGGER.trace("needEntityUpdate return false");
+				}
 			}
 
+		} catch (HypervisorException e) {
+			LOGGER.error("Error updating status from notification. [{}]", e);
 		} finally {
 			getWriteLock().unlock();
 
 		}
+	}
+
+	protected boolean needEntityUpdate(EntityNotificationElementType notifElem) throws HypervisorException {		
+		return true;
 	}
 
 	protected void onNotificationElement( EntityNotificationElementType notifElem) {
@@ -131,19 +142,6 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 		if (notifElem.getModificationType() == ElementModificationType.INSERT ||
 				notifElem.getModificationType() == ElementModificationType.UPDATE) {
 			entityMap_.put(entity.getId(), entity);
-	
-//			if (!triggerList_.isEmpty()) {
-//				for (TriggerType trigger: triggerList_) {
-//					if (CompareOperator(trigger.getCriteria())) {
-//						for (ActionType actionHandler: trigger.getAction()) {
-//							IAction action = ActionsManager.getInstance().getAction(actionHandler.getActionHandler());
-//							if (action != null) {
-//								action.execute(operationConnector_, actionHandler.getActionConfig());
-//							}
-//						}
-//					}
-//				}
-//			}
 		} else if (notifElem.getModificationType() == ElementModificationType.DELETE) {
 			entityMap_.remove(entity.getId());
 		}

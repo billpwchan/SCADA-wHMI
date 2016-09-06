@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 
-public interface UIInspectorPage_i {
+public interface UIInspectorTab_i {
 	
 	void setUINameCard(UINameCard uiNameCard);
 	void init(String xml);

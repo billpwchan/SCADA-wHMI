@@ -3,7 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 import java.util.HashMap;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.CellPanel;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -17,9 +16,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.DirectionAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.OptionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.PanelAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.TypeAttribute;
@@ -85,8 +82,8 @@ public class UILayoutGeneric extends UIWidget_i {
 				rootPanel = new DockLayoutPanel(Unit.PX);
 			} else if ( PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
 				rootPanel = new AbsolutePanel();
-				Element e = rootPanel.getElement();
-				DOM.setStyleAttribute(e, "position", "absolute");
+//				Element e = rootPanel.getElement();
+//				DOM.setStyleAttribute(e, "position", "absolute");
 			} else {
 			}
 
@@ -125,6 +122,7 @@ public class UILayoutGeneric extends UIWidget_i {
 						String top					= valueMap.get(WidgetAttribute.top.toString());
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
 						String uiview				= valueMap.get(WidgetAttribute.uiView.toString());
+						String element				= valueMap.get(WidgetAttribute.element.toString());
 						
 						HashMap<String, Object> options = new HashMap<String, Object>();
 						
@@ -169,12 +167,14 @@ public class UILayoutGeneric extends UIWidget_i {
 
 							Panel panel = null;
 							
+							UIWidget_i uiWidget = null;
+							
 							if ( TypeAttribute.predefine.equalsName(type) ) {
 								
 								// predefine
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
 								uiGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget, uiview, uiNameCard, options));
-								UIWidget_i uiWidget = uiGeneric.get(widget);
+								uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
@@ -188,7 +188,7 @@ public class UILayoutGeneric extends UIWidget_i {
 								
 								// layoutconfiguration
 								uiGeneric.put(widget, new UILayoutGeneric());
-								UIWidget_i uiWidget = uiGeneric.get(widget);
+								uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
 									uiWidget.setXMLFile(viewSel);
@@ -204,7 +204,7 @@ public class UILayoutGeneric extends UIWidget_i {
 								
 								//configuration
 								uiGeneric.put(widget, new UIWidgetGeneric());
-								UIWidget_i uiWidget = uiGeneric.get(widget);
+								uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
 									uiWidget.setXMLFile(viewSel);
@@ -214,11 +214,26 @@ public class UILayoutGeneric extends UIWidget_i {
 									logger.warn(className, function, "created UIWidgetGeneric widget[{}] IS NULL", widget);
 								}
 							} else {
-								logger.info(className, function, "type IS INVALID");
+								logger.warn(className, function, "type IS INVALID");
+							}
+							
+							if ( null != uiWidget ) {
+								if ( ! uiGeneric.containsKey(element) ) {
+									if ( null != element && element.trim().length() > 0 ) {
+										logger.info(className, function, "uiGeneric element[{}] ADDED", element);
+										uiGeneric.put(element, uiWidget);
+									} else {
+										logger.warn(className, function, "uiGeneric element[{}] IS NULL OR EMPTY, SKIP ADD", element);
+									}
+								} else {
+									logger.warn(className, function, "uiGeneric contain the element[{}], SKIP ADD", element);
+								}
+							} else {
+								logger.warn(className, function, "uiGeneric uiWidget IS NULL, SKIP ADD");
 							}
 							
 							if ( null != panel ) {
-								if ( PanelAttribute.DockLayoutPanel.equalsName(strPanel) ) {
+								if ( rootPanel instanceof DockLayoutPanel ) {
 									
 									//DockLayoutPanel
 									if ( null != direction ) {
@@ -248,7 +263,7 @@ public class UILayoutGeneric extends UIWidget_i {
 									} else {
 										logger.info(className, function, "direction IS null");
 									}
-								} else if ( PanelAttribute.AbsolutePanel.equalsName(strPanel) ) {
+								} else if ( rootPanel instanceof AbsolutePanel ) {
 								
 									//AbsolutePanel
 									int x = -1;
@@ -272,8 +287,7 @@ public class UILayoutGeneric extends UIWidget_i {
 								
 								if ( null != panel ) {
 									if ( null != csscontainer ) {
-										Element container = DOM.getParent(panel.getElement());
-										container.setClassName(csscontainer);
+										DOM.getParent(panel.getElement()).setClassName(csscontainer);
 									}
 								}
 								

@@ -24,18 +24,21 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 
-public class UIWidgetControl extends UIWidget_i {
+public class UIWidgetCtlControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetControl.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 	= null;
 
 	private CtlMgr ctlMgr 				= null;
 	
-	private String column_alias			= "ptwdciset_alias";
-	private String column_status		= "ptwdciset_value";
-	private String column_serviceOwner	= "serviceOwnerID";
+	private String columnAlias			= "";
+	private String columnStatus			= "";
+	private String columnServiceOwner	= "";
+	
+	private String valueSet				= "";
+	private String valueUnSet			= "";
 	
 	final String strSet					= "set";
 	final String strUnSet				= "unset";
@@ -88,8 +91,8 @@ public class UIWidgetControl extends UIWidget_i {
 						statusApply				= WidgetStatus.Disable;
 						
 						for ( HashMap<String, String> hashMap : selectedSet ) {
-							String selectedAlias = hashMap.get(column_alias);
-							String selectedServiceOwner = hashMap.get(column_serviceOwner);
+							String selectedAlias = hashMap.get(columnAlias);
+							String selectedServiceOwner = hashMap.get(columnServiceOwner);
 							
 							String scsEnvId = selectedServiceOwner;
 							String alias = selectedAlias;
@@ -170,14 +173,16 @@ public class UIWidgetControl extends UIWidget_i {
 				String selectedStatus1 = null;
 				for ( HashMap<String, String> hashMap : selectedSet ) {
 
-					selectedStatus1 = hashMap.get(column_status);
+					selectedStatus1 = hashMap.get(columnStatus);
 				}
 
 				if ( null != selectedStatus1 ) {
-					if ( "0".equals(selectedStatus1) ) {
+					if ( valueSet.equals(selectedStatus1) ) {
 						statusSet				= WidgetStatus.Up;
 						statusUnSet				= WidgetStatus.Disable;
-					} else {
+					} 
+					
+					if ( valueUnSet.equals(selectedStatus1) ) {
 						statusSet				= WidgetStatus.Disable;
 						statusUnSet				= WidgetStatus.Up;
 					}
@@ -204,13 +209,15 @@ public class UIWidgetControl extends UIWidget_i {
 		
 		ctlMgr = CtlMgr.getInstance("ptw");
 		
-		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
-			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
-			if ( null != o ) {
-				String eventBusName = (String) o;
-				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
-			}
-		}
+		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
+		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
+		
+		this.columnAlias = getStringParameter(ParameterName.ColumnAlias.toString());
+		this.columnStatus = getStringParameter(ParameterName.ColumnStatus.toString());
+		this.columnServiceOwner = getStringParameter(ParameterName.ColumnServiceOwner.toString());
+		this.valueSet = getStringParameter(ParameterName.ValueSet.toString());
+		this.valueUnSet = getStringParameter(ParameterName.ValueUnSet.toString());
+		
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

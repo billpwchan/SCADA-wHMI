@@ -40,6 +40,9 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		final String function = "getStringValue";
 		
 		logger.begin(className, function);
+		
+		logger.info(className, function, "fileName[{}] key[{}] tag[{}]", new Object[]{fileName, key, tag});
+		
 		String value = null;
 		Dictionary dictionary = getDictionary(fileName+(null!=tag?"|"+tag:""));
 			

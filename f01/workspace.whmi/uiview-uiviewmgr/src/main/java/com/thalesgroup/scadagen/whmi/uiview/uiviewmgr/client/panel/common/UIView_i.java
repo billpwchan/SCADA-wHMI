@@ -13,6 +13,24 @@ public interface UIView_i
 		, FilterColumn("FilterColumn")
 		, FilterValueSet0("FilterValueSet0")
 		, FilterValueSet1("FilterValueSet1")
+		
+		, ColumnAlias("ColumnAlias")
+		, ColumnStatus("ColumnStatus")
+		, ColumnServiceOwner("ColumnServiceOwner")
+		
+		, ValueSet("ValueSet")
+		, ValueUnSet("ValueUnSet")
+		
+		
+		, CSSElementName0("CSSElementName0")
+		, CSSValueApplyToElement0("CSSValueApplyToElement0")
+		, CSSValueRemoveFromElement0("CSSValueRemoveFromElement0")
+		
+		, CSSElementName1("CSSElementName1")
+		, CSSValueApplyToElement1("CSSValueApplyToElement1")
+		, CSSValueRemoveFromElement1("CSSValueRemoveFromElement1")
+		
+		//
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }
@@ -23,10 +41,13 @@ public interface UIView_i
 	public enum ViewWidget {
 		UIWidgetViewer("UIWidgetViewer")
 		, UIWidgetAction("UIWidgetAction")
-		, UIWidgetControl("UIWidgetControl")
+		, UIWidgetCtlControl("UIWidgetCtlControl")
+		, UIWidgetDpcControl("UIWidgetDpcControl")
 		, UIWidgetFilter("UIWidgetFilter")
 		, UIWidgetPrint("UIWidgetPrint")
 		, ScsOlsListPanel("ScsOlsListPanel")
+		, UIWidgetCSSFilter("UIWidgetCSSFilter")
+		, UIWidgetCSSSelect("UIWidgetCSSSelect")
 		;
 		private final String text;
 		private ViewWidget(final String text) { this.text = text; }
@@ -94,6 +115,27 @@ public interface UIView_i
 		;
 		private final String text;
 		private ControlViewEvent(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
+	// Send from CSSApply
+	public enum CSSSelectEvent {
+		CSSApply("CSSApply")
+		, CSSRemove("CSSRemove")
+		;
+		private final String text;
+		private CSSSelectEvent(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
+	// Event Receive by CSS Apply
+	public enum CSSSelectViewEvent {
+		SetDefaultCSS("SetDefaultCSS")
+		;
+		private final String text;
+		private CSSSelectViewEvent(final String text) { this.text = text; }
 		@Override
 		public String toString() { return this.text; }
 	}

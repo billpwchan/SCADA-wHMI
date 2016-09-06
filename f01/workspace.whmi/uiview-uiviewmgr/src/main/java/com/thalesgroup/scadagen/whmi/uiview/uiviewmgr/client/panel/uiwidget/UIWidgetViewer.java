@@ -43,10 +43,6 @@ public class UIWidgetViewer extends UIWidget_i {
 	// External
 	private SimpleEventBus eventBus		= null;
 	
-//	private String listConfigId			= "ptwdciset";
-//	private String menuEnable			= "false";
-//	private String selectionMode		= "Multiple";
-	
 	private String listConfigId			= "";
 	private String menuEnable			= "";
 	private String selectionMode		= "";	
@@ -136,34 +132,12 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
-			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
-			if ( null != o ) {
-				String eventBusName = (String) o;
-				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
-			}
-		}
+		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
+		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		
-		if ( containsParameterKey(ParameterName.ListConfigId.toString()) ) {
-			Object o = parameters.get(ParameterName.ListConfigId.toString());
-			if ( null != o ) {
-				this.listConfigId = (String) o;
-			}
-		}
-		
-		if ( containsParameterKey(ParameterName.MenuEnable.toString()) ) {
-			Object o = parameters.get(ParameterName.MenuEnable.toString());
-			if ( null != o ) {
-				this.menuEnable = (String) o;
-			}
-		}
-		
-		if ( containsParameterKey(ParameterName.SelectionMode.toString()) ) {
-			Object o = parameters.get(ParameterName.SelectionMode.toString());
-			if ( null != o ) {
-				this.selectionMode = (String) o;
-			}
-		}
+		this.listConfigId 	= getStringParameter(ParameterName.ListConfigId.toString());
+		this.menuEnable 	= getStringParameter(ParameterName.MenuEnable.toString());
+		this.selectionMode 	= getStringParameter(ParameterName.SelectionMode.toString());
 
 		logger.info(className, function, "this.listConfigId1[{}]", this.listConfigId);
 		logger.info(className, function, "this.menuEnable[{}]", this.menuEnable);
@@ -177,42 +151,6 @@ public class UIWidgetViewer extends UIWidget_i {
 		});
 		
 		uiLayoutGeneric = new UILayoutGeneric();
-		
-//		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
-//			
-//			@Override
-//			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
-//				final String function = "getUIWidget";
-//				
-//				logger.warn(className, function, "widget[{}] view[{}]", widget, view);
-//				logger.warn(className, function, "uiNameCard IS NULL[{}]", null == uiNameCard);
-//				logger.warn(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
-//				logger.warn(className, function, "options IS NULL[{}]", null == options);
-//				
-//				UIWidget_i uiWidget_i = null;
-//				if ( 0 == widget.compareTo(ViewWidget.ScsOlsListPanel.toString()) ) {
-//					
-//					if ( null != options ) {
-//						if ( options.containsKey(WidgetAttribute.option1.toString()) )
-//							listConfigId = (String) options.get(WidgetAttribute.option1.toString());
-//					
-//						if ( options.containsKey(WidgetAttribute.option2.toString()) )
-//							menuEnable = (String) options.get(WidgetAttribute.option2.toString());
-//					
-//						if ( options.containsKey(WidgetAttribute.option3.toString()) )
-//							selectionMode = (String) options.get(WidgetAttribute.option3.toString());
-//					}
-//					
-//					uiWidget_i = new ScsOlsListPanel();
-//					uiWidget_i.setParameter(ParameterName.MwtEventBus.toString(),	new MwtEventBus());
-//					uiWidget_i.setParameter(ParameterName.ListConfigId.toString(),	listConfigId);
-//					uiWidget_i.setParameter(ParameterName.MenuEnable.toString(),	menuEnable);
-//					uiWidget_i.setParameter(ParameterName.SelectionMode.toString(),	selectionMode);
-//					uiWidget_i.init();
-//				}
-//				return uiWidget_i;
-//			}
-//		});
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
 		uiLayoutGeneric.setXMLFile(xmlFile);

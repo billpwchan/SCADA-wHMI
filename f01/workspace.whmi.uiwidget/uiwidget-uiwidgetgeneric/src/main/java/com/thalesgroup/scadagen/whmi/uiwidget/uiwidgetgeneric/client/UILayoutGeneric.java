@@ -126,33 +126,44 @@ public class UILayoutGeneric extends UIWidget_i {
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
 						String uiview				= valueMap.get(WidgetAttribute.uiView.toString());
 						
-						String option1				= valueMap.get(OptionAttribute.option1.toString());
-						String option2				= valueMap.get(OptionAttribute.option2.toString());
-						String option3				= valueMap.get(OptionAttribute.option3.toString());
-						String option4				= valueMap.get(OptionAttribute.option4.toString());
-						String option5				= valueMap.get(OptionAttribute.option5.toString());
-						
-						String action1				= valueMap.get(ActionAttribute.action1.toString());
-						String action2				= valueMap.get(ActionAttribute.action2.toString());
-						String action3				= valueMap.get(ActionAttribute.action3.toString());
-						String action4				= valueMap.get(ActionAttribute.action4.toString());
-						String action5				= valueMap.get(ActionAttribute.action5.toString());
-						
 						HashMap<String, Object> options = new HashMap<String, Object>();
-						if ( null != option1 ) options.put(OptionAttribute.option1.toString(), option1);
-						if ( null != option2 ) options.put(OptionAttribute.option2.toString(), option2);
-						if ( null != option3 ) options.put(OptionAttribute.option3.toString(), option3);
-						if ( null != option4 ) options.put(OptionAttribute.option4.toString(), option4);
-						if ( null != option5 ) options.put(OptionAttribute.option5.toString(), option5);
 						
-						if ( null != action1 ) options.put(ActionAttribute.action1.toString(), action1);
-						if ( null != action2 ) options.put(ActionAttribute.action2.toString(), action2);
-						if ( null != action3 ) options.put(ActionAttribute.action3.toString(), action3);
-						if ( null != action4 ) options.put(ActionAttribute.action4.toString(), action4);
-						if ( null != action5 ) options.put(ActionAttribute.action5.toString(), action5);
+						for ( String key : valueMap.keySet() ) {
+							Object value = valueMap.get(key);
+							if ( null != value ) options.put(key, value);
+						}
 						
-						logger.info(className, function, "type[{}] widget[{}]", new Object[]{type, widget});
-						logger.info(className, function, "direction[{}] size[{}]", new Object[]{direction, size});
+						logger.info(className, function, "xmlFile[{}]", xmlFile);
+						for ( String key : valueMap.keySet() ) {
+							String value = valueMap.get(key);
+							logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
+						}
+						
+//						for ( OptionAttribute optionAttibute : OptionAttribute.values() ) {
+//							String strOptionAttibute = optionAttibute.toString();
+//							String option = valueMap.get(strOptionAttibute);
+//							logger.info(className, function, "strOptionAttibute[{}] option[{}]", strOptionAttibute, option);
+//							if ( null != option ) options.put(strOptionAttibute, option);
+//						}
+//						
+//						for ( ActionAttribute actionAttibute : ActionAttribute.values() ) {
+//							String strActionAttibute = actionAttibute.toString();
+//							String option = valueMap.get(strActionAttibute);
+//							logger.info(className, function, "strActionAttibute[{}] option[{}]", strActionAttibute, option);
+//							if ( null != option ) options.put(strActionAttibute, option);
+//						}
+//						
+//						logger.info(className, function, "xmlFile[{}]", xmlFile);
+//						for ( String key : valueMap.keySet() ) {
+//							String value = valueMap.get(key);
+//							logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
+//						}
+//					
+//						logger.info(className, function, "xmlFile[{}]", xmlFile);
+//						for ( String key : options.keySet() ) {
+//							String value = (String) options.get(key);
+//							logger.info(className, function, "options key[{}] value[{}]", key, value);
+//						}
 						
 						if ( null != widget ) {
 

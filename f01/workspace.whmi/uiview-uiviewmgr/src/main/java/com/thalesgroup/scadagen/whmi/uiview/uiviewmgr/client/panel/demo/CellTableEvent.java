@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.demo;
 
 import java.util.Arrays;
 import java.util.List;

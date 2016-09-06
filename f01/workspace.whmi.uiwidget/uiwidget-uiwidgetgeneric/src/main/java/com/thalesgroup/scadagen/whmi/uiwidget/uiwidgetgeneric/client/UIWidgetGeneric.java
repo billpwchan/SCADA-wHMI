@@ -550,6 +550,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 			String cssDisable					= valueMap.get(WidgetAttribute.cssDisable.toString());
 			String tooltipDisable				= valueMap.get(WidgetAttribute.tooltipDisable.toString());
 			
+			logger.info(className, function, "xmlFile[{}]", xmlFile);
+			for ( String key : valueMap.keySet() ) {
+				String value = valueMap.get(key);
+				logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
+			}
+			
 			TranslationMgr translationMgr = TranslationMgr.getInstance();
 			if ( null != translationMgr.getTranslationEngine() ) {
 				label = translationMgr.getTranslation(label);

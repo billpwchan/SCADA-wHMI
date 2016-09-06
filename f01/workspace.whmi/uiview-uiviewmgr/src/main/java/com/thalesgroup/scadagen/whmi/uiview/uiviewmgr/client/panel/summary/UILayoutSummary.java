@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.ptw;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary;
 
 import java.util.HashMap;
 
@@ -16,14 +16,15 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.SummaryViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewWidget;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.uiwidget.UIWidgetAction;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.uiwidget.UIWidgetControl;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.uiwidget.UIWidgetFilter;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.uiwidget.UIWidgetPrint;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.uiwidget.UIWidgetViewer;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.OptionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.WidgetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
@@ -37,14 +38,31 @@ public class UILayoutSummary extends UIWidget_i {
 	private UILayoutGeneric uiLayoutGeneric = null;
 
 	private SimpleEventBus eventBus = null;
+	private String eventBusName = null;
+	private String eventBusScope = null;
 
 	@Override
 	public void init() {
 		final String function = "init";
 
 		logger.begin(className, function);
+		
+		eventBusName = (String) getParameter(WidgetAttribute.eventbusname.toString());
+		eventBusScope = (String) getParameter(WidgetAttribute.eventbusscope.toString());
+		
+		logger.info(className, function, "eventBusName[{}]", eventBusName);
+		logger.info(className, function, "eventBusScope[{}]", eventBusScope);
 
-		eventBus = UIEventActionBus.getInstance().getEventBus(xmlFile);
+		if ( null == eventBusName || eventBusName.trim().length() == 0) {
+			eventBusName = this.xmlFile;
+		}
+		if ( 0 == "global".compareToIgnoreCase(eventBusScope) ) {
+			eventBusName += uiNameCard.getUiScreen();
+		}
+		logger.info(className, function, "eventBusName[{}]", eventBusName);
+		
+		
+		eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
 
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -86,7 +104,7 @@ public class UILayoutSummary extends UIWidget_i {
 				if (ViewWidget.UIWidgetViewer.toString().equals(widget)) {
 
 					uiWidget = new UIWidgetViewer();
-					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), xmlFile);
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
 					uiWidget.setUINameCard(uiNameCard);
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
@@ -94,7 +112,7 @@ public class UILayoutSummary extends UIWidget_i {
 				} else if (ViewWidget.UIWidgetAction.toString().equals(widget)) {
 
 					uiWidget = new UIWidgetAction();
-					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), xmlFile);
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
 					uiWidget.setUINameCard(uiNameCard);
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
@@ -102,7 +120,7 @@ public class UILayoutSummary extends UIWidget_i {
 				} else if (ViewWidget.UIWidgetControl.toString().equals(widget)) {
 
 					uiWidget = new UIWidgetControl();
-					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), xmlFile);
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
 					uiWidget.setUINameCard(uiNameCard);
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
@@ -125,7 +143,7 @@ public class UILayoutSummary extends UIWidget_i {
 					}
 
 					uiWidget = new UIWidgetFilter();
-					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), xmlFile);
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
 					uiWidget.setParameter(ParameterName.FilterColumn.toString(), strFilterColumn);
 					uiWidget.setParameter(ParameterName.FilterValueSet0.toString(), strFilterValueSet0);
 					uiWidget.setParameter(ParameterName.FilterValueSet1.toString(), strFilterValueSet1);
@@ -136,7 +154,7 @@ public class UILayoutSummary extends UIWidget_i {
 				} else if (ViewWidget.UIWidgetPrint.toString().equals(widget)) {
 
 					uiWidget = new UIWidgetPrint();
-					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), xmlFile);
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
 					uiWidget.setUINameCard(uiNameCard);
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
@@ -175,22 +193,17 @@ public class UILayoutSummary extends UIWidget_i {
 		uiLayoutGeneric.setXMLFile(xmlFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
-		
-		String action1 = null;
-		if ( containsParameterKey(ActionAttribute.action1.toString()) ) {
-			action1 = (String) getParameter(ActionAttribute.action1.toString());
+
+		for ( ActionAttribute actionAttribute : ActionAttribute.values() ) {
+		String strActionAttribute = actionAttribute.toString();
+		String action = (String) getParameter(strActionAttribute);
+		logger.info(className, function, "ActionAttribute action[{}]", action);
+		if ( null != action ) {
+			UIEventAction uiEventAction = new UIEventAction();
+			uiEventAction.setParameters(ViewAttribute.Operation.toString(), SummaryViewEvent.SetDefaultFilter.toString());
+			eventBus.fireEventFromSource(uiEventAction, this);
 		}
-		
-		if ( null != action1 ) {
-			
-			logger.info(className, function, "action1[{}]", action1);
-			
-			if ( action1.equals(SummaryViewEvent.SetDefaultFilter.toString()) ) {
-				UIEventAction uiEventAction1 = new UIEventAction();
-				uiEventAction1.setParameters(ViewAttribute.Operation.toString(), SummaryViewEvent.SetDefaultFilter.toString());
-				eventBus.fireEventFromSource(uiEventAction1, this);
-			}
-		}
+	}
 
 		logger.end(className, function);
 	}

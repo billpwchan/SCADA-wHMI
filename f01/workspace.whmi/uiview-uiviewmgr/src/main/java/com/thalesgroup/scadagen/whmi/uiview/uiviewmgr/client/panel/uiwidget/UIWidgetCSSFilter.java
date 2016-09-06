@@ -13,11 +13,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.FilterViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.CSSSelectViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.CSSSelectEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.SummaryViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
@@ -25,24 +24,16 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
-public class UIWidgetFilter extends UIWidget_i {
+public class UIWidgetCSSFilter extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetCSSFilter.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 			= null;
-		
-	private String strFilterColumn				= "";
-	private String strFilterValueSet0			= "";
-	private String strFilterValueSet1			= "";
 
 	private final String strSet1				= "set1";
 	private final String strSet0				= "set0";
-	private final String strClear				= "clear";
-	private final String strApplied				= "applied";
-	
-	private Widget widgetClear				= null;
-	
+		
 	private UIWidgetGeneric uiWidgetGeneric	= null;
 	
 	@Override
@@ -59,35 +50,36 @@ public class UIWidgetFilter extends UIWidget_i {
 		if ( null != element ) {
 			if ( element.equals(strSet1) ) {
 				
-				// Set Filter 
-				// Value as 1
-
-				UIEventAction action = new UIEventAction();
-				action.setParameters(ViewAttribute.Operation.toString(), FilterViewEvent.AddFilter.toString());
-				action.setParameters(ViewAttribute.OperationString1.toString(), strFilterColumn);
-				action.setParameters(ViewAttribute.OperationString2.toString(), strFilterValueSet1);
-				eventBus.fireEventFromSource(action, this);
+				// Select Filter 
+				{
+					UIEventAction action = new UIEventAction();
+					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSApply.toString());
+					action.setParameters(ViewAttribute.OperationString1.toString(), strSet1);
+					eventBus.fireEventFromSource(action, this);					
+				}
+				{
+					UIEventAction action = new UIEventAction();
+					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSRemove.toString());
+					action.setParameters(ViewAttribute.OperationString1.toString(), strSet1);
+					eventBus.fireEventFromSource(action, this);
+				}
 				
 			} else if ( element.equals(strSet0) ) {
 				
-				// Set Filter 
-				// Value as 0
-
-				UIEventAction action = new UIEventAction();
-				action.setParameters(ViewAttribute.Operation.toString(), FilterViewEvent.AddFilter.toString());
-				action.setParameters(ViewAttribute.OperationString1.toString(), strFilterColumn);
-				action.setParameters(ViewAttribute.OperationString2.toString(), strFilterValueSet0);
-				eventBus.fireEventFromSource(action, this);
+				// Select Filter 
+				{
+					UIEventAction action = new UIEventAction();
+					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSApply.toString());
+					action.setParameters(ViewAttribute.OperationString1.toString(), strSet0);
+					eventBus.fireEventFromSource(action, this);
+				}
+				{
+					UIEventAction action = new UIEventAction();
+					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSRemove.toString());
+					action.setParameters(ViewAttribute.OperationString1.toString(), strSet0);
+					eventBus.fireEventFromSource(action, this);					
+				}
 				
-			} else if ( element.equals(strClear) ) {
-				
-				// Clean Filter 
-
-				UIEventAction action = new UIEventAction();
-				action.setParameters(ViewAttribute.Operation.toString(), FilterViewEvent.RemoveFilter.toString());
-				eventBus.fireEventFromSource(action, this);
-				
-				if ( null != widgetClear ) uiWidgetGeneric.setWidgetStatus(strClear, WidgetStatus.Disable);
 			}
 		} else {
 			logger.warn(className, function, "element IS NULL");
@@ -146,18 +138,8 @@ public class UIWidgetFilter extends UIWidget_i {
 		
 		if ( null != op ) {
 
-			// Filter Action
-			if ( op.equals(ViewerViewEvent.FilterAdded.toString()) ) {
-
-				uiWidgetGeneric.setWidgetStatus(strClear, WidgetStatus.Down);
-				uiWidgetGeneric.setWidgetStatus(strApplied, WidgetStatus.Down);
-				
-			} else if ( op.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
-
-				uiWidgetGeneric.setWidgetStatus(strClear, WidgetStatus.Disable);
-				uiWidgetGeneric.setWidgetStatus(strApplied, WidgetStatus.Up);
-				
-			} else if ( op.equals(SummaryViewEvent.SetDefaultFilter.toString()) ) {
+			// Action
+			if ( op.equals(CSSSelectViewEvent.SetDefaultCSS.toString()) ) {
 				
 				Widget widget = uiWidgetGeneric.getWidget(strSet1);
 				if ( null != widget ) {
@@ -188,16 +170,10 @@ public class UIWidgetFilter extends UIWidget_i {
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 
-		this.strFilterColumn 		= getStringParameter(ParameterName.FilterColumn.toString());
-		this.strFilterValueSet0 	= getStringParameter(ParameterName.FilterValueSet0.toString());
-		this.strFilterValueSet1 	= getStringParameter(ParameterName.FilterValueSet1.toString());
-
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
 		uiWidgetGeneric.setXMLFile(xmlFile);
 		uiWidgetGeneric.init();
-		
-		widgetClear	= uiWidgetGeneric.getWidget( strClear );
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
 			
@@ -240,7 +216,6 @@ public class UIWidgetFilter extends UIWidget_i {
 		);
 
 		uiWidgetGeneric.setWidgetStatus( strSet1,  WidgetStatus.Down );
-		uiWidgetGeneric.setWidgetStatus( strClear,  WidgetStatus.Disable );
 		
 		logger.end(className, function);
 	}

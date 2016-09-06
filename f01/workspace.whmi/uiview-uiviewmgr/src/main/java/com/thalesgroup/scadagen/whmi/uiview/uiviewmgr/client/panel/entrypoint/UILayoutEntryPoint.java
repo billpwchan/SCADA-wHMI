@@ -34,7 +34,6 @@ public class UILayoutEntryPoint extends UIWidget_i {
 				final String strXml = ".xml";
 
 				logger.info(className, function, "widget[{}] view[{}]", widget, view);
-
 				if (null != uiNameCard) {
 					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
 				} else {

@@ -119,13 +119,8 @@ public class UIWidgetPrint extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		if ( containsParameterKey(ParameterName.SimpleEventBus.toString()) ) {
-			Object o = parameters.get(ParameterName.SimpleEventBus.toString());
-			if ( null != o ) {
-				String eventBusName = (String) o;
-				this.eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
-			}
-		}
+		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
+		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

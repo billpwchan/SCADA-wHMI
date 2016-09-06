@@ -106,21 +106,13 @@ public class UIWidgetGeneric extends UIWidget_i {
 		final String function = "init";
     	
     	logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
-
-//		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
-//		
-//		this.dictionaryHeader = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
-//		this.dictionaryOption = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
-//		
-//		ready(this.dictionaryHeader);
-//		ready(this.dictionaryOption);
     	
     	DictionariesCache uiPanelSettingCache = DictionariesCache.getInstance("UIWidgetGeneric");
 		
 		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
-		ready(this.dictionaryHeader);
-		
 		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
+		
+		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
     	
 		//UIGeneric

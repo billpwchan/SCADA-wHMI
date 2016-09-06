@@ -65,6 +65,20 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
     public boolean containsParameterKey(String key) {
     	return parameters.containsKey(key);
     }
+    public String getStringParameter( String key ) {
+    	final String function = "function";
+    	logger.info(className, function, "key[{}]", key);
+    	String result = null;
+		if ( containsParameterKey(key) ) {
+			Object o = parameters.get(key);
+			if ( null != o && o instanceof String) {
+				result = (String) o;
+			}
+		} else {
+			logger.warn(className, function, "key[{}] IS NULL", key);
+		}
+		return result;
+	}
     
     protected UIWidgetEventOnValueUpdate			uiWidgetEventOnValueUpdate			= null;
 	protected UIWidgetEventOnKeyPressHandler		uiWidgetEventOnKeyPressHandler		= null;

@@ -61,6 +61,7 @@ public interface UILayoutGeneric_i {
 		, uiView("uiView")
 		, eventbusname("eventbusname")
 		, eventbusscope("eventbusscope")
+		, element("element")
 		;
 		private final String text;
 		private WidgetAttribute(final String text) { this.text = text; }
@@ -78,6 +79,13 @@ public interface UILayoutGeneric_i {
 		, option3("option3")
 		, option4("option4")
 		, option5("option5")
+		, option6("option6")
+		, option7("option7")
+		, option8("option8")
+		, option9("option9")
+		, option10("option10")
+		, option11("option11")
+		, option12("option12")
 		;
 		private final String text;
 		private OptionAttribute(final String text) { this.text = text; }

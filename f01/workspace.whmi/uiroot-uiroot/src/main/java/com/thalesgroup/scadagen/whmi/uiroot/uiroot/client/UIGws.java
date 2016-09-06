@@ -157,59 +157,38 @@ public class UIGws {
 		
 		{
 			final String header = "header";
-			final String option = "option";			
-			
-			DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
-			
+			final String option = "option";
 			String mode = ConfigurationType.XMLFile.toString();
-			
 			String module = null;
-			
-			String folder = "UIPanelGeneric";
-			
-			String extention = ".xml";
-			
+			String folder = "UIWidgetGeneric";
+			String extention = ".xml";			
+			DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 			dictionariesCache.add(folder, extention, header);
 			dictionariesCache.add(folder, extention, option);
-			
 			dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
-				
 				@Override
 				public void dictionariesCacheEventReady(int received) {
 					logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
-					
-					ready(received);
-					
+					ready("UIWidgetGeneric", received);
 				}
 			});
 		}
-		
 		
 		{
-			DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIInspectorPanel");
-			
 			String mode = ConfigurationType.PropertiesFile.toString();
-			
 			String module = null;
-			
 			String folder = "UIInspectorPanel";
-			
 			String extention = ".properties";
-			
+			DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 			dictionariesCache.add(folder, extention, null);
-			
 			dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
-				
 				@Override
 				public void dictionariesCacheEventReady(int received) {
 					logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
-					
-					ready(received);
-					
 				}
 			});
 		}
-		
+
 		logger.end(className, function);
 	}
 
@@ -243,7 +222,7 @@ public class UIGws {
 //		logger.end(className, function);
 //	}
 	
-	private void ready(int received) {
+	private void ready(String folder, int received) {
 		final String function = "ready";
 		
 		logger.begin(className, function);

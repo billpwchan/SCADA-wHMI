@@ -13,11 +13,13 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.SummaryViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewWidget;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetAction;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
@@ -101,7 +103,10 @@ public class UILayoutSummary extends UIWidget_i {
 				
 				logger.info(className, function, "viewSel[{}]", viewSel);
 
-				if (ViewWidget.UIWidgetViewer.toString().equals(widget)) {
+				if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName())
+						.equals(widget)
+						) {
 
 					uiWidget = new UIWidgetViewer();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
@@ -109,7 +114,10 @@ public class UILayoutSummary extends UIWidget_i {
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
 
-				} else if (ViewWidget.UIWidgetAction.toString().equals(widget)) {
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetAction.class.getName())
+						.equals(widget)
+						) {
 
 					uiWidget = new UIWidgetAction();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
@@ -117,41 +125,79 @@ public class UILayoutSummary extends UIWidget_i {
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
 
-				} else if (ViewWidget.UIWidgetControl.toString().equals(widget)) {
+				} else if ( 
+						UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName())
+						.equals(widget)
+						||
+						UIWidgetUtil.getClassSimpleName(UIWidgetDpcControl.class.getName())
+						.equals(widget)
+						) {
+					
+					String option1 = "";
+					String option2 = "";
+					String option3 = "";
+					String option4 = "";
+					String option5 = "";
 
-					uiWidget = new UIWidgetControl();
+					if (null != options) {
+						
+						option1	= (String) (options.containsKey(OptionAttribute.option1.toString())?options.get(OptionAttribute.option1.toString()):null);
+						option2	= (String) (options.containsKey(OptionAttribute.option2.toString())?options.get(OptionAttribute.option2.toString()):null);
+						option3	= (String) (options.containsKey(OptionAttribute.option3.toString())?options.get(OptionAttribute.option3.toString()):null);
+						option4	= (String) (options.containsKey(OptionAttribute.option4.toString())?options.get(OptionAttribute.option4.toString()):null);
+						option5	= (String) (options.containsKey(OptionAttribute.option5.toString())?options.get(OptionAttribute.option5.toString()):null);
+
+					} else {
+						logger.warn(className, function, "options IS NULL");
+					}
+
+					if ( ViewWidget.UIWidgetCtlControl.toString().equals(widget) ) {
+						uiWidget = new UIWidgetCtlControl();
+					}
+					if ( ViewWidget.UIWidgetDpcControl.toString().equals(widget) ) {
+						uiWidget = new UIWidgetDpcControl();
+					}
+					
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
+					uiWidget.setParameter(ParameterName.ColumnAlias.toString(), option1);
+					uiWidget.setParameter(ParameterName.ColumnStatus.toString(), option2);
+					uiWidget.setParameter(ParameterName.ColumnServiceOwner.toString(), option3);
+					uiWidget.setParameter(ParameterName.ValueUnSet.toString(), option4);
+					uiWidget.setParameter(ParameterName.ValueSet.toString(), option5);
 					uiWidget.setUINameCard(uiNameCard);
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
 
-				} else if (ViewWidget.UIWidgetFilter.toString().equals(widget)) {
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName())
+						.equals(widget)
+						) {
 
-					String strFilterColumn = "";
-					String strFilterValueSet1 = "";
-					String strFilterValueSet0 = "";
+					String option1 = "";
+					String option2 = "";
+					String option3 = "";
 
 					if (null != options) {
-						if (options.containsKey(OptionAttribute.option1.toString()))
-							strFilterColumn = (String) options.get(OptionAttribute.option1.toString());
-
-						if (options.containsKey(OptionAttribute.option2.toString()))
-							strFilterValueSet0 = (String) options.get(OptionAttribute.option2.toString());
-
-						if (options.containsKey(OptionAttribute.option3.toString()))
-							strFilterValueSet1 = (String) options.get(OptionAttribute.option3.toString());
+						option1	= (String) (options.containsKey(OptionAttribute.option1.toString())?options.get(OptionAttribute.option1.toString()):null);
+						option2	= (String) (options.containsKey(OptionAttribute.option2.toString())?options.get(OptionAttribute.option2.toString()):null);
+						option3	= (String) (options.containsKey(OptionAttribute.option3.toString())?options.get(OptionAttribute.option3.toString()):null);
+					} else {
+						logger.warn(className, function, "options IS NULL");
 					}
 
 					uiWidget = new UIWidgetFilter();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
-					uiWidget.setParameter(ParameterName.FilterColumn.toString(), strFilterColumn);
-					uiWidget.setParameter(ParameterName.FilterValueSet0.toString(), strFilterValueSet0);
-					uiWidget.setParameter(ParameterName.FilterValueSet1.toString(), strFilterValueSet1);
+					uiWidget.setParameter(ParameterName.FilterColumn.toString(), option1);
+					uiWidget.setParameter(ParameterName.FilterValueSet0.toString(), option2);
+					uiWidget.setParameter(ParameterName.FilterValueSet1.toString(), option3);
 					uiWidget.setUINameCard(uiNameCard);
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
 
-				} else if (ViewWidget.UIWidgetPrint.toString().equals(widget)) {
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetPrint.class.getName())
+						.equals(widget)
+						) {
 
 					uiWidget = new UIWidgetPrint();
 					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
@@ -159,29 +205,93 @@ public class UILayoutSummary extends UIWidget_i {
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
 
-				} else if (ViewWidget.ScsOlsListPanel.toString().equals(widget)) {
+				} else if (
+						UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName())
+						.equals(widget)
+						) {
 
-					String listConfigId = "";
-					String menuEnable = "";
-					String selectionMode = "";
+					String option1 = "";
+					String option2 = "";
+					String option3 = "";
 
 					if (null != options) {
-						if (options.containsKey(OptionAttribute.option1.toString()))
-							listConfigId = (String) options.get(OptionAttribute.option1.toString());
-
-						if (options.containsKey(OptionAttribute.option2.toString()))
-							menuEnable = (String) options.get(OptionAttribute.option2.toString());
-
-						if (options.containsKey(OptionAttribute.option3.toString()))
-							selectionMode = (String) options.get(OptionAttribute.option3.toString());
+						option1	= (String) (options.containsKey(OptionAttribute.option1.toString())?options.get(OptionAttribute.option1.toString()):null);
+						option2	= (String) (options.containsKey(OptionAttribute.option2.toString())?options.get(OptionAttribute.option2.toString()):null);
+						option3	= (String) (options.containsKey(OptionAttribute.option3.toString())?options.get(OptionAttribute.option3.toString()):null);
+					} else {
+						logger.warn(className, function, "options IS NULL");
 					}
 
 					uiWidget = new ScsOlsListPanel();
 					uiWidget.setParameter(ParameterName.MwtEventBus.toString(), new MwtEventBus());
-					uiWidget.setParameter(ParameterName.ListConfigId.toString(), listConfigId);
-					uiWidget.setParameter(ParameterName.MenuEnable.toString(), menuEnable);
-					uiWidget.setParameter(ParameterName.SelectionMode.toString(), selectionMode);
+					uiWidget.setParameter(ParameterName.ListConfigId.toString(), option1);
+					uiWidget.setParameter(ParameterName.MenuEnable.toString(), option2);
+					uiWidget.setParameter(ParameterName.SelectionMode.toString(), option3);
 					uiWidget.init();
+					
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect.class.getName())
+						.equals(widget)
+						) {
+					
+					String option1 = "";
+					String option2 = "";
+					String option3 = "";
+					String option4 = "";
+					String option5 = "";
+					String option6 = "";
+					
+					if ( null != options ) {
+						option1 = (String) (options.containsKey(OptionAttribute.option1.toString())?options.get(OptionAttribute.option1.toString()):null);
+						option2 = (String) (options.containsKey(OptionAttribute.option2.toString())?options.get(OptionAttribute.option2.toString()):null);
+						option3 = (String) (options.containsKey(OptionAttribute.option3.toString())?options.get(OptionAttribute.option3.toString()):null);
+						option4 = (String) (options.containsKey(OptionAttribute.option4.toString())?options.get(OptionAttribute.option4.toString()):null);
+						option5 = (String) (options.containsKey(OptionAttribute.option5.toString())?options.get(OptionAttribute.option5.toString()):null);
+						option6 = (String) (options.containsKey(OptionAttribute.option6.toString())?options.get(OptionAttribute.option6.toString()):null);
+					} else {
+						logger.warn(className, function, "options IS NULL");
+					}
+					
+					uiWidget = new UIWidgetCSSSelect();
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
+
+					uiWidget.setParameter(ParameterName.CSSElementName0.toString(), option1);
+					uiWidget.setParameter(ParameterName.CSSValueApplyToElement0.toString(), option2);
+					uiWidget.setParameter(ParameterName.CSSValueRemoveFromElement0.toString(), option3);
+						
+					uiWidget.setParameter(ParameterName.CSSElementName1.toString(), option4);
+					uiWidget.setParameter(ParameterName.CSSValueApplyToElement1.toString(), option5);
+					uiWidget.setParameter(ParameterName.CSSValueRemoveFromElement1.toString(), option6);					
+					
+					uiWidget.setUINameCard(uiNameCard);
+					uiWidget.setXMLFile(viewSel);
+					uiWidget.init();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSFilter.class.getName())
+						.equals(widget)
+						) {
+					
+					String option1 = "";
+					String option2 = "";
+					
+					if ( null != options ) {
+						option1 = (String) (options.containsKey(OptionAttribute.option1.toString())?options.get(OptionAttribute.option1.toString()):null);
+						option2 = (String) (options.containsKey(OptionAttribute.option2.toString())?options.get(OptionAttribute.option2.toString()):null);
+					} else {
+						logger.warn(className, function, "options IS NULL");
+					}
+					
+					uiWidget = new UIWidgetCSSFilter();
+					uiWidget.setParameter(ParameterName.SimpleEventBus.toString(), eventBusName);
+					
+					uiWidget.setParameter(ParameterName.CSSElementName0.toString(), option1);
+					uiWidget.setParameter(ParameterName.CSSElementName1.toString(), option2);
+
+					uiWidget.setUINameCard(uiNameCard);
+					uiWidget.setXMLFile(viewSel);
+					uiWidget.init();
+
 				}
 
 				return uiWidget;
@@ -195,15 +305,17 @@ public class UILayoutSummary extends UIWidget_i {
 		rootPanel = uiLayoutGeneric.getMainPanel();
 
 		for ( ActionAttribute actionAttribute : ActionAttribute.values() ) {
-		String strActionAttribute = actionAttribute.toString();
-		String action = (String) getParameter(strActionAttribute);
-		logger.info(className, function, "ActionAttribute action[{}]", action);
-		if ( null != action ) {
-			UIEventAction uiEventAction = new UIEventAction();
-			uiEventAction.setParameters(ViewAttribute.Operation.toString(), SummaryViewEvent.SetDefaultFilter.toString());
-			eventBus.fireEventFromSource(uiEventAction, this);
+			String strActionAttribute = actionAttribute.toString();
+			String action = (String) getParameter(strActionAttribute);
+			logger.info(className, function, "ActionAttribute strActionAttribute[{}] action[{}]", strActionAttribute, action);
+			if ( null != action ) {
+				UIEventAction uiEventAction = new UIEventAction();
+				uiEventAction.setParameters(ViewAttribute.Operation.toString(), action);
+				eventBus.fireEventFromSource(uiEventAction, this);
+			} else {
+				logger.info(className, function, "ActionAttribute strActionAttribute[{}] action IS NULL", strActionAttribute);
+			}
 		}
-	}
 
 		logger.end(className, function);
 	}

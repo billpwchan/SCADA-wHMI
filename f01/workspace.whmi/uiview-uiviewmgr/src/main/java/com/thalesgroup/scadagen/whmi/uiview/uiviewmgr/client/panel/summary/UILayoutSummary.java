@@ -20,6 +20,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetEmpty;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
@@ -101,7 +102,7 @@ public class UILayoutSummary extends UIWidget_i {
 					viewSel += strXml;
 				}
 				
-				logger.info(className, function, "viewSel[{}]", viewSel);
+				logger.info(className, function, "widget[{}] viewSel[{}]", widget, viewSel);
 
 				if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName())
@@ -292,6 +293,14 @@ public class UILayoutSummary extends UIWidget_i {
 					uiWidget.setXMLFile(viewSel);
 					uiWidget.init();
 
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetEmpty.class.getName())
+						.equals(widget)
+						) { 
+					uiWidget = new UIWidgetEmpty();
+					uiWidget.setUINameCard(uiNameCard);
+					uiWidget.setXMLFile(viewSel);
+					uiWidget.init();
 				}
 
 				return uiWidget;

@@ -1,15 +1,11 @@
 package com.thalesgroup.scadagen.bps;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.hv.sdk.connector.IConnectorTools;
-import com.thalesgroup.scadagen.bps.conf.ConfLoader;
 import com.thalesgroup.scadagen.bps.conf.ConfManager;
 import com.thalesgroup.scadagen.bps.conf.HvOperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.ActionsManager;
@@ -26,15 +22,13 @@ import com.thalesgroup.scadagen.bps.datasource.DataSourceAbstract;
 public class SCADAgenBPS {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SCADAgenBPS.class);
 
-	private Set<DataSourceAbstract<?>> dataSourceSet_;
-
 	private IGenericOperationConnector operationConnector_;
 
 	private IGenericSubscriptionConnector subscriptionConnector_;
 
 	private IConnectorTools connectorTools_;
 	
-	ConfLoader configLoader_ = null;
+	private ConfManager confManager_;
 	
 	IActionsManager actionsManager_ = null;
 	
@@ -50,22 +44,13 @@ public class SCADAgenBPS {
 		LOGGER.debug("BPS: loading configuration");
 		
 		actionsManager_ = ActionsManager.getInstance();
-		
-		dataSourceSet_ = new HashSet<DataSourceAbstract<?>>();
 
 		try {
-			hvOperationConfigLoader_ = HvOperationConfigLoader.getInstance();
-			
-			configLoader_ = ConfLoader.getInstance();
 
-			ConfManager confManager = new ConfManager(this, getSubscriptionConnector(), getOperationConnector(), getTools());	
+			confManager_ = new ConfManager(this, getSubscriptionConnector(), getOperationConnector(), getTools());	
 			
-			for (String configId: configLoader_.getConfigNameSet()) {
-				DataSourceAbstract<?> dataSource = confManager.getDataSource(configId);
-				if (dataSource != null) {
-					LOGGER.trace("Add dataSource {}", configId);
-					dataSourceSet_.add(dataSource);
-				}
+			if (confManager_ != null) {
+				confManager_.loadConfig();
 			}
 
 		} catch (HypervisorException e) {
@@ -89,8 +74,11 @@ public class SCADAgenBPS {
 		LOGGER.trace("start: BPS");
 
 		try {
-			for (DataSourceAbstract<?> dataSource : dataSourceSet_) {
-				dataSource.startProtected();
+			if (confManager_ == null) {
+				throw new BPSException("Error starting BPS. ConfManager is not initialized");
+			}
+			for (DataSourceAbstract<?> dataSource : confManager_.getDataSources()) {
+				dataSource.startSubscriptionProtected();
 			}
 		} catch (HypervisorException e) {
 			throw new BPSException(e);
@@ -101,25 +89,16 @@ public class SCADAgenBPS {
 		LOGGER.trace("stop: BPS");
 
 		try {
-			for (DataSourceAbstract<?> dataSource : dataSourceSet_) {
-				dataSource.stopProtected();
+			if (confManager_ == null) {
+				throw new BPSException("Error stopping BPS. ConfManager is not initialized");
+			}
+			for (DataSourceAbstract<?> dataSource : confManager_.getDataSources()) {
+				dataSource.stopProtectedSubscription();
 			}
 		} catch (HypervisorException e) {
 			throw new BPSException(e);
 		}
 	}
-
-//	public DataSourceAbstract<?> getDataSource() {
-//		return dataSource_;
-//	}
-
-//	public void updateData(GDGData data) {
-//		
-//	}
-//
-//	public String getConfigurationId() {
-//		return configId_;
-//	}
 
 	public EntityManagerAbstract<?> createCfgEntitiesManager() {
 		ConfiguredEntityStatusesManager manager = new ConfiguredEntityStatusesManager(subscriptionConnector_, operationConnector_);

@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -31,7 +31,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
-public class UIInspectorControl implements UIInspectorPage_i {
+public class UIInspectorControl implements UIInspectorTab_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);

@@ -82,20 +82,20 @@ public class HvOperationConfigLoader {
 			
 			if (LOGGER.isTraceEnabled()) {
 				for (Resource res: resources) {
-					LOGGER.trace("Found HvOperation config file {}", res.getURL().getPath());
+					LOGGER.trace("Found HvOperation config file [{}]", res.getURL().getPath());
 				}
 			}
 
 			for (Resource resource : resources) {
-				LOGGER.trace("loading config file resource {}", resource.getFilename());
+				LOGGER.trace("loading config file resource [{}]", resource.getFilename());
 				HvOperationConfig config = null;
 
 				try {
 					config = read(resource);
 				} catch (HypervisorConversionException e) {
-					LOGGER.error("An error occurred while reading configuration files. {}", e);
+					LOGGER.error("An error occurred while reading configuration files. [{}]", e);
 				} catch (IOException e) {
-					LOGGER.error("An error occurred while reading configuration files. {}", e);
+					LOGGER.error("An error occurred while reading configuration files. [{}]", e);
 				}
 
 				if (config != null) {
@@ -114,7 +114,7 @@ public class HvOperationConfigLoader {
 				}
 			}
 		} catch (IOException e) {
-			LOGGER.error("An error occurred while looking for configuration files. {}", e);
+			LOGGER.error("An error occurred while looking for configuration files. [{}]", e);
 		}
 	}
 

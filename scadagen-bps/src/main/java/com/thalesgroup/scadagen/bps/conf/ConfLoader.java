@@ -17,10 +17,7 @@ import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.common.tools.MarshallersPool;
 import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
-import com.thalesgroup.scadagen.bps.conf.common.DataSource;
 import com.thalesgroup.scadagen.bps.conf.subscription_data_source.SubscriptionDataSource;
-import com.thalesgroup.scadagen.bps.datasource.DataSourceAbstract;
-import com.thalesgroup.scadagen.bps.datasource.SubscriptionDataSourceImpl;
 
 public final class ConfLoader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfLoader.class);
@@ -88,7 +85,7 @@ public final class ConfLoader {
 			for (Resource resource : resources) {
 				try {
 					BpsConfig config = read(resource);
-					LOGGER.trace("Read resource {}", resource.getFilename());
+					LOGGER.trace("Read resource [{}]", resource.getFilename());
 
 					this.confMap_.put(config.getBpsConfiguration().getName(), config);
 					this.lastModifyMap_.put(config.getBpsConfiguration().getName(), Long.valueOf(resource.lastModified()));
@@ -157,9 +154,9 @@ public final class ConfLoader {
 		this.resourceMap_.put(configuration.getBpsConfiguration().getName(), resource);
 	}
 
-	public DataSourceAbstract<? extends DataSource> getDataSource(DataSource dataSourceConf)
-			throws HypervisorException {
-		DataSourceAbstract<? extends DataSource> dataSource = new SubscriptionDataSourceImpl();
-		return dataSource;
-	}
+//	public DataSourceAbstract<? extends DataSource> getDataSource()
+//			throws HypervisorException {
+//		DataSourceAbstract<? extends DataSource> dataSource = new SubscriptionDataSourceImpl();
+//		return dataSource;
+//	}
 }

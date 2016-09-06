@@ -45,25 +45,25 @@ public class AlarmAction implements IAction {
 	    String operationJavaClassName = null;
 	    Map<String, String> operationParam = new HashMap<String, String>();
 	    
-	    LOGGER.debug("**** execute {}", actionConfigId);
+	    LOGGER.debug("Try execute action with config [{}]", actionConfigId);
 	    
 	    try
 	    {
 	    	OperationEntry entry = HvOperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
 	    	
 	    	if (entry != null) {
-	    		LOGGER.trace("**** Found OperationEntry {}", actionConfigId);
+	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
 	    		
 	    		operationJavaClassName = entry.getCommandContent().getOperationJavaClassName();
 	    		if (operationJavaClassName == null) {
-	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry {}", actionConfigId);
+	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry [{}]", actionConfigId);
 	    			return;
 	    		}
-	    		LOGGER.trace("**** OperationEntry javaClassName {}", operationJavaClassName);
+	    		LOGGER.trace("OperationEntry javaClassName [{}]", operationJavaClassName);
 	    		
 	    		for (CommandParam param: entry.getCommandContent().getCommandParam()) {
 	    			operationParam.put(param.getParamName(), param.getParamValue());
-	    			LOGGER.trace("**** OperationEntry operationParam param={} value={}", param.getParamName(), param.getParamValue());
+	    			LOGGER.trace("OperationEntry operationParam param=[{}] value=[{}]", param.getParamName(), param.getParamValue());
 	    		}
 	    		
 	    		List<String> equipmentList = new ArrayList<String>();
@@ -83,12 +83,12 @@ public class AlarmAction implements IAction {
 	    		}
 
 	    		for (String id: equipmentList) {
-	    			if (operationParam.get("entityID") == null) {
-	    				operationParam.put("entityID", id);
-	    			}
+
+	    			operationParam.put("entityID", id);
+
 		    		operationRequest = opConnector.createOperation(operationJavaClassName, operationParam);
 		    		if (operationRequest == null) {
-		    			LOGGER.debug("Error creating operation using OperationEntry {}", actionConfigId);
+		    			LOGGER.debug("Error creating operation using OperationEntry [{}]", actionConfigId);
 		    			return;
 		    		}
 			
@@ -99,14 +99,14 @@ public class AlarmAction implements IAction {
 			    		} else {
 			    			operationConnector.requestOperation(operationRequest);
 			    		}
-			    		LOGGER.debug("**** Sent requestOperation {}", actionConfigId);
+			    		LOGGER.debug("Sent requestOperation [{}]", actionConfigId);
 			    	}
 	    		}
 	    	} else {
-	    		LOGGER.warn("OperationEntry {} not found", actionConfigId);
+	    		LOGGER.warn("OperationEntry [{}] not found", actionConfigId);
 	    	}
 	    } catch (HypervisorException e) {
-	    	LOGGER.debug("Error creating operation using OperationEntry {} {}", actionConfigId, e);
+	    	LOGGER.debug("Error creating operation using OperationEntry [{}] [{}]", actionConfigId, e);
 	    }
 	}
 }

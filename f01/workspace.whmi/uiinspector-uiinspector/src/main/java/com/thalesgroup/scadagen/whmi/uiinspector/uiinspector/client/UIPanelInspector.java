@@ -15,8 +15,8 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTag_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
@@ -31,7 +31,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
  * @author syau
  *
  */
-public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIInspectorTag_i {
+public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIInspectorTags_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspector.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -42,10 +42,13 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
+	
+	private final String inspPropPrefix = "inspectorpanel.";
+	private final String inspProp = inspPropPrefix+"properties";
 
 	private String scsEnvId		= null;
 	private String parent		= null;
-	private int periodMillis	= 500;
+	private int periodMillis	= 250;
 	
 	public void setPeriodMillis(int periodMillis) {
 		this.periodMillis = periodMillis;
@@ -69,21 +72,25 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.end(className, function);
 	}
-	
-	@Override
-	public void setPeriod(String period) {
-		final String function = "setPeriod";
-		
-		logger.begin(className, function);
-
-		this.periodMillis = Integer.parseInt(period);
-		
-		logger.end(className, function);
-	}
 
 	@Override
 	public void connect() {
 		final String function = "connect";
+		
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(UIInspector_i.strUIInspector);
+		if ( null != dictionariesCache ) {
+			String period = dictionariesCache.getStringValue(inspProp, inspPropPrefix+"periodMillis");
+			logger.info(className, function, "inspectorpanel.periodMillis[{}], period");
+			try {
+				periodMillis = Integer.parseInt(period);
+				
+			} catch ( NumberFormatException e ) {
+				logger.warn(className, function, "invalid integer value of period[{}]", period);
+			}
+			logger.info(className, function, "database pollor periodMillis[{}]", periodMillis);
+		} else {
+			logger.warn(className, function, "UIInspector_i.strUIInspector[{}], dictionariesCache IS NULL", UIInspector_i.strUIInspector, dictionariesCache);
+		}
 		
 		logger.begin(className, function);
 		Database database = Database.getInstance();
@@ -301,8 +308,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			whiteLists.add(tagRegExpPatternWhileList);
 			whiteLists.add(advanceRegExpPatternWhileList);
 			
-
-			
 			for ( int i = 0 ; i < strTabConfigNames.length ; ++i ) {
 				String tab = strTabConfigNames[i];
 				logger.begin(className, function+" "+tab);
@@ -464,7 +469,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.begin(className, function);
 		
-		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
+		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.buildWidgets();
 			} else {
@@ -481,7 +486,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.begin(className, function);
 		
-		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
+		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.connect();
 			} else {
@@ -498,7 +503,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.begin(className, function);
 		
-		for ( UIInspectorPage_i uiPanelInspector : uiInspectorTabs ) {
+		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
 			if ( null != uiPanelInspector ) {
 				uiPanelInspector.disconnect();
 			} else {
@@ -509,12 +514,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 	}
 	
-	private UIInspectorPage_i uiInspectorHeader		= null;
+	private UIInspectorTab_i uiInspectorHeader		= null;
 	
-	private UIInspectorPage_i uiInspectorInfo		= null;
-	private UIInspectorPage_i uiInspectorControl	= null;
-	private UIInspectorPage_i uiInspectorTag		= null;
-	private UIInspectorPage_i uiInspectorAdvance	= null;
+	private UIInspectorTab_i uiInspectorInfo		= null;
+	private UIInspectorTab_i uiInspectorControl	= null;
+	private UIInspectorTab_i uiInspectorTag		= null;
+	private UIInspectorTab_i uiInspectorAdvance	= null;
 	
 	private TabPanel panelTab 			= null;
 
@@ -524,7 +529,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private ComplexPanel panelTag		= null;
 	private ComplexPanel panelAdv		= null;
 	
-	private LinkedList<UIInspectorPage_i> uiInspectorTabs = null;
+	private LinkedList<UIInspectorTab_i> uiInspectorTabs = null;
 
 	@Override
 	public void init() {
@@ -532,7 +537,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 		logger.begin(className, function);
 
-		uiInspectorTabs 	= new LinkedList<UIInspectorPage_i>();
+		uiInspectorTabs 	= new LinkedList<UIInspectorTab_i>();
 		
 		uiInspectorHeader	= new UIInspectorHeader();
 		
@@ -651,11 +656,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		btnClose.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				disconnect();
-				
-				makeTabsDisconnect();
-				
-				hide();
+				close();
 			}
 	    });
 		
@@ -690,4 +691,16 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		if ( null != uiPanelInspectorEvent ) uiPanelInspectorEvent.hideDialogBox();
 	}
 	
+	@Override
+	public void close() {
+		final String function = "close";
+		
+		logger.begin(className, function);
+		
+		disconnect();
+		
+		hide();
+		
+		logger.end(className, function);
+	}
 }

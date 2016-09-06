@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+    <p:bpsConfiguration name="testeqp" />
+
+    <p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<!-- <sds:type>com.thalesgroup.scada.data.config.common.EVariableStatusesType</sds:type>-->
+				<sds:id>B01CA001</sds:id>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="recstate"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="angle"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="zoom"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+        <p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<sds:id>B03FD047</sds:id>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="smoke"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="smokeScadaSpec"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="smokeValidity"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+        <!--<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<sds:id>B02CA001</sds:id>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="recstate"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="angle"/>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="zoom"/>
+			</sds:configuredDataSource>
+		</p:dataSource>-->
+	</p:subject>
+
+	<p:trigger>
+        <p:criteria>
+            <p:entityCriteria>
+                <p:entityID>B01CA001</p:entityID>
+                <p:statusCriteria xsi:type="cmn:equals" status="state">
+                        <cmn:value>0</cmn:value>
+                </p:statusCriteria>
+                <!--<p:statusCriteria xsi:type="cmn:and">
+                    <cmn:firstOperand xsi:type="cmn:equals" status="id">
+                        <cmn:value>camera-1</cmn:value>
+                    </cmn:firstOperand>
+                    <cmn:secondOperand xsi:type="cmn:equals" status="state">
+                        <cmn:value>UNREACHABLE</cmn:value>
+                    </cmn:secondOperand>
+                </p:statusCriteria>-->
+            </p:entityCriteria>
+            <p:entityCriteria>
+                <p:entityID>B03FD047</p:entityID>
+                <p:statusCriteria xsi:type="cmn:equals" status="smoke">
+                        <cmn:value>0</cmn:value>
+                </p:statusCriteria>
+            </p:entityCriteria>
+        </p:criteria>
+        <p:action>
+            <p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.EqpAction</p:actionHandler>
+            <p:actionConfig>closedoor</p:actionConfig>
+        </p:action>
+    </p:trigger>
+
+</p:bpsConfig>

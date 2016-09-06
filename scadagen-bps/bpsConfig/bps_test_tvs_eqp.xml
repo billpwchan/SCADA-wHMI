@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+    <p:bpsConfiguration name="testeqp" />
+
+    <p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<!-- <sds:type>com.thalesgroup.scada.data.config.common.EVariableStatusesType</sds:type>-->
+				<sds:id>camera-1</sds:id>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+        <p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<sds:id>camera-28</sds:id>
+                <sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+	</p:subject>
+
+	<p:trigger>
+        <p:criteria>
+            <p:entityCriteria>
+                <p:entityID>camera-1</p:entityID>
+                <p:entityID>camera-28</p:entityID>
+                <p:statusCriteria xsi:type="cmn:equals" status="state">
+                        <cmn:value>NOT_REACHABLE</cmn:value>
+                </p:statusCriteria>
+                <!--<p:statusCriteria xsi:type="cmn:and">
+                    <cmn:firstOperand xsi:type="cmn:equals" status="id">
+                        <cmn:value>camera-1</cmn:value>
+                    </cmn:firstOperand>
+                    <cmn:secondOperand xsi:type="cmn:equals" status="state">
+                        <cmn:value>UNREACHABLE</cmn:value>
+                    </cmn:secondOperand>
+                </p:statusCriteria>-->
+            </p:entityCriteria>
+        </p:criteria>
+        <p:action>
+            <p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.EqpAction</p:actionHandler>
+            <p:actionConfig>closedoor</p:actionConfig>
+        </p:action>
+    </p:trigger>
+
+</p:bpsConfig>

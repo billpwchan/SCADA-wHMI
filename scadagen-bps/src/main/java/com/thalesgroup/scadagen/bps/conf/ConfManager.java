@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.bps.conf;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,19 +14,24 @@ import com.thalesgroup.scadagen.bps.conf.common.DataSource;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.subscription.IGenericSubscriptionConnector;
 import com.thalesgroup.scadagen.bps.datasource.DataSourceAbstract;
+import com.thalesgroup.scadagen.bps.datasource.SubscriptionDataSourceImpl;
 
 public class ConfManager {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ConfManager.class);
 
 	private SCADAgenBPS bps_;
 
-	private BpsConfig config_;
+	//private BpsConfig config_;
 
 	private IGenericSubscriptionConnector subscriptionConnector_;
 
 	private IGenericOperationConnector operationConnector_;
 
 	private IConnectorTools iConnectorTools_;
+	
+	private HvOperationConfigLoader hvOperationConfigLoader_;
+	
+	private ConfLoader configLoader_;
 
 	public ConfManager(SCADAgenBPS bps,
 			IGenericSubscriptionConnector subscriptionConnector, IGenericOperationConnector operationConnector,
@@ -32,6 +40,13 @@ public class ConfManager {
 		subscriptionConnector_ = subscriptionConnector;
 		operationConnector_ = operationConnector;
 		iConnectorTools_ = iConnectorTools;
+	}
+	
+	public void loadConfig() throws HypervisorException {
+		
+		hvOperationConfigLoader_ = HvOperationConfigLoader.getInstance();
+		
+		configLoader_ = ConfLoader.getInstance();
 	}
 
 	private BpsConfig getConfig(String configurationId) throws HypervisorException {
@@ -47,18 +62,28 @@ public class ConfManager {
 	}
 
 	public DataSourceAbstract<? extends DataSource> getDataSource(String configId) throws HypervisorException {
-		config_ = getConfig(configId);
-		DataSource dataSourceConf = config_.getSubject().getDataSource();
+		BpsConfig config = getConfig(configId);
+		Set<DataSource> dataSourceConf = new HashSet(config.getSubject().getDataSource());
 
-		DataSourceAbstract<? extends DataSource> dataSource = ConfLoader.getInstance().getDataSource(dataSourceConf);
+		DataSourceAbstract<? extends DataSource> dataSource = new SubscriptionDataSourceImpl();
 
-		dataSource.setBPS(bps_);
-		dataSource.setSubscriptionConnector(subscriptionConnector_);
-		dataSource.setOperationConnector(operationConnector_);
-		dataSource.setConnectorTools(iConnectorTools_);
-
-		dataSource.initProtected(config_, dataSourceConf);
+		if (dataSource != null) {
+			dataSource.setBPS(bps_);
+			dataSource.setSubscriptionConnector(subscriptionConnector_);
+			dataSource.setOperationConnector(operationConnector_);
+			dataSource.setConnectorTools(iConnectorTools_);
+	
+			dataSource.initProtected(config, dataSourceConf);
+		}
 
 		return dataSource;
+	}
+	
+	public Set<DataSourceAbstract<? extends DataSource>> getDataSources() throws HypervisorException {
+		Set<DataSourceAbstract<? extends DataSource>> dataSources = new HashSet();
+		for (String configName: configLoader_.getConfigNameSet()) {
+			dataSources.add(getDataSource(configName));
+		}
+		return dataSources;
 	}
 }

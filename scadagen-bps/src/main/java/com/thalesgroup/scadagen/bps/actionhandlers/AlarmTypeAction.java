@@ -35,38 +35,38 @@ public class AlarmTypeAction implements IAction {
 	    String operationJavaClassName = null;
 	    Map<String, String> operationParam = new HashMap<String, String>();
 	    
-	    LOGGER.debug("**** execute {}", actionConfigId);
+	    LOGGER.debug("Try execute action with config [{}]", actionConfigId);
 	    
 	    try
 	    {
 	    	OperationEntry entry = HvOperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
 	    	
 	    	if (entry != null) {
-	    		LOGGER.trace("**** Found OperationEntry {}", actionConfigId);
+	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
 	    		
 	    		operationJavaClassName = entry.getCommandContent().getOperationJavaClassName();
 	    		if (operationJavaClassName == null) {
-	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry {}", actionConfigId);
+	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry [{}]", actionConfigId);
 	    			return;
 	    		}
-	    		LOGGER.trace("**** OperationEntry javaClassName {}", operationJavaClassName);
+	    		LOGGER.trace("OperationEntry javaClassName [{}]", operationJavaClassName);
 	    		
 	    		for (CommandParam param: entry.getCommandContent().getCommandParam()) {
 	    			operationParam.put(param.getParamName(), param.getParamValue());
-	    			LOGGER.trace("**** OperationEntry operationParam param={} value={}", param.getParamName(), param.getParamValue());
+	    			LOGGER.trace("OperationEntry operationParam param=[{}] value=[{}]", param.getParamName(), param.getParamValue());
 	    		}
 	    		
 	    		String equipmentType = entry.getEquipmentType();
 	    		Set<String> entityIds = new HashSet<String>();
 	    		
 	    		if (equipmentType == null) {
-	    			LOGGER.trace("**** OperationEntry equipmentType is null");
+	    			LOGGER.trace("OperationEntry equipmentType is null");
 	    			for (AbstractEntityStatusesType entity: entities) {
 	    				if (entity instanceof AbstractAlarmType) {
 	    					AbstractAlarmType alarm = (AbstractAlarmType)entity;
 	    					if (alarm.getSourceID() != null && alarm.getSourceID().getValue() != null) {
 	    						equipmentType = opConnector.getTools().getEquipmentTypeFromId(alarm.getSourceID().getValue());
-	    						LOGGER.trace("**** OperationEntry equipmentType from alarm list {}", equipmentType);
+	    						LOGGER.trace("OperationEntry equipmentType from alarm list [{}]", equipmentType);
 	    					}
 	    				}
 	    			}
@@ -84,7 +84,7 @@ public class AlarmTypeAction implements IAction {
 
 					entityIds = entitiesAsMap.keySet();
 					
-					LOGGER.trace("**** OperationEntry entityIDs {}", entityIds.toString());
+					LOGGER.trace("OperationEntry entityIDs [{}]", entityIds.toString());
 
 				} catch (Exception e) {
 					LOGGER.error("Cannot get the list of entities of type [" + equipmentType + "].", e);
@@ -95,7 +95,7 @@ public class AlarmTypeAction implements IAction {
 
 		    		operationRequest = opConnector.createOperation(operationJavaClassName, operationParam);
 		    		if (operationRequest == null) {
-		    			LOGGER.debug("Error creating operation using OperationEntry {}", actionConfigId);
+		    			LOGGER.debug("Error creating operation using OperationEntry [{}]", actionConfigId);
 		    			return;
 		    		}
 			
@@ -106,14 +106,14 @@ public class AlarmTypeAction implements IAction {
 			    		} else {
 			    			operationConnector.requestOperation(operationRequest);
 			    		}
-			    		LOGGER.debug("**** Sent requestOperation {}", actionConfigId);
+			    		LOGGER.debug("Sent requestOperation [{}]", actionConfigId);
 			    	}
 	    		}
 	    	} else {
-	    		LOGGER.warn("OperationEntry {} not found", actionConfigId);
+	    		LOGGER.warn("OperationEntry [{}] not found", actionConfigId);
 	    	}
 	    } catch (HypervisorException e) {
-	    	LOGGER.debug("Error creating operation using OperationEntry {} {}", actionConfigId, e);
+	    	LOGGER.debug("Error creating operation using OperationEntry [{}] [{}]", actionConfigId, e);
 	    }
 	}
 }

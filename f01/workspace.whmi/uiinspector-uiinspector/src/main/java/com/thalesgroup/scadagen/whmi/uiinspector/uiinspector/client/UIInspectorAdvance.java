@@ -18,10 +18,12 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorPage_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -33,14 +35,17 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
-public class UIInspectorAdvance implements UIInspectorPage_i {
+public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String tagname				= "advance";
+	
+	private final String inspAdvPropPrefix = "inspectorpanel.advance.";
+	private final String inspAdvProp = inspAdvPropPrefix+"properties";
 
-	private final String applyWithoutReset		= "true";
+	private boolean moApplyWithoutReset			= false;
 	
 	// Static Attribute List
 	private final String staticDciAttibutes []	= new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
@@ -121,7 +126,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		logger.end(className, function);
 	}
 	
-	private DpcMgr dpcAccess = null;
+	private DpcMgr dpcMgr = null;
 	private Observer observer = null;
 	private Subject dpcMgrSubject = null;
 	
@@ -249,8 +254,8 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		}
 		
 		{
-			dpcAccess = DpcMgr.getInstance("advance");
-			dpcMgrSubject = dpcAccess.getSubject();
+			dpcMgr = DpcMgr.getInstance("advance");
+			dpcMgrSubject = dpcMgr.getSubject();
 			
 			observer = new Observer() {
 				@Override
@@ -863,9 +868,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							
 							if ( !RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	isManualOverrideApply = true;	}
 							if ( RTDB_Helper.isMO(forcedStatus) && !chkDPMs[index][indexMO].getValue() ) {	isManualOverrideCancel = true;	}
-							if ( 
-									RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() 
-									&& applyWithoutReset.equals("true") ) {	
+							if ( moApplyWithoutReset && RTDB_Helper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	
 								boolean changed = false;
 								if ( PointType.dci == pointType ) {
 									int moIndex = lstValues[index].getSelectedIndex();
@@ -952,7 +955,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							// SCSDPC ALARM_INHIBIT_VAR
 							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
 							
-							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
+							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
 							
 							chkDPMs[index][indexAI].setValue(true);
 						} 
@@ -961,7 +964,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							// SCSDPC NO_ALARM_INHIBIT_VAR
 							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
 							
-							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
+							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
 
 							chkDPMs[index][indexAI].setValue(false);
 						}
@@ -971,7 +974,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							// SS
 							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
 							
-							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
+							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
 							
 							chkDPMs[index][indexSS].setValue(true);
 							
@@ -981,7 +984,7 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 							
 							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
 							
-							dpcAccess.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
+							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
 							
 							chkDPMs[index][indexSS].setValue(false);
 						}
@@ -1008,21 +1011,21 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 									logger.info(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moIValue[{}]"
 											, new Object[]{key, scsEnvId, alias, forceAction, moIValue});
 									
-									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
+									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
 									
 								} else if ( PointType.aci == pointType ) {
 									
 									logger.info(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moFValue[{}]"
 											, new Object[]{key, scsEnvId, alias, forceAction, moFValue});
 									
-									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
+									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
 									
 								} else if ( PointType.sci == pointType ) {
 									
 									logger.info(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moSValue[{}]"
 											, new Object[]{key, scsEnvId, alias, forceAction, moSValue});
 									
-									dpcAccess.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
+									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
 									
 								}
 								
@@ -1072,6 +1075,23 @@ public class UIInspectorAdvance implements UIInspectorPage_i {
 		final String function = "init";
 		
 		logger.begin(className, function);
+		
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(UIInspector_i.strUIInspector);
+		if ( null != dictionariesCache ) {
+			
+			// moApplyWithoutReset
+			String strMoApplyWithoutReset = dictionariesCache.getStringValue(inspAdvProp, inspAdvPropPrefix+"moApplyWithoutReset");
+			logger.info(className, function, "strMoApplyWithoutReset[{}]", strMoApplyWithoutReset);
+			if ( null != strMoApplyWithoutReset ) {
+				if ( "true".equals(strMoApplyWithoutReset) ) {
+					logger.info(className, function, "strModeless IS TRUE");
+					moApplyWithoutReset = true;
+				}
+			}
+			logger.info(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
+		} else {
+			logger.warn(className, function, "UIInspector_i.strUIInspector[{}], dictionariesCache IS NULL", UIInspector_i.strUIInspector, dictionariesCache);
+		}
 		
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");

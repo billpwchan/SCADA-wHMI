@@ -2,7 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 public interface UIView_i
 {
-	enum ParameterName {
+	public enum ParameterName {
 		SimpleEventBus("SimpleEventBus")
 		, MwtEventBus("MwtEventBus")
 		
@@ -20,7 +20,7 @@ public interface UIView_i
 		public String toString() { return this.text; }
 	}
 	
-	enum ViewWidget {
+	public enum ViewWidget {
 		UIWidgetViewer("UIWidgetViewer")
 		, UIWidgetAction("UIWidgetAction")
 		, UIWidgetControl("UIWidgetControl")
@@ -34,7 +34,7 @@ public interface UIView_i
 		public String toString() { return this.text; }
 	}
 	
-	enum ViewAttribute {
+	public enum ViewAttribute {
 		Operation("operation")
 		, OperationString1("operationstring1")
 		, OperationString2("operationstring2")
@@ -49,7 +49,7 @@ public interface UIView_i
 		public String toString() { return this.text; }
 	}
 
-	enum PrintViewEvent {
+	public enum PrintViewEvent {
 		Print("Print")
 		;
 		private final String text;
@@ -58,7 +58,7 @@ public interface UIView_i
 		public String toString() { return this.text; }
 	}
 	
-	enum SummaryViewEvent {
+	public enum SummaryViewEvent {
 		SetDefaultFilter("SetDefaultFilter")
 		;
 		private final String text;
@@ -68,7 +68,7 @@ public interface UIView_i
 	}
 	
 	// Event Send from View
-	enum ViewerViewEvent {
+	public enum ViewerViewEvent {
 		FilterAdded("FilterAdded")
 		, FilterRemoved("FilterRemoved")
 		, RowSelected("RowSelected")
@@ -79,7 +79,7 @@ public interface UIView_i
 		public String toString() { return this.text; }
 	}
 	
-	enum FilterViewEvent {
+	public enum FilterViewEvent {
 		AddFilter("AddFilter")
 		, RemoveFilter("RemoveFilter")
 		;
@@ -90,7 +90,7 @@ public interface UIView_i
 	}
 	
 	// Event Send from Control
-	enum ControlViewEvent {
+	public enum ControlViewEvent {
 		;
 		private final String text;
 		private ControlViewEvent(final String text) { this.text = text; }

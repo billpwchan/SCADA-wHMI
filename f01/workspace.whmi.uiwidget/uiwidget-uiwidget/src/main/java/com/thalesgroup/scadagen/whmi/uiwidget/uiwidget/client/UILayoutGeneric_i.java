@@ -59,6 +59,8 @@ public interface UILayoutGeneric_i {
 		, top("top")
 		, csscontainer("csscontainer")
 		, uiView("uiView")
+		, eventbusname("eventbusname")
+		, eventbusscope("eventbusscope")
 		;
 		private final String text;
 		private WidgetAttribute(final String text) { this.text = text; }
@@ -88,12 +90,12 @@ public interface UILayoutGeneric_i {
 	}
 	
 	public enum ActionAttribute {
-		action1("action1")
-		, action2("action2")
-		, action3("action3")
-		, action4("action4")
-		, action5("action5")
-		, action6("action6")
+		initAction1("initAction1")
+		, initAction2("initAction2")
+		, initAction3("initAction3")
+		, initAction4("initAction4")
+		, initAction5("initAction5")
+		, initAction6("initAction6")
 		;
 		private final String text;
 		private ActionAttribute(final String text) { this.text = text; }

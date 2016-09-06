@@ -117,7 +117,7 @@ public interface UILayoutGeneric_i {
 	
 	public enum TypeAttribute {
 		  predefine("predefine")
-		, configuration("configuration")
+		, widgetconfiguration("widgetconfiguration")
 		, layoutconfiguration("layoutconfiguration")
 		;
 		private final String text;

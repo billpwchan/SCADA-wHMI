@@ -197,12 +197,12 @@ public class UILayoutGeneric extends UIWidget_i {
 								} else {
 									logger.warn(className, function, "created UILayoutGeneric widget[{}] IS NULL", widget);
 								}
-							} else if ( TypeAttribute.configuration.equalsName(type) ) {
+							} else if ( TypeAttribute.widgetconfiguration.equalsName(type) ) {
 								
 								String viewSel = widget;
 								if ( null != uiview ) viewSel = uiview;
 								
-								//configuration
+								//widgetconfiguration
 								uiGeneric.put(widget, new UIWidgetGeneric());
 								uiWidget = uiGeneric.get(widget);
 								if ( null != uiWidget ) {

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.thalesgroup.rtt</groupId>
+    <artifactId>rttapp</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.2.RELEASE</version>
+    </parent>
+    
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        
+        <!--  START Remove if running as standalone jar -->
+        
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!--  END Remove if running as standalone jar -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+        
+        <dependency>
+               <groupId>org.springframework.ws</groupId>
+               <artifactId>spring-ws-core</artifactId>
+        </dependency>
+        
+        <dependency>
+			<groupId>com.thalesgroup.scadasoft</groupId>
+			<artifactId>scs-data-model</artifactId>
+			<version>6.2.4.5</version>
+		</dependency>
+		
+		
+		<dependency>
+		  	<groupId>com.thalesgroup.hv.common</groupId>
+		  	<artifactId>data-helper</artifactId>
+		  	<version>1.8.0_P03</version>
+		</dependency>
+		
+		<dependency>
+		  	<groupId>com.thalesgroup.hv.common</groupId>
+		  	<artifactId>data-model-jaxb</artifactId>
+		  	<version>1.8.0_P03</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.thalesgroup.hv.common</groupId>
+			<artifactId>core</artifactId>
+			<version>1.8.0_P03</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>com.thalesgroup.hv.common</groupId>
+		   <artifactId>hv-webservices-cxf</artifactId>
+		   <version>1.8.0_P03</version>
+		</dependency>
+		
+		<dependency>
+		   <groupId>com.thalesgroup.hv.gzcocc</groupId>
+		   <artifactId>gzcocc-data-model</artifactId>
+		   <version>1.4.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>3.1.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>3.1.5</version>
+		</dependency>
+		
+		
+		<dependency>
+		    <groupId>com.sun.xml.bind</groupId>
+		    <artifactId>jaxb-impl</artifactId>
+		    <version>2.2.11</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>19.0</version>
+		</dependency>
+		
+		
+    </dependencies>
+
+    <properties>
+        <java.version>1.7</java.version>
+    </properties>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                	<finalName>${project.artifactId}</finalName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <url>https://repo.spring.io/libs-release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+        </repository>
+
+    </repositories>
+    
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestone</id>
+            <url>https://repo.spring.io/libs-release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

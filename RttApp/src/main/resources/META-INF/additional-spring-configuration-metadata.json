@@ -1,0 +1,37 @@
+{"properties": [
+  {
+    "name": "link.prefix",
+    "type": "java.lang.String",
+    "description": "A description for 'link.prefix'"
+  },
+  {
+    "name": "subscribe.period",
+    "type": "java.lang.String",
+    "description": "A description for 'subscribe.period'"
+  },
+  {
+    "name": "consumer.url",
+    "type": "java.lang.String",
+    "description": "A description for 'consumer.url'"
+  },
+  {
+    "name": "check.expired.period",
+    "type": "java.lang.String",
+    "description": "A description for 'check.expired.period'"
+  },
+  {
+    "name": "connector.mapping.conf",
+    "type": "java.lang.String",
+    "description": "A description for 'connector.mapping.conf'"
+  },
+  {
+    "name": "connector.mapping.addr",
+    "type": "java.lang.String",
+    "description": "A description for 'connector.mapping.addr'"
+  },
+  {
+    "name": "connector.mapping.xsi_type",
+    "type": "java.lang.String",
+    "description": "A description for 'connector.mapping.xsi_type'"
+  }
+]}

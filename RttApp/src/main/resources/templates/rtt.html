@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Getting Started: Serving Web Content</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <script type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/plugins/jqplot.pointLabels.min.js"></script>
+		<script type="text/javascript" src="lib/jqplot/plugins/jqplot.enhancedLegendRenderer.min.js"></script>
+		<script type="text/javascript" src="lib/stomp.min.js"></script>
+		<script type="text/javascript" src="lib/sockjs-1.0.3.js"></script>
+		<script type="text/javascript" src="lib/chart.properties.js"></script>
+		<!-- <script type="text/javascript" src="rtt.chart.functions.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css"/>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			$(document).ready(function() {
+				var client;
+				var ws;
+				var plot;
+				
+				var subLink0 = /*[[${subscriptionLink0}]]*/;
+				var subLink1 = /*[[${subscriptionLink1}]]*/;
+				var subLink2 = /*[[${subscriptionLink2}]]*/;
+				var subLink3 = /*[[${subscriptionLink3}]]*/;
+				var subLink4 = /*[[${subscriptionLink4}]]*/;
+				var subLink5 = /*[[${subscriptionLink5}]]*/;
+				var subLink6 = /*[[${subscriptionLink6}]]*/;
+				var subLink7 = /*[[${subscriptionLink7}]]*/;
+				
+				var destPrefix = '/';
+				var env0 = /*[[${env0}]]*/;
+				var env1 = /*[[${env1}]]*/;
+				var env2 = /*[[${env2}]]*/;
+				var env3 = /*[[${env3}]]*/;
+				var env4 = /*[[${env4}]]*/;
+				var env5 = /*[[${env5}]]*/;
+				var env6 = /*[[${env6}]]*/;
+				var env7 = /*[[${env7}]]*/;
+				
+				var subscriptionId0 = /*[[${subscriptionId0}]]*/;
+				var subscriptionId1 = /*[[${subscriptionId1}]]*/;
+				var subscriptionId2 = /*[[${subscriptionId2}]]*/;
+				var subscriptionId3 = /*[[${subscriptionId3}]]*/;
+				var subscriptionId4 = /*[[${subscriptionId4}]]*/;
+				var subscriptionId5 = /*[[${subscriptionId5}]]*/;
+				var subscriptionId6 = /*[[${subscriptionId6}]]*/;
+				var subscriptionId7 = /*[[${subscriptionId7}]]*/;
+				
+				var subField0 = /*[[${subField0}]]*/;
+				var subField1 = /*[[${subField1}]]*/;
+				var subField2 = /*[[${subField2}]]*/;
+				var subField3 = /*[[${subField3}]]*/;
+				var subField4 = /*[[${subField4}]]*/;
+				var subField5 = /*[[${subField5}]]*/;
+				var subField6 = /*[[${subField6}]]*/;
+				var subField7 = /*[[${subField7}]]*/;
+				
+				var xaxisLabel = /*[[${xaxisLabel}]]*/;
+				var yaxisLabel1 = /*[[${yaxisLabel1}]]*/;
+				var yaxisLabel2 = /*[[${yaxisLabel2}]]*/;
+				
+				var yaxisField1 = /*[[${yaxisField1}]]*/;
+				var yaxisField2 = /*[[${yaxisField2}]]*/;
+				
+				var chartWidth = /*[[${chartWidth}]]*/;
+				var chartHeight = /*[[${chartHeight}]]*/;
+				
+				var callerId = /*[[${callerId}]]*/;
+				
+				var bufferTime = 1000 * numTicks;
+				var ticksArray = [];
+				var series = [];
+				
+				var yaxisKeys = ['yaxis', 'y2axis', 'y3axis', 'y4axis', 'y5axis', 'y6axis', 'y7axis'];
+				
+				var seriesColors = [colorLine1, colorLine2, colorLine3, colorLine4, colorLine5, colorLine6, colorLine7, colorLine8];
+				
+				var yaxisMap = {};
+				var seriesMap = {};
+				
+				var options = {
+					title: {},
+					legend: {show: showLegend, 
+						 location: legendLocation, 
+						 placement: legendPlacement,
+					},
+					axes: {},
+					series: []
+				};
+				
+				var conn_err = false;
+				
+				function setTitle(title_text) {
+					options.title.text = title_text;
+				};
+				
+				function setChartWidthHeight(width, height) {
+					var chartWidth = width;
+					var chartHeight = height;
+					var style = 'width:' + width + 'px; height:' + height + 'px';
+					document.getElementById('chart').setAttribute('style', style);
+				}
+				
+				function addXAxis(options, xaxisLabel) {
+					options.axes.xaxis = {};
+					options.axes.xaxis.label = xaxisLabel;
+					options.axes.xaxis.renderer = $.jqplot.DateAxisRenderer;
+					options.axes.xaxis.tickOptions = {};
+					options.axes.xaxis.labelRenderer = $.jqplot.CanvasAxisLabelRenderer;
+					options.axes.xaxis.labelOptions = {};
+					options.axes.xaxis.labelOptions.textColor = textColor;
+					options.axes.xaxis.labelOptions.fontSize = fontSize;
+					options.axes.xaxis.labelOptions.fontFamily = fontFamily;
+					options.axes.xaxis.tickRenderer = $.jqplot.CanvasAxisTickRenderer;
+					options.axes.xaxis.tickOptions.angle = tickAngle;
+					options.axes.xaxis.tickOptions.formatString = xaxisDateFormat;
+					options.axes.xaxis.tickOptions.showGridline = showGridLine;
+					options.axes.xaxis.tickOptions.textColor = ticksColor;
+					options.axes.xaxis.numberTicks = numTicks;
+				}
+				
+				function initTicks(ticksArray, iterations, startDate) {
+					var date;
+					for (i=0; i<iterations; i++) {
+						date = startDate - (iterations-1-i)*1000;
+						ticksArray.push(date);
+					}
+					options.axes.xaxis.ticks = ticksArray;
+				}
+				
+				function roundToSecond(time) {
+					var miliseconds = parseInt(time.substring(time.length-3));
+					var addDigits;
+					if (miliseconds >= 500) {
+						addDigits = 1000 - miliseconds;
+						return parseInt(time) + addDigits;
+					}
+					return parseInt(time) - miliseconds;
+				}
+				
+				//init default grid background
+				function initGrid() {
+					//options.fontFamily = fontType;
+					options.grid = {};
+					options.grid.background = gridBackgroundColor;
+					options.grid.gridLineColor = gridLineColor;
+					options.grid.gridLineWidth = gridLineWidth;
+					options.grid.borderWidth = gridBorderWidth;
+				};
+				
+				function initYAxisMapping() {
+					yaxisMap[yaxisField1] = {};
+					yaxisMap[yaxisField1].key = yaxisKeys.shift();
+					yaxisMap[yaxisField1].label = yaxisLabel1;
+					if (yaxisField2 != null) {
+						yaxisMap[yaxisField2] = {};
+						yaxisMap[yaxisField2].key = yaxisKeys.shift();
+						yaxisMap[yaxisField2].label = yaxisLabel2;
+					}
+				}
+				
+				function addYAxisKey(field) {
+					yaxisMap[field] = yaxisKeys.shift();
+					return yaxisMap[field];
+				}
+				
+				function getYAxisKey(field) {
+					return yaxisMap[field].key;
+				}
+				
+				function getYAxisLabel(field) {
+					return yaxisMap[field].label;
+				}
+				
+				function addYAxis(field) {
+					var yAxisKey = getYAxisKey(field);
+					var yAxisLabel = '';
+					if (yAxisKey != null) {
+						yAxisLabel = getYAxisLabel(field);
+					} else {
+						yAxisKey = addYAxisKey(field);
+					}
+					options.axes[yAxisKey] = {};
+					options.axes[yAxisKey].label = yAxisLabel;
+					options.axes[yAxisKey].labelRenderer = $.jqplot.CanvasAxisLabelRenderer;
+					options.axes[yAxisKey].labelOptions = {};
+					options.axes[yAxisKey].labelOptions.textColor = textColor;
+					options.axes[yAxisKey].labelOptions.fontSize = fontSize;
+					options.axes[yAxisKey].labelOptions.fontFamily = fontFamily;
+					options.axes[yAxisKey].numberTicks = numTicks;
+					options.axes[yAxisKey].tickOptions = {};
+					options.axes[yAxisKey].tickOptions.formatString = valueFormat;
+					options.axes[yAxisKey].tickOptions.textColor = ticksColor;
+					options.axes[yAxisKey].min = yaxisMin;
+					options.axes[yAxisKey].pad = yaxisPadding;
+				}
+				
+				function addSeries(field) {
+					var index;
+					var yaxisKey = getYAxisKey(field);
+					options.series.push({});
+					index = options.series.length - 1;
+					options.series[index].yaxis = yaxisKey;
+					options.series[index].label = field;
+					options.series[index].lineWidth = lineWidth;
+					options.series[index].pointLabels = {};
+					options.series[index].pointLabels.edgeTolerance = edgeTolerance;
+					options.series[index].markerOptions = {};
+					options.series[index].markerOptions.style = markerStyle;
+					options.series[index].color = seriesColors.shift();
+				}
+				
+				function addSeriesMapping(subscriptionId, index) {
+					seriesMap[subscriptionId] = {};
+					seriesMap[subscriptionId].index = index;
+				}
+				
+				function getSeriesIndex(subscriptionId) {
+					return seriesMap[subscriptionId].index;
+				}
+				
+				function initSub(subscriptionId, field) {
+					var index;
+					addYAxis(field);
+					addSeries(field);
+					series.push([]);
+					index = series.length - 1;
+					addSeriesMapping(subscriptionId, index);
+				}
+				
+				function initSubscriptOptions() {
+					if (subscriptionId0 != null && subField0 != null) {
+						initSub(subscriptionId0, subField0);
+					}
+					if (subscriptionId1 != null && subField1 != null) {
+						initSub(subscriptionId1, subField1);
+					}
+					if (subscriptionId2 != null && subField2 != null) {
+						initSub(subscriptionId2, subField2);
+					}
+					if (subscriptionId3 != null && subField3 != null) {
+						initSub(subscriptionId3, subField3);
+					}
+					if (subscriptionId4 != null && subField4 != null) {
+						initSub(subscriptionId4, subField4);
+					}
+					if (subscriptionId5 != null && subField5 != null) {
+						initSub(subscriptionId5, subField5);
+					}
+					if (subscriptionId6 != null && subField6 != null) {
+						initSub(subscriptionId6, subField6);
+					}
+					if (subscriptionId7 != null && subField7 != null) {
+						initSub(subscriptionId7, subField7);
+					}
+				}
+				
+				function init() {
+					initGrid();
+					setTitle(chartTitle);
+					setChartWidthHeight(chartWidth, chartHeight);
+					initYAxisMapping();
+					var now = roundToSecond(new Date().getTime().toString());
+					addXAxis(options, xaxisLabel);
+					initSubscriptOptions();
+					initTicks(ticksArray, numTicks, now);
+					updateTimeSeries();
+				}
+				
+				function addNewPoint(data, index, x, y) {
+					if (data[index].length == 0) {
+						data[index].push([x, y]);
+					} else {
+						data[index].splice(data[index].length - 1, 0, [x, y]);
+						data[index][data[index].length-1][1] = y;
+					}
+				};
+				
+				function updateBufferPoint(data, index) {
+					var firstValue = data[index][0][1];
+					var lastValue = data[index][data[index].length-1][1];
+					if (data[index].length >= 2) {
+						data[index][0][0] = ticksArray[ticksArray.length-1] - bufferTime;
+						data[index][data[index].length-1][0] = ticksArray[ticksArray.length-1] + bufferTime;
+ 					} else {
+						data[index].splice(0, 0, [ticksArray[0] - bufferTime, firstValue]);
+						data[index].push([ticksArray[ticksArray.length-1] + bufferTime, lastValue]);
+					}
+				};
+				
+				function updateTimeSeries() {
+					setTimeout(function() {
+						var latestTime = ticksArray[ticksArray.length-1];
+						var futureTime = parseInt(latestTime) + refreshPeriod;
+						ticksArray.push(futureTime);
+						var tempTime = ticksArray.shift();
+						for (i = 0; i < series.length; i++) {
+							
+							var dataSize = series[i].length;
+	
+							if (dataSize > 2) {
+								var n = 0;
+								//phase out old time from series
+								var dataSize2 = series[i].length-2;
+								while (n < dataSize2) {
+									if (series[i][1][0] < parseInt(tempTime)) {
+										series[i][0][1] = series[i][1][1];
+										series[i].splice(1, 1);
+									} else {
+										break;
+									}
+									n++;
+								}
+							}
+							updateBufferPoint(series, i);
+							
+						}
+						var tempArray = [[[null,null]]];
+						if (plot) {
+							plot.options = options;
+							if (series.length == 0) {
+								plot.data = tempArray;
+						    	plot.replot(tempArray);
+							} else {
+								plot.data = series;
+						    	plot.replot(series);
+							}
+						} else {
+							if (series.length == 0) {
+								plot = $.jqplot('chart', tempArray, options);
+							} else {
+								plot = $.jqplot('chart', series, options);
+							}
+						}
+						
+						if (!conn_err) {
+							updateTimeSeries();
+						}
+					}, refreshPeriod);
+				};
+				
+				var connect_callback = function() {
+					if (subLink0 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env0, subscriptionId: subscriptionId0}));
+						client.subscribe(subLink0, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink1 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env1, subscriptionId: subscriptionId1}));
+						client.subscribe(subLink1, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink2 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env2, subscriptionId: subscriptionId2}));
+						client.subscribe(subLink2, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink3 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env3, subscriptionId: subscriptionId3}));
+						client.subscribe(subLink3, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink4 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env4, subscriptionId: subscriptionId4}));
+						client.subscribe(subLink4, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink5 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env5, subscriptionId: subscriptionId5}));
+						client.subscribe(subLink5, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink6 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env6, subscriptionId: subscriptionId6}));
+						client.subscribe(subLink6, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+					if (subLink7 != null) {
+						client.send("/status", {}, JSON.stringify({callerId: callerId, env: env7, subscriptionId: subscriptionId7}));
+						client.subscribe(subLink7, function(payload) {
+							subscriptionCallBack(payload);
+						});
+					}
+				};
+				
+				function subscriptionCallBack(payload) {
+					var obj = JSON.parse(payload.body);
+					var index = getSeriesIndex(obj.subId);
+					addNewPoint(series, index, parseInt(obj.time), parseInt(obj.value));
+				};
+				
+				function error_callback(error) {
+					conn_err = true;
+				}
+				
+				init();
+				
+				ws = new SockJS('/rttapp/event');
+		
+				client = Stomp.over(ws);
+				client.connect('','', connect_callback, error_callback);
+				
+				
+			});
+			/*]]>*/	
+		</script>
+	</head>
+	<body style="background-color: lightblue">
+		<div id="chart"></div>
+	</body>
+</html>

@@ -17,6 +17,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.h
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.ISelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.MultipleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.SingleSelectionModel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
@@ -72,7 +74,6 @@ public class ScsOlsListPanel extends UIWidget_i {
      * The configuration id of the datagrid
      */
     private String listConfigId_;
-
     /**
      * The view that represents the alarm datagrid
      */
@@ -125,48 +126,6 @@ public class ScsOlsListPanel extends UIWidget_i {
             handlerRegistrations_ = new ArrayList<HandlerRegistration>();
             handlerRegistrations_.add(eventBus_.addHandler(AlarmSelectionChangeEvent.TYPE, gridPresenter_));
             handlerRegistrations_.add(eventBus_.addHandler(FilterChangeEventAbstract.TYPE, gridPresenter_));
-
-//            handlerRegistrations_.add(
-//            		eventBus_.addHandler(AlarmSelectionChangeEvent.TYPE, new AlarmSelectionChangeEvent.AlarmSelectionEventHandler() {
-//				
-//						@Override
-//						public void onSelectionChange(AlarmSelectionChangeEvent event) {
-//							LOGGER.error(LOG_PREFIX
-//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange Begin");
-//							if ( null != event ) {
-//								LOGGER.error(LOG_PREFIX
-//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange ["+event+"]");
-//							} else {
-//								LOGGER.error(LOG_PREFIX
-//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange event IS NULL");
-//							}
-//							LOGGER.error(LOG_PREFIX
-//				                    + " AlarmSelectionChangeEvent AlarmSelectionEventHandler onSelectionChange End");
-//						}
-//					})
-//            );
-//
-//            handlerRegistrations_.add(
-//            		eventBus_.addHandler(FilterChangeEventAbstract.TYPE, new FilterChangeEventAbstract.Handler() {
-//				
-//						@Override
-//						public void onFilterChange(FilterChangeEventAbstract event) {
-//							LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange Begin");
-//							if ( null != event ) {
-//								if (event instanceof FilterSetEvent) {
-//						            LOGGER.error(LOG_PREFIX + " FilterChangeEventAbstract onFilterChange FilterSetEvent");
-//								} else if (event instanceof FilterRemoveEvent) {
-//						            LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange FilterRemoveEvent");
-//								} else {
-//									LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange event IS UNKNOW");
-//								}
-//							} else {
-//								LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange event IS NULL");
-//							}
-//							LOGGER.error(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange End");
-//						}
-//					})
-//            );
         }
     }
     
@@ -226,11 +185,38 @@ public class ScsOlsListPanel extends UIWidget_i {
 	@Override
 	public void init() {
         eventBus_			= (EventBus) parameters.get(strMwtEventBus);
-        listConfigId_		= (String) parameters.get(strListConfigId);
-        menuEnable			= (String) parameters.get(strMenuEnable);
-        selectionMode		= (String) parameters.get(strSelectionMode);
         
+		String strUIWidgetGeneric = "UIWidgetGeneric";
+		String strHeader = "header";
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			listConfigId_	= dictionariesCache.getStringValue(optsXMLFile, strListConfigId, strHeader);
+			menuEnable		= dictionariesCache.getStringValue(optsXMLFile, strMenuEnable, strHeader);
+			selectionMode	= dictionariesCache.getStringValue(optsXMLFile, strSelectionMode, strHeader);
+			
+			setParameter("listConfigId_", listConfigId_);
+			setParameter("menuEnable", menuEnable);
+			setParameter("selectionMode", selectionMode);
+		}        
         initComponents();
         initPresenter();
 	}
+	
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void terminate() {
+        isTerminated_ = true;
+        for (final HandlerRegistration registration : handlerRegistrations_) {
+            registration.removeHandler();
+        }
+        handlerRegistrations_.clear();
+
+        try {
+            gridPresenter_.terminate();
+        } catch (final IllegalStatePresenterException e) {
+        	LOGGER.error(LOG_PREFIX + "Error while trying to terminate the Alarm List Panel.", e);
+        }
+    }
 }

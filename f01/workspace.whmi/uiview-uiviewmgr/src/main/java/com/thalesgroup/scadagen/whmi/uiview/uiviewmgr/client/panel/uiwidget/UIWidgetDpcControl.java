@@ -6,6 +6,7 @@ import java.util.Set;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -14,9 +15,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
@@ -45,8 +46,6 @@ public class UIWidgetDpcControl extends UIWidget_i {
 	final String strUnSet				= "unset";
 	final String strApply				= "apply";
 	
-//	final String strDci					= "dci";
-//	final String strDio					= "dio";
 	
 	private Widget widgetSet			= null;
 	private Widget widgetUnSet			= null;
@@ -91,12 +90,14 @@ public class UIWidgetDpcControl extends UIWidget_i {
 							String selectedAlias = hashMap.get(columnAlias);
 							String selectedServiceOwner = hashMap.get(columnServiceOwner);
 							
+							logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+							
 							String scsEnvId = selectedServiceOwner;
 							String alias = selectedAlias;
 							
 							logger.info(className, function, "alias BF [{}]", alias);
 							
-//							alias = selectedAlias.replace(strDci, strDio);
+							alias = "<alias>" + selectedAlias;
 							
 							logger.info(className, function, "alias AF [{}]", alias);
 							
@@ -109,6 +110,8 @@ public class UIWidgetDpcControl extends UIWidget_i {
 
 							String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + validityStatus.toString() + "_" + alias;
 								
+							logger.info(className, function, "key[{}]", key);
+							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, validityStatus);
 
 						}
@@ -140,17 +143,12 @@ public class UIWidgetDpcControl extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String op	= (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
-		String od1	= (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
-		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
-		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
+		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
 		
-		Object obj1 = uiEventAction.getAction(ViewAttribute.OperationObject1.toString());
+		Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 		
 		logger.info(className, function, "op[{}]", op);
-		logger.info(className, function, "od1[{}]", od1);
-		logger.info(className, function, "od2[{}]", od2);
-		logger.info(className, function, "od3[{}]", od3);
+		logger.info(className, function, "obj1[{}]", obj1);
 		
 		if ( null != op ) {
 			
@@ -189,7 +187,7 @@ public class UIWidgetDpcControl extends UIWidget_i {
 				
 				statusApply				= WidgetStatus.Disable;
 			} else {
-				logger.warn(className, function, "type IS UNKNOW");
+				logger.warn(className, function, "op[{}] type IS UNKNOW", op);
 			}
 			
 			if ( null != widgetSet && null != statusSet )		uiWidgetGeneric.setWidgetStatus(widgetSet, statusSet);
@@ -210,17 +208,29 @@ public class UIWidgetDpcControl extends UIWidget_i {
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		
-		this.columnAlias = getStringParameter(ParameterName.ColumnAlias.toString());
-		this.columnStatus = getStringParameter(ParameterName.ColumnStatus.toString());
-		this.columnServiceOwner = getStringParameter(ParameterName.ColumnServiceOwner.toString());
-		this.valueSet = getStringParameter(ParameterName.ValueSet.toString());
-		this.valueUnSet = getStringParameter(ParameterName.ValueUnSet.toString());
-		
+		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 
+		String strUIWidgetGeneric = "UIWidgetGeneric";
+		String strHeader = "header";
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			columnAlias			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias.toString(), strHeader);
+			columnStatus		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnStatus.toString(), strHeader);
+			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
+			valueSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueSet.toString(), strHeader);
+			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueUnSet.toString(), strHeader);
+		}
+		
+		logger.info(className, function, "columnAlias[{}]", columnAlias);
+		logger.info(className, function, "columnStatus[{}]", columnStatus);
+		logger.info(className, function, "columnServiceOwner[{}]", columnServiceOwner);
+		logger.info(className, function, "valueSet[{}]", valueSet);
+		logger.info(className, function, "valueUnSet[{}]", valueUnSet);
+		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
-		uiWidgetGeneric.setXMLFile(xmlFile);
+		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
+		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
 		widgetSet			= uiWidgetGeneric.getWidget( strSet );

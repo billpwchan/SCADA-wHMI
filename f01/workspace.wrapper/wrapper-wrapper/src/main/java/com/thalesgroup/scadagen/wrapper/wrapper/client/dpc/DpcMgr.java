@@ -37,7 +37,7 @@ public class DpcMgr {
 	private DpcMgr () {
 		final String function = "DpcMgr";
 		
-		logger.end(className, function);
+		logger.begin(className, function);
 		
 		this.subject = new Subject();
 		
@@ -251,16 +251,13 @@ public class DpcMgr {
 	}
 	
 	public void sendChangeVarStatus(String key, String scsEnvId, String alias, DCP_i.ValidityStatus status) {
-		
+		final String function = "sendChangeVarStatus";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] status[{}]", new Object[]{key, scsEnvId, alias, status.toString()});
 		dpcAccess.changeVarStatus(key, scsEnvId, alias, status.getValue());
-		
+		logger.end(className, function);
 	}
-//	
-//	public void sendChangeVarStatus(String key, String scsEnvId, String alias, DCP_i.WorkingStatus status) {
-//		
-//		dpcAccess.changeVarStatus(key, scsEnvId, alias, status.getValue());
-//		
-//	}
+
 	public void sendChangeEqpTag(String key, String scsEnvId, String alias, TaggingStatus status, String taggingLabel1, String taggingLabel2) {
 		final String function = "sendChangeEqpTag";
 		logger.begin(className, function);

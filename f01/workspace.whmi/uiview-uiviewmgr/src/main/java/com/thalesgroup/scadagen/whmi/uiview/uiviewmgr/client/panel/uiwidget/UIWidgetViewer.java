@@ -22,12 +22,12 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.FilterViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.PrintViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewWidget;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterParameter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
@@ -42,11 +42,7 @@ public class UIWidgetViewer extends UIWidget_i {
 
 	// External
 	private SimpleEventBus eventBus		= null;
-	
-	private String listConfigId			= "";
-	private String menuEnable			= "";
-	private String selectionMode		= "";	
-	
+
 	private UILayoutGeneric uiLayoutGeneric					= null;
 	
 	private ScsOlsListPanel scsOlsListPanel					= null;
@@ -97,18 +93,33 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String op = (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
-		String od1 = (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
-		String od2 = (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
+		String ot = (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
+		String op = (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+		String od1 = (String) uiEventAction.getParameter(FilterParameter.FilterListCfgId.toString());
+		String od2 = (String) uiEventAction.getParameter(FilterParameter.FilterColumn0.toString());
+		String od3 = (String) uiEventAction.getParameter(FilterParameter.FilterValueSet0.toString());
 		
+		logger.info(className, function, "ot[{}]", ot);
 		logger.info(className, function, "op[{}]", op);
 		logger.info(className, function, "od1[{}]", od1);
 		logger.info(className, function, "od2[{}]", od2);
+		logger.info(className, function, "od3[{}]", od3);
 		
 		if ( null != op ) {
 			if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
-				if ( null != od1 && null != od2) {
-					applyFilter(od1, od2);
+				if ( null != od1 && null != od2 && null != od3) {
+					String listConfigId = scsOlsListPanel.getStringParameter("listConfigId_");
+					logger.info(className, function, "listConfigId[{}]", listConfigId);
+					if ( null != listConfigId ) {
+						if ( od1.equals(listConfigId) ) {
+							applyFilter(od2, od3);
+						} else {
+							logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", od1, listConfigId);
+						}
+					} else {
+						logger.warn(className, function, "listConfigId IS NULL", listConfigId);
+					}
+
 				} else if ( null == od1 ) {
 					logger.warn(className, function, "od1 IS NULL");
 				} else if ( null == od2 ) {
@@ -132,16 +143,9 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
+		String strEventBusName = getStringParameter(WidgetParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		
-		this.listConfigId 	= getStringParameter(ParameterName.ListConfigId.toString());
-		this.menuEnable 	= getStringParameter(ParameterName.MenuEnable.toString());
-		this.selectionMode 	= getStringParameter(ParameterName.SelectionMode.toString());
-
-		logger.info(className, function, "this.listConfigId1[{}]", this.listConfigId);
-		logger.info(className, function, "this.menuEnable[{}]", this.menuEnable);
-		logger.info(className, function, "this.selectionMode[{}]", this.selectionMode);
+		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 		
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
@@ -153,7 +157,8 @@ public class UIWidgetViewer extends UIWidget_i {
 		uiLayoutGeneric = new UILayoutGeneric();
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setXMLFile(xmlFile);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
@@ -179,7 +184,8 @@ public class UIWidgetViewer extends UIWidget_i {
 			})
 		);
 		
-		scsOlsListPanel = (ScsOlsListPanel)uiLayoutGeneric.getPredefineWidget(ViewWidget.ScsOlsListPanel.toString());
+		String strScsOlsListPanel = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
+		scsOlsListPanel = (ScsOlsListPanel)uiLayoutGeneric.getPredefineWidget(strScsOlsListPanel);
 		
 		if ( null != scsOlsListPanel ) {
 			gridPresenter = scsOlsListPanel.getPresenter();
@@ -228,5 +234,12 @@ public class UIWidgetViewer extends UIWidget_i {
 		}
 		
 		logger.end(className, function);
+	}
+	
+	@Override
+	public void terminate() {
+		if ( null != scsOlsListPanel ) {
+			scsOlsListPanel.terminate();
+		}
 	}
 }

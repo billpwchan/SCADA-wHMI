@@ -38,8 +38,6 @@ public class UIScreenMMI extends UIWidget_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
-	
-	private String strUIScreenMMI = "UIScreenMMI.xml";
 
 	private UILayoutGeneric uiPanelGeneric = null;
 	
@@ -65,10 +63,10 @@ public class UIScreenMMI extends UIWidget_i {
 		uiWidgetMgr.addUIWidgetFactory("UIScreenMMI", new UIWidgetMgrFactory() {
 			
 			@Override
-			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
 				
-				logger.info(className, function, "widget[{}] view[{}]", widget, view);
+				logger.info(className, function, "uiCtrl[{}] uiView[{}]", uiCtrl, uiView);
 				
 				if ( null != uiNameCard) {
 					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
@@ -82,72 +80,76 @@ public class UIScreenMMI extends UIWidget_i {
 				
 				UIWidget_i uiWidget_i = null;
 				
-				if ( null != widget) {
+				if ( null != uiCtrl) {
 					
-					if ( widget.startsWith("WidgetFactory") ) {
+					if ( ! uiCtrl.startsWith("WidgetFactory") ) {
 						
-						String params [] = widget.split("_");
+						if (  UIWidgetUtil.getClassSimpleName(
+								UIPanelSoundServerController.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelSoundServerController();
+
+						} else if (  UIWidgetUtil.getClassSimpleName(
+								UIPanelAccessBar.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelAccessBar();
+
+						} else if (  UIWidgetUtil.getClassSimpleName(
+								UIPanelAlarmBanner.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelAlarmBanner();
+
+						} else if (  UIWidgetUtil.getClassSimpleName(
+								UIPanelStatusBar.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelStatusBar();
+
+						} else if (  UIWidgetUtil.getClassSimpleName(
+								UIPanelAlarmBannerList.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelAlarmBannerList();
+
+						} else if (  UIWidgetUtil.getClassSimpleName(
+								UIPanelViewLayout.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelViewLayout();
+
+						} else if ( UIWidgetUtil.getClassSimpleName(
+								UIPanelEmpty.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UIPanelEmpty();
+
+						}
+						
+						if ( null != uiWidget_i ) {
+							uiWidget_i.setUINameCard(uiNameCard);
+							uiWidget_i.setViewXMLFile(uiView);
+							uiWidget_i.setOptsXMLFile(uiOpts);
+							uiWidget_i.init();
+						} else {
+							logger.warn(className, function, "uiCtrl[{}] uiWidget_i IS NULL", uiCtrl);
+						}
+						
+					} else {
+						String params [] = uiCtrl.split("_");
 						
 						if ( params[1].equals("UINavigationMenu") ) {
 							
 							uiWidget_i = UIPanelNavigation.getInstance();
 							
-							logger.info(className, function, "getUIWidget widget[{}] widgetType[{}] menuLevel[{}] menuType[{}]", new Object[]{widget, params[1], params[2], params[3]});
+							logger.info(className, function, "getUIWidget uiCtrl[{}] widgetType[{}] menuLevel[{}] menuType[{}]", new Object[]{uiCtrl, params[1], params[2], params[3]});
 								
 							uiWidget_i.setParameter("menuLevel", params[2]);
 							uiWidget_i.setParameter("menuType", params[3]);
 							uiWidget_i.setUINameCard(uiNameCard);
 							uiWidget_i.getMainPanel();
 						}
-						
-					} else if (  UIWidgetUtil.getClassSimpleName(
-							UIPanelSoundServerController.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelSoundServerController();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
-					} else if (  UIWidgetUtil.getClassSimpleName(
-							UIPanelAccessBar.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelAccessBar();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
-					} else if (  UIWidgetUtil.getClassSimpleName(
-							UIPanelAlarmBanner.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelAlarmBanner();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
-					} else if (  UIWidgetUtil.getClassSimpleName(
-							UIPanelStatusBar.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelStatusBar();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
-					} else if (  UIWidgetUtil.getClassSimpleName(
-							UIPanelAlarmBannerList.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelAlarmBannerList();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
-					} else if (  UIWidgetUtil.getClassSimpleName(
-							UIPanelViewLayout.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelViewLayout();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
-					} else if ( UIWidgetUtil.getClassSimpleName(
-							UIPanelEmpty.class.getName()).equals(widget) ) {
-						uiWidget_i = new UIPanelEmpty();
-						uiWidget_i.setUINameCard(uiNameCard);
-						uiWidget_i.setXMLFile(widget);
-						uiWidget_i.init();
 					}
 				} else {
 					logger.warn(className, function, "getUIWidget widget IS NULL");
 				}
 				
-				logger.info(className, function, "getUIWidget uiWIdget[{}]", uiWidget_i);
+				logger.info(className, function, "getUIWidget uiWidget[{}]", uiWidget_i);
 
 				return uiWidget_i;
 			}
@@ -155,7 +157,8 @@ public class UIScreenMMI extends UIWidget_i {
 
 		uiPanelGeneric = new UILayoutGeneric();
 		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.setXMLFile(strUIScreenMMI);
+		uiPanelGeneric.setViewXMLFile(viewXMLFile);
+		uiPanelGeneric.setOptsXMLFile(optsXMLFile);
 		uiPanelGeneric.init();
 		
 		rootPanel = uiPanelGeneric.getMainPanel();

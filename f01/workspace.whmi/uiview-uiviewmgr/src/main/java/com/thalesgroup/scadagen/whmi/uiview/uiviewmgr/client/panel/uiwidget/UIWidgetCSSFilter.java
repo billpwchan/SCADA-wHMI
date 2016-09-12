@@ -3,20 +3,23 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventExceute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.CSSSelectViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.CSSSelectEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewOperation;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter_i.ViewActionKeyOperation;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter_i.ViewActionSetKey;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
@@ -33,54 +36,39 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 
 	private final String strSet1				= "set1";
 	private final String strSet0				= "set0";
-		
+	
+	private String strUIWidgetGeneric = "UIWidgetGeneric";
+	private String strHeader = "header";
+	private String strOption = "option";
+
 	private UIWidgetGeneric uiWidgetGeneric	= null;
 	
 	@Override
 	public Widget getWidget(String element) {
+		final String function = "setFilter";
+		
+		logger.begin(className, function);
+		logger.info(className, function, "element[{}]", element);
 		Widget widget = null;
 		widget = uiWidgetGeneric.getWidget(element);
+		logger.end(className, function);
 		return widget;
 	}
+	
+
 	
 	private void setFilter(String element) {
 		final String function = "setFilter";
 		
 		logger.begin(className, function);
 		if ( null != element ) {
-			if ( element.equals(strSet1) ) {
-				
-				// Select Filter 
-				{
-					UIEventAction action = new UIEventAction();
-					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSApply.toString());
-					action.setParameters(ViewAttribute.OperationString1.toString(), strSet1);
-					eventBus.fireEventFromSource(action, this);					
-				}
-				{
-					UIEventAction action = new UIEventAction();
-					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSRemove.toString());
-					action.setParameters(ViewAttribute.OperationString1.toString(), strSet1);
-					eventBus.fireEventFromSource(action, this);
-				}
-				
-			} else if ( element.equals(strSet0) ) {
-				
-				// Select Filter 
-				{
-					UIEventAction action = new UIEventAction();
-					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSApply.toString());
-					action.setParameters(ViewAttribute.OperationString1.toString(), strSet0);
-					eventBus.fireEventFromSource(action, this);
-				}
-				{
-					UIEventAction action = new UIEventAction();
-					action.setParameters(ViewAttribute.Operation.toString(), CSSSelectEvent.CSSRemove.toString());
-					action.setParameters(ViewAttribute.OperationString1.toString(), strSet0);
-					eventBus.fireEventFromSource(action, this);					
-				}
-				
-			}
+			
+			logger.info(className, function, "element[{}]", element);
+
+			UIActionEventExceute uiActionEventExecute = new UIActionEventExceute(className);
+			
+			uiActionEventExecute.executeActionSet(eventBus, mgr.getUIEventActionOperations(), element, mgr.getUIEventActions());
+
 		} else {
 			logger.warn(className, function, "element IS NULL");
 		}
@@ -90,12 +78,15 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 	
 	private void onWidgetEvent (Widget widget) {
 		final String function = "onWidgetEvent";
+		logger.begin(className, function);
 		if ( null != widget ) {
 			String element = uiWidgetGeneric.getWidgetElement(widget);
+			logger.info(className, function, "element[{}]", element);
 			setFilter(element);
 		} else {
 			logger.warn(className, function, "widget IS NULL");
 		}
+		logger.end(className, function);
 	}
 	
 	private void onButtonValueChange(ValueChangeEvent<String> event) {
@@ -126,53 +117,60 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String op	= (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
-		String od1	= (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
-		String od2	= (String) uiEventAction.getAction(ViewAttribute.OperationString2.toString());
-		String od3	= (String) uiEventAction.getAction(ViewAttribute.OperationString3.toString());
+		String ot	= (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
+		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+		String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+		String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
 		
 		logger.info(className, function, "op["+op+"]");
-		logger.info(className, function, "od1["+od1+"]");
-		logger.info(className, function, "od2["+od2+"]");
-		logger.info(className, function, "od3["+od3+"]");
+		logger.info(className, function, "os1["+os1+"]");
+		logger.info(className, function, "os2["+os2+"]");
+		logger.info(className, function, "os3["+os3+"]");
 		
-		if ( null != op ) {
-
-			// Action
-			if ( op.equals(CSSSelectViewEvent.SetDefaultCSS.toString()) ) {
+		if ( null != ot ) {
+			if ( ot.equals(className) ) {
 				
-				Widget widget = uiWidgetGeneric.getWidget(strSet1);
-				if ( null != widget ) {
-					((RadioButton)widget).setValue(true);
-				} else {
-					logger.warn(className, function, "Widget strSet1[{}] IS NULL", strSet1);
+				if ( null != op ) {
+					if ( op.equals("SetFilter") ) {
+						
+						setFilter(os1);
+						
+					} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
+						
+						UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+						uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
+
+					}
 				}
-
-				setFilter(strSet1);
-
-			} else {
-				logger.warn(className, function, "uiEventAction Operation type IS UNKNOW");
 			}
-
-		} else {
-			logger.warn(className, function, "op IS NULL");
 		}
 		
 		logger.end(className, function);
 	}
 
+	private UIActionEventMgr mgr = null;
 	@Override
 	public void init() {
 		final String function = "init";
 		
 		logger.begin(className, function);
 		
-		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
+		String strEventBusName = getStringParameter(WidgetParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
+		
+		mgr = new UIActionEventMgr(className,strUIWidgetGeneric, optsXMLFile);
+		
+		mgr.initActionKeys(strHeader, ViewOperation.toStrings());
+		mgr.initActions(strOption, ViewAttribute.Operation.toString(), ViewAttribute.toStrings());
+		
+		mgr.initActionOperationKeys(strHeader, ViewActionSetKey.toStrings());
+		mgr.initActionOperations(strOption, ViewAttribute.Operation.toString(), ViewActionKeyOperation.toStrings());
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
-		uiWidgetGeneric.setXMLFile(xmlFile);
+		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
+		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {

@@ -17,11 +17,11 @@ public class UIPanelStatusBar extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelStatusBar.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private String strUIPanelCompany					= "UIPanelCompany.xml";
-	private String strUIPanelCompanyTitle				= "UIPanelCompanyTitle.xml";
-	private String strUIPanelDateTime					= "UIPanelDateTime.xml";
-	private String strUIPanelTitle						= "UIPanelTitle.xml";
-	private String strUIPanelOperatorProfile			= "UIPanelOperatorProfile.xml";
+	private String strUIPanelCompany					= "UIPanelCompany";
+	private String strUIPanelCompanyTitle				= "UIPanelCompanyTitle";
+	private String strUIPanelDateTime					= "UIPanelDateTime";
+	private String strUIPanelTitle						= "UIPanelTitle";
+	private String strUIPanelOperatorProfile			= "UIPanelOperatorProfile";
 	
 	UIWidget_i uiPanelGenericCompany				= null;
 	UIWidget_i uiPanelGenericCompanyTitle			= null;
@@ -29,7 +29,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 	UIWidget_i uiPanelGenericOperator				= null;
 	UIWidget_i uiPanelGenericDateTime				= null;
 	
-	private UILayoutGeneric uiScreenGeneric =  null;
+	private UILayoutGeneric uiLayoutGeneric =  null;
 	
 	private String strTitle = "";
 	
@@ -52,17 +52,18 @@ public class UIPanelStatusBar extends UIWidget_i {
 			})
 		);
 		
-		uiScreenGeneric = new UILayoutGeneric();
-		uiScreenGeneric.setUINameCard(this.uiNameCard);
-		uiScreenGeneric.setXMLFile(xmlFile+".xml");
-		uiScreenGeneric.init();
-		rootPanel = uiScreenGeneric.getMainPanel();
+		uiLayoutGeneric = new UILayoutGeneric();
+		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
+		uiLayoutGeneric.init();
+		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		uiPanelGenericCompany		 = uiScreenGeneric.getUIWidget(strUIPanelCompany);
-		uiPanelGenericCompanyTitle	 = uiScreenGeneric.getUIWidget(strUIPanelCompanyTitle);
-		uiPanelGenericTitle			 = uiScreenGeneric.getUIWidget(strUIPanelTitle);
-		uiPanelGenericOperator		 = uiScreenGeneric.getUIWidget(strUIPanelOperatorProfile);
-		uiPanelGenericDateTime		 = uiScreenGeneric.getUIWidget(strUIPanelDateTime);
+		uiPanelGenericCompany		 = uiLayoutGeneric.getUIWidget(strUIPanelCompany);
+		uiPanelGenericCompanyTitle	 = uiLayoutGeneric.getUIWidget(strUIPanelCompanyTitle);
+		uiPanelGenericTitle			 = uiLayoutGeneric.getUIWidget(strUIPanelTitle);
+		uiPanelGenericOperator		 = uiLayoutGeneric.getUIWidget(strUIPanelOperatorProfile);
+		uiPanelGenericDateTime		 = uiLayoutGeneric.getUIWidget(strUIPanelDateTime);
 		
 		Timer t = new Timer() {
 			public void run() {

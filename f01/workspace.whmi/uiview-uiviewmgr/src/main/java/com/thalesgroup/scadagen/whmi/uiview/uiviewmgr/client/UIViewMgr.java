@@ -25,34 +25,40 @@ public class UIViewMgr implements UIWidgetMgrFactory {
 	}
 
 	@Override
-	public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+			, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
-		
-		final String strXml = ".xml";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "widget[{}], view[{}]", widget, view);
+		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
 
 		UIWidget_i uiWidget = null;
 		
-		if ( "UIViewAlarm".equals(widget) ) {
+		if ( UIWidgetUtil.getClassSimpleName(
+				UIViewAlarm.class.getName()).equals(uiCtrl) ) {
+			
 			uiWidget = new UIViewAlarm();
-			uiWidget.setUINameCard(uiNameCard);
-			uiWidget.init();	
-		} else if ( "UIViewEvent".equals(widget) ) {
+
+		} else if ( UIWidgetUtil.getClassSimpleName(
+				UIViewEvent.class.getName()).equals(uiCtrl) ) {
+			
 			uiWidget = new UIViewEvent();
-			uiWidget.setUINameCard(uiNameCard);
-			uiWidget.init();	
-		} else if ( "UILayoutEntryPoint".equals(widget) ) {
+	
+		} else if ( UIWidgetUtil.getClassSimpleName(
+				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
+			
 			uiWidget = new UILayoutEntryPoint();
-			uiWidget.setUINameCard(uiNameCard);
-			uiWidget.setXMLFile(view+strXml);
-			uiWidget.init();
+			
 		}
-		
-		if ( null == uiWidget ) {
-			logger.warn(className, function, "widget IS NULL! widget[{}], view[{}]", widget, view);
+
+		if ( null != uiWidget ) {
+			uiWidget.setUINameCard(uiNameCard);
+			uiWidget.setViewXMLFile(uiView);
+			uiWidget.setOptsXMLFile(uiOpts);
+			uiWidget.init();
+		} else {
+			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts});
 		}
 
 		logger.end(className, function);

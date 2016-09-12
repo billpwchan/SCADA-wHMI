@@ -33,14 +33,25 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		}
 	}
 	
-	protected String xmlFile = null;
+	protected String viewXMLFile = null;
 	@Override
-	public void setXMLFile(String xmlFile) {
-		final String function = "setXMLFile";
-		this.xmlFile = xmlFile;
-		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
-		if ( null == this.xmlFile ) {
-			logger.warn(className, function, "xmlFile IS NULL");
+	public void setViewXMLFile(String viewXMLFile) {
+		final String function = "setViewXMLFile";
+		this.viewXMLFile = viewXMLFile;
+		logger.info(className, function, "viewXMLFile[{}]", this.viewXMLFile);
+		if ( null == this.viewXMLFile ) {
+			logger.warn(className, function, "viewXMLFile IS NULL");
+		}
+	}
+	
+	protected String optsXMLFile = null;
+	@Override
+	public void setOptsXMLFile(String optsXMLFile) {
+		final String function = "setOptXMLFile";
+		this.optsXMLFile = optsXMLFile;
+		logger.info(className, function, "optXMLFile[{}]", this.optsXMLFile);
+		if ( null == this.optsXMLFile ) {
+			logger.warn(className, function, "optXMLFile IS NULL");
 		}
 	}
 	

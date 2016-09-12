@@ -29,10 +29,8 @@ public class UIScreenLogin extends UIWidget_i {
 	
 	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
-	private String strUIPanelLogin				= "UIPanelLogin.xml";
-	
-	private String strUIPanelLoginInfo			= "UIPanelLoginInfo.xml";
-	private String strUIPanelLoginButton		= "UIPanelLoginButton.xml";
+	private String strUIPanelLoginInfo			= "UIPanelLoginInfo";
+	private String strUIPanelLoginButton		= "UIPanelLoginButton";
 	
 	private UIWidget_i uiPanelGenericInfo		= null;
 	private UIWidget_i uiPanelGenericButton		= null;
@@ -72,10 +70,11 @@ public class UIScreenLogin extends UIWidget_i {
 		final String function = "init";
 		
 		logger.begin(className, function);
-		
+
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setXMLFile(strUIPanelLogin);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
 		
 		rootPanel = uiLayoutGeneric.getMainPanel();
@@ -84,14 +83,6 @@ public class UIScreenLogin extends UIWidget_i {
 		uiPanelGenericButton	= uiLayoutGeneric.getUIWidget(strUIPanelLoginButton);
 		
 		if ( null != uiPanelGenericInfo ) {
-//			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEventOnKeyPressHandler() {
-//
-//				@Override
-//				public void onKeyPressHandler(KeyPressEvent event) {
-//					onButtonEvent(null);
-//				}
-//
-//			});
 			
 			uiPanelGenericInfo.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
 				

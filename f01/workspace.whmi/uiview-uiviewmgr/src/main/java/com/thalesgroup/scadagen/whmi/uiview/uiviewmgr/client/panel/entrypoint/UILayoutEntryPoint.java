@@ -27,13 +27,10 @@ public class UILayoutEntryPoint extends UIWidget_i {
 
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard,
-					HashMap<String, Object> options) {
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+					, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
-
-				final String strXml = ".xml";
-
-				logger.info(className, function, "widget[{}] view[{}]", widget, view);
+				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
 				if (null != uiNameCard) {
 					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
 				} else {
@@ -42,22 +39,21 @@ public class UILayoutEntryPoint extends UIWidget_i {
 				logger.info(className, function, "options IS NULL[{}]", null == options);
 
 				UIWidget_i uiWidget = null;
-				String viewSel = widget;
-				if (null != view && view.trim().length() > 0)
-					viewSel = view;
 
 				if ( UIWidgetUtil.getClassSimpleName(
-						UILayoutSummary.class.getName()).equals(widget) ) {
+						UILayoutSummary.class.getName()).equals(uiCtrl) ) {
+					
 					uiWidget = new UILayoutSummary();
+
+				}
+				
+				if ( null != uiWidget ) {
 					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setXMLFile(viewSel+strXml);
-					if ( null != options ) {
-						for(String key : options.keySet()) {
-							Object value = options.get(key);
-							uiWidget.setParameter(key, value);
-						}
-					}
-					uiWidget.init();
+					uiWidget.setViewXMLFile(uiView);
+					uiWidget.setOptsXMLFile(uiOpts);
+					uiWidget.init();					
+				} else {
+					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
 				
 				return uiWidget;
@@ -66,10 +62,19 @@ public class UILayoutEntryPoint extends UIWidget_i {
 
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setXMLFile(xmlFile);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 
 		logger.end(className, function);
+	}
+	
+	@Override
+	public void terminate() {
+		super.terminate();
+		if ( null != uiLayoutGeneric ) {
+			uiLayoutGeneric.terminate();
+		}
 	}
 }

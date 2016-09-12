@@ -22,11 +22,11 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 	private final String 		UIPathUIPanelViewLayout = ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	private String strUIPanelAlarmBannerList			= "UIPanelAlarmBannerList";
-	private String strUIWidgetAccessBarButton			= "UIPanelAlarmBannerButton.xml";
-    private String strUIWidgetOlsCounter				= "UIPanelOlsCounter.xml";
+	private String strUIWidgetAccessBarButton			= "UIPanelAlarmBannerButton";
+    private String strUIWidgetOlsCounter				= "UIPanelOlsCounter";
 	
-	private UILayoutGeneric uiPanelGeneric				= null;
-	private UIWidget_i uiPanelAlarmBannerList			= null;
+	private UILayoutGeneric uiLayoutGeneric				= null;
+	private UIWidget_i uiLayoutAlarmBannerList			= null;
 	private UIWidget_i uiWidgetAccessBarButton 			= null;
 	private UIWidget_i uiWidgetOlsCounter 				= null;
 
@@ -35,17 +35,18 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 		final String function = "init";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "xmlFile[{}]", xmlFile);
+		logger.info(className, function, "viewXMLFile", viewXMLFile);
 		
-		uiPanelGeneric = new UILayoutGeneric();
-		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.setXMLFile(xmlFile+".xml");
-		uiPanelGeneric.init();
-		rootPanel = uiPanelGeneric.getMainPanel();
+		uiLayoutGeneric = new UILayoutGeneric();
+		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
+		uiLayoutGeneric.init();
+		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		uiPanelAlarmBannerList = uiPanelGeneric.getUIWidget(strUIPanelAlarmBannerList);
-		if ( null != uiPanelAlarmBannerList ) {
-			uiPanelAlarmBannerList.setUIWidgetEvent(new UIWidgetEventOnValueUpdate() {
+		uiLayoutAlarmBannerList = uiLayoutGeneric.getUIWidget(strUIPanelAlarmBannerList);
+		if ( null != uiLayoutAlarmBannerList ) {
+			uiLayoutAlarmBannerList.setUIWidgetEvent(new UIWidgetEventOnValueUpdate() {
 				
 				@Override
 				public void onValueChange(String name, String value) {
@@ -61,7 +62,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			logger.warn(className, function, "uiPanelAlarmBannerList IS NULL");
 		}
 		
-		uiWidgetAccessBarButton = uiPanelGeneric.getUIWidget(strUIWidgetAccessBarButton);
+		uiWidgetAccessBarButton = uiLayoutGeneric.getUIWidget(strUIWidgetAccessBarButton);
 		if ( null != uiWidgetAccessBarButton ) {
 			uiWidgetAccessBarButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 				@Override
@@ -79,7 +80,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			logger.warn(className, function, "uiWidgetAccessBarButton IS NULL");
 		}
 		
-		uiWidgetOlsCounter = uiPanelGeneric.getUIWidget(strUIWidgetOlsCounter);
+		uiWidgetOlsCounter = uiLayoutGeneric.getUIWidget(strUIWidgetOlsCounter);
 
 	    logger.end(className, function);
 	    
@@ -129,8 +130,8 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			}
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.ackpage.equalsName(element) ) {
 			
-			if ( null != uiPanelAlarmBannerList ) 
-				uiPanelAlarmBannerList.setValue("ackVisible", "");
+			if ( null != uiLayoutAlarmBannerList ) 
+				uiLayoutAlarmBannerList.setValue("ackVisible", "");
 			
 		} else {
 			logger.warn(className, function, "element UNKNOW");

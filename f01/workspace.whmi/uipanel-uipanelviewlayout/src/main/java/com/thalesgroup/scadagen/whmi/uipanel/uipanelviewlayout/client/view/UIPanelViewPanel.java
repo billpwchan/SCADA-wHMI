@@ -46,6 +46,7 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 		logger.end(className, function);
 	}
 
+	private UIWidget_i uiWidget_i = null;
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
 		final String function = "setTaskProvide";
@@ -56,13 +57,19 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 		
 			if ( taskProvide instanceof UITaskLaunch ) {
 				
+				if ( null != uiWidget_i ) {
+					uiWidget_i.terminate();
+					uiWidget_i = null;
+					this.rootPanel.clear();
+				}
+				
 				UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 				
 				String uiPanel = taskLaunch.getUiPanel();
 				String uiView = taskLaunch.getUiView();
+				String uiOpts = null;
 
-				logger.info(className, function, "uiPanel[{}]", uiPanel);
-				logger.info(className, function, "uiView[{}]", uiView);
+				logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}]", new Object[]{uiPanel, uiView, uiOpts});
 				
 				HashMap<String, Object> options = new HashMap<String, Object>();
 				
@@ -72,13 +79,11 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				
 				UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
 				
-				UIWidget_i uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, options);
+				uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, options);
 				
 				if ( null != uiWidget_i ) {
 					
 					logger.info(className, function, "root.clear");
-				
-					this.rootPanel.clear();
 
 					logger.info(className, function, "uiViewProvide.getMainPanel[{}]", uiNameCard.getUiPath());
 				

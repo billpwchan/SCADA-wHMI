@@ -105,12 +105,12 @@ public class UIWidgetGeneric extends UIWidget_i {
     public void init() {
 		final String function = "init";
     	
-    	logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
+    	logger.info(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
     	
     	DictionariesCache uiPanelSettingCache = DictionariesCache.getInstance("UIWidgetGeneric");
 		
-		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
-		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
+		this.dictionaryHeader = uiPanelSettingCache.getDictionary( this.viewXMLFile, DictionaryCacheInterface.Header );
+		this.dictionaryOption = uiPanelSettingCache.getDictionary( this.viewXMLFile, DictionaryCacheInterface.Option );
 		
 		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
@@ -125,9 +125,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 						
 			rootPanel = new VerticalPanel();
 			
-			if ( null == dictionaryHeader ) rootPanel.add( new InlineLabel( "Faild to load xmlFile["+this.xmlFile+"] strHeader["+DictionaryCacheInterface.Header+"]" ));
+			if ( null == dictionaryHeader ) rootPanel.add( new InlineLabel( "Faild to load viewXMLFile["+this.viewXMLFile+"] strHeader["+DictionaryCacheInterface.Header+"]" ));
 			
-			if ( null == dictionaryOption ) rootPanel.add( new InlineLabel( "Faild to load xmlFile["+this.xmlFile+"] strOption["+DictionaryCacheInterface.Option+"]" ));
+			if ( null == dictionaryOption ) rootPanel.add( new InlineLabel( "Faild to load viewXMLFile["+this.viewXMLFile+"] strOption["+DictionaryCacheInterface.Option+"]" ));
 			
 		} else {
 
@@ -367,9 +367,10 @@ public class UIWidgetGeneric extends UIWidget_i {
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
 								
 								String view = null;
+								String opt = null;
 								HashMap<String, Object> options = new HashMap<String, Object>();
 								
-								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, options);
+								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, options);
 	
 								if ( null != uiWIdget ) {
 									uiWIdget.setUINameCard(this.uiNameCard);
@@ -542,7 +543,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 			String cssDisable					= valueMap.get(WidgetAttribute.cssDisable.toString());
 			String tooltipDisable				= valueMap.get(WidgetAttribute.tooltipDisable.toString());
 			
-			logger.info(className, function, "xmlFile[{}]", xmlFile);
+			logger.info(className, function, "viewXMLFile[{}]", viewXMLFile);
 			for ( String key : valueMap.keySet() ) {
 				String value = valueMap.get(key);
 				logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
@@ -841,7 +842,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 	public void ready(Dictionary dictionary) {
 		final String function = "ready";
 		logger.begin(className, function);
-		logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
+		logger.info(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
@@ -974,7 +975,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 			}
 
 		} else {
-			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
+			logger.warn(className, function, "this.viewXMLFile[{}] dictionary IS NULL", this.viewXMLFile);
 		}
 		
 		logger.end(className, function);

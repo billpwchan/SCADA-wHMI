@@ -29,7 +29,6 @@ public class UILayoutGeneric extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	
 	private HashMap<String, UIWidget_i> uiGeneric = new HashMap<String, UIWidget_i>();
 	
 	private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
@@ -44,8 +43,19 @@ public class UILayoutGeneric extends UIWidget_i {
 	private Dictionary dictionaryHeader = null;
 	private Dictionary dictionaryOption = null;
 	
-	public UIWidget_i getUIWidget(String xmlFile) {
-		return uiGeneric.get(xmlFile);
+	@Override
+	public void terminate() {
+		super.terminate();
+		for (String key: uiGeneric.keySet() ) {
+			UIWidget_i uiwidget = uiGeneric.get(key);
+			if ( null != uiwidget ) {
+				uiwidget.terminate();
+			}
+		}
+	}
+	
+	public UIWidget_i getUIWidget(String element) {
+		return uiGeneric.get(element);
 	}
 	
 	@Override
@@ -57,12 +67,12 @@ public class UILayoutGeneric extends UIWidget_i {
 	public void init() {
 		final String function = "init";
 		
-		logger.info(className, function, "xmlFile[{}]", this.xmlFile);
+		logger.info(className, function, "viewXMLFile[{}]", this.viewXMLFile);
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
-		this.dictionaryHeader = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Header );
-		this.dictionaryOption = dictionariesCache.getDictionary( this.xmlFile, DictionaryCacheInterface.Option );
+		this.dictionaryHeader = dictionariesCache.getDictionary( this.viewXMLFile, DictionaryCacheInterface.Header );
+		this.dictionaryOption = dictionariesCache.getDictionary( this.viewXMLFile, DictionaryCacheInterface.Option );
 		
 		ready(this.dictionaryHeader);
 		ready(this.dictionaryOption);
@@ -112,8 +122,13 @@ public class UILayoutGeneric extends UIWidget_i {
 					HashMap<String, String> valueMap = this.values.get(index);
 					
 					if ( null != valueMap ) {
+						
 						String type					= valueMap.get(WidgetAttribute.type.toString());
-						String widget 				= valueMap.get(WidgetAttribute.widget.toString());
+						String uiCtrl 				= valueMap.get(WidgetAttribute.uiCtrl.toString());
+						String uiview				= valueMap.get(WidgetAttribute.uiView.toString());
+						String uiopts				= valueMap.get(WidgetAttribute.uiOpts.toString());
+						String element				= valueMap.get(WidgetAttribute.element.toString());
+						
 						String direction			= valueMap.get(WidgetAttribute.direction.toString());
 						String size					= valueMap.get(WidgetAttribute.width.toString());
 						String cellwidth			= valueMap.get(WidgetAttribute.cellwidth.toString());
@@ -121,9 +136,7 @@ public class UILayoutGeneric extends UIWidget_i {
 						String left					= valueMap.get(WidgetAttribute.left.toString());
 						String top					= valueMap.get(WidgetAttribute.top.toString());
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
-						String uiview				= valueMap.get(WidgetAttribute.uiView.toString());
-						String element				= valueMap.get(WidgetAttribute.element.toString());
-						
+
 						HashMap<String, Object> options = new HashMap<String, Object>();
 						
 						for ( String key : valueMap.keySet() ) {
@@ -131,39 +144,14 @@ public class UILayoutGeneric extends UIWidget_i {
 							if ( null != value ) options.put(key, value);
 						}
 						
-						logger.info(className, function, "xmlFile[{}]", xmlFile);
-						for ( String key : valueMap.keySet() ) {
-							String value = valueMap.get(key);
-							logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
+						if ( logger.isInfoEnabled() ) {
+							for ( String key : valueMap.keySet() ) {
+								String value = valueMap.get(key);
+								logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
+							}
 						}
 						
-//						for ( OptionAttribute optionAttibute : OptionAttribute.values() ) {
-//							String strOptionAttibute = optionAttibute.toString();
-//							String option = valueMap.get(strOptionAttibute);
-//							logger.info(className, function, "strOptionAttibute[{}] option[{}]", strOptionAttibute, option);
-//							if ( null != option ) options.put(strOptionAttibute, option);
-//						}
-//						
-//						for ( ActionAttribute actionAttibute : ActionAttribute.values() ) {
-//							String strActionAttibute = actionAttibute.toString();
-//							String option = valueMap.get(strActionAttibute);
-//							logger.info(className, function, "strActionAttibute[{}] option[{}]", strActionAttibute, option);
-//							if ( null != option ) options.put(strActionAttibute, option);
-//						}
-//						
-//						logger.info(className, function, "xmlFile[{}]", xmlFile);
-//						for ( String key : valueMap.keySet() ) {
-//							String value = valueMap.get(key);
-//							logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
-//						}
-//					
-//						logger.info(className, function, "xmlFile[{}]", xmlFile);
-//						for ( String key : options.keySet() ) {
-//							String value = (String) options.get(key);
-//							logger.info(className, function, "options key[{}] value[{}]", key, value);
-//						}
-						
-						if ( null != widget ) {
+						if ( null != uiCtrl ) {
 
 							Panel panel = null;
 							
@@ -171,67 +159,52 @@ public class UILayoutGeneric extends UIWidget_i {
 							
 							if ( TypeAttribute.predefine.equalsName(type) ) {
 								
-								// predefine
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
-								uiGeneric.put(widget, uiPredefinePanelMgr.getUIWidget(widget, uiview, uiNameCard, options));
-								uiWidget = uiGeneric.get(widget);
+								uiWidget = uiPredefinePanelMgr.getUIWidget(uiCtrl, uiview, uiNameCard, uiopts, options);
 								if ( null != uiWidget ) {
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
 								} else {
-									logger.warn(className, function, "created UIPredefinePanelMgr widget[{}] IS NULL", widget);
+									logger.warn(className, function, "created UIPredefinePanelMgr uiCtrl[{}] IS NULL", uiCtrl);
 								}
+								
 							} else if ( TypeAttribute.layoutconfiguration.equalsName(type) ) {
 								
-								String viewSel = widget;
-								if ( null != uiview ) viewSel = uiview;
-								
-								// layoutconfiguration
-								uiGeneric.put(widget, new UILayoutGeneric());
-								uiWidget = uiGeneric.get(widget);
-								if ( null != uiWidget ) {
-									uiWidget.setUINameCard(this.uiNameCard);
-									uiWidget.setXMLFile(viewSel);
-									uiWidget.init();
-									panel = uiWidget.getMainPanel();
-								} else {
-									logger.warn(className, function, "created UILayoutGeneric widget[{}] IS NULL", widget);
-								}
+								uiWidget = new UILayoutGeneric();
+								uiWidget.setUINameCard(this.uiNameCard);
+								uiWidget.setViewXMLFile(uiview);
+								uiWidget.setOptsXMLFile(uiopts);
+								uiWidget.init();
+								panel = uiWidget.getMainPanel();
+									
 							} else if ( TypeAttribute.widgetconfiguration.equalsName(type) ) {
-								
-								String viewSel = widget;
-								if ( null != uiview ) viewSel = uiview;
-								
-								//widgetconfiguration
-								uiGeneric.put(widget, new UIWidgetGeneric());
-								uiWidget = uiGeneric.get(widget);
-								if ( null != uiWidget ) {
-									uiWidget.setUINameCard(this.uiNameCard);
-									uiWidget.setXMLFile(viewSel);
-									uiWidget.init();
-									panel = uiWidget.getMainPanel();
-								} else {
-									logger.warn(className, function, "created UIWidgetGeneric widget[{}] IS NULL", widget);
-								}
+									
+								uiWidget = new UIWidgetGeneric();
+								uiWidget.setUINameCard(this.uiNameCard);
+								uiWidget.setViewXMLFile(uiview);
+								uiWidget.setOptsXMLFile(uiopts);
+								uiWidget.init();
+								panel = uiWidget.getMainPanel();
+									
 							} else {
 								logger.warn(className, function, "type IS INVALID");
 							}
-							
+
 							if ( null != uiWidget ) {
-								if ( ! uiGeneric.containsKey(element) ) {
+								if ( null != element ) {
 									if ( null != element && element.trim().length() > 0 ) {
-										logger.info(className, function, "uiGeneric element[{}] ADDED", element);
 										uiGeneric.put(element, uiWidget);
-									} else {
-										logger.warn(className, function, "uiGeneric element[{}] IS NULL OR EMPTY, SKIP ADD", element);
+										logger.info(className, function, "uiGeneric element[{}] ADDED", element);
 									}
-								} else {
-									logger.warn(className, function, "uiGeneric contain the element[{}], SKIP ADD", element);
+								}
+								if ( ! uiGeneric.containsKey(element) ) {
+									uiGeneric.put(uiCtrl, uiWidget);
+									logger.info(className, function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
 								}
 							} else {
-								logger.warn(className, function, "uiGeneric uiWidget IS NULL, SKIP ADD");
+								logger.warn(className, function, "created UIWidgetGeneric type[{}] uiCtrl[{}] IS NULL", type, uiCtrl);
 							}
-							
+
 							if ( null != panel ) {
 								if ( rootPanel instanceof DockLayoutPanel ) {
 									
@@ -311,7 +284,7 @@ public class UILayoutGeneric extends UIWidget_i {
 		final String function = "ready";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "this.xmlFile[{}]", this.xmlFile);
+		logger.info(className, function, "this.xmlFile[{}]", this.viewXMLFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
@@ -440,14 +413,14 @@ public class UILayoutGeneric extends UIWidget_i {
 			}
 
 		} else {
-			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.xmlFile);
+			logger.warn(className, function, "this.xmlFile[{}] dictionary IS NULL", this.viewXMLFile);
 		}
 		logger.end(className, function);
 	}
 
-	public UIWidget_i getPredefineWidget(String widget) {
-		logger.info(className, "getPredefineWidget", "widget[{}]", widget);
-		return uiGeneric.get(widget);
+	public UIWidget_i getPredefineWidget(String uiCtrl) {
+		logger.info(className, "getPredefineWidget", "uiCtrl[{}]", uiCtrl);
+		return uiGeneric.get(uiCtrl);
 	}
 
 }

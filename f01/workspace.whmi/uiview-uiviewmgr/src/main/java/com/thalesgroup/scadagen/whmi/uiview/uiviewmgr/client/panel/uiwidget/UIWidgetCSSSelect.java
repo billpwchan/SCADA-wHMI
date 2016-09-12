@@ -4,6 +4,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -12,10 +13,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.CSSSelectEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.CSSSelectViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect_i.CSSSelectEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect_i.CSSSelectViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
@@ -48,8 +49,8 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String op	= (String) uiEventAction.getAction(ViewAttribute.Operation.toString());
-		String od1	= (String) uiEventAction.getAction(ViewAttribute.OperationString1.toString());
+		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+		String od1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 		
 		logger.info(className, function, "op["+op+"]");
 		logger.info(className, function, "od1["+od1+"]");
@@ -73,20 +74,26 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 						logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
 					}
 
+				} else {
+					logger.warn(className, function, "od1[{}] IS NULL", od1);
 				}
 				
 			} else if ( op.equals(CSSSelectEvent.CSSRemove.toString()) ) {
-
-				if ( strSet0.equals(od1) ) {
-					
-					modifyCss(cssElementName0, cssValueToInvisibile0, false);
-					modifyCss(cssElementName1, cssValueToVisibile1, false);
-				} else if ( strSet1.equals(od1) ) {
-					
-					modifyCss(cssElementName0, cssValueToVisibile0, false);
-					modifyCss(cssElementName1, cssValueToInvisibile1, false);
+				
+				if ( null != od1 ) {
+					if ( strSet0.equals(od1) ) {
+						
+						modifyCss(cssElementName0, cssValueToInvisibile0, false);
+						modifyCss(cssElementName1, cssValueToVisibile1, false);
+					} else if ( strSet1.equals(od1) ) {
+						
+						modifyCss(cssElementName0, cssValueToVisibile0, false);
+						modifyCss(cssElementName1, cssValueToInvisibile1, false);
+					} else {
+						logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
+					}					
 				} else {
-					logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
+					logger.warn(className, function, "od1[{}] IS NULL", od1);
 				}
 				
 			} else if ( op.equals(CSSSelectViewEvent.SetDefaultCSS.toString()) ) {
@@ -107,6 +114,7 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 		} else {
 			logger.warn(className, function, "op IS NULL");
 		}
+		logger.end(className, function);
 	}
 
 	@Override
@@ -118,13 +126,18 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 
-		this.cssElementName0 	= getStringParameter(ParameterName.CSSElementName0.toString());
-		this.cssValueToVisibile0 	= getStringParameter(ParameterName.CSSValueApplyToElement0.toString());
-		this.cssValueToInvisibile0 	= getStringParameter(ParameterName.CSSValueRemoveFromElement0.toString());
-		
-		this.cssElementName1 	= getStringParameter(ParameterName.CSSElementName1.toString());
-		this.cssValueToVisibile1 	= getStringParameter(ParameterName.CSSValueApplyToElement1.toString());
-		this.cssValueToInvisibile1 	= getStringParameter(ParameterName.CSSValueRemoveFromElement1.toString());
+		String strUIWidgetGeneric = "UIWidgetGeneric";
+		String strHeader = "header";
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			cssElementName0			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSElementName0.toString(), strHeader);
+			cssValueToVisibile0		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueApplyToElement0.toString(), strHeader);
+			cssValueToInvisibile0	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueRemoveFromElement0.toString(), strHeader);
+			
+			cssElementName1			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSElementName1.toString(), strHeader);
+			cssValueToVisibile1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueApplyToElement1.toString(), strHeader);
+			cssValueToInvisibile1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueRemoveFromElement1.toString(), strHeader);
+		}
 		
 		logger.info(className, function, "cssElementName0[{}]",		cssElementName0);
 		logger.info(className, function, "cssValueToApply0[{}]",	cssValueToVisibile0);
@@ -136,7 +149,8 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 		uiLayoutGeneric = new UILayoutGeneric();
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setXMLFile(xmlFile);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		

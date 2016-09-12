@@ -27,11 +27,12 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
 
 	@Override
-	public UIWidget_i getUIWidget(String widget, String view, UINameCard uiNameCard, HashMap<String, Object> options) {
+	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+			, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "uiPanel[{}]", widget);
+		logger.info(className, function, "uiCtrl[{}]", uiCtrl);
 		
 		UIWidget_i uiWidget = null;
 		
@@ -43,7 +44,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 			
 				logger.info(className, function, "uiWidgetMgrFactory");
 			
-				uiWidget = uiWidgetMgrFactory.getUIWidget(widget, view, uiNameCard, options);
+				uiWidget = uiWidgetMgrFactory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, options);
 				
 				if ( null != uiWidget ) break;
 			
@@ -53,7 +54,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 		}
 		
 		if ( null == uiWidget ) {
-			logger.warn(className, function, "uiWIdget IS NULL, widget[{}] NOT FOUND", widget);
+			logger.warn(className, function, "uiWIdget IS NULL, uiCtrl[{}] NOT FOUND", uiCtrl);
 		}
 		
 		logger.end(className, function);

@@ -1,23 +1,26 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.util;
 
 import java.util.MissingResourceException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.i18n.client.Dictionary;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
 public class Translation {
-	private final static Logger logger = Logger.getLogger(Translation.class.getName());
+	private static final String className = UIWidgetUtil.getClassSimpleName(DpcMgr.class.getName());
+	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	private static final String JS_DICTIONARY_VAR_NAME = "table";
 	private static final Dictionary dictionary = Dictionary.getDictionary(JS_DICTIONARY_VAR_NAME);
 	public static String getWording(String key) {
-		logger.log(Level.SEVERE, "getWording[{}] ");
+		final String function = "getWording";
+		logger.info(className, function, "getWording key[{}]", key);
 		String value = key;
         try {
             if (dictionary != null) value = dictionary.get(key);
         }
         catch (final MissingResourceException e) {
-        	logger.log(Level.SEVERE, "Can't find key [" + key + "] in dictionary");
+        	logger.warn(className, function, "Can't find key [{}] in dictionary", key);
         }
         return value;
 	}

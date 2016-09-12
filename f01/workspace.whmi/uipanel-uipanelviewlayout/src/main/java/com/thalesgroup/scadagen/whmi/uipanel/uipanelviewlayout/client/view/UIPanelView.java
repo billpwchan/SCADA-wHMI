@@ -100,7 +100,7 @@ public class UIPanelView {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "setActivateBorder activate[{}]", activate);
+		logger.info(className, function, "activate[{}]", activate);
 		
 		String stylePrimaryName = null;
 		
@@ -120,11 +120,11 @@ public class UIPanelView {
 
 		if ( null != stylePrimaryName ) {
 			
-			logger.info(className, function, "setActivateBorder stylePrimaryName[{}]", stylePrimaryName);
+			logger.info(className, function, "stylePrimaryName[{}]", stylePrimaryName);
 			
 			this.rootPanel.setStylePrimaryName(stylePrimaryName);
 		} else {
-			logger.info(className, function, "setActivateBorder stylePrimaryName IS NULL");
+			logger.info(className, function, "stylePrimaryName IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -200,7 +200,7 @@ public class UIPanelView {
 		
 		this.viewLayoutType = viewMode;
 		
-		logger.info(className, function, "setViewType End");
+		logger.end(className, function);
 	}
 	public UITaskLaunch getTaskLaunch() {
 		final String function = "getTaskLaunch";
@@ -219,25 +219,7 @@ public class UIPanelView {
 			this.taskLaunch = new UITaskLaunch(taskLaunch);
 			rootPanel.clear();
 			
-			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
-			UIWidget_i uiWidget_i = null;
-			Panel panel = null;
-			
-			switch ( this.taskLaunch.getTaskLaunchType() ) {
-			case PANEL:
-				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewPanel, uiNameCard);
-				panel = uiWidget_i.getMainPanel();				
-				break;
-			case IMAGE:
-				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic, uiNameCard);
-				panel = uiWidget_i.getMainPanel();
-				break;
-			default:
-				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty, uiNameCard);
-				panel = uiWidget_i.getMainPanel();				
-				break;			
-			}
-
+			// Title
 			HorizontalPanel hp = new HorizontalPanel();
 			hp.addStyleName("project-gwt-panel-panelview-titlebar");
 			hp.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -249,11 +231,36 @@ public class UIPanelView {
 			
 			((DockLayoutPanel)rootPanel).addNorth(hp, 40);
 			
-			rootPanel.addStyleName("project-gwt-panel-panelview-container");
-			rootPanel.add(panel);
+			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
+			UIWidget_i uiWidget_i = null;
+			Panel panel = null;
 			
-			((UIPanelViewProvide_i)uiWidget_i).setTaskProvide(taskLaunch);
-			
+			switch ( this.taskLaunch.getTaskLaunchType() ) {
+			case PANEL:
+				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewPanel, uiNameCard);			
+				break;
+			case IMAGE:
+				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic, uiNameCard);
+				break;
+			default:
+				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty, uiNameCard);			
+				break;			
+			}
+			if ( null != uiWidget_i ) {
+				panel = uiWidget_i.getMainPanel();
+				
+				if ( null != panel ) {
+					rootPanel.addStyleName("project-gwt-panel-panelview-container");
+					rootPanel.add(panel);
+				} else {
+					logger.warn(className, function,  "panel IS NULL");
+				}
+				
+				((UIPanelViewProvide_i)uiWidget_i).setTaskProvide(taskLaunch);
+			} else {
+				logger.warn(className, function, "this.taskLaunch.getTaskLaunchType()[{}] uiWidget_i IS NULL", this.taskLaunch.getTaskLaunchType());
+			}
+
 			setTitle(this.taskLaunch.getTitle());
 
 		} else {

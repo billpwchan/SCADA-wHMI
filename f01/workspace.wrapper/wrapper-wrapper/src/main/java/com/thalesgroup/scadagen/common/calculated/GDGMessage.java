@@ -2,10 +2,8 @@ package com.thalesgroup.scadagen.common.calculated;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.IllegalFormatException;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -19,7 +17,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.computers.StatusComputer;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 
@@ -27,27 +24,8 @@ import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
  * @author syau
  *
  */
-public abstract class GDGMessage implements StatusComputer {
-	
-    protected Set<String> m_statusSet = new HashSet<String>();
-    protected Set<String> m_propertySet = new HashSet<String>();
-    protected String m_name = "";
+public abstract class GDGMessage extends SCSStatusComputer {
 
-    @Override
-    public String getComputerId() {
-        return m_name;
-    }
-
-    @Override
-    public Set<String> getInputStatuses() {
-        return m_statusSet;
-    }
-
-    @Override
-    public Set<String> getInputProperties() {
-        return m_propertySet;
-    }
-	
 	protected Logger logger					= null;
 	
 	protected String logPrefix				= null;

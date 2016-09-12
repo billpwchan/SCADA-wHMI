@@ -5,6 +5,7 @@ import com.thalesgroup.scadagen.common.calculated.GDGMessage;
 public class GDGMessage08 extends GDGMessage {
 	
 	public GDGMessage08 () {
+		super();
 		
 		m_name = this.getClass().getSimpleName();
 

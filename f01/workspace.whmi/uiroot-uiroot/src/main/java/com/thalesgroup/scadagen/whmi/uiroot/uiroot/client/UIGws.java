@@ -40,33 +40,29 @@ public class UIGws {
 
 	private SimplePanel root = null;
 
+	protected UINameCard uiNameCard = null;
+	public void setUINameCard(UINameCard uiNameCard) {
+		if ( null != uiNameCard ) {
+			this.uiNameCard = new UINameCard(uiNameCard);
+			this.uiNameCard.appendUIPanel(this);
+		} else {
+			logger.warn(className, "setUINameCard", "uiNameCard IS NULL");
+		}
+	}
+	
 	public Panel getMainPanel() {
 		final String function = "getMainPanel";
-		
-		logger.begin(className, function);
 
+		logger.begin(className, function);
+		
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
-		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
+		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);		
 		
 //		initCache();
-		initCaches();
-
-		Panel panel = getMainPanel(new UINameCard(0, "", RESETABLE_EVENT_BUS));
+		initCaches();		
 		
-		logger.end(className, function);
+		setUINameCard(new UINameCard(0, "", RESETABLE_EVENT_BUS));
 		
-		return panel;
-	}
-
-	private UINameCard uiNameCard = null;
-	public Panel getMainPanel(UINameCard uiNameCard) {
-		final String function = "getMainPanel";
-
-		logger.begin(className, function);
-		
-		this.uiNameCard = new UINameCard(uiNameCard);
-		this.uiNameCard.appendUIPanel(this);
-
 		/**
 		 * Configuration.
 		 */
@@ -222,18 +218,30 @@ public class UIGws {
 //		logger.end(className, function);
 //	}
 	
+	private boolean isCreated = false;
 	private void ready(String folder, int received) {
 		final String function = "ready";
 		
 		logger.begin(className, function);
-
-		UIWidget_i uiWidget_i = new UIPanelScreen();
-		uiWidget_i.setUINameCard(this.uiNameCard);
-		uiWidget_i.init();
-		Panel panel = uiWidget_i.getMainPanel();
 		
-		this.root.clear();	
-		this.root.add(panel);
+		logger.info(className, function, "folder[{}] received[{}]", folder, received);
+
+		if ( ! isCreated ) {
+			
+			UIWidget_i uiWidget_i = new UIPanelScreen();
+			uiWidget_i.setUINameCard(this.uiNameCard);
+			uiWidget_i.init();
+			Panel panel = uiWidget_i.getMainPanel();
+			
+			this.root.clear();	
+			this.root.add(panel);
+			
+			isCreated = true;
+			
+		} else {
+			logger.warn(className, function, "ready folder[{}] received[{}] isCreated", folder, received);
+		}
+
 		
 		logger.end(className, function);
 	}

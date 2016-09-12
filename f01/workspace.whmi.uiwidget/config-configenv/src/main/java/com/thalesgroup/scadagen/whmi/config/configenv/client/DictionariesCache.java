@@ -36,12 +36,13 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	public Dictionary getDictionary(String path, String extention) { return this.dictionaries.get(path+"|"+extention); }
 	public Dictionary getDictionary(String path) { return this.dictionaries.get(path); }
 	
-	public String getStringValue(final String fileName, final String key, final String tag) {
+	// For XML Option
+	public String getStringValue(final String fileName, final String keyValue, final String tag, final String tagKey) {
 		final String function = "getStringValue";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "fileName[{}] key[{}] tag[{}]", new Object[]{fileName, key, tag});
+		logger.info(className, function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}]", new Object[]{fileName, keyValue, tag, tagKey});
 		
 		String value = null;
 		Dictionary dictionary = getDictionary(fileName+(null!=tag?"|"+tag:""));
@@ -53,8 +54,18 @@ public class DictionariesCache implements DictionariesMgrEvent {
 					Dictionary d2 = (Dictionary) dictionary.getValue(o);
 					logger.info(className, function, "d2[{}]", d2);
 					if ( null != d2 ) {
-						value = (String) d2.getValue(key);
-						logger.info(className, function, "value[{}]", value);
+						value = (String) d2.getValue(keyValue);
+						logger.info(className, function, "keyValue[{}] value[{}]", keyValue, value);
+						if ( null != tagKey ) {
+							String d2av = (String) d2.getAttribute("key");
+							logger.info(className, function, "tagKey[{}] d2av[{}]", tagKey, d2av);
+							if ( null != d2av ) {
+								if ( d2av.equals(tagKey) ) {
+									logger.info(className, function, "tagKey[{}] equals d2av[{}]", tagKey, d2av);
+									break;
+								}								
+							}
+						}
 					} else {
 						logger.warn(className, function, "d2 IS NULL");
 					}
@@ -66,11 +77,18 @@ public class DictionariesCache implements DictionariesMgrEvent {
     	} else {
 			logger.warn(className, function, "dictionary IS NULL");
 		}
+    	logger.info(className, function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}] => value[{}]", new Object[]{fileName, keyValue, tag, tagKey, value});
     	logger.end(className, function);
     	return value;
 	}
-	public String getStringValue(final String fileName, final String key) {
-		return getStringValue(fileName, key, null);
+	
+	// For XML Header
+	public String getStringValue(final String fileName, final String keyValue, final String tag) {
+    	return getStringValue(fileName, keyValue, tag, null);
+	}
+	// For Properties
+	public String getStringValue(final String fileName, final String keyValue) {
+		return getStringValue(fileName, keyValue, null);
 	}
 	
 	private int sent = 0;

@@ -49,10 +49,16 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		logger.end(className, function);
 	}
 	
-	private String xml = null;
+	private String viewXMLFile = null;
 	@Override
-	public void setXMLFile(String xml) {
-		this.xml = xml;
+	public void setViewXMLFile(String viewXMLFile) {
+		this.viewXMLFile = viewXMLFile;
+	}
+	
+	private String optsXMLFile = null;
+	@Override
+	public void setOptsXMLFile(String optsXMLFile) {
+		this.optsXMLFile = optsXMLFile;
 	}
 	
 	@Override
@@ -60,7 +66,7 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		final String function = "init";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "xml[{}]", xml);
+		logger.info(className, function, "viewXMLFile[{}] optsXMLFile[{}]", viewXMLFile, optsXMLFile);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(UIInspector_i.strUIInspector);
 		if ( null != dictionariesCache ) {

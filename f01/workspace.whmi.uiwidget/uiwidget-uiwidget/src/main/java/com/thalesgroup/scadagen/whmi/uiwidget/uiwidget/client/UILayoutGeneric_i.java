@@ -50,7 +50,7 @@ public interface UILayoutGeneric_i {
 
 	public enum WidgetAttribute {
 		  type("type")
-		, widget("widget")
+		, uiCtrl("uiCtrl")
 		, direction("direction")
 		, width("width")
 		, cellwidth("cellwidth")
@@ -59,9 +59,11 @@ public interface UILayoutGeneric_i {
 		, top("top")
 		, csscontainer("csscontainer")
 		, uiView("uiView")
+		, uiOpts("uiOpts")
+		, element("element")
 		, eventbusname("eventbusname")
 		, eventbusscope("eventbusscope")
-		, element("element")
+		
 		;
 		private final String text;
 		private WidgetAttribute(final String text) { this.text = text; }
@@ -74,7 +76,7 @@ public interface UILayoutGeneric_i {
 	}
 	
 	public enum OptionAttribute {
-		option1("option1")
+		  option1("option1")
 		, option2("option2")
 		, option3("option3")
 		, option4("option4")
@@ -95,10 +97,18 @@ public interface UILayoutGeneric_i {
 		 */
 		@Override
 		public String toString() { return this.text; }
+		public static String[] toStrings() {
+			OptionAttribute[] enums = values();
+		    String[] strings = new String[enums.length];
+		    for (int i = 0; i < enums.length; i++) {
+		    	strings[i] = enums[i].name();
+		    }
+		    return strings;
+		}
 	}
 	
 	public enum ActionAttribute {
-		initAction1("initAction1")
+		  initAction1("initAction1")
 		, initAction2("initAction2")
 		, initAction3("initAction3")
 		, initAction4("initAction4")
@@ -113,12 +123,20 @@ public interface UILayoutGeneric_i {
 		 */
 		@Override
 		public String toString() { return this.text; }
+		public static String[] toStrings() {
+			ActionAttribute[] enums = values();
+		    String[] strings = new String[enums.length];
+		    for (int i = 0; i < enums.length; i++) {
+		    	strings[i] = enums[i].name();
+		    }
+		    return strings;
+		}
 	}
 	
 	public enum TypeAttribute {
-		  predefine("predefine")
-		, widgetconfiguration("widgetconfiguration")
-		, layoutconfiguration("layoutconfiguration")
+		  predefine("predefine") // MVP Panel
+		, widgetconfiguration("widgetconfiguration") // MVC Widget
+		, layoutconfiguration("layoutconfiguration") // UIWidget
 		;
 		private final String text;
 		private TypeAttribute(final String text) { this.text = text; }
@@ -128,6 +146,14 @@ public interface UILayoutGeneric_i {
 		 */
 		@Override
 		public String toString() { return this.text; }
+		public static String[] toStrings() {
+			TypeAttribute[] enums = values();
+		    String[] strings = new String[enums.length];
+		    for (int i = 0; i < enums.length; i++) {
+		    	strings[i] = enums[i].name();
+		    }
+		    return strings;
+		}
 	}
 	
 	public enum DirectionAttribute {
@@ -145,5 +171,13 @@ public interface UILayoutGeneric_i {
 		 */
 		@Override
 		public String toString() { return this.text; }
+		public static String[] toStrings() {
+			DirectionAttribute[] enums = values();
+		    String[] strings = new String[enums.length];
+		    for (int i = 0; i < enums.length; i++) {
+		    	strings[i] = enums[i].name();
+		    }
+		    return strings;
+		}
 	}
 }

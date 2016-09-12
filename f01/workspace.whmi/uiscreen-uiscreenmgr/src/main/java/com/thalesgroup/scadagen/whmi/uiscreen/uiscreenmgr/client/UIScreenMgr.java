@@ -41,41 +41,61 @@ public class UIScreenMgr {
 		return panel;
 	}
 
-	public UIWidget_i getPanel(String uiPanel, UINameCard uiNameCard){
+	public UIWidget_i getPanel(String uiCtrl, UINameCard uiNameCard){
 		final String function = "getPanel";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, " uiPanel[{}]", "uiPanel");
+		logger.info(className, function, "uiCtrl[{}]", uiCtrl);
 		
-		String xmlFile = null;
+		String strUIScreenLogin	= "UIScreenLogin.view.xml";
+		String strUIScreenMMI	= "UIScreenMMI.view.xml";
+		String strUIScreenDSS	= "UIScreenDSS.view.xml";
+		String strUIScreenOPM	= "UIScreenOPM.view.xml";
+		
+		String viewXMLFile = null;
+		String optsXMLFile = null;
 		UIWidget_i uiWidget_i = null;
 		
-		if ( 0 == uiPanel.compareTo("UIScreenLogin") ) {
+		if ( UIWidgetUtil.getClassSimpleName(UIScreenLogin.class.getName())
+				.equals(uiCtrl) ) {	
+			
+			viewXMLFile = strUIScreenLogin;
+			
 			uiWidget_i = new UIScreenLogin();
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.setXMLFile(xmlFile);
-			uiWidget_i.init();
-		} else if ( 0 == uiPanel.compareTo("UIScreenMMI") ) {
+
+		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName())
+				.equals(uiCtrl) ) {
+
+			viewXMLFile = strUIScreenMMI;
+			
 			uiWidget_i = new UIScreenMMI();
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.setXMLFile(xmlFile);
-			uiWidget_i.init();
-		} else if ( 0 == uiPanel.compareTo("UIScreenDSS") ) {
+
+		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenDSS.class.getName())
+				.equals(uiCtrl) ) {
+			
+			viewXMLFile = strUIScreenDSS;
+			
 			uiWidget_i = new UIScreenDSS();
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.setXMLFile(xmlFile);
-			uiWidget_i.init();
-		} else if ( 0 == uiPanel.compareTo("UIScreenOPM") ) {
+
+		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenOPM.class.getName())
+				.equals(uiCtrl) ) {
+			
+			viewXMLFile = strUIScreenOPM;
+			
 			uiWidget_i = new UIScreenOPM();
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.setXMLFile(xmlFile);
-			uiWidget_i.init();
+
 		} else {
+			
 			uiWidget_i = new UIScreenEmpty();
+
+		}
+		
+		if ( null != uiWidget_i ) {
 			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.setXMLFile(xmlFile);
-			uiWidget_i.init();
+			uiWidget_i.setViewXMLFile(viewXMLFile);
+			uiWidget_i.setOptsXMLFile(optsXMLFile);
+			uiWidget_i.init();	
 		}
 		
 		logger.end(className, function);

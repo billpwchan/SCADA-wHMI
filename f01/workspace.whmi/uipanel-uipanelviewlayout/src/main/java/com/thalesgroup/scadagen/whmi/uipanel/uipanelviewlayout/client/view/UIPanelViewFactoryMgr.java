@@ -41,17 +41,24 @@ public class UIPanelViewFactoryMgr {
 		UIWidget_i uiWidget_i = null;
 		
 		if ( 0 == uiPanel.compareTo(UIPanelViewPanel) ) {
+			
 			uiWidget_i = new UIPanelViewPanel();
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.init();
+			
 		} else if ( 0 == uiPanel.compareTo(UIPanelViewSchematic) ) {
+			
 			uiWidget_i = new UIPanelViewSchematic();
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.init();
+
 		} else if ( 0 == uiPanel.compareTo(UIPanelViewEmpty) ) {
+			
 			uiWidget_i = new UIPanelViewEmpty();
+			
+		}
+		
+		if ( null != uiWidget_i ) {
 			uiWidget_i.setUINameCard(uiNameCard);
 			uiWidget_i.init();
+		} else {
+			logger.warn(className, function, "uiPanel[{}] uiWidget_i IS NULL", uiPanel);
 		}
 
 		logger.end(className, function);

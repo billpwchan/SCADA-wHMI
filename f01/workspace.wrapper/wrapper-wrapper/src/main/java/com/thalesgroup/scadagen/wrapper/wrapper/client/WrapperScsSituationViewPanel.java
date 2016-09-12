@@ -37,4 +37,10 @@ public class WrapperScsSituationViewPanel {
 		
 		return hp;
 	}
+	
+	public void terminate() {
+		if ( null != scsSituationViewPanel ){
+			scsSituationViewPanel.terminate();
+		}
+	}
 }

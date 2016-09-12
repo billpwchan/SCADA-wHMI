@@ -1,7 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client;
 
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
@@ -94,9 +93,9 @@ public class UIPanelScreen extends UIWidget_i {
 
 			if ( null != taskProvide ) {
 				
-				logger.info(className, function, "onUIEvent this.uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", this.uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
+				logger.info(className, function, "this.uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", this.uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
 				
-				logger.info(className, function, "onUIEvent this.uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", this.uiNameCard.getUiPath(), taskProvide.getUiPath());
+				logger.info(className, function, "this.uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", this.uiNameCard.getUiPath(), taskProvide.getUiPath());
 				
 				if ( this.uiNameCard.getUiScreen() == taskProvide.getTaskUiScreen()
 						&& 0 == this.uiNameCard.getUiPath().compareToIgnoreCase(taskProvide.getUiPath()) ) {
@@ -117,8 +116,10 @@ public class UIPanelScreen extends UIWidget_i {
 						rootPanel.add(panel);
 						
 						if ( null != strCssRootContainer ) {
-							Element container = DOM.getParent(panel.getElement());
-							container.setClassName(strCssRootContainer + "-0");
+							int screen = 0;
+							String cssClassName = strCssRootContainer+"-"+screen;
+							logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
+							DOM.getParent(panel.getElement()).setClassName(cssClassName);
 						}
 						
 						Settings setting = Settings.getInstance();
@@ -146,8 +147,9 @@ public class UIPanelScreen extends UIWidget_i {
 								rootPanel.add(complexPanelOthers);
 								
 								if ( null != strCssRootContainer ) {
-									Element container = DOM.getParent(complexPanelOthers.getElement());
-									container.setClassName(strCssRootContainer+"-"+strNumOfScreen);
+									String cssClassName = strCssRootContainer+"-"+screen;
+									logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
+									DOM.getParent(complexPanelOthers.getElement()).setClassName(cssClassName);
 								}
 							}
 						}

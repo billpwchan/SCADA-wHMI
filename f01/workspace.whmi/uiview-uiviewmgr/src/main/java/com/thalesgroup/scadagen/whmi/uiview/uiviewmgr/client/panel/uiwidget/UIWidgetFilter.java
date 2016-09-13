@@ -18,7 +18,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterParameter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
@@ -29,12 +28,10 @@ public class UIWidgetFilter extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private SimpleEventBus eventBus 			= null;
+	private SimpleEventBus eventBus 		= null;
 
-	private final String strSet1				= "set1";
-	private final String strClear				= "clear";
-	private final String strApplied				= "applied";
-
+	private final String strSet1			= "set1";
+	private final String strClear			= "clear";
 	private Widget widgetClear				= null;
 	
 	private UIWidgetGeneric uiWidgetGeneric	= null;
@@ -107,7 +104,11 @@ public class UIWidgetFilter extends UIWidget_i {
 			}
 			
 			if ( element.equals(strClear) ) {
-				if ( null != widgetClear ) uiWidgetGeneric.setWidgetStatus(strClear, WidgetStatus.Disable);
+				if ( null != widgetClear ) {
+					UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+					
+					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strClear, "Disable");
+				}
 			}
 
 		} else {
@@ -155,36 +156,40 @@ public class UIWidgetFilter extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String ot	= (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
-		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
-		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-		String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-		String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
-		
-		logger.info(className, function, "ot["+ot+"]");
-		logger.info(className, function, "op["+op+"]");
-		logger.info(className, function, "os1["+os1+"]");
-		logger.info(className, function, "os2["+os2+"]");
-		logger.info(className, function, "os3["+os3+"]");
-		
-		if ( null != ot ) {
-			if ( ot.equals(className) ) {
-				
-				if ( null != op ) {
-					if ( op.equals("SetFilter") ) {
-						
-						setFilter(os1);
-						
-					} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
-
-						UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
-						uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
-
-					} 
+		if ( null != uiEventAction ) {
+			String ot	= (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
+			String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+			String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+			String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
+			
+			logger.info(className, function, "ot["+ot+"]");
+			logger.info(className, function, "op["+op+"]");
+			logger.info(className, function, "os1["+os1+"]");
+			logger.info(className, function, "os2["+os2+"]");
+			logger.info(className, function, "os3["+os3+"]");
+			
+			if ( null != ot ) {
+				if ( ot.equals(className) ) {
+					
+					if ( null != op ) {
+						if ( op.equals("SetFilter") ) {
+							
+							setFilter(os1);
+							
+						} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
+	
+							UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+							uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
+	
+						} 
+					}
 				}
 			}
+		} else {
+			logger.warn(className, function, "uiEventAction IS NULL");
 		}
-
+		
 		logger.end(className, function);
 	}
 
@@ -251,9 +256,11 @@ public class UIWidgetFilter extends UIWidget_i {
 				}
 			})
 		);
-
-		uiWidgetGeneric.setWidgetStatus( strSet1,  WidgetStatus.Down );
-		uiWidgetGeneric.setWidgetStatus( strClear,  WidgetStatus.Disable );
+		
+		UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+		
+		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet1, "Down");
+		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strClear, "Disable");
 		
 		logger.end(className, function);
 	}

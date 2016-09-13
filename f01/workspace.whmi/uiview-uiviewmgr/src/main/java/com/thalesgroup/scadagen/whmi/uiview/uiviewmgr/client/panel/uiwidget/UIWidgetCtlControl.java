@@ -15,6 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -48,10 +49,6 @@ public class UIWidgetCtlControl extends UIWidget_i {
 	final String strDci					= "dci";
 	final String strDio					= "dio";
 	
-	private Widget widgetSet			= null;
-	private Widget widgetUnSet			= null;
-	private Widget widgetApply			= null;
-	
 	private Set<HashMap<String, String>> selectedSet = null;
 	
 	private void onButton(ClickEvent event) {
@@ -69,27 +66,27 @@ public class UIWidgetCtlControl extends UIWidget_i {
 				String element = uiWidgetGeneric.getWidgetElement(widget);
 				if ( null != element ) {
 					
-					WidgetStatus statusSet		= null;
-					WidgetStatus statusUnSet	= null;
-					WidgetStatus statusApply	= null;
+					String statusSet	= null;
+					String statusUnSet	= null;
+					String statusApply	= null;
 					
 					if ( element.equals(strSet) ) {
 
-						statusSet				= WidgetStatus.Down;
-						statusUnSet				= WidgetStatus.Disable;
-						statusApply				= WidgetStatus.Up;
+						statusSet				= WidgetStatus.Down.toString();
+						statusUnSet				= WidgetStatus.Disable.toString();
+						statusApply				= WidgetStatus.Up.toString();
 
 					} else if ( element.equals(strUnSet) ) {
 						
-						statusSet				= WidgetStatus.Disable;
-						statusUnSet				= WidgetStatus.Down;
-						statusApply				= WidgetStatus.Up;
+						statusSet				= WidgetStatus.Disable.toString();
+						statusUnSet				= WidgetStatus.Down.toString();
+						statusApply				= WidgetStatus.Up.toString();
 
 					} else if ( element.equals(strApply) ) {
 
-						statusSet				= WidgetStatus.Disable;
-						statusUnSet				= WidgetStatus.Disable;
-						statusApply				= WidgetStatus.Disable;
+						statusSet				= WidgetStatus.Disable.toString();
+						statusUnSet				= WidgetStatus.Disable.toString();
+						statusApply				= WidgetStatus.Disable.toString();
 						
 						for ( HashMap<String, String> hashMap : selectedSet ) {
 							String selectedAlias = hashMap.get(columnAlias);
@@ -104,7 +101,7 @@ public class UIWidgetCtlControl extends UIWidget_i {
 							
 							logger.info(className, function, "alias AF [{}]", alias);
 							
-							WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(widgetSet);
+							WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
 							
 							int value = 0;
 							if ( WidgetStatus.Down == curStatusSet ) {
@@ -115,10 +112,12 @@ public class UIWidgetCtlControl extends UIWidget_i {
 						}
 
 					}
+
+					UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
 					
-					if ( null != widgetSet && null != statusSet )		uiWidgetGeneric.setWidgetStatus(widgetSet, statusSet);
-					if ( null != widgetUnSet && null != statusUnSet )	uiWidgetGeneric.setWidgetStatus(widgetUnSet, statusUnSet);
-					if ( null != widgetApply && null != statusApply )	uiWidgetGeneric.setWidgetStatus(widgetApply, statusApply);
+					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, statusSet);
+					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, statusUnSet);
+					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, statusApply);
 					
 				}
 			} else {
@@ -141,63 +140,71 @@ public class UIWidgetCtlControl extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+		if ( null != uiEventAction ) {
+			String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
 		
-		Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
-		
-		logger.info(className, function, "op[{}]", op);
-		logger.info(className, function, "obj1[{}]", obj1);
-		
-		if ( null != op ) {
+			Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 			
-			WidgetStatus statusSet		= null;
-			WidgetStatus statusUnSet	= null;
-			WidgetStatus statusApply	= null;
+			logger.info(className, function, "op[{}]", op);
+			logger.info(className, function, "obj1[{}]", obj1);
 			
-			// Filter Action
-			if ( op.equals(ViewerViewEvent.FilterAdded) || op.equals(ViewerViewEvent.FilterRemoved) ) {
+			if ( null != op ) {
 				
-				statusSet				= WidgetStatus.Disable;
-				statusUnSet				= WidgetStatus.Disable;
-				statusApply				= WidgetStatus.Disable;
+				String statusSet		= null;
+				String statusUnSet	= null;
+				String statusApply	= null;
 				
-			} else if ( op.equals(ViewerViewEvent.RowSelected.toString() ) ) {
-				// Activate Selection
-				
-				selectedSet	= (Set<HashMap<String, String>>) obj1;
-				
-				String selectedStatus1 = null;
-				for ( HashMap<String, String> hashMap : selectedSet ) {
-
-					selectedStatus1 = hashMap.get(columnStatus);
-				}
-
-				if ( null != selectedStatus1 ) {
+				// Filter Action
+				if ( op.equals(ViewerViewEvent.FilterAdded) || op.equals(ViewerViewEvent.FilterRemoved) ) {
 					
-					logger.info(className, function, "selectedStatus1[{}]", selectedStatus1);
+					statusSet				= WidgetStatus.Disable.toString();
+					statusUnSet				= WidgetStatus.Disable.toString();
+					statusApply				= WidgetStatus.Disable.toString();
 					
-					if ( valueSet.equals(selectedStatus1) ) {
-						statusSet				= WidgetStatus.Up;
-						statusUnSet				= WidgetStatus.Disable;
-					} 
+				} else if ( op.equals(ViewerViewEvent.RowSelected.toString() ) ) {
+					// Activate Selection
 					
-					if ( valueUnSet.equals(selectedStatus1) ) {
-						statusSet				= WidgetStatus.Disable;
-						statusUnSet				= WidgetStatus.Up;
+					selectedSet	= (Set<HashMap<String, String>>) obj1;
+					
+					String selectedStatus1 = null;
+					for ( HashMap<String, String> hashMap : selectedSet ) {
+	
+						selectedStatus1 = hashMap.get(columnStatus);
 					}
+	
+					if ( null != selectedStatus1 ) {
+						
+						logger.info(className, function, "selectedStatus1[{}]", selectedStatus1);
+						
+						if ( valueSet.equals(selectedStatus1) ) {
+							statusSet				= WidgetStatus.Up.toString();
+							statusUnSet				= WidgetStatus.Disable.toString();
+						} 
+						
+						if ( valueUnSet.equals(selectedStatus1) ) {
+							statusSet				= WidgetStatus.Disable.toString();
+							statusUnSet				= WidgetStatus.Up.toString();
+						}
+					} else {
+						logger.warn(className, function, "selectedStatus1 IS NULL");
+					}
+					
+					statusApply				= WidgetStatus.Disable.toString();
 				} else {
-					logger.warn(className, function, "selectedStatus1 IS NULL");
+					logger.warn(className, function, "op[{}] type IS UNKNOW", op);
 				}
+	
+				UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
 				
-				statusApply				= WidgetStatus.Disable;
-			} else {
-				logger.warn(className, function, "op[{}] type IS UNKNOW", op);
+				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, statusSet);
+				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, statusUnSet);
+				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, statusApply);
 			}
-			
-			if ( null != widgetSet && null != statusSet )		uiWidgetGeneric.setWidgetStatus(widgetSet, statusSet);
-			if ( null != widgetUnSet && null != statusUnSet )	uiWidgetGeneric.setWidgetStatus(widgetUnSet, statusUnSet);
-			if ( null != widgetApply && null != statusApply )	uiWidgetGeneric.setWidgetStatus(widgetApply, statusApply);
+		} else {
+			logger.warn(className, function, "uiEventAction IS NULL");
 		}
+		
+		
 		
 		logger.end(className, function);
 	}
@@ -236,15 +243,7 @@ public class UIWidgetCtlControl extends UIWidget_i {
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
-		
-		widgetSet			= uiWidgetGeneric.getWidget( strSet );
-		widgetUnSet			= uiWidgetGeneric.getWidget( strUnSet );
-		widgetApply			= uiWidgetGeneric.getWidget( strApply );
-		
-		if ( null == widgetSet ) 	{ logger.warn(className, function, "widgetSet IS NULL"); }
-		if ( null == widgetUnSet )	{ logger.warn(className, function, "widgetUnSet IS NULL"); }
-		if ( null == widgetApply )	{ logger.warn(className, function, "widgetApply IS NULL"); }
-		
+
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
 			public void onClickHandler(ClickEvent event) {
@@ -275,10 +274,12 @@ public class UIWidgetCtlControl extends UIWidget_i {
 				}
 			})
 		);
+
+		UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
 		
-		uiWidgetGeneric.setWidgetStatus( widgetSet, WidgetStatus.Disable );
-		uiWidgetGeneric.setWidgetStatus( widgetUnSet, WidgetStatus.Disable );
-		uiWidgetGeneric.setWidgetStatus( widgetApply, WidgetStatus.Disable );
+		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, "Disable");
+		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, "Disable");
+		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, "Disable");
 		
 		logger.end(className, function);
 	}

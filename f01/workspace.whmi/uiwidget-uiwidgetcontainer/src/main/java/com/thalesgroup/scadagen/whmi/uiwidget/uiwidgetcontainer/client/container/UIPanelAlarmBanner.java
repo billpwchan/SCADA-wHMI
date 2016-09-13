@@ -49,10 +49,10 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			uiLayoutAlarmBannerList.setUIWidgetEvent(new UIWidgetEventOnValueUpdate() {
 				
 				@Override
-				public void onValueChange(String name, String value) {
-					logger.info(className, function, "onValueChange name[{}] value[{}]", name, value);
+				public void onValueChange(String element, String value) {
+					logger.info(className, function, "onValueChange element[{}] value[{}]", element, value);
 					if ( null != uiWidgetOlsCounter ) {
-						uiWidgetOlsCounter.setValue(name, value);
+						uiWidgetOlsCounter.setWidgetValue(element, value);
 					} else {
 						logger.warn(className, function, "onValueChange uiWidgetOlsCounter IS NULL");
 					}
@@ -131,7 +131,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.ackpage.equalsName(element) ) {
 			
 			if ( null != uiLayoutAlarmBannerList ) 
-				uiLayoutAlarmBannerList.setValue("ackVisible", "");
+				uiLayoutAlarmBannerList.setWidgetValue("ackVisible", "");
 			
 		} else {
 			logger.warn(className, function, "element UNKNOW");

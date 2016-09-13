@@ -776,27 +776,14 @@ public class UIWidgetGeneric extends UIWidget_i {
     	logger.end(className, function);
     }
     
-    @Override
-	public void setValue (String elementValue) {
-    	final String function = "setValue";
-    	
-    	logger.begin(className, function);
-    	logger.debug(className, function, "name[{}]", elementValue);
-    	
-    	setValue(elementValue, null);
-    	
-    	logger.end(className, function);
-    	
-    }
-	
 	@Override
-	public void setValue (String elementValue, String value) {
-		final String function = "setValue";
+	public void setWidgetValue (String element, String value) {
+		final String function = "setWidgetValue";
 		
 		logger.begin(className, function);
-		logger.debug(className, function, "name[{}] value[{}]", elementValue, value);
+		logger.debug(className, function, "element[{}] value[{}]", element, value);
 
-		int index = getElementIndex(WidgetAttribute.element, elementValue);
+		int index = getElementIndex(WidgetAttribute.element, element);
 		
 		Widget w = this.widgets.get(index);
 		
@@ -817,8 +804,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 				if ( WidgetMedia.DateTimeFormat.equalsName(media) && (null != format && 0 != format.length()) ) {
 					label = DateTimeFormat.getFormat(format).format(new Date());
 				}
-				
-				if ( WidgetType.TextBox.equalsName(widget) ) {
+				if ( WidgetType.RadioButton.equalsName(widget) ) {
+					((RadioButton)w).setValue((label.equals("true")?true:false));
+				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					((TextBox)w).setText(label);
 				} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
 					((InlineLabel)w).setText(label);

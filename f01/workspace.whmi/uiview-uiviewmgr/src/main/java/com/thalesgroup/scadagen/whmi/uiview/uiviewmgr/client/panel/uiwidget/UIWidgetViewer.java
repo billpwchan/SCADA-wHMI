@@ -93,45 +93,49 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String ot = (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
-		String op = (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
-		String od1 = (String) uiEventAction.getParameter(FilterParameter.FilterListCfgId.toString());
-		String od2 = (String) uiEventAction.getParameter(FilterParameter.FilterColumn0.toString());
-		String od3 = (String) uiEventAction.getParameter(FilterParameter.FilterValueSet0.toString());
-		
-		logger.info(className, function, "ot[{}]", ot);
-		logger.info(className, function, "op[{}]", op);
-		logger.info(className, function, "od1[{}]", od1);
-		logger.info(className, function, "od2[{}]", od2);
-		logger.info(className, function, "od3[{}]", od3);
-		
-		if ( null != op ) {
-			if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
-				if ( null != od1 && null != od2 && null != od3) {
-					String listConfigId = scsOlsListPanel.getStringParameter("listConfigId_");
-					logger.info(className, function, "listConfigId[{}]", listConfigId);
-					if ( null != listConfigId ) {
-						if ( od1.equals(listConfigId) ) {
-							applyFilter(od2, od3);
+		if ( null != uiEventAction ) {
+			String ot = (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
+			String op = (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+			String od1 = (String) uiEventAction.getParameter(FilterParameter.FilterListCfgId.toString());
+			String od2 = (String) uiEventAction.getParameter(FilterParameter.FilterColumn0.toString());
+			String od3 = (String) uiEventAction.getParameter(FilterParameter.FilterValueSet0.toString());
+			
+			logger.info(className, function, "ot[{}]", ot);
+			logger.info(className, function, "op[{}]", op);
+			logger.info(className, function, "od1[{}]", od1);
+			logger.info(className, function, "od2[{}]", od2);
+			logger.info(className, function, "od3[{}]", od3);
+			
+			if ( null != op ) {
+				if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
+					if ( null != od1 && null != od2 && null != od3) {
+						String listConfigId = scsOlsListPanel.getStringParameter("listConfigId_");
+						logger.info(className, function, "listConfigId[{}]", listConfigId);
+						if ( null != listConfigId ) {
+							if ( od1.equals(listConfigId) ) {
+								applyFilter(od2, od3);
+							} else {
+								logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", od1, listConfigId);
+							}
 						} else {
-							logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", od1, listConfigId);
+							logger.warn(className, function, "listConfigId IS NULL", listConfigId);
 						}
-					} else {
-						logger.warn(className, function, "listConfigId IS NULL", listConfigId);
+	
+					} else if ( null == od1 ) {
+						logger.warn(className, function, "od1 IS NULL");
+					} else if ( null == od2 ) {
+						logger.warn(className, function, "od2 IS NULL");
 					}
-
-				} else if ( null == od1 ) {
-					logger.warn(className, function, "od1 IS NULL");
-				} else if ( null == od2 ) {
-					logger.warn(className, function, "od2 IS NULL");
+				} else if ( op.equals(FilterViewEvent.RemoveFilter.toString()) ) {
+					removeFilter();
+				} else if ( op.equals(PrintViewEvent.Print.toString()) ) {
+					Window.alert("Print Event");
 				}
-			} else if ( op.equals(FilterViewEvent.RemoveFilter.toString()) ) {
-				removeFilter();
-			} else if ( op.equals(PrintViewEvent.Print.toString()) ) {
-				Window.alert("Print Event");
+			} else {
+				logger.warn(className, function, "op IS NULL");
 			}
 		} else {
-			logger.warn(className, function, "op IS NULL");
+			logger.warn(className, function, "uiEventAction IS NULL");
 		}
 		
 		logger.end(className, function);

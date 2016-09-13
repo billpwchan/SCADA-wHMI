@@ -67,8 +67,8 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		Timer t = new Timer() {
 			public void run() {
-				uiPanelGenericDateTime.setValue("date");
-				uiPanelGenericDateTime.setValue("time");
+				uiPanelGenericDateTime.setWidgetValue("date", null);
+				uiPanelGenericDateTime.setWidgetValue("time", null);
 			}
 		};
 		// Schedule the timer to run once every second, 250 ms.
@@ -105,7 +105,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 						logger.info(className, function, "strTitle[{}]", strTitle);
 						if (null != strTitle)		this.strTitle = strTitle;
 						
-						uiPanelGenericTitle.setValue("title", this.strTitle);
+						uiPanelGenericTitle.setWidgetValue("title", this.strTitle);
 						
 					} else if ( taskProvide instanceof UITaskProfile ) {
 
@@ -119,8 +119,8 @@ public class UIPanelStatusBar extends UIWidget_i {
 						if (null != strOperator)	this.strOperator = strOperator; 
 						if (null != strProfile) 	this.strProfile = strProfile;
 
-						uiPanelGenericOperator.setValue("operator", this.strOperator);
-						uiPanelGenericOperator.setValue("profile", this.strProfile);
+						uiPanelGenericOperator.setWidgetValue("operator", this.strOperator);
+						uiPanelGenericOperator.setWidgetValue("profile", this.strProfile);
 						
 					}
 				}

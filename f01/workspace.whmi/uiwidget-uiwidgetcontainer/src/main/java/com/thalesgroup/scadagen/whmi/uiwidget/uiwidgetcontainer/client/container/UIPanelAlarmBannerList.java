@@ -60,19 +60,19 @@ public class UIPanelAlarmBannerList extends UIWidget_i implements WrapperScsAlar
 	}
 
 	@Override
-	public void setValue(String name, String value) {
-		final String function = "setValue";
-		logger.info(className, function, "setValue name[{}] value[{}]", name, value);
-		if ( null != name ) {
-			if ( "ackVisible".equals(name) ) {
+	public void setWidgetValue(String element, String value) {
+		final String function = "setWidgetValue";
+		logger.info(className, function, "element[{}] value[{}]", element, value);
+		if ( null != element ) {
+			if ( "ackVisible".equals(element) ) {
 				if ( null != wrapperScsAlarmListPanel ) {
 					wrapperScsAlarmListPanel.ackVisible();
 				} else {
-					logger.warn(className, function, "setValue wrapperScsAlarmListPanel IS NULL");
+					logger.warn(className, function, "wrapperScsAlarmListPanel IS NULL");
 				}
 			}
 		} else {
-			logger.warn(className, function, "setValue name IS NULL");
+			logger.warn(className, function, "element IS NULL");
 		}
 	}
 

@@ -43,20 +43,6 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 
 	private UIWidgetGeneric uiWidgetGeneric	= null;
 	
-	@Override
-	public Widget getWidget(String element) {
-		final String function = "setFilter";
-		
-		logger.begin(className, function);
-		logger.info(className, function, "element[{}]", element);
-		Widget widget = null;
-		widget = uiWidgetGeneric.getWidget(element);
-		logger.end(className, function);
-		return widget;
-	}
-	
-
-	
 	private void setFilter(String element) {
 		final String function = "setFilter";
 		
@@ -117,35 +103,41 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String ot	= (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
-		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
-		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-		String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-		String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
-		
-		logger.info(className, function, "op["+op+"]");
-		logger.info(className, function, "os1["+os1+"]");
-		logger.info(className, function, "os2["+os2+"]");
-		logger.info(className, function, "os3["+os3+"]");
-		
-		if ( null != ot ) {
-			if ( ot.equals(className) ) {
-				
-				if ( null != op ) {
-					if ( op.equals("SetFilter") ) {
-						
-						setFilter(os1);
-						
-					} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
-						
-						UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
-						uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
+		if ( null != uiEventAction ) {
+			String ot	= (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
+			String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+			String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+			String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
+			
+			logger.info(className, function, "op["+op+"]");
+			logger.info(className, function, "os1["+os1+"]");
+			logger.info(className, function, "os2["+os2+"]");
+			logger.info(className, function, "os3["+os3+"]");
+			
+			if ( null != ot ) {
+				if ( ot.equals(className) ) {
+					
+					if ( null != op ) {
+						if ( op.equals("SetFilter") ) {
+							
+							setFilter(os1);
+							
+						} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
+							
+							UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+							uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
 
+						}
 					}
 				}
 			}
+			
+		} else {
+			logger.warn(className, function, "uiEventAction IS NULL");
 		}
 		
+
 		logger.end(className, function);
 	}
 

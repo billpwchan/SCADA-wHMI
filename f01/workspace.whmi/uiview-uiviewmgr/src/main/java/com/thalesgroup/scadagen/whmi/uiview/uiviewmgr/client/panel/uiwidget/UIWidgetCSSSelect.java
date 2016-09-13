@@ -49,71 +49,68 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
-		String od1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-		
-		logger.info(className, function, "op["+op+"]");
-		logger.info(className, function, "od1["+od1+"]");
-		
-		if ( null != op ) {
+		if ( null != uiEventAction ) {
+			String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+			String od1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+			
+			logger.info(className, function, "op["+op+"]");
+			logger.info(className, function, "od1["+od1+"]");
+			
+			if ( null != op ) {
 
-			// Action
-			if ( op.equals(CSSSelectEvent.CSSApply.toString()) ) {
-				
-				if ( null != od1 ) {
+				// Action
+				if ( op.equals(CSSSelectEvent.CSSApply.toString()) ) {
 					
-					if ( strSet0.equals(od1) ) {
+					if ( null != od1 ) {
 						
-						modifyCss(cssElementName0, cssValueToVisibile0, true);
-						modifyCss(cssElementName1, cssValueToInvisibile1, true);
-					} else if ( strSet1.equals(od1) ) {
-						
-						modifyCss(cssElementName0, cssValueToInvisibile0, true);
-						modifyCss(cssElementName1, cssValueToVisibile1, true);
+						if ( strSet0.equals(od1) ) {
+							
+							modifyCss(cssElementName0, cssValueToVisibile0, true);
+							modifyCss(cssElementName1, cssValueToInvisibile1, true);
+						} else if ( strSet1.equals(od1) ) {
+							
+							modifyCss(cssElementName0, cssValueToInvisibile0, true);
+							modifyCss(cssElementName1, cssValueToVisibile1, true);
+						} else {
+							logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
+						}
+
 					} else {
-						logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
+						logger.warn(className, function, "od1[{}] IS NULL", od1);
 					}
-
-				} else {
-					logger.warn(className, function, "od1[{}] IS NULL", od1);
-				}
-				
-			} else if ( op.equals(CSSSelectEvent.CSSRemove.toString()) ) {
-				
-				if ( null != od1 ) {
-					if ( strSet0.equals(od1) ) {
-						
-						modifyCss(cssElementName0, cssValueToInvisibile0, false);
-						modifyCss(cssElementName1, cssValueToVisibile1, false);
-					} else if ( strSet1.equals(od1) ) {
-						
-						modifyCss(cssElementName0, cssValueToVisibile0, false);
-						modifyCss(cssElementName1, cssValueToInvisibile1, false);
+					
+				} else if ( op.equals(CSSSelectEvent.CSSRemove.toString()) ) {
+					
+					if ( null != od1 ) {
+						if ( strSet0.equals(od1) ) {
+							
+							modifyCss(cssElementName0, cssValueToInvisibile0, false);
+							modifyCss(cssElementName1, cssValueToVisibile1, false);
+						} else if ( strSet1.equals(od1) ) {
+							
+							modifyCss(cssElementName0, cssValueToVisibile0, false);
+							modifyCss(cssElementName1, cssValueToInvisibile1, false);
+						} else {
+							logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
+						}					
 					} else {
-						logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
-					}					
-				} else {
-					logger.warn(className, function, "od1[{}] IS NULL", od1);
-				}
-				
-			} else if ( op.equals(CSSSelectViewEvent.SetDefaultCSS.toString()) ) {
-				
-				Widget widget = uiLayoutGeneric.getWidget(strSet1);
-				if ( null != widget ) {
-					((RadioButton)widget).setValue(true);
-				} else {
-					logger.warn(className, function, "Widget strSet1[{}] IS NULL", strSet1);
-				}
+						logger.warn(className, function, "od1[{}] IS NULL", od1);
+					}
+					
+				} else if ( op.equals(CSSSelectViewEvent.SetDefaultCSS.toString()) ) {
+					
+					uiLayoutGeneric.setWidgetValue(strSet1, "true");
 
-//				setFilter(strSet1);
+				} else {
+					logger.warn(className, function, "uiEventAction Operation type IS UNKNOW");
+				}
 
 			} else {
-				logger.warn(className, function, "uiEventAction Operation type IS UNKNOW");
+				logger.warn(className, function, "op IS NULL");
 			}
-
-		} else {
-			logger.warn(className, function, "op IS NULL");
 		}
+		
+
 		logger.end(className, function);
 	}
 

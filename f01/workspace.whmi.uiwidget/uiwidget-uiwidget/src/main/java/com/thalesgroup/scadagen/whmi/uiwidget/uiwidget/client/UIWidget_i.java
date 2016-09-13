@@ -167,15 +167,14 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	}
 
 	@Override
-	public void setValue(String name) {
+	public String getWidgetValue(String element) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
-
+	
 	@Override
-	public void setValue(String name, String value) {
+	public void setWidgetValue(String element, String value) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

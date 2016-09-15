@@ -62,6 +62,8 @@ public class UIWidgetGeneric extends UIWidget_i {
 
     private String strRootCss;
     
+    private HashMap<String, WidgetStatus> widgetStatus = new HashMap<String, WidgetStatus>();
+    
     private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
     
     private HashMap<Integer, Widget> widgets = new HashMap<Integer, Widget>();
@@ -527,111 +529,16 @@ public class UIWidgetGeneric extends UIWidget_i {
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
-			HashMap<String, String> valueMap 	= getWidgetValues(widget);
-			
-			String strWidget					= valueMap.get(WidgetAttribute.widget.toString());
-			
-			String label						= valueMap.get(WidgetAttribute.label.toString());
-			String icon							= valueMap.get(WidgetAttribute.icon.toString());
-			String css							= valueMap.get(WidgetAttribute.css.toString());
-			String labelDown					= valueMap.get(WidgetAttribute.labelDown.toString());
-			String iconDown						= valueMap.get(WidgetAttribute.iconDown.toString());
-			String cssDown						= valueMap.get(WidgetAttribute.cssDown.toString());
-			String tooltipDown					= valueMap.get(WidgetAttribute.tooltipDown.toString());
-			String labelDisable					= valueMap.get(WidgetAttribute.labelDisable.toString());
-			String iconDisable					= valueMap.get(WidgetAttribute.iconDisable.toString());
-			String cssDisable					= valueMap.get(WidgetAttribute.cssDisable.toString());
-			String tooltipDisable				= valueMap.get(WidgetAttribute.tooltipDisable.toString());
-			
-			logger.info(className, function, "viewXMLFile[{}]", viewXMLFile);
-			for ( String key : valueMap.keySet() ) {
-				String value = valueMap.get(key);
-				logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
-			}
-			
-			TranslationMgr translationMgr = TranslationMgr.getInstance();
-			if ( null != translationMgr.getTranslationEngine() ) {
-				label = translationMgr.getTranslation(label);
-			}
-			
-			if ( WidgetType.ImageButton.equalsName(strWidget) || WidgetType.ImageToggleButton.equalsName(strWidget) ) {
-				
-				String html = ((Button)widget).getHTML();
-				
-				logger.info(className, function, "html[{}]", html);
-				
-				if ( null != label ) {
-					if ( null != labelDisable && html.indexOf(labelDisable) != -1 ) {
-						status = WidgetStatus.Disable;
-					} else if ( null != labelDown && html.indexOf(labelDown) != -1 ) {
-						status = WidgetStatus.Down;
-					} else if ( null != label && html.indexOf(label) != -1 ) {
-						status = WidgetStatus.Up;
-					}
-				} else if ( null != icon ) {
-					if ( null != iconDisable && html.indexOf(iconDisable) != -1 ) {
-						status = WidgetStatus.Disable;
-					} else if ( null != iconDown && html.indexOf(iconDown) != -1 ) {
-						status = WidgetStatus.Down;
-					} else  if ( null != icon && html.indexOf(icon) != -1 ) {
-						status = WidgetStatus.Up;
-					}
-				}
-			} else if ( WidgetType.InlineLabel.equalsName(strWidget) || WidgetType.Button.equalsName(strWidget) ) {
-				
-				String tooltip = null;
-				String stylename = null;
-				
-				if ( WidgetType.InlineLabel.equalsName(strWidget) ) {
-					tooltip = ((InlineLabel)widget).getTitle();
-					stylename = ((InlineLabel)widget).getStyleName();
-				} else if ( WidgetType.Button.equalsName(strWidget) ) {
-					tooltip = ((Button)widget).getTitle();
-					stylename = ((Button)widget).getStyleName();
-				} else {
-					logger.warn(className, function, "widget type IS VALID");
-				}
-
-				if ( null != tooltipDown || null != tooltipDisable ) {
-					
-					logger.warn(className, function, "stylename[{}]", stylename);
-					
-					if ( null != tooltip ) {
-						if ( null != tooltipDisable && 0 == tooltip.compareTo(tooltipDisable) ) {
-							status = WidgetStatus.Disable;
-						} else if ( null != tooltipDown && 0 == tooltip.compareTo(tooltipDown) ) {
-							status = WidgetStatus.Down;
-						} else  if ( null != tooltip && 0 == tooltip.compareTo(tooltip) ) {
-							status = WidgetStatus.Up;
-						}
-					}
-				} else if ( null != cssDown || null != cssDisable ) {
-					
-					logger.warn(className, function, "stylename[{}]", stylename);
-					
-					if ( null != stylename ) {
-		//				String stylenames [] = stylename.split("\\s");
-						if ( null != cssDisable && stylename.indexOf(cssDisable) != -1 ) {
-							status = WidgetStatus.Disable;
-						} else if ( null != cssDown && stylename.indexOf(cssDown) != -1 ) {
-							status = WidgetStatus.Down;
-						} else  if ( null != css && stylename.indexOf(css) != -1 ) {
-							status = WidgetStatus.Up;
-						}					
-					}					
-				} else {
-					logger.warn(className, function, "status checking IS INALID");
-				}
-			} else {
-				logger.warn(className, function, "widget type IS VALID");
-			}
-    	} else {
-    		logger.warn(className, function, "widget IS NULL");
+    		HashMap<String, String> valueMap 	= getWidgetValues(widget);
+    		String element						= valueMap.get(WidgetAttribute.element.toString());
+    		status = widgetStatus.get(element);
+        	if ( null == status ) {
+        		logger.warn(className, function, "element[{}] status IS NULL, set as WidgetStatus.Up", element);
+        		
+        		status = WidgetStatus.Up;
+        		widgetStatus.put(element, status);
+        	}
     	}
-    	
-    	logger.info(className, function, "status[{}]", status);
-    	
-    	logger.end(className, function);
     	
     	return status;
     }
@@ -666,6 +573,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 					String iconDivHeight				= valueMap.get(WidgetAttribute.iconDivHeight.toString());
 					String iconImgWidth					= valueMap.get(WidgetAttribute.iconImgWidth.toString());
 					String iconImgHeight				= valueMap.get(WidgetAttribute.iconImgHeight.toString());
+					
+					String element						= valueMap.get(WidgetAttribute.element.toString());
+					widgetStatus.put(element, status);
 					
 					String label	= null;
 					String icon		= null;

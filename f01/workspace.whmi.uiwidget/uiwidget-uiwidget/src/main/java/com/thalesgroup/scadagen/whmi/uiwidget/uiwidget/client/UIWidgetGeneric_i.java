@@ -84,6 +84,7 @@ public interface UIWidgetGeneric_i {
 		
 		, debugId("debugId")
 		
+		, widgetStatus("widgetStatus")
 		;
 		
 		private final String text;

@@ -21,11 +21,15 @@ public class UIEventAction extends GwtEvent<UIEventActionHandler> {
 	}
 
 	private HashMap<String, Object> hashMap = new HashMap<String, Object>();
+	
 	public UIEventAction() {}
 	public UIEventAction(String key, String value) { this.hashMap.put(key, value);}
+	
 	public void setParameters(String key, Object value) { this.hashMap.put(key, value); }
 	public Object getParameter(String key) { return this.hashMap.get(key);	}
+	
 	public Set<Entry<String, Object>> getParameters() { return this.hashMap.entrySet();	}
 	public String[] getParameterKeys() { return this.hashMap.keySet().toArray(new String[0]); }
+	
 	public int getParameterKeySize() { return this.hashMap.size(); }
 }

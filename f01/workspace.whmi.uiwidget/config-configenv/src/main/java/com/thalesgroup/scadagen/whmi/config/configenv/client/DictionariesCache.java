@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.config.configenv.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;

@@ -147,20 +147,23 @@ public class UIGws {
 	
 	public void initCaches () {
 		final String function = "initCaches";
-
 		
 		logger.begin(className, function);
 		
 		{
 			final String header = "header";
 			final String option = "option";
+			final String action = "action";
+			final String event	= "event";
+			final String [] tags = {header, option, action, event};
 			String mode = ConfigurationType.XMLFile.toString();
 			String module = null;
 			String folder = "UIWidgetGeneric";
 			String extention = ".xml";			
 			DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
-			dictionariesCache.add(folder, extention, header);
-			dictionariesCache.add(folder, extention, option);
+			for(String tag : tags ) {
+				dictionariesCache.add(folder, extention, tag);
+			}
 			dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 				@Override
 				public void dictionariesCacheEventReady(int received) {

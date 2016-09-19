@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -114,11 +114,11 @@ public class UIWidgetDpcControl extends UIWidget_i {
 
 					}
 
-					UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+					UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
 					
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, statusSet);
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, statusUnSet);
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, statusApply);
+					uiWidgetGenericAction.action("SetWidgetStatus", strSet, statusSet);
+					uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, statusUnSet);
+					uiWidgetGenericAction.action("SetWidgetStatus", strApply, statusApply);
 					
 				}
 			} else {
@@ -189,11 +189,11 @@ public class UIWidgetDpcControl extends UIWidget_i {
 					logger.warn(className, function, "op[{}] type IS UNKNOW", op);
 				}
 	
-				UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+				UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
 				
-				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, statusSet);
-				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, statusUnSet);
-				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, statusApply);
+				uiWidgetGenericAction.action("SetWidgetStatus", strSet, statusSet);
+				uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, statusUnSet);
+				uiWidgetGenericAction.action("SetWidgetStatus", strApply, statusApply);
 			}
 		} else {
 			logger.warn(className, function, "uiEventAction IS NULL");
@@ -270,11 +270,11 @@ public class UIWidgetDpcControl extends UIWidget_i {
 			})
 		);
 
-		UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+		UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
 		
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, "Disable");
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, "Disable");
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, "Disable");
+		uiWidgetGenericAction.action("SetWidgetStatus", strSet, "Disable");
+		uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, "Disable");
+		uiWidgetGenericAction.action("SetWidgetStatus", strApply, "Disable");
 		
 		logger.end(className, function);
 	}

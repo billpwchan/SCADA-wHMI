@@ -12,7 +12,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionMgrOld;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
@@ -181,7 +181,7 @@ public class UILayoutSummary extends UIWidget_i {
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		UIActionEventMgr mgr = new UIActionEventMgr(className,strUIWidgetGeneric, optsXMLFile);
+		UIEventActionMgrOld mgr = new UIEventActionMgrOld(className,strUIWidgetGeneric, optsXMLFile);
 		uiEventActionKeys = mgr.getActionKeys(strHeader, ActionAttribute.toStrings());
 		uiEventActions = mgr.getActions(strOption, ViewAttribute.Operation.toString(), uiEventActionKeys, ViewAttribute.toStrings());
 		

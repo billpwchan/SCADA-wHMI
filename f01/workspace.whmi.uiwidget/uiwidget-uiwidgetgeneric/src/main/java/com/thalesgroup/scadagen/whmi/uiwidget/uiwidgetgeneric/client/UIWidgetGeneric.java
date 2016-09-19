@@ -690,8 +690,8 @@ public class UIWidgetGeneric extends UIWidget_i {
 	public void setWidgetValue (String element, String value) {
 		final String function = "setWidgetValue";
 		
-		logger.begin(className, function);
-		logger.debug(className, function, "element[{}] value[{}]", element, value);
+		if ( null != value ) logger.begin(className, function);
+		if ( null != value ) logger.debug(className, function, "element[{}] value[{}]", element, value);
 
 		int index = getElementIndex(WidgetAttribute.element, element);
 		
@@ -707,7 +707,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 				String label		= valueMap.get(WidgetAttribute.label.toString());
 				String format		= valueMap.get(WidgetAttribute.format.toString());
 				
-				logger.debug(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
+				if ( null != value ) logger.debug(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
 
 				if ( null != value ) label = value;
 				
@@ -734,7 +734,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 			logger.warn(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
 		}
 		
-		logger.end(className, function);
+		if ( null != value ) logger.end(className, function);
 	}
 	
 	public void ready(Dictionary dictionary) {

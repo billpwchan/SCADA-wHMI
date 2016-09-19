@@ -6,8 +6,8 @@ import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBox;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dialog.UIInspectorConnectionBox;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dialog.UIInspectorMgr;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
@@ -39,7 +39,7 @@ public class ViewLayoutMgr {
 	private ViewLayoutMode viewLayoutMode;
 	private ViewLayoutAction viewLayoutAction;
 	private UITaskLaunch taskLaunchs[];
-
+	
 	private UINameCard uiNameCard = null;
 	
 	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
@@ -284,67 +284,23 @@ public class ViewLayoutMgr {
 					logger.warn(className, function, "mouseY IS NOT A Integer");
 				}
 			}
-			
-			String scsEnvId		= hvid;
-			String dbaddress	= hvid;
 
-			String dbaddresses	= null;
-			String hvides[] = hvid.split("_");
-			if ( null != hvides ) {
-//											if ( hvides.length >= 1 && null != hvides[0] ) {
-//												scsEnvId = hvides[0];
-//											}
-				dbaddresses = "";
-				for ( int i = 1 ; i < hvides.length ; i++ ) {
-					if ( dbaddresses.length() > 0 ) {
-						dbaddresses += "_";
-					}
-					dbaddresses += hvides[i];
-				}
-				if ( dbaddresses.length() > 0 ) {
-					
-					int s = 0, n = 0;
-					
-					s = n;
-					n = s+3;
-					String dbaddress0	= dbaddresses.substring(s, n);
-					
-					s = n;
-					n = s+3;
-					String dbaddress1	= dbaddresses.substring(s, n);
-					
-					s = n;
-					n = s+3;
-					String dbaddress2	= dbaddresses.substring(s);
-					
-					dbaddress	= ":" + dbaddress0 + ":" + dbaddress1 + ":" + dbaddress2;
-				}
-				
-			}
-	
-			logger.info(className, function, "hvid[{}]", hvid);
-			
-			logger.info(className, function, "dbaddress[{}]", dbaddress);
-			
-			UIPanelInspectorDialogBox uiInspectorDialogbox = new UIPanelInspectorDialogBox();
-			
-			uiInspectorDialogbox.setUINameCard(this.uiNameCard);
-			uiInspectorDialogbox.init();
-			uiInspectorDialogbox.getMainPanel();
-			
-			uiInspectorDialogbox.setMousePosition(mouseX, mouseY);
-			uiInspectorDialogbox.show();
-			
-			uiInspectorDialogbox.setParent(scsEnvId, dbaddress);
-							
-			uiInspectorDialogbox.connect();
+			UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
+			mgr.closeInspectorDialog();
+			mgr.openInspectorDialog(uiNameCard, hvid, mouseX, mouseY);
 			
 		} else if (taskLaunch.getUiPanel().equals("UIInspectorConnectionBox")) { 
 			
 			UIInspectorConnectionBox uiInspectorConnectionBox = new UIInspectorConnectionBox();
 			uiInspectorConnectionBox.getMainPanel(this.uiNameCard);
 			uiInspectorConnectionBox.show();
+			
 		} else {
+			
+			// Kill inspector before open it
+			UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
+			mgr.closeInspectorDialog();
+			
 			if (TaskLaunchType.IMAGE == taskLaunch.getTaskLaunchType()) {
 				logger.info(className, function, "setTaskLaunch TaskType.IMAGE");
 
@@ -398,8 +354,6 @@ public class ViewLayoutMgr {
 
 			triggerHistoryChange();
 		}
-
-
 
 		logger.end(className, function);
 
@@ -624,10 +578,6 @@ public class ViewLayoutMgr {
 								setSplitScreen((UITaskSplit) uiTask);
 							}
 						}
-							
-							
-							
-							
 					}
 			} else {
 				logger.warn(className, function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );

@@ -29,7 +29,6 @@ public class UILogger {
 		String message = "["+className+"]" + " "+ function + " " + BEGIN;
 		Log.debug(message);
 	}
-	
 	public void end(final String className, final String function) {
 		String message = "["+className+"]" + " "+ function + " " + END;
 		Log.debug(message);
@@ -37,6 +36,26 @@ public class UILogger {
 
 	public void beginEnd(final String className, final String function) {
 		begin(className, function);
+		end(className, function);
+	}
+	public void beginEnd(final String className, final String function, String log) {
+		begin(className, function);
+		info(className, function, log);
+		end(className, function);
+	}
+	public void beginEnd(final String className, final String function, String log, Object argument1) {
+		begin(className, function);
+		info(className, function, log, argument1);
+		end(className, function);
+	}
+	public void beginEnd(final String className, final String function, String log, Object argument1, Object argument2) {
+		begin(className, function);
+		info(className, function, log, argument1, argument2);
+		end(className, function);
+	}
+	public void beginEnd(final String className, final String function, String log, Object [] arguments) {
+		begin(className, function);
+		info(className, function, log, arguments);
 		end(className, function);
 	}
 	

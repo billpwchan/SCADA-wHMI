@@ -5,15 +5,21 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
+import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
 import com.google.gwt.regexp.shared.MatchResult;
 import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorEquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.EquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.EquipmentReserveEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
@@ -46,7 +52,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private final String strTabConfigNames [] = {"info", "control", "tag", "advance"};
 
 	// Static Attribute List
-	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
+	private final String staticAttibutes[]	= new String[] {PointName.label.toString(), PointName.resrvReservedID.toString()};
 	
 	private final String inspPropPrefix = "inspectorpanel.";
 	private final String inspProp = inspPropPrefix+"properties";
@@ -114,6 +120,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 							makeTabsConnect();
 							
 							((UIInspectorHeader)	uiInspectorHeader)		.connect();
+							((UIInspectorEquipmentReserve)		equipmentReserve)		.connect();
 							
 							if ( infos.size() <= 0 )		panelTab.remove(panelInfo);
 							if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
@@ -142,11 +149,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 								}
 								
 								((UIInspectorHeader)	uiInspectorHeader)		.updateValue(key, dynamicvalues);
+								((UIInspectorEquipmentReserve)		equipmentReserve)		.updateValue(key, dynamicvalues);
 								
 								((UIInspectorInfo)		uiInspectorInfo)		.updateValue(key, dynamicvalues);
 								((UIInspectorControl)	uiInspectorControl)		.updateValue(key, dynamicvalues);
 								((UIInspectorTag)		uiInspectorTag)			.updateValue(key, dynamicvalues);
 								((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(key, dynamicvalues);
+								
+								
 							}
 						});
 
@@ -224,6 +234,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsDisconnect();
 		
 		((UIInspectorHeader)	uiInspectorHeader)		.disconnect();
+		((UIInspectorEquipmentReserve)		equipmentReserve)		.disconnect();
 		
 		Database database = Database.getInstance();
 		database.disconnectTimer();
@@ -419,6 +430,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 		
 		uiInspectorHeader	.setParent(scsEnvId, parent);
+		equipmentReserve	.setParent(scsEnvId, parent);
 		
 		uiInspectorInfo		.setParent(scsEnvId, parent);
 		uiInspectorControl	.setParent(scsEnvId, parent);
@@ -427,11 +439,13 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		
 		uiInspectorHeader	.setAddresses	(infos		.toArray(new String[0]));
+		equipmentReserve	.setAddresses	(infos		.toArray(new String[0]));
 		
 		uiInspectorInfo		.setAddresses	(infos		.toArray(new String[0]));
 		uiInspectorControl	.setAddresses	(controls	.toArray(new String[0]));
 		uiInspectorTag		.setAddresses	(tags		.toArray(new String[0]));
 		uiInspectorAdvance	.setAddresses	(advances	.toArray(new String[0]));
+		
 		
 		logger.end(className, function);
 	}
@@ -487,20 +501,24 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 	}
 	
+	
+	
 	private UIInspectorTab_i uiInspectorHeader		= null;
+	private UIInspectorTab_i equipmentReserve		= null;
 	
 	private UIInspectorTab_i uiInspectorInfo		= null;
-	private UIInspectorTab_i uiInspectorControl	= null;
-	private UIInspectorTab_i uiInspectorTag		= null;
-	private UIInspectorTab_i uiInspectorAdvance	= null;
+	private UIInspectorTab_i uiInspectorControl		= null;
+	private UIInspectorTab_i uiInspectorTag			= null;
+	private UIInspectorTab_i uiInspectorAdvance		= null;
 	
-	private TabPanel panelTab 			= null;
+	
+	private TabPanel panelTab 		= null;
 
-	private ComplexPanel panelHeader	= null;
-	private ComplexPanel panelInfo		= null;
-	private ComplexPanel panelCtrl		= null;
-	private ComplexPanel panelTag		= null;
-	private ComplexPanel panelAdv		= null;
+	private Panel panelHeader		= null;
+	private Panel panelInfo			= null;
+	private Panel panelCtrl			= null;
+	private Panel panelTag			= null;
+	private Panel panelAdv			= null;
 	
 	private LinkedList<UIInspectorTab_i> uiInspectorTabs = null;
 
@@ -513,16 +531,50 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		uiInspectorTabs 	= new LinkedList<UIInspectorTab_i>();
 		
 		uiInspectorHeader	= new UIInspectorHeader();
+		equipmentReserve	= new UIInspectorEquipmentReserve();
 		
 		uiInspectorInfo		= new UIInspectorInfo();
 		uiInspectorControl	= new UIInspectorControl();
 		uiInspectorTag		= new UIInspectorTag();
 		uiInspectorAdvance	= new UIInspectorAdvance();
+		
 
 		uiInspectorTabs.add(uiInspectorInfo);
 		uiInspectorTabs.add(uiInspectorControl);
 		uiInspectorTabs.add(uiInspectorTag);
 		uiInspectorTabs.add(uiInspectorAdvance);
+		
+		
+		((UIInspectorEquipmentReserve)equipmentReserve).setEquipmentReserveEvent(new EquipmentReserveEvent() {
+			
+			@Override
+			public void isAvaiable(boolean avaiable) {
+				if ( null != panelTab ) {
+					logger.info(className, function, "isAvaiable avaiable[{}]", avaiable);
+					int tabCount = panelTab.getTabBar().getTabCount();
+					logger.info(className, function, "isAvaiable tabCount[{}]", tabCount);
+					if ( tabCount > 1 ) {
+						int selected = panelTab.getTabBar().getSelectedTab();
+						logger.info(className, function, "isAvaiable selected[{}]", selected);
+						if ( ! avaiable && 0 != selected ) {
+							logger.info(className, function, "selectTab to 0");
+							panelTab.selectTab(0);
+						}
+					}
+				}
+			}
+		});
+		
+		
+		uiInspectorInfo.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
+			
+			@Override
+			public void onClick() {
+				logger.info(className, function, "onClick uiInspectorInfo");
+				unReserveEquipment();
+			}
+		});
+
 		
 		uiInspectorControl.setMessageBoxEvent(new MessageBoxEvent() {
 			
@@ -544,6 +596,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					logger.info(className, function, "setMessage text + message[{}]", text + message);
 					txtMsg.setText(text + message);
 				}
+			}
+		});
+		
+		uiInspectorControl.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
+			
+			@Override
+			public void onClick() {
+				logger.info(className, function, "onClick uiInspectorControl");
+				reserveEquipment();
 			}
 		});
 		
@@ -570,6 +631,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			}
 		});
 		
+		uiInspectorTag.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
+			
+			@Override
+			public void onClick() {
+				logger.info(className, function, "onClick uiInspectorTag");
+				reserveEquipment();
+			}
+		});
+		
 		uiInspectorAdvance.setMessageBoxEvent(new MessageBoxEvent() {
 			
 			@Override
@@ -593,28 +663,72 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			}
 		});
 		
+		uiInspectorAdvance.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
+			
+			@Override
+			public void onClick() {
+				// TODO Auto-generated method stub
+				logger.info(className, function, "onClick uiInspectorAdvance");
+				reserveEquipment();
+			}
+		});
+		
 
 		uiInspectorHeader.setUINameCard(this.uiNameCard);
-		uiInspectorHeader.init(null);
+		uiInspectorHeader.init();
 		panelHeader	= uiInspectorHeader.getMainPanel();
 		
+		equipmentReserve.setUINameCard(this.uiNameCard);
+		equipmentReserve.init();
+		equipmentReserve.getMainPanel();
+		
 		uiInspectorInfo.setUINameCard(this.uiNameCard);
-		uiInspectorInfo.init(null);
+		uiInspectorInfo.init();
 		panelInfo = uiInspectorInfo.getMainPanel();
 		
 		uiInspectorControl.setUINameCard(this.uiNameCard);
-		uiInspectorControl.init(null);
+		uiInspectorControl.init();
 		panelCtrl = uiInspectorControl.getMainPanel();
 		
 		uiInspectorTag.setUINameCard(this.uiNameCard);
-		uiInspectorTag.init(null);
+		uiInspectorTag.init();
 		panelTag = uiInspectorTag.getMainPanel();
 		
 		uiInspectorAdvance.setUINameCard(this.uiNameCard);
-		uiInspectorAdvance.init(null);
+		uiInspectorAdvance.init();
 		panelAdv = uiInspectorAdvance.getMainPanel();
 		
+		
 		panelTab = new TabPanel();
+		panelTab.addBeforeSelectionHandler(new BeforeSelectionHandler<Integer>() {
+			
+			@Override
+			public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
+				final String function = "onBeforeSelection";
+				logger.begin(className, function);
+				logger.info(className, function, "event[{}]", event);
+				logger.info(className, function, "event.getItem()[{}]", event.getItem());
+				int intEvent = event.getItem().intValue();
+				logger.info(className, function, "intEvent[{}]", intEvent);
+				if ( 0 == intEvent ) {
+					unReserveEquipment();
+				} else {
+					int intEqtReserved = ((UIInspectorEquipmentReserve)equipmentReserve).getEqtReservedValue();
+					logger.info(className, function, "intEqtReserved[{}]", intEqtReserved);
+					if ( 2 == intEqtReserved ) {
+						logger.info(className, function, "intReserve equals to 2, Cancel event...");
+						event.cancel();
+					} else {
+						logger.info(className, function, "intReserve not equals to 2, reserve equipment...");
+						reserveEquipment();
+					}
+				}
+						
+				logger.end(className, function);
+			}
+		});
+		
+		
 		panelTab.addStyleName("project-gwt-button-inspector-tabpanel");
 		
 		panelTab.add(panelInfo	, strTabNames[0]);
@@ -667,11 +781,22 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	@Override
 	public void close() {
 		final String function = "close";
-		
 		logger.begin(className, function);
-		
 		onClose();
-		
+		logger.end(className, function);
+	}
+	
+	private void reserveEquipment() {
+		final String function = "reserveEquipment";
+		logger.begin(className, function);
+		EquipmentReserve.equipmentReservation(scsEnvId, parent);
+		logger.end(className, function);
+	}
+	
+	private void unReserveEquipment() {
+		final String function = "unReserveEquipment";
+		logger.begin(className, function);
+		EquipmentReserve.equipmentUnreservation(scsEnvId, parent);
 		logger.end(className, function);
 	}
 }

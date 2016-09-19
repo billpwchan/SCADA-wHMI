@@ -9,7 +9,9 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.EquipmentReserve;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
@@ -30,7 +32,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private final String staticAttibutes[]	= new String[] {PointName.shortLabel.toString(), PointName.geographicalCat.toString()};
 
 	// Dynamic Attribute List
-	private final String dynamicAttibutes[]	= new String[] {PointName.DbAttrReservedID.toString(), PointName.isControlable.toString()};
+	private final String dynamicAttibutes[]	= new String[] {PointName.resrvReservedID.toString(), PointName.isControlable.toString()};
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -275,6 +277,24 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		logger.begin(className, function);
 		
 		{
+			String key = parent + PointName.resrvReservedID.toString();
+			if ( dbvalues.containsKey(key) ) {
+				String value = dbvalues.get(key);
+				if ( null != value ) {
+					value = RTDB_Helper.removeDBStringWrapper(value);
+					int eqtReserved = EquipmentReserve.isEquipmentReservation(value);
+					String strEqtReserved = "Not Reserved";
+					if ( 2 == eqtReserved ) {
+						strEqtReserved = "Reserved";
+					}
+					txtAttributeStatus[3].setText(strEqtReserved);
+				} else {
+					txtAttributeStatus[3].setText("Not Reserved / Reserved");
+				}
+			}
+		}
+		
+		{
 			String key = parent + PointName.isControlable.toString();
 			if ( dbvalues.containsKey(key) ) {
 				String value = dbvalues.get(key);
@@ -296,7 +316,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 	private VerticalPanel vpCtrls = null;
 	@Override
-	public void init(String xml) {
+	public void init() {
 		final String function = "init";
 		
 		logger.begin(className, function);
@@ -332,10 +352,14 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		return vpCtrls;
 	}
 
-//	private MessageBoxEvent messageBoxEvent = null;
 	@Override
 	public void setMessageBoxEvent(MessageBoxEvent messageBoxEvent) {
-//		this.messageBoxEvent = messageBoxEvent;
+		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent) {
+		// TODO Auto-generated method stub
+		
+	}
 }

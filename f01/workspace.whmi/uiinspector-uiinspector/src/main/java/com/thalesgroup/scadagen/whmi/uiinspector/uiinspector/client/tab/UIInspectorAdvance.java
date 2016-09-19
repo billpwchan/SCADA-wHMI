@@ -3,19 +3,18 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
@@ -25,6 +24,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_He
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointType;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -1072,9 +1072,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	}
 	
 	private VerticalPanel vpCtrls = null;
-	private DockLayoutPanel basePanel = null;
+	private Panel rootPanel = null;
 	@Override
-	public void init(String xml) {
+	public void init() {
 		final String function = "init";
 		
 		logger.begin(className, function);
@@ -1137,18 +1137,35 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(pageBar);
-		
-		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
-		basePanel.addSouth(bottomBar, 50);
-		basePanel.add(vpCtrls);
+
+		// Auto close handle
+		rootPanel = new FocusPanel();
+		rootPanel.add(vpCtrls);
+		((FocusPanel)rootPanel).addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				if ( null != event ) {
+					if ( null != uiInspectorTabClickEvent ) uiInspectorTabClickEvent.onClick(); 
+				} else {
+					logger.info(className, function, "event IS NULL");
+				}
+			}
+		});
+		rootPanel.addStyleName("project-gwt-panel-inspector-dialogbox");
 		
 		logger.end(className, function);
 	}
 	
 	@Override
-	public ComplexPanel getMainPanel() {
-		return basePanel;
+	public Panel getMainPanel() {
+		return rootPanel;
+	}
+	
+	private UIInspectorTabClickEvent uiInspectorTabClickEvent = null;
+	@Override
+	public void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent) {
+		this.uiInspectorTabClickEvent = uiInspectorTabClickEvent;
 	}
 
 }

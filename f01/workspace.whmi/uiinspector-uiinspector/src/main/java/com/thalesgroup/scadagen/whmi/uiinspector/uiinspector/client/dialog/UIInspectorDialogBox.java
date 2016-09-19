@@ -1,25 +1,26 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dialog;
 
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Timer;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIPanelInspector;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIPanelInspectorEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
-public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_i {
+public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspectorDialogBox.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorDialogBox.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	int baseBoderX = 28, baseBoderY = 28;
@@ -28,14 +29,21 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 	private UIPanelInspector uiPanelInspector = null;
 	private Panel rootPanel = null;
 	
-	private final String inspDialogBoxPropPrefix = "inspectorpaneldialogbox.";
-	private final String inspDialogBoxProp = inspDialogBoxPropPrefix+"properties";
-	
-	private Timer autoCloseTimer = null;
-	private boolean autoCloseEnable = true;
-	private int autoCloseExpiredMillSecond = 5*1000;
-	
 	private boolean modeless = false;
+	public void setModeless(boolean modeless) { 
+		final String function = "setModeless";
+		logger.begin(className, function);
+		this.modeless = modeless;
+		logger.end(className, function);
+	}
+	
+	private UIInspectorDialogBoxEvent uiInspectorDialogBoxEvent = null;
+	public void setUIInspectorDialogBoxEvent(UIInspectorDialogBoxEvent uiInspectorDialogBoxEvent) { 
+		final String function = "setUIInspectorDialogBoxEvent";
+		logger.begin(className, function);
+		this.uiInspectorDialogBoxEvent = uiInspectorDialogBoxEvent;
+		logger.end(className, function);
+	}
 	
 	private UINameCard uiNameCard = null;
 	@Override
@@ -68,49 +76,11 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		logger.begin(className, function);
 		logger.info(className, function, "viewXMLFile[{}] optsXMLFile[{}]", viewXMLFile, optsXMLFile);
 		
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(UIInspector_i.strUIInspector);
-		if ( null != dictionariesCache ) {
-			
-			// modeless
-			String strModeless = dictionariesCache.getStringValue(inspDialogBoxProp, inspDialogBoxPropPrefix+"moduleless");
-			logger.info(className, function, "strModeless[{}]", strModeless);
-			if ( null != strModeless ) {
-				if ( "true".equals(strModeless) ) {
-					logger.info(className, function, "strModeless IS TRUE");
-					modeless = true;
-				}
-			}
-			logger.info(className, function, "modeless[{}]", modeless);
-			
-			// autoCloseEnable
-			String strAutoCloseEnable = dictionariesCache.getStringValue(inspDialogBoxProp, inspDialogBoxPropPrefix+"autoCloseEnable");
-			logger.info(className, function, "strAutoCloseEnable[{}]", strAutoCloseEnable);
-			if ( null != strAutoCloseEnable ) {
-				if ( "true".equals(strAutoCloseEnable) ) {
-					logger.info(className, function, "strAutoCloseEnable IS TRUE");
-					autoCloseEnable = true;
-				}
-			}
-			logger.info(className, function, "autoCloseEnable[{}]", autoCloseEnable);
-			
-			String strAutoCloseExpiredMillSecond = dictionariesCache.getStringValue(inspDialogBoxProp, inspDialogBoxPropPrefix+"autoCloseExpiredMillSecond");
-			logger.info(className, function, "strAutoCloseExpiredMillSecond[{}]", strAutoCloseExpiredMillSecond);
-			try {
-				autoCloseExpiredMillSecond = Integer.parseInt(strAutoCloseExpiredMillSecond);
-			} catch ( NumberFormatException e ) {
-				logger.warn(className, function, "invalid integer value of autoCloseExpiredMillSecond[{}]", autoCloseExpiredMillSecond);
-			}
-			logger.info(className, function, "database pollor autoCloseExpiredMillSecond[{}]", autoCloseExpiredMillSecond);
-			
-		} else {
-			logger.warn(className, function, "UIInspector_i.strUIInspector[{}], dictionariesCache IS NULL", UIInspector_i.strUIInspector, dictionariesCache);
-		}
-		
 		this.setModal(modeless);
 		
 		uiPanelInspector = new UIPanelInspector();
 		uiPanelInspector.setUINameCard(this.uiNameCard);
-		uiPanelInspector.setUIPanelInspectorEvent(new UIPanelInspectorDialogBoxEvent() {
+		uiPanelInspector.setUIInspectorEvent(new UIPanelInspectorEvent() {
 			
 			@Override
 			public void setTitle(String text) {
@@ -118,14 +88,17 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 			}
 			
 			@Override
-			public void hideDialogBox() {
-				hide();
+			public void onClose() {
+				final String function = "onClose";
+				
+				logger.begin(className, function);
+
+				if ( null != uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
+				
+				logger.end(className, function);
 			}
 		});
 		uiPanelInspector.init();
-		
-		
-//		rootPanel = uiPanelInspector.getMainPanel();
 		
 		// Auto close handle
 		rootPanel = new FocusPanel();
@@ -135,19 +108,7 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 			@Override
 			public void onClick(ClickEvent event) {
 				if ( null != event ) {
-					if ( null != autoCloseTimer ) {
-						logger.info(className, function, "autoClose timer extended [{}]", autoCloseExpiredMillSecond);
-						autoCloseTimer.cancel();
-						autoCloseTimer.schedule(autoCloseExpiredMillSecond);
-					} else {
-						logger.warn(className, function, "autoCloseTimer IS NULL");
-					}
-					Object object = event.getSource();
-					if ( null != object ) {
-						logger.info(className, function, "object[{}]", object.toString());
-					} else {
-						logger.info(className, function, "object IS NULL");
-					}
+					if ( null != uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClick(); 
 				} else {
 					logger.info(className, function, "event IS NULL");
 				}
@@ -162,25 +123,6 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 		
 		this.getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
 		
-		logger.info(className, function, "autoCloseEnable[{}]", autoCloseEnable);
-		if ( autoCloseEnable ) {
-			logger.info(className, function, "autoClose enabled, creating timer");
-			autoCloseTimer = new Timer() {
-				@Override
-				public void run() {
-					final String function = "Timer run";
-					logger.begin(className, function);
-					logger.info(className, function, "autoClose autoCloseExpiredMillSecond[{}] trigged", autoCloseExpiredMillSecond);
-					close();
-					logger.end(className, function);
-				}
-			};
-			logger.info(className, function, "autoClose enabled, schedule timer autoCloseExpiredMillSecond[{}]", autoCloseExpiredMillSecond);
-			autoCloseTimer.schedule(autoCloseExpiredMillSecond);			
-		} else {
-			logger.info(className, function, "autoClose disabled");
-		}
-
 		logger.end(className, function);
 	}
 	
@@ -219,7 +161,6 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 	@Override
 	public void setParent(String scsEnvId, String parent) {
 		final String function = "setParent";
-		
 		logger.begin(className, function);
 		uiPanelInspector.setParent(scsEnvId, parent);
 		logger.end(className, function);
@@ -228,7 +169,6 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 	@Override
 	public void connect() {
 		final String function = "connect";
-		
 		logger.begin(className, function);
 		uiPanelInspector.connect();
 		logger.end(className, function);
@@ -237,7 +177,6 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		
 		logger.begin(className, function);
 		uiPanelInspector.disconnect();
 		logger.end(className, function);
@@ -272,22 +211,25 @@ public class UIPanelInspectorDialogBox extends DialogBox implements UIInspector_
 			}
 		}
 	}
-
-	@Override
-	public void setUIPanelInspectorEvent(UIPanelInspectorDialogBoxEvent uiPanelInspectorDialogBoxEvent) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public void close() {
 		final String function = "close";
-		
 		logger.begin(className, function);
-		autoCloseTimer.cancel();
-		autoCloseTimer = null;
-		uiPanelInspector.close();
+		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
 		logger.end(className, function);
+	}
+	
+	@Override
+	public void beginDragging(MouseDownEvent event) {
+		super.beginDragging(event);
+		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClick();
+	}
+	
+	@Override
+	public void endDragging(MouseUpEvent event) {
+		super.endDragging(event);
+		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClick();
 	}
 
 }

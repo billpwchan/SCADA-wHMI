@@ -1,5 +1,6 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
 
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;

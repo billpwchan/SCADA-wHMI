@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,13 +13,18 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTag;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.ReadProp;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -76,21 +81,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	@Override
 	public void connect() {
 		final String function = "connect";
+
+		periodMillis = ReadProp.readInt(UIInspector_i.strUIInspector, inspProp, inspPropPrefix+"periodMillis", 250);
 		
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(UIInspector_i.strUIInspector);
-		if ( null != dictionariesCache ) {
-			String period = dictionariesCache.getStringValue(inspProp, inspPropPrefix+"periodMillis");
-			logger.info(className, function, "inspectorpanel.periodMillis[{}], period");
-			try {
-				periodMillis = Integer.parseInt(period);
-				
-			} catch ( NumberFormatException e ) {
-				logger.warn(className, function, "invalid integer value of period[{}]", period);
-			}
-			logger.info(className, function, "database pollor periodMillis[{}]", periodMillis);
-		} else {
-			logger.warn(className, function, "UIInspector_i.strUIInspector[{}], dictionariesCache IS NULL", UIInspector_i.strUIInspector, dictionariesCache);
-		}
+		logger.info(className, function, "database pollor periodMillis[{}]", periodMillis);
 		
 		logger.begin(className, function);
 		Database database = Database.getInstance();
@@ -292,9 +286,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.begin(className, function + " getLists");
 		
-		String strConfingInstance = "UIInspectorPanel";
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strConfingInstance);
-		if ( null != dictionariesCache ) {
+		String dictionariesCacheName = "UIInspectorPanel";
+//		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strConfingInstance);
+//		if ( null != dictionariesCache ) {
 
 			LinkedList<LinkedList<String>> backLists = new LinkedList<LinkedList<String>>();
 			backLists.add(infoRegExpPatternBlackList);
@@ -319,22 +313,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
 					String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
 					logger.info(className, functionEmb, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-					String strNumOfBlack = dictionariesCache.getStringValue(fileName, keyNumName);
-					logger.info(className, functionEmb, "keyNumName[{}] strNumOfBlack[{}]", keyNumName, strNumOfBlack);
-					if ( null != strNumOfBlack ) {
-						try {
-							int numOfBack = Integer.parseInt(strNumOfBlack);
-							for ( int y = 0 ; y < numOfBack ; ++y ) {
-								String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
-								String value = dictionariesCache.getStringValue(fileName, key);
-								logger.info(className, functionEmb, "key[{}] value[{}]", key, value);
-								backList.add(value);
-							}
-						} catch ( NumberFormatException e) {
-							logger.warn(className, functionEmb, "strNumOfBlack[{}] IS INVALID NUMBER STRING", strNumOfBlack);
-						}
-					} else {
-						logger.warn(className, functionEmb, "strNumOfBlack[{}] IS NULL", strNumOfBlack);
+					int numOfBack = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
+					for ( int y = 0 ; y < numOfBack ; ++y ) {
+						String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
+						String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
+						logger.info(className, functionEmb, "key[{}] value[{}]", key, value);
+						backList.add(value);
 					}
 
 					logger.end(className, functionEmb);
@@ -347,31 +331,20 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
 					String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
 					logger.info(className, functionEmb, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-					String strNumOfWhite = dictionariesCache.getStringValue(fileName, keyNumName);
-					logger.info(className, functionEmb, "keyNumName[{}] strNumOfWhite[{}]", keyNumName, strNumOfWhite);
-					if ( null != strNumOfWhite ) {
-						try {
-							int numOfWhite = Integer.parseInt(strNumOfWhite);
-							for ( int y = 0 ; y < numOfWhite ; ++y ) {
-								String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
-								String value = dictionariesCache.getStringValue(fileName, key);
-								logger.info(className, functionEmb, "key[{}] value[{}]", key, value);
-								whiteList.add(value);
-							}
-						} catch ( NumberFormatException e) {
-							logger.warn(className, functionEmb, "strNumOfBlack[{}] IS INVALID NUMBER STRING", strNumOfWhite);
-						}
-					} else {
-						logger.warn(className, functionEmb, "strNumOfWhite[{}] IS NULL", strNumOfWhite);
+					int numOfWhite = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
+					for ( int y = 0 ; y < numOfWhite ; ++y ) {
+						String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
+						String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
+						logger.info(className, functionEmb, "key[{}] value[{}]", key, value);
+						whiteList.add(value);
 					}
-
 
 					logger.end(className, functionEmb);
 				}
 				
 				logger.end(className, function+" "+tab);
 			}
-		}
+//		}
 
 		logger.end(className, function + " getLists");
 
@@ -678,8 +651,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 	}
 	
-	private UIPanelInspectorDialogBoxEvent uiPanelInspectorEvent = null;
-	public void setUIPanelInspectorEvent(UIPanelInspectorDialogBoxEvent uiPanelInspectorEvent) {
+	private UIPanelInspectorEvent uiPanelInspectorEvent = null;
+	public void setUIInspectorEvent(UIPanelInspectorEvent uiPanelInspectorEvent) {
 		this.uiPanelInspectorEvent = uiPanelInspectorEvent;
 	}
 	
@@ -687,8 +660,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		if ( null != uiPanelInspectorEvent ) uiPanelInspectorEvent.setTitle(title);
 	}
 	
-	public void hide() {
-		if ( null != uiPanelInspectorEvent ) uiPanelInspectorEvent.hideDialogBox();
+	public void onClose() {
+		if ( null != uiPanelInspectorEvent ) uiPanelInspectorEvent.onClose();
 	}
 	
 	@Override
@@ -697,9 +670,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.begin(className, function);
 		
-		disconnect();
-		
-		hide();
+		onClose();
 		
 		logger.end(className, function);
 	}

@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -9,18 +9,18 @@ public class PageCounter {
 	private final String className = UIWidgetUtil.getClassSimpleName(PageCounter.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 		
-	int numOfPoint		= 0;
-	int pageSize		= 0;
+	public int numOfPoint	= 0;
+	public int pageSize		= 0;
 	
-	int pageCount		= 0;
-	int pageMod			= 0;
+	public int pageCount	= 0;
+	public int pageMod		= 0;
 	
-	int pageRowBegin	= 0;
-	int pageRowEnd		= 0;
-	int pageRowCount	= 0;
+	public int pageRowBegin	= 0;
+	public int pageRowEnd	= 0;
+	public int pageRowCount	= 0;
 	
-	boolean hasPreview 	= false;
-	boolean hasNext		= false;
+	public boolean hasPreview 	= false;
+	public boolean hasNext		= false;
 	
 	public PageCounter(int numOfPoint, int pageSize) {
 		

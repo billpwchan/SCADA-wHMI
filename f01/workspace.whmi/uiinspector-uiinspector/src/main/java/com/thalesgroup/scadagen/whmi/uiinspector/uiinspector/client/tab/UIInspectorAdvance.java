@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +18,13 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointName;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_Helper.PointType;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.ReadProp;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -419,7 +422,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				}
 
 			} else {
-				logger.info(className, function, "this.pointStatics IS NULL");
+				logger.info(className, function, "this.addresses IS INVALID");
 			}
 			
 			vpCtrls.add(flexTableAttibutes); 
@@ -1076,23 +1079,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(UIInspector_i.strUIInspector);
-		if ( null != dictionariesCache ) {
-			
-			// moApplyWithoutReset
-			String strMoApplyWithoutReset = dictionariesCache.getStringValue(inspAdvProp, inspAdvPropPrefix+"moApplyWithoutReset");
-			logger.info(className, function, "strMoApplyWithoutReset[{}]", strMoApplyWithoutReset);
-			if ( null != strMoApplyWithoutReset ) {
-				if ( "true".equals(strMoApplyWithoutReset) ) {
-					logger.info(className, function, "strModeless IS TRUE");
-					moApplyWithoutReset = true;
-				}
-			}
-			logger.info(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
-		} else {
-			logger.warn(className, function, "UIInspector_i.strUIInspector[{}], dictionariesCache IS NULL", UIInspector_i.strUIInspector, dictionariesCache);
-		}
+		moApplyWithoutReset = ReadProp.readBoolean(UIInspector_i.strUIInspector, inspAdvProp, inspAdvPropPrefix+"moApplyWithoutReset", false);
 		
+		logger.info(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
+
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
 

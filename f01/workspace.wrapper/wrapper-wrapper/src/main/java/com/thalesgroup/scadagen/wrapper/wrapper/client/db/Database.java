@@ -74,6 +74,73 @@ public class Database {
 		logger.debug(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
 	}
 	
+	public void addWriteDateValueRequest(String key, String scsEnvId, String address, long second, long usecond) {
+		final String function = "addWriteDateValueRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(className, function, "second[{}] usecond[{}]", second, usecond);
+		if ( null != rtdb ) {
+			rtdb.writeDateValueRequest(key, scsEnvId, address, second, usecond);
+		} else {
+			logger.warn(className, function, "rtdb IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public void addWriteIntValueRequest(String key, String scsEnvId, String address, int value) {
+		final String function = "addWriteIntValueRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(className, function, "value[{}]", value);
+		if ( null != rtdb ) {
+			rtdb.writeIntValueRequest(key, scsEnvId, address, value);
+		} else {
+			logger.warn(className, function, "rtdb IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public void addWriteFloatValueRequest(String key, String scsEnvId, String address, float value) {
+		final String function = "addWriteFloatValueRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(className, function, "value[{}]", value);
+		if ( null != rtdb ) {
+			rtdb.writeFloatValueRequest(key, scsEnvId, address, value);
+		} else {
+			logger.warn(className, function, "rtdb IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public void addWriteStringValueRequest(String key, String scsEnvId, String address, String value) {
+		final String function = "addWriteStringValueRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(className, function, "value[{}]", value);
+		if ( null != rtdb ) {
+			rtdb.writeStringValueRequest(key, scsEnvId, address, value);
+		} else {
+			logger.warn(className, function, "rtdb IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public void addWriteValueRequest(String key, String scsEnvId, String address, String value) {
+		final String function = "addWriteValueRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}] scsEnvId[{}] address[{}]", new Object[]{key, scsEnvId, address});
+		logger.info(className, function, "value[{}]", value);
+		if ( null != rtdb ) {
+			rtdb.writeValueRequest(key, scsEnvId, address, value);
+		} else {
+			logger.warn(className, function, "rtdb IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	
+	
 	/**
 	 * @param api : Database API to call
 	 * @param clientKey : Key for the Reading and Result

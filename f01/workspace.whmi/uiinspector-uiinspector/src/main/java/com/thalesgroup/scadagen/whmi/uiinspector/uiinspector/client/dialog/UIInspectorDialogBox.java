@@ -32,17 +32,15 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	private boolean modeless = false;
 	public void setModeless(boolean modeless) { 
 		final String function = "setModeless";
-		logger.begin(className, function);
+		logger.beginEnd(className, function);
 		this.modeless = modeless;
-		logger.end(className, function);
 	}
 	
 	private UIInspectorDialogBoxEvent uiInspectorDialogBoxEvent = null;
 	public void setUIInspectorDialogBoxEvent(UIInspectorDialogBoxEvent uiInspectorDialogBoxEvent) { 
 		final String function = "setUIInspectorDialogBoxEvent";
-		logger.begin(className, function);
+		logger.beginEnd(className, function);
 		this.uiInspectorDialogBoxEvent = uiInspectorDialogBoxEvent;
-		logger.end(className, function);
 	}
 	
 	private UINameCard uiNameCard = null;

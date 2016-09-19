@@ -9,19 +9,18 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventExceute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionMgrOld;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewOperation;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter_i.ViewActionKeyOperation;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter_i.ViewActionSetKey;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
 
@@ -34,9 +33,6 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 	
 	private SimpleEventBus eventBus 			= null;
 
-	private final String strSet1				= "set1";
-	private final String strSet0				= "set0";
-	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	private String strHeader = "header";
 	private String strOption = "option";
@@ -51,9 +47,9 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 			
 			logger.info(className, function, "element[{}]", element);
 
-			UIActionEventExceute uiActionEventExecute = new UIActionEventExceute(className);
+			UIEventActionBusFire uiActionEventExecute = new UIEventActionBusFire(className, eventBus);
 			
-			uiActionEventExecute.executeActionSet(eventBus, mgr.getUIEventActionOperations(), element, mgr.getUIEventActions());
+			uiActionEventExecute.executeActionSet(mgr.getUIEventActionOperations(), element, mgr.getUIEventActions());
 
 		} else {
 			logger.warn(className, function, "element IS NULL");
@@ -123,10 +119,9 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 							
 							setFilter(os1);
 							
-						} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
+						} else if ( UIEventActionExecute.isSupportedAction(op) ) {
 							
-							UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
-							uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
+							uiEventActionExecute.action(uiEventAction);
 
 						}
 					}
@@ -141,7 +136,8 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 		logger.end(className, function);
 	}
 
-	private UIActionEventMgr mgr = null;
+	private UIEventActionMgrOld mgr = null;
+	private UIEventActionExecute uiEventActionExecute = null;
 	@Override
 	public void init() {
 		final String function = "init";
@@ -151,7 +147,7 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 		String strEventBusName = getStringParameter(WidgetParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		
-		mgr = new UIActionEventMgr(className,strUIWidgetGeneric, optsXMLFile);
+		mgr = new UIEventActionMgrOld(className,strUIWidgetGeneric, optsXMLFile);
 		
 		mgr.initActionKeys(strHeader, ViewOperation.toStrings());
 		mgr.initActions(strOption, ViewAttribute.Operation.toString(), ViewAttribute.toStrings());
@@ -164,6 +160,8 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
+		
+		uiEventActionExecute = new UIEventActionExecute(className, uiWidgetGeneric);
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
 			
@@ -205,7 +203,7 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 			})
 		);
 
-		uiWidgetGeneric.setWidgetStatus( strSet1,  WidgetStatus.Down );
+		uiEventActionExecute.action("SetWidgetStatus", "set0", "Down");
 		
 		logger.end(className, function);
 	}

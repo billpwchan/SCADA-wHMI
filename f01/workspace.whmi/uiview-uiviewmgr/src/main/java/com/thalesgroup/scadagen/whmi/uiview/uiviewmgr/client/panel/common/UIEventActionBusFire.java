@@ -8,14 +8,16 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
-public class UIActionEventExceute {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIActionEventExceute.class.getName());
+public class UIEventActionBusFire {
+	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionBusFire.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	private String logPrefix = "";
-	public UIActionEventExceute ( String logPrefix ) {
+	private SimpleEventBus eventBus = null;
+	public UIEventActionBusFire ( String logPrefix, SimpleEventBus eventBus) {
 		this.logPrefix = "-> "+logPrefix+" ";
+		this.eventBus = eventBus;
 	}
-	public void executeActionSet(SimpleEventBus eventBus, HashMap<String, UIEventAction> uiEventActionOperations, String actionSetKey, HashMap<String, UIEventAction> uiEventActions) {
+	public void executeActionSet( HashMap<String, UIEventAction> uiEventActionOperations, String actionSetKey, HashMap<String, UIEventAction> uiEventActions) {
 		final String function = "executeActionSet";
 		
 		logger.begin(className, function);

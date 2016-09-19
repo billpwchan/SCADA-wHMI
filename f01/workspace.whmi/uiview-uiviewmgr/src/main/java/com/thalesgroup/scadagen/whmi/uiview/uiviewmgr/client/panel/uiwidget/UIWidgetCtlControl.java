@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -42,12 +42,12 @@ public class UIWidgetCtlControl extends UIWidget_i {
 	private String valueSet				= "";
 	private String valueUnSet			= "";
 	
-	final String strSet					= "set";
-	final String strUnSet				= "unset";
-	final String strApply				= "apply";
+	private final String strSet			= "set";
+	private final String strUnSet		= "unset";
+	private final String strApply		= "apply";
 	
-	final String strDci					= "dci";
-	final String strDio					= "dio";
+	private final String strDci			= "dci";
+	private final String strDio			= "dio";
 	
 	private Set<HashMap<String, String>> selectedSet = null;
 	
@@ -102,22 +102,27 @@ public class UIWidgetCtlControl extends UIWidget_i {
 							logger.info(className, function, "alias AF [{}]", alias);
 							
 							WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
+							WidgetStatus curStatusUnSet = uiWidgetGeneric.getWidgetStatus(strUnSet);
 							
 							int value = 0;
 							if ( WidgetStatus.Down == curStatusSet ) {
 								value = 1;
+							} else if  ( WidgetStatus.Down == curStatusUnSet ) {
+								value = 0;
 							}
+							
+							logger.info(className, function, "WidgetStatus curStatusSet[{}] WidgetStatus curStatusUnSet[{}]", curStatusSet, curStatusUnSet);
 							
 							ctlMgr.sendControl(scsEnvId, new String[]{alias}, value, byPassInitCond, byPassRetCond, sendAnyway);
 						}
 
 					}
 
-					UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+					UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
 					
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, statusSet);
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, statusUnSet);
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, statusApply);
+					uiWidgetGenericAction.action("SetWidgetStatus", strSet, statusSet);
+					uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, statusUnSet);
+					uiWidgetGenericAction.action("SetWidgetStatus", strApply, statusApply);
 					
 				}
 			} else {
@@ -150,7 +155,7 @@ public class UIWidgetCtlControl extends UIWidget_i {
 			
 			if ( null != op ) {
 				
-				String statusSet		= null;
+				String statusSet	= null;
 				String statusUnSet	= null;
 				String statusApply	= null;
 				
@@ -194,11 +199,11 @@ public class UIWidgetCtlControl extends UIWidget_i {
 					logger.warn(className, function, "op[{}] type IS UNKNOW", op);
 				}
 	
-				UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+				UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
 				
-				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, statusSet);
-				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, statusUnSet);
-				uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, statusApply);
+				uiWidgetGenericAction.action("SetWidgetStatus", strSet, statusSet);
+				uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, statusUnSet);
+				uiWidgetGenericAction.action("SetWidgetStatus", strApply, statusApply);
 			}
 		} else {
 			logger.warn(className, function, "uiEventAction IS NULL");
@@ -275,11 +280,11 @@ public class UIWidgetCtlControl extends UIWidget_i {
 			})
 		);
 
-		UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+		UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
 		
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet, "Disable");
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strUnSet, "Disable");
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strApply, "Disable");
+		uiWidgetGenericAction.action("SetWidgetStatus", strSet, "Disable");
+		uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, "Disable");
+		uiWidgetGenericAction.action("SetWidgetStatus", strApply, "Disable");
 		
 		logger.end(className, function);
 	}

@@ -1,5 +1,9 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -9,13 +13,16 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionMgrOld;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIOptionCaches;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIOptionMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewOperation;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIWidgetGenericAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterParameter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -32,7 +39,6 @@ public class UIWidgetFilter extends UIWidget_i {
 
 	private final String strSet1			= "set1";
 	private final String strClear			= "clear";
-	private Widget widgetClear				= null;
 	
 	private UIWidgetGeneric uiWidgetGeneric	= null;
 	
@@ -103,12 +109,8 @@ public class UIWidgetFilter extends UIWidget_i {
 				logger.warn(className, function, "action IS NULL");
 			}
 			
-			if ( element.equals(strClear) ) {
-				if ( null != widgetClear ) {
-					UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
-					
-					uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strClear, "Disable");
-				}
+			if ( element.equals(strClear) ) {		
+				uiEventActionExecute.action("SetWidgetStatus", strClear, "Disable");
 			}
 
 		} else {
@@ -160,14 +162,10 @@ public class UIWidgetFilter extends UIWidget_i {
 			String ot	= (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
 			String op	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-			String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-			String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
 			
 			logger.info(className, function, "ot["+ot+"]");
 			logger.info(className, function, "op["+op+"]");
 			logger.info(className, function, "os1["+os1+"]");
-			logger.info(className, function, "os2["+os2+"]");
-			logger.info(className, function, "os3["+os3+"]");
 			
 			if ( null != ot ) {
 				if ( ot.equals(className) ) {
@@ -177,10 +175,9 @@ public class UIWidgetFilter extends UIWidget_i {
 							
 							setFilter(os1);
 							
-						} else if ( UIWidgetGenericAction.isSupportedAction(op) ) {
+						} else if ( UIEventActionExecute.isSupportedAction(op) ) {
 	
-							UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
-							uiWidgetGenericAction.action(uiWidgetGeneric, uiEventAction);
+							uiEventActionExecute.action(uiEventAction);
 	
 						} 
 					}
@@ -193,7 +190,8 @@ public class UIWidgetFilter extends UIWidget_i {
 		logger.end(className, function);
 	}
 
-	private UIActionEventMgr mgr = null;
+	private UIEventActionMgrOld mgr = null;
+	private UIEventActionExecute uiEventActionExecute = null;
 	// Create Filter Operation Index
 	@Override
 	public void init() {
@@ -205,7 +203,7 @@ public class UIWidgetFilter extends UIWidget_i {
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, "Loading strEventBusName[{}]", strEventBusName);
 		
-		mgr = new UIActionEventMgr(className, strUIWidgetGeneric, optsXMLFile);
+		mgr = new UIEventActionMgrOld(className, strUIWidgetGeneric, optsXMLFile);
 		mgr.initActionKeys(strHeader, ViewOperation.toStrings());
 		mgr.initActions(strOption, ViewAttribute.Operation.toString(), FilterParameter.toStrings());
 		
@@ -215,7 +213,7 @@ public class UIWidgetFilter extends UIWidget_i {
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
-		widgetClear	= uiWidgetGeneric.getWidget( strClear );
+		uiEventActionExecute = new UIEventActionExecute(className, uiWidgetGeneric);
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
 			
@@ -257,10 +255,128 @@ public class UIWidgetFilter extends UIWidget_i {
 			})
 		);
 		
-		UIWidgetGenericAction uiWidgetGenericAction = new UIWidgetGenericAction(className);
+		uiEventActionExecute.action("SetWidgetStatus", strSet1, "Down");
+		uiEventActionExecute.action("SetWidgetStatus", strClear, "Disable");
 		
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strSet1, "Down");
-		uiWidgetGenericAction.action(uiWidgetGeneric, "SetWidgetStatus", strClear, "Disable");
+		{
+			String className = UIWidgetUtil.getClassSimpleName(UIOptionMgr.class.getName());
+			logger.info(className, function, "Testing ["+className+"] Begin");
+			
+			UIOptionMgr uiOptionMgr = new UIOptionMgr(className);
+			
+			HashMap<String, HashMap<String, String>> options = uiOptionMgr.getOptions(strUIWidgetGeneric, optsXMLFile, "option");
+			if ( null != options ) {
+				for ( Entry<String, HashMap<String, String>> option : options.entrySet() ) {
+					if ( null != option ) {
+						String optionKey = option.getKey();
+						HashMap<String, String> optionValue = option.getValue();
+						logger.info(className, function, "optionKey[{}]", optionKey);
+						if ( null != optionValue ) {
+							for ( Entry<String, String> parameters : optionValue.entrySet() ) {
+								String key = parameters.getKey();
+								String value = parameters.getValue();
+								logger.info(className, function, "optionKey[{}] key[{}] value[{}]", new Object[]{optionKey, key, value});
+							}
+						} else {
+							logger.warn(className, function, "optionValue IS NULL");
+						}
+					} else {
+						logger.warn(className, function, "options IS NULL");
+					}
+				}
+			} else {
+				logger.warn(className, function, "options IS NULL");
+			}
+			logger.info(className, function, "Testing "+className+" End");
+		}
+		
+		{
+			String className = UIWidgetUtil.getClassSimpleName(UIOptionCaches.class.getName());
+			logger.info(className, function, "Testing ["+className+"] Begin");
+			
+			UIOptionCaches optionCaches = new UIOptionCaches(className, strUIWidgetGeneric, optsXMLFile, "option");
+			
+			optionCaches.init();
+		
+			String [] optionKeys = optionCaches.getKeys();
+			if ( null != optionKeys ) {
+				for (String optionKey : optionKeys ) {
+					logger.info(className, function, "optionKey[{}]", optionKey);
+				}
+			} else {
+				logger.warn(className, function, "optionKeys IS NULL");
+			}
+			
+			Set<Entry<String, HashMap<String, String>>> options = optionCaches.getOptions();
+			if ( null != options ) {
+				for ( Entry<String, HashMap<String, String>> entry : options ) {
+					if ( null != entry ) {
+						String optionKey = entry.getKey();
+						HashMap<String, String> option = entry.getValue();
+						logger.info(className, function, "key[{}]", optionKey);
+						if ( null != option ) {
+							for ( String elementKey : option.keySet() ) {
+								logger.info(className, function, "key[{}] elementKey[{}]", optionKey, elementKey);
+								String value = option.get(elementKey);
+								logger.info(className, function, "key[{}] elementKey[{}] value[{}]", new Object[]{optionKey, elementKey, value});
+							}
+						} else {
+							logger.warn(className, function, "option IS NULL");
+						}
+					} else {
+						logger.warn(className, function, "entry IS NULL");
+					}
+				}
+			} else {
+				logger.warn(className, function, "optionKeys IS NULL");
+			}
+			logger.info(className, function, "Testing "+className+" End");
+		}
+
+		{
+			String className = UIWidgetUtil.getClassSimpleName(UIEventActionMgr.class.getName());
+			logger.info(className, function, "Testing ["+className+"] Begin");
+			UIEventActionMgr uiEventActionMgr = new UIEventActionMgr(className, strUIWidgetGeneric, optsXMLFile, "option");
+			uiEventActionMgr.init();
+			
+			String [] uiEventActionKeys = uiEventActionMgr.getKeys();
+			if ( null != uiEventActionKeys ) {
+				for (String uiEventActionKey : uiEventActionKeys ) {
+					logger.info(className, function, "uiEventActionKey[{}]", uiEventActionKey);
+				}
+			} else {
+				logger.warn(className, function, "uiEventActionKeys IS NULL");
+			}
+		
+			Set<Entry<String, UIEventAction>> uiEventActions = uiEventActionMgr.gets();
+			if ( null != uiEventActions ) {
+				for ( Entry<String, UIEventAction> entry : uiEventActions ) {
+					if ( null != entry ) {
+						String uiEventActionKey = entry.getKey();
+						UIEventAction uiEventAction = entry.getValue();
+						logger.info(className, function, "key[{}]", uiEventActionKey);
+						if ( null != uiEventAction ) {
+							for ( String key : uiEventAction.getParameterKeys() ) {
+								logger.info(className, function, "key[{}] key[{}]", uiEventActionKey, key);
+								String value = (String) uiEventAction.getParameter(key);
+								logger.info(className, function, "key[{}] key[{}] value[{}]", new Object[]{uiEventActionKey, key, value});
+							}
+						} else {
+							logger.warn(className, function, "uiEventAction IS NULL");
+						}
+					} else {
+						logger.warn(className, function, "entry IS NULL");
+					}
+					
+				}
+			} else {
+				logger.warn(className, function, "uiEventActions IS NULL");
+			}
+			logger.info(className, function, "Testing "+className+" End");
+		}
+		
+		
+		
 		
 		logger.end(className, function);
 	}

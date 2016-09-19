@@ -8,14 +8,14 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
-public class UIActionEventMgr {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIActionEventMgr.class.getName());
+public class UIEventActionMgrOld {
+	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionMgrOld.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	private String logPrefix = "";
 	
 	private String optsXMLFile = null;
 	private String dictionariesCacheName = null;
-	public UIActionEventMgr(String logPrefix, String dictionariesCacheName, String optsXMLFile) {
+	public UIEventActionMgrOld(String logPrefix, String dictionariesCacheName, String optsXMLFile) {
 		final String function = "initActionKeys";
 		
 		this.logPrefix = "-> "+logPrefix+" ";

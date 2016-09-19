@@ -1,8 +1,13 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBox;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutMode;
@@ -37,6 +42,7 @@ public class ViewLayoutMgr {
 
 	private UINameCard uiNameCard = null;
 	
+	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 	private final String UIPathUIPanelAccessBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar";
 	private final String UIPathUIPanelStatusBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar";
 	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
@@ -231,59 +237,169 @@ public class ViewLayoutMgr {
 		logger.begin(className, function);
 
 		// boolean change = false;
-
-		if (TaskLaunchType.IMAGE == taskLaunch.getTaskLaunchType()) {
-			logger.info(className, function, "setTaskLaunch TaskType.IMAGE");
-
-			if (ViewLayoutMode.Image != this.viewLayoutMode) {
-				logger.info(className, function, "setTaskLaunch ViewLayoutMode.Image != [{}]", this.viewLayoutMode);
-
-				setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
-
-			}
-
-		} else if (TaskLaunchType.PANEL == taskLaunch.getTaskLaunchType()) {
-			logger.info(className, function, "setTaskLaunch TaskType.PANEL");
-
-			if (ViewLayoutMode.Panel != this.viewLayoutMode) {
-				logger.info(className, function, "setTaskLaunch ViewLayoutMode.Panel != [{}]", this.viewLayoutMode);
-
-				setLayout(ViewLayoutMode.Panel, ViewLayoutAction.SingleLayout);
-
-			}
-		}
-
-		viewLayoutMgrEvent.setTaskLaunch(taskLaunch, this.viewIdActivate);
-
-		logger.info(className, function, "this.viewLayoutAction[{}]", this.viewLayoutAction);
-
-		if (null == this.taskLaunchs) {
-			logger.info(className, function, "this.taskLaunchs is null, creating...");
-			this.taskLaunchs = new UITaskLaunch[this.viewLayoutAction.getValue()];
-			logger.info(className, function, "this.taskLaunchs created this.taskLaunchs.length[{}]", this.taskLaunchs.length);
-		}
-
-
-		if ( isValidActivateId(this.viewIdActivate) ) {
-			this.taskLaunchs[this.viewIdActivate] = taskLaunch;
-		} else {
-			logger.info(className, function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
-		}
 		
-		triggerTitleChange(taskLaunch);
+		if (taskLaunch.getUiPanel().equals("UIDialogMsg")) {
 
-		triggerProfileChange();
+			UITaskLaunch taskLaunchYes = new UITaskLaunch();
+			taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
+			taskLaunchYes.setUiPath(UIPathUIPanelScreen);
+			taskLaunchYes.setUiPanel("UIScreenLogin");
 
-		logger.info(className, function, "hasSnapshot[" + makeSnapshot + "]");
+			DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+			UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+			uiDialgogMsg.setUINameCard(this.uiNameCard);
+			uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
+					"Are you sure to logout the current HMI?", taskLaunchYes, null);
+			uiDialgogMsg.popUp();
 
-		if (makeSnapshot) {
+		} else if (taskLaunch.getUiPanel().equals("UIPanelInspector")) {
+			
+			
+			String hvid = null;
+			if ( taskLaunch.getOption().length > 0 && null != taskLaunch.getOption()[0] ) {
+				Object obj = taskLaunch.getOption()[0];
+				if ( obj instanceof String ) {
+					hvid		= (String)obj;
+				} else {
+					logger.warn(className, function, "hvid IS NOT A STRING");
+				}
+			}
+			
+			int mouseX			= -1;
+			if ( taskLaunch.getOption().length > 1 && null != taskLaunch.getOption()[1] ) {
+				Object obj = taskLaunch.getOption()[1];
+				if ( obj instanceof Integer ) {
+					mouseX		= (Integer)obj;
+				} else {
+					logger.warn(className, function, "mouseX IS NOT A Integer");
+				}
+			}
+			
+			int mouseY			= -1;
+			if ( taskLaunch.getOption().length > 2 && null != taskLaunch.getOption()[2] ) {
+				Object obj = taskLaunch.getOption()[2];
+				if ( obj instanceof Integer ) {
+					mouseY		= (Integer)obj;
+				} else {
+					logger.warn(className, function, "mouseY IS NOT A Integer");
+				}
+			}
+			
+			String scsEnvId		= hvid;
+			String dbaddress	= hvid;
 
-			historySnapshot();
+			String dbaddresses	= null;
+			String hvides[] = hvid.split("_");
+			if ( null != hvides ) {
+//											if ( hvides.length >= 1 && null != hvides[0] ) {
+//												scsEnvId = hvides[0];
+//											}
+				dbaddresses = "";
+				for ( int i = 1 ; i < hvides.length ; i++ ) {
+					if ( dbaddresses.length() > 0 ) {
+						dbaddresses += "_";
+					}
+					dbaddresses += hvides[i];
+				}
+				if ( dbaddresses.length() > 0 ) {
+					
+					int s = 0, n = 0;
+					
+					s = n;
+					n = s+3;
+					String dbaddress0	= dbaddresses.substring(s, n);
+					
+					s = n;
+					n = s+3;
+					String dbaddress1	= dbaddresses.substring(s, n);
+					
+					s = n;
+					n = s+3;
+					String dbaddress2	= dbaddresses.substring(s);
+					
+					dbaddress	= ":" + dbaddress0 + ":" + dbaddress1 + ":" + dbaddress2;
+				}
+				
+			}
+	
+			logger.info(className, function, "hvid[{}]", hvid);
+			
+			logger.info(className, function, "dbaddress[{}]", dbaddress);
+			
+			UIPanelInspectorDialogBox uiInspectorDialogbox = new UIPanelInspectorDialogBox();
+			
+			uiInspectorDialogbox.setUINameCard(this.uiNameCard);
+			uiInspectorDialogbox.init();
+			uiInspectorDialogbox.getMainPanel();
+			
+			uiInspectorDialogbox.setMousePosition(mouseX, mouseY);
+			uiInspectorDialogbox.show();
+			
+			uiInspectorDialogbox.setParent(scsEnvId, dbaddress);
+							
+			uiInspectorDialogbox.connect();
+			
+		} else if (taskLaunch.getUiPanel().equals("UIInspectorConnectionBox")) { 
+			
+			UIInspectorConnectionBox uiInspectorConnectionBox = new UIInspectorConnectionBox();
+			uiInspectorConnectionBox.getMainPanel(this.uiNameCard);
+			uiInspectorConnectionBox.show();
+		} else {
+			if (TaskLaunchType.IMAGE == taskLaunch.getTaskLaunchType()) {
+				logger.info(className, function, "setTaskLaunch TaskType.IMAGE");
+
+				if (ViewLayoutMode.Image != this.viewLayoutMode) {
+					logger.info(className, function, "setTaskLaunch ViewLayoutMode.Image != [{}]", this.viewLayoutMode);
+
+					setLayout(ViewLayoutMode.Image, ViewLayoutAction.SingleLayout);
+
+				}
+
+			} else if (TaskLaunchType.PANEL == taskLaunch.getTaskLaunchType()) {
+				logger.info(className, function, "setTaskLaunch TaskType.PANEL");
+
+				if (ViewLayoutMode.Panel != this.viewLayoutMode) {
+					logger.info(className, function, "setTaskLaunch ViewLayoutMode.Panel != [{}]", this.viewLayoutMode);
+
+					setLayout(ViewLayoutMode.Panel, ViewLayoutAction.SingleLayout);
+
+				}
+			}
+
+			viewLayoutMgrEvent.setTaskLaunch(taskLaunch, this.viewIdActivate);
+
+			logger.info(className, function, "this.viewLayoutAction[{}]", this.viewLayoutAction);
+
+			if (null == this.taskLaunchs) {
+				logger.info(className, function, "this.taskLaunchs is null, creating...");
+				this.taskLaunchs = new UITaskLaunch[this.viewLayoutAction.getValue()];
+				logger.info(className, function, "this.taskLaunchs created this.taskLaunchs.length[{}]", this.taskLaunchs.length);
+			}
+
+
+			if ( isValidActivateId(this.viewIdActivate) ) {
+				this.taskLaunchs[this.viewIdActivate] = taskLaunch;
+			} else {
+				logger.info(className, function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
+			}
+			
+			triggerTitleChange(taskLaunch);
+
+			triggerProfileChange();
+
+			logger.info(className, function, "hasSnapshot[" + makeSnapshot + "]");
+
+			if (makeSnapshot) {
+
+				historySnapshot();
+			}
+
+			triggerSplitChange();
+
+			triggerHistoryChange();
 		}
 
-		triggerSplitChange();
 
-		triggerHistoryChange();
 
 		logger.end(className, function);
 
@@ -495,17 +611,23 @@ public class ViewLayoutMgr {
 							logger.info(className, function, "taskProvide is TaskLaunch");
 
 							setTaskLaunch((UITaskLaunch) uiTask, true);
-						} else if ( uiTask instanceof UITaskHistory ) {
+						} else {
+							if ( uiTask instanceof UITaskHistory ) {
 
-							logger.info(className, function, "taskProvide is TaskHistory");
-
-							setTaskHistory((UITaskHistory) uiTask);
-						} else if ( uiTask instanceof UITaskSplit ) {
-							
-							logger.info(className, function, "taskProvide is UITaskSplit");
-							
-							setSplitScreen((UITaskSplit) uiTask);
+								logger.info(className, function, "taskProvide is TaskHistory");
+	
+								setTaskHistory((UITaskHistory) uiTask);
+							} else if ( uiTask instanceof UITaskSplit ) {
+								
+								logger.info(className, function, "taskProvide is UITaskSplit");
+								
+								setSplitScreen((UITaskSplit) uiTask);
+							}
 						}
+							
+							
+							
+							
 					}
 			} else {
 				logger.warn(className, function, "uiEvent.getTaskProvide().getUiPath()[{}] IS NULL", uiEvent.getTaskProvide().getUiPath() );

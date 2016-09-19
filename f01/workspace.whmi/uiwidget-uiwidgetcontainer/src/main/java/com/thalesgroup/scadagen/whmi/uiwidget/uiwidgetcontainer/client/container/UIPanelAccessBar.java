@@ -194,7 +194,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 				
 				UITaskLaunch taskLaunch = new UITaskLaunch();
 				taskLaunch.setTaskUiScreen(0);
-				taskLaunch.setUiPath(UIPathUIScreenMMI);
+				taskLaunch.setUiPath(UIPathUIPanelViewLayout);
 				taskLaunch.setUiPanel("UIDialogMsg");
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {

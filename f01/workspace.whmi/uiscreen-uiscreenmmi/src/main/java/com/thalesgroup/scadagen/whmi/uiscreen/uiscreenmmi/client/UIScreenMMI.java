@@ -2,18 +2,11 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
 import java.util.HashMap;
 
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorConnectionBox;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorDialogBox;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelViewLayout;
-import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
-import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -36,8 +29,6 @@ public class UIScreenMMI extends UIWidget_i {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private final String UIPathUIPanelScreen	= ":UIGws:UIPanelScreen";
 
 	private UILayoutGeneric uiPanelGeneric = null;
 	
@@ -173,136 +164,29 @@ public class UIScreenMMI extends UIWidget_i {
 	
 	void onUIEvent(UIEvent uiEvent) {
 		
-		final String function = "onUIEvent";
-
-		logger.begin(className, function);
-
-		if (null != uiEvent) {
-			UITask_i taskProvide = uiEvent.getTaskProvide();
-			if (null != taskProvide) {
-				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
-						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
-
-					if ( taskProvide instanceof UITaskLaunch ) {
-
-						UITaskLaunch taskLaunch = (UITaskLaunch) taskProvide;
-
-						logger.info(className, function, "taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
-
-						if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIDialogMsg")) {
-
-							UITaskLaunch taskLaunchYes = new UITaskLaunch();
-							taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
-							taskLaunchYes.setUiPath(UIPathUIPanelScreen);
-							taskLaunchYes.setUiPanel("UIScreenLogin");
-
-							DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
-							UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
-							uiDialgogMsg.setUINameCard(this.uiNameCard);
-							uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
-									"Are you sure to logout the current HMI?", taskLaunchYes, null);
-							uiDialgogMsg.popUp();
-
-						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIPanelInspector")) {
-							
-							
-							String hvid = null;
-							if ( taskLaunch.getOption().length > 0 && null != taskLaunch.getOption()[0] ) {
-								Object obj = taskLaunch.getOption()[0];
-								if ( obj instanceof String ) {
-									hvid		= (String)obj;
-								} else {
-									logger.warn(className, function, "hvid IS NOT A STRING");
-								}
-							}
-							
-							int mouseX			= -1;
-							if ( taskLaunch.getOption().length > 1 && null != taskLaunch.getOption()[1] ) {
-								Object obj = taskLaunch.getOption()[1];
-								if ( obj instanceof Integer ) {
-									mouseX		= (Integer)obj;
-								} else {
-									logger.warn(className, function, "mouseX IS NOT A Integer");
-								}
-							}
-							
-							int mouseY			= -1;
-							if ( taskLaunch.getOption().length > 2 && null != taskLaunch.getOption()[2] ) {
-								Object obj = taskLaunch.getOption()[2];
-								if ( obj instanceof Integer ) {
-									mouseY		= (Integer)obj;
-								} else {
-									logger.warn(className, function, "mouseY IS NOT A Integer");
-								}
-							}
-							
-							String scsEnvId		= hvid;
-							String dbaddress	= hvid;
-
-							String dbaddresses	= null;
-							String hvides[] = hvid.split("_");
-							if ( null != hvides ) {
-//								if ( hvides.length >= 1 && null != hvides[0] ) {
-//									scsEnvId = hvides[0];
-//								}
-								dbaddresses = "";
-								for ( int i = 1 ; i < hvides.length ; i++ ) {
-									if ( dbaddresses.length() > 0 ) {
-										dbaddresses += "_";
-									}
-									dbaddresses += hvides[i];
-								}
-								if ( dbaddresses.length() > 0 ) {
-									
-									int s = 0, n = 0;
-									
-									s = n;
-									n = s+3;
-									String dbaddress0	= dbaddresses.substring(s, n);
-									
-									s = n;
-									n = s+3;
-									String dbaddress1	= dbaddresses.substring(s, n);
-									
-									s = n;
-									n = s+3;
-									String dbaddress2	= dbaddresses.substring(s);
-									
-									dbaddress	= ":" + dbaddress0 + ":" + dbaddress1 + ":" + dbaddress2;
-								}
-								
-							}
-					
-							logger.info(className, function, "hvid[{}]", hvid);
-							
-							logger.info(className, function, "dbaddress[{}]", dbaddress);
-							
-							UIPanelInspectorDialogBox uiInspectorDialogbox = new UIPanelInspectorDialogBox();
-							
-							uiInspectorDialogbox.setUINameCard(this.uiNameCard);
-							uiInspectorDialogbox.init();
-							uiInspectorDialogbox.getMainPanel();
-							
-							uiInspectorDialogbox.setMousePosition(mouseX, mouseY);
-							uiInspectorDialogbox.show();
-							
-							uiInspectorDialogbox.setParent(scsEnvId, dbaddress);
-											
-							uiInspectorDialogbox.connect();
-							
-						} else if (0 == taskLaunch.getUiPanel().compareToIgnoreCase("UIInspectorConnectionBox")) { 
-							
-							UIInspectorConnectionBox uiInspectorConnectionBox = new UIInspectorConnectionBox();
-							uiInspectorConnectionBox.getMainPanel(this.uiNameCard);
-							uiInspectorConnectionBox.show();
-						}
-					}
-				}
-			}
-
-		}
-		
-		logger.end(className, function);
+//		final String function = "onUIEvent";
+//
+//		logger.begin(className, function);
+//
+//		if (null != uiEvent) {
+//			UITask_i taskProvide = uiEvent.getTaskProvide();
+//			if (null != taskProvide) {
+//				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
+//						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
+//
+//					if ( taskProvide instanceof UITaskLaunch ) {
+//
+//						UITaskLaunch taskLaunch = (UITaskLaunch) taskProvide;
+//
+//						logger.info(className, function, "taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
+//
+//					}
+//				}
+//			}
+//
+//		}
+//		
+//		logger.end(className, function);
 
 	}
 }

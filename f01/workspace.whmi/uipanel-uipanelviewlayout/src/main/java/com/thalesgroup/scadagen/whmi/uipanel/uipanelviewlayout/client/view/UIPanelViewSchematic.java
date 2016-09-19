@@ -20,7 +20,8 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewSchematic.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String UIPathUIScreenMMI 	= ":UIGws:UIPanelScreen:UIScreenMMI";
+	private final String UIPathUIScreenMMI 			= ":UIGws:UIPanelScreen:UIScreenMMI";
+	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	public static final String UNIT_PX = "px";
 	
@@ -84,7 +85,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 		UITaskLaunch taskLaunch = new UITaskLaunch();
 		taskLaunch.setUiPanel("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskLaunch.setUiPath(UIPathUIScreenMMI);
+		taskLaunch.setUiPath(UIPathUIPanelViewLayout);
 		taskLaunch.setOption(new Object[]{hv_id, mouseX, mouseY});
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		

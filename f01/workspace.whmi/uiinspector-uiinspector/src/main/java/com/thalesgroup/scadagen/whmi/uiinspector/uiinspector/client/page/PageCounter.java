@@ -56,4 +56,5 @@ public class PageCounter {
 
 		logger.end(className, function);
 	}
+
 }

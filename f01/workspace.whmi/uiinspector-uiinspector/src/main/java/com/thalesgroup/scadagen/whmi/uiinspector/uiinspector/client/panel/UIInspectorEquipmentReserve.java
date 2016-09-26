@@ -1,14 +1,17 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserveEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -59,69 +62,64 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 		logger.begin(className, function);
 
 		// Read static
-		{
-			logger.begin(className, function);
-			
-			String clientKey = "multiReadValue" + "_" + "inspector" + className + "_" + "static" + "_" + parent;
-
-			String[] dbaddresses = null;
-			{
-				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-				for ( String dbaddress : this.addresses ) {
-
-				}
-				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-			}			
-			
-			logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
-			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
-			}
-
-			Database database = Database.getInstance();
-			
-			String api = "multiReadValue";
-			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-				
-				@Override
-				public void update(String key, String[] value) {
-					Database database = Database.getInstance();
-					String clientKeyStatic = "multiReadValue" + "_" + "inspector" + className + "_" + "static" + "_" + parent;
-					if ( clientKeyStatic.equals(key) ) {
-						String [] dbaddresses	= database.getKeyAndAddress(key);
-						String [] dbvalues		= database.getKeyAndValues(key);
-						HashMap<String, String> keyAndValue = new HashMap<String, String>();
-						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-							keyAndValue.put(dbaddresses[i], dbvalues[i]);
-						}
-
-						updateValue(key, keyAndValue);
-					}
-				}
-			});
-			
-			logger.end(className, function);
-		}
+//		{
+//			logger.begin(className, function);
+//			
+//			String clientKey = "multiReadValue" + "_" + "inspector" + className + "_" + "static" + "_" + parent;
+//
+//			String[] dbaddresses = null;
+//			{
+//				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+//				for ( String dbaddress : this.addresses ) {
+//
+//				}
+//				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+//			}			
+//			
+//			logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+//			for(int i = 0; i < dbaddresses.length; ++i ) {
+//				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+//			}
+//
+//			Database database = Database.getInstance();
+//			
+//			String api = "multiReadValue";
+//			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+//				
+//				@Override
+//				public void update(String key, String[] value) {
+//					Database database = Database.getInstance();
+//					String clientKeyStatic = "multiReadValue" + "_" + "inspector" + className + "_" + "static" + "_" + parent;
+//					if ( clientKeyStatic.equals(key) ) {
+//						String [] dbaddresses	= database.getKeyAndAddress(key);
+//						String [] dbvalues		= database.getKeyAndValues(key);
+//						HashMap<String, String> keyAndValue = new HashMap<String, String>();
+//						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+//							keyAndValue.put(dbaddresses[i], dbvalues[i]);
+//						}
+//
+//						updateValue(key, keyAndValue);
+//					}
+//				}
+//			});
+//			
+//			logger.end(className, function);
+//		}
 		
 		// Read dynamic
 		{
 			logger.begin(className, function);
 			
 			String clientKey = "multiReadValue" + "_" + "inspector" + className + "_" + "dynamic" + "_" + parent;
+			
+			String[] parents = new String[]{parent};
 
 			String[] dbaddresses = null;
 			{
 				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-				for ( String dbaddress : this.addresses ) {
-					String point = RTDB_Helper.getPoint(dbaddress);
-					if ( null != point ) {
-
-						for ( String attribute : dynamicAttibutes ) {
-							dbaddressesArrayList.add(dbaddress+attribute);
-						}
-
-					} else {
-						logger.warn(className, function, "point IS NULL");
+				for(int x=0;x<parents.length;++x) {
+					for(int y=0;y<dynamicAttibutes.length;++y) {
+						dbaddressesArrayList.add(parents[x]+dynamicAttibutes[y]);
 					}
 				}
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
@@ -133,7 +131,7 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 			}
 			
 			Database database = Database.getInstance();
-			database.addDynamicRequest(clientKey, dbaddresses, new DatabaseEvent() {
+			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 
 				@Override
 				public void update(String key, String[] value) {
@@ -152,6 +150,11 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
+		Database database = Database.getInstance();
+		{
+			String clientKey = "multiReadValue" + "_" + "inspector" + className + "_" + "dynamic" + "_" + parent;
+			database.unSubscribe(clientKey);
+		}
 		logger.beginEnd(className, function);
 	}
 	
@@ -230,6 +233,8 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 		logger.beginEnd(className, function, "eqtReserved[{}]", eqtReserved);
 		return eqtReserved;
 	}
+	
+	private String previewValue = "";
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
 		
@@ -240,19 +245,16 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 			if ( dbvalues.containsKey(key) ) {
 				String value = dbvalues.get(key);
 				if ( null != value ) {
-					value = RTDB_Helper.removeDBStringWrapper(value);
-					eqtReserved = EquipmentReserve.isEquipmentReservation(value);
-					
-					if ( 0 == eqtReserved || 1 == eqtReserved ) {
-						if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(true);
-					} else {
-						if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(false);
+					value = DatabaseHelper.removeDBStringWrapper(value);
+					if ( ! value.equals(previewValue) ) {
+						logger.info(className, function, "previewValue[{}] == value[{}]", previewValue, value);
+						eqtReserved = EquipmentReserve.isEquipmentReservation(value);
+						if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(eqtReserved);
+						previewValue = value;
 					}
-					
 				}
 			}
 		}
-		
 		
 		logger.end(className, function);
 	}

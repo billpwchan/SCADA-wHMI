@@ -3,9 +3,12 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -17,15 +20,16 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointType;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.alm.AlmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
@@ -96,9 +100,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			{
 				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
 				for ( String dbaddress : this.addresses ) {
-					String point = RTDB_Helper.getPoint(dbaddress);
+					String point = DatabaseHelper.getPoint(dbaddress);
 					if ( null != point ) {
-						PointType pointType = RTDB_Helper.getPointType(point);
+						PointType pointType = DatabaseHelper.getPointType(point);
 						if ( pointType == PointType.dci ) {
 							for ( String attribute : staticDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
@@ -159,9 +163,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			{
 				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
 				for ( String dbaddress : this.addresses ) {
-					String point = RTDB_Helper.getPoint(dbaddress);
+					String point = DatabaseHelper.getPoint(dbaddress);
 					if ( null != point ) {
-						PointType pointType = RTDB_Helper.getPointType(point);
+						PointType pointType = DatabaseHelper.getPointType(point);
 						if ( pointType == PointType.dci ) {
 							for ( String attribute : dynamicDciAttibutes ) {
 								dbaddressesArrayList.add(dbaddress+attribute);
@@ -190,7 +194,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			}
 			
 			Database database = Database.getInstance();
-			database.addDynamicRequest(clientKey, dbaddresses, new DatabaseEvent() {
+			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 
 				@Override
 				public void update(String key, String[] value) {
@@ -209,7 +213,13 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.beginEnd(className, function);
+		logger.begin(className, function);
+		Database database = Database.getInstance();
+		{
+			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
+			database.unSubscribe(clientKey);
+		}
+		logger.end(className, function);
 	}
 	
 	private void updatePager() {
@@ -281,7 +291,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			int numOfWidgetShow = pageCounter.pageRowCount;
 			
-			if ( RTDB_Helper.addressesIsValid(this.addresses) ) {
+			if ( DatabaseHelper.addressesIsValid(this.addresses) ) {
 				
 				lblAttibuteLabel	= new InlineLabel[numOfWidgetShow];
 				txtAttributeValue	= new TextBox[numOfWidgetShow];
@@ -406,7 +416,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				String dbaddress = address + PointName.label.toString();
 				if ( dbvalues.containsKey(dbaddress) ) {
 					String value = dbvalues.get(dbaddress);
-					value = RTDB_Helper.removeDBStringWrapper(value);
+					value = DatabaseHelper.removeDBStringWrapper(value);
 					lblAttibuteLabel[y].setText(value);
 				}
 			}
@@ -432,8 +442,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			logger.debug(className, function, "address[{}]", address);
 			
-			String point = RTDB_Helper.getPoint(address);
-			PointType pointType = RTDB_Helper.getPointType(point);
+			String point = DatabaseHelper.getPoint(address);
+			PointType pointType = DatabaseHelper.getPointType(point);
 
 			if ( PointType.dci == pointType ) {
 				updateDci(address, y);
@@ -453,30 +463,10 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		String value = null;
-		{
-			String dbaddress = address + PointName.value.toString();
-			logger.debug(className, function, "PointName.value.toString()[{}] dbaddress[{}]", PointName.value.toString(), dbaddress);
-			if ( dbvalues.containsKey(dbaddress) ) {
-				value = dbvalues.get(dbaddress);
-			} else {
-				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-			}
-		}		
-		
+		String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 		logger.debug(className, function, "value[{}]", value);
-		
-		String valueTable = null;
-		{
-			String dbaddress = address + PointName.dalValueTable.toString();
-			logger.debug(className, function, "PointName.value.toString()Table[{}] dbaddress[{}]", PointName.dalValueTable.toString(), dbaddress);
-			if ( dbvalues.containsKey(dbaddress) ) {
-				valueTable = dbvalues.get(dbaddress);
-			} else {
-				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-			}					
-		}
-		
+	
+		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
 		logger.debug(className, function, "valueTable[{}]", valueTable);
 		
 		String label = null;
@@ -486,11 +476,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			logger.debug(className, function, "valueCol[{}] nameCol[{}]", valueCol, labelCol);
 			
 			for( int r = 0 ; r < 12 ; ++r ) {
-				String v = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
+				String v = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
 				logger.debug(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
 				if ( 0 == v.compareTo(value) ) {
 					logger.debug(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
-					label = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
+					label = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
 					break;
 				}
 			}
@@ -499,59 +489,23 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.debug(className, function, "name[{}]", label);
 		
 		if ( null != label ) {
-			label = RTDB_Helper.removeDBStringWrapper(label);
+			label = DatabaseHelper.removeDBStringWrapper(label);
 			txtAttributeValue[row].setText(label);	
 		} else {
-			value = RTDB_Helper.removeDBStringWrapper(value);
+			value = DatabaseHelper.removeDBStringWrapper(value);
 			txtAttributeValue[row].setText(value);	
 		}
 		
-		String valueAlarmVector = null;
-		String validity = null;
-		String forcedStatus = null;
-		{
-			{
-				String dbaddress = address + PointName.dalValueAlarmVector.toString();
-				logger.debug(className, function, "PointName.value.toString() dalValueAlarmVector[{}] dbaddress[{}]", PointName.dalValueAlarmVector.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					valueAlarmVector = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "row[{}] valueAlarmVector[{}] address[{}] PointName.dalValueTable.toString()[{}]"
-					, new Object[]{row, valueAlarmVector, address, PointName.dalValueTable.toString()});
-			
-			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
-			
-			{
-				String dbaddress = address + PointName.validity.toString();
-				logger.debug(className, function, "PointName.validity.toString()[{}] dbaddress[{}]", PointName.validity.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					validity = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "validity[{}]", validity);
-			
-			{
-				String dbaddress = address + PointName.dfoForcedStatus.toString();
-				logger.debug(className, function, "strForcedStatus[{}] dbaddress[{}]", PointName.dfoForcedStatus.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					forcedStatus = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
-
-		}
+		String valueAlarmVector = DatabaseHelper.getAttributeValue(address, PointName.dalValueAlarmVector.toString(), dbvalues);
+		logger.debug(className, function, "dalValueAlarmVector[{}]", valueAlarmVector);
 		
-		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		String validity = DatabaseHelper.getAttributeValue(address, PointName.validity.toString(), dbvalues);
+		logger.debug(className, function, "validity[{}]", validity);
+		
+		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.dfoForcedStatus.toString(), dbvalues);
+		logger.debug(className, function, "dfoForcedStatus[{}]", forcedStatus);
+		
+		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
 		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
@@ -564,65 +518,23 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		String value = null;
-		{
-			String dbaddress = address + PointName.value.toString();
-			logger.debug(className, function, "PointName.value.toString()[{}] dbaddress[{}]", PointName.value.toString(), dbaddress);
-			if ( dbvalues.containsKey(dbaddress) ) {
-				value = dbvalues.get(dbaddress);
-			} else {
-				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-			}
-		}		
+		String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 		
 		logger.debug(className, function, "value[{}]", value);
 		
-		value = RTDB_Helper.removeDBStringWrapper(value);
-		txtAttributeValue[row].setText(value);	
-
-		String valueAlarmVector = null;
-		String validity = null;
-		String forcedStatus = null;
-		{
-			{
-				String dbaddress = address + PointName.aalValueAlarmVector.toString();
-				logger.debug(className, function, "PointName.value.toString()AlarmVector[{}] dbaddress[{}]", PointName.aalValueAlarmVector.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					valueAlarmVector = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
-			
-			{
-				String dbaddress = address + PointName.validity.toString();
-				logger.info(className, function, "PointName.validity.toString()[{}] dbaddress[{}]", PointName.validity.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					validity = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "validity[{}]", validity);
-			
-			{
-				String dbaddress = address + PointName.afoForcedStatus.toString();
-				logger.info(className, function, "strForcedStatus[{}] dbaddress[{}]", PointName.afoForcedStatus.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					forcedStatus = dbvalues.get(dbaddress);
-				} else {
-					logger.info(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
-
-		}
+		value = DatabaseHelper.removeDBStringWrapper(value);
+		txtAttributeValue[row].setText(value);
 		
-		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		String valueAlarmVector = DatabaseHelper.getAttributeValue(address, PointName.aalValueAlarmVector.toString(), dbvalues);
+		logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
+		
+		String validity = DatabaseHelper.getAttributeValue(address, PointName.validity.toString(), dbvalues);
+		logger.debug(className, function, "validity[{}]", validity);
+		
+		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.afoForcedStatus.toString(), dbvalues);
+		logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
+		
+		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
 		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
@@ -635,65 +547,22 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		String value = null;
-		{
-			String dbaddress = address + PointName.value.toString();
-			logger.debug(className, function, "PointName.value.toString()[{}] dbaddress[{}]", PointName.value.toString(), dbaddress);
-			if ( dbvalues.containsKey(dbaddress) ) {
-				value = dbvalues.get(dbaddress);
-			} else {
-				logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-			}
-		}		
-		
+		String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 		logger.debug(className, function, "value[{}]", value);
 		
-		value = RTDB_Helper.removeDBStringWrapper(value);
+		value = DatabaseHelper.removeDBStringWrapper(value);
 		txtAttributeValue[row].setText(value);
 
-		String valueAlarmVector = null;
-		String validity = null;
-		String forcedStatus = null;
-		{
-			{
-				String dbaddress = address + PointName.salValueAlarmVector.toString();
-				logger.debug(className, function, "PointName.value.toString()AlarmVector[{}] dbaddress[{}]", PointName.salValueAlarmVector.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					valueAlarmVector = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
-			
-			{
-				String dbaddress = address + PointName.validity.toString();
-				logger.debug(className, function, "PointName.validity.toString()["+PointName.validity.toString()+"] dbaddress["+dbaddress+"]");
-				if ( dbvalues.containsKey(dbaddress) ) {
-					validity = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!", dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "validity[{}]", validity);
-			
-			{
-				String dbaddress = address + PointName.sfoForcedStatus.toString();
-				logger.debug(className, function, "strForcedStatus[{}] dbaddress[{}]", PointName.sfoForcedStatus.toString(), dbaddress);
-				if ( dbvalues.containsKey(dbaddress) ) {
-					forcedStatus = dbvalues.get(dbaddress);
-				} else {
-					logger.warn(className, function, "dbaddress[{}] VALUE NOT EXISTS!",  dbaddress);
-				}
-			}
-			
-			logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
-
-		}
+		String valueAlarmVector = DatabaseHelper.getAttributeValue(address, PointName.salValueAlarmVector.toString(), dbvalues);
+		logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
 		
-		String strColorCSS = RTDB_Helper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		String validity = DatabaseHelper.getAttributeValue(address, PointName.validity.toString(), dbvalues);
+		logger.debug(className, function, "validity[{}]", validity);
+		
+		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.sfoForcedStatus.toString(), dbvalues);
+		logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
+		
+		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
 		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
@@ -719,6 +588,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	}
 	
 	private VerticalPanel vpCtrls = null;
+	private DockLayoutPanel basePanel = null;
 	private Panel rootPanel = null;
 	@Override
 	public void init() {
@@ -761,7 +631,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		btnAckCurPage.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
+				ackPageAlarms();
 			}
 		});	
 		
@@ -789,10 +659,15 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(btnAckCurPage);
+		
+		basePanel = new DockLayoutPanel(Unit.PX);
+		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
+		basePanel.addSouth(bottomBar, 50);
+		basePanel.add(vpCtrls);
 
 		// Auto close handle
 		rootPanel = new FocusPanel();
-		rootPanel.add(vpCtrls);
+		rootPanel.add(basePanel);
 		((FocusPanel)rootPanel).addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -809,6 +684,75 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.begin(className, function);
 	}
 	
+	private void ackPageAlarms() {
+		final String function = "ackPageAlarms";
+		
+		logger.begin(className, function);
+		
+		pageCounter.calc(pageIndex);
+		
+		int rowBegin	= pageCounter.pageRowBegin;
+		int rowEnd		= pageCounter.pageRowEnd;
+
+		ArrayList<String> alarmList = new ArrayList<String>();
+		for ( int x = rowBegin ; x < rowEnd ; ++x) {
+			String address = this.addresses[x];
+			
+			logger.debug(className, function, "address[{}]", address);
+			
+			String point = DatabaseHelper.getPoint(address);
+			PointType pointType = DatabaseHelper.getPointType(point);
+
+			String valueAlarmVectorPoint = null;
+			if ( PointType.dci == pointType ) {
+				valueAlarmVectorPoint = PointName.dalValueAlarmVector.toString();
+			} else if ( PointType.aci == pointType ){
+				valueAlarmVectorPoint = PointName.aalValueAlarmVector.toString();
+			} else if ( PointType.sci == pointType ) {
+				valueAlarmVectorPoint = PointName.salValueAlarmVector.toString();
+			}
+			logger.debug(className, function, "pointType[{}] valueAlarmVectorPoint[{}]", pointType, valueAlarmVectorPoint);
+
+			String valueAlarmVector = DatabaseHelper.getAttributeValue(address, valueAlarmVectorPoint, dbvalues);
+			logger.debug(className, function, "valueAlarmVector[{}]", valueAlarmVector);
+			
+			String validity = DatabaseHelper.getAttributeValue(address, PointName.validity.toString(), dbvalues);
+			logger.debug(className, function, "validity[{}]", validity);
+			
+			boolean bIsValid	= DatabaseHelper.isValid(validity);
+			
+			boolean bIsAlarm	= DatabaseHelper.isAlarm(valueAlarmVector);
+			
+			boolean bIsNeedAck	= DatabaseHelper.isNeedAck(valueAlarmVector);
+			
+			logger.info(className, function, "address[{}] bIsValid[{}] bIsAlarm[{}] bIsNeedAck[{}]", new Object[]{address, bIsValid, bIsAlarm, bIsNeedAck});
+
+			if ( bIsValid && bIsAlarm && bIsNeedAck ) {
+				
+				logger.info(className, function, "address[{}] added to alarm list", address);
+				alarmList.add(address);
+			
+			}
+		}
+		
+		String [] alarmIds = alarmList.toArray(new String[0]);
+		
+		if ( logger.isInfoEnabled() ) {
+			for ( String alarmId : alarmIds ) {
+				logger.info(className, function, "alarmId[{}]", alarmId);
+			}
+		}
+		
+		logger.warn(className, function, "ackAlarms page disabled!");
+		
+//		String key = "ackalarms";
+//		String comment = "";
+//		int inUserId = 0;
+//		AlmMgr almMgr = AlmMgr.getInstance("AlmMgr");
+//		almMgr.ackAlarms(key, scsEnvId, alarmIds, comment, inUserId);
+
+		logger.end(className, function);
+	}
 
 	@Override
 	public Panel getMainPanel() {

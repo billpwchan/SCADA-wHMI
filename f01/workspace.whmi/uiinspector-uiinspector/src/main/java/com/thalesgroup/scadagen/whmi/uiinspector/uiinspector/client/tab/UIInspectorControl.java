@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map.Entry;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ComplexPanel;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -21,9 +24,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointType;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -245,9 +248,9 @@ public class UIInspectorControl implements UIInspectorTab_i {
 					ComplexPanel widget = null;
 					
 					String dbaddress = this.addresses[x];
-					String point = RTDB_Helper.getPoint(dbaddress);
+					String point = DatabaseHelper.getPoint(dbaddress);
 					if ( null != point ) {
-						RTDB_Helper.PointType pointType = RTDB_Helper.getPointType(point);
+						PointType pointType = DatabaseHelper.getPointType(point);
 						if ( PointType.dio == pointType ) {
 							widget = updateDioControl(dbaddress, y);
 						} else if ( PointType.aio == pointType ) {
@@ -283,24 +286,15 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
 
-		String label = null; 
-		{
-			String dbaddress = address + PointName.label.toString();
-			if ( dbvalues.containsKey(dbaddress) ) {
-				label = dbvalues.get(dbaddress);
-				label = RTDB_Helper.removeDBStringWrapper(label);
-				logger.debug(className, function, "label[{}]", label);
-				inlineLabels[row].setText(label);
-			}			
-		}
+		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
+		label = DatabaseHelper.removeDBStringWrapper(label);
+		logger.debug(className, function, "label[{}]", label);
+		if ( null != label ) inlineLabels[row].setText(label);
 		
 		controlboxes[row] = new HorizontalPanel();
 
-		String valueTable = null;
-		{
-			String dbaddress = address + PointName.valueTable.toString();
-			valueTable = dbvalues.get(dbaddress);
-		}
+		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.valueTable.toString(), dbvalues);
+		logger.debug(className, function, "label[{}]", valueTable);
 
 		if ( null !=  valueTable ) {
 			
@@ -310,14 +304,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			String values[] = new String[numOfRow];
 			for( int r = 0 ; r < numOfRow ; ++r ) {
 					
-				points[r] = RTDB_Helper.getArrayValues(valueTable, dovnameCol, r );
-				points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+				points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 					
-				labels[r] = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
-				labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+				labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 					
-				values[r] = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-				values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+				values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 			}
 			
 //			LinkedList<String> initCondGLList = new LinkedList<String>();
@@ -373,25 +367,16 @@ public class UIInspectorControl implements UIInspectorTab_i {
 
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
-
-		String label = null; 
-		{
-			String dbaddress = address + PointName.label.toString();
-			if ( dbvalues.containsKey(dbaddress) ) {
-				label = dbvalues.get(dbaddress);
-				label = RTDB_Helper.removeDBStringWrapper(label);
-				logger.debug(className, function, "label[{}]", label);
-				inlineLabels[row].setText(label);
-			}			
-		}
+		
+		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
+		label = DatabaseHelper.removeDBStringWrapper(label);
+		logger.debug(className, function, "label[{}]", label);
+		if ( null != label ) inlineLabels[row].setText(label);
 		
 		controlboxes[row] = new HorizontalPanel();
 
-		String valueTable = null;
-		{
-			String dbaddress = address + PointName.valueTable.toString();
-			valueTable = dbvalues.get(dbaddress);
-		}
+		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.valueTable.toString(), dbvalues);
+		logger.debug(className, function, "valueTable[{}]", valueTable);
 
 		if ( null !=  valueTable ) {
 			
@@ -401,14 +386,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			String values[] = new String[numOfRow];
 			for( int r = 0 ; r < numOfRow ; ++r ) {
 					
-				points[r] = RTDB_Helper.getArrayValues(valueTable, dovnameCol, r );
-				points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+				points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 					
-				labels[r] = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
-				labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+				labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 					
-				values[r] = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-				values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+				values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 			}
 			
 //			LinkedList<String> initCondGLList = new LinkedList<String>();
@@ -467,25 +452,16 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
 
-		String label = null; 
-		{
-			String dbaddress = address + PointName.label.toString();
-			if ( dbvalues.containsKey(dbaddress) ) {
-				label = dbvalues.get(dbaddress);
-				label = RTDB_Helper.removeDBStringWrapper(label);
-				logger.debug(className, function, "label[{}]", label);
-				inlineLabels[row].setText(label);
-			}			
-		}
+		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
+		label = DatabaseHelper.removeDBStringWrapper(label);
+		logger.debug(className, function, "label[{}]", label);
+		if ( null != label ) inlineLabels[row].setText(label);
 		
 		controlboxes[row] = new HorizontalPanel();
 
-		String valueTable = null;
-		{
-			String dbaddress = address + PointName.valueTable.toString();
-			valueTable = dbvalues.get(dbaddress);
-		}
-
+		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.valueTable.toString(), dbvalues);
+		logger.debug(className, function, "valueTable[{}]", valueTable);
+		
 		if ( null !=  valueTable ) {
 			
 			int numOfRow = 12;
@@ -494,14 +470,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			String values[] = new String[numOfRow];
 			for( int r = 0 ; r < numOfRow ; ++r ) {
 					
-				points[r] = RTDB_Helper.getArrayValues(valueTable, dovnameCol, r );
-				points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+				points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 					
-				labels[r] = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
-				labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+				labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 					
-				values[r] = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-				values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+				values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 			}
 			
 //			LinkedList<String> initCondGLList = new LinkedList<String>();
@@ -548,6 +524,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		return widgetBoxes[row];	
 	}
 	
+	private final String strPrefix	= "Executing command : ";
+	private final String strInit	= strPrefix+" "+"Initing Command";
+	private final String strSending	= strPrefix+" "+"Sending Command";
+	private final String strSucceed	= strPrefix+" "+"Succeed";
+	private final String strFailed	= strPrefix+" "+"Failed";
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
 		
@@ -581,8 +562,9 @@ public class UIInspectorControl implements UIInspectorTab_i {
 					}
 				}				
 			}
-
 		}
+		
+		updateMsgBox(dbvalues);
 		
 		logger.end(className, function);
 	}
@@ -604,8 +586,8 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
 				String dbaddress = this.addresses[i];
 				
-				String point = RTDB_Helper.getPoint(dbaddress);
-				RTDB_Helper.PointType pointType = RTDB_Helper.getPointType(point);
+				String point = DatabaseHelper.getPoint(dbaddress);
+				PointType pointType = DatabaseHelper.getPointType(point);
 				
 				if ( PointType.dio == pointType ) {
 					for ( String attribute : dioStaticAttibutes ) {
@@ -664,24 +646,24 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				public void update() {
 					if ( null != messageBoxEvent ) {
 						
-						String message = subject.getState();
-						
-						String msgPrefix	= "Executing command : ";
-						String msgSending	= "Sending Command";
-						String msgSucceed	= "Succeed";
-						String msgFailed	= "Failed";
-						if ( message.equals("COMMAND SENT") 
-								|| message.equals("\"SendIntCommand sent\"") 
-								|| message.equals("\"SendStringCommand sent\"") 
-								|| message.equals("\"SendFloatCommand sent\"") ) {
-							message = msgPrefix + msgSending;
-						} else if ( message.equals("\"command executed successfully\"") ) {
-							message = msgPrefix + msgSucceed;
-						} else if ( message.equals("COMMAND FAILED") ) {
-							message = msgPrefix + msgFailed;
-						}
-						
-						messageBoxEvent.setMessage(message);
+//						String message = subject.getState();
+//						
+//						String msgPrefix	= "Executing command : ";
+//						String msgSending	= "Sending Command";
+//						String msgSucceed	= "Succeed";
+//						String msgFailed	= "Failed";
+//						if ( message.equals("COMMAND SENT") 
+//								|| message.equals("\"SendIntCommand sent\"") 
+//								|| message.equals("\"SendStringCommand sent\"") 
+//								|| message.equals("\"SendFloatCommand sent\"") ) {
+//							message = msgPrefix + msgSending;
+//						} else if ( message.equals("\"command executed successfully\"") ) {
+//							message = msgPrefix + msgSucceed;
+//						} else if ( message.equals("COMMAND FAILED") ) {
+//							message = msgPrefix + msgFailed;
+//						}
+//						
+//						messageBoxEvent.setMessage(message);
 					}
 				}
 			};
@@ -702,11 +684,10 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		LinkedList<String> initCondGLList = new LinkedList<String>();
 		for ( int x = 0 ; x < this.addresses.length ; ++x ) {
 			String address = this.addresses[x];
-			String valueTable = null;
-			{
-				String dbaddress = address + PointName.valueTable.toString();
-				valueTable = dbvalues.get(dbaddress);
-			}
+
+			String valueTable = DatabaseHelper.getAttributeValue(address, PointName.valueTable.toString(), dbvalues);
+			logger.debug(className, function, "valueTable[{}]", valueTable);
+			
 			if ( null !=  valueTable ) {
 				int numOfRow = 12;
 
@@ -715,14 +696,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				String values[] = new String[numOfRow];
 				for( int r = 0 ; r < numOfRow ; ++r ) {
 						
-					points[r] = RTDB_Helper.getArrayValues(valueTable, dovnameCol, r );
-					points[r] = RTDB_Helper.removeDBStringWrapper(points[r]);
+					points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+					points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 						
-					labels[r] = RTDB_Helper.getArrayValues(valueTable, labelCol, r );
-					labels[r] = RTDB_Helper.removeDBStringWrapper(labels[r]);
+					labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+					labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 						
-					values[r] = RTDB_Helper.getArrayValues(valueTable, valueCol, r );
-					values[r] = RTDB_Helper.removeDBStringWrapper(values[r]);					
+					values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+					values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 				}
 				
 				for ( int i = 0 ; i < points.length ; ++i ) {
@@ -775,7 +756,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 
 			
 			Database database = Database.getInstance();
-			database.addDynamicRequest(clientKey, dbaddresses, new DatabaseEvent() {
+			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 
 				@Override
 				public void update(String key, String[] value) {
@@ -791,7 +772,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		
+		Database database = Database.getInstance();
+		{
+			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
+			database.unSubscribe(clientKey);
+		}
 		logger.beginEnd(className, function);
 	}
 	
@@ -809,6 +794,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	}
 	
 	private VerticalPanel vpCtrls = null;
+	private DockLayoutPanel basePanel = null;
 	private Panel rootPanel = null;
 	@Override
 	public void init() {
@@ -891,10 +877,15 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(btnExecute);
+		
+		basePanel = new DockLayoutPanel(Unit.PX);
+		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
+		basePanel.addSouth(bottomBar, 50);
+		basePanel.add(vpCtrls);
 
 		// Auto close handle
 		rootPanel = new FocusPanel();
-		rootPanel.add(vpCtrls);
+		rootPanel.add(basePanel);
 		((FocusPanel)rootPanel).addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -1039,6 +1030,8 @@ public class UIInspectorControl implements UIInspectorTab_i {
 							logger.info(className, function, "sDbAddress[{}]", sDbAddress);
 							logger.info(className, function, "sValue[{}]", sValue);
 							
+							subscribe(sDbAddress+PointName.execStatus.toString());
+							
 							String alias = "<alias>";
 							if ( ! sDbAddress.startsWith(alias) ) sDbAddress = alias + sDbAddress;
 							
@@ -1090,10 +1083,70 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	public void setMessageBoxEvent(MessageBoxEvent messageBoxEvent) {
 		this.messageBoxEvent = messageBoxEvent;
 	}
-
+	
 	private UIInspectorTabClickEvent uiInspectorTabClickEvent = null;
 	@Override
 	public void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent) {
 		this.uiInspectorTabClickEvent = uiInspectorTabClickEvent;
+	}
+	
+	private void updateMsgBox(HashMap<String, String> keyAndValue) {
+		final String function = "updateMsgBox";
+		logger.begin(className, function);
+		for ( Entry<String, String> entry : keyAndValue.entrySet() ) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			if ( null != key && null != value ) {
+				if ( key.endsWith(PointName.execStatus.toString()) ) {
+					logger.debug(className, function, "key[{}] value[{}]", key, value);
+					if ( null != value && value.length() > 0 ) {
+						int intValue = Integer.parseInt(value);
+						String msg = null;
+						switch (intValue) {
+						case 0: 
+						case 1: msg = strInit;		break;
+						case 2: msg = strSending;	break;
+						case 3: msg = strSucceed;
+								unsubscribe(key);
+								break;
+						case 4:
+						case 5:
+						case 6: msg = strFailed;
+								unsubscribe(key);
+								break;
+						}
+						if ( null != messageBoxEvent ) messageBoxEvent.setMessage(msg);
+					}
+				}
+			}
+		}
+		logger.end(className, function);
+	}
+	
+	private void subscribe(String address) {
+		final String function = "subscribe";
+		logger.begin(className, function);
+		logger.info(className, function, "address[{}]", address);
+		Database database = Database.getInstance();
+		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
+		logger.info(className, function, "clientKey[{}]", clientKey);
+		database.subscribe(clientKey, new String[]{address}, new DatabaseEvent() {
+			@Override
+			public void update(String key, String[] value) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		logger.end(className, function);
+	}
+	private void unsubscribe(String address) {
+		final String function = "unsubscribe";
+		logger.begin(className, function);
+		logger.info(className, function, "address[{}]", address);
+		Database database = Database.getInstance();
+		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
+		logger.info(className, function, "clientKey[{}]", clientKey);
+		database.unSubscribe(clientKey);
+		logger.end(className, function);
 	}
 }

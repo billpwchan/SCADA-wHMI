@@ -46,18 +46,38 @@ public class ViewLayoutHistoryMgr {
 		logger.end(className, function);
 	}
 	public void add(ViewLayoutHistory history) {
+		add(history, true, true);
+	}
+	public void add(ViewLayoutHistory history, boolean removeAfterCurrentIndex, boolean removeFirstWhenFull) {
 		final String function = "add";
 		
 		logger.begin(className, function);
+		
+		logger.info(className, function, "index[{}]", index);
 		
 		if ( viewLayoutHistorys.size() != 0 && index < viewLayoutHistorys.size() ) ++index; 
 		
 		this.viewLayoutHistorys.add(index, history);
 		
+		if ( removeAfterCurrentIndex ) {
+			
+			int afCurIdx = index+1;
+			
+			logger.info(className, function, "viewLayoutHistorys.sublist({},{}).clear()", afCurIdx, viewLayoutHistorys.size());
+		
+			this.viewLayoutHistorys.subList(afCurIdx, viewLayoutHistorys.size()).clear();
+		}
+		
 		if ( viewLayoutHistorys.size() > HISTORY_LIMIT) {
-			viewLayoutHistorys.poll();
+			if ( removeFirstWhenFull ) {
+				viewLayoutHistorys.removeFirst();
+			} else {
+				viewLayoutHistorys.removeLast();
+			}
 			if ( index > 0 ) --index;
 		}
+		
+		logger.info(className, function, "viewLayoutHistorys.size[{}] index[{}]", viewLayoutHistorys.size(), index);
 		
 		logger.end(className, function);
 	}

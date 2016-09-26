@@ -56,7 +56,7 @@ public class ReadProp {
 			} catch ( NumberFormatException e ) {
 				logger.warn(className, function, "invalid integer value of result[{}]", result);
 			}
-		}else {
+		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}
 		
@@ -75,7 +75,7 @@ public class ReadProp {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
 		if ( null != dictionariesCache ) {
 			result = dictionariesCache.getStringValue(fileName, valueKey);
-		}else {
+		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}
 		

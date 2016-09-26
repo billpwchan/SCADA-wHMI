@@ -169,8 +169,12 @@ public class NavigationMgr implements TaskMgrEvent {
 			UITask_i taskProvide = uiEvent.getTaskProvide();
 			
 			if (null != taskProvide) {
-				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
-						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
+				
+				logger.info(className, function, "uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
+				logger.info(className, function, "uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", uiNameCard.getUiPath(), taskProvide.getUiPath());
+				
+				if (uiNameCard.getUiScreen() == taskProvide.getTaskUiScreen()
+						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(taskProvide.getUiPath())) {
 
 					if ( taskProvide instanceof UITaskLaunch ) {
 

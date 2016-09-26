@@ -304,6 +304,44 @@ public class ViewLayoutMgr {
 			
 		} else {
 			
+			
+			// Check the current task is not equals to target task
+			
+			logger.info(className, function, "this.viewIdActivate[{}]", this.viewIdActivate);
+			if ( isValidActivateId(this.viewIdActivate) ) {
+				
+				UITaskLaunch curTaskLaunch = this.taskLaunchs[this.viewIdActivate];
+				if ( null != curTaskLaunch ) {
+					int validCounter = 0;
+					int validCount = 3;
+					
+					logger.info(className, function, "taskLaunch.getTaskLaunchType()[{}] == curTaskLaunch.getTaskLaunchType()[{}]", taskLaunch.getTaskLaunchType(), curTaskLaunch.getTaskLaunchType());
+					if ( taskLaunch.getTaskLaunchType() == curTaskLaunch.getTaskLaunchType() ) {
+						validCounter++;
+					}
+					
+					logger.info(className, function, "taskLaunch.getUiPanel()[{}] == curTaskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel(), curTaskLaunch.getUiPanel());
+					if ( taskLaunch.getUiPanel().equals(curTaskLaunch.getUiPanel()) ) {
+						validCounter++;
+					}
+					
+					logger.info(className, function, "taskLaunch.getUiView()[{}] == curTaskLaunch.getUiView()[{}]", taskLaunch.getUiView(), curTaskLaunch.getUiView());
+					if ( taskLaunch.getUiView().equals(curTaskLaunch.getUiView()) ) {
+						validCounter++;
+					}
+					
+					if ( validCounter >= validCount ) {
+						logger.info(className, function, "validCounter[{}] validCount[{}]", validCounter, validCount);
+						return;
+					}
+				} else {
+					logger.warn(className, function, "curTaskLaunch IS NULL"); 
+				}
+			} else {
+				logger.warn(className, function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
+			}
+			
+			
 			// Kill inspector before open it
 			UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
 			mgr.closeInspectorDialog();
@@ -749,7 +787,7 @@ public class ViewLayoutMgr {
 	}
 	
 	private void triggerMenuChange( UITaskLaunch taskLaunch ) {
-		final String function = "triggerMenuChange";
+		final String function = "";
 		
 		logger.begin(className, function);
 		
@@ -757,10 +795,10 @@ public class ViewLayoutMgr {
 		
 			UITaskLaunch taskLaunchToSend = new UITaskLaunch(taskLaunch);
 			taskLaunchToSend.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunchToSend.setUiPath(UIPathUIPanelViewLayout);
+			taskLaunchToSend.setUiPath(UIPathUIPanelNavigationMgr);
 			UIEvent uiEvent = new UIEvent(taskLaunchToSend);
 			
-//			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);
+			this.uiNameCard.getUiEventBus().fireEvent(uiEvent);
 		} else {
 			logger.info(className, function, "taskLaunch is null");
 		}

@@ -18,7 +18,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
+public class UIPanelMenus extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelMenus.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -62,7 +62,33 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		
 		navigationMgr = new NavigationMgr(uiNameCard);
-		navigationMgr.setNavigationMgrEvent(this);
+		navigationMgr.setNavigationMgrEvent(new NavigationMgrEvent() {
+			
+			@Override
+			public void isReady(int level, String header) {
+				final String function = "isReady";
+				
+				logger.begin(className, function);
+				
+				updateMenu(level, header, null, true);
+				
+				logger.end(className, function);
+			}
+			
+			@Override
+			public void setMenu(int level, String header, String launchHeader, boolean executeTask) {
+				final String function = "setMenu";
+				
+				logger.begin(className, function);
+				
+				logger.info(className, function, "setMenu level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
+
+				updateMenu(level, header, launchHeader, executeTask);
+
+				logger.end(className, function);
+			}
+
+		});
 		
 		logger.end(className, function);
 			
@@ -154,13 +180,12 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		return menuBar;
 	}
 
-	@Override
-	public void setMenu(int level, String header, String launchHeader, boolean executeTask) {
-		final String function = "setMenu";
+	public void updateMenu(int level, String header, String launchHeader, boolean executeTask) {
+		final String function = "updateMenu";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "setMenu level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
+		logger.info(className, function, "level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
 
 		cascadeClearMenu(level);
 		
@@ -172,7 +197,7 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			
 			addTaskToMenu(level, header, taskLaunchs, launchHeader, executeTask);
 		} else {
-			logger.warn(className, function, "setMenu is null");
+			logger.warn(className, function, "taskLaunchs is null");
 		}
 
 		logger.end(className, function);
@@ -327,7 +352,7 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 			
 			logger.info(className, function, "is TaskType.MENU");
 			
-			setMenu(levelNext, task.getHeader(), launchHeader, executeTask);
+			updateMenu(levelNext, task.getHeader(), launchHeader, executeTask);
 			
 		} else {
 			
@@ -354,17 +379,6 @@ public class UIPanelMenus extends UIWidget_i implements NavigationMgrEvent {
 		logger.info(className, function, "profile[{}] location[{}] level[{}] header[{}]", new Object[]{profile, location, level, header});
 		
 		navigationMgr.initCache(level, header);
-		
-		logger.end(className, function);
-	}
-	
-	@Override
-	public void isReady(int level, String header) {
-		final String function = "isReady";
-		
-		logger.begin(className, function);
-		
-		setMenu(level, header, null, true);
 		
 		logger.end(className, function);
 	}

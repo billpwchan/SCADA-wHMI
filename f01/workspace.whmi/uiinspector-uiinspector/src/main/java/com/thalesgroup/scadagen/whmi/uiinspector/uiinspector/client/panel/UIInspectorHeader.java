@@ -9,12 +9,12 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.EquipmentReserve;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -32,7 +32,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private final String staticAttibutes[]	= new String[] {PointName.shortLabel.toString(), PointName.geographicalCat.toString()};
 
 	// Dynamic Attribute List
-	private final String dynamicAttibutes[]	= new String[] {PointName.resrvReservedID.toString(), PointName.isControlable.toString()};
+	private final String dynamicAttibutes[]	= new String[] {PointName.isControlable.toString(), PointName.resrvReservedID.toString()};
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -122,11 +122,16 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				logger.begin(className, functionEmb);
 
 				String clientKey = "multiReadValue" + "_" + "inspectorheader" + "_" + "dynamic" + "_" + parent;
+				
+				String[] parents = new String[]{parent};
+				
 				String[] dbaddresses = null;
 				{
 					ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-					for(int y=0;y<dynamicAttibutes.length;++y) {
-						dbaddressesArrayList.add(parent+dynamicAttibutes[y]);
+					for(int x=0;x<parents.length;++x) {
+						for(int y=0;y<dynamicAttibutes.length;++y) {
+							dbaddressesArrayList.add(parents[x]+dynamicAttibutes[y]);
+						}
 					}
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
@@ -136,7 +141,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 					logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
 
-				database.addDynamicRequest(clientKey, dbaddresses, new DatabaseEvent() {
+				database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 					
 					@Override
 					public void update(String key, String[] value) {
@@ -165,7 +170,17 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		logger.beginEnd(className, function);
+		logger.begin(className, function);
+		Database database = Database.getInstance();
+		{
+			String clientKey = "multiReadValue" + "_" + "inspectorheader" + "_" + "dynamic" + "_" + parent;
+			database.unSubscribe(clientKey);
+		}
+		{
+			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
+			database.unSubscribe(clientKey);
+		}
+		logger.end(className, function);
 	}
 	
 	@Override
@@ -245,63 +260,48 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		logger.begin(className, function);
 
 		// Equipment Description
-		{
-			String key = parent + PointName.shortLabel.toString();
-			if ( dbvalues.containsKey(key) ) {
-				String value = dbvalues.get(key);
-				value = RTDB_Helper.removeDBStringWrapper(value);
-				if ( null != value ) txtAttributeStatus[0].setText(value);
-			}			
-		}
-		
-		{
-			String key = parent + PointName.geographicalCat.toString();
-			if ( dbvalues.containsKey(key) ) {
-				String value = dbvalues.get(key);
-				value = RTDB_Helper.removeDBStringWrapper(value);
-				if ( null != value ) {
-					String wordPrefix = "scsalarmList_area_location";
-					String wordkey = wordPrefix + value;
-					value = Translation.getWording(wordkey);
-					txtAttributeStatus[1].setText(value);
-				}
-			}
+		String shortLabelValue = DatabaseHelper.getAttributeValue(parent, PointName.shortLabel.toString(), dbvalues);
+		shortLabelValue = DatabaseHelper.removeDBStringWrapper(shortLabelValue);
+		if ( null != shortLabelValue ) txtAttributeStatus[0].setText(shortLabelValue);
+
+		String geographicalCatValue = DatabaseHelper.getAttributeValue(parent, PointName.geographicalCat.toString(), dbvalues);
+		geographicalCatValue = DatabaseHelper.removeDBStringWrapper(geographicalCatValue);
+		if ( null != geographicalCatValue ) {
+			String wordPrefix = "scsalarmList_area_location";
+			String wordkey = wordPrefix + geographicalCatValue;
+			geographicalCatValue = Translation.getWording(wordkey);
+			txtAttributeStatus[1].setText(geographicalCatValue);
 		}
 		
 		logger.begin(className, function);
 	}
 	
+	private final String strNotReserved = "Not Reserved";
+	private final String strReserved = "Reserved";
 	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
 		
 		logger.begin(className, function);
+
 		
-		{
-			String key = parent + PointName.resrvReservedID.toString();
-			if ( dbvalues.containsKey(key) ) {
-				String value = dbvalues.get(key);
-				if ( null != value ) {
-					value = RTDB_Helper.removeDBStringWrapper(value);
-					int eqtReserved = EquipmentReserve.isEquipmentReservation(value);
-					String strEqtReserved = "Not Reserved";
-					if ( 2 == eqtReserved ) {
-						strEqtReserved = "Reserved";
-					}
-					txtAttributeStatus[3].setText(strEqtReserved);
-				} else {
-					txtAttributeStatus[3].setText("Not Reserved / Reserved");
-				}
+		String resrvReservedIDValue = DatabaseHelper.getAttributeValue(parent, PointName.resrvReservedID.toString(), dbvalues);
+		resrvReservedIDValue = DatabaseHelper.removeDBStringWrapper(resrvReservedIDValue);
+		if ( null != resrvReservedIDValue ) {
+			int eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue);
+			String strEqtReserved = strNotReserved;
+			if ( 2 == eqtReserved ) {
+				strEqtReserved = strReserved;
 			}
+			txtAttributeStatus[3].setText(strEqtReserved);
+		} else {
+			txtAttributeStatus[3].setText(strNotReserved+" / "+strReserved);
 		}
-		
-		{
-			String key = parent + PointName.isControlable.toString();
-			if ( dbvalues.containsKey(key) ) {
-				String value = dbvalues.get(key);
-				value = RTDB_Helper.removeDBStringWrapper(value);
-				if ( null != value ) txtAttributeStatus[2].setText((value.equals("0")?"No":"Yes"));
-			}
-		}
+
+		final String strYes = "Yes";
+		final String strNo = "No";
+		String isControlableValue = DatabaseHelper.getAttributeValue(parent, PointName.isControlable.toString(), dbvalues);
+		isControlableValue = DatabaseHelper.removeDBStringWrapper(isControlableValue);
+		if ( null != isControlableValue ) txtAttributeStatus[2].setText((isControlableValue.equals("0")?strNo:strYes));
 		
 		logger.end(className, function);
 

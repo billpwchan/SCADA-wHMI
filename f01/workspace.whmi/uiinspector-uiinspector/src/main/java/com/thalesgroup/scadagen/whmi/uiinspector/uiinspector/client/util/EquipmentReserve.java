@@ -1,10 +1,9 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
 
 import java.util.Date;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -17,9 +16,7 @@ public class EquipmentReserve {
 	
 	private static final String reservationName = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 	
-	public EquipmentReserve() {
-		// TODO Auto-generated constructor stub
-	}
+	private EquipmentReserve() {}
 
 	/** Return the EquipmentReservationID
 	 * @return	reservationName
@@ -27,7 +24,7 @@ public class EquipmentReserve {
 	public static String getEquipmentReservationName () {
 		final String function = "getEquipmentReservationName";
 		logger.begin(className, function);
-		logger.info(className, function, "reservationName[{}]", reservationName);
+		logger.debug(className, function, "reservationName[{}]", reservationName);
 		logger.end(className, function);
 		return reservationName;
 	}
@@ -41,10 +38,10 @@ public class EquipmentReserve {
 	public static int isEquipmentReservation(String eqtReserved) {
 		final String function = "isEquipmentReservation";
 		logger.begin(className, function);
-		logger.info(className, function, "eqtReserved[{}]", eqtReserved);
+		logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
 		String reservationName = getEquipmentReservationName();
 		int eqtReservedresult = 0;
-		RTDB_Helper.removeDBStringWrapper(eqtReserved);
+		DatabaseHelper.removeDBStringWrapper(eqtReserved);
 		if ( null != eqtReserved && eqtReserved.trim().length() > 0 && eqtReserved != reservationName ) {
 			eqtReservedresult = 2;
 		} else if ( null != eqtReserved && eqtReserved.trim().length() > 0 && eqtReserved.equals(reservationName) ) {
@@ -64,8 +61,7 @@ public class EquipmentReserve {
 		final String function = "equipmentReservation";
 		logger.begin(className, function);
 		
-		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
-		logger.info(className, function, "address[{}]", dbaddress);
+		logger.debug(className, function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
 
 		String reservationName = getEquipmentReservationName();
 		String addressWrite = dbaddress + PointName.resrvReserveReqID.toString();
@@ -86,8 +82,7 @@ public class EquipmentReserve {
 		final String function = "equipmentUnreservation";
 		logger.begin(className, function);
 		
-		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
-		logger.info(className, function, "dbaddress[{}]", dbaddress);
+		logger.debug(className, function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
 		
 		// Write
 		String reservationName = getEquipmentReservationName();

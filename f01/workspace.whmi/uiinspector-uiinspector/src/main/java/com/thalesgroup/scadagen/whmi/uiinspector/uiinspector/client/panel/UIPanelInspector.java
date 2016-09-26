@@ -3,6 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
@@ -12,12 +14,11 @@ import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIInspectorEquipmentReserve;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.EquipmentReserve;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.EquipmentReserveEvent;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
@@ -28,9 +29,11 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspec
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTag;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserveEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.ReadProp;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.RTDB_Helper.PointName;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -52,7 +55,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private final String strTabConfigNames [] = {"info", "control", "tag", "advance"};
 
 	// Static Attribute List
-	private final String staticAttibutes[]	= new String[] {PointName.label.toString(), PointName.resrvReservedID.toString()};
+	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
 	
 	private final String inspPropPrefix = "inspectorpanel.";
 	private final String inspProp = inspPropPrefix+"properties";
@@ -119,8 +122,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 							makeTabsBuildWidgets();
 							makeTabsConnect();
 							
-							((UIInspectorHeader)	uiInspectorHeader)		.connect();
-							((UIInspectorEquipmentReserve)		equipmentReserve)		.connect();
+							((UIInspectorHeader)			uiInspectorHeader)	.connect();
+							((UIInspectorEquipmentReserve)	equipmentReserve)	.connect();
 							
 							if ( infos.size() <= 0 )		panelTab.remove(panelInfo);
 							if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
@@ -148,14 +151,13 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 									dynamicvalues.put(dbaddresses[i], dbvalues[i]);
 								}
 								
-								((UIInspectorHeader)	uiInspectorHeader)		.updateValue(key, dynamicvalues);
-								((UIInspectorEquipmentReserve)		equipmentReserve)		.updateValue(key, dynamicvalues);
+								((UIInspectorHeader)			uiInspectorHeader)		.updateValue(key, dynamicvalues);
+								((UIInspectorEquipmentReserve)	equipmentReserve)		.updateValue(key, dynamicvalues);
 								
-								((UIInspectorInfo)		uiInspectorInfo)		.updateValue(key, dynamicvalues);
-								((UIInspectorControl)	uiInspectorControl)		.updateValue(key, dynamicvalues);
-								((UIInspectorTag)		uiInspectorTag)			.updateValue(key, dynamicvalues);
-								((UIInspectorAdvance)	uiInspectorAdvance)		.updateValue(key, dynamicvalues);
-								
+								((UIInspectorInfo)				uiInspectorInfo)		.updateValue(key, dynamicvalues);
+								((UIInspectorControl)			uiInspectorControl)		.updateValue(key, dynamicvalues);
+								((UIInspectorTag)				uiInspectorTag)			.updateValue(key, dynamicvalues);
+								((UIInspectorAdvance)			uiInspectorAdvance)		.updateValue(key, dynamicvalues);
 								
 							}
 						});
@@ -209,7 +211,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 									// Equipment Label
 									if ( dbaddress.endsWith(PointName.label.toString()) ) {
 										String value = dbvalues[i];
-										value = RTDB_Helper.removeDBStringWrapper(value);
+										value = DatabaseHelper.removeDBStringWrapper(value);
 										if ( null != value) setText(value);
 										break;
 									}
@@ -230,6 +232,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		final String function = "disconnect";
 		
 		logger.begin(className, function);
+		
+		// Unrerves equipment
+		unReserveEquipment();
 		
 		makeTabsDisconnect();
 		
@@ -511,8 +516,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private UIInspectorTab_i uiInspectorTag			= null;
 	private UIInspectorTab_i uiInspectorAdvance		= null;
 	
+
+//	private TabLayoutPanel panelTabLayout = null;
 	
-	private TabPanel panelTab 		= null;
+	private TabPanel panelTab = null;
 
 	private Panel panelHeader		= null;
 	private Panel panelInfo			= null;
@@ -548,18 +555,55 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		((UIInspectorEquipmentReserve)equipmentReserve).setEquipmentReserveEvent(new EquipmentReserveEvent() {
 			
 			@Override
-			public void isAvaiable(boolean avaiable) {
+			public void isAvaiable(int eqtReserved) {
+				final String function = "isAvaiable";
 				if ( null != panelTab ) {
-					logger.info(className, function, "isAvaiable avaiable[{}]", avaiable);
+					logger.info(className, function, "eqtReserved[{}]", eqtReserved);
 					int tabCount = panelTab.getTabBar().getTabCount();
-					logger.info(className, function, "isAvaiable tabCount[{}]", tabCount);
+					logger.info(className, function, "tabCount[{}]", tabCount);
 					if ( tabCount > 1 ) {
 						int selected = panelTab.getTabBar().getSelectedTab();
-						logger.info(className, function, "isAvaiable selected[{}]", selected);
-						if ( ! avaiable && 0 != selected ) {
-							logger.info(className, function, "selectTab to 0");
-							panelTab.selectTab(0);
+						logger.info(className, function, "selected[{}]", selected);
+						if ( 2 == eqtReserved || 0 == eqtReserved ) {
+							if ( 0 != selected ) {
+								logger.info(className, function, "selectTab to 0");
+								panelTab.getTabBar().selectTab(0);
+							}
 						}
+						String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
+						for ( int i = 1 ; i < tabCount ; ++i ) {
+							String cssNameNum = cssName + i;
+							if ( 2 == eqtReserved ) {
+								logger.info(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
+								((Widget)panelTab.getTabBar().getTab(i)).addStyleName(cssNameNum);
+							} else {
+								logger.info(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
+								((Widget)panelTab.getTabBar().getTab(i)).removeStyleName(cssNameNum);
+							}
+						}
+
+//						String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
+//						if ( 2 == eqtReserved ) {
+//							for ( int i = 1 ; i < tabCount ; ++i ) {
+//								String cssNameNum = cssName + i;
+//								logger.info(className, function, "i[{}] cssNameNum[{}]", i, cssNameNum);
+//								String cssAdded = panelTab.getWidget(i).getStyleName();
+//								if ( -1 == cssAdded.indexOf(cssNameNum) ) {
+//									logger.info(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
+//									panelTab.getWidget(i).addStyleName(cssNameNum);
+//								}
+//							}
+//						} else {
+//							for ( int i = 1 ; i < tabCount ; ++i ) {
+//								String cssNameNum = cssName + i;
+//								logger.info(className, function, "i[{}] cssNameNum[{}]", i, cssNameNum);
+//								String cssAdded = panelTab.getWidget(i).getStyleName();
+//								if ( -1 != cssAdded.indexOf(cssNameNum) ) {
+//									logger.info(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
+//									panelTab.getWidget(i).removeStyleName(cssNameNum);
+//								}
+//							}
+//						}
 					}
 				}
 			}
@@ -582,7 +626,13 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			public void setMessage(String message) {
 				if ( null != txtMsg ) {
 					logger.info(className, function, "setMessage message[{}]", message);
-					txtMsg.setText(message);
+					if ( null != message ) {
+						String msg = txtMsg.getText();
+						if ( null != msg ) {
+							if ( ! msg.equals(message) ) txtMsg.setText(message);
+						}
+					}
+					
 				}
 			}
 			
@@ -728,8 +778,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			}
 		});
 		
+		panelTab.addStyleName("project-gwt-tabpanel-inspector-tabpanel");
 		
-		panelTab.addStyleName("project-gwt-button-inspector-tabpanel");
+//		Panel [] panels = new Panel[]{panelInfo, panelCtrl, panelTag, panelAdv};
+//		for ( int i = 0 ; i < panels.length ; ++i ) {
+//			panelTabLayout.add(panels[i], strTabNames[i]);
+//			panelTabLayout.getWidget(i).addStyleName(cssName+i);
+//		}
+		
+		String cssName = "project-gwt-inspector-tabpanel-tab-";
 		
 		panelTab.add(panelInfo	, strTabNames[0]);
 		panelTab.add(panelCtrl	, strTabNames[1]);

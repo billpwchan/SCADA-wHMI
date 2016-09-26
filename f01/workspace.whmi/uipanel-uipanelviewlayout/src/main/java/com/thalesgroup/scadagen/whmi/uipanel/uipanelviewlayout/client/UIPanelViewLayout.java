@@ -51,7 +51,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		UIPanelView v = new UIPanelView(this, this.uiNameCard, viewId);
 		v.setViewId(viewId);
-		v.getPanel().addStyleName("project-gwt-panel-viewlayout-inner-view");
+		v.getMainPanel().addStyleName("project-gwt-panel-viewlayout-inner-view");
 		
 		logger.end(className, function);
 		
@@ -130,10 +130,10 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			VerticalPanel vp = new VerticalPanel();
 			vp.addStyleName("project-gwt-panel-viewlayout-outer-view-vp");
 			
-			DockLayoutPanel v0 = uiPanelViews[0].getPanel();
+			Panel v0 = uiPanelViews[0].getMainPanel();
 			vp.add(v0);
 			
-			DockLayoutPanel v1 = uiPanelViews[1].getPanel();
+			Panel v1 = uiPanelViews[1].getMainPanel();
 			vp.add(v1);
 			
 			vp.setCellHeight(v0, "50%");
@@ -162,10 +162,10 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			HorizontalPanel hp = new HorizontalPanel();
 			hp.addStyleName("project-gwt-panel-viewlayout-outer-view-hp");
 			
-			DockLayoutPanel v0 = uiPanelViews[0].getPanel();
+			Panel v0 = uiPanelViews[0].getMainPanel();
 			hp.add(v0);
 			
-			DockLayoutPanel v1 = uiPanelViews[1].getPanel();
+			Panel v1 = uiPanelViews[1].getMainPanel();
 			hp.add(v1);
 			
 			hp.setCellWidth(v0, "50%");
@@ -190,7 +190,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			uiPanelViews[0].setViewType(viewLayoutMode);
 			uiPanelViews[0].setBorderVisible(borderVisible);
 			
-			upperMainPanel.add(uiPanelViews[0].getPanel());
+			upperMainPanel.add(uiPanelViews[0].getMainPanel());
 			
 			onViewIdActivateEvent(0); 
 		}	

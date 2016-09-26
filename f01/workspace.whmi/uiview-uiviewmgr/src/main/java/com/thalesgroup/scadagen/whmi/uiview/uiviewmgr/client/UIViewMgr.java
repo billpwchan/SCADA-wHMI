@@ -6,8 +6,8 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarm;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarmSummary;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEventSummary;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
@@ -36,14 +36,14 @@ public class UIViewMgr implements UIWidgetMgrFactory {
 		UIWidget_i uiWidget = null;
 		
 		if ( UIWidgetUtil.getClassSimpleName(
-				UIViewAlarm.class.getName()).equals(uiCtrl) ) {
+				UIViewAlarmSummary.class.getName()).equals(uiCtrl) ) {
 			
-			uiWidget = new UIViewAlarm();
+			uiWidget = new UIViewAlarmSummary();
 
 		} else if ( UIWidgetUtil.getClassSimpleName(
-				UIViewEvent.class.getName()).equals(uiCtrl) ) {
+				UIViewEventSummary.class.getName()).equals(uiCtrl) ) {
 			
-			uiWidget = new UIViewEvent();
+			uiWidget = new UIViewEventSummary();
 	
 		} else if ( UIWidgetUtil.getClassSimpleName(
 				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {

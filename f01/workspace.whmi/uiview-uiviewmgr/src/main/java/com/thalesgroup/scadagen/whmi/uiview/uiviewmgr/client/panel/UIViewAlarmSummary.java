@@ -17,9 +17,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
 
-public class UIViewAlarm extends UIWidget_i {
+public class UIViewAlarmSummary extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIViewAlarm.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIViewAlarmSummary.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private final String strAcknowledge = "Ack";

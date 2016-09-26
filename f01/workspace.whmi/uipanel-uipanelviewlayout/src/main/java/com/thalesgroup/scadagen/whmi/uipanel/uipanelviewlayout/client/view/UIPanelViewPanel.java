@@ -112,4 +112,10 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 		
 		logger.end(className, function);
 	}
+	@Override
+	public void setUIViewEvent(UIViewEvent uiViewEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

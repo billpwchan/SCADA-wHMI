@@ -31,7 +31,8 @@ public class UIPanelView {
 	private ViewLayoutAction viewLayoutAction;
 	private UIPanelViewEvent uiPanelViewEvent;
 	private UITaskLaunch taskLaunch;
-	private DockLayoutPanel rootPanel = null;
+//	private FocusPanel rootPanel = null;
+	private DockLayoutPanel basePanel = null;
 	
 	private InlineLabel lblTitle;
 	
@@ -46,19 +47,48 @@ public class UIPanelView {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendUIPanel(this);
 		this.uiNameCard.appendUIPath(Integer.toString(viewId));
-		this.rootPanel = new DockLayoutPanel(Unit.PX);
 		
-		this.rootPanel.sinkEvents(Event.ONCLICK);
-		this.rootPanel.addHandler(new ClickHandler() {
+//		this.rootPanel = new FocusPanel();
+//		this.rootPanel.addStyleName("project-gwt-panel-full");
+//		this.rootPanel.addMouseDownHandler(new MouseDownHandler() {
+//			
+//			@Override
+//			public void onMouseDown(MouseDownEvent event) {
+//				final String function = "addMouseDownHandler onClick";
+//				
+//				logger.begin(className, function);
+//				onMouseClick();
+//				logger.end(className, function);
+//			}
+//		});
+//		this.rootPanel.addClickHandler(new ClickHandler() {
+//			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				final String function = "addClickHandler onClick";
+//				
+//				logger.begin(className, function);
+//				onMouseClick();
+//				logger.end(className, function);
+//			}
+//		});
+		
+		this.basePanel = new DockLayoutPanel(Unit.PX);
+		this.basePanel.sinkEvents(Event.ONCLICK);
+		this.basePanel.addHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-            	onMouseClick(event);
+            	final String function = "addClickHandler onClick";
+        		
+        		logger.begin(className, function);
+            	onMouseClick();
+            	logger.end(className, function);
             }
     	}, ClickEvent.getType());
 		
 		logger.end(className, function);
 	}
-	private void onMouseClick(ClickEvent event){
+	private void onMouseClick(){
 		final String function = "onMouseClick";
 		
 		logger.begin(className, function);
@@ -72,7 +102,7 @@ public class UIPanelView {
 		
 		logger.beginEnd(className, function);
 		
-		return this.rootPanel;
+		return this.basePanel;
 	}
 	public int getViewId() {
 		final String function = "getViewId";
@@ -122,7 +152,7 @@ public class UIPanelView {
 			
 			logger.info(className, function, "stylePrimaryName[{}]", stylePrimaryName);
 			
-			this.rootPanel.setStylePrimaryName(stylePrimaryName);
+			this.basePanel.setStylePrimaryName(stylePrimaryName);
 		} else {
 			logger.info(className, function, "stylePrimaryName IS NULL");
 		}
@@ -157,20 +187,7 @@ public class UIPanelView {
 		this.borderVisible = borderVisible;
 		
 	}
-	public DockLayoutPanel getPanel() {
-		final String function = "getPanel";
-		
-		logger.beginEnd(className, function);
-		
-		return rootPanel;
-	}
-	public void setPanel(DockLayoutPanel panel) {
-		final String function = "setPanel";
-		
-		logger.beginEnd(className, function);
-		
-		this.rootPanel = panel;
-	}
+
 	public ViewLayoutAction getViewAction() {
 		final String function = "getViewAction";
 		
@@ -217,7 +234,7 @@ public class UIPanelView {
 		if ( null != taskLaunch ) {
 		
 			this.taskLaunch = new UITaskLaunch(taskLaunch);
-			rootPanel.clear();
+			basePanel.clear();
 			
 			// Title
 			HorizontalPanel hp = new HorizontalPanel();
@@ -229,7 +246,7 @@ public class UIPanelView {
 			lblTitle.addStyleName("project-gwt-inlinelabel-panelview-title");
 			hp.add(lblTitle);
 			
-			((DockLayoutPanel)rootPanel).addNorth(hp, 40);
+			((DockLayoutPanel)basePanel).addNorth(hp, 40);
 			
 			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
 			UIWidget_i uiWidget_i = null;
@@ -237,21 +254,21 @@ public class UIPanelView {
 			
 			switch ( this.taskLaunch.getTaskLaunchType() ) {
 			case PANEL:
-				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewPanel, uiNameCard);			
+				uiWidget_i = uiPanelViewFactoryMgr.getMainPanel(UIPanelViewFactoryMgr.UIPanelViewPanel, uiNameCard);			
 				break;
 			case IMAGE:
-				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic, uiNameCard);
+				uiWidget_i = uiPanelViewFactoryMgr.getMainPanel(UIPanelViewFactoryMgr.UIPanelViewSchematic, uiNameCard);
 				break;
 			default:
-				uiWidget_i = uiPanelViewFactoryMgr.getPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty, uiNameCard);			
+				uiWidget_i = uiPanelViewFactoryMgr.getMainPanel(UIPanelViewFactoryMgr.UIPanelViewEmpty, uiNameCard);			
 				break;			
 			}
 			if ( null != uiWidget_i ) {
 				panel = uiWidget_i.getMainPanel();
 				
 				if ( null != panel ) {
-					rootPanel.addStyleName("project-gwt-panel-panelview-container");
-					rootPanel.add(panel);
+					basePanel.addStyleName("project-gwt-panel-panelview-container");
+					basePanel.add(panel);
 				} else {
 					logger.warn(className, function,  "panel IS NULL");
 				}

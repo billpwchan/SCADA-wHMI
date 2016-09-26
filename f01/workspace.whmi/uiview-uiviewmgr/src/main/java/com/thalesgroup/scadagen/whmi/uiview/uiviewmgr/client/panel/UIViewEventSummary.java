@@ -14,9 +14,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanelEvent;
 
-public class UIViewEvent extends UIWidget_i {
+public class UIViewEventSummary extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIViewEvent.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIViewEventSummary.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 //	public static final String RGB_RED		= "rgb( 255, 0, 0)";

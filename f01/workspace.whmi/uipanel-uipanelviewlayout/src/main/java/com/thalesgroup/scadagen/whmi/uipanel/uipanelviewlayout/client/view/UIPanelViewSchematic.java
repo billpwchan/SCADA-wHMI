@@ -20,7 +20,6 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewSchematic.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String UIPathUIScreenMMI 			= ":UIGws:UIPanelScreen:UIScreenMMI";
 	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	public static final String UNIT_PX = "px";
@@ -92,4 +91,11 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 		logger.end(className, function);
 	}
 
+	private UIViewEvent uiViewEvent = null;
+	@Override
+	public void setUIViewEvent(UIViewEvent uiViewEvent) {
+		if ( null != uiViewEvent ) {
+			this.uiViewEvent = uiViewEvent;
+		}
+	}
 }

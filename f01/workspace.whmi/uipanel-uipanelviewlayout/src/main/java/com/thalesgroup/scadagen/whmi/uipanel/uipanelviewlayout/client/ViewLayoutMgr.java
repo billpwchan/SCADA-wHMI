@@ -43,10 +43,9 @@ public class ViewLayoutMgr {
 	private UINameCard uiNameCard = null;
 	
 	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
+	private final String UIPathUIPanelNavigationMgr = ":UIGws:UIPanelScreen:UIScreenMMI:NavigationMgr";
 	private final String UIPathUIPanelAccessBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar";
 	private final String UIPathUIPanelStatusBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar";
-	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
-
 	/**
 	 * @param viewLayoutMgrEvent
 	 * @param uiNameCard
@@ -254,9 +253,9 @@ public class ViewLayoutMgr {
 
 		} else if (taskLaunch.getUiPanel().equals("UIPanelInspector")) {
 			
-			
 			String hvid = null;
-			if ( taskLaunch.getOption().length > 0 && null != taskLaunch.getOption()[0] ) {
+			int indexOption = 0;
+			if ( taskLaunch.getOption().length > 0 && null != taskLaunch.getOption()[indexOption] ) {
 				Object obj = taskLaunch.getOption()[0];
 				if ( obj instanceof String ) {
 					hvid		= (String)obj;
@@ -265,8 +264,9 @@ public class ViewLayoutMgr {
 				}
 			}
 			
-			int mouseX			= -1;
-			if ( taskLaunch.getOption().length > 1 && null != taskLaunch.getOption()[1] ) {
+			int mouseX = -1;
+			int indexOption1 = 1;
+			if ( taskLaunch.getOption().length > 1 && null != taskLaunch.getOption()[indexOption1] ) {
 				Object obj = taskLaunch.getOption()[1];
 				if ( obj instanceof Integer ) {
 					mouseX		= (Integer)obj;
@@ -275,8 +275,9 @@ public class ViewLayoutMgr {
 				}
 			}
 			
-			int mouseY			= -1;
-			if ( taskLaunch.getOption().length > 2 && null != taskLaunch.getOption()[2] ) {
+			int mouseY = -1;
+			int indexOption2 = 2;
+			if ( taskLaunch.getOption().length > 2 && null != taskLaunch.getOption()[indexOption2] ) {
 				Object obj = taskLaunch.getOption()[2];
 				if ( obj instanceof Integer ) {
 					mouseY		= (Integer)obj;
@@ -284,6 +285,12 @@ public class ViewLayoutMgr {
 					logger.warn(className, function, "mouseY IS NOT A Integer");
 				}
 			}
+			
+			logger.info(className, function, "hvid[{}]", hvid);
+			logger.info(className, function, "mouseX[{}]", mouseX);
+			logger.info(className, function, "mouseY[{}]", mouseY);
+			
+			logger.info(className, function, "Launch the UIInspectorMgr...");
 
 			UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
 			mgr.closeInspectorDialog();

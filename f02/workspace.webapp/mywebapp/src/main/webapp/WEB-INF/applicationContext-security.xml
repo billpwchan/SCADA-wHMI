@@ -66,9 +66,9 @@
         <!-- -->
         <authentication-provider>
             <user-service>
-                <user name="operator" password="thales" authorities="ROLE:hypervisor" />
+                <!-- <user name="operator" password="thales" authorities="ROLE:hypervisor" /> -->
                 <user name="chief" password="thales" authorities="ROLE:megavisor" />
-
+				<user name="OPERATOR" password="PASSWORD@1" authorities="ROLE:megavisor" />
             </user-service> 
         </authentication-provider>
 

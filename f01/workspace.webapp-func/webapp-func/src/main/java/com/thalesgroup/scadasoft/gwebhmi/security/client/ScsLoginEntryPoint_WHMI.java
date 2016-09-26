@@ -80,8 +80,8 @@ public class ScsLoginEntryPoint_WHMI implements EntryPoint {
 		String user_name = "j_username";
 		String pass_name = "j_password";
 		
-		String user_value = "chief";
-		String pass_value = "thales";
+		String user_value = "OPERATOR";
+		String pass_value = "PASSWORD@1";
 
 		UIGwsLogin uiGwsLogin = new UIGwsLogin();
 		uiGwsLogin.set(SPRING_SEC_PROCESSING_URL, user_name, user_value, pass_name, pass_value);

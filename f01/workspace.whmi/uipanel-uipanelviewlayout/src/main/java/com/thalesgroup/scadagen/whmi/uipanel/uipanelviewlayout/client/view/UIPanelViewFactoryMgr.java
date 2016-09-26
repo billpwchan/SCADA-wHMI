@@ -1,6 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
-import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -15,23 +14,8 @@ public class UIPanelViewFactoryMgr {
 	public static String UIPanelViewPanel		= "UIPanelViewPanel";
 	public static String UIPanelViewSchematic	= "UIPanelViewSchematic";
 	public static String UIPanelViewEmpty		= "UIPanelViewEmpty";
-
-	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
-		final String function = "getMainPanel";
-		
-		logger.begin(className, function);
-		
-		logger.info(className, function, "getMainPanel uiNameCard[{}]", uiNameCard.getUiPath());
-		
-		UIWidget_i uiWidget_i =  this.getPanel(uiPanel, uiNameCard);
-		Panel rootPanel = uiWidget_i.getMainPanel();
-
-		logger.end(className, function);
-
-		return rootPanel;
-	}
 	
-	public UIWidget_i getPanel(String uiPanel, UINameCard uiNameCard) {
+	public UIWidget_i getMainPanel(String uiPanel, UINameCard uiNameCard) {
 		final String function = "getPanel";
 		
 		logger.begin(className, function);

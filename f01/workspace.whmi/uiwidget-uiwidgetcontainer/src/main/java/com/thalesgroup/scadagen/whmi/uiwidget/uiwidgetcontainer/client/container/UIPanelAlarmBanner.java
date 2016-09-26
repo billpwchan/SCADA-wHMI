@@ -104,7 +104,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-			taskLaunch.setUiPanel("UIViewAlarm");
+			taskLaunch.setUiPanel("UIViewAlarmSummary");
 			taskLaunch.setTitle("Alarm Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.event.equalsName(element) ) {
@@ -112,7 +112,7 @@ public class UIPanelAlarmBanner extends UIWidget_i {
 			taskLaunch.setType("P");
 			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-			taskLaunch.setUiPanel("UIViewEvent");
+			taskLaunch.setUiPanel("UIViewEventSummary");
 			taskLaunch.setTitle("Event Summary");
 			this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		} else if ( UIPanelAlarmBanner_i.WidgetArrtibute.alarmsound.equalsName(element) ) {

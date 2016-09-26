@@ -113,6 +113,39 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		logger.end(className, function);
 	}
+	
+	private void updateLayout() {
+		final String function = "updateLayout";
+		
+		logger.begin(className, function);
+		
+		pageCounter.calc(pageIndex);
+		
+		int pageSize = pageCounter.pageSize;
+		
+		int stopper = pageCounter.pageRowCount;
+		
+		logger.info(className, function
+				, "pageIndex[{}] pageSize[{}], stopper[{}]"
+				, new Object[]{pageIndex, pageSize, stopper});
+		
+		for ( int i = 0 ; i < pageSize ; i++ ) {
+			boolean visible = true;
+			if ( i >= stopper ) {
+				visible = false;
+			}
+			lblAttibuteLabel[i]		.setVisible(visible);
+			lstValues[i]			.setVisible(visible);
+			txtValues[i]			.setVisible(visible);
+			for ( int j = 0 ; j < 3 ; ++j ) {
+				chkDPMs[i][j]		.setVisible(visible);
+			}
+			btnApplys[i]			.setVisible(visible);
+
+		}
+
+		logger.end(className, function);
+	}
 
 	private void onButton(Button btn) {
 		final String function = "onButton";
@@ -126,6 +159,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				++pageIndex;
 			}
 			updatePager();
+			updateLayout();
 			updateValue(true);
 		}
 		
@@ -295,8 +329,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	}
 
 	@Override
-	public void buildWidgets() {
-		buildWidgets(this.addresses.length);
+	public void buildWidgets(int numOfPointEach) {
+		buildWidgets(this.addresses.length, numOfPointEach);
 	}
 	
 	private int pageIndex = 0;
@@ -321,123 +355,123 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private UIButtonToggle[] btnApplys			= null;
 	
-	private void buildWidgets(int numOfWidgets) {
+	private void buildWidgets(int numOfWidgets, int numOfPointEachPage) {
 		final String function = "buildWidgets";
 		
 		logger.begin(className, function);
+		
+		logger.warn(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.warn(className, function, "numOfPointEach[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
 			vpCtrls.clear();
 			
-			pageCounter = new PageCounter(numOfWidgets, 10);
+			pageCounter = new PageCounter(numOfWidgets, numOfPointEachPage);
 			pageCounter.calc(pageIndex);
 			
-			updatePager();
+			flexTableAttibutes = new FlexTable();
+			flexTableAttibutes.setWidth("100%");			
 			
-			int numOfWidgetShow = pageCounter.pageRowCount;
+			int pageSize = pageCounter.pageSize;
 			
-			if ( DatabaseHelper.addressesIsValid(this.addresses) ) {
+			logger.info(className, function, "pageSize[{}]", pageSize);
 				
-				lblAttibuteLabel	= new InlineLabel[numOfWidgetShow];
-				
-				lstValues			= new ListBox[numOfWidgetShow];
-				intValuesOri		= new int[numOfWidgetShow];
-				txtValues			= new TextBox[numOfWidgetShow];
-				strValuesOri		= new String[numOfWidgetShow];
-				
-				chkDPMs				= new CheckBox[numOfWidgetShow][3];
-				
-				btnApplys			= new UIButtonToggle[numOfWidgetShow];
+			lblAttibuteLabel	= new InlineLabel[pageSize];
+			
+			lstValues			= new ListBox[pageSize];
+			intValuesOri		= new int[pageSize];
+			txtValues			= new TextBox[pageSize];
+			strValuesOri		= new String[pageSize];
+			
+			chkDPMs				= new CheckBox[pageSize][3];
+			
+			btnApplys			= new UIButtonToggle[pageSize];
 
-				flexTableAttibutes = new FlexTable();
-				flexTableAttibutes.setWidth("100%");
+			{
+				// Create Header
+				String [] header = new String[] {"Equipment Point", "AI", "SS", "MO", "Value", ""};
 				
-				{
-					String [] header = new String[] {"Equipment Point", "AI", "SS", "MO", "Value", ""};
-					
-					for ( int i = 0 ; i < header.length ; ++i ) {
-						InlineLabel label = new InlineLabel();
-						label.setWidth("100%");
-						label.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-header-label");
-						label.setText(header[i]);
-						flexTableAttibutes.setWidget(1, i, label);
-					}
+				for ( int i = 0 ; i < header.length ; ++i ) {
+					InlineLabel label = new InlineLabel();
+					label.setWidth("100%");
+					label.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-header-label");
+					label.setText(header[i]);
+					flexTableAttibutes.setWidget(1, i, label);
 				}
+			}
 								
-				for( int i = 0 ; i < numOfWidgetShow ; ++i ) {
-					
-					int r = 0;
-					
-					logger.info(className, function, "i[{}]", i);
-						
-					lblAttibuteLabel[i] = new InlineLabel();
-					lblAttibuteLabel[i].setWidth("100%");
-					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
-					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
-					flexTableAttibutes.setWidget(i+1+1, r++, lblAttibuteLabel[i]);
-					
-					chkDPMs[i] = new CheckBox[3];
-					chkDPMs[i][0] = new CheckBox();
-					chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ai");
-					
-					flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][0]);
-					
-					chkDPMs[i][1] = new CheckBox();
-					chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ss");
-					
-					flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][1]);
-					
-					chkDPMs[i][2] = new CheckBox();
-					chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-mo");
-					
-					flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][2]);
-					
-					lstValues[i] = new ListBox();
-					lstValues[i].setVisibleItemCount(1);
-					lstValues[i].addStyleName("project-gwt-listbox-inspector-"+tagname+"-points-value");
-
-					txtValues[i] = new TextBox();
-					txtValues[i].setVisible(false);
-					txtValues[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-points-value");
-
-					HorizontalPanel hp = new HorizontalPanel();
-					hp.add(lstValues[i]);
-					hp.add(txtValues[i]);
-					
-					flexTableAttibutes.setWidget(i+1+1, r++, hp);
-					
-					btnApplys[i] = new UIButtonToggle(strApply);
-					btnApplys[i].addStyleName("project-gwt-button-inspector-"+tagname+"-point-apply");
-					
-					btnApplys[i].addClickHandler(new ClickHandler() {
-						
-						@Override
-						public void onClick(ClickEvent event) {
-
-							logger.begin(className, function + "onClick");
-							
-							sendControl(event);
-							
-							logger.end(className, function + "onClick");
-						}
-					});
-					flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
-
-				}
+			for( int i = 0 ; i < pageSize ; ++i ) {
 				
-				for ( int i = 0 ; i < 8 ; ++i ) {
-					flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-"+tagname+"-status-col"+i);
-				}
+				int r = 0;
+				
+				logger.info(className, function, "i[{}]", i);
+					
+				lblAttibuteLabel[i] = new InlineLabel();
+				lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
+				lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
+				flexTableAttibutes.setWidget(i+1+1, r++, lblAttibuteLabel[i]);
+				
+				chkDPMs[i] = new CheckBox[3];
+				chkDPMs[i][0] = new CheckBox();
+				chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ai");
+				
+				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][0]);
+				
+				chkDPMs[i][1] = new CheckBox();
+				chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ss");
+				
+				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][1]);
+				
+				chkDPMs[i][2] = new CheckBox();
+				chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-mo");
+				
+				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][2]);
+				
+				lstValues[i] = new ListBox();
+				lstValues[i].setVisibleItemCount(1);
+				lstValues[i].addStyleName("project-gwt-listbox-inspector-"+tagname+"-points-value");
 
-			} else {
-				logger.info(className, function, "this.addresses IS INVALID");
+				txtValues[i] = new TextBox();
+				txtValues[i].setVisible(false);
+				txtValues[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-points-value");
+
+				HorizontalPanel hp = new HorizontalPanel();
+				hp.add(lstValues[i]);
+				hp.add(txtValues[i]);
+				
+				flexTableAttibutes.setWidget(i+1+1, r++, hp);
+				
+				btnApplys[i] = new UIButtonToggle(strApply);
+				btnApplys[i].addStyleName("project-gwt-button-inspector-"+tagname+"-point-apply");
+				
+				btnApplys[i].addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+
+						logger.begin(className, function + "onClick");
+						
+						sendControl(event);
+						
+						logger.end(className, function + "onClick");
+					}
+				});
+				flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
+
 			}
 			
-			vpCtrls.add(flexTableAttibutes); 
+			for ( int i = 0 ; i < 8 ; ++i ) {
+				flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-"+tagname+"-status-col"+i);
+			}
 
+			vpCtrls.add(flexTableAttibutes);
+			
+			updatePager();
+			updateLayout();
+			
 		} else {
-			logger.info(className, function, "points IS NULL");
+			logger.warn(className, function, "points IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -757,19 +791,26 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		logger.begin(className, function);
 		
 		UIButtonToggle button = (UIButtonToggle) event.getSource();
-		int index = -1;
+		int btnIndex = -1;
 		for ( int i = 0 ; i < btnApplys.length ; ++i ) {
 			if ( btnApplys[i] == button ) {
-				index = i;
+				btnIndex = i;
 				break;
 			}
 		}
 		
-		logger.info(className, function, "index[{}]", index);
+		logger.info(className, function, "btnIndex[{}]", btnIndex);
 		
-		if ( -1 != index ) {
+		pageCounter.calc(pageIndex);
+	
+		int x = pageCounter.pageRowBegin + btnIndex;
+		int y = btnIndex;
+
+		logger.info(className, function, "pageCounter.pageRowBegin[{}] x[{}] y[{}]", new Object[]{pageCounter.pageRowBegin, x, y});
+		
+		if ( -1 != btnIndex ) {
 			
-			String dbaddress = addresses[index];
+			String dbaddress = addresses[x];
 			
 			logger.info(className, function, "dbaddress[{}]", dbaddress);
 			
@@ -786,7 +827,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					
 					logger.info(className, function, "point[{}] type[{}]", point, pointType);
 					
-					if ( null != chkDPMs[index] ) {
+					if ( null != chkDPMs[y] ) {
 						
 						int indexAI = 0;
 						int indexSS = 1;
@@ -823,26 +864,26 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 								logger.warn(className, function, "NumberFormatException[{}]", e.toString());
 								logger.warn(className, function, "Integer.parseInt({})", sForcedStatus);
 							}
-							if ( !DatabaseHelper.isAI(forcedStatus) && chkDPMs[index][indexAI].getValue() ) {	isAIApply = true;	}
-							if ( DatabaseHelper.isAI(forcedStatus) && !chkDPMs[index][indexAI].getValue() ) {	isAICancel = true;	}
+							if ( !DatabaseHelper.isAI(forcedStatus) && chkDPMs[y][indexAI].getValue() ) {	isAIApply = true;	}
+							if ( DatabaseHelper.isAI(forcedStatus) && !chkDPMs[y][indexAI].getValue() ) {	isAICancel = true;	}
 							
-							if ( !DatabaseHelper.isSS(forcedStatus) && chkDPMs[index][indexSS].getValue() ) {	isSSApply = true;	}
-							if ( DatabaseHelper.isSS(forcedStatus) && !chkDPMs[index][indexSS].getValue() ) {	isSSCancel = true;	}
+							if ( !DatabaseHelper.isSS(forcedStatus) && chkDPMs[y][indexSS].getValue() ) {	isSSApply = true;	}
+							if ( DatabaseHelper.isSS(forcedStatus) && !chkDPMs[y][indexSS].getValue() ) {	isSSCancel = true;	}
 							
-							if ( !DatabaseHelper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	isManualOverrideApply = true;	}
-							if ( DatabaseHelper.isMO(forcedStatus) && !chkDPMs[index][indexMO].getValue() ) {	isManualOverrideCancel = true;	}
-							if ( moApplyWithoutReset && DatabaseHelper.isMO(forcedStatus) && chkDPMs[index][indexMO].getValue() ) {	
+							if ( !DatabaseHelper.isMO(forcedStatus) && chkDPMs[y][indexMO].getValue() ) {	isManualOverrideApply = true;	}
+							if ( DatabaseHelper.isMO(forcedStatus) && !chkDPMs[y][indexMO].getValue() ) {	isManualOverrideCancel = true;	}
+							if ( moApplyWithoutReset && DatabaseHelper.isMO(forcedStatus) && chkDPMs[y][indexMO].getValue() ) {	
 								boolean changed = false;
 								if ( PointType.dci == pointType ) {
-									int moIndex = lstValues[index].getSelectedIndex();
-									if ( moIndex != intValuesOri[index] ) {
-										intValuesOri[index] = moIndex;
+									int moIndex = lstValues[y].getSelectedIndex();
+									if ( moIndex != intValuesOri[y] ) {
+										intValuesOri[y] = moIndex;
 										changed = true;
 									}
 								} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
-									String moSValue = txtValues[index].getText();
-									if ( moSValue != strValuesOri[index] ) {
-										strValuesOri[index] = moSValue;
+									String moSValue = txtValues[y].getText();
+									if ( moSValue != strValuesOri[y] ) {
+										strValuesOri[y] = moSValue;
 										changed = true;
 									}
 								}
@@ -864,7 +905,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							if ( PointType.dci == pointType ) {
 								
-								int moIndex = lstValues[index].getSelectedIndex();
+								int moIndex = lstValues[y].getSelectedIndex();
 								
 								logger.info(className, function, "moIndex[{}]", moIndex);
 								
@@ -885,7 +926,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 
 							} else if ( PointType.aci == pointType || PointType.sci == pointType ) {
 								
-								moSValue = txtValues[index].getText();
+								moSValue = txtValues[y].getText();
 								
 								logger.info(className, function, "moSValue[{}]", moSValue);
 								
@@ -911,7 +952,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
 							
-							chkDPMs[index][indexAI].setValue(true);
+							chkDPMs[y][indexAI].setValue(true);
 						} 
 
 						if (isAICancel ) {
@@ -920,7 +961,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
 
-							chkDPMs[index][indexAI].setValue(false);
+							chkDPMs[y][indexAI].setValue(false);
 						}
 						
 						// Scan Suspend
@@ -930,7 +971,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
 							
-							chkDPMs[index][indexSS].setValue(true);
+							chkDPMs[y][indexSS].setValue(true);
 							
 						} 
 
@@ -940,7 +981,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
 							
-							chkDPMs[index][indexSS].setValue(false);
+							chkDPMs[y][indexSS].setValue(false);
 						}
 						
 						// Manual Override
@@ -983,7 +1024,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 									
 								}
 								
-								chkDPMs[index][indexMO].setValue(forceAction);
+								chkDPMs[y][indexMO].setValue(forceAction);
 								
 							} else {
 								logger.warn(className, function, "Manual Override Point Type IS INVALID");
@@ -997,7 +1038,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				logger.warn(className, function, "dbaddress[{}] IS NULL", dbaddress);
 			}
 		} else {
-			logger.warn(className, function, "index[{}] IS INVALID", index);
+			logger.warn(className, function, "btnIndex[{}] IS INVALID", btnIndex);
 		}
 		logger.end(className, function);
 		

@@ -99,10 +99,36 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		
 		logger.end(className, function);
 	}
+	
+	private void updateLayout() {
+		final String function = "updateLayout";
+		
+		logger.begin(className, function);
+		
+		pageCounter.calc(pageIndex);
+		
+		int pageSize = pageCounter.pageSize;
+		
+		int stopper = pageCounter.pageRowCount;
+		
+		logger.info(className, function
+				, "pageIndex[{}] pageSize[{}], stopper[{}]"
+				, new Object[]{pageIndex, pageSize, stopper});
+		
+		for ( int i = 0 ; i < pageSize ; i++ ) {
+			boolean visible = true;
+			if ( i > stopper ) {
+				visible = false;
+			}
+			widgetBoxes[i].setVisible(visible);
+		}
 
+		logger.end(className, function);
+	}
+	
 	@Override
-	public void buildWidgets() {
-		buildWidgets(this.addresses.length);
+	public void buildWidgets(int numOfPointEachPage) {
+		buildWidgets(this.addresses.length, numOfPointEachPage);
 	}
 	
 	private int pageIndex = 0;
@@ -111,24 +137,39 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private VerticalPanel[] widgetBoxes = null;
 	private InlineLabel[] inlineLabels = null;
 	private HorizontalPanel[] controlboxes = null;
-	private void buildWidgets(int numOfWidgets) {
+	private void buildWidgets(int numOfWidgets, int numOfPointEachPage) {
 		final String function = "buildWidgets";
 		
 		logger.begin(className, function);
 		
 		logger.info(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.info(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
 			vpCtrls.clear();
 			
-			pageCounter = new PageCounter(numOfWidgets, 10);
+			pageCounter = new PageCounter(numOfWidgets, numOfPointEachPage);
 			pageCounter.calc(pageIndex);
 			
+			int pageSize = pageCounter.pageSize;
+			
+			int stopper = pageCounter.pageRowCount;
+			
+			logger.info(className, function, "pageIndex[{}] pageSize[{}], stopper[{}]"
+					, new Object[]{pageIndex, pageSize, stopper});
+			
+			widgetBoxes	= new VerticalPanel[pageSize];
+			for ( int i = 0 ; i < pageSize ; i++ ) {
+				widgetBoxes[i] = new VerticalPanel();
+				widgetBoxes[i].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+			}
+			
 			updatePager();
+			updateLayout();
 
 		} else {
-			logger.info(className, function, "vpCtrls IS NULL");
+			logger.warn(className, function, "vpCtrls IS NULL");
 		}
 		
 		logger.end(className, function);
@@ -236,7 +277,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			
 			if ( numOfWidgetShow > 0 ) {
 
-				widgetBoxes		= new VerticalPanel[numOfWidgetShow];
+//				widgetBoxes		= new VerticalPanel[numOfWidgetShow];
 				inlineLabels	= new InlineLabel[numOfWidgetShow];
 				controlboxes	= new HorizontalPanel[numOfWidgetShow];
 				
@@ -346,8 +387,9 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			}
 		}
 		
-		widgetBoxes[row] = new VerticalPanel();
-		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row] = new VerticalPanel();
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
@@ -430,8 +472,9 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			
 		}
 		
-		widgetBoxes[row] = new VerticalPanel();
-		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row] = new VerticalPanel();
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
@@ -514,8 +557,9 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			
 		}
 		
-		widgetBoxes[row] = new VerticalPanel();
-		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row] = new VerticalPanel();
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
 		
@@ -1072,6 +1116,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 					++pageIndex;
 				}
 				updatePager();
+				updateLayout();
 				updateValue(true);
 			}
 		}

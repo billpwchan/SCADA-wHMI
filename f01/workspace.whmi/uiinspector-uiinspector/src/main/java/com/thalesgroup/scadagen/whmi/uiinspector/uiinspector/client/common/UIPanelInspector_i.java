@@ -9,4 +9,5 @@ public interface UIPanelInspector_i {
 	public final static String strConfigNameBackList = strDot+strBlack+"list";
 	public final static String strConfigNameWhileList = strDot+strWhite+"list";
 	public final static String strConfigNameSize = strDot+"size";
+	public final static String strConfigNumberOfPointPerPage = "numOfPointPerPage";
 }

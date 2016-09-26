@@ -29,7 +29,6 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.alm.AlmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
 
@@ -242,6 +241,34 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
+	private void updateLayout() {
+		final String function = "updateLayout";
+		
+		logger.begin(className, function);
+		
+		pageCounter.calc(pageIndex);
+		
+		int pageSize = pageCounter.pageSize;
+		
+		int stopper = pageCounter.pageRowCount;
+		
+		logger.info(className, function
+				, "pageIndex[{}] pageSize[{}], stopper[{}]"
+				, new Object[]{pageIndex, pageSize, stopper});
+		
+		for ( int i = 0 ; i < pageSize ; i++ ) {
+			boolean visible = true;
+			if ( i >= stopper ) {
+				visible = false;
+			}
+			lblAttibuteLabel[i]		.setVisible(visible);
+			txtAttributeValue[i]	.setVisible(visible);
+			txtAttibuteColor[i]		.setVisible(visible);
+		}
+
+		logger.end(className, function);
+	}
+	
 	private void onButton(Button btn) {
 		final String function = "onButton";
 		
@@ -254,6 +281,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				++pageIndex;
 			}
 			updatePager();
+			updateLayout();
 			updateValue(true);
 		}
 		
@@ -261,45 +289,46 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	}
 	
 	@Override
-	public void buildWidgets() {
+	public void buildWidgets(int numOfPointEachPage) {
 		final String function = "buildWidgets";
 		
 		logger.begin(className, function);
 		
-		buildWidgets(this.addresses.length);
+		buildWidgets(this.addresses.length, numOfPointEachPage);
 	
 		logger.end(className, function);
 	}
 	
 	private int pageIndex = 0;
 	private PageCounter pageCounter = null;
-	void buildWidgets(int numOfWidgets) {
+	void buildWidgets(int numOfWidgets, int numOfPointEachPage) {
 		final String function = "buildWidgets";
 		
 		logger.begin(className, function);
 		
 		logger.info(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.info(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
 			vpCtrls.clear();
 			
-			pageCounter = new PageCounter(numOfWidgets, 10);
+			pageCounter = new PageCounter(numOfWidgets, numOfPointEachPage);
 			pageCounter.calc(pageIndex);
 			
-			updatePager();
+			int pageSize = pageCounter.pageSize;
 			
-			int numOfWidgetShow = pageCounter.pageRowCount;
+			logger.info(className, function, "pageSize[{}]", pageSize);
 			
-			if ( DatabaseHelper.addressesIsValid(this.addresses) ) {
+//			if ( DatabaseHelper.addressesIsValid(this.addresses) ) {
 				
-				lblAttibuteLabel	= new InlineLabel[numOfWidgetShow];
-				txtAttributeValue	= new TextBox[numOfWidgetShow];
-				txtAttibuteColor	= new InlineLabel[numOfWidgetShow];
+				lblAttibuteLabel	= new InlineLabel[pageSize];
+				txtAttributeValue	= new TextBox[pageSize];
+				txtAttibuteColor	= new InlineLabel[pageSize];
 
 				flexTableAttibutes = new FlexTable();
 				flexTableAttibutes.setWidth("100%");
-				for( int i = 0 ; i < numOfWidgetShow ; ++i ) {
+				for( int i = 0 ; i < pageSize ; ++i ) {
 					
 					logger.info(className, function, "i[{}]", i);
 						
@@ -325,14 +354,17 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspectorvalue-col");
 				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspectorstatus-col");
 
-			} else {
-				logger.info(className, function, "this.addresses IS INVALID");
-			}
+//			} else {
+//				logger.info(className, function, "this.addresses IS INVALID");
+//			}
 			
 			vpCtrls.add(flexTableAttibutes);
 			
+			updatePager();
+			updateLayout();
+			
 		} else {
-			logger.info(className, function, "points IS NULL");
+			logger.warn(className, function, "points IS NULL");
 		}
 		
 		logger.end(className, function);

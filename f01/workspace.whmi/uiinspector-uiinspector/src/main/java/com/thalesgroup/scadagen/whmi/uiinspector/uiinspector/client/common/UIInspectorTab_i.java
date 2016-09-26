@@ -10,7 +10,7 @@ public interface UIInspectorTab_i {
 	void init();
 	Panel getMainPanel();
 	
-	void buildWidgets();
+	void buildWidgets(int numOfPointForEachPage);
 
 	void setMessageBoxEvent(MessageBoxEvent messageBoxEvent);
 	void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent);

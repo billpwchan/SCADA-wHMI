@@ -184,7 +184,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	}
 	
 	@Override
-	public void buildWidgets() {
+	public void buildWidgets(int numOfPointForEachPage) {
 		final String function = "buildWidgets";
 		
 		logger.begin(className, function);
@@ -195,7 +195,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	}
 	
 	private TextBox txtAttributeStatus[] = null;
-	void buildWidgets(int numOfWidgets) {
+	void buildWidgets(int numOfWidgets, int numOfPointForEachPage) {
 
 	}
 	

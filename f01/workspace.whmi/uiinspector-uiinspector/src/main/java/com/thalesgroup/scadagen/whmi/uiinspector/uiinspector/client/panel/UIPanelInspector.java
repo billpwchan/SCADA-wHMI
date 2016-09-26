@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
@@ -14,7 +13,6 @@ import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -458,15 +456,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	@Override
 	public void makeTabsBuildWidgets() {
 		final String function = "makeTabsBuildWidgets";
-		
-		logger.begin(className, function);
-		
-		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
+
+		for ( int i = 0 ; i < uiInspectorTabs.size() ; ++i ) {
+			UIInspectorTab_i uiPanelInspector = uiInspectorTabs.get(i);
+			String dictionariesCacheName = "UIInspectorPanel";
+			String tab = strTabConfigNames[i];
+			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+			String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strDot+UIPanelInspector_i.strConfigNumberOfPointPerPage;
+			int numOfPointForEachPage = ReadProp.readInt(dictionariesCacheName, fileName, key, 0);
 			if ( null != uiPanelInspector ) {
-				uiPanelInspector.buildWidgets();
+				uiPanelInspector.buildWidgets(numOfPointForEachPage);
 			} else {
 				logger.warn(className, function, " uiPanelInspector_i IS NULL");
-			}
+			}	
 		}
 
 		logger.end(className, function);
@@ -581,29 +583,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 								((Widget)panelTab.getTabBar().getTab(i)).removeStyleName(cssNameNum);
 							}
 						}
-
-//						String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
-//						if ( 2 == eqtReserved ) {
-//							for ( int i = 1 ; i < tabCount ; ++i ) {
-//								String cssNameNum = cssName + i;
-//								logger.info(className, function, "i[{}] cssNameNum[{}]", i, cssNameNum);
-//								String cssAdded = panelTab.getWidget(i).getStyleName();
-//								if ( -1 == cssAdded.indexOf(cssNameNum) ) {
-//									logger.info(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
-//									panelTab.getWidget(i).addStyleName(cssNameNum);
-//								}
-//							}
-//						} else {
-//							for ( int i = 1 ; i < tabCount ; ++i ) {
-//								String cssNameNum = cssName + i;
-//								logger.info(className, function, "i[{}] cssNameNum[{}]", i, cssNameNum);
-//								String cssAdded = panelTab.getWidget(i).getStyleName();
-//								if ( -1 != cssAdded.indexOf(cssNameNum) ) {
-//									logger.info(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
-//									panelTab.getWidget(i).removeStyleName(cssNameNum);
-//								}
-//							}
-//						}
 					}
 				}
 			}
@@ -717,7 +696,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			
 			@Override
 			public void onClick() {
-				// TODO Auto-generated method stub
 				logger.info(className, function, "onClick uiInspectorAdvance");
 				reserveEquipment();
 			}
@@ -779,15 +757,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		});
 		
 		panelTab.addStyleName("project-gwt-tabpanel-inspector-tabpanel");
-		
-//		Panel [] panels = new Panel[]{panelInfo, panelCtrl, panelTag, panelAdv};
-//		for ( int i = 0 ; i < panels.length ; ++i ) {
-//			panelTabLayout.add(panels[i], strTabNames[i]);
-//			panelTabLayout.getWidget(i).addStyleName(cssName+i);
-//		}
-		
-		String cssName = "project-gwt-inspector-tabpanel-tab-";
-		
+
 		panelTab.add(panelInfo	, strTabNames[0]);
 		panelTab.add(panelCtrl	, strTabNames[1]);
 		panelTab.add(panelTag	, strTabNames[2]);

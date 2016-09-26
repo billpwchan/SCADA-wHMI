@@ -275,7 +275,7 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 	}
 
 	@Override
-	public void buildWidgets() {
+	public void buildWidgets(int numOfPointForEachPage) {
 		// TODO Auto-generated method stub
 		
 	}

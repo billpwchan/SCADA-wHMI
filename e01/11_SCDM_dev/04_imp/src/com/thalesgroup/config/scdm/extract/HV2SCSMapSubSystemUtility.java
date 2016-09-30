@@ -43,16 +43,16 @@ public class HV2SCSMapSubSystemUtility {
 	public final static String HV2SCS_FILENAME = "scs2hv.xml";
 
 	/** map SubSystem name to ID */
-	private Map<Integer, SCSSubSystem> subsystMap_ = new LinkedHashMap<Integer, SCSSubSystem>();
+	private Map<Long, SCSSubSystem> subsystMap_ = new LinkedHashMap<Long, SCSSubSystem>();
 
 	public static class SCSSubSystem {
-		public SCSSubSystem(int id, String name, String scsenv) {
+		public SCSSubSystem(Long id, String name, String scsenv) {
 			id_ = id;
 			scsenvname_ = scsenv;
 			name_ = name;
 		}
 		
-		public int id_;
+		public Long id_;
 		public String scsenvname_;
 		public String name_;
 		public BufferedWriter fileWrite_ = null;
@@ -76,7 +76,7 @@ public class HV2SCSMapSubSystemUtility {
 	    	String name = element.getAttribute(ExtractKeys.ATT_INSTANCE_NAME);
 	    	String envname = element.getAttribute(ATT_SCS_ENVNAME);
 	    	try {
-	    		Integer i = Integer.parseInt(id);
+	    		Long i = Long.valueOf(id);
 	    		subsystMap_.put(i, new SCSSubSystem(i, name, envname));
 	    	} catch (NumberFormatException e) {
 	    		// nothing to do

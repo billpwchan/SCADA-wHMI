@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <scsmodel:ScsRootPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:scsmodel="http://www.thalesgroup.com/mde/scsmodel" xmi:id=":R" name="Model" id=":R">
+    xmlns:scsmodel="http://www.thalesgroup.com/mde/scsmodel" xmi:id=":R" name="SCADAgen" id=":R">
   <composeScsDomainPackage xmi:id=":R:A:DOMAINES" name="Domains" id=":R:A:DOMAINES"
       importReference="">
     <composeScsDomainPackage xmi:id=":R:A:DOMAINES:DATATYPE" name="DATATYPE" id=":R:A:DOMAINES:DATATYPE"

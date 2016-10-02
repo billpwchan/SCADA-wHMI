@@ -49,7 +49,7 @@ public class HV2SCSExtracterHandler extends DefaultHandler {
 
 	private Map<String, List<SCSMapping>> instancesMap_ = new HashMap<String, List<SCSMapping>>();
 
-	private Map<Integer, Map<String, List<SCSMapping>>> instancesPerSubsystMap_ = new HashMap<Integer, Map<String, List<SCSMapping>>>();
+	private Map<Long, Map<String, List<SCSMapping>>> instancesPerSubsystMap_ = new HashMap<Long, Map<String, List<SCSMapping>>>();
 
 	private HV2SCSMapSubSystemUtility subSystemUtility_;
 
@@ -177,15 +177,15 @@ public class HV2SCSExtracterHandler extends DefaultHandler {
 					String subsystemMask = atts.getValue(HypervisorExtractorHelper.SCS_SUBSYSTEM_ID_ATTR_NAME);
 
 					if (subsystemMask != null) {
-						int maskInt = 0;
+						Long maskInt = 0L;
 						if (!"".equals(subsystemMask)) {
-							maskInt = Integer.parseInt(subsystemMask,2); // parse base 2 (0010 gives 2)
+							maskInt = Long.valueOf(subsystemMask,2); // parse base 2 (0010 gives 2)
 						}
 						if (maskInt > 0 ) {
 							for (SCSSubSystem subSys : subSystemUtility_.getSubsystems()) {
-								int ssIdvalue = subSys.id_;
+								long ssIdvalue = subSys.id_;
 								// check if the mask contains the subsystem id
-								int ssIdsubMask = 1 << ssIdvalue; // bit offset
+								long ssIdsubMask = 1 << ssIdvalue; // bit offset
 								if ((ssIdsubMask & maskInt) != 0 ) { 
 									addMapping(ssIdvalue, hvTypeName, new SCSMapping(hvid, id));
 								}
@@ -205,7 +205,7 @@ public class HV2SCSExtracterHandler extends DefaultHandler {
 
 	}
 
-	private void addMapping(int ssIdvalue, String typeName,	SCSMapping scsMapping)
+	private void addMapping(Long ssIdvalue, String typeName, SCSMapping scsMapping)
 	{
 		Map<String, List<SCSMapping>> instMap = instancesPerSubsystMap_.get(ssIdvalue);
 		if (instMap == null) {

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.thalesgroup.config.scdm.extract.hypervisor;
 
@@ -50,7 +50,7 @@ public class HypervisorExtractor extends DefaultHandler {
 
 	private static final String DESCRIPTION = "This extractor output is the files for Hypervisor configuration concerning instances and mapping of system conf."
 		+"\nOnly instances with a hvQName not empty will be concerned.";
-	
+
 	class FileMarker {
 		public FileMarker(FileOutputStream[] fileOutputStreams, long position) {
 			this.position = position;
@@ -75,7 +75,7 @@ public class HypervisorExtractor extends DefaultHandler {
 	 */
 	@SuppressWarnings("serial")
 	class MappingSubsytem extends HashMap<String,ArrayList<String>> {}
-	
+
 	private ArrayList<FileMarker> postTreatment;
 	private FileMarker namespaceMarkerInstanceEqpt;
 	private HashMap<String,String> usedNamespaceInstanceEqpt;
@@ -86,10 +86,10 @@ public class HypervisorExtractor extends DefaultHandler {
 	private MappingArea areaMap;
 	private Map<String, String> reverseAreaMap;
 	private MappingSubsytem subsytemMap;
-	
+
 	// SubsystemMap
 	private Map<Integer, String> subsystemDefintion;
-	
+
 	private Stack<String> elementRoleStack;
 	private Stack<String> elementScsNameStack;
 	private Stack<Integer> elementNumberStack; /// to follow start element and end element
@@ -97,20 +97,20 @@ public class HypervisorExtractor extends DefaultHandler {
 	private String currentPrototypeRootElementName;
 	private String currentPrototypeUID;
 	private ArrayList<String> uniqueId;
-	
+
 	private ObjectDefinition currentObjectDefinition;
 	private FileWriter badIdsFileWriter;
-	
+
 	private PrototypeMap protoMap;
 	private FileOutputStream instanceEqptfileOutputStream;
 	private FileOutputStream instanceAreaFileOutputStream;
-	
+
 	private FileOutputStream mappingAreaFileOutputStream;
 	private FileOutputStream mappingSubsytemFileOutputStream;
 	private FileOutputStream mappingQNameFileOutputStream;
 	private XMLStreamWriter instanceEqptStreamWriter;
 	private XMLStreamWriter instanceAreaStreamWriter;
-	
+
 	private XMLStreamWriter mappingAreaStreamWriter;
 	private XMLStreamWriter mappingSubsystemStreamWriter;
 	private XMLStreamWriter mappingQNameStreamWriter;
@@ -127,7 +127,7 @@ public class HypervisorExtractor extends DefaultHandler {
 	private static final String MAPPING_SCHEMA_LOCATION = "http://www.thalesgroup.com/hv/data-v1/system/configuration hypervisor_system_configuration.xsd";
 	private static final String MAPPING_SCHEMA_P = "http://www.thalesgroup.com/hv/data-v1/system/configuration";
 	private static final String AREA_ROLE_NAME = "area";
-	
+
 	// output files naming
 	private static final String SYSTEM_DIRECTORY 		= "systemConfiguration" + File.separator;
 	private static final String INSTANCE_DIRECTORY 		= SYSTEM_DIRECTORY + "instances" + File.separator;
@@ -135,11 +135,11 @@ public class HypervisorExtractor extends DefaultHandler {
 	private static final String INSTANCE_EQPT_TEMP_OUTPUT_FILENAME	= "equipments.temp.xml";/// missing insertion
 	private static final String INSTANCE_EQPT_OUTPUT_FILENAME	= "equipments.xml";
 	private static final String INSTANCE_AREA_OUTPUT_FILENAME	= "areas.xml";
-	
+
 	private static final String MAPPING_AREA_OUTPUT_FILENAME	= "entitiesPerAreaAllocation.xml";
 	private static final String MAPPING_SUBSYS_OUTPUT_FILENAME	= "entitiesPerSubsystemAllocation.xml";
 	private static final String MAPPING_QNAME_OUTPUT_FILENAME = "qnameMapping.xml";
-	
+
 	// Hv naming convention in xml files
 	private static final String UNRESOLVED = "#unresolved_area_mapping#";
 	private static final String PENDING_EQPT = "#pending_area_mapping#";;
@@ -155,20 +155,20 @@ public class HypervisorExtractor extends DefaultHandler {
 	private static final String HV_MAPPING_MAP_TYPE = "p:IdToIdMapType";
 	private static final String HV_MAPPING_AREA_TYPE = "area:AreaType";
 
-	
+
 	/**
 	 * Extractor For Hypervisor VS9.1. Should be used with a dedicated core model.
 	 * Expected classes are CmSubsystem, CmArea...
-	 * 
-	 * @throws IOException 
-	 * @throws XMLStreamException 
-	 * 
+	 *
+	 * @throws IOException
+	 * @throws XMLStreamException
+	 *
 	 */
 	public HypervisorExtractor(String extractDirectory, String root, Resource resource) throws IOException, XMLStreamException {
 
 		this.currentObjectDefinition = null;
 		this.extractDirectory = extractDirectory;
-		
+
 		// Create output file stream
 		File systemConfigurationDirectory = new File(extractDirectory, SYSTEM_DIRECTORY);
 		File instanceDirectory = new File(extractDirectory, INSTANCE_DIRECTORY);
@@ -200,7 +200,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		this.finalInstancefileOutputStream = new FileOutputStream(finalInstanceEqptFileOutput);
 		this.instanceEqptfileOutputStream = new FileOutputStream(instanceEqptFile);
 		this.instanceAreaFileOutputStream = new FileOutputStream(instanceAreaFileOutput);
-		
+
 		this.mappingAreaFileOutputStream = new FileOutputStream(mappingAreaFileOutput);
 		this.mappingSubsytemFileOutputStream = new FileOutputStream(mappingSubsystemFileOutput);
 		this.mappingQNameFileOutputStream = new FileOutputStream(mappingQNameFileOutput);
@@ -212,9 +212,9 @@ public class HypervisorExtractor extends DefaultHandler {
 		this.mappingQNameStreamWriter = XmlStreamHelper.createXmlOutputStream(this.mappingQNameFileOutputStream, XmlStreamHelper.UTF_8_ENCODING, indentOutputFile());
 		this.streamers = new XMLStreamWriter[] {instanceEqptStreamWriter, instanceAreaStreamWriter,
 				mappingAreaStreamWriter, mappingSubsystemStreamWriter,mappingQNameStreamWriter};
-		
+
 		this.odeWorkbook = createODEWorkbook();
-		
+
 		this.elementRoleStack = new Stack<String>();
 		this.elementScsNameStack = new Stack<String>();
 		this.uniqueId = new ArrayList<String>();
@@ -227,27 +227,27 @@ public class HypervisorExtractor extends DefaultHandler {
 		this.reverseAreaMap = new HashMap<String, String>();
 		this.subsytemMap = new MappingSubsytem();
 		this.idMap = new MappingInstance();
-		
+
 		// Initialize elementScsNameStack
 		if(root != null && root.contains(":")) {
 			String[] split = root.split(":");
 			for(String fragment : split) {
 				if(fragment.isEmpty())
 					continue;
-				
+
 				this.elementScsNameStack.push(fragment);
 			}
 		}
 	}
-	
+
 	public void setProtoMap(PrototypeMap protoMap) {
 		this.protoMap = protoMap;
 	}
-	
+
 	public void setSubsytemMap(final Map<Integer, String> subsystemDefintion) {
 		this.subsystemDefintion = subsystemDefintion;
 	}
-	
+
 	/**
 	 * Check in properties files if exchange.extract.hypervisor.HypervisorExtractor.indent property value
 	 * @return <code>true</code> if property is found and set set to "true", <code>false</code> otherwise
@@ -262,11 +262,11 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 		return Boolean.parseBoolean(indentProperty);
 	}
-	
+
 	@Override
 	public void startDocument() throws SAXException {
 		Logger.EXCHANGE.info("Start Hypervisor SysXml Extraction");
-		
+
 		try {
 			for (XMLStreamWriter stream : this.streamers) {
 				stream.writeStartDocument(XmlStreamHelper.UTF_8_ENCODING, "1.0");
@@ -276,7 +276,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			Logger.EXCHANGE.error("Error while starting document in hypervisor output stream", e);
 		}
 	}
-	
+
 	@Override
 	public void endDocument() throws SAXException {
 		try {
@@ -314,7 +314,7 @@ public class HypervisorExtractor extends DefaultHandler {
 					this.instanceEqptFile.delete();
 				}
 				Logger.EXCHANGE.info("End of Hypervisor SysXml Extraction");
-				
+
 			} catch (XMLStreamException e) {
 				Logger.EXCHANGE.error("Error while closing Hypervisor extraction xml output stream ", e);
 			} catch (IOException e) {
@@ -322,7 +322,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			}
 		}
 	}
-	
+
 	private boolean isStartRootElement(String qName, Attributes attributes) {
 		if(HypervisorExtractorHelper.SCS_ROOT_ALPHANUM_ELEMENT.equals(qName)) {
 			try {
@@ -352,7 +352,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Add the schema location as attribute to the current element
 	 */
@@ -369,7 +369,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			Logger.EXCHANGE.error("Error while writing schema location", e);
 		}
 	}
-	
+
 	/**
 	 * Set the current {@link ObjectDefinition} corresponding to className
 	 * @param className The Class Name
@@ -381,9 +381,9 @@ public class HypervisorExtractor extends DefaultHandler {
 			return;
 		}
 	}
-	
+
 	private int startCount=0;
-	
+
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if(ignoreElement(qName))
@@ -393,9 +393,9 @@ public class HypervisorExtractor extends DefaultHandler {
 		// specific process for root element
 		if (isStartRootElement(qName, attributes))
 			return;
-		// retrieve the definition in DAtaModel for further checks 
+		// retrieve the definition in DAtaModel for further checks
 		setCurrentObjectDefinition(qName);
-		
+
 		boolean isAProto = (attributes.getValue(HypervisorExtractorHelper.SCS_PROTOTYPE_ATTR_NAME)!= null);
 		if( isAProto ) {
 			// the children of certain type will be changed into attributes and others will be ignored
@@ -413,7 +413,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			ObjectDefinition objectDefinition = DataModel.getInstance().getObjectDefinition(qName);
 			superclasses = objectDefinition.getSuperClasses();
 		}
-		
+
 		//---------- AREA mapping management
 		// it is not possible to just memorize the current area because it is defined on a node in it sub element myClass_link_area
 		// As the parsing is alphabetical ordered, it is possible to parse an instance contained in a node before having resolved it attached area
@@ -437,7 +437,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 		this.areaStack.push(currentArea);
 	}
-	
+
 	private void startProtoElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 		// First simple implementation that does not take custom parameters into account
@@ -462,7 +462,7 @@ public class HypervisorExtractor extends DefaultHandler {
 				inheritsFromCmEquipment = false;
 			}
 		}
-		
+
 		// Only the root of the proto is written or its references
 		String prototype_ins = attributes.getValue(HypervisorExtractorHelper.SCS_PROTOTYPE_INS_ATTR_NAME);
 		boolean isProtoRoot = "1".equals(prototype_ins);
@@ -491,7 +491,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 		// TODO : properties, ref
 		// if HvStatus ...
-				// direct reference has to be output 
+				// direct reference has to be output
 		//		try {
 		//			addReferences(uri, localName, qName, attributes);
 		//		} catch (XMLStreamException e) {
@@ -501,10 +501,10 @@ public class HypervisorExtractor extends DefaultHandler {
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
-	
+
 		if(ignoreElement(qName))
 			return;
-		
+
 		if (this.elementNumberStack.size()>0) {
 			Integer pop = this.elementNumberStack.peek();
 			// write the equipment
@@ -593,7 +593,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		if (protoMap!=null) {
 			protoName = protoMap.getUIDMap().get(protoUID);
 		}
-		
+
 		this.instanceEqptStreamWriter.writeStartElement(qName);
 		// mapping between scsID and hvID
 		this.mappingQNameStreamWriter.writeStartElement("entry");
@@ -608,17 +608,21 @@ public class HypervisorExtractor extends DefaultHandler {
 		// for subsystems
 		String subSysName = "";
 		if( subsystemMask != null && this.subsystemDefintion!=null) {
-			int maskInt = 0;
+			long maskInt = 0;
 			if (!"".equals(subsystemMask)) {
-				maskInt = Integer.parseInt(subsystemMask,2); // parse base 2 (0010 gives 2)
+				Logger.EXCHANGE.debug("subsystemMask: " + subsystemMask );
+				maskInt = Long.valueOf(subsystemMask,2); // parse base 2 (0010 gives 2)
 			}
 			if (maskInt > 0 ) {
 				for (Entry<Integer, String> subSys : this.subsystemDefintion.entrySet()) {
-					int ssIdvalue = subSys.getKey();
+					long ssIdvalue = subSys.getKey();
+					Logger.EXCHANGE.debug("ssIdvalue: " + ssIdvalue );
 					// check if the mask contains the subsystem id
-					int ssIdsubMask = 1 << ssIdvalue; // bit offset
+					long ssIdsubMask = 1L << ssIdvalue; // bit offset
+					Logger.EXCHANGE.debug("ssIdsubMask: " + ssIdsubMask );
 					if ((ssIdsubMask & maskInt) != 0 ) {
 					    subSysName = subSys.getValue();
+						Logger.EXCHANGE.debug("Hit subSysName: " + subSysName );
 						ArrayList<String> set = this.subsytemMap.get(subSysName);
 						if (set==null) {
 							set = new ArrayList<String>();
@@ -669,7 +673,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			this.instanceEqptStreamWriter.writeAttribute(HypervisorExtractorHelper.SYSXML_TYPE_ATTR_NAME, type);
 			Logger.EXCHANGE.error("Error while writing end element [" + qName + "] " + scsId + " : Missing attribute " + HypervisorExtractorHelper.HV_QUALIFIED_CLASS_NAME);
 		}
-		
+
 		String ID=null;
 		if(hvID != null && hvID.length()>0) {
 			ID = hvID;
@@ -704,22 +708,22 @@ public class HypervisorExtractor extends DefaultHandler {
 			this.instanceEqptStreamWriter.writeAttribute("y", hvy);
 			this.instanceEqptStreamWriter.writeEndElement();
 		}
-		
+
 		//SCADAgen-194 : TYUEN, generate custom properties which enabled as "supervisedAttribute"
 		ObjectDefinition objectDefinition = DataModel.getInstance().getObjectDefinition(hvclass);
 		if (objectDefinition == null) {
-			Logger.EXCHANGE.info("Trying to retrieve attribute to be exported in DataModel but class " + qName + " not found.");			
+			Logger.EXCHANGE.info("Trying to retrieve attribute to be exported in DataModel but class " + qName + " not found.");
 		} else {
 			Collection attributeDefinitions = objectDefinition.getAttributeDefinitions();
-			
-			for (Iterator i$ = attributeDefinitions.iterator(); i$.hasNext(); ) { 
-				AttributeDefinition attributeDefinition = (AttributeDefinition)i$.next();				
+
+			for (Iterator i$ = attributeDefinitions.iterator(); i$.hasNext(); ) {
+				AttributeDefinition attributeDefinition = (AttributeDefinition)i$.next();
 				if (attributeDefinition.isMwtSupervisedAttribute()) {
-					
-					String name = attributeDefinition.getName();					
+
+					String name = attributeDefinition.getName();
 					int idx = attributes.getIndex(name);
 					String custAttValue = attributes.getValue(name);
-					
+
 					if (idx != -1 && custAttValue != null && custAttValue.length() > 0  ) {
 						Logger.EXCHANGE.info("Namespace: " + xmlQName + "; Attribute name: " + name + ", value: " + custAttValue );
 						this.instanceEqptStreamWriter.writeStartElement(xmlQName + ":" + name);
@@ -729,13 +733,13 @@ public class HypervisorExtractor extends DefaultHandler {
 				}
 			}
 		}
-		
+
 		// update ODE excel file
 		String label = attributes.getValue("label");
 		String shortname = attributes.getValue("shortname");
-		this.addODEEntry(this.odeWorkbook, hvID, hvclass, hvx, hvy, "PendingAreaMapping", subSysName, label, shortname);					
+		this.addODEEntry(this.odeWorkbook, hvID, hvclass, hvx, hvy, "PendingAreaMapping", subSysName, label, shortname);
 	}
-	
+
 	/**
 	 * Create list of link, memorize
 	 * @param attributes
@@ -770,7 +774,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			this.instanceEqptStreamWriter.writeEndElement();
 		}
 	}
-	
+
 	private String resolveRefPath(String id, String refId) {
 		String scsPath = refId;
 		if(refId.contains("^")) {
@@ -778,7 +782,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 		return converScsIdToSysXmlId(scsPath);
 	}
-	
+
 	private String resolveRelativePath(String scsRelativePath, String currentPath) {
 		String scsPath = "";
 		String[] split = scsRelativePath.split(":");
@@ -787,7 +791,7 @@ public class HypervisorExtractor extends DefaultHandler {
 				int lastIndexOfSeparator = currentPath.lastIndexOf(":");
 				if(lastIndexOfSeparator == -1)
 					break;
-				
+
 				currentPath = currentPath.substring(0, lastIndexOfSeparator);
 			}
 		}
@@ -795,8 +799,8 @@ public class HypervisorExtractor extends DefaultHandler {
 		scsPath = currentPath.concat(scsRelativePath.substring(scsRelativePath.lastIndexOf("^:")+1, scsRelativePath.length()));
 		return scsPath;
 	}
-	
-	
+
+
 	private String converScsIdToSysXmlId(String scsId) {
 		if(scsId == null || scsId.length()<5) // if root_alphanum ignore
 			return null;
@@ -807,7 +811,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			return scsId;
 		}
 		return scsId.substring(lastIndexOf); // only keep the last part of ID
-		
+
 	}
 
 	/**
@@ -818,10 +822,10 @@ public class HypervisorExtractor extends DefaultHandler {
 	private boolean ignoreElement(String qName) {
 		if(qName.equalsIgnoreCase(HypervisorExtractorHelper.SCS_ROOT_ELEMENT))
 			return true;
-		
+
 		return false;
 	}
-	
+
 	public String getCurrentScsPath() {
 		StringBuilder pathBuilder = new StringBuilder("");
 		for(int index=0; index < this.elementScsNameStack.size(); index++) {
@@ -830,7 +834,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 		return pathBuilder.toString();
 	}
-	
+
 	public String getCurrentSysXmlPath() {
 		StringBuilder pathBuilder = new StringBuilder("");
 		for(int index=0; index < this.elementRoleStack.size(); index++) {
@@ -840,7 +844,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		String path = pathBuilder.substring(1); // Remove first "."
 		return path;
 	}
-	// substitutes the marker in the destination file 
+	// substitutes the marker in the destination file
 	private void writeMarkers() throws IOException {
 		String baseNamespace = "http://www.thalesgroup.com/";
 		String baseXmlNamespace = "xmlns:";
@@ -886,7 +890,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		tempFileInput.close();
 		finalInstancefileOutputStream.close();
 	}
-	
+
 	private static int identicalNamespaceCount = 2;
 	private String resolveXmlQName(String hvQName) {
 		// transform qname used in namespace
@@ -910,10 +914,10 @@ public class HypervisorExtractor extends DefaultHandler {
 			this.mappingSubsystemStreamWriter.writeStartElement(HV_MAPPING_ELEMENT);
 			this.mappingSubsystemStreamWriter.writeAttribute("runtimeMode", "OPERATIONAL");
 			this.mappingSubsystemStreamWriter.writeAttribute("xsi:type", HV_MAPPING_MAP_TYPE);
-				
+
 			for (Entry<String, ArrayList<String>> entry : this.subsytemMap.entrySet()) {
 				String subsystemName = entry.getKey();
-				
+
 				// mapping
 				try {
 					this.mappingSubsystemStreamWriter.writeStartElement("p:entry");
@@ -956,7 +960,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		}
 	}
 
-	
+
 	private void writeAreaMapping() {
 		try {
 			this.mappingAreaStreamWriter.writeStartElement(HV_MAPPING_ELEMENT);
@@ -981,8 +985,8 @@ public class HypervisorExtractor extends DefaultHandler {
 					for (String value : values) {
 						try {
 							// build reverse map to update excel file for ODE
-							
-							
+
+
 							this.mappingAreaStreamWriter.writeStartElement("p:value");
 							String hvId = idMap.get(value);
 							if(hvId!=null) {
@@ -1010,17 +1014,17 @@ public class HypervisorExtractor extends DefaultHandler {
 	public static String getDescription() {
 		return DESCRIPTION;
 	}
-	
+
 	private Workbook createODEWorkbook() {
 		// create a new workbook
 		Workbook wb = new XSSFWorkbook();
-		
+
 		return wb;
 	}
-	
+
 	private void addODEEntry(Workbook wb, String hvid, String hvclass, String x, String y, String area, String subsystem, String label, String shortname) {
 		Sheet s = getODEEntitySheet(wb, hvclass);
-		
+
 		Row r = s.createRow(s.getLastRowNum() + 1);
 		Cell c = r.createCell(c_EqpClass_ID_POS);
 		c.setCellValue(hvid); // c.setCellValue("& id");
@@ -1030,7 +1034,7 @@ public class HypervisorExtractor extends DefaultHandler {
 		c.setCellValue(shortname); // c.setCellValue("label");
 		c = r.createCell(c_EqpClass_LONGLABEL_POS);
 		c.setCellValue(label); // c.setCellValue("longLabel");
-		
+
 		// add dummy name in id to have a pseudo key
 		c = r.createCell(c_EqpClass_COORD_ID_POS);
 		c.setCellValue("dummy_id");
@@ -1038,30 +1042,30 @@ public class HypervisorExtractor extends DefaultHandler {
 		c.setCellValue(x); // c.setCellValue("location.x");
 		c = r.createCell(c_EqpClass_Y_POS);
 		c.setCellValue(y); // c.setCellValue("location.y");
-		
+
 		c = r.createCell(c_EqpClass_CLUSTER_ID_POS);
 		c.setCellValue(subsystem); // c.setCellValue("In Cluster");
-		
+
 		c = r.createCell(c_EqpClass_AREA_ID_POS);
 		c.setCellValue(area); // c.setCellValue("In PhysicalArea");
 
 		addODEClustermapping(wb, hvid, subsystem);
 	}
-	
+
 	private void addODEClustermapping(Workbook wb, String hvid, String subsystem) {
 		Sheet s = getODEEntitySheet(wb, "SCADA_Cluster");
-		
+
 		Row r = s.createRow(s.getLastRowNum() + 1);
 		Cell c = r.createCell(c_Cluster_ID_POS);
 		c.setCellValue(subsystem); // c.setCellValue("& id");
-		
+
 		c = r.createCell(c_Cluster_HISTO_POS);
 		c.setCellValue(true); // c.setCellValue("historizationEnabled");
-		
+
 		c = r.createCell(c_Cluster_ENTITY_ID_POS);
 		c.setCellValue(hvid); // c.setCellValue("_supervisedObject AbstractConfiguredEntity.& id");
 	}
-	
+
 	// define excel format
 	private static final String[] c_EqpClassColumn = {"& id", "name", "label", "longLabel", "location Coordinates.& id",
 		"location Coordinates.x", "location Coordinates.y", "location GeographicalCoordinates.& id",
@@ -1075,7 +1079,7 @@ public class HypervisorExtractor extends DefaultHandler {
 	private static final int c_EqpClass_Y_POS = 6;
 	private static final int c_EqpClass_CLUSTER_ID_POS = 10;
 	private static final int c_EqpClass_AREA_ID_POS = 11;
-	
+
 	private static final String[] c_PhysAreaColumn = {"& id", "name", "label", "longLabel", "configuredEntity AbstractConfiguredEntity.& id"};
 	private static final int c_PhysArea_ID_POS = 0;
 	private static final int c_PhysArea_ENTITY_ID_POS = 4;
@@ -1087,7 +1091,7 @@ public class HypervisorExtractor extends DefaultHandler {
 	private static final int c_Cluster_HISTO_POS = 4;
 	private static final int c_Cluster_ENTITY_ID_POS = 9;
 	private static final int c_Cluster_SERVICE_ID_POS = 8;
-	
+
 	private static final String[] c_PhysSystemColumn = {"& id", "isMonitoringEnabled", "Workstation Workstation.& id", "_supervisedObject AbstractConfiguredEntity.& id", "Node Node.& networkId",
 		"connectionMonitoringServiceSettings ConnectionMonitoringSettings.& id", "connectionMonitoringServiceSettings ConnectionMonitoringSettings.logHeartBeatSent",
 		"connectionMonitoringServiceSettings ConnectionMonitoringSettings.logHeartBeatReceived", "connectionMonitoringServiceSettings ConnectionMonitoringSettings.logCacheOnStateChange",
@@ -1105,11 +1109,11 @@ public class HypervisorExtractor extends DefaultHandler {
 		"historianBuffer HistorianBuffer.& id", "historianBuffer HistorianBuffer.enabled", "historianBuffer HistorianBuffer.maxKeepTimeH",
 		"historianBuffer HistorianBuffer.maxKeepNumber", "historianBuffer HistorianBuffer.resendPeriod", "historianBuffer HistorianBuffer.path"};
 	private static final int c_Service_ID_POS = 0;
-	
+
 	private static final String[] c_NodeColumn = {"& networkId", "name",	"Service Service.& id"};
 	private static final int c_Node_ID_POS = 0;
 	private static final int c_Node_SERVICE_ID_POS = 2;
-	
+
 	private static final Map<String, String[]> c_ODESheetHeaderMap;
     static
     {
@@ -1120,12 +1124,12 @@ public class HypervisorExtractor extends DefaultHandler {
     	c_ODESheetHeaderMap.put("SCADA", c_SCADAColumn);
     	c_ODESheetHeaderMap.put("Node", c_NodeColumn);
     }
-    
+
 	private Sheet getODEEntitySheet(Workbook wb, String entityName) {
 		Sheet s = null;
 		// create a new sheet
 		int is = wb.getSheetIndex(entityName);
-		
+
 		if (is == -1) {
 			s = wb.createSheet(entityName);
 			// get column definition
@@ -1141,32 +1145,32 @@ public class HypervisorExtractor extends DefaultHandler {
 				c.setCellValue(cname);
 				i = i + 1;
 			}
-			
+
 		} else {
 			s = wb.getSheetAt(is);
 		}
-		
-		
+
+
 		return s;
 	}
-	
+
 	private void createODEPhysInfo(Workbook wb, Collection<String> subSysList) {
 		Row r;
 		Cell c;
-		
+
 		// create Physical System entries
 		Sheet phys = getODEEntitySheet(wb, "SCADA Physical System");
 		for(String ssName : subSysList) {
 		    r = phys.createRow(phys.getLastRowNum() + 1);
 		    c = r.createCell(c_PhysSystem_ID_POS);
 			c.setCellValue("PhysSystem"); // c.setCellValue("& id");
-			
+
 		    c = r.createCell(c_PhysSystem_MONITORING_POS);
 			c.setCellValue(true); // c.setCellValue("isMonitoringEnabled");
-			
+
 			c = r.createCell(c_PhysSystem_NODE_ID_POS);
 			c.setCellValue("host1"); // c.setCellValue("Node Node.& networkId");
-			
+
 		    c = r.createCell(c_PhysSystem_CLUSTER_ID_POS);
 			c.setCellValue(ssName); // c.setCellValue("Service Cluster Service Cluster.& id");
 		}
@@ -1176,7 +1180,7 @@ public class HypervisorExtractor extends DefaultHandler {
 			r = scada.createRow(scada.getLastRowNum() + 1);
 			c = r.createCell(c_Service_ID_POS);
 			c.setCellValue(ssName + "N1"); // c.setCellValue("& id");
-			
+
 			// add dummy service with ss id for oeration on service
 			r = scada.createRow(scada.getLastRowNum() + 1);
 			c = r.createCell(c_Service_ID_POS);
@@ -1186,16 +1190,16 @@ public class HypervisorExtractor extends DefaultHandler {
 		Sheet cluster = getODEEntitySheet(wb, "SCADA_Cluster");
 		for(String ssName : subSysList) {
 			r = cluster.createRow(cluster.getLastRowNum() + 1);
-			
+
 			c = r.createCell(c_Cluster_NETWORKID_POS);
 			c.setCellValue(ssName); // c.setCellValue("networkId");
-			
+
 			c = r.createCell(c_Cluster_ID_POS);
 			c.setCellValue(ssName); // c.setCellValue("& id");
-			
+
 			c = r.createCell(c_Cluster_HISTO_POS);
 			c.setCellValue(true); // c.setCellValue("historizationEnabled");
-			
+
 		    c = r.createCell(c_Cluster_SERVICE_ID_POS);
 			c.setCellValue(ssName + "N1"); // c.setCellValue("Service Service.& id");
 			// add mapping on service with ss id for oeration on service
@@ -1207,18 +1211,18 @@ public class HypervisorExtractor extends DefaultHandler {
 		Sheet node = getODEEntitySheet(wb, "Node");
 		for(String ssName : subSysList) {
 			r = node.createRow(node.getLastRowNum() + 1);
-			
+
 			c = r.createCell(c_Node_ID_POS);
 			c.setCellValue("host1"); // c.setCellValue("& networkId");
-			
+
 			c = r.createCell(c_Node_SERVICE_ID_POS);
 			c.setCellValue(ssName + "N1"); // c.setCellValue("Service Service.& id");
 		}
 	}
-	
+
 	private void updateODEArea(Workbook wb, Map<String, String> reverseAreaMap) {
 		Sheet areas = getODEEntitySheet(wb, "PhysicalArea");
-		
+
 		Iterator<Sheet> sitr = wb.sheetIterator();
 		while(sitr.hasNext()) {
 			Sheet s = sitr.next();
@@ -1265,5 +1269,5 @@ public class HypervisorExtractor extends DefaultHandler {
 			Logger.EXCHANGE.error("Cannot close ODE xls file:" + fname, e);
 		}
 	}
-	
+
 }

@@ -254,6 +254,8 @@ public class DpcMgr {
 		final String function = "sendChangeVarStatus";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] status[{}]", new Object[]{key, scsEnvId, alias, status.toString()});
+		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
+		logger.info(className, function, "alias[{}]", alias);
 		dpcAccess.changeVarStatus(key, scsEnvId, alias, status.getValue());
 		logger.end(className, function);
 	}
@@ -262,6 +264,8 @@ public class DpcMgr {
 		final String function = "sendChangeEqpTag";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}], scsEnvId[{}] name[{}] status[{}] taggingLabel1[{}] taggingLabel2[{}]", new Object[]{key, scsEnvId, alias, status, taggingLabel1, taggingLabel2});
+		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
+		logger.info(className, function, "alias[{}]", alias);
 		dpcAccess.changeEqpTag(key, scsEnvId, alias, status.getValue(), taggingLabel1, taggingLabel2);
 		logger.end(className, function);
 	}
@@ -270,6 +274,8 @@ public class DpcMgr {
 		final String function = "sendChangeVarForce";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, alias, enable, value});
+		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
+		logger.info(className, function, "alias[{}]", alias);
 		if ( enable ) {
 			dpcAccess.changeIntVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.FORCED.getValue(), value);
 		} else {
@@ -282,6 +288,8 @@ public class DpcMgr {
 		final String function = "sendChangeVarForce";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, alias, enable, value});
+		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
+		logger.info(className, function, "alias[{}]", alias);
 		if ( enable ) {
 			dpcAccess.changeFloatVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.FORCED.getValue(), value);
 		} else {
@@ -294,6 +302,8 @@ public class DpcMgr {
 		final String function = "sendChangeVarForce";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] enable[{}] value[{}]", new Object[]{key, scsEnvId, alias, enable, value});
+		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
+		logger.info(className, function, "alias[{}]", alias);
 		if ( enable ) {
 			dpcAccess.changeStringVarForce(key, scsEnvId, alias, DCP_i.ForcedStatus.FORCED.getValue(), value);
 		} else {

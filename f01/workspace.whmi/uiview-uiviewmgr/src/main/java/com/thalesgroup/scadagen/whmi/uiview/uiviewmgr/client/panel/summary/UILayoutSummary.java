@@ -19,9 +19,14 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect2;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect3;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect4;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSwitch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcManualOverrideControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
@@ -30,6 +35,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 
 public class UILayoutSummary extends UIWidget_i {
@@ -55,6 +61,10 @@ public class UILayoutSummary extends UIWidget_i {
 		final String function = "init";
 
 		logger.begin(className, function);
+		
+		Database database = Database.getInstance();
+		database.connect();
+		database.connectTimer(250);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -123,6 +133,20 @@ public class UILayoutSummary extends UIWidget_i {
 					uiWidget = new UIWidgetDpcControl();
 
 				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetDpcScanSuspendControl.class.getName())
+						.equals(uiCtrl)
+						) {
+					
+					uiWidget = new UIWidgetDpcScanSuspendControl();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName())
+						.equals(uiCtrl)
+						) {
+					
+					uiWidget = new UIWidgetDpcManualOverrideControl();
+
+				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName())
 						.equals(uiCtrl)
 						) {
@@ -145,11 +169,25 @@ public class UILayoutSummary extends UIWidget_i {
 					uiWidget.setParameter(WidgetParameterName.MwtEventBus.toString(), new MwtEventBus());
 
 				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect.class.getName())
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect2.class.getName())
 						.equals(uiCtrl)
 						) {
 					
-					uiWidget = new UIWidgetCSSSelect();
+					uiWidget = new UIWidgetCSSSelect2();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect3.class.getName())
+						.equals(uiCtrl)
+						) {
+					
+					uiWidget = new UIWidgetCSSSelect3();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect4.class.getName())
+						.equals(uiCtrl)
+						) {
+					
+					uiWidget = new UIWidgetCSSSelect4();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSFilter.class.getName())
@@ -157,6 +195,13 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 
 					uiWidget = new UIWidgetCSSFilter();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget = new UIWidgetCSSSwitch();
 
 				}
 				
@@ -186,7 +231,7 @@ public class UILayoutSummary extends UIWidget_i {
 		uiEventActions = mgr.getActions(strOption, ViewAttribute.Operation.toString(), uiEventActionKeys, ViewAttribute.toStrings());
 		
 		for ( Entry<String, UIEventAction> entry : uiEventActions.entrySet() ) {
-			String uiEventActionKey = entry.getKey();
+//			String uiEventActionKey = entry.getKey();
 			UIEventAction uiEventAction = entry.getValue();
 			eventBus.fireEventFromSource(uiEventAction, this);
 		}
@@ -196,6 +241,11 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	@Override
 	public void terminate() {
+		
+		Database database = Database.getInstance();
+		database.disconnectTimer();
+		database.disconnect();
+		
 		if ( null != uiLayoutGeneric ) {
 			uiLayoutGeneric.terminate();
 		}

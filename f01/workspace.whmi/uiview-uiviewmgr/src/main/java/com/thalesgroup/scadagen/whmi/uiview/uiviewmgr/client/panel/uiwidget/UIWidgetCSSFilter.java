@@ -15,6 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecuteOld;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewOperation;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
@@ -137,7 +138,7 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 	}
 
 	private UIEventActionMgrOld mgr = null;
-	private UIEventActionExecute uiEventActionExecute = null;
+	private UIEventActionExecuteOld uiEventActionExecute = null;
 	@Override
 	public void init() {
 		final String function = "init";
@@ -161,7 +162,7 @@ public class UIWidgetCSSFilter extends UIWidget_i {
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
-		uiEventActionExecute = new UIEventActionExecute(className, uiWidgetGeneric);
+		uiEventActionExecute = new UIEventActionExecuteOld(className, uiWidgetGeneric);
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
 			

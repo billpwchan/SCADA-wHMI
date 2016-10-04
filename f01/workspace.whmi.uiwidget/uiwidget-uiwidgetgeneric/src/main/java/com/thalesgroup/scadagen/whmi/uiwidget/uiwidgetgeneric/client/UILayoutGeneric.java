@@ -162,6 +162,7 @@ public class UILayoutGeneric extends UIWidget_i {
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
 								uiWidget = uiPredefinePanelMgr.getUIWidget(uiCtrl, uiview, uiNameCard, uiopts, options);
 								if ( null != uiWidget ) {
+									uiWidget.setElement(element);
 									uiWidget.setUINameCard(this.uiNameCard);
 									panel = uiWidget.getMainPanel();
 								} else {
@@ -171,6 +172,7 @@ public class UILayoutGeneric extends UIWidget_i {
 							} else if ( TypeAttribute.layoutconfiguration.equalsName(type) ) {
 								
 								uiWidget = new UILayoutGeneric();
+								uiWidget.setElement(element);
 								uiWidget.setUINameCard(this.uiNameCard);
 								uiWidget.setViewXMLFile(uiview);
 								uiWidget.setOptsXMLFile(uiopts);
@@ -180,6 +182,7 @@ public class UILayoutGeneric extends UIWidget_i {
 							} else if ( TypeAttribute.widgetconfiguration.equalsName(type) ) {
 									
 								uiWidget = new UIWidgetGeneric();
+								uiWidget.setElement(element);
 								uiWidget.setUINameCard(this.uiNameCard);
 								uiWidget.setViewXMLFile(uiview);
 								uiWidget.setOptsXMLFile(uiopts);

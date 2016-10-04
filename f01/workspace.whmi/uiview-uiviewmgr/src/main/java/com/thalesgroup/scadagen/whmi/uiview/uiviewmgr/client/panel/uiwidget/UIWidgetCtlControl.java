@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecuteOld;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -118,7 +118,7 @@ public class UIWidgetCtlControl extends UIWidget_i {
 
 					}
 
-					UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
+					UIEventActionExecuteOld uiWidgetGenericAction = new UIEventActionExecuteOld(className, uiWidgetGeneric);
 					
 					uiWidgetGenericAction.action("SetWidgetStatus", strSet, statusSet);
 					uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, statusUnSet);
@@ -199,7 +199,7 @@ public class UIWidgetCtlControl extends UIWidget_i {
 					logger.warn(className, function, "op[{}] type IS UNKNOW", op);
 				}
 	
-				UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
+				UIEventActionExecuteOld uiWidgetGenericAction = new UIEventActionExecuteOld(className, uiWidgetGeneric);
 				
 				uiWidgetGenericAction.action("SetWidgetStatus", strSet, statusSet);
 				uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, statusUnSet);
@@ -280,7 +280,7 @@ public class UIWidgetCtlControl extends UIWidget_i {
 			})
 		);
 
-		UIEventActionExecute uiWidgetGenericAction = new UIEventActionExecute(className, uiWidgetGeneric);
+		UIEventActionExecuteOld uiWidgetGenericAction = new UIEventActionExecuteOld(className, uiWidgetGeneric);
 		
 		uiWidgetGenericAction.action("SetWidgetStatus", strSet, "Disable");
 		uiWidgetGenericAction.action("SetWidgetStatus", strUnSet, "Disable");

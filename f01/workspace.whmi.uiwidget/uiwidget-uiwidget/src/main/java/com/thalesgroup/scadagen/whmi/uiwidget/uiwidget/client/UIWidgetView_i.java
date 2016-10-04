@@ -14,6 +14,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
  */
 public interface UIWidgetView_i {
 	
+	void setElement(String element);
 	void setUINameCard(UINameCard uiNameCard);
 	void setViewXMLFile(String viewXMLFile);
 	void setOptsXMLFile(String optsXMLFile);

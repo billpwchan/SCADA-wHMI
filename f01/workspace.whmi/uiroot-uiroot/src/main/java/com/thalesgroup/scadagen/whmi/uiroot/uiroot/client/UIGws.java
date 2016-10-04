@@ -151,11 +151,11 @@ public class UIGws {
 		logger.begin(className, function);
 		
 		{
-			final String header = "header";
-			final String option = "option";
-			final String action = "action";
-			final String event	= "event";
-			final String [] tags = {header, option, action, event};
+			final String header			= "header";
+			final String option			= "option";
+			final String action			= "action";
+			final String actionset		= "actionset";
+			final String [] tags = {header, option, action, actionset};
 			String mode = ConfigurationType.XMLFile.toString();
 			String module = null;
 			String folder = "UIWidgetGeneric";

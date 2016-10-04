@@ -581,7 +581,11 @@ public class UIWidgetGeneric extends UIWidget_i {
 					String icon		= null;
 					String toolTip	= null;
 	    			
-					if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+					if ( WidgetType.RadioButton.toString().equals(strWidget) ) {
+						
+						((RadioButton)widget).setValue(WidgetStatus.Down == status);
+						
+					} else if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
 							|| WidgetType.Button.toString().equals(strWidget) || WidgetType.InlineLabel.toString().equals(strWidget)) {
 						
 						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
@@ -663,9 +667,7 @@ public class UIWidgetGeneric extends UIWidget_i {
 						
 //						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
 						
-						if ( WidgetType.RadioButton.toString().equals(strWidget) ) {
-							((RadioButton)widget).setValue(WidgetStatus.Down == status);
-						}
+
 						
 						if ( WidgetType.Button.toString().equals(strWidget) )	
 							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));

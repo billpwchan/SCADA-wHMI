@@ -43,6 +43,17 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		this.uiInspectorDialogBoxEvent = uiInspectorDialogBoxEvent;
 	}
 	
+	private String element = null;
+	@Override
+	public void setElement(String element) {
+		final String function = "setElement";
+		logger.begin(className, function);
+		
+		this.element = element;
+		
+		logger.end(className, function);
+	}
+	
 	private UINameCard uiNameCard = null;
 	@Override
 	public void setUINameCard(UINameCard uiNameCard) {

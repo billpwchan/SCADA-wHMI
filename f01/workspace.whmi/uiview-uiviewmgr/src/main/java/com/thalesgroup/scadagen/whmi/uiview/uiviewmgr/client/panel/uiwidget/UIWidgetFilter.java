@@ -16,6 +16,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewOperation;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionExecuteOld;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterParameter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -167,7 +168,7 @@ public class UIWidgetFilter extends UIWidget_i {
 	}
 
 	private UIEventActionMgrOld mgr = null;
-	private UIEventActionExecute uiEventActionExecute = null;
+	private UIEventActionExecuteOld uiEventActionExecute = null;
 	// Create Filter Operation Index
 	@Override
 	public void init() {
@@ -189,7 +190,7 @@ public class UIWidgetFilter extends UIWidget_i {
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
-		uiEventActionExecute = new UIEventActionExecute(className, uiWidgetGeneric);
+		uiEventActionExecute = new UIEventActionExecuteOld(className, uiWidgetGeneric);
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnValueChangeHandler() {
 			

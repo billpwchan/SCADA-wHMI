@@ -23,8 +23,8 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
  */
 public class Database {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
+	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static Database instance = null;
 	public static Database getInstance () {
@@ -223,6 +223,43 @@ public class Database {
 		} else {
 			logger.warn(className, function, "databaseEvent IS NULL");
 		}
+		logger.end(className, function);
+	}
+	
+
+	
+	/**
+	 * @param clientKey : Key for the Reading and Result
+	 * @param dbaddresses : dbaddress to read
+	 * @param databaseEvent : Callback for result
+	 */
+	public void subscribe(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
+		final String function = "subscribe";
+		logger.begin(className, function);
+		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
+		if ( null != databaseEvent) {
+			logger.info(className, function, "send request to database", clientKey);
+			requestDynamics.put(clientKey, dbaddresses);
+			KeyAndAddress.put(clientKey, dbaddresses);
+			databaseEvents.put(clientKey, databaseEvent);
+		} else {
+			logger.warn(className, function, "databaseEvent IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	/**
+	 * @param clientKey : Key for the Reading and Result
+	 * @param dbaddresses : dbaddress to read
+	 * @param databaseEvent : Callback for result
+	 */
+	public void unSubscribe(String clientKey) {
+		final String function = "addDynamicRequest";
+		logger.begin(className, function);
+		logger.info(className, function, "clientKey[{}]", clientKey);
+		requestDynamics.remove(clientKey);
+		KeyAndAddress.remove(clientKey);
+		databaseEvents.remove(clientKey);
 		logger.end(className, function);
 	}
 	

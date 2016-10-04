@@ -17,6 +17,26 @@ public class UIEventActionBusFire {
 		this.logPrefix = "-> "+logPrefix+" ";
 		this.eventBus = eventBus;
 	}
+	public void executeAction( UIEventAction action ) {
+		final String function = "executeActionSet";
+		
+		logger.begin(className, function);
+		
+		if ( null == eventBus ) {
+			logger.warn(className, function, logPrefix+"eventBus IS null");
+			return;
+		}
+		
+		if ( null == action ) {
+			logger.warn(className, function, logPrefix+"action IS null");
+			return;
+		}
+		
+		logger.info(className, function, "fireEventFromSource");
+		eventBus.fireEventFromSource(action, this);
+
+		logger.end(className, function);
+	}
 	public void executeActionSet( HashMap<String, UIEventAction> uiEventActionOperations, String actionSetKey, HashMap<String, UIEventAction> uiEventActions) {
 		final String function = "executeActionSet";
 		

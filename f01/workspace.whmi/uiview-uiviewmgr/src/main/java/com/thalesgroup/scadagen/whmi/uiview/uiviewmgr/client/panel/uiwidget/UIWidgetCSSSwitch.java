@@ -18,9 +18,9 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
-public class UIWidgetCSSSelect extends UIWidget_i {
+public class UIWidgetCSSSwitch extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	// External
@@ -36,7 +36,14 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 	private String cssValueToVisibile1		= null;
 	private String cssValueToInvisibile1	= null;
 	
-	private final String strSet1			= "set1";
+	private String cssElementName2			= null;
+	private String cssValueToVisibile2		= null;
+	private String cssValueToInvisibile2	= null;
+	
+	private String cssElementName3			= null;
+	private String cssValueToVisibile3		= null;
+	private String cssValueToInvisibile3	= null;
+
 	private final String strSet0			= "set0";
 	
 	void onUIEvent(UIEvent uiEvent ) {
@@ -55,49 +62,79 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 			logger.info(className, function, "od1["+od1+"]");
 			
 			if ( null != op ) {
-
+				
 				// Action
-				if ( op.equals(CSSSelectEvent.CSSApply.toString()) ) {
+				if ( op.equals(CSSSelectEvent.CSSSelect0.toString()) ) {
 					
-					if ( null != od1 ) {
-						
-						if ( strSet0.equals(od1) ) {
-							
-							modifyCss(cssElementName0, cssValueToVisibile0, true);
-							modifyCss(cssElementName1, cssValueToInvisibile1, true);
-						} else if ( strSet1.equals(od1) ) {
-							
-							modifyCss(cssElementName0, cssValueToInvisibile0, true);
-							modifyCss(cssElementName1, cssValueToVisibile1, true);
-						} else {
-							logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
-						}
-
-					} else {
-						logger.warn(className, function, "od1[{}] IS NULL", od1);
-					}
+					modifyCss(cssElementName0, cssValueToVisibile0, false);
+					modifyCss(cssElementName0, cssValueToInvisibile0, false);
 					
-				} else if ( op.equals(CSSSelectEvent.CSSRemove.toString()) ) {
+					modifyCss(cssElementName1, cssValueToVisibile1, false);
+					modifyCss(cssElementName1, cssValueToInvisibile1, false);
 					
-					if ( null != od1 ) {
-						if ( strSet0.equals(od1) ) {
-							
-							modifyCss(cssElementName0, cssValueToInvisibile0, false);
-							modifyCss(cssElementName1, cssValueToVisibile1, false);
-						} else if ( strSet1.equals(od1) ) {
-							
-							modifyCss(cssElementName0, cssValueToVisibile0, false);
-							modifyCss(cssElementName1, cssValueToInvisibile1, false);
-						} else {
-							logger.warn(className, function, "Widget od1[{}] IS UNKNOW", od1);
-						}					
-					} else {
-						logger.warn(className, function, "od1[{}] IS NULL", od1);
-					}
+					modifyCss(cssElementName2, cssValueToVisibile2, false);
+					modifyCss(cssElementName2, cssValueToInvisibile2, false);
+					
+					modifyCss(cssElementName3, cssValueToVisibile3, false);
+					modifyCss(cssElementName3, cssValueToInvisibile3, false);
+					
+					modifyCss(cssElementName0, cssValueToVisibile0, true);
+					modifyCss(cssElementName1, cssValueToInvisibile1, true);
+					
+				} else if ( op.equals(CSSSelectEvent.CSSSelect1.toString()) ) {
+					
+					modifyCss(cssElementName0, cssValueToVisibile0, false);
+					modifyCss(cssElementName0, cssValueToInvisibile0, false);
+					
+					modifyCss(cssElementName1, cssValueToVisibile1, false);
+					modifyCss(cssElementName1, cssValueToInvisibile1, false);
+					
+					modifyCss(cssElementName2, cssValueToVisibile2, false);
+					modifyCss(cssElementName2, cssValueToInvisibile2, false);
+					
+					modifyCss(cssElementName3, cssValueToVisibile3, false);
+					modifyCss(cssElementName3, cssValueToInvisibile3, false);
+					
+					modifyCss(cssElementName0, cssValueToInvisibile0, true);
+					modifyCss(cssElementName1, cssValueToVisibile1, true);
+					
+				} else if ( op.equals(CSSSelectEvent.CSSSelect2.toString()) ) {
+					
+					modifyCss(cssElementName0, cssValueToVisibile0, false);
+					modifyCss(cssElementName0, cssValueToInvisibile0, false);
+					
+					modifyCss(cssElementName1, cssValueToVisibile1, false);
+					modifyCss(cssElementName1, cssValueToInvisibile1, false);
+					
+					modifyCss(cssElementName2, cssValueToVisibile2, false);
+					modifyCss(cssElementName2, cssValueToInvisibile2, false);
+					
+					modifyCss(cssElementName3, cssValueToVisibile3, false);
+					modifyCss(cssElementName3, cssValueToInvisibile3, false);
+					
+					modifyCss(cssElementName0, cssValueToVisibile0, true);
+					modifyCss(cssElementName1, cssValueToInvisibile1, true);
+					
+				} else if ( op.equals(CSSSelectEvent.CSSSelect3.toString()) ) {
+					
+					modifyCss(cssElementName0, cssValueToVisibile0, false);
+					modifyCss(cssElementName0, cssValueToInvisibile0, false);
+					
+					modifyCss(cssElementName1, cssValueToVisibile1, false);
+					modifyCss(cssElementName1, cssValueToInvisibile1, false);
+					
+					modifyCss(cssElementName2, cssValueToVisibile2, false);
+					modifyCss(cssElementName2, cssValueToInvisibile2, false);
+					
+					modifyCss(cssElementName3, cssValueToVisibile3, false);
+					modifyCss(cssElementName3, cssValueToInvisibile3, false);
+					
+					modifyCss(cssElementName0, cssValueToInvisibile0, true);
+					modifyCss(cssElementName1, cssValueToVisibile1, true);
 					
 				} else if ( op.equals(CSSSelectViewEvent.SetDefaultCSS.toString()) ) {
 					
-					uiLayoutGeneric.setWidgetValue(strSet1, "true");
+					uiLayoutGeneric.setWidgetValue(strSet0, "true");
 
 				} else {
 					logger.warn(className, function, "uiEventAction Operation type IS UNKNOW");
@@ -132,14 +169,32 @@ public class UIWidgetCSSSelect extends UIWidget_i {
 			cssElementName1			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSElementName1.toString(), strHeader);
 			cssValueToVisibile1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueApplyToElement1.toString(), strHeader);
 			cssValueToInvisibile1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueRemoveFromElement1.toString(), strHeader);
+			
+			cssElementName2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSElementName2.toString(), strHeader);
+			cssValueToVisibile2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueApplyToElement2.toString(), strHeader);
+			cssValueToInvisibile2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueRemoveFromElement2.toString(), strHeader);
+
+			cssElementName3			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSElementName3.toString(), strHeader);
+			cssValueToVisibile3		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueApplyToElement3.toString(), strHeader);
+			cssValueToInvisibile3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.CSSValueRemoveFromElement3.toString(), strHeader);
+
 		}
 		
 		logger.info(className, function, "cssElementName0[{}]",		cssElementName0);
 		logger.info(className, function, "cssValueToApply0[{}]",	cssValueToVisibile0);
 		logger.info(className, function, "cssValueToRemove0[{}]",	cssValueToInvisibile0);
+		
 		logger.info(className, function, "cssElementName1[{}]",		cssElementName1);
 		logger.info(className, function, "cssValueToApply1[{}]",	cssValueToVisibile1);
 		logger.info(className, function, "cssValueToRemove1[{}]",	cssValueToInvisibile1);
+		
+		logger.info(className, function, "cssElementName2[{}]",		cssElementName2);
+		logger.info(className, function, "cssValueToApply2[{}]",	cssValueToVisibile2);
+		logger.info(className, function, "cssValueToRemove2[{}]",	cssValueToInvisibile2);
+		
+		logger.info(className, function, "cssElementName3[{}]",		cssElementName3);
+		logger.info(className, function, "cssValueToApply3[{}]",	cssValueToVisibile3);
+		logger.info(className, function, "cssValueToRemove3[{}]",	cssValueToInvisibile3);
 
 		uiLayoutGeneric = new UILayoutGeneric();
 		

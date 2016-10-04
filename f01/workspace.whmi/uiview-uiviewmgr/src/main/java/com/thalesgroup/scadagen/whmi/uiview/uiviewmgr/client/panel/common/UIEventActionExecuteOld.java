@@ -3,16 +3,16 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.WidgetExecuteAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
-public class UIEventActionExecute {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionExecute.class.getName());
+public class UIEventActionExecuteOld {
+	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionExecuteOld.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	private String logPrefix = "";
 	private UIWidgetGeneric uiWidgetGeneric = null;
-	public UIEventActionExecute ( String logPrefix, UIWidgetGeneric uiWidgetGeneric) {
+	public UIEventActionExecuteOld ( String logPrefix, UIWidgetGeneric uiWidgetGeneric) {
 		this.logPrefix = "-> "+logPrefix+" ";
 		this.uiWidgetGeneric = uiWidgetGeneric;
 	}
@@ -32,7 +32,22 @@ public class UIEventActionExecute {
 		return result;
 	}
 	
-	public void executeAction(UIEventAction uiEventAction) {
+	public void action(String strWidgetAction, String strWidget, String widgetValue) {
+		final String function = "action";
+		
+		logger.begin(className, function);
+		
+		UIEventAction uiEventAction = new UIEventAction();
+		uiEventAction.setParameters(ViewAttribute.Operation.toString(), strWidgetAction);
+		uiEventAction.setParameters(ViewAttribute.OperationString1.toString(), strWidget);
+		uiEventAction.setParameters(ViewAttribute.OperationString2.toString(), widgetValue);
+
+		action(uiEventAction);
+
+		logger.end(className, function);
+	}
+	
+	public void action(UIEventAction uiEventAction) {
 	final String function = "action";
 		
 		logger.begin(className, function);
@@ -42,9 +57,9 @@ public class UIEventActionExecute {
 			return;
 		}
 		
-		String strWidgetAction	= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString1.toString());
-		String strWidget		= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString2.toString());
-		String widgetValue		= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString3.toString());
+		String strWidgetAction	= (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
+		String strWidget		= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+		String widgetValue		= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
 		
 		logger.info(className, function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
 		

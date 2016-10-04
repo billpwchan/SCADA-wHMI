@@ -21,6 +21,16 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 	protected String className = UIWidgetUtil.getClassSimpleName(UIWidget_i.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	protected String element = null;
+	@Override
+	public void setElement(String element) {
+		final String function = "setElement";
+		this.element = element;
+		logger.info(className, function, "element[{}]", this.element);
+		if ( null == this.element ) {
+			logger.warn(className, function, "element IS NULL");
+		}
+	}
 
 	protected UINameCard uiNameCard = null;
 	@Override

@@ -28,10 +28,13 @@ public class CtlMgr {
 		return instance;
 	}
 	
+	private final String COMMAND_SENT = "COMMAND SENT";
+	private final String COMMAND_FAILED = "COMMAND FAILED";
+	
 	private Subject subject = null;
 	public Subject getSubject() { return subject; }
 	
-	private ScsCTLComponentAccess ctlAccess = null;
+	private ScsCTLComponentAccess scsCTLComponentAccess = null;
 	private CtlMgr () {
 		final String function = "CtlMgr";
 		
@@ -39,7 +42,7 @@ public class CtlMgr {
 		
 		this.subject = new Subject();
 		
-		this.ctlAccess = new ScsCTLComponentAccess(new ICTLComponentClient() {
+		this.scsCTLComponentAccess = new ScsCTLComponentAccess(new ICTLComponentClient() {
 			
 			@Override
 			public void destroy() {
@@ -61,46 +64,71 @@ public class CtlMgr {
 			
 		    @Override
 		    public void setSendIntCommandResult(String clientKey, String message, int errorCode, String errorMessage) {
-		        // TODO Auto-generated method stub
+		    	
+		    	final String function = "setSendIntCommandResult";
+		    	
+		    	logger.begin(className, function);
+		    	
+		    	logger.info(className, function, "clientKey[{}]", clientKey);
+		    	logger.info(className, function, "message[{}]", message);
+		    	logger.info(className, function, "errorCode[{}]", errorCode);
+		    	logger.info(className, function, "errorMessage[{}]", errorMessage);
 
-		        if (errorCode != 0) {
-		        	if ( null != subject ) {
-		        		subject.setState("COMMAND FAILED");
-		        	}
-		        } else {
-		        	if ( null != subject ) {
+		    	if ( null != subject ) {
+		    		if (errorCode != 0) {
+		        		subject.setState(COMMAND_FAILED);
+		        	} else {
 		        		subject.setState(message);
 		        	}
 		        }
+		        
+		        logger.end(className, function);
 		    }
 
 		    @Override
 		    public void setSendFloatCommandResult(String clientKey, String message, int errorCode, String errorMessage) {
-		        // TODO Auto-generated method stub
+		    	
+		    	final String function = "setSendFloatCommandResult";
+		    	
+		    	logger.begin(className, function);
+		    	
+		    	logger.info(className, function, "clientKey[{}]", clientKey);
+		    	logger.info(className, function, "message[{}]", message);
+		    	logger.info(className, function, "errorCode[{}]", errorCode);
+		    	logger.info(className, function, "errorMessage[{}]", errorMessage);
 
-		        if (errorCode != 0) {
-		        	if ( null != subject ) {
-		        		subject.setState("COMMAND FAILED");
-		        	}
-		        } else {
-		        	if ( null != subject ) {
+		    	if ( null != subject ) {
+		    		if (errorCode != 0) {
+		        		subject.setState(COMMAND_FAILED);
+		        	} else {
 		        		subject.setState(message);
 		        	}
 		        }
+		        
+		        logger.end(className, function);
 		    }
 
 		    @Override
 		    public void setSendStringCommandResult(String clientKey, String message, int errorCode, String errorMessage) {
-		        // TODO Auto-generated method stub
-		        if (errorCode != 0) {
-		        	if ( null != subject ) {
-		        		subject.setState("COMMAND FAILED");
-		        	}
-		        } else {
-		        	if ( null != subject ) {
+		    	
+		    	final String function = "setSendStringCommandResult";
+		    	
+		    	logger.begin(className, function);
+		    	
+		    	logger.info(className, function, "clientKey[{}]", clientKey);
+		    	logger.info(className, function, "message[{}]", message);
+		    	logger.info(className, function, "errorCode[{}]", errorCode);
+		    	logger.info(className, function, "errorMessage[{}]", errorMessage);
+		    	
+		    	if ( null != subject ) {
+		    		if (errorCode != 0) {
+		        		subject.setState(COMMAND_FAILED);
+		        	} else {
 		        		subject.setState(message);
 		        	}
 		        }
+		        
+		        logger.end(className, function);
 		    }
 		});
 		
@@ -118,12 +146,12 @@ public class CtlMgr {
 		
 		logger.begin(className, function);
 		try {
-			ctlAccess.terminate();
+			scsCTLComponentAccess.terminate();
 		} catch (IllegalStatePresenterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ctlAccess=null;
+		scsCTLComponentAccess=null;
 		logger.end(className, function);
 	}
 	
@@ -148,10 +176,10 @@ public class CtlMgr {
 		
 		String [] analogValueAddress = address;
 		
-		if ( null != ctlAccess ) {
-			ctlAccess.sendFloatCommand("sendFloatCommand", envName, analogValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
+		if ( null != scsCTLComponentAccess ) {
+			scsCTLComponentAccess.sendFloatCommand("sendFloatCommand", envName, analogValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			if ( null != subject ) {
-        		subject.setState("COMMAND SENT");
+        		subject.setState(COMMAND_SENT);
 	    	}				
 		} else {
 			logger.warn(className, function, "m_CTLAccess IS NULL");
@@ -183,10 +211,10 @@ public class CtlMgr {
 		
 		String [] digitalValueAddress = address;
 		
-		if ( null != ctlAccess ) {
-			ctlAccess.sendIntCommand("sendIntCommand", envName, digitalValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
+		if ( null != scsCTLComponentAccess ) {
+			scsCTLComponentAccess.sendIntCommand("sendIntCommand", envName, digitalValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			if ( null != subject ) {
-        		subject.setState("COMMAND SENT");
+        		subject.setState(COMMAND_SENT);
 	    	}				
 		} else {
 			logger.warn(className, function, "m_CTLAccess IS NULL");
@@ -220,14 +248,14 @@ public class CtlMgr {
 		
 		logger.info(className, function, "structuredValueAddress(0)[{}]", structuredValueAddress[0]);
 		
-		if ( null != ctlAccess ) {
+		if ( null != scsCTLComponentAccess ) {
 			if ( null != subject ) {
-        		subject.setState("COMMAND SENT");
+        		subject.setState(COMMAND_SENT);
 	    	}				
 		} else {
 			logger.warn(className, function, "m_CTLAccess IS NULL");
 		}
-		ctlAccess.sendStringCommand("sendStringCommand", envName, structuredValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
+		scsCTLComponentAccess.sendStringCommand("sendStringCommand", envName, structuredValueAddress, commandValue, bypassInitCond, bypassRetCond, sendAnyway);
 
 		logger.end(className, function);
 	}

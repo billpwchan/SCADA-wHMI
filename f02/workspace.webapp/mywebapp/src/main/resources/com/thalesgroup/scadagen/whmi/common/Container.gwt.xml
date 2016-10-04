@@ -3,6 +3,9 @@
 <module rename-to='Container'>
 
   <!-- Other module inherits                                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uiutil.uilogger.UILogger' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiutil.uiutil.UIUtil' />
+  
   <inherits name='com.thalesgroup.scadagen.whmi.config.confignav.ConfigNav' />
 
   <inherits name='com.thalesgroup.scadagen.whmi.opm.authentication.OpmAuthentication' />
@@ -35,7 +38,7 @@
   <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.UIScreenRoot' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiroot.uiroot.UIRoot' />
   
-  <inherits name='com.thalesgroup.scadagen.wrapper.mwt.Mwt' />
+  <!-- <inherits name='com.thalesgroup.scadagen.wrapper.mwt.Mwt' /> -->
   <inherits name='com.thalesgroup.scadagen.wrapper.wrapper.Wrapper' />
   
   <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.UIWidgetContainer' />

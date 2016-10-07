@@ -1,0 +1,231 @@
+package com.thalesgroup.scadagen.bps.actionhandlers;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.IntNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.ValueNode;
+import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
+import com.thalesgroup.hv.data_v1.equipment.AbstractEquipmentStatusesType;
+import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
+import com.thalesgroup.scadagen.binding.AttributeBinding;
+import com.thalesgroup.scadagen.bps.conf.ConfManager;
+import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
+import com.thalesgroup.scadagen.bps.conf.actions.IAction;
+import com.thalesgroup.scadagen.bps.conf.binding.data.IData;
+import com.thalesgroup.scadagen.bps.conf.operation.CommandParam;
+import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
+import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
+import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
+import com.thalesgroup.scadagen.bps.data.ConfiguredEntityStatusesInstancesDataDescription;
+import com.thalesgroup.scadagen.bps.data.ConfiguredEntityStatusesTypeDataDescription;
+import com.thalesgroup.scadagen.bps.data.EntityDataDescriptionAbstract;
+
+// This class is customized to handle SCADAsoft component request with JSON parameters
+public class Hvmodel2scs implements IAction {
+
+	protected static final Logger LOGGER = LoggerFactory.getLogger(Hvmodel2scs.class);
+	private static final String SCS_PATH_SEPARATOR = ":";
+
+	@Override
+	public String getActionId() {
+		return this.getClass().getName();
+	}
+
+	@Override
+	public void execute(IGenericOperationConnector operationConnector, Set<EntityDataDescriptionAbstract>desc, String actionConfigId,
+			AbstractEntityStatusesType entity) {
+		AbstractOperationRequestType operationRequest = null;
+	    GenericOperationConnector opConnector = (GenericOperationConnector)operationConnector;
+	    String operationJavaClassName = null;
+	    Map<String, String> operationParam = new HashMap<String, String>();
+	    
+	    LOGGER.debug("Try execute action with config [{}]", actionConfigId);
+	    
+	    try
+	    {
+	    	OperationEntry entry = OperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
+	    	
+	    	if (entry != null) {
+	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
+	    		
+	    		operationJavaClassName = entry.getCommandContent().getOperationJavaClassName();
+	    		if (operationJavaClassName == null) {
+	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry [{}]", actionConfigId);
+	    			return;
+	    		}
+	    		LOGGER.trace("OperationEntry javaClassName [{}]", operationJavaClassName);
+	    		
+	    		CommandParam actionParam = null;
+	    		String actionParamValue = null;
+	    		for (CommandParam param: entry.getCommandContent().getCommandParam()) {
+	    			operationParam.put(param.getParamName(), param.getParamValue());
+	    			if (param.getParamName().compareTo("action") == 0) {
+	    				actionParam = param;
+	    				actionParamValue = param.getParamValue();
+	    			}
+	    			
+	    			LOGGER.trace("OperationEntry operationParam param=[{}] value=[{}]", param.getParamName(), param.getParamValue());
+	    		}
+
+	    		//  parse JSON and replace "values" node by run time values
+	    		//	{
+	    		//		"component":"DbmComponent",
+	    	    //		"request":"multiWriteValue",
+	    	    //		"parameters":
+	    	    //		{
+	    	    //			"values":
+	    	    //			{
+	    	    //				"$dbAddress":"$valueToWrite"
+	    	    //			}
+	    	    //		}
+	    		//	}
+
+				ObjectMapper jsonMapper = new ObjectMapper();
+	            ObjectNode actionNode = (ObjectNode) jsonMapper.readTree(actionParamValue);
+	            JsonNodeFactory jsonNodeFactory = JsonNodeFactory.instance;
+	            JsonNode paramNode = actionNode.get("parameters");
+	            Map<String, JsonNode> map = new HashMap<String, JsonNode>();
+	            Map<String, JsonNode> timeValueMap = new HashMap<String, JsonNode>();
+	            
+            	if (entity instanceof AbstractEquipmentStatusesType) {
+            		AbstractEquipmentStatusesType eqp = (AbstractEquipmentStatusesType)entity;
+            		String eqpId = eqp.getId();
+            		LOGGER.trace("eqpId=[{}]", eqpId);
+            		
+            		if (operationParam.get("entityID") == null) {
+            			LOGGER.trace("operationParm entityID is null -> set to [{}]", operationConnector.getTools().getSystemConfiguration().getCurrentInstanceName());
+            			operationParam.put("entityID", operationConnector.getTools().getSystemConfiguration().getCurrentInstanceName());
+            		}
+
+            		Set<String> attributeNames = getAttributeNamesFromConfig(operationConnector, entity, desc);
+            		for (String attributeName: attributeNames) {
+            			
+            			// Get binding id from hv2scs instance mapping
+            			String hv2scsBindingId = ConfManager.getScs2HvLoader().getScsEqpOfHVInstancesMap().get(eqpId);
+            			if (hv2scsBindingId == null) {
+            				LOGGER.warn("Unable to find binding id for HV id {}", eqpId);
+            				break;
+            			}
+            			
+            			// Get scs eqp path from hv2scs instance mapping
+            			String scseqpPath = ConfManager.getScs2HvLoader().getHv2ScsInstancesMap().get(eqpId);
+            			if (scseqpPath == null) {
+            				LOGGER.warn("Unable to find scs eqp path for HV id {}", eqpId);
+            				break;
+            			}
+            			
+            			// Get hv2scs class binding
+            			HashSet<AttributeBinding> bindings = new HashSet<AttributeBinding>(ConfManager.getBindingEngine().getAttributeBindings(hv2scsBindingId, attributeName));
+            			if (bindings == null || bindings.isEmpty()) {
+            				LOGGER.warn("Unable to find binding for binding id {] and input {}", hv2scsBindingId, attributeName);
+            				break;
+            			}
+            			
+            			// Support only 1 to 1 binding for now
+            			AttributeBinding binding = bindings.iterator().next();
+            			
+            			// Get scs point level db path from attribute binding
+            			String scsPointPath = binding.getId();
+            			String scsdbPath = scseqpPath + SCS_PATH_SEPARATOR + scsPointPath;
+            			 
+            			// Write to status before value if paramConfig "writeStatus" is set
+            			String statusStr = ActionUtils.getWriteStatus(actionParam);
+            			if (statusStr != null) {
+        					String scsdbStatusPath = scsdbPath.substring(0, scsdbPath.lastIndexOf(".")+1) + statusStr;
+    		                IntNode statusValueNode = new IntNode(1);
+    		                map.put(scsdbStatusPath, statusValueNode);
+            			}           
+
+    	                // Convert HV value to Scs value
+            			IData data = ConfManager.getBindingEngine().getScsValue(eqp, attributeName);
+    	                
+    	                // Get Scs value type from binding type
+    	                String valueType = ConfManager.getBindingEngine().getScsValueType(binding);
+    	                ValueNode valueNode = ActionUtils.getValueNode(data, valueType);
+    	                map.put(scsdbPath, valueNode);
+    	                
+    	                // Check paramConfig "writeTimeValue*"
+    	                Map<String, JsonNode> tMap = ActionUtils.getTimeValues(operationConnector, eqp, actionParam, scsdbPath);
+    	                if (!tMap.isEmpty()) {
+    	                	for (String key: tMap.keySet()) {
+    	                		timeValueMap.put(key, tMap.get(key));
+    	                	}
+    	                }
+    	            }              
+            		
+            		ObjectNode obj = new ObjectNode(jsonNodeFactory, map);
+    	            ((ObjectNode)paramNode).set("values", obj);
+    	            
+		            if (!timeValueMap.isEmpty()) {
+		            	ObjectNode objTimeValue = new ObjectNode(jsonNodeFactory, timeValueMap);
+			            ((ObjectNode)paramNode).set("timeValues", objTimeValue);
+		            }
+		            
+    	            String newActionString = jsonMapper.writeValueAsString(actionNode);    	            
+    	            LOGGER.debug("action json str = {}", newActionString);
+    	            operationParam.put("action", newActionString);
+	            }
+
+	    		operationRequest = opConnector.createOperation(operationJavaClassName, operationParam);
+	    		if (operationRequest == null) {
+	    			LOGGER.debug("Error creating operation using OperationEntry [{}]", actionConfigId);
+	    			return;
+	    		}
+		
+		    	if (operationConnector != null) {
+		    		if (entry.getCommandContent().isIncludeCorrelationId()) {
+		    			UUID correlationId = UUID.randomUUID();
+		    			operationConnector.requestOperation(correlationId, operationRequest);
+		    		} else {
+		    			operationConnector.requestOperation(operationRequest);
+		    		}
+		    		LOGGER.debug("Sent requestOperation [{}]", actionConfigId);
+		    	}
+
+	    		
+	    	} else {
+	    		LOGGER.warn("OperationEntry [{}] not found", actionConfigId);
+	    	}
+	    } catch (HypervisorException e) {
+	    	LOGGER.debug("Error creating operation using OperationEntry [{}] [{}]", actionConfigId, e);
+	    } catch (JsonProcessingException e) {
+	    	LOGGER.debug("Error creating operation using OperationEntry [{}] [{}]", actionConfigId, e);
+		} catch (IOException e) {
+			LOGGER.debug("Error creating operation using OperationEntry [{}] [{}]", actionConfigId, e);
+		}
+	}
+
+	private Set<String> getAttributeNamesFromConfig(IGenericOperationConnector operationConnector, AbstractEntityStatusesType entity, Set<EntityDataDescriptionAbstract>descSet) throws HypervisorException {
+
+		for (EntityDataDescriptionAbstract desc: descSet) {
+			if (desc instanceof ConfiguredEntityStatusesTypeDataDescription) {
+				ConfiguredEntityStatusesTypeDataDescription cfgDesc = (ConfiguredEntityStatusesTypeDataDescription)desc;
+				if (cfgDesc.getEntityType().compareTo(operationConnector.getTools().getEquipmentTypeFromId(entity.getId())) == 0) {		
+					return cfgDesc.getStatusesName();
+				}
+			} else if (desc instanceof ConfiguredEntityStatusesInstancesDataDescription) {
+				ConfiguredEntityStatusesInstancesDataDescription cfgDesc = (ConfiguredEntityStatusesInstancesDataDescription)desc;
+				if (cfgDesc.getEntityIds().contains(entity.getId())) {
+					return cfgDesc.getStatusesName();
+				}
+			}
+		}
+		
+		return null;
+	}
+
+}

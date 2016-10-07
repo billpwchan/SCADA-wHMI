@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+ 	<p:bpsConfiguration name="itms_test" />
+
+ 	<p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<sds:id>TLS_:J13ETL214:Traffic_Light_status</sds:id>
+				<sds:id>SPM_:B06EPM200:Point_Position_Loss</sds:id>
+				<sds:id>SPM_:B06EPM200:Setting_Error</sds:id>
+				<sds:id>ROU_:B06C_B06E:Route_Disabled</sds:id>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="eqpType"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="eqpID"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="group"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="evarName"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="evarValue"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="evarType"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="evarSec"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="evarMs"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+	</p:subject>
+
+	<p:trigger>
+		<p:action>
+			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.Hveqp2scs</p:actionHandler>
+			<p:actionConfig>hveqp2scs1</p:actionConfig>
+		</p:action>
+	</p:trigger>
+</p:bpsConfig>

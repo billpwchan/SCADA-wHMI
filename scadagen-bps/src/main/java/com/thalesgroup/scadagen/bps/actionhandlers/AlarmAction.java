@@ -14,12 +14,13 @@ import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.data_v1.alarm.AbstractAlarmType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
-import com.thalesgroup.scadagen.bps.conf.HvOperationConfigLoader;
+import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
-import com.thalesgroup.scadagen.bps.conf.hvoperation.CommandParam;
-import com.thalesgroup.scadagen.bps.conf.hvoperation.OperationEntry;
+import com.thalesgroup.scadagen.bps.conf.operation.CommandParam;
+import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
+import com.thalesgroup.scadagen.bps.data.EntityDataDescriptionAbstract;
 
 public class AlarmAction implements IAction {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(AlarmAction.class);
@@ -38,7 +39,7 @@ public class AlarmAction implements IAction {
      * @return the corresponding class.
      * @throws HypervisorException if the class is not found or not an action.
      */
-	public void execute(IGenericOperationConnector operationConnector, String actionConfigId, Set<AbstractEntityStatusesType> entities)
+	public void execute(IGenericOperationConnector operationConnector, Set<EntityDataDescriptionAbstract>desc, String actionConfigId, AbstractEntityStatusesType entity)
 	{
 	    AbstractOperationRequestType operationRequest = null;
 	    GenericOperationConnector opConnector = (GenericOperationConnector)operationConnector;
@@ -49,7 +50,7 @@ public class AlarmAction implements IAction {
 	    
 	    try
 	    {
-	    	OperationEntry entry = HvOperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
+	    	OperationEntry entry = OperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
 	    	
 	    	if (entry != null) {
 	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
@@ -71,15 +72,12 @@ public class AlarmAction implements IAction {
 	    		if (entry.getEquipmentList() != null && !entry.getEquipmentList().getEquipmentId().isEmpty()) {
 	    			equipmentList = entry.getEquipmentList().getEquipmentId();
 	    		} else {
-
-	    			for (AbstractEntityStatusesType entity: entities) {
-	    				if (entity instanceof AbstractAlarmType) {
-	    					AbstractAlarmType alarm = (AbstractAlarmType)entity;
-	    					if (alarm.getSourceID() != null && alarm.getSourceID().getValue() != null) {
-	    						equipmentList.add(alarm.getSourceID().getValue());
-	    					}
-	    				}
-	    			}  			
+    				if (entity instanceof AbstractAlarmType) {
+    					AbstractAlarmType alarm = (AbstractAlarmType)entity;
+    					if (alarm.getSourceID() != null && alarm.getSourceID().getValue() != null) {
+    						equipmentList.add(alarm.getSourceID().getValue());
+    					}
+    				}
 	    		}
 
 	    		for (String id: equipmentList) {

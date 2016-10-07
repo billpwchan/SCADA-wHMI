@@ -19,10 +19,10 @@ import com.thalesgroup.hv.common.tools.MarshallersPool;
 import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
 import com.thalesgroup.scadagen.bps.conf.subscription_data_source.SubscriptionDataSource;
 
-public final class ConfLoader {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ConfLoader.class);
+public final class BpsConfLoader {
+	private static final Logger LOGGER = LoggerFactory.getLogger(BpsConfLoader.class);
 
-	private static ConfLoader instance_;
+	private static BpsConfLoader instance_;
 
 	private MarshallersPool marshallersPool_;
 
@@ -33,20 +33,24 @@ public final class ConfLoader {
 	private Map<String, BpsConfig> confMap_;
 
 	private static final String FILE_NAME_PATTERN = "classpath*:bpsConfig/bps*.xml";
+	
+//	private Map<String,String> hveqp2scsdbMap_ = new HashMap<String, String>();
+//	
+//	private Map<String,String> hveqp2scstypeMap_ = new HashMap<String, String>();
 
 
-	public static synchronized ConfLoader getInstance() throws HypervisorException {
+	public static synchronized BpsConfLoader getInstance() throws HypervisorException {
 		if (instance_ == null) {
-			instance_ = new ConfLoader();
+			instance_ = new BpsConfLoader();
 		}
 		return instance_;
 	}
 
-	protected ConfLoader() throws HypervisorException {
+	protected BpsConfLoader() throws HypervisorException {
 
 		initializeMarshaller();
 
-		if (this.marshallersPool_ != null) {
+		if (marshallersPool_ != null) {
 			initConfigurations();
 		} else {
 			LOGGER.error(
@@ -58,8 +62,8 @@ public final class ConfLoader {
 
 		List<String> schemas = new ArrayList<String>();
 		schemas.add("xsd/common.xsd");
-		schemas.add("xsd/subscription-data-source-config.xsd");
-		schemas.add("xsd/bps-config.xsd");
+		schemas.add("xsd/subscriptionDataSourceConfig.xsd");
+		schemas.add("xsd/bpsConfig.xsd");
 
 		LOGGER.trace("Loaded xsd for the bps configuration [{}].", schemas);
 
@@ -70,13 +74,13 @@ public final class ConfLoader {
 
 		String buildContextPath = MarshallersPool.buildContextPath(context);
 
-		this.marshallersPool_ = new MarshallersPool(buildContextPath, schemas);
+		marshallersPool_ = new MarshallersPool(buildContextPath, schemas);
 	}
 
 	private void initConfigurations() {
-		this.lastModifyMap_ = new HashMap<String, Long>();
-		this.resourceMap_ = new HashMap<String, Resource>();
-		this.confMap_ = new HashMap<String, BpsConfig>();
+		lastModifyMap_ = new HashMap<String, Long>();
+		resourceMap_ = new HashMap<String, Resource>();
+		confMap_ = new HashMap<String, BpsConfig>();
 
 		ResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
 		try {
@@ -87,22 +91,31 @@ public final class ConfLoader {
 					BpsConfig config = read(resource);
 					LOGGER.trace("Read resource [{}]", resource.getFilename());
 
-					this.confMap_.put(config.getBpsConfiguration().getName(), config);
-					this.lastModifyMap_.put(config.getBpsConfiguration().getName(), Long.valueOf(resource.lastModified()));
-					this.resourceMap_.put(config.getBpsConfiguration().getName(), resource);
+					confMap_.put(config.getBpsConfiguration().getName(), config);
+					lastModifyMap_.put(config.getBpsConfiguration().getName(), Long.valueOf(resource.lastModified()));
+					resourceMap_.put(config.getBpsConfiguration().getName(), resource);
 				} catch (HypervisorConversionException e) {
 					LOGGER.error("Error while reading the BPS configuration file ["
 							+ resource.getFilename() + "].", e);
 				}
 
 			}
+			
+//			List<Map<String,String>> mapList = new ArrayList<Map<String,String>>();
+//			mapList.add(hveqp2scsdbMap_);
+//			mapList.add(hveqp2scstypeMap_);
+//
+//			readMapFromCsv("classpath:bpsConfig/hveqp2scsdb.csv", ",", mapList);
+			
 		} catch (IOException e) {
 			LOGGER.error("An error occurred while looking for BPS configuration files.", e);
+//		} catch (HypervisorException e) {
+//			LOGGER.error("An error occurred while looking for BPS configuration files.", e);
 		}
 	}
 
 	private BpsConfig read(Resource resource) throws HypervisorConversionException, IOException {
-		BpsConfig conf = (BpsConfig) this.marshallersPool_.unmarshal(resource.getURL());
+		BpsConfig conf = (BpsConfig) marshallersPool_.unmarshal(resource.getURL());
 
 		return conf;
 	}
@@ -112,10 +125,10 @@ public final class ConfLoader {
 	}
 
 	public BpsConfig getConfiguration(String configName) {
-		if (this.lastModifyMap_.containsKey(configName)) {
+		if (lastModifyMap_.containsKey(configName)) {
 			try {
-				if (((Resource) this.resourceMap_.get(configName))
-						.lastModified() > ((Long) this.lastModifyMap_.get(configName)).longValue()) {
+				if (((Resource) resourceMap_.get(configName))
+						.lastModified() > ((Long) lastModifyMap_.get(configName)).longValue()) {
 					LOGGER.debug("The BPS configuration [" + configName
 							+ "] need to be refresh due to a modification.");
 
@@ -137,26 +150,70 @@ public final class ConfLoader {
 			initConfigurations();
 		}
 
-		return (BpsConfig) this.confMap_.get(configName);
+		return (BpsConfig) confMap_.get(configName);
 	}
 
 	private void refreshConf(String configurationName) throws HypervisorConversionException, IOException {
-		Resource resource = (Resource) this.resourceMap_.get(configurationName);
+		Resource resource = (Resource) resourceMap_.get(configurationName);
 
-		this.resourceMap_.remove(configurationName);
-		this.confMap_.remove(configurationName);
-		this.lastModifyMap_.remove(configurationName);
+		resourceMap_.remove(configurationName);
+		confMap_.remove(configurationName);
+		lastModifyMap_.remove(configurationName);
 
 		BpsConfig configuration = read(resource);
 
-		this.confMap_.put(configuration.getBpsConfiguration().getName(), configuration);
-		this.lastModifyMap_.put(configuration.getBpsConfiguration().getName(), Long.valueOf(resource.lastModified()));
-		this.resourceMap_.put(configuration.getBpsConfiguration().getName(), resource);
+		confMap_.put(configuration.getBpsConfiguration().getName(), configuration);
+		lastModifyMap_.put(configuration.getBpsConfiguration().getName(), Long.valueOf(resource.lastModified()));
+		resourceMap_.put(configuration.getBpsConfiguration().getName(), resource);
 	}
 
 //	public DataSourceAbstract<? extends DataSource> getDataSource()
 //			throws HypervisorException {
 //		DataSourceAbstract<? extends DataSource> dataSource = new SubscriptionDataSourceImpl();
 //		return dataSource;
+//	}
+	
+//	public Map<String,String> getHveqp2scsdbMap() {
+//		return hveqp2scsdbMap_;
+//	}
+//	
+//	public Map<String,String> getHveqp2scstypeMap() {
+//		return hveqp2scstypeMap_;
+//	}
+	
+//	protected void readMapFromCsv(String csvFile, String delimiter, List<Map<String,String>> mapList) throws HypervisorException {
+//		try {
+//			ResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
+//			Resource res = pathResolver.getResource(csvFile);
+//
+//			Scanner scanner = new Scanner(res.getFile());
+//			if (scanner != null) {
+//				if (delimiter != null && !delimiter.isEmpty()) {
+//					scanner.useDelimiter(delimiter);
+//				}
+//				
+//				while (scanner.hasNextLine()) {
+//					String line = scanner.nextLine();
+//					LOGGER.trace("csv line=[{}]", line);
+//
+//					String [] tokens = line.trim().split(delimiter);
+//
+//					String key = tokens[0].trim();
+//					for (int i=1; i<tokens.length; i++) {
+//						String value = tokens[i].trim();
+//						LOGGER.trace("csv key=[{}] value=[{}]", key, value);
+//						
+//						if (key != null && value != null) {
+//							mapList.get(i-1).put(key, value);
+//						}
+//					}
+//
+//				}
+//			}
+//		} catch (FileNotFoundException e) {
+//			throw new HypervisorException(e);
+//		} catch (Exception e) {
+//			throw new HypervisorException(e);
+//		}
 //	}
 }

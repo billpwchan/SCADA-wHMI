@@ -14,7 +14,7 @@ public class ActionsManager implements IActionsManager {
     private Map<String, IAction> actionsMap_;
 
     /** default configuration path */
-    public static final String DEFAULT_CONFIGURATION_FILE = "bpsConfig/action-handlers.xml";
+    public static final String DEFAULT_CONFIGURATION_FILE = "bpsConfig/actionHandlers.xml";
     
     private static ActionsManager instance_;
 

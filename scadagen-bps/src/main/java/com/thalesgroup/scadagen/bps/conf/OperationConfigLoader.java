@@ -15,12 +15,12 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.common.tools.MarshallersPool;
-import com.thalesgroup.scadagen.bps.conf.hvoperation.HvOperationConfig;
-import com.thalesgroup.scadagen.bps.conf.hvoperation.OperationEntry;
+import com.thalesgroup.scadagen.bps.conf.operation.OperationConfig;
+import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
 
-public class HvOperationConfigLoader {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HvOperationConfigLoader.class);
-	private static HvOperationConfigLoader instance_;
+public class OperationConfigLoader {
+	private static final Logger LOGGER = LoggerFactory.getLogger(OperationConfigLoader.class);
+	private static OperationConfigLoader instance_;
 	private MarshallersPool marshallersPool_;
 	private Map<String, Long> resourceLastModifyMap_;
 	private Map<String, Resource> resourceMap_;
@@ -28,21 +28,21 @@ public class HvOperationConfigLoader {
 	private Map<String, OperationEntry> operationEntryMap_;
 
 	/** configuration object package name */
-    private static final String CONF_PACKAGE_NAME = HvOperationConfig.class.getPackage().getName();
+    private static final String CONF_PACKAGE_NAME = OperationConfig.class.getPackage().getName();
 
     /** configuration xsd relative path */
-    private static final String XSD_RELATIVE_PATH = "xsd/hv-operation-action.xsd";
+    private static final String XSD_RELATIVE_PATH = "xsd/operationAction.xsd";
 
-    private static final String FILE_NAME_PATTERN = "classpath*:bpsConfig/hvoperation*.xml";
+    private static final String FILE_NAME_PATTERN = "classpath*:bpsConfig/*operation*.xml";
 
-	public static synchronized HvOperationConfigLoader getInstance() throws HypervisorException {
+	public static synchronized OperationConfigLoader getInstance() throws HypervisorException {
 		if (instance_ == null) {
-			instance_ = new HvOperationConfigLoader();
+			instance_ = new OperationConfigLoader();
 		}
 		return instance_;
 	}
 
-	protected HvOperationConfigLoader() throws HypervisorException {
+	protected OperationConfigLoader() throws HypervisorException {
 		initializeMarshaller();
 		if (marshallersPool_ != null) {
 			initConfigurations();
@@ -82,13 +82,13 @@ public class HvOperationConfigLoader {
 			
 			if (LOGGER.isTraceEnabled()) {
 				for (Resource res: resources) {
-					LOGGER.trace("Found HvOperation config file [{}]", res.getURL().getPath());
+					LOGGER.trace("Found operation config file [{}]", res.getURL().getPath());
 				}
 			}
 
 			for (Resource resource : resources) {
 				LOGGER.trace("loading config file resource [{}]", resource.getFilename());
-				HvOperationConfig config = null;
+				OperationConfig config = null;
 
 				try {
 					config = read(resource);
@@ -98,19 +98,19 @@ public class HvOperationConfigLoader {
 					LOGGER.error("An error occurred while reading configuration files. [{}]", e);
 				}
 
-				if (config != null) {
-					resourceLastModifyMap_.put(config.getHvOperation().getHvOperationName(),
+				if (config != null && config.getOperation() != null) {
+					resourceLastModifyMap_.put(config.getOperation().getOperationName(),
 							Long.valueOf(resource.lastModified()));
-					resourceMap_.put(config.getHvOperation().getHvOperationName(), resource);
+					resourceMap_.put(config.getOperation().getOperationName(), resource);
 
-					List<OperationEntry> operationEntryList = config.getHvOperation().getOperationEntry();
+					List<OperationEntry> operationEntryList = config.getOperation().getOperationEntry();
 					for (OperationEntry entry : operationEntryList) {
-						operationEntryMap_.put(entry.getHvOperationEntryId(), entry);
-						operationToResourceMap_.put(entry.getHvOperationEntryId(),
-								config.getHvOperation().getHvOperationName());
+						operationEntryMap_.put(entry.getOperationEntryId(), entry);
+						operationToResourceMap_.put(entry.getOperationEntryId(),
+								config.getOperation().getOperationName());
 					}
 				} else {
-					LOGGER.error("config is null");
+					LOGGER.error("operation config is null");
 				}
 			}
 		} catch (IOException e) {
@@ -118,8 +118,8 @@ public class HvOperationConfigLoader {
 		}
 	}
 
-	private HvOperationConfig read(Resource resource) throws HypervisorConversionException, IOException {
-		HvOperationConfig conf = (HvOperationConfig) marshallersPool_.unmarshal(resource.getURL());
+	private OperationConfig read(Resource resource) throws HypervisorConversionException, IOException {
+		OperationConfig conf = (OperationConfig) marshallersPool_.unmarshal(resource.getURL());
 
 		return conf;
 	}
@@ -166,18 +166,20 @@ public class HvOperationConfigLoader {
 		}
 
 
-		HvOperationConfig config = read(resource);
-		if (config != null) {
-			resourceLastModifyMap_.put(config.getHvOperation().getHvOperationName(),
+		OperationConfig config = read(resource);
+		if (config != null && config.getOperation() != null) {
+			resourceLastModifyMap_.put(config.getOperation().getOperationName(),
 					Long.valueOf(resource.lastModified()));
-			resourceMap_.put(config.getHvOperation().getHvOperationName(), resource);
+			resourceMap_.put(config.getOperation().getOperationName(), resource);
 
-			List<OperationEntry> operationEntryList = config.getHvOperation().getOperationEntry();
+			List<OperationEntry> operationEntryList = config.getOperation().getOperationEntry();
 			for (OperationEntry entry : operationEntryList) {
-				operationEntryMap_.put(entry.getHvOperationEntryId(), entry);
-				operationToResourceMap_.put(entry.getHvOperationEntryId(),
-						config.getHvOperation().getHvOperationName());
+				operationEntryMap_.put(entry.getOperationEntryId(), entry);
+				operationToResourceMap_.put(entry.getOperationEntryId(),
+						config.getOperation().getOperationName());
 			}
+		} else {
+			LOGGER.error("operation config is null");
 		}
 	}
 }

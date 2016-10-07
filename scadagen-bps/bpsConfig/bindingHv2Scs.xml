@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><configuration xmlns="http://www.thalesgroup.com/scadagen/binding">
+  <!-- New binding type for DHLR Danhai ITMS equipment -->
+  <binding id="ROU_">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-ROUTE:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
+	  <input name="Route_Disabled" type="STRING"/>
+	  <inputMapping mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType"  />
+    </attribute>
+  </binding>
+  
+  <binding id="SPM_">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-PTLOSS:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
+      <input name="Point_Position_Loss" type="STRING"/>
+      <inputMapping name="Point_Position_Loss" mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType" />
+    </attribute>
+	<attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-SETTINGERR:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
+	  <input name="Setting_Error" type="STRING"/>
+      <inputMapping mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType" />
+    </attribute>
+  </binding>
+  
+  <binding id="TLS_">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-LIGSTAT:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
+	  <input name="Traffic_Light_status" type="STRING"/>
+      <inputMapping mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType" />
+    </attribute>
+  </binding>
+
+  <!-- Binding for DHLR Danhai TVS equipment -->
+  <binding id="PTZC">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
+      <input name="state" type="STRING"/>
+      <item value="0">
+        <stringValue value="REACHABLE"/>
+      </item>
+      <item value="1">
+        <stringValue value="NOT_REACHABLE"/>
+      </item>
+      <item value="2">
+        <stringValue value="UNKNOWN"/>
+      </item>
+    </attribute>
+  </binding>
+  <binding id="CAMD">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
+      <input name="state" type="STRING"/>
+      <item value="0">
+        <stringValue value="REACHABLE"/>
+      </item>
+      <item value="1">
+        <stringValue value="NOT_REACHABLE"/>
+      </item>
+      <item value="2">
+        <stringValue value="UNKNOWN"/>
+      </item>
+    </attribute>
+  </binding>
+</configuration>

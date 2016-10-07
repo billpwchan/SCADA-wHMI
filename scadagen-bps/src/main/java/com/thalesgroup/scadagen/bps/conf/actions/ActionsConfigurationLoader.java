@@ -22,7 +22,7 @@ public class ActionsConfigurationLoader {
     private static final String CONF_PACKAGE_NAME = ActionPackageConfiguration.class.getPackage().getName();
 
     /** configuration xsd relative path */
-    private static final String XSD_RELATIVE_PATH = "xsd/actions-config.xsd";
+    private static final String XSD_RELATIVE_PATH = "xsd/actionsConfig.xsd";
 
     /** configuration file reader */
     private MarshallersPool marshallersPool_;

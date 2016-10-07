@@ -6,9 +6,15 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.hv.common.configuration.NotificationEntityBuilder;
+import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.hv.sdk.connector.IConnectorTools;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
+import com.thalesgroup.scadagen.bps.conf.binding.builder.AttributeBuilder;
+import com.thalesgroup.scadagen.bps.conf.binding.engine.BindingLoader;
+import com.thalesgroup.scadagen.bps.conf.binding.engine.Hv2ScsBindingEngine;
 import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
 import com.thalesgroup.scadagen.bps.conf.common.DataSource;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
@@ -22,6 +28,8 @@ public class ConfManager {
 	private SCADAgenBPS bps_;
 
 	//private BpsConfig config_;
+	
+	private Connector connector_;
 
 	private IGenericSubscriptionConnector subscriptionConnector_;
 
@@ -29,14 +37,19 @@ public class ConfManager {
 
 	private IConnectorTools iConnectorTools_;
 	
-	private HvOperationConfigLoader hvOperationConfigLoader_;
+	private OperationConfigLoader hvOperationConfigLoader_;
 	
-	private ConfLoader configLoader_;
+	private BpsConfLoader configLoader_;
+	
+	private static Hv2ScsBindingEngine bindingEngine_;
+	
+	private static Hv2ScsLoader scs2hvLoader_;
 
-	public ConfManager(SCADAgenBPS bps,
+	public ConfManager(SCADAgenBPS bps, Connector connector,
 			IGenericSubscriptionConnector subscriptionConnector, IGenericOperationConnector operationConnector,
 			IConnectorTools iConnectorTools) throws HypervisorException {
 		bps_ = bps;
+		connector_ = connector;
 		subscriptionConnector_ = subscriptionConnector;
 		operationConnector_ = operationConnector;
 		iConnectorTools_ = iConnectorTools;
@@ -44,19 +57,51 @@ public class ConfManager {
 	
 	public void loadConfig() throws HypervisorException {
 		
-		hvOperationConfigLoader_ = HvOperationConfigLoader.getInstance();
+		// load scs2hv
+		scs2hvLoader_ = new Hv2ScsLoader("bpsConfig/hv2scs.xml");
+		scs2hvLoader_.loadConfiguration();
 		
-		configLoader_ = ConfLoader.getInstance();
+		// load bindings
+        final BindingLoader loader = new BindingLoader(connector_) {
+            @Override
+            protected String resolveBinding(String entityIdentifier) {
+            	String type = scs2hvLoader_.getScsEqpOfHVInstancesMap().get(entityIdentifier);
+            	if (type == null) {
+            		type = entityIdentifier;
+            	}
+            	return type;
+            }
+        };
+        bindingEngine_ = null;
+        try {
+	        loader.readBinding("bpsConfig/bindingHv2Scs.xml");
+	        final NotificationEntityBuilder builder = new NotificationEntityBuilder(connector_.getSystemConfiguration(), connector_.getDataHelper());
+	        bindingEngine_ = new Hv2ScsBindingEngine(builder, loader, connector_.getDataHelper(), new AttributeBuilder(connector_.getDataHelper()));
+        } catch (HypervisorConversionException e) {
+        	LOGGER.warn("SCADAgen BA - no bindings defined");
+        }
+        
+		hvOperationConfigLoader_ = OperationConfigLoader.getInstance();
+		
+		configLoader_ = BpsConfLoader.getInstance();
+	}
+	
+	public static Hv2ScsBindingEngine getBindingEngine() {
+		return bindingEngine_;
+	}
+	
+	public static Hv2ScsLoader getScs2HvLoader() {
+		return scs2hvLoader_;
 	}
 
 	private BpsConfig getConfig(String configurationId) throws HypervisorException {
 		LOGGER.trace("Get BPS configuration [{}].", configurationId);
 
-		 BpsConfig cfg = ConfLoader.getInstance().getConfiguration(configurationId);
+		BpsConfig cfg = BpsConfLoader.getInstance().getConfiguration(configurationId);
 
-		 if (cfg == null) {
-			 throw new HypervisorException("Cannot get the configuration for the id [" + configurationId + "].");
-		 }
+		if (cfg == null) {
+			throw new HypervisorException("Cannot get the configuration for the id [" + configurationId + "].");
+		}
 
 		return cfg;
 	}
@@ -86,4 +131,5 @@ public class ConfManager {
 		}
 		return dataSources;
 	}
+	
 }

@@ -14,12 +14,13 @@ import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.data_v1.equipment.AbstractEquipmentStatusesType;
 import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
-import com.thalesgroup.scadagen.bps.conf.HvOperationConfigLoader;
+import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
-import com.thalesgroup.scadagen.bps.conf.hvoperation.CommandParam;
-import com.thalesgroup.scadagen.bps.conf.hvoperation.OperationEntry;
+import com.thalesgroup.scadagen.bps.conf.operation.CommandParam;
+import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
+import com.thalesgroup.scadagen.bps.data.EntityDataDescriptionAbstract;
 
 public class EqpAction implements IAction {
 
@@ -31,8 +32,8 @@ public class EqpAction implements IAction {
 	}
 
 	@Override
-	public void execute(IGenericOperationConnector operationConnector, String actionConfigId,
-			Set<AbstractEntityStatusesType> entities) {
+	public void execute(IGenericOperationConnector operationConnector, Set<EntityDataDescriptionAbstract>desc, String actionConfigId,
+			AbstractEntityStatusesType entity) {
 		AbstractOperationRequestType operationRequest = null;
 	    GenericOperationConnector opConnector = (GenericOperationConnector)operationConnector;
 	    String operationJavaClassName = null;
@@ -42,7 +43,7 @@ public class EqpAction implements IAction {
 	    
 	    try
 	    {
-	    	OperationEntry entry = HvOperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
+	    	OperationEntry entry = OperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
 	    	
 	    	if (entry != null) {
 	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
@@ -64,15 +65,12 @@ public class EqpAction implements IAction {
 	    		if (entry.getEquipmentList() != null && !entry.getEquipmentList().getEquipmentId().isEmpty()) {
 	    			equipmentList = entry.getEquipmentList().getEquipmentId();
 	    		} else {
-
-	    			for (AbstractEntityStatusesType entity: entities) {
-	    				if (entity instanceof AbstractEquipmentStatusesType) {
-	    					AbstractEquipmentStatusesType eqp = (AbstractEquipmentStatusesType)entity;
-	    					if (eqp.getId() != null) {
-	    						equipmentList.add(eqp.getId());
-	    					}
-	    				}
-	    			}  			
+    				if (entity instanceof AbstractEquipmentStatusesType) {
+    					AbstractEquipmentStatusesType eqp = (AbstractEquipmentStatusesType)entity;
+    					if (eqp.getId() != null) {
+    						equipmentList.add(eqp.getId());
+    					}
+    				} 			
 	    		}
 
 	    		for (String id: equipmentList) {

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scsbamapping>
+  <classdesc cid='ROU_'>
+    <instance hv='ROU_:B06C_B06E:Route_Disabled' scs=':B06_:SIG_:ROU_0002'/>
+  </classdesc>
+
+  <classdesc cid='SPM_'>
+    <instance hv='SPM_:B06EPM200:Point_Position_Loss' scs=':B06_:SIG_:SPM_0001'/>
+	<instance hv='SPM_:B06EPM200:Setting_Error' scs=':B06_:SIG_:SPM_0001'/>
+  </classdesc>
+
+  <classdesc cid='TLS_'>
+    <instance hv='TLS_:J13ETL214:Traffic_Light_status' scs=':B06_:SIG_:TLS_0001'/>
+  </classdesc>
+  
+  <classdesc cid='PTZC'>
+	<instance hv='camera-1' scs=':G01_:CCTV:PTZC00001' />
+	<instance hv='camera-2' scs=':G01_:CCTV:PTZC00002'/>
+  </classdesc>
+  
+  <classdesc cid='CAMD'>
+	<instance hv='camera-11' scs=':G01_:CCTV:CAMD00001' />
+	<instance hv='camera-12' scs=':G01_:CCTV:CAMD00002'/>
+  </classdesc>
+
+
+</scsbamapping>
+

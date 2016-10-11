@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to="UIPanelToolBar">
-  <!-- Inherit our applications main module.                      -->
-  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar.UIPanelToolBar' />
-
-  <!-- Specify the path to any remote services.                   -->
-  <servlet path="/UIPanelToolBar/greet" class="com.thalesgroup.scadagen.whmi.uipanel.uipaneltoolbar.server.GreetingServiceImpl" />
-
-</module>

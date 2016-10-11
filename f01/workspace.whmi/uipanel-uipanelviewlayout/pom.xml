@@ -63,31 +63,25 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 	  <artifactId>uinamecard</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
 	  <artifactId>uievent</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitaskmgr</groupId>
 	  <artifactId>uitask-uitaskmgr</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelmgr</groupId>
-	  <artifactId>uipanel-uipanelmgr</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-    
+
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiview.uiviewmgr</groupId>
 	  <artifactId>uiview-uiviewmgr</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
@@ -105,19 +99,19 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.opm.authentication</groupId>
 	  <artifactId>opm-authentication</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
 	  <artifactId>uiwidget-uiwidget</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
 	  <artifactId>uiwidget-uiwidgetgeneric</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<!-- Wrapper -->

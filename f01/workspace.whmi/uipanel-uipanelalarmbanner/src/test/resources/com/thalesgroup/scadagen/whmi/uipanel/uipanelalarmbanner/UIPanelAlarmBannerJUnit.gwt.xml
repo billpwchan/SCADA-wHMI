@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to="UIPanelAlarmBanner">
-  <!-- Inherit our applications main module.                      -->
-  <inherits name='com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.UIPanelAlarmBanner' />
-
-  <!-- Specify the path to any remote services.                   -->
-  <servlet path="/UIPanelAlarmBanner/greet" class="com.thalesgroup.scadagen.whmi.uipanel.uipanelalarmbanner.server.GreetingServiceImpl" />
-
-</module>

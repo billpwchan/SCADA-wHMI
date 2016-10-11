@@ -5,29 +5,28 @@ import java.util.Map.Entry;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.WidgetExecuteAttribute;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.ValidityStatus;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
-public class UIEventActionDpc {
+public class UIEventActionDpc extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDpc.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	private String logPrefix = "";
-	private String instance = "";
+
+	private final String strSendChangeValueStatus = "SendChangeValueStatus";
 	
-	public UIEventActionDpc ( String logPrefix, String instance ) {
-		this.logPrefix = logPrefix;
-		this.instance = instance;
+	public UIEventActionDpc ( ) {
+		supportedActions = new String[] {strSendChangeValueStatus};
 	}
 	
-	public void execute(UIEventAction action) {
+	public void executeAction(UIEventAction action) {
 		final String function = logPrefix+" execute";
 		logger.begin(className, function);
 		
-		String strAction			= (String) action.getParameter(WidgetExecuteAttribute.OperationString1.toString());
-		String strEnvName			= (String) action.getParameter(WidgetExecuteAttribute.OperationString2.toString());
-		String strAddress			= (String) action.getParameter(WidgetExecuteAttribute.OperationString3.toString());
-		String strValidityStatus	= (String) action.getParameter(WidgetExecuteAttribute.OperationString4.toString());
+		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
+		String strEnvName			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+		String strAddress			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+		String strValidityStatus	= (String) action.getParameter(ActionAttribute.OperationString4.toString());
 		if ( logger.isInfoEnabled() ) {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
@@ -36,20 +35,29 @@ public class UIEventActionDpc {
 			}
 		}
 		
-		if ( strAction.equals("SendDpcAlarmInhibit") ) {
-			ValidityStatus validityStatus = ValidityStatus.NO_ALARM_INHIBIT_VAR;
-			if ( null != strValidityStatus && strValidityStatus.equals(ValidityStatus.ALARM_INHIBIT_VAR.toString()) ) {
-				validityStatus = ValidityStatus.ALARM_INHIBIT_VAR;
+		if ( strAction.equals(strSendChangeValueStatus) ) {
+			String strStatus = strValidityStatus;
+			int status = 0;
+			boolean isValid = false;
+			try {
+				status = Integer.parseInt(strStatus);
+				isValid = true;
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strStatus NumberFormatException", strStatus);
 			}
-
-			String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + validityStatus.toString() + "_" + strAddress;
-				
-			logger.info(className, function, "key[{}]", key);
 			
-			DpcMgr dpcMgr = DpcMgr.getInstance(instance);
-			dpcMgr.sendChangeVarStatus(key, strEnvName, strAddress, validityStatus);
-		}
+			if ( isValid ) {
 
+				String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + status + "_" + strAddress;
+					
+				logger.info(className, function, "key[{}]", key);
+				
+				DpcMgr dpcMgr = DpcMgr.getInstance(instance);
+				dpcMgr.sendChangeVarStatus(key, strEnvName, strAddress, status);
+			} else {
+				logger.warn(className, function, "command details IS INVALID");
+			}
+		}
 		logger.end(className, function);
 	}
 }

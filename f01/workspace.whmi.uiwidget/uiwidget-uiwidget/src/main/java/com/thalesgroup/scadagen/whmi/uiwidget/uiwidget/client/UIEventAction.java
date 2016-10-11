@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -24,8 +24,18 @@ public class UIEventAction extends GwtEvent<UIEventActionHandler> {
 	
 	public UIEventAction() {}
 	public UIEventAction(String key, String value) { this.hashMap.put(key, value);}
+	public UIEventAction(UIEventAction uiEventAction) { 
+		if ( null != uiEventAction ) {
+			for ( Entry<String, Object> entry : uiEventAction.hashMap.entrySet() ) {
+				String key = entry.getKey();
+				Object obj = entry.getValue();
+				this.hashMap.put(key, obj);
+			}
+		}
+	}
 	
-	public void setParameters(String key, Object value) { this.hashMap.put(key, value); }
+	public void removeParameter(String key) { this.hashMap.remove(key); }
+	public void setParameter(String key, Object value) { this.hashMap.put(key, value); }
 	public Object getParameter(String key) { return this.hashMap.get(key);	}
 	
 	public Set<Entry<String, Object>> getParameters() { return this.hashMap.entrySet();	}

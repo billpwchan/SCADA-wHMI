@@ -43,6 +43,28 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		}
 	}
 	
+	protected UIWidgetCtrl_i ctrlHandler = null;
+	@Override
+	public void setCtrlHandler(UIWidgetCtrl_i ctrlHandler) {
+		final String function = "setCtrlHandler";
+		this.ctrlHandler = ctrlHandler;
+		logger.info(className, function, "ctrlHandler[{}]", this.ctrlHandler);
+		if ( null == this.ctrlHandler ) {
+			logger.warn(className, function, "ctrlHandler IS NULL");
+		}
+	}
+	
+	protected String strCtrlHandler = null;
+	@Override
+	public void setCtrlHandler(String strCtrlHandler) {
+		final String function = "setCtrlHandler";
+		this.strCtrlHandler = strCtrlHandler;
+		logger.info(className, function, "ctrlHandler[{}]", this.strCtrlHandler);
+		if ( null == this.strCtrlHandler ) {
+			logger.warn(className, function, "ctrlHandler IS NULL");
+		}
+	}
+	
 	protected String viewXMLFile = null;
 	@Override
 	public void setViewXMLFile(String viewXMLFile) {

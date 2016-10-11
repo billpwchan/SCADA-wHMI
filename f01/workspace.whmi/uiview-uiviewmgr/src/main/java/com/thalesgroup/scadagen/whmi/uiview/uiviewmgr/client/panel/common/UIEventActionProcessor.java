@@ -8,11 +8,14 @@ import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionSetAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.EventExecuteAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventSenderAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.WidgetExecuteAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
 public class UIEventActionProcessor {
@@ -30,11 +33,11 @@ public class UIEventActionProcessor {
 	
 	private String element;
 	public void setElement(String element) {
-		final String function = prefix+" setEventBus";
+		final String function = prefix+" setElement";
 		if ( null != element ) {
 			this.element = element;
 		} else {
-			logger.warn(className, function, "setEventBus IS NULL");
+			logger.warn(className, function, "setElement IS NULL");
 		}
 	}
 	
@@ -58,9 +61,47 @@ public class UIEventActionProcessor {
 		}
 	}
 	
+	protected UILayoutGeneric uiLayoutGeneric = null;
+	public void setUILayoutGeneric(UILayoutGeneric uiLayoutGeneric) {
+		final String function = prefix+" setUIWidgetGeneric";
+		if ( null != uiLayoutGeneric ) {
+			this.uiLayoutGeneric = uiLayoutGeneric;
+		} else {
+			logger.warn(className, function, "uiLayoutGeneric IS NULL");
+		}
+	}
+	
 	private String optsXMLFile;
 	public void setOptsXMLFile(String optsXMLFile) {
 		this.optsXMLFile=optsXMLFile;
+	}
+	
+	private String actionSetTagName = null;
+	public void setActionSetTagName(String actionSetTagName) {
+		this.actionSetTagName = actionSetTagName;
+	}
+	
+	private String actionTagName = null;
+	public void setActionTagName(String actionTagName ) {
+		this.actionTagName = actionTagName;
+	}
+	
+	private UIEventActionMgr uiEventActionSetMgr = null;
+	private UIEventActionMgr uiEventActionMgr = null;
+	public void init() {
+		uiEventActionSetMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, actionSetTagName);
+		uiEventActionSetMgr.init();
+		
+		uiEventActionMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, actionTagName);
+		uiEventActionMgr.init();
+	}
+	
+	public UIEventAction getUIEventActionSetMgr(String actionsetkey) {
+		return this.uiEventActionSetMgr.get(actionsetkey);
+	}
+	
+	public UIEventAction getUIEventActionMgr(String actionkey) {
+		return this.uiEventActionMgr.get(actionkey);
 	}
 	
 	/**
@@ -69,38 +110,68 @@ public class UIEventActionProcessor {
 	public void executeActionSetInit() {
 		final String function = prefix+" executeActionSetInit";
 		logger.begin(className, function);
-		executeActionSet("init");
+		executeActionSetInit(null);
 		logger.end(className, function);
 	}
 	
 	/**
 	 * Load and Execute the Local Init Action Set
 	 */
-	public void executeActionSetInit(int delayMillis) {
+	public void executeActionSetInit(ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSetInit";
 		logger.begin(className, function);
-		Timer t = new Timer() {
-			public void run() {
-				executeActionSet("init");
-			}
-		};
-		t.schedule(delayMillis);
+		executeActionSet("init", executeActionHandler);
 		logger.end(className, function);
-	}	
-
+	}
+	
+	/**
+	 * Load and Execute the Local Init Action Set
+	 */
+	public void executeActionSetInit(int delayMillis, final ExecuteAction_i executeActionHandler) {
+		final String function = prefix+" executeActionSetInit";
+		logger.begin(className, function);
+		if ( delayMillis >= 0 ) {
+			Timer t = new Timer() {
+				public void run() {
+					executeActionSet("init_delay", executeActionHandler);
+				}
+			};
+			t.schedule(delayMillis);
+		} else {
+			logger.warn(className, function, "delayMillis[{}] < 0", delayMillis);
+		}
+		logger.end(className, function);
+	}
+	
 	public void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
-		executeActionSet(actionsetkey, override, UIActionEventType.actionset.toString(), UIActionEventType.action.toString());
+		executeActionSet(actionsetkey, override/*, UIActionEventType.actionset.toString(), UIActionEventType.action.toString()*/, null);
 		logger.end(className, function);
 	}
+
+//	public void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler) {
+//		final String function = prefix+" executeActionSet";
+//		logger.begin(className, function);
+//		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
+//		executeActionSet(actionsetkey, override, UIActionEventType.actionset.toString(), UIActionEventType.action.toString(), executeActionHandler);
+//		logger.end(className, function);
+//	}
 	
 	public void executeActionSet(String actionsetkey) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
-		executeActionSet(actionsetkey, null, UIActionEventType.actionset.toString(), UIActionEventType.action.toString());
+		executeActionSet(actionsetkey, null/*, UIActionEventType.actionset.toString(), UIActionEventType.action.toString()*/, null);
+		logger.end(className, function);
+	}
+	
+	public void executeActionSet(String actionsetkey, ExecuteAction_i executeActionHandler) {
+		final String function = prefix+" executeActionSet";
+		logger.begin(className, function);
+		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
+		executeActionSet(actionsetkey, null/*, UIActionEventType.actionset.toString(), UIActionEventType.action.toString()*/, executeActionHandler);
 		logger.end(className, function);
 	}
 
@@ -110,30 +181,30 @@ public class UIEventActionProcessor {
 	 * @param stractionset
 	 * @param straction
 	 */
-	public void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, String stractionset, String straction) {
+	public void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override/*, String stractionset, String straction*/, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
-		logger.info(className, function, "stractionset[{}]", stractionset);
-		logger.info(className, function, "straction[{}]", straction);
-				
-		UIEventActionMgr uiEventActionSetMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, stractionset);
-		uiEventActionSetMgr.init();
-		
-		UIEventActionMgr uiEventActionMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, straction);
-		uiEventActionMgr.init();
-		
+//		logger.info(className, function, "stractionset[{}]", stractionset);
+//		logger.info(className, function, "straction[{}]", straction);
+//				
+//		UIEventActionMgr uiEventActionSetMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, stractionset);
+//		uiEventActionSetMgr.init();
+//		
+//		UIEventActionMgr uiEventActionMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, straction);
+//		uiEventActionMgr.init();
+//		
 		UIEventAction actionset = uiEventActionSetMgr.get(actionsetkey);
 		if ( null != actionset ) {
-			actionset.setParameters(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
-			for ( ActionSetAttribute ast : ActionSetAttribute.values() ) {
+			actionset.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
+			for ( ActionAttribute ast : ActionAttribute.values() ) {
 				String actionsetattributename = ast.toString();
 				logger.info(className, function, "actionsetattributename[{}]", actionsetattributename);
 				String actionsetattribute = (String) actionset.getParameter(actionsetattributename);
 				logger.info(className, function, "actionsetattribute[{}]", actionsetattribute);
 				if ( null != actionsetattribute ) {
 					UIEventAction action = uiEventActionMgr.get(actionsetattribute);
-					action.setParameters(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
+					action.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
 					if ( null != override ) {
 						
 						for ( Entry<String, HashMap<String, Object>> entry : override.entrySet() ) {
@@ -146,7 +217,7 @@ public class UIEventActionProcessor {
 										String parameterKey		= parameter.getKey();
 										Object parameterValue	= parameter.getValue();
 										logger.info(className, function, "parameter[{}] value[{}]", parameterKey, parameterValue);
-										action.setParameters(parameterKey, parameterValue);
+										action.setParameter(parameterKey, parameterValue);
 									}
 								} else {
 									logger.warn(className, function, "parameters IS NULL");
@@ -154,7 +225,7 @@ public class UIEventActionProcessor {
 							}
 						}
 					}
-					executeAction(action);
+					executeAction(action, executeActionHandler);
 				}
 			}
 		} else {
@@ -163,18 +234,18 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 	}
 	
-	public void executeActionSet(UIEventAction action) {
+	public void executeActionSet(UIEventAction action, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		
 		if ( null != action ) {
-			for ( EventExecuteAttribute eventattribute : EventExecuteAttribute.values() ) {
+			for ( ActionAttribute eventattribute : ActionAttribute.values() ) {
 				String eventattributename = eventattribute.toString();
 				logger.info(className, function, "eventattributename[{}]", eventattributename);
 				String actionkey = (String) action.getParameter(eventattributename);
 				logger.info(className, function, "actionkey[{}]", actionkey);
 				if ( null != actionkey ) {
-					executeAction(actionkey);
+					executeAction(actionkey, executeActionHandler);
 				} else {
 					logger.warn(className, function, "actionkey IS NULL");
 				}
@@ -189,15 +260,15 @@ public class UIEventActionProcessor {
 	 * Execute Action (Widget/Event)
 	 * @param actionkey: UIEventAction key
 	 */
-	public void executeAction(String actionkey) {
+	public void executeAction(String actionkey, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
-		UIEventActionMgr uiEventActionMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, UIActionEventType.action.toString());
-		uiEventActionMgr.init();
+//		UIEventActionMgr uiEventActionMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, UIActionEventType.action.toString());
+//		uiEventActionMgr.init();
 		UIEventAction action = uiEventActionMgr.get(actionkey);
 		if ( null != action ) {
-			action.setParameters(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
-			executeAction(action);
+			action.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
+			executeAction(action, executeActionHandler);
 		} else {
 			logger.warn(className, function, "action IS NULL");
 		}
@@ -209,47 +280,73 @@ public class UIEventActionProcessor {
 	 * Execute Action (Widget/Event)
 	 * @param action: UIEventAction instance
 	 */
-	public void executeAction(UIEventAction action) {
+	public void executeAction(UIEventAction action, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		if ( null != action ) {
-			String opa = (String) action.getParameter(UIActionEventAttribute.OperationAction.toString());
-			logger.info(className, function, "opa[{}]", opa);
-			if ( null != opa ) {
-				if ( opa.equals(UIActionEventType.event.toString()) ) {
-					String operationTarget = UIEventActionProcessor.getOperationTarget(prefix, action);
-					logger.warn(className, function, "operationTarget[{}] == element[{}]", operationTarget, element);
-					if ( null != operationTarget && ! operationTarget.equals(element) ) {
+			
+			dumpUIEventAction(prefix, action);
+			
+			boolean containue = true;
+			if ( null != executeActionHandler ) containue =  executeActionHandler.executeHandler(action);
+			
+			if ( containue ) {
+				
+				String spt = (String) action.getParameter(UIActionEventSenderAttribute.SenderOperation.toString());
+				
+				logger.info(className, function, "spt[{}]", spt);
+				
+				if ( null != spt && spt.equals(UIActionEventType.event.toString()) ) {
+					logger.info(className, function, "spt[{}] IS event", spt);
+					String operationElement = UIEventActionProcessor.getOperationElement(prefix, action);
+					logger.info(className, function, "operationElement[{}] == element[{}]", operationElement, element);
+					if ( null == operationElement || ( /*null != element && */null != operationElement && ! operationElement.equals(element)) ) {
 						if ( null != simpleEventBus ) {
-							UIEventActionBusFire uiActionEventExecute = new UIEventActionBusFire(className, simpleEventBus);
-							uiActionEventExecute.executeAction(action);
+							
+							// Make a copy
+							UIEventAction actionCopy = new UIEventAction(action);
+							actionCopy.removeParameter(UIActionEventSenderAttribute.SenderOperation.toString());
+							
+							UIEventActionExecute_i uiEventActionExecute = new UIEventActionBusFire();
+							uiEventActionExecute.setLogPrefix(className);
+							uiEventActionExecute.setSimpleEventBus(simpleEventBus);
+							uiEventActionExecute.executeAction(actionCopy);
 						} else {
-							logger.warn(className, function, "simpleEventBus IS NULL");
+							logger.warn(className, function, "event operationTarget[{}] IS element[{}]", operationElement, element);
 						}
-					}
-				} else if ( opa.equals(UIActionEventType.widget.toString()) ) {
-					if ( null != uiWidgetGeneric ) {
-						UIEventActionExecute uiEventActionExecute = new UIEventActionExecute(className, uiWidgetGeneric);
-						uiEventActionExecute.executeAction(action);
 					} else {
-						logger.warn(className, function, "uiWidgetGeneric IS NULL");
+						logger.warn(className, function, "operationTarget[{}] == element[{}]", operationElement, element);
 					}
-				} else if ( opa.equals(UIActionEventType.ctl.toString()) ) {
-					UIEventActionCtrl uiEventActionCtrl = new UIEventActionCtrl(className, className);
-					uiEventActionCtrl.execute(action);
-				} else if ( opa.equals(UIActionEventType.dpc.toString()) ) {
-					UIEventActionDpc uiEventActionDpc = new UIEventActionDpc(className, className);
-					uiEventActionDpc.execute(action);
-				} else if ( opa.equals(UIActionEventType.logic.toString()) ) {
-					if ( null != uiWidgetGeneric ) {
-						//UIEventActionExecute uiEventActionExecute = new UIEventActionExecute(className, uiWidgetGeneric);
-						//uiEventActionExecute.executeAction(action);
+				} else {
+					String opa = (String) action.getParameter(UIActionEventAttribute.OperationAction.toString());
+					logger.info(className, function, "opa[{}]", opa);
+					if ( null != opa ) {
+						UIEventActionExecute_i uiEventActionExecute = null;
+						if ( opa.equals(UIActionEventType.widget.toString()) ) {
+							uiEventActionExecute = new UIEventActionWidget();
+						} else if ( opa.equals(UIActionEventType.ctl.toString()) ) {
+							uiEventActionExecute = new UIEventActionCtrl();
+						} else if ( opa.equals(UIActionEventType.dpc.toString()) ) {
+							uiEventActionExecute = new UIEventActionDpc();
+						} else if ( opa.equals(UIActionEventType.dbm.toString()) ) {
+							uiEventActionExecute = new UIEventActionDbm();
+						}
+						if ( null != uiEventActionExecute ) {
+							uiEventActionExecute.setLogPrefix(className);
+							uiEventActionExecute.setInstance(className);
+							uiEventActionExecute.setSimpleEventBus(simpleEventBus);
+							uiEventActionExecute.setUIWidgetGeneric(uiWidgetGeneric);
+							uiEventActionExecute.setUILayoutGeneric(uiLayoutGeneric);
+							uiEventActionExecute.executeAction(action);
+						} else {
+							logger.warn(className, function, "uiEventActionExecute IS NULL");
+						}
 					} else {
-						logger.warn(className, function, "uiWidgetGeneric IS NULL");
+						logger.warn(className, function, "opa IS NULL");
 					}
 				}
 			} else {
-				logger.warn(className, function, "opa IS NULL");
+				logger.warn(className, function, "containue IS FALSE");
 			}
 		} else {
 			logger.warn(className, function, "action IS NULL");
@@ -258,7 +355,7 @@ public class UIEventActionProcessor {
 	}
 	
 	
-	public void execute(UIEventAction uiEventAction) {		
+	public void execute(UIEventAction uiEventAction, ExecuteAction_i executeActionHandler) {		
 		final String function = prefix+" execute";
 		logger.begin(className, function);
 		if ( null != uiEventAction ) {
@@ -268,15 +365,15 @@ public class UIEventActionProcessor {
 			boolean isWildMessage = false;
 			boolean isSelfMessage = false;
 			
-			String operationTarget = UIEventActionProcessor.getOperationTarget(prefix, uiEventAction);
-			logger.info(className, function, "operationTarget[{}] element[{}]", operationTarget, element);
-			if ( null != operationTarget ) {
-				isWildMessage = operationTarget.equals("*");
+			String operationElement = UIEventActionProcessor.getOperationElement(prefix, uiEventAction);
+			logger.info(className, function, "operationElement[{}] element[{}]", operationElement, element);
+			if ( null != operationElement ) {
+				isWildMessage = operationElement.equals("*");
 			}
 			logger.info(className, function, "isWildMessage[{}]", isWildMessage);
 				
-			if ( null != operationTarget && null != element) {
-				isSelfMessage = operationTarget.equals(element);
+			if ( null != operationElement && null != element) {
+				isSelfMessage = operationElement.equals(element);
 			} else {
 				logger.warn(className, function, "operationTarget IS NULL or element IS NULL");
 			}
@@ -289,21 +386,21 @@ public class UIEventActionProcessor {
 				if ( null != opt ) {
 					if ( opt.equals(UIActionEventType.actionsetkey.toString()) ) {
 						logger.info(className, function, "IS actionsetkey");
-						for ( ActionSetAttribute actionSetAttribute : ActionSetAttribute.values() ) {
+						for ( ActionAttribute actionSetAttribute : ActionAttribute.values() ) {
 							String os = (String) uiEventAction.getParameter(actionSetAttribute.toString());
 							logger.info(className, function, "loading executeActionSet os[{}]", os);
-							executeActionSet(os);
+							executeActionSet(os, executeActionHandler);
 						}
 					} else if ( opt.equals(UIActionEventType.actionkey.toString()) ) { 
 						logger.info(className, function, "IS actionkey");
-						for ( ActionSetAttribute actionSetAttribute : ActionSetAttribute.values() ) {
+						for ( ActionAttribute actionSetAttribute : ActionAttribute.values() ) {
 							String os = (String) uiEventAction.getParameter(actionSetAttribute.toString());
 							logger.info(className, function, "loading executeActionSet os[{}]", os);
-							executeAction(os);
+							executeAction(os, executeActionHandler);
 						}
 					} else if ( opt.equals(UIActionEventType.action.toString()) ) { 
 						logger.info(className, function, "IS action");
-						executeAction(uiEventAction);
+						executeAction(uiEventAction, executeActionHandler);
 					}
 				} else {
 					logger.warn(className, function, "operation IS NULL");
@@ -336,34 +433,28 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 		return operation;
 	}
-	public static String getOperationTarget(String prefix, UIEventAction uiEventAction) {
-		final String function = prefix+" getOperationTarget";
+	public static String getOperationElement(String prefix, UIEventAction uiEventAction) {
+		final String function = prefix+" getOperationElement";
 		logger.begin(className, function);
-		String operationTarget = getParameter(prefix, uiEventAction, UIActionEventAttribute.OperationTarget.toString());
+		String operationElement = getParameter(prefix, uiEventAction, UIActionEventTargetAttribute.OperationElement.toString());
 		logger.end(className, function);
-		return operationTarget;
+		return operationElement;
 	}
 	
 	public static void dumpUIEventAction(String prefix, UIEventAction uiEventAction) {
-		final String function = prefix+" getOperationTarget";
+		final String function = prefix+" dumpUIEventAction";
 		logger.begin(className, function);
 
 		if ( null != uiEventAction ) {
-			String opt	= (String) uiEventAction.getParameter(UIActionEventAttribute.OperationType.toString());
-			String opa	= (String) uiEventAction.getParameter(UIActionEventAttribute.OperationAction.toString());
-			String ot	= (String) uiEventAction.getParameter(UIActionEventAttribute.OperationTarget.toString());
-			String os1	= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString1.toString());
-			String os2	= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString2.toString());
-			String os3	= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString3.toString());
-			String os4	= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString4.toString());
-			
-			logger.info(className, function, "opt[{}]", opt);
-			logger.info(className, function, "opa[{}]", opa);
-			logger.info(className, function, "ot [{}]", ot);
-			logger.info(className, function, "os1[{}]", os1);
-			logger.info(className, function, "os2[{}]", os2);
-			logger.info(className, function, "os3[{}]", os3);
-			logger.info(className, function, "os4[{}]", os4);
+			for ( String key : uiEventAction.getParameterKeys() ) {
+				Object object = uiEventAction.getParameter(key);
+				if ( object instanceof String ) {
+					String string = (String)object;
+					logger.info(className, function, "string[{}]", string);
+				} else {
+					logger.info(className, function, "object[{}]", object);
+				}
+			}
 		} else {
 			logger.warn(className, function, "uiEventAction IS NULL", prefix);
 		}

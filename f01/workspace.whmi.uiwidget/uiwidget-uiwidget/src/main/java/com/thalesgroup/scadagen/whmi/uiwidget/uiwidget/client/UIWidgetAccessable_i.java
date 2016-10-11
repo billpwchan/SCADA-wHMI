@@ -24,4 +24,6 @@ public interface UIWidgetAccessable_i extends UIWidgetEventable_i {
 	
 	void setUIWidgetEvent(UIWidgetEvent uiWidgetEvent);
 	UIWidgetEvent getUIWidgetEvent(UIWidgetEvent uiWidgetEvent);
+	
+	void setCtrlHandler(UIWidgetCtrl_i ctrlHandler);
 }

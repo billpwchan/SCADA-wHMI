@@ -122,11 +122,13 @@ public interface UIWidgetGeneric_i {
 		@Override
 		public String toString() { return this.text; }
 	}
-	
+
 	public enum WidgetStatus {
 		  Up("Up")
 		, Down("Down")
 		, Disable("Disable")
+		, Visible("Visible")
+		, Invisible("Invisible")
 		;
 		
 		private final String text;

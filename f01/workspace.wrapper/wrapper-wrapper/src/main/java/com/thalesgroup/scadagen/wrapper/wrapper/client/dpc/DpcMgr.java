@@ -256,7 +256,17 @@ public class DpcMgr {
 		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] status[{}]", new Object[]{key, scsEnvId, alias, status.toString()});
 		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
 		logger.info(className, function, "alias[{}]", alias);
-		dpcAccess.changeVarStatus(key, scsEnvId, alias, status.getValue());
+		sendChangeVarStatus(key, scsEnvId, alias, status.getValue());
+		logger.end(className, function);
+	}
+	
+	public void sendChangeVarStatus(String key, String scsEnvId, String alias, int status) {
+		final String function = "sendChangeVarStatus";
+		logger.begin(className, function);
+		logger.info(className, function, "key[{}], scsEnvId[{}] alias[{}] status[{}]", new Object[]{key, scsEnvId, alias, status});
+		if ( !alias.startsWith("<alias>") ) alias = "<alias>"+alias;
+		logger.info(className, function, "alias[{}]", alias);
+		dpcAccess.changeVarStatus(key, scsEnvId, alias, status);
 		logger.end(className, function);
 	}
 

@@ -42,6 +42,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 		logger.end(className, function);
 	}
 
+	private WrapperScsSituationViewPanel wrapperScsSituationViewPanel = null;
 	@Override
 	public void setTaskProvide(UITask_i taskProvide) {
 		final String function = "setTaskProvide";
@@ -58,12 +59,26 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 				
 				rootPanel.clear();
 
-				WrapperScsSituationViewPanel wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel(uiPanel);
+				wrapperScsSituationViewPanel = new WrapperScsSituationViewPanel(uiPanel);
 				wrapperScsSituationViewPanel.setSize("100%", "100%");
 				wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(new WrapperScsSituationViewPanelEvent() {
 					@Override
 					public void triggerSymbolWidget(String hv_id, int mouseX, int mouseY) {
-						showInspectorPanel(hv_id, mouseX, mouseY);
+						
+						final String function = "triggerSymbolWidget";
+						
+						logger.begin(className, function);
+						
+						String configuationId = wrapperScsSituationViewPanel.getConfigurationId();
+						
+						UITaskLaunch taskLaunch = new UITaskLaunch();
+						taskLaunch.setUiPanel("ViewSchematicSymbolSelected");
+						taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
+						taskLaunch.setUiPath(UIPathUIPanelViewLayout);
+						taskLaunch.setOption(new Object[]{configuationId, hv_id, mouseX, mouseY});
+						uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+						
+						logger.end(className, function);
 					}
 				});
 
@@ -72,21 +87,6 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 		} else {
 			logger.info(className, function, "is not TaskLaunch");
 		}
-		
-		logger.end(className, function);
-	}
-
-	private void showInspectorPanel (String hv_id, int mouseX, int mouseY) {
-		final String function = "showInspectorPanel";
-		
-		logger.begin(className, function);
-		
-		UITaskLaunch taskLaunch = new UITaskLaunch();
-		taskLaunch.setUiPanel("UIPanelInspector");
-		taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-		taskLaunch.setOption(new Object[]{hv_id, mouseX, mouseY});
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		
 		logger.end(className, function);
 	}

@@ -1,6 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary;
 
 public interface UILayoutSummary_i {
+	
+	public enum WidgetAttribute{
+		SimpleEventBus("SimpleEventBus")
+		;
+		private final String text;
+		private WidgetAttribute (final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
 
 	public enum ParameterName {
 		eventbusname("eventbusname")

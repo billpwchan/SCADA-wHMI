@@ -16,6 +16,7 @@ public interface UIWidgetView_i {
 	
 	void setElement(String element);
 	void setUINameCard(UINameCard uiNameCard);
+	void setCtrlHandler(String ctrlHandler);
 	void setViewXMLFile(String viewXMLFile);
 	void setOptsXMLFile(String optsXMLFile);
 	void init();

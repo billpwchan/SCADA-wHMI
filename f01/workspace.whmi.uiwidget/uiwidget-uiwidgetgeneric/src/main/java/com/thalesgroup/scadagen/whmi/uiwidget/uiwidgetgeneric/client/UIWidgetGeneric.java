@@ -542,7 +542,7 @@ public class UIWidgetGeneric extends UIWidget_i {
     	
     	return status;
     }
-    
+		
 	@Override
 	public void setWidgetStatus(String element, WidgetStatus status) {
 		final String function = "setWidgetStatus";
@@ -568,116 +568,129 @@ public class UIWidgetGeneric extends UIWidget_i {
     			HashMap<String, String> valueMap 	= getWidgetValues(widget);
     			
     			if ( null != valueMap ) {
-	 				String strWidget					= valueMap.get(WidgetAttribute.widget.toString());
-					String iconDivWidth					= valueMap.get(WidgetAttribute.iconDivWidth.toString());
-					String iconDivHeight				= valueMap.get(WidgetAttribute.iconDivHeight.toString());
-					String iconImgWidth					= valueMap.get(WidgetAttribute.iconImgWidth.toString());
-					String iconImgHeight				= valueMap.get(WidgetAttribute.iconImgHeight.toString());
-					
-					String element						= valueMap.get(WidgetAttribute.element.toString());
-					widgetStatus.put(element, status);
-					
-					String label	= null;
-					String icon		= null;
-					String toolTip	= null;
-	    			
-					if ( WidgetType.RadioButton.toString().equals(strWidget) ) {
-						
-						((RadioButton)widget).setValue(WidgetStatus.Down == status);
-						
-					} else if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
-							|| WidgetType.Button.toString().equals(strWidget) || WidgetType.InlineLabel.toString().equals(strWidget)) {
-						
-						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
-						String cssDown		= valueMap.get(WidgetAttribute.cssDown.toString());
-						String cssDisable	= valueMap.get(WidgetAttribute.cssDisable.toString());
-						
-						if ( WidgetStatus.Up == status ) {
-							label		= valueMap.get(WidgetAttribute.label.toString());
-							toolTip		= valueMap.get(WidgetAttribute.tooltip.toString());
-							icon		= valueMap.get(WidgetAttribute.icon.toString());
-						} else if ( WidgetStatus.Down == status ) {
-							label		= valueMap.get(WidgetAttribute.labelDown.toString());
-							toolTip		= valueMap.get(WidgetAttribute.tooltipDown.toString());
-							icon		= valueMap.get(WidgetAttribute.iconDown.toString());
-						} else if ( WidgetStatus.Disable == status ) {
-							label		= valueMap.get(WidgetAttribute.labelDisable.toString());
-							toolTip		= valueMap.get(WidgetAttribute.tooltipDisable.toString());
-							icon		= valueMap.get(WidgetAttribute.iconDisable.toString());
-						}
-						
-						TranslationMgr translationMgr = TranslationMgr.getInstance();
-						if ( null !=  translationMgr.getTranslationEngine() ) {
-							label = translationMgr.getTranslation(label);
-						}
-
-						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
-							if ( null != label )	((InlineLabel)widget).setText(label);
-						} else {
-							if ( null != label )	((Button)widget).setText(label);
-						}
-
-						if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
-							|| WidgetType.Button.toString().equals(strWidget)  ) {
-							if ( null != iconDivWidth && null != iconDivHeight ) {
-								String img = null;
-								String lbl = null;
-								if ( null != icon && null != iconImgWidth && null != iconImgHeight ) {
-									img = "<img src=\""+basePath+icon+"\" width=\""+iconImgWidth+"\" height=\""+iconImgHeight+"\">";
-								}
-								if ( null != label ) {
-									lbl = "<label>"+label+"</lable>";
-								}
-								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
-								
-								logger.info(className, function, "html["+html+"]");
-								
-								((Button)widget).setHTML(html);
-							}							
-						}
-						
-						if ( null != toolTip )	widget.setTitle(toolTip);
+    			
+	    			if ( WidgetStatus.Visible == status || WidgetStatus.Invisible == status ) {
+	        			boolean visible = (WidgetStatus.Visible == status);
+	        			logger.info(className, function, "visible[{}]", status);
+	        			widget.setVisible(visible);
 	
-						String cssAdd = null, cssRemove1 = null, cssRemove2 = null;
-						if ( WidgetStatus.Disable == status ) {
-							cssRemove1	= cssUp;
-							cssRemove2	= cssDown;
-							cssAdd		= cssDisable;
-						} else if ( WidgetStatus.Down == status ) {
-							cssRemove1	= cssUp;
-							cssRemove2	= cssDisable;
-							cssAdd		= cssDown;
-						} else if ( WidgetStatus.Up == status ) {
-							cssRemove1	= cssDown;
-							cssRemove2	= cssDisable;
-							cssAdd		= cssUp;
-						}
-						if ( null != cssRemove1 ) {
-							widget.removeStyleName(cssRemove1);
-							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
-						}
-						if ( null != cssRemove2 ) {
-							widget.removeStyleName(cssRemove2);
-							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
-						}
-						if ( null != cssAdd ) {
-							widget.addStyleName(cssAdd);
-							logger.info(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
-						}
-						
-//						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
-						
+	        			String element						= valueMap.get(WidgetAttribute.element.toString());
+						widgetStatus.put(element, status);
+	    			} else {
 
-						
-						if ( WidgetType.Button.toString().equals(strWidget) )	
-							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
-		    			
-					} else {
-						logger.warn(className, function, "widget IS INVALID");
-					}
+    	 				String strWidget					= valueMap.get(WidgetAttribute.widget.toString());
+    					String iconDivWidth					= valueMap.get(WidgetAttribute.iconDivWidth.toString());
+    					String iconDivHeight				= valueMap.get(WidgetAttribute.iconDivHeight.toString());
+    					String iconImgWidth					= valueMap.get(WidgetAttribute.iconImgWidth.toString());
+    					String iconImgHeight				= valueMap.get(WidgetAttribute.iconImgHeight.toString());
+    					
+    					String element						= valueMap.get(WidgetAttribute.element.toString());
+    					widgetStatus.put(element, status);
+    					
+    					String label	= null;
+    					String icon		= null;
+    					String toolTip	= null;
+    	    			
+    					if ( WidgetType.RadioButton.toString().equals(strWidget) ) {
+    						
+    						((RadioButton)widget).setValue(WidgetStatus.Down == status);
+    						
+    					} else if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+    							|| WidgetType.Button.toString().equals(strWidget) || WidgetType.InlineLabel.toString().equals(strWidget)) {
+    						
+    						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
+    						String cssDown		= valueMap.get(WidgetAttribute.cssDown.toString());
+    						String cssDisable	= valueMap.get(WidgetAttribute.cssDisable.toString());
+    						
+    						if ( WidgetStatus.Up == status ) {
+    							label		= valueMap.get(WidgetAttribute.label.toString());
+    							toolTip		= valueMap.get(WidgetAttribute.tooltip.toString());
+    							icon		= valueMap.get(WidgetAttribute.icon.toString());
+    						} else if ( WidgetStatus.Down == status ) {
+    							label		= valueMap.get(WidgetAttribute.labelDown.toString());
+    							toolTip		= valueMap.get(WidgetAttribute.tooltipDown.toString());
+    							icon		= valueMap.get(WidgetAttribute.iconDown.toString());
+    						} else if ( WidgetStatus.Disable == status ) {
+    							label		= valueMap.get(WidgetAttribute.labelDisable.toString());
+    							toolTip		= valueMap.get(WidgetAttribute.tooltipDisable.toString());
+    							icon		= valueMap.get(WidgetAttribute.iconDisable.toString());
+    						}
+    						
+    						TranslationMgr translationMgr = TranslationMgr.getInstance();
+    						if ( null !=  translationMgr.getTranslationEngine() ) {
+    							label = translationMgr.getTranslation(label);
+    						}
+
+    						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
+    							if ( null != label )	((InlineLabel)widget).setText(label);
+    						} else {
+    							if ( null != label )	((Button)widget).setText(label);
+    						}
+
+    						if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+    							|| WidgetType.Button.toString().equals(strWidget)  ) {
+    							if ( null != iconDivWidth && null != iconDivHeight ) {
+    								String img = null;
+    								String lbl = null;
+    								if ( null != icon && null != iconImgWidth && null != iconImgHeight ) {
+    									img = "<img src=\""+basePath+icon+"\" width=\""+iconImgWidth+"\" height=\""+iconImgHeight+"\">";
+    								}
+    								if ( null != label ) {
+    									lbl = "<label>"+label+"</lable>";
+    								}
+    								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
+    								
+    								logger.info(className, function, "html["+html+"]");
+    								
+    								((Button)widget).setHTML(html);
+    							}							
+    						}
+    						
+    						if ( null != toolTip )	widget.setTitle(toolTip);
+    	
+    						String cssAdd = null, cssRemove1 = null, cssRemove2 = null;
+    						if ( WidgetStatus.Disable == status ) {
+    							cssRemove1	= cssUp;
+    							cssRemove2	= cssDown;
+    							cssAdd		= cssDisable;
+    						} else if ( WidgetStatus.Down == status ) {
+    							cssRemove1	= cssUp;
+    							cssRemove2	= cssDisable;
+    							cssAdd		= cssDown;
+    						} else if ( WidgetStatus.Up == status ) {
+    							cssRemove1	= cssDown;
+    							cssRemove2	= cssDisable;
+    							cssAdd		= cssUp;
+    						}
+    						if ( null != cssRemove1 ) {
+    							widget.removeStyleName(cssRemove1);
+    							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
+    						}
+    						if ( null != cssRemove2 ) {
+    							widget.removeStyleName(cssRemove2);
+    							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
+    						}
+    						if ( null != cssAdd ) {
+    							widget.addStyleName(cssAdd);
+    							logger.info(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
+    						}
+    						
+//    						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
+
+    						if ( WidgetType.Button.toString().equals(strWidget) )	
+    							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
+    		    			
+    					} else {
+    						logger.warn(className, function, "widget IS INVALID");
+    					}
+
+        			}
+        			
     			} else {
     				logger.warn(className, function, "valueMap IS INVALID");
     			}
+    			
+
     		} else {
     			logger.warn(className, function, "status IS NULL");
     		}

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.ColumnFilterData;
@@ -19,17 +21,21 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterParameter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
@@ -43,7 +49,11 @@ public class UIWidgetViewer extends UIWidget_i {
 	// External
 	private SimpleEventBus eventBus		= null;
 
-	private UILayoutGeneric uiLayoutGeneric					= null;
+	private UILayoutGeneric uiLayoutGeneric	= null;
+	
+	private UIWidgetGeneric uiWidgetGeneric = null;
+	
+	private UIEventActionProcessor uiEventActionProcessor = null;
 	
 	private ScsOlsListPanel scsOlsListPanel					= null;
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
@@ -58,6 +68,8 @@ public class UIWidgetViewer extends UIWidget_i {
 				logger.warn(className, function, "entitle[{}]", entitle);
 				gridPresenter.removeContainerFilter(entitle);
 			}
+		} else {
+			logger.warn(className, function, "gridPresenter IS NULL");
 		}
 		logger.end(className, function);
 	}
@@ -84,62 +96,74 @@ public class UIWidgetViewer extends UIWidget_i {
 		logger.info(className, function, "column[{}] value[{}]", column, value);
 		logger.end(className, function);
 	}
-	
-	void onUIEvent(UIEvent uiEvent ) {
-	}
-	
-	void onActionReceived(UIEventAction uiEventAction) {
-		final String function = "onActionReceived";
+
+	UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
-		logger.begin(className, function);
-		
-		if ( null != uiEventAction ) {
-			String ot = (String) uiEventAction.getParameter(ViewAttribute.OperationTarget.toString());
-			String op = (String) uiEventAction.getParameter(ViewAttribute.Operation.toString());
-			String od1 = (String) uiEventAction.getParameter(FilterParameter.FilterListCfgId.toString());
-			String od2 = (String) uiEventAction.getParameter(FilterParameter.FilterColumn0.toString());
-			String od3 = (String) uiEventAction.getParameter(FilterParameter.FilterValueSet0.toString());
+		@Override
+		public void onUIEvent(UIEvent uiEvent) {
+			// TODO Auto-generated method stub
 			
-			logger.info(className, function, "ot[{}]", ot);
-			logger.info(className, function, "op[{}]", op);
-			logger.info(className, function, "od1[{}]", od1);
-			logger.info(className, function, "od2[{}]", od2);
-			logger.info(className, function, "od3[{}]", od3);
-			
-			if ( null != op ) {
-				if ( op.equals(FilterViewEvent.AddFilter.toString()) ) {
-					if ( null != od1 && null != od2 && null != od3) {
-						String listConfigId = scsOlsListPanel.getStringParameter("listConfigId_");
-						logger.info(className, function, "listConfigId[{}]", listConfigId);
-						if ( null != listConfigId ) {
-							if ( od1.equals(listConfigId) ) {
-								applyFilter(od2, od3);
-							} else {
-								logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", od1, listConfigId);
-							}
-						} else {
-							logger.warn(className, function, "listConfigId IS NULL", listConfigId);
-						}
-	
-					} else if ( null == od1 ) {
-						logger.warn(className, function, "od1 IS NULL");
-					} else if ( null == od2 ) {
-						logger.warn(className, function, "od2 IS NULL");
-					}
-				} else if ( op.equals(FilterViewEvent.RemoveFilter.toString()) ) {
-					removeFilter();
-				} else if ( op.equals(PrintViewEvent.Print.toString()) ) {
-					Window.alert("Print Event");
-				}
-			} else {
-				logger.warn(className, function, "op IS NULL");
-			}
-		} else {
-			logger.warn(className, function, "uiEventAction IS NULL");
 		}
 		
-		logger.end(className, function);
-	}
+		@Override
+		public void onClick(ClickEvent event) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void onActionReceived(UIEventAction uiEventAction) {
+			final String function = "onActionReceived";
+			
+			logger.begin(className, function);
+			
+			if ( null != uiEventAction ) {
+				
+				String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+				String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+				String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
+				String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
+				
+				logger.info(className, function, "os1[{}]", os1);
+				logger.info(className, function, "os2[{}]", os2);
+				logger.info(className, function, "os3[{}]", os3);
+				logger.info(className, function, "os4[{}]", os4);
+				
+				if ( null != os1 ) {
+					if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
+						if ( null != os2 && null != os3 && null != os4) {
+							String listConfigId = scsOlsListPanel.getStringParameter("listConfigId_");
+							logger.info(className, function, "listConfigId[{}]", listConfigId);
+							if ( null != listConfigId ) {
+								if ( os2.equals(listConfigId) ) {
+									applyFilter(os3, os4);
+								} else {
+									logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
+								}
+							} else {
+								logger.warn(className, function, "listConfigId IS NULL", listConfigId);
+							}
+		
+						} else if ( null == os2 ) {
+							logger.warn(className, function, "od1 IS NULL");
+						} else if ( null == os3 ) {
+							logger.warn(className, function, "od2 IS NULL");
+						}
+					} else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
+						removeFilter();
+					} else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
+						Window.alert("Print Event");
+					}
+				} else {
+					logger.warn(className, function, "op IS NULL");
+				}
+			} else {
+				logger.warn(className, function, "uiEventAction IS NULL");
+			}
+			
+			logger.end(className, function);
+		}
+	};
 
 	@Override
 	public void init() {
@@ -166,12 +190,23 @@ public class UIWidgetViewer extends UIWidget_i {
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
+		uiEventActionProcessor = new UIEventActionProcessor();
+		uiEventActionProcessor.setPrefix(className);
+		uiEventActionProcessor.setElement(element);
+		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor.setEventBus(eventBus);
+		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor.init();
+		
 		handlerRegistrations.add(
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 				@Override
 				public void onEvenBusUIChanged(UIEvent uiEvent) {
 					if ( uiEvent.getSource() != this ) {
-						onUIEvent(uiEvent);
+						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
 					}
 				}
 			})
@@ -182,7 +217,7 @@ public class UIWidgetViewer extends UIWidget_i {
 				@Override
 				public void onAction(UIEventAction uiEventAction) {
 					if ( uiEventAction.getSource() != this ) {
-						onActionReceived(uiEventAction);
+						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
 					}
 				}
 			})
@@ -201,12 +236,16 @@ public class UIWidgetViewer extends UIWidget_i {
 						final String function = "onSelection fireFilterEvent";
 						
 						logger.begin(className, function);
-
-						UIEventAction uiEventAction = new UIEventAction();
-						uiEventAction.setParameters(ViewAttribute.Operation.toString(), ViewerViewEvent.RowSelected.toString());
-						uiEventAction.setParameters(ViewAttribute.OperationObject1.toString(), entities);
-						eventBus.fireEventFromSource(uiEventAction, this);
 						
+						String actionsetkey = "RowSelected";
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ViewAttribute.OperationObject1.toString(), entities);
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put("RowSelected", parameter);
+						
+						uiEventActionProcessor.executeActionSet(actionsetkey, override);
+
 						logger.end(className, function);
 					}
 				});
@@ -219,14 +258,13 @@ public class UIWidgetViewer extends UIWidget_i {
 
 						logger.begin(className, function);
 						
-						UIEventAction event = new UIEventAction();
 						ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
 						if ( null != columns && columns.size() > 0 ) {
 							viewerViewEvent = ViewerViewEvent.FilterAdded;
 						}
-						event.setParameters(ViewAttribute.Operation.toString(), viewerViewEvent.toString());
-						eventBus.fireEventFromSource(event, this);
-						
+						String actionsetkey = viewerViewEvent.toString();
+						uiEventActionProcessor.executeActionSet(actionsetkey);
+
 						logger.end(className, function);
 					}
 				});
@@ -236,6 +274,8 @@ public class UIWidgetViewer extends UIWidget_i {
 		} else {
 			logger.warn(className, function, "scsOlsListPanel columns.size()");
 		}
+		
+		uiEventActionProcessor.executeActionSetInit();
 		
 		logger.end(className, function);
 	}

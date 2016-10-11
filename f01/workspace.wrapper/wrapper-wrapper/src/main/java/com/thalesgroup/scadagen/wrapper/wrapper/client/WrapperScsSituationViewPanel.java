@@ -12,6 +12,9 @@ public class WrapperScsSituationViewPanel {
 	public void setConfigurationId ( String configurationId ) {
 		this.configurationId =configurationId;
 	}
+	public String getConfigurationId () {
+		return this.configurationId;
+	}
 	private String width;
 	private String height;
 	public void setSize(String width, String height) {

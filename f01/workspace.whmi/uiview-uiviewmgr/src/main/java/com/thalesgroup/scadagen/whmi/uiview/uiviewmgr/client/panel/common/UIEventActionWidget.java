@@ -3,24 +3,18 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.WidgetExecuteAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
-public class UIEventActionExecute {
-	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionExecute.class.getName());
+public class UIEventActionWidget extends UIEventActionExecute_i {
+	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionWidget.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	private String logPrefix = "";
-	private UIWidgetGeneric uiWidgetGeneric = null;
-	public UIEventActionExecute ( String logPrefix, UIWidgetGeneric uiWidgetGeneric) {
-		this.logPrefix = "-> "+logPrefix+" ";
-		this.uiWidgetGeneric = uiWidgetGeneric;
-	}
 	
-	private static final String strSetWidgetStatus	= "SetWidgetStatus";
-	private static final String strSetWidgetValue	= "SetWidgetValue";
+	private final String strSetWidgetStatus	= "SetWidgetStatus";
+	private final String strSetWidgetValue	= "SetWidgetValue";
 	
-	public static boolean isSupportedAction(String operation) {
+	public boolean isSupportedAction(String operation) {
 		boolean result = false;
 		if ( null != operation ) {
 			if ( operation.equals(strSetWidgetStatus) ) {
@@ -42,9 +36,9 @@ public class UIEventActionExecute {
 			return;
 		}
 		
-		String strWidgetAction	= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString1.toString());
-		String strWidget		= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString2.toString());
-		String widgetValue		= (String) uiEventAction.getParameter(WidgetExecuteAttribute.OperationString3.toString());
+		String strWidgetAction	= (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+		String strWidget		= (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+		String widgetValue		= (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 		
 		logger.info(className, function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
 		
@@ -72,14 +66,12 @@ public class UIEventActionExecute {
 			uiWidgetGeneric.setWidgetValue(strWidget, widgetValue);
 		} else if ( strWidgetAction.equals(strSetWidgetStatus) ) {
 			WidgetStatus widgetStatus = null;
-			if ( widgetValue.equals(WidgetStatus.Up.toString()) ) {
-				widgetStatus = WidgetStatus.Up;
-			} else if ( widgetValue.equals(WidgetStatus.Down.toString()) ) {
-				widgetStatus = WidgetStatus.Down;
-			} else if ( widgetValue.equals(WidgetStatus.Disable.toString()) ) {
-				widgetStatus = WidgetStatus.Disable;
-			} else {
-				logger.warn(className, function, logPrefix+"strWidgetAction[{}] IS UNSUPPORT TYPE", strWidgetAction);
+			for ( WidgetStatus cstWidgetStatus : WidgetStatus.values() ) {
+				String name = cstWidgetStatus.toString();
+				if ( name.equals(widgetValue) ) {
+					widgetStatus = cstWidgetStatus;
+					break;
+				}
 			}
 			if ( null != widgetStatus ) {
 				uiWidgetGeneric.setWidgetStatus(strWidget, widgetStatus);

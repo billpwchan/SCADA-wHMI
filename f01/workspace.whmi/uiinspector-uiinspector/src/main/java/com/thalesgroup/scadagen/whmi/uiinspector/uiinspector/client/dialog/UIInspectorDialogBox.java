@@ -241,4 +241,10 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClick();
 	}
 
+	@Override
+	public void setCtrlHandler(String ctrlHandler) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

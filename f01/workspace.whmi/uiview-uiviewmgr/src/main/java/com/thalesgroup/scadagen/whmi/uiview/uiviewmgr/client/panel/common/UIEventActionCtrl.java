@@ -22,7 +22,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 	}
 	
 	public void executeAction(UIEventAction action) {
-		final String function = logPrefix+" execute";
+		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		String strEnvName			= (String) action.getParameter(ActionAttribute.OperationString2.toString());

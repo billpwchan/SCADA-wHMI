@@ -60,7 +60,7 @@ public class ScsAlarmListPanel_1166B extends ResizeComposite
     /**
      * The alarm list context menu
      */
-    private ScsAlarmListPanelMenu contextMenu_;
+//    private ScsAlarmListPanelMenu contextMenu_;
     
     /**
      * True if the list will show Action Bar
@@ -70,7 +70,7 @@ public class ScsAlarmListPanel_1166B extends ResizeComposite
     /**
      * True if the list can acknowledge entities in the list
      */
-    private final boolean withAck_;
+//    private final boolean withAck_;
 
     /**
      * Include or not the banner in a CaptionPanel
@@ -112,7 +112,7 @@ public class ScsAlarmListPanel_1166B extends ResizeComposite
 
         eventBus_ = eventBus;
 //        withAction_ = withAction;
-        withAck_ = withAck;
+//        withAck_ = withAck;
 //        withCaption_ = withCaption;
         listConfigId_ = listConfigId;
         initComponents();
@@ -129,10 +129,10 @@ public class ScsAlarmListPanel_1166B extends ResizeComposite
      * context menu and Handlers
      */
     private void initPresenter(Set<FilterSetEvent> filterSet) {
-        if (listConfigId_ != null && gridView_ != null && eventBus_ != null && contextMenu_ != null) {
+        if (listConfigId_ != null && gridView_ != null && eventBus_ != null /*&& contextMenu_ != null*/) {
             gridPresenter_ = new WrapperScsAlarmDataGridPresenterClient_1166B(listConfigId_, gridView_, eventBus_, filterSet);
             gridPresenter_.setSelectionModel(new MultipleSelectionModel());
-            gridPresenter_.setMenu(contextMenu_);
+//            gridPresenter_.setMenu(contextMenu_);
 
             initHandler();
         } else {
@@ -153,7 +153,7 @@ public class ScsAlarmListPanel_1166B extends ResizeComposite
      * Initialize and create all needed components
      */
     private void initComponents() {
-        contextMenu_ = new ScsAlarmListPanelMenu(eventBus_, withAck_);
+//        contextMenu_ = new ScsAlarmListPanelMenu(eventBus_, withAck_);
         initDataGridView();
         initMainPanel();
     }

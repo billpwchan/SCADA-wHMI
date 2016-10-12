@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -13,14 +16,19 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsAlarmListPanelEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanelMenuHandler;
 
 public class UIViewAlarmSummary extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIViewAlarmSummary.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private UIEventActionProcessor uiEventActionProcessor = null;
 
 	private final String strAcknowledge = "Ack";
 	private final String strAcknowledgePage = "Ack. Page";
@@ -78,6 +86,22 @@ public class UIViewAlarmSummary extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
+		String optsXMLFile = "UIEventActionProcessor_CallImage.opts.xml";
+		uiEventActionProcessor = new UIEventActionProcessor();
+		uiEventActionProcessor.setUINameCard(uiNameCard);
+		uiEventActionProcessor.setPrefix(className);
+		uiEventActionProcessor.setElement(element);
+		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
+//		uiEventActionProcessor.setEventBus(eventBus);
+		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor.init();
+
+//		uiEventActionProcessor.executeActionSetInit();
+//		uiEventActionProcessor.executeActionSetInit(1000, null);
+		
 		FlexTable flexTableFilters = new FlexTable();
 		flexTableFilters.setWidth("100%");
 		
@@ -134,6 +158,34 @@ public class UIViewAlarmSummary extends UIWidget_i {
 
 	    String SCS_ALARM_LIST_ID = "scsalarmList";
 	    wrapperScsAlarmListPanel = new WrapperScsAlarmListPanel(SCS_ALARM_LIST_ID, false, false, true);
+	    wrapperScsAlarmListPanel.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
+			
+			@Override
+			public void onSelection(Set<HashMap<String, String>> entity) {
+				logger.warn(className, function, "entity[{}]", entity);
+				
+				if ( null != entity ) {
+					HashMap<String, String> hashMap = entity.iterator().next();
+					if ( null != hashMap ) {
+						String sourceID = hashMap.get("sourceID");
+						logger.info(className, function, "sourceID[{}]", sourceID);
+						if ( null != sourceID ) {
+							if ( null != uiEventActionProcessor ) {
+								uiEventActionProcessor.executeActionSet(sourceID);
+							} else {
+								logger.warn(className, function, "uiEventActionProcessor IS NULL");	
+							}
+						} else {
+							logger.warn(className, function, "sourceID IS NULL");	
+						}
+					} else {
+						logger.warn(className, function, "hashMap IS NULL");	
+					}
+				} else {
+					logger.warn(className, function, "entity IS NULL");	
+				}
+			}
+		});
 	    wrapperScsAlarmListPanel.setSize("100%", "100%");
 	    wrapperScsAlarmListPanel.setBorderWidth(1);
 	    wrapperScsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {

@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -140,6 +141,15 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
      */
     private void initComponents() {
         contextMenu_ = new ScsOlsListPanelMenu(eventBus_);
+        contextMenu_.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
+			
+			@Override
+			public void onSelection(Set<HashMap<String, String>> entity) {
+				if ( null != scsOlsListPanelMenuHandler ) {
+					scsOlsListPanelMenuHandler.onSelection(entity);
+				}
+			}
+		});
         initDataGridView();
         initMainPanel();
     }
@@ -255,4 +265,10 @@ public class ScsOlsListPanel extends ResizeComposite implements IClientLifeCycle
         	logger.log(Level.SEVERE, "onCounterChange End");
     	}
 	}
+	
+    private ScsOlsListPanelMenuHandler scsOlsListPanelMenuHandler = null;
+    public void setScsOlsListPanelMenuHandler(ScsOlsListPanelMenuHandler scsOlsListPanelMenuHandler) {
+    	this.scsOlsListPanelMenuHandler = scsOlsListPanelMenuHandler;
+    }
+	
 }

@@ -45,6 +45,7 @@ public class UITaskLaunch extends UITaskDictionary {
 		, Css("css")
 		, UIView("uiView")
 		, Tooltips("tooltips")
+		, Execute("execute")
 		;
 		private final String text;
 		private UITaskLaunchAttribute(final String text) { this.text = text; }
@@ -92,6 +93,9 @@ public class UITaskLaunch extends UITaskDictionary {
 
 	public String getHeader() {
 		return (String) getValue(UITaskLaunchAttribute.Key.toString());
+	}
+	public void setHeader(String key) {
+		setValue(UITaskLaunchAttribute.Key.toString(), key);
 	}
 
 	public void setName(String name) {
@@ -192,5 +196,12 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 	public String getTooltip() {
 		return (String) getValue(UITaskLaunchAttribute.Tooltips.toString());
+	}
+	
+	public void setExecute(String execute) {
+		setValue(UITaskLaunchAttribute.Execute.toString(), execute);
+	}
+	public String getExecute() {
+		return (String) getValue(UITaskLaunchAttribute.Execute.toString());
 	}
 }

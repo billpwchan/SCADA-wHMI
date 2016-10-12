@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsAlarmListPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanelMenuHandler;
 
 public class WrapperScsAlarmListPanel {
 	
@@ -43,6 +45,15 @@ public class WrapperScsAlarmListPanel {
         final Set<FilterSetEvent> filterSet = null;
         
 		scsAlarmListPanel = new ScsAlarmListPanel(AppUtils.EVENT_BUS, alarmListId, withAction, withCaption, withAck, filterSet);
+		scsAlarmListPanel.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
+			
+			@Override
+			public void onSelection(Set<HashMap<String, String>> entity) {
+				if ( null != scsOlsListPanelMenuHandler ) {
+					scsOlsListPanelMenuHandler.onSelection(entity);
+				}
+			}
+		});
 	    scsAlarmListPanel.setWidth(this.width);
 	    scsAlarmListPanel.setHeight(this.height);
 	    scsAlarmListPanel.setWrapperScsAlarmListPanelEvent(new WrapperScsAlarmListPanelEvent() {
@@ -71,4 +82,9 @@ public class WrapperScsAlarmListPanel {
 		if ( null != scsAlarmListPanel ) scsAlarmListPanel.ackVisibleSelected();
 	}
 
+    private ScsOlsListPanelMenuHandler scsOlsListPanelMenuHandler = null;
+    public void setScsOlsListPanelMenuHandler(ScsOlsListPanelMenuHandler scsOlsListPanelMenuHandler) {
+    	this.scsOlsListPanelMenuHandler = scsOlsListPanelMenuHandler;
+    }
+	
 }

@@ -1,11 +1,14 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
+import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanelMenuHandler;
 
 /**
  * A widget displaying an alamm list panel.
@@ -36,6 +39,15 @@ public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
 	public VerticalPanel getMainPanel() {
 		
 	    scsOlsListPanel = new ScsOlsListPanel(AppUtils.EVENT_BUS, alarmListId, withCaption, null);
+	    scsOlsListPanel.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
+			
+			@Override
+			public void onSelection(Set<HashMap<String, String>> entity) {
+				if ( null != scsOlsListPanelMenuHandler ) {
+					scsOlsListPanelMenuHandler.onSelection(entity);
+				}
+			}
+		});
 	    scsOlsListPanel.setWidth(this.width);
 	    scsOlsListPanel.setHeight(this.height);
 	    scsOlsListPanel.setWrapperScsOlsListPanelEvent(wrapperScsOlsListPanelEvent);
@@ -55,5 +67,9 @@ public class WrapperScsOlsListPanel implements WrapperScsOlsListPanelEvent {
 		logger.log(Level.FINE, "valueChanged name["+name+"] value["+value+"]");
 		if ( null != wrapperScsOlsListPanelEvent ) wrapperScsOlsListPanelEvent.valueChanged(name, value);
 	}
-
+	
+    private ScsOlsListPanelMenuHandler scsOlsListPanelMenuHandler = null;
+    public void setScsOlsListPanelMenuHandler(ScsOlsListPanelMenuHandler scsOlsListPanelMenuHandler) {
+    	this.scsOlsListPanelMenuHandler = scsOlsListPanelMenuHandler;
+    }
 }

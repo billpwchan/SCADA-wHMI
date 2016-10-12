@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
@@ -9,6 +10,7 @@ public abstract class UIEventActionExecute_i {
 	
 	protected String logPrefix = "";
 	protected String instance = "";
+	protected UINameCard uiNameCard = null;
 	protected SimpleEventBus simpleEventBus = null;
 	protected UIWidgetGeneric uiWidgetGeneric = null;
 	protected UILayoutGeneric uiLayoutGeneric = null;
@@ -20,6 +22,7 @@ public abstract class UIEventActionExecute_i {
 	public void setSimpleEventBus(SimpleEventBus simpleEventBus) { this.simpleEventBus = simpleEventBus; }
 	public void setUIWidgetGeneric(UIWidgetGeneric uiWidgetGeneric) { this.uiWidgetGeneric = uiWidgetGeneric; }
 	public void setUILayoutGeneric(UILayoutGeneric uiLayoutGeneric) { this.uiLayoutGeneric = uiLayoutGeneric; }
+	public void setUINameCard(UINameCard uiNameCard) { if ( null != uiNameCard ) { this.uiNameCard = new UINameCard(uiNameCard); } }
 	
 	public boolean isSupportedAction(String operation) {
 		boolean supported = false;

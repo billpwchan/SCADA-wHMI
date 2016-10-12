@@ -14,20 +14,12 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 	private final String strSetWidgetStatus	= "SetWidgetStatus";
 	private final String strSetWidgetValue	= "SetWidgetValue";
 	
-	public boolean isSupportedAction(String operation) {
-		boolean result = false;
-		if ( null != operation ) {
-			if ( operation.equals(strSetWidgetStatus) ) {
-				result = true;
-			} else if ( operation.equals(strSetWidgetValue) ) {
-				result = true;
-			}
-		}
-		return result;
+	public UIEventActionWidget ( ) {
+		supportedActions = new String[] {strSetWidgetStatus, strSetWidgetValue};
 	}
 	
 	public void executeAction(UIEventAction uiEventAction) {
-	final String function = "action";
+		final String function = logPrefix+" executeAction";
 		
 		logger.begin(className, function);
 

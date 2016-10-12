@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel;
 
+import java.util.HashMap;
+import java.util.Set;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -10,14 +13,19 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsOlsListPanelEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsOlsListPanelMenuHandler;
 
 public class UIViewEventSummary extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIViewEventSummary.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private UIEventActionProcessor uiEventActionProcessor = null;
 	
 //	public static final String RGB_RED		= "rgb( 255, 0, 0)";
 //	public static final String RGB_GREEN	= "rgb( 0, 255, 0)";
@@ -35,6 +43,22 @@ public class UIViewEventSummary extends UIWidget_i {
 		final String function = "init";
 
 		logger.begin(className, function);
+		
+		String optsXMLFile = "UIEventActionProcessor_CallImage.opts.xml";
+		uiEventActionProcessor = new UIEventActionProcessor();
+		uiEventActionProcessor.setUINameCard(uiNameCard);
+		uiEventActionProcessor.setPrefix(className);
+		uiEventActionProcessor.setElement(element);
+		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
+//		uiEventActionProcessor.setEventBus(eventBus);
+		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor.init();
+
+//		uiEventActionProcessor.executeActionSetInit();
+//		uiEventActionProcessor.executeActionSetInit(1000, null);
 		
 		HorizontalPanel numOfEventBar = new HorizontalPanel();
 		numOfEventBar.getElement().getStyle().setPadding(20, Unit.PX);
@@ -93,6 +117,34 @@ public class UIViewEventSummary extends UIWidget_i {
 
 	    String SCS_OLS_LIST_ID = "scseventList";
 	    WrapperScsOlsListPanel wrapperScsOlsListPanel = new WrapperScsOlsListPanel(SCS_OLS_LIST_ID, false);
+	    wrapperScsOlsListPanel.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
+			
+			@Override
+			public void onSelection(Set<HashMap<String, String>> entity) {
+				logger.warn(className, function, "entity[{}]", entity);
+				
+				if ( null != entity ) {
+					HashMap<String, String> hashMap = entity.iterator().next();
+					if ( null != hashMap ) {
+						String sourceID = hashMap.get("sourceID");
+						logger.info(className, function, "sourceID[{}]", sourceID);
+						if ( null != sourceID ) {
+							if ( null != uiEventActionProcessor ) {
+								uiEventActionProcessor.executeActionSet(sourceID);
+							} else {
+								logger.warn(className, function, "uiEventActionProcessor IS NULL");	
+							}
+						} else {
+							logger.warn(className, function, "sourceID IS NULL");	
+						}
+					} else {
+						logger.warn(className, function, "hashMap IS NULL");	
+					}
+				} else {
+					logger.warn(className, function, "entity IS NULL");	
+				}
+			}
+		});
 	    wrapperScsOlsListPanel.setSize("100%", "100%");
 	    wrapperScsOlsListPanel.setBorderWidth(1);
 	    wrapperScsOlsListPanel.setWrapperScsOlsListPanelEvent(new WrapperScsOlsListPanelEvent() {

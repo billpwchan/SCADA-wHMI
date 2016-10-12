@@ -10,6 +10,7 @@ public interface UIActionEventAttribute_i {
 		, dpc("dpc")
 		, alm("alm")
 		, dbm("dbm")
+		, uitask("uitask")
 		, actionsetkey("actionsetkey")
 		, actionkey("actionkey")
 		, actionsetinit("actionsetinit")

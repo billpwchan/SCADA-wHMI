@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Timer;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -29,6 +30,16 @@ public class UIEventActionProcessor {
 	private String dictionariesCacheName;
 	public void setDictionariesCacheName(String dictionariesCacheName) {
 		this.dictionariesCacheName = dictionariesCacheName;
+	}
+	
+	private UINameCard uiNameCard;
+	public void setUINameCard(UINameCard uiNameCard) {
+		final String function = prefix+" setElement";
+		if ( null != uiNameCard ) {
+			this.uiNameCard = new UINameCard(uiNameCard);
+		} else {
+			logger.warn(className, function, "uiNameCard IS NULL");
+		}
 	}
 	
 	private String element;
@@ -330,8 +341,11 @@ public class UIEventActionProcessor {
 							uiEventActionExecute = new UIEventActionDpc();
 						} else if ( opa.equals(UIActionEventType.dbm.toString()) ) {
 							uiEventActionExecute = new UIEventActionDbm();
+						} else if ( opa.equals(UIActionEventType.uitask.toString()) ) {
+							uiEventActionExecute = new UIEventActionTaskLaunch();
 						}
 						if ( null != uiEventActionExecute ) {
+							uiEventActionExecute.setUINameCard(uiNameCard);
 							uiEventActionExecute.setLogPrefix(className);
 							uiEventActionExecute.setInstance(className);
 							uiEventActionExecute.setSimpleEventBus(simpleEventBus);

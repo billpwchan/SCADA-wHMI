@@ -389,6 +389,7 @@ public class UIWidgetDpcControl extends UIWidget_i {
 		uiWidgetGeneric.init();
 		
 		uiEventActionProcessor = new UIEventActionProcessor();
+		uiEventActionProcessor.setUINameCard(uiNameCard);
 		uiEventActionProcessor.setPrefix(className);
 		uiEventActionProcessor.setElement(element);
 		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");

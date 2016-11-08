@@ -11,13 +11,9 @@ import com.thalesgroup.hv.data_v1.attribute.IntAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.LongAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.StringAttributeType;
 
-public class HvDataWrapper implements IData {
-	
-	private String entityId_;
+public class HvDataWrapper extends DataAbstract {
 	
 	private AbstractAttributeType hvAttribute_;
-	
-	private String attributeName_;
 
 	/**
      * Constructor
@@ -25,20 +21,9 @@ public class HvDataWrapper implements IData {
      * @param field the scadasoft dbm field
      */
     public HvDataWrapper(final String entityId, final String attributeName, final AbstractAttributeType attribute) {
-	    entityId_ = entityId;
+    	super(entityId, attributeName, attribute.getTimestamp());
 	    hvAttribute_ = attribute;
-        attributeName_ = attributeName;
     }
-    
-	@Override
-	public String getEntityId() {
-		return entityId_;
-	}
-
-	@Override
-	public String getInputName() {
-		return attributeName_;
-	}
 
 	@Override
 	public boolean getBooleanValue() {
@@ -80,11 +65,6 @@ public class HvDataWrapper implements IData {
 	public Date getDateValue() {
 		DateTimeAttributeType att = (DateTimeAttributeType)hvAttribute_;
 		return new Date(att.getTimestamp());
-	}
-
-	@Override
-	public long getTimestamp() {
-		return hvAttribute_.getTimestamp();
 	}
 
 }

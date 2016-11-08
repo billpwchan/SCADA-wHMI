@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:operationConfig xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/operation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common" xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/operation xsd/operationAction.xsd " operationConfigName="ScreenwallApplySource">
+  <p:operation operationName="ScreenwallApplySource">
+      <p:commandContent />
+      <p:configProperty name="hvOperColumnName" value="hvOper" />
+	  <p:configProperty name="hvid" value="hvid" />
+  </p:operation>
+</p:operationConfig>

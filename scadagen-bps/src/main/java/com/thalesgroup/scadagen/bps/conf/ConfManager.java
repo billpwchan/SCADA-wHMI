@@ -8,11 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
-import com.thalesgroup.hv.common.configuration.NotificationEntityBuilder;
 import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.hv.sdk.connector.IConnectorTools;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
-import com.thalesgroup.scadagen.bps.conf.binding.builder.AttributeBuilder;
 import com.thalesgroup.scadagen.bps.conf.binding.engine.BindingLoader;
 import com.thalesgroup.scadagen.bps.conf.binding.engine.Hv2ScsBindingEngine;
 import com.thalesgroup.scadagen.bps.conf.bps.BpsConfig;
@@ -75,8 +73,7 @@ public class ConfManager {
         bindingEngine_ = null;
         try {
 	        loader.readBinding("bpsConfig/bindingHv2Scs.xml");
-	        final NotificationEntityBuilder builder = new NotificationEntityBuilder(connector_.getSystemConfiguration(), connector_.getDataHelper());
-	        bindingEngine_ = new Hv2ScsBindingEngine(builder, loader, connector_.getDataHelper(), new AttributeBuilder(connector_.getDataHelper()));
+	        bindingEngine_ = new Hv2ScsBindingEngine(loader, connector_.getDataHelper());
         } catch (HypervisorConversionException e) {
         	LOGGER.warn("SCADAgen BA - no bindings defined");
         }

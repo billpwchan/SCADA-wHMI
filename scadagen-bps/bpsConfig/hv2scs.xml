@@ -1,28 +1,48 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <scsbamapping>
-  <classdesc cid='ROU_'>
+  <classdesc cid='ROU_+ExtSysVariable+dciSIG_ROUTE'>
+    <instance hv='ROU_:B06A_B06E:Route_Disabled' scs=':B06_:SIG_:ROU_0001'/>
     <instance hv='ROU_:B06C_B06E:Route_Disabled' scs=':B06_:SIG_:ROU_0002'/>
+	<instance hv='ROU_:B06C_B06F:Route_Disabled' scs=':B06_:SIG_:ROU_0003'/>
+	<instance hv='ROU_:B06E_B06A:Route_Disabled' scs=':B06_:SIG_:ROU_0004'/>
+	<instance hv='ROU_:B06F_B06A:Route_Disabled' scs=':B06_:SIG_:ROU_0005'/>
+	<instance hv='ROU_:B06F_B06C:Route_Disabled' scs=':B06_:SIG_:ROU_0006'/>
   </classdesc>
 
-  <classdesc cid='SPM_'>
+  <classdesc cid='SPM_+ExtSysVariable+dciSIG-PTLOSS'>
     <instance hv='SPM_:B06EPM200:Point_Position_Loss' scs=':B06_:SIG_:SPM_0001'/>
+	<instance hv='SPM_:B06EPM201:Point_Position_Loss' scs=':B06_:SIG_:SPM_0002'/>
+	<instance hv='SPM_:B06EPM202:Point_Position_Loss' scs=':B06_:SIG_:SPM_0003'/>
+	<instance hv='SPM_:B06EPM203:Point_Position_Loss' scs=':B06_:SIG_:SPM_0004'/>
+	<instance hv='SPM_:B06EPM204:Point_Position_Loss' scs=':B06_:SIG_:SPM_0005'/>
+	<instance hv='SPM_:B06EPM205:Point_Position_Loss' scs=':B06_:SIG_:SPM_0006'/>
+  </classdesc>
+  
+  <classdesc cid='SPM_+ExtSysVariable+dciSETTINGERR'>
 	<instance hv='SPM_:B06EPM200:Setting_Error' scs=':B06_:SIG_:SPM_0001'/>
+	<instance hv='SPM_:B06EPM201:Setting_Error' scs=':B06_:SIG_:SPM_0002'/>
+	<instance hv='SPM_:B06EPM202:Setting_Error' scs=':B06_:SIG_:SPM_0003'/>
+	<instance hv='SPM_:B06EPM203:Setting_Error' scs=':B06_:SIG_:SPM_0004'/>
+	<instance hv='SPM_:B06EPM204:Setting_Error' scs=':B06_:SIG_:SPM_0005'/>
+	<instance hv='SPM_:B06EPM205:Setting_Error' scs=':B06_:SIG_:SPM_0006'/>
   </classdesc>
 
-  <classdesc cid='TLS_'>
+  <classdesc cid='TLS_+ExtSysVariable+dciSIG-LIGSTAT'>
     <instance hv='TLS_:J13ETL214:Traffic_Light_status' scs=':B06_:SIG_:TLS_0001'/>
+	<instance hv='TLS_:J13ETL215:Traffic_Light_status' scs=':B06_:SIG_:TLS_0002'/>
+	<instance hv='TLS_:J13ETL216:Traffic_Light_status' scs=':B06_:SIG_:TLS_0003'/>
+	<instance hv='TLS_:J13ETL217:Traffic_Light_status' scs=':B06_:SIG_:TLS_0004'/>
   </classdesc>
   
-  <classdesc cid='PTZC'>
-	<instance hv='camera-1' scs=':G01_:CCTV:PTZC00001' />
-	<instance hv='camera-2' scs=':G01_:CCTV:PTZC00002'/>
+  <classdesc cid='PTZC+PTZFICameraDome'>
+	<instance hv='camera-1' scs=':G01_:CCTV:PTZC0001' />
+	<instance hv='camera-2' scs=':G01_:CCTV:PTZC0002'/>
   </classdesc>
   
-  <classdesc cid='CAMD'>
-	<instance hv='camera-11' scs=':G01_:CCTV:CAMD00001' />
-	<instance hv='camera-12' scs=':G01_:CCTV:CAMD00002'/>
+  <classdesc cid='CAMD+CameraDome'>
+	<instance hv='camera-11' scs=':G01_:CCTV:CAMD0001' />
+	<instance hv='camera-12' scs=':G01_:CCTV:CAMD0002'/>
   </classdesc>
-
 
 </scsbamapping>
 

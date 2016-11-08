@@ -30,8 +30,8 @@
 
 	<p:trigger>
 		<p:action>
-			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.Hveqp2scs</p:actionHandler>
-			<p:actionConfig>hveqp2scs1</p:actionConfig>
+			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.ActionDbmWrite</p:actionHandler>
+			<p:actionConfig>itms2scsdb</p:actionConfig>
 		</p:action>
 	</p:trigger>
 </p:bpsConfig>

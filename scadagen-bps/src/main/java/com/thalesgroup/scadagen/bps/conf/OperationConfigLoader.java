@@ -15,8 +15,8 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import com.thalesgroup.hv.common.HypervisorConversionException;
 import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.common.tools.MarshallersPool;
+import com.thalesgroup.scadagen.bps.conf.operation.Operation;
 import com.thalesgroup.scadagen.bps.conf.operation.OperationConfig;
-import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
 
 public class OperationConfigLoader {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OperationConfigLoader.class);
@@ -25,12 +25,13 @@ public class OperationConfigLoader {
 	private Map<String, Long> resourceLastModifyMap_;
 	private Map<String, Resource> resourceMap_;
 	private Map<String, String> operationToResourceMap_;
-	private Map<String, OperationEntry> operationEntryMap_;
+	private Map<String, Operation> operationMap_;
 
 	/** configuration object package name */
     private static final String CONF_PACKAGE_NAME = OperationConfig.class.getPackage().getName();
 
     /** configuration xsd relative path */
+    private static final String COMMON_XSD_PATH = "xsd/common.xsd";
     private static final String XSD_RELATIVE_PATH = "xsd/operationAction.xsd";
 
     private static final String FILE_NAME_PATTERN = "classpath*:bpsConfig/*operation*.xml";
@@ -55,6 +56,7 @@ public class OperationConfigLoader {
 	private void initializeMarshaller() throws HypervisorException {
 
 		List<String> schemas = new ArrayList<String>();
+		schemas.add(COMMON_XSD_PATH);
 		schemas.add(XSD_RELATIVE_PATH);
 
 		LOGGER.trace("Loaded xsd for the configuration [{}].", schemas);
@@ -72,7 +74,7 @@ public class OperationConfigLoader {
 		resourceLastModifyMap_ = new HashMap<String, Long>();
 		resourceMap_ = new HashMap<String, Resource>();
 		operationToResourceMap_ = new HashMap<String, String>();
-		operationEntryMap_ = new HashMap<String, OperationEntry>();
+		operationMap_ = new HashMap<String, Operation>();
 		
 		LOGGER.debug("init HvOperationConfigLoader");
 
@@ -99,15 +101,15 @@ public class OperationConfigLoader {
 				}
 
 				if (config != null && config.getOperation() != null) {
-					resourceLastModifyMap_.put(config.getOperation().getOperationName(),
+					resourceLastModifyMap_.put(config.getOperationConfigName(),
 							Long.valueOf(resource.lastModified()));
-					resourceMap_.put(config.getOperation().getOperationName(), resource);
+					resourceMap_.put(config.getOperationConfigName(), resource);
 
-					List<OperationEntry> operationEntryList = config.getOperation().getOperationEntry();
-					for (OperationEntry entry : operationEntryList) {
-						operationEntryMap_.put(entry.getOperationEntryId(), entry);
-						operationToResourceMap_.put(entry.getOperationEntryId(),
-								config.getOperation().getOperationName());
+					List<Operation> operationList = config.getOperation();
+					for (Operation operation : operationList) {
+						operationMap_.put(operation.getOperationName(), operation);
+						operationToResourceMap_.put(operation.getOperationName(),
+								config.getOperationConfigName());
 					}
 				} else {
 					LOGGER.error("operation config is null");
@@ -124,13 +126,13 @@ public class OperationConfigLoader {
 		return conf;
 	}
 
-	public OperationEntry getOperationEntry(String operationEntryId) {
+	public Operation getOperation(String operationName) {
 
-		if (operationEntryMap_.containsKey(operationEntryId)) {
+		if (operationMap_.containsKey(operationName)) {
 			String configName = null;
 			try {
-				if (operationToResourceMap_.containsKey(operationEntryId)) {
-					configName = operationToResourceMap_.get(operationEntryId);
+				if (operationToResourceMap_.containsKey(operationName)) {
+					configName = operationToResourceMap_.get(operationName);
 				}
 				if (configName != null && ((Resource) resourceMap_.get(configName)).lastModified() > 
 						((Long) resourceLastModifyMap_.get(configName)).longValue()) {
@@ -147,10 +149,10 @@ public class OperationConfigLoader {
 						+ "] the config couldn't be up to date.", e);
 			}
 		} else {
-			LOGGER.debug("The [" + operationEntryId + "] is unknown, the configuration files will be reload.");
+			LOGGER.debug("The [" + operationName + "] is unknown, the configuration files will be reload.");
 			initConfigurations();
 		}
-		return (OperationEntry) operationEntryMap_.get(operationEntryId);
+		return operationMap_.get(operationName);
 	}
 
 	private void refreshConf(String configurationName) throws HypervisorConversionException, IOException {
@@ -158,25 +160,25 @@ public class OperationConfigLoader {
 
 		resourceMap_.remove(configurationName);
 		resourceLastModifyMap_.remove(configurationName);
-		for (String operationId: operationToResourceMap_.keySet()) {
-			if (operationToResourceMap_.get(operationId).equals(configurationName)) {
-				operationEntryMap_.remove(operationId);
-				operationToResourceMap_.remove(operationId);
+		for (String operationName: operationToResourceMap_.keySet()) {
+			if (operationToResourceMap_.get(operationName).equals(configurationName)) {
+				operationMap_.remove(operationName);
+				operationToResourceMap_.remove(operationName);
 			}
 		}
 
 
 		OperationConfig config = read(resource);
 		if (config != null && config.getOperation() != null) {
-			resourceLastModifyMap_.put(config.getOperation().getOperationName(),
+			resourceLastModifyMap_.put(config.getOperationConfigName(),
 					Long.valueOf(resource.lastModified()));
-			resourceMap_.put(config.getOperation().getOperationName(), resource);
+			resourceMap_.put(config.getOperationConfigName(), resource);
 
-			List<OperationEntry> operationEntryList = config.getOperation().getOperationEntry();
-			for (OperationEntry entry : operationEntryList) {
-				operationEntryMap_.put(entry.getOperationEntryId(), entry);
-				operationToResourceMap_.put(entry.getOperationEntryId(),
-						config.getOperation().getOperationName());
+			List<Operation> operationList = config.getOperation();
+			for (Operation operation : operationList) {
+				operationMap_.put(operation.getOperationName(), operation);
+				operationToResourceMap_.put(operation.getOperationName(),
+						config.getOperationConfigName());
 			}
 		} else {
 			LOGGER.error("operation config is null");

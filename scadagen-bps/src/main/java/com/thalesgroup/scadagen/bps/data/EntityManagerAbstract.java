@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.bps.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,12 +27,23 @@ import com.thalesgroup.hv.data_v1.notification.EntityNotificationElementType;
 import com.thalesgroup.hv.data_v1.notification.list.NotificationList;
 import com.thalesgroup.hv.sdk.connector.api.notification.consumer.INotificationListConsumerCallback;
 import com.thalesgroup.hv.ws.notification_v1.xsd.FilterType;
+import com.thalesgroup.scadagen.bps.actionhandlers.ActionUtils;
+import com.thalesgroup.scadagen.bps.conf.actions.ActionsManager;
+import com.thalesgroup.scadagen.bps.conf.actions.IAction;
+import com.thalesgroup.scadagen.bps.conf.bps.ActionType;
+import com.thalesgroup.scadagen.bps.conf.bps.CriteriaType;
 import com.thalesgroup.scadagen.bps.conf.bps.TriggerType;
 import com.thalesgroup.scadagen.bps.conf.common.And;
+import com.thalesgroup.scadagen.bps.conf.common.ComputeEquals;
+import com.thalesgroup.scadagen.bps.conf.common.ComputeIn;
+import com.thalesgroup.scadagen.bps.conf.common.ComputedStatusOperator;
 import com.thalesgroup.scadagen.bps.conf.common.Equals;
 import com.thalesgroup.scadagen.bps.conf.common.In;
 import com.thalesgroup.scadagen.bps.conf.common.Operator;
+import com.thalesgroup.scadagen.bps.conf.common.PropertyType;
 import com.thalesgroup.scadagen.bps.conf.common.StatusOperator;
+import com.thalesgroup.scadagen.bps.conf.computers.ComputersManager;
+import com.thalesgroup.scadagen.bps.conf.computers.IComputer;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.VoidOperationCallback;
 import com.thalesgroup.scadagen.bps.connector.subscription.IGenericSubscriptionConnector;
@@ -60,6 +72,8 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 	protected List<TriggerType> triggerList_ = new ArrayList<TriggerType>();
 	
 	protected List<FilterType> filters_ = null;
+	
+	protected Set<EntityDataDescriptionAbstract> desc_ = null;
 
 	public EntityManagerAbstract(IGenericSubscriptionConnector subscriptionConnector, IGenericOperationConnector operationConnector) {
 		if (subscriptionConnector == null) {
@@ -165,8 +179,77 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 		if (notifElem.getModificationType() == ElementModificationType.INSERT ||
 				notifElem.getModificationType() == ElementModificationType.UPDATE) {
 			entityMap_.put(entity.getId(), entity);
+			triggerAction(entity);
 		} else if (notifElem.getModificationType() == ElementModificationType.DELETE) {
 			entityMap_.remove(entity.getId());
+		}
+	}
+	
+	protected void triggerAction( AbstractEntityStatusesType entity) {
+
+		if (!triggerList_.isEmpty()) {
+			for (TriggerType trigger: triggerList_) {
+				CriteriaType criteria = trigger.getCriteria();
+				
+				Map<String, AbstractAttributeType> attributeMap = new HashMap<String, AbstractAttributeType>();
+				Map<String, String>propertiesMap = new HashMap<String, String>();
+				try {
+					if (desc_ != null) {
+						attributeMap = ActionUtils.getAttributeMapFromConfig(getOperationConnector(), entity, new HashSet<EntityDataDescriptionAbstract>(desc_));
+						if (attributeMap.isEmpty()) {
+							LOGGER.warn("Unable to get attributes from entity");
+						} else {
+							if (LOGGER.isTraceEnabled()) {
+								for (String attName: attributeMap.keySet()) {
+									LOGGER.trace("attribute name available = [{}]", attName);
+								}
+							}
+						}
+					}
+				} catch (HypervisorException e) {
+					LOGGER.error("Error getting entity attributes from config. {}", e);
+				}
+				
+				if (criteria != null) {
+					boolean criteriaOK = true;
+					if (criteria.getStatusCriteria() != null) {
+						if (!compareOperator(entity, criteria.getStatusCriteria())) {
+							LOGGER.trace("StatusCriteria CompareOperator return false");
+							continue;
+						}
+					}
+
+					for (ComputedStatusOperator computedStatusOperator: criteria.getComputedStatusCriteria()) {
+						IComputer computer = ComputersManager.getInstance().getComputer(computedStatusOperator.getStatusComputer());
+						if (computer == null) {
+							LOGGER.error("Error loading status computer [{}]", computedStatusOperator.getStatusComputer());
+							criteriaOK = false;
+							break;
+						}
+						
+						for (PropertyType property: computedStatusOperator.getConfigProperty()) {
+							propertiesMap.put(property.getName(), property.getValue());
+						}
+						
+						AbstractAttributeType returnAtt = computer.compute(attributeMap, propertiesMap);
+						attributeMap.put(computedStatusOperator.getStatus(), returnAtt);
+						
+						LOGGER.trace("Compare computed status [{}]", computedStatusOperator.getStatus());
+						
+						if (!compareOperator(returnAtt, computedStatusOperator)) {
+							LOGGER.trace("ComputedStatusCriteria CompareOperator return false");
+							criteriaOK = false;
+							break;
+						}
+					}
+
+					if (criteriaOK) {
+						execActions(trigger.getAction(), entity, attributeMap);
+					}
+				} else {
+					execActions(trigger.getAction(), entity, attributeMap);
+				}
+			}
 		}
 	}
 	
@@ -184,9 +267,9 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 		return operationConnector_;
 	}
 	
-	protected boolean CompareOperator(AbstractEntityStatusesType entity, Operator op) {
+	protected boolean compareOperator(AbstractEntityStatusesType entity, Operator op) {
 		if (op instanceof And) {
-			return CompareOperator(entity, ((And)op).getFirstOperand()) && CompareOperator(entity, ((And)op).getSecondOperand());
+			return compareOperator(entity, ((And)op).getFirstOperand()) && compareOperator(entity, ((And)op).getSecondOperand());
 		} else if (op instanceof StatusOperator){
 			LOGGER.trace("Compare operator [{}]", ((StatusOperator) op).getStatus());
 			StatusOperator statusOp = (StatusOperator)op;
@@ -194,96 +277,8 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 
 			try {
 				AbstractAttributeType att = getOperationConnector().getTools().getDataHelper().getAttribute(entity, statusName);
+				return compareOperator(att, statusOp);
 
-				if (statusOp instanceof Equals) {
-					if (att instanceof IntAttributeType) {
-						int val = ((IntAttributeType) att).getValue();
-						if (Integer.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare int value [{}] return true", statusName);
-							return true;
-						} else {
-							LOGGER.trace("Compare int value [{}] return false", statusName);
-							return false;
-						}
-					} else if (att instanceof StringAttributeType) {
-						if (((StringAttributeType)att).getValue().compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare String value [{}] return true", statusName);
-							return true;
-						} else {
-							LOGGER.trace("Compare String value [{}] return false", statusName);
-							return false;
-						}
-					} else if (att instanceof FloatAttributeType) {
-						float val = ((FloatAttributeType) att).getValue();
-						if (Float.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare float value [{}] return true", statusName);
-							return true;
-						} else {
-							LOGGER.trace("Compare float value [{}] return false", statusName);
-							return false;
-						}
-					} else if (att instanceof DoubleAttributeType) {
-						double val = ((DoubleAttributeType) att).getValue();
-						if (Double.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare double value [{}] return true", statusName);
-							return true;
-						} else {
-							LOGGER.trace("Compare double value [{}] return false", statusName);
-							return false;
-						}
-					} else if (att instanceof BooleanAttributeType) {
-						boolean val = ((BooleanAttributeType) att).isValue();
-						if (Boolean.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
-							LOGGER.trace("Compare boolean value [{}] return true", statusName);
-							return true;
-						} else {
-							LOGGER.trace("Compare boolean value [{}] return false", statusName);
-							return false;
-						}
-					}
-
-				} else if (statusOp instanceof In) {
-					List<String> list = ((In) statusOp).getValue();		
-					if (att instanceof IntAttributeType) {
-						int val = ((IntAttributeType) att).getValue();						
-						if (list.contains(Integer.toString(val))) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (att instanceof StringAttributeType) {		
-						if (list.contains(((StringAttributeType) att).getValue())) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (att instanceof FloatAttributeType) {		
-						float val = ((FloatAttributeType) att).getValue();						
-						if (list.contains(Float.toString(val))) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (att instanceof DoubleAttributeType) {		
-						double val = ((DoubleAttributeType) att).getValue();						
-						if (list.contains(Double.toString(val))) {
-							return true;
-						} else {
-							return false;
-						}
-					} else if (att instanceof BooleanAttributeType) {		
-						boolean val = ((BooleanAttributeType) att).isValue();						
-						if (list.contains(Boolean.toString(val))) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-				}
-			} catch (SecurityException e) {
-				LOGGER.error("Error getting entity type. [{}]", e);
-			} catch (IllegalArgumentException e) {
-				LOGGER.error("Error getting entity type. [{}]", e);
 			} catch (EntityManipulationException e) {
 				LOGGER.error("Error getting entity type. [{}]", e);
 			}	
@@ -291,4 +286,145 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 		return false;
 	}
 
+	protected boolean compareOperator(AbstractAttributeType att, StatusOperator statusOp) {
+		LOGGER.trace("compareOperator");
+		if (statusOp instanceof Equals) {
+			LOGGER.trace("statusOp instanceof Equals");
+			if (att instanceof IntAttributeType) {
+				int val = ((IntAttributeType) att).getValue();
+				if (Integer.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof StringAttributeType) {
+				
+				if (((StringAttributeType)att).getValue().compareTo(((Equals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof FloatAttributeType) {
+				float val = ((FloatAttributeType) att).getValue();
+				if (Float.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof DoubleAttributeType) {
+				double val = ((DoubleAttributeType) att).getValue();
+				if (Double.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof BooleanAttributeType) {
+				boolean val = ((BooleanAttributeType) att).isValue();
+				if (Boolean.toString(val).compareTo(((Equals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+		} else if ((statusOp instanceof In) || (statusOp instanceof ComputeIn)) {
+			List<String> list;
+			if (statusOp instanceof In) {
+				LOGGER.trace("statusOp instanceof In");
+				list = ((In) statusOp).getValue();
+			} else {
+				LOGGER.trace("statusOp instanceof ComputeIn");
+				list = ((ComputeIn) statusOp).getValue();
+			}
+			if (att instanceof IntAttributeType) {
+				int val = ((IntAttributeType) att).getValue();						
+				if (list.contains(Integer.toString(val))) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof StringAttributeType) {		
+				if (list.contains(((StringAttributeType) att).getValue())) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof FloatAttributeType) {		
+				float val = ((FloatAttributeType) att).getValue();						
+				if (list.contains(Float.toString(val))) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof DoubleAttributeType) {		
+				double val = ((DoubleAttributeType) att).getValue();						
+				if (list.contains(Double.toString(val))) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof BooleanAttributeType) {		
+				boolean val = ((BooleanAttributeType) att).isValue();						
+				if (list.contains(Boolean.toString(val))) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} else if (statusOp instanceof ComputeEquals) {
+			LOGGER.trace("statusOp instanceof ComputeEquals");
+			if (att instanceof IntAttributeType) {
+				int val = ((IntAttributeType) att).getValue();
+				if (Integer.toString(val).compareTo(((ComputeEquals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof StringAttributeType) {
+				
+				if (((StringAttributeType)att).getValue().compareTo(((ComputeEquals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof FloatAttributeType) {
+				float val = ((FloatAttributeType) att).getValue();
+				if (Float.toString(val).compareTo(((ComputeEquals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof DoubleAttributeType) {
+				double val = ((DoubleAttributeType) att).getValue();
+				if (Double.toString(val).compareTo(((ComputeEquals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else if (att instanceof BooleanAttributeType) {
+				boolean val = ((BooleanAttributeType) att).isValue();
+				if (Boolean.toString(val).compareTo(((ComputeEquals) statusOp).getValue()) == 0) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		LOGGER.trace("statusOp not match predefined operation");
+
+		return false;
+	}
+	
+
+	protected void execActions(List<ActionType> actionList, AbstractEntityStatusesType entity, Map<String, AbstractAttributeType> attributeMap) {	
+		for (ActionType actionHandler: actionList) {
+			IAction action = ActionsManager.getInstance().getAction(actionHandler.getActionHandler());
+			if (action != null) {
+				LOGGER.trace("Execute action [{}] with config [{}]", actionHandler.getActionHandler(), actionHandler.getActionConfig());
+				action.execute(getOperationConnector(), entity, attributeMap, actionHandler.getActionConfig());
+			} else {
+				LOGGER.error("Error getting action handler [{}] is null", actionHandler.getActionHandler());
+			}
+		}
+	}
 }

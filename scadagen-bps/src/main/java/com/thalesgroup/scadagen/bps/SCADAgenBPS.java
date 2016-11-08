@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.bps.conf.ConfManager;
 import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.ActionsManager;
 import com.thalesgroup.scadagen.bps.conf.actions.IActionsManager;
+import com.thalesgroup.scadagen.bps.conf.computers.ComputersManager;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.subscription.GenericSubscriptionConnector;
@@ -34,6 +35,8 @@ public class SCADAgenBPS {
 	
 	IActionsManager actionsManager_ = null;
 	
+	ComputersManager computersManager_ = null;
+	
 	OperationConfigLoader hvOperationConfigLoader_ = null;
 
 	public SCADAgenBPS(Connector connector) {
@@ -47,6 +50,8 @@ public class SCADAgenBPS {
 		LOGGER.debug("BPS: loading configuration");
 		
 		actionsManager_ = ActionsManager.getInstance();
+		
+		computersManager_ = ComputersManager.getInstance();
 
 		try {
 

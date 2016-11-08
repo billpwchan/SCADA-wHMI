@@ -10,7 +10,7 @@ import com.thalesgroup.scadagen.bps.conf.binding.data.IData;
 /**
  * interface for the input computers
  */
-public interface IComputer {
+public interface IBindingComputer {
 
     /**
      * compute one input from others
@@ -18,4 +18,6 @@ public interface IComputer {
      * @return the computed input
      */
     IData compute(IDataHelper dataHelper, AbstractEntityStatusesType entity, AttributeBinding binding, Map<String, IData> data);
+    
+    String getComputedDataType();
 }

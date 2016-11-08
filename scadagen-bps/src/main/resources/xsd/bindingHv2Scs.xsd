@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.thalesgroup.com/scadagen/binding"
+  xmlns:tns="http://www.thalesgroup.com/scadagen/binding"
+  elementFormDefault="qualified">
+
+  <!-- root element for the configuration -->
+  <element name="configuration">
+    <annotation>
+      <documentation>This is the root element of the configuration. 
+      It contains all the available bindings (which should have different identifier).</documentation>
+    </annotation>
+    <complexType>
+      <sequence>
+        <element name="binding" type="tns:ClassBinding" minOccurs="0" maxOccurs="unbounded">
+          <unique name="attributeBindingUniqueNess">
+            <selector xpath="./tns:attribute" />
+            <field xpath="@id" />
+          </unique>
+        </element>
+      </sequence>
+    </complexType>
+    <key name="classBindingKey">
+      <selector xpath="./tns:binding" />
+      <field xpath="@id" />
+    </key>
+    <keyref name="classBindingRef" refer="tns:classBindingKey">
+      <selector xpath="./tns:binding" />
+      <field xpath="@super" />
+    </keyref>
+  </element>
+
+<!-- default Binding type -->
+  <complexType name="Binding" abstract="true">
+    <attribute name="id" type="string" use="required" />
+  </complexType>
+
+<!-- identity binding type -->
+  <complexType name="IdentityBinding">
+    <complexContent>
+      <extension base="tns:MonoInputBinding" />
+    </complexContent>
+  </complexType>
+
+  <complexType name="ClassBinding">
+    <complexContent>
+      <extension base="tns:Binding">
+        <sequence>
+            <element name="attribute" type="tns:AttributeBinding" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="super" type="string" use="optional" />
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="Input">
+    <attribute name="name" type="string" use="required" />
+    <attribute name="type" type="tns:Type" use="optional" />
+  </complexType>
+
+  <simpleType name="Type">
+    <restriction base="string">
+      <enumeration value="BOOL" />
+      <enumeration value="INT" />
+      <enumeration value="LONG" />
+      <enumeration value="FLOAT" />
+      <enumeration value="DOUBLE" />
+      <enumeration value="STRING" />
+      <enumeration value="DATE" />
+    </restriction>
+  </simpleType>
+
+  <complexType name="AttributeBinding">
+    <complexContent>
+      <extension base="tns:Binding" />
+    </complexContent>
+  </complexType>
+  
+  <complexType name="MultiInputBinding">
+    <complexContent>
+      <extension base="tns:AttributeBinding">
+        <sequence>
+          <element name="inputs" type="tns:Input" minOccurs="1" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="computer" type="string" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="MonoInputBinding">
+    <complexContent>
+      <extension base="tns:AttributeBinding">
+        <sequence>
+          <element name="input" type="tns:Input" minOccurs="0" maxOccurs="1" />
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="LinearBinding">
+    <complexContent>
+      <extension base="tns:MonoInputBinding">
+        <attribute name="scale" type="double" use="optional" default="1" />
+        <attribute name="offset" type="double" use="optional" default="0" />
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="EnumerationBinding">
+    <complexContent>
+      <extension base="tns:MonoInputBinding" />
+    </complexContent>
+  </complexType>
+  
+  <complexType name="StringEnumerationRangeBinding">
+    <complexContent>
+      <extension base="tns:EnumerationBinding">
+        <sequence>
+            <element name="item" type="tns:StringEnumerationRangeItem" minOccurs="1" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="default" type="string" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="StringEnumerationRangeItem">
+    <sequence>
+        <element name="range" type="tns:RangeItem" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="value" type="string" />
+  </complexType>
+  
+  <complexType name="IntegerEnumerationRangeBinding">
+    <complexContent>
+      <extension base="tns:EnumerationBinding">
+        <sequence>
+            <element name="item" type="tns:IntegerEnumerationRangeItem" minOccurs="1" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="default" type="int" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="IntegerEnumerationRangeItem">
+    <sequence>
+        <element name="range" type="tns:RangeItem" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="value" type="int" />
+  </complexType>
+
+  <complexType name="BooleanBinding">
+    <complexContent>
+      <extension base="tns:MonoInputBinding" />
+    </complexContent>
+  </complexType>
+
+  <complexType name="BooleanBindingFromString">
+    <complexContent>
+      <extension base="tns:BooleanBinding">
+        <choice minOccurs="0" maxOccurs="1">
+          <element name="false" type="string" minOccurs="1" maxOccurs="unbounded" />
+          <element name="true" type="string" minOccurs="1" maxOccurs="unbounded" />
+        </choice>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="BooleanBindingFromRange">
+    <complexContent>
+      <extension base="tns:BooleanBinding">
+        <sequence>
+          <choice minOccurs="0" maxOccurs="1">
+            <element name="false" type="tns:RangeItem" minOccurs="1" maxOccurs="unbounded" />
+            <element name="true" type="tns:RangeItem" minOccurs="1" maxOccurs="unbounded" />
+          </choice>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="Range">
+    <sequence>
+      <element name="item" type="tns:RangeItem" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  
+  <simpleType name="NumericString">
+    <restriction base="string">
+      <whiteSpace value="collapse" />
+      <pattern value="\-?(([0-9]+(\.[0-9]+)?)|INF){1}"></pattern>
+    </restriction>
+  </simpleType>
+
+
+  <complexType name="RangeItem">
+    <attribute name="from" type="tns:NumericString" use="optional" default="-INF" />
+    <attribute name="to" type="tns:NumericString" use="optional" default="INF" />
+    <attribute name="type" type="tns:RangeType" use="optional" default="CloseClose" />
+  </complexType>
+
+  <complexType name="RangeItemToString">
+    <complexContent>
+      <extension base="tns:RangeItem">
+        <attribute name="value" type="string" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="RangeItemToInteger">
+    <complexContent>
+      <extension base="tns:RangeItem">
+        <attribute name="value" type="int" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <simpleType name="RangeType">
+    <restriction base="string">
+      <enumeration value="OpenOpen" />
+      <enumeration value="OpenClose" />
+      <enumeration value="CloseOpen" />
+      <enumeration value="CloseClose" />
+    </restriction>
+  </simpleType>
+
+  <complexType name="StringToIntegerBinding">
+    <complexContent>
+      <extension base="tns:EnumerationBinding">
+        <sequence>
+            <element name="item" type="tns:StringToIntegerItem" minOccurs="1" maxOccurs="unbounded" />
+        </sequence>
+        <attribute name="default" type="int" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="StringToIntegerItem">
+    <sequence>
+        <element name="stringValue" type="tns:StringValueType" minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+    <attribute name="value" type="tns:NumericString" use="required" />
+  </complexType>
+  
+  <complexType name="StringValueType">
+	<attribute name="value" type="string" use="required" />
+  </complexType>
+  
+  <complexType name="BooleanToIntegerBinding">
+    <complexContent>
+      <extension base="tns:EnumerationBinding">
+        <sequence>
+            <element name="item" type="tns:BooleanToIntegerItem" minOccurs="1" maxOccurs="2" />
+        </sequence>
+        <attribute name="default" type="int" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+  
+  <complexType name="BooleanToIntegerItem">
+    <sequence>
+		<element name="booleanValue" type="tns:BooleanValueType" minOccurs="1" maxOccurs="1" />
+    </sequence>
+    <attribute name="value" type="tns:NumericString" use="required" />
+  </complexType>
+  
+  <complexType name="BooleanValueType">
+	<attribute name="value" type="boolean" use="required" />
+  </complexType>
+
+</schema>

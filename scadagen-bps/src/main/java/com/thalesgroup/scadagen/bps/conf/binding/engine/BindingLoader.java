@@ -29,7 +29,7 @@ import com.thalesgroup.scadagen.binding.Input;
 import com.thalesgroup.scadagen.binding.MonoInputBinding;
 import com.thalesgroup.scadagen.binding.MultiInputBinding;
 import com.thalesgroup.scadagen.binding.Type;
-import com.thalesgroup.scadagen.bps.conf.binding.computer.ComputerManager;
+import com.thalesgroup.scadagen.bps.conf.binding.computer.BindingComputersManager;
 import com.thalesgroup.scadagen.bps.conf.binding.converter.ConverterManager;
 import com.thalesgroup.scadagen.bps.conf.binding.data.IData;
 
@@ -46,6 +46,9 @@ public class BindingLoader {
     
     /** marshaller to read the configuration */
     private final MarshallersPool marshallers_;
+    
+    /** the class binding index also for inheritance support */
+    private final Map<String, ClassBinding> classBindingIndex_ = new HashMap<String, ClassBinding>();
 
     /** index of the attribute binding description to improve performance when converting data 
      * The first part of the index is the name of the alias
@@ -62,7 +65,7 @@ public class BindingLoader {
             new HashMap<CompositeKey, AttributeBinding>();
     
     /** computer manager to register the computers */
-    private final ComputerManager computerManager_ = new ComputerManager();
+    private final BindingComputersManager computerManager_ = new BindingComputersManager();
 
     /** computer manager to register the converters */
     private final ConverterManager converterManager_;
@@ -121,12 +124,11 @@ public class BindingLoader {
         
         //a list to be able to manage a beginning of inheritance
         final List<ClassBinding> needSuper = new ArrayList<ClassBinding>();
-        //the class binding index also for inheritance support
-        final Map<String, ClassBinding> classBindingIndex = new HashMap<String, ClassBinding>();
+        
         
         for (ClassBinding classBinding : configuration.getBinding()) {
             //register the class in the local index
-            classBindingIndex.put(classBinding.getId(), classBinding);
+            classBindingIndex_.put(classBinding.getId(), classBinding);
             for (AttributeBinding attBinding : classBinding.getAttribute()) {
                 if (attBinding instanceof MonoInputBinding) {
                     //mono input use case
@@ -193,7 +195,7 @@ public class BindingLoader {
         // at the end loop over for those which are now resolved and so on.
         // add a check that at least one resolution has been performed per loop to avoid infinite looping
         for (final ClassBinding classBinding : needSuper) {
-            final ClassBinding parentBinding = classBindingIndex.get(classBinding.getSuper());
+            final ClassBinding parentBinding = classBindingIndex_.get(classBinding.getSuper());
             for (final AttributeBinding parentAttributeBinding : parentBinding.getAttribute()) {
                 //the lookup key in the child
                 final CompositeKey key = new CompositeKey(classBinding.getId(), parentAttributeBinding.getId());
@@ -346,7 +348,7 @@ public class BindingLoader {
      * get the computer manager
      * @return the computer manager
      */
-    public ComputerManager getComputerManager() {
+    public BindingComputersManager getComputerManager() {
         return computerManager_;
     }
 
@@ -369,5 +371,9 @@ public class BindingLoader {
 
 	public Collection<AttributeBinding> getAttributeBindings(CompositeKey compositeKey) {
 		return indexForInputConversion_.get(compositeKey);
+	}
+	
+	public Collection<AttributeBinding> getAttributeBindings(String classBindingId) {
+		return classBindingIndex_.get(classBindingId).getAttribute();
 	}
 }

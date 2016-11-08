@@ -4,23 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.data_v1.equipment.AbstractEquipmentStatusesType;
 import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
 import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
 import com.thalesgroup.scadagen.bps.conf.operation.CommandParam;
-import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
+import com.thalesgroup.scadagen.bps.conf.operation.Operation;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
-import com.thalesgroup.scadagen.bps.data.EntityDataDescriptionAbstract;
 
 public class EqpAction implements IAction {
 
@@ -32,8 +31,8 @@ public class EqpAction implements IAction {
 	}
 
 	@Override
-	public void execute(IGenericOperationConnector operationConnector, Set<EntityDataDescriptionAbstract>desc, String actionConfigId,
-			AbstractEntityStatusesType entity) {
+	public void execute(IGenericOperationConnector operationConnector, AbstractEntityStatusesType entity,
+			Map<String, AbstractAttributeType> attributeMap, String actionConfigId) {
 		AbstractOperationRequestType operationRequest = null;
 	    GenericOperationConnector opConnector = (GenericOperationConnector)operationConnector;
 	    String operationJavaClassName = null;
@@ -43,27 +42,27 @@ public class EqpAction implements IAction {
 	    
 	    try
 	    {
-	    	OperationEntry entry = OperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
+	    	Operation operation = OperationConfigLoader.getInstance().getOperation(actionConfigId);
 	    	
-	    	if (entry != null) {
+	    	if (operation != null) {
 	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
 	    		
-	    		operationJavaClassName = entry.getCommandContent().getOperationJavaClassName();
+	    		operationJavaClassName = operation.getCommandContent().getOperationJavaClassName();
 	    		if (operationJavaClassName == null) {
 	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry [{}]", actionConfigId);
 	    			return;
 	    		}
 	    		LOGGER.trace("OperationEntry javaClassName [{}]", operationJavaClassName);
 	    		
-	    		for (CommandParam param: entry.getCommandContent().getCommandParam()) {
+	    		for (CommandParam param: operation.getCommandContent().getCommandParam()) {
 	    			operationParam.put(param.getParamName(), param.getParamValue());
 	    			LOGGER.trace("OperationEntry operationParam param=[{}] value=[{}]", param.getParamName(), param.getParamValue());
 	    		}
 	    		
 	    		List<String> equipmentList = new ArrayList<String>();
 	    		
-	    		if (entry.getEquipmentList() != null && !entry.getEquipmentList().getEquipmentId().isEmpty()) {
-	    			equipmentList = entry.getEquipmentList().getEquipmentId();
+	    		if (operation.getEquipmentList() != null && !operation.getEquipmentList().getEquipmentId().isEmpty()) {
+	    			equipmentList = operation.getEquipmentList().getEquipmentId();
 	    		} else {
     				if (entity instanceof AbstractEquipmentStatusesType) {
     					AbstractEquipmentStatusesType eqp = (AbstractEquipmentStatusesType)entity;
@@ -84,7 +83,7 @@ public class EqpAction implements IAction {
 		    		}
 			
 			    	if (operationConnector != null) {
-			    		if (entry.getCommandContent().isIncludeCorrelationId()) {
+			    		if (operation.getCommandContent().isIncludeCorrelationId()) {
 			    			UUID correlationId = UUID.randomUUID();
 			    			operationConnector.requestOperation(correlationId, operationRequest);
 			    		} else {

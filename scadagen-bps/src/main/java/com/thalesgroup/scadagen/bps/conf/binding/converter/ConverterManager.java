@@ -14,7 +14,6 @@ import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.BooleanConverter
 import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.BooleanToIntegerConverter;
 import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.IntEnumerationConverter;
 import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.LinearRegressionConverter;
-import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.MappedVarConverter;
 import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.NullConverter;
 import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.StringEnumerationConverter;
 import com.thalesgroup.scadagen.bps.conf.binding.converter.unit.StringToIntegerConverter;
@@ -68,7 +67,6 @@ public class ConverterManager {
         addConverter(LinearRegressionConverter.class);
         addConverter(BooleanToIntegerConverter.class);
         addConverter(StringToIntegerConverter.class);
-        addConverter(MappedVarConverter.class);
     }
     
     /**

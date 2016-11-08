@@ -14,19 +14,19 @@ import com.thalesgroup.scadagen.bps.conf.binding.data.IData;
 /**
  * Manage the storage and call of computers
  */
-public class ComputerManager {
+public class BindingComputersManager {
 
     /** logger */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ComputerManager.class); 
+    private static final Logger LOGGER = LoggerFactory.getLogger(BindingComputersManager.class); 
     
     /** index of computers */
-    private final Map<MultiInputBinding, IComputer> computers_ = 
-            new HashMap<MultiInputBinding, IComputer>();
+    private final Map<MultiInputBinding, IBindingComputer> computers_ = 
+            new HashMap<MultiInputBinding, IBindingComputer>();
     
     /**
      * Default constructor
      */
-    public ComputerManager() {
+    public BindingComputersManager() {
         //empty
     }
     
@@ -37,7 +37,7 @@ public class ComputerManager {
     @SuppressWarnings("unchecked")
     public void add(final MultiInputBinding binding) {
         try {
-            computers_.put(binding, ((Class<IComputer>) IComputer.class.getClassLoader().
+            computers_.put(binding, ((Class<IBindingComputer>) IBindingComputer.class.getClassLoader().
                         loadClass(binding.getComputer())).newInstance());
         } catch (Exception e) {
             LOGGER.warn("Unable to instanciate [{}], default constructor not available", binding.getComputer());
@@ -51,7 +51,20 @@ public class ComputerManager {
      * @return the merged data (could be null if not result wanted)
      */
     public IData compute(final IDataHelper dataHelper, final AbstractEntityStatusesType entity, final MultiInputBinding binding, final Map<String, IData> data) {
-        final IComputer computer = computers_.get(binding);
-        return (computer != null) ? computer.compute(dataHelper, entity, binding, data) : null;
+        final IBindingComputer bindingComputer = computers_.get(binding);
+        if (bindingComputer == null) {
+    		LOGGER.error("bindingComputer [{}] not found. Please check configuration.", binding.getComputer());
+    		return null;
+    	}
+        return bindingComputer.compute(dataHelper, entity, binding, data);
+    }
+    
+    public String getComputedDataType(final MultiInputBinding binding) {
+    	final IBindingComputer bindingComputer = computers_.get(binding);
+    	if (bindingComputer == null) {
+    		LOGGER.error("bindingComputer [{}] not found. Please check configuration.", binding.getComputer());
+    		return null;
+    	}
+    	return bindingComputer.getComputedDataType();
     }
 }

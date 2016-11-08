@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -13,27 +12,25 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.FloatNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.node.TextNode;
 import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.entity.AbstractEntityStatusesType;
 import com.thalesgroup.hv.data_v1.equipment.AbstractEquipmentStatusesType;
 import com.thalesgroup.hv.data_v1.operation.AbstractOperationRequestType;
 import com.thalesgroup.scadagen.binding.AttributeBinding;
-import com.thalesgroup.scadagen.binding.MappedVarBinding;
 import com.thalesgroup.scadagen.bps.conf.ConfManager;
 import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
+import com.thalesgroup.scadagen.bps.conf.binding.data.IData;
 import com.thalesgroup.scadagen.bps.conf.operation.CommandParam;
-import com.thalesgroup.scadagen.bps.conf.operation.OperationEntry;
+import com.thalesgroup.scadagen.bps.conf.operation.Operation;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
-import com.thalesgroup.scadagen.bps.data.EntityDataDescriptionAbstract;
 
-// This class is customized to handle SCADAsoft component request request with JSON parameters
+// This class converts HV attributes into SCADAsoft DBM component write request with JSON parameters
 public class Hveqp2scs implements IAction {
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(Hveqp2scs.class);
@@ -45,8 +42,8 @@ public class Hveqp2scs implements IAction {
 	}
 
 	@Override
-	public void execute(IGenericOperationConnector operationConnector, Set<EntityDataDescriptionAbstract>desc, String actionConfigId,
-			AbstractEntityStatusesType entity) {
+	public void execute(IGenericOperationConnector operationConnector, AbstractEntityStatusesType entity,
+			Map<String, AbstractAttributeType> attributeMap, String actionConfigId) {
 		AbstractOperationRequestType operationRequest = null;
 	    GenericOperationConnector opConnector = (GenericOperationConnector)operationConnector;
 	    String operationJavaClassName = null;
@@ -56,12 +53,12 @@ public class Hveqp2scs implements IAction {
 	    
 	    try
 	    {
-	    	OperationEntry entry = OperationConfigLoader.getInstance().getOperationEntry(actionConfigId);
+	    	Operation operation = OperationConfigLoader.getInstance().getOperation(actionConfigId);
 	    	
-	    	if (entry != null) {
+	    	if (operation != null) {
 	    		LOGGER.trace("Found OperationEntry [{}]", actionConfigId);
 	    		
-	    		operationJavaClassName = entry.getCommandContent().getOperationJavaClassName();
+	    		operationJavaClassName = operation.getCommandContent().getOperationJavaClassName();
 	    		if (operationJavaClassName == null) {
 	    			LOGGER.error("Error getting operationJavaClassName from OperationEntry [{}]", actionConfigId);
 	    			return;
@@ -70,7 +67,7 @@ public class Hveqp2scs implements IAction {
 
 	    		CommandParam actionParam = null;
 	    		String actionParamValue = null;
-	    		for (CommandParam param: entry.getCommandContent().getCommandParam()) {
+	    		for (CommandParam param: operation.getCommandContent().getCommandParam()) {
 	    			operationParam.put(param.getParamName(), param.getParamValue());
 	    			if (param.getParamName().compareTo("action") == 0) {
 	    				actionParam = param;
@@ -99,6 +96,7 @@ public class Hveqp2scs implements IAction {
 	            JsonNodeFactory jsonNodeFactory = JsonNodeFactory.instance;
 	            JsonNode paramNode = actionNode.get("parameters");
 	            Map<String, JsonNode> map = new HashMap<String, JsonNode>();
+	            Map<String, JsonNode> timeValueMap = new HashMap<String, JsonNode>();
 	            
             	if (entity instanceof AbstractEquipmentStatusesType) {
             		AbstractEquipmentStatusesType eqp = (AbstractEquipmentStatusesType)entity;
@@ -126,67 +124,60 @@ public class Hveqp2scs implements IAction {
         			}
         			LOGGER.trace("scseqpPath = {}", scseqpPath);
         			
-        			// Get hv2scs class binding
-        			String inputName = eqpId.substring(eqpId.lastIndexOf(":")+1);
-        			LOGGER.trace("inputName = {}", inputName);
-        			HashSet<AttributeBinding> bindings = new HashSet<AttributeBinding>(ConfManager.getBindingEngine().getAttributeBindings(hv2scsBindingId, inputName));
+        			// Get hv2scs class binding by binding ID
+        			HashSet<AttributeBinding> bindings = new HashSet<AttributeBinding>(ConfManager.getBindingEngine().getAttributeBindings(hv2scsBindingId));
         			if (bindings == null || bindings.isEmpty()) {
-        				LOGGER.warn("Unable to find binding for binding id {} and input {}", hv2scsBindingId, inputName);
+        				LOGGER.warn("Unable to find binding for binding id {}", hv2scsBindingId);
         				return;
         			}
+        			LOGGER.trace("Number of attribute bindings for binding id [{}] found = [{}]", hv2scsBindingId, bindings.size());
         			
-        			// Support only 1 to 1 binding for now
-        			AttributeBinding binding = bindings.iterator().next();
-        			
-        			if (!(binding instanceof MappedVarBinding)) {
-        				LOGGER.warn("Incompatible binding found for binding id {} and input {}", hv2scsBindingId, inputName);
-        				return;
-        			}
-        			
-        			MappedVarBinding mappedBinding = (MappedVarBinding)binding;
-        			String mappedValue = mappedBinding.getInputMapping().getMappedValue();
-        			String mappedValueType = mappedBinding.getInputMapping().getMappedValueType();
-        			
-        			// Get scs point level db path from attribute binding
-        			String scsPointPath = binding.getId();
-        			String scsdbPath = scseqpPath + SCS_PATH_SEPARATOR + scsPointPath;
-        			
-        			// Write to status before value if paramConfig "writeStatus" is set
-        			String statusStr = ActionUtils.getWriteStatus(actionParam);
-        			if (statusStr != null) {
-    					String scsdbStatusPath = scsdbPath.substring(0, scsdbPath.lastIndexOf(".")+1) + statusStr;
-		                IntNode statusValueNode = new IntNode(1);
-		                map.put(scsdbStatusPath, statusValueNode);
-        			}
-	                
-	                String valueStr = (String)operationConnector.getTools().getDataHelper().getAttributeValue(eqp, mappedValue);
-	                String valueType = (String)operationConnector.getTools().getDataHelper().getAttributeValue(eqp, mappedValueType);
-	                LOGGER.trace("valueType=[{}]", valueType);
-	                if (valueType.compareTo("integer") == 0) {
-	                	IntNode valueNode = new IntNode(Integer.parseInt(valueStr));
-	                	map.put(scsdbPath, valueNode);
-	                	LOGGER.trace("IntNode value=[{}]", valueStr);
-	                } else if (valueType.compareTo("float") == 0) {
-	                	FloatNode valueNode = new FloatNode(Float.parseFloat(valueStr));
-	                	map.put(scsdbPath, valueNode);
-	                	LOGGER.trace("FloatNode value=[{}]", valueStr);
-	                } else if (valueType.compareTo("asciistring") == 0 || valueType.compareTo("hexstring") == 0) {
-	                	TextNode valueNode = new TextNode(valueStr);
-	                	map.put(scsdbPath, valueNode);
-	                	LOGGER.trace("TextNode value=[{}]", valueStr);
-	                }                 
+        			// Go through each attribute binding
+        			for (AttributeBinding binding: bindings) {
+        				LOGGER.trace("Start process attribute binding [{}]", binding.getId());
+        				IData data = ConfManager.getBindingEngine().getScsValue(eqp, binding);
+        				String dataType = ConfManager.getBindingEngine().getScsValueType(binding);
+        				
+    
+        				LOGGER.trace("data = [{}], dataType = [{}]", data.toString(), dataType);
 
-		            ObjectNode obj = new ObjectNode(jsonNodeFactory, map);
+	        			// Get scs point level db path from attribute binding
+	        			String scsPointPath = binding.getId();
+	        			String scsdbPath = scseqpPath + SCS_PATH_SEPARATOR + scsPointPath;
+	        			
+	        			if (dataType.compareTo("DATE") != 0) {
+	
+		        			// Write to status before value if paramConfig "writeStatus" is set
+		        			String statusStr = ActionUtils.getWriteStatus(actionParam);
+		        			if (statusStr != null) {
+		    					String scsdbStatusPath = scsdbPath.substring(0, scsdbPath.lastIndexOf(".")+1) + statusStr;
+				                IntNode statusValueNode = new IntNode(1);
+				                map.put(scsdbStatusPath, statusValueNode);
+		        			}
+		        			
+		        			// Check paramConfig "writeTimeValue*"
+	    	                Map<String, JsonNode> tMap = ActionUtils.getTimeValues(operationConnector, eqp, actionParam, scsdbPath);
+	    	                if (!tMap.isEmpty()) {
+	    	                	for (String key: tMap.keySet()) {
+	    	                		timeValueMap.put(key, tMap.get(key));
+	    	                	}
+	    	                }
+	
+			                map.put(scsdbPath, ActionUtils.getValueNode(data, dataType));
+	        			} else {
+	        				timeValueMap.put(scsdbPath, ActionUtils.getValueNode(data, dataType));
+	        			}
+        			}
+        			
+        			ObjectNode obj = new ObjectNode(jsonNodeFactory, map);
 		            ((ObjectNode)paramNode).set("values", obj);
-			    	
-		            // Check paramConfig "writeTimeValue*"
-		            Map<String, JsonNode> timeValueMap = ActionUtils.getTimeValues(operationConnector, eqp, actionParam, scsdbPath);
+		            
 		            if (!timeValueMap.isEmpty()) {
 		            	ObjectNode objTimeValue = new ObjectNode(jsonNodeFactory, timeValueMap);
-			            ((ObjectNode)paramNode).set("timeValues", objTimeValue);
+		            	((ObjectNode)paramNode).set("timeValues", objTimeValue);
 		            }
 		            
-		            String newActionString = jsonMapper.writeValueAsString(actionNode);
+        			String newActionString = jsonMapper.writeValueAsString(actionNode);
 		            LOGGER.debug("action json str = {}", newActionString);
 		            operationParam.put("action", newActionString);
             	}
@@ -198,7 +189,7 @@ public class Hveqp2scs implements IAction {
 	    		}
 		
 		    	if (operationConnector != null) {
-		    		if (entry.getCommandContent().isIncludeCorrelationId()) {
+		    		if (operation.getCommandContent().isIncludeCorrelationId()) {
 		    			UUID correlationId = UUID.randomUUID();
 		    			operationConnector.requestOperation(correlationId, operationRequest);
 		    		} else {
@@ -219,6 +210,5 @@ public class Hveqp2scs implements IAction {
 			LOGGER.debug("Error creating operation using OperationEntry [{}] [{}]", actionConfigId, e);
 		}
 	}
-
 	
 }

@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?><configuration xmlns="http://www.thalesgroup.com/scadagen/binding">
   <!-- New binding type for DHLR Danhai ITMS equipment -->
-  <binding id="ROU_">
-    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-ROUTE:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
-	  <input name="Route_Disabled" type="STRING"/>
-	  <inputMapping mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType"  />
+  <binding id="ROU_+ExtSysVariable+dciSIG_ROUTE">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-ROUTE:dco.computedValue" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarIntValueComputer">
+	  <inputs name="evarValue" type="STRING"/>
+      <inputs name="evarType" type="STRING"/>
+    </attribute>
+	<attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-ROUTE:dco.computedDate" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarDateComputer">
+	  <inputs name="evarSec" type="STRING"/>
+	  <inputs name="evarMs" type="STRING"/>
     </attribute>
   </binding>
   
-  <binding id="SPM_">
-    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-PTLOSS:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
-      <input name="Point_Position_Loss" type="STRING"/>
-      <inputMapping name="Point_Position_Loss" mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType" />
+  <binding id="SPM_+ExtSysVariable+dciSIG-PTLOSS">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-PTLOSS:dco.computedValue" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarIntValueComputer">
+      <inputs name="evarValue" type="STRING"/>
+      <inputs name="evarType" type="STRING"/>
     </attribute>
-	<attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-SETTINGERR:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
-	  <input name="Setting_Error" type="STRING"/>
-      <inputMapping mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType" />
+	<attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-PTLOSS:dco.computedDate" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarDateComputer">
+	  <inputs name="evarSec" type="STRING"/>
+	  <inputs name="evarMs" type="STRING"/>
     </attribute>
   </binding>
   
-  <binding id="TLS_">
-    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-LIGSTAT:dco.computedValue" xsi:type="MappedVarBinding" computer="com.thalesgroup.scadagen.common.binding.computer.MappedVarComputer">
-	  <input name="Traffic_Light_status" type="STRING"/>
-      <inputMapping mappedName="evarName" mappedValue="evarValue" mappedValueType="evarType" />
+  <binding id="SPM_+ExtSysVariable+dciSETTINGERR">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-SETTINGERR:dco.computedValue" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarIntValueComputer">
+      <inputs name="evarValue" type="STRING"/>
+      <inputs name="evarType" type="STRING"/>
+    </attribute>
+	<attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-SETTINGERR:dco.computedDate" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarDateComputer">
+	  <inputs name="evarSec" type="STRING"/>
+	  <inputs name="evarMs" type="STRING"/>
+    </attribute>
+  </binding>
+  
+  <binding id="TLS_+ExtSysVariable+dciSIG-LIGSTAT">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-LIGSTAT:dco.computedValue" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarIntValueComputer">
+	  <inputs name="evarValue" type="STRING"/>
+      <inputs name="evarType" type="STRING"/>
+    </attribute>
+	<attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dciSIG-LIGSTAT:dco.computedDate" xsi:type="MultiInputBinding" computer="com.thalesgroup.scadagen.bps.conf.binding.computer.ExtSysVarDateComputer">
+	  <inputs name="evarSec" type="STRING"/>
+	  <inputs name="evarMs" type="STRING"/>
     </attribute>
   </binding>
 
   <!-- Binding for DHLR Danhai TVS equipment -->
-  <binding id="PTZC">
+  <binding id="PTZC+PTZFICameraDome">
     <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
       <input name="state" type="STRING"/>
       <item value="0">
@@ -40,7 +59,7 @@
       </item>
     </attribute>
   </binding>
-  <binding id="CAMD">
+  <binding id="CAMD+CameraDome">
     <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
       <input name="state" type="STRING"/>
       <item value="0">

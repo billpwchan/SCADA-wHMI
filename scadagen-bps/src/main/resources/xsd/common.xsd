@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/bps/conf/common"
+    xmlns:tns="http://www.thalesgroup.com/scadagen/bps/conf/common" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.thalesgroup.com/scadagen/bps/conf/common"
+    elementFormDefault="qualified" attributeFormDefault="unqualified"
+    version="1.0.0">
+
+    <xsd:complexType name="entitySubjectType" abstract="true">
+        <xsd:attribute name="entityType" type="notEmptyStringType"
+            use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="operator" abstract="true">
+    </xsd:complexType>
+
+    <xsd:complexType name="statusOperator" abstract="true">
+        <xsd:complexContent>
+            <xsd:extension base="operator">
+                <xsd:attribute name="status" type="xsd:string" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="in">
+        <xsd:complexContent>
+            <xsd:extension base="statusOperator">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="equals">
+        <xsd:complexContent>
+            <xsd:extension base="statusOperator">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+        
+    <xsd:complexType name="computedStatusOperator" abstract="true">
+	  	<xsd:complexContent>
+	  		<xsd:extension base="statusOperator">
+	  			<xsd:sequence>
+	  				<xsd:element name="configProperty" type="propertyType" minOccurs="0" maxOccurs="unbounded" />
+	  			</xsd:sequence>
+				<xsd:attribute name="statusComputer" type="notEmptyStringType" use="required" />
+	  		</xsd:extension>		
+	  	</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="computeIn">
+        <xsd:complexContent>
+            <xsd:extension base="computedStatusOperator">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="unbounded" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="computeEquals">
+        <xsd:complexContent>
+            <xsd:extension base="computedStatusOperator">
+                <xsd:sequence>
+                    <xsd:element name="value" type="xsd:string" minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="and">
+        <xsd:complexContent>
+            <xsd:extension base="operator">
+                <xsd:sequence>
+                    <xsd:element name="firstOperand" type="operator"
+                        minOccurs="1" maxOccurs="1" />
+                    <xsd:element name="secondOperand" type="operator"
+                        minOccurs="1" maxOccurs="1" />
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType abstract="true" name="dataSource" />
+
+    <xsd:simpleType name="notEmptyStringType">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Data Source Types -->
+
+    <xsd:complexType name="attributeDataSourceType"
+        abstract="true">
+        <xsd:attribute name="name" type="notEmptyStringType"
+            use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="statusDataSourceType">
+        <xsd:complexContent>
+            <xsd:extension base="attributeDataSourceType" />
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="propertyDataSourceType">
+        <xsd:complexContent>
+            <xsd:extension base="attributeDataSourceType" />
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+    <!-- Configuration Properties -->
+    <xsd:complexType name="propertyType">
+		<xsd:attribute name="name" type="notEmptyStringType" use="required" />
+		<xsd:attribute name="value" type="xsd:string" use="optional" />
+		<xsd:attribute name="valueType" type="notEmptyStringType" use="optional" />
+	</xsd:complexType>
+
+</xsd:schema>

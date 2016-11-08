@@ -7,7 +7,7 @@
   xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
                       http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
 
- 	<p:bpsConfiguration name="TVS_Test" />
+ 	<p:bpsConfiguration name="tvs_test" />
 
  	<p:subject>
 		<p:dataSource xsi:type="sds:subscriptionDataSource">
@@ -17,15 +17,14 @@
 				<sds:id>camera-11</sds:id>
 				<sds:id>camera-12</sds:id>
 				<sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
-				<!--<sds:statuses xsi:type="cmn:statusDataSourceType" name="recstate"/>-->
 			</sds:configuredDataSource>
 		</p:dataSource>
 	</p:subject>
 
 	<p:trigger>
 		<p:action>
-			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.Hvmodel2scs</p:actionHandler>
-			<p:actionConfig>hvmodel2scs1</p:actionConfig>
+			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.ActionDbmWrite</p:actionHandler>
+			<p:actionConfig>tvs2scsdb</p:actionConfig>
 		</p:action>
 	</p:trigger>
 </p:bpsConfig>

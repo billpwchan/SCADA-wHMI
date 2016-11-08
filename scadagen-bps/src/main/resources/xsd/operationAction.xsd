@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/bps/conf/operation"
+	xmlns:tns="http://www.thalesgroup.com/scadagen/bps/conf/operation"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+	targetNamespace="http://www.thalesgroup.com/scadagen/bps/conf/operation"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.0.0">
+
+	<xsd:import namespace="http://www.thalesgroup.com/scadagen/bps/conf/common" schemaLocation="common.xsd"/>
+		
+	<!-- Configuration -->
+	<xsd:element name="operationConfig">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="operation" type="operation" minOccurs="1" maxOccurs="unbounded" />
+			</xsd:sequence>
+			<xsd:attribute name="operationConfigName" type="notEmptyStringType" use="required" />
+		</xsd:complexType>
+
+		<xsd:unique name="operationName_UniqueKey">
+			<xsd:selector xpath="./*" />
+			<xsd:field xpath="@operationName" />
+		</xsd:unique>
+		<xsd:unique name="operationEntryId_UniqueKey">
+			<xsd:selector xpath="./*" />
+			<xsd:field xpath="@operationEntryId" />
+		</xsd:unique>
+	</xsd:element>
+
+	<xsd:simpleType name="notEmptyStringType">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<!-- Operation -->
+	<xsd:complexType name="operation">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="equipmentType" type="xsd:string" minOccurs="0" maxOccurs="1" />
+				<xsd:element name="equipmentList" type="equipmentList" minOccurs="0" maxOccurs="1" />
+			</xsd:choice>
+			<xsd:element name="commandContent" type="commandContent" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="configProperty" type="cmn:propertyType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+
+		<xsd:attribute name="operationName" type="notEmptyStringType" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="equipmentList">
+		<xsd:sequence>
+			<xsd:element name="equipmentId" type="notEmptyStringType" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="commandContent">
+		<xsd:sequence>
+			<xsd:element name="commandParam" type="commandParam" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="computedCommandParam" type="computedCommandParam" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="complexCommandParam" type="complexCommandParam" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="computedComplexCommandParam" type="computedComplexCommandParam" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="configProperty" type="cmn:propertyType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+
+		<xsd:attribute name="operationJavaClassName" type="notEmptyStringType" use="optional" />
+		<xsd:attribute name="includeCorrelationId" type="xsd:boolean" use="optional" default="false" />
+	</xsd:complexType>
+
+	<xsd:complexType name="commandParam">
+		<xsd:sequence>
+			<xsd:element name="configProperty" type="cmn:propertyType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="paramName" type="notEmptyStringType" use="required" />
+		<xsd:attribute name="paramValue" type="notEmptyStringType" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="complexCommandParam">
+		<xsd:sequence>
+			<xsd:any namespace="##other" processContents="lax" minOccurs="1" maxOccurs="1"/>
+		</xsd:sequence>
+		<xsd:attribute name="paramName" type="notEmptyStringType" use="required" />
+		<xsd:attribute name="paramType" type="notEmptyStringType" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="computedCommandParam">
+		<xsd:sequence>
+			<xsd:element name="configProperty" type="cmn:propertyType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="paramName" type="notEmptyStringType" use="required" />
+		<xsd:attribute name="paramValueComputer" type="notEmptyStringType" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="computedComplexCommandParam">
+		<xsd:sequence>
+			<xsd:element name="configProperty" type="cmn:propertyType" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+		<xsd:attribute name="paramName" type="notEmptyStringType" use="required" />
+		<xsd:attribute name="paramValueComputer" type="notEmptyStringType" use="required" />
+	</xsd:complexType>
+
+</xsd:schema>
+

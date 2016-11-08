@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/bps/conf/computers"
+            xmlns:tns="http://www.thalesgroup.com/scadagen/bps/conf/computers"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.thalesgroup.com/scadagen/bps/conf/computers"
+            elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0.0">
+
+  <xsd:element name="computerPackageConfiguration">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="computerPackage" type="package" minOccurs="1" maxOccurs="10"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:simpleType name="package">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-zA-Z_$][a-zA-Z\d_$]*\.)*[a-zA-Z_$][a-zA-Z\d_$]*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>

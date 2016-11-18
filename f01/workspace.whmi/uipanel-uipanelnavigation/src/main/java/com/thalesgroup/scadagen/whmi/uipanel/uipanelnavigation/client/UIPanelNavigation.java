@@ -16,9 +16,16 @@ public class UIPanelNavigation extends UIWidget_i {
 	
 	private static UIPanelNavigation uiPanelNavigation = null;
 	private UIPanelNavigation() {}
-	public static UIPanelNavigation getInstance() { 
+	public static UIPanelNavigation getInstance() {
 		if ( null == uiPanelNavigation ) uiPanelNavigation = new UIPanelNavigation();
 		return uiPanelNavigation; 
+	}
+	
+	public void resetInstance() {
+		final String function = "resetInstance";
+		logger.begin(className, function);
+		uiPanelNavigation = null;
+		logger.end(className, function);
 	}
 	
 	private HashMap<Integer, UIPanelMenus> hashMap = new HashMap<Integer, UIPanelMenus>();
@@ -74,8 +81,8 @@ public class UIPanelNavigation extends UIWidget_i {
 	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		
+		final String function = "init";
+		logger.beginEnd(className, function);
 	}
 	
 	@Override

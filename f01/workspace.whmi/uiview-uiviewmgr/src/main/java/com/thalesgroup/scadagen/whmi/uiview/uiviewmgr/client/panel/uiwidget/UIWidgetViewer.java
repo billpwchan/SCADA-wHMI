@@ -3,7 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -36,15 +37,22 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.event.ScsOlsListPanelMenuHandler;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanelMenu;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.CounterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 
 public class UIWidgetViewer extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private String contextMenuOptsXMLFile = "UIEventActionProcessor_CallImage.opts.xml";
 
 	// External
 	private SimpleEventBus eventBus		= null;
@@ -54,16 +62,19 @@ public class UIWidgetViewer extends UIWidget_i {
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
 	private UIEventActionProcessor uiEventActionProcessor = null;
+	private UIEventActionProcessor uiEventActionProcessorContextMenu = null;
 	
 	private ScsOlsListPanel scsOlsListPanel					= null;
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
+	private ScsGenericDataGridView gridView					= null;
+	private ScsOlsListPanelMenu contextMenu					= null;
 	
 	public void removeFilter() {
 		final String function = "removeFilter";
 		
 		logger.begin(className, function);
 		if ( null != gridPresenter ) {
-			LinkedList<String> entitles = gridPresenter.getFilterColumns();
+			Set<String> entitles = gridPresenter.getFilterColumns();
 			for ( String entitle : entitles ) {
 				logger.warn(className, function, "entitle[{}]", entitle);
 				gridPresenter.removeContainerFilter(entitle);
@@ -97,7 +108,7 @@ public class UIWidgetViewer extends UIWidget_i {
 		logger.end(className, function);
 	}
 
-	UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
+	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
 		@Override
 		public void onUIEvent(UIEvent uiEvent) {
@@ -132,7 +143,7 @@ public class UIWidgetViewer extends UIWidget_i {
 				if ( null != os1 ) {
 					if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
 						if ( null != os2 && null != os3 && null != os4) {
-							String listConfigId = scsOlsListPanel.getStringParameter("listConfigId_");
+							String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
 							logger.info(className, function, "listConfigId[{}]", listConfigId);
 							if ( null != listConfigId ) {
 								if ( os2.equals(listConfigId) ) {
@@ -151,6 +162,18 @@ public class UIWidgetViewer extends UIWidget_i {
 						}
 					} else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 						removeFilter();
+					} else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
+						if ( null != gridView ) { 
+							gridView.ackVisible();
+						} else {
+							logger.warn(className, function, "gridView IS NULL");
+						}
+					} else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
+						if ( null != gridView ) { 
+							gridView.ackVisibleSelected();
+						} else {
+							logger.warn(className, function, "gridView IS NULL");
+						}
 					} else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
 						Window.alert("Print Event");
 					}
@@ -228,7 +251,11 @@ public class UIWidgetViewer extends UIWidget_i {
 		scsOlsListPanel = (ScsOlsListPanel)uiLayoutGeneric.getPredefineWidget(strScsOlsListPanel);
 		
 		if ( null != scsOlsListPanel ) {
+			
+			gridView = scsOlsListPanel.getView();
 			gridPresenter = scsOlsListPanel.getPresenter();
+			contextMenu = scsOlsListPanel.getContextMenu();
+			
 			if ( null != gridPresenter ) {
 				gridPresenter.setSelectionEvent(new SelectionEvent() {
 
@@ -259,6 +286,13 @@ public class UIWidgetViewer extends UIWidget_i {
 
 						logger.begin(className, function);
 						
+						// Dump
+						logger.debug(className, function, "columns.size[{}]", columns.size());
+						for ( String column : columns ) {
+							logger.debug(className, function, "column[{}]", column);
+						}
+						
+						
 						ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
 						if ( null != columns && columns.size() > 0 ) {
 							viewerViewEvent = ViewerViewEvent.FilterAdded;
@@ -269,11 +303,94 @@ public class UIWidgetViewer extends UIWidget_i {
 						logger.end(className, function);
 					}
 				});
+				
+				gridPresenter.setCounterEvent(new CounterEvent() {
+					
+					@Override
+					public void onCounterChange(Map<String, Integer> countersValue) {
+						final String function = "onCounterChange fire onCounterChange";
+						
+						logger.begin(className, function);
+						
+						if ( null != countersValue ) {
+							for ( Entry<String, Integer> keyValue : countersValue.entrySet() ) {
+								
+								String key = keyValue.getKey();
+								Integer value = keyValue.getValue();
+								String strValue = value.toString();
+								
+								String actionsetkey = "CounterValueChanged";
+								HashMap<String, Object> parameter = new HashMap<String, Object>();
+								parameter.put(ViewAttribute.OperationString2.toString(), key);
+								parameter.put(ViewAttribute.OperationString3.toString(), strValue);
+								
+								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+								override.put("CounterValueChanged", parameter);
+								
+								uiEventActionProcessor.executeActionSet(actionsetkey, override);
+								
+							}
+						}
+
+						logger.end(className, function);
+					}
+				});
+
 			} else {
-				logger.warn(className, function, "gridPresenter columns.size()");
+				logger.warn(className, function, "gridPresenter IS NULL");
 			}
+			
+			
+			if ( null != contextMenu ) {
+				
+				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
+
+				uiEventActionProcessorContextMenu = new UIEventActionProcessor();
+				uiEventActionProcessorContextMenu.setUINameCard(uiNameCard);
+				uiEventActionProcessorContextMenu.setPrefix(className);
+				uiEventActionProcessorContextMenu.setElement(element);
+				uiEventActionProcessorContextMenu.setDictionariesCacheName("UIWidgetGeneric");
+//				uiEventActionProcessorContextMenu.setEventBus(eventBus);
+				uiEventActionProcessorContextMenu.setOptsXMLFile(contextMenuOptsXMLFile);
+//				uiEventActionProcessorContextMenu.setUIWidgetGeneric(uiWidgetGeneric);
+				uiEventActionProcessorContextMenu.setActionSetTagName(UIActionEventType.actionset.toString());
+				uiEventActionProcessorContextMenu.setActionTagName(UIActionEventType.action.toString());
+				uiEventActionProcessorContextMenu.init();
+
+	            contextMenu.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
+	    			
+	    			@Override
+	    			public void onSelection(Set<HashMap<String, String>> entity) {
+	    				logger.warn(className, function, "entity[{}]", entity);
+	    				
+	    				if ( null != entity ) {
+	    					HashMap<String, String> hashMap = entity.iterator().next();
+	    					if ( null != hashMap ) {
+	    						String sourceID = hashMap.get("sourceID");
+	    						logger.info(className, function, "sourceID[{}]", sourceID);
+	    						if ( null != sourceID ) {
+	    							if ( null != uiEventActionProcessorContextMenu ) {
+	    								uiEventActionProcessorContextMenu.executeActionSet(sourceID);
+	    							} else {
+	    								logger.warn(className, function, "uiEventActionProcessorContextMenu IS NULL");	
+	    							}
+	    						} else {
+	    							logger.warn(className, function, "sourceID IS NULL");	
+	    						}
+	    					} else {
+	    						logger.warn(className, function, "hashMap IS NULL");	
+	    					}
+	    				} else {
+	    					logger.warn(className, function, "entity IS NULL");	
+	    				}
+	    			}
+	    		});
+			} else {
+				logger.warn(className, function, "contextMenu IS NULL");
+			}
+			
 		} else {
-			logger.warn(className, function, "scsOlsListPanel columns.size()");
+			logger.warn(className, function, "scsOlsListPanel IS NULL");
 		}
 		
 		uiEventActionProcessor.executeActionSetInit();

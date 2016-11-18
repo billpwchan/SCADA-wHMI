@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.event;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.event;
 
 import com.google.gwt.event.shared.EventHandler;
 

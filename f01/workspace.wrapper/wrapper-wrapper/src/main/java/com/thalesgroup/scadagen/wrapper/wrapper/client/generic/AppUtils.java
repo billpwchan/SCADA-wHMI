@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.generic;
 
 import com.google.gwt.event.shared.EventBus;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;

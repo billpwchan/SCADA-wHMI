@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -20,6 +20,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.s
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.GDGAttribute;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterName;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterValue;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 
@@ -31,16 +34,11 @@ public class ScsOlsListPanel extends UIWidget_i {
     /** Logger */
     private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
     private static final String LOG_PREFIX = "[ScsOlsListPanel] ";
-    
-    private final String strTrue = "true";
-    private final String strMultiple		= "Multiple";
-    
-    private final String strMwtEventBus		= "MwtEventBus";
-    private final String strListConfigId	= "ListConfigId";
-    private final String strMenuEnable		= "MenuEnable";
-    private final String strSelectionMode	= "SelectionMode";
-    
+
     private String selectionMode = null;
+    private boolean colorMode = false;
+    
+    private LinkedList<String> attributes = new LinkedList<String>();
     
     /**
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}
@@ -56,7 +54,11 @@ public class ScsOlsListPanel extends UIWidget_i {
     /**
      * Bus used to subscribe to and publish alarm-related events
      */
-    private EventBus eventBus_;
+    private EventBus eventBus;
+    
+    public EventBus getEventBus() {
+    	return eventBus;
+    }
 
     /**
      * Used to remove event handler
@@ -68,7 +70,11 @@ public class ScsOlsListPanel extends UIWidget_i {
      */
     private ScsOlsListPanelMenu contextMenu_;
     
-    private String menuEnable = null;
+    public ScsOlsListPanelMenu getContextMenu() {
+    	return contextMenu_;
+    }
+    
+    private String menuEnableCallImage = null;
 
     /**
      * The configuration id of the datagrid
@@ -78,6 +84,14 @@ public class ScsOlsListPanel extends UIWidget_i {
      * The view that represents the alarm datagrid
      */
     private ScsGenericDataGridView gridView_;
+    
+    public ScsGenericDataGridView getView() {
+    	return gridView_;
+    }
+    
+    public ScsAlarmDataGridPresenterClient getPresenter() {
+    	return gridPresenter_;
+    }
 
     private boolean isTerminated_ = false;
     public boolean isTerminated() {
@@ -89,14 +103,14 @@ public class ScsOlsListPanel extends UIWidget_i {
      * context menu and Handlers
      */
     private void initPresenter() {
-        if (listConfigId_ != null && gridView_ != null && eventBus_ != null ) {
-            gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus_);
+        if (listConfigId_ != null && gridView_ != null && eventBus != null ) {
+            gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus);
             
             ISelectionModel iSelectionModel = null;
             if ( null != selectionMode ) {
-            	if ( selectionMode.equals(strMultiple) ) {
+            	if ( selectionMode.equalsIgnoreCase(ParameterValue.Multiple.toString()) ) {
             		iSelectionModel = new MultipleSelectionModel();
-            	} else {
+            	} else if ( selectionMode.equalsIgnoreCase(ParameterValue.Single.toString()) ) {
             		iSelectionModel = new SingleSelectionModel();
             	}
             }
@@ -122,23 +136,19 @@ public class ScsOlsListPanel extends UIWidget_i {
     }
 
     private void initHandler() {
-        if (eventBus_ != null) {
+        if (eventBus != null) {
             handlerRegistrations_ = new ArrayList<HandlerRegistration>();
-            handlerRegistrations_.add(eventBus_.addHandler(AlarmSelectionChangeEvent.TYPE, gridPresenter_));
-            handlerRegistrations_.add(eventBus_.addHandler(FilterChangeEventAbstract.TYPE, gridPresenter_));
+            handlerRegistrations_.add(eventBus.addHandler(AlarmSelectionChangeEvent.TYPE, gridPresenter_));
+            handlerRegistrations_.add(eventBus.addHandler(FilterChangeEventAbstract.TYPE, gridPresenter_));
         }
     }
     
-    public ScsAlarmDataGridPresenterClient getPresenter() {
-    	return gridPresenter_;
-    }
-
     /**
      * Initialize and create all needed components
      */
     private void initComponents() {
-    	if ( null != menuEnable && menuEnable.equals(strTrue)) {
-    		contextMenu_ = new ScsOlsListPanelMenu(eventBus_);
+    	if ( null != menuEnableCallImage && menuEnableCallImage.equalsIgnoreCase(ParameterValue.True.toString())) {
+    		contextMenu_ = new ScsOlsListPanelMenu(eventBus);
     	}
         initDataGridView();
         initMainPanel();
@@ -162,42 +172,115 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Create the datagrid view and customize the CSS rules
      */
     private void initDataGridView() {
+    	
+    	final String strCssPrefix = listConfigId_+" "+"CSS_OLS_LIST";
+    	
+    	final String strCssResultInValid	= strCssPrefix+"_INVALID";
+    	final String strCssResultNormal		= strCssPrefix+"_NORMAL";
+    	
         gridView_ = new ScsGenericDataGridView();
         // Customize CSS class according to the alarm state
         gridView_.setRowStyles(new RowStyles<EntityClient>() {
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
+            	
+            	if ( colorMode ) {
+
+            		String strCssResult = strCssPrefix;
+            		
+            		java.util.Iterator<String> it = attributes.iterator();
+            		while ( it.hasNext() ) {
+            			
+            			String strGDGAttribute = it.next();
+            			
+                    	LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"]");
+                    	
+                    	String gdgValue = null;
+                    	AttributeClientAbstract<String> gdgAttribute	= row.getAttribute(strGDGAttribute);
+                    	 if (!gdgAttribute.isValid()) return strCssResultInValid;
+                         if ( null != gdgAttribute && gdgAttribute.isValid() ) {
+                         	gdgValue = gdgAttribute.getValue();	
+                         }
+                         
+                         LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"] gdgValue["+gdgValue+"]");
+                         
+                         strCssResult += "_"+ gdgValue;
+            		}
+
+                    LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strCssResult["+strCssResult+"]");
+                    
+                    return strCssResult;
+            		
+            	}
+            		
                 if (row != null) {
                     for (String attname : row.attributeNames()) {
                         AttributeClientAbstract<Object> att = row.getAttribute(attname);
                         if (!att.isValid()) {
-                            return "gdg_invalid";
+                            return strCssResultInValid;
                         }
                     }
                 }
 
-                return "gdg_normal";
+                return strCssResultNormal;
+
             }
         });
     }
-
+    
 	@Override
 	public void init() {
-        eventBus_			= (EventBus) parameters.get(strMwtEventBus);
         
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			listConfigId_	= dictionariesCache.getStringValue(optsXMLFile, strListConfigId, strHeader);
-			menuEnable		= dictionariesCache.getStringValue(optsXMLFile, strMenuEnable, strHeader);
-			selectionMode	= dictionariesCache.getStringValue(optsXMLFile, strSelectionMode, strHeader);
+			listConfigId_			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ListConfigId.toString(), strHeader);
+			menuEnableCallImage				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuEnableCallImage.toString(), strHeader);
+			selectionMode			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SelectionMode.toString(), strHeader);
+
+			String mwtEventBusName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusName.toString(), strHeader);
+			String mwtEventBusScope	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusScope.toString(), strHeader);
 			
-			setParameter("listConfigId_", listConfigId_);
-			setParameter("menuEnable", menuEnable);
-			setParameter("selectionMode", selectionMode);
-		}        
+			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");
+			LOGGER.debug(LOG_PREFIX + "init mwtEventBusScope["+mwtEventBusScope+"]");
+			
+			if ( null == mwtEventBusName || mwtEventBusName.trim().length() == 0) {
+				mwtEventBusName = this.viewXMLFile;
+			}
+			if ( mwtEventBusScope != null && mwtEventBusScope.equalsIgnoreCase(ParameterValue.Global.toString()) ) {
+				mwtEventBusName += uiNameCard.getUiScreen();
+			}
+			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");
+			
+			eventBus = MwtEventBuses.getInstance().getEventBus(mwtEventBusName);
+
+			String colorMode	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColorMode.toString(), strHeader);
+			if ( null != colorMode && ParameterValue.ColorMode.toString().equals(colorMode) ) {
+				this.colorMode = true;
+			}
+			
+            for ( String strGDGAttribute : GDGAttribute.toStrings() ) {
+            	
+            	String gdgAttribute	= dictionariesCache.getStringValue(optsXMLFile, strGDGAttribute, strHeader);
+            	
+            	LOGGER.debug(LOG_PREFIX + "init gdgAttribute["+gdgAttribute+"]");
+            	
+            	if ( null != gdgAttribute ) {
+            		
+            		LOGGER.debug(LOG_PREFIX + "init gdgAttribute["+gdgAttribute+"] Added");
+            		
+            		attributes.add(gdgAttribute);
+            	}
+            	
+            }
+			
+			setParameter(ParameterName.ListConfigId.toString(), listConfigId_);
+			setParameter(ParameterName.MenuEnableCallImage.toString(), menuEnableCallImage);
+			setParameter(ParameterName.SelectionMode.toString(), selectionMode);
+			setParameter(ParameterName.EventBus.toString(), eventBus);
+		}
         initComponents();
         initPresenter();
 	}
@@ -219,4 +302,5 @@ public class ScsOlsListPanel extends UIWidget_i {
         	LOGGER.error(LOG_PREFIX + "Error while trying to terminate the Alarm List Panel.", e);
         }
     }
+
 }

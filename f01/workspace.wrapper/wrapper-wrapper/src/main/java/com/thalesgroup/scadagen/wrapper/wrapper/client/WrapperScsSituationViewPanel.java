@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.AppUtils;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels.ScsSituationViewPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.AppUtils;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsSituationViewPanel;
 
 public class WrapperScsSituationViewPanel {
 	public WrapperScsSituationViewPanel(String configurationId) {

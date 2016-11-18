@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogURL;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -23,6 +24,11 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 
 /**
  * @author syau
@@ -251,12 +257,23 @@ public class ViewLayoutMgr {
 					"Are you sure to logout the current HMI?", taskLaunchYes, null);
 			uiDialgogMsg.popUp();
 
-		} else if (taskLaunch.getUiPanel().equals("UIPanelInspector")) {
+		} else if (taskLaunch.getUiPanel().equals("ViewSchematicSymbolSelected")) {
+			
+			String configurationId = null;
+			int indexOption = 0;
+			if ( taskLaunch.getOption().length > indexOption && null != taskLaunch.getOption()[indexOption] ) {
+				Object obj = taskLaunch.getOption()[indexOption];
+				if ( obj instanceof String ) {
+					configurationId		= (String)obj;
+				} else {
+					logger.warn(className, function, "configurationId IS NOT A STRING");
+				}
+			}
 			
 			String hvid = null;
-			int indexOption = 0;
-			if ( taskLaunch.getOption().length > 0 && null != taskLaunch.getOption()[indexOption] ) {
-				Object obj = taskLaunch.getOption()[0];
+			int indexOption1 = 1;
+			if ( taskLaunch.getOption().length > indexOption1 && null != taskLaunch.getOption()[indexOption1] ) {
+				Object obj = taskLaunch.getOption()[indexOption1];
 				if ( obj instanceof String ) {
 					hvid		= (String)obj;
 				} else {
@@ -265,9 +282,9 @@ public class ViewLayoutMgr {
 			}
 			
 			int mouseX = -1;
-			int indexOption1 = 1;
-			if ( taskLaunch.getOption().length > 1 && null != taskLaunch.getOption()[indexOption1] ) {
-				Object obj = taskLaunch.getOption()[1];
+			int indexOption2 = 2;
+			if ( taskLaunch.getOption().length > indexOption2 && null != taskLaunch.getOption()[indexOption2] ) {
+				Object obj = taskLaunch.getOption()[indexOption2];
 				if ( obj instanceof Integer ) {
 					mouseX		= (Integer)obj;
 				} else {
@@ -276,9 +293,9 @@ public class ViewLayoutMgr {
 			}
 			
 			int mouseY = -1;
-			int indexOption2 = 2;
-			if ( taskLaunch.getOption().length > 2 && null != taskLaunch.getOption()[indexOption2] ) {
-				Object obj = taskLaunch.getOption()[2];
+			int indexOption3 = 3;
+			if ( taskLaunch.getOption().length > indexOption3 && null != taskLaunch.getOption()[indexOption3] ) {
+				Object obj = taskLaunch.getOption()[indexOption3];
 				if ( obj instanceof Integer ) {
 					mouseY		= (Integer)obj;
 				} else {
@@ -286,15 +303,122 @@ public class ViewLayoutMgr {
 				}
 			}
 			
+			logger.info(className, function, "configurationId[{}]", configurationId);
 			logger.info(className, function, "hvid[{}]", hvid);
 			logger.info(className, function, "mouseX[{}]", mouseX);
 			logger.info(className, function, "mouseY[{}]", mouseY);
 			
-			logger.info(className, function, "Launch the UIInspectorMgr...");
+			String actionsetkey = hvid;
+			
+			UIEventAction uiEventAction = null;
+			
+			String optsXMLFile = "UISchematic_"+configurationId+".opts.xml";
+			String dictionariesCacheName = "UIWidgetGeneric";
+			String tag = UIActionEventType.actionset.toString();
+			
+			logger.info(className, function, "optsXMLFile[{}]", optsXMLFile);
+			
+			logger.info(className, function, "dictionariesCacheName[{}]", dictionariesCacheName);
+			
+			logger.info(className, function, "tag[{}]", tag);
+			
+			logger.info(className, function, "Launch the UIEventActionProcessor...");
+			
+			UIEventActionProcessor uiEventActionProcessor = null;
+			uiEventActionProcessor = new UIEventActionProcessor();
+			uiEventActionProcessor.setUINameCard(uiNameCard);
+			uiEventActionProcessor.setPrefix(className);
+//			uiEventActionProcessor.setElement(element);
+			uiEventActionProcessor.setDictionariesCacheName(dictionariesCacheName);
+//			uiEventActionProcessor.setEventBus(eventBus);
+			uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+//			uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+			uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
+			uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
+			uiEventActionProcessor.init();
 
-			UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
-			mgr.closeInspectorDialog();
-			mgr.openInspectorDialog(uiNameCard, hvid, mouseX, mouseY);
+			uiEventAction = uiEventActionProcessor.getUIEventActionSetMgr(actionsetkey);
+
+			if ( null != uiEventAction ) {
+				
+				logger.info(className, function, "actionsetkey[{}] IS NOT NULL", actionsetkey);
+
+				uiEventAction.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
+				
+				logger.info(className, function, "uiEventAction IS NOT NULL");
+				
+				UIEventActionProcessor.dumpUIEventAction(className, uiEventAction);
+				
+				logger.info(className, function, "Launch the uiEventAction...");
+				
+				uiEventActionProcessor.executeActionSet(uiEventAction, new ExecuteAction_i() {
+					
+					@Override
+					public boolean executeHandler(UIEventAction uiEventAction) {
+						// TODO Auto-generated method stub
+						return true;
+					}
+				});
+
+			} else {
+				
+				logger.info(className, function, "actionsetkey[{}] IS NULL", actionsetkey);
+				
+				logger.info(className, function, "Launch the UIInspectorMgr...");
+
+				UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
+				mgr.closeInspectorDialog();
+				mgr.openInspectorDialog(uiNameCard, hvid, mouseX, mouseY);
+			}
+			
+			uiEventAction = null;
+			uiEventActionProcessor = null;
+
+		} else if (taskLaunch.getUiPanel().equals("ViewURLSelected")) {
+			
+			String url = null;
+			int indexOption1 = 0;
+			if ( taskLaunch.getOption().length > indexOption1 && null != taskLaunch.getOption()[indexOption1] ) {
+				Object obj = taskLaunch.getOption()[indexOption1];
+				if ( obj instanceof String ) {
+					url		= (String)obj;
+				} else {
+					logger.warn(className, function, "hvid IS NOT A STRING");
+				}
+			}
+			
+			int mouseX = -1;
+			int indexOption2 = 1;
+			if ( taskLaunch.getOption().length > indexOption2 && null != taskLaunch.getOption()[indexOption2] ) {
+				Object obj = taskLaunch.getOption()[indexOption2];
+				if ( obj instanceof Integer ) {
+					mouseX		= (Integer)obj;
+				} else {
+					logger.warn(className, function, "mouseX IS NOT A Integer");
+				}
+			}
+			
+			int mouseY = -1;
+			int indexOption3 = 2;
+			if ( taskLaunch.getOption().length > indexOption3 && null != taskLaunch.getOption()[indexOption3] ) {
+				Object obj = taskLaunch.getOption()[indexOption3];
+				if ( obj instanceof Integer ) {
+					mouseY		= (Integer)obj;
+				} else {
+					logger.warn(className, function, "mouseY IS NOT A Integer");
+				}
+			}
+			
+			logger.info(className, function, "url[{}]", url);
+			logger.info(className, function, "mouseX[{}]", mouseX);
+			logger.info(className, function, "mouseY[{}]", mouseY);
+			
+			logger.info(className, function, "Launch the UIDialogURL...");
+			
+			UIDialogURL UIDialogURL = new UIDialogURL();
+			UIDialogURL.setURL(url);
+			UIDialogURL.setUINameCard(this.uiNameCard);
+			UIDialogURL.show();
 			
 		} else if (taskLaunch.getUiPanel().equals("UIInspectorConnectionBox")) { 
 			

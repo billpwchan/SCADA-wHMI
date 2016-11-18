@@ -11,6 +11,8 @@ import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -21,12 +23,12 @@ public class UIPanelAccessBar extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelAccessBar.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
-	private final String UIPathUIScreenMMI			= ":UIGws:UIPanelScreen:UIScreenMMI";
+
 	private final String UIPathUIPanelViewLayout	= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout";
 
 	private UIWidgetGeneric uiWidgetGeneric = null;
+	
+	private UIEventActionProcessor uiEventActionProcessor = null;
 	
 	@Override
 	public void init() {
@@ -40,6 +42,19 @@ public class UIPanelAccessBar extends UIWidget_i {
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
+		
+		uiEventActionProcessor = new UIEventActionProcessor();
+		uiEventActionProcessor.setUINameCard(uiNameCard);
+		uiEventActionProcessor.setPrefix(className);
+		uiEventActionProcessor.setElement(className);
+		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor.setEventBus(null);
+		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor.init();
+		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
 			public void onClickHandler(ClickEvent event) {
@@ -197,15 +212,6 @@ public class UIPanelAccessBar extends UIWidget_i {
 				taskLaunch.setUiPath(UIPathUIPanelViewLayout);
 				taskLaunch.setUiPanel("UIDialogMsg");
 				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
-				logger.info(className, function, "dss[{}]", UIPanelAccessBarInterface.WidgetArrtibute.dss);
-				
-				UITaskLaunch taskLaunch = new UITaskLaunch();
-				taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-				taskLaunch.setUiPath(UIPathUIPanelScreen);
-				taskLaunch.setUiPanel("UIScreenDSS");
-				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));		
-				
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.previous.equalsName(element) ) {
 				
 				logger.info(className, function, "previous[{}]", UIPanelAccessBarInterface.WidgetArrtibute.previous);
@@ -271,14 +277,16 @@ public class UIPanelAccessBar extends UIWidget_i {
 					taskSplit.setTaskType(UITaskSplit.SplitType.Vertical);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.stationoperation.equalsName(element)  ) {
-				logger.info(className, function, "strStationOperation");
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element) ) {
-				logger.info(className, function, "strDss");
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.print.equalsName(element) ) {
-				logger.info(className, function, "strPrint");
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.help.equalsName(element) ) {
-				logger.info(className, function, "strHelp");
+			} else if ( 
+					UIPanelAccessBarInterface.WidgetArrtibute.stationoperation.equalsName(element)  
+					|| UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element)
+					|| UIPanelAccessBarInterface.WidgetArrtibute.print.equalsName(element) 
+					|| UIPanelAccessBarInterface.WidgetArrtibute.help.equalsName(element)
+					) {
+
+				logger.info(className, function, "Calling uiEventActionProcessor executeActionSet element[{}]", element);
+				
+				uiEventActionProcessor.executeActionSet(element);
 			}
 		}
 	}

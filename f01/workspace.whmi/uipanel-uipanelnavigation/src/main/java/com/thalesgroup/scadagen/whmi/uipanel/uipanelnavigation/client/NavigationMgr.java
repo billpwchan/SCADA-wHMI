@@ -182,7 +182,11 @@ public class NavigationMgr implements TaskMgrEvent {
 						
 						UITaskLaunch tasklaunch = (UITaskLaunch)taskProvide;
 
-						this.navigationMgrEvent.setMenu(0, "", tasklaunch.getHeader(), false);
+						boolean execute = false;
+						String strExecute = tasklaunch.getExecute();
+						if ( null != strExecute ) execute = strExecute.equals("true");
+						
+						this.navigationMgrEvent.setMenu(0, "", tasklaunch.getHeader(), execute);
 					}
 				}
 			}

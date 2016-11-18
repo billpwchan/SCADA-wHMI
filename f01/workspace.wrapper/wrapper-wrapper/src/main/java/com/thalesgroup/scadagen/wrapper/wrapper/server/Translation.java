@@ -14,7 +14,7 @@ public class Translation {
 	private final static Logger logger			= LoggerFactory.getLogger(GDGMessage.class.getName());
 
 	public static String getWording(String key) {
-		logger.info("getWording[{}]", key);
+		logger.debug("getWording[{}]", key);
 		String value = key;
         try {
 
@@ -45,7 +45,7 @@ public class Translation {
 //        		logger.log(Level.SEVERE, "getWording currentLang e["+e.toString()+"]");
 //        	}
 
-        	logger.info("currentLang[{}]", currentLang);
+        	logger.debug("currentLang[{}]", currentLang);
 
         	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
         	if ( null != dico ) {

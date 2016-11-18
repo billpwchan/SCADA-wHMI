@@ -1,10 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
-
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
@@ -12,27 +9,25 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionMgrOld;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSFilter;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect2;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect3;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect4;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelection;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSwitch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBlackboard;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcManualOverrideControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBox;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
@@ -44,6 +39,10 @@ public class UILayoutSummary extends UIWidget_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private UILayoutGeneric uiLayoutGeneric = null;
+	
+	private UIWidgetGeneric uiWidgetGeneric = null;
+	
+	private UIEventActionProcessor uiEventActionProcessor = null;
 
 	private SimpleEventBus eventBus = null;
 	private String eventBusName = null;
@@ -51,10 +50,6 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	private String strHeader = "header";
-	private String strOption = "option";
-	
-	private String [] uiEventActionKeys = null;
-	private HashMap<String, UIEventAction> uiEventActions = null;
 
 	@Override
 	public void init() {
@@ -139,7 +134,7 @@ public class UILayoutSummary extends UIWidget_i {
 					
 					uiWidget = new UIWidgetDpcScanSuspendControl();
 
-				} else if (
+				} else  if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName())
 						.equals(uiCtrl)
 						) {
@@ -166,35 +161,13 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 					
 					uiWidget = new ScsOlsListPanel();
-					uiWidget.setParameter(WidgetParameterName.MwtEventBus.toString(), new MwtEventBus());
 
 				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect2.class.getName())
-						.equals(uiCtrl)
-						) {
-					
-					uiWidget = new UIWidgetCSSSelect2();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect3.class.getName())
-						.equals(uiCtrl)
-						) {
-					
-					uiWidget = new UIWidgetCSSSelect3();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelect4.class.getName())
-						.equals(uiCtrl)
-						) {
-					
-					uiWidget = new UIWidgetCSSSelect4();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetCSSFilter.class.getName())
+						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelection.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetCSSFilter();
+					uiWidget = new UIWidgetCSSSelection();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName())
@@ -203,6 +176,22 @@ public class UILayoutSummary extends UIWidget_i {
 
 					uiWidget = new UIWidgetCSSSwitch();
 
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetBlackboard.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget = new UIWidgetBlackboard();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetBox.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget = new UIWidgetBox();
+
+				} else {
+					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 				
 				if ( null != uiWidget ) {
@@ -226,15 +215,20 @@ public class UILayoutSummary extends UIWidget_i {
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		UIEventActionMgrOld mgr = new UIEventActionMgrOld(className,strUIWidgetGeneric, optsXMLFile);
-		uiEventActionKeys = mgr.getActionKeys(strHeader, ActionAttribute.toStrings());
-		uiEventActions = mgr.getActions(strOption, ViewAttribute.Operation.toString(), uiEventActionKeys, ViewAttribute.toStrings());
-		
-		for ( Entry<String, UIEventAction> entry : uiEventActions.entrySet() ) {
-//			String uiEventActionKey = entry.getKey();
-			UIEventAction uiEventAction = entry.getValue();
-			eventBus.fireEventFromSource(uiEventAction, this);
-		}
+		uiEventActionProcessor = new UIEventActionProcessor();
+		uiEventActionProcessor.setUINameCard(uiNameCard);
+		uiEventActionProcessor.setPrefix(className);
+		uiEventActionProcessor.setElement(element);
+		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor.setEventBus(eventBus);
+		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor.init();
+
+		uiEventActionProcessor.executeActionSetInit();
+		uiEventActionProcessor.executeActionSetInit(1000, null);
 		
 		logger.end(className, function);
 	}

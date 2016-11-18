@@ -6,8 +6,6 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewAlarmSummary;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.UIViewEventSummary;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
@@ -33,37 +31,26 @@ public class UIViewMgr implements UIWidgetMgrFactory {
 		
 		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
 
-		UIWidget_i uiWidget = null;
-		
+		UIWidget_i uiWidget_i = null;
 		if ( UIWidgetUtil.getClassSimpleName(
-				UIViewAlarmSummary.class.getName()).equals(uiCtrl) ) {
-			
-			uiWidget = new UIViewAlarmSummary();
-
-		} else if ( UIWidgetUtil.getClassSimpleName(
-				UIViewEventSummary.class.getName()).equals(uiCtrl) ) {
-			
-			uiWidget = new UIViewEventSummary();
-	
-		} else if ( UIWidgetUtil.getClassSimpleName(
 				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
 			
-			uiWidget = new UILayoutEntryPoint();
+			uiWidget_i = new UILayoutEntryPoint();
 			
 		}
 
-		if ( null != uiWidget ) {
-			uiWidget.setUINameCard(uiNameCard);
-			uiWidget.setViewXMLFile(uiView);
-			uiWidget.setOptsXMLFile(uiOpts);
-			uiWidget.init();
+		if ( null != uiWidget_i ) {
+			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setViewXMLFile(uiView);
+			uiWidget_i.setOptsXMLFile(uiOpts);
+			uiWidget_i.init();
 		} else {
 			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts});
 		}
 
 		logger.end(className, function);
 
-		return uiWidget;
+		return uiWidget_i;
 		
 	}
 }

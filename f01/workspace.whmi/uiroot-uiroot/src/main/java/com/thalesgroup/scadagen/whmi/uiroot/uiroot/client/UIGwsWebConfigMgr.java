@@ -1,7 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryMgr;
@@ -129,48 +128,48 @@ public class UIGwsWebConfigMgr {
 	}
 	
 	public void dictionaryMgrEventReady(Dictionary dictionary) {
-		final String function = "dictionaryMgrEventReady";
-		
-		if ( null != dictionary ) {
-			
-			for ( Object dKey : dictionary.getAttributeKeys() ) {
-				
-				Window.alert("getWebConfig dictionary getAttributeKeys["+dKey+"]");
-				
-				Window.alert("getWebConfig dictionary getAttribute["+dictionary.getAttribute(dKey)+"]");
-				
-			}
-			
-			for ( Object dKey : dictionary.getValueKeys() ) {
-				
-				Window.alert("getWebConfig dictionary getValueKeys["+dKey+"]");
-				
-				Window.alert("getWebConfig dictionary getValue["+dictionary.getValue(dKey)+"]");
-				
-			}
-			
-			for ( Object subobject : dictionary.getValueKeys() ) {
-				
-				Dictionary subdictionary = (Dictionary) subobject;
-				
-				Window.alert("getWebConfig dictionaryMgrEventReady key instanceof Dictionary");
-				
-				for ( Object dKey : subdictionary.getAttributeKeys() ) {
-					
-					Window.alert("getWebConfig subdictionary getAttributeKeys["+dKey+"]");
-					
-					Window.alert("getWebConfig subdictionary getAttribute["+subdictionary.getAttribute(dKey)+"]");
-					
-				}
-				
-				for ( Object dKey : subdictionary.getValueKeys() ) {
-
-					Window.alert("getWebConfig subdictionary getValueKeys["+dKey+"]");
-					
-					Window.alert("getWebConfig subdictionary getValue["+subdictionary.getValue(dKey)+"]");
-				}
-			}
-		}
+//		final String function = "dictionaryMgrEventReady";
+//		
+//		if ( null != dictionary ) {
+//			
+//			for ( Object dKey : dictionary.getAttributeKeys() ) {
+//				
+//				Window.alert("getWebConfig dictionary getAttributeKeys["+dKey+"]");
+//				
+//				Window.alert("getWebConfig dictionary getAttribute["+dictionary.getAttribute(dKey)+"]");
+//				
+//			}
+//			
+//			for ( Object dKey : dictionary.getValueKeys() ) {
+//				
+//				Window.alert("getWebConfig dictionary getValueKeys["+dKey+"]");
+//				
+//				Window.alert("getWebConfig dictionary getValue["+dictionary.getValue(dKey)+"]");
+//				
+//			}
+//			
+//			for ( Object subobject : dictionary.getValueKeys() ) {
+//				
+//				Dictionary subdictionary = (Dictionary) subobject;
+//				
+//				Window.alert("getWebConfig dictionaryMgrEventReady key instanceof Dictionary");
+//				
+//				for ( Object dKey : subdictionary.getAttributeKeys() ) {
+//					
+//					Window.alert("getWebConfig subdictionary getAttributeKeys["+dKey+"]");
+//					
+//					Window.alert("getWebConfig subdictionary getAttribute["+subdictionary.getAttribute(dKey)+"]");
+//					
+//				}
+//				
+//				for ( Object dKey : subdictionary.getValueKeys() ) {
+//
+//					Window.alert("getWebConfig subdictionary getValueKeys["+dKey+"]");
+//					
+//					Window.alert("getWebConfig subdictionary getValue["+subdictionary.getValue(dKey)+"]");
+//				}
+//			}
+//		}
 
 	}
 }

@@ -8,12 +8,12 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
@@ -59,8 +59,8 @@ public class UIWidgetPrint extends UIWidget_i {
 						// Value as 1
 
 						UIEventAction action = new UIEventAction();
-						action.setParameters(ViewAttribute.Operation.toString(), PrintViewEvent.Print.toString());
-						action.setParameters(ViewAttribute.OperationString1.toString(), strViewOnly);
+						action.setParameter(ViewAttribute.Operation.toString(), PrintViewEvent.Print.toString());
+						action.setParameter(ViewAttribute.OperationString1.toString(), strViewOnly);
 						eventBus.fireEventFromSource(action, this);
 						
 					}

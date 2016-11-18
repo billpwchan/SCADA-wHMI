@@ -50,7 +50,7 @@ public abstract class GDGColumnSimpleDateFormat extends OlsDecoder {
 		
     	logPrefix = classname;
     	
-    	logger.info("[{}] classname[{}] getComputerId[{}]", new Object[]{logPrefix, classname, getComputerId()});
+    	logger.debug("[{}] classname[{}] getComputerId[{}]", new Object[]{logPrefix, classname, getComputerId()});
     	
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
 		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
@@ -70,7 +70,7 @@ public abstract class GDGColumnSimpleDateFormat extends OlsDecoder {
 		sdfparse		= mappings.get(sdfparsename);
 		sdfformat		= mappings.get(sdfformatname);
 		
-		logger.info("[{}] fieldname1[{}] field1[{}]", new Object[]{logPrefix,fieldname1,field1});
+		logger.debug("[{}] fieldname1[{}] field1[{}]", new Object[]{logPrefix,fieldname1,field1});
 		
 		m_name = field1;
 	}

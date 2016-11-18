@@ -48,7 +48,7 @@ public abstract class GDGColumnBitwise extends OlsDecoder {
 		
     	logPrefix = classname;
     	
-    	logger.info("[{}] classname[{}] getComputerId[{}]", new Object[]{logPrefix, classname, getComputerId()});
+    	logger.debug("[{}] classname[{}] getComputerId[{}]", new Object[]{logPrefix, classname, getComputerId()});
     	
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
 		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
@@ -68,7 +68,7 @@ public abstract class GDGColumnBitwise extends OlsDecoder {
 		bitwiseop		= mappings.get(bitwiseopname);
 		bitwisevalue	= mappings.get(bitwisevaluename);
 		
-		logger.info("[{}] fieldname1[{}] field1[{}]", new Object[]{logPrefix,fieldname1,field1});
+		logger.debug("[{}] fieldname1[{}] field1[{}]", new Object[]{logPrefix,fieldname1,field1});
 		
 		m_name = field1;
 	}
@@ -97,7 +97,7 @@ public abstract class GDGColumnBitwise extends OlsDecoder {
     				int intOutValue = 0;
     				if ( !isInvalid ) {
     					bitwiseop = bitwiseop.trim();
-    					logger.info("[{}] trim bitwiseop[{}]", new Object[]{logPrefix,bitwiseop});
+    					logger.debug("[{}] trim bitwiseop[{}]", new Object[]{logPrefix,bitwiseop});
     					if ( "&".equals(bitwiseop) ) {
     						intOutValue = intOpValue & intValue;
     					} else if ( "|".equals(bitwiseop) ) {
@@ -118,7 +118,7 @@ public abstract class GDGColumnBitwise extends OlsDecoder {
     				if ( !isInvalid ) {
     					outValue = Integer.toString(intOutValue);
     				}
-    				logger.info("[{}] outValue[{}]", new Object[]{logPrefix,outValue});
+    				logger.debug("[{}] outValue[{}]", new Object[]{logPrefix,outValue});
     				((StringAttribute)ret).setValue(outValue);
     				((StringAttribute)ret).setValid(true);
     				((StringAttribute)ret).setTimestamp(new Date());    				

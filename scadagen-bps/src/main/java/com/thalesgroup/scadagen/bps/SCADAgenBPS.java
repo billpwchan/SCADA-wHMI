@@ -7,9 +7,10 @@ import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.hv.sdk.connector.IConnectorTools;
 import com.thalesgroup.scadagen.bps.conf.ConfManager;
-import com.thalesgroup.scadagen.bps.conf.HvOperationConfigLoader;
+import com.thalesgroup.scadagen.bps.conf.OperationConfigLoader;
 import com.thalesgroup.scadagen.bps.conf.actions.ActionsManager;
 import com.thalesgroup.scadagen.bps.conf.actions.IActionsManager;
+import com.thalesgroup.scadagen.bps.conf.computers.ComputersManager;
 import com.thalesgroup.scadagen.bps.connector.operation.GenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.operation.IGenericOperationConnector;
 import com.thalesgroup.scadagen.bps.connector.subscription.GenericSubscriptionConnector;
@@ -21,6 +22,8 @@ import com.thalesgroup.scadagen.bps.datasource.DataSourceAbstract;
 
 public class SCADAgenBPS {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SCADAgenBPS.class);
+	
+	private Connector connector_ = null;
 
 	private IGenericOperationConnector operationConnector_;
 
@@ -32,9 +35,12 @@ public class SCADAgenBPS {
 	
 	IActionsManager actionsManager_ = null;
 	
-	HvOperationConfigLoader hvOperationConfigLoader_ = null;
+	ComputersManager computersManager_ = null;
+	
+	OperationConfigLoader hvOperationConfigLoader_ = null;
 
 	public SCADAgenBPS(Connector connector) {
+		connector_ = connector;
 		operationConnector_ = new GenericOperationConnector(connector);
 		subscriptionConnector_ = new GenericSubscriptionConnector(connector);
 		connectorTools_ = connector;
@@ -44,10 +50,12 @@ public class SCADAgenBPS {
 		LOGGER.debug("BPS: loading configuration");
 		
 		actionsManager_ = ActionsManager.getInstance();
+		
+		computersManager_ = ComputersManager.getInstance();
 
 		try {
 
-			confManager_ = new ConfManager(this, getSubscriptionConnector(), getOperationConnector(), getTools());	
+			confManager_ = new ConfManager(this, connector_, getSubscriptionConnector(), getOperationConnector(), getTools());	
 			
 			if (confManager_ != null) {
 				confManager_.loadConfig();

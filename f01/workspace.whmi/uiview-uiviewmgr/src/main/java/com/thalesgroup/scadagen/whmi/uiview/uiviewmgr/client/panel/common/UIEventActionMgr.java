@@ -7,6 +7,7 @@ import java.util.Set;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public class UIEventActionMgr {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionMgr.class.getName());
@@ -60,7 +61,8 @@ public class UIEventActionMgr {
 						for ( Entry<String, String> parameters : option.entrySet() ) {
 							String parameterKey = parameters.getKey();
 							String parameterValue = parameters.getValue();
-							uiEventAction.setParameters(parameterKey, parameterValue);
+							logger.info(className, function, this.logPrefix+" ADDED parameterKey[{}] parameterValue[{}]", parameterKey, parameterValue);
+							uiEventAction.setParameter(parameterKey, parameterValue);
 						}
 					} else {
 						logger.warn(className, function, this.logPrefix+"option IS NULL");

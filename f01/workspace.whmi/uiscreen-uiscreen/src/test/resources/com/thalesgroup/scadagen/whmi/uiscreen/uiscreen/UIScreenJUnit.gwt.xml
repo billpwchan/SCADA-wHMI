@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to="UIScreen">
-  <!-- Inherit our applications main module.                      -->
-  <inherits name='com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.UIScreen' />
-
-  <!-- Specify the path to any remote services.                   -->
-  <servlet path="/UIScreen/greet" class="com.thalesgroup.scadagen.whmi.uiscreen.uiscreen.server.GreetingServiceImpl" />
-
-</module>

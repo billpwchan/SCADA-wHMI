@@ -63,19 +63,19 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 	  <artifactId>uinamecard</artifactId>
-          <version>1.0-SNAPSHOT</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiview.uiview</groupId>
-	  <artifactId>uiview-uiview</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
 	  <artifactId>wrapper-wrapper</artifactId>
-          <version>1.0-SNAPSHOT</version>
+	  <version>1.0-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitasklaunch</groupId>
+	  <artifactId>uitask-uitasklaunch</artifactId>
+	  <version>1.0-SNAPSHOT</version>
 	</dependency>
 
   </dependencies>

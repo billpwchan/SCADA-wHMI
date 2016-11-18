@@ -18,18 +18,18 @@ import com.thalesgroup.scadagen.common.calculated.SCSStatusComputer;
 
 public class IntMapping extends SCSStatusComputer {
 	
-	private static final Logger s_logger = LoggerFactory.getLogger(IntMapping.class.getName());
+	private final Logger logger = LoggerFactory.getLogger(IntMapping.class.getName());
 	
-	protected static String classname				= null;
-	protected static String propertiesname			= null;
+	protected String classname				= null;
+	protected String propertiesname			= null;
 	
-	protected static final String mappingname		= ".valuemapping.";
+	protected final String mappingname		= ".valuemapping.";
 	
-	protected static final String fieldname1		= ".fieldname1";
-	protected static final String fieldname2		= ".fieldname2";
+	protected final String fieldname1		= ".fieldname1";
+	protected final String fieldname2		= ".fieldname2";
 	
-	protected static String field1					= "eqpType";
-	protected static String field2					= "symbol1";
+	protected String field1					= "eqpType";
+	protected String field2					= "symbol1";
 	
 	protected static Map<String, String> mappings	= new HashMap<String, String>();
 
@@ -43,8 +43,8 @@ public class IntMapping extends SCSStatusComputer {
     	String classnames [] = getComputerId().split(Pattern.quote("."));
     	propertiesname = classnames[classnames.length-1];
     	
-    	s_logger.info(propertiesname+" getComputerId["+getComputerId()+"]");
-    	s_logger.info(propertiesname+" propertiesname["+propertiesname+"]");
+    	logger.debug(propertiesname+" getComputerId[{}]", getComputerId());
+    	logger.debug(propertiesname+" propertiesname[{}]", propertiesname);
     	
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
 		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
@@ -61,8 +61,8 @@ public class IntMapping extends SCSStatusComputer {
 		field1 = mappings.get(propertiesname+fieldname1);
 		field2 = mappings.get(propertiesname+fieldname2);
 		
-		s_logger.info(propertiesname+" field1["+field1+"]");
-		s_logger.info(propertiesname+" field2["+field2+"]");
+		logger.debug(propertiesname+" field1[{}]", field1);
+		logger.debug(propertiesname+" field2[{}]", field2);
     	
 		m_statusSet.add(field1);
     	m_statusSet.add(field2);
@@ -74,9 +74,9 @@ public class IntMapping extends SCSStatusComputer {
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     {
-    	s_logger.info("compute Begin");
-    	s_logger.info("compute field1["+field1+"]");
-    	s_logger.info("compute field2["+field2+"]");
+		logger.debug("compute Begin");
+		logger.debug("compute field1[{}]", field1);
+		logger.debug("compute field2[{}]", field2);
     	
     	// Load eqpType value
     	String inValue1 = null;
@@ -85,10 +85,10 @@ public class IntMapping extends SCSStatusComputer {
 	    	if (obj1 != null && obj1 instanceof StringAttribute) {
 	    		inValue1 = ((StringAttribute) obj1).getValue();
 	    	} else {
-	    		s_logger.warn("compute field1["+field1+"] IS INVALID");
+	    		logger.warn("compute field1[{}] IS INVALID", field1);
 	    	}
 		}
-    	s_logger.info("compute inValue1["+inValue1+"]");
+    	logger.debug("compute inValue1[{}]", inValue1);
     	
     	// Load Int value
     	int inValue2 = 0;
@@ -97,10 +97,10 @@ public class IntMapping extends SCSStatusComputer {
 	    	if (obj1 != null && obj1 instanceof IntAttribute) {
 	    		inValue2 = ((IntAttribute) obj1).getValue();
 	    	} else {
-	    		s_logger.warn("compute field2["+field2+"] IS INVALID");
+	    		logger.warn("compute field2[{}] IS INVALID", field2);
 	    	}
 		}
-    	s_logger.info("compute inValue2["+inValue2+"]");
+    	logger.debug("compute inValue2[{}]", inValue2);
 
     	// Append the prefix if exists
     	String configPrefix = propertiesname;
@@ -113,7 +113,7 @@ public class IntMapping extends SCSStatusComputer {
     			}
     		}
     	}
-    	s_logger.info("compute configPrefix["+configPrefix+"]");
+    	logger.debug("compute configPrefix[{}]", configPrefix);
     	
     	// Find mapping
     	String outValue1 = null;
@@ -122,12 +122,12 @@ public class IntMapping extends SCSStatusComputer {
     		try {
     			keyToMap = configPrefix+mappingname+Integer.toString(inValue2);
     		} catch ( Exception e ) {
-    			s_logger.warn("compute Integer.toString Exception["+e.toString()+"]");
+    			logger.warn("compute Integer.toString Exception[{}]", e.toString());
     		}
-	    	s_logger.info("compute keyToMap["+keyToMap+"]");
+    		logger.debug("compute keyToMap[{}]", keyToMap);
 	    	outValue1 = mappings.get(keyToMap);
     	}
-    	s_logger.info("compute outValue1["+outValue1+"]");	
+    	logger.debug("compute outValue1[{}]", outValue1);	
     	
     	// Return value
     	StringAttribute ret = new StringAttribute();
@@ -135,9 +135,9 @@ public class IntMapping extends SCSStatusComputer {
         ret.setValid(true);
         ret.setTimestamp(new Date());
 
-        s_logger.info("compute outValue1["+outValue1+"]");
-        s_logger.info("compute ret.getValue()["+ret.getValue()+"]");
-        s_logger.info("compute End");
+        logger.debug("compute outValue1[{}]", outValue1);
+        logger.debug("compute ret.getValue()[{}]", ret.getValue());
+        logger.debug("compute End");
 		
 		return ret;
 

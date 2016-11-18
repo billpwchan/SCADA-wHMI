@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+    <p:bpsConfiguration name="testalarm" />
+
+	<!-- Set the subscription data source and filter criteria -->
+    <p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:transientDataSource>
+                <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType</sds:type>
+			</sds:transientDataSource>
+		</p:dataSource>
+		<p:criteria xsi:type="cmn:equals" status="listname">
+			<cmn:value>assignCamToMon</cmn:value>          
+        </p:criteria>
+	</p:subject>
+
+	<!-- Set the notification trigger condition and action -->
+    <p:trigger>
+		<p:criteria>
+			<p:computedStatusCriteria xsi:type="cmn:computeEquals" status="enable" statusComputer="com.thalesgroup.scadagen.bps.computers.OlsDecoder" >
+				<cmn:configProperty name="olsColumnName" value="enable" />
+				<cmn:value>1</cmn:value>
+			</p:computedStatusCriteria>
+        </p:criteria>
+        <p:action>
+            <p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.TVSScreenWallAction</p:actionHandler>
+            <p:actionConfig>ScreenwallApplySource</p:actionConfig>
+        </p:action>
+    </p:trigger>
+
+</p:bpsConfig>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:operationConfig xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/operation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common" xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/operation xsd/operationAction.xsd " operationConfigName="dbmWrite">
+
+  <!-- Operation configuration for ITMS point level value to SCS DB -->
+  <p:operation operationName="itms2scsdb">
+      <p:commandContent/>
+	  <p:configProperty name="writeStatus" value="computedStatus" />
+  </p:operation>
+  
+  <!-- Operation configuration for TVS equipment level value to SCS DB -->
+  <p:operation operationName="tvs2scsdb">
+      <p:commandContent/>
+	  <p:configProperty name="writeStatus" value="computedStatus" />
+	  <p:configProperty name="writeDate" value="computedDate" />
+  </p:operation>
+</p:operationConfig>

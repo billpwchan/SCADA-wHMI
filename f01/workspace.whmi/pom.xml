@@ -93,7 +93,6 @@
     <module>uitask-uitaskhistory</module>
     <module>uitask-uitasksplit</module>
     <module>uitask-uitaskmgr</module>
-    <module>uiscreen-uiscreen</module>
     <module>uiscreen-uiscreenmgr</module>
     <module>uiscreen-uiscreenempty</module>
     <module>uiscreen-uiscreenlogin</module>
@@ -101,20 +100,9 @@
     <module>uiscreen-uiscreenmmi</module>
     <module>uidialog-uidialogmsg</module>
     <module>uiinspector-uiinspector</module>
-    <module>uiview-uiview</module>
     <module>uiview-uiviewmgr</module>
-    <module>uiview-uiviewempty</module>
-    <module>uiview-uiviewpanel</module>
-    <module>uiview-uiviewimage</module>
-    <module>uipanel-uipanel</module>
-    <module>uipanel-uipanelmgr</module>
-    <module>uipanel-uipanelempty</module>
-    <module>uipanel-uipanelstatusbar</module>
     <module>uipanel-uipanelnavigation</module>
     <module>uipanel-uipanelviewlayout</module>
-    <module>uipanel-uipanelalarmbanner</module>
-    <module>uipanel-uipaneltoolbar</module>
-    <module>uipanel-uipanelview</module>
     <module>uiscreen-uiscreenroot</module>
     <module>uipanel-uipanelroot</module>
     <module>uiroot-uiroot</module>

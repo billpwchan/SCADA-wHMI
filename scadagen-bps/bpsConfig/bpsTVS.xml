@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+ 	<p:bpsConfiguration name="tvs_test" />
+
+ 	<p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<sds:id>camera-1</sds:id>
+				<sds:id>camera-2</sds:id>
+				<sds:id>camera-11</sds:id>
+				<sds:id>camera-12</sds:id>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+	</p:subject>
+
+	<p:trigger>
+		<p:action>
+			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.ActionDbmWrite</p:actionHandler>
+			<p:actionConfig>tvs2scsdb</p:actionConfig>
+		</p:action>
+	</p:trigger>
+</p:bpsConfig>

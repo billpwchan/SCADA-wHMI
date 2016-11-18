@@ -38,25 +38,25 @@ public class UILayoutEntryPoint extends UIWidget_i {
 				}
 				logger.info(className, function, "options IS NULL[{}]", null == options);
 
-				UIWidget_i uiWidget = null;
+				UIWidget_i uiWidget_i = null;
 
 				if ( UIWidgetUtil.getClassSimpleName(
 						UILayoutSummary.class.getName()).equals(uiCtrl) ) {
 					
-					uiWidget = new UILayoutSummary();
+					uiWidget_i = new UILayoutSummary();
 
 				}
 				
-				if ( null != uiWidget ) {
-					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setViewXMLFile(uiView);
-					uiWidget.setOptsXMLFile(uiOpts);
-					uiWidget.init();					
+				if ( null != uiWidget_i ) {
+					uiWidget_i.setUINameCard(uiNameCard);
+					uiWidget_i.setViewXMLFile(uiView);
+					uiWidget_i.setOptsXMLFile(uiOpts);
+					uiWidget_i.init();					
 				} else {
 					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
 				
-				return uiWidget;
+				return uiWidget_i;
 			}
 		});
 

@@ -3,8 +3,9 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.event.shared.EventBus;
@@ -35,6 +36,10 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 	private FilterEvent filterEvent = null;
 	public FilterEvent getFilterEvent() { return filterEvent; }
 	public void setFilterEvent(FilterEvent filterEvent) { this.filterEvent = filterEvent; }
+	
+	private CounterEvent counterEvent = null;
+	public CounterEvent getCounterEvent() { return counterEvent; }
+	public void setCounterEvent(CounterEvent counterEvent) { this.counterEvent = counterEvent; }
 
     /**
      * Used to know which entities are selected in the view
@@ -56,29 +61,48 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
         view_ = view;
     }
 
-    private LinkedList<String> filterColumns = new LinkedList<String>();
-    public LinkedList<String> getFilterColumns() { return filterColumns; }
+//    private LinkedList<String> filterColumns = new LinkedList<String>();
+    private Set<String> filterColumns = new LinkedHashSet<String>();
+    public Set<String> getFilterColumns() { return filterColumns; }
 
     @Override
     public void onFilterChange(final FilterChangeEventAbstract event) {
-		LOGGER.warn(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange BF");
+		LOGGER.trace(LOG_PREFIX  + "onFilterChange Begin");
     	super.onFilterChange(event);
-		if (event instanceof FilterSetEvent) {
-			final FilterSetEvent filterSetEvent = (FilterSetEvent) event;
-			filterColumns.add(filterSetEvent.getColumnName());
-		} else if (event instanceof FilterRemoveEvent) {
-			final FilterRemoveEvent filterRemoveEvent = (FilterRemoveEvent) event;
-			filterColumns.remove(filterRemoveEvent.getColumnName());
-		}
-		LOGGER.warn(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange CALLING");
-		ArrayList<String> columns = new ArrayList<String>(); 
-		for ( String column : filterColumns ) {
-			columns.add(column);
-		}
-		if ( null != filterEvent ) {
-			filterEvent.onFilterChange(columns);
-		}
-		LOGGER.warn(LOG_PREFIX  + " FilterChangeEventAbstract onFilterChange AF");
+    	if ( null != event ) {
+    		if (event instanceof FilterSetEvent) {
+    			final FilterSetEvent filterSetEvent = (FilterSetEvent) event;
+    			filterColumns.add(filterSetEvent.getColumnName());
+    			
+    			LOGGER.debug(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) event instanceof FilterSetEvent");
+    		} else if (event instanceof FilterRemoveEvent) {
+    			final FilterRemoveEvent filterRemoveEvent = (FilterRemoveEvent) event;
+    			filterColumns.remove(filterRemoveEvent.getColumnName());
+    			
+    			LOGGER.debug(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) event instanceof FilterRemoveEvent");
+    		}
+    		LOGGER.debug(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) call begin");
+    		
+    		// Dump
+    		LOGGER.debug(LOG_PREFIX  + "onFilterChange columns.size()["+filterColumns.size()+"]");
+    		for ( String filterColumn : filterColumns ) {
+    			LOGGER.debug(LOG_PREFIX  + "onFilterChange filterColumn["+filterColumn+"]");
+    		}
+    		
+    		ArrayList<String> columns = new ArrayList<String>(); 
+    		for ( String column : filterColumns ) {
+    			columns.add(column);
+    		}
+    		
+    		LOGGER.trace(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) call begin");
+    		if ( null != filterEvent ) {
+    			filterEvent.onFilterChange(columns);
+    		} else {
+            	LOGGER.warn(LOG_PREFIX+"onFilterChange filterEvent IS NULL");
+       	 	}
+    		LOGGER.trace(LOG_PREFIX  + "onFilterChange (FilterChangeEventAbstract) call end");
+    	}
+    	LOGGER.trace(LOG_PREFIX  + "onFilterChange End");
     }
 
     /**
@@ -90,10 +114,14 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      */
     @Override
     public void onSelectionChange(AlarmSelectionChangeEvent event) {
+    	LOGGER.trace(LOG_PREFIX+"onSelectionChange Begin");
         if (event.getSource() instanceof SituationViewPresenterClient) {
-        	LOGGER.warn(LOG_PREFIX+"call selection change");
             super.onSelectionChange(event);
+//            LOGGER.debug(LOG_PREFIX+"onSelectionChange (AlarmSelectionChangeEvent) call begin");
+//            LOGGER.debug(LOG_PREFIX+"onSelectionChange (AlarmSelectionChangeEvent) call end");
+            
         }
+        LOGGER.trace(LOG_PREFIX+"onSelectionChange End");
     }
 
     /**
@@ -103,21 +131,35 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     @Override
     protected void onSelectionChange(Set<EntityClient> selectedEntities) {
         super.onSelectionChange(selectedEntities);
-        LOGGER.warn(LOG_PREFIX+"selected filter");
-        Set<HashMap<String, String>> set = new HashSet<HashMap<String, String>>();
-        for ( EntityClient ec : selectedEntities ) {
-        	HashMap<String, String> details = new HashMap<String, String>();
-        	for ( String attributeName : ec.attributeNames() ) {
-        		LOGGER.warn(LOG_PREFIX+"attributeName["+attributeName+"] value[" + ec.getAttribute(attributeName).getValue().toString() + "]");	
-        		details.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
-        	}
-        	set.add(details);
+        LOGGER.trace(LOG_PREFIX+"onSelectionChange Begin");
+        if ( null != selectedEntities ) {
+        	
+//        	// Dump selectedEntities
+//            Set<HashMap<String, String>> set = new HashSet<HashMap<String, String>>();
+//            for ( EntityClient ec : selectedEntities ) {
+//            	HashMap<String, String> details = new HashMap<String, String>();
+//            	for ( String attributeName : ec.attributeNames() ) {
+//            		LOGGER.debug(LOG_PREFIX+"attributeName["+attributeName+"] value[" + ec.getAttribute(attributeName).getValue().toString() + "]");	
+//            	}
+//            }
+        	
+            Set<HashMap<String, String>> set = new HashSet<HashMap<String, String>>();
+            for ( EntityClient ec : selectedEntities ) {
+            	HashMap<String, String> details = new HashMap<String, String>();
+            	for ( String attributeName : ec.attributeNames() ) {
+             		details.put(attributeName, ec.getAttribute(attributeName).getValue().toString());
+            	}
+            	set.add(details);
+            }
+            LOGGER.debug(LOG_PREFIX+"onSelectionChange call begin");
+            if ( null != selectionEvent ) { 
+            	this.selectionEvent.onSelection(set);
+            } else {
+            	LOGGER.warn(LOG_PREFIX+"onSelectionChange selectionEvent IS NULL");
+       	 	}
+            LOGGER.debug(LOG_PREFIX+"onSelectionChange call end");
         }
-        LOGGER.warn(LOG_PREFIX+"call");
-        if ( null != selectionEvent ) { 
-        	this.selectionEvent.onSelection(set);
-        }
-        LOGGER.warn(LOG_PREFIX+"end");
+        LOGGER.trace(LOG_PREFIX+"onSelectionChange End");
     }
 
     /**
@@ -125,6 +167,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
      * @return the set of selected entities in the view
      */
     public Set<EntityClient> getSelectedEntities() {
+    	LOGGER.trace(LOG_PREFIX+"getSelectedEntities Begin");
         Set<EntityClient> selectedEntities = new HashSet<EntityClient>();
         List<EntityClient> visibleItems = view_.getInnerDataGrid().getVisibleItems();
         for (EntityClient entity : visibleItems) {
@@ -132,7 +175,43 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
                 selectedEntities.add(entity);
             }
         }
+        LOGGER.trace(LOG_PREFIX+"getSelectedEntities End");
         return selectedEntities;
+    }
+    
+    @Override
+    public void updateCounter(final Map<String, Integer> countersValue) {
+    	 super.updateCounter(countersValue);
+    	 LOGGER.trace(LOG_PREFIX+"updateCounter Begin");
+    	 if ( null != counterEvent ) {
+    		 
+//    		 // Dump countersValue
+//    		 if ( null != countersValue ) {
+//    			 LOGGER.warn(LOG_PREFIX+"updateCounter countersValue size["+countersValue.size()+"]");
+//    			 for ( Entry<String, Integer> keyValue : countersValue.entrySet() ) {
+//    				 if ( null != keyValue ) {
+//    					 String key = keyValue.getKey();
+//    					 LOGGER.warn(LOG_PREFIX+"updateCounter countersValue key["+key+"]");
+//    					 Integer value = keyValue.getValue();
+//    					 if ( null != value ) {
+//    						 String strValue = value.toString();
+//    	    				 LOGGER.warn(LOG_PREFIX+"updateCounter countersValue strValue["+strValue+"]");
+//    					 } else {
+//    						 LOGGER.warn(LOG_PREFIX+"updateCounter countersValue value IS NULL");
+//    					 }
+//    				 } else {
+//    					 LOGGER.warn(LOG_PREFIX+"updateCounter keyValue IS NULL");
+//    				 }
+//    			 }
+//    		 } else {
+//    			 LOGGER.warn(LOG_PREFIX+"updateCounter countersValue IS NULL");
+//    		 }
+    		 
+    		 counterEvent.onCounterChange(countersValue);
+    	 } else {
+    		 LOGGER.warn(LOG_PREFIX+"updateCounter counterEvent IS NULL");
+    	 }
+    	 LOGGER.trace(LOG_PREFIX+"updateCounter End");
     }
 
 }

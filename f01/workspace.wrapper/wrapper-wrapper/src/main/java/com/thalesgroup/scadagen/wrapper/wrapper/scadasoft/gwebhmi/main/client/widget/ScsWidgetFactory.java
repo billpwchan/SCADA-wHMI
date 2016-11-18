@@ -17,7 +17,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.widget.WidgetFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.view.zoom.strategy.IZoomStrategy;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsSituationViewPanelEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.util.ConfigurationConstantUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util.ConfigurationConstantUtil;
 
 /**
  * SCADAsoft custom WidgetFactory

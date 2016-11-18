@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.panels;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel;
 
 import java.util.ArrayList;
 import java.util.List;

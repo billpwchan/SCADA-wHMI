@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary;
 
 import java.util.HashMap;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.MwtEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
@@ -17,6 +16,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelection;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSwitch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBlackboard;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcManualOverrideControl;
@@ -161,7 +161,6 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 					
 					uiWidget = new ScsOlsListPanel();
-					uiWidget.setParameter(WidgetParameterName.MwtEventBus.toString(), new MwtEventBus());
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelection.class.getName())
@@ -176,6 +175,13 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 
 					uiWidget = new UIWidgetCSSSwitch();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetBlackboard.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget = new UIWidgetBlackboard();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetBox.class.getName())

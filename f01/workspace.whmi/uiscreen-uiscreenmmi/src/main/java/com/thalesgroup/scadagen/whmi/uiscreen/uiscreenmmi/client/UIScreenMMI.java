@@ -10,10 +10,10 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelVie
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAccessBar;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAlarmBanner;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAlarmBannerList;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelEmpty;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelSoundServerController;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelStatusBar;
@@ -30,7 +30,7 @@ public class UIScreenMMI extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
-	private UILayoutGeneric uiPanelGeneric = null;
+	private UILayoutGeneric uiLayoutGeneric = null;
 	
 	@Override
 	public void init() {
@@ -48,10 +48,12 @@ public class UIScreenMMI extends UIWidget_i {
 			})
 		);
 		
+		UIPanelNavigation.getInstance().resetInstance();
+		
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		
-//		uiWidgetMgr.clearUIWidgetFactorys();
-		uiWidgetMgr.addUIWidgetFactory("UIScreenMMI", new UIWidgetMgrFactory() {
+		uiWidgetMgr.clearUIWidgetFactorys();		
+		uiWidgetMgr.addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			
 			@Override
 			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, HashMap<String, Object> options) {
@@ -86,19 +88,9 @@ public class UIScreenMMI extends UIWidget_i {
 							uiWidget_i = new UIPanelAccessBar();
 
 						} else if (  UIWidgetUtil.getClassSimpleName(
-								UIPanelAlarmBanner.class.getName()).equals(uiCtrl) ) {
-							
-							uiWidget_i = new UIPanelAlarmBanner();
-
-						} else if (  UIWidgetUtil.getClassSimpleName(
 								UIPanelStatusBar.class.getName()).equals(uiCtrl) ) {
 							
 							uiWidget_i = new UIPanelStatusBar();
-
-						} else if (  UIWidgetUtil.getClassSimpleName(
-								UIPanelAlarmBannerList.class.getName()).equals(uiCtrl) ) {
-							
-							uiWidget_i = new UIPanelAlarmBannerList();
 
 						} else if (  UIWidgetUtil.getClassSimpleName(
 								UIPanelViewLayout.class.getName()).equals(uiCtrl) ) {
@@ -109,6 +101,16 @@ public class UIScreenMMI extends UIWidget_i {
 								UIPanelEmpty.class.getName()).equals(uiCtrl) ) {
 							
 							uiWidget_i = new UIPanelEmpty();
+
+						} else if ( UIWidgetUtil.getClassSimpleName(
+								UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UILayoutEntryPoint();
+							
+						} else if ( UIWidgetUtil.getClassSimpleName(
+								UILayoutSummary.class.getName()).equals(uiCtrl) ) {
+							
+							uiWidget_i = new UILayoutSummary();
 
 						}
 						
@@ -146,13 +148,14 @@ public class UIScreenMMI extends UIWidget_i {
 			}
 		});
 
-		uiPanelGeneric = new UILayoutGeneric();
-		uiPanelGeneric.setUINameCard(this.uiNameCard);
-		uiPanelGeneric.setViewXMLFile(viewXMLFile);
-		uiPanelGeneric.setOptsXMLFile(optsXMLFile);
-		uiPanelGeneric.init();
+
+		uiLayoutGeneric = new UILayoutGeneric();
+		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
+		uiLayoutGeneric.init();
 		
-		rootPanel = uiPanelGeneric.getMainPanel();
+		rootPanel = uiLayoutGeneric.getMainPanel();
 		
 		//Start the Navigation Menu
 		logger.info(className, function, "Start the Navigation Menu Begin");

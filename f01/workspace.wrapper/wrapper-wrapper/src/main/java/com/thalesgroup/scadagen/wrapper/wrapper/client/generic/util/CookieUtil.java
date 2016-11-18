@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.scadasoft.gwebhmi.main.client.util;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.util;
 
 import java.util.Date;
 

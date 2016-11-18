@@ -91,11 +91,11 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 		logger.end(className, function);
 	}
 
-	private UIViewEvent uiViewEvent = null;
+//	private UIViewEvent uiViewEvent = null;
 	@Override
 	public void setUIViewEvent(UIViewEvent uiViewEvent) {
-		if ( null != uiViewEvent ) {
-			this.uiViewEvent = uiViewEvent;
-		}
+//		if ( null != uiViewEvent ) {
+//			this.uiViewEvent = uiViewEvent;
+//		}
 	}
 }

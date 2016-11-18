@@ -1,9 +1,6 @@
 
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;

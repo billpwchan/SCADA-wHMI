@@ -4,7 +4,7 @@ call LoadPath.bat
 
 echo delete war file...
 
-set PATH_FOLDER="%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\webapps\scadagen-f02-webapp-generic"
+set PATH_FOLDER="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\webapps\scadagen-f02-webapp-generic"
 set PATH_WAR="%PATH_FOLDER%.war"
 
 echo DELETE 

@@ -9,7 +9,6 @@ SET _time=%time::=.%
 SET _folder="C:\1166B.source\%_YYYY%.%_MM%.%_DD%.%_time%"
 SET _folderlogs=%_folder%\logs
 
-
 ECHO _folder=%_folder% 
 ECHO _folderlogs=%_folderlogs%
 
@@ -23,8 +22,8 @@ SET _F01_WHMI_UIWIDGET="%_1166B%\f01\workspace.whmi.uiwidget"
 SET _F01_WRAPPER="%_1166B%\f01\workspace.wrapper"
 SET _F02_WEBAPP="%_1166B%\f02\workspace.webapp\mywebapp"
 
-SET _E02="%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\conf\e02-resources-current"
-SET _P01="%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\conf\p01-func-current"
+SET _E02="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\e02-resources-current"
+SET _P01="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\p01-func-current"
 
 ECHO _F01_WEBAPPFUNC=%_F01_WEBAPPFUNC%
 ECHO _F01_WHMI=%_F01_WHMI%

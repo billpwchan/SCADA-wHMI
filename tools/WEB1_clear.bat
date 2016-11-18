@@ -1,3 +1,3 @@
 call LoadFolder.bat
 
-call %scstraning_loc%\scspaths\WEBAPP\clean.bat
+call %scstraning_loc%\scspaths\%_WEBAPP%\clean.bat

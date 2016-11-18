@@ -4,7 +4,7 @@ call LoadPath.bat
 
 echo delete war file...
 
-set PATH_FOLDER="%scstraning_loc%\scspaths\WEBAPP\apache-tomcat%TOMCAT_VER%\conf\scadagen-f01-webapp-func"
+set PATH_FOLDER="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\scadagen-f01-webapp-func"
 set PATH_FILES="%PATH_FOLDER%\*"
 
 echo DELETE %PATH_FILES%

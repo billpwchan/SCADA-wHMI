@@ -18,7 +18,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcTagControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -28,12 +28,12 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.ValidityStatus;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
-public class UIWidgetDpcControl extends UIWidget_i {
+public class UIWidgetDpcTagControl extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDpcControl.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDpcTagControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 	= null;
@@ -83,11 +83,13 @@ public class UIWidgetDpcControl extends UIWidget_i {
 							@Override
 							public boolean executeHandler(UIEventAction uiEventAction) {
 								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+								String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+								String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 								
 								logger.info(className, function, "os1[{}]", os1);
 								
 								if ( null != os1 ) {
-									if ( os1.equals("SendDpcInhibitControl") ) {
+									if ( os1.equals("SendDpcTagControl") ) {
 								
 										for ( HashMap<String, String> hashMap : selectedSet ) {
 											String selectedAlias = hashMap.get(columnAlias);
@@ -106,16 +108,22 @@ public class UIWidgetDpcControl extends UIWidget_i {
 											
 											WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
 											
-											ValidityStatus validityStatus = ValidityStatus.NO_ALARM_INHIBIT_VAR;
+											TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
 											if ( WidgetStatus.Down == curStatusSet ) {
-												validityStatus = ValidityStatus.ALARM_INHIBIT_VAR;
+												taggingStatus = TaggingStatus.ALL_TAGGING;
 											}
 				
-											String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + validityStatus.toString() + "_" + alias;
+											String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + taggingStatus.toString() + "_" + alias;
 												
+											String taggingLabel1 = "";
+											String taggingLabel2 = "";
+											
+											if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
+											if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
+											
 											logger.info(className, function, "key[{}]", key);
 											
-											dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, validityStatus);
+											dpcMgr.sendChangeEqpTag(key, scsEnvId, alias, taggingStatus, taggingLabel1, taggingLabel2);
 				
 										}
 									}
@@ -203,7 +211,7 @@ public class UIWidgetDpcControl extends UIWidget_i {
 			logger.end(className, function);
 		}
 	};
-	
+		
 	@Override
 	public void init() {
 		final String function = "init";

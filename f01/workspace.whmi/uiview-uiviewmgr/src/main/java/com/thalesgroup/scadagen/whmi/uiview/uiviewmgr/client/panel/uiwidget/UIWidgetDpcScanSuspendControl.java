@@ -101,7 +101,7 @@ public class UIWidgetDpcScanSuspendControl extends UIWidget_i {
 												
 												logger.info(className, function, "alias BF [{}]", alias);
 												
-												alias = "<alias>" + selectedAlias;
+												if ( ! selectedAlias.startsWith("<alias>") ) alias = "<alias>" + selectedAlias;
 												
 												logger.info(className, function, "alias AF [{}]", alias);
 												

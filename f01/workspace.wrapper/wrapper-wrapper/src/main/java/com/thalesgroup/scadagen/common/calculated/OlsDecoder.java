@@ -1,23 +1,40 @@
 package com.thalesgroup.scadagen.common.calculated;
 
-import java.io.IOException;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 
 public abstract class OlsDecoder extends SCSStatusComputer {
+	
+	protected Logger logger					= null;
+	
+	protected String logPrefix				= null;
+	
+//	protected String classname				= null;
 
 	public static ObjectMapper s_json_mapper = null;
 	
+	protected final String listname1		= "listname";
+	
+	protected final String fieldname1		= ".fieldname1";
+
+	protected String field1					= null;
+	
+	protected Map<String, String> mappings	= new HashMap<String, String>();
+	
     public OlsDecoder() {
+    	
+    	logger = LoggerFactory.getLogger(OlsDecoder.class.getName());
+    	
+    	logPrefix = this.getClass().getSimpleName();
+    	
         m_statusSet.add("data");
         if (s_json_mapper == null) {
         	s_json_mapper = new ObjectMapper();
@@ -27,43 +44,30 @@ public abstract class OlsDecoder extends SCSStatusComputer {
             s_json_mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         }
     }
-
+    
     @Override
     public AttributeClientAbstract<?> compute(OperatorOpmInfo operatorOpmInfo, String entityId,
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     {
-        // prepare default response
-    	StringAttribute ret = new StringAttribute();
-        ret.setAttributeClass(StringAttribute.class.getName());
-        ret.setValue("");
-        ret.setValid(true);
-        ret.setTimestamp(new Date());
-        
-        // get value of data
-        AttributeClientAbstract<?> dataobj = inputStatusByName.get("data");
-        StringAttribute jsdata = (dataobj instanceof StringAttribute ? (StringAttribute) dataobj : null);
-
-        if (jsdata != null) {
-            String data = jsdata.getValue();
-            // decode json
-            ObjectNode root = null;
-			try {
-				root = (ObjectNode) s_json_mapper.readTree(data);
-				JsonNode v = root.get(m_name);
-	            ret.setValue(v.asText());
-	            ret.setValid(true);
-	            ret.setTimestamp(new Date());
-			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+    	
+		if ( logger.isDebugEnabled() ) {
+			
+			logger.debug("[{}] inputStatusByName keys...");
+			for ( String key : inputStatusByName.keySet() ) {
+				logger.debug("[{}] inputStatusByName.keySet() key[{}]", new Object[]{logPrefix, key});
 			}
-        }
-
-        return ret;
+			
+			logger.debug("[{}] mappings keys...");
+			for ( String key : mappings.keySet() ) {
+				logger.debug("[{}] mappings.keySet() key[{}]", new Object[]{logPrefix, key});
+			}
+		}
+    	
+    	// get value of data
+    	AttributeClientAbstract<?> dataobj = inputStatusByName.get("data");
+    	
+    	return dataobj;
     }
 
 }

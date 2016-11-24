@@ -2,9 +2,9 @@ package com.thalesgroup.scadagen.calculated;
 
 import com.thalesgroup.scadagen.common.calculated.GDGColumn;
 
-public class GDGColumn28 extends GDGColumn {
+public class GDGColumn12 extends GDGColumn {
 
-	public GDGColumn28 () {
+	public GDGColumn12 () {
 		super();
 		
 		classname = this.getClass().getSimpleName();

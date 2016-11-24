@@ -51,9 +51,13 @@ public class UIWidgetDpcTagControl extends UIWidget_i {
 	private String valueSet				= "";
 	private String valueUnSet			= "";
 	
+	private final String strEMPTY				= "";
+	
 	private final String strSet					= "set";
 //	private final String strUnSet				= "unset";
 //	private final String strApply				= "apply";
+	
+	private final String strTextValue			= "txtvalue";
 
 	private Set<HashMap<String, String>> selectedSet = null;
 	
@@ -84,7 +88,6 @@ public class UIWidgetDpcTagControl extends UIWidget_i {
 							public boolean executeHandler(UIEventAction uiEventAction) {
 								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 								String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
-								String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 								
 								logger.info(className, function, "os1[{}]", os1);
 								
@@ -110,16 +113,31 @@ public class UIWidgetDpcTagControl extends UIWidget_i {
 											
 											TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
 											if ( WidgetStatus.Down == curStatusSet ) {
-												taggingStatus = TaggingStatus.ALL_TAGGING;
+												taggingStatus = TaggingStatus.TAGGING_1;
+												if ( null != os2 && os2.length() > 0 ) {
+													if ( os2.equalsIgnoreCase(
+															Integer.toString(TaggingStatus.ALL_TAGGING.getValue()) ) ) {
+														taggingStatus = TaggingStatus.ALL_TAGGING;
+													} else if ( os2.equalsIgnoreCase(
+															Integer.toString(TaggingStatus.TAGGING_1.getValue()) ) ) {
+														taggingStatus = TaggingStatus.TAGGING_1;
+													} else if ( os2.equalsIgnoreCase(
+															Integer.toString(TaggingStatus.TAGGING_2.getValue()) ) ) {
+														taggingStatus = TaggingStatus.TAGGING_2;
+													}
+												}
 											}
 				
 											String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + taggingStatus.toString() + "_" + alias;
 												
-											String taggingLabel1 = "";
-											String taggingLabel2 = "";
+											String taggingLabel1 = strEMPTY;
+											String taggingLabel2 = strEMPTY;
 											
-											if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
-											if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
+//											if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
+//											if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
+											
+											taggingLabel1 = uiWidgetGeneric.getWidgetValue(strTextValue);
+											uiWidgetGeneric.setWidgetValue(strTextValue, strEMPTY);
 											
 											logger.info(className, function, "key[{}]", key);
 											

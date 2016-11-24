@@ -701,6 +701,49 @@ public class UIWidgetGeneric extends UIWidget_i {
     	logger.end(className, function);
     }
     
+    @Override
+    public String getWidgetValue(String element) {
+    	final String function = "getWidgetValue";
+  
+    	logger.begin(className, function);
+    	
+    	String value = null;
+    	
+		int index = getElementIndex(WidgetAttribute.element, element);
+		
+		Widget w = this.widgets.get(index);
+		
+		if ( index >= 0 && index < this.widgets.size() ) {
+			
+			if ( null != w ) {
+				
+				HashMap<String, String> valueMap = this.values.get(index);
+				String widget		= valueMap.get(WidgetAttribute.widget.toString());
+
+				if ( WidgetType.RadioButton.equalsName(widget) ) {
+					value = ((RadioButton)w).getValue().toString();
+				} else if ( WidgetType.TextBox.equalsName(widget) ) {
+					value = ((TextBox)w).getText();
+				} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
+					value = ((InlineLabel)w).getText();
+				} else if ( WidgetType.Image.equalsName(widget) ) {
+					value = ((Image)w).getUrl();
+				} else {
+					logger.warn(className, function, "WidgetType IS NULL");
+				}
+				
+			} else {
+				logger.debug(className, function, "widget IS NULL");
+			}
+		} else {
+			logger.warn(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
+		}
+    	
+    	logger.end(className, function);
+    	
+    	return value;
+    }
+    
 	@Override
 	public void setWidgetValue (String element, String value) {
 		final String function = "setWidgetValue";

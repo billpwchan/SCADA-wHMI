@@ -173,10 +173,10 @@ public class ScsOlsListPanel extends UIWidget_i {
      */
     private void initDataGridView() {
     	
-    	final String strCssPrefix = listConfigId_+" "+"CSS_OLS_LIST";
+    	final String strCssPrefix = "OLS_LIST_";
     	
-    	final String strCssResultInValid	= strCssPrefix+"_INVALID";
-    	final String strCssResultNormal		= strCssPrefix+"_NORMAL";
+    	final String strCssResultInValid	= strCssPrefix+listConfigId_+"_INVALID";
+    	final String strCssResultNormal		= strCssPrefix+listConfigId_+"_NORMAL";
     	
         gridView_ = new ScsGenericDataGridView();
         // Customize CSS class according to the alarm state
@@ -187,7 +187,7 @@ public class ScsOlsListPanel extends UIWidget_i {
             	
             	if ( colorMode ) {
 
-            		String strCssResult = strCssPrefix;
+            		String strCssResult = strCssPrefix + listConfigId_;
             		
             		java.util.Iterator<String> it = attributes.iterator();
             		while ( it.hasNext() ) {
@@ -205,7 +205,7 @@ public class ScsOlsListPanel extends UIWidget_i {
                          
                          LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"] gdgValue["+gdgValue+"]");
                          
-                         strCssResult += "_"+ gdgValue;
+                         strCssResult += " " + strCssPrefix + strGDGAttribute + "_"+ gdgValue;
             		}
 
                     LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strCssResult["+strCssResult+"]");

@@ -8,4 +8,5 @@ public interface RTDB_i {
 	public final String strCSSStatusGrey		= "project-gwt-inlinelabel-inspector-info-status-grey";
 	
 	final int intMO = 2, intAI = 8, intSS = 512;
+
 }

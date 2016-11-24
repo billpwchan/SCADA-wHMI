@@ -21,6 +21,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcManualOverrideControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcTagControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBox;
@@ -126,6 +127,13 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 					
 					uiWidget = new UIWidgetDpcControl();
+
+				}  else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetDpcTagControl.class.getName())
+						.equals(uiCtrl)
+						) {
+					
+					uiWidget = new UIWidgetDpcTagControl();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcScanSuspendControl.class.getName())

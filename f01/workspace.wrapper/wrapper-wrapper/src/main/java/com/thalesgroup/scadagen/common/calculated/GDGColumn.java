@@ -1,13 +1,20 @@
 package com.thalesgroup.scadagen.common.calculated;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 
 public abstract class GDGColumn extends OlsDecoder {
 	
@@ -17,12 +24,8 @@ public abstract class GDGColumn extends OlsDecoder {
 	
 	protected String classname				= null;
 	
-	protected final String fieldname1		= ".fieldname1";
+	protected String fieldName				= null;
 
-	protected String field1					= null;
-	
-	protected Map<String, String> mappings	= new HashMap<String, String>();
-	
 	@Override
 	public String getComputerId() {
 		return classname;
@@ -33,7 +36,7 @@ public abstract class GDGColumn extends OlsDecoder {
 	 */
 	protected void loadCnf() {
 
-		logger = LoggerFactory.getLogger(GDGMessage.class.getName());
+		logger = LoggerFactory.getLogger(GDGColumn.class.getName());
 		
 		classname = this.getClass().getSimpleName();
 		
@@ -47,18 +50,73 @@ public abstract class GDGColumn extends OlsDecoder {
 			int classNameLength = classname.length();
 			// Load all setting with class prefix into buffer
 			for ( String key : properties.keySet() ) {
+//				logger.debug("[{}] properties.keySet() key[{}]", new Object[]{logPrefix, key});
 				if ( key.startsWith(classname) ) {
 					String keyname = key.substring(classNameLength);
 					mappings.put(keyname, properties.get(key));
+//					logger.debug("[{}] keyname[{}] properties.get(key)[{}]", new Object[]{logPrefix, keyname, properties.get(key)});
 				}
 			}
+		} else {
+			logger.warn("[{}] properties IS NULL", logPrefix);
 		}
 		
-		field1			= mappings.get(fieldname1);
+		m_name = classname;
 		
-		logger.debug("[{}] fieldname1[{}] field1[{}]", new Object[]{logPrefix,fieldname1,field1});
-		
-		m_name = field1;
+		logger.debug("[{}] m_name[{}] classname[{}]", new Object[]{logPrefix, m_name, classname});
+
 	}
+	
+    @Override
+    public AttributeClientAbstract<?> compute(OperatorOpmInfo operatorOpmInfo, String entityId,
+            Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
+
+    {
+        AttributeClientAbstract<?> dataobj = super.compute(operatorOpmInfo, entityId, inputStatusByName, inputPropertiesByName);
+        
+        StringAttribute jsdata = (dataobj instanceof StringAttribute ? (StringAttribute) dataobj : null);
+        
+        String dataValue = null;
+
+        if (jsdata != null) {
+            String data = jsdata.getValue();
+            // decode json
+            ObjectNode root = null;
+			try {
+				root = (ObjectNode) s_json_mapper.readTree(data);
+
+				String listname = getListName(entityId);
+				logger.debug("[{}] entityId[{}] listname[{}]", new Object[]{logPrefix, entityId, listname});
+
+				String fieldname1key = getFieldKey(listname, fieldname1);
+				logger.debug("[{}] listname[{}] fieldname1[{}] fieldname1key[{}]", new Object[]{logPrefix, listname, fieldname1, fieldname1key});
+				
+				fieldName = mappings.get(fieldname1key);
+				logger.debug("[{}] fieldname1key[{}] fieldName[{}]", new Object[]{logPrefix, fieldname1key, fieldName});
+			
+				JsonNode v = root.get(fieldName);
+	            
+				dataValue = v.asText();
+				
+				logger.debug("[{}] dataValue[{}]", new Object[]{logPrefix, dataValue});
+
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+
+        // prepare default response
+    	StringAttribute ret = new StringAttribute();
+        ret.setAttributeClass(StringAttribute.class.getName());
+        ret.setValue( (dataValue!=null?dataValue:"") );
+        ret.setValid(true);
+        ret.setTimestamp(new Date());
+        
+        return ret;
+    }
 
 }

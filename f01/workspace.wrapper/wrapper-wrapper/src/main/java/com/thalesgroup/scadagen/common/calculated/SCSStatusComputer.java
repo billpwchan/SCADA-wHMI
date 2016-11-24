@@ -24,5 +24,19 @@ public abstract class SCSStatusComputer implements StatusComputer {
     public Set<String> getInputProperties() {
         return m_propertySet;
     }
-
+    
+    protected String getFieldKey(String listName, String field) {
+    	return "." + listName + field;
+    }
+    
+    protected String getListName(String entityId) {
+    	String listName = null;
+    	if ( null != entityId ) {
+    		String entityIds[] = entityId.split("\\.");
+    		if ( null != entityIds && entityIds.length > 0 ) {
+    			listName = entityIds[0];
+    		}
+    	}
+    	return listName;
+    }
 }

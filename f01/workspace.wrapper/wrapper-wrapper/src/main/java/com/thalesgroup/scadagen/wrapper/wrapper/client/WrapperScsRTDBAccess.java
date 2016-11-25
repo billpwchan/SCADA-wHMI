@@ -6,9 +6,6 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
@@ -362,23 +359,11 @@ public class WrapperScsRTDBAccess {
 			logger.log(Level.SEVERE, "performMultiReadValueRequest dbaddresses("+i+")["+dbaddresses[i]+"]");
 		}
 
-		JSONObject jsparam = new JSONObject();
-		
-		// build dbaddress param with a list of address
-		JSONArray addr = new JSONArray();
-		for(int i = 0; i < dbaddresses.length; ++i) {
-			addr.set(i, new JSONString(dbaddresses[i]));
-		}
-		
-		jsparam.put("dbaddress", addr);
-		
-		JSONObject jsdata = this.rtdb.buildJSONRequest("multiReadValue", jsparam);
-		
 		waitingMultiRead = true;
 		
 		reading.add(readRequest);
 		
-		this.rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+		this.rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
 		
 		logger.log(Level.SEVERE, "performMultiReadValueRequest End");
     }
@@ -532,19 +517,12 @@ public class WrapperScsRTDBAccess {
 		String[] dbaddresses = readRequest.dbaddresses;
 		
 		String dbaddress = dbaddresses[0];
-    	
-		JSONObject jsparam = new JSONObject();
-		
-		// build param list
-		jsparam.put("dbaddress", new JSONString(dbaddress));
-		
-		JSONObject jsdata = this.rtdb.buildJSONRequest("GetChildren", jsparam);
 		    
 		getChildrens.add(readRequest);
 		
 		waitingChildren = true;
 		
-		this.rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());    	
+		this.rtdb.getChildren(clientKey, scsEnvId, dbaddress);
     }
     
     private void setGetChildrenResponse(String clientKey, String[] instances, int errorCode, String errorMessage) {

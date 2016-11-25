@@ -5,14 +5,14 @@
     <parent>
         <groupId>com.thalesgroup.hv.mwt</groupId>
         <artifactId>mwt</artifactId>
-        <version>3.5.0_P03</version>
+        <version>3.7.0</version>
     </parent>
 
     <properties>
         <myproject.version>1.2.5</myproject.version>
-        <scadasoft.model.version>6.2.4.5</scadasoft.model.version>
-        <scadasoft.version>6.2.4.5</scadasoft.version>
-        <hv.common.integ.version>1.8.0_P03</hv.common.integ.version>
+        <scadasoft.model.version>6.3.1</scadasoft.model.version>
+        <scadasoft.version>6.3.1</scadasoft.version>
+        <hv.common.integ.version>1.10.0</hv.common.integ.version>
 
         <jettyVersion>8.1.16.v20140903</jettyVersion>
         <jetty.port>8081</jetty.port>

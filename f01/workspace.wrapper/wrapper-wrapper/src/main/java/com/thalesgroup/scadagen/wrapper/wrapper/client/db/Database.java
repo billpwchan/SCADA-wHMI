@@ -2,9 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
+
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
@@ -547,15 +545,8 @@ public class Database {
 								String dbaddress = jsonRequest.dbaddress;
 								
 								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
-						    	
-								JSONObject jsparam = new JSONObject();
 								
-								// build param list
-								jsparam.put("dbaddress", new JSONString(dbaddress));
-								
-								JSONObject jsdata = rtdb.buildJSONRequest(api, jsparam);
-								    
-								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+								rtdb.getChildren(clientKey, scsEnvId, dbaddress);
 								
 							} else if ( strMultiReadValue.equals(jsonRequest.api) ) {
 								
@@ -566,19 +557,7 @@ public class Database {
 								
 								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 								
-								JSONObject jsparam = new JSONObject();
-								
-								// build dbaddress param with a list of address
-								JSONArray addr = new JSONArray();
-								for(int i = 0; i < dbaddresses.length; ++i) {
-									addr.set(i, new JSONString(dbaddresses[i]));
-								}
-								
-								jsparam.put("dbaddress", addr);
-								
-								JSONObject jsdata = rtdb.buildJSONRequest(api, jsparam);
-
-								rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+								rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
 							}
 
 							logger.end(className, function+" sendJSONRequest");
@@ -596,24 +575,8 @@ public class Database {
 							String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
 							
 							KeyAndAddress.put(clientKey, dbaddresses);
-									
-							String api = "multiReadValue";
-		
-							logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
-									
-							JSONObject jsparam = new JSONObject();
-									
-							// build dbaddress param with a list of address
-							JSONArray addr = new JSONArray();
-							for(int i = 0; i < dbaddresses.length; ++i) {
-								addr.set(i, new JSONString(dbaddresses[i]));
-							}
-									
-							jsparam.put("dbaddress", addr);
-									
-							JSONObject jsdata = rtdb.buildJSONRequest(api, jsparam);
 
-							rtdb.sendJSONRequest(clientKey, scsEnvId, jsdata.toString());
+							rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
 						}
 					}
 				}

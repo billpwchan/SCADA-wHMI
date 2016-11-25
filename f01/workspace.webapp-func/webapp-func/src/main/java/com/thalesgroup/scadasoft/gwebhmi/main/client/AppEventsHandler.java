@@ -20,9 +20,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.Navig
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.NavigationSelectionEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.TimeSeriesNavigationEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.TimeSeriesNavigationEvent.TimeSeriesNavigationHandler;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.chart.timeseries.panel.TimeSeriesPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.IClientLifeCycle;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.tools.MwtUidGenerator;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.event.OpenSituationViewEvent;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.event.OpenSituationViewEventHandler;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.layout.AppPanel;
@@ -222,15 +220,15 @@ public class AppEventsHandler implements NavigationActivationHandler, IClientLif
 
     @Override
     public void onTimeSeriesNavigationEvent(TimeSeriesNavigationEvent event) {
-        final String navId = MwtUidGenerator.createPanelUid(event.getTitle());
-        final Widget widget = new TimeSeriesPanel(event.getTitle(), event.getChartConf(), event.getSeries(),
-            event.getTimeRange(), event.getRefreshPeriod());
-        final String caption = event.getTitle();
-        
-        if (widget != null) {
-            m_panelsContainer.add(widget, caption, true);
-            m_navIdPerWidgetMap.put(widget, caption);
-        }
+//        final String navId = MwtUidGenerator.createPanelUid(event.getTitle());
+//        final Widget widget = new TimeSeriesPanel(event.getTitle(), event.getChartConf(), event.getSeries(),
+//            event.getTimeRange(), event.getRefreshPeriod());
+//        final String caption = event.getTitle();
+//        
+//        if (widget != null) {
+//            m_panelsContainer.add(widget, caption, true);
+//            m_navIdPerWidgetMap.put(widget, caption);
+//        }
         
     }
 }

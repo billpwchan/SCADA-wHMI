@@ -1,16 +1,16 @@
 package com.thalesgroup.scadagen.whmi.config.confignav.server;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -37,7 +37,11 @@ public class ReadConfigXML implements ReadConfigInterface {
             factory.setIgnoringElementContentWhitespace (true);
             factory.setValidating (false);
             DocumentBuilder builder = factory.newDocumentBuilder ();
-            Document document = builder.parse (path);
+            
+            // Pass File object instead of URI to DocumentBuilder to handle "##" in path
+            File f = new File(path);
+
+            Document document = builder.parse (f);
             
             document.getDocumentElement().normalize();
             
@@ -82,10 +86,13 @@ public class ReadConfigXML implements ReadConfigInterface {
         	}
 
 		} catch (ParserConfigurationException e) {
-			logger.warn("\nParserConfigurationException:" + e.toString());
+			logger.warn("\nParserConfigurationException: {}", e.toString());
 			e.printStackTrace();
 		} catch (SAXException | IOException e) {
-			logger.warn("\nSAXException | IOException e" + e.toString());
+			logger.warn("\nSAXException | IOException: {}", e.toString());
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			logger.warn("\nNullPointerException: {}", e.toString());
 			e.printStackTrace();
 		}
 		

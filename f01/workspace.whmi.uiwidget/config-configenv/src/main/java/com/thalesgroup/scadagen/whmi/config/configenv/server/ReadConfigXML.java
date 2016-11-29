@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.config.configenv.server;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,11 @@ public class ReadConfigXML implements ReadConfigInterface {
             factory.setIgnoringElementContentWhitespace (true);
             factory.setValidating (false);
             DocumentBuilder builder = factory.newDocumentBuilder ();
-            Document document = builder.parse (path);
+            
+            // Pass File object instead of URI to DocumentBuilder to handle "##" in path
+            File f = new File(path);
+
+            Document document = builder.parse (f);
             
             document.getDocumentElement().normalize();
             
@@ -85,10 +90,13 @@ public class ReadConfigXML implements ReadConfigInterface {
         	}
 
 		} catch (ParserConfigurationException e) {
-			logger.debug("getDictionary ParserConfigurationException:" + e.toString());
+			logger.warn("getDictionary ParserConfigurationException: {}", e.toString());
 			e.printStackTrace();
 		} catch (SAXException | IOException e) {
-			logger.debug("getDictionary SAXException | IOException e" + e.toString());
+			logger.warn("getDictionary SAXException | IOException: {}", e.toString());
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			logger.warn("getDictionary NullPointerException: {}", e.toString());
 			e.printStackTrace();
 		}
 		

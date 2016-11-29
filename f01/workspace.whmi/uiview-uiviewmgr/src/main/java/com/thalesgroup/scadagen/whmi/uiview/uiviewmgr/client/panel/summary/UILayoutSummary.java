@@ -33,6 +33,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UILayoutSummary extends UIWidget_i {
 
@@ -85,7 +86,7 @@ public class UILayoutSummary extends UIWidget_i {
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
 			public String getMessage(String message) {
-				// message = Translation.getWording(message);
+				message = Translation.getWording(message);
 				return message;
 			}
 		});

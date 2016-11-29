@@ -198,13 +198,6 @@ public class UIWidgetViewer extends UIWidget_i {
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 		
-		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
-			@Override
-			public String getMessage(String message) {
-				return message;
-			}
-		});
-		
 		uiLayoutGeneric = new UILayoutGeneric();
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);

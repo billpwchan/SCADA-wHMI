@@ -8,6 +8,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -18,47 +20,17 @@ import org.xml.sax.SAXException;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 
 public class ReadConfigXML implements ReadConfigInterface {
-	private final String className = "ReadConfigXML";
-	private final String logPrefix = "["+className+"]";
 	
-//	@Override
-//	public List<String> getTags(String path) {
-//		final String function = "getTags";
-//		List<String> configs = new ArrayList<String>();
-//		try {
-//            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
-//            factory.setIgnoringComments (true);
-//            factory.setIgnoringElementContentWhitespace (true);
-//            factory.setValidating (false);
-//            DocumentBuilder builder = factory.newDocumentBuilder ();
-//            Document document = builder.parse (path);
-//		    NodeList nodeList = document.getElementsByTagName("*");
-//		    for (int i = 0; i < nodeList.getLength(); i++) {
-//		        Node node = nodeList.item(i);
-//		        if (node.getNodeType() == Node.ELEMENT_NODE) {
-//		        			        	
-//		            System.out.println(node.getNodeName());
-//		            configs.add(node.getNodeName());
-//		        }
-//		    }
-//		} catch (ParserConfigurationException e) {
-//			System.out.println(logPrefix+function+" \nParserConfigurationException:" + e.toString());
-//			e.printStackTrace();
-//		} catch (SAXException | IOException e) {
-//			System.out.println(logPrefix+function+" \nSAXException | IOException e" + e.toString());
-//			e.printStackTrace();
-//		}
-//		return configs;
-//	}
+	private Logger logger					= LoggerFactory.getLogger(ReadConfigXML.class.getName());
+	
 	@Override
 	public List<Dictionary> getDictionary(String path) {
 		return getDictionary( path, null);
 	}
 	@Override
 	public List<Dictionary> getDictionary(String path, String elm) {
-		final String function = "getDictionary";
-		System.out.println(logPrefix+function+" Begin");
-		System.out.println(logPrefix+function+" Reading from the path["+path+"] elm["+elm+"]");
+		logger.debug("Begin");
+		logger.debug("Reading from the path[{}] elm[{}]", path, elm);
 		
 		List<Dictionary> dictionarys = new ArrayList<Dictionary>();
 
@@ -90,7 +62,7 @@ public class ReadConfigXML implements ReadConfigInterface {
         				String key = attr.getNodeName();
         				String value = attr.getNodeValue();
         				
-//System.out.println(logPrefix+function+" getDictionary key[" + key + "] value[" + value + "]");
+//logger.debug("getDictionary key[" + key + "] value[" + value + "]");
 						config.setAttribute(key, value);
         			}
         			
@@ -102,7 +74,7 @@ public class ReadConfigXML implements ReadConfigInterface {
 	        				String name = node.getNodeName();
 	        				String content = node.getTextContent();
 
-//System.out.println(logPrefix+function+" getDictionary name[" + name + "] content[" + content + "]");						
+//logger.debug("getDictionary name[" + name + "] content[" + content + "]");						
 
 							config.addValue(name, content);
 		                    dictionarys.add(config);
@@ -113,14 +85,14 @@ public class ReadConfigXML implements ReadConfigInterface {
         	}
 
 		} catch (ParserConfigurationException e) {
-			System.out.println(logPrefix+function+" getDictionary ParserConfigurationException:" + e.toString());
+			logger.debug("getDictionary ParserConfigurationException:" + e.toString());
 			e.printStackTrace();
 		} catch (SAXException | IOException e) {
-			System.out.println(logPrefix+function+" getDictionary SAXException | IOException e" + e.toString());
+			logger.debug("getDictionary SAXException | IOException e" + e.toString());
 			e.printStackTrace();
 		}
 		
-		System.out.println(logPrefix+function+" End");
+		logger.debug("End");
 		
 		return dictionarys;
 	}

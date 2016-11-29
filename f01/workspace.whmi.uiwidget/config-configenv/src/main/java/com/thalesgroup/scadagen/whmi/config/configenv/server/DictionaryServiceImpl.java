@@ -11,21 +11,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The server-side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
 public class DictionaryServiceImpl extends RemoteServiceServlet implements DictionaryService {
 	
-	private final String className = "DictionaryServiceImpl";
-	private final String logPrefix = "["+className+"] ";
+	private Logger logger					= LoggerFactory.getLogger(DictionaryServiceImpl.class.getName());
 
 	public Dictionary dictionaryServer(String mode, String module, String folder, String xmlFile, String tag) {
-		final String function = "dictionaryServer";
 		
-		System.out.println(logPrefix+function+" Begin");
+		logger.debug("Begin");
 		
-		System.out.println(logPrefix+function+" module["+module+"] ["+xmlFile+"] tag["+tag+"]");
+		logger.debug("module[{}] [{}] tag[{}]", new Object[]{module, xmlFile, tag});
 		
 		Dictionary dictionary = new Dictionary();
 		
@@ -33,16 +34,16 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 		
 			if ( null == module ) {
 				module = getServletContext().getInitParameter("project.dictionary.module");
-	//			System.out.println(logPrefix+function+" module["+module+"]");
+	//			logger.debug("module[{}]", module);
 			}
 	
 			String base = getServletContext().getRealPath("/");
 			String path = base + File.separator + module + File.separator + folder + File.separator + xmlFile;
 			
-	//		System.out.println(logPrefix+function+" base["+base+"]");
-	//		System.out.println(logPrefix+function+" module["+module+"]");
-	//		System.out.println(logPrefix+function+" xmlFile["+xmlFile+"]");
-	//		System.out.println(logPrefix+function+" path["+path+"]");
+	//		logger.debug("base[{}]", base);
+	//		logger.debug("module[{}]", module);
+	//		logger.debug("xmlFile[{}]", xmlFile);
+	//		logger.debug("path[{}]", path);
 			
 			dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString(), xmlFile);
 			dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString(), tag);
@@ -54,12 +55,12 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 				dictionary.addValue(cfg, cfg);
 			}
 			
-	//		System.out.println(logPrefix+function+" XmlFile["+dictionary.getAttribute(DictionaryCacheInterface.XmlFile)+"] XmlTag["+dictionary.getAttribute(DictionaryCacheInterface.XmlTag)+"]  CreateDateTimeLabel["+dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel)+"]");
+	//		logger.debug("XmlFile["+dictionary.getAttribute(DictionaryCacheInterface.XmlFile)+"] XmlTag["+dictionary.getAttribute(DictionaryCacheInterface.XmlTag)+"]  CreateDateTimeLabel["+dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel)+"]");
 			
 		} else if ( mode.equals(ConfigurationType.PropertiesFile.toString()) ) {
 			if ( null == module ) {
 				module = getServletContext().getInitParameter("project.dictionary.module");
-	//			System.out.println(logPrefix+function+" module["+module+"]");
+	//			logger.debug("module[{}]", module);
 			}
 	
 			String base = getServletContext().getRealPath("/");
@@ -74,11 +75,9 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 				dictionary.addValue(cfg, cfg);
 			}
 			
-	//		System.out.println(logPrefix+function+" XmlFile["+dictionary.getAttribute(DictionaryCacheInterface.XmlFile)+"] XmlTag["+dictionary.getAttribute(DictionaryCacheInterface.XmlTag)+"]  CreateDateTimeLabel["+dictionary.getAttribute(DictionaryCacheInterface.CreateDateTimeLabel)+"]");
-			
 		}
 		
-		System.out.println(logPrefix+function+" End");
+		logger.debug("End");
 		
 		return dictionary;
 	}

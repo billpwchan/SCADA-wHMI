@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesService;
@@ -19,32 +22,31 @@ import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInte
 @SuppressWarnings("serial")
 public class DictionariesServiceImpl extends RemoteServiceServlet implements DictionariesService {
 	
-	private final String className = "DictionariesServiceImpl";
-	private final String logPrefix = "["+className+"] ";
+	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getName());
 	
 	public Dictionary dictionariesServer(String mode, String module, String folder, String extension, String tag) {
-		final String function = "dictionariesServer";
 		
-		System.out.println(logPrefix+function+" Begin");
+		logger.debug("Begin");
 		
-		System.out.println(logPrefix+function+" mode["+mode+"] module["+module+"] folder["+folder+"] extension["+extension+"] tag["+tag+"]");
+		
+		logger.debug("mode[{}] module[{}] folder[{}] extension[{}] tag[{}]", new Object[]{mode, module, folder, extension, tag});
 		
 		if ( null == module ) {
 			module = getServletContext().getInitParameter("project.dictionaries.module");
-			System.out.println(logPrefix+function+" module["+module+"]");
+			logger.debug("module[{}]", module);
 		}
 
 		Dictionary dictionaries = new Dictionary();
 		
 		String base = getServletContext().getRealPath("/");
 		
-		System.out.println(logPrefix+function+" base["+base+"]");
+		logger.debug("base[{}]", base);
 		
 		ReadFiles configs = new ReadFiles();
 		configs.setFilePathExtension(base + File.separator + module, folder, extension, false);
 		List<File> files = configs.getFiles();
 		
-		System.out.println(logPrefix+function+" files.size()["+files.size()+"]");
+		logger.debug("files.size()[{}]", files.size());
 		
 		if ( mode.equals(ConfigurationType.XMLFile.toString()) ) {
 		
@@ -59,7 +61,7 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 				String path = file.getPath();
 				String filename = file.getName();
 	
-				System.out.println(logPrefix+function+" Loop path["+path+"] xmlFile["+filename+"] tag["+tag+"]");
+				logger.debug("Loop path[{}] xmlFile[{}] tag[{}]", new Object[]{path, filename, tag});
 	
 				Dictionary dictionary = new Dictionary();
 					
@@ -75,7 +77,7 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 					
 				dictionaries.addValue(dictionary, dictionary);
 					
-				System.out.println(logPrefix+function+" dictionary.getValueKeys().size()["+dictionary.getValueKeys().size()+"]");
+				logger.debug("dictionary.getValueKeys().size()[{}]", dictionary.getValueKeys().size());
 				
 			}
 		
@@ -92,7 +94,7 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 				String path = file.getPath();
 				String filename = file.getName();
 	
-				System.out.println(logPrefix+function+" Loop path["+path+"] xmlFile["+filename+"] tag["+tag+"]");
+				logger.debug("Loop path[{}] xmlFile[{}] tag[{}]", new Object[]{path, filename, tag});
 	
 				Dictionary dictionary = new Dictionary();
 					
@@ -107,14 +109,14 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 					
 				dictionaries.addValue(dictionary, dictionary);
 					
-				System.out.println(logPrefix+function+" dictionary.getValueKeys().size()["+dictionary.getValueKeys().size()+"]");
+				logger.debug("dictionary.getValueKeys().size()[{}]", dictionary.getValueKeys().size());
 				
 			}
 		}
 		
-		System.out.println(logPrefix+function+" dictionaries.getValueKeys().size()["+dictionaries.getValueKeys().size()+"]");
+		logger.debug("dictionaries.getValueKeys().size()[{}]", dictionaries.getValueKeys().size());
 		
-		System.out.println(logPrefix+function+" End");
+		logger.debug("End");
 		
 		return dictionaries;
 

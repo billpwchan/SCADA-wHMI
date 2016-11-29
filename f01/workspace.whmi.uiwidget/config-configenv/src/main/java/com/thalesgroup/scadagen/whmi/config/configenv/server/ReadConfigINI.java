@@ -3,29 +3,29 @@ package com.thalesgroup.scadagen.whmi.config.configenv.server;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 
 public class ReadConfigINI implements ReadConfigInterface {
 	
-	private final String className = "ReadConfigINI";
-	private final String logPrefix = "["+className+"] ";
-
+	private Logger logger					= LoggerFactory.getLogger(ReadConfigINI.class.getName());
+	
 	@Override
 	public List<Dictionary> getDictionary(String path) {
 		return getDictionary( path, null);
 	}
 	@Override
 	public List<Dictionary> getDictionary(String path, String elm) {
-		final String function = "dictionaryServer";
 		
-		System.out.println(logPrefix+function+" Begin");
-		System.out.println(logPrefix+function+" Reading from the path["+path+"] elm["+elm+"]");
+		logger.debug("Begin");
+		logger.debug("Reading from the path[{}] elm[{}]", path, elm);
 		
 		List<Dictionary> dictionaries = new LinkedList<Dictionary>();
 		Dictionary dictionary = new Dictionary();
@@ -42,7 +42,7 @@ public class ReadConfigINI implements ReadConfigInterface {
 				String value = prop.getProperty(key);
 				dictionary.addValue(key, value);
 				
-System.out.println(logPrefix+function+" getDictionary key[" + key + "] value[" + value + "]");
+				logger.debug("getDictionary key[{}] value[{}]", key, value);
 			}
 			
 		} catch ( IOException e) {
@@ -59,7 +59,7 @@ System.out.println(logPrefix+function+" getDictionary key[" + key + "] value[" +
 		
 		dictionaries.add(dictionary);
 		
-		System.out.println(logPrefix+function+" End");
+		logger.debug("End");
 		
 		return dictionaries;
 	}

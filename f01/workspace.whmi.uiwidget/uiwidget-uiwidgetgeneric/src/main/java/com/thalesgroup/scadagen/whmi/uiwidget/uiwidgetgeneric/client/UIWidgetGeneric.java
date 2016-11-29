@@ -215,11 +215,22 @@ public class UIWidgetGeneric extends UIWidget_i {
 							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
 							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
 							
-							TranslationMgr translationMgr = TranslationMgr.getInstance();
-							if ( null != translationMgr ) {
-								label = translationMgr.getTranslation(label);
-							} else {
-								logger.warn(className, function, "getTranslation IS NULL");
+							if ( null != label ) {
+								TranslationMgr translationMgr = TranslationMgr.getInstance();
+								if ( null != translationMgr ) {
+									label = translationMgr.getTranslation(label);
+								} else {
+									logger.warn(className, function, "getTranslation IS NULL");
+								}
+							}
+
+							if ( null != tooltip ) {
+								TranslationMgr translationMgr = TranslationMgr.getInstance();
+								if ( null != translationMgr ) {
+									tooltip = translationMgr.getTranslation(tooltip);
+								} else {
+									logger.warn(className, function, "getTranslation IS NULL");
+								}
 							}
 							
 							if ( WidgetType.TextBox.equalsName(widget)
@@ -616,9 +627,11 @@ public class UIWidgetGeneric extends UIWidget_i {
     							icon		= valueMap.get(WidgetAttribute.iconDisable.toString());
     						}
     						
-    						TranslationMgr translationMgr = TranslationMgr.getInstance();
-    						if ( null !=  translationMgr.getTranslationEngine() ) {
-    							label = translationMgr.getTranslation(label);
+    						if ( null != label ) {
+        						TranslationMgr translationMgr = TranslationMgr.getInstance();
+        						if ( null !=  translationMgr.getTranslationEngine() ) {
+        							label = translationMgr.getTranslation(label);
+        						}
     						}
 
     						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
@@ -768,6 +781,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 				if ( null != value ) logger.debug(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
 
 				if ( null != value ) label = value;
+				
+				if ( null != label ) {
+					TranslationMgr translationMgr = TranslationMgr.getInstance();
+					if ( null != translationMgr ) {
+						label = translationMgr.getTranslation(label);
+					} else {
+						logger.warn(className, function, "getTranslation IS NULL");
+					}
+				}
 				
 				if ( WidgetMedia.DateTimeFormat.equalsName(media) && (null != format && 0 != format.length()) ) {
 					label = DateTimeFormat.getFormat(format).format(new Date());

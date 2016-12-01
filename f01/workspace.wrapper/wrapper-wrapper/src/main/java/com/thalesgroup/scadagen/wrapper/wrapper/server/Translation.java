@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server;
 
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
-import com.thalesgroup.scadagen.common.calculated.GDGMessage;
 
 import java.util.MissingResourceException;
 
@@ -11,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class Translation {
 	
-	private final static Logger logger			= LoggerFactory.getLogger(GDGMessage.class.getName());
+	private final static Logger logger			= LoggerFactory.getLogger(Translation.class.getName());
 
 	public static String getWording(String key) {
 		logger.debug("getWording[{}]", key);
@@ -49,11 +48,11 @@ public class Translation {
 
         	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
         	if ( null != dico ) {
-        		if ( null != currentLang ) {
+//        		if ( null != currentLang ) {
         			value = dico.getWording(key);
-        		} else {
-        			logger.error("currentLang IS NULL");
-        		}
+//        		} else {
+//        			logger.error("currentLang IS NULL");
+//        		}
         	} else {
         		logger.error("dico IS NULL");
         	}

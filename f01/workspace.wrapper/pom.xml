@@ -19,6 +19,7 @@
 	  
   <modules>
     <module>wrapper-wrapper</module>
+	<module>wrapper-widgetcontroller</module>
   </modules>
   
 </project>

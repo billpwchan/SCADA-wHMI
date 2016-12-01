@@ -9,6 +9,10 @@
     </parent>
 
     <properties>
+    <commons.uiwidget.version>1.0</commons.uiwidget.version>
+    <commons.whmi.version>1.0</commons.whmi.version>
+    <commons.uiwrapper.version>1.0</commons.uiwrapper.version>
+	
         <myproject.version>1.2.5</myproject.version>
         <scadasoft.model.version>6.3.1</scadasoft.model.version>
         <scadasoft.version>6.3.1</scadasoft.version>
@@ -202,36 +206,28 @@
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.uiroot.uiroot</groupId>
           <artifactId>uiroot-uiroot</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>${commons.uiwidget.version}</version>
           <scope>provided</scope>
         </dependency>
-	<!--
-        <dependency>
-          <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
-          <artifactId>wrapper-wrapper</artifactId>
-          <version>1.0-SNAPSHOT</version>
-          <scope>provided</scope>
-        </dependency>
-	-->
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
           <artifactId>config-config</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>${commons.uiwidget.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
           <artifactId>config-configenv</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>${commons.uiwidget.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.confignav</groupId>
           <artifactId>config-confignav</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>${commons.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		

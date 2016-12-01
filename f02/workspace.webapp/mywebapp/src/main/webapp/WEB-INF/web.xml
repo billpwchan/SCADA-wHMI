@@ -144,7 +144,7 @@
     <url-pattern>/scsmain/downloadReportService</url-pattern>
   </servlet-mapping>
     
-  <!-- -->
+  <!-- SCADAgen WHMI Configuration -->
   
   <servlet>
     <servlet-name>taskServiceServlet</servlet-name>
@@ -195,7 +195,7 @@
     <servlet-name>webConfigServiceServlet</servlet-name>
     <url-pattern>/scsmain/webConfigServiceServlet</url-pattern>
   </servlet-mapping>  
-  <!-- -->
+  <!-- SCADAgen WHMI Configuration -->
 
   <servlet-mapping>
     <servlet-name>remoteLoggerServiceImpl</servlet-name>

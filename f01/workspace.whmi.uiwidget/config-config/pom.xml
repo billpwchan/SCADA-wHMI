@@ -7,12 +7,12 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
   <artifactId>config-config</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>${commons.uiwidget.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>

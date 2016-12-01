@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  
+	<parent>
+		<groupId>com.thalesgroup.hv.mwt</groupId>
+		<artifactId>mwt</artifactId>
+		<version>3.7.0</version>
+	</parent>
+  <groupId>com.thalesgroup.scadagen.wrapper.widgetcontroller</groupId>
+  <artifactId>wrapper-widgetcontroller</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>GWT Maven Archetype</name>
+
+  <properties>
+
+		<scadasoft.version>6.3.1</scadasoft.version>
+        <jackson.version>2.7.4</jackson.version>
+		<hv.common.integ.version>1.10.0</hv.common.integ.version>
+		
+		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+  
+    <!-- Convenience property to set the GWT version -->
+    <gwtVersion>2.7.0</gwtVersion>
+
+    <!-- GWT needs at least java 1.6 -->
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt</artifactId>
+        <version>${gwtVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+	
+	
+		<dependency>
+			<groupId>com.thalesgroup.hv.common</groupId>
+			<artifactId>data-model-jaxb</artifactId>
+			<version>${hv.common.integ.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- SCADAsoft dependencies -->
+		<dependency>
+			<groupId>com.thalesgroup.scadasoft</groupId>
+			<artifactId>scswebapp</artifactId>
+			<version>${scadasoft.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.4</version>
+		</dependency>
+
+		<!-- MWT dependencies -->
+		<dependency>
+			<groupId>com.thalesgroup.hv.mwt</groupId>
+			<artifactId>mwt-webapp</artifactId>
+			<version>${project.parent.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.geronimo.specs</groupId>
+					<artifactId>geronimo-servlet_3.0_spec</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.thalesgroup.hv.common</groupId>
+					<artifactId>data-model-jaxb</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.thalesgroup.hv.mwt</groupId>
+			<artifactId>mwt-connector-impl</artifactId>
+			<version>${project.parent.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.thalesgroup.hv.common</groupId>
+					<artifactId>data-model-jaxb</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Logging implementation -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		
+	<!-- Wrapper-mwt -->
+	<!--
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
+	  <artifactId>wrapper-mwt</artifactId>
+	  <version>1.0-SNAPSHOT</version>
+	</dependency>
+	-->
+	
+        <!-- UIGeneric -->
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
+			<artifactId>uinamecard</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
+			<artifactId>uievent</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
+			<artifactId>config-configenv</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
+			<artifactId>uiwidget-uiwidget</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
+			<artifactId>uiwidget-uiwidgetgeneric</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.translation.translationmgr</groupId>
+			<artifactId>translation-translationmgr</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer</groupId>
+			<artifactId>uiwidget-uiwidgetcontainer</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+  </dependencies>
+
+  <build>
+    <!-- Output classes directly into the webapp, so that IDEs and "mvn process-classes" update them in DevMode -->
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
+    <plugins>
+
+      <!-- GWT Maven Plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>2.7.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <!-- <goal>test</goal> -->
+              <!-- <goal>generateAsync</goal> -->
+            </goals>
+          </execution>
+        </executions>
+        <!-- Plugin configuration. There are many available options, see 
+          gwt-maven-plugin documentation at codehaus.org -->
+        <configuration>
+          <runTarget>WidgetController.html</runTarget>
+          <modules>
+            <module>com.thalesgroup.scadagen.wrapper.widgetcontroller.WidgetController</module>
+          </modules>
+        </configuration>
+      </plugin>
+    </plugins>
+    
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+    </resources>
+    
+  </build>
+
+</project>

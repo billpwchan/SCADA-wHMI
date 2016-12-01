@@ -6,12 +6,12 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.translation.translationmgr</groupId>
   <artifactId>translation-translationmgr</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>${commons.uiwidget.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
@@ -63,13 +63,13 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiutil.uilogger</groupId>
 	  <artifactId>uiutil-uilogger</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>${commons.uiwidget.version}</version>
 	</dependency>
     
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiutil.uiutil</groupId>
 	  <artifactId>uiutil-uiutil</artifactId>
-          <version>1.0-SNAPSHOT</version>
+          <version>${commons.uiwidget.version}</version>
 	</dependency>
     
   </dependencies>

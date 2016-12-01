@@ -6,12 +6,12 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uiinspector.uiinspector</groupId>
   <artifactId>uiinspector-uiinspector</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>${commons.whmi.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
@@ -63,38 +63,38 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 	  <artifactId>uinamecard</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
 	  <artifactId>uievent</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
 	  <artifactId>config-configenv</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitaskmgr</groupId>
 	  <artifactId>uitask-uitaskmgr</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
 	  <artifactId>wrapper-wrapper</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.whmi.version}</version>
 	</dependency>
 	
 	<!--
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
 	  <artifactId>wrapper-mwt</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.whmi.version}</version>
 	</dependency>
     -->
     

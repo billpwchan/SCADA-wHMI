@@ -15,10 +15,13 @@
   <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
   <artifactId>wrapper-wrapper</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
+    <commons.uiwidget.version>1.0</commons.uiwidget.version>
+    <commons.whmi.version>1.0</commons.whmi.version>
+    <commons.uiwrapper.version>1.0</commons.uiwrapper.version>
 
 		<scadasoft.version>6.3.1</scadasoft.version>
         <jackson.version>2.7.4</jackson.version>
@@ -134,7 +137,7 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
 	  <artifactId>wrapper-mwt</artifactId>
-	  <version>1.0-SNAPSHOT</version>
+	  <version>${commons.uiwrapper.version}</version>
 	</dependency>
 	-->
 	
@@ -142,37 +145,37 @@
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 			<artifactId>uinamecard</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${commons.uiwrapper.version}</version>
 		</dependency>
 	
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
 			<artifactId>uievent</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${commons.uiwrapper.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
 			<artifactId>config-configenv</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${commons.uiwrapper.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
 			<artifactId>uiwidget-uiwidget</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${commons.uiwrapper.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
 			<artifactId>uiwidget-uiwidgetgeneric</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${commons.uiwrapper.version}</version>
 		</dependency>
 	
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.translation.translationmgr</groupId>
 			<artifactId>translation-translationmgr</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${commons.uiwrapper.version}</version>
 		</dependency>
 
   </dependencies>

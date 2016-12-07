@@ -6,4 +6,4 @@
 *.api
 *.feature
 *.updatesite
-/MyProject/model/
+/SCADAgen/model/

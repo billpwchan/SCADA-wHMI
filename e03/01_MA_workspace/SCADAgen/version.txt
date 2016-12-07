@@ -1,0 +1,11 @@
+{
+  "name": "scadagen",
+  "version": "1.2.5",
+  "melody": "4.0",
+  "owner": "SCADAgen",
+  "dependencies": [
+        {"scadasoft":"6.2.4.4" }
+        {"lib-shared-assets":"1.5.3" }
+        {"lib-hypervisor":"1.5.3" }
+      ]
+}

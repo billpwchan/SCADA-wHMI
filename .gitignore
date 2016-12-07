@@ -38,9 +38,11 @@ www-test/
 target
 
 #eclipse
+.project
 .classpath
 .metadata
 .settings
+.recommenders
 RemoteSystemsTempFiles
 
 #project base

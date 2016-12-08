@@ -28,22 +28,30 @@ public class Translation {
         	try {
 	        	String sessionId = SessionManager.getRequestCxtSessionId();
 	        	if ( null != sessionId ) {
-	            	ISessionListContainer sessionListContainer = (ISessionListContainer)ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
-	            	SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
-	            	if (sessionContainer != null) {
-	            		Object object = sessionContainer.getAttribute("currentLang");
-	            		if ( null != object ) {
-	            			if ( object instanceof String )
-	            				currentLang = (String)object;
-	            		}
+	            	if (ServicesImplFactory.getInstance() != null) {
+	            		ISessionListContainer sessionListContainer = (ISessionListContainer)ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
+	            		SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
+	    	        	if (sessionContainer != null) {
+	    	        		String string = sessionContainer.getAttributeTyped(String.class, "currentLang");
+	    	        		if ( null != string ) {
+	    	        			currentLang = string;
+	    	        		} else {
+	    	        			logger.warn("getWording string IS NULL!");
+	    	        		}
+	    	        	} else {
+	    	        		logger.warn("getWording sessionContainer IS NULL!");
+	    	        	}
+	            	} else {
+	            		logger.warn("getWording ServicesImplFactory.getInstance() IS NULL!");
 	            	}
+	        	} else {
+	        		logger.warn("getWording sessionId IS NULL!");
 	        	}
         	} catch ( Exception e) {
         		logger.warn("getWording currentLang e[{}]", e.toString());
-        	}
-
+	    	}
         	logger.debug("currentLang[{}] AF", currentLang);
-
+        	
         	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
         	if ( null != dico ) {
         		value = dico.getWording(key);

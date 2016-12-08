@@ -3,7 +3,6 @@ package com.thalesgroup.scadagen.common.calculated;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,6 +98,8 @@ public abstract class GDGColumn extends OlsDecoder {
 				dataValue = v.asText();
 				
 				logger.debug("[{}] dataValue[{}]", new Object[]{logPrefix, dataValue});
+				
+				dataValue = getDBMessage(translatePatten, dataValue);
 
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block

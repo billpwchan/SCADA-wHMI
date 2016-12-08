@@ -1,5 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server;
 
+import com.thalesgroup.hypervisor.mwt.core.util.common.session.ISessionListContainer;
+import com.thalesgroup.hypervisor.mwt.core.util.common.session.SessionContainer;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
 
@@ -19,40 +23,30 @@ public class Translation {
 
         	Dictionary dico = null;
         	String currentLang = "en";
+        	
+        	logger.debug("currentLang[{}] BF", currentLang);
+        	try {
+	        	String sessionId = SessionManager.getRequestCxtSessionId();
+	        	if ( null != sessionId ) {
+	            	ISessionListContainer sessionListContainer = (ISessionListContainer)ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
+	            	SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
+	            	if (sessionContainer != null) {
+	            		Object object = sessionContainer.getAttribute("currentLang");
+	            		if ( null != object ) {
+	            			if ( object instanceof String )
+	            				currentLang = (String)object;
+	            		}
+	            	}
+	        	}
+        	} catch ( Exception e) {
+        		logger.warn("getWording currentLang e[{}]", e.toString());
+        	}
 
-//        	try {
-//    			String sessionId = SessionManager.getRequestCxtSessionId();
-//    			
-//    			if ( null != sessionId ) {
-//    				ISessionListContainer sessionListContainer = (ISessionListContainer)ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
-//    				SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
-//    				if (sessionContainer != null) {
-//    					String l = (String) sessionContainer.getAttribute("currentLang");
-//    					if ( null != l ) {
-//    						currentLang = l;
-//    					} else {
-//    						logger.log(Level.SEVERE, "using default lang en, currentLang IS NULL");
-//    					}
-//    					
-//    				} else {
-//    					logger.log(Level.SEVERE, "sessionContainer IS NULL");
-//    				}					
-//    			} else {
-//    				logger.log(Level.SEVERE, "sessionId IS NULL");
-//    			}
-//        	} catch ( Exception e) {
-//        		logger.log(Level.SEVERE, "getWording currentLang e["+e.toString()+"]");
-//        	}
-
-        	logger.debug("currentLang[{}]", currentLang);
+        	logger.debug("currentLang[{}] AF", currentLang);
 
         	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
         	if ( null != dico ) {
-//        		if ( null != currentLang ) {
-        			value = dico.getWording(key);
-//        		} else {
-//        			logger.error("currentLang IS NULL");
-//        		}
+        		value = dico.getWording(key);
         	} else {
         		logger.error("dico IS NULL");
         	}

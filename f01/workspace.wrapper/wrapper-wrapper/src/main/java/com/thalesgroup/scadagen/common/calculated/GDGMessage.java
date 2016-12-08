@@ -4,10 +4,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.IllegalFormatException;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +13,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 
 /**
@@ -194,29 +189,6 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		return value;
 	}
 	
-	private String getDBMessage(String regex, String input) {
-		logger.debug("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, input});
-		String ret = input;
-		try {
-			Pattern p = Pattern.compile(regex);
-			Matcher m = p.matcher(input);
-			while(m.find()) {
-				String key = m.group();
-				logger.debug("{} m.group()[{}]", "getDBMessage", key);
-				String translation = Translation.getWording(key);
-				
-				logger.debug("{} key[{}] translation[{}]", new Object[]{"getDBMessage", key, translation});
-				if ( null != translation ) {
-					ret = ret.replaceAll(key, translation);
-				}
-			}
-		} catch ( PatternSyntaxException e ) {
-			logger.error("{} PatternSyntaxException[{}]", "getDBMessage", e.toString());
-		}
-
-		return ret;
-	}
-	
 	/**
 	 * Print Array Value and Join
 	 * @param values: String Array
@@ -283,7 +255,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	        	
 	        	if ( null != inValue1 ) {
 	        		
-	        		inValue1 = getDBMessage("&[0-9a-zA-Z/$_-]+", inValue1);
+	        		inValue1 = getDBMessage(translatePatten, inValue1);
 	        		
 	            	String rawTokens []	= split(sperater, inValue1);
 	            	

@@ -14,6 +14,9 @@ SET sp_ver=
 SET war_ver=1.2.5
 SET TOMCAT_VER=-8.0.23
 
+SET sp_fas=..\f02.fas\workspace.devweb.631%sp_ver%
+echo Folder Path for sp_fas is [%sp_fas%]
+
 SET sp_wrapper=workspace.wrapper%sp_ver%
 echo Folder Path for sp_wrapper is [%sp_wrapper%]
 
@@ -36,5 +39,5 @@ SET sp_webapp_func_name=workspace.webapp-func%sp_ver%
 echo Folder Path for sp_webapp_func is [%sp_webapp_func%]
 echo Folder Path for sp_webapp_func_name is [%sp_webapp_func_name%]
 
-SET scstraning_loc=C:\RunningPlatform\SCSTraining\
+SET scstraning_loc=C:\SCSTraining\
 echo Folder Path for scstraning_loc is [%scstraning_loc%]

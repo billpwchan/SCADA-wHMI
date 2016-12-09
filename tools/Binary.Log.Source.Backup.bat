@@ -20,6 +20,7 @@ SET _F01_WEBAPPFUNC="%_1166B%\f01\workspace.webapp-func"
 SET _F01_WHMI="%_1166B%\f01\workspace.whmi"
 SET _F01_WHMI_UIWIDGET="%_1166B%\f01\workspace.whmi.uiwidget"
 SET _F01_WRAPPER="%_1166B%\f01\workspace.wrapper"
+SET _F01_FAS="%_1166B%\f01\workspace.fas"
 SET _F02_WEBAPP="%_1166B%\f02\workspace.webapp\mywebapp"
 
 SET _E02="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\e02-resources-current"
@@ -29,6 +30,7 @@ ECHO _F01_WEBAPPFUNC=%_F01_WEBAPPFUNC%
 ECHO _F01_WHMI=%_F01_WHMI%
 ECHO _F01_WHMI_UIWIDGET=%_F01_WHMI_UIWIDGET%
 ECHO _F01_WRAPPER=%_F01_WRAPPER%
+ECHO _F01_FAS=%_F01_FAS%
 ECHO _F02_WEBAPP=%_F02_WEBAPP%
 
 ECHO _E02=%_E02%
@@ -58,7 +60,7 @@ SET _EXCLUDE2="-xr!mywebapp\src\main\gwt-unitCache"
 SET _EXCLUDE3="-xr!workspace.webapp-func\webapp-func\myproject-webapp-func*.zip"
 ECHO _EXCLUDE=%_EXCLUDE%
 
-%SEVEN_ZIP_HOME% a %_folder%\f01 %_F01_WEBAPPFUNC% %_F01_WHMI% %_F01_WHMI_UIWIDGET% %_F01_WRAPPER% %_EXCLUDE% %_EXCLUDE3%
+%SEVEN_ZIP_HOME% a %_folder%\f01 %_F01_WEBAPPFUNC% %_F01_WHMI% %_F01_WHMI_UIWIDGET% %_F01_WRAPPER% %_F01_FAS% %_EXCLUDE% %_EXCLUDE3%
 %SEVEN_ZIP_HOME% a %_folder%\p01 %_P01% %_EXCLUDE%
 %SEVEN_ZIP_HOME% a %_folder%\f02 %_F02_WEBAPP% %_EXCLUDE% %_EXCLUDE2%
 %SEVEN_ZIP_HOME% a %_folder%\e02 %_E02% %_EXCLUDE%

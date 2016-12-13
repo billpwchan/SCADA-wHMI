@@ -2,6 +2,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.util;
 
 import java.util.MissingResourceException;
 import com.google.gwt.i18n.client.Dictionary;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -11,6 +13,11 @@ public class Translation {
 	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	private static final String JS_DICTIONARY_VAR_NAME = "table";
 	private static final Dictionary dictionary = Dictionary.getDictionary(JS_DICTIONARY_VAR_NAME);
+	
+	private static String translatePatten = "&[0-9a-zA-Z/$_-]+";
+	public void setTranslatePatten(String translatePatten) { Translation.translatePatten = translatePatten; }
+	public String getTranslatePatten() { return Translation.translatePatten;}
+	
 	public static String getWording(String key) {
 		final String function = "getWording";
 		logger.debug(className, function, "getWording key[{}]", key);
@@ -22,5 +29,43 @@ public class Translation {
         	logger.warn(className, function, "Can't find key [{}] in dictionary", key);
         }
         return value;
+	}
+	
+	public static String getDBMessage(String input) {
+		final String function = "getDBMessage";
+		logger.debug(className, function, "input[{}]", input);
+		String result = Translation.getDBMessage(Translation.translatePatten, input);
+		logger.debug(className, function, "result[{}]", result);
+		return result;
+	}
+	
+	public static String getDBMessage(String regex, String input) {
+		final String function = "getDBMessage";
+		logger.debug(className, function, "regex[{}] input[{}]", new Object[]{regex, input});
+		String ret = input;
+		try {
+			
+			RegExp regExp = RegExp.compile(regex);
+			MatchResult matcher = regExp.exec(input);
+			boolean matchFound = matcher != null;
+			if ( matchFound) {
+				logger.trace(className, function, "matcher.getGroupCount()[{}]", matcher.getGroupCount());
+				for ( int i=0; i < matcher.getGroupCount(); ++i) {
+					String key = matcher.getGroup(i);
+					logger.trace(className, function, "matcher.getGroup([{}])[{}]", i, key);
+					String translation = Translation.getWording(key);
+					
+					logger.trace(className, function, "key[{}] translation[{}]", new Object[]{key, translation});
+					if ( null != translation ) {
+						ret = ret.replaceAll(key, translation);
+					}
+				}
+			}
+
+		} catch ( RuntimeException e ) {
+			logger.warn(className, function, "RuntimeException[{}]", e.toString());
+		}
+		logger.debug(className, function, "ret[{}]", ret);
+		return ret;
 	}
 }

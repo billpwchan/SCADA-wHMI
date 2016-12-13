@@ -13,6 +13,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 
 /**
@@ -255,7 +256,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	        	
 	        	if ( null != inValue1 ) {
 	        		
-	        		inValue1 = getDBMessage(translatePatten, inValue1);
+	        		inValue1 = Translation.getDBMessage(inValue1);
 	        		
 	            	String rawTokens []	= split(sperater, inValue1);
 	            	

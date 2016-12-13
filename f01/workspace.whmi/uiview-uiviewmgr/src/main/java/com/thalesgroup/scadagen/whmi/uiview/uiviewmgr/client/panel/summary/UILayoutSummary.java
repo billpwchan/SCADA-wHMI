@@ -86,7 +86,9 @@ public class UILayoutSummary extends UIWidget_i {
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
 			public String getMessage(String message) {
-				message = Translation.getWording(message);
+				
+				message = Translation.getDBMessage(message);
+				
 				return message;
 			}
 		});

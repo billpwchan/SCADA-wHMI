@@ -14,6 +14,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implement
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 public abstract class GDGColumn extends OlsDecoder {
 	
@@ -99,7 +100,7 @@ public abstract class GDGColumn extends OlsDecoder {
 				
 				logger.debug("[{}] dataValue[{}]", new Object[]{logPrefix, dataValue});
 				
-				dataValue = getDBMessage(translatePatten, dataValue);
+				dataValue = Translation.getDBMessage(dataValue);
 
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block

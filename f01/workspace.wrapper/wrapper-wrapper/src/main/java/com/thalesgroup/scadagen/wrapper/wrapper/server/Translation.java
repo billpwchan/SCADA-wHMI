@@ -8,6 +8,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
 
 import java.util.MissingResourceException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,10 @@ import org.slf4j.LoggerFactory;
 public class Translation {
 	
 	private final static Logger logger			= LoggerFactory.getLogger(Translation.class.getName());
+	
+	private static String translatePatten = "&[0-9a-zA-Z/$_-]+";
+	public void setTranslatePatten(String translatePatten) { Translation.translatePatten = translatePatten; }
+	public String getTranslatePatten() { return Translation.translatePatten;}
 
 	public static String getWording(String key) {
 		logger.debug("getWording[{}]", key);
@@ -60,9 +67,35 @@ public class Translation {
         	}
         }
         catch (final MissingResourceException e) {
-        	logger.error("Can't find key [{}] in dictionary", key);
-        	logger.error("MissingResourceException[{}]", e.toString());
+        	logger.warn("Can't find key [{}] in dictionary MissingResourceException[{}]", key, e.toString());
         }
         return value;
+	}
+	
+	public static String getDBMessage(String input) {
+		return Translation.getDBMessage(translatePatten);
+	}
+	
+	public static String getDBMessage(String regex, String input) {
+		logger.trace("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, input});
+		String ret = input;
+		try {
+			Pattern p = Pattern.compile(regex);
+			Matcher m = p.matcher(input);
+			while(m.find()) {
+				String key = m.group();
+				logger.trace("{} m.group()[{}]", "getDBMessage", key);
+				String translation = Translation.getWording(key);
+				
+				logger.trace("{} key[{}] translation[{}]", new Object[]{"getDBMessage", key, translation});
+				if ( null != translation ) {
+					ret = ret.replaceAll(key, translation);
+				}
+			}
+		} catch ( PatternSyntaxException e ) {
+			logger.warn("{} PatternSyntaxException[{}]", "getDBMessage", e.toString());
+		}
+
+		return ret;
 	}
 }

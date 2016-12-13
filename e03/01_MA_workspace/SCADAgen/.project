@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>SCADAgen</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	
+	<natures>
+		<nature>org.polarsys.capella.project.nature</nature>
+		<nature>com.thalesgroup.mc.core.project.nature</nature>
+		
+	</natures>
+</projectDescription>

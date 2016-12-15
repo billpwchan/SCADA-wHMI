@@ -63,14 +63,14 @@
 
         <!-- Authentication provider to be used while developing. It must be commented 
         if the LDAP authentication is used -->
-        <!-- -->
+        <!--
         <authentication-provider>
             <user-service>
-                <!-- <user name="operator" password="thales" authorities="ROLE:hypervisor" /> -->
                 <user name="chief" password="thales" authorities="ROLE:megavisor" />
 				<user name="OPERATOR" password="PASSWORD@1" authorities="ROLE:megavisor" />
             </user-service> 
         </authentication-provider>
+	-->
 
         <!-- LDAP authentication provider -->
         <authentication-provider ref="ldapAuthProvider" />

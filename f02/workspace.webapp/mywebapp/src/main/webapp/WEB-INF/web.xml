@@ -181,6 +181,11 @@
     <url-pattern>/scsmain/dictionariesServiceServlet</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>dictionariesServiceServlet</servlet-name>
+    <url-pattern>/scslogin/dictionariesServiceServlet</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>webConfigServiceServlet</servlet-name>
 	<servlet-class>com.thalesgroup.scadagen.whmi.config.configenv.server.WebConfigServiceImpl</servlet-class>

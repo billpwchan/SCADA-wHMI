@@ -23,6 +23,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcTagControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyChangePassword;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBox;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
@@ -200,6 +202,21 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 
 					uiWidget = new UIWidgetBox();
+					
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyChangePassword.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget = new UIWidgetOPMVerifyChangePassword();
+					
+					
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget = new UIWidgetOPMVerifyControl();
 
 				} else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);

@@ -4,6 +4,10 @@
 
 	<inherits name='com.thalesgroup.scadasoft.common.Common'/>
 	
+	<inherits name='com.thalesgroup.scadasoft.gwebhmi.ui.ScsUI'/>
+	
+	<source path="client/"/>
+	
 	<inherits name='com.thalesgroup.scadagen.whmi.common.Common'/>
 	
 	<inherits name='com.thalesgroup.prj_gz_cocc.gwebhmi.security.scslogin'/>

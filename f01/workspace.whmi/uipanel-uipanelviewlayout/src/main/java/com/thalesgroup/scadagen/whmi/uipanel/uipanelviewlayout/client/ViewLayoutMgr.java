@@ -248,7 +248,7 @@ public class ViewLayoutMgr {
 			UITaskLaunch taskLaunchYes = new UITaskLaunch();
 			taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
 			taskLaunchYes.setUiPath(UIPathUIPanelScreen);
-			taskLaunchYes.setUiPanel("UIScreenLogin");
+			taskLaunchYes.setUiPanel("UIScreenLogout");
 
 			DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
 			UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");

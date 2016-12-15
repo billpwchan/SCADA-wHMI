@@ -225,6 +225,11 @@ public class UIGws {
 //		logger.end(className, function);
 //	}
 	
+	private String entryPointUIWidget = null;
+	public void setEntryPointUIWidget(String entryPointUIWidget) {
+		this.entryPointUIWidget = entryPointUIWidget;
+	}
+	
 	private boolean isCreated = false;
 	private void ready(String folder, int received) {
 		final String function = "ready";
@@ -236,6 +241,7 @@ public class UIGws {
 		if ( ! isCreated ) {
 			
 			UIWidget_i uiWidget_i = new UIPanelScreen();
+			((UIPanelScreen)uiWidget_i).setEntryPointUIWidget(entryPointUIWidget);
 			uiWidget_i.setUINameCard(this.uiNameCard);
 			uiWidget_i.init();
 			Panel panel = uiWidget_i.getMainPanel();

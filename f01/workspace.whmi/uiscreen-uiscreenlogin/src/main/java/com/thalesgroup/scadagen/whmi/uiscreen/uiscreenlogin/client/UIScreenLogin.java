@@ -2,10 +2,12 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.security.AuthenticationError;
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
@@ -21,6 +23,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIScreenLogin extends UIWidget_i {
 	
@@ -101,6 +106,8 @@ public class UIScreenLogin extends UIWidget_i {
 				
 				@Override
 				public void onClickHandler(ClickEvent event) {
+					String function = "onClickHandler";
+					
 					Widget widget = (Widget) event.getSource();
 					String element = uiPanelGenericButton.getWidgetElement(widget);
 					if ( null != element ) {
@@ -123,7 +130,9 @@ public class UIScreenLogin extends UIWidget_i {
 								String profile		= lstProfile.getValue(lstProfile.getSelectedIndex());
 								String password		= txtpwdPassword.getText();
 								
-								verify(element, operator, profile, password);
+								logger.info(className, function, "operator[{}] profile[{}] password[{}]", new Object[]{operator, profile, password});
+								
+								OpmMgr.getInstance("UIOpmSCADAgen").login(operator, password);
 							}
 						} 						
 					} else {
@@ -135,8 +144,38 @@ public class UIScreenLogin extends UIWidget_i {
 		} else {
 			logger.warn(className, function, "uiPanelGenericButton IS NULL");
 		}
-
+		
+		handleErrorCode();
+		
 		logger.end(className, function);
+	}
+
+	private int handleErrorCode() {
+		final String function = "handleErrorMessage";
+		logger.begin(className, function);
+		
+		int code = 0;
+		
+		String authErrCode = Window.Location.getParameter("autherr");
+		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
+			
+			String title	= "&uiscreenlogin_error_messagebox_title_autherr" + "_" + authErrCode;
+			String message	= "&uiscreenlogin_error_messagebox_content_autherr" + "_" + authErrCode;
+			
+			title = Translation.getDBMessage(title);
+			message = Translation.getDBMessage(message);
+			
+			DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
+			UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
+			uiDialgogMsg.setUINameCard(this.uiNameCard);
+			uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_ERR, title, message, null, null);
+			uiDialgogMsg.popUp();
+			
+		}
+		
+		logger.begin(className, function);
+		
+		return code;
 	}
 	
 	private void verify(String element, String operator, String profile, String password) {

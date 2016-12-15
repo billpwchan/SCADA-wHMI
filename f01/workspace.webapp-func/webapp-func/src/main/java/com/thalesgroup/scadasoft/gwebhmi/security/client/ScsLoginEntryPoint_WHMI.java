@@ -7,7 +7,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.component.UIToo
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.dictionary.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigMgrEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
-import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGwsLogin;
+import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGwsWebConfigMgr;
 import com.thalesgroup.scadasoft.gwebhmi.security.client.AppEntryPoint_WHMI_i.ProjectName;
 import com.thalesgroup.prj_gz_cocc.gwebhmi.security.client.CoccLoginPanel;
@@ -75,17 +75,10 @@ public class ScsLoginEntryPoint_WHMI implements EntryPoint {
     }
     
     private void launch_WHMI () {
-		String SPRING_SEC_PROCESSING_URL = "j_spring_security_check";
-		
-		String user_name = "j_username";
-		String pass_name = "j_password";
-		
-		String user_value = "chief";
-		String pass_value = "thales";
+    	
+		final UIGws uiGws = new UIGws();
+		uiGws.setEntryPointUIWidget("UIScreenLogin");
+		RootLayoutPanel.get().add(uiGws.getMainPanel());
 
-		UIGwsLogin uiGwsLogin = new UIGwsLogin();
-		uiGwsLogin.set(SPRING_SEC_PROCESSING_URL, user_name, user_value, pass_name, pass_value);
-		RootLayoutPanel.get().add(uiGwsLogin.getMainPanel());
-		uiGwsLogin.submit();
     }
 }

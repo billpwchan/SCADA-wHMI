@@ -4,6 +4,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
+import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -14,6 +15,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class UIPanelScreen extends UIWidget_i {
 	
@@ -30,9 +33,16 @@ public class UIPanelScreen extends UIWidget_i {
 	
 	private final String strUIScreenLogin		= "UIScreenLogin";
 	
+	private final String strUIScreenLogout		= "UIScreenLogout";
+	
 	private final String strUIScreenOPM			= "UIScreenOPM";
 	
 	private final String strUIScreenEmpty		= "UIScreenEmpty";
+	
+	private String entryPointUIWidget = null;
+	public void setEntryPointUIWidget(String entryPointUIWidget) {
+		this.entryPointUIWidget = entryPointUIWidget;
+	}
 
 	@Override
 	public void init() {
@@ -45,12 +55,19 @@ public class UIPanelScreen extends UIWidget_i {
  
     	resetEventBus();
     	
-    	UITaskLaunch taskLaunch = new UITaskLaunch();
-    	taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
-    	taskLaunch.setUiPath(UIPathUIPanelScreen);
-    	taskLaunch.setUiPanel(strUIScreenLogin);
-    	this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+    	String operator = "";
+    	String profile = "";
     	
+		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
+		opmAuthentication.setCurrentOperator(operator);
+		opmAuthentication.setCurrentProfile(profile);
+		
+		UITaskLaunch uiTaskLaunch = new UITaskLaunch();
+		uiTaskLaunch.setTaskUiScreen(0);
+		uiTaskLaunch.setUiPath(UIPathUIPanelScreen);
+		uiTaskLaunch.setUiPanel(entryPointUIWidget);
+		uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));		
+
     	logger.end(className, function);
 	}
 	
@@ -109,47 +126,54 @@ public class UIPanelScreen extends UIWidget_i {
 						rootPanel.clear();
 							
 						resetEventBus();
-							
-						UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
-						Panel panel = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), this.uiNameCard);
-							
-						rootPanel.add(panel);
 						
-						if ( null != strCssRootContainer ) {
-							int screen = 0;
-							String cssClassName = strCssRootContainer+"-"+screen;
-							logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
-							DOM.getParent(panel.getElement()).setClassName(cssClassName);
-						}
-						
-						Settings setting = Settings.getInstance();
-						String strNumOfScreen = setting.get(this.strNumOfScreen);
-						if ( null != strNumOfScreen ) {
-							int intNumOfScreen = 1;
-							try {
-								intNumOfScreen = Integer.parseInt(strNumOfScreen);
-							} catch (NumberFormatException e) {
-								logger.warn(className, function, "onUIEvent Number format exception!");
-							}
-							if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) ) {
-								intNumOfScreen=1;
-							}
-							Panel complexPanelOthers = null;
-							for ( int screen=1;screen<intNumOfScreen;++screen){
-								UINameCard uiNameCard = new UINameCard(this.uiNameCard);
-								uiNameCard.setUiScreen(screen);
-								if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) 
-										|| 0 == strUIScreenOPM.compareTo(taskLaunch.getUiPanel()) ) {
-									complexPanelOthers = uiPanelFactoryMgr.getMainPanel(strUIScreenEmpty, uiNameCard);
-								} else {
-									complexPanelOthers = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), uiNameCard);
-								}
-								rootPanel.add(complexPanelOthers);
+						if ( strUIScreenLogout.equals(taskLaunch.getUiPanel()) ) {
+							
+							OpmMgr.getInstance("UIOpmSCADAgen").logout();
+							
+						} else {
+							
+							UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
+							Panel panel = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), this.uiNameCard);
 								
-								if ( null != strCssRootContainer ) {
-									String cssClassName = strCssRootContainer+"-"+screen;
-									logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
-									DOM.getParent(complexPanelOthers.getElement()).setClassName(cssClassName);
+							rootPanel.add(panel);
+							
+							if ( null != strCssRootContainer ) {
+								int screen = 0;
+								String cssClassName = strCssRootContainer+"-"+screen;
+								logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
+								DOM.getParent(panel.getElement()).setClassName(cssClassName);
+							}
+							
+							Settings setting = Settings.getInstance();
+							String strNumOfScreen = setting.get(this.strNumOfScreen);
+							if ( null != strNumOfScreen ) {
+								int intNumOfScreen = 1;
+								try {
+									intNumOfScreen = Integer.parseInt(strNumOfScreen);
+								} catch (NumberFormatException e) {
+									logger.warn(className, function, "onUIEvent Number format exception!");
+								}
+								if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) ) {
+									intNumOfScreen=1;
+								}
+								Panel complexPanelOthers = null;
+								for ( int screen=1;screen<intNumOfScreen;++screen){
+									UINameCard uiNameCard = new UINameCard(this.uiNameCard);
+									uiNameCard.setUiScreen(screen);
+									if ( 0 == strUIScreenLogin.compareTo(taskLaunch.getUiPanel()) 
+											|| 0 == strUIScreenOPM.compareTo(taskLaunch.getUiPanel()) ) {
+										complexPanelOthers = uiPanelFactoryMgr.getMainPanel(strUIScreenEmpty, uiNameCard);
+									} else {
+										complexPanelOthers = uiPanelFactoryMgr.getMainPanel(taskLaunch.getUiPanel(), uiNameCard);
+									}
+									rootPanel.add(complexPanelOthers);
+									
+									if ( null != strCssRootContainer ) {
+										String cssClassName = strCssRootContainer+"-"+screen;
+										logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
+										DOM.getParent(complexPanelOthers.getElement()).setClassName(cssClassName);
+									}
 								}
 							}
 						}

@@ -73,6 +73,7 @@ public class AppEntryPoint_WHMI extends MwtEntryPointApp {
     
     private void launch_WHMI () {
 		final UIGws uiGws = new UIGws();
+		uiGws.setEntryPointUIWidget("UIScreenMMI");
 		RootLayoutPanel.get().add(uiGws.getMainPanel());
     }
 }

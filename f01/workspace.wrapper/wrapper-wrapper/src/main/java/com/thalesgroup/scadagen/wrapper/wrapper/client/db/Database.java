@@ -1,7 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
@@ -14,6 +16,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.IPollerComponentClient;
+import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.ScsPollerComponentAccess;
 
 /**
  * @author syau
@@ -24,24 +28,21 @@ public class Database {
 	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private static Database instance = null;
-	public static Database getInstance () {
-		if ( null == instance ) instance = new Database();
-		return instance;
-	}
-	private Database() {}
+	public Database() {}
 	
 	private String scsEnvId;
 	private String parent;
+
 	
 	public void setDynamic(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
 	}
 	
-	private DatabaseEvent dynaimcDatabaseEvent = null;
-	public void setDynamicEvent(DatabaseEvent dynaimcDatabaseEvent) {
-		this.dynaimcDatabaseEvent = dynaimcDatabaseEvent;
+	private DatabaseEvent dynamicDatabaseEvent = null;
+	public void setDynamicEvent(DatabaseEvent dynamicDatabaseEvent) {
+		this.dynamicDatabaseEvent = dynamicDatabaseEvent;
+		logger.debug(className, "setDynamicEvent", "dynamicDatabaseEvent is set");
 	}
 	
 	/**
@@ -59,9 +60,21 @@ public class Database {
 	
 	
 	/**
+	 * Store the Request: key and subscriptionId
+	 */
+	private HashMap<String, Set<String>> KeyAndSubId			= new HashMap<String, Set<String>>();
+	public Set<String> getKeyAndSubId(String key) { return this.KeyAndSubId.get(key); }
+	
+	
+	/**
 	 * SCSDatabase handle
 	 */
 	private ScsRTDBComponentAccess rtdb = null;
+	
+	/**
+	 * SCSDBPoller handle
+	 */
+	private ScsPollerComponentAccess poller = null;
 	
 	private LinkedList<JSONRequest> requestStatics			= new LinkedList<JSONRequest>();
 	private HashMap<String, String[]> requestDynamics		= new HashMap<String, String[]>();
@@ -164,8 +177,11 @@ public class Database {
 			} else {
 				logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
 				requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
+				logger.debug(className, function, "requestStatics.put([{}], [{}]", clientKey, dbaddresses);
 				KeyAndAddress.put(clientKey, dbaddresses);
+				logger.debug(className, function, "KeyAndAddress.put([{}], [{}]", clientKey, dbaddresses);
 				databaseEvents.put(clientKey, databaseEvent);
+				logger.debug(className, function, "databaseEvents.put([{}], databaseEvent)", clientKey);
 			}			
 		} else {
 			logger.warn(className, function, "databaseEvent IS NULL");
@@ -194,8 +210,11 @@ public class Database {
 			} else {
 				logger.info(className, function, "clientKey[{}] not found in caches, send request to database", clientKey);
 				requestStatics.add(new JSONRequest(api, clientKey, scsEnvId, dbaddresses));
+				logger.debug(className, function, "requestStatics.put([{}], [{}]", clientKey, dbaddresses);
 				KeyAndAddress.put(clientKey, new String[]{dbaddresses});
+				logger.debug(className, function, "KeyAndAddress.put([{}], [{}]", clientKey, dbaddresses);
 				databaseEvents.put(clientKey, databaseEvent);
+				logger.debug(className, function, "databaseEvents.put([{}], databaseEvent)", clientKey);
 			}
 		} else {
 			logger.warn(className, function, "databaseEvent IS NULL");
@@ -209,20 +228,23 @@ public class Database {
 	 * @param dbaddresses : dbaddress to read
 	 * @param databaseEvent : Callback for result
 	 */
-	public void addDynamicRequest(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
-		final String function = "addDynamicRequest";
-		logger.begin(className, function);
-		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
-		if ( null != databaseEvent) {
-			logger.info(className, function, "send request to database", clientKey);
-			requestDynamics.put(clientKey, dbaddresses);
-			KeyAndAddress.put(clientKey, dbaddresses);
-			databaseEvents.put(clientKey, databaseEvent);
-		} else {
-			logger.warn(className, function, "databaseEvent IS NULL");
-		}
-		logger.end(className, function);
-	}
+//	public void addDynamicRequest(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
+//		final String function = "addDynamicRequest";
+//		logger.begin(className, function);
+//		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
+//		if ( null != databaseEvent) {
+//			logger.info(className, function, "send request to database", clientKey);
+//			requestDynamics.put(clientKey, dbaddresses);
+//			logger.debug(className, function, "requestDynamics.put([{}], [{}]", clientKey, dbaddresses);
+//			KeyAndAddress.put(clientKey, dbaddresses);
+//			logger.debug(className, function, "KeyAndAddress.put([{}], [{}]", clientKey, dbaddresses);
+//			databaseEvents.put(clientKey, databaseEvent);
+//			logger.debug(className, function, "databaseEvents.put([{}], databaseEvent)", clientKey);
+//		} else {
+//			logger.warn(className, function, "databaseEvent IS NULL");
+//		}
+//		logger.end(className, function);
+//	}
 	
 
 	
@@ -237,9 +259,21 @@ public class Database {
 		logger.info(className, function, "clientKey[{}] dbaddresses[{}]", clientKey, dbaddresses);
 		if ( null != databaseEvent) {
 			logger.info(className, function, "send request to database", clientKey);
+			
 			requestDynamics.put(clientKey, dbaddresses);
+			logger.debug(className, function, "requestDynamics.put([{}], [{}]", clientKey, dbaddresses);
+			for (int i=0; i<dbaddresses.length; i++) {
+				logger.debug(className, function, "requestDynamics dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+			}
+			
 			KeyAndAddress.put(clientKey, dbaddresses);
+			logger.debug(className, function, "KeyAndAddress.put([{}], [{}]", clientKey, dbaddresses);
+			for (int i=0; i<dbaddresses.length; i++) {
+				logger.debug(className, function, "KeyAndAddress dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+			}
+			
 			databaseEvents.put(clientKey, databaseEvent);
+			logger.debug(className, function, "databaseEvents.put([{}], databaseEvent)", clientKey);
 		} else {
 			logger.warn(className, function, "databaseEvent IS NULL");
 		}
@@ -252,7 +286,7 @@ public class Database {
 	 * @param databaseEvent : Callback for result
 	 */
 	public void unSubscribe(String clientKey) {
-		final String function = "addDynamicRequest";
+		final String function = "unSubscribe";
 		logger.begin(className, function);
 		logger.info(className, function, "clientKey[{}]", clientKey);
 		requestDynamics.remove(clientKey);
@@ -307,6 +341,7 @@ public class Database {
 
 		    	
 		    	KeyAndValues.put(key, value);
+		    	logger.debug(className, function, "KeyAndValues.put([{}], [{}])", key, value);
 		    	
 //		    	updateValue(key, value);
 				
@@ -315,11 +350,11 @@ public class Database {
 				if ( null != databaseEvent ) databaseEvent.update(key, value);
 				
 				// Dynamic
-				if ( "dynamic".equals(key.split("_")[2]) ) {
-					if ( null != dynaimcDatabaseEvent ) {
-						dynaimcDatabaseEvent.update(key, value);
-					}
-				}
+//				if ( "dynamic".equals(key.split("_")[2]) ) {
+//					if ( null != dynaimcDatabaseEvent ) {
+//						dynaimcDatabaseEvent.update(key, value);
+//					}
+//				}
 
 				logger.end(className, function);
 				
@@ -397,6 +432,7 @@ public class Database {
 				}
 		    	
 				KeyAndValues.put(clientKey, instances);
+				logger.debug(className, function, "KeyAndValues.put([{}], [{}])", clientKey, instances);
 				
 //				updateValue(clientKey, instances);
 				
@@ -504,6 +540,105 @@ public class Database {
 			
 		});
 		
+		poller = new ScsPollerComponentAccess(new IPollerComponentClient() {
+
+			@Override
+			public void setPresenter(HypervisorPresenterClientAbstract<? extends HypervisorView> presenter) {
+
+			}
+
+			@Override
+			public Widget asWidget() {
+				return null;
+			}
+
+			@Override
+			public void destroy() {
+			}
+
+			@Override
+			public void setDeleteGroupResult(String key, int errorCode, String errorMessage) {
+				
+			}
+
+			@Override
+			public void setSubscribeResult(String key, String subUUID, String pollerState, String[] dbaddress,
+					String[] values, int errorCode, String errorMessage) {
+				final String function = "setSubscribeResult";
+				
+				if (getKeyAndSubId(key) == null) {
+					Set<String> set = new HashSet<String>();
+					set.add(subUUID);
+					KeyAndSubId.put(key, set);
+				}
+				
+				logger.begin(className, function);
+				
+				if ( logger.isDebugEnabled() ) {				
+					if ( logger.isDebugEnabled() ) {
+				    	logger.debug(className, function, "key[{}] errorCode[{}] errorMessage[{}]", new Object[]{key, errorCode, errorMessage});
+				    	
+						for(int i = 0; i < values.length; ++i) {
+							logger.debug(className, function, "value[{}][{}]", i, values[i]);
+						}	
+					}
+				}
+				
+				String [] savedDBAddresses = KeyAndAddress.get(key);
+				String [] savedValues = KeyAndValues.get(key);
+		
+	    		if (savedDBAddresses != null && savedValues != null) {
+	    			// GWT 2.4 does not support java String array clone or copyOf operations!!
+					String [] updateValues = new String [savedValues.length];
+					if (updateValues != null) {
+		    			for (int i=0; i<savedDBAddresses.length; i++) {
+		    				boolean found = false;
+		    				for (int j=0; j<dbaddress.length; j++) {
+		    					if (savedDBAddresses[i].compareTo(dbaddress[j]) == 0) {
+		    						updateValues[i] = values[j];
+		    						found = true;
+		    						break;
+		    					}
+		    				}
+		    				if (!found) {
+		    					updateValues[i] = savedValues[i];
+		    				}
+		    			}
+		    			KeyAndValues.put(key, updateValues);
+					}
+	    		} else {
+	    			KeyAndValues.put(key, values);
+	    		}
+		    	
+		    	//logger.debug(className, function, "KeyAndValues.put([{}], [{}])", key, values);
+	
+				// Dynamic
+				if ( "dynamic".equals(key.split("_")[2]) ) {
+					if ( null != dynamicDatabaseEvent ) {
+						logger.debug(className, function, "dynamicDatabaseEvent.update");
+						dynamicDatabaseEvent.update(key, values);
+					} else {
+						logger.warn(className, function, "dynamicDatabaseEvent is null");
+					}
+				} else {
+					logger.debug(className, function, "key does not match dynamic");
+				}
+
+				logger.end(className, function);
+			}
+
+			@Override
+			public void setUnSubscribeResult(String clientKey, int errorCode, String errorMessage) {
+				if (errorCode != 0) {
+					logger.error("unsubscribe failed. " + errorMessage);
+				} else {
+					logger.debug("unsubscribe success");
+				}
+			}
+
+			
+		});
+		
 		logger.end(className, function);
 	}
 	
@@ -521,11 +656,13 @@ public class Database {
 		
 		final String strGetChildren = "GetChildren";
 		final String strMultiReadValue = "multiReadValue";
+		final int subscribePeriod = periodMillis;
 		
 		logger.begin(className, function);
 		
 		if ( null == timer ) {
 			timer = new Timer() {
+				boolean subscribeSent = false;
 
 				@Override
 				public void run() {
@@ -537,37 +674,67 @@ public class Database {
 							
 							JSONRequest jsonRequest = requestStatics.removeFirst();
 							
-							if ( strGetChildren.equals(jsonRequest.api) ) {
-								
-								String api = jsonRequest.api;
-								String clientKey = jsonRequest.clientKey;
-								String scsEnvId = jsonRequest.scsEnvId;
-								String dbaddress = jsonRequest.dbaddress;
-								
-								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
-								
-								rtdb.getChildren(clientKey, scsEnvId, dbaddress);
-								
-							} else if ( strMultiReadValue.equals(jsonRequest.api) ) {
-								
-								String api = jsonRequest.api;
-								String clientKey = jsonRequest.clientKey;
-								String scsEnvId = jsonRequest.scsEnvId;
-								String[] dbaddresses = jsonRequest.dbaddresses;
-								
-								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
-								
-								rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
+							if (jsonRequest != null) {
+							
+								if ( jsonRequest.dbaddress != null && strGetChildren.equals(jsonRequest.api) ) {
+									
+									String api = jsonRequest.api;
+									String clientKey = jsonRequest.clientKey;
+									String scsEnvId = jsonRequest.scsEnvId;
+									String dbaddress = jsonRequest.dbaddress;
+									
+									logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
+									
+									rtdb.getChildren(clientKey, scsEnvId, dbaddress);
+									
+								} else if ( jsonRequest.dbaddresses != null && jsonRequest.dbaddresses.length > 0 && strMultiReadValue.equals(jsonRequest.api) ) {
+									
+									String api = jsonRequest.api;
+									String clientKey = jsonRequest.clientKey;
+									String scsEnvId = jsonRequest.scsEnvId;
+									String[] dbaddresses = jsonRequest.dbaddresses;
+									
+									logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
+									
+									rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
+								}
+							} else {
+								logger.debug(className, function, "jsonRequest dbaddresses is empty");
 							}
 
 							logger.end(className, function+" sendJSONRequest");
 							
-						} else if ( requestDynamics.size() > 0 ) {
+//						} else if ( requestDynamics.size() > 0 ) {
+//							
+//							LinkedList<String> dbaddresslist = new LinkedList<String>();
+//							for ( String key : requestDynamics.keySet() ) {
+//								for ( String dbaddress : requestDynamics.get(key) ) {
+//									dbaddresslist.add(dbaddress);
+//								}
+//							}
+//							String[] dbaddresses = dbaddresslist.toArray(new String[0]);
+//							
+//							String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
+//							
+//							KeyAndAddress.put(clientKey, dbaddresses);
+//
+//							rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
+						}
+					}
+					if (null != poller) {
+						if ( !subscribeSent && requestDynamics.size() > 0 ) {
 							
 							LinkedList<String> dbaddresslist = new LinkedList<String>();
 							for ( String key : requestDynamics.keySet() ) {
+								logger.debug(className, function, "requestDynamics key [{}]", key);
 								for ( String dbaddress : requestDynamics.get(key) ) {
-									dbaddresslist.add(dbaddress);
+									logger.debug(className, function, "requestDynamics dbaddress [{}]", dbaddress);
+									if (!dbaddresslist.contains(dbaddress))	{
+										dbaddresslist.add(dbaddress);
+										logger.debug(className, function, "Added to subscription list [{}] ", dbaddress);
+									} else {
+										logger.debug(className, function, "NOT Added to subscription list [{}] ", dbaddress);
+									}
 								}
 							}
 							String[] dbaddresses = dbaddresslist.toArray(new String[0]);
@@ -575,8 +742,10 @@ public class Database {
 							String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
 							
 							KeyAndAddress.put(clientKey, dbaddresses);
+							logger.debug(className, function, "KeyAndAddress.put([{}], [{}]", clientKey, dbaddresses);
 
-							rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
+							poller.subscribe(clientKey, scsEnvId, clientKey, dbaddresses, subscribePeriod);
+							subscribeSent = true;
 						}
 					}
 				}
@@ -607,10 +776,24 @@ public class Database {
 
 		try {
 			rtdb.terminate();
+			
+			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
+			
+			Set<String> subSet = KeyAndSubId.get(clientKey);
+			if (subSet != null) {
+				String subscriptionId = subSet.iterator().next();
+				if (subscriptionId != null) {
+					poller.unSubscribe(clientKey, scsEnvId, clientKey, subscriptionId);
+			
+					KeyAndSubId.remove(subscriptionId);
+				}
+			}
+			poller.terminate();
 		} catch (IllegalStatePresenterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		rtdb=null;
+		poller=null;
 	}
 }

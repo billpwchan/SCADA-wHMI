@@ -51,10 +51,15 @@ public class ReadProp {
 		if ( null != dictionariesCache ) {
 			String strInt = dictionariesCache.getStringValue(fileName, valueKey);
 			logger.info(className, function, "strInt[{}]", strInt);
-			try {
-				result = Integer.parseInt(strInt);
-			} catch ( NumberFormatException e ) {
-				logger.warn(className, function, "invalid integer value of result[{}]", result);
+			
+			if (null != strInt) {
+				try {
+					result = Integer.parseInt(strInt);
+				} catch ( NumberFormatException e ) {
+					logger.warn(className, function, "invalid integer value of result[{}]", result);
+				}
+			} else {
+				logger.warn(className, function, "valueKey [{}] not found in DictionaryCache. Default value is used.", valueKey);
 			}
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
@@ -75,6 +80,10 @@ public class ReadProp {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
 		if ( null != dictionariesCache ) {
 			result = dictionariesCache.getStringValue(fileName, valueKey);
+			if (result == null) {
+				result = defaultValue;
+				logger.warn(className, function, "valueKey [{}] not found in DictionaryCache. Default value is used.", valueKey);
+			}
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}

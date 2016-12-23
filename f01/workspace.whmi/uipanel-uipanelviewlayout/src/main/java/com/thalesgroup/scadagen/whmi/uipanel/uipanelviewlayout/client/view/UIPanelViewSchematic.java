@@ -63,7 +63,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 				wrapperScsSituationViewPanel.setSize("100%", "100%");
 				wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(new WrapperScsSituationViewPanelEvent() {
 					@Override
-					public void triggerSymbolWidget(String hv_id, int mouseX, int mouseY) {
+					public void triggerSymbolWidget(String hv_id, String hv_type, int mouseX, int mouseY) {
 						
 						final String function = "triggerSymbolWidget";
 						
@@ -75,7 +75,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 						taskLaunch.setUiPanel("ViewSchematicSymbolSelected");
 						taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
 						taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-						taskLaunch.setOption(new Object[]{configuationId, hv_id, mouseX, mouseY});
+						taskLaunch.setOption(new Object[]{configuationId, hv_id, hv_type, mouseX, mouseY});
 						uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 						
 						logger.end(className, function);

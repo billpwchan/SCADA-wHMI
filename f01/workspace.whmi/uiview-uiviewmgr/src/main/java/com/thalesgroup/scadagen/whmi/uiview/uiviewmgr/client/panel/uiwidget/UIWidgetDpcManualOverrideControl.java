@@ -33,7 +33,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandl
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
@@ -261,7 +260,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 //	private final String dynamicAciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.afoForcedStatus.toString()};
 //	private final String dynamicSciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.sfoForcedStatus.toString()};
 
-	private Database database = Database.getInstance();
+	private Database database = new Database();
 	public void connect() {
 		final String function = "connect";
 		
@@ -316,7 +315,6 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				
 				@Override
 				public void update(String key, String[] value) {
-					Database database = Database.getInstance();
 					String clientKeyStatic = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
 					if ( clientKeyStatic.equals(key) ) {
 						String [] dbaddresses	= database.getKeyAndAddress(key);

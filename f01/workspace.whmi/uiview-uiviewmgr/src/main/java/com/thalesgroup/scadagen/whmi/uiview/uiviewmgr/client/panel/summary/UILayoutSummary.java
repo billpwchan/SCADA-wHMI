@@ -54,6 +54,8 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	private String strHeader = "header";
+	
+	private Database database = null;
 
 	@Override
 	public void init() {
@@ -61,7 +63,7 @@ public class UILayoutSummary extends UIWidget_i {
 
 		logger.begin(className, function);
 		
-		Database database = Database.getInstance();
+		database = new Database();
 		database.connect();
 		database.connectTimer(250);
 		
@@ -264,7 +266,6 @@ public class UILayoutSummary extends UIWidget_i {
 	@Override
 	public void terminate() {
 		
-		Database database = Database.getInstance();
 		database.disconnectTimer();
 		database.disconnect();
 		

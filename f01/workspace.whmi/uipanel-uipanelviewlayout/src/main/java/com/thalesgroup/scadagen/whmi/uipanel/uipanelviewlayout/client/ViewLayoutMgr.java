@@ -281,10 +281,21 @@ public class ViewLayoutMgr {
 				}
 			}
 			
-			int mouseX = -1;
+			String hvType = null;
 			int indexOption2 = 2;
 			if ( taskLaunch.getOption().length > indexOption2 && null != taskLaunch.getOption()[indexOption2] ) {
 				Object obj = taskLaunch.getOption()[indexOption2];
+				if ( obj instanceof String ) {
+					hvType		= (String)obj;
+				} else {
+					logger.warn(className, function, "hv_type IS NOT A STRING");
+				}
+			}
+			
+			int mouseX = -1;
+			int indexOption3 = 3;
+			if ( taskLaunch.getOption().length > indexOption3 && null != taskLaunch.getOption()[indexOption3] ) {
+				Object obj = taskLaunch.getOption()[indexOption3];
 				if ( obj instanceof Integer ) {
 					mouseX		= (Integer)obj;
 				} else {
@@ -293,9 +304,9 @@ public class ViewLayoutMgr {
 			}
 			
 			int mouseY = -1;
-			int indexOption3 = 3;
-			if ( taskLaunch.getOption().length > indexOption3 && null != taskLaunch.getOption()[indexOption3] ) {
-				Object obj = taskLaunch.getOption()[indexOption3];
+			int indexOption4 = 4;
+			if ( taskLaunch.getOption().length > indexOption4 && null != taskLaunch.getOption()[indexOption4] ) {
+				Object obj = taskLaunch.getOption()[indexOption4];
 				if ( obj instanceof Integer ) {
 					mouseY		= (Integer)obj;
 				} else {
@@ -305,6 +316,7 @@ public class ViewLayoutMgr {
 			
 			logger.info(className, function, "configurationId[{}]", configurationId);
 			logger.info(className, function, "hvid[{}]", hvid);
+			logger.info(className, function, "hvType[{}]", hvType);
 			logger.info(className, function, "mouseX[{}]", mouseX);
 			logger.info(className, function, "mouseY[{}]", mouseY);
 			
@@ -368,7 +380,7 @@ public class ViewLayoutMgr {
 
 				UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));
 				mgr.closeInspectorDialog();
-				mgr.openInspectorDialog(uiNameCard, hvid, mouseX, mouseY);
+				mgr.openInspectorDialog(uiNameCard, hvid, hvType, mouseX, mouseY);
 			}
 			
 			uiEventAction = null;

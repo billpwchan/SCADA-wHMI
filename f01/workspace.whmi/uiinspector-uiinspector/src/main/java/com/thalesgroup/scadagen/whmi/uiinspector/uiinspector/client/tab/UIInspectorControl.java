@@ -54,6 +54,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
+	private Database database	= null;
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -649,8 +650,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			}
 			dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 		}
-			
-		Database database = Database.getInstance();
 		
 		String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		
@@ -659,7 +658,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			
 			@Override
 			public void update(String key, String[] value) {
-				Database database = Database.getInstance();
 				{
 					String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 					if ( 0 == clientKeyStatic.compareTo(key) ) {
@@ -798,8 +796,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				}				
 			}
 
-			
-			Database database = Database.getInstance();
 			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 
 				@Override
@@ -816,7 +812,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		Database database = Database.getInstance();
 		{
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
 			database.unSubscribe(clientKey);
@@ -1172,7 +1167,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		final String function = "subscribe";
 		logger.begin(className, function);
 		logger.info(className, function, "address[{}]", address);
-		Database database = Database.getInstance();
 		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
 		logger.info(className, function, "clientKey[{}]", clientKey);
 		database.subscribe(clientKey, new String[]{address}, new DatabaseEvent() {
@@ -1188,10 +1182,14 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		final String function = "unsubscribe";
 		logger.begin(className, function);
 		logger.info(className, function, "address[{}]", address);
-		Database database = Database.getInstance();
 		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
 		logger.info(className, function, "clientKey[{}]", clientKey);
 		database.unSubscribe(clientKey);
 		logger.end(className, function);
+	}
+	
+	@Override
+	public void setDatabase(Database db) {
+		database = db;
 	}
 }

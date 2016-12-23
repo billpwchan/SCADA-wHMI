@@ -37,7 +37,7 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 			}
 		}
 		
-		Database database = Database.getInstance();
+		Database database = new Database();
 		
 		database.connect();
 		

@@ -85,14 +85,16 @@ public class ScsWidgetFactory extends WidgetFactory {
 					
 					String hv_id = symbolWidget.getEntityId();
 					
-					logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]");
+					String hv_type = symbolWidget.getEntityClassName();
+					
+					logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
 					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						
 						int mouseX = event.getClientX();
 						int mouseY = event.getClientY();
 						
-						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id, mouseX, mouseY);
+						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id, hv_type, mouseX, mouseY);
 						
 					}
 					

@@ -10,8 +10,8 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.UIPanelInspectorWrapper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIPanelInspector;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIPanelInspectorEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -26,8 +26,10 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	int baseBoderX = 28, baseBoderY = 28;
 	int baseWidth = 600, baseHeight = 620;
 	
-	private UIPanelInspector uiPanelInspector = null;
+	private UIPanelInspectorWrapper uiPanelInspector = null;
 	private Panel rootPanel = null;
+	private String hvid = null;
+	private String hvType = null;
 	
 	private boolean modeless = false;
 	public void setModeless(boolean modeless) { 
@@ -66,6 +68,11 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		logger.end(className, function);
 	}
 	
+	public void setHvInfo(String hvid, String hvType) {
+		this.hvid = hvid;
+		this.hvType = hvType;
+	}
+	
 	private String viewXMLFile = null;
 	@Override
 	public void setViewXMLFile(String viewXMLFile) {
@@ -87,8 +94,9 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		
 		this.setModal(modeless);
 		
-		uiPanelInspector = new UIPanelInspector();
+		uiPanelInspector = new UIPanelInspectorWrapper();
 		uiPanelInspector.setUINameCard(this.uiNameCard);
+		uiPanelInspector.setHvInfo(this.hvid, this.hvType);
 		uiPanelInspector.setUIInspectorEvent(new UIPanelInspectorEvent() {
 			
 			@Override
@@ -109,7 +117,7 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		});
 		uiPanelInspector.init();
 		
-		// Auto close handle
+		// Auto close handle	
 		rootPanel = new FocusPanel();
 		rootPanel.add(uiPanelInspector.getMainPanel());
 		((FocusPanel)rootPanel).addClickHandler(new ClickHandler() {
@@ -123,7 +131,6 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 				}
 			}
 		});
-		
 		
 		logger.info(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
 

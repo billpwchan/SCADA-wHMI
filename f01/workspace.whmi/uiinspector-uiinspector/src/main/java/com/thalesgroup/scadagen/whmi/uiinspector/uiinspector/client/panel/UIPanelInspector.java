@@ -66,7 +66,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		this.periodMillis = periodMillis;
 	}
 	
-	private Database database = Database.getInstance();
+	private Database database = new Database();
 
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -94,7 +94,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.info(className, function, "database pollor periodMillis[{}]", periodMillis);
 		
 		logger.begin(className, function);
-		Database database = Database.getInstance();
+
 		database.connect();
 		database.connectTimer(this.periodMillis);
 
@@ -109,9 +109,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				
 				@Override
 				public void update(String key, String[] values) {
-					
-					Database database = Database.getInstance();
-					
 					{
 						String clientKey_GetChildren_inspector_static = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
 						if ( 0 == clientKey_GetChildren_inspector_static.compareTo(key) ) {
@@ -137,12 +134,25 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 							@Override
 							public void update(String key, String[] value) {
 								
-								Database database = Database.getInstance();
-								
 								String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
 								
 								String [] dbaddresses	= database.getKeyAndAddress(clientKey);
 								String [] dbvalues		= database.getKeyAndValues(clientKey);
+								if (dbaddresses == null || dbvalues == null) {
+									logger.error("DatabaseEvent", "update", "dbaddresses or dbvalues is null");
+									return;
+								}
+								if (logger.isDebugEnabled()) {
+									for (int i=0; i<dbaddresses.length; i++) {
+										logger.debug("DatabaseEvent", "update", "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+									}
+									for (int i=0; i<dbvalues.length; i++) {
+										logger.debug("DatabaseEvent", "update", "dbvalues[{}]=[{}]", i, dbvalues[i]);
+									}
+									for (int i=0; i<value.length; i++) {
+										logger.debug("DatabaseEvent", "update", "value[{}]=[{}]", i, value[i]);
+									}
+								}
 								
 								HashMap<String, String> dynamicvalues = new HashMap<String, String>();
 								for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
@@ -197,8 +207,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					@Override
 					public void update(String key, String[] values) {
 						{
-							Database database = Database.getInstance();
-							
 							String clientKey_multiReadValue_inspector_static = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
 							if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(key) ) {
 								String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -239,7 +247,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		((UIInspectorHeader)	uiInspectorHeader)		.disconnect();
 		((UIInspectorEquipmentReserve)		equipmentReserve)		.disconnect();
 		
-		Database database = Database.getInstance();
 		database.disconnectTimer();
 		database.disconnect();
 
@@ -704,26 +711,32 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 		uiInspectorHeader.setUINameCard(this.uiNameCard);
 		uiInspectorHeader.init();
+		uiInspectorHeader.setDatabase(database);
 		panelHeader	= uiInspectorHeader.getMainPanel();
 		
 		equipmentReserve.setUINameCard(this.uiNameCard);
 		equipmentReserve.init();
+		equipmentReserve.setDatabase(database);
 		equipmentReserve.getMainPanel();
 		
 		uiInspectorInfo.setUINameCard(this.uiNameCard);
 		uiInspectorInfo.init();
+		uiInspectorInfo.setDatabase(database);
 		panelInfo = uiInspectorInfo.getMainPanel();
 		
 		uiInspectorControl.setUINameCard(this.uiNameCard);
 		uiInspectorControl.init();
+		uiInspectorControl.setDatabase(database);
 		panelCtrl = uiInspectorControl.getMainPanel();
 		
 		uiInspectorTag.setUINameCard(this.uiNameCard);
 		uiInspectorTag.init();
+		uiInspectorTag.setDatabase(database);
 		panelTag = uiInspectorTag.getMainPanel();
 		
 		uiInspectorAdvance.setUINameCard(this.uiNameCard);
 		uiInspectorAdvance.init();
+		uiInspectorAdvance.setDatabase(database);
 		panelAdv = uiInspectorAdvance.getMainPanel();
 		
 		
@@ -816,14 +829,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private void reserveEquipment() {
 		final String function = "reserveEquipment";
 		logger.begin(className, function);
-		EquipmentReserve.equipmentReservation(scsEnvId, parent);
+		EquipmentReserve.equipmentReservation(scsEnvId, parent, database);
 		logger.end(className, function);
 	}
 	
 	private void unReserveEquipment() {
 		final String function = "unReserveEquipment";
 		logger.begin(className, function);
-		EquipmentReserve.equipmentUnreservation(scsEnvId, parent);
+		EquipmentReserve.equipmentUnreservation(scsEnvId, parent, database);
 		logger.end(className, function);
 	}
 }

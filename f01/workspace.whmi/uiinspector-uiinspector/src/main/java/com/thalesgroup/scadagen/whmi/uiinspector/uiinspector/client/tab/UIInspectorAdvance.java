@@ -67,6 +67,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
+	private Database database	= null;
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -170,8 +171,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private Observer observer = null;
 	private Subject dpcMgrSubject = null;
 	
-	private Database database = Database.getInstance();
-	
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -221,7 +220,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				
 				@Override
 				public void update(String key, String[] value) {
-					Database database = Database.getInstance();
 					String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 					if ( clientKeyStatic.equals(key) ) {
 						String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -279,7 +277,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 			
-			Database database = Database.getInstance();
 			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 
 				@Override
@@ -320,7 +317,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	public void disconnect() {
 		final String function = "disconnect";
 		logger.begin(className, function);
-		Database database = Database.getInstance();
 		{
 			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
 			database.unSubscribe(clientKey);
@@ -1164,6 +1160,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	@Override
 	public void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent) {
 		this.uiInspectorTabClickEvent = uiInspectorTabClickEvent;
+	}
+	
+	@Override
+	public void setDatabase(Database db) {
+		database = db;
 	}
 
 }

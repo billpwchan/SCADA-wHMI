@@ -28,7 +28,7 @@ public class UIInspectorMgr {
 	private UIInspectorDialogBox uiInspectorDialogbox = null;
 	private CountdownTimer countdownTimer = null;
 	
-	public boolean openInspectorDialog(UINameCard uiNameCard, String hvid, int mouseX, int mouseY) {
+	public boolean openInspectorDialog(UINameCard uiNameCard, String hvid, String hvType, int mouseX, int mouseY) {
 		
 		final String function = "openInspectorDialog";
 		logger.begin(className, function);
@@ -65,6 +65,7 @@ public class UIInspectorMgr {
 			uiInspectorDialogbox = new UIInspectorDialogBox();
 			
 			uiInspectorDialogbox.setUINameCard(uiNameCard);
+			uiInspectorDialogbox.setHvInfo(hvid, hvType);
 			uiInspectorDialogbox.init();
 			uiInspectorDialogbox.getMainPanel();
 			

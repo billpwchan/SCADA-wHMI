@@ -37,6 +37,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
+	private Database database	= null;
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -58,8 +59,6 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	public String[] getAddresses() {
 		return this.addresses;
 	}
-	
-	private Database database = Database.getInstance();
 	
 	@Override
 	public void connect() {
@@ -97,8 +96,6 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 					@Override
 					public void update(String key, String[] value) {
 						{
-							Database database = Database.getInstance();
-							
 							String clientKey_multiReadValue_inspectorheader_static = "multiReadValue" + "_" + "inspectorheader" + "_" + "static" + "_" + parent;
 							if ( 0 == clientKey_multiReadValue_inspectorheader_static.compareTo(key) ) {
 								String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -146,7 +143,6 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 					@Override
 					public void update(String key, String[] value) {
 						{
-							Database database = Database.getInstance();
 							String clientKey_multiReadValue_inspector_dynamic = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
 							if ( 0 == clientKey_multiReadValue_inspector_dynamic.compareTo(key) ) {
 								String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -171,7 +167,6 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	public void disconnect() {
 		final String function = "disconnect";
 		logger.begin(className, function);
-		Database database = Database.getInstance();
 		{
 			String clientKey = "multiReadValue" + "_" + "inspectorheader" + "_" + "dynamic" + "_" + parent;
 			database.unSubscribe(clientKey);
@@ -361,5 +356,10 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	public void setUIInspectorTabClickEvent(UIInspectorTabClickEvent uiInspectorTabClickEvent) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void setDatabase(Database db) {
+		database = db;
 	}
 }

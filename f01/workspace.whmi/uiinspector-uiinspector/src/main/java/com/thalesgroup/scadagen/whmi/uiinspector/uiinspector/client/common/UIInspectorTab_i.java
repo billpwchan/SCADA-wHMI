@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 
 public interface UIInspectorTab_i {
 	
@@ -21,5 +22,7 @@ public interface UIInspectorTab_i {
 	
 	void connect();
 	void disconnect();
+	
+	void setDatabase(Database database);
 	
 }

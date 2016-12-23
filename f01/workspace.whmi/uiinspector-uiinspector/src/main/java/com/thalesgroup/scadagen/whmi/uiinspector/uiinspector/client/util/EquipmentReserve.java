@@ -57,7 +57,7 @@ public class EquipmentReserve {
 	 * @param scsEnvId:		
 	 * @param dbaddress:
 	 */
-	public static void equipmentReservation ( String scsEnvId, String dbaddress ) {
+	public static void equipmentReservation ( String scsEnvId, String dbaddress, Database database ) {
 		final String function = "equipmentReservation";
 		logger.begin(className, function);
 		
@@ -67,7 +67,6 @@ public class EquipmentReserve {
 		String addressWrite = dbaddress + PointName.resrvReserveReqID.toString();
 		String key = "addWriteStringValueRequest" + "_" + "inspector" + className + "_" + "dynamic" + "_" + dbaddress;
 			
-		Database database = Database.getInstance();
 		database.addWriteStringValueRequest(key, scsEnvId, addressWrite, reservationName);
 
 		logger.end(className, function);
@@ -78,7 +77,7 @@ public class EquipmentReserve {
 	 * @param env:		Server name
 	 * @param address:	Equipment Point
 	 */
-	public static void equipmentUnreservation ( String scsEnvId, String dbaddress ) {
+	public static void equipmentUnreservation ( String scsEnvId, String dbaddress, Database database ) {
 		final String function = "equipmentUnreservation";
 		logger.begin(className, function);
 		
@@ -89,7 +88,6 @@ public class EquipmentReserve {
 		String addressWrite = dbaddress + PointName.resrvUnreserveReqID.toString();
 		String key = "addWriteStringValueRequest" + "_" + "inspector" + className + "_" + "dynamic" + "_" + dbaddress;
 		
-		Database database = Database.getInstance();
 		database.addWriteStringValueRequest(key, scsEnvId, addressWrite, reservationName);
 
 		logger.end(className, function);

@@ -29,6 +29,7 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
+	private Database database	= null;
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -110,7 +111,7 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 		{
 			logger.begin(className, function);
 			
-			String clientKey = "multiReadValue" + "_" + "inspector" + className + "_" + "dynamic" + "_" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspectorEquipmentReserve" + "_" + "dynamic" + "_" + parent;
 			
 			String[] parents = new String[]{parent};
 
@@ -130,7 +131,6 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 			
-			Database database = Database.getInstance();
 			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
 
 				@Override
@@ -150,9 +150,8 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
-		Database database = Database.getInstance();
 		{
-			String clientKey = "multiReadValue" + "_" + "inspector" + className + "_" + "dynamic" + "_" + parent;
+			String clientKey = "multiReadValue" + "_" + "inspectorEquipmentReserve" + "_" + "dynamic" + "_" + parent;
 			database.unSubscribe(clientKey);
 		}
 		logger.beginEnd(className, function);
@@ -219,7 +218,7 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 
-		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + className + "_" + "static" + "_" + parent;
+		String clientKeyStatic = "multiReadValue" + "_" + "inspectorEquipmentReserve" + "_" + "static" + "_" + parent;
 		if ( clientKeyStatic.equals(clientKey) ) {
 			
 		}
@@ -294,5 +293,10 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 	private EquipmentReserveEvent equipmentReserveEvent = null;
 	public void setEquipmentReserveEvent(EquipmentReserveEvent equipmentReserveEvent) {
 		this.equipmentReserveEvent = equipmentReserveEvent;
+	}
+	
+	@Override
+	public void setDatabase(Database db) {
+		database = db;
 	}
 }

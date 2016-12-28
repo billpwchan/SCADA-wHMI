@@ -79,7 +79,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	  <artifactId>uiscreen-uiscreenempty</artifactId>
 	  <version>${commons.whmi.version}</version>
 	</dependency>
-    
+
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi</groupId>
 	  <artifactId>uiscreen-uiscreenmmi</artifactId>

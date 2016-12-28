@@ -237,12 +237,7 @@ public class ViewLayoutMgr {
 
 		logger.begin(className, function);
 
-		// boolean change = false;
-		
-		
-
-
-		} else if (taskLaunch.getUiPanel().equals("ViewSchematicSymbolSelected")) {
+		if (taskLaunch.getUiPanel().equals("ViewSchematicSymbolSelected")) {
 			
 			String configurationId = null;
 			int indexOption = 0;

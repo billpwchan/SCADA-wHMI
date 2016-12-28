@@ -78,6 +78,24 @@
 	  <version>${commons.whmi.version}</version>
 	</dependency>
 
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogcontainer</groupId>
+	  <artifactId>uidialog-uidialogcontainer</artifactId>
+	  <version>${commons.whmi.version}</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialog</groupId>
+	  <artifactId>uidialog-uidialog</artifactId>
+          <version>${commons.uiwidget.version}</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr</groupId>
+	  <artifactId>uidialog-uidialogmgr</artifactId>
+          <version>${commons.uiwidget.version}</version>
+	</dependency>
+
   </dependencies>
 
   <build>

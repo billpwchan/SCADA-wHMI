@@ -134,6 +134,9 @@
     <module>translation-translationmgr</module>
     <module>uiwidget-uiwidgetgeneric</module>
     <module>uiwidget-uiwidgetmgr</module>
+    <module>uidialog-uidialog</module>
+    <module>uidialog-uidialogmgr</module>
+    <module>uidialog-uidialogmsg</module>
   </modules>
   
 </project>

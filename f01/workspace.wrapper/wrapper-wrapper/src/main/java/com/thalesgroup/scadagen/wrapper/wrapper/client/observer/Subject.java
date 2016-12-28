@@ -3,13 +3,15 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.observer;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.json.client.JSONObject;
+
 public class Subject {
 	private List<Observer> observers = new ArrayList<Observer>();
-	private String state;
-	public String getState() {
+	private JSONObject state;
+	public JSONObject getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(JSONObject state) {
 		this.state = state;
 		notifyAllObservers();
 	}

@@ -27,10 +27,10 @@ public class UILayoutEntryPoint extends UIWidget_i {
 
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
 					, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
-				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 				if (null != uiNameCard) {
 					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(), uiNameCard.getUiScreen());
 				} else {
@@ -49,6 +49,7 @@ public class UILayoutEntryPoint extends UIWidget_i {
 				
 				if ( null != uiWidget_i ) {
 					uiWidget_i.setUINameCard(uiNameCard);
+					uiWidget_i.setDictionaryFolder(uiDict);
 					uiWidget_i.setViewXMLFile(uiView);
 					uiWidget_i.setOptsXMLFile(uiOpts);
 					uiWidget_i.init();					
@@ -62,6 +63,7 @@ public class UILayoutEntryPoint extends UIWidget_i {
 
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
 		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
 		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();

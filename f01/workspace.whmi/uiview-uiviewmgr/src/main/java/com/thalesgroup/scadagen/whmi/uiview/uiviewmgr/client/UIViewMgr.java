@@ -23,13 +23,13 @@ public class UIViewMgr implements UIWidgetMgrFactory {
 	}
 
 	@Override
-	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
 			, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 
 		UIWidget_i uiWidget_i = null;
 		if ( UIWidgetUtil.getClassSimpleName(
@@ -41,6 +41,7 @@ public class UIViewMgr implements UIWidgetMgrFactory {
 
 		if ( null != uiWidget_i ) {
 			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setDictionaryFolder(uiDict);
 			uiWidget_i.setViewXMLFile(uiView);
 			uiWidget_i.setOptsXMLFile(uiOpts);
 			uiWidget_i.init();

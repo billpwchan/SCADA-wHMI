@@ -1,18 +1,18 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client;
 
-import com.google.gwt.user.client.ui.Panel;
+import java.util.HashMap;
+
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss.client.UIScreenDSS;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.client.UIScreenEmpty;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client.UIScreenLogin;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin.client.UIScreenOPM;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.UIScreenMMI;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
-public class UIScreenMgr {
+public class UIScreenMgr implements UIWidgetMgrFactory {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -26,81 +26,52 @@ public class UIScreenMgr {
 		return instance;
 	}
 	
-	public Panel getMainPanel(String uiPanel, UINameCard uiNameCard){
-		final String function = "getMainPanel";
+	@Override
+	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
+			, HashMap<String, Object> options) {
+		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, " uiNameCard["+uiNameCard.getUiPath()+"]");
-		
-		UIWidget_i uiWidget_i = this.getPanel(uiPanel, uiNameCard);
-		Panel panel = uiWidget_i.getMainPanel();
-		
-		logger.end(className, function);
+		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 
-		return panel;
-	}
-
-	public UIWidget_i getPanel(String uiCtrl, UINameCard uiNameCard){
-		final String function = "getPanel";
-		
-		logger.begin(className, function);
-		
-		logger.info(className, function, "uiCtrl[{}]", uiCtrl);
-		
-		String strUIScreenLogin	= "UIScreenLogin.view.xml";
-		String strUIScreenMMI	= "UIScreenMMI.view.xml";
-		String strUIScreenDSS	= "UIScreenDSS.view.xml";
-		String strUIScreenOPM	= "UIScreenOPM.view.xml";
-		
-		String viewXMLFile = null;
-		String optsXMLFile = null;
 		UIWidget_i uiWidget_i = null;
-		
-		if ( UIWidgetUtil.getClassSimpleName(UIScreenLogin.class.getName())
-				.equals(uiCtrl) ) {	
-			
-			viewXMLFile = strUIScreenLogin;
-			
-			uiWidget_i = new UIScreenLogin();
 
-		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName())
-				.equals(uiCtrl) ) {
+		if ( UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName())
+		.equals(uiCtrl) ) {
 
-			viewXMLFile = strUIScreenMMI;
-			
 			uiWidget_i = new UIScreenMMI();
 
-		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenDSS.class.getName())
-				.equals(uiCtrl) ) {
-			
-			viewXMLFile = strUIScreenDSS;
-			
-			uiWidget_i = new UIScreenDSS();
+		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenEmpty.class.getName())
+		.equals(uiCtrl) ) {
 
-		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenOPM.class.getName())
-				.equals(uiCtrl) ) {
-			
-			viewXMLFile = strUIScreenOPM;
-			
-			uiWidget_i = new UIScreenOPM();
+			uiWidget_i = new UIScreenEmpty();
 
+		} else if ( UIWidgetUtil.getClassSimpleName(
+				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
+			
+			uiWidget_i = new UILayoutEntryPoint();
+			
 		} else {
 			
 			uiWidget_i = new UIScreenEmpty();
 
 		}
-		
+
 		if ( null != uiWidget_i ) {
 			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.setViewXMLFile(viewXMLFile);
-			uiWidget_i.setOptsXMLFile(optsXMLFile);
-			uiWidget_i.init();	
+			uiWidget_i.setDictionaryFolder(uiDict);
+			uiWidget_i.setViewXMLFile(uiView);
+			uiWidget_i.setOptsXMLFile(uiOpts);
+			uiWidget_i.init();
+		} else {
+			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts});
 		}
-		
+
 		logger.end(className, function);
 
 		return uiWidget_i;
+		
 	}
-	
+
 }

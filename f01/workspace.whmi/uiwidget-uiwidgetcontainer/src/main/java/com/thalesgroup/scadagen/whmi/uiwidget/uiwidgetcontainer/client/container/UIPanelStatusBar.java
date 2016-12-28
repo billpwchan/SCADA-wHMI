@@ -54,6 +54,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
 		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
 		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();

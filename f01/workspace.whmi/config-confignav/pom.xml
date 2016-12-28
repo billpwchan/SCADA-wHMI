@@ -78,6 +78,12 @@
 	  <version>${commons.whmi.version}</version>
 	</dependency>
 	
+	<!-- Wrapper -->
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
+	  <artifactId>wrapper-wrapper</artifactId>
+	  <version>${commons.whmi.version}</version>
+	</dependency>
     
     <dependency>
       <groupId>org.slf4j</groupId>

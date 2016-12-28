@@ -124,6 +124,7 @@ public class UIWidgetPrint extends UIWidget_i {
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
+		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();

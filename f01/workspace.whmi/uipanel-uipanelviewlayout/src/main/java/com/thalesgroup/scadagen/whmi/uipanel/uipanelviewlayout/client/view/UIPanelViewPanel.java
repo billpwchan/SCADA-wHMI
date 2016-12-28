@@ -68,6 +68,7 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				String uiPanel = taskLaunch.getUiPanel();
 				String uiView = taskLaunch.getUiView();
 				String uiOpts = null;
+				String uiDict = null;
 
 				logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}]", new Object[]{uiPanel, uiView, uiOpts});
 				
@@ -79,7 +80,7 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				
 				UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
 				
-				uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, options);
+				uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, uiDict, options);
 				
 				if ( null != uiWidget_i ) {
 					

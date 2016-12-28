@@ -60,6 +60,7 @@ public interface UILayoutGeneric_i {
 		, csscontainer("csscontainer")
 		, uiView("uiView")
 		, uiOpts("uiOpts")
+		, uiDict("uiDict")
 		, element("element")
 		, eventbusname("eventbusname")
 		, eventbusscope("eventbusscope")

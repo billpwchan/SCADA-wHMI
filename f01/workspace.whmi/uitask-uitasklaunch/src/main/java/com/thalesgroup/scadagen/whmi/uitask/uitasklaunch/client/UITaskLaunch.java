@@ -42,6 +42,7 @@ public class UITaskLaunch extends UITaskDictionary {
 		, UIPanel("uiPanel")
 		, UIScreen("uiScreen")
 		, UIPath("uiPath")
+		, UICtrl("uiCtrl")
 		, Css("css")
 		, UIView("uiView")
 		, Tooltips("tooltips")
@@ -70,6 +71,7 @@ public class UITaskLaunch extends UITaskDictionary {
 		setValue(UITaskLaunchAttribute.LocCat.toString()	, task.getParameter(TaskAttribute.LocCat.toString()));
 		setValue(UITaskLaunchAttribute.FunCat.toString()	, task.getParameter(TaskAttribute.FunCat.toString()));
 		setValue(UITaskLaunchAttribute.UIPanel.toString()	, task.getParameter(TaskAttribute.UIPanel.toString()));
+		setValue(UITaskLaunchAttribute.UICtrl.toString()	, task.getParameter(TaskAttribute.UICtrl.toString()));
 		setValue(UITaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));
 		setValue(UITaskLaunchAttribute.UIView.toString()	, task.getParameter(TaskAttribute.UIView.toString()));
 		setValue(UITaskLaunchAttribute.Tooltips.toString()	, task.getParameter(TaskAttribute.Tooltips.toString()));
@@ -175,6 +177,13 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 	public void setUiPanel(String uiPanel) {
 		setValue(UITaskLaunchAttribute.UIPanel.toString(), uiPanel);
+	}
+	
+	public void setUiCtrl(String uiCtrl) {
+		setValue(UITaskLaunchAttribute.UICtrl.toString(), uiCtrl);
+	}
+	public String getUiCtrl() {
+		return (String) getValue(UITaskLaunchAttribute.UICtrl.toString());
 	}
 	
 	public void setCss(String css) {

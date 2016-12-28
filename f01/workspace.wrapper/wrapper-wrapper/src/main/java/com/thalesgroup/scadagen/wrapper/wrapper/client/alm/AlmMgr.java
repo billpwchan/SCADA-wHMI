@@ -170,7 +170,7 @@ public class AlmMgr {
 	
 	
 	public void ackAlarm(String key, String scsEnvId, String alarmId, String comment, int inUserId) {
-		final String function = "AlmMgr";
+		final String function = "ackAlarm";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
@@ -182,7 +182,7 @@ public class AlmMgr {
 	}
 	
 	public void ackAlarms(String key, String scsEnvId, String[] alarmIds, String comment, int inUserId) {
-		final String function = "AlmMgr";
+		final String function = "ackAlarms";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
@@ -196,4 +196,48 @@ public class AlmMgr {
 		almComponent_.ackAlarms(key, scsEnvId, alarmIds, comment, inUserId);
 		logger.end(className, function);
 	}
+	
+    public void notifyExternalAlarm(String key, String scsEnvId, String configFileName, int classId, String pointAlias,
+            int objectId, int extSourceId, boolean isAlarm, String message) {
+    	final String function = "notifyExternalAlarm";
+    	logger.begin(className, function);
+    	
+    	logger.info(className, function, "key[{}]", key);
+		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		
+		logger.info(className, function, "configFileName[{}]", configFileName);
+		logger.info(className, function, "classId[{}]", classId);
+		logger.info(className, function, "pointAlias[{}]", pointAlias);
+		logger.info(className, function, "objectId[{}]", objectId);
+		logger.info(className, function, "extSourceId[{}]", extSourceId);
+		logger.info(className, function, "isAlarm[{}]", isAlarm);
+		logger.info(className, function, "message[{}]", message);
+    	almComponent_.notifyExternalAlarm(key, scsEnvId
+    			, configFileName, classId, pointAlias
+    			, objectId, extSourceId, isAlarm, message
+    			);
+    	logger.end(className, function);
+    }
+    
+    
+    public void notifyExternalEvent(String key, String scsEnvId, String configFileName, int classId, String pointAlias,
+            int objectId, int extSourceId, String message) {
+    	final String function = "notifyExternalEvent";
+    	logger.begin(className, function);
+    	
+    	logger.info(className, function, "key[{}]", key);
+		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		
+		logger.info(className, function, "configFileName[{}]", configFileName);
+		logger.info(className, function, "classId[{}]", classId);
+		logger.info(className, function, "pointAlias[{}]", pointAlias);
+		logger.info(className, function, "objectId[{}]", objectId);
+		logger.info(className, function, "extSourceId[{}]", extSourceId);
+		logger.info(className, function, "message[{}]", message);
+    	almComponent_.notifyExternalEvent(key, scsEnvId
+    			, configFileName, classId, pointAlias
+    			, objectId, extSourceId, message
+    			);
+    	logger.end(className, function);
+    }
 }

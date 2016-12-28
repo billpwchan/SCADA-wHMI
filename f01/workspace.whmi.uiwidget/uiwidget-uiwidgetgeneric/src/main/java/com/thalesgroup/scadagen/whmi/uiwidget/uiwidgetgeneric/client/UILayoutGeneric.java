@@ -127,6 +127,7 @@ public class UILayoutGeneric extends UIWidget_i {
 						String uiCtrl 				= valueMap.get(WidgetAttribute.uiCtrl.toString());
 						String uiview				= valueMap.get(WidgetAttribute.uiView.toString());
 						String uiopts				= valueMap.get(WidgetAttribute.uiOpts.toString());
+						String uidict				= valueMap.get(WidgetAttribute.uiDict.toString());
 						String element				= valueMap.get(WidgetAttribute.element.toString());
 						
 						String direction			= valueMap.get(WidgetAttribute.direction.toString());
@@ -160,7 +161,7 @@ public class UILayoutGeneric extends UIWidget_i {
 							if ( TypeAttribute.predefine.equalsName(type) ) {
 								
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
-								uiWidget = uiPredefinePanelMgr.getUIWidget(uiCtrl, uiview, uiNameCard, uiopts, options);
+								uiWidget = uiPredefinePanelMgr.getUIWidget(uiCtrl, uiview, uiNameCard, uiopts, uidict, options);
 								if ( null != uiWidget ) {
 									uiWidget.setElement(element);
 									uiWidget.setUINameCard(this.uiNameCard);

@@ -99,10 +99,7 @@
     <module>uitask-uitaskmgr</module>
     <module>uiscreen-uiscreenmgr</module>
     <module>uiscreen-uiscreenempty</module>
-    <module>uiscreen-uiscreenlogin</module>
-    <module>uiscreen-uiscreendss</module>
     <module>uiscreen-uiscreenmmi</module>
-    <module>uidialog-uidialogmsg</module>
     <module>uiinspector-uiinspector</module>
     <module>uiview-uiviewmgr</module>
     <module>uipanel-uipanelnavigation</module>

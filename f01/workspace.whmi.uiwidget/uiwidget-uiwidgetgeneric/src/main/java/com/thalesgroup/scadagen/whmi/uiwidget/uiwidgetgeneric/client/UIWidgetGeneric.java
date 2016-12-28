@@ -381,9 +381,10 @@ public class UIWidgetGeneric extends UIWidget_i {
 								
 								String view = null;
 								String opt = null;
+								String dict = null;
 								HashMap<String, Object> options = new HashMap<String, Object>();
 								
-								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, options);
+								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, dict, options);
 	
 								if ( null != uiWIdget ) {
 									uiWIdget.setUINameCard(this.uiNameCard);

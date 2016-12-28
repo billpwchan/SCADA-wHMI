@@ -50,6 +50,9 @@ public class SpringChangePassword {
 	    
 	}
 	
+	private String strApi = "changePassword";
+	private String strRpcApi = "sendOperatorAction";
+	
     /**
      * Call back called by the rpc change password.
      */
@@ -60,12 +63,12 @@ public class SpringChangePassword {
         	String function = "onSuccessMwt";
         	
         	logger.begin(className, function);
-
+        	
             if (result instanceof OperatorActionReturn) {
 
                 // Everything is OK
-            	
-            	uiWrapperRpcEvent_i.CallbackEvent("changePassword", "OperatorActionReturn", null, null, null);
+            	uiWrapperRpcEvent_i.CallbackEvent("valid", "");
+            	uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "OperatorActionReturn", null, null, null);
             	
 //                hide();
             	
@@ -76,7 +79,8 @@ public class SpringChangePassword {
                     (OperatorActionSecurityFault) result;
                 final SecurityExceptionC se = operatorActionSecurityFault.getSecurityException();
                 
-                uiWrapperRpcEvent_i.CallbackEvent("changePassword", "onSuccessMwt", "OperatorActionSecurityFault", se.getContext().getAccessedResource(), null);
+                uiWrapperRpcEvent_i.CallbackEvent("invalid", "OperatorActionSecurityFault");
+                uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "OperatorActionSecurityFault", se.getContext().getAccessedResource(), null, null);
 
 //                final String errorMsg = Dictionary.getWording(LABEL_KEY_BASE + se.getContext().getAccessedResource());
 //
@@ -88,7 +92,8 @@ public class SpringChangePassword {
 
                 final OperatorActionFault operatorActionFault = (OperatorActionFault) result;
                 
-                uiWrapperRpcEvent_i.CallbackEvent("changePassword", "onSuccessMwt", "OperatorActionFault", operatorActionFault.getMessage(), null);
+                uiWrapperRpcEvent_i.CallbackEvent("invalid", "OperatorActionFault");
+                uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "OperatorActionFault", operatorActionFault.getMessage(), null, null);
 
 //                final String errorMsg = operatorActionFault.getMessage();
 //
@@ -96,7 +101,8 @@ public class SpringChangePassword {
 //                showError(Dictionary.getWording(ERROR_PASS_SERVER) + " " + errorMsg);
             } else {
             	
-            	uiWrapperRpcEvent_i.CallbackEvent("changePassword", "onSuccessMwt", "ERROR_UNKNOW", null, null);
+            	uiWrapperRpcEvent_i.CallbackEvent("invalid", "ERROR_UNKNOW");
+            	uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "ERROR_UNKNOW", null, null, null);
             	
 //                logger.error("AbstractChangePassPanel : Unknown error.");
 //                showError(Dictionary.getWording(ERROR_UNKNOW));
@@ -111,7 +117,8 @@ public class SpringChangePassword {
         	
         	logger.begin(className, function);
         	
-        	uiWrapperRpcEvent_i.CallbackEvent("changePassword", "onFailureMwt", caught.getMessage(), null, null);
+        	uiWrapperRpcEvent_i.CallbackEvent("invalid", "onFailureMwt");
+        	uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, caught.getMessage(), null, null, null);
         	
 //            logger.error("AbstractChangePassPanel : changePwdCb_onFailure : ", caught);
 //            showError(Dictionary.getWording(ERROR_PASS_SERVER) + " " + caught.getMessage());

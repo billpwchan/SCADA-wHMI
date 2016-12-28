@@ -73,7 +73,7 @@ public class Translation {
 	}
 	
 	public static String getDBMessage(String input) {
-		return Translation.getDBMessage(translatePatten);
+		return Translation.getDBMessage(translatePatten, input);
 	}
 	
 	public static String getDBMessage(String regex, String input) {

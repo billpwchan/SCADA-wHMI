@@ -13,9 +13,9 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionCtrl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String strSendIntControl = "SendIntControl";
-	private final String strSendFloatControl = "SendFloatControl";
-	private final String strSendStringControl = "SendStringControl";
+	public final String strSendIntControl = "SendIntControl";
+	public final String strSendFloatControl = "SendFloatControl";
+	public final String strSendStringControl = "SendStringControl";
 	
 	public UIEventActionCtrl ( ) {
 		supportedActions = new String[] {strSendIntControl, strSendFloatControl, strSendStringControl};
@@ -56,7 +56,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 		if ( isValid ) {
 			CtlMgr ctlMgr = CtlMgr.getInstance(instance);
 			
-			if ( strAction.equals(strSendIntControl) ) {
+			if ( strAction.equalsIgnoreCase(strSendIntControl) ) {
 				int intCommandValue = -1;
 				boolean isValidCommandValue = false;
 				try {
@@ -72,7 +72,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 					logger.warn(className, function, "isValidCommandValue IS INVALID");
 				}
 	
-			} else if ( strAction.equals(strSendFloatControl) ) {
+			} else if ( strAction.equalsIgnoreCase(strSendFloatControl) ) {
 				float floatCommandValue = -1;
 				boolean isValidCommandValue = false;
 				try {

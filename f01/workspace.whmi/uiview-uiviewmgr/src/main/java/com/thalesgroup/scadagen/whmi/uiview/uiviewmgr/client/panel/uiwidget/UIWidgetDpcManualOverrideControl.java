@@ -23,7 +23,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
@@ -33,6 +34,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandl
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
+
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
@@ -87,7 +89,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
-						uiEventActionProcessor.executeActionSet(actionsetkey, new ExecuteAction_i() {
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
 							
 							@Override
 							public boolean executeHandler(UIEventAction uiEventAction) {
@@ -175,11 +177,11 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				// Filter Action
 				if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
 					
-					uiEventActionProcessor.executeActionSet(os1);
+					uiEventActionProcessor_i.executeActionSet(os1);
 					
 				} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
 					
-					uiEventActionProcessor.executeActionSet(os1);
+					uiEventActionProcessor_i.executeActionSet(os1);
 				
 				} else if ( os1.equals(ViewerViewEvent.RowSelected.toString() ) ) {
 					// Activate Selection
@@ -212,11 +214,11 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 					if ( null != selectedStatus1 ) {
 						if ( valueSet.equals(selectedStatus1) ) {
 							String actionsetkey = os1+"_valueUnset";
-							uiEventActionProcessor.executeActionSet(actionsetkey);
+							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
 						if ( valueUnSet.equals(selectedStatus1) ) {
 							String actionsetkey = os1+"_valueSet";
-							uiEventActionProcessor.executeActionSet(actionsetkey);
+							uiEventActionProcessor_i.executeActionSet(actionsetkey);
 						}
 					}
 
@@ -229,7 +231,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
-							uiEventActionProcessor.executeActionSet(os1, new ExecuteAction_i() {
+							uiEventActionProcessor_i.executeActionSet(os1, new ExecuteAction_i() {
 								
 								@Override
 								public boolean executeHandler(UIEventAction uiEventAction) {
@@ -248,7 +250,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
-	private UIEventActionProcessor uiEventActionProcessor = null;
+	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 
 	// Static Attribute List
 	private final String staticDciAttibutes []	= new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
@@ -260,7 +262,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 //	private final String dynamicAciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.afoForcedStatus.toString()};
 //	private final String dynamicSciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.sfoForcedStatus.toString()};
 
-	private Database database = new Database();
+	private Database database = Database.getInstance();
 	public void connect() {
 		final String function = "connect";
 		
@@ -315,6 +317,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				
 				@Override
 				public void update(String key, String[] value) {
+					Database database = Database.getInstance();
 					String clientKeyStatic = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
 					if ( clientKeyStatic.equals(key) ) {
 						String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -426,7 +429,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				if ( PointType.dci == pointType ) {
 
 					String actionsetkey = "selectdcipoint";
-					uiEventActionProcessor.executeActionSet(actionsetkey);
+					uiEventActionProcessor_i.executeActionSet(actionsetkey);
 					
 					// Update the Label
 					String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
@@ -462,7 +465,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				} else if ( PointType.aci == pointType ) {
 
 					String actionsetkey = "selectacipoint";
-					uiEventActionProcessor.executeActionSet(actionsetkey);
+					uiEventActionProcessor_i.executeActionSet(actionsetkey);
 
 					// Update the Label
 					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
@@ -474,7 +477,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				} else if ( PointType.sci == pointType ) {
 
 					String actionsetkey = "selectscipoint";
-					uiEventActionProcessor.executeActionSet(actionsetkey);
+					uiEventActionProcessor_i.executeActionSet(actionsetkey);
 
 					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 					value = DatabaseHelper.removeDBStringWrapper(value);
@@ -521,21 +524,24 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
+		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
-		uiEventActionProcessor = new UIEventActionProcessor();
-		uiEventActionProcessor.setUINameCard(uiNameCard);
-		uiEventActionProcessor.setPrefix(className);
-		uiEventActionProcessor.setElement(element);
-		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor.setEventBus(eventBus);
-		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
-		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor.init();
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(element);
+		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor_i.setEventBus(eventBus);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
 		
 		lstValues = (ListBox) uiWidgetGeneric.getWidget(strLstValue);
 		txtValues = (TextBox) uiWidgetGeneric.getWidget(strTxtValue);
@@ -571,7 +577,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 			})
 		);
 
-		uiEventActionProcessor.executeActionSetInit();
+		uiEventActionProcessor_i.executeActionSetInit();
 		
 		logger.end(className, function);
 	}

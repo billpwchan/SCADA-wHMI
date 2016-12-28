@@ -1,13 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 
 import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.DialogMsgMgr;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogURL;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmsg.client.UIDialogMsg.ConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dialog.UIInspectorConnectionBox;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dialog.UIInspectorMgr;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.ViewLayoutMgrEvent.ViewLayoutAction;
@@ -25,6 +20,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
@@ -48,7 +45,6 @@ public class ViewLayoutMgr {
 	
 	private UINameCard uiNameCard = null;
 	
-	private final String UIPathUIPanelScreen		= ":UIGws:UIPanelScreen";
 	private final String UIPathUIPanelNavigationMgr = ":UIGws:UIPanelScreen:UIScreenMMI:NavigationMgr";
 	private final String UIPathUIPanelAccessBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelAccessBar";
 	private final String UIPathUIPanelStatusBar		= ":UIGws:UIPanelScreen:UIScreenMMI:UIPanelStatusBar";
@@ -243,19 +239,8 @@ public class ViewLayoutMgr {
 
 		// boolean change = false;
 		
-		if (taskLaunch.getUiPanel().equals("UIDialogMsg")) {
+		
 
-			UITaskLaunch taskLaunchYes = new UITaskLaunch();
-			taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
-			taskLaunchYes.setUiPath(UIPathUIPanelScreen);
-			taskLaunchYes.setUiPanel("UIScreenLogout");
-
-			DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
-			UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
-			uiDialgogMsg.setUINameCard(this.uiNameCard);
-			uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
-					"Are you sure to logout the current HMI?", taskLaunchYes, null);
-			uiDialgogMsg.popUp();
 
 		} else if (taskLaunch.getUiPanel().equals("ViewSchematicSymbolSelected")) {
 			
@@ -336,20 +321,22 @@ public class ViewLayoutMgr {
 			
 			logger.info(className, function, "Launch the UIEventActionProcessor...");
 			
-			UIEventActionProcessor uiEventActionProcessor = null;
-			uiEventActionProcessor = new UIEventActionProcessor();
-			uiEventActionProcessor.setUINameCard(uiNameCard);
-			uiEventActionProcessor.setPrefix(className);
+			UIEventActionProcessor_i uiEventActionProcessor_i = null;
+			UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+			uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+			
+			uiEventActionProcessor_i.setUINameCard(uiNameCard);
+			uiEventActionProcessor_i.setPrefix(className);
 //			uiEventActionProcessor.setElement(element);
-			uiEventActionProcessor.setDictionariesCacheName(dictionariesCacheName);
+			uiEventActionProcessor_i.setDictionariesCacheName(dictionariesCacheName);
 //			uiEventActionProcessor.setEventBus(eventBus);
-			uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
+			uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
 //			uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
-			uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
-			uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
-			uiEventActionProcessor.init();
+			uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+			uiEventActionProcessor_i.init();
 
-			uiEventAction = uiEventActionProcessor.getUIEventActionSetMgr(actionsetkey);
+			uiEventAction = uiEventActionProcessor_i.getUIEventActionSetMgr(actionsetkey);
 
 			if ( null != uiEventAction ) {
 				
@@ -363,7 +350,7 @@ public class ViewLayoutMgr {
 				
 				logger.info(className, function, "Launch the uiEventAction...");
 				
-				uiEventActionProcessor.executeActionSet(uiEventAction, new ExecuteAction_i() {
+				uiEventActionProcessor_i.executeActionSet(uiEventAction, new ExecuteAction_i() {
 					
 					@Override
 					public boolean executeHandler(UIEventAction uiEventAction) {
@@ -384,60 +371,8 @@ public class ViewLayoutMgr {
 			}
 			
 			uiEventAction = null;
-			uiEventActionProcessor = null;
+			uiEventActionProcessor_i = null;
 
-		} else if (taskLaunch.getUiPanel().equals("ViewURLSelected")) {
-			
-			String url = null;
-			int indexOption1 = 0;
-			if ( taskLaunch.getOption().length > indexOption1 && null != taskLaunch.getOption()[indexOption1] ) {
-				Object obj = taskLaunch.getOption()[indexOption1];
-				if ( obj instanceof String ) {
-					url		= (String)obj;
-				} else {
-					logger.warn(className, function, "hvid IS NOT A STRING");
-				}
-			}
-			
-			int mouseX = -1;
-			int indexOption2 = 1;
-			if ( taskLaunch.getOption().length > indexOption2 && null != taskLaunch.getOption()[indexOption2] ) {
-				Object obj = taskLaunch.getOption()[indexOption2];
-				if ( obj instanceof Integer ) {
-					mouseX		= (Integer)obj;
-				} else {
-					logger.warn(className, function, "mouseX IS NOT A Integer");
-				}
-			}
-			
-			int mouseY = -1;
-			int indexOption3 = 2;
-			if ( taskLaunch.getOption().length > indexOption3 && null != taskLaunch.getOption()[indexOption3] ) {
-				Object obj = taskLaunch.getOption()[indexOption3];
-				if ( obj instanceof Integer ) {
-					mouseY		= (Integer)obj;
-				} else {
-					logger.warn(className, function, "mouseY IS NOT A Integer");
-				}
-			}
-			
-			logger.info(className, function, "url[{}]", url);
-			logger.info(className, function, "mouseX[{}]", mouseX);
-			logger.info(className, function, "mouseY[{}]", mouseY);
-			
-			logger.info(className, function, "Launch the UIDialogURL...");
-			
-			UIDialogURL UIDialogURL = new UIDialogURL();
-			UIDialogURL.setURL(url);
-			UIDialogURL.setUINameCard(this.uiNameCard);
-			UIDialogURL.show();
-			
-		} else if (taskLaunch.getUiPanel().equals("UIInspectorConnectionBox")) { 
-			
-			UIInspectorConnectionBox uiInspectorConnectionBox = new UIInspectorConnectionBox();
-			uiInspectorConnectionBox.getMainPanel(this.uiNameCard);
-			uiInspectorConnectionBox.show();
-			
 		} else {
 			
 			

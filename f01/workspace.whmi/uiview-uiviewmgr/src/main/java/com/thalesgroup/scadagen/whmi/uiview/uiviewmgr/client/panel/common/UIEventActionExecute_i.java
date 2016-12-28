@@ -14,8 +14,11 @@ public abstract class UIEventActionExecute_i {
 	protected SimpleEventBus simpleEventBus = null;
 	protected UIWidgetGeneric uiWidgetGeneric = null;
 	protected UILayoutGeneric uiLayoutGeneric = null;
+	protected UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
 	protected String [] supportedActions = null;
+	
+	public void setUIEventActionProcessor(UIEventActionProcessor_i uiEventActionProcessor_i) { this.uiEventActionProcessor_i = uiEventActionProcessor_i; }
 	
 	public void setLogPrefix(String logPrefix) { this.logPrefix = "-> "+logPrefix+" "; }
 	public void setInstance(String instance) { this.instance = instance; }

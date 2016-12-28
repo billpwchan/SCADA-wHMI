@@ -16,7 +16,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueChangeHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnValueUpdate;
 
-public abstract class UIWidget_i implements UIWidgetAccessable_i  {
+public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 	
 	protected String className = UIWidgetUtil.getClassSimpleName(UIWidget_i.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -62,6 +62,28 @@ public abstract class UIWidget_i implements UIWidgetAccessable_i  {
 		logger.info(className, function, "ctrlHandler[{}]", this.strCtrlHandler);
 		if ( null == this.strCtrlHandler ) {
 			logger.warn(className, function, "ctrlHandler IS NULL");
+		}
+	}
+	
+	protected String dictionaryFolder = null;
+	@Override
+	public void setDictionaryFolder ( String dictionaryFolder ) {
+		final String function = "setDictionaryFolder";
+		this.dictionaryFolder = dictionaryFolder;
+		logger.info(className, function, "dictionaryFolder[{}]", this.dictionaryFolder);
+		if ( null == this.dictionaryFolder ) {
+			logger.warn(className, function, "dictionaryFolder IS NULL");
+		}
+	}
+	
+	protected String propertyFolder = null;
+	@Override
+	public void setPropertyFolder ( String propertyFolder ) {
+		final String function = "setPropertyFolder";
+		this.propertyFolder = propertyFolder;
+		logger.info(className, function, "propertyFolder[{}]", this.propertyFolder);
+		if ( null == this.propertyFolder ) {
+			logger.warn(className, function, "propertyFolder IS NULL");
 		}
 	}
 	

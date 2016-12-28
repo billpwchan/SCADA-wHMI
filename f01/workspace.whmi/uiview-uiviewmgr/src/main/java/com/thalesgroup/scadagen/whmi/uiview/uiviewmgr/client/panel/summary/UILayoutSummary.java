@@ -9,11 +9,13 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelection;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSwitch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBlackboard;
@@ -23,6 +25,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcTagControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMChangePasswordControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
@@ -33,7 +36,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
@@ -43,10 +45,10 @@ public class UILayoutSummary extends UIWidget_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private UILayoutGeneric uiLayoutGeneric = null;
-	
+		
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
-	private UIEventActionProcessor uiEventActionProcessor = null;
+	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 
 	private SimpleEventBus eventBus = null;
 	private String eventBusName = null;
@@ -54,8 +56,6 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	private String strHeader = "header";
-	
-	private Database database = null;
 
 	@Override
 	public void init() {
@@ -63,9 +63,6 @@ public class UILayoutSummary extends UIWidget_i {
 
 		logger.begin(className, function);
 		
-		database = new Database();
-		database.connect();
-		database.connectTimer(250);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -99,11 +96,11 @@ public class UILayoutSummary extends UIWidget_i {
 
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
 					, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
 
-				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 
 				if (null != uiNameCard) {
 					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(),
@@ -113,104 +110,112 @@ public class UILayoutSummary extends UIWidget_i {
 				}
 				logger.info(className, function, "options IS NULL[{}]", null == options);
 
-				UIWidget_i uiWidget = null;
+				UIWidget_i uiWidget_i = null;
 
 				if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetViewer();
+					uiWidget_i = new UIWidgetViewer();
 
 				} else if ( 
 						UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName())
 						.equals(uiCtrl) ) {
 					
-					uiWidget = new UIWidgetCtlControl();
+					uiWidget_i = new UIWidgetCtlControl();
 						
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
-					uiWidget = new UIWidgetDpcControl();
+					uiWidget_i = new UIWidgetDpcControl();
 
 				}  else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcTagControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
-					uiWidget = new UIWidgetDpcTagControl();
+					uiWidget_i = new UIWidgetDpcTagControl();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcScanSuspendControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
-					uiWidget = new UIWidgetDpcScanSuspendControl();
+					uiWidget_i = new UIWidgetDpcScanSuspendControl();
 
 				} else  if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
-					uiWidget = new UIWidgetDpcManualOverrideControl();
+					uiWidget_i = new UIWidgetDpcManualOverrideControl();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetFilter();
+					uiWidget_i = new UIWidgetFilter();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetPrint.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetPrint();
+					uiWidget_i = new UIWidgetPrint();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName())
 						.equals(uiCtrl)
 						) {
 					
-					uiWidget = new ScsOlsListPanel();
+					uiWidget_i = new ScsOlsListPanel();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelection.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetCSSSelection();
+					uiWidget_i = new UIWidgetCSSSelection();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetCSSSwitch();
+					uiWidget_i = new UIWidgetCSSSwitch();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetBlackboard.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetBlackboard();
+					uiWidget_i = new UIWidgetBlackboard();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetBox.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetBox();
+					uiWidget_i = new UIWidgetBox();
+					
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetOPMChangePasswordControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetOPMChangePasswordControl();
+					
 					
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyChangePassword.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetOPMVerifyChangePassword();
+					uiWidget_i = new UIWidgetOPMVerifyChangePassword();
 					
 					
 				} else if (
@@ -218,47 +223,58 @@ public class UILayoutSummary extends UIWidget_i {
 						.equals(uiCtrl)
 						) {
 
-					uiWidget = new UIWidgetOPMVerifyControl();
+					uiWidget_i = new UIWidgetOPMVerifyControl();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UILayoutLogin.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UILayoutLogin();
 
 				} else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 				
-				if ( null != uiWidget ) {
-					uiWidget.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
-					uiWidget.setUINameCard(uiNameCard);
-					uiWidget.setViewXMLFile(uiView);
-					uiWidget.setOptsXMLFile(uiOpts);
-					uiWidget.init();	
+				if ( null != uiWidget_i ) {
+					uiWidget_i.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
+					uiWidget_i.setUINameCard(uiNameCard);
+					uiWidget_i.setDictionaryFolder(uiDict);
+					uiWidget_i.setViewXMLFile(uiView);
+					uiWidget_i.setOptsXMLFile(uiOpts);
+					uiWidget_i.init();	
 				} else {
 					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
 				}
 
-				return uiWidget;
+				return uiWidget_i;
 			}
 		});
 
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
 		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
 		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		uiEventActionProcessor = new UIEventActionProcessor();
-		uiEventActionProcessor.setUINameCard(uiNameCard);
-		uiEventActionProcessor.setPrefix(className);
-		uiEventActionProcessor.setElement(element);
-		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor.setEventBus(eventBus);
-		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
-		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor.init();
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
 
-		uiEventActionProcessor.executeActionSetInit();
-		uiEventActionProcessor.executeActionSetInit(1000, null);
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(element);
+		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
+		uiEventActionProcessor_i.setEventBus(eventBus);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
+
+		uiEventActionProcessor_i.executeActionSetInit();
+		uiEventActionProcessor_i.executeActionSetInit(1000, null);
 		
 		logger.end(className, function);
 	}
@@ -266,8 +282,6 @@ public class UILayoutSummary extends UIWidget_i {
 	@Override
 	public void terminate() {
 		
-		database.disconnectTimer();
-		database.disconnect();
 		
 		if ( null != uiLayoutGeneric ) {
 			uiLayoutGeneric.terminate();

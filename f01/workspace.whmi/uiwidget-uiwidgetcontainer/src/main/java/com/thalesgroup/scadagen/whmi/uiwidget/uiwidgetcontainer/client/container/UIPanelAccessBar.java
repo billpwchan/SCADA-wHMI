@@ -6,15 +6,18 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
-import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
@@ -28,7 +31,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
-	private UIEventActionProcessor uiEventActionProcessor = null;
+	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
 	@Override
 	public void init() {
@@ -39,21 +42,24 @@ public class UIPanelAccessBar extends UIWidget_i {
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
+		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
-		uiEventActionProcessor = new UIEventActionProcessor();
-		uiEventActionProcessor.setUINameCard(uiNameCard);
-		uiEventActionProcessor.setPrefix(className);
-		uiEventActionProcessor.setElement(className);
-		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor.setEventBus(null);
-		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
-		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor.init();
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+		
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(className);
+		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor_i.setEventBus(null);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
@@ -207,11 +213,32 @@ public class UIPanelAccessBar extends UIWidget_i {
 			if ( UIPanelAccessBarInterface.WidgetArrtibute.logout.equalsName(element) ) {
 				logger.info(className, function, "logout[{}]", UIPanelAccessBarInterface.WidgetArrtibute.logout);
 				
-				UITaskLaunch taskLaunch = new UITaskLaunch();
-				taskLaunch.setTaskUiScreen(0);
-				taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-				taskLaunch.setUiPanel("UIDialogMsg");
-				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+				
+				if ( null != element ) {
+					String actionsetkey = element;
+					uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
+						
+						@Override
+						public boolean executeHandler(UIEventAction uiEventAction) {
+							String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+							
+							logger.info(className, function, "os1[{}]", os1);
+							
+							if ( null != os1 ) {
+								if ( os1.equals("OpmLogout") ) {
+								
+								}
+							}
+							return true;
+						}
+					});
+				}
+				
+//				UITaskLaunch taskLaunch = new UITaskLaunch();
+//				taskLaunch.setTaskUiScreen(0);
+//				taskLaunch.setUiPath(UIPathUIPanelViewLayout);
+//				taskLaunch.setUiPanel("UIDialogMsg");
+//				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.previous.equalsName(element) ) {
 				
 				logger.info(className, function, "previous[{}]", UIPanelAccessBarInterface.WidgetArrtibute.previous);
@@ -286,7 +313,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 
 				logger.info(className, function, "Calling uiEventActionProcessor executeActionSet element[{}]", element);
 				
-				uiEventActionProcessor.executeActionSet(element);
+				uiEventActionProcessor_i.executeActionSet(element);
 			}
 		}
 	}

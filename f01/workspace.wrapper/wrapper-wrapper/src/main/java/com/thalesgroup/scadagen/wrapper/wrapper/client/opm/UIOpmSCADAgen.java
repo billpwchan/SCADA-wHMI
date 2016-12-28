@@ -56,7 +56,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		String function = "changePassword";
 		logger.begin(className, function);
 		
-		logger.info(className, function, "operator[{}] oldPass[{}] newPass[{}]", new Object[]{operator, oldPass, newPass});
+		logger.info(className, function, "operator[{}]", operator);
 
 		new SpringChangePassword().changePassword(oldPass, newPass, uiWrapperRpcEvent_i); 
 		
@@ -80,7 +80,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	@Override
 	public boolean login(String operator, String password) {
-
+		String function = "login";
+		logger.begin(className, function);
 		String SPRING_SEC_CHECK_URL = "j_spring_security_check";
 		
 		String user_name = "j_username";
@@ -88,15 +89,19 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		new SpringLogin(SPRING_SEC_CHECK_URL, user_name, pass_name).login(operator, password);
 		
+		logger.end(className, function);
 		return true;
 	}
 	@Override
 	public boolean logout() {
+		String function = "logout";
+		logger.begin(className, function);
 		
 		String SPRING_SEC_LOGOUT_URL = "j_spring_security_logout";
 		
 		new SpringLogout(SPRING_SEC_LOGOUT_URL).logout();
 		
+		logger.end(className, function);
 		return true;
 	}
 	

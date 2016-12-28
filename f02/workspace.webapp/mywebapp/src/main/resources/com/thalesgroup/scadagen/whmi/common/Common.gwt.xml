@@ -21,6 +21,8 @@
   <inherits name="com.google.gwt.logging.Logging"/>
 
   <!-- Other module inherits                                      -->
+  <inherits name='com.thalesgroup.scadagen.whmi.uiutil.uilogger.UILogger' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uiutil.uiutil.UIUtil' />
 
   <inherits name='com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.UINameCard' />
   
@@ -36,6 +38,9 @@
   <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.UIWidget' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.UIWidgetGeneric' />
   <inherits name='com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.UIWidgetMgr' />
+  
+  <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialog.UIDialog' />
+  <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.UIDialogMgr' />
   
   <inherits name='com.thalesgroup.scadagen.whmi.common.Container' />
 

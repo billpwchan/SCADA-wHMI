@@ -27,7 +27,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
 
 	@Override
-	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts
+	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
 			, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
 		
@@ -44,7 +44,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 			
 				logger.info(className, function, "uiWidgetMgrFactory");
 			
-				uiWidget = uiWidgetMgrFactory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, options);
+				uiWidget = uiWidgetMgrFactory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiDict, options);
 				
 				if ( null != uiWidget ) break;
 			

@@ -4,8 +4,10 @@ public interface UIActionEventAttribute_i {
 	
 	public enum UIActionEventType {
 		  widget("widget")
+		, dialogmsg("dialogmsg")
 		, event("event")
 		, logic("logic")
+		, opm("opm")
 		, ctl("ctl")
 		, dpc("dpc")
 		, alm("alm")

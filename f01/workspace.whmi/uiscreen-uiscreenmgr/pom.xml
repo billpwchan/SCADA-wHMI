@@ -81,18 +81,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 	</dependency>
     
 	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenlogin</groupId>
-	  <artifactId>uiscreen-uiscreenlogin</artifactId>
-	  <version>${commons.whmi.version}</version>
-	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreendss</groupId>
-	  <artifactId>uiscreen-uiscreendss</artifactId>
-	  <version>${commons.whmi.version}</version>
-	</dependency>
-	
-	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi</groupId>
 	  <artifactId>uiscreen-uiscreenmmi</artifactId>
 	  <version>${commons.whmi.version}</version>

@@ -90,6 +90,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		UIPanelEmpty uiPanelEmpty = new UIPanelEmpty();
 		uiPanelEmpty.setUINameCard(uiNameCard);
+		uiPanelEmpty.setDictionaryFolder(dictionaryFolder);
 		uiPanelEmpty.setViewXMLFile(viewXMLFile);
 		uiPanelEmpty.setOptsXMLFile(optsXMLFile);
 		uiPanelEmpty.init();

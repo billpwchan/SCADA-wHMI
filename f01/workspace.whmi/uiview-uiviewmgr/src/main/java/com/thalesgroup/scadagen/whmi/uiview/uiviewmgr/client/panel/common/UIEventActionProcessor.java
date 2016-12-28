@@ -19,7 +19,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
-public class UIEventActionProcessor {
+public class UIEventActionProcessor implements UIEventActionProcessor_i {
 
 	private static final String className = UIWidgetUtil.getClassSimpleName(UIEventActionProcessor.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -33,6 +33,7 @@ public class UIEventActionProcessor {
 	}
 	
 	private UINameCard uiNameCard;
+	@Override
 	public void setUINameCard(UINameCard uiNameCard) {
 		final String function = prefix+" setElement";
 		if ( null != uiNameCard ) {
@@ -42,7 +43,14 @@ public class UIEventActionProcessor {
 		}
 	}
 	
+
+	@Override
+	public String getName() {
+		return className;
+	}
+	
 	private String element;
+	@Override
 	public void setElement(String element) {
 		final String function = prefix+" setElement";
 		if ( null != element ) {
@@ -53,6 +61,7 @@ public class UIEventActionProcessor {
 	}
 	
 	protected SimpleEventBus simpleEventBus = null;
+	@Override
 	public void setEventBus(SimpleEventBus simpleEventBus) {
 		final String function = prefix+" setEventBus";
 		if ( null != simpleEventBus ) {
@@ -63,6 +72,7 @@ public class UIEventActionProcessor {
 	}
 	
 	protected UIWidgetGeneric uiWidgetGeneric = null;
+	@Override
 	public void setUIWidgetGeneric(UIWidgetGeneric uiWidgetGeneric) {
 		final String function = prefix+" setUIWidgetGeneric";
 		if ( null != uiWidgetGeneric ) {
@@ -73,6 +83,7 @@ public class UIEventActionProcessor {
 	}
 	
 	protected UILayoutGeneric uiLayoutGeneric = null;
+	@Override
 	public void setUILayoutGeneric(UILayoutGeneric uiLayoutGeneric) {
 		final String function = prefix+" setUIWidgetGeneric";
 		if ( null != uiLayoutGeneric ) {
@@ -83,22 +94,26 @@ public class UIEventActionProcessor {
 	}
 	
 	private String optsXMLFile;
+	@Override
 	public void setOptsXMLFile(String optsXMLFile) {
 		this.optsXMLFile=optsXMLFile;
 	}
 	
 	private String actionSetTagName = null;
+	@Override
 	public void setActionSetTagName(String actionSetTagName) {
 		this.actionSetTagName = actionSetTagName;
 	}
 	
 	private String actionTagName = null;
+	@Override
 	public void setActionTagName(String actionTagName ) {
 		this.actionTagName = actionTagName;
 	}
 	
 	private UIEventActionMgr uiEventActionSetMgr = null;
 	private UIEventActionMgr uiEventActionMgr = null;
+	@Override
 	public void init() {
 		uiEventActionSetMgr = new UIEventActionMgr(className, dictionariesCacheName, optsXMLFile, actionSetTagName);
 		uiEventActionSetMgr.init();
@@ -107,10 +122,12 @@ public class UIEventActionProcessor {
 		uiEventActionMgr.init();
 	}
 	
+	@Override
 	public UIEventAction getUIEventActionSetMgr(String actionsetkey) {
 		return this.uiEventActionSetMgr.get(actionsetkey);
 	}
 	
+	@Override
 	public UIEventAction getUIEventActionMgr(String actionkey) {
 		return this.uiEventActionMgr.get(actionkey);
 	}
@@ -118,6 +135,7 @@ public class UIEventActionProcessor {
 	/**
 	 * Load and Execute the Local Init Action Set
 	 */
+	@Override
 	public void executeActionSetInit() {
 		final String function = prefix+" executeActionSetInit";
 		logger.begin(className, function);
@@ -128,6 +146,7 @@ public class UIEventActionProcessor {
 	/**
 	 * Load and Execute the Local Init Action Set
 	 */
+	@Override
 	public void executeActionSetInit(ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSetInit";
 		logger.begin(className, function);
@@ -138,6 +157,7 @@ public class UIEventActionProcessor {
 	/**
 	 * Load and Execute the Local Init Action Set
 	 */
+	@Override
 	public void executeActionSetInit(int delayMillis, final ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSetInit";
 		logger.begin(className, function);
@@ -154,6 +174,7 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 	}
 	
+	@Override
 	public void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
@@ -170,6 +191,7 @@ public class UIEventActionProcessor {
 //		logger.end(className, function);
 //	}
 	
+	@Override
 	public void executeActionSet(String actionsetkey) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
@@ -178,6 +200,7 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 	}
 	
+	@Override
 	public void executeActionSet(String actionsetkey, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
@@ -192,6 +215,7 @@ public class UIEventActionProcessor {
 	 * @param stractionset
 	 * @param straction
 	 */
+	@Override
 	public void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override/*, String stractionset, String straction*/, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
@@ -245,6 +269,7 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 	}
 	
+	@Override
 	public void executeActionSet(UIEventAction action, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
@@ -271,6 +296,7 @@ public class UIEventActionProcessor {
 	 * Execute Action (Widget/Event)
 	 * @param actionkey: UIEventAction key
 	 */
+	@Override
 	public void executeAction(String actionkey, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
@@ -291,6 +317,7 @@ public class UIEventActionProcessor {
 	 * Execute Action (Widget/Event)
 	 * @param action: UIEventAction instance
 	 */
+	@Override
 	public void executeAction(UIEventAction action, ExecuteAction_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
@@ -316,6 +343,7 @@ public class UIEventActionProcessor {
 							
 							// Make a copy
 							UIEventAction actionCopy = new UIEventAction(action);
+							// Remove the SenderOperation when it done
 							actionCopy.removeParameter(UIActionEventSenderAttribute.SenderOperation.toString());
 							
 							UIEventActionExecute_i uiEventActionExecute = new UIEventActionBusFire();
@@ -332,19 +360,10 @@ public class UIEventActionProcessor {
 					String opa = (String) action.getParameter(UIActionEventAttribute.OperationAction.toString());
 					logger.info(className, function, "opa[{}]", opa);
 					if ( null != opa ) {
-						UIEventActionExecute_i uiEventActionExecute = null;
-						if ( opa.equals(UIActionEventType.widget.toString()) ) {
-							uiEventActionExecute = new UIEventActionWidget();
-						} else if ( opa.equals(UIActionEventType.ctl.toString()) ) {
-							uiEventActionExecute = new UIEventActionCtrl();
-						} else if ( opa.equals(UIActionEventType.dpc.toString()) ) {
-							uiEventActionExecute = new UIEventActionDpc();
-						} else if ( opa.equals(UIActionEventType.dbm.toString()) ) {
-							uiEventActionExecute = new UIEventActionDbm();
-						} else if ( opa.equals(UIActionEventType.uitask.toString()) ) {
-							uiEventActionExecute = new UIEventActionTaskLaunch();
-						}
+						UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
+						UIEventActionExecute_i uiEventActionExecute = uiEventActionExecuteMgr.getUIEventActionExecute(opa);
 						if ( null != uiEventActionExecute ) {
+							uiEventActionExecute.setUIEventActionProcessor(this);
 							uiEventActionExecute.setUINameCard(uiNameCard);
 							uiEventActionExecute.setLogPrefix(className);
 							uiEventActionExecute.setInstance(className);
@@ -368,7 +387,7 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 	}
 	
-	
+	@Override
 	public void execute(UIEventAction uiEventAction, ExecuteAction_i executeActionHandler) {		
 		final String function = prefix+" execute";
 		logger.begin(className, function);
@@ -426,7 +445,7 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 	}
 	
-	public static String getParameter(String prefix, UIEventAction uiEventAction, String parameter) {
+	private static String getParameter(String prefix, UIEventAction uiEventAction, String parameter) {
 		final String function = prefix+" getParameter";
 		logger.begin(className, function);
 		logger.info(className, function, "parameter[{}]", parameter);
@@ -440,14 +459,14 @@ public class UIEventActionProcessor {
 		logger.end(className, function);
 		return parameterValue;
 	}
-	public static String getOperationType(String prefix, UIEventAction uiEventAction) {
+	private static String getOperationType(String prefix, UIEventAction uiEventAction) {
 		final String function = prefix+" getOperationType";
 		logger.begin(className, function);
 		String operation = getParameter(prefix, uiEventAction, UIActionEventAttribute.OperationType.toString());
 		logger.end(className, function);
 		return operation;
 	}
-	public static String getOperationElement(String prefix, UIEventAction uiEventAction) {
+	private static String getOperationElement(String prefix, UIEventAction uiEventAction) {
 		final String function = prefix+" getOperationElement";
 		logger.begin(className, function);
 		String operationElement = getParameter(prefix, uiEventAction, UIActionEventTargetAttribute.OperationElement.toString());
@@ -475,5 +494,6 @@ public class UIEventActionProcessor {
 		
 		logger.end(className, function);
 	}
+
 
 }

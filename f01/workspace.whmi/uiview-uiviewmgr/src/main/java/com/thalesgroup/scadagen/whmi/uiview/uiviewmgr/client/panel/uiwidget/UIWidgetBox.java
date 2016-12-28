@@ -9,7 +9,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
@@ -31,7 +32,7 @@ public class UIWidgetBox extends UIWidget_i {
 
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
-	private UIEventActionProcessor uiEventActionProcessor = null;
+	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -56,7 +57,7 @@ public class UIWidgetBox extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
-						uiEventActionProcessor.executeActionSet(actionsetkey, new ExecuteAction_i() {
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
 							
 							@Override
 							public boolean executeHandler(UIEventAction uiEventAction) {
@@ -108,23 +109,26 @@ public class UIWidgetBox extends UIWidget_i {
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
+		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
 		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
 		uiWidgetGeneric.init();
 		
 		rootPanel = uiWidgetGeneric.getMainPanel();
 		
-		uiEventActionProcessor = new UIEventActionProcessor();
-		uiEventActionProcessor.setUINameCard(uiNameCard);
-		uiEventActionProcessor.setPrefix(className);
-		uiEventActionProcessor.setElement(element);
-		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor.setEventBus(eventBus);
-		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
-		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor.init();
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(element);
+		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor_i.setEventBus(eventBus);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
 
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
@@ -155,7 +159,7 @@ public class UIWidgetBox extends UIWidget_i {
 			})
 		);
 
-		uiEventActionProcessor.executeActionSetInit();
+		uiEventActionProcessor_i.executeActionSetInit();
 		
 		logger.end(className, function);
 	}

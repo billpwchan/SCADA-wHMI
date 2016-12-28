@@ -23,7 +23,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
@@ -59,8 +60,8 @@ public class UIWidgetViewer extends UIWidget_i {
 	
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
-	private UIEventActionProcessor uiEventActionProcessor = null;
-	private UIEventActionProcessor uiEventActionProcessorContextMenu = null;
+	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
+	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
 	
 	private ScsOlsListPanel scsOlsListPanel					= null;
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
@@ -199,22 +200,25 @@ public class UIWidgetViewer extends UIWidget_i {
 		uiLayoutGeneric = new UILayoutGeneric();
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
 		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
 		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
 		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		uiEventActionProcessor = new UIEventActionProcessor();
-		uiEventActionProcessor.setUINameCard(uiNameCard);
-		uiEventActionProcessor.setPrefix(className);
-		uiEventActionProcessor.setElement(element);
-		uiEventActionProcessor.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor.setEventBus(eventBus);
-		uiEventActionProcessor.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
-		uiEventActionProcessor.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor.init();
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(element);
+		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
+		uiEventActionProcessor_i.setEventBus(eventBus);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
 		
 		handlerRegistrations.add(
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -263,7 +267,7 @@ public class UIWidgetViewer extends UIWidget_i {
 						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
 						override.put("RowSelected", parameter);
 						
-						uiEventActionProcessor.executeActionSet(actionsetkey, override);
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 
 						logger.end(className, function);
 					}
@@ -289,7 +293,7 @@ public class UIWidgetViewer extends UIWidget_i {
 							viewerViewEvent = ViewerViewEvent.FilterAdded;
 						}
 						String actionsetkey = viewerViewEvent.toString();
-						uiEventActionProcessor.executeActionSet(actionsetkey);
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
 
 						logger.end(className, function);
 					}
@@ -318,7 +322,7 @@ public class UIWidgetViewer extends UIWidget_i {
 								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
 								override.put("CounterValueChanged", parameter);
 								
-								uiEventActionProcessor.executeActionSet(actionsetkey, override);
+								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 								
 							}
 						}
@@ -336,17 +340,18 @@ public class UIWidgetViewer extends UIWidget_i {
 				
 				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
 
-				uiEventActionProcessorContextMenu = new UIEventActionProcessor();
-				uiEventActionProcessorContextMenu.setUINameCard(uiNameCard);
-				uiEventActionProcessorContextMenu.setPrefix(className);
-				uiEventActionProcessorContextMenu.setElement(element);
-				uiEventActionProcessorContextMenu.setDictionariesCacheName("UIWidgetGeneric");
+				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+				
+				uiEventActionProcessorContextMenu_i.setUINameCard(uiNameCard);
+				uiEventActionProcessorContextMenu_i.setPrefix(className);
+				uiEventActionProcessorContextMenu_i.setElement(element);
+				uiEventActionProcessorContextMenu_i.setDictionariesCacheName("UIWidgetGeneric");
 //				uiEventActionProcessorContextMenu.setEventBus(eventBus);
-				uiEventActionProcessorContextMenu.setOptsXMLFile(contextMenuOptsXMLFile);
+				uiEventActionProcessorContextMenu_i.setOptsXMLFile(contextMenuOptsXMLFile);
 //				uiEventActionProcessorContextMenu.setUIWidgetGeneric(uiWidgetGeneric);
-				uiEventActionProcessorContextMenu.setActionSetTagName(UIActionEventType.actionset.toString());
-				uiEventActionProcessorContextMenu.setActionTagName(UIActionEventType.action.toString());
-				uiEventActionProcessorContextMenu.init();
+				uiEventActionProcessorContextMenu_i.setActionSetTagName(UIActionEventType.actionset.toString());
+				uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
+				uiEventActionProcessorContextMenu_i.init();
 
 	            contextMenu.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
 	    			
@@ -360,8 +365,8 @@ public class UIWidgetViewer extends UIWidget_i {
 	    						String sourceID = hashMap.get("sourceID");
 	    						logger.info(className, function, "sourceID[{}]", sourceID);
 	    						if ( null != sourceID ) {
-	    							if ( null != uiEventActionProcessorContextMenu ) {
-	    								uiEventActionProcessorContextMenu.executeActionSet(sourceID);
+	    							if ( null != uiEventActionProcessorContextMenu_i ) {
+	    								uiEventActionProcessorContextMenu_i.executeActionSet(sourceID);
 	    							} else {
 	    								logger.warn(className, function, "uiEventActionProcessorContextMenu IS NULL");	
 	    							}
@@ -384,7 +389,7 @@ public class UIWidgetViewer extends UIWidget_i {
 			logger.warn(className, function, "scsOlsListPanel IS NULL");
 		}
 		
-		uiEventActionProcessor.executeActionSetInit();
+		uiEventActionProcessor_i.executeActionSetInit();
 		
 		logger.end(className, function);
 	}

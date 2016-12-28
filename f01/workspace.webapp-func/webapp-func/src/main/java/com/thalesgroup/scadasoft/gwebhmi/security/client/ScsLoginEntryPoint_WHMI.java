@@ -75,10 +75,10 @@ public class ScsLoginEntryPoint_WHMI implements EntryPoint {
     }
     
     private void launch_WHMI () {
-    	
 		final UIGws uiGws = new UIGws();
-		uiGws.setEntryPointUIWidget("UIScreenLogin");
+		uiGws.setDictionaryFolder("UIWidgetGeneric");
+		uiGws.setPropertyFolder("UIInspectorPanel");
+		uiGws.setViewXMLFile("UILayoutEntryPointLoginSummary.view.xml");
 		RootLayoutPanel.get().add(uiGws.getMainPanel());
-
     }
 }

@@ -3,9 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.PasswordTextBox;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -16,7 +13,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -77,53 +76,35 @@ public class UILayoutLogin extends UIWidget_i {
 			if ( null != element ) {
 				
 				
-//				String actionsetkey = element;
-//				uiEventActionProcessor.executeActionSet(actionsetkey, new ExecuteAction_i() {
-//					
-//					@Override
-//					public boolean executeHandler(UIEventAction uiEventAction) {
-//						String function = "executeHandler";
-//						
-//						String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-//						String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
-//						
-//						logger.info(className, function, "os1[{}]", os1);
-//						
-//						if ( null != os1 ) {
-//							if ( os1.equals("OpmLogin") ) {
-//							
-//							}
-//						}
-//					}
-//				});
-				
-				
-				if ( strlogin.equals(element)
-						/*|| strchangepassword.equals(element)*/
-						) {
-					// Operation: Login
-					TextBox txtOperator = (TextBox)uiWidgetGenericInfo.getWidget(strname);
-					ListBox lstProfile = (ListBox)uiWidgetGenericInfo.getWidget(strprofile);
-					PasswordTextBox txtpwdPassword = (PasswordTextBox)uiWidgetGenericInfo.getWidget(strpassword);
+				String actionsetkey = element;
+				uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
 					
-					if ( null == txtOperator ) {
-						logger.warn(className, function, "uiWidgetCtrl_i onClickHandler widget element[{}] IS NULL", strname);
-					} else if ( null == lstProfile ) {
-						logger.warn(className, function, "uiWidgetCtrl_i onClickHandler widget element[{}] IS NULL", strprofile);
-					} else if ( null == txtpwdPassword) {
-						logger.warn(className, function, "uiWidgetCtrl_i onClickHandler widget element[{}] IS NULL", strpassword);
-					} else {
+					@Override
+					public boolean executeHandler(UIEventAction uiEventAction) {
+						String function = "executeHandler";
 						
-						String operator		= txtOperator.getText();
-						String profile		= lstProfile.getValue(lstProfile.getSelectedIndex());
-						String password		= txtpwdPassword.getText();
+						String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 						
-						logger.info(className, function, "operator[{}] profile[{}] password[{}]", new Object[]{operator, profile, password});
+						logger.info(className, function, "os1[{}]", os1);
 						
-						String uiopmapivalue	= opmApi;
-						OpmMgr.getInstance(uiopmapivalue).login(operator, password);
+						if ( null != os1 ) {
+							if ( os1.equals("OpmLogin") ) {
+								
+								String operator = uiWidgetGenericInfo.getWidgetValue(strname);
+								String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
+								logger.info(className, function, "operator[{}] password[{}]", new Object[]{operator, password});
+								
+								String uiopmapivalue	= opmApi;
+								OpmMgr.getInstance(uiopmapivalue).login(operator, password);
+
+							}
+						}
+						return true;
 					}
-				}
+				});
+				
+				
+
 			} else {
 				logger.warn(className, function, "button IS NULL");
 			}

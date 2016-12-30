@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetSocDelayControl-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Skip Failed Step</label>
+		<css>project-UIWidgetSocDelayControl-label-skipfailedsteplabel</css>
+		<element>skipfailedsteplabel</element>
+	</option>
+	
+	<option key="0|1">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocDelayControl-textbox-delayvalue</css>
+		<element>delayvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetSocDelayControl-container-delayvalue</cssContainer>
+		
+	</option>
+
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>Apply</label>
+		<css>project-UIWidgetSocDelayControl-button-apply</css>
+		<element>apply</element>
+		
+		<cssContainer>project-UIWidgetSocDelayControl-container-apply</cssContainer>
+		
+		<cssUp>project-UIWidgetSocDelayControl-button-apply-up</cssUp>
+		<cssDown>project-UIWidgetSocDelayControl-button-apply-down</cssDown>
+		<cssDisable>project-UIWidgetSocDelayControl-apply-disable</cssDisable>
+		<tooltip>Apply</tooltip>
+		<tooltipDown>Apply Activate</tooltipDown>
+		<tooltipDisable>Apply Disabled</tooltipDisable>
+	</option>
+	
+</data-set>

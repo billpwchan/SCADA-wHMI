@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutEntryPointDpcTagSummary-panel-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UILayoutSummary</uiCtrl>
+		<uiView>UILayoutDpcTagSummary.view.xml</uiView>
+		<uiOpts>UILayoutDpcTagSummary.opts.xml</uiOpts>
+		<element>UILayoutDpcTagSummary</element>
+	</option>
+</data-set>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCSS>project-gwt-panel-viewswap-almmgn</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetDpcScanSuspendControl</uiCtrl>
+		<uiView>UIWidgetInputTableScanSuspendControl.view.xml</uiView>
+		<uiOpts>UIWidgetInputTableScanSuspendControl.opts.xml</uiOpts>
+		<element>UIWidgetInputTableScanSuspendControl</element>
+		<csscontainer>project-gwt-panel-action-control</csscontainer>
+		<left>0</left>
+		<top>0</top>
+	</option>
+	<option key="0|1">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetDpcManualOverrideControl</uiCtrl>
+		<uiView>UIWidgetInputTableManualOverrideControl.view.xml</uiView>
+		<uiOpts>UIWidgetInputTableManualOverrideControl.opts.xml</uiOpts>
+		<element>UIWidgetInputTableManualOverrideControl</element>
+		<csscontainer>project-gwt-panel-action-control</csscontainer>
+		<left>0</left>
+		<top>0</top>
+	</option>
+</data-set>

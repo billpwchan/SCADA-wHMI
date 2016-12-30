@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetDpcTagPrint-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>Print</label>
+		<css>project-UIWidgetDpcTagPrint-button-0-2</css>
+		
+		<cssContainer>project-UIWidgetDpcTagPrint-container-0-2</cssContainer>
+		
+		<cssUp>project-UIWidgetDpcTagPrint-button-0-2-up</cssUp>
+		<cssDown>project-UIWidgetDpcTagPrint-button-0-2-down</cssDown>
+		<cssDisable>project-UIWidgetDpcTagPrint-button-0-2-disable</cssDisable>
+		<tooltipUp>Print</tooltipUp>
+		<element>print</element>
+	</option>
+	
+</data-set>

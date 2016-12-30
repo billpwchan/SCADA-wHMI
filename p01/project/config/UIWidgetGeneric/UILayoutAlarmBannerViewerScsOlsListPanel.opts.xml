@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<ListConfigId>alarmListBanner</ListConfigId>
+		<MenuEnableCallImage>true</MenuEnableCallImage>
+		<SelectionMode>Multiple</SelectionMode>
+		<ColorMode>ColorMode</ColorMode>
+		<MwtEventBusName>AppUtils.EVENT_BUS</MwtEventBusName>
+		<MwtEventBusScope>local</MwtEventBusScope>
+		
+		<OperationString1>priority</OperationString1>
+		<OperationString2>state</OperationString2>
+		<OperationString3>GDGMessage03</OperationString3>
+	</header>
+</data-set>

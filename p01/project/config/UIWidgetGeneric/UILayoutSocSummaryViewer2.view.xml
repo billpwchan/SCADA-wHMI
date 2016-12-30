@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>0</rows>
+		<cols>0</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCss>project-UILayoutSocSummaryViewer2-root</rootCss>
+		<!--<rootCSS>project-gwt-panel-viewerview-inner</rootCSS>-->
+	</header>
+	<!--
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>ScsOlsListPanel</uiCtrl>
+		<uiOpts>UILayoutAlarmSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
+	</option>
+	-->
+
+</data-set>

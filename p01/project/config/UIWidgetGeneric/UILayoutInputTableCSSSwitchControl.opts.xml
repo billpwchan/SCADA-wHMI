@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>modifycss_element0_visible_remove</OperationString1>
+		<OperationString2>modifycss_element0_invisible_remove</OperationString2>
+		<OperationString3>modifycss_element1_visible_remove</OperationString3>
+		<OperationString4>modifycss_element1_invisible_remove</OperationString4>
+		
+		<OperationString5>modifycss_element0_visible_apply</OperationString5>
+		<OperationString6>modifycss_element1_invisible_apply</OperationString6>
+	</actionset>
+	
+	<actionset key="set0">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>modifycss_element0_visible_remove</OperationString1>
+		<OperationString2>modifycss_element0_invisible_remove</OperationString2>
+		<OperationString3>modifycss_element1_visible_remove</OperationString3>
+		<OperationString4>modifycss_element1_invisible_remove</OperationString4>
+		
+		<OperationString5>modifycss_element0_visible_apply</OperationString5>
+		<OperationString6>modifycss_element1_invisible_apply</OperationString6>
+	</actionset>
+	
+	<actionset key="set1">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>modifycss_element0_visible_remove</OperationString1>
+		<OperationString2>modifycss_element0_invisible_remove</OperationString2>
+		<OperationString3>modifycss_element1_visible_remove</OperationString3>
+		<OperationString4>modifycss_element1_invisible_remove</OperationString4>
+		
+		<OperationString5>modifycss_element0_invisible_apply</OperationString5>
+		<OperationString6>modifycss_element1_visible_apply</OperationString6>
+	</actionset>
+	
+	
+	<action key="modifycss_element0_visible_apply">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableScanSuspendControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-visible</OperationString3>
+		<OperationString4>true</OperationString4>
+	</action>
+	<action key="modifycss_element0_visible_remove">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableScanSuspendControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-visible</OperationString3>
+		<OperationString4>false</OperationString4>
+	</action>
+	
+	<action key="modifycss_element0_invisible_apply">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableScanSuspendControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-invisible</OperationString3>
+		<OperationString4>true</OperationString4>
+	</action>
+	<action key="modifycss_element0_invisible_remove">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableScanSuspendControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-invisible</OperationString3>
+		<OperationString4>false</OperationString4>
+	</action>
+	
+	
+	<action key="modifycss_element1_visible_apply">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableManualOverrideControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-visible</OperationString3>
+		<OperationString4>true</OperationString4>
+	</action>
+	<action key="modifycss_element1_visible_remove">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableManualOverrideControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-visible</OperationString3>
+		<OperationString4>false</OperationString4>
+	</action>
+	
+	<action key="modifycss_element1_invisible_apply">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableManualOverrideControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-invisible</OperationString3>
+		<OperationString4>true</OperationString4>
+	</action>
+	<action key="modifycss_element1_invisible_remove">
+		<OperationType>action</OperationType>
+		<OperationAction>logic</OperationAction>
+		<OperationString1>ModifyCSS</OperationString1>
+		<OperationString2>UIWidgetInputTableManualOverrideControl</OperationString2>
+		<OperationString3>project-gwt-panel-almmgn-grid-invisible</OperationString3>
+		<OperationString4>false</OperationString4>
+	</action>
+</data-set>

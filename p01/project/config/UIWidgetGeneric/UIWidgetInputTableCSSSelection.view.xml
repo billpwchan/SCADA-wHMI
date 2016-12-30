@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-gwt-simplepanel-inputtable-filterview</rootCss>
+		<cssFlexTable>project-gwt-verticalpanel-inputtable-filterview</cssFlexTable>
+	</header>
+	
+	<option key="0|0">
+		<widget>RadioButton</widget>
+		<label>Not Suspended</label>
+		<groupName>setunset</groupName>
+		<css>project-gwt-button-inputtable-filterview-button-0-0</css>
+		
+		<cssContainer>project-gwt-button-inputtable-filterview-container-0-0</cssContainer>
+		
+		<cssUp>project-gwt-button-inputtable-filterview-button-0-0-up</cssUp>
+		<cssDown>project-gwt-button-inputtable-filterview-button-0-0-down</cssDown>
+		<cssDisable>project-gwt-button-inputtable-filterview-button-0-0-disable</cssDisable>
+		
+		<tooltipUp>Running List</tooltipUp>
+		<tooltipDown>Running List Avaiable</tooltipDown>
+		<tooltipDisable>Running List Disabled</tooltipDisable>
+		<element>set0</element>
+	</option>
+	
+	<option key="0|1">
+		<widget>RadioButton</widget>
+		<label>Not Overridden</label>
+		<groupName>setunset</groupName>
+		<css>project-gwt-button-inputtable-filterview-button-0-1</css>
+		
+		<cssContainer>project-gwt-button-inputtable-filterview-container-0-1</cssContainer>
+		
+		<cssUp>project-gwt-button-inputtable-filterview-button-0-1-up</cssUp>
+		<cssDown>project-gwt-button-inputtable-filterview-button-0-1-down</cssDown>
+		<cssDisable>project-gwt-button-inputtable-filterview-button-0-1-disable</cssDisable>
+		
+		<tooltipUp>Running List</tooltipUp>
+		<tooltipDown>Running List Avaiable</tooltipDown>
+		<tooltipDisable>Running List Disabled</tooltipDisable>
+		<element>set1</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>RadioButton</widget>
+		<label>Suspended</label>
+		<groupName>setunset</groupName>
+		<css>project-gwt-button-inputtable-filterview-button-0-2</css>
+		
+		<cssContainer>project-gwt-button-inputtable-filterview-container-0-2</cssContainer>
+		
+		<cssUp>project-gwt-button-inputtable-filterview-button-0-2-up</cssUp>
+		<cssDown>project-gwt-button-inputtable-filterview-button-0-2-down</cssDown>
+		<cssDisable>project-gwt-button-inputtable-filterview-button-0-2-disable</cssDisable>
+		
+		<tooltipUp>Suspended List</tooltipUp>
+		<tooltipDown>Suspended List Avaiable</tooltipDown>
+		<tooltipDisable>Suspended List Disabled</tooltipDisable>
+		<element>set2</element>
+	</option>
+	
+	<option key="0|3">
+		<widget>RadioButton</widget>
+		<label>Overridden</label>
+		<groupName>setunset</groupName>
+		<css>project-gwt-button-inputtable-filterview-button-0-3</css>
+		
+		<cssContainer>project-gwt-button-inputtable-filterview-container-0-3</cssContainer>
+		
+		<cssUp>project-gwt-button-inputtable-filterview-button-0-3-up</cssUp>
+		<cssDown>project-gwt-button-inputtable-filterview-button-0-3-down</cssDown>
+		<cssDisable>project-gwt-button-inputtable-filterview-button-0-3-disable</cssDisable>
+		
+		<tooltipUp>Overridden List</tooltipUp>
+		<tooltipDown>Overridden List Avaiable</tooltipDown>
+		<tooltipDisable>Overridden List Disabled</tooltipDisable>
+		<element>set3</element>
+	</option>
+
+</data-set>

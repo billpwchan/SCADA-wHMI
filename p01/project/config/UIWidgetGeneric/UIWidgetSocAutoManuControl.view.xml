@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetSocAutoManuControl-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Skip Failed Step</label>
+		<css>project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel</css>
+		<element>skipfailedsteplabel</element>
+	</option>
+	
+	<option key="0|1">
+		<widget>RadioButton</widget>
+		<label>Automatic</label>
+		<groupName>setautomanu</groupName>
+		<css>project-UIWidgetSocAutoManuControl-button-auto</css>
+		
+		<cssContainer>project-UIWidgetSocAutoManuControl-container-auto</cssContainer>
+		
+		<cssUp>project-UIWidgetSocAutoManuControl-button-auto-up</cssUp>
+		<cssDown>project-UIWidgetSocAutoManuControl-button-auto-down</cssDown>
+		<cssDisable>project-UIWidgetSocAutoManuControl-button-auto-disable</cssDisable>
+		
+		<tooltipUp>Running List</tooltipUp>
+		<tooltipDown>Running List Avaiable</tooltipDown>
+		<tooltipDisable>Running List Disabled</tooltipDisable>
+		<element>auto</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>RadioButton</widget>
+		<label>Manual</label>
+		<groupName>setautomanu</groupName>
+		<css>project-UIWidgetSocAutoManuControl-button-manu</css>
+		
+		<cssContainer>project-UIWidgetSocAutoManuControl-container-manu</cssContainer>
+		
+		<cssUp>project-UIWidgetSocAutoManuControl-button-manu-up</cssUp>
+		<cssDown>project-UIWidgetSocAutoManuControl-button-manu-down</cssDown>
+		<cssDisable>project-UIWidgetSocAutoManuControl-button-manu-disable</cssDisable>
+		
+		<tooltipUp>Manual</tooltipUp>
+		<tooltipDown>Manual Avaiable</tooltipDown>
+		<tooltipDisable>Manual Disabled</tooltipDisable>
+		<element>manu</element>
+	</option>
+
+</data-set>

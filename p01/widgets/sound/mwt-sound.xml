@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:soundConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/soundServer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <p:soundsDescription>
+    <p:sound soundId="MCS_SuperCritical" soundURL="resources/sound/MCS_SuperCritical.wav" loop="true"/>
+    <p:sound soundId="MCS_Critical" soundURL="resources/sound/MCS_Critical.wav" loop="true"/>
+    <p:sound soundId="MCS_LessCritical" soundURL="resources/sound/MCS_LessCritical.wav" loop="true"/>
+  </p:soundsDescription>
+</p:soundConfiguration>

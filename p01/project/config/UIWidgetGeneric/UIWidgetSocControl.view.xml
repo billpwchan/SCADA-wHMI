@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetSocControl-root</rootCss>
+		<!--<rootCss>project-gwt-simplepanel-controlview</rootCss>-->
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>Start</label>
+		<css>project-UIWidgetSocControl-button-start</css>
+		<element>start</element>
+		
+		<cssContainer>project-UIWidgetSocControl-container-start</cssContainer>
+		
+		<cssDown>project-UIWidgetSocControl-button-start-down</cssDown>
+		<cssDisable>project-UIWidgetSocControl-button-start-disable</cssDisable>
+		<tooltip>Start</tooltip>
+		<tooltipDown>Start Activate</tooltipDown>
+		<tooltipDisable>Start Disabled</tooltipDisable>
+		
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>Stop</label>
+		<css>project-UIWidgetSocControl-button-stop</css>
+		<element>stop</element>
+		
+		<cssContainer>project-UIWidgetSocControl-container-stop</cssContainer>
+		
+		<cssDown>project-UIWidgetSocControl-button-stop-down</cssDown>
+		<cssDisable>project-gUIWidgetSocControl-button-stop-disable</cssDisable>
+		<tooltip>Stop</tooltip>
+		<tooltipDown>Stop Activate</tooltipDown>
+		<tooltipDisable>Stop Disabled</tooltipDisable>
+
+	</option>
+	
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>Skip Failed Step</label>
+		<css>project-UIWidgetSocControl-button-skip</css>
+		<element>skip</element>
+		
+		<cssContainer>project-UIWidgetSocControl-container-skip</cssContainer>
+		
+		<cssDown>project-UIWidgetSocControl-button-skip-down</cssDown>
+		<cssDisable>project-UIWidgetSocControl-button-skip-disable</cssDisable>
+		<tooltip>Skip</tooltip>
+		<tooltipDown>Skip Activate</tooltipDown>
+		<tooltipDisable>Skip Disabled</tooltipDisable>
+	</option>
+	
+</data-set>

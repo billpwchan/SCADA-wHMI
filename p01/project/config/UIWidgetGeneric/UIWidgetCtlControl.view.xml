@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-gwt-simplepanel-controlview</rootCss>
+		<cssFlexTable>project-gwt-verticalpanel-controlview</cssFlexTable>
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>Set</label>
+		<css>project-gwt-button-controlview-button-0-0</css>
+		<element>set</element>
+		
+		<cssContainer>project-gwt-button-controlview-container-0-0</cssContainer>
+		
+		<cssDown>project-gwt-button-controlview-button-0-0-down</cssDown>
+		<cssDisable>project-gwt-button-controlview-button-0-0-disable</cssDisable>
+		<tooltip>Set</tooltip>
+		<tooltipDown>Set Activate</tooltipDown>
+		<tooltipDisable>Set Disabled</tooltipDisable>
+		
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>Unset</label>
+		<css>project-gwt-button-controlview-button-0-1</css>
+		<element>unset</element>
+		
+		<cssContainer>project-gwt-button-controlview-container-0-1</cssContainer>
+		
+		<cssDown>project-gwt-button-controlview-button-0-1-down</cssDown>
+		<cssDisable>project-gwt-button-controlview-button-0-1-disable</cssDisable>
+		<tooltip>UnSet</tooltip>
+		<tooltipDown>UnSet Activate</tooltipDown>
+		<tooltipDisable>UnSet Disabled</tooltipDisable>
+
+	</option>
+	
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>Apply</label>
+		<css>project-gwt-button-controlview-button-0-2</css>
+		<element>apply</element>
+		
+		<cssContainer>project-gwt-button-controlview-container-0-2</cssContainer>
+		
+		<cssDown>project-gwt-button-controlview-button-0-2-down</cssDown>
+		<cssDisable>project-gwt-button-controlview-button-0-2-disable</cssDisable>
+		<tooltip>Apply</tooltip>
+		<tooltipDown>Apply Activate</tooltipDown>
+		<tooltipDisable>Apply Disabled</tooltipDisable>
+	</option>
+	
+</data-set>

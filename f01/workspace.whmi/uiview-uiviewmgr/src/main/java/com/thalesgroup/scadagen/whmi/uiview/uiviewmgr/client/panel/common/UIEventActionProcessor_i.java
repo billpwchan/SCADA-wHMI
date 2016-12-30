@@ -26,17 +26,17 @@ public interface UIEventActionProcessor_i {
 	void init();
 	UIEventAction getUIEventActionSetMgr(String actionsetkey);
 	UIEventAction getUIEventActionMgr(String actionkey);
-	void executeActionSetInit();
-	void executeActionSetInit(ExecuteAction_i executeActionHandler);
+	boolean executeActionSetInit();
+	boolean executeActionSetInit(ExecuteAction_i executeActionHandler);
 	void executeActionSetInit(int delayMillis, ExecuteAction_i executeActionHandler);
-	void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override);
-	void executeActionSet(String actionsetkey);
-	void executeActionSet(String actionsetkey, ExecuteAction_i executeActionHandler);
-	void executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override,
+	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override);
+	boolean executeActionSet(String actionsetkey);
+	boolean executeActionSet(String actionsetkey, ExecuteAction_i executeActionHandler);
+	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override,
 			ExecuteAction_i executeActionHandler);
-	void executeActionSet(UIEventAction action, ExecuteAction_i executeActionHandler);
-	void executeAction(String actionkey, ExecuteAction_i executeActionHandler);
-	void executeAction(UIEventAction action, ExecuteAction_i executeActionHandler);
-	void execute(UIEventAction uiEventAction, ExecuteAction_i executeActionHandler);
+	boolean executeActionSet(UIEventAction action, ExecuteAction_i executeActionHandler);
+	boolean executeAction(String actionkey, ExecuteAction_i executeActionHandler);
+	boolean executeAction(UIEventAction action, ExecuteAction_i executeActionHandler);
+	boolean execute(UIEventAction uiEventAction, ExecuteAction_i executeActionHandler);
 
 }

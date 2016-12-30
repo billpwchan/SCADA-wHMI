@@ -16,10 +16,12 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutSoc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelection;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSwitch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBlackboard;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcManualOverrideControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
@@ -29,6 +31,9 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocDelayControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBox;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -232,7 +237,42 @@ public class UILayoutSummary extends UIWidget_i {
 
 					uiWidget_i = new UILayoutLogin();
 
-				} else {
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UILayoutSoc.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UILayoutSoc();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetDataGrid.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetDataGrid();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetSocControl();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetSocDelayControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetSocDelayControl();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetSocAutoManuControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetSocAutoManuControl();
+
+				}  else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 				

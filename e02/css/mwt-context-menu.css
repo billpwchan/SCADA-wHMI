@@ -1,0 +1,69 @@
+
+/****************************************************************************/
+/* Context menu */
+
+.mwt-context-menu {
+	z-index: 97;
+	background: #778387 none repeat scroll 0 0;
+	border: 1px solid #314045;
+	color: black;
+}
+
+.mwt-context-menu .mwt-MenuItem {
+	line-height:100%;
+	display:block;
+	line-height:normal;
+	white-space:nowrap;
+	cursor: pointer;
+	padding: 3px 3px 3px 3px;
+    border: 1px solid #778387;
+    margin: 1px;
+	font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+	color: black;
+	/* Fix the the menu item selection size and arrow position in IE 7,8,9 */
+  width:99%\9;
+}
+
+.mwt-context-menu .mwt-MenuItem-disabled .gwt-Label {
+	color: #555c5e !important;
+}
+
+.mwt-context-menu .gwt-MenuItemSeparator {
+	border-width: 0px 0px 1px 0px;
+	border-color: #555c5e;
+	font-size: 1px;
+	line-height: 1px;
+}
+
+.mwt-context-menu .mwt-MenuItem-Icon {
+	height: 16px;
+	width:16px;
+	margin: 0 8px 0 0;
+	float: left;
+	vertical-align: middle;
+}
+
+.mwt-context-menu .mwt-MenuItem-subMenu {
+	background: url(./../Images/navtree-closed.png) no-repeat right center !important;
+}
+
+.mwt-context-menu .mwt-MenuItem-subMenu:hover {
+	background: #969FA2 url(./../Images/navtree-closed.png) no-repeat right center !important;
+  border: 1px solid #6B7679;
+}
+
+.mwt-context-menu .mwt-MenuItem:hover {
+    background: #969FA2;
+    border: 1px solid #6B7679;
+}
+
+.mwt-context-menu .menuSeparatorInner {
+    background: none repeat scroll 0 0 #444444;
+    border-color: #777777 -moz-use-text-color -moz-use-text-color;
+    border-right: 0 none;
+    border-style: solid none none;
+    border-width: 1px 0 0;
+    height: 1px;
+    overflow: hidden;
+    padding: 0;
+}

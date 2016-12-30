@@ -1,0 +1,61 @@
+
+/****************************************************************************/
+/* Layer menu                                                                   */
+
+.mwt-layer-menu {
+	background: #778388 none repeat scroll 0 0;
+	border-color: #001017;
+}
+
+/*
+.mwt-layer-menu .x-menu-list-item {
+	color: #122129 !important;
+	width: 100%;
+	border-bottom: thin;
+	border-bottom-color: #838E93;
+	border-bottom-style: solid;
+}
+*/
+
+
+.mwt-layer-menu .mwt-MenuItem-checked {
+	background: transparent url(./../Images/LayerItemChecked.png) no-repeat right center !important;
+}
+
+.mwt-layer-menu .mwt-MenuItem-unchecked {
+	background: transparent url(./../Images/LayerItemUnchecked.png) no-repeat right center !important;
+}
+
+.mwt-layer-menu .mwt-MenuItem {
+	color: #122129 !important;
+	padding: 3px 80px 3px 3px !important;
+	border-bottom: thin;
+	border-bottom-color: #838E93;
+	border-bottom-style: solid;
+}
+
+/*
+.mwt-layer-menu .x-menu-item img {
+	height: 16px;
+	width:16px;
+	vertical-align: middle;
+	padding: 0 2px 0 70px;
+}
+
+.mwt-layer-menu .x-menu-item-active {
+	background-color: transparent;
+	border-top: 0px none !important;
+	border-left: 0px none !important;
+	border-right: 0px none !important;
+	padding: 1px !important;
+}
+*/
+
+.mwt-layer-menu .mwt-layer-menu-item-icon {
+	height: 16px;
+	width:16px;
+	vertical-align: bottom !important;
+	padding: 1px 0 0 0 !important;
+	float: left;
+	display: inline-block;
+}

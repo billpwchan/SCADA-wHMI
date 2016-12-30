@@ -1,0 +1,55 @@
+.project-UIWidgetSocAutoManuControl-root {
+    height: 55px;
+	float: left;
+}
+
+.project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel {
+	
+}
+
+/* filter styles */
+.project-UIWidgetSocAutoManuControl-container-auto,
+.project-UIWidgetSocAutoManuControl-container-manu {
+    vertical-align: middle !important;
+}
+
+.project-UIWidgetSocAutoManuControl-container-auto {
+    text-align: right;
+}
+.project-UIWidgetSocAutoManuControl-container-manu {
+	text-align: left;
+	width: 180px;
+}
+
+.project-UIWidgetSocAutoManuControl-button-auto,
+.project-UIWidgetSocAutoManuControl-button-manu {
+	color: black;
+	font-weight: bold;
+    font-size: 16px;
+	margin-right: 10px;
+}
+
+.project-UIWidgetSocAutoManuControl-button-auto-up {
+}
+
+.project-UIWidgetSocAutoManuControl-button-auto-down {
+}
+
+.project-UIWidgetSocAutoManuControl-button-auto-disable {
+}
+
+.project-UIWidgetSocAutoManuControl-button-manu-up {
+}
+
+.project-UIWidgetSocAutoManuControl-button-manu-down {
+}
+
+.project-UIWidgetSocAutoManuControl-button-manu-disable {
+}
+
+
+/* cursor styles */
+.project-UIWidgetSocAutoManuControl-button-auto label,
+.project-UIWidgetSocAutoManuControl-button-manu label {
+	cursor: pointer;
+}

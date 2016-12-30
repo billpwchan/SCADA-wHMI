@@ -1,0 +1,214 @@
+/* ==================================================================================================== */
+/* SOP Activity Details */
+/* ==================================================================================================== */
+
+.mwt-sop-activity-details {
+	background-color: #373737; /* PATTERN : GREY-4 */
+	color: white;
+	margin: 2px;
+}
+
+.mwt-sop-activity-details-label-left {
+    color: white;
+    max-width: 200px;
+    min-width: 150px;
+    padding: 2px;	
+}
+
+.mwt-sop-activity-details-label-right {
+    color: white;
+	max-width: 200px;
+}
+
+.mwt-sop-check-list-label-left {
+    color: white;
+    padding: 2px;	
+}	
+
+.mwt-sop-activity-details tr {
+	/*height: 30px;*/
+}
+
+.mwt-sop-activity-button {
+	/*width: 120px;*/
+}
+
+.mwt-sop-action-panel-state-label {
+	color: white;
+    text-align: center;
+}
+
+.mwt-sop-detail-header {
+	color: white;
+    background: -webkit-linear-gradient(top, #1F2324, #121414); /* PATTERN : HEADER */
+    background: -moz-linear-gradient(top, #1F2324, #121414);
+    background: -ms-linear-gradient(top, #1F2324, #121414);
+    vertical-align: middle;
+    padding: 3px 15px;
+    border-left: solid 1px #2E434D;
+}
+
+/* ==================================================================================================== */
+/* SOP Table */
+/* ==================================================================================================== */
+
+.mwt-sop-table {
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+}
+
+.mwt-sop-table-row-odd {
+	background-color: #303030; /* PATTERN : ODD */
+}
+
+.mwt-sop-table-row-even {
+	background-color: #373737; /* PATTERN : EVEN */
+}
+
+/* ==================================================================================================== */
+/* SOP On Demand */
+/* ==================================================================================================== */
+
+.mwt-sop-demand {
+	background-color: #373737; /* PATTERN : GREY-4 */
+}
+
+.mwt-sop-demand-east {
+	background-color: #373737; /* PATTERN : GREY-4 */
+	border: 1px solid #444444;
+	color: white;
+	margin: 5px;
+}
+
+.mwt-sop-demand-table-form {
+	/*width: 100%;*/
+	margin: 5px;
+}
+
+.mwt-sop-demand-table-left {
+	width: 100px;
+}	
+
+.mwt-sop-demand-table-right {
+	/*width: 100px;*/
+}	
+
+.mwt-sop-demand-table-buttons {
+	width: 100%;
+	text-align: center;
+}
+
+.mwt-sop-demand-splitter-vertical {
+	/*background: -moz-linear-gradient(left, #778387, #102027);
+	background: -ms-linear-gradient(left, #778387, #102027);
+	background: -o-linear-gradient(left, #778387, #102027);
+	background: -webkit-linear-gradient(left, #778387, #102027);*/
+}	
+
+.mwt-sop-demand-splitter-horizontal {
+	/*background: -moz-linear-gradient(top, #778387, #102027);
+	background: -ms-linear-gradient(top, #778387, #102027);
+	background: -o-linear-gradient(top, #778387, #102027);
+	background: -webkit-linear-gradient(top, #778387, #102027);*/
+}	
+
+.mwt-sop-demand-header {
+  padding: 3px 15px;
+  text-align: left;
+  color: white;
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #161616; /* PATTERN : GREY-8 */
+  border-left: solid 1px #2E434D;
+}
+
+.mwt-sop-combobox {
+	/*color: white;*/
+}
+
+.mwt-sop-demand-process-list-failure {
+	color: red;
+	cursor: pointer;
+}	
+
+.mwt-sop-demand-process-list-success {
+	color: white;
+}	
+
+.mwt-sop-demand-process-list-requested {
+	color: white;
+}	
+
+.mwt-sop-demand-process-creation-default {
+	color: white;
+}	
+
+.mwt-sop-demand-process-creation-failure {
+	color: red;
+}	
+
+.mwt-sop-demand-process-creation-success {
+	color: white;
+}	
+
+.mwt-sop-demand-process-creation-requested {
+	color: white;
+}	
+
+.mwt-sop-demand-footer {
+	text-align: center;
+	margin: 5px;
+}
+
+/* ==================================================================================================== */
+/* SOP On Demand - Dialog Box */
+/* ==================================================================================================== */
+
+.mwt-sop-demand-box {
+	background-color: #373737; /* PATTERN : GREY-4 */
+	border : 1px solid rgb(0, 0, 0);
+}	
+
+.mwt-sop-demand-box .Caption {
+    background: -webkit-linear-gradient(top, #FAAF00, #C88700);
+    background: -moz-linear-gradient(top, #FAAF00, #C88700);
+    background: -ms-linear-gradient(top, #FAAF00, #C88700);
+    padding: 4px;
+    border-width: 0px;
+    border-bottom: 1px solid #161616;
+    font: normal 1.2em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-2 */
+    line-height: 1.4em;
+    color: #000000;
+}
+
+/* ==================================================================================================== */
+/* SOP Caption Panel */
+/* ==================================================================================================== */
+
+.mwt-caption-panel-sop-header {
+	top: 0;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	height: 28px;
+	padding: 4px 8px;
+	text-align: left;
+	font-size: 1.2em;
+	background: -webkit-linear-gradient(top, #FAAF00, #C88700);
+    background: -moz-linear-gradient(top, #FAAF00, #C88700);
+    background: -ms-linear-gradient(top, #FAAF00, #C88700);
+	border-bottom: 1px solid #C88700;
+	color: black;
+}
+
+.mwt-caption-panel-sop-container {
+  background-color: #373737; /* PATTERN : GREY-4 */
+}

@@ -1,0 +1,122 @@
+.project-gwt-panel-inspector-dialogbox {
+	background-color: #BEBEBE;
+	font-size: 16px;
+}
+
+.project-gwt-panel-inspector {
+	background-color: #BEBEBE;
+	width: 590px !important;
+}
+
+.project-gwt-tabpanel-inspector-tabpanel {
+	width: 600px;
+	height: 400px;
+}
+
+.project-gwt-inspector-tabpanel-tab-0 {
+
+}
+.project-gwt-inspector-tabpanel-tab-1 {
+
+}
+.project-gwt-inspector-tabpanel-tab-2 {
+
+}
+.project-gwt-inspector-tabpanel-tab-3 {
+
+}
+
+div.gwt-TabBarItem.project-gwt-inspector-tabpanel-tab-disable-1,
+div.gwt-TabBarItem.project-gwt-inspector-tabpanel-tab-disable-2,
+div.gwt-TabBarItem.project-gwt-inspector-tabpanel-tab-disable-3 {
+	color: grey;
+	background-color: lightgrey;
+	cursor: default;
+}
+
+.project-gwt-panel-title {
+	width: 100%;
+	padding:10px;
+	color: white;
+	background-color: slategrey;
+}
+
+.project-gwt-flextable-header {
+
+}
+
+.project-gwt-inlinelabel-equipmentname {
+	width:100%;
+	text-align:center;
+	font-size:16px !important;
+}
+
+.project-gwt-inlinelabel-equipmentalias {
+	padding:10px;
+}
+
+.project-gwt-inlinelabel-headerlabel {
+	font-size: 16px !important;
+}
+
+.project-gwt-textbox-headervalue {
+	color:black !important;
+	font-size: 16px;
+	width: 380px;
+	background-color: white;
+}
+
+.project-gwt-button-inspector-up {
+	width:50px;
+	padding:10px;
+	font-size: 22px !important;
+}
+
+.project-gwt-inlinelabel-pagenum {
+	width:50px;
+	padding:10px;
+	font-size: 16px;
+}
+
+.project-gwt-button-inspector-down {
+	width:50px;
+	padding:10px;
+	font-size: 22px !important;
+}
+
+.project-gwt-panel-inspector-bottom {
+	width:100%;
+	background-color: dimgrey;
+}
+.project-gwt-textbox-inspector-bottom-message {
+	width: 500px;
+	height: 40px;
+	color:black !important;
+	font-size:16px !important;
+	background-color: lightgrey;
+}
+.gwt-Button.project-gwt-button-inspector-bottom-close {
+	width: 80px;
+	height: 45px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.project-gwt-panel-inspector-info-bottom {
+	width:100%;
+}
+
+/* inspector panel title style */
+.gwt-DialogBox .dialogTopCenter .Caption{
+	cursor:move;
+}
+
+/* remove unnecessary borders */
+.gwt-DialogBox div.dialogTopLeftInner,
+.gwt-DialogBox div.dialogTopRightInner,
+.gwt-DialogBox div.dialogMiddleLeftInner,
+.gwt-DialogBox div.dialogMiddleRightInner,
+.gwt-DialogBox div.dialogBottomLeftInner,
+.gwt-DialogBox div.dialogBottomRightInner {
+	width: 0px;
+	height: 0px;
+}

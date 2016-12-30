@@ -1,0 +1,42 @@
+.project-UIWidgetSocDelayControl-root {
+	height: 55px;
+	float: left;
+}
+
+.project-UIWidgetSocDelayControl-label-skipfailedsteplabel {
+}
+
+.project-UIWidgetSocDelayControl-container-delayvalue {
+	width: 150px;
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocDelayControl-textbox-delayvalue {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}
+
+.project-UIWidgetSocDelayControl-container-apply {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocDelayControl-button-apply {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+.project-UIWidgetSocDelayControl-button-apply-up {
+	
+}
+.project-UIWidgetSocDelayControl-button-apply-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocDelayControl-button-apply-disable {
+
+}

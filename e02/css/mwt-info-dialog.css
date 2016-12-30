@@ -1,0 +1,104 @@
+
+ /****************************************************************************/
+/* Info dialog panel                                                        */
+.infoDialog-glass {
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 0.7;
+	z-index: 98;
+}
+
+.infoDialog-panel {
+	border: 2px solid #373737;
+    background-color: #2A2A2A;
+    opacity: 1;
+    z-index: 99;
+}
+
+.infoDialog-panel .header-label {
+    background: -webkit-linear-gradient(top, #484848, #303030);
+    background: -moz-linear-gradient(top, #484848, #303030);
+    background: -ms-linear-gradient(top, #484848, #303030);
+    font-size: 1.2em;
+    text-align: center;
+    padding: 5px;
+}
+
+.infoDialog-panel .message {
+    font-weight: normal;
+    text-align: center;
+    padding: 1em 1em 0.5em 1em;
+    color: #FFFFFF;
+    width: 20em;
+}
+
+
+.infoDialog-panel .messageReportParam {
+    font-weight: normal;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.infoDialog-panel .warningMessageReportParam {
+    font-weight: normal;
+    text-align: center;
+    color: #FFA500;
+}
+
+.infoDialog-panel .messageBoxReportPanel {
+    font-weight: normal;
+    text-align: center;
+    padding: 1em 1em 0.5em 1em;
+    color: #FFFFFF;
+    width: 20em;
+}
+
+.infoDialog-panel  .reportParams{
+    font-weight: thin;
+    color: WHITE;
+}
+
+
+.infoDialog-panel  .reportParamsScroll{
+	border: 2px solid #373737;
+    width: 40%;
+}
+
+
+.infoDialog-panel  .reportParamsTitre{
+    font-weight: normal;
+    text-decoration: underline;
+	text-align: right;
+	padding: 0e 1em 0.5em;
+	font-size: 1.2em;
+	color: #FFF;
+}
+
+.infoDialog-panel .gwt-DisclosurePanel {
+    padding: 0em 1.5em 0.7em;
+}
+
+.infoDialog-panel-disconnected .message {
+    color: #F1C315;
+}
+
+.infoDialog-panel .gwt-DisclosurePanel .header td, .infoDialog-panel .gwt-DisclosurePanel .details {
+    text-align: left;
+    color: #6A767A;
+    font-weight: normal;
+}
+
+.infoDialog-panel .gwt-DisclosurePanel .header td {
+}
+
+.infoDialog-panel .gwt-DisclosurePanel .details {
+    width: 16em;
+    margin-left: 2em;
+    text-align: left;
+    width: 20em;
+}
+
+.infoDialog-panel button {
+    margin-bottom: 0.8em;
+}

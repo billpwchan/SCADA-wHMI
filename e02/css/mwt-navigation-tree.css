@@ -1,0 +1,152 @@
+
+ /****************************************************************************/
+/* NavigationTree widgets                                                   */
+
+/* FIXME: does not work for now */
+/*div.mwt-navtree, mwt-navtree div.x-panel-body {
+    width: 14em;
+}
+
+#ext-gen89 {
+    width: 14em;
+}
+#ext-gen208 {
+    width: 14em;
+}*/
+
+
+.mwt-navtree .gwt-FastTreeItem-leaf {
+    padding-left: 0px !important;
+}
+
+.mwt-navtree .gwt-FastTreeItem .children {
+    margin-left: 0px !important;
+}
+
+.mwt-navtree {
+    background-color: #373737; /* PATTERN : GREY-4 */
+    border: 0px;
+}
+
+.mwt-navtree .gwt-TreeItem {
+    font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+    white-space: nowrap;
+    background-color: #000000;
+    line-height: 1.3em;
+    color: #FFFFFF;
+	padding: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mwt-navtree .mwt-navtree-node-level4 div {
+    color: #000000;
+}
+
+/* Nodes levels */
+.mwt-navtree .mwt-navtree-node-level1 div,
+.mwt-navtree .mwt-navtree-node-level2 div,
+.mwt-navtree .mwt-navtree-node-level3 div,
+.mwt-navtree .mwt-navtree-node-level4 div {
+	color: #FFFFFF;
+}
+
+
+.mwt-navtree-node-item img {
+    cursor: pointer;
+}
+
+.mwt-navtree .mwt-navtree-node-level0 > table:first-child {
+	display: none;
+}
+
+/**.mwt-navtree-node-level1 .gwt-TreeItem .gwt-HTML {**/
+
+.mwt-navtree .mwt-navtree-node-level1 {
+    
+	margin-left: 0px !important;
+    border-bottom: 1px solid #111; /* PATTERN : ITEM-BORDER */
+}
+
+.mwt-navtree .mwt-navtree-node-level2 {
+    
+    margin-left: 0px !important;
+    border-bottom: 1px solid #111; /* PATTERN : ITEM-BORDER */
+}
+
+
+.mwt-navtree .mwt-navtree-node-level3 {
+
+    margin-left: 0px !important;
+    border-bottom: 1px solid #111; /* PATTERN : ITEM-BORDER */
+}
+.mwt-navtree .mwt-navtree-node-level4 {
+    
+    margin-left: 0px !important;
+    border-bottom: 1px solid #111; /* PATTERN : ITEM-BORDER */
+}
+.mwt-navtree .mwt-navtree-node-level5 {
+    
+    margin-left: 0px !important;
+    border-bottom: 1px solid #111; /* PATTERN : ITEM-BORDER */
+}
+/** NOTE: Table can be replaced by *:first-child:hover **/
+
+.mwt-navtree .mwt-navtree-node-item > table {
+	width: 100%;
+}
+
+.mwt-navtree .mwt-navtree-node-item td:first-child {
+	width: 16px;
+}
+
+.mwt-navtree .mwt-navtree-node-level1 > table {
+	background-color: #202020; /* PATTERN : GREY-7 */
+	padding-left: 0px !important;
+}
+
+.mwt-navtree .mwt-navtree-node-level2 > table {
+	background-color: #303030; /* PATTERN : GREY-5 */
+    padding-left: 20px !important;
+}
+
+.mwt-navtree .mwt-navtree-node-level3 > table {
+	background-color: #373737; /* PATTERN : GREY-4 */
+	padding-left: 40px !important;
+}
+
+.mwt-navtree .mwt-navtree-node-level4 > table {
+	background-color: #484848; /* PATTERN : GREY-3 */
+   	padding-left: 60px !important;
+  
+}
+.mwt-navtree .mwt-navtree-node-level5 > table {
+	background-color: #707070; /* PATTERN : GREY-2 */
+   	padding-left: 70px !important;
+  
+}
+
+/* The folowing rules must be after .mwt-navtree-node-level* */
+
+.mwt-navtree .mwt-navtree-node-item .selected > table {
+	background-color: #849AA4;
+	color: #FFFFFF;
+}
+
+.mwt-navtree .mwt-navtree-node-item > *:first-child:hover {
+    color: #00E0FF; /* PATTERN : SELECTED-TEXT */
+}
+
+.mwt-navtree .mwt-navtree-highlight-item > *:first-child {
+	background-color: #018596 !important;
+	color: #FFFFFF;
+}
+
+/** Should be checked: Not working **/
+.mwt-navtree .mwt-navtree-highlight-item > table > tbody > tr > td > div > div {
+	font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+}
+
+.mwt-navtree .mwt-navtree-node-item td {
+	padding: 0px;
+}

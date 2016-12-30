@@ -1,0 +1,86 @@
+.project-gwt-simplepanel-inputtable-filterview {
+    height: 100%;
+	width: 100%;
+}
+
+.project-gwt-verticalpanel-inputtable-filterview {
+	height: 100%;
+}
+
+/* filter styles */
+.project-gwt-button-inputtable-filterview-container-0-0,
+.project-gwt-button-inputtable-filterview-container-0-1,
+.project-gwt-button-inputtable-filterview-container-0-2,
+.project-gwt-button-inputtable-filterview-container-0-3 {
+    vertical-align: middle !important;
+}
+
+.project-gwt-button-inputtable-filterview-container-0-0 {
+    text-align: right;
+}
+.project-gwt-button-inputtable-filterview-container-0-1 {
+	text-align: left;
+	width: 180px;
+}
+.project-gwt-button-inputtable-filterview-container-0-2 {
+    text-align: right;
+	width: 150px;
+}
+.project-gwt-button-inputtable-filterview-container-0-3 {
+	text-align: left;
+	width: 150px;
+}
+
+.project-gwt-button-inputtable-filterview-button-0-0,
+.project-gwt-button-inputtable-filterview-button-0-1,
+.project-gwt-button-inputtable-filterview-button-0-2,
+.project-gwt-button-inputtable-filterview-button-0-3 {
+	color: black;
+	font-weight: bold;
+    font-size: 16px;
+	margin-right: 10px;
+}
+
+.project-gwt-button-inputtable-filterview-button-0-0-up {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-0-down {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-0-disable {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-1-up {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-1-down {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-1-disable {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-2-up {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-2-down {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-2-disable {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-3-up {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-3-down {
+}
+
+.project-gwt-button-inputtable-filterview-button-0-3-disable {
+}
+
+/* cursor styles */
+.project-gwt-button-inputtable-filterview-button-0-0 label,
+.project-gwt-button-inputtable-filterview-button-0-1 label,
+.project-gwt-button-inputtable-filterview-button-0-2 label,
+.project-gwt-button-inputtable-filterview-button-0-3 label {
+	cursor: pointer;
+}

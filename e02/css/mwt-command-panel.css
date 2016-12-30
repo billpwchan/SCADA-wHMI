@@ -1,0 +1,61 @@
+
+
+/*****************************************
+*	Command Panel VS9
+*****************************************/
+
+.mwt-command-panel {
+	background-color: #373737; /* PATTERN : GREY-4 */
+}
+
+.mwt-command-panel .mwt-command-entry {
+    border: 1px solid #444444;
+    width: 100%;
+}
+
+.mwt-command-panel .mwt-command-panel-header {
+    color: white;
+    text-align: center;
+}
+
+.mwt-command-panel .mwt-command-panel-label-left {
+    width: 150px;
+    color: white;
+}
+.mwt-command-panel .mwt-command-panel-label-right {
+    color: white;
+}
+
+.mwt-command-panel .mwt-command-panel-textbox-common {
+	width: 80px;
+}
+
+.mwt-command-panel .mwt-command-panel-textbox-error {
+    color: red;
+    background-color: #660000;
+}
+.mwt-command-panel .mwt-command-panel-textbox-normal {
+    color: white;
+}
+
+.mwt-command-panel .mwt-command-panel-status-error {
+    color: red;
+}
+.mwt-command-panel .mwt-command-panel-status-info {
+    color: white;
+}
+.mwt-command-panel .mwt-command-panel-status-warning {
+    color: orange;
+}
+
+.mwt-command-panel .mwt-command-panel-combobox {
+	width: 80px;
+}
+
+.mwt-command-panel .mwt-command-panel-combobox .mwt-combobox {
+	width: 80px;
+}
+
+.mwt-command-panel .mwt-command-panel-combobox .mwt-combobox-selected {
+	width: 80px;
+}

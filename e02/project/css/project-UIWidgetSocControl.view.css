@@ -1,0 +1,61 @@
+.project-UIWidgetSocControl-root {
+	height: 55px;
+	float: left;
+}
+
+.project-UIWidgetSocControl-container-start {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocControl-button-start {
+    width: 115px;
+    height: 45px;
+    font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+.project-UIWidgetSocControl-button-start-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocControl-button-start-disable {
+
+}
+
+
+.project-UIWidgetSocControl-container-stop {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocControl-button-stop {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+}
+.project-UIWidgetSocControl-button-stop-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocControl-button-stop-disable {
+
+}
+
+
+.project-UIWidgetSocControl-container-skip {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocControl-button-skip {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+.project-UIWidgetSocControl-button-skip-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocControl-button-skip-disable {
+
+}

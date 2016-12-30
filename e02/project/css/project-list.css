@@ -1,0 +1,108 @@
+/* unset MWT properties */
+.dataGridCell div {
+	padding-left: 0px;
+	color: inherit;
+}
+
+/* override MWT GDG settings */
+.dataGridSelectedRowCell {
+	background-color: black;
+	color: white;
+}
+
+.dataGridEvenRow, .dataGridOddRow {
+	/* to disable drag & drop in GDG */
+	-webkit-user-drag: none !important;
+	height: 22px;
+}
+
+.dataGridHoveredRowCell {
+	background-color: blue;
+	color: white;
+}
+
+/* DataGrid Border */
+.dataGridCell {
+	border: solid black;
+	/* top, right, bottom, left */
+	border-width: thin 0px 0px thin;
+	cursor: default;
+}
+
+.dataGridHeader {
+	cursor: default;
+}
+
+.dataGridSortableHeader{
+	cursor: pointer;
+}
+
+/* pageDetails */
+.pageDetails,
+.project-gwt-panel-scsolslistpanel .mainContainer td > div:only-child.gwt-HTML:only-child {
+	padding: 4px 8px;
+	text-align: center;
+	color: white;
+}
+
+/* DataGrid Header Indicators */
+.dataGridSortedHeaderAscending > div > div > img {
+	background: url(../img/gdg/project-gdg-sortedheader-ascending.svg) no-repeat !important;
+	background-size: 11px 11px !important;
+}
+
+.dataGridSortedHeaderDescending > div > div > img {
+	background: url(../img/gdg/project-gdg-sortedheader-descending.svg) no-repeat !important;
+	background-size: 11px 11px !important;
+}
+
+.dataGridHeader > div > div > img[style*="CpzVV0AAAAASUVORK5CYII"],
+.dataGridHeader > div > div > div > div:nth-of-type(1) > img[style*="CpzVV0AAAAASUVORK5CYII"] {
+	background: url(../img/gdg/project-gdg-header-filtered.svg) no-repeat !important;
+	background-size: 15px 15px !important;
+}
+
+.dataGridHeader > div > div > img[style*="HcfwvnKUjAAAAAElFTkSuQmCC"],
+.dataGridHeader > div > div > div > div:nth-of-type(1) > img[style*="HcfwvnKUjAAAAAElFTkSuQmCC"] {
+	background: url(../img/gdg/project-gdg-header-unfiltered.svg) no-repeat !important;
+	background-size: 15px 15px !important;
+}
+
+/* project specific alarms / events, state / severity color */
+@keyframes blinkingAlarm {
+	0%, 100% {color: var(--default-font-color); background-color: var(--default-background-color);}
+}
+
+.OLS_LIST_alarmListBanner, .OLS_LIST_scsalarmList, .OLS_LIST_scseventList {
+	--default-font-color: black;
+	--default-background-color: #E5E4E2;
+	color: var(--default-font-color);
+	background-color: var(--default-background-color)
+}
+
+.OLS_LIST_priority_CRITICAL {
+	color: white;
+	background-color: red;
+}
+
+.OLS_LIST_priority_HIGH {
+	color: black;
+	background-color: orange;
+}
+
+.OLS_LIST_priority_MEDIUM {
+	color: black;
+	background-color: yellow;
+}
+
+.OLS_LIST_priority_LOW {
+	color: black;
+	background-color: lime;
+}
+
+.OLS_LIST_alarmListBanner.OLS_LIST_state_PNA,
+.OLS_LIST_alarmListBanner.OLS_LIST_state_NPNA,
+.OLS_LIST_scsalarmList.OLS_LIST_state_PNA,
+.OLS_LIST_scsalarmList.OLS_LIST_state_NPNA {
+	animation: var(--gdg-blinking-off, blinkingAlarm) 1s;
+}

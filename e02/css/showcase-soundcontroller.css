@@ -1,0 +1,55 @@
+
+.mwt-SoundController {
+    position: relative;
+    border-radius: 5px;
+    height: 42px;
+    width: 125px;
+    border: none;
+}
+
+.mwt-SoundController td {
+    vertical-align: midle;
+    padding: 2px;
+}
+
+.mwt-SoundController .mwt-muteButton, .mwt-SoundController .mwt-muteButton .gwt-Image {
+
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    text-align: center;
+}
+
+.mwt-SoundController .mwt-muteButton .gwt-Image {
+    padding-top: 3px;
+    height: 35px;
+    width: 35px;
+}
+
+.mwt-SoundController .mwt-stopButton .gwt-Image {
+    padding-top: 3px;
+    height: 35px;
+    width: 35px;
+}
+
+.mwt-SoundController .mwt-stopButton, .mwt-SoundController .mwt-stopButton .gwt-Image {
+    cursor: pointer;
+    background: transparent;
+    text-align: center;
+}
+
+.mwt-SoundController .mwt-volumeControl {
+    font-family: tahoma, verdana, helvetica;
+    height: 42px;
+    width: 45px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+    text-align: center;
+}
+
+.mwt-SoundController.audioNotSupported .mwt-volumeControl, .mwt-SoundController.audioNotSupported .mwt-stopButton, .mwt-SoundController.audioNotSupported .mwt-muteButton{
+    cursor: not-allowed;
+    opacity: 0.2
+}

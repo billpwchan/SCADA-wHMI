@@ -1,0 +1,48 @@
+
+/* ==================================================================================================== */
+/* Zone Selection Widgets */
+/* ==================================================================================================== */
+
+.mwt-zone-selection-container {
+    border: 3px solid #161B21;
+    font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+    background-color: #373737; /* PATTERN : GREY-4 */
+}
+
+.mwt-zone-selection-container .gwt-Button {
+	width: 170px;
+}
+
+.mwt-zone-selection-header {
+	top: 0;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	height: 28px;
+	padding: 4px 8px;
+	text-align: left;
+	font-size: 1.2em;
+	background: -webkit-linear-gradient(top, #1F2324, #121414);
+    background: -moz-linear-gradient(top, #1F2324, #121414);
+    background: -ms-linear-gradient(top, #1F2324, #121414);
+	border-bottom: 1px solid #121414;
+}
+
+.mwt-zone-selection-inner {
+    margin: 1.2em auto 1em;
+    width: 90%;
+}
+
+.mwt-zone-selection-tree {
+	color: white;
+	background-color: #373737; /* PATTERN : GREY-4 */
+	border: 1px solid #6A767A;
+}	
+
+.mwt-zone-selection-label {
+	color: white;
+}
+
+.mwt-zone-selection-scroll-panel {
+	width: 98%;
+	height: 120px;
+}

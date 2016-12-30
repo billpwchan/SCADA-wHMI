@@ -1,0 +1,21 @@
+/*
+ * Debug tools
+ */
+.mwt-debugTools {
+//    padding: 10px;
+    color: white;
+    background-color: #373737; /* PATTERN : GREY-4 */
+    border: solid 1px black;
+}
+.mwt-debugTools .Caption {
+    background: -webkit-linear-gradient(top, #2A2A2A, #202020);
+    background: -moz-linear-gradient(top, #2A2A2A, #202020);
+    background: -ms-linear-gradient(top, #2A2A2A, #202020);
+    padding: 4px;
+    border-width: 0px;
+    border-bottom: 1px solid #161616;
+    font: normal 1.2em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-2 */
+    line-height: 1.4em;
+    color: #FFFFFF;
+}
+

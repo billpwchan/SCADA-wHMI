@@ -1,0 +1,65 @@
+
+.screen-header-left > * {vertical-align: middle; margin: 0 5px; display: inline-block;}
+.screen-header-right > * {vertical-align: middle; margin: 0 5px; display: inline-block;}
+
+/***************************************************/
+/* LOGO WIDGET */
+/***************************************************/
+
+.app-logo {
+	height: 46px;
+}
+
+/***************************************************/
+/* FLAT BUTTON WIDGET */
+/***************************************************/
+
+button.flat-button {
+    border: none; 
+    background-color: transparent; 
+    width:30px; 
+    height:30px;
+    background-repeat: no-repeat;
+    background-position: center 0px;
+    padding: 0px;
+    margin: 8px 4px;
+}
+
+button.flat-button[state="unactive"] {background-position: center 0px; border:none; padding:none;}
+button.flat-button[state="active"] {background-position: center -30px; border:none; padding:none;}
+button.flat-button:hover {background-position: center -60px; border:none; padding:none; cursor: pointer;}
+button.flat-button:active {background-position: center -30px; border:none; padding:none;}
+
+/***************************************************/
+/* LOGOUT BUTTON */
+/***************************************************/
+
+.logout-button {background-image: url('../img/logout.png');}
+
+/***************************************************/
+/* LINK ICON WIDGET */
+/***************************************************/
+
+.webserver-link-status {
+    background-image: url('../img/network.png'); 
+    width:30px; 
+    height:30px;
+    background-repeat: no-repeat;
+    background-position: center 0px;
+    margin-top: 8px;
+}
+
+.webserver-link-status[state="unactive"] {background-position: center 0px;}
+.webserver-link-status[state="active"] {background-position: center -30px;}
+.webserver-link-status[state="error"] {background-position: center -60px;}
+
+/***************************************************/
+/* NAV BUTTON */
+/***************************************************/
+
+.mwt-nav-button {
+	color: white;
+	margin: 8px 4px;
+	height: 32px;
+}
+

@@ -1,0 +1,703 @@
+.mwt-historizationPanel-flex {/* Main container for histo components */
+}
+
+.mwt-histo-grid {display: flex;width: 100%;}
+
+.mwt-historizationView {/* view of all histo panels*/
+    display: flex;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+/* DEFINITION OF LEVEL 1 WIDGETS (FILTERS, SYNTHESIS,RESULTGRID */
+.mwt-historizationFiltering {
+    order: 1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 2px;
+    height: 30%;
+}
+
+.mwt-historization-middlePan {
+    order: 2;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10%;
+    margin: 2px;
+}
+
+.detailInvisible {
+    display: none !important;
+}
+
+.mwt-histoResultPanel {
+    order: 3;
+    margin: 2px;
+    background: #161616;
+    color: white;
+    white-space: nowrap;
+    vertical-align: bottom;
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* DEFINITION FILTERS */
+.mwt-historizationFiltering .mwt-filterHeader {
+    width: 20%;
+    margin: 1px;
+}
+
+.mwt-historizationFiltering .mwt-filterHeader .mwt-dateFilter .buttons {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.mwt-historizationFiltering .mwt-filterHeader .mwt-dateFilter .buttons div
+    {
+    flex-grow: 1;
+    margin: 2px;
+    align-items: center;
+    display: flex;
+    padding: 5px;
+}
+
+.mwt-criteriaButton {
+    background: url('./../Images/histo/Button-close.png') no-repeat right ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-close.png') no-repeat right ,-moz-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-close.png') no-repeat right ,-ms-linear-gradient(top, #484848, #373737);
+    background-size: contain, cover;
+    align-items: center;
+    display: flex;
+}
+
+.dayButton {
+    background: url('./../Images/calendar/calendar_day.png') no-repeat right ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/calendar/calendar_day.png') no-repeat right ,-ms-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/calendar/calendar_day.png') no-repeat right ,-moz-linear-gradient(top, #484848, #373737);
+}
+.weekButton {
+    background: url('./../Images/calendar/calendar_week.png') no-repeat right ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/calendar/calendar_week.png') no-repeat right ,-ms-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/calendar/calendar_week.png') no-repeat right ,-moz-linear-gradient(top, #484848, #373737);
+}
+.monthButton {
+    background: url('./../Images/calendar/calendar_month.png') no-repeat right ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/calendar/calendar_month.png') no-repeat right ,-ms-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/calendar/calendar_month.png') no-repeat right ,-moz-linear-gradient(top, #484848, #373737);
+}
+
+
+.runQuery-button {
+    background: url('./../Images/histo/Button-find.png') no-repeat left ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-find.png') no-repeat left ,-moz-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-find.png') no-repeat left ,-ms-linear-gradient(top, #484848, #373737);
+    background-size: contain, cover;
+}
+
+.gwt-Button.runQuery-button.mwt-queryError {
+    border: solid 1px red;
+}
+
+.gwt-Button.openReport-button.mwt-queryError {
+    border: solid 1px red;
+}
+
+.runQuery-button span {
+    padding-left: 20px;
+}
+
+.clearFilters-button {
+    background: url('./../Images/histo/Button-close.png') no-repeat left ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-close.png') no-repeat left ,-moz-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-close.png') no-repeat left ,-ms-linear-gradient(top, #484848, #373737);
+    background-size: contain, cover;
+}
+
+.clearFilters-button span {
+    padding-left: 20px;
+}
+
+.openReport-button {
+    background: url('./../Images/histo/Button-report.png') no-repeat left ,-webkit-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-report.png') no-repeat left ,-moz-linear-gradient(top, #484848, #373737);
+    background: url('./../Images/histo/Button-report.png') no-repeat left ,-ms-linear-gradient(top, #484848, #373737);
+    background-size: contain, cover;
+}
+
+
+.openReport-button span {
+    padding-left: 20px;
+}
+
+.fromDateButton {
+    width: 20px;
+    height: 20px;
+    background: url('./../Images/calendar/calendar.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.toDateButton {
+    width: 20px;
+    height: 20px;
+    background: url('./../Images/calendar/calendar.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+[class~="mwt-filterHeader"]:last-of-type {
+    flex-grow: 1;
+}
+
+/* DEFINITION SYNTHESIS */
+.mwt-historizatinoSynthesis {
+    order: 0;
+    flex-grow: 10;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin: 2px;
+}
+
+.mwt-historizatinoSynthesis .mwt-criteriaButton {
+    padding-right: 15px;
+}
+
+.mwt-historizationButtons {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 170px;
+    flex-grow: 0;
+    margin: 2px;
+}
+
+.histo-grid-detail {
+    display: flex;
+    flex-direction: row;
+    background-color: #373737;
+    height: 92%;
+}
+
+.histo-grid-detail .mwt-maximizeButtonPanel {
+    display: flex;
+    align-content: center;
+    background: #707070;
+    cursor: pointer;
+}
+
+.mwt-maximizeButton {
+    width: 4px;
+    background: url('./../Images/mini-left.gif');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.mwt-historizationButtons .gwt-Button span {
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.mwt-maximizeButton.mwt-maximizeButton-down, .mwt-maximizeButton.mwt-maximizeButton-down-hovering
+    {
+    width: 4px;
+    background: url('./../Images/mini-right.gif');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.histo-grid-pager {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mwt-histo-pager {
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    height: 8%;
+}
+
+.mwt-filterPanel .mwt-disabledWidget {
+    opacity: 0.5;
+}
+
+.mwt-filterPanel {
+    overflow: auto;
+}
+
+.loadingGlass {
+    background-color: #000000;
+    opacity: 0.5;
+    z-index: 100;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.mwt-histoResultPanel .mwt-detailPanel {
+}
+
+/* DATAGRID */
+.mwt-histoResultPanel .mwt-histoResultGrid div {
+    opacity: 1.0 !important;
+}
+
+.mwt-histoResultPanel .dataGridWidget {
+}
+
+.mwt-histoResultPanel .dataGridHeader {
+    padding: 3px 15px;
+    text-align: left;
+    color: white;
+    transition-property: color;
+    -webkit-transition-property: color;
+    -moz-transition-property: color;
+    -o-transition-property: color;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    -o-transition-duration: 0.5s;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #161616; /* PATTERN : GREY-8 */
+    border-left: solid 1px #2E434D;
+}
+
+.mwt-histoResultPanel .dataGridFirstColumnHeader {
+    border: none;
+}
+
+.mwt-histoResultPanel .dataGridLastColumnHeader {
+}
+
+.mwt-histoResultPanel .dataGridFooter {
+    border: none;
+}
+
+.mwt-histoResultPanel .dataGridFirstColumn {
+}
+
+.mwt-histoResultPanel .dataGridLastColumn {
+}
+
+.mwt-histoResultPanel .dataGridCell {
+    /* FIXME color: white;*/
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 0px;
+}
+
+.mwt-histoResultPanel .dataGridEvenRow {
+    background: #373737; /* PATTERN : EVEN */
+    color: white;
+}
+
+.mwt-histoResultPanel .dataGridOddRow {
+    background: #303030; /* PATTERN : ODD */
+    color: white;
+}
+
+.mwt-histoResultPanel .dataGridHoveredRow {
+    background: #849AA4;
+    color: white;
+}
+
+.mwt-histoResultPanel .dataGridEvenRowCell {
+    
+}
+
+.mwt-histoResultPanel .dataGridOddRowCell {
+    
+}
+
+.mwt-histoResultPanel .dataGridHoveredRowCell {
+    
+}
+
+.mwt-histoResultPanel .dataGridKeyboardSelectedRow {
+    
+}
+
+.mwt-histoResultPanel .itemErrorRow {
+    font-weight: bold;
+}
+
+.mwt-histoResultPanel .dataGridSelectedRow {
+    color: white;
+    background: #0073A2;
+}
+
+.mwt-histoResultPanel .dataGridSelectedRowCell {
+    background: #0073A2;
+}
+
+.mwt-histo-Correlated {
+    background: url('./../Images/histo/correlRow.png') no-repeat center;
+    background-size: contain;
+}
+
+.mwt-histoResultPanel .hasFieldUpdater:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.dataGridSortableHeader {
+    
+}
+
+.dataGridFirstColumnFooter {
+    
+}
+
+.dataGridSortedHeaderAscending {
+    
+}
+
+.dataGridLastColumnFooter {
+    
+}
+
+.dataGridKeyboardSelectedRowCell {
+    
+}
+
+.dataGridSortableHeader {
+    
+}
+
+.dataGridKeyboardSelectedCell {
+    
+}
+
+.dataGridSortedHeaderDescending {
+    
+}
+
+.mwt-querySynthesisPanel {
+    background-color: #373737; /* PATTERN : GREY-4 */
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.mwt-histoResultPanel input:focus {
+    outline: none;
+}
+
+.mwt-histoResultPanel .mwt-title {
+    color: white;
+    font-weight: bold;
+    padding-bottom: 5px;
+    white-space: pre-line;
+}
+
+.mwt-histoResultPanel .gwt-Label {
+    color: white;
+    white-space: nowrap;
+}
+
+.mwt-histoResultPanel .gwt-HTML {
+    color: white;
+}
+
+.mwt-maximizeButtonPanel {
+    
+}
+
+.mwt-maximizeButton {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.mwt-maximizeButton-disabled {
+    opacity: 0.5;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.mwt-histoResultPanel .gwt-TextArea, .mwt-histoResultPanel .gwt-TextArea[disabled],
+    .mwt-histoResultPanel .gwt-TextArea-readonly {
+    background: none;
+    border: 0 none;
+    color: white;
+    margin-left: 20px;
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    /*font-weight: bold;*/
+    outline: none;
+    width: 100%;
+}
+
+.mwt-histo-detailRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    flex-wrap: wrap;
+    border-bottom: 1px dashed grey;
+}
+
+.mwt-histoDetail-value {text-align: right;}
+.mwt-histo-detailRow-vertical {
+    display: flex;
+    flex-direction: column;
+}
+
+.mwt-histo-detailRow .mwt-underline, .mwt-underlineList {
+    flex-grow: 1;
+}
+
+.mwt-histoResultPanel .mwt-detailPanel {
+    border: 2px solid #373737;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 35%;
+    background: #303030;
+}
+
+.mwt-detailPanel > table {
+    border-bottom: 1px dashed grey;
+}
+
+.mwt-detailPanel .gwt-TextArea {
+    resize: none;
+    height: 90px;
+}
+
+.mwt-histoResultPanel .mwt-detailPanel .mwt-alarmDetailPanel,
+    .mwt-histoResultPanel .mwt-detailPanel .mwt-eventDetailPanel,
+    .mwt-histoResultPanel .mwt-detailPanel .mwt-operatorDetailPanel,
+    .mwt-histoResultPanel .mwt-detailPanel .mwt-commandDetailPanel,
+    .mwt-histoResultPanel .mwt-detailPanel .mwt-customDetailPanel {
+    padding-left: 10px;
+}
+
+.mwt-histoResultPanel .gwt-PushButton-up, .mwt-histoResultPanel .gwt-PushButton-up-hovering,
+    .mwt-histoResultPanel .gwt-PushButton-up-disabled {
+    padding: 0px 1px 1px 0px;
+}
+
+.mwt-histoResultPanel .gwt-PushButton-up-hovering {
+    cursor: pointer;
+}
+
+.mwt-histoResultPanel .gwt-PushButton-down, .mwt-histoResultPanel .gwt-PushButton-down-hovering,
+    .mwt-histoResultPanel .gwt-PushButton-down-disabled {
+    padding: 1px 0px 0px 1px;
+    outline: none;
+}
+
+.loadingGlass {
+    background-color: #000000;
+    opacity: 0.5;
+    /* One more than the z-index of the gwt-PopupPanel ! */
+    z-index: 100;
+}
+
+/** REPORT DIALOG */
+.infoDialog-panel.mwt-reportDialog {
+    z-index: 0;
+}
+
+.mwt-histoReportParamsPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.mwt-histoReportParamsPanel .columnChoices {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 500px;
+    overflow-y: scroll;
+    order: 4;
+    min-height: 250px;
+    min-width: 450px;
+    background: #1F2324;
+}
+
+.mwt-histoReportParamsPanel .columnChoices .mwt-checkBoxList .toggleBox.gwt-ToggleButton-up-disabled
+    {
+    display: none;
+}
+
+.mwt-histoReportParamsPanel .engineChoices {
+    order: 1;
+}
+
+.mwt-histoReportParamsPanel .templateChoices {
+    margin-bottom: 10px;
+    order: 2;
+}
+
+.mwt-histoReportParamsPanel .engineChoices, .mwt-histoReportParamsPanel .templateChoices
+    {
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+    padding: 5px;
+    justify-content: space-between;
+    order: 1;
+}
+
+.mwt-histoReportParamsPanel .buttonPanel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    order: 6;
+}
+
+.mwt-histoReportParamsPanel .buttonPanel .gwt-Button {
+    width: 100%;
+}
+
+.infoDialog-panel .messageReportParam {
+    font-weight: normal;
+    text-align: center;
+    color: #FFFFFF;
+    align-self: flex-start;
+    height: 25px;
+    align-content: center;
+    display: flex;
+    align-items: center;
+    order: 3;
+    border-top: solid 1px #A0A0A0;
+    width: 100%;
+}
+
+.infoDialog-panel .warningMessageReportParam {
+    font-weight: normal;
+    text-align: center;
+    color: #FFA500;
+    align-self: flex-start;
+    order: 7;
+}
+
+.mwt-dateFilter .gwt-Label {
+    color: white;
+}
+
+.mwt-dateFilter .fromToTable {
+    padding: 0px 10px 0px 0px;
+}
+
+.mwt-dateFilter .dateBoxMargin {
+    margin: 0 5px 0 0;
+}
+
+.mwt-dateFilter .gwt-ToggleButton {
+    
+}
+
+.mwt-dateFilter .gwt-TextBox {
+    color: white;
+}
+
+.mwt-dateFilter .gwt-PushButton-up, .mwt-dateFilter .gwt-PushButton-up-hovering,
+    .mwt-dateFilter .gwt-PushButton-up-disabled {
+    padding: 0px 1px 1px 0px;
+}
+
+.mwt-dateFilter .gwt-PushButton-up-hovering {
+    cursor: pointer;
+}
+
+.mwt-dateFilter .gwt-PushButton-down, .mwt-dateFilter .gwt-PushButton-down-hovering,
+    .mwt-dateFilter .gwt-PushButton-down-disabled {
+    padding: 1px 0px 0px 1px;
+    outline: none;
+}
+
+.mwt-dateFilter .gwt-ToggleButton-up, .mwt-dateFilter .gwt-ToggleButton-up-hovering,
+    .mwt-dateFilter .gwt-ToggleButton-up-disabled {
+    padding: 1px 8px 2px 8px;
+}
+
+.mwt-dateFilter .gwt-ToggleButton-up-hovering {
+    cursor: pointer;
+}
+
+.mwt-dateFilter .gwt-ToggleButton-down, .mwt-dateFilter .gwt-ToggleButton-down-hovering,
+    .mwt-dateFilter .gwt-ToggleButton-down-disabled {
+    padding: 2px 7px 1px 9px;
+    outline: none;
+}
+
+.mwt-histoResultPanel .pageDetails {
+  padding: 4px 8px;
+  text-align: center;
+  color: white;
+  padding-top: 10px;
+}
+
+.mwt-histoResultPanel .button {
+  padding: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.mwt-histoResultPanel .disabledButton {
+  cursor: default;   
+}
+
+.mwt-dateTimeSelector {
+    display: flex;
+    flex-direction: row;
+    max-height: 25px;
+}
+
+.mwt-dateTimeSelector .dateBox, .mwt-dateTimeSelector .timeBox {
+    max-width: 110px;
+}
+
+.mwt-dateTimeSelector .timeBox .mwt-listIterator .buttonPanel {
+    align-items: center;
+    align-content: center;
+    align-self: center
+}
+
+.mwt-dateTimeSelector .calendarPushButton {
+    width: 20px;
+    height: 20px;
+    background: url('./../Images/calendar/calendar.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.mwt-dateTimeSelector .timeBox.dateBoxFormatError {
+    border: 1px solid red !important;
+    background: #373737; /* PATTERN : GREY-4 */
+}

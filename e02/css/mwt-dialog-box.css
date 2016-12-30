@@ -1,0 +1,40 @@
+
+ /****************************************************************************/
+/* Dialog Box                                                                */
+
+.mwt-dialog-box {
+    border: 2px solid #373737;
+    background-color: #2A2A2A;
+    opacity: 1;
+    z-index: 99;
+}
+
+.mwt-dialog-box .Caption {
+    background: -webkit-linear-gradient(top, #484848, #303030);
+    background: -moz-linear-gradient(top, #2A2A2A, #202020);
+    background: -ms-linear-gradient(top, #2A2A2A, #202020);
+    padding: 4px;
+    border-width: 0px;
+    border-bottom: 1px solid #161616;
+    font: normal 1.2em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-2 */
+    line-height: 1.4em;
+    color: #FFFFFF;
+}
+
+.mwt-dialog-box .dialogContent {
+    font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+    padding: 16px;
+}
+
+.mwt-dialog-box .dialogContent .gwt-Label {
+    color: #FFFFFF !important;
+    padding-bottom: 16px;
+}
+
+ /****************************************************************************/
+/* Dialog box inputs (IS IT REALLY USED ?) */
+
+.mwt-dialogbox-label {
+    width: 120px;
+}
+

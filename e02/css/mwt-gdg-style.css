@@ -1,0 +1,277 @@
+@external .*;
+
+.mainContainer {
+    background-color: #373737; /* PATTERN : GREY-4 */
+    height: 100%;
+}
+
+   
+.emptyGridLabel {
+  color: white;
+}
+
+.grid {
+  
+}
+
+.toolBarItemStyle {
+  float: left;
+  margin: 1px;
+}
+
+/* find another way to override that property */
+.grid div {
+  opacity: 1 !important;
+}
+
+.dataGridWidget {
+}
+
+.dataGridFirstColumn {
+  
+}
+
+.dataGridLastColumn {
+  
+}
+
+.dataGridFooter {
+}
+
+.dataGridHeader {
+  padding: 3px 2px;
+  text-align: left;
+  color: white;
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #161616; /* PATTERN : GREY-8 */
+  border-left: solid 1px #2E434D;
+}
+
+.dataGridCell div {
+  padding-left: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  -ms-text-overflow: ellipsis;
+  font-size: 16px;
+  color: black;
+}
+
+.dataGridFirstColumnFooter {
+  
+}
+
+.dataGridFirstColumnHeader {
+  
+}
+
+.dataGridLastColumnFooter {
+  
+}
+
+.dataGridLastColumnHeader {
+  
+}
+
+.dataGridSortableHeader {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.dataGridSortableHeader:hover {
+  color: #00E0FF;
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.dataGridSortedHeaderAscending {
+  
+}
+
+.dataGridSortedHeaderDescending {
+  
+}
+
+.dataGridEvenRow {
+  background: #373737; /* PATTERN : EVEN */
+  color: white;
+}
+
+.dataGridEvenRowCell {
+}
+
+.dataGridOddRow {
+  background: #303030; /* PATTERN : ODD */
+  color: white;
+}
+
+.dataGridOddRowCell {
+}
+
+.dataGridHoveredRow {
+  background: #484848 !important;
+  color: white;
+}
+
+.dataGridHoveredRowCell {
+}
+
+.dataGridKeyboardSelectedRow {
+}
+
+.dataGridKeyboardSelectedRowCell {
+}
+
+.dataGridSelectedRow {
+  background: #0073A2;
+  color: white;
+  height: auto;
+  overflow: auto;
+}
+
+.dataGridSelectedRowCell {
+}
+
+/**
+ * The keyboard selected cell is visible over selection.
+ */
+.dataGridKeyboardSelectedCell {
+}
+
+
+/* Pager */
+.pageDetails {
+  padding: 4px 8px;
+  text-align: center;
+  color: white;
+}
+
+.button {
+  padding: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.disabledButton {
+  cursor: default;
+}
+
+/* STYLE FOR THE FILTER MENUS */
+.menuStyle {
+  color: white;
+  background-color: #373737; /* PATTERN : GREY-4 */
+  border: solid 1px black;
+  padding: 5px;
+  font-size: 1em;
+}
+
+.menuStyle input[type="radio"] {
+  margin: 5px;
+}
+
+.menuStyle .gwt-RadioButton {
+  color: white;
+  font-size: 1em;
+}
+
+.menuStyle input[type="text"] {
+  padding-left: 2px;
+  color: #000000;
+  margin: 5px;
+  background-color: #CDD5D9;
+  border:1px solid #556165;
+}
+
+.menuStyle input[type="text"]:hover {
+  border: #00E0FF solid 1px;
+  background-color: #CDD5D9;
+}
+
+.menuStyle input[type="text"]:focus {
+  border: #00E0FF solid 1px;
+  background-color: #CDD5D9;
+}
+
+.menuButtonPanel {
+}
+
+.criteriaItem {
+  margin: 10px 0px;
+}
+
+.inputInError {
+  color: red !important;
+}
+
+.criteriaItem input[type="text"] {
+  margin: 0px;
+}
+
+.buttonStyle {
+  margin: 5px 0px 5px 0px;
+  width: 100%;
+}
+
+.gwt-RadioButton .criteriaItem {
+  margin: 5px 0px 5px 0px;
+}
+
+.inputInError {
+  color: red !important;
+}
+
+/**
+ * Combo box cell
+ */
+.mwt-comboBoxCell {
+ cursor: pointer;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ align-items: center;
+}
+
+.mwt-comboBoxCell-arrow {
+  background: url(./../Images/comboboxDown.png) no-repeat 0px -4px;
+  width: 32px;
+  height: 24px;
+}
+
+.mwt-comboBoxCell-container {
+  background: #303030;
+  border: 1px solid #484848;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column; 
+  padding: 2px;
+}
+
+.mwt-comboBoxCell-item {
+  padding: 2px 4px;
+  cursor: pointer;
+}
+
+.mwt-comboBoxCell-item:hover {
+  background-color: #484848;
+}
+
+.mwt-cell-invalid {
+  border: 1px solid red !important;
+}
+

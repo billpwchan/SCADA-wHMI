@@ -317,7 +317,6 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				
 				@Override
 				public void update(String key, String[] value) {
-					Database database = new Database();
 					String clientKeyStatic = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
 					if ( clientKeyStatic.equals(key) ) {
 						String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -499,7 +498,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		dpcMgr = DpcMgr.getInstance("almmgn");
+		dpcMgr = DpcMgr.getInstance(className);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);

@@ -169,7 +169,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private DpcMgr dpcMgr = null;
 	private Observer observer = null;
-	private Subject dpcMgrSubject = null;
+	private Subject subject = null;
 	
 	@Override
 	public void connect() {
@@ -291,8 +291,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		}
 		
 		{
-			dpcMgr = DpcMgr.getInstance("advance");
-			dpcMgrSubject = dpcMgr.getSubject();
+			dpcMgr = DpcMgr.getInstance(className);
+			subject = dpcMgr.getSubject();
 			
 			observer = new Observer() {
 				@Override
@@ -307,7 +307,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				}
 			};
 			
-			observer.setSubject(dpcMgrSubject);			
+			observer.setSubject(subject);			
 		}
 
 		logger.end(className, function);

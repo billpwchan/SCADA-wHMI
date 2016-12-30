@@ -215,7 +215,7 @@ public class UIWidgetDpcScanSuspendControl extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		dpcMgr = DpcMgr.getInstance("almmgn");
+		dpcMgr = DpcMgr.getInstance(className);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);

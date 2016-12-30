@@ -7,7 +7,7 @@ import com.google.gwt.json.client.JSONObject;
 
 public class Subject {
 	private List<Observer> observers = new ArrayList<Observer>();
-	private JSONObject state;
+	private JSONObject state = null;
 	public JSONObject getState() {
 		return state;
 	}
@@ -16,13 +16,13 @@ public class Subject {
 		notifyAllObservers();
 	}
 	public void attach(Observer observer) {
-		observers.add(observer);
+		this.observers.add(observer);
 	}
 	public void detach(Observer observer) {
-		observers.remove(observer);
+		this.observers.remove(observer);
 	}
 	public void notifyAllObservers() {
-		for ( Observer observer : observers ) {
+		for ( Observer observer : this.observers ) {
 			observer.update();
 		}
 	}

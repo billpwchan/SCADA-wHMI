@@ -1,7 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.action.ChangePasswordAction;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.monitor.AsyncCallbackMwtAbstract;
@@ -32,98 +33,79 @@ public class SpringChangePassword {
         oaEndPoint.setServiceEntryPoint(oaServletURL);
 	}
 
-	private UIWrapperRpcEvent_i uiWrapperRpcEvent_i = null;
-	public void changePassword(String oldPass, String newPass, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
+	public void changePassword(String oldPass, String newPass, final UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
 		
 		logger.begin(className, function);
-		
-		this.uiWrapperRpcEvent_i = uiWrapperRpcEvent_i;
-	    
+			    
         final ChangePasswordAction action = new ChangePasswordAction();
         action.setOldPassword(oldPass);
         action.setNewPassword(newPass);
-
-        operatorActionService_.sendOperatorAction(action, changePwdCb_);
         
+        operatorActionService_.sendOperatorAction(action, new AsyncCallbackMwtAbstract<IOperatorActionReturn>() {
+
+			@Override
+			public void onSuccessMwt(IOperatorActionReturn result) {
+				String function = "onSuccessMwt";
+				// TODO Auto-generated method stub
+	            if (result instanceof OperatorActionReturn) {
+
+	                // Everything is OK
+	            	JSONObject jsobject = new JSONObject();
+	            	jsobject.put("function", new JSONString(function));
+	            	jsobject.put("resultinstanceof", new JSONString("OperatorActionReturn"));
+
+	            	uiWrapperRpcEvent_i.event(jsobject);
+	            	
+	            } else if (result instanceof OperatorActionSecurityFault) {
+	            	
+	            	// Security exception occurred
+	                final OperatorActionSecurityFault operatorActionSecurityFault = (OperatorActionSecurityFault) result;
+	                final SecurityExceptionC se = operatorActionSecurityFault.getSecurityException();
+	                final String errorMsg = se.getContext().getAccessedResource();
+
+	            	JSONObject jsobject = new JSONObject();
+	            	jsobject.put("function", new JSONString(function));
+	            	jsobject.put("resultinstanceof", new JSONString("OperatorActionSecurityFault"));
+	            	jsobject.put("getmessage", new JSONString(errorMsg));
+	            	
+	            	uiWrapperRpcEvent_i.event(jsobject);
+	            	
+	            } else if (result instanceof OperatorActionFault) {
+	            	
+	            	// Other type of exception occurred
+	                final OperatorActionFault operatorActionFault = (OperatorActionFault) result;
+	                final String errorMsg = operatorActionFault.getMessage();
+	            	
+	            	JSONObject jsobject = new JSONObject();
+	            	jsobject.put("function", new JSONString(function));
+	            	jsobject.put("resultinstanceof", new JSONString("OperatorActionFault"));
+	            	jsobject.put("getmessage", new JSONString(errorMsg));
+	            	
+	            	uiWrapperRpcEvent_i.event(jsobject);
+	            	
+	            } else {
+	            	
+	            	JSONObject jsobject = new JSONObject();
+	            	jsobject.put("function", new JSONString(function));
+	            	jsobject.put("resultinstanceof", new JSONString("ERROR_UNKNOW"));
+	            	
+	            	uiWrapperRpcEvent_i.event(jsobject);
+	            }
+			}
+        	
+			@Override
+			public void onFailureMwt(Throwable caught) {
+				String function = "onFailureMwt";
+				// TODO Auto-generated method stub
+            	JSONObject jsobject = new JSONObject();
+            	jsobject.put("function", new JSONString(function));
+            	jsobject.put("getmessage", new JSONString(caught.getMessage()));
+            	
+            	uiWrapperRpcEvent_i.event(jsobject);
+			}
+        });
         logger.end(className, function);
-	    
 	}
 	
-	private String strApi = "changePassword";
-	private String strRpcApi = "sendOperatorAction";
-	
-    /**
-     * Call back called by the rpc change password.
-     */
-    private final AsyncCallback<IOperatorActionReturn> changePwdCb_ = new AsyncCallbackMwtAbstract<IOperatorActionReturn>() {
-
-        @Override
-        public void onSuccessMwt(final IOperatorActionReturn result) {
-        	String function = "onSuccessMwt";
-        	
-        	logger.begin(className, function);
-        	
-            if (result instanceof OperatorActionReturn) {
-
-                // Everything is OK
-            	uiWrapperRpcEvent_i.CallbackEvent("valid", "");
-            	uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "OperatorActionReturn", null, null, null);
-            	
-//                hide();
-            	
-            } else if (result instanceof OperatorActionSecurityFault) {
-
-                // Security exception occurred
-                final OperatorActionSecurityFault operatorActionSecurityFault =
-                    (OperatorActionSecurityFault) result;
-                final SecurityExceptionC se = operatorActionSecurityFault.getSecurityException();
-                
-                uiWrapperRpcEvent_i.CallbackEvent("invalid", "OperatorActionSecurityFault");
-                uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "OperatorActionSecurityFault", se.getContext().getAccessedResource(), null, null);
-
-//                final String errorMsg = Dictionary.getWording(LABEL_KEY_BASE + se.getContext().getAccessedResource());
-//
-//                logger.error("AbstractChangePassPanel : error : " + errorMsg);
-//                showError(Dictionary.getWording(ERROR_PASS_CHANGE) + " " + errorMsg);
-
-            } else if (result instanceof OperatorActionFault) {
-                // Other type of exception occurred
-
-                final OperatorActionFault operatorActionFault = (OperatorActionFault) result;
-                
-                uiWrapperRpcEvent_i.CallbackEvent("invalid", "OperatorActionFault");
-                uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "OperatorActionFault", operatorActionFault.getMessage(), null, null);
-
-//                final String errorMsg = operatorActionFault.getMessage();
-//
-//                logger.error("AbstractChangePassPanel : error : " + errorMsg);
-//                showError(Dictionary.getWording(ERROR_PASS_SERVER) + " " + errorMsg);
-            } else {
-            	
-            	uiWrapperRpcEvent_i.CallbackEvent("invalid", "ERROR_UNKNOW");
-            	uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, "ERROR_UNKNOW", null, null, null);
-            	
-//                logger.error("AbstractChangePassPanel : Unknown error.");
-//                showError(Dictionary.getWording(ERROR_UNKNOW));
-            }
-            
-            logger.end(className, function);
-        }
-
-        @Override
-        public void onFailureMwt(final Throwable caught) {
-        	String function = "onFailureMwt";
-        	
-        	logger.begin(className, function);
-        	
-        	uiWrapperRpcEvent_i.CallbackEvent("invalid", "onFailureMwt");
-        	uiWrapperRpcEvent_i.CallbackEvent(strApi, strRpcApi, function, caught.getMessage(), null, null, null);
-        	
-//            logger.error("AbstractChangePassPanel : changePwdCb_onFailure : ", caught);
-//            showError(Dictionary.getWording(ERROR_PASS_SERVER) + " " + caught.getMessage());
-        	
-        	logger.end(className, function);
-        }
-    };
 }

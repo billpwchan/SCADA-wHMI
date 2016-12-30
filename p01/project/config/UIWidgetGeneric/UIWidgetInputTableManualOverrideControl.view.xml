@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>5</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-gwt-simplepanel-controlview</rootCss>
+		<cssFlexTable>project-gwt-verticalpanel-controlview</cssFlexTable>
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>Manual Override</label>
+		<css>project-gwt-button-controlview-button-0-0</css>
+		<element>set</element>
+		
+		<cssContainer>project-gwt-button-controlview-container-0-0</cssContainer>
+		
+		<cssDown>project-gwt-button-controlview-button-0-0-down</cssDown>
+		<cssDisable>project-gwt-button-controlview-button-0-0-disable</cssDisable>
+		<tooltip>Manual Override</tooltip>
+		<tooltipDown>Manual Override Activate</tooltipDown>
+		<tooltipDisable>Manual Override Disabled</tooltipDisable>
+		
+	</option>
+	
+	<option key="0|1">
+		<widget>ListBox</widget>
+		<label></label>
+		<css>project-gwt-listbox-inputtable-manualoverride-0-1</css>
+		<element>lstvalue</element>
+		<visibleitemcount>5</visibleitemcount>
+		
+		<cssContainer>project-gwt-button-inputtable-manualoverride-container-0-1</cssContainer>
+		
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-gwt-textbox-inputtable-manualoverride-0-2</css>
+		<element>txtvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-gwt-button-inputtable-manualoverride-container-0-2</cssContainer>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Restore</label>
+		<css>project-gwt-button-controlview-button-0-1</css>
+		<element>unset</element>
+		
+		<cssContainer>project-gwt-button-controlview-container-0-1</cssContainer>
+		
+		<cssDown>project-gwt-button-controlview-button-0-1-down</cssDown>
+		<cssDisable>project-gwt-button-controlview-button-0-1-disable</cssDisable>
+		<tooltip>Restore</tooltip>
+		<tooltipDown>Restore Activate</tooltipDown>
+		<tooltipDisable>Restore Disabled</tooltipDisable>
+
+	</option>	
+	
+	<option key="0|4">
+		<widget>Button</widget>
+		<label>Apply</label>
+		<css>project-gwt-button-controlview-button-0-2</css>
+		<element>apply</element>
+		
+		<cssContainer>project-gwt-button-controlview-container-0-2</cssContainer>
+		
+		<cssDown>project-gwt-button-controlview-button-0-2-down</cssDown>
+		<cssDisable>project-gwt-button-controlview-button-0-2-disable</cssDisable>
+		<tooltip>Apply</tooltip>
+		<tooltipDown>Apply Activate</tooltipDown>
+		<tooltipDisable>Apply Disabled</tooltipDisable>
+	</option>
+	
+</data-set>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>2</cols>
+		<rootPanel>FlexTable</rootPanel>
+		<rootCss>project-UIWidgetLoginInfo-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Operator:</label>
+		<element>namelabel</element>
+		<css>project-UIWidgetLoginInfo-namelabel</css>
+	</option>
+	<option key="0|1">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetLoginInfo-name</css>
+		<element>name</element>
+		<maxlength>16</maxlength>
+	</option>
+	
+	<option key="1|0">
+		<widget>InlineLabel</widget>
+		<label>Profile:</label>
+		<element>profilelabel</element>
+		<css>project-UIWidgetLoginInfo-profilelabel</css>
+	</option>
+	<option key="1|1">
+		<widget>ListBox</widget>
+		<label></label>
+		<css>project-UIWidgetLoginInfo-profile</css>
+		<element>profile</element>
+		<visibleitemcount>1</visibleitemcount>
+	</option>
+	
+	<option key="2|0">
+		<widget>InlineLabel</widget>
+		<label>Password:</label>
+		<element>passwordlabel</element>
+		<css>project-UIWidgetLoginInfo-passwordlabel</css>
+	</option>
+	<option key="2|1">
+		<widget>PasswordTextBox</widget>
+		<label></label>
+		<css>project-UIWidgetLoginInfo-password</css>
+		<element>password</element>
+		<maxlength>16</maxlength>
+	</option>
+	
+</data-set>

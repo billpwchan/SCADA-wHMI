@@ -1,0 +1,17 @@
+ /****************************************************************************/
+/* Action View tab scrollers */
+
+.mwt-tabs-scroll-left {
+	cursor: pointer;
+}
+
+.mwt-tabs-scroll-right {
+	cursor: pointer;
+}
+
+.mwt-TabPanels-CloseIcon {
+	cursor:pointer;
+	margin: 3px;
+}
+
+

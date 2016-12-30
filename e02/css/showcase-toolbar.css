@@ -1,0 +1,85 @@
+.showcase-toolbar {
+  background-color: #F0F0F0;
+}
+
+.showcase-toolbar .gwt-Button{
+    background: transparent;
+    font-family: tahoma, verdana, helvetica;
+    min-width: 5em;
+    cursor: pointer;
+    color: gray;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 11px 1px 11px 1px;
+    border: 1px solid #F0F0F0;
+    white-space: nowrap;
+}
+
+.showcase-toolbar-item-clicked {
+	background: #DADADA!important;	
+	border: 1px solid #888888!important;
+}
+
+.showcase-toolbar .gwt-Button:hover {
+  border-color: #888888;
+}
+
+
+.showcase-toolbar-item {
+    float: left;
+}
+
+.showcase-toolbar-sep {
+    width: 2px;
+    height: 100%;
+    margin: 0px 5px 0px 5px;
+    border: 0px;
+    border-left: 1px solid #888888;
+    background: white;
+    float: left;
+}
+
+.scs-menubar-vertical{
+	/*padding: 0px;
+	border: 0px;*/
+	background: #F0F0F0;
+}
+
+.scs-menubar-vertical .gwt-MenuItem{
+    background: #F0F0F0;
+    font-family: tahoma, verdana, helvetica;
+    min-width: 5em;
+    cursor: pointer;
+    color: gray;
+    font-size: 1em;
+    font-weight: bold;
+    /*margin: 11px 1px 11px 1px;
+    border: 1px solid #F0F0F0;
+    white-space: nowrap;*/
+}
+
+.scs-menubar-vertical .gwt-MenuItem-selected{
+	background-color: white;
+	color: gray;
+	/*padding: 5px;
+	width: auto;*/
+}
+
+.scs-menubar-horizontal{
+	background-color: #F0F0F0;
+	float: left;
+}
+
+.scs-menubar-horizontal .gwt-MenuItem {
+    background: #F0F0F0;
+    font-family: tahoma, verdana, helvetica;
+    min-width: 5em;
+    cursor: pointer;
+    color: gray;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 11px 1px 11px 1px;
+   /* border: 1px solid #F0F0F0;
+    white-space: nowrap;*/
+	float: left;
+}

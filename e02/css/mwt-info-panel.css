@@ -1,0 +1,63 @@
+
+
+/*****************************************
+*	Info Panel VS9
+*****************************************/
+
+.mwt-infopanel-view table {
+    border-collapse: collapse;
+}
+
+.mwt-infopanel-view td {
+	padding: 0px;
+}
+
+.mwt-infopanel-view {
+	background-color: #373737; /* PATTERN : GREY-4 */
+	/*border: 1px solid #444444;*/
+}
+
+.mwt-infopanel-view .mwt-infopanel-entry {
+    border: 1px solid #444444;
+    width: 100%;
+}
+
+.mwt-infopanel-view .mwt-infopanel-header {
+    color: white;
+    text-align: center;
+}
+
+.mwt-infopanel-view .mwt-infopanel-label-left {
+    color: white;
+    padding: 2px;
+}
+.mwt-infopanel-view .mwt-infopanel-label-right {
+    color: white;
+    padding: 2px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.mwt-infopanel-view .mwt-infopanel-cell-normal {
+    color: white;
+}
+
+.mwt-infopanel-view .mwt-infopanel-cell-unknown {
+    color: orange;
+}
+
+.mwt-infopanel-view .mwt-infopanel-cell-error {
+    color: purple;
+}
+
+.mwt-infopanel-view .mwt-infopanel-cell-invalid {
+    color: red;
+}
+
+.mwt-infopanel-view .mwt-infopanel-cell-deleted {
+    color: orange;
+}
+
+.mwt-infopanel-view .mwt-infopanel-cell-multiple {
+    color: orange;
+}

@@ -1,0 +1,99 @@
+.project-UIWidgetDpcTagFilter-panel-inner {
+    height: 100%;
+	width: 100%;
+}
+
+.project-UIWidgetDpcTagFilter-container-0-0 {
+    vertical-align: middle !important;
+    text-align: right;
+}
+.project-UIWidgetDpcTagFilter-button-0-0 {
+	width:115px;
+	height:45px;
+	color: black;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-right: 25px !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-0-up {
+	
+}
+.project-UIWidgetDpcTagFilter-button-0-0-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-0-disable {
+	
+}
+
+.project-UIWidgetDpcTagFilter-container-0-1 {
+    vertical-align: middle !important;
+    text-align: right;
+	width: 130px;
+}
+.project-UIWidgetDpcTagFilter-button-0-1 {
+	width:115px;
+	height:45px;
+	color: black;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-right: 40px !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-1-up {
+	
+}
+.project-UIWidgetDpcTagFilter-button-0-1-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-1-disable {
+	
+}
+
+.project-UIWidgetDpcTagFilter-container-0-2 {
+    vertical-align: middle !important;
+    text-align: right;
+    width: 1%;
+}
+.project-UIWidgetDpcTagFilter-button-0-2 {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-2-up {
+	
+}
+.project-UIWidgetDpcTagFilter-button-0-2-down {
+
+}
+.project-UIWidgetDpcTagFilter-button-0-2-disable {
+	
+}
+
+.project-UIWidgetDpcTagFilter-container-0-3 {
+    vertical-align: middle !important;
+    text-align: right;
+    width: 1%;
+}
+.project-UIWidgetDpcTagFilter-button-0-3 {
+	width:115px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+	cursor: default !important;
+	border: unset !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-3-up {
+
+}
+.project-UIWidgetDpcTagFilter-button-0-3-down {
+	color: white !important;
+	background-color: red !important;
+	background-image: none !important;
+}
+.project-UIWidgetDpcTagFilter-button-0-3-disable {
+	
+}

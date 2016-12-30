@@ -1,0 +1,7 @@
+@keyframes project-symbol-blink {
+	0%,100% { opacity: 0; }
+}
+
+.mwt-sv-blink {
+	animation: var(--symbol-blinking-off, project-symbol-blink) 500ms;
+}

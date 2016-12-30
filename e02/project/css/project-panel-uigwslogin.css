@@ -1,0 +1,15 @@
+/* UIGwsLogin */
+
+.project-gwt-panel-from {
+	width: 100%;
+	height: 100%;
+}
+
+.project-gwt-panel-gwslogin {
+	background-color: #BEBEBE;
+}
+
+.project-gwt-inlinelabel-connecting {
+	font-weight: bold;
+	font-size: 16px;
+}

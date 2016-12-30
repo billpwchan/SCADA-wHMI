@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<!--
+		<ColumnAlias>gdg_column_alias</ColumnAlias>
+		<ColumnStatus>gdg_column_tagstatus</ColumnStatus>
+		<ColumnServiceOwner>serviceOwnerID</ColumnServiceOwner>
+		<ValueSet>256</ValueSet>
+		<ValueUnSet>0</ValueUnSet>
+		-->
+	</header>
+	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+	<!--
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_set_disable</OperationString1>
+		<OperationString2>set_unset_disable</OperationString2>
+		<OperationString3>set_apply_disable</OperationString3>
+	-->
+	</actionset>
+	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+	<!--
+	<actionset key="RowSelected_valueUnset">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_set_disable</OperationString1>
+		<OperationString2>set_unset_up</OperationString2>
+		<OperationString3>set_apply_disable</OperationString3>
+	</actionset>
+	
+	<actionset key="RowSelected_valueSet">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_set_up</OperationString1>
+		<OperationString2>set_unset_disable</OperationString2>
+		<OperationString3>set_apply_disable</OperationString3>
+	</actionset>
+
+	<actionset key="set">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_set_down</OperationString1>
+		<OperationString2>set_unset_disable</OperationString2>
+		<OperationString3>set_apply_up</OperationString3>
+	</actionset>
+	
+	<actionset key="unset">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_set_disable</OperationString1>
+		<OperationString2>set_unset_down</OperationString2>
+		<OperationString3>set_apply_up</OperationString3>
+	</actionset>
+	
+	<actionset key="apply">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>SendDpcTagControl</OperationString1>
+		<OperationString2>set_set_disable</OperationString2>
+		<OperationString3>set_unset_disable</OperationString3>
+		<OperationString4>set_apply_disable</OperationString4>
+	</actionset>
+	
+	<action key="SendDpcTagControl">
+		<OperationType>action</OperationType>
+		<OperationString1>SendDpcTagControl</OperationString1>
+		<OperationString2>1</OperationString2>
+	</action>
+	
+	<action key="set_set_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>set</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_set_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>set</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_set_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>set</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_unset_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>unset</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_unset_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>unset</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_unset_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>unset</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_apply_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>apply</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_apply_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>apply</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_apply_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>apply</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	-->
+</data-set>

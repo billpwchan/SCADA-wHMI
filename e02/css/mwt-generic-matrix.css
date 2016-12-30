@@ -1,0 +1,175 @@
+.mwt-gm {
+  background-color: #373737; /* PATTERN : GREY-4 */
+}
+
+.mwt-gm-svg {
+}
+
+.mwt-gm-label {
+}
+
+.mwt-gm-label-text-default {
+  font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+  fill: white;
+  cursor: pointer;
+}
+
+.mwt-gm-label-text-default:hover {
+  fill: #00E0FF;
+}
+
+.mwt-gm-frame-default {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #555555;
+}
+
+.mwt-gm-line-default {
+  stroke-width: 1px;
+  fill: none;
+  stroke: #555555;
+}
+
+ /****************************************************************************/
+
+.mwt-gm-coefficient-default {
+  font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+  fill: #FFCD12;
+  font-weight: bold;
+}
+	
+.mwt-gm-coefficient-alarm {
+  font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+  fill: #FFCD12;
+  font-weight: bold;
+}
+	
+.mwt-gm-coefficient-connection {
+  font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+  fill: white;
+  font-weight: bold;
+}
+	
+/****************************************************************************/
+
+.mwt-gm-square-default {
+  fill: #FFCD12;
+  stroke-width: 1px;
+  stroke: #FFCD12;
+  cursor: pointer;
+}
+
+ /****************************************************************************/
+
+.mwt-gm-square-alarm-default {
+  fill: #FFCD12;
+  stroke-width: 1px;
+  stroke: #FFCD12;
+  cursor: pointer;
+}
+
+.mwt-gm-square-alarm-invalid {
+  fill: #778387;
+  stroke-width: 1px;
+  stroke: #778387;
+  cursor: pointer;
+}
+
+ /****************************************************************************/
+
+.mwt-gm-square-connection-default {
+  fill: #669933;
+  stroke-width: 1px;
+  stroke: #FF9900;
+  cursor: pointer;
+}
+
+.mwt-gm-square-connection-invalid {
+  fill: #778387;
+  stroke-width: 1px;
+  stroke: #778387;
+  cursor: pointer;
+}
+
+.mwt-gm-square-connection-unknown {
+  fill: #FF9900;
+  stroke-width: 1px;
+  stroke: #FF9900;
+  cursor: pointer;
+}
+
+.mwt-gm-square-connection-active {
+  fill: #669933;
+  stroke-width: 1px;
+  stroke: #669933;
+  cursor: pointer;
+}
+
+.mwt-gm-square-connection-warning {
+  fill: #FF9900;
+  stroke-width: 1px;
+  stroke: #FF9900;
+  cursor: pointer;
+}
+
+.mwt-gm-square-connection-error {
+  fill: #FF3300;
+  stroke-width: 1px;
+  stroke: #FF3300;
+  cursor: pointer;
+}
+
+ /****************************************************************************/
+
+.mwt-gm-panel-alarm .mwt-gm-label-text-selected {
+  font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+  fill: #FFCD12;
+  cursor: pointer;
+}
+
+.mwt-gm-panel-alarm .mwt-gm-frame-selected {
+  fill: none;
+  stroke-width: 2px;
+  stroke: #FFCD12;
+}
+
+.mwt-gm-panel-alarm .mwt-gm-line-selected {
+  stroke-width: 2px;
+  fill: none;
+  stroke: #FFCD12;
+}
+
+.mwt-gm-panel-alarm .mwt-gm-square-outer-selected {
+  fill: #202020; /* PATTERN : GREY-7 */
+  stroke-width: 2px;
+  stroke: #FFCD12;
+}
+
+ /****************************************************************************/
+
+.mwt-gm-panel-connection .mwt-gm-label-text-selected {
+  font: normal 1em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-1 */
+  fill: #00E0FF;
+  cursor: pointer;
+}
+
+.mwt-gm-panel-connection .mwt-gm-frame-selected {
+  fill: none;
+  stroke-width: 2px;
+  stroke: #00E0FF;
+}
+
+.mwt-gm-panel-connection .mwt-gm-line-selected {
+  stroke-width: 2px;
+  fill: none;
+  stroke: #00E0FF;
+}
+
+.mwt-gm-panel-connection .mwt-gm-square-outer-selected {
+  fill: #202020; /* PATTERN : GREY-7 */
+  stroke-width: 2px;
+  stroke: #00E0FF;
+}
+
+ /****************************************************************************/
+

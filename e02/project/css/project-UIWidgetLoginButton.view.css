@@ -1,0 +1,31 @@
+.project-UIWidgetLoginButton-inner {
+	
+}
+.project-UIWidgetLoginButton-login {
+	width: 170px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+	color: black;
+	margin-left: 3px !important;
+	margin-bottom: 3px !important;
+}
+.project-UIWidgetLoginButton-changepassword {
+	width: 170px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+	color: black;
+	margin-left: 5px !important;
+	margin-bottom: 3px !important;
+}
+.project-UIWidgetLoginButton-cancel {
+	width: 170px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 16px !important;
+	color: black;
+	margin-left: 5px !important;
+	margin-right: 3px !important;
+	margin-bottom: 3px !important;
+}

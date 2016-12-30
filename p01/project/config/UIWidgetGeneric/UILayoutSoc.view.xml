@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>5</rows>
+		<cols>1</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCSS>project-UILayoutSocSummary-root</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetDataGrid</uiCtrl>
+		<uiView>UILayoutSocSummaryViewer1.view.xml</uiView>
+		<uiOpts>UILayoutSocSummaryViewer1.opts.xml</uiOpts>
+		<element>UILayoutSocSummaryViewer1</element>
+	</option>
+	
+	<option key="0|1">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetDataGrid</uiCtrl>
+		<uiView>UILayoutSocSummaryViewer2.view.xml</uiView>
+		<uiOpts>UILayoutSocSummaryViewer2.opts.xml</uiOpts>
+		<element>UILayoutSocSummaryViewer2</element>
+	</option>
+	
+	<option key="0|2">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetSocDelayControl</uiCtrl>
+		<uiView>UIWidgetSocDelayControl.view.xml</uiView>
+		<uiOpts>UIWidgetSocDelayControl.opts.xml</uiOpts>
+		<element>UIWidgetSocDelayControl</element>
+	</option>
+	<option key="0|3">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetSocAutoManuControl</uiCtrl>
+		<uiView>UIWidgetSocAutoManuControl.view.xml</uiView>
+		<uiOpts>UIWidgetSocAutoManuControl.opts.xml</uiOpts>
+		<element>UIWidgetSocAutoManuControl</element>
+	</option>
+	<option key="0|4">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetSocControl</uiCtrl>
+		<uiView>UIWidgetSocControl.view.xml</uiView>
+		<uiOpts>UIWidgetSocControl.opts.xml</uiOpts>
+		<element>UIWidgetSocControl</element>
+	</option>
+
+</data-set>

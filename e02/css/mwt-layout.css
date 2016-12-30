@@ -1,0 +1,266 @@
+
+/***************************************************/
+/* MAIN LAYOUT */
+/***************************************************/
+
+body {
+	overflow: hidden;
+	font-size:12px;
+	background: #16191A;
+    font-family:Arial;
+    color: white;
+    /* Set opacity to 0.999 in order to active anti-aliasing */
+    opacity: 0.999;
+    /* Disable user selection */
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}
+
+img {
+	user-drag: none;
+    -webkit-user-drag: none;
+}
+
+/*.gwt-Label, .gwt-HTML {cursor: default;}*/
+
+/***************************************************/
+/* SCREEN PANEL */
+/***************************************************/
+
+.screen {
+	position: absolute; 
+    font-size:1em;
+	height: 100%; 
+	width: 50%;
+	top: 0;
+}
+
+.screen-header {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	height: 46px;
+    background: #282D2E;
+}
+
+.screen-header-left, 
+.screen-header-right,
+.screen-header-middle {
+	width: 30%;
+	height: 100%;
+	position: absolute;
+	overflow-x: auto;
+	white-space: nowrap;
+	overflow-y: hidden;
+}
+
+.screen-header-left {text-align: left; left:0; padding-left: 5px;}
+.screen-header-right {text-align: right; right:0; padding-right: 5px;}
+.screen-header-middle {text-align: center; left: 35%;}
+
+.screen-content {
+	position: absolute; 
+	top: 46px; 
+	bottom:0px; 
+	width: 100%; 
+    border-width: 2px;
+    border-style: solid;
+	border-color: transparent;
+	box-sizing:border-box;
+    -moz-box-sizing: border-box;
+	background: #16191A;
+}
+
+.screen-message {
+	position: absolute;
+	bottom: 0px;
+	line-height: 20px;
+	color: black;
+	font-size: 1.2em;
+	font-weight: bold;
+	display: none;
+	background: #FFA500;
+	width: 100%;
+	text-align: center;
+}
+
+.app-layout[state="offline"] .screen-content {border-width: 10px; border-color: #FFA500; border-bottom: none; bottom:20px;}
+.app-layout[state="offline"] .screen-message {display: block;}
+
+/***************************************************/
+/* CONTAINER */
+/***************************************************/
+
+.container {
+	position: absolute;
+	overflow: hidden;
+	border: 2px solid transparent;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.container > div {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+/***************************************************/
+/* STANDARD CONTAINER */
+/***************************************************/
+
+.container-header {
+	position: absolute;
+	top: 0;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	height: 28px;
+	padding: 4px 8px;
+	text-align: left;
+	font-size: 1.2em;
+	background: -webkit-linear-gradient(top, #1F2324, #121414);
+    background: -moz-linear-gradient(top, #1F2324, #121414);
+    background: -ms-linear-gradient(top, #1F2324, #121414);
+	border-bottom: 1px solid #121414;
+}
+
+.container-content {
+	position: absolute;
+	bottom: 0;
+	background: #373737; /* PATTERN : GREY-4 */
+	overflow-x: hidden;
+    overflow-y: auto;
+	box-sizing:border-box;
+    -moz-box-sizing: border-box;
+	font-size: 1em;
+}
+
+.container .icon {
+	float: left;
+	height: 16px;
+	margin: 1px 8px 2px 5px;
+}
+
+/***************************************************/
+/* TABS CONTAINER */
+/***************************************************/
+
+.gwt-TabLayoutPanelContentContainer {
+	background: #373737; /* PATTERN : GREY-4 */
+}
+
+.gwt-TabLayoutPanelTabs {
+	height: 100%;
+    background: -webkit-linear-gradient(top, #1F2324, #121414);
+    background: -moz-linear-gradient(top, #1F2324, #121414);
+    background: -ms-linear-gradient(top, #1F2324, #121414);
+	border-bottom: 1px solid #121414;
+}
+
+.gwt-TabLayoutPanelTab {
+	height: 100%;
+	padding: 0px 5px;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	font-size: 1.2em;
+	border-right: 2px solid #121414;
+}
+
+.gwt-TabLayoutPanelTab:hover {border-bottom: 1px solid #121414; cursor: pointer;}
+.gwt-TabLayoutPanelTab:hover .gwt-Label {color: white; cursor: pointer;}
+.gwt-TabLayoutPanelTab .gwt-Label {color:#999; display: inline-block; padding: 5px;}
+.gwt-TabLayoutPanelTab-selected .gwt-Label {color: #00E0FF;}
+.gwt-TabLayoutPanelTab-selected:hover .gwt-Label {color: white;}
+
+/***************************************************/
+/* STACK CONTAINER */
+/***************************************************/
+
+.gwt-StackLayoutPanel {
+	background: #373737; /* PATTERN : GREY-4 */
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	overflow: hidden;
+	/* following border setup needed to override a border style 
+	established in mwt-theme-modern css files */
+	border: none;
+}
+
+.gwt-StackLayoutPanelContent {padding: 0;}
+
+.gwt-StackLayoutPanel .gwt-StackLayoutPanelHeader {
+    background: -webkit-linear-gradient(top, #1F2324, #121414);
+    background: -moz-linear-gradient(top, #1F2324, #121414);
+    background: -ms-linear-gradient(top, #1F2324, #121414);
+    font-size: 1.2em;
+    padding: 4px;
+    text-align: left;
+    font-weight: normal;
+    padding-left: 8px;
+}
+
+.gwt-StackLayoutPanelHeader-hovering {cursor: pointer; color: #00E0FF;}
+.gwt-StackLayoutPanelContent {overflow-y: auto; overflow-x: hidden;}
+.gwt-StackLayoutPanelHeader:hover .gwt-HTML {cursor: pointer;}
+
+/***************************************************/
+/* INNER BLOCK */
+/***************************************************/
+
+.container .inner-panel {
+	padding: 5px 5px 0 5px;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.container .inner-panel-header {
+	padding-left: 10px;
+}
+
+.container .inner-panel-content {
+	background: #1B1E1F;
+	padding: 4px;
+	margin: 4px 0;
+	border: 1px solid #16191A;
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	border-radius: 4px;
+}
+
+
+/***************************************************/
+/* HEADER BUTTON BAR */
+/***************************************************/
+
+.container-header .button-bar {
+	position: absolute;
+	top:0;
+	bottom:1px; /* 1px to consider the 1px border bottom of header */
+	right:0;
+    background: -webkit-linear-gradient(top, #1F2324, #121414);
+    background: -moz-linear-gradient(top, #1F2324, #121414);
+    background: -ms-linear-gradient(top, #1F2324, #121414);
+}
+
+.container-header .button-bar button {
+    border: none;
+    width: 24px;
+    height: 100%;
+    border-left: 1px solid #121414;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+/***************************************************/
+/* GRID STYLES */
+/***************************************************/
+
+table.fixed-height td {line-height: 24px;}
+
+/***************************************************/
+/* TABS MANAGER STYLES */
+/***************************************************/
+
+.tabs-manager {border: none;}

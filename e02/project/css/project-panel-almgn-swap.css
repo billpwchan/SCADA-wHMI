@@ -1,0 +1,44 @@
+.project-gwt-panel-summaryview-almmgn {
+	width: 100%;
+	height: 100%;
+}
+
+.project-gwt-panel-action-almgn-filter0 {
+}
+
+.project-gwt-panel-action-almgn-filter1 {
+	width: 2000px;
+}
+
+.project-gwt-panel-viewswap-almmgn {
+	width: 100%;
+	height: 850px;
+}
+
+.project-gwt-panel-viewerview-almmgn0 {
+	width: 100%;
+	height: 760px;
+}
+
+.project-gwt-panel-viewerview-almmgn1 {
+	width: 100%;
+    height: 760px;
+}
+
+.project-gwt-panel-viewerview-almmgn2 {
+	width: 100%;
+	height: 760px;
+}
+
+.project-gwt-panel-viewerview-almmgn3 {
+	width: 100%;
+    height: 760px;
+}
+
+.project-gwt-panel-almmgn-grid-visible {
+	z-index: initial;
+}
+
+.project-gwt-panel-almmgn-grid-invisible {
+	z-index: -1;
+}

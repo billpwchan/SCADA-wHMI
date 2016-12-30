@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-UILayoutDpcTagAction-panel-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetDpcTagControl</uiCtrl>
+		<uiView>UIWidgetDpcTagControl.view.xml</uiView>
+		<uiOpts>UIWidgetDpcTagControl.opts.xml</uiOpts>
+		<element>UIWidgetDpcTagControl</element>
+		<csscontainer>project-UILayoutDpcTagAction-panel-control</csscontainer>
+	</option>
+	<option key="0|1">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetPrint</uiCtrl>
+		<uiView>UIWidgetDpcTagPrint.view.xml</uiView>
+	</option>
+	<option key="0|2">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>UIWidgetDpcTagFilter.view.xml</uiView>
+		<uiOpts>UIWidgetDpcTagFilter.opts.xml</uiOpts>
+		<element>UIWidgetDpcTagFilter</element>
+		<csscontainer>project-UILayoutDpcTagAction-panel-filter</csscontainer>
+	</option>
+
+</data-set>

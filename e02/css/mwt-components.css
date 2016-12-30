@@ -1,0 +1,93 @@
+.mwt-checkBoxList span {
+    display: block;
+    padding: 2px;
+    background-color: #373737; /* PATTERN : GREY-4 */
+    cursor: pointer;
+}
+
+.mwt-checkBoxList .gwt-CheckBox label {
+    cursor: pointer;
+}
+
+.mwt-checkBoxList span div {
+    display: inherit;
+}
+
+.mwt-checkBoxList .gwt-CheckBox.oddRow:hover, .mwt-checkBoxList .gwt-CheckBox.evenRow:hover {
+  background: #484848 !important;
+  color: white;
+}
+
+.mwt-checkBoxList .gwt-CheckBox.checkbox-selected:hover {
+
+}
+
+
+.mwt-checkBoxList .gwt-CheckBox.oddRow {
+  background: #303030; /* PATTERN : ODD */
+  color: white;
+}
+
+.mwt-checkBoxList .gwt-CheckBox.evenRow {
+  background: #373737; /* PATTERN : EVEN */
+  color: white;
+}
+
+.mwt-checkBoxList .gwt-CheckBox.checkbox-selected {
+
+  color: white;
+}
+
+.mwt-checkBoxList .toggleBox  {
+  min-width:  120px;
+  max-width: 25%;
+  /* color: black; */
+}
+
+.mwt-checkBoxList .toggleBox.gwt-ToggleButton-up-disabled {
+  color: grey;
+  cursor: default;
+}
+
+.mwt-dateTimeSelector {
+    display: flex;
+    flex-direction: row;
+    max-height: 25px;
+}
+
+.mwt-listIterator {
+    display: flex;
+    flex-direction: row;
+}
+
+.mwt-listIterator .buttonPanel {
+    color: grey;
+    margin-right: 2px;
+    display: flex;
+    flex-direction: column;
+    width: 10px;
+}
+.mwt-listIterator input {
+    max-width: 2em;
+    margin-right: 2px;
+}
+
+.mwt-dateTimeSelector .dateBox, .mwt-dateTimeSelector .timeBox {
+    width: 100%;
+    max-width: 150px;
+    display: flex;
+}
+
+.mwt-dateTimeSelector .calendarPushButton {
+    width: 20px;
+    height: 20px;
+    background: url('./../Images/calendar/calendar.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.mwt-dateTimeSelector .timeBox.dateBoxFormatError {
+    border: 1px solid red !important;
+    background: #373737; /* PATTERN : GREY-4 */
+}

@@ -1,0 +1,39 @@
+/* UIPanelView */
+.project-gwt-panel-panelview-titlebar {
+	width:100%;
+	height:100%;
+	background-color: slategrey;
+}
+.project-gwt-inlinelabel-panelview-title {
+	width:100%;
+	height:100%;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+}
+.project-gwt-panel-panelview-container {
+	width:100%;
+	height:100%;
+}
+
+/* UIPanelView */
+.project-gwt-panel-view-vp-activate {
+	border:blue solid 5px;
+	height: 100.4%;
+	width: 99.4%;
+}
+.project-gwt-panel-view-hp-activate {
+	border:blue solid 5px;
+	height: 100.1%;
+	width: 98.7%;
+}
+.project-gwt-panel-view-vp-deactivate {
+	border:blue solid 0px;
+	height: 100%;
+	width: 100%;
+}
+.project-gwt-panel-view-hp-deactivate {
+	border:blue solid 0px;
+	height: 100%;
+	width: 100%;
+}

@@ -1,0 +1,107 @@
+.gwt-DialogBox.mwt-shelve-panel {
+    border: 1px solid #161B21;
+    background-color: #373737;
+    opacity: 1;
+    z-index: 91;
+}
+
+.gwt-DialogBox.mwt-shelve-panel .Caption {
+    background: -webkit-linear-gradient(top, #2A2A2A, #202020);
+    background: -moz-linear-gradient(top, #2A2A2A, #202020);
+    background: -ms-linear-gradient(top, #2A2A2A, #202020);
+    padding: 4px;
+    border-width: 0px;
+    border-bottom: 1px solid #161616;
+    font: normal 1.2em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-2 */
+    line-height: 1.4em;
+    color: #FFFFFF;
+}
+
+.mwt-shelve-panel .dialogTopCenterInner {
+    background: transparent url(./../Images/PanelHeaderDark.png) repeat-x scroll 0 0;
+}
+.mwt-shelve-panel .dialogMiddleCenterInner.dialogContent {
+    background-color: #373737;
+}
+
+.mwt-shelve-panel-container {
+}
+
+.mwt-shelve-panel-text-area {
+  background-color: #ABB2B5;
+  border:1px solid #556165;
+  color: #102027;
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+.mwt-shelve-panel-text-area:hover, .mwt-shelve-panel-text-area:focus {
+  background-color: #CDD5D9;
+  border: #00E0FF solid 1px;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-shelve-panel-choice-container {
+  margin: 5px;
+  text-align: center;
+}
+
+.mwt-shelve-panel-choice-container > .mwt-shelve-panel-choice {
+  margin: 20px;
+  color: #FFFFFF;
+/*   cursor: pointer; */
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.mwt-shelve-panel-choice-container > .mwt-shelve-panel-choice:hover {
+  color: #00E0FF;
+  transition-property: color;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  -o-transition-property: color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-shelve-panel-button-container {
+  margin: 5px;
+  text-align: center;
+}
+
+.mwt-shelve-panel-button {
+  margin: 10px 50px;
+  width: 100px;
+}
+
+.mwt-shelve-panel-label {
+  color: #FFFFFF;
+  margin: 5px;
+}
+
+.mwt-shelve-panel-error-label {
+  color: #FFCD12;
+}

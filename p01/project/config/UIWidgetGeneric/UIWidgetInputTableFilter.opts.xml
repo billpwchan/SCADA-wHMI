@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_clean_disable</OperationString1>
+		<OperationString2>set_applied_disable</OperationString2>
+		<OperationString3>event_applyfilterview0</OperationString3>
+		<OperationString4>event_applyfilterview1</OperationString4>
+		<OperationString5>event_applyfilterview2</OperationString5>
+		<OperationString6>event_applyfilterview3</OperationString6>
+	</actionset>
+
+	<actionset key="clear">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_clean_disable</OperationString1>
+		<OperationString2>set_applied_disable</OperationString2>
+		<OperationString3>event_removefilterview0</OperationString3>
+		<OperationString4>event_removefilterview1</OperationString4>
+		<OperationString5>event_removefilterview2</OperationString5>
+		<OperationString6>event_removefilterview3</OperationString6>
+	</actionset>
+	
+	<actionset key="applied">
+	</actionset>
+	
+	<actionset key="set_filter_added">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_clean_down</OperationString1>
+		<OperationString2>set_applied_down</OperationString2>
+	</actionset>
+	
+	<actionset key="set_filter_removed">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_clean_disable</OperationString1>
+		<OperationString2>set_applied_disable</OperationString2>
+	</actionset>
+	
+	<action key="set_clean_up">
+		<OperationType>actionsetkey</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationElement></OperationElement>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>clear</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_clean_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>clear</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_clean_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>clear</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_applied_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>applied</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_applied_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>applied</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_applied_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>applied</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="event_applyfilterview0">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer0</OperationElement>
+		<OperationString1>AddFilter</OperationString1>
+		<OperationString2>inputtablenotsuspended</OperationString2>
+		<OperationString3>gdg_column_forcedstatus</OperationString3>
+		<OperationString4>0</OperationString4>
+	</action>
+	
+	<action key="event_removefilterview0">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer0</OperationElement>
+		<OperationString1>RemoveFilter</OperationString1>
+	</action>
+	
+	<action key="event_applyfilterview1">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer1</OperationElement>
+		<OperationString1>AddFilter</OperationString1>
+		<OperationString2>inputtablenotoverridden</OperationString2>
+		<OperationString3>gdg_column_forcedstatus</OperationString3>
+		<OperationString4>0</OperationString4>
+	</action>
+	
+	<action key="event_removefilterview1">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutInputTableViewer1</OperationElement>
+		<OperationString1>RemoveFilter</OperationString1>
+	</action>
+	
+	<action key="event_applyfilterview2">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer2</OperationElement>
+		<OperationString1>AddFilter</OperationString1>
+		<OperationString2>inputtablesuspended</OperationString2>
+		<OperationString3>gdg_column_forcedstatus</OperationString3>
+		<OperationString4>512</OperationString4>
+	</action>
+	
+	<action key="event_removefilterview2">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer2</OperationElement>
+		<OperationString1>RemoveFilter</OperationString1>
+	</action>
+	
+	<action key="event_applyfilterview3">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer3</OperationElement>
+		<OperationString1>AddFilter</OperationString1>
+		<OperationString2>inputtableoverridden</OperationString2>
+		<OperationString3>gdg_column_forcedstatus</OperationString3>
+		<OperationString4>2</OperationString4>
+	</action>
+	
+	<action key="event_removefilterview3">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutInputTableViewer3</OperationElement>
+		<OperationString1>RemoveFilter</OperationString1>
+	</action>
+
+</data-set>

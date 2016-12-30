@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<ListConfigId>almmgninhibited</ListConfigId>
+		<MenuEnableCallImage>false</MenuEnableCallImage>
+		<SelectionMode>Multiple</SelectionMode>
+		<MwtEventBusName>almmgninhibited</MwtEventBusName>
+		<MwtEventBusScope>local</MwtEventBusScope>
+	</header>
+</data-set>

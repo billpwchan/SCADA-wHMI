@@ -1,0 +1,108 @@
+/**
+*	ComboBox
+**/
+.mwt-focusPanel {
+	/*margin: 0px auto;*/
+}
+
+.mwt-combobox {
+	/*margin: 0px auto;*/
+	width: 170px;	
+}
+.mwt-combobox-selected {
+	/*margin: 0px auto;*/
+	width: 170px;
+}
+
+
+.mwt-combobox > * {
+	display: none;	
+}
+
+.mwt-combobox-selected > * {
+	cursor: pointer;
+}
+
+
+.mwt-combobox-selected .selected {
+  display: block;
+  background: #161616;
+  padding-left: 2px;	
+  border: 1px solid #018596;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-combobox .origin {
+  display: block;
+  padding-left: 2px;
+  background: #161616 url(./../Images/comboboxDown.png) no-repeat right;	
+  border: 1px solid #666;
+  cursor: pointer;
+  outline: none;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.mwt-combobox .origin:hover {
+  border: 1px solid #018596;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-combobox-selected .origin {
+  display: block;
+  padding-left: 2px;
+  background: #161616 url(./../Images/comboboxDown.png) no-repeat right;	
+  cursor: pointer;
+  border: 1px solid #018596;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-combobox-options {
+/* 	z-index: 2; */
+/* 	position: absolute; */
+/* 	background-color: #373737;PATTERN : GREY-4 */
+/* 	border: 1px solid black; */
+/* 	overflow: auto; */
+/* 	cursor: pointer; */
+  background: #303030;
+  border: 1px solid #484848;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.mwt-combobox-options .gwt-HTML {
+  padding: 2px 4px;
+  cursor: pointer;
+}
+.mwt-combobox-options .gwt-HTML:hover {
+/* 	background-color: #707070;PATTERN : GREY-2 */
+  background-color: #484848;
+}
+

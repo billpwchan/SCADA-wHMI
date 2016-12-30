@@ -1,0 +1,91 @@
+.TEMP_ActiveNumber {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 48px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECS_TSS__Value_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 40px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECS_HUM__ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 40px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.SIG_SUMM_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 39px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECT_CALM_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 39px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECT_SUMM_S2_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 39px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECT_SUMM_S1_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 39px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.DSS_ACTN_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 48px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.TES__ActiveNumber {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 48px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECT_TTVF_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 39px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.TRAN_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 40px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECS_HUM__Value_ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 40px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}
+.ECT_MFD__ActiveText {
+  font-family: "Arial", "Liberation Sans", sans-serif;
+  font-size: 39px;
+  text-anchor: middle;
+  fill-opacity: 1.0;
+  fill: #000000;
+}

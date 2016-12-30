@@ -1,0 +1,14 @@
+.layout-selector {
+    padding: 5px;
+    text-align: center;
+}
+
+.layout-selector .gwt-Button {
+    width: 130px;
+    height: 33px;
+}
+
+.layout-selector .selected {
+    color: #00E0FF; /* PATTERN : SELECTED-TEXT */
+}
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<actionset key="CounterValueChanged">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>CounterValueChanged</OperationString1>
+	</actionset>
+
+	<action key="CounterValueChanged">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>alarmlist_counter_all_unack</OperationString2>
+		<OperationString3>updated</OperationString3>
+	</action>
+
+</data-set>

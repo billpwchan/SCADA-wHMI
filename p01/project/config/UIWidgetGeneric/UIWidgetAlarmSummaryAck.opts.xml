@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	
+	<actionset key="ack">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>event_ackvisibleselected</OperationString1>
+	</actionset>
+	
+	<actionset key="ackpage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>event_ackvisible</OperationString1>
+	</actionset>
+	
+	<action key="event_ackvisible">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>AckVisible</OperationString1>
+	</action>
+	
+	<action key="event_ackvisibleselected">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>AckVisibleSelected</OperationString1>
+	</action>
+	
+</data-set>

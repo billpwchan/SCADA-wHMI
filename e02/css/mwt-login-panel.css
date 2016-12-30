@@ -1,0 +1,107 @@
+/*** Login panel ***/
+
+.mwt-LoginPanel * {
+    color: #FFFFFF;
+}
+
+.mwt-LoginPanel {
+    border: 3px solid #161B21;
+    width: 400px;
+    font: normal 1em tahoma,arial,helvetica,sans-serif;/* PATTERN : FONT-1 */
+    margin: 250px  auto auto auto;
+    background-color: #373737;
+}
+
+.mwt-LoginPanel  .inner-panel {
+    margin: 1.2em auto 1em;
+    width: 90%;
+}
+
+.mwt-LoginPanel-TO-BE-DEFINED .separation {
+    clear: both;
+}
+
+.mwt-LoginPanel .username-textbox:hover, .mwt-LoginPanel .username-textbox:focus,
+.mwt-LoginPanel .password-textbox:hover, .mwt-LoginPanel .password-textbox:focus {
+  border: #00E0FF solid 1px;
+  background-color: #CDD5D9;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.1s;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  -o-transition-duration: 0.1s;
+}
+
+.mwt-LoginPanel .username-textbox, .mwt-LoginPanel .password-textbox {
+  width: 100%;
+  margin: 0.1em auto 0.7em;
+  display: block;
+  font-size: 2em;
+  color: #102027;
+  background:#ABB2B5 none repeat scroll 0 0;
+  border:1px solid #556165;
+  transition-property: border-color;
+  -webkit-transition-property: border-color;
+  -moz-transition-property: border-color;
+  -o-transition-property: border-color;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+}
+
+.mwt-LoginPanel .inner-panel .msg-area {
+    color: #FFCD12;
+    text-align: center;
+    margin: 0.1em auto 0.8em;
+}
+
+.mwt-LoginPanel .login-button {
+    float: right;
+}
+
+.mwt-LoginPanel .header-label {
+    background: -webkit-linear-gradient(top, #2A2A2A, #202020);
+    background: -moz-linear-gradient(top, #2A2A2A, #202020);
+    background: -ms-linear-gradient(top, #2A2A2A, #202020);
+    height: 2.5em;
+    font: normal 1.2em tahoma,arial,helvetica,sans-serif; /* PATTERN : FONT-2 */
+    vertical-align:middle;
+    text-align: center;
+    display: table-cell;
+    width: 400px;
+    color: #C0C0C0;
+}
+
+.mwt-LoginPanel .dualscreen-checkbox input {
+    vertical-align: middle;
+    margin: 0 0.5em 0 0;
+}
+
+.mwt-LoginPanel .dualscreen-checkbox label {
+    vertical-align: middle;
+    margin: 0 0.8em 0 0;
+}
+
+.mwt-LoginPanel .zone-selection-checkbox input {
+    vertical-align: middle;
+    margin: 0 0.5em 0 0;
+}
+
+.mwt-LoginPanel .zone-selection-checkbox label {
+    vertical-align: middle;
+    margin: 0 0.8em 0 0;
+}
+
+.mwt-LoginPanel hr {
+    clear: both;
+    visibility: hidden;
+}
+
+.mwt-LoginPanel .gwt-ListBox {
+  width: 45px;
+  margin-right: 15px;
+}

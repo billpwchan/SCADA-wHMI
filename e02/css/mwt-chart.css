@@ -1,0 +1,151 @@
+.mwt-chart-panel {
+  position:absolute;
+  top:0px;
+  bottom:0px;
+  right:0px;
+  left:0px;
+  background-color: #16191A;
+}
+
+.mwt-chart-header {
+  color: #b0b0b0;
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  height: 30px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+    
+.mwt-chart-container {
+  position: absolute;
+  width: 100%;
+  top: 30px;
+  bottom: 30px;
+}
+
+.mwt-chart {
+  background-color: #16191A;
+}
+
+.mwt-chart-noData-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -60px;
+  width: 120px;
+  cursor: none;
+  background-color: #484848;
+  border-radius: 5px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  text-align: center;
+  cursor: default;
+}
+
+.mwt-chart-noData-widget {
+  margin: 5px; 
+  color: #b0b0b0;
+}
+
+.hide {
+  display: none;
+}
+
+.mwt-chart .axisLabels {
+  color: #b0b0b0;
+  margin: 5px;
+}
+
+.mwt-chart-legend-container {
+  position:absolute;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  min-height: 30px;
+}
+
+.mwt-chart-legend-container .legendLabel {
+  color: #b0b0b0;
+  padding-right: 10px;
+}
+
+.mwt-chart-legend {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.mwt-chart-legend-left {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.mwt-chart-legend-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.mwt-chart-legend-series {
+  white-space: nowrap;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mwt-chart-legend-icon, .mwt-chart-legend-label {
+  white-space: nowrap;
+  font-size: smaller;
+}
+
+.mwt-chart-legend-icon {
+}
+
+.mwt-chart-legend-icon:before {
+  content:"\2587";
+}
+
+.mwt-chart-legend-label {
+  margin-top: 3px;
+  margin-left: 5px;
+  color: #b0b0b0;
+}
+
+.flotTip {
+  background-color: #16191A;
+  opacity: 0.95;
+  border-radius: 5px;
+  border: #484848 2px solid;
+  padding: 5px 10px;
+  color: #b0b0b0;
+  vertical-align: middle;
+}
+
+.mwt-tooltip-icon {
+  padding-right: 5px;
+}
+
+.mwt-tooltip-icon:before {
+  font-size: smaller;
+  content:"\2587";
+}
+
+.mwt-tooltip-value {
+  margin-top: 50px;
+}
+

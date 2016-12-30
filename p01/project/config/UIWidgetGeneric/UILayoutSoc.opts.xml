@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<eventbusname>socsummary</eventbusname>
+		<eventbusscope>local</eventbusscope>
+	</header>
+	
+	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="init_delay">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+</data-set>

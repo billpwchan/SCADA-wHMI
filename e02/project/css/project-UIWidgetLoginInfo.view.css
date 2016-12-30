@@ -1,0 +1,39 @@
+.project-UIWidgetLoginInfo-inner {
+	margin-top: 20px;
+	margin-left: 50px;
+	margin-bottom: 20px;
+}
+.project-UIWidgetLoginInfo-namelabel {
+	font-size: 16px;
+	width: 150px;
+}
+.project-UIWidgetLoginInfo-name {
+	font-size: 16px;
+	width: 300px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}
+.project-UIWidgetLoginInfo-profilelabel {
+	font-size: 16px;
+	width: 150px;
+}
+.project-UIWidgetLoginInfo-profile {
+	font-size: 16px;
+	width: 306px;
+	height: 24px !important;
+	color: black !important;
+	background-color: white !important;
+	border: thin solid black !important;
+}
+.project-UIWidgetLoginInfo-passwordlabel {
+	font-size: 16px;
+	width: 150px;
+}
+.project-UIWidgetLoginInfo-password {
+	font-size: 16px;
+	width: 300px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}

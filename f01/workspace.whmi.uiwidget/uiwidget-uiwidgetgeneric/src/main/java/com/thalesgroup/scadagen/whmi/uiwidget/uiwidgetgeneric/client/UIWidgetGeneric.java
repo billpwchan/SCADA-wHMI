@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
@@ -127,9 +128,9 @@ public class UIWidgetGeneric extends UIWidget_i {
 						
 			rootPanel = new VerticalPanel();
 			
-			if ( null == dictionaryHeader ) rootPanel.add( new InlineLabel( "Faild to load viewXMLFile["+this.viewXMLFile+"] strHeader["+DictionaryCacheInterface.Header+"]" ));
+			if ( null == dictionaryHeader ) rootPanel.add( new Label( "Faild to load viewXMLFile["+this.viewXMLFile+"] strHeader["+DictionaryCacheInterface.Header+"]" ));
 			
-			if ( null == dictionaryOption ) rootPanel.add( new InlineLabel( "Faild to load viewXMLFile["+this.viewXMLFile+"] strOption["+DictionaryCacheInterface.Option+"]" ));
+			if ( null == dictionaryOption ) rootPanel.add( new Label( "Faild to load viewXMLFile["+this.viewXMLFile+"] strOption["+DictionaryCacheInterface.Option+"]" ));
 			
 		} else {
 
@@ -285,7 +286,15 @@ public class UIWidgetGeneric extends UIWidget_i {
 								if ( null != tooltip )	((InlineLabel)w).setTitle(tooltip);
 
 								this.widgets.put(index, w);
-							} else if ( WidgetType.Button.equalsName(widget) ) {
+							} else if ( WidgetType.Label.equalsName(widget) ) {
+								
+								w = new Label();
+								
+								if ( null != label )	((Label)w).setText(label);
+								if ( null != tooltip )	((Label)w).setTitle(tooltip);
+
+								this.widgets.put(index, w);
+							}  else if ( WidgetType.Button.equalsName(widget) ) {
 								
 								w = new Button();
 								
@@ -608,7 +617,9 @@ public class UIWidgetGeneric extends UIWidget_i {
     						((RadioButton)widget).setValue(WidgetStatus.Down == status);
     						
     					} else if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
-    							|| WidgetType.Button.toString().equals(strWidget) || WidgetType.InlineLabel.toString().equals(strWidget)) {
+    							|| WidgetType.Button.toString().equals(strWidget) 
+    							|| WidgetType.InlineLabel.toString().equals(strWidget)
+    							|| WidgetType.Label.toString().equals(strWidget)) {
     						
     						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
     						String cssDown		= valueMap.get(WidgetAttribute.cssDown.toString());
@@ -637,6 +648,8 @@ public class UIWidgetGeneric extends UIWidget_i {
 
     						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
     							if ( null != label )	((InlineLabel)widget).setText(label);
+    						} else if ( WidgetType.Label.toString().equals(strWidget) ) {
+    							if ( null != label )	((Label)widget).setText(label);
     						} else {
     							if ( null != label )	((Button)widget).setText(label);
     						}
@@ -738,8 +751,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 					value = ((RadioButton)w).getValue().toString();
 				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					value = ((TextBox)w).getText();
+				} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
+					value = ((PasswordTextBox)w).getText();
 				} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
 					value = ((InlineLabel)w).getText();
+				} else if ( WidgetType.Label.equalsName(widget) ) {
+					value = ((Label)w).getText();
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					value = ((Image)w).getUrl();
 				} else {
@@ -799,8 +816,12 @@ public class UIWidgetGeneric extends UIWidget_i {
 					((RadioButton)w).setValue((label.equals("true")?true:false));
 				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					((TextBox)w).setText(label);
+				} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
+					((PasswordTextBox)w).setText(label);
 				} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
 					((InlineLabel)w).setText(label);
+				} else if ( WidgetType.Label.equalsName(widget) ) {
+					((Label)w).setText(label);
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
 				} else {

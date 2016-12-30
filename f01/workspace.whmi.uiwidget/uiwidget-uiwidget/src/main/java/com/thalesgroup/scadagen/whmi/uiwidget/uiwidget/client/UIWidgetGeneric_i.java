@@ -99,6 +99,7 @@ public interface UIWidgetGeneric_i {
 	
 	public enum WidgetType {
 		  InlineLabel("InlineLabel")
+		, Label("Label")
 		, TextBox("TextBox")
 		, PasswordTextBox("PasswordTextBox")
 		, ListBox("ListBox")

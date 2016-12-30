@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -67,18 +68,11 @@ public class UIWidgetOPMVerifyChangePassword extends UIWidget_i {
 							uiOpm_i.changePassword(uiopmapivalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 
 								@Override
-								public void CallbackEvent(String result, String detail) {
+								public void event(JSONObject jsobject) {
 									// TODO Auto-generated method stub
-									
+									uiWidgetGeneric.setWidgetValue("resultvalue", jsobject.toString());
 								}
 
-								@Override
-								public void CallbackEvent(String api, String rpcapi, String rpcReturnFunction,
-										String resultType, String message1, String message2, String message3) {
-
-									uiWidgetGeneric.setWidgetValue("resultvalue", api + " : " + rpcapi + " : " + rpcReturnFunction + " : " + resultType + " : "+ message1 + " : " + message2 + " : " + message3);
-									
-								}
 							});
 						}
 

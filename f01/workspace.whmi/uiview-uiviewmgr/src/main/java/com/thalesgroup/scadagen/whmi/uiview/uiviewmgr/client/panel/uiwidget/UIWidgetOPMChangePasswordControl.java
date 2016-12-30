@@ -2,6 +2,9 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -42,6 +45,10 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 	private String stropmapi = "opmapi";
 	private String strHeader = "header";
 
+	private final String stroldpassvalue	= "oldpassvalue";
+	private final String strnewpassvalue	= "newpassvalue";
+	private final String strnewpassvalue2	= "newpassvalue2";
+	
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
 		@Override
@@ -74,43 +81,102 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 								
 								logger.info(className, function, "os1[{}]", os1);
 								
+								boolean bContinue = true;
+								
 								if ( null != os1 ) {
-									if ( os1.equals("SendChangePasswordControl") ) {
+									
+									if ( os1.equals("CheckNewPasswordIsEmpty") ) {
+										
+										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
+										
+										logger.info(className, function, "strnewpassvalue[{}]", strnewpassvalue);
+										logger.info(className, function, "newpassvalue[{}]", newpassvalue);
+										
+										if ( null != newpassvalue && newpassvalue.trim().length() > 0 ) {
+											// Valid
+										} else {
+											
+											uiEventActionProcessor_i.executeActionSet("set_result_newpassword_is_empty");
+											
+											bContinue = false;
+										}
+									} else if ( os1.equals("CheckRetypePasswordIsMatch") ) {
+
+										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
+										String newpassvalue2	= uiWidgetGeneric.getWidgetValue(strnewpassvalue2);
+										
+										logger.info(className, function, "strnewpassvalue[{}]", strnewpassvalue);
+										logger.info(className, function, "newpassvalue[{}]", newpassvalue);
+										
+										logger.info(className, function, "strnewpassvalue2[{}]", strnewpassvalue2);
+										logger.info(className, function, "newpassvalue2[{}]", newpassvalue2);
+										
+										if ( null != newpassvalue && null != newpassvalue2 && newpassvalue.equals(newpassvalue2) ) {
+											// Valid
+										} else {
+											
+											uiEventActionProcessor_i.executeActionSet("set_result_retypepassword_is_not_match");
+											
+											bContinue = false;
+										}
+									} else if ( os1.equals("SendChangePasswordControl") ) {
 										
 										String uiopmapivalue	= opmApi;
-										String oldpassvalue		= uiWidgetGeneric.getWidgetValue("oldpassvalue");
-										String newpassvalue		= uiWidgetGeneric.getWidgetValue("newpassvalue");
+										String oldpassvalue		= uiWidgetGeneric.getWidgetValue(stroldpassvalue);
+										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
+										
+										logger.info(className, function, "stroldpassvalue[{}]", stroldpassvalue);
+										logger.info(className, function, "oldpassvalue[{}]", oldpassvalue);
+										
+										logger.info(className, function, "strnewpassvalue[{}]", strnewpassvalue);
+										logger.info(className, function, "newpassvalue[{}]", newpassvalue);
 										
 										UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
 										
 										uiOpm_i.changePassword(uiopmapivalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 			
 											@Override
-											public void CallbackEvent(String result, String detail) {
+											public void event(JSONObject jsobject) {
 												
-												if ( result.equals("valid") ) {
+												String function = null;
+												String resultinstanceof = null;
+												
+												if ( null != jsobject ) {
+													JSONValue v = null;
 													
-													uiEventActionProcessor_i.executeActionSet("set_result_value_valid");
-
-												} else {
+													v = jsobject.get("function");
+													if ( null != v ) {
+														JSONString s = v.isString();
+														if ( null != s ) {
+															function = s.stringValue();
+														}
+													}
 													
-													uiEventActionProcessor_i.executeActionSet("set_result_value_invalid");
-
+													v = jsobject.get("resultinstanceof");
+													if ( null != v ) {
+														JSONString s = v.isString();
+														if ( null != s ) {
+															resultinstanceof = s.stringValue();
+														}
+													}
+													
 												}
 												
-											}
-			
-											@Override
-											public void CallbackEvent(String api, String rpcapi, String rpcReturnFunction,
-													String resultType, String message1, String message2, String message3) {
-												// TODO Auto-generated method stub
-												
+												if ( null != function 
+														&& null != resultinstanceof
+														&& function.equalsIgnoreCase("onSuccessMwt") 
+														&& resultinstanceof.equalsIgnoreCase("OperatorActionReturn") ) {
+													
+													uiEventActionProcessor_i.executeActionSet("set_result_value_valid");
+												} else {
+													uiEventActionProcessor_i.executeActionSet("set_result_value_invalid");
+												}
 											}
 											
 										});
 									}
 								}
-								return true;
+								return bContinue;
 							}
 						});
 
@@ -202,138 +268,5 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
-	
-	/*
-	private void verify ( String buttonText, String operator, String password, String newpassword ) {
-		final String function = "verify";
-		
-		logger.begin(className, function);
-		
-		if ( null != buttonText ) {
-			if ( 0 == buttonText.compareToIgnoreCase(strSave) ) {
-				
-				// Change Password
-				VerifyReason result = VerifyReason.UNKNOW;
-				
-				OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
-
-				if ( null == password ) {
-					result = VerifyReason.PASSWORD_NULL;
-				} else if ( 0 == password.compareTo(EMPTY) ) {
-					result = VerifyReason.PASSWORD_EMPTY;
-				} else if ( ! opmAuthentication.isValidPassword(operator, password) ) {
-					result = VerifyReason.PASSWORD_INVALID;	
-				} else if ( null == newpassword ) {
-					result = VerifyReason.NEWPASSWORD_NULL;
-				} else if ( 0 == newpassword.compareTo(EMPTY) ) {
-					result = VerifyReason.NEWPASSWORD_EMPTY;
-				} else if ( -1 != newpassword.indexOf(' ') ) {
-					result = VerifyReason.NEWPASSWORD_CONTAIN_SPACE;
-				} else if ( newpassword.length() < 8 ) {
-					result = VerifyReason.NEWPASSWORD_TOO_SHORT;
-				} else if ( newpassword.length() > 16 ) {
-					result = VerifyReason.NEWPASSWORD_TOO_LONG;
-				} else if ( 0 == password.compareTo(newpassword) ) {
-					result = VerifyReason.PASSWORD_SAME_AS_NEWPASSWORD;
-				} else {
-					result = VerifyReason.SUCCESS;
-				}
-				
-				String title = "Undefined title";
-				String message = "Undefined message";
-				
-				switch ( result ) {
-				case PASSWORD_NULL:
-				case PASSWORD_EMPTY:
-				case PASSWORD_INVALID:
-				{
-					title = "Invalid password!";
-					message = "Invalid Password, operation of change password aborted, no change in the password!";
-				}
-					break;
-					
-				case NEWPASSWORD_NULL:
-				case NEWPASSWORD_EMPTY:
-				{
-					title = "Invalid new password!";
-					message = "Invalid New Password, operation of change password aborted, no change in the password!";
-				}
-					break;
-					
-				case NEWPASSWORD_CONTAIN_SPACE:
-				{
-					title = "Invalid new password!";
-					message = "New Password contain space char, operation of change password aborted, no change in the password!";
-				}
-					break;
-					
-				case PASSWORD_SAME_AS_NEWPASSWORD:
-				{
-					title = "Password same as New password!";
-					message = "Password same as New Password, operation of change password aborted, no change in the password!";
-				}
-					break;
-					
-				case NEWPASSWORD_TOO_SHORT:
-				{
-					title = "Too short of the new password!";
-					message = "New Password length is less then 8, operation of change password aborted, no change in the password!";
-				}
-					break;
-					
-				case NEWPASSWORD_TOO_LONG:
-				{
-					title = "Too long of the new password!";
-					message = "New Password length is more then 16, operation of change password aborted, no change in the password!";
-				}
-					break;
-				
-				case SUCCESS:
-				{
-					title = "New password applied!";
-					message = "Change Password of "+operator+" successfull!";
-
-					opmAuthentication.setPassword(operator, newpassword);
-				}
-					break;
-					
-				case UNKNOW:
-				default:
-				{
-					title = "Unknow Error!";
-					message = "Unknow Error, operation of change password aborted, no change in the password!";
-				}
-					break;
-				}
-				
-				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
-				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
-				uiDialgogMsg.setUINameCard(this.uiNameCard);
-				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OK, title, message, null, null);
-				uiDialgogMsg.popUp();
-				
-				
-			} else if ( 0 == buttonText.compareToIgnoreCase(strCancel) ) {
-				
-				// Back to main screen
-				UITaskLaunch taskLaunchYes = new UITaskLaunch();
-				taskLaunchYes.setTaskUiScreen(this.uiNameCard.getUiScreen());
-				taskLaunchYes.setUiPath(UIPathUIPanelScreen);
-				taskLaunchYes.setUiPanel("UIScreenLogin");
-
-				DialogMsgMgr dialogMsgMgr = DialogMsgMgr.getInstance();
-				UIDialogMsg uiDialgogMsg = (UIDialogMsg) dialogMsgMgr.getDialog("UIDialogMsg");
-				uiDialgogMsg.setUINameCard(this.uiNameCard);
-//				UIDialogMsg uiDialgogMsg = new UIDialogMsg(this.uiNameCard);
-				uiDialgogMsg.setDialogMsg(ConfimDlgType.DLG_OKCANCEL, "Logout",
-						"Are you sure logout?", taskLaunchYes, null);
-				uiDialgogMsg.popUp();
-				
-			}			
-		}
-
-		logger.end(className, function);
-	}
-	*/
 
 }

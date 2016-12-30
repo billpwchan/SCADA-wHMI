@@ -26,9 +26,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
-public class UIWidgetSocDelayControl extends UIWidget_i {
+public class UIWidgetSocTitle extends UIWidget_i {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocTitle.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 	= null;

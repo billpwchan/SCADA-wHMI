@@ -98,63 +98,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 										
 									} else if ( os1.equals("SendSocControlSkipFailed") ) {
 										
+										logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
+										
+										String alias = equipmentSelected.getStringValue(targetDataGridColumn);
+										
+										logger.info(className, function, "alias[{}]", alias);
 										
 									}
-									
-									
-//									if ( os1.equals("SendDpcTagControl") ) {
-//								
-//										for ( HashMap<String, String> hashMap : selectedSet ) {
-//											String selectedAlias = hashMap.get(columnAlias);
-//											String selectedServiceOwner = hashMap.get(columnServiceOwner);
-//											
-//											logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
-//											
-//											String scsEnvId = selectedServiceOwner;
-//											String alias = selectedAlias;
-//											
-//											logger.info(className, function, "alias BF [{}]", alias);
-//											
-//											if ( ! selectedAlias.startsWith("<alias>") ) alias = "<alias>" + selectedAlias;
-//											
-//											logger.info(className, function, "alias AF [{}]", alias);
-//											
-//											WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
-//											
-//											TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
-//											if ( WidgetStatus.Down == curStatusSet ) {
-//												taggingStatus = TaggingStatus.TAGGING_1;
-//												if ( null != os2 && os2.length() > 0 ) {
-//													if ( os2.equalsIgnoreCase(
-//															Integer.toString(TaggingStatus.ALL_TAGGING.getValue()) ) ) {
-//														taggingStatus = TaggingStatus.ALL_TAGGING;
-//													} else if ( os2.equalsIgnoreCase(
-//															Integer.toString(TaggingStatus.TAGGING_1.getValue()) ) ) {
-//														taggingStatus = TaggingStatus.TAGGING_1;
-//													} else if ( os2.equalsIgnoreCase(
-//															Integer.toString(TaggingStatus.TAGGING_2.getValue()) ) ) {
-//														taggingStatus = TaggingStatus.TAGGING_2;
-//													}
-//												}
-//											}
-//				
-//											String key = "changeEqpStatus" + "_" + className + "_"+ "alarminhibit" + "_" + taggingStatus.toString() + "_" + alias;
-//												
-//											String taggingLabel1 = strEMPTY;
-//											String taggingLabel2 = strEMPTY;
-//											
-////											if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
-////											if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
-//											
-//											taggingLabel1 = uiWidgetGeneric.getWidgetValue(strTextValue);
-//											uiWidgetGeneric.setWidgetValue(strTextValue, strEMPTY);
-//											
-//											logger.info(className, function, "key[{}]", key);
-//											
-//											dpcMgr.sendChangeEqpTag(key, scsEnvId, alias, taggingStatus, taggingLabel1, taggingLabel2);
-//				
-//										}
-//									}
 								}
 								return true;
 							}
@@ -215,71 +165,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 					} else {
 						logger.warn(className, function, "targetDataGrid IS NULL");
 					}
-					
-//					String selectedStatus1 = null;
-//					for ( HashMap<String, String> hashMap : selectedSet ) {
-//						selectedStatus1 = hashMap.get(columnStatus);
-//					}
 				}
-				
-//				// Filter Action
-//				if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
-//					
-//					logger.info(className, function, "FilterAdded");
-//					
-//					uiEventActionProcessor_i.executeActionSet(os1);
-//					
-//				} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
-//					
-//					logger.info(className, function, "FilterRemoved");
-//					
-//					uiEventActionProcessor_i.executeActionSet(os1);
-//				
-//				} else if ( os1.equals(ViewerViewEvent.RowSelected.toString() ) ) {
-//					// Activate Selection
-//					
-//					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
-//					
-//					logger.info(className, function, "Store Selected Row");
-//					
-//					selectedSet	= (Set<HashMap<String, String>>) obj1;
-//					
-//					String selectedStatus1 = null;
-//					for ( HashMap<String, String> hashMap : selectedSet ) {
-//						selectedStatus1 = hashMap.get(columnStatus);
-//					}
-//					
-//					if ( null != selectedStatus1 ) {
-//						if ( valueSet.equals(selectedStatus1) ) {
-//							String actionsetkey = os1+"_valueUnset";
-//							uiEventActionProcessor_i.executeActionSet(actionsetkey);
-//						}
-//						if ( valueUnSet.equals(selectedStatus1) ) {
-//							String actionsetkey = os1+"_valueSet";
-//							uiEventActionProcessor_i.executeActionSet(actionsetkey);
-//						}
-//					}
-//
-//				} else {
-//					// General Case
-//					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
-//					
-//					logger.info(className, function, "oe ["+oe+"]");
-//					logger.info(className, function, "os1["+os1+"]");
-//					
-//					if ( null != oe ) {
-//						if ( oe.equals(element) ) {
-//							uiEventActionProcessor_i.executeActionSet(os1, new ExecuteAction_i() {
-//								
-//								@Override
-//								public boolean executeHandler(UIEventAction uiEventAction) {
-//									return true;
-//									
-//								}
-//							});
-//						}
-//					}
-//				}
 			}
 			logger.end(className, function);
 		}
@@ -301,21 +187,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 		if ( null != dictionariesCache ) {
 			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
-//			columnAlias			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias.toString(), strHeader);
-//			columnStatus		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnStatus.toString(), strHeader);
-//			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
-//			valueSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueSet.toString(), strHeader);
-//			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueUnSet.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
 		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
-		
-//		logger.info(className, function, "columnAlias[{}]", columnAlias);
-//		logger.info(className, function, "columnStatus[{}]", columnStatus);
-//		logger.info(className, function, "columnServiceOwner[{}]", columnServiceOwner);
-//		logger.info(className, function, "valueSet[{}]", valueSet);
-//		logger.info(className, function, "valueUnSet[{}]", valueUnSet);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

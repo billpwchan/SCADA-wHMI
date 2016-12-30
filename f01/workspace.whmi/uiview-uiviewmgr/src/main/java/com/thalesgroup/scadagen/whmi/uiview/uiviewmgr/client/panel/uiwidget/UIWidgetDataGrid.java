@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.cellview.client.DataGrid;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -35,7 +34,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
 public class UIWidgetDataGrid extends UIWidget_i {
@@ -470,15 +468,15 @@ public class UIWidgetDataGrid extends UIWidget_i {
 
 							logger.end(className, function);
 							
-							{
-								String [] keys = selected.getFields();
-								String msg = "You selected: ";
-								for ( String key : keys ) {
-									msg += key + ":["+selected.getValue(key)+"]";
-									msg += " ";
-								}
-								Window.alert(msg);
-							}
+//							{
+//								String [] keys = selected.getFields();
+//								String msg = "You selected: ";
+//								for ( String key : keys ) {
+//									msg += key + ":["+selected.getValue(key)+"]";
+//									msg += " ";
+//								}
+//								Window.alert(msg);
+//							}
 						}
 					}
 				});

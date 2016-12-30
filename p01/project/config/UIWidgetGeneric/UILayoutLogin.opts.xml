@@ -18,6 +18,11 @@
 		<OperationString1>OpmLogin</OperationString1>
 	</actionset>
 	
+	<actionset key="set_result_value_invalid">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_result_value_invalid</OperationString1>
+	</actionset>
+	
 	<action key="OpmLogin">
 		<OperationType>action</OperationType>
 		<OperationString1>OpmLogin</OperationString1>

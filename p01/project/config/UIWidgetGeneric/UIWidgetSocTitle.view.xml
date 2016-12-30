@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetSocTitle-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Avaiable SOC Card</label>
+		<css>project-UIWidgetSocTitle-label-avaiablesoccardlabel</css>
+		<element>avaiablesoccardlabel</element>
+		
+		<cssContainer>project-UIWidgetSocTitle-container-avaiablesoccardlabel</cssContainer>
+		
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Selected SOC Card</label>
+		<css>project-UIWidgetSocTitle-label-selectedsoccardlabel</css>
+		<element>selectedsoccardlabel</element>
+		
+		<cssContainer>project-UIWidgetSocTitle-container-selectedsoccardlabel</cssContainer>
+		
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocTitle-textbox-selectedsoccardvalue</css>
+		<element>selectedsoccardvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetSocTitle-container-selectedsoccardvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

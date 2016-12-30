@@ -2,9 +2,14 @@
     height: 55px;
 	float: left;
 }
-
+.project-UIWidgetSocAutoManuControl-container-skipfailedsteplabel {
+	vertical-align: middle !important;
+}
 .project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel {
-	
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
 }
 
 /* filter styles */

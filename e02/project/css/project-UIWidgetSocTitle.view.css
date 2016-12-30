@@ -1,0 +1,29 @@
+.project-UIWidgetSocTitle-container-avaiablesoccardlabel {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocTitle-label-avaiablesoccardlabel {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+.project-UIWidgetSocTitle-container-selectedsoccardlabel {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocTitle-label-selectedsoccardlabel {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+.project-UIWidgetSocTitle-container-selectedsoccardvalue {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocTitle-textbox-selectedsoccardvalue {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}

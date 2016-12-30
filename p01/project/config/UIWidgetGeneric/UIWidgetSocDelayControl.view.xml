@@ -9,10 +9,13 @@
 	</header>
 	
 	<option key="0|0">
-		<widget>InlineLabel</widget>
-		<label>Skip Failed Step</label>
-		<css>project-UIWidgetSocDelayControl-label-skipfailedsteplabel</css>
-		<element>skipfailedsteplabel</element>
+		<widget>Label</widget>
+		<label>Delay after success and next step</label>
+		<css>project-UIWidgetSocDelayControl-label-delayafter</css>
+		<element>delayafter</element>
+		
+		<cssContainer>project-UIWidgetSocDelayControl-container-delayafter</cssContainer>
+		
 	</option>
 	
 	<option key="0|1">

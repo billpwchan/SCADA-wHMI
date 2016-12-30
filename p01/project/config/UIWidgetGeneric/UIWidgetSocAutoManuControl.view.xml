@@ -9,10 +9,13 @@
 	</header>
 	
 	<option key="0|0">
-		<widget>InlineLabel</widget>
+		<widget>Label</widget>
 		<label>Skip Failed Step</label>
 		<css>project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel</css>
 		<element>skipfailedsteplabel</element>
+		
+		<cssContainer>project-UIWidgetSocAutoManuControl-container-skipfailedsteplabel</cssContainer>
+		
 	</option>
 	
 	<option key="0|1">

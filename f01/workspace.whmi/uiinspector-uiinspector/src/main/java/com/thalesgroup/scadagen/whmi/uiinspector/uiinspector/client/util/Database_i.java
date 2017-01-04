@@ -41,6 +41,7 @@ public class Database_i {
 		, value(".value")
 		, validity(".validity") // 0=invalid, 1=valid
 		, isControlable(".isControlable")
+		, computedMessage(".computedMessage")
 		
 		, aalValueAlarmVector(":aal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
 		, dalValueAlarmVector(":dal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm

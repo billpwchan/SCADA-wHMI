@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -19,18 +20,21 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.ReadProp;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIInspectorInfo implements UIInspectorTab_i {
 	
@@ -54,10 +58,25 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	private final String dynamicDciAttibutes [] = new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.dalValueAlarmVector.toString(), PointName.dfoForcedStatus.toString()};
 	private final String dynamicSciAttibutes [] = new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.salValueAlarmVector.toString(), PointName.sfoForcedStatus.toString()};
 	
+	// Dynamic Attribute List ComputedMessage
+	private final String dynamicAciAttibutesCM [] = new String[] {PointName.computedMessage.toString(), PointName.validity.toString(), PointName.aalValueAlarmVector.toString(), PointName.afoForcedStatus.toString()};
+	private final String dynamicDciAttibutesCM [] = new String[] {PointName.computedMessage.toString(), PointName.validity.toString(), PointName.dalValueAlarmVector.toString(), PointName.dfoForcedStatus.toString()};
+	private final String dynamicSciAttibutesCM [] = new String[] {PointName.computedMessage.toString(), PointName.validity.toString(), PointName.salValueAlarmVector.toString(), PointName.sfoForcedStatus.toString()};
+	
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
 	private Database database	= null;
+	
+	// This option is used to set whether to get label from value table mapping or directly from computedMessage
+	private Boolean aciValLabelFromComputedMessage = false;
+	private Boolean dciValLabelFromComputedMessage = false;
+	private Boolean sciValLabelFromComputedMessage = false;
+	private Map<String, Boolean>mapIsValLabelFromComputedMessage = new HashMap<String, Boolean>();
+	
+	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
+	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.info.properties";
+	private static final String VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX = "inspectorpanel.info.valLabelFromComputedMessage.";
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -87,6 +106,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
+		
+		ReadLabelProperties();
 		
 		logger.begin(className, function);
 
@@ -161,19 +182,39 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
 				for ( String dbaddress : this.addresses ) {
 					String point = DatabaseHelper.getPoint(dbaddress);
+					
 					if ( null != point ) {
 						PointType pointType = DatabaseHelper.getPointType(point);
+						Boolean useCompMsg = isValLabelFromComputedMessage(dbaddress, pointType);
 						if ( pointType == PointType.dci ) {
-							for ( String attribute : dynamicDciAttibutes ) {
-								dbaddressesArrayList.add(dbaddress+attribute);
+							if (useCompMsg) {
+								for ( String attribute : dynamicDciAttibutesCM ) {
+									dbaddressesArrayList.add(dbaddress+attribute);
+								}
+							} else {
+								for ( String attribute : dynamicDciAttibutes ) {
+									dbaddressesArrayList.add(dbaddress+attribute);
+								}
 							}
 						} else if ( pointType == PointType.aci ) {
-							for ( String attribute : dynamicAciAttibutes ) {
-								dbaddressesArrayList.add(dbaddress+attribute);
+							if (useCompMsg) {
+								for ( String attribute : dynamicAciAttibutesCM ) {
+									dbaddressesArrayList.add(dbaddress+attribute);
+								}
+							} else {
+								for ( String attribute : dynamicAciAttibutes ) {
+									dbaddressesArrayList.add(dbaddress+attribute);
+								}
 							}
 						} else if ( pointType == PointType.sci ) {
-							for ( String attribute : dynamicSciAttibutes ) {
-								dbaddressesArrayList.add(dbaddress+attribute);
+							if (useCompMsg) {
+								for ( String attribute : dynamicSciAttibutesCM ) {
+									dbaddressesArrayList.add(dbaddress+attribute);
+								}
+							} else {
+								for ( String attribute : dynamicSciAttibutes ) {
+									dbaddressesArrayList.add(dbaddress+attribute);
+								}
 							}
 						} else {
 							logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
@@ -205,7 +246,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.end(className, function);
 	}
-	
+
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -491,25 +532,35 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-		logger.debug(className, function, "value[{}]", value);
-	
-		String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-		logger.debug(className, function, "valueTable[{}]", valueTable);
-		
 		String label = null;
-		{
-			int valueCol = 0, labelCol = 1;
-			
-			logger.debug(className, function, "valueCol[{}] nameCol[{}]", valueCol, labelCol);
-			
-			for( int r = 0 ; r < 12 ; ++r ) {
-				String v = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
-				logger.debug(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
-				if ( 0 == v.compareTo(value) ) {
-					logger.debug(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
-					label = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
-					break;
+		String value = "";
+		
+		if (isValLabelFromComputedMessage(address, PointType.dci)) {
+			value = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
+			if (value != null) {
+				label = Translation.getDBMessage(value);
+				logger.debug(className, function, "computedMessage[{}] translated to label[{}]", value, label);
+			}
+		} else {
+			value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
+			logger.debug(className, function, "value[{}]", value);
+		
+			String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
+			logger.debug(className, function, "valueTable[{}]", valueTable);
+				
+			{
+				int valueCol = 0, labelCol = 1;
+				
+				logger.debug(className, function, "valueCol[{}] nameCol[{}]", valueCol, labelCol);
+				
+				for( int r = 0 ; r < 12 ; ++r ) {
+					String v = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+					logger.debug(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
+					if ( 0 == v.compareTo(value) ) {
+						logger.debug(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
+						label = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+						break;
+					}
 				}
 			}
 		}
@@ -546,10 +597,19 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
+		String value = "";
 		
-		logger.debug(className, function, "value[{}]", value);
+		if (isValLabelFromComputedMessage(address, PointType.aci)) {
+			String compMsg = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
+			if (compMsg != null) {
+				value = Translation.getDBMessage(compMsg);
+				logger.debug(className, function, "computedMessage[{}] translated to value label[{}]", compMsg, value);
+			}
+		} else {
+			value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 		
+			logger.debug(className, function, "value[{}]", value);
+		}
 		value = DatabaseHelper.removeDBStringWrapper(value);
 		txtAttributeValue[row].setText(value);
 		
@@ -575,9 +635,18 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-		logger.debug(className, function, "value[{}]", value);
+		String value = "";
 		
+		if (isValLabelFromComputedMessage(address, PointType.sci)) {
+			String compMsg = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
+			if (compMsg != null) {
+				value = Translation.getDBMessage(compMsg);
+				logger.debug(className, function, "computedMessage[{}] translated to value label[{}]", compMsg, value);
+			}
+		} else {
+			value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
+			logger.debug(className, function, "value[{}]", value);
+		}
 		value = DatabaseHelper.removeDBStringWrapper(value);
 		txtAttributeValue[row].setText(value);
 
@@ -802,5 +871,75 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void setDatabase(Database db) {
 		database = db;
+	}
+	
+	Boolean isValLabelFromComputedMessage(String dbaddress, PointType pointType) {
+		final String function = "isValLabelFromComputedMessage";
+		Boolean ret = false;
+		
+		if (pointType == PointType.aci) {
+			ret = aciValLabelFromComputedMessage;
+		} else if (pointType == PointType.dci) {
+			ret = dciValLabelFromComputedMessage;
+		} else if (pointType == PointType.sci) {
+			ret = sciValLabelFromComputedMessage;
+		}
+		
+		for (String pattern: mapIsValLabelFromComputedMessage.keySet()) {
+			if (dbaddress.matches(pattern)) {
+				ret = mapIsValLabelFromComputedMessage.get(pattern);
+				logger.debug(className, function, "dbaddress [{}] matches pattern[{}]", dbaddress, pattern);
+				break;
+			} else {
+				logger.debug(className, function, "dbaddress [{}] does not match pattern[{}]", dbaddress, pattern);
+			}
+		}
+		
+		return ret;
+	}
+	
+	private void ReadLabelProperties() {
+		logger.debug("UIInspectorInfo ReadLabelProperties");
+		
+		// Read default property for getting dynamic attribute value label
+		String valueKey = VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX + "aciDefault";
+		aciValLabelFromComputedMessage = ReadProp.readBoolean(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, false);
+		
+		valueKey = VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX + "dciDefault";
+		dciValLabelFromComputedMessage = ReadProp.readBoolean(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, false);
+		
+		valueKey = VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX + "sciDefault";
+		sciValLabelFromComputedMessage = ReadProp.readBoolean(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, false);
+
+		// Read number of specific property for getting dynamic attribute value label based on dbaddress
+		valueKey = VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX + "size";
+		
+		int nameCount = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, 0);
+		logger.debug("ReadLabelProperties " + valueKey + "=" + Integer.toString(nameCount) );
+		if (nameCount > 0) {
+			for (int i=0; i<nameCount; i++) {
+				valueKey = VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX + Integer.toString(i);
+				
+				// Read specific property for getting dynamic attribute value label based on dbaddress
+				String propStr = ReadProp.readString(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, "");
+				logger.trace("ReadLabelProperties " + valueKey + "=" + propStr.toString() );
+
+				String [] propArray = propStr.split(",");
+				if (propArray.length == 2) {
+					String pattern = propArray[0].trim();
+					String valueStr = propArray[1].trim();
+					
+					if (valueStr.compareToIgnoreCase("true") == 0) {
+						mapIsValLabelFromComputedMessage.put(pattern, true);
+					} else if (valueStr.compareToIgnoreCase("false") == 0) {
+						mapIsValLabelFromComputedMessage.put(pattern, false);
+					} else {
+						logger.warn("Invalid property found in " + DICTIONARY_FILE_NAME);
+					}
+				} else {
+					logger.warn("Invalid property found in " + DICTIONARY_FILE_NAME);
+				}
+			}
+		}
 	}
 }

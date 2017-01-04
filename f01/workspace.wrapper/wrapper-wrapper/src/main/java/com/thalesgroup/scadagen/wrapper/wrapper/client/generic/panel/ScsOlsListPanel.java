@@ -19,7 +19,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.s
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.selection.SingleSelectionModel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.exception.IllegalStatePresenterException;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.GDGAttribute;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterName;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterValue;
@@ -30,10 +32,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
  * A widget displaying an alamm list panel.
  */
 public class ScsOlsListPanel extends UIWidget_i {
+	
+	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
 
     /** Logger */
     private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
-    private static final String LOG_PREFIX = "[ScsOlsListPanel] ";
+    private static final String LOG_PREFIX = "["+className+"] ";
 
     private String selectionMode = null;
     private boolean colorMode = false;
@@ -161,6 +165,11 @@ public class ScsOlsListPanel extends UIWidget_i {
 
         rootPanel = new DockLayoutPanel(Unit.PX);
         rootPanel.addStyleName("project-gwt-panel-scsolslistpanel");
+        
+        String cssWithElement = "project-"+className+"-"+element;
+        LOGGER.debug(LOG_PREFIX + "getStyleNames className["+className+"] element["+element+"] cssWithElement["+cssWithElement+"]");
+        rootPanel.addStyleName(cssWithElement);
+        
         Widget gridWidget = gridView_.asWidget();
         gridWidget.setVisible(true);
 
@@ -237,7 +246,7 @@ public class ScsOlsListPanel extends UIWidget_i {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			listConfigId_			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ListConfigId.toString(), strHeader);
-			menuEnableCallImage				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuEnableCallImage.toString(), strHeader);
+			menuEnableCallImage		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuEnableCallImage.toString(), strHeader);
 			selectionMode			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SelectionMode.toString(), strHeader);
 
 			String mwtEventBusName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusName.toString(), strHeader);

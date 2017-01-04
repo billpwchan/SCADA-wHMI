@@ -75,8 +75,8 @@ public class AppEntryPoint_WHMI extends MwtEntryPointApp {
 		final UIGws uiGws = new UIGws();
 		uiGws.setDictionaryFolder("UIWidgetGeneric");
 		uiGws.setPropertyFolder("UIInspectorPanel");
-//		uiGws.setViewXMLFile("UILayoutEntryPointScreenMMISummary.view.xml");
 		uiGws.setViewXMLFile("UIScreenMMI.view.xml");
+		uiGws.setOptsXMLFile("UIScreenMMI.opts.xml");
 		RootLayoutPanel.get().add(uiGws.getMainPanel());
     }
 }

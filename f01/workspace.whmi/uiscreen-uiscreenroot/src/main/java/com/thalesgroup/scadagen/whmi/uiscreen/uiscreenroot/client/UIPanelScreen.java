@@ -73,6 +73,7 @@ public class UIPanelScreen extends UIWidget_i {
 		uiTaskLaunch.setUiPath(UIPathUIPanelScreen);
 		uiTaskLaunch.setUiCtrl(uiCtrl);
 		uiTaskLaunch.setUiView(viewXMLFile);
+		uiTaskLaunch.setUiOpts(optsXMLFile);
 		uiTaskLaunch.setUiPanel(viewXMLFile);
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));		
 
@@ -143,11 +144,11 @@ public class UIPanelScreen extends UIWidget_i {
 							
 							String uiCtrl = taskLaunch.getUiCtrl();
 							String uiView = taskLaunch.getUiView();
-							String uiOpts = null;
-							String uiDict = null;
+							String uiOpts = taskLaunch.getUiOpts();
+							String uiDict = taskLaunch.getUiDict();
 							HashMap<String, Object> options = new HashMap<String, Object>();
 							
-							logger.info(className, function, "uiCtrl[{}] uiView[{}]", uiCtrl, uiView);
+							logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 
 							UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
 							UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiDict, options);						
@@ -184,8 +185,8 @@ public class UIPanelScreen extends UIWidget_i {
 										
 										String uiCtrl_s = taskLaunch.getUiPanel();
 										String uiView_s = taskLaunch.getUiView();
-										String uiOpts_s = null;
-										String uiDict_s = null;
+										String uiOpts_s = taskLaunch.getUiOpts();
+										String uiDict_s = taskLaunch.getUiDict();
 										HashMap<String, Object> options_s = new HashMap<String, Object>();
 											
 										if ( ! strUIScreenMMI.equals(taskLaunch.getUiPanel())  ) {

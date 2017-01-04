@@ -44,6 +44,21 @@ public class UIOpmSCS implements UIOpm_i {
 		
 	}
 	@Override
+	public String getOperator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getProfile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getWorkstation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
 	public boolean createOperator(String operator) {
 		// TODO Auto-generated method stub
 		return false;

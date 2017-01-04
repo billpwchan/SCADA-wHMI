@@ -33,6 +33,8 @@ public interface Task_i {
 		, UICtrl("uiCtrl")
 		, Css("css")
 		, UIView("uiView")
+		, UIOpts("uiOpts")
+		, UIDict("uiDict")
 		, Tooltips("tooltips")
 		;
 		private final String text;

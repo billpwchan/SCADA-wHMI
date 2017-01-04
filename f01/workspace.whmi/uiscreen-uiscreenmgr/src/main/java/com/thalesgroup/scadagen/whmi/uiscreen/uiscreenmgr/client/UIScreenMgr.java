@@ -42,11 +42,6 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 
 			uiWidget_i = new UIScreenMMI();
 
-		} else if ( UIWidgetUtil.getClassSimpleName(UIScreenEmpty.class.getName())
-		.equals(uiCtrl) ) {
-
-			uiWidget_i = new UIScreenEmpty();
-
 		} else if ( UIWidgetUtil.getClassSimpleName(
 				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
 			
@@ -65,7 +60,7 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 			uiWidget_i.setOptsXMLFile(uiOpts);
 			uiWidget_i.init();
 		} else {
-			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts});
+			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiDict[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
 		}
 
 		logger.end(className, function);

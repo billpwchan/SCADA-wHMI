@@ -10,6 +10,9 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelVie
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -28,9 +31,13 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFact
 public class UIScreenMMI extends UIWidget_i {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(UIScreenMMI.class.getName());
-	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private UILayoutGeneric uiLayoutGeneric = null;
+	
+	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
+	
+	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	
 	@Override
 	public void init() {
@@ -157,8 +164,24 @@ public class UIScreenMMI extends UIWidget_i {
 		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
 		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
 		uiLayoutGeneric.init();
-		
 		rootPanel = uiLayoutGeneric.getMainPanel();
+		
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(element);
+		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
+//		uiEventActionProcessor_i.setEventBus(eventBus);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
+
+		uiEventActionProcessor_i.executeActionSetInit();
+		uiEventActionProcessor_i.executeActionSetInit(1000, null);
 		
 		//Start the Navigation Menu
 		logger.info(className, function, "Start the Navigation Menu Begin");

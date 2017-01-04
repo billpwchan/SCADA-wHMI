@@ -213,6 +213,11 @@ public class UIGws {
 	public void setViewXMLFile(String viewXMLFile) {
 		this.viewXMLFile = viewXMLFile;
 	}
+	
+	private String optsXMLFile = null;
+	public void setOptsXMLFile(String optsXMLFile) {
+		this.optsXMLFile = optsXMLFile;
+	}
 
 	private boolean isCreated = false;
 	private void ready(String folder, int received) {
@@ -235,6 +240,7 @@ public class UIGws {
 			UIWidget_i uiWidget_i = new UIPanelScreen();
 			uiWidget_i.setDictionaryFolder(dictionaryFolder);
 			uiWidget_i.setViewXMLFile(viewXMLFile);
+			uiWidget_i.setOptsXMLFile(optsXMLFile);
 			uiWidget_i.setUINameCard(uiNameCard);
 			uiWidget_i.init();
 			Panel panel = uiWidget_i.getMainPanel();

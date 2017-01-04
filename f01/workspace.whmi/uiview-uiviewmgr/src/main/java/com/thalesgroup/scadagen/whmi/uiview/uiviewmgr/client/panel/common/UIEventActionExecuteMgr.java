@@ -22,14 +22,16 @@ public class UIEventActionExecuteMgr {
 			uiEventActionExecute = new UIEventActionWidget();
 		} else if ( key.equals(UIActionEventType.dialogmsg.toString()) ) {
 			uiEventActionExecute = new UIEventActionDialogMsg();
-		} else if ( key.equals(UIActionEventType.opm.toString()) ) {
-			uiEventActionExecute = new UIEventActionOpm();
+		} else if ( key.equals(UIActionEventType.alm.toString()) ) {
+			uiEventActionExecute = new UIEventActionAlm();
 		} else if ( key.equals(UIActionEventType.ctl.toString()) ) {
 			uiEventActionExecute = new UIEventActionCtrl();
-		} else if ( key.equals(UIActionEventType.dpc.toString()) ) {
-			uiEventActionExecute = new UIEventActionDpc();
 		} else if ( key.equals(UIActionEventType.dbm.toString()) ) {
 			uiEventActionExecute = new UIEventActionDbm();
+		} else if ( key.equals(UIActionEventType.dpc.toString()) ) {
+			uiEventActionExecute = new UIEventActionDpc();
+		} else if ( key.equals(UIActionEventType.opm.toString()) ) {
+			uiEventActionExecute = new UIEventActionOpm();
 		} else if ( key.equals(UIActionEventType.uitask.toString()) ) {
 			uiEventActionExecute = new UIEventActionTaskLaunch();
 		}

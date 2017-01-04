@@ -1,10 +1,14 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -62,6 +66,40 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 		
+	}
+	@Override
+	public String getOperator() {
+		String function = "getOperator";
+		logger.begin(className, function);
+		String operatorId = null;
+		operatorId = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getId();
+		logger.info(className, function, "operatorId[{}]", operatorId);
+		return operatorId;
+	}
+	@Override
+	public String getProfile() {
+		String function = "getProfile";
+		logger.begin(className, function);
+		String roleId = null;
+		Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
+		if ( null != roles ) {
+			Set<String> keys = roles.keySet();
+			for ( String key : keys ) {
+				logger.info(className, function, "key[{}]", key);
+				roleId = roles.get(key).getId();
+				logger.info(className, function, "roleId[{}]", roleId);
+				break;
+			}
+		} else {
+			logger.warn(className, function, "roleId IS NULL");
+		}
+		logger.info(className, function, "roleId[{}]", roleId);
+		return roleId;
+	}
+	@Override
+	public String getWorkstation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	@Override
 	public boolean createOperator(String operator) {

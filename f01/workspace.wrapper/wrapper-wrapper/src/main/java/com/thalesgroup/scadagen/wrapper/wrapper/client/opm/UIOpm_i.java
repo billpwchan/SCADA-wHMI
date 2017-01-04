@@ -16,6 +16,10 @@ public interface UIOpm_i {
 	
 	void changePassword(String operator, String oldPassword, String newPassword, UIWrapperRpcEvent_i uiWrapperRpcEvent_i);
 	
+	String getOperator();
+	String getProfile();
+	String getWorkstation();
+	
 	boolean createOperator(String operator);
 	boolean removeOperator(String operator);
 	boolean addOperatorProfile(String operator, String profile);

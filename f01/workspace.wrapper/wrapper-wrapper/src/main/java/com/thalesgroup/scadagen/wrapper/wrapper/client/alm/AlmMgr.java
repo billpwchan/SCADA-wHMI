@@ -9,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.IALMComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.ScsALMComponentAccess;
 
@@ -212,13 +213,39 @@ public class AlmMgr {
 		logger.info(className, function, "extSourceId[{}]", extSourceId);
 		logger.info(className, function, "isAlarm[{}]", isAlarm);
 		logger.info(className, function, "message[{}]", message);
+		
+		notifyExternalAlarm(key, scsEnvId
+    			, configFileName, classId, pointAlias
+    			, objectId, extSourceId, isAlarm, message
+    			, true);
+    	logger.end(className, function);
+    }
+	
+    public void notifyExternalAlarm(String key, String scsEnvId, String configFileName, int classId, String pointAlias,
+            int objectId, int extSourceId, boolean isAlarm, String message, boolean translation) {
+    	final String function = "notifyExternalAlarm";
+    	logger.begin(className, function);
+    	
+    	logger.info(className, function, "key[{}]", key);
+		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		
+		logger.info(className, function, "configFileName[{}]", configFileName);
+		logger.info(className, function, "classId[{}]", classId);
+		logger.info(className, function, "pointAlias[{}]", pointAlias);
+		logger.info(className, function, "objectId[{}]", objectId);
+		logger.info(className, function, "extSourceId[{}]", extSourceId);
+		logger.info(className, function, "isAlarm[{}]", isAlarm);
+		logger.info(className, function, "message[{}]", message);
+		logger.info(className, function, "translation[{}]", translation);
+		
+		if ( translation ) { message = Translation.getDBMessage(message); }
+		
     	almComponent_.notifyExternalAlarm(key, scsEnvId
     			, configFileName, classId, pointAlias
     			, objectId, extSourceId, isAlarm, message
     			);
     	logger.end(className, function);
     }
-    
     
     public void notifyExternalEvent(String key, String scsEnvId, String configFileName, int classId, String pointAlias,
             int objectId, int extSourceId, String message) {
@@ -234,6 +261,32 @@ public class AlmMgr {
 		logger.info(className, function, "objectId[{}]", objectId);
 		logger.info(className, function, "extSourceId[{}]", extSourceId);
 		logger.info(className, function, "message[{}]", message);
+		
+		notifyExternalEvent(key, scsEnvId
+    			, configFileName, classId, pointAlias
+    			, objectId, extSourceId, message
+    			, true);
+    	logger.end(className, function);
+    }
+    
+    public void notifyExternalEvent(String key, String scsEnvId, String configFileName, int classId, String pointAlias,
+            int objectId, int extSourceId, String message, boolean translation) {
+    	final String function = "notifyExternalEvent";
+    	logger.begin(className, function);
+    	
+    	logger.info(className, function, "key[{}]", key);
+		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		
+		logger.info(className, function, "configFileName[{}]", configFileName);
+		logger.info(className, function, "classId[{}]", classId);
+		logger.info(className, function, "pointAlias[{}]", pointAlias);
+		logger.info(className, function, "objectId[{}]", objectId);
+		logger.info(className, function, "extSourceId[{}]", extSourceId);
+		logger.info(className, function, "message[{}]", message);
+		logger.info(className, function, "translation[{}]", translation);
+		
+		if ( translation ) { message = Translation.getDBMessage(message); }
+		
     	almComponent_.notifyExternalEvent(key, scsEnvId
     			, configFileName, classId, pointAlias
     			, objectId, extSourceId, message

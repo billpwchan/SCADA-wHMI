@@ -41,10 +41,12 @@ public class UITaskLaunch extends UITaskDictionary {
 		, FunCat("funCat")
 		, UIPanel("uiPanel")
 		, UIScreen("uiScreen")
+		, Css("css")
 		, UIPath("uiPath")
 		, UICtrl("uiCtrl")
-		, Css("css")
 		, UIView("uiView")
+		, UIOpts("uiOpts")
+		, UIDict("uiDict")
 		, Tooltips("tooltips")
 		, Execute("execute")
 		;
@@ -74,6 +76,8 @@ public class UITaskLaunch extends UITaskDictionary {
 		setValue(UITaskLaunchAttribute.UICtrl.toString()	, task.getParameter(TaskAttribute.UICtrl.toString()));
 		setValue(UITaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));
 		setValue(UITaskLaunchAttribute.UIView.toString()	, task.getParameter(TaskAttribute.UIView.toString()));
+		setValue(UITaskLaunchAttribute.UIOpts.toString()	, task.getParameter(TaskAttribute.UIOpts.toString()));
+		setValue(UITaskLaunchAttribute.UIDict.toString()	, task.getParameter(TaskAttribute.UIDict.toString()));
 		setValue(UITaskLaunchAttribute.Tooltips.toString()	, task.getParameter(TaskAttribute.Tooltips.toString()));
 	}
 
@@ -198,6 +202,20 @@ public class UITaskLaunch extends UITaskDictionary {
 	}
 	public String getUiView() {
 		return (String) getValue(UITaskLaunchAttribute.UIView.toString());
+	}
+	
+	public void setUiOpts(String uiOpts) {
+		setValue(UITaskLaunchAttribute.UIOpts.toString(), uiOpts);
+	}
+	public String getUiOpts() {
+		return (String) getValue(UITaskLaunchAttribute.UIOpts.toString());
+	}
+	
+	public void setUiDict(String uiDict) {
+		setValue(UITaskLaunchAttribute.UIDict.toString(), uiDict);
+	}
+	public String getUiDict() {
+		return (String) getValue(UITaskLaunchAttribute.UIDict.toString());
 	}
 
 	public void setTooltip(String toolTips) {

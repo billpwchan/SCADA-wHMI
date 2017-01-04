@@ -60,8 +60,8 @@ public class UILayoutSummary extends UIWidget_i {
 	private String eventBusName = null;
 	private String eventBusScope = null;
 	
-	private String strUIWidgetGeneric = "UIWidgetGeneric";
-	private String strHeader = "header";
+	private final String strUIWidgetGeneric = "UIWidgetGeneric";
+	private final String strHeader = "header";
 
 	@Override
 	public void init() {

@@ -74,21 +74,21 @@ public class UIWidgetSocTitle extends UIWidget_i {
 								
 								if ( null != os1 ) {
 									
-									if ( os1.equals("WriteDelayAfterSuccessAndNextStep") ) {
-										
-										if ( null != equipmentSelected ) {
-											
-											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-											
-											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-											
-											logger.info(className, function, "alias[{}]", alias);
-											
-										} else {
-											logger.warn(className, function, "equipmentSelected IS NULL");
-										}
-										
-									}
+//									if ( os1.equals("WriteDelayAfterSuccessAndNextStep") ) {
+//										
+//										if ( null != equipmentSelected ) {
+//											
+//											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
+//											
+//											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
+//											
+//											logger.info(className, function, "alias[{}]", alias);
+//											
+//										} else {
+//											logger.warn(className, function, "equipmentSelected IS NULL");
+//										}
+//										
+//									}
 								}
 								return true;
 							}
@@ -131,8 +131,17 @@ public class UIWidgetSocTitle extends UIWidget_i {
 									if ( null != obj2 ) {
 										if ( obj2 instanceof Equipment_i ) {
 											equipmentSelected = (Equipment_i) obj2;
+											
+											String soccard = equipmentSelected.getStringValue(targetDataGridColumn);
+											
+											logger.info(className, function, "soccard[{}]", soccard);
+											
+											uiWidgetGeneric.setWidgetValue("selectedsoccardvalue", soccard);
+											
 										} else {
 											equipmentSelected = null;
+											
+											
 											
 											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
 										}

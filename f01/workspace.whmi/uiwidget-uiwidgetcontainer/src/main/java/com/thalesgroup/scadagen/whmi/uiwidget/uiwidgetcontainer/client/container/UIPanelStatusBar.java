@@ -1,15 +1,17 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
 import com.google.gwt.user.client.Timer;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
-import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 public class UIPanelStatusBar extends UIWidget_i {
@@ -33,8 +35,14 @@ public class UIPanelStatusBar extends UIWidget_i {
 	
 	private String strTitle = "";
 	
-	private String strOperator = "";
-	private String strProfile = "";
+	private String strUIWidgetGeneric = "UIWidgetGeneric";
+	
+	private String opmApi = null;
+	private String stropmapi = "opmapi";
+	private String strHeader = "header";
+	
+	private final String strOperator = "operator";
+	private final String strProfile = "profile";
 
 	@Override
 	public void init() {
@@ -42,6 +50,11 @@ public class UIPanelStatusBar extends UIWidget_i {
 		final String function = "init";
 		
 		logger.begin(className, function);
+		
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			opmApi = dictionariesCache.getStringValue(optsXMLFile, stropmapi, strHeader);
+		}
 
 		handlerRegistrations.add(
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -75,6 +88,17 @@ public class UIPanelStatusBar extends UIWidget_i {
 		// Schedule the timer to run once every second, 250 ms.
 		t.scheduleRepeating(250);
 		
+		// Operator and Profile 
+		UIOpm_i uiOpm_i = OpmMgr.getInstance(opmApi);
+		
+		String operator = uiOpm_i.getOperator();
+		String profile = uiOpm_i.getProfile();
+
+		logger.info(className, function, "operator[{}] profile[{}]", operator, profile);
+
+		uiPanelGenericOperator.setWidgetValue(strOperator, operator);
+		uiPanelGenericOperator.setWidgetValue(strProfile, profile);
+		
 		logger.end(className, function);
 		
 	}
@@ -107,21 +131,6 @@ public class UIPanelStatusBar extends UIWidget_i {
 						if (null != strTitle)		this.strTitle = strTitle;
 						
 						uiPanelGenericTitle.setWidgetValue("title", this.strTitle);
-						
-					} else if ( taskProvide instanceof UITaskProfile ) {
-
-						logger.info(className, function, "TaskTitle is match");
-
-						UITaskProfile taskOperator = (UITaskProfile) taskProvide;
-						String strOperator = taskOperator.getOperator();
-						String strProfile = taskOperator.getProfile();
-
-						logger.info(className, function, "strTitle[{}]", strProfile);
-						if (null != strOperator)	this.strOperator = strOperator; 
-						if (null != strProfile) 	this.strProfile = strProfile;
-
-						uiPanelGenericOperator.setWidgetValue("operator", this.strOperator);
-						uiPanelGenericOperator.setWidgetValue("profile", this.strProfile);
 						
 					}
 				}

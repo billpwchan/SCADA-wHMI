@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
@@ -75,9 +77,11 @@ public class UILayoutLogin extends UIWidget_i {
 			String element = uiWidgetGenericButton.getWidgetElement(widget);
 			if ( null != element ) {
 				
-				
 				String actionsetkey = element;
-				uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
+				
+				HashMap<String, HashMap<String, Object>> override = null;
+				
+				uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new ExecuteAction_i() {
 					
 					@Override
 					public boolean executeHandler(UIEventAction uiEventAction) {

@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.json.client.JSONObject;
@@ -70,9 +72,11 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						
-						
 						String actionsetkey = element;
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
+						
+						HashMap<String, HashMap<String, Object>> override = null;
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new ExecuteAction_i() {
 							
 							@Override
 							public boolean executeHandler(UIEventAction uiEventAction) {

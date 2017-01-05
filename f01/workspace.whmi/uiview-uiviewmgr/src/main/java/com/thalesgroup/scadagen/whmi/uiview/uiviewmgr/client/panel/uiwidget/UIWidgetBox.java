@@ -48,8 +48,6 @@ public class UIWidgetBox extends UIWidget_i {
 			
 			logger.begin(className, function);
 			
-			final String targetFunction = "";
-			
 			if ( null != event ) {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
@@ -57,22 +55,7 @@ public class UIWidgetBox extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-								
-								logger.info(className, function, "os1[{}]", os1);
-								
-								if ( null != os1 ) {
-									if ( os1.equals(targetFunction) ) {
-				
-									}
-								}
-								return true;
-							}
-						});
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
 					}
 				}
 			}

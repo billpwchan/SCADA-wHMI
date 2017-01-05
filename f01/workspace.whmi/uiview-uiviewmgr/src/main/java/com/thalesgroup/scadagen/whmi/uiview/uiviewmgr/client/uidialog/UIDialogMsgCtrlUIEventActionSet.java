@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog;
 
+import java.util.HashMap;
+
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -12,9 +14,11 @@ public class UIDialogMsgCtrlUIEventActionSet implements UIDialogMsgCtrl_i {
 
 	private String actionsetkey = null;
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
-	public UIDialogMsgCtrlUIEventActionSet(UIEventActionProcessor_i uiEventActionProcessor_i, String actionsetkey) {
+	private HashMap<String, HashMap<String, Object>> override = null;
+	public UIDialogMsgCtrlUIEventActionSet(UIEventActionProcessor_i uiEventActionProcessor_i, String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
 		this.uiEventActionProcessor_i = uiEventActionProcessor_i;
 		this.actionsetkey = actionsetkey;
+		this.override = override;
 	}
 	@Override
 	public void response() {
@@ -22,7 +26,7 @@ public class UIDialogMsgCtrlUIEventActionSet implements UIDialogMsgCtrl_i {
 		logger.begin(className, function);
 		if ( null != uiEventActionProcessor_i ) {
 			logger.debug(className, function, "call uieventactionprocess executeactionset");
-			uiEventActionProcessor_i.executeActionSet(actionsetkey);	
+			uiEventActionProcessor_i.executeActionSet(actionsetkey, override);	
 		} else {
 			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
 		}

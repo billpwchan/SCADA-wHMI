@@ -79,13 +79,7 @@ public class UIWidgetCSSSelection extends UIWidget_i {
 						
 						String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 				
-						uiEventActionProcessor_i.executeActionSet(os1, new ExecuteAction_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								return true;
-							}
-						});
+						uiEventActionProcessor_i.executeActionSet(os1);
 					}
 				}
 			} else {

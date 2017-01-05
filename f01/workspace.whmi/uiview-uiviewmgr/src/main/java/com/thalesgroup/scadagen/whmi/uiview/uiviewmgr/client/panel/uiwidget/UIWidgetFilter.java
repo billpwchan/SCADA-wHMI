@@ -91,12 +91,7 @@ public class UIWidgetFilter extends UIWidget_i {
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
-							uiEventActionProcessor_i.executeActionSet(os1, new ExecuteAction_i() {
-								@Override
-								public boolean executeHandler(UIEventAction uiEventAction) {
-									return true;
-								}
-							});
+							uiEventActionProcessor_i.executeActionSet(os1);
 						}
 					}
 				}

@@ -24,19 +24,27 @@ public interface UIEventActionProcessor_i {
 	void setActionSetTagName(String actionset);
 	void setActionTagName(String action);
 	void init();
+	
 	UIEventAction getUIEventActionSetMgr(String actionsetkey);
 	UIEventAction getUIEventActionMgr(String actionkey);
+	
 	boolean executeActionSetInit();
-	boolean executeActionSetInit(ExecuteAction_i executeActionHandler);
-	void executeActionSetInit(int delayMillis, ExecuteAction_i executeActionHandler);
-	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override);
+	
+	void executeActionSetInit(int delayMillis, HashMap<String, HashMap<String, Object>> override);
+	void executeActionSetInit(int delayMillis, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler);
+	
 	boolean executeActionSet(String actionsetkey);
-	boolean executeActionSet(String actionsetkey, ExecuteAction_i executeActionHandler);
-	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override,
-			ExecuteAction_i executeActionHandler);
-	boolean executeActionSet(UIEventAction action, ExecuteAction_i executeActionHandler);
-	boolean executeAction(String actionkey, ExecuteAction_i executeActionHandler);
-	boolean executeAction(UIEventAction action, ExecuteAction_i executeActionHandler);
-	boolean execute(UIEventAction uiEventAction, ExecuteAction_i executeActionHandler);
+	
+	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override);
+	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler);
+	
+	boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override);
+	boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler);
+	
+	boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override);
+	boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler);
+	
+	boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override);
+	boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler);
 
 }

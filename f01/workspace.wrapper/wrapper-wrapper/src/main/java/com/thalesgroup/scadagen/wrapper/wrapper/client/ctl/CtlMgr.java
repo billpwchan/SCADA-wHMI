@@ -42,7 +42,7 @@ public class CtlMgr {
 		
 		logger.begin(className, function);
 		
-//		this.subject = new Subject();
+		this.subject = new Subject();
 		
 		this.scsCTLComponentAccess = new ScsCTLComponentAccess(new ICTLComponentClient() {
 			

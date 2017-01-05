@@ -59,6 +59,7 @@ public class UILayoutSummary extends UIWidget_i {
 	private SimpleEventBus eventBus = null;
 	private String eventBusName = null;
 	private String eventBusScope = null;
+	private String initdelayms = null;
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	private final String strHeader = "header";
@@ -74,6 +75,7 @@ public class UILayoutSummary extends UIWidget_i {
 		if ( null != dictionariesCache ) {
 			eventBusName = dictionariesCache.getStringValue(optsXMLFile, ParameterName.eventbusname.toString(), strHeader);
 			eventBusScope = dictionariesCache.getStringValue(optsXMLFile, ParameterName.eventbusscope.toString(), strHeader);
+			initdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.initdelayms.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
@@ -322,7 +324,16 @@ public class UILayoutSummary extends UIWidget_i {
 		uiEventActionProcessor_i.init();
 
 		uiEventActionProcessor_i.executeActionSetInit();
-		uiEventActionProcessor_i.executeActionSetInit(1000, null);
+		
+		int delay = 1000;
+		if ( null != initdelayms ) {
+			try { 
+				delay = Integer.parseInt(initdelayms);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initdelayms);
+			}
+		}
+		uiEventActionProcessor_i.executeActionSetInit(delay, null);
 		
 		logger.end(className, function);
 	}

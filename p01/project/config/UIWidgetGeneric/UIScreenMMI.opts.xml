@@ -4,6 +4,7 @@
 	<header key="header">
 		<eventbusname>uiscreenmmi</eventbusname>
 		<eventbusscope>local</eventbusscope>
+		<initdelayms>1000</initdelayms>
 	</header>
 	
 	<actionset key="init">

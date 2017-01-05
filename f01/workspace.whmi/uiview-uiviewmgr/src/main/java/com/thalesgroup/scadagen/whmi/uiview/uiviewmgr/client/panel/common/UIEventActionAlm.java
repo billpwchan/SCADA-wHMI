@@ -3,8 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import com.google.gwt.regexp.shared.MatchResult;
-import com.google.gwt.regexp.shared.RegExp;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -114,7 +112,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			strOperator = uiOpm_i.getOperator();
 			if ( null != strOperator ) {
 				logger.info(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetOperator, strOperator);
-				strMessage = replaceKeyword(strGetOperator, strMessage, strOperator);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetOperator, strOperator);
 				logger.info(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
 				logger.info(className, function, logPrefix+"strOperator IS NULL");
@@ -123,7 +121,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			strProfile = uiOpm_i.getOperator();
 			if ( null != strProfile ) {
 				logger.info(className, function, logPrefix+"strGetOperator[{}] strOperator[{}]", strGetProfile, strProfile);
-				strMessage = replaceKeyword(strGetProfile, strMessage, strProfile);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetProfile, strProfile);
 				logger.info(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
 				logger.info(className, function, logPrefix+"strProfile IS NULL");
@@ -132,7 +130,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			strWorkstation = uiOpm_i.getWorkstation();
 			if ( null != strWorkstation ) {
 				logger.info(className, function, logPrefix+"strGetWorkstation[{}] strWorkstation[{}]", strGetWorkstation, strWorkstation);
-				strMessage = replaceKeyword(strGetWorkstation, strMessage, strWorkstation);
+				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetWorkstation, strWorkstation);
 				logger.info(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
 				logger.info(className, function, logPrefix+"strWorkstation IS NULL");
@@ -144,32 +142,5 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		logger.end(className, function);
 		return strMessage;
 	}
-	
-	public String replaceKeyword(String regex, String input, String replace) {
-		String function = "replaceKeyword";
-		logger.trace(className, function, "regex[{}] input[{}]", new Object[]{regex, input});
-		String ret = input;
-		try {
-			RegExp regExp = RegExp.compile(regex);
-			MatchResult matcher = regExp.exec(input);
-			boolean matchFound = matcher != null;
-			if ( matchFound) {
-				logger.trace(className, function, "matcher.getGroupCount()[{}]", matcher.getGroupCount());
-				for ( int i=0; i < matcher.getGroupCount(); ++i) {
-					String key = matcher.getGroup(i);
-					logger.trace(className, function, "matcher.getGroup([{}])[{}]", i, key);
-//					String translation = Translation.getWording(key);
-//					logger.trace(className, function, "key[{}] translation[{}]", new Object[]{key, translation});
-					if ( null != replace ) {
-						ret = ret.replaceAll(key, replace);
-					}
-				}
-			}
-		} catch ( RuntimeException e ) {
-//			logger.warn(className, function, "RuntimeException[{}]", e.toString());
-		}
-		logger.trace(className, function, "ret[{}]", ret);
-		return ret;
-	}
-	
+
 }

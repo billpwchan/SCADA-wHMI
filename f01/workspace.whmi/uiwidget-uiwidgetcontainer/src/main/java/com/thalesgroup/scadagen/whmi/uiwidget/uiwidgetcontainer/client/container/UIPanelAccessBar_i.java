@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container;
 
-public interface UIPanelAccessBarInterface {
+public interface UIPanelAccessBar_i {
 	public enum WidgetArrtibute {
 		  splith("splith")
 		, splitv("splitv")

@@ -12,6 +12,7 @@
 		<type>predefine</type>
 		<uiCtrl>UIPanelStatusBar</uiCtrl>
 		<uiView>UIPanelStatusBar.view.xml</uiView>
+		<uiOpts>UIPanelStatusBar.opts.xml</uiOpts>
 		<direction>North</direction>
 		<width>42</width>
 	</option>

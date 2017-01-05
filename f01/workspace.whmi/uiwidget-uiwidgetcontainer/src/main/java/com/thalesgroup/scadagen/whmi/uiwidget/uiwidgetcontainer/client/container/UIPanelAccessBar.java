@@ -11,13 +11,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
@@ -101,19 +98,19 @@ public class UIPanelAccessBar extends UIWidget_i {
 
 		switch (taskHistory.getTaskType()) {
 		case PreviousEnable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.previous.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.previous.toString() );
 			status = WidgetStatus.Up;
 			break;
 		case PreviousDisable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.previous.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.previous.toString() );
 			status = WidgetStatus.Disable;
 			break;
 		case NextEnable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.next.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.next.toString() );
 			status = WidgetStatus.Up;
 			break;
 		case NextDisable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.next.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.next.toString() );
 			status = WidgetStatus.Disable;
 			break;
 		default:
@@ -139,27 +136,27 @@ public class UIPanelAccessBar extends UIWidget_i {
 		
 		switch (taskSplit.getTaskType()) {
 		case HorizontalHightLight:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.splith.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.splith.toString() );
 			status = WidgetStatus.Down;
 			break;
 		case HorizontalEnable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.splith.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.splith.toString() );
 			status = WidgetStatus.Up;
 			break;
 		case HorizontalDisable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.splith.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.splith.toString() );
 			status = WidgetStatus.Disable;
 			break;
 		case VerticalHightLight:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.splitv.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.splitv.toString() );
 			status = WidgetStatus.Down;
 			break;
 		case VerticalEnable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.splitv.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.splitv.toString() );
 			status = WidgetStatus.Up;
 			break;
 		case VerticalDisable:
-			widget = uiWidgetGeneric.getWidget( UIPanelAccessBarInterface.WidgetArrtibute.splitv.toString() );
+			widget = uiWidgetGeneric.getWidget( UIPanelAccessBar_i.WidgetArrtibute.splitv.toString() );
 			status = WidgetStatus.Disable;
 			break;
 		default:
@@ -210,8 +207,8 @@ public class UIPanelAccessBar extends UIWidget_i {
 		
 		if ( null != element ) {
 			
-			if ( UIPanelAccessBarInterface.WidgetArrtibute.logout.equalsName(element) ) {
-				logger.info(className, function, "logout[{}]", UIPanelAccessBarInterface.WidgetArrtibute.logout);
+			if ( UIPanelAccessBar_i.WidgetArrtibute.logout.equalsName(element) ) {
+				logger.info(className, function, "logout[{}]", UIPanelAccessBar_i.WidgetArrtibute.logout);
 				
 				
 				if ( null != element ) {
@@ -234,14 +231,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 					});
 				}
 				
-//				UITaskLaunch taskLaunch = new UITaskLaunch();
-//				taskLaunch.setTaskUiScreen(0);
-//				taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-//				taskLaunch.setUiPanel("UIDialogMsg");
-//				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.previous.equalsName(element) ) {
+			} else if ( UIPanelAccessBar_i.WidgetArrtibute.previous.equalsName(element) ) {
 				
-				logger.info(className, function, "previous[{}]", UIPanelAccessBarInterface.WidgetArrtibute.previous);
+				logger.info(className, function, "previous[{}]", UIPanelAccessBar_i.WidgetArrtibute.previous);
 				
 				WidgetStatus status = uiWidgetGeneric.getWidgetStatus(element);
 				
@@ -257,9 +249,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistory));
 				}
 				
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.next.equalsName(element) ) {
+			} else if ( UIPanelAccessBar_i.WidgetArrtibute.next.equalsName(element) ) {
 				
-				logger.warn(className, function, "next["+UIPanelAccessBarInterface.WidgetArrtibute.next+"]");
+				logger.warn(className, function, "next["+UIPanelAccessBar_i.WidgetArrtibute.next+"]");
 				
 				WidgetStatus status = uiWidgetGeneric.getWidgetStatus(element);
 				
@@ -274,7 +266,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 					taskHistory.setTaskType(UITaskHistory.TaskType.Next);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskHistory));
 				}
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.splith.equalsName(element) ) {
+			} else if ( UIPanelAccessBar_i.WidgetArrtibute.splith.equalsName(element) ) {
 				
 				WidgetStatus status = uiWidgetGeneric.getWidgetStatus(element);
 				
@@ -289,7 +281,7 @@ public class UIPanelAccessBar extends UIWidget_i {
 					taskSplit.setTaskType(UITaskSplit.SplitType.Horizontal);
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}
-			} else if ( UIPanelAccessBarInterface.WidgetArrtibute.splitv.equalsName(element) ) {
+			} else if ( UIPanelAccessBar_i.WidgetArrtibute.splitv.equalsName(element) ) {
 				
 				WidgetStatus status = uiWidgetGeneric.getWidgetStatus(element);
 				
@@ -305,10 +297,10 @@ public class UIPanelAccessBar extends UIWidget_i {
 					this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskSplit));
 				}
 			} else if ( 
-					UIPanelAccessBarInterface.WidgetArrtibute.stationoperation.equalsName(element)  
-					|| UIPanelAccessBarInterface.WidgetArrtibute.dss.equalsName(element)
-					|| UIPanelAccessBarInterface.WidgetArrtibute.print.equalsName(element) 
-					|| UIPanelAccessBarInterface.WidgetArrtibute.help.equalsName(element)
+					UIPanelAccessBar_i.WidgetArrtibute.stationoperation.equalsName(element)  
+					|| UIPanelAccessBar_i.WidgetArrtibute.dss.equalsName(element)
+					|| UIPanelAccessBar_i.WidgetArrtibute.print.equalsName(element) 
+					|| UIPanelAccessBar_i.WidgetArrtibute.help.equalsName(element)
 					) {
 
 				logger.info(className, function, "Calling uiEventActionProcessor executeActionSet element[{}]", element);

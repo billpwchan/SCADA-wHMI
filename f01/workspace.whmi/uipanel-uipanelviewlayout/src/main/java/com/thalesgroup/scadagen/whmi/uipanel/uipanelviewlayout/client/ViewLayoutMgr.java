@@ -1,6 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 
-import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.dialog.UIInspectorMgr;
@@ -14,7 +13,6 @@ import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory.T
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
-import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskProfile;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -452,8 +450,6 @@ public class ViewLayoutMgr {
 			
 			triggerTitleChange(taskLaunch);
 
-			triggerProfileChange();
-
 			logger.info(className, function, "hasSnapshot[" + makeSnapshot + "]");
 
 			if (makeSnapshot) {
@@ -809,26 +805,7 @@ public class ViewLayoutMgr {
 		logger.end(className, function);
 		return taskLaunch;
 	}
-	
-	private void triggerProfileChange () {
-		final String function = "triggerProfileChange";
-		
-		logger.begin(className, function);
-		
-		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
-		String profile = opmAuthentication.getCurrentProfile();
-		String operator = opmAuthentication.getCurrentOperator();
-		
-		UITaskProfile taskProfile = new UITaskProfile();
-		taskProfile.setTaskUiScreen(this.uiNameCard.getUiScreen());
-		taskProfile.setUiPath(UIPathUIPanelStatusBar);
-		taskProfile.setProfile(profile);
-		taskProfile.setOperator(operator);
-		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskProfile));
-		
-		logger.end(className, function);
-	}
-	
+
 	private void triggerTitleChange ( UITaskLaunch taskLaunch ) {
 		final String function = "triggerTitleChange";
 		

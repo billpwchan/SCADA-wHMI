@@ -14,6 +14,7 @@ public interface UILayoutSummary_i {
 	public enum ParameterName {
 		eventbusname("eventbusname")
 		, eventbusscope("eventbusscope")
+		, initdelayms("initdelayms")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

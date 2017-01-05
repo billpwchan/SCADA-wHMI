@@ -23,7 +23,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 
 /**
  * @author syau
@@ -343,14 +342,7 @@ public class ViewLayoutMgr {
 				
 				logger.info(className, function, "Launch the uiEventAction...");
 				
-				uiEventActionProcessor_i.executeActionSet(uiEventAction, new ExecuteAction_i() {
-					
-					@Override
-					public boolean executeHandler(UIEventAction uiEventAction) {
-						// TODO Auto-generated method stub
-						return true;
-					}
-				});
+				uiEventActionProcessor_i.executeActionSet(uiEventAction, null);
 
 			} else {
 				

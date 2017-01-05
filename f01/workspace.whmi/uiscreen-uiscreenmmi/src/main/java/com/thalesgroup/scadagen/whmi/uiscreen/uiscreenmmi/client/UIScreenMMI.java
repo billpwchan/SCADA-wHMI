@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 
 import java.util.HashMap;
 
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -15,6 +16,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAccessBar;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelEmpty;
@@ -39,12 +41,21 @@ public class UIScreenMMI extends UIWidget_i {
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	
+	private String initdelayms = null;
+	
+	private final String strHeader = "header";
+	
 	@Override
 	public void init() {
 		
 		final String function = "init";
 		
 		logger.begin(className, function);
+		
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			initdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.initdelayms.toString(), strHeader);
+		}
 		
 		handlerRegistrations.add(		
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -181,7 +192,16 @@ public class UIScreenMMI extends UIWidget_i {
 		uiEventActionProcessor_i.init();
 
 		uiEventActionProcessor_i.executeActionSetInit();
-		uiEventActionProcessor_i.executeActionSetInit(1000, null);
+		
+		int delay = 1000;
+		if ( null != initdelayms ) {
+			try { 
+				delay = Integer.parseInt(initdelayms);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initdelayms);
+			}
+		}
+		uiEventActionProcessor_i.executeActionSetInit(delay, null);
 		
 		//Start the Navigation Menu
 		logger.info(className, function, "Start the Navigation Menu Begin");

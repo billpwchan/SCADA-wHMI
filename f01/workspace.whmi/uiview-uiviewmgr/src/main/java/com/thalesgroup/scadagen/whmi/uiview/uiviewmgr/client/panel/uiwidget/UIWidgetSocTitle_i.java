@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
-public interface UIWidgetSocControl_i {
+public interface UIWidgetSocTitle_i {
 	// Event Send from View
 	public enum ViewerViewEvent {
 //		  FilterAdded("FilterAdded")
@@ -20,8 +20,7 @@ public interface UIWidgetSocControl_i {
 		SimpleEventBus("SimpleEventBus")
 		, TargetDataGrid("TargetDataGrid")
 		, TargetDataGridColumn("TargetDataGridColumn")
-		, TargetDataGrid2("TargetDataGrid2")
-		, TargetDataGridColumn2("TargetDataGridColumn2")
+		, TargetDataGridColumnStep("TargetDataGridColumnStep")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

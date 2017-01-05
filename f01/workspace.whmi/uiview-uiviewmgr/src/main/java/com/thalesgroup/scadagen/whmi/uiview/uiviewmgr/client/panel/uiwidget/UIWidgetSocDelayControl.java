@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
@@ -37,11 +39,20 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
-	private String targetDataGridColumn = "";
-	private String targetDataGrid		= "";
+	private String targetDataGridColumn 	= "";
+	private String targetDataGrid			= "";
+	
+	private String targetDataGridColumn2 	= "";
+	private String targetDataGrid2			= "";
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
+	
+	private String datagridSelected2 = null;
+	private Equipment_i equipmentSelected2 = null;
+	
+	private final String strDelayValue = "delayvalue";
+	private final String strWriteDelayToDB = "write_delay_to_db";
 	
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -63,36 +74,48 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
+						
 						String actionsetkey = element;
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-								
-								logger.info(className, function, "os1[{}]", os1);
-								
-								if ( null != os1 ) {
-									
-									if ( os1.equals("WriteDelayAfterSuccessAndNextStep") ) {
-										
-										if ( null != equipmentSelected ) {
-											
-											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-											
-											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-											
-											logger.info(className, function, "alias[{}]", alias);
-											
-										} else {
-											logger.warn(className, function, "equipmentSelected IS NULL");
-										}
-										
-									}
-								}
-								return true;
+						
+						// build dbalias
+						
+						String alias = equipmentSelected.getStringValue(targetDataGridColumn);
+						logger.info(className, function, "alias[{}]", alias);
+						
+						Number nStep = equipmentSelected2.getNumberValue(targetDataGridColumn2);
+						logger.info(className, function, "nStep[{}]", nStep);
+
+						String step = "";
+						if ( null != nStep ) {
+							step = Integer.toString(nStep.intValue());
+						}
+						
+						logger.info(className, function, "step[{}]", step);
+						
+						String dbalias = alias+".brctable("+step+",succdelay)";
+						
+						// build delay value
+						String strDelay = uiWidgetGeneric.getWidgetValue(strDelayValue);
+						
+						int delay = -1;
+						if ( null != strDelay ) { 
+							try {
+								delay = Integer.parseInt(strDelay);
+							} catch ( NumberFormatException ex ) {
+								logger.info(className, function, "strDelay[{}] IS INVALID", strDelay);
 							}
-						});
+						}
+						
+						logger.info(className, function, "delay[{}]", delay);
+							
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString3.toString(), dbalias);
+						parameter.put(ActionAttribute.OperationString4.toString(), Integer.toString(delay));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(strWriteDelayToDB, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 					}
 				}
 			}
@@ -149,6 +172,41 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					} else {
 						logger.warn(className, function, "targetDataGrid IS NULL");
 					}
+					
+					if ( null != targetDataGrid2 ) {
+						
+						logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid2);
+						
+						if ( null != obj1 ) {
+							if ( obj1 instanceof String ) {
+								datagridSelected2	= (String) obj1;
+								
+								logger.info(className, function, "datagridSelected2[{}]", datagridSelected2);
+
+								if ( datagridSelected2.equals(targetDataGrid2) ) {
+									if ( null != obj2 ) {
+										if ( obj2 instanceof Equipment_i ) {
+											equipmentSelected2 = (Equipment_i) obj2;
+										} else {
+											equipmentSelected2 = null;
+											
+											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+										}
+									} else {
+										logger.warn(className, function, "obj2 IS NULL");
+									}
+								}
+							} else {
+								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+							}
+						} else {
+							logger.warn(className, function, "obj1 IS NULL");
+						}
+					} else {
+						logger.warn(className, function, "targetDataGrid2 IS NULL");
+					}					
+					
+					
 				}
 			}
 			logger.end(className, function);
@@ -171,10 +229,16 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 		if ( null != dictionariesCache ) {
 			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
+			
+			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn2.toString(), strHeader);
+			targetDataGrid2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid2.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
 		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+		
+		logger.info(className, function, "targetDataGridColumn2[{}]", targetDataGridColumn2);
+		logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid2);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

@@ -8,4 +8,13 @@
 		<DataGrid>UIDataGridFomatterSOCDetails</DataGrid>
 	</header>
 	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
 </data-set>

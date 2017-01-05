@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
+import java.util.HashMap;
+
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -9,7 +11,8 @@ public class UIEventActionBusFire extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionBusFire.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public void executeAction( UIEventAction action ) {
+	@Override
+	public void executeAction( UIEventAction action, HashMap<String, HashMap<String, Object>> override ) {
 		final String function = "executeAction";
 		
 		logger.begin(className, function);

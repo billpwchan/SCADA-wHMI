@@ -53,15 +53,13 @@
 		<OperationString2>logout_opm</OperationString2>
 	</actionset>
 	
-	<!--
 	<actionset key="logout_event">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>logout_event</OperationString1>
 	</actionset>
-	-->
 	
 	<action key="logout_event">
-		<OperationType>actionsetkey</OperationType>
+		<OperationType>action</OperationType>
 		<OperationAction>alm</OperationAction>
 		<OperationString1>NotifyExternalEvent</OperationString1>
 		<OperationString2>Key</OperationString2>

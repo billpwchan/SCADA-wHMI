@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
+import java.util.HashMap;
+
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -23,7 +25,8 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 		supportedActions = new String[] {strUIDialogMsg};
 	}
 	
-	public void executeAction(UIEventAction uiEventAction) {
+	@Override
+	public void executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		
 		logger.begin(className, function);
@@ -89,14 +92,14 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 				uiDialgogMsg.setDialogMsg(uiConfimDlgType, title, message);
 				
 				if ( strMsgOpt1ActionSetKey != null && ! strMsgOpt1ActionSetKey.trim().isEmpty() ) {
-					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessor_i, strMsgOpt1ActionSetKey);
+					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessor_i, strMsgOpt1ActionSetKey, override);
 					uiDialgogMsg.setResponse(UIDialogMsgEventType.MSG_OPT_1.toString(), action1);
 				} else {
 					 logger.warn(className, function, logPrefix+"strMsgOpt1ActionSetKey[{}] IS INVALID", strMsgOpt1ActionSetKey);
 				}
 
 				if ( strMsgOpt2ActionSetKey != null && ! strMsgOpt2ActionSetKey.trim().isEmpty() ) {
-					UIDialogMsgCtrl_i action2 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessor_i, strMsgOpt2ActionSetKey);
+					UIDialogMsgCtrl_i action2 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessor_i, strMsgOpt2ActionSetKey, override);
 					uiDialgogMsg.setResponse(UIDialogMsgEventType.MSG_OPT_2.toString(), action2);
 				} else {
 					 logger.warn(className, function, logPrefix+"strMsgOpt2ActionSetKey[{}] IS INVALID", strMsgOpt2ActionSetKey);

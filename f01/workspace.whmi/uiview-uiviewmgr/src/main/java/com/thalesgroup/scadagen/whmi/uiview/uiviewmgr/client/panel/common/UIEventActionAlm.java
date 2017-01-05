@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.google.gwt.regexp.shared.MatchResult;
@@ -24,7 +25,8 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		supportedActions = new String[] {strNotifyExternalAlarm, strNotifyExternalEvent};
 	}
 	
-	public void executeAction(UIEventAction action) {
+	@Override
+	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());

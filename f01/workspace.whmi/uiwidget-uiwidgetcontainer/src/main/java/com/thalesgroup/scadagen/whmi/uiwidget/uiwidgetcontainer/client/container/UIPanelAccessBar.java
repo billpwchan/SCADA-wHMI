@@ -210,25 +210,9 @@ public class UIPanelAccessBar extends UIWidget_i {
 			if ( UIPanelAccessBar_i.WidgetArrtibute.logout.equalsName(element) ) {
 				logger.info(className, function, "logout[{}]", UIPanelAccessBar_i.WidgetArrtibute.logout);
 				
-				
 				if ( null != element ) {
 					String actionsetkey = element;
-					uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
-						
-						@Override
-						public boolean executeHandler(UIEventAction uiEventAction) {
-							String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-							
-							logger.info(className, function, "os1[{}]", os1);
-							
-							if ( null != os1 ) {
-								if ( os1.equals("OpmLogout") ) {
-								
-								}
-							}
-							return true;
-						}
-					});
+					uiEventActionProcessor_i.executeActionSet(actionsetkey);
 				}
 				
 			} else if ( UIPanelAccessBar_i.WidgetArrtibute.previous.equalsName(element) ) {

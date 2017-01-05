@@ -12,7 +12,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
@@ -64,35 +63,7 @@ public class UIWidgetSocTitle extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-								
-								logger.info(className, function, "os1[{}]", os1);
-								
-								if ( null != os1 ) {
-									
-//									if ( os1.equals("WriteDelayAfterSuccessAndNextStep") ) {
-//										
-//										if ( null != equipmentSelected ) {
-//											
-//											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-//											
-//											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-//											
-//											logger.info(className, function, "alias[{}]", alias);
-//											
-//										} else {
-//											logger.warn(className, function, "equipmentSelected IS NULL");
-//										}
-//										
-//									}
-								}
-								return true;
-							}
-						});
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
 					}
 				}
 			}

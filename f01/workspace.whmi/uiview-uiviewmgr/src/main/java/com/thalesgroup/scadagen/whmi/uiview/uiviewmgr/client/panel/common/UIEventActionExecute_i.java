@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -39,5 +41,5 @@ public abstract class UIEventActionExecute_i {
 		}
 		return supported;
 	}
-	public abstract void executeAction(final UIEventAction uiEventAction);
+	public abstract void executeAction(final UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override);
 }

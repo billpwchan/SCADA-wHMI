@@ -79,7 +79,10 @@ public class UIWidgetDpcControl extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, new ExecuteAction_i() {
+						
+						HashMap<String, HashMap<String, Object>> override = null;
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new ExecuteAction_i() {
 							
 							@Override
 							public boolean executeHandler(UIEventAction uiEventAction) {
@@ -189,14 +192,7 @@ public class UIWidgetDpcControl extends UIWidget_i {
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
-							uiEventActionProcessor_i.executeActionSet(os1, new ExecuteAction_i() {
-								
-								@Override
-								public boolean executeHandler(UIEventAction uiEventAction) {
-									return true;
-									
-								}
-							});
+							uiEventActionProcessor_i.executeActionSet(os1);
 						}
 					}
 				}

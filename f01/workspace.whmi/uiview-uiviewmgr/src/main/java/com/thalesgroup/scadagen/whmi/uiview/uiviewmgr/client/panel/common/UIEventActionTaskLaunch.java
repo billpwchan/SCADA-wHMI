@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -19,8 +20,9 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 	public UIEventActionTaskLaunch() {
 		supportedActions = new String[]{strUITaskLaunch};
 	}
-
-	public void executeAction(UIEventAction action) {
+	
+	@Override
+	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
 		

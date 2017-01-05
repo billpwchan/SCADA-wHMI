@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
+import java.util.HashMap;
+
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -19,7 +21,8 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 		supportedActions = new String[] {strOpmLogin, strOpmLogout};
 	}
 	
-	public void executeAction(UIEventAction uiEventAction) {
+	@Override
+	public void executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		
 		logger.begin(className, function);

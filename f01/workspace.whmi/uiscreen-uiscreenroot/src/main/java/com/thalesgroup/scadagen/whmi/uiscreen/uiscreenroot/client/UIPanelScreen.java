@@ -5,7 +5,6 @@ import java.util.HashMap;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
-import com.thalesgroup.scadagen.whmi.opm.authentication.client.OpmAuthentication;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -52,10 +51,6 @@ public class UIPanelScreen extends UIWidget_i {
     	
     	String operator = "";
     	String profile = "";
-    	
-		OpmAuthentication opmAuthentication = OpmAuthentication.getInstance();
-		opmAuthentication.setCurrentOperator(operator);
-		opmAuthentication.setCurrentProfile(profile);
 		
 //		Settings setting = Settings.getInstance();
 //		String strNumOfScreen = setting.get(this.strNumOfScreen);

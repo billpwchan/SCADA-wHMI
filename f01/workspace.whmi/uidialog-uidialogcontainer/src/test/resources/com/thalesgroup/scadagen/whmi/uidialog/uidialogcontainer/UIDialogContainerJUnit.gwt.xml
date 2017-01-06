@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module rename-to="UIDialogContainer">
-  <!-- Inherit our applications main module.                      -->
-  <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialogcontainer.UIDialogContainer' />
-
-  <!-- Specify the path to any remote services.                   -->
-  <servlet path="/UIDialogContainer/greet" class="com.thalesgroup.scadagen.whmi.uidialog.uidialogcontainer.server.GreetingServiceImpl" />
-
-</module>

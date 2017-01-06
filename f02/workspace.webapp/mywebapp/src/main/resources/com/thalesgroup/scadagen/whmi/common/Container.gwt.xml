@@ -5,8 +5,6 @@
   <!-- Other module inherits                                      -->
   <inherits name='com.thalesgroup.scadagen.whmi.config.confignav.ConfigNav' />
 
-  <inherits name='com.thalesgroup.scadagen.whmi.opm.authentication.OpmAuthentication' />
-  
   <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitaskmgr.UITaskMgr' />
   <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.UITaskHistory' />
   <inherits name='com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.UITaskLaunch' />

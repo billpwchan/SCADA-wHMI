@@ -1,11 +1,16 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.database;
 
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatterSOC;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatterSOCDetails;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter_i;
 
 public class UIDataGridDatabaseMgr {
+	
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private static UIDataGridDatabaseMgr instance = null;
 	public static UIDataGridDatabaseMgr getInstance() {
@@ -14,15 +19,13 @@ public class UIDataGridDatabaseMgr {
 		}
 		return instance;
 	}
-	
-	public UIDataGridFomatter_i getDataGrid(String key) {
+
+	public UIDataGridFomatter_i getDataGrid(String strDataGrid, String[] columnTypes, String[] columnLabels, int[] columnWidth) {
+		String function = "getDataGrid";
+		logger.begin(className, function);
 		UIDataGridFomatter_i dataGrid_i = null;
-		if ( key.equals(UIWidgetUtil.getClassSimpleName(UIDataGridFomatterSOC.class.getName())) ) {
-			dataGrid_i = new UIDataGridFomatterSOC();
-		} else if ( key.equals(UIWidgetUtil.getClassSimpleName(UIDataGridFomatterSOCDetails.class.getName())) ) {
-			dataGrid_i = new UIDataGridFomatterSOCDetails();
-		}
+		dataGrid_i = new UIDataGridFomatter(columnTypes, columnLabels, columnWidth);
+		logger.end(className, function);
 		return dataGrid_i;
 	}
-
 }

@@ -22,12 +22,10 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.EquipmentBuilderImpl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.EquipmentBuilder;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.EquipmentBuilder_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridDatabase;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatterSOC;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatterSOCDetails;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.database.UIDataGridDatabaseMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -52,6 +50,10 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
 	
 	private String strDataGrid = null;
+	private String strDataGridColumnsType = null;
+	private String strDataGridColumnsLabel = null;
+	private String strDataGridColumnsWidth = null;
+	
 	private DataGrid<Equipment_i> dataGrid = null;
 	
 //	private ScsOlsListPanel scsOlsListPanel					= null;
@@ -193,6 +195,10 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			strDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGrid.toString(), strHeader);
+			
+			strDataGridColumnsType			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsType.toString(), strHeader);
+			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
+			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "strDataGrid[{}]", strDataGrid);
@@ -402,7 +408,55 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //			scsOlsListPanel.terminate();
 //		}
 	}
-
+	
+	
+	public String [] getStringArray ( String strArray ) {
+		String function = "getStringArray";
+		logger.begin(className, function);
+		logger.info(className, function, "strArray[{}]", strArray);
+		String [] result = null;
+		if ( null != strArray ) {
+			String [] strArrays = strArray.split(",");
+			if ( null != strArrays ) {
+				result = new String[strArrays.length];
+				for ( int i = 0 ; i < strArrays.length ; ++i ) {
+					result[i] = strArrays[i];
+				}
+			} else {
+				logger.warn(className, function, "strArrays IS NULL");
+			}
+		} else {
+			logger.warn(className, function, "strArray IS NULL");
+		}
+		logger.end(className, function);
+		return result;
+	}
+	
+	public int [] getIntArray ( String strArray ) {
+		String function = "getIntArray";
+		logger.begin(className, function);
+		logger.info(className, function, "strArray[{}]", strArray);
+		int [] result = null;
+		if ( null != strArray ) {
+			String [] strArrays = strArray.split(",");
+			if ( null != strArrays ) {
+				result = new int[strArrays.length];
+				try {
+					for ( int i = 0 ; i < strArrays.length ; ++i ) {
+						result[i] = Integer.parseInt(strArrays[i]);
+					}
+				} catch ( NumberFormatException ex ) {
+					logger.warn(className, function, "strArrays[{}] IS INVALID", strArray);
+				}
+			} else {
+				logger.warn(className, function, "strArrays IS NULL");
+			}
+		} else {
+			logger.warn(className, function, "strArray IS NULL");
+		}
+		logger.end(className, function);
+		return result;
+	}
 	
 	private Widget createDataGrid () {
 		
@@ -410,9 +464,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
-	    UIDataGridFomatter_i dataGridFomatter = databaseMgr.getDataGrid(strDataGrid);
+		String [] strDataGridColumnsTypes = getStringArray(strDataGridColumnsType);
+		String [] strDataGridColumnsLabels = getStringArray(strDataGridColumnsLabel);
+		int [] strDataGridColumnsWidths = getIntArray(strDataGridColumnsWidth);
 		
+	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
+	    UIDataGridFomatter_i dataGridFomatter = null;
+	    dataGridFomatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsLabels, strDataGridColumnsWidths);
+	    
 	    /*
 	     * Set a key provider that provides a unique key for each contact. If key is
 	     * used to identify contacts when fields (such as the name and address)
@@ -493,10 +552,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    // Testing
 	    if ( strDataGrid.equals("UIDataGridFomatterSOC") ) {
 	    	
-	    	EquipmentBuilder_i builder = new EquipmentBuilderImpl();
+	    	EquipmentBuilder_i builder = new EquipmentBuilder();
 	    	Equipment_i equipment_i = builder
-	    			.setValue(UIDataGridFomatterSOC.Header.SOCCard.toString(), "GrcPoint_TMP")
-	    			.setValue(UIDataGridFomatterSOC.Header.Alias.toString(), "ScadaSoft:ScsCtlGrc"+":"+"GrcPoint_TMP")
+	    			.setValue(strDataGridColumnsLabels[0], "GrcPoint_TMP")
+	    			.setValue(strDataGridColumnsLabels[1], "OCCENVCONN")
+	    			.setValue(strDataGridColumnsLabels[2], "ScadaSoft:ScsCtlGrc"+":"+"GrcPoint_TMP")
 	    			.build();
 	    	uiDataGridDatabase.addEquipment(equipment_i);
 //	    	UIDataGridDatabase.getInstance(strDataGrid).addEquipment(equipment_i);
@@ -508,30 +568,30 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //	    	EquipmentBuilder_i builder1 = new EquipmentBuilderImpl();
 	    	Equipment_i equipment_i = null;
 	    	
-	    	EquipmentBuilder_i builder1 = new EquipmentBuilderImpl();
+	    	EquipmentBuilder_i builder1 = new EquipmentBuilder();
 	    	equipment_i = builder1
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Step.toString(), 1)
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.EquipmentLabel.toString(), "OPEN HM513")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Action.toString(), "OPEN")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Status.toString(), "")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Reserved.toString(), "Reserved")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.PTW.toString(), "Not Set")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.LR.toString(), "dac")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Disable.toString(), new Boolean(true))
+	    			.setValue(strDataGridColumnsLabels[0], 1)
+	    			.setValue(strDataGridColumnsLabels[1], "OPEN HM513")
+	    			.setValue(strDataGridColumnsLabels[2], "OPEN")
+	    			.setValue(strDataGridColumnsLabels[3], "")
+	    			.setValue(strDataGridColumnsLabels[4], "Reserved")
+	    			.setValue(strDataGridColumnsLabels[5], "Not Set")
+	    			.setValue(strDataGridColumnsLabels[6], "CLOSE")
+	    			.setValue(strDataGridColumnsLabels[7], new Boolean(true))
 	    			.build();
 	    	uiDataGridDatabase.addEquipment(equipment_i);
 //	    	UIDataGridDatabase.getInstance(strDataGrid).addEquipment(equipment_i);
 	    	
-	    	EquipmentBuilder_i builder2 = new EquipmentBuilderImpl();
+	    	EquipmentBuilder_i builder2 = new EquipmentBuilder();
 	    	equipment_i = builder2
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Step.toString(), 2)
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.EquipmentLabel.toString(), "CLOSE HOM514")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Action.toString(), "CLOSE")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Status.toString(), "")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Reserved.toString(), "Reserved")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.PTW.toString(), "Not Set")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.LR.toString(), "dac")
-	    			.setValue(UIDataGridFomatterSOCDetails.Header.Disable.toString(), new Boolean(false))
+	    			.setValue(strDataGridColumnsLabels[0], 2)
+	    			.setValue(strDataGridColumnsLabels[1], "CLOSE HOM514")
+	    			.setValue(strDataGridColumnsLabels[2], "CLOSE")
+	    			.setValue(strDataGridColumnsLabels[3], "")
+	    			.setValue(strDataGridColumnsLabels[4], "Reserved")
+	    			.setValue(strDataGridColumnsLabels[5], "Not Set")
+	    			.setValue(strDataGridColumnsLabels[6], "OPEN")
+	    			.setValue(strDataGridColumnsLabels[7], new Boolean(false))
 	    			.build();
 	    	uiDataGridDatabase.addEquipment(equipment_i);
 //	    	UIDataGridDatabase.getInstance(strDataGrid).addEquipment(equipment_i);

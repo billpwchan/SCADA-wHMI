@@ -1,9 +1,9 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
-public class EquipmentBuilderImpl implements EquipmentBuilder_i {
+public class EquipmentBuilder implements EquipmentBuilder_i {
 	public Equipment_i equipment_i = null;
 
-	public EquipmentBuilderImpl() {
+	public EquipmentBuilder() {
 		equipment_i = new Equipment();
 	}
 	

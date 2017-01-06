@@ -2,10 +2,12 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<TargetDataGrid>UIDataGridFomatterSOC</TargetDataGrid>
-		<TargetDataGridColumn>Alias</TargetDataGridColumn>
-		<TargetDataGrid2>UIDataGridFomatterSOCDetails</TargetDataGrid2>
-		<TargetDataGridColumn2>Step</TargetDataGridColumn2>
+		<TargetDataGrid_A>UIDataGridFomatterSOC</TargetDataGrid_A>
+		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>
+		<TargetDataGridColumn_A2>Alias</TargetDataGridColumn_A2>
+		
+		<TargetDataGrid_B>UIDataGridFomatterSOCDetails</TargetDataGrid_B>
+		<TargetDataGridColumn_B>Step</TargetDataGridColumn_B>
 	</header>
 	
 	<actionset key="init">
@@ -38,8 +40,8 @@
 		<OperationType>action</OperationType>
 		<OperationAction>dbm</OperationAction>
 		<OperationString1>WriteIntValue</OperationString1>
-		<OperationString2>OCC_LMCDSSTACK00XN</OperationString2>
-		<OperationString3>SELECTEDALIAS.brctable(SELECTEDSTEP,succdelay)</OperationString3>
+		<OperationString2>ScsEnvID</OperationString2>
+		<OperationString3>dbalias</OperationString3>
 		<OperationString4>1</OperationString4>
 	</action>
 	

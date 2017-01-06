@@ -18,22 +18,32 @@ public class UIEventActionExecuteMgr {
 		final String function = "getUIEventActionExecute";
 		logger.info(className, function, "key[{}]", key);
 		UIEventActionExecute_i uiEventActionExecute = null;
-		if ( key.equals(UIActionEventType.widget.toString()) ) {
-			uiEventActionExecute = new UIEventActionWidget();
-		} else if ( key.equals(UIActionEventType.dialogmsg.toString()) ) {
-			uiEventActionExecute = new UIEventActionDialogMsg();
-		} else if ( key.equals(UIActionEventType.alm.toString()) ) {
+		if ( key.equals(UIActionEventType.alm.toString()) ) {
 			uiEventActionExecute = new UIEventActionAlm();
-		} else if ( key.equals(UIActionEventType.ctl.toString()) ) {
+		}
+		else if ( key.equals(UIActionEventType.ctl.toString()) ) {
 			uiEventActionExecute = new UIEventActionCtrl();
-		} else if ( key.equals(UIActionEventType.dbm.toString()) ) {
+		}
+		else if ( key.equals(UIActionEventType.dbm.toString()) ) {
 			uiEventActionExecute = new UIEventActionDbm();
-		} else if ( key.equals(UIActionEventType.dpc.toString()) ) {
+		}
+		else if ( key.equals(UIActionEventType.dialogmsg.toString()) ) {
+			uiEventActionExecute = new UIEventActionDialogMsg();
+		}
+		else if ( key.equals(UIActionEventType.dpc.toString()) ) {
 			uiEventActionExecute = new UIEventActionDpc();
-		} else if ( key.equals(UIActionEventType.opm.toString()) ) {
+		}
+		else if ( key.equals(UIActionEventType.grc.toString()) ) {
+			uiEventActionExecute = new UIEventActionGrc();
+		}
+		else if ( key.equals(UIActionEventType.opm.toString()) ) {
 			uiEventActionExecute = new UIEventActionOpm();
-		} else if ( key.equals(UIActionEventType.uitask.toString()) ) {
+		}
+		else if ( key.equals(UIActionEventType.uitask.toString()) ) {
 			uiEventActionExecute = new UIEventActionTaskLaunch();
+		}
+		else if ( key.equals(UIActionEventType.widget.toString()) ) {
+			uiEventActionExecute = new UIEventActionWidget();
 		}
 		return uiEventActionExecute;
 	}

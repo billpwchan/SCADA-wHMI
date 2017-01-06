@@ -12,9 +12,9 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.Hyperv
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.qf.ScsGRCComponentAccessQF;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.IGRCComponentClient;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.ctl.ScsGRCComponentAccess;
 
 /**
  * @author syau
@@ -35,12 +35,12 @@ public class GrcMgr {
 	private Subject subject = null;
 	public Subject getSubject() { return subject; }
 	
-	private ScsGRCComponentAccess scsGRCComponentAccess = null;
+	private ScsGRCComponentAccessQF scsGRCComponentAccess = null;
 	private GrcMgr () {
 		final String function = "GrcMgr";
 		logger.begin(className, function);
 		
-		scsGRCComponentAccess = new ScsGRCComponentAccess(new IGRCComponentClient() {
+		scsGRCComponentAccess = new ScsGRCComponentAccessQF(new IGRCComponentClient() {
 			
 			@Override
 			public void destroy() {
@@ -404,8 +404,7 @@ public class GrcMgr {
 		logger.end(className, function);
     }
 
-    public void launchGrc(String key, String scsEnvId, String name, short grcExecMode, int firstStep,
-            int grcStepsToSkip) {
+    public void launchGrc(String key, String scsEnvId, String name, short grcExecMode, int firstStep, int grcStepsToSkip) {
 		String function = "launchGrc";
 		logger.begin(className, function);
     	logger.info(className, function, "key[{}]", key);
@@ -417,7 +416,21 @@ public class GrcMgr {
 		scsGRCComponentAccess.launchGrc(key, scsEnvId, name, grcExecMode, firstStep, grcStepsToSkip);
 		logger.end(className, function);
     }
-
+    public void launchGrc(String key, String scsEnvId, String name, short grcExecMode, int firstStep, int [] grcStepsToSkips) {
+		String function = "launchGrc";
+		logger.begin(className, function);
+    	logger.info(className, function, "key[{}]", key);
+		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		logger.info(className, function, "name[{}]", name);
+		logger.info(className, function, "grcExecMode[{}]", grcExecMode);
+		logger.info(className, function, "firstStep[{}]", firstStep);
+		logger.info(className, function, "grcStepsToSkips.length[{}]", grcStepsToSkips.length);
+		for ( int i = 0 ; i < grcStepsToSkips.length ; ++i ) {
+			logger.info(className, function, "grcStepsToSkips({})[{}]", i, grcStepsToSkips[i]);
+		}
+		scsGRCComponentAccess.launchGrc(key, scsEnvId, name, grcExecMode, firstStep, grcStepsToSkips);
+		logger.end(className, function);
+    }
     public void abortGrc(String key, String scsEnvId, String name) {
 		String function = "abortGrc";
 		logger.begin(className, function);

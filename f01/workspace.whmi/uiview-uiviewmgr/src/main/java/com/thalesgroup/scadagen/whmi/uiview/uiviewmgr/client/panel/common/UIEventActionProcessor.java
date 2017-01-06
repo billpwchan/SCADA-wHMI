@@ -325,7 +325,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		boolean bContinue = true;
 		UIEventAction action = uiEventActionMgr.get(actionkey);
 		if ( null != action ) {
-//			action.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
+			action.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
 			bContinue = executeAction(action, override, executeActionHandler);
 		} else {
 			logger.warn(className, function, "action IS NULL");

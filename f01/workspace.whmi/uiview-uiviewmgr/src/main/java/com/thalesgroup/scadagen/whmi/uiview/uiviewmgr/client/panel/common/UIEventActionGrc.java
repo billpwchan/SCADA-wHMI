@@ -83,26 +83,58 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			String strGrcExecMode		= (String) action.getParameter(ActionAttribute.OperationString5.toString());
 			String strFirstStep			= (String) action.getParameter(ActionAttribute.OperationString6.toString());
-			String strGrcStepsToSkip	= (String) action.getParameter(ActionAttribute.OperationString7.toString());
+			String strGrcStepsToSkip 	= (String) action.getParameter(ActionAttribute.OperationString7.toString());
 			
 			boolean isValid = false;
 			
 			short grcExecMode		= -1;
-			int firstStep		= -1;
-			int grcStepsToSkip	= -1;
+			int firstStep			= -1;
+			int intGrcStepsToSkips [] = null;
 			
-			try {
-				grcExecMode		= Short.parseShort(strGrcExecMode);
-				firstStep		= Integer.parseInt(strFirstStep);
-				grcStepsToSkip	= Integer.parseInt(strGrcStepsToSkip);
-				isValid = true;
-			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strGrcExecMode[}] strFirstStep[{}] strGrcStepsToSkip[{}] IS INVALID", new Object[]{strGrcExecMode, strFirstStep, strGrcStepsToSkip});
+			String strGrcStepsToSkips [] = strGrcStepsToSkip.split(",");
+			if ( null != strGrcStepsToSkips ) {
+				intGrcStepsToSkips = new int[strGrcStepsToSkips.length];
+				logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
+				try {
+					for ( int i = 0 ; i < strGrcStepsToSkips.length ; ++i ) {
+						logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
+						intGrcStepsToSkips[i] = Integer.parseInt(strGrcStepsToSkips[i]);
+					}
+					isValid = true;
+				} catch ( NumberFormatException ex ) {
+					logger.warn(className, function, "intGrcStepsToSkips[{}] IS INVALID", intGrcStepsToSkips);
+				}
+			} else {
+				logger.warn(className, function, "strGrcStepsToSkips IS NULL");
 			}
-			if ( isValid ) {
 
-				grcMgr.launchGrc(strKey, strScsEnvId, strName, grcExecMode, firstStep, grcStepsToSkip);
+			if ( null != intGrcStepsToSkips ) {
+				logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
+				for ( int i = 0 ; i < intGrcStepsToSkips.length ; ++i ) {
+					logger.info(className, function, "intGrcStepsToSkips({})[{}]", i, intGrcStepsToSkips[i]);
+				}
+			} else {
+				logger.warn(className, function, "intGrcStepsToSkips IS NULL");
 			}
+			
+			if ( isValid ) {
+				try {
+					grcExecMode		= Short.parseShort(strGrcExecMode);
+					firstStep		= Integer.parseInt(strFirstStep);
+					isValid			= true;
+				} catch ( NumberFormatException ex ) {
+					logger.warn(className, function, "strGrcExecMode[}] strFirstStep[{}] strGrcStepsToSkip[{}] IS INVALID", new Object[]{strGrcExecMode, strFirstStep, strGrcStepsToSkip});
+				}
+				if ( isValid ) {
+					logger.info(className, function, "launchGrc");
+					grcMgr.launchGrc(strKey, strScsEnvId, strName, grcExecMode, firstStep, intGrcStepsToSkips);
+				} else {
+					logger.warn(className, function, "isValid IS FALSE");
+				}
+			} else {
+				logger.warn(className, function, "isValid IS FALSE");
+			}
+
 		} else if ( strAction.equalsIgnoreCase(strAbortGrc) ) {
 
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());

@@ -91,7 +91,6 @@
   
   <modules>
     <module>config-confignav</module>
-    <module>opm-authentication</module>
     <module>uitask-uitasktitle</module>
     <module>uitask-uitasklaunch</module>
     <module>uitask-uitaskhistory</module>
@@ -108,7 +107,6 @@
     <module>uipanel-uipanelroot</module>
     <module>uiroot-uiroot</module>
     <module>uiwidget-uiwidgetcontainer</module>
-    <module>uidialog-uidialogcontainer</module>
   </modules>
   
 </project>

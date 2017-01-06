@@ -6,6 +6,9 @@
 		<eventbusname>socsummary</eventbusname>
 		<eventbusscope>local</eventbusscope>
 		<DataGrid>UIDataGridFomatterSOC</DataGrid>
+		<DataGridColumnsType>String,String,String</DataGridColumnsType>
+		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias</DataGridColumnsLabel>
+		<DataGridColumnsWidth>50,50,50</DataGridColumnsWidth>
 	</header>
 	
 	<actionset key="RowSelected">

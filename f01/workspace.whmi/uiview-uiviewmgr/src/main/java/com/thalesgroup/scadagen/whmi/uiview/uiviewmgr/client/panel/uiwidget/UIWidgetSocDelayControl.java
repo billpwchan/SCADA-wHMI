@@ -18,7 +18,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -39,17 +39,18 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
-	private String targetDataGridColumn 	= "";
-	private String targetDataGrid			= "";
+	private String targetDataGrid_A			= "";
+	private String targetDataGridColumn_A 	= "";
+	private String targetDataGridColumn_A2 	= "";
 	
-	private String targetDataGridColumn2 	= "";
-	private String targetDataGrid2			= "";
+	private String targetDataGrid_B			= "";
+	private String targetDataGridColumn_B 	= "";
 	
 	private String datagridSelected = null;
-	private Equipment_i equipmentSelected = null;
+	private Equipment_i equipmentSelected_A = null;
 	
 	private String datagridSelected2 = null;
-	private Equipment_i equipmentSelected2 = null;
+	private Equipment_i equipmentSelected_B = null;
 	
 	private final String strDelayValue = "delayvalue";
 	private final String strWriteDelayToDB = "write_delay_to_db";
@@ -77,12 +78,19 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 						
 						String actionsetkey = element;
 						
+						// build scsenvid
+						
+						String scsenvid = equipmentSelected_A.getStringValue(targetDataGridColumn_A);
+						logger.info(className, function, "scsenvid[{}]", scsenvid);
+						
 						// build dbalias
 						
-						String alias = equipmentSelected.getStringValue(targetDataGridColumn);
+						String alias = equipmentSelected_A.getStringValue(targetDataGridColumn_A2);
 						logger.info(className, function, "alias[{}]", alias);
 						
-						Number nStep = equipmentSelected2.getNumberValue(targetDataGridColumn2);
+						// build step
+						
+						Number nStep = equipmentSelected_B.getNumberValue(targetDataGridColumn_B);
 						logger.info(className, function, "nStep[{}]", nStep);
 
 						String step = "";
@@ -109,6 +117,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 						logger.info(className, function, "delay[{}]", delay);
 							
 						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString2.toString(), scsenvid);
 						parameter.put(ActionAttribute.OperationString3.toString(), dbalias);
 						parameter.put(ActionAttribute.OperationString4.toString(), Integer.toString(delay));
 						
@@ -140,9 +149,9 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 					
 					logger.info(className, function, "Store Selected Row");
 					
-					if ( null != targetDataGrid ) {
+					if ( null != targetDataGrid_A ) {
 						
-						logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+						logger.info(className, function, "targetDataGrid[{}]", targetDataGrid_A);
 						
 						if ( null != obj1 ) {
 							if ( obj1 instanceof String ) {
@@ -150,12 +159,12 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 								
 								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
 
-								if ( datagridSelected.equals(targetDataGrid) ) {
+								if ( datagridSelected.equals(targetDataGrid_A) ) {
 									if ( null != obj2 ) {
 										if ( obj2 instanceof Equipment_i ) {
-											equipmentSelected = (Equipment_i) obj2;
+											equipmentSelected_A = (Equipment_i) obj2;
 										} else {
-											equipmentSelected = null;
+											equipmentSelected_A = null;
 											
 											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
@@ -173,9 +182,9 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 						logger.warn(className, function, "targetDataGrid IS NULL");
 					}
 					
-					if ( null != targetDataGrid2 ) {
+					if ( null != targetDataGrid_B ) {
 						
-						logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid2);
+						logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid_B);
 						
 						if ( null != obj1 ) {
 							if ( obj1 instanceof String ) {
@@ -183,12 +192,12 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 								
 								logger.info(className, function, "datagridSelected2[{}]", datagridSelected2);
 
-								if ( datagridSelected2.equals(targetDataGrid2) ) {
+								if ( datagridSelected2.equals(targetDataGrid_B) ) {
 									if ( null != obj2 ) {
 										if ( obj2 instanceof Equipment_i ) {
-											equipmentSelected2 = (Equipment_i) obj2;
+											equipmentSelected_B = (Equipment_i) obj2;
 										} else {
-											equipmentSelected2 = null;
+											equipmentSelected_B = null;
 											
 											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
@@ -227,18 +236,20 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 		String strHeader = "header";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
-			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
 			
-			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn2.toString(), strHeader);
-			targetDataGrid2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid2.toString(), strHeader);
+			targetDataGrid_A			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
+			targetDataGridColumn_A	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
+			targetDataGridColumn_A2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A2.toString(), strHeader);
+			
+			targetDataGrid_B			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_B.toString(), strHeader);
+			targetDataGridColumn_B	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn_A);
+		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid_A);
 		
-		logger.info(className, function, "targetDataGridColumn2[{}]", targetDataGridColumn2);
-		logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid2);
+		logger.info(className, function, "targetDataGridColumn2[{}]", targetDataGridColumn_A2);
+		logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid_B);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

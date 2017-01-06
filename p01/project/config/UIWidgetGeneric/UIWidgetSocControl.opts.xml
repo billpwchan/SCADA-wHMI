@@ -2,6 +2,8 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
+		<TargetDataGrid>UIDataGridFomatterSOC</TargetDataGrid>
+		<TargetDataGridColumn>Alias</TargetDataGridColumn>
 	</header>
 	
 	<actionset key="init">
@@ -11,12 +13,53 @@
 	</actionset>
 	
 	<actionset key="RowSelected">
+		<OperationType>actionsetkey</OperationType>
 		<OperationString1>RowSelected</OperationString1>
 	</actionset>
 	
 	<action key="RowSelected">
+		<OperationType>action</OperationType>
 		<SenderOperation>event</SenderOperation>
 		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+	<actionset key="start">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>PrepareGrc</OperationString1>
+		<OperationString2>LaunchGrc</OperationString2>
+	</actionset>
+	
+	<action key="PrepareGrc">
+		<OperationType>action</OperationType>
+		<OperationAction>grc</OperationAction>
+		<OperationString1>PrepareGrc</OperationString1>
+		<OperationString2>key</OperationString2>
+		<OperationString3>alias</OperationString3>
+	</action>
+
+	<action key="LaunchGrc">
+		<OperationType>action</OperationType>
+		<OperationAction>grc</OperationAction>
+		<OperationString1>LaunchGrc</OperationString1>
+		<OperationString2>key</OperationString2>
+		<OperationString3>alias</OperationString3>
+		
+		<OperationString4>2</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6></OperationString6>
+	</action>
+
+	<actionset key="stop">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>AbortGrc</OperationString1>
+	</actionset>
+	
+	<action key="AbortGrc">
+		<OperationType>action</OperationType>
+		<OperationAction>grc</OperationAction>
+		<OperationString1>AbortGrc</OperationString1>
+		<OperationString2>key</OperationString2>
+		<OperationString3>alias</OperationString3>
 	</action>
 
 </data-set>

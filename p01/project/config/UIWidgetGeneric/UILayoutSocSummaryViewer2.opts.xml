@@ -6,6 +6,9 @@
 		<eventbusname>socsummary</eventbusname>
 		<eventbusscope>local</eventbusscope>
 		<DataGrid>UIDataGridFomatterSOCDetails</DataGrid>
+		<DataGridColumnsType>Number,String,String,String,String,String,String,Boolean</DataGridColumnsType>
+		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Reserved,PTW,LR,Disable</DataGridColumnsLabel>
+		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
 	</header>
 	
 	<actionset key="RowSelected">

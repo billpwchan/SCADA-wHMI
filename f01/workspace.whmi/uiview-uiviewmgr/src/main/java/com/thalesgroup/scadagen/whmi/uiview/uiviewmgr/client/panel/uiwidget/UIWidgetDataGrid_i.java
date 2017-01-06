@@ -4,7 +4,16 @@ public interface UIWidgetDataGrid_i {
 	public enum ParameterName {
 		SimpleEventBus("SimpleEventBus")
 		, DataGrid("DataGrid")
-		, TargetDataGrid("TargetDataGrid")
+		
+		, DataGridColumnsType("DataGridColumnsType")
+		, DataGridColumnsLabel("DataGridColumnsLabel")
+		, DataGridColumnsWidth("DataGridColumnsWidth")
+		
+		, TargetDataGrid_A("TargetDataGrid_A")
+		, TargetDataGridColumn_A("TargetDataGridColumn_A")
+		, TargetDataGridColumn_A2("TargetDataGridColumn_A2")
+		, TargetDataGrid_B("TargetDataGrid_B")
+		, TargetDataGridColumn_B("TargetDataGridColumn_B")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

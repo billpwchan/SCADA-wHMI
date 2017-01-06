@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -27,6 +29,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr_i.GrcExecMode;
 
 public class UIWidgetSocControl extends UIWidget_i {
 	
@@ -44,7 +47,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
-	
+
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
 		@Override
@@ -67,53 +70,66 @@ public class UIWidgetSocControl extends UIWidget_i {
 					if ( null != element ) {
 						String actionsetkey = element;
 						
-						HashMap<String, HashMap<String, Object>> override = null;
+						// build scsEnvId
+						String scsenvid = "OCCENV";
 						
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new ExecuteAction_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-								
-								logger.info(className, function, "os1[{}]", os1);
-								
-								if ( null != os1 ) {
-									
-									if ( os1.equals("SendSocControlStart") ) {
-										
-										if ( null != equipmentSelected ) {
-											
-											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-											
-											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-											
-											logger.info(className, function, "alias[{}]", alias);
-											
-										} else {
-											logger.warn(className, function, "equipmentSelected IS NULL");
-										}
-										
-									} else if ( os1.equals("SendSocControlStop") ) {
-										
-										logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-										
-										String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-										
-										logger.info(className, function, "alias[{}]", alias);
-										
-									} else if ( os1.equals("SendSocControlSkipFailed") ) {
-										
-										logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-										
-										String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-										
-										logger.info(className, function, "alias[{}]", alias);
-										
-									}
-								}
-								return true;
-							}
-						});
+						// build dbalias						
+						String alias = equipmentSelected.getStringValue(targetDataGridColumn);
+												
+						String dbalias = alias;
+						
+						logger.info(className, function, "dbalias[{}]", dbalias);
+						
+						String strPrepareGrc = "PrepareGrc";
+						String strLaunchGrc = "LaunchGrc";
+						String strAbortGrc = "AbortGrc";
+						
+						short executemode = (short)min(max(GrcExecMode.StopOnFailed.getValue(), Short.MIN_VALUE), Short.MAX_VALUE);
+						
+						int curstep = 0;
+						
+						int skipstep [] = new int[]{};
+						
+						// build key
+						String strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
+						String strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
+						String strKeyAbortGrc	= "grc"+strAbortGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
+						
+						logger.info(className, function, "strKeyPrepareGrc[{}]", strKeyPrepareGrc);
+						logger.info(className, function, "strKeyLaunchGrc[{}]", strKeyLaunchGrc);
+						logger.info(className, function, "strKeyAbortGrc[{}]", strKeyAbortGrc);
+						
+						logger.info(className, function, "executemode[{}]", executemode);
+						logger.info(className, function, "curstep[{}]", curstep);
+						logger.info(className, function, "skipstep[{}]", skipstep);
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						{
+							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							parameter.put(ActionAttribute.OperationString2.toString(), strKeyPrepareGrc);
+							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
+							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
+							override.put(strPrepareGrc, parameter);
+						}
+						{
+							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							parameter.put(ActionAttribute.OperationString2.toString(), strKeyAbortGrc);
+							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
+							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
+							parameter.put(ActionAttribute.OperationString5.toString(), executemode);
+							parameter.put(ActionAttribute.OperationString6.toString(), curstep);
+							parameter.put(ActionAttribute.OperationString7.toString(), skipstep);
+							override.put(strLaunchGrc, parameter);
+						}
+						{
+							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							parameter.put(ActionAttribute.OperationString2.toString(), strKeyAbortGrc);
+							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
+							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
+							override.put(strAbortGrc, parameter);
+						}
+
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 					}
 				}
 			}

@@ -11,6 +11,13 @@
 		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
 	</header>
 	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
 	<actionset key="RowSelected">
 		<OperationString1>RowSelected</OperationString1>
 	</actionset>

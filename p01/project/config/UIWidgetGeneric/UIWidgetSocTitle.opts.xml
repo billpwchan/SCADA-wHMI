@@ -12,9 +12,9 @@
 		<OperationType>actionsetkey</OperationType>
 	</actionset>
 	
-	<actionset key="init_delay">
+	<actionset key="set_default_action">
 		<OperationType>actionsetkey</OperationType>
-	</actionset>
+	</actionset>	
 	
 	<actionset key="RowSelected">
 		<OperationString1>RowSelected</OperationString1>

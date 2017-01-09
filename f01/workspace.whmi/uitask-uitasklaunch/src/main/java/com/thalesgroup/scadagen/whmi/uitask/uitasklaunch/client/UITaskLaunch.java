@@ -37,8 +37,6 @@ public class UITaskLaunch extends UITaskDictionary {
 		, Title("title")
 		, Enable("enable")
 		, Visible("visible")
-		, LocCat("locCat")
-		, FunCat("funCat")
 		, UIPanel("uiPanel")
 		, UIScreen("uiScreen")
 		, Css("css")
@@ -70,8 +68,6 @@ public class UITaskLaunch extends UITaskDictionary {
 		setValue(UITaskLaunchAttribute.Title.toString()	, task.getParameter(TaskAttribute.Title.toString()));
 		setValue(UITaskLaunchAttribute.Enable.toString()	, task.getParameter(TaskAttribute.Enable.toString()));
 		setValue(UITaskLaunchAttribute.Visible.toString()	, task.getParameter(TaskAttribute.Visible.toString()));
-		setValue(UITaskLaunchAttribute.LocCat.toString()	, task.getParameter(TaskAttribute.LocCat.toString()));
-		setValue(UITaskLaunchAttribute.FunCat.toString()	, task.getParameter(TaskAttribute.FunCat.toString()));
 		setValue(UITaskLaunchAttribute.UIPanel.toString()	, task.getParameter(TaskAttribute.UIPanel.toString()));
 		setValue(UITaskLaunchAttribute.UICtrl.toString()	, task.getParameter(TaskAttribute.UICtrl.toString()));
 		setValue(UITaskLaunchAttribute.Css.toString()		, task.getParameter(TaskAttribute.Css.toString()));

@@ -23,9 +23,12 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 	}
 	
 	@Override
-	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
+		
+		boolean bContinue = true;
+		
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		String strEnvName			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 		String strAddress			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -96,6 +99,8 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 		} else {
 			logger.warn(className, function, "command details IS INVALID");
 		}
+		
 		logger.end(className, function);
+		return bContinue;
 	}
 }

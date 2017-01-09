@@ -6,30 +6,33 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm_i.UIEventActionOpmAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class UIEventActionOpm extends UIEventActionExecute_i {
+	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionOpm.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String strOpmLogin = "OpmLogin";
-	private final String strOpmLogout = "OpmLogout";
-	
 	public UIEventActionOpm ( ) {
-		supportedActions = new String[] {strOpmLogin, strOpmLogout};
+		supportedActions = new String[] {
+				  UIEventActionOpmAction.OpmLogin.toString()
+				, UIEventActionOpmAction.OpmLogout.toString()
+				};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		
 		logger.begin(className, function);
-
+		
+		boolean bContinue = true;
+		
 		if ( uiEventAction == null ) {
 			logger.warn(className, function, "uiEventAction IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		String action		= (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
@@ -37,17 +40,17 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 		
 		if ( action == null ) {
 			logger.warn(className, function, logPrefix+"action IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( opmapi == null ) {
 			logger.warn(className, function, logPrefix+"opmapi IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		logger.info(className, function, logPrefix+"action[{}]", action);
 		
-		if ( action.equals(strOpmLogout) ) {
+		if ( action.equals(UIEventActionOpmAction.OpmLogout.toString()) ) {
 			
 			logger.info(className, function, logPrefix+"logout");
 			
@@ -59,7 +62,7 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 				logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", opmapi);
 			}
 			
-		} else if ( action.equals(strOpmLogin) ) {
+		} else if ( action.equals(UIEventActionOpmAction.OpmLogin.toString()) ) {
 			
 			logger.info(className, function, logPrefix+"login");
 			
@@ -68,12 +71,12 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			
 			if ( operator == null ) {
 				logger.warn(className, function, logPrefix+"operator IS NULL");
-				return;
+				return bContinue;
 			}
 			
 			if ( password == null ) {
 				logger.warn(className, function, logPrefix+"password IS NULL");
-				return;
+				return bContinue;
 			}
 			
 			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmapi);
@@ -91,6 +94,7 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 		}
 		
 		logger.end(className, function);
+		return bContinue;
 	}
 
 }

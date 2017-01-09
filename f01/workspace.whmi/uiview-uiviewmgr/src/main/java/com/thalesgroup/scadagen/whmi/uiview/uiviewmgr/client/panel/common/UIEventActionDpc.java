@@ -7,6 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDpc_i.UIEventActionDpcAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
@@ -14,18 +15,20 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 public class UIEventActionDpc extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDpc.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-
-	private final String strSendChangeValueStatus	= "SendChangeValueStatus";
-	private final String strSendChangeEqpTag		= "SendChangeEqpTag";
 	
 	public UIEventActionDpc ( ) {
-		supportedActions = new String[] {strSendChangeValueStatus, strSendChangeEqpTag};
+		supportedActions = new String[] {
+				UIEventActionDpcAction.SendChangeValueStatus.toString()
+				, UIEventActionDpcAction.SendChangeEqpTag.toString()
+				};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
+		
+		boolean bContinue = true;
 		
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		String strEnvName			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
@@ -41,7 +44,7 @@ public class UIEventActionDpc extends UIEventActionExecute_i {
 			}
 		}
 		
-		if ( strAction.equals(strSendChangeValueStatus) ) {
+		if ( strAction.equals(UIEventActionDpcAction.SendChangeValueStatus.toString()) ) {
 
 			int intStatus = 0;
 			boolean isValid = false;
@@ -54,7 +57,7 @@ public class UIEventActionDpc extends UIEventActionExecute_i {
 			
 			if ( isValid ) {
 
-				String key = strSendChangeValueStatus + "_" + className + "_"+ "alarminhibit" + "_" + intStatus + "_" + strAddress;
+				String key = UIEventActionDpcAction.SendChangeValueStatus.toString() + "_" + className + "_"+ "alarminhibit" + "_" + intStatus + "_" + strAddress;
 				
 				logger.info(className, function, "key[{}]", key);
 				
@@ -63,7 +66,7 @@ public class UIEventActionDpc extends UIEventActionExecute_i {
 			} else {
 				logger.warn(className, function, "command details IS INVALID");
 			}
-		} else if ( strAction.equals(strSendChangeEqpTag) ) {
+		} else if ( strAction.equals(UIEventActionDpcAction.SendChangeEqpTag.toString()) ) {
 
 			TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
 			if ( strStatus.equalsIgnoreCase(TaggingStatus.NO_TAGGING.toString()) ) {
@@ -76,7 +79,7 @@ public class UIEventActionDpc extends UIEventActionExecute_i {
 				taggingStatus = TaggingStatus.TAGGING_2;
 			}
 
-			String key = strSendChangeEqpTag + "_" + className + "_"+ "dpctag" + "_" + taggingStatus.toString() + "_" + strAddress;
+			String key = UIEventActionDpcAction.SendChangeEqpTag.toString() + "_" + className + "_"+ "dpctag" + "_" + taggingStatus.toString() + "_" + strAddress;
 					
 			logger.info(className, function, "key[{}]", key);
 				
@@ -84,6 +87,8 @@ public class UIEventActionDpc extends UIEventActionExecute_i {
 			dpcMgr.sendChangeEqpTag(key, strEnvName, strAddress, taggingStatus, strTaggingLabel1, strTaggingLabel2);
 
 		}
+		
 		logger.end(className, function);
+		return bContinue;
 	}
 }

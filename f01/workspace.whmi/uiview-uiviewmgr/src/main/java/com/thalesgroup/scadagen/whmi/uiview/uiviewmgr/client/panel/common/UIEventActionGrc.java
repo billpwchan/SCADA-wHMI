@@ -7,6 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc_i.UIEventActionGrcAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr;
 
@@ -14,23 +15,26 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionGrc.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public final String strGetGrcList			= "GetGrcList";
-	public final String strGetGrcState			= "GetGrcState";
-	public final String strPrepareGrc			= "PrepareGrc";
-	public final String strAbortGrcPreparation	= "AbortGrcPreparation";
-	public final String strLaunchGrc			= "LaunchGrc";
-	public final String strAbortGrc				= "AbortGrc";
-	public final String strSuspendGrc			= "SuspendGrc";
-	public final String strResumeGrc			= "ResumeGrc";
-	
 	public UIEventActionGrc ( ) {
-		supportedActions = new String[] {};
+		supportedActions = new String[] {
+				  UIEventActionGrcAction.GetGrcList.toString()
+				, UIEventActionGrcAction.GetGrcState.toString()
+				, UIEventActionGrcAction.PrepareGrc.toString()
+				, UIEventActionGrcAction.AbortGrcPreparation.toString()
+				, UIEventActionGrcAction.LaunchGrc.toString()
+				, UIEventActionGrcAction.AbortGrc.toString()
+				, UIEventActionGrcAction.SuspendGrc.toString()
+				, UIEventActionGrcAction.ResumeGrc.toString()
+		};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
+		
+		boolean bContinue = true;
+		
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		
 		if ( logger.isInfoEnabled() ) {
@@ -41,17 +45,16 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			}
 		}
 		
-		
 		GrcMgr grcMgr = GrcMgr.getInstance(className);
 		
-		if ( strAction.equalsIgnoreCase(strGetGrcList) ) {
+		if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.GetGrcList.toString()) ) {
 			
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
 			
 			grcMgr.getGrcList(strKey, strScsEnvId);
 			
-		} else if ( strAction.equalsIgnoreCase(strGetGrcState) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.GetGrcState.toString()) ) {
 			
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -59,7 +62,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			grcMgr.getGrcState(strKey, strScsEnvId, strName);
 			
-		} else if ( strAction.equalsIgnoreCase(strPrepareGrc) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.PrepareGrc.toString()) ) {
 			
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -67,7 +70,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			grcMgr.prepareGrc(strKey, strScsEnvId, strName);
 
-		} else if ( strAction.equalsIgnoreCase(strAbortGrcPreparation) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.AbortGrcPreparation.toString()) ) {
 			
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -75,7 +78,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			grcMgr.abortGrcPreparation(strKey, strScsEnvId, strName);
 
-		} else if ( strAction.equalsIgnoreCase(strLaunchGrc) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.LaunchGrc.toString()) ) {
 			
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -91,24 +94,13 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			int firstStep			= -1;
 			int intGrcStepsToSkips [] = null;
 			
-			String strGrcStepsToSkips [] = strGrcStepsToSkip.split(",");
-			if ( null != strGrcStepsToSkips ) {
-				intGrcStepsToSkips = new int[strGrcStepsToSkips.length];
-				logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
-				try {
-					for ( int i = 0 ; i < strGrcStepsToSkips.length ; ++i ) {
-						logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
-						intGrcStepsToSkips[i] = Integer.parseInt(strGrcStepsToSkips[i]);
-					}
-					isValid = true;
-				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "intGrcStepsToSkips[{}] IS INVALID", intGrcStepsToSkips);
-				}
-			} else {
-				logger.warn(className, function, "strGrcStepsToSkips IS NULL");
-			}
+			logger.info(className, function, "strGrcStepsToSkip[{}]", strGrcStepsToSkip);
+			
+			intGrcStepsToSkips = UIWidgetUtil.getIntArray(strGrcStepsToSkip, ",");
 
 			if ( null != intGrcStepsToSkips ) {
+				isValid = true;
+				
 				logger.info(className, function, "intGrcStepsToSkips.length[{}]", intGrcStepsToSkips.length);
 				for ( int i = 0 ; i < intGrcStepsToSkips.length ; ++i ) {
 					logger.info(className, function, "intGrcStepsToSkips({})[{}]", i, intGrcStepsToSkips[i]);
@@ -135,7 +127,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 				logger.warn(className, function, "isValid IS FALSE");
 			}
 
-		} else if ( strAction.equalsIgnoreCase(strAbortGrc) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.AbortGrc.toString()) ) {
 
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -143,7 +135,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			grcMgr.abortGrc(strKey, strScsEnvId, strName);
 			
-		} else if ( strAction.equalsIgnoreCase(strSuspendGrc) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.SuspendGrc.toString()) ) {
 
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -151,7 +143,7 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			grcMgr.suspendGrc(strKey, strScsEnvId, strName);
 			
-		} else if ( strAction.equalsIgnoreCase(strResumeGrc) ) {
+		} else if ( strAction.equalsIgnoreCase(UIEventActionGrcAction.ResumeGrc.toString()) ) {
 
 			String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -159,6 +151,9 @@ public class UIEventActionGrc extends UIEventActionExecute_i {
 			
 			grcMgr.resumeGrc(strKey, strScsEnvId, strName);
 			
-		}   
+		}
+		
+		logger.end(className, function);
+		return bContinue;
 	}
 }

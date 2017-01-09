@@ -6,6 +6,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget_i.UIEventActionWidgetAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 
@@ -13,22 +14,23 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionWidget.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String strSetWidgetStatus	= "SetWidgetStatus";
-	private final String strSetWidgetValue	= "SetWidgetValue";
-	
 	public UIEventActionWidget ( ) {
-		supportedActions = new String[] {strSetWidgetStatus, strSetWidgetValue};
+		supportedActions = new String[] {
+				  UIEventActionWidgetAction.SetWidgetStatus.toString()
+				, UIEventActionWidgetAction.SetWidgetValue.toString()
+				};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
-		
 		logger.begin(className, function);
-
+		
+		boolean bContinue = true;
+		
 		if ( uiEventAction == null ) {
 			logger.warn(className, function, "uiEventAction IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		String strWidgetAction	= (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
@@ -39,27 +41,27 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		
 		if ( uiWidgetGeneric == null ) {
 			logger.warn(className, function, logPrefix+"uiWidgetGeneric IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( strWidgetAction == null ) {
 			logger.warn(className, function, logPrefix+"strWidgetAction IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( strWidget == null ) {
 			logger.warn(className, function, logPrefix+"strWidget IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( widgetValue == null ) {
 			logger.warn(className, function, logPrefix+"widgetValue IS NULL");
-			return;
+			return bContinue;
 		}
 		
-		if ( strWidgetAction.equals(strSetWidgetValue) ) {
+		if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetValue.toString()) ) {
 			uiWidgetGeneric.setWidgetValue(strWidget, widgetValue);
-		} else if ( strWidgetAction.equals(strSetWidgetStatus) ) {
+		} else if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetStatus.toString()) ) {
 			WidgetStatus widgetStatus = null;
 			for ( WidgetStatus cstWidgetStatus : WidgetStatus.values() ) {
 				String name = cstWidgetStatus.toString();
@@ -79,6 +81,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		}
 		
 		logger.end(className, function);
+		return bContinue;
 	}
 
 }

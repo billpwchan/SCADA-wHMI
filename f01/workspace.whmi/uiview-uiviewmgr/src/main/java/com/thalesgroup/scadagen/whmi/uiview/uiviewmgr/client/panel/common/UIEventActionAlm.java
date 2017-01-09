@@ -7,6 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm_i.UIEventActionAlmAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.alm.AlmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
@@ -16,17 +17,20 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionAlm.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public final String strNotifyExternalAlarm = "NotifyExternalAlarm";
-	public final String strNotifyExternalEvent = "NotifyExternalEvent";
-	
 	public UIEventActionAlm ( ) {
-		supportedActions = new String[] {strNotifyExternalAlarm, strNotifyExternalEvent};
+		supportedActions = new String[] {
+				  UIEventActionAlmAction.NotifyExternalAlarm.toString()
+				, UIEventActionAlmAction.NotifyExternalEvent.toString()
+				};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
+		
+		boolean bContinue = true;
+		
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		String strKey				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 		String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -61,7 +65,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		if ( isValid ) {
 			AlmMgr almMgr = AlmMgr.getInstance(className); 
 			
-			if ( strAction.equals(strNotifyExternalAlarm) ) {
+			if ( strAction.equals(UIEventActionAlmAction.NotifyExternalAlarm.toString()) ) {
 				
 				String strIsAlarm			= (String) action.getParameter(ActionAttribute.OperationString9.toString());
 				String strMessage			= (String) action.getParameter(ActionAttribute.OperationString10.toString());
@@ -76,7 +80,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 						, strConfigFileName, classId, strPointAlias
 		    			, objectId, extSourceId, isAlarm, strMessage
 		    			);
-			} else if ( strAction.equals(strNotifyExternalEvent) ) {
+			} else if ( strAction.equals(UIEventActionAlmAction.NotifyExternalEvent.toString()) ) {
 				
 				String strMessage			= (String) action.getParameter(ActionAttribute.OperationString9.toString());
 				String strOpmApi			= (String) action.getParameter(ActionAttribute.OperationString10.toString());
@@ -89,6 +93,9 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		    			);
 			}
 		}
+		
+		logger.end(className, function);
+		return bContinue;
 	}
 	
 	public String replaceOpmKeyword(String strOpmApi, String strMessage) {

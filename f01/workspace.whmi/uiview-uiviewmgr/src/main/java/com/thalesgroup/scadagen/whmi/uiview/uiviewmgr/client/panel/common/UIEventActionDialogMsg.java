@@ -7,6 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDialogMsg_i.UIEventActionDialogMsgAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrlUIEventActionSet;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgEvent.UIDialogMsgEventType;
@@ -18,22 +19,24 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDialogMsg.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private final String strUIDialogMsg = "UIDialogMsg";
-	
+		
 	public UIEventActionDialogMsg ( ) {
-		supportedActions = new String[] {strUIDialogMsg};
+		supportedActions = new String[] {
+				UIEventActionDialogMsgAction.UIDialogMsg.toString()
+				};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
+		
+		boolean bContinue = true;
 		
 		logger.begin(className, function);
 
 		if ( uiEventAction == null ) {
 			logger.warn(className, function, "uiEventAction IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		String strUIDialogBoxAction		= (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
@@ -45,25 +48,25 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 		
 		if ( strUIDialogBoxAction == null ) {
 			logger.warn(className, function, logPrefix+"strUIDialogBoxAction IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( strUIConfirmDlgType == null ) {
 			logger.warn(className, function, logPrefix+"strUIConfirmDlgType IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( strTitle == null ) {
 			logger.warn(className, function, logPrefix+"strTitle IS NULL");
-			return;
+			return bContinue;
 		}
 		
 		if ( strMessage == null ) {
 			logger.warn(className, function, logPrefix+"strMessage IS NULL");
-			return;
+			return bContinue;
 		}
 		
-		if ( strUIDialogBoxAction.equals(strUIDialogMsg) ) {
+		if ( strUIDialogBoxAction.equals(UIEventActionDialogMsgAction.UIDialogMsg.toString()) ) {
 			
 			UIConfimDlgType uiConfimDlgType = UIConfimDlgType.DLG_OK;
 			if ( UIConfimDlgType.DLG_ERR.toString().equals(strUIConfirmDlgType) ) {
@@ -86,7 +89,7 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 			String message	= Translation.getDBMessage(strMessage);
 			
 			UIDialogMgr uiDialogMsgMgr = UIDialogMgr.getInstance();
-			UIDialogMsg uiDialgogMsg = (UIDialogMsg) uiDialogMsgMgr.getDialog(strUIDialogMsg);
+			UIDialogMsg uiDialgogMsg = (UIDialogMsg) uiDialogMsgMgr.getDialog(UIEventActionDialogMsgAction.UIDialogMsg.toString());
 			if ( null != uiDialgogMsg ) {
 				uiDialgogMsg.setUINameCard(uiNameCard);
 				uiDialgogMsg.setDialogMsg(uiConfimDlgType, title, message);
@@ -107,12 +110,13 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 
 				uiDialgogMsg.popUp();
 			} else {
-				logger.warn(className, function, logPrefix+"strUIDialogMsg[{}] uiDialogMsg IS NULL", strUIDialogMsg);
+				logger.warn(className, function, logPrefix+"strUIDialogMsg[{}] uiDialogMsg IS NULL", UIEventActionDialogMsgAction.UIDialogMsg.toString());
 			}
 
 		}
 		
 		logger.end(className, function);
+		return bContinue;
 	}
 
 }

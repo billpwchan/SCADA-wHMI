@@ -1,9 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
@@ -42,8 +39,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
-	private String targetDataGridColumn = "";
+	private final String strPrepareGrc = "PrepareGrc";
+	private final String strLaunchGrc = "LaunchGrc";
+	private final String strAbortGrc = "AbortGrc";
+	
 	private String targetDataGrid		= "";
+	private String targetDataGridColumn = "";
+	private String targetDataGridColumn2 = "";
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
@@ -71,24 +73,20 @@ public class UIWidgetSocControl extends UIWidget_i {
 						String actionsetkey = element;
 						
 						// build scsEnvId
-						String scsenvid = "OCCENV";
+						String scsenvid = equipmentSelected.getStringValue(targetDataGridColumn);
+						
+						logger.info(className, function, "scsenvid[{}]", scsenvid);
 						
 						// build dbalias						
-						String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-												
-						String dbalias = alias;
+						String dbalias = equipmentSelected.getStringValue(targetDataGridColumn2);
 						
 						logger.info(className, function, "dbalias[{}]", dbalias);
 						
-						String strPrepareGrc = "PrepareGrc";
-						String strLaunchGrc = "LaunchGrc";
-						String strAbortGrc = "AbortGrc";
+						String executemode = String.valueOf(GrcExecMode.StopOnFailed.getValue());
 						
-						short executemode = (short)min(max(GrcExecMode.StopOnFailed.getValue(), Short.MIN_VALUE), Short.MAX_VALUE);
+						String curstep = String.valueOf(0);
 						
-						int curstep = 0;
-						
-						int skipstep [] = new int[]{};
+						String skipstep = "";
 						
 						// build key
 						String strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
@@ -206,8 +204,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String strHeader = "header";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
+			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
+			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn2.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);

@@ -41,5 +41,5 @@ public abstract class UIEventActionExecute_i {
 		}
 		return supported;
 	}
-	public abstract void executeAction(final UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override);
+	public abstract boolean executeAction(final UIEventAction uiEventAction, HashMap<String, HashMap<String, Object>> override);
 }

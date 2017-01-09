@@ -379,10 +379,10 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 							// Remove the SenderOperation when it done
 							actionCopy.removeParameter(UIActionEventSenderAttribute.SenderOperation.toString());
 							
-							UIEventActionExecute_i uiEventActionExecute = new UIEventActionBusFire();
-							uiEventActionExecute.setLogPrefix(className);
-							uiEventActionExecute.setSimpleEventBus(simpleEventBus);
-							uiEventActionExecute.executeAction(actionCopy, override);
+							UIEventActionExecute_i uiEventActionExecute_i = new UIEventActionBusFire();
+							uiEventActionExecute_i.setLogPrefix(className);
+							uiEventActionExecute_i.setSimpleEventBus(simpleEventBus);
+							bContinue = uiEventActionExecute_i.executeAction(actionCopy, override);
 						} else {
 							logger.warn(className, function, "event operationTarget[{}] IS element[{}]", operationElement, element);
 						}
@@ -394,16 +394,16 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 					logger.info(className, function, "opa[{}]", opa);
 					if ( null != opa ) {
 						UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
-						UIEventActionExecute_i uiEventActionExecute = uiEventActionExecuteMgr.getUIEventActionExecute(opa);
-						if ( null != uiEventActionExecute ) {
-							uiEventActionExecute.setUIEventActionProcessor(this);
-							uiEventActionExecute.setUINameCard(uiNameCard);
-							uiEventActionExecute.setLogPrefix(className);
-							uiEventActionExecute.setInstance(className);
-							uiEventActionExecute.setSimpleEventBus(simpleEventBus);
-							uiEventActionExecute.setUIWidgetGeneric(uiWidgetGeneric);
-							uiEventActionExecute.setUILayoutGeneric(uiLayoutGeneric);
-							uiEventActionExecute.executeAction(action, override);
+						UIEventActionExecute_i uiEventActionExecute_i = uiEventActionExecuteMgr.getUIEventActionExecute(opa);
+						if ( null != uiEventActionExecute_i ) {
+							uiEventActionExecute_i.setUIEventActionProcessor(this);
+							uiEventActionExecute_i.setUINameCard(uiNameCard);
+							uiEventActionExecute_i.setLogPrefix(className);
+							uiEventActionExecute_i.setInstance(className);
+							uiEventActionExecute_i.setSimpleEventBus(simpleEventBus);
+							uiEventActionExecute_i.setUIWidgetGeneric(uiWidgetGeneric);
+							uiEventActionExecute_i.setUILayoutGeneric(uiLayoutGeneric);
+							bContinue = uiEventActionExecute_i.executeAction(action, override);
 						} else {
 							logger.warn(className, function, "uiEventActionExecute IS NULL");
 						}

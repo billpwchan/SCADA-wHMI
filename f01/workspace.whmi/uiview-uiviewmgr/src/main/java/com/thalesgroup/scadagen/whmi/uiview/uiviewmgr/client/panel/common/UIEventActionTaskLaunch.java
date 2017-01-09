@@ -9,22 +9,25 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch_i.UIEventActionTaskLaunchAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDbm.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private final String strUITaskLaunch = "UITaskLaunch";
-	
+		
 	public UIEventActionTaskLaunch() {
-		supportedActions = new String[]{strUITaskLaunch};
+		supportedActions = new String[]{
+				UIEventActionTaskLaunchAction.UITaskLaunch.toString()
+				};
 	}
 	
 	@Override
-	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
+		
+		boolean bContinue = true;
 		
 		String strOperationString1			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		String strOperationString2			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
@@ -39,7 +42,7 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 			}
 		}
 
-		if ( strOperationString1.equals(strUITaskLaunch) ) {
+		if ( strOperationString1.equals(UIEventActionTaskLaunchAction.UITaskLaunch.toString()) ) {
 			boolean isValid = false;
 			
 			int screen = 0;
@@ -67,5 +70,6 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 		}
 
 		logger.end(className, function);
+		return bContinue;
 	}
 }

@@ -1,7 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
-import java.util.HashMap;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
@@ -14,7 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
@@ -64,52 +62,8 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
 						String actionsetkey = element;
-						
-						HashMap<String, HashMap<String, Object>> override = null;
-						
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new ExecuteAction_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-								
-								logger.info(className, function, "os1[{}]", os1);
-								
-								if ( null != os1 ) {
-									
-									if ( os1.equals("SetStepFailedStepAutomatic") ) {
-										
-//										if ( null != equipmentSelected ) {
-//											
-//											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-//											
-//											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-//											
-//											logger.info(className, function, "alias[{}]", alias);
-//											
-//										} else {
-//											logger.warn(className, function, "equipmentSelected IS NULL");
-//										}
-										
-									} else if ( os1.equals("SetStepFailedStepManual") ) {
-										
-//										if ( null != equipmentSelected ) {
-//											
-//											logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-//											
-//											String alias = equipmentSelected.getStringValue(targetDataGridColumn);
-//											
-//											logger.info(className, function, "alias[{}]", alias);
-//											
-//										} else {
-//											logger.warn(className, function, "equipmentSelected IS NULL");
-//										}
-										
-									}
-								}
-								return true;
-							}
-						});
+
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
 					}
 				}
 			}
@@ -127,46 +81,19 @@ public class UIWidgetSocAutoManuControl extends UIWidget_i {
 			logger.info(className, function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
-//				if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
-//					
-//					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
-//					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
-//					
-//					logger.info(className, function, "Store Selected Row");
-//					
-//					if ( null != targetDataGrid ) {
-//						
-//						logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
-//						
-//						if ( null != obj1 ) {
-//							if ( obj1 instanceof String ) {
-//								datagridSelected	= (String) obj1;
-//								
-//								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
-//
-//								if ( datagridSelected.equals(targetDataGrid) ) {
-//									if ( null != obj2 ) {
-//										if ( obj2 instanceof Equipment_i ) {
-//											equipmentSelected = (Equipment_i) obj2;
-//										} else {
-//											equipmentSelected = null;
-//											
-//											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
-//										}
-//									} else {
-//										logger.warn(className, function, "obj2 IS NULL");
-//									}
-//								}
-//							} else {
-//								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
-//							}
-//						} else {
-//							logger.warn(className, function, "obj1 IS NULL");
-//						}
-//					} else {
-//						logger.warn(className, function, "targetDataGrid IS NULL");
-//					}
-//				}
+				
+				// General Case
+				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+				
+				logger.info(className, function, "oe ["+oe+"]");
+				logger.info(className, function, "os1["+os1+"]");
+				
+				if ( null != oe ) {
+					if ( oe.equals(element) ) {
+						uiEventActionProcessor_i.executeActionSet(os1);
+					}
+				}
+				
 			}
 			logger.end(className, function);
 		}

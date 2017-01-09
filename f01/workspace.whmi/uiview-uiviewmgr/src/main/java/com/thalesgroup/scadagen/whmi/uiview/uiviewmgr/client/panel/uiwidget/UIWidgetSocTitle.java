@@ -12,6 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
@@ -128,6 +129,18 @@ public class UIWidgetSocTitle extends UIWidget_i {
 						}
 					} else {
 						logger.warn(className, function, "targetDataGrid IS NULL");
+					}
+				} else {
+					// General Case
+					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+					
+					logger.info(className, function, "oe ["+oe+"]");
+					logger.info(className, function, "os1["+os1+"]");
+					
+					if ( null != oe ) {
+						if ( oe.equals(element) ) {
+							uiEventActionProcessor_i.executeActionSet(os1);
+						}
 					}
 				}
 			}

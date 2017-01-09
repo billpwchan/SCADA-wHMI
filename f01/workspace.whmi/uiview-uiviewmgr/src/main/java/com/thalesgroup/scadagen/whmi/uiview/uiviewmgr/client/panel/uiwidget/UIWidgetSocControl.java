@@ -14,9 +14,11 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl_i.AutoManuEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -49,6 +51,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
+	
+	private int selectedStep = -1;
+	
+	private int autoMenu = -1;
+	
+	private int [] skips = null;
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -82,12 +90,15 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						logger.info(className, function, "dbalias[{}]", dbalias);
 						
-						String executemode = String.valueOf(GrcExecMode.StopOnFailed.getValue());
+						int iExecuteMode = getAutoManuMode();
+						String executemode = String.valueOf(iExecuteMode);
 						
-						String curstep = String.valueOf(0);
+						int iCurrentStep = getCurStep();
+						String curstep = String.valueOf(iCurrentStep);
 						
-						String skipstep = "";
-						
+						int [] iSkips = getSkips();
+						String skips = convertToStringSkips(iSkips);
+//						String skipstep = "";
 						// build key
 						String strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
 						String strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
@@ -99,7 +110,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						logger.info(className, function, "executemode[{}]", executemode);
 						logger.info(className, function, "curstep[{}]", curstep);
-						logger.info(className, function, "skipstep[{}]", skipstep);
+						logger.info(className, function, "skipstep[{}]", skips);
 						
 						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
 						{
@@ -116,7 +127,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
 							parameter.put(ActionAttribute.OperationString5.toString(), executemode);
 							parameter.put(ActionAttribute.OperationString6.toString(), curstep);
-							parameter.put(ActionAttribute.OperationString7.toString(), skipstep);
+							parameter.put(ActionAttribute.OperationString7.toString(), skips);
 							override.put(strLaunchGrc, parameter);
 						}
 						{
@@ -145,7 +156,30 @@ public class UIWidgetSocControl extends UIWidget_i {
 			logger.info(className, function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
-				if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
+				if ( os1.equals(AutoManuEvent.RadioBoxSelected.toString() ) ) {
+					
+					logger.info(className, function, "Store Selected RadioBox");
+					
+					String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+					
+					if ( null != os2 ) {
+						
+						logger.info(className, function, "os2[{}]", os2);
+						
+						String autoManu = os2;
+						
+						if ( autoManu.equals("auto") ) {
+							autoMenu = GrcExecMode.Auto.getValue();
+						} else if ( autoManu.equals("manu") ) {
+							autoMenu = GrcExecMode.StopOnFailed.getValue();
+						} else {
+							logger.warn(className, function, "os2[{}] type IS UNKNOW", os2);
+						}
+					} else {
+						logger.warn(className, function, "os2 IS NULL");
+					}
+					
+				} else if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
 					
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
@@ -184,6 +218,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 					} else {
 						logger.warn(className, function, "targetDataGrid IS NULL");
 					}
+				} else {
+					// General Case
+					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+					
+					logger.info(className, function, "oe ["+oe+"]");
+					logger.info(className, function, "os1["+os1+"]");
+					
+					if ( null != oe ) {
+						if ( oe.equals(element) ) {
+							uiEventActionProcessor_i.executeActionSet(os1);
+						}
+					}
 				}
 			}
 			logger.end(className, function);
@@ -193,7 +239,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		
 		logger.begin(className, function);
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
@@ -267,6 +312,53 @@ public class UIWidgetSocControl extends UIWidget_i {
 		uiEventActionProcessor_i.executeActionSetInit();
 		
 		logger.end(className, function);
+	}
+	
+	private int getAutoManuMode() {
+		final String function = "getCurStep";
+		logger.begin(className, function);
+		int result = -1;
+		result = autoMenu;
+		logger.end(className, function);
+		return result;		
+	}
+	
+	private int getCurStep() {
+		final String function = "getCurStep";
+		logger.begin(className, function);
+		int result = -1;
+		result = selectedStep;
+		logger.end(className, function);
+		return result;
+	}
+	
+	private String convertToStringSkips(int [] skips) {
+		final String function = "convertToStringSkips";
+		logger.begin(className, function);
+		String result = "";
+		if ( null != skips ) {
+			for ( int i = 0 ; i < skips.length ; ++i ) {
+				if ( result.length() > 0 ) result += ",";
+				result += String.valueOf(skips[i]);
+			}
+		} else {
+			logger.warn(className, function, "skips IS NULL");
+		}
+		logger.end(className, function);
+		return result;
+	}
+	
+	private int [] getSkips() {
+		final String function = "getSkips";
+		logger.begin(className, function);
+		int [] skips = null;
+		if ( null == this.skips ) {
+			skips = new int[]{};
+		} else {
+			skips = this.skips;
+		}
+		logger.end(className, function);
+		return skips;
 	}
 
 }

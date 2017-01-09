@@ -6,6 +6,10 @@
 		<eventbusscope>local</eventbusscope>
 	</header>
 	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>	
+	
 	<actionset key="init">
 		<OperationType>actionsetkey</OperationType>
 	</actionset>

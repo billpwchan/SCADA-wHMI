@@ -8,9 +8,17 @@
 		<DataGrid>UIDataGridFomatterSOC</DataGrid>
 		<DataGridColumnsType>String,String,String</DataGridColumnsType>
 		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias</DataGridColumnsLabel>
-		<DataGridColumnsWidth>50,50,50</DataGridColumnsWidth>
+		<DataGridColumnsWidth>50,40,100</DataGridColumnsWidth>
 	</header>
 	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>	
+	
+	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+
 	<actionset key="RowSelected">
 		<OperationString1>RowSelected</OperationString1>
 	</actionset>

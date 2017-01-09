@@ -39,6 +39,12 @@ public class UIOpmSCS implements UIOpm_i {
 		return result;
 	}
 	@Override
+	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3,
+			String opmValue3, String opmName4, String opmValue4) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
 	public void changePassword(String operator, String oldPassword, String newPassword, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		// TODO Auto-generated method stub
 		
@@ -83,4 +89,5 @@ public class UIOpmSCS implements UIOpm_i {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }

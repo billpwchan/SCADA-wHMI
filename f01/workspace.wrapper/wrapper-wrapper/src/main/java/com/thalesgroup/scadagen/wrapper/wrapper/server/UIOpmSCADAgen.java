@@ -20,49 +20,78 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	private UIOpmSCADAgen () {}
 
 	@Override
-	public boolean checkAccess(String function, String location, String action, String mode) {
-		logger.info("function[{}] location[{}] action[{}] mode[{}]", new Object[] { function, action, action, mode});
+	public boolean checkAccess(String mode, String action, String function, String location) {
+		logger.debug("checkAccess - mode={}, action={}, function={}, location={}",
+				new Object[] {mode, action, function, location });
+		boolean result = false;
+		result = checkAccess(
+				  UIOpm_i.FUNCTION, function
+				, UIOpm_i.LOCATION, location
+				, UIOpm_i.ACTION, action
+				, UIOpm_i.MODE, mode);
+
+		return result;
+	}
+
+	@Override
+	public boolean checkAccess(
+			  String opmName1, String opmValue1
+			, String opmName2, String opmValue2
+			, String opmName3, String opmValue3
+			, String opmName4, String opmValue4
+			) {
+		logger.debug("checkAccess - {}={}, {}={}, {}={}, {}={}",
+				new Object[] { 
+						  opmName1, opmValue1
+						, opmName2, opmValue2
+						, opmName3, opmValue3
+						, opmName4, opmValue4
+						});
+
+		boolean result = false;
 		String sessionId = null;
 		try {
 			sessionId = SessionManager.getRequestCxtSessionId();
 		} catch (Exception e) {
-			logger.warn("checkAccess  e e[{}]", e.toString());
+			logger.warn("checkAccess Exception e[{}]", e.toString());
 		}
-		logger.info("sessionId[{}]", sessionId);
-
-		boolean result = checkAccess(sessionId, mode, action, function, location);
-		
-		logger.info("function[{}] location[{}] action[{}] mode[{}] result[{}]", new Object[] { function, action, action, mode, result});
-		
-		return result;
-	}
-
-	private boolean checkAccess(String sessionId, String mode, String action, String function, String location) {
-		logger.debug("checkAccess - sessionId={}, mode={}, action={}, function={}, location={}",
-				new Object[] { sessionId, mode, action, function, location });
-
-		boolean result = false;
 		if ((sessionId != null) && (!sessionId.isEmpty())) {
 			OperatorOpmInfo operatorOpmInfo = SessionManager.getOperatorOpmInfo(sessionId);
-			result = checkAccess(operatorOpmInfo, mode, action, function, location);
-		} else {
-			logger.error("sessionId={} is null, or empty !!, checkAccess return 'false'", sessionId);
+			result = checkAccess(
+					operatorOpmInfo
+					, opmName1, opmValue1
+					, opmName2, opmValue2
+					, opmName3, opmValue3
+					, opmName4, opmValue4
+					);
 		}
 		return result;
 	}
 
-	private boolean checkAccess(OperatorOpmInfo operatorOpmInfo, String mode, String action, String function,
-			String location) {
-		logger.debug("checkAccess - operatorOpmInfo={}, mode={}, action={}, function={}, location={}",
-				new Object[] { operatorOpmInfo, mode, action, function, location });
+	@Override
+	public boolean checkAccess(
+			OperatorOpmInfo operatorOpmInfo
+			, String opmName1, String opmValue1
+			, String opmName2, String opmValue2
+			, String opmName3, String opmValue3
+			, String opmName4, String opmValue4
+			) {
+		logger.debug("checkAccess - {}={}, {}={}, {}={}, {}={}, {}={}",
+				new Object[] { 
+						operatorOpmInfo
+						, opmName1, opmValue1
+						, opmName2, opmValue2
+						, opmName3, opmValue3
+						, opmName4, opmValue4
+						});
 
 		boolean result = false;
 		if (operatorOpmInfo != null) {
 			OpmRequestDto dto = new OpmRequestDto();
-			dto.addParameter("mode", mode);
-			dto.addParameter("action", action);
-			dto.addParameter("function", function);
-			dto.addParameter("location", location);
+			dto.addParameter(opmName1, opmValue1);
+			dto.addParameter(opmName2, opmValue2);
+			dto.addParameter(opmName3, opmValue3);
+			dto.addParameter(opmName4, opmValue4);
 
 			result = OpmSessionManager.checkOperationIsPermitted(operatorOpmInfo, dto);
 		} else {
@@ -70,4 +99,5 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		}
 		return result;
 	}
+
 }

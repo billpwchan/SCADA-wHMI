@@ -12,25 +12,28 @@ public class UIEventActionBusFire extends UIEventActionExecute_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	@Override
-	public void executeAction( UIEventAction action, HashMap<String, HashMap<String, Object>> override ) {
+	public boolean executeAction( UIEventAction action, HashMap<String, HashMap<String, Object>> override ) {
 		final String function = "executeAction";
+		
+		boolean bContinue = true;
 		
 		logger.begin(className, function);
 		
 		if ( null == simpleEventBus ) {
 			logger.warn(className, function, logPrefix+"simpleEventBus IS null");
-			return;
+			return bContinue;
 		}
 		
 		if ( null == action ) {
 			logger.warn(className, function, logPrefix+"action IS null");
-			return;
+			return bContinue;
 		}
 		
 		logger.info(className, function, "fireEventFromSource");
 		simpleEventBus.fireEventFromSource(action, this);
 
 		logger.end(className, function);
+		return bContinue;
 	}
 //	public void executeActionSet( HashMap<String, UIEventAction> uiEventActionOperations, String actionSetKey, HashMap<String, UIEventAction> uiEventActions) {
 //		final String function = "executeActionSet";

@@ -53,6 +53,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridColumnsType = null;
 	private String strDataGridColumnsLabel = null;
 	private String strDataGridColumnsWidth = null;
+	private final String split = ",";
 	
 	private DataGrid<Equipment_i> dataGrid = null;
 	
@@ -409,64 +410,19 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //		}
 	}
 	
-	
-	public String [] getStringArray ( String strArray ) {
-		String function = "getStringArray";
-		logger.begin(className, function);
-		logger.info(className, function, "strArray[{}]", strArray);
-		String [] result = null;
-		if ( null != strArray ) {
-			String [] strArrays = strArray.split(",");
-			if ( null != strArrays ) {
-				result = new String[strArrays.length];
-				for ( int i = 0 ; i < strArrays.length ; ++i ) {
-					result[i] = strArrays[i];
-				}
-			} else {
-				logger.warn(className, function, "strArrays IS NULL");
-			}
-		} else {
-			logger.warn(className, function, "strArray IS NULL");
-		}
-		logger.end(className, function);
-		return result;
-	}
-	
-	public int [] getIntArray ( String strArray ) {
-		String function = "getIntArray";
-		logger.begin(className, function);
-		logger.info(className, function, "strArray[{}]", strArray);
-		int [] result = null;
-		if ( null != strArray ) {
-			String [] strArrays = strArray.split(",");
-			if ( null != strArrays ) {
-				result = new int[strArrays.length];
-				try {
-					for ( int i = 0 ; i < strArrays.length ; ++i ) {
-						result[i] = Integer.parseInt(strArrays[i]);
-					}
-				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "strArrays[{}] IS INVALID", strArray);
-				}
-			} else {
-				logger.warn(className, function, "strArrays IS NULL");
-			}
-		} else {
-			logger.warn(className, function, "strArray IS NULL");
-		}
-		logger.end(className, function);
-		return result;
-	}
-	
 	private Widget createDataGrid () {
 		
 		final String function = "init";
 		
 		logger.begin(className, function);
 		
-		String [] strDataGridColumnsTypes = getStringArray(strDataGridColumnsType);
-		String [] strDataGridColumnsLabels = getStringArray(strDataGridColumnsLabel);
-		int [] strDataGridColumnsWidths = getIntArray(strDataGridColumnsWidth);
+		logger.info(className, function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
+		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
+		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
+		
+		String [] strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
+		String [] strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
+		int [] strDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
 	    UIDataGridFomatter_i dataGridFomatter = null;

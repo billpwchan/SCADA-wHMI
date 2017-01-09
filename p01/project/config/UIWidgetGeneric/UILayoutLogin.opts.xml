@@ -25,6 +25,7 @@
 	
 	<action key="OpmLogin">
 		<OperationType>action</OperationType>
+		<OperationAction>opm</OperationAction>
 		<OperationString1>OpmLogin</OperationString1>
 	</action>
 	

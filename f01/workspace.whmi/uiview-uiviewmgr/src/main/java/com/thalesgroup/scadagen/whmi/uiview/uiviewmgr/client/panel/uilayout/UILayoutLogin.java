@@ -17,7 +17,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -25,7 +24,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 
 public class UILayoutLogin extends UIWidget_i {
 	
@@ -79,36 +77,31 @@ public class UILayoutLogin extends UIWidget_i {
 				
 				String actionsetkey = element;
 				
-				HashMap<String, HashMap<String, Object>> override = null;
+				HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+
+				HashMap<String, Object> parameters = new HashMap<String, Object>();
 				
-				uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new ExecuteAction_i() {
+				String operator = uiWidgetGenericInfo.getWidgetValue(strname);
+				String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
 					
-					@Override
-					public boolean executeHandler(UIEventAction uiEventAction) {
-						String function = "executeHandler";
-						
-						String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-						
-						logger.info(className, function, "os1[{}]", os1);
-						
-						if ( null != os1 ) {
-							if ( os1.equals("OpmLogin") ) {
-								
-								String operator = uiWidgetGenericInfo.getWidgetValue(strname);
-								String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
-								logger.info(className, function, "operator[{}] password[{}]", new Object[]{operator, password});
-								
-								String uiopmapivalue	= opmApi;
-								OpmMgr.getInstance(uiopmapivalue).login(operator, password);
-
-							}
-						}
-						return true;
-					}
-				});
+				logger.info(className, function, "update Counter Values");
+					
+				logger.info(className, function, "opmApi[{}]", opmApi);
+				logger.info(className, function, "operator[{}]", operator);
+				logger.info(className, function, "password[{}]", password);
+					
+				if ( null != opmApi && null != operator && null != password ) {
+					parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
+					parameters.put(ActionAttribute.OperationString3.toString(), operator);
+					parameters.put(ActionAttribute.OperationString4.toString(), password);
+				} else {
+					logger.warn(className, function, "opmApi[{}] OR operator[{}] OR password[{}] IS INVALID", new Object[]{opmApi, operator, password});
+				}
 				
+				override.put("OpmLogin", parameters);
+					
+				uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 				
-
 			} else {
 				logger.warn(className, function, "button IS NULL");
 			}
@@ -206,6 +199,7 @@ public class UILayoutLogin extends UIWidget_i {
 		logger.end(className, function);
 	}
 
+	// Display the login invalid message 
 	private int handleErrorCode() {
 		final String function = "handleErrorMessage";
 		logger.begin(className, function);

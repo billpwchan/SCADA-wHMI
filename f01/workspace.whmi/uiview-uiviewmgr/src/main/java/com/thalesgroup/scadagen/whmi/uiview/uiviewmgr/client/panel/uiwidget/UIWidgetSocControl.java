@@ -92,11 +92,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						int iExecuteMode = getAutoManuMode();
 						String executemode = String.valueOf(iExecuteMode);
-//						String executemode = String.valueOf(GrcExecMode.StopOnFailed.getValue());
 						
-						int iCurretnStep = getCurStep();
-						String curstep = String.valueOf(iCurretnStep);
-//						String curstep = String.valueOf(0);
+						int iCurrentStep = getCurStep();
+						String curstep = String.valueOf(iCurrentStep);
 						
 						int [] iSkips = getSkips();
 						String skips = convertToStringSkips(iSkips);

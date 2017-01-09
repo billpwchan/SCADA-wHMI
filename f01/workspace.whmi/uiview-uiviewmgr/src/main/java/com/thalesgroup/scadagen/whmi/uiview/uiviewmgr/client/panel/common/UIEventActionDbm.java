@@ -7,6 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDbm_i.UIEventActionDbmAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 
@@ -14,18 +15,20 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDbm.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String strWriteIntValue = "WriteIntValue";
-	private final String strWriteFloatValue = "WriteFloatValue";
-	private final String strWriteStringValue = "WriteStringValue";
-	
 	public UIEventActionDbm() {
-		supportedActions = new String[]{strWriteIntValue, strWriteFloatValue, strWriteStringValue};
+		supportedActions = new String[]{
+				  UIEventActionDbmAction.WriteIntValue.toString()
+				, UIEventActionDbmAction.WriteFloatValue.toString()
+				, UIEventActionDbmAction.WriteStringValue.toString()
+				};
 	}
 
 	@Override
-	public void executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
 		final String function = logPrefix+" executeAction";
 		logger.begin(className, function);
+		
+		boolean bContinue = true;
 		
 		String strAction			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
 		String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
@@ -45,7 +48,7 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 		
 		String key = strAction + "_" + className + "_" + "dynamic" + "_" + strAddress;
 		
-		if ( strAction.equals(strWriteIntValue) ) {
+		if ( strAction.equals(UIEventActionDbmAction.WriteIntValue.toString()) ) {
 			boolean isValid = false;
 			int value = 0;
 			try {
@@ -59,7 +62,7 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 			} else {
 				logger.warn(className, function, "strValue[{}] IS INVALID", strValue);
 			}
-		} else if ( strAction.equals(strWriteFloatValue) ) {
+		} else if ( strAction.equals(UIEventActionDbmAction.WriteFloatValue.toString()) ) {
 			boolean isValid = false;
 			float value = 0;
 			try {
@@ -73,7 +76,7 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 			} else {
 				logger.warn(className, function, "strValue[{}] IS INVALID", strValue);
 			}
-		} else if ( strAction.equals(strWriteStringValue) ) {
+		} else if ( strAction.equals(UIEventActionDbmAction.WriteStringValue.toString()) ) {
 			database.addWriteStringValueRequest(key, strScsEnvId, strAddress, strValue);
 		}
 		
@@ -84,5 +87,6 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 		database = null;
 		
 		logger.end(className, function);
+		return bContinue;
 	}
 }

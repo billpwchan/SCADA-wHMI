@@ -60,28 +60,66 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 		
 		for(Task tsk: tsks) {
 			
-			String func = tsk.getParameter(TaskAttribute.FunCat.toString());
-			String geoc = tsk.getParameter(TaskAttribute.LocCat.toString());
-			String action = tsk.getParameter(TaskAttribute.ActionCat.toString());
-			String mode = tsk.getParameter(TaskAttribute.ModeCat.toString());
+			String opmName1		= tsk.getParameter(TaskAttribute.OpmName1.toString());
+			String opmValue1	= tsk.getParameter(TaskAttribute.OpmValue1.toString());
+			String opmName2		= tsk.getParameter(TaskAttribute.OpmName2.toString());
+			String opmValue2	= tsk.getParameter(TaskAttribute.OpmValue2.toString());
+			String opmName3		= tsk.getParameter(TaskAttribute.OpmName3.toString());
+			String opmValue3	= tsk.getParameter(TaskAttribute.OpmValue3.toString());
+			String opmName4		= tsk.getParameter(TaskAttribute.OpmName4.toString());
+			String opmValue4	= tsk.getParameter(TaskAttribute.OpmValue4.toString());
 			
-			logger.info("func[{}] geoc[{}] action[{}] mode[{}]", new Object[]{func, geoc, action, mode});
+			logger.info("opmName1[{}] opmValue1[{}]", opmName1, opmValue1 );
+			logger.info("opmName2[{}] opmValue2[{}]", opmName2, opmValue2 );
+			logger.info("opmName3[{}] opmValue3[{}]", opmName3, opmValue3 );
+			logger.info("opmName4[{}] opmValue4[{}]", opmName4, opmValue4 );
 			
 			if ( null != uiOpm_i ) {
 				
-				if ( null != func && ! func.trim().isEmpty() 
-						&& null != geoc && ! geoc.trim().isEmpty() 
-						&& null != action && ! action.trim().isEmpty()
-						&& null != mode && ! mode.trim().isEmpty() ) {
+				if ( 
+						   null != opmName1 && ! opmName1.trim().isEmpty()
+						&& null != opmValue1 && ! opmValue1.trim().isEmpty()
+						&& null != opmName2 && ! opmName2.trim().isEmpty()
+						&& null != opmValue2 && ! opmValue2.trim().isEmpty()
+						&& null != opmName3 && ! opmName3.trim().isEmpty()
+						&& null != opmValue3 && ! opmValue3.trim().isEmpty()
+						&& null != opmName4 && ! opmName4.trim().isEmpty()
+						&& null != opmValue4 && ! opmValue4.trim().isEmpty()
+						) {
 					
-					boolean result = uiOpm_i.checkAccess(func, geoc, action, mode);
-				
-					logger.info("func[{}] geoc[{}] action[{}] mode[{}] => result[{}]", new Object[]{func, geoc, action, mode, result});
+					boolean result = uiOpm_i.checkAccess(
+							  opmName1, opmValue1
+							, opmName2, opmValue2
+							, opmName3, opmValue3
+							, opmName4, opmValue4);
 					
 					if ( ! result ) continue;
 				}
 				
 			}
+			
+//			String func = tsk.getParameter(TaskAttribute.FunCat.toString());
+//			String geoc = tsk.getParameter(TaskAttribute.LocCat.toString());
+//			String action = tsk.getParameter(TaskAttribute.ActionCat.toString());
+//			String mode = tsk.getParameter(TaskAttribute.ModeCat.toString());
+//			
+//			logger.info("func[{}] geoc[{}] action[{}] mode[{}]", new Object[]{func, geoc, action, mode});
+//			
+//			if ( null != uiOpm_i ) {
+//				
+//				if ( null != func && ! func.trim().isEmpty() 
+//						&& null != geoc && ! geoc.trim().isEmpty() 
+//						&& null != action && ! action.trim().isEmpty()
+//						&& null != mode && ! mode.trim().isEmpty() ) {
+//					
+//					boolean result = uiOpm_i.checkAccess(func, geoc, action, mode);
+//				
+//					logger.info("func[{}] geoc[{}] action[{}] mode[{}] => result[{}]", new Object[]{func, geoc, action, mode, result});
+//					
+//					if ( ! result ) continue;
+//				}
+//				
+//			}
 			
 			tasks.add(tsk);
 		}

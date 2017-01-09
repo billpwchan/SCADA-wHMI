@@ -12,6 +12,21 @@ public interface UIOpm_i {
 	public static final String A = "A";
 	public static final String C = "C";
 	
+	public static final String DefaultModeValue = "1";
+	
+//	boolean checkAccess(
+//			  String opmName1, String opmValue1
+//			, String opmName2, String opmValue2
+//			, String opmName3, String opmValue3);
+	
+	boolean checkAccess(
+			  String opmName1, String opmValue1
+			, String opmName2, String opmValue2
+			, String opmName3, String opmValue3
+			, String opmName4, String opmValue4);
+	
+//	boolean checkAccess(String function, String location, String action);
+	
 	boolean checkAccess(String function, String location, String action, String mode);
 	
 	void changePassword(String operator, String oldPassword, String newPassword, UIWrapperRpcEvent_i uiWrapperRpcEvent_i);

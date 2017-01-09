@@ -24,35 +24,100 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return instance;
 	}
 	private UIOpmSCADAgen () {}
-
+	
 	@Override
-	public boolean checkAccess(String function, String location, String action, String mode) {
-		
+	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3, String opmValue3, String opmName4, String opmValue4) {
+		String function = "checkAccess";
 		logger.begin(className, function);
-		
-		logger.info(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{function, location, action, mode});
+		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
+		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
+		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
+		logger.debug(className, function, "opmName4[{}] opmValue4[{}]", opmName4, opmValue4);
 		
 		boolean result = false;
 		
-//		result = ClientSideRightsChecker.checkAccess(mode, action, function, location);
-		
-		if( mode != null && !mode.isEmpty() && action != null 
-		&& function != null && !function.isEmpty() && location != null && !location.isEmpty() ) {
+		if ( 
+				   opmName1 != null && ! opmName1.isEmpty() 
+				&& opmValue1 != null && !opmValue1.isEmpty()
+				
+				&& opmName2 != null && !opmName2.isEmpty()
+				&& opmValue2 != null && !opmValue2.isEmpty()
+				
+				&& opmName3 != null && !opmName3.isEmpty()
+				&& opmValue3 != null && !opmValue3.isEmpty()
+				
+				&& opmName4 != null && !opmName4.isEmpty()
+				&& opmValue4 != null && !opmValue4.isEmpty()
+		) {
 			OpmRequestDto dto = new OpmRequestDto();
-			dto.addParameter( MODE    , mode     );
-			dto.addParameter( ACTION  , action   );
-			dto.addParameter( FUNCTION, function );
-			dto.addParameter( LOCATION, location );
+			dto.addParameter( opmName1, opmValue1 );
+			dto.addParameter( opmName2, opmValue2 );
+			dto.addParameter( opmName3, opmValue3 );
+			dto.addParameter( opmName4, opmValue4 );
 		
 			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
 		
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
 			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 		} else {
-			logger.debug( "checkAccess args null, or empty - mode=" + mode + 
-				", action=" + action + ", function=" + function + ", location=" + location + " - checkAccess return 'false'" );
+			logger.debug( "checkAccess args null, or empty - " 
+				+ "  "+opmName1+"=" + opmValue1 
+				+ ", "+opmName2+"=" + opmValue2 
+				+ ", "+opmName3+"=" + opmValue3 
+				+ ", "+opmName4+"=" + opmValue4
+				+ " - checkAccess return 'false'" );
 		}
 		
+		return result;
+	}
+	
+//	@Override
+//	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3, String opmValue3) {
+//		String function = "checkAccess";
+//		logger.begin(className, function);
+//		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
+//		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
+//		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
+//
+//		boolean result = false;
+//		
+//		result = checkAccess(
+//				  opmName1, opmValue1
+//				, opmName2, opmValue2
+//				, opmName3, opmValue3
+//				, MODE, DefaultModeValue);
+//
+//		return result;
+//	}
+
+//	@Override
+//	public boolean checkAccess(String functionValue, String locationValue, String actionValue) {
+//		String function = "checkAccess";
+//		logger.begin(className, function);
+//		logger.info(className, function, "functionValue[{}] locationValue[{}] actionValue[{}]", new Object[]{functionValue, locationValue, actionValue});
+//		
+//		boolean result = false;
+//		
+//		result = checkAccess(functionValue, locationValue, actionValue, DefaultModeValue);
+//		
+//		logger.end(className, function);
+//		return result;
+//	}
+	@Override
+	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
+		logger.begin(className, functionValue);
+		logger.info(className, functionValue, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
+		
+		boolean result = false;
+		
+		result = checkAccess(
+								  FUNCTION, functionValue
+								, LOCATION, locationValue
+								, ACTION, actionValue
+								, MODE, modeValue
+								);
+		
+		logger.end(className, functionValue);
 		return result;
 	}
 	@Override

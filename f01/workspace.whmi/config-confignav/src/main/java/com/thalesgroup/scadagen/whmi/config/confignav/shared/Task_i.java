@@ -36,6 +36,15 @@ public interface Task_i {
 		, UIOpts("uiOpts")
 		, UIDict("uiDict")
 		, Tooltips("tooltips")
+		
+		, OpmName1("opmName1")
+		, OpmValue1("opmValue1")
+		, OpmName2("opmName2")
+		, OpmValue2("opmValue2")
+		, OpmName3("opmName3")
+		, OpmValue3("opmValue3")
+		, OpmName4("opmName4")
+		, OpmValue4("opmValue4")
 		;
 		private final String text;
 		private TaskAttribute(final String text) { this.text = text; }

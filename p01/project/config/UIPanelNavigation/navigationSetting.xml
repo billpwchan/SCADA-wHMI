@@ -1013,4 +1013,22 @@
 		<uiView>UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC Summary</tooltips>
 	</option>
+	<option key="110">
+		<type>P</type>
+		<name>SOC Summary</name>
+		<title>SOC Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointSocSummary.view.xml</uiView>
+		<tooltips>SOC Summary</tooltips>
+		<opmName1>location</opmName1>
+		<opmValue1>1</opmValue1>
+		<opmName2>function</opmName2>
+		<opmValue2>1</opmValue2>
+		<opmName3>action</opmName3>
+		<opmValue3>ACDM</opmValue3>
+		<opmName4>mode</opmName4>
+		<opmValue4>1</opmValue4>
+	</option>
 </data-set>

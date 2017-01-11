@@ -35,44 +35,37 @@ public class FASLayoutWidgetFactory extends HypWidgetFactory {
 
 		LOGGER.debug(LOG_PREFIX + "try to build: " + typeId);
 		
+	    String uiPanel	= "UILayoutEntryPoint";
+	    String uiOpts	= null;
+	    String uiElem	= null;
+	    String uiDicts	= null;	
+		
 		if (FASWidget.PTW_DPC_PANEL.toString().equals(typeId)) {
+			
+			String uiView	= "UILayoutEntryPointDpcTagSummary.view.xml";
 
-	    	String uiPanel	= "UILayoutEntryPoint";
-	    	String uiView	= "UILayoutEntryPointDpcTagSummary.view.xml";
-	    	String uiOpts	= null;
-	    	String uiDicts	= null;
-	    	
-	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiDicts);
+	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiElem, uiDicts);
 	    	
 		}
 		else if (FASWidget.LOGIN_PANEL.toString().equals(typeId)) {
 
-	    	String uiPanel	= "UILayoutEntryPoint";
 	    	String uiView	= "UILayoutEntryPointLoginSummary.view.xml";
-	    	String uiOpts	= null;
-	    	String uiDicts	= null;
 	    	
-	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiDicts);
+	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiElem, uiDicts);
 	    	
 		}
 		else if (FASWidget.CHANGE_PASSWORD_PANEL.toString().equals(typeId)) {
 
-	    	String uiPanel	= "UILayoutEntryPoint";
 	    	String uiView	= "UILayoutOPMChangePasswordSummary.view.xml";
-	    	String uiOpts	= null;
-	    	String uiDicts	= null;
 	    	
-	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiDicts);
+	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiElem, uiDicts);
 	    	
 		}
 		else if (FASWidget.SOC_PANEL.toString().equals(typeId)) {
 
-	    	String uiPanel	= "UILayoutEntryPoint";
 	    	String uiView	= "UILayoutSocSummary.view.xml";
-	    	String uiOpts	= null;
-	    	String uiDicts	= null;
 	    	
-	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiDicts);
+	    	widget = new UIWidgetEntryPoint(uiPanel, uiView, uiOpts, uiElem, uiDicts);
 	    	
 		}
 		else {

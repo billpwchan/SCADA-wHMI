@@ -34,19 +34,21 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	private String uiPanel = null;
 	private String uiView = null;
 	private String uiOpts = null;
+	private String uiElem = null;
 	private String uiDict = null;
 	
 	private SimplePanel simplePanel = null;
 	
-	public UIWidgetEntryPoint(String uiPanel, String uiView, String uiOpts, String uiDict) {
+	public UIWidgetEntryPoint(String uiPanel, String uiView, String uiOpts, String uiElem,  String uiDict) {
 		String function = "UIWidgetEntryPoint";
 		
 		this.uiPanel = uiPanel;
 		this.uiView = uiView;
 		this.uiOpts = uiOpts;
+		this.uiElem = uiElem;
 		this.uiDict = uiDict;
 		
-		logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiPanel, uiView, uiOpts, uiDict});
+		logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiPanel, uiView, uiOpts, uiElem, uiDict});
 
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);		
@@ -135,7 +137,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			
 			UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
 			
-			uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, uiDict, options);
+			uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 			
 			if ( null != uiWidget_i ) {
 				

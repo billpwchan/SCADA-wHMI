@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+	</header>
+
+	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>clean_profile</OperationString1>
+		<OperationString2>set_default_profile</OperationString2>
+		<OperationString3>set_default_profile_index_1</OperationString3>
+		<OperationString4>set_default_profile_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>clean_profile</OperationString1>
+		<OperationString2>set_default_profile</OperationString2>
+		<OperationString3>set_default_profile_disable</OperationString3>
+	</actionset>
+	
+	<action key="clean_profile">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>profile</OperationString2>
+		<OperationString3>null</OperationString3>
+	</action>
+
+	<action key="set_default_profile">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>profile</OperationString2>
+		<OperationString3>Single Profile</OperationString3>
+	</action>
+	
+	<action key="set_default_profile_index_1">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>profile</OperationString2>
+		<OperationString3>SetSelectedIndex_1</OperationString3>
+	</action>
+	
+	<action key="set_default_profile_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>profile</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+</data-set>

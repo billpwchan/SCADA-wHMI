@@ -8,7 +8,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -19,10 +18,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UILayoutLogin extends UIWidget_i {
@@ -43,11 +40,7 @@ public class UILayoutLogin extends UIWidget_i {
 	private String strHeader			= "header";
 	
 	private String strname				= "name";
-	private String strprofile			= "profile";
 	private String strpassword			= "password";
-	private String strlogin				= "login";
-	private String strchangepassword	= "changepassword";
-	private String strcancel			= "cancel";
 	
 	// External
 	private SimpleEventBus eventBus = null;
@@ -69,10 +62,18 @@ public class UILayoutLogin extends UIWidget_i {
 		@Override
 		public void onClick(ClickEvent event) {
 			String function = "onClick";
-			logger.end(className, function);
+			logger.begin(className, function);
+			
+			logger.info(className, function, "event[{}]", event);
 			
 			Widget widget = (Widget) event.getSource();
+			
+			logger.info(className, function, "widget[{}]", widget);
+			
 			String element = uiWidgetGenericButton.getWidgetElement(widget);
+			
+			logger.info(className, function, "element[{}]", element);
+			
 			if ( null != element ) {
 				
 				String actionsetkey = element;
@@ -103,7 +104,7 @@ public class UILayoutLogin extends UIWidget_i {
 				uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 				
 			} else {
-				logger.warn(className, function, "button IS NULL");
+				logger.warn(className, function, "element IS NULL");
 			}
 			
 			logger.end(className, function);
@@ -156,44 +157,48 @@ public class UILayoutLogin extends UIWidget_i {
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();
-
-		if ( null != uiWidgetGenericButton ) {
-			uiWidgetGenericButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
-				
-				@Override
-				public void onClickHandler(ClickEvent event) {
-					if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
-				}
-			});
-			
-		} else {
-			logger.warn(className, function, "uiPanelGenericButton IS NULL");
-		}
 		
-		handlerRegistrations.add(
-			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-				@Override
-				public void onEvenBusUIChanged(UIEvent uiEvent) {
-					if ( uiEvent.getSource() != this ) {
-						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
-					}
-				}
-			})
-		);
+		uiWidgetGenericButton.setCtrlHandler(uiWidgetCtrl_i);
 
-		handlerRegistrations.add(
-			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
-				@Override
-				public void onAction(UIEventAction uiEventAction) {
-					if ( uiEventAction.getSource() != this ) {
-						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
-					}
-				}
-			})
-		);
+//		if ( null != uiWidgetGenericButton ) {
+//			uiWidgetGenericButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
+//				
+//				@Override
+//				public void onClickHandler(ClickEvent event) {
+//					if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
+//				}
+//			});
+//			
+//		} else {
+//			logger.warn(className, function, "uiPanelGenericButton IS NULL");
+//		}
+//		
+//		handlerRegistrations.add(
+//			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+//				@Override
+//				public void onEvenBusUIChanged(UIEvent uiEvent) {
+//					if ( uiEvent.getSource() != this ) {
+//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
+//					}
+//				}
+//			})
+//		);
+//
+//		handlerRegistrations.add(
+//			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
+//				@Override
+//				public void onAction(UIEventAction uiEventAction) {
+//					if ( uiEventAction.getSource() != this ) {
+//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
+//					}
+//				}
+//			})
+//		);
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
+		// Show the error id from the URL for the login failed
+		// Which come from the Spring framework
 		handleErrorCode();
 		
 		logger.end(className, function);

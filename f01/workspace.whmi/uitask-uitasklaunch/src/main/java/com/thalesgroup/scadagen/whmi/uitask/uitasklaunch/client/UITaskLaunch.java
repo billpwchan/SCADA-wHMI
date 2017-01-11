@@ -45,6 +45,7 @@ public class UITaskLaunch extends UITaskDictionary {
 		, UIView("uiView")
 		, UIOpts("uiOpts")
 		, UIDict("uiDict")
+		, UIElem("uiElem")
 		, Tooltips("tooltips")
 		, Execute("execute")
 		;
@@ -74,6 +75,7 @@ public class UITaskLaunch extends UITaskDictionary {
 		setValue(UITaskLaunchAttribute.UIView.toString()	, task.getParameter(TaskAttribute.UIView.toString()));
 		setValue(UITaskLaunchAttribute.UIOpts.toString()	, task.getParameter(TaskAttribute.UIOpts.toString()));
 		setValue(UITaskLaunchAttribute.UIDict.toString()	, task.getParameter(TaskAttribute.UIDict.toString()));
+		setValue(UITaskLaunchAttribute.UIElem.toString()	, task.getParameter(TaskAttribute.UIElem.toString()));
 		setValue(UITaskLaunchAttribute.Tooltips.toString()	, task.getParameter(TaskAttribute.Tooltips.toString()));
 	}
 
@@ -207,6 +209,13 @@ public class UITaskLaunch extends UITaskDictionary {
 		return (String) getValue(UITaskLaunchAttribute.UIOpts.toString());
 	}
 	
+	public void setUiElem(String uiElem) {
+		setValue(UITaskLaunchAttribute.UIElem.toString(), uiElem);
+	}
+	public String getUiElem() {
+		return (String) getValue(UITaskLaunchAttribute.UIElem.toString());
+	}
+	
 	public void setUiDict(String uiDict) {
 		setValue(UITaskLaunchAttribute.UIDict.toString(), uiDict);
 	}
@@ -227,4 +236,6 @@ public class UITaskLaunch extends UITaskDictionary {
 	public String getExecute() {
 		return (String) getValue(UITaskLaunchAttribute.Execute.toString());
 	}
+	
+
 }

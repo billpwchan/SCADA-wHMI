@@ -9,22 +9,22 @@
 	</header>
 	
 	<option key="0|0">
-		<type>widgetconfiguration</type>
-		<uiCtrl>UIWidgetLoginLogo.xml</uiCtrl>
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
 		<uiView>UIWidgetLoginLogo.view.xml</uiView>
+		<element>UIWidgetLoginLogo</element>
 	</option>
 	
 	<option key="0|1">
-		<type>widgetconfiguration</type>
-		<uiCtrl>UIWidgetLoginInfo.xml</uiCtrl>
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
 		<uiView>UIWidgetLoginInfo.view.xml</uiView>
+		<uiOpts>UIWidgetLoginInfo.opts.xml</uiOpts>
 		<element>UIWidgetLoginInfo</element>
 	</option>
 	
 	<option key="0|2">
-		<type>widgetconfiguration</type>
-		<uiCtrl>UIWidgetLoginButton.xml</uiCtrl>
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
 		<uiView>UIWidgetLoginButton.view.xml</uiView>
+		<uiOpts>UIWidgetLoginButton.opts.xml</uiOpts>
 		<element>UIWidgetLoginButton</element>
 	</option>
 

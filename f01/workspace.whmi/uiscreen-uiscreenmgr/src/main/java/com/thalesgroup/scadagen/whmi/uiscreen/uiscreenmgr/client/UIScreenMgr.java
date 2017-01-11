@@ -27,13 +27,14 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 	}
 	
 	@Override
-	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
+	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElem
+			, String uiDict
 			, HashMap<String, Object> options) {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+		logger.info(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		UIWidget_i uiWidget_i = null;
 
@@ -55,12 +56,13 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 
 		if ( null != uiWidget_i ) {
 			uiWidget_i.setUINameCard(uiNameCard);
+			uiWidget_i.setElement(uiElem);
 			uiWidget_i.setDictionaryFolder(uiDict);
 			uiWidget_i.setViewXMLFile(uiView);
 			uiWidget_i.setOptsXMLFile(uiOpts);
 			uiWidget_i.init();
 		} else {
-			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiDict[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+			logger.warn(className, function, "uiCtrl[{}], uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}] widget IS NULL!", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 		}
 
 		logger.end(className, function);

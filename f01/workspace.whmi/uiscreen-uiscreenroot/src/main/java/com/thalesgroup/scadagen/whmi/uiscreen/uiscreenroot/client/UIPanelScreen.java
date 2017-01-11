@@ -138,12 +138,13 @@ public class UIPanelScreen extends UIWidget_i {
 							String uiView = taskLaunch.getUiView();
 							String uiOpts = taskLaunch.getUiOpts();
 							String uiDict = taskLaunch.getUiDict();
+							String uiElem = taskLaunch.getUiElem();
 							HashMap<String, Object> options = new HashMap<String, Object>();
 							
-							logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+							logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiElem[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 							UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
-							UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiDict, options);						
+							UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);						
 							
 							if ( uiWidget_i != null ) {
 								
@@ -178,6 +179,7 @@ public class UIPanelScreen extends UIWidget_i {
 										String uiCtrl_s = taskLaunch.getUiPanel();
 										String uiView_s = taskLaunch.getUiView();
 										String uiOpts_s = taskLaunch.getUiOpts();
+										String uiElem_s = taskLaunch.getUiElem();
 										String uiDict_s = taskLaunch.getUiDict();
 										HashMap<String, Object> options_s = new HashMap<String, Object>();
 											
@@ -187,7 +189,7 @@ public class UIPanelScreen extends UIWidget_i {
 										
 										logger.info(className, function, "intNumOfScreen[{}] screen[{}] taskLaunch.getUiPanel()[{}] uiCtrl_s[{}] ", new Object[]{intNumOfScreen, screen, taskLaunch.getUiPanel(), uiCtrl_s});
 											
-										UIWidget_i uiWidget_i_s = uiPanelFactoryMgr.getUIWidget(uiCtrl_s, uiView_s, uiNameCard, uiOpts_s, uiDict_s, options_s);
+										UIWidget_i uiWidget_i_s = uiPanelFactoryMgr.getUIWidget(uiCtrl_s, uiView_s, uiNameCard, uiOpts_s, uiElem_s, uiDict_s, options_s);
 										if ( uiWidget_i_s != null ) {
 											panelOthers = uiWidget_i_s.getMainPanel();
 										}

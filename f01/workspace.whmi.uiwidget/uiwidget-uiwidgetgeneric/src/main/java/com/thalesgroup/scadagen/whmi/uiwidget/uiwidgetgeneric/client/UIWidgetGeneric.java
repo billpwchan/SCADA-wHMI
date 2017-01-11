@@ -393,9 +393,10 @@ public class UIWidgetGeneric extends UIGeneric {
 								String view = null;
 								String opt = null;
 								String dict = null;
+								String elem = null;
 								HashMap<String, Object> options = new HashMap<String, Object>();
 								
-								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, dict, options);
+								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, elem, dict, options);
 	
 								if ( null != uiWIdget ) {
 									uiWIdget.setUINameCard(this.uiNameCard);
@@ -709,7 +710,10 @@ public class UIWidgetGeneric extends UIGeneric {
     						}
 
     						if ( widget instanceof FocusWidget ) {
-    							((FocusWidget)widget).setEnabled(!(WidgetStatus.Disable == status));
+    							logger.info(className, function, "widget[{}] instanceof FocusWidget", widget);
+    							boolean bStatus = !(WidgetStatus.Disable == status);
+    							logger.info(className, function, "widget[{}] setEnabled bStatus[{}]", widget, bStatus);
+    							((FocusWidget)widget).setEnabled(bStatus);
     						}
     		    			
     					} else {
@@ -837,13 +841,21 @@ public class UIWidgetGeneric extends UIGeneric {
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
 				} else if ( WidgetType.ListBox.equalsName(widget) ) {
-					if ( ! value.equals("null") ) {
+					
+					if ( value.equals("null") ) {
 						// Clear all item in List Box
 						((ListBox)w).clear();
+					} else if ( value.equals("SetSelectedIndex_0") ) {
+						((ListBox)w).setSelectedIndex(0);
+					} else if ( value.equals("SetSelectedIndex_1") ) {
+						((ListBox)w).setSelectedIndex(1);
+					} else if ( value.equals("SetSelectedIndex_Last") ) {
+						int iLastIndex = ((ListBox)w).getItemCount();
+						iLastIndex = (iLastIndex>0?iLastIndex--:0);
+						((ListBox)w).setSelectedIndex(iLastIndex);
 					} else {
-						// Insert into List Box at last position
-						int listBoxSize = ((ListBox)w).getItemCount();
-						((ListBox)w).insertItem(label, label, listBoxSize);
+						// Insert into List Box
+						((ListBox)w).addItem(label);
 					}
 				} else {
 					logger.warn(className, function, "WidgetType IS NULL");

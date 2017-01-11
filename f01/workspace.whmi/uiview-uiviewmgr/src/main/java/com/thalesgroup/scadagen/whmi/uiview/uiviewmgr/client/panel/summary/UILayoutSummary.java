@@ -19,6 +19,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILa
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutSoc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelection;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSwitch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetConfiguration;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UILayoutConfiguration;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBlackboard;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCtlControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid;
@@ -104,7 +106,8 @@ public class UILayoutSummary extends UIWidget_i {
 
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
+					, String uiDict
 					, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
 
@@ -121,6 +124,20 @@ public class UILayoutSummary extends UIWidget_i {
 				UIWidget_i uiWidget_i = null;
 
 				if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetConfiguration.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetConfiguration();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UILayoutConfiguration.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UILayoutConfiguration();
+
+				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName())
 						.equals(uiCtrl)
 						) {
@@ -289,6 +306,7 @@ public class UILayoutSummary extends UIWidget_i {
 				if ( null != uiWidget_i ) {
 					uiWidget_i.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
 					uiWidget_i.setUINameCard(uiNameCard);
+					uiWidget_i.setElement(uiElement);
 					uiWidget_i.setDictionaryFolder(uiDict);
 					uiWidget_i.setViewXMLFile(uiView);
 					uiWidget_i.setOptsXMLFile(uiOpts);

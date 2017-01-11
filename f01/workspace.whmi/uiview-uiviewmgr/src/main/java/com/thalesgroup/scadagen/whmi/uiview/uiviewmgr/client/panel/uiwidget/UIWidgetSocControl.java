@@ -98,7 +98,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						int [] iSkips = getSkips();
 						String skips = convertToStringSkips(iSkips);
-//						String skipstep = "";
+
 						// build key
 						String strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
 						String strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
@@ -315,7 +315,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	}
 	
 	private int getAutoManuMode() {
-		final String function = "getCurStep";
+		final String function = "getAutoManuMode";
 		logger.begin(className, function);
 		int result = -1;
 		result = autoMenu;

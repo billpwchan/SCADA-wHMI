@@ -215,7 +215,7 @@ public class UIWidgetViewer extends UIWidget_i {
 		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
 		uiEventActionProcessor_i.setEventBus(eventBus);
 		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();
@@ -348,7 +348,7 @@ public class UIWidgetViewer extends UIWidget_i {
 				uiEventActionProcessorContextMenu_i.setDictionariesCacheName("UIWidgetGeneric");
 //				uiEventActionProcessorContextMenu.setEventBus(eventBus);
 				uiEventActionProcessorContextMenu_i.setOptsXMLFile(contextMenuOptsXMLFile);
-//				uiEventActionProcessorContextMenu.setUIWidgetGeneric(uiWidgetGeneric);
+//				uiEventActionProcessorContextMenu.setUIGeneric(uiWidgetGeneric);
 				uiEventActionProcessorContextMenu_i.setActionSetTagName(UIActionEventType.actionset.toString());
 				uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
 				uiEventActionProcessorContextMenu_i.init();

@@ -419,7 +419,12 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				// DCI, Show the ListBox and store the valueTable
 
 				String point = DatabaseHelper.getPointFromAliasAddress(address);
+				
+				logger.info(className, function, "point[{}]", point);
+				
 				PointType pointType = DatabaseHelper.getPointType(point);
+				
+				logger.info(className, function, "pointType[{}]", pointType);
 				
 				if ( PointType.dci == pointType ) {
 
@@ -533,7 +538,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
 		uiEventActionProcessor_i.setEventBus(eventBus);
 		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();

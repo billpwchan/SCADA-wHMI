@@ -318,7 +318,7 @@ public class UILayoutSummary extends UIWidget_i {
 		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
 		uiEventActionProcessor_i.setEventBus(eventBus);
 		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();

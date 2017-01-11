@@ -48,9 +48,6 @@ public class UIPanelScreen extends UIWidget_i {
 		this.rootPanel.addStyleName(strCssRoot);
  
     	resetEventBus();
-    	
-    	String operator = "";
-    	String profile = "";
 		
 //		Settings setting = Settings.getInstance();
 //		String strNumOfScreen = setting.get(this.strNumOfScreen);

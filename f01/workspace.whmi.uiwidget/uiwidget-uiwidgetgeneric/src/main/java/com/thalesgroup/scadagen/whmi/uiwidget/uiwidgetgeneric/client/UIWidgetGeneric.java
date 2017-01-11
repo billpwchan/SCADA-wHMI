@@ -617,10 +617,14 @@ public class UIWidgetGeneric extends UIGeneric {
     						
     						((RadioButton)widget).setValue(WidgetStatus.Down == status);
     						
-    					} else if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+    					} else if ( 
+    							   WidgetType.ImageButton.toString().equals(strWidget) 
+    							|| WidgetType.ImageToggleButton.toString().equals(strWidget) 
     							|| WidgetType.Button.toString().equals(strWidget) 
     							|| WidgetType.InlineLabel.toString().equals(strWidget)
-    							|| WidgetType.Label.toString().equals(strWidget)) {
+    							|| WidgetType.Label.toString().equals(strWidget)
+    							|| WidgetType.ListBox.toString().equals(strWidget)
+    							) {
     						
     						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
     						String cssDown		= valueMap.get(WidgetAttribute.cssDown.toString());
@@ -702,11 +706,10 @@ public class UIWidgetGeneric extends UIGeneric {
     							widget.addStyleName(cssAdd);
     							logger.info(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
     						}
-    						
-//    						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
 
-    						if ( WidgetType.Button.toString().equals(strWidget) )	
-    							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
+    						if ( widget instanceof FocusWidget ) {
+    							((FocusWidget)widget).setEnabled(!(WidgetStatus.Disable == status));
+    						}
     		    			
     					} else {
     						logger.warn(className, function, "widget IS INVALID");
@@ -760,6 +763,13 @@ public class UIWidgetGeneric extends UIGeneric {
 					value = ((Label)w).getText();
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					value = ((Image)w).getUrl();
+				} else if ( WidgetType.ListBox.equalsName(widget) ) {
+					int selectedIndex = ((ListBox)w).getSelectedIndex();
+					value = ((ListBox)w).getValue(selectedIndex);
+					
+					// Following function not support in GWT 1.6
+//					value = ((ListBox)w).getSelectedValue();
+//					value = ((ListBox)w).getSelectedItemText();
 				} else {
 					logger.warn(className, function, "WidgetType IS NULL");
 				}
@@ -825,6 +835,15 @@ public class UIWidgetGeneric extends UIGeneric {
 					((Label)w).setText(label);
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
+				} else if ( WidgetType.ListBox.equalsName(widget) ) {
+					if ( ! value.equals("null") ) {
+						// Clear all item in List Box
+						((ListBox)w).clear();
+					} else {
+						// Insert into List Box at last position
+						int listBoxSize = ((ListBox)w).getItemCount();
+						((ListBox)w).insertItem(label, label, listBoxSize);
+					}
 				} else {
 					logger.warn(className, function, "WidgetType IS NULL");
 				}

@@ -323,7 +323,7 @@ public class ViewLayoutMgr {
 			uiEventActionProcessor_i.setDictionariesCacheName(dictionariesCacheName);
 //			uiEventActionProcessor.setEventBus(eventBus);
 			uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-//			uiEventActionProcessor.setUIWidgetGeneric(uiWidgetGeneric);
+//			uiEventActionProcessor.setUIGeneric(uiWidgetGeneric);
 			uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 			uiEventActionProcessor_i.init();

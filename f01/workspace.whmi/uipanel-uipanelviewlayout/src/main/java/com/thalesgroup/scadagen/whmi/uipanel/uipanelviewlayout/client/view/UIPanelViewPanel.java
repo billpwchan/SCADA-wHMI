@@ -68,9 +68,10 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				String uiPanel = taskLaunch.getUiPanel();
 				String uiView = taskLaunch.getUiView();
 				String uiOpts = null;
+				String uiElem = null;
 				String uiDict = null;
 
-				logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}]", new Object[]{uiPanel, uiView, uiOpts});
+				logger.info(className, function, "uiPanel[{}] uiView[{}] uiOpts[{}] uiElem[{}]", new Object[]{uiPanel, uiView, uiOpts, uiElem});
 				
 				HashMap<String, Object> options = new HashMap<String, Object>();
 				
@@ -80,7 +81,7 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 				
 				UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
 				
-				uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, uiDict, options);
+				uiWidget_i = viewFactoryMgr.getUIWidget(uiPanel, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 				
 				if ( null != uiWidget_i ) {
 					

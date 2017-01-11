@@ -27,6 +27,8 @@
 		<label>Profile:</label>
 		<element>profilelabel</element>
 		<css>project-UIWidgetLoginInfo-profilelabel</css>
+		<cssDown>project-UIWidgetLoginInfo-profilelabel-down</cssDown>
+		<cssDisable>project-UIWidgetLoginInfo-profilelabel-disable</cssDisable>
 	</option>
 	<option key="1|1">
 		<widget>ListBox</widget>

@@ -27,7 +27,8 @@ public class UILayoutEntryPoint extends UIWidget_i {
 
 		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
-			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
+					, String uiDict
 					, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
 				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
@@ -49,6 +50,7 @@ public class UILayoutEntryPoint extends UIWidget_i {
 				
 				if ( null != uiWidget_i ) {
 					uiWidget_i.setUINameCard(uiNameCard);
+					uiWidget_i.setElement(uiElement);
 					uiWidget_i.setDictionaryFolder(uiDict);
 					uiWidget_i.setViewXMLFile(uiView);
 					uiWidget_i.setOptsXMLFile(uiOpts);

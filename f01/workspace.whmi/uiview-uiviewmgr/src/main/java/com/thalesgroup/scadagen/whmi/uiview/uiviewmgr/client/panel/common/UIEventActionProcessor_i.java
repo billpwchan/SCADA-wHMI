@@ -6,8 +6,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 
 public interface UIEventActionProcessor_i {
 	
@@ -19,8 +18,7 @@ public interface UIEventActionProcessor_i {
 	void setDictionariesCacheName(String strUIWidgetGeneric);
 	void setEventBus(SimpleEventBus eventBus);
 	void setOptsXMLFile(String optsXMLFile);
-	void setUILayoutGeneric(UILayoutGeneric uiLayoutGeneric);
-	void setUIWidgetGeneric(UIWidgetGeneric uiWidgetGeneric);
+	void setUIGeneric(UIGeneric uiGeneric);
 	void setActionSetTagName(String actionset);
 	void setActionTagName(String action);
 	void init();

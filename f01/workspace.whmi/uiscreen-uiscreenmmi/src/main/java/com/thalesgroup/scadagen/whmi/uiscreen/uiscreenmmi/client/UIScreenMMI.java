@@ -74,7 +74,8 @@ public class UIScreenMMI extends UIWidget_i {
 		uiWidgetMgr.addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			
 			@Override
-			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiDict
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
+					, String uiDict
 					, HashMap<String, Object> options) {
 				final String function = "getUIWidget";
 				
@@ -135,6 +136,7 @@ public class UIScreenMMI extends UIWidget_i {
 						
 						if ( null != uiWidget_i ) {
 							uiWidget_i.setUINameCard(uiNameCard);
+							uiWidget_i.setElement(uiElement);
 							uiWidget_i.setDictionaryFolder(uiDict);
 							uiWidget_i.setViewXMLFile(uiView);
 							uiWidget_i.setOptsXMLFile(uiOpts);
@@ -186,7 +188,7 @@ public class UIScreenMMI extends UIWidget_i {
 		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
 //		uiEventActionProcessor_i.setEventBus(eventBus);
 		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-//		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+//		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();

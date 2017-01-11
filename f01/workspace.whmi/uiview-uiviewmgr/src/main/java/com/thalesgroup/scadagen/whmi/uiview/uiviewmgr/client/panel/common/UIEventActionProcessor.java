@@ -16,8 +16,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 
 public class UIEventActionProcessor implements UIEventActionProcessor_i {
 
@@ -70,28 +69,17 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		}
 	}
 	
-	protected UIWidgetGeneric uiWidgetGeneric = null;
+	protected UIGeneric uiGeneric = null;
 	@Override
-	public void setUIWidgetGeneric(UIWidgetGeneric uiWidgetGeneric) {
-		final String function = prefix+" setUIWidgetGeneric";
-		if ( null != uiWidgetGeneric ) {
-			this.uiWidgetGeneric = uiWidgetGeneric;
+	public void setUIGeneric(UIGeneric uiGeneric) {
+		final String function = prefix+" setUIGeneric";
+		if ( null != uiGeneric ) {
+			this.uiGeneric = uiGeneric;
 		} else {
 			logger.warn(className, function, "uiWidgetGeneric IS NULL");
 		}
 	}
-	
-	protected UILayoutGeneric uiLayoutGeneric = null;
-	@Override
-	public void setUILayoutGeneric(UILayoutGeneric uiLayoutGeneric) {
-		final String function = prefix+" setUIWidgetGeneric";
-		if ( null != uiLayoutGeneric ) {
-			this.uiLayoutGeneric = uiLayoutGeneric;
-		} else {
-			logger.warn(className, function, "uiLayoutGeneric IS NULL");
-		}
-	}
-	
+
 	private String optsXMLFile;
 	@Override
 	public void setOptsXMLFile(String optsXMLFile) {
@@ -401,8 +389,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 							uiEventActionExecute_i.setLogPrefix(className);
 							uiEventActionExecute_i.setInstance(className);
 							uiEventActionExecute_i.setSimpleEventBus(simpleEventBus);
-							uiEventActionExecute_i.setUIWidgetGeneric(uiWidgetGeneric);
-							uiEventActionExecute_i.setUILayoutGeneric(uiLayoutGeneric);
+							uiEventActionExecute_i.setUIGeneric(uiGeneric);
 							bContinue = uiEventActionExecute_i.executeAction(action, override);
 						} else {
 							logger.warn(className, function, "uiEventActionExecute IS NULL");

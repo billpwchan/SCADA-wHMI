@@ -98,7 +98,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						int [] iSkips = getSkips();
 						String skips = convertToStringSkips(iSkips);
-//						String skipstep = "";
+
 						// build key
 						String strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
 						String strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
@@ -273,7 +273,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
 		uiEventActionProcessor_i.setEventBus(eventBus);
 		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIWidgetGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
 		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 		uiEventActionProcessor_i.init();
@@ -315,7 +315,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	}
 	
 	private int getAutoManuMode() {
-		final String function = "getCurStep";
+		final String function = "getAutoManuMode";
 		logger.begin(className, function);
 		int result = -1;
 		result = autoMenu;

@@ -28,9 +28,12 @@ public interface Task_i {
 		, UIPath("uiPath")
 		, UICtrl("uiCtrl")
 		, Css("css")
+		
 		, UIView("uiView")
 		, UIOpts("uiOpts")
 		, UIDict("uiDict")
+		, UIElem("uiElem")
+		
 		, Tooltips("tooltips")
 		
 		, OpmName1("opmName1")

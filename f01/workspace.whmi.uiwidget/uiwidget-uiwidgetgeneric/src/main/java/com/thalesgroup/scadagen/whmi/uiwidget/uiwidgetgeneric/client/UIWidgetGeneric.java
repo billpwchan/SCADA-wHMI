@@ -18,6 +18,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
@@ -39,6 +40,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootWidgetType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetAttribute;
@@ -46,7 +48,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetType;
 
-public class UIWidgetGeneric extends UIWidget_i {
+public class UIWidgetGeneric extends UIGeneric {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetGeneric.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -391,9 +393,10 @@ public class UIWidgetGeneric extends UIWidget_i {
 								String view = null;
 								String opt = null;
 								String dict = null;
+								String elem = null;
 								HashMap<String, Object> options = new HashMap<String, Object>();
 								
-								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, dict, options);
+								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, elem, dict, options);
 	
 								if ( null != uiWIdget ) {
 									uiWIdget.setUINameCard(this.uiNameCard);
@@ -616,10 +619,14 @@ public class UIWidgetGeneric extends UIWidget_i {
     						
     						((RadioButton)widget).setValue(WidgetStatus.Down == status);
     						
-    					} else if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
+    					} else if ( 
+    							   WidgetType.ImageButton.toString().equals(strWidget) 
+    							|| WidgetType.ImageToggleButton.toString().equals(strWidget) 
     							|| WidgetType.Button.toString().equals(strWidget) 
     							|| WidgetType.InlineLabel.toString().equals(strWidget)
-    							|| WidgetType.Label.toString().equals(strWidget)) {
+    							|| WidgetType.Label.toString().equals(strWidget)
+    							|| WidgetType.ListBox.toString().equals(strWidget)
+    							) {
     						
     						String cssUp		= valueMap.get(WidgetAttribute.cssUp.toString());
     						String cssDown		= valueMap.get(WidgetAttribute.cssDown.toString());
@@ -701,11 +708,13 @@ public class UIWidgetGeneric extends UIWidget_i {
     							widget.addStyleName(cssAdd);
     							logger.info(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
     						}
-    						
-//    						if ( null != enable )	((Button)widget).setEnabled(0==enable.compareToIgnoreCase("true"));
 
-    						if ( WidgetType.Button.toString().equals(strWidget) )	
-    							((Button)widget).setEnabled(!(WidgetStatus.Disable == status));
+    						if ( widget instanceof FocusWidget ) {
+    							logger.info(className, function, "widget[{}] instanceof FocusWidget", widget);
+    							boolean bStatus = !(WidgetStatus.Disable == status);
+    							logger.info(className, function, "widget[{}] setEnabled bStatus[{}]", widget, bStatus);
+    							((FocusWidget)widget).setEnabled(bStatus);
+    						}
     		    			
     					} else {
     						logger.warn(className, function, "widget IS INVALID");
@@ -759,6 +768,13 @@ public class UIWidgetGeneric extends UIWidget_i {
 					value = ((Label)w).getText();
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					value = ((Image)w).getUrl();
+				} else if ( WidgetType.ListBox.equalsName(widget) ) {
+					int selectedIndex = ((ListBox)w).getSelectedIndex();
+					value = ((ListBox)w).getValue(selectedIndex);
+					
+					// Following function not support in GWT 1.6
+//					value = ((ListBox)w).getSelectedValue();
+//					value = ((ListBox)w).getSelectedItemText();
 				} else {
 					logger.warn(className, function, "WidgetType IS NULL");
 				}
@@ -824,6 +840,23 @@ public class UIWidgetGeneric extends UIWidget_i {
 					((Label)w).setText(label);
 				} else if ( WidgetType.Image.equalsName(widget) ) {
 					((Image)w).setUrl(label);
+				} else if ( WidgetType.ListBox.equalsName(widget) ) {
+					
+					if ( value.equals("null") ) {
+						// Clear all item in List Box
+						((ListBox)w).clear();
+					} else if ( value.equals("SetSelectedIndex_0") ) {
+						((ListBox)w).setSelectedIndex(0);
+					} else if ( value.equals("SetSelectedIndex_1") ) {
+						((ListBox)w).setSelectedIndex(1);
+					} else if ( value.equals("SetSelectedIndex_Last") ) {
+						int iLastIndex = ((ListBox)w).getItemCount();
+						iLastIndex = (iLastIndex>0?iLastIndex--:0);
+						((ListBox)w).setSelectedIndex(iLastIndex);
+					} else {
+						// Insert into List Box
+						((ListBox)w).addItem(label);
+					}
 				} else {
 					logger.warn(className, function, "WidgetType IS NULL");
 				}

@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutLoginSummary-container</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutLogin</uiCtrl>
 		<uiView>UILayoutLogin.view.xml</uiView>
 		<uiOpts>UILayoutLogin.opts.xml</uiOpts>

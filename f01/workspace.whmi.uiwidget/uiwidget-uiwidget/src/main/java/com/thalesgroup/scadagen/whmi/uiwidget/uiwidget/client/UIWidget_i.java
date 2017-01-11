@@ -219,6 +219,12 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public String [] getUIWidgetElements() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public String getWidgetValue(String element) {

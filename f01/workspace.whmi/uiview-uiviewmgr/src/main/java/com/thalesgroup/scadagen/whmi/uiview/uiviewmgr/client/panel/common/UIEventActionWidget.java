@@ -39,7 +39,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		
 		logger.info(className, function, logPrefix+"strWidgetAction[{}] strWidget[{}] widgetValue[{}]", new Object[]{strWidgetAction, strWidget, widgetValue});
 		
-		if ( uiWidgetGeneric == null ) {
+		if ( uiGeneric == null ) {
 			logger.warn(className, function, logPrefix+"uiWidgetGeneric IS NULL");
 			return bContinue;
 		}
@@ -60,7 +60,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 		}
 		
 		if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetValue.toString()) ) {
-			uiWidgetGeneric.setWidgetValue(strWidget, widgetValue);
+			uiGeneric.setWidgetValue(strWidget, widgetValue);
 		} else if ( strWidgetAction.equals(UIEventActionWidgetAction.SetWidgetStatus.toString()) ) {
 			WidgetStatus widgetStatus = null;
 			for ( WidgetStatus cstWidgetStatus : WidgetStatus.values() ) {
@@ -71,7 +71,7 @@ public class UIEventActionWidget extends UIEventActionExecute_i {
 				}
 			}
 			if ( null != widgetStatus ) {
-				uiWidgetGeneric.setWidgetStatus(strWidget, widgetStatus);
+				uiGeneric.setWidgetStatus(strWidget, widgetStatus);
 			} else {
 				logger.warn(className, function, logPrefix+"widgetStatus IS NULL");
 			}

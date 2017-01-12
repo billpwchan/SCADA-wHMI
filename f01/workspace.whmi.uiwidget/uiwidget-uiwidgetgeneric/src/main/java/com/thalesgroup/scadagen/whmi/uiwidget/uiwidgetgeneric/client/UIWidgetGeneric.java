@@ -214,25 +214,31 @@ public class UIWidgetGeneric extends UIGeneric {
 							String element			= valueMap.get(WidgetAttribute.element.toString());
 							String debugId			= valueMap.get(WidgetAttribute.debugId.toString());
 							
+							String disableTranslation			= valueMap.get(WidgetAttribute.disableTranslation.toString());
+							
 							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
 							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
 							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
 							
 							if ( null != label ) {
-								TranslationMgr translationMgr = TranslationMgr.getInstance();
-								if ( null != translationMgr ) {
-									label = translationMgr.getTranslation(label);
-								} else {
-									logger.warn(className, function, "getTranslation IS NULL");
+								if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
+									TranslationMgr translationMgr = TranslationMgr.getInstance();
+									if ( null != translationMgr ) {
+										label = translationMgr.getTranslation(label);
+									} else {
+										logger.warn(className, function, "getTranslation IS NULL");
+									}
 								}
 							}
 
 							if ( null != tooltip ) {
-								TranslationMgr translationMgr = TranslationMgr.getInstance();
-								if ( null != translationMgr ) {
-									tooltip = translationMgr.getTranslation(tooltip);
-								} else {
-									logger.warn(className, function, "getTranslation IS NULL");
+								if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
+									TranslationMgr translationMgr = TranslationMgr.getInstance();
+									if ( null != translationMgr ) {
+										tooltip = translationMgr.getTranslation(tooltip);
+									} else {
+										logger.warn(className, function, "getTranslation IS NULL");
+									}
 								}
 							}
 							
@@ -608,6 +614,8 @@ public class UIWidgetGeneric extends UIGeneric {
     					String iconImgWidth					= valueMap.get(WidgetAttribute.iconImgWidth.toString());
     					String iconImgHeight				= valueMap.get(WidgetAttribute.iconImgHeight.toString());
     					
+    					String disableTranslation			= valueMap.get(WidgetAttribute.disableTranslation.toString());
+    					
     					String element						= valueMap.get(WidgetAttribute.element.toString());
     					widgetStatus.put(element, status);
     					
@@ -647,10 +655,12 @@ public class UIWidgetGeneric extends UIGeneric {
     						}
     						
     						if ( null != label ) {
-        						TranslationMgr translationMgr = TranslationMgr.getInstance();
-        						if ( null !=  translationMgr.getTranslationEngine() ) {
-        							label = translationMgr.getTranslation(label);
-        						}
+    							if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
+	        						TranslationMgr translationMgr = TranslationMgr.getInstance();
+	        						if ( null !=  translationMgr.getTranslationEngine() ) {
+	        							label = translationMgr.getTranslation(label);
+	        						}
+    							}
     						}
 
     						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
@@ -812,16 +822,21 @@ public class UIWidgetGeneric extends UIGeneric {
 				String label		= valueMap.get(WidgetAttribute.label.toString());
 				String format		= valueMap.get(WidgetAttribute.format.toString());
 				
+				String disableTranslation		= valueMap.get(WidgetAttribute.disableTranslation.toString());
+				
 				if ( null != value ) logger.debug(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
 
 				if ( null != value ) label = value;
 				
 				if ( null != label ) {
-					TranslationMgr translationMgr = TranslationMgr.getInstance();
-					if ( null != translationMgr ) {
-						label = translationMgr.getTranslation(label);
-					} else {
-						logger.warn(className, function, "getTranslation IS NULL");
+					
+					if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
+						TranslationMgr translationMgr = TranslationMgr.getInstance();
+						if ( null != translationMgr ) {
+							label = translationMgr.getTranslation(label);
+						} else {
+							logger.warn(className, function, "getTranslation IS NULL");
+						}
 					}
 				}
 				

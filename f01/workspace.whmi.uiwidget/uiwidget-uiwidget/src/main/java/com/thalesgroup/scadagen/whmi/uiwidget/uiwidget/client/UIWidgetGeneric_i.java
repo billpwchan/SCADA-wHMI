@@ -51,6 +51,8 @@ public interface UIWidgetGeneric_i {
 		, visibleitemcount("visibleitemcount")
 		, enable("enable")
 		
+		, disableTranslation("disableTranslation")
+		
 		, labelDown("labelDown")
 		, labelDisable("labelDisable")
 		

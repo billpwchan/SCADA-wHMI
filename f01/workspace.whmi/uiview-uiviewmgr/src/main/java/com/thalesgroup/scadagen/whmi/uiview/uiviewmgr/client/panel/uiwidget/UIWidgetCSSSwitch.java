@@ -18,6 +18,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetCSSSelect_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -73,7 +74,7 @@ public class UIWidgetCSSSwitch extends UIWidget_i {
 				
 						HashMap<String, HashMap<String, Object>> override = null;
 						
-						uiEventActionProcessor_i.executeActionSet(os1, override, new ExecuteAction_i() {
+						uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
 							
 							@Override
 							public boolean executeHandler(UIEventAction uiEventAction) {

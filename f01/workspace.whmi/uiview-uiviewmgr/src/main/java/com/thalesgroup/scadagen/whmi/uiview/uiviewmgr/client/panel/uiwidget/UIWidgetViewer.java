@@ -314,13 +314,16 @@ public class UIWidgetViewer extends UIWidget_i {
 								Integer value = keyValue.getValue();
 								String strValue = value.toString();
 								
+								logger.info(className, function, "key[{}] value[{}] strValue[{}]", new Object[]{key, value, strValue});								
+								
 								String actionsetkey = "CounterValueChanged";
+								String actionkey = "SetWidgetValue";
 								HashMap<String, Object> parameter = new HashMap<String, Object>();
-								parameter.put(ViewAttribute.OperationString2.toString(), key);
-								parameter.put(ViewAttribute.OperationString3.toString(), strValue);
+								parameter.put(ActionAttribute.OperationString2.toString(), key);
+								parameter.put(ActionAttribute.OperationString3.toString(), strValue);
 								
 								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-								override.put("CounterValueChanged", parameter);
+								override.put(actionkey, parameter);
 								
 								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 								

@@ -30,8 +30,7 @@
 	</option>
 	
 	<option key="0|2">
-		<type>predefine</type>
-		<uiCtrl>UIWidgetBlackboard</uiCtrl>
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
 		<uiView>UIWidgetOlsCounter.view.xml</uiView>
 		<uiOpts>UIWidgetOlsCounter.opts.xml</uiOpts>
 		<element>UIWidgetOlsCounter</element>

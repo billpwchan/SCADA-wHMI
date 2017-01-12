@@ -14,7 +14,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventSenderAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.ExecuteAction_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 
@@ -150,7 +150,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 	 * Load and Execute the Local Init Action Set
 	 */
 	@Override
-	public void executeActionSetInit(int delayMillis, final HashMap<String, HashMap<String, Object>> override, final ExecuteAction_i executeActionHandler) {
+	public void executeActionSetInit(int delayMillis, final HashMap<String, HashMap<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeActionSetInit";
 		logger.begin(className, function);
 		logger.info(className, function, "delayMillis[{}]", delayMillis);
@@ -197,7 +197,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 	 * @param straction
 	 */
 	@Override
-	public boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler) {
+	public boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
@@ -262,7 +262,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 	}
 	
 	@Override
-	public boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler) {
+	public boolean executeActionSet(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
 		boolean bContinue = true;
@@ -306,7 +306,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 	 * @param actionkey: UIEventAction key
 	 */
 	@Override
-	public boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler) {
+	public boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		logger.info(className, function, "actionkey[{}]", actionkey);
@@ -337,7 +337,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 	 * @param action: UIEventAction instance
 	 */
 	@Override
-	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override, ExecuteAction_i executeActionHandler) {
+	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
 		

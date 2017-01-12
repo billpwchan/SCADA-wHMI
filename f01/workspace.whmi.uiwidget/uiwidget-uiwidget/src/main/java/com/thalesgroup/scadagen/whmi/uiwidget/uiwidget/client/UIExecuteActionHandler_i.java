@@ -1,7 +1,7 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
-public interface ExecuteAction_i {
+public interface UIExecuteActionHandler_i {
 	boolean executeHandler(UIEventAction uiEventAction);
 }

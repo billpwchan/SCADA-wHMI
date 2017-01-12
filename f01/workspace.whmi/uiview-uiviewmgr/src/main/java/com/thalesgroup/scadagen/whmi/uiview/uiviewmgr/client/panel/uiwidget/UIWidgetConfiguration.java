@@ -12,9 +12,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -31,6 +31,12 @@ public class UIWidgetConfiguration extends UIWidget_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
+	
+	private final String strSetWidgetValue = "SetWidgetValue";
+	
+	private final String strSetWidgetStatus = "SetWidgetStatus";
+	
+	private final String supportOperations[] = new String[]{strSetWidgetValue, strSetWidgetStatus};
 	
 	private SimpleEventBus eventBus 	= null;
 
@@ -113,40 +119,71 @@ public class UIWidgetConfiguration extends UIWidget_i {
 		}
 		
 		@Override
-		public void onActionReceived(UIEventAction uiEventAction) {
+		public void onActionReceived(UIEventAction uiEventActionReceived) {
 			final String function = "onActionReceived";
+
 			logger.begin(className, function);
-			
-			if ( null != uiEventAction ) {
-				
-				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
-				
-				logger.info(className, function, "oe["+oe+"]");
-				
-				if ( null != oe ) {
+
+			if (null != uiEventActionReceived) {
+
+				String oe = (String) uiEventActionReceived.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+
+				logger.info(className, function, "oe[" + oe + "]");
+
+				if (null != oe) {
 					
-					if ( oe.equals(element) ) {
+					if (oe.equals(element)) {
+
+						String os1 = (String) uiEventActionReceived.getParameter(ActionAttribute.OperationString1.toString());
+						logger.info(className, function, "os1[" + os1 + "]");
 						
-						String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-						
-						logger.info(className, function, "os1["+os1+"]");
-				
 						HashMap<String, HashMap<String, Object>> override = null;
 						
+						for ( String actionkey : supportOperations ) {
+							
+							logger.info(className, function, "operation[{}].equals(os1[{}])", actionkey, os1);
+							
+							if ( actionkey.equals(os1) ) {
+								
+								override = new HashMap<String, HashMap<String, Object>>();
+								
+								HashMap<String, Object> parameters = new HashMap<String, Object>();
+								
+								logger.info(className, function, "os1[" + os1 + "]");
+								
+								Object obj1 = uiEventActionReceived.getParameter(ActionAttribute.OperationString2.toString());
+								Object obj2 = uiEventActionReceived.getParameter(ActionAttribute.OperationString3.toString());
+								
+								logger.info(className, function, "update Counter Values");
+								
+								logger.info(className, function, "obj1[{}]", obj1);
+								logger.info(className, function, "obj2[{}]", obj2);
+								
+								if ( null != obj1 && null != obj2 ) {
+									
+									String key = obj1.toString();
+									String value = obj2.toString();
+									
+									logger.info(className, function, "key[{}]", key);
+									logger.info(className, function, "value[{}]", value);
+									
+									parameters.put(ActionAttribute.OperationString2.toString(), key);
+									parameters.put(ActionAttribute.OperationString3.toString(), value);
+								}
+								
+								override.put(actionkey, parameters);
+								
+							}
+						}
+						
 						uiEventActionProcessor_i.executeActionSet(os1, override);
+
 					}
 				}
 			}
 			
-//			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-//			
-//			logger.info(className, function, "os1["+os1+"]");
-//			
-//			if ( null != os1 ) {
-//			}
-			
 			// Call external handling
-			if ( null != ctrlHandler ) ctrlHandler.onActionReceived(uiEventAction);
+			if ( null != ctrlHandler ) ctrlHandler.onActionReceived(uiEventActionReceived);
 			
 			logger.end(className, function);
 		}

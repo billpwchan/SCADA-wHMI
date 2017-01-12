@@ -34,13 +34,13 @@
 	</action>
 	
 	<actionset key="CounterValueChanged">
-		<OperationString1>CounterValueChanged</OperationString1>
+		<OperationString1>SetWidgetValue</OperationString1>
 	</actionset>
 	
-	<action key="CounterValueChanged">
+	<action key="SetWidgetValue">
 		<SenderOperation>event</SenderOperation>
 		<OperationElement>UIWidgetOlsCounter</OperationElement>
-		<OperationString1>CounterValueChanged</OperationString1>
+		<OperationString1>SetWidgetValue</OperationString1>
 	</action>
 	
 </data-set>

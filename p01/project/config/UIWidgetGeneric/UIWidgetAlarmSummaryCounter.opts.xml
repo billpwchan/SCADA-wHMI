@@ -2,12 +2,12 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-	<actionset key="CounterValueChanged">
+	<actionset key="SetWidgetValue">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>CounterValueChanged</OperationString1>
+		<OperationString1>SetWidgetValue</OperationString1>
 	</actionset>
 
-	<action key="CounterValueChanged">
+	<action key="SetWidgetValue">
 		<OperationType>action</OperationType>
 		<OperationAction>widget</OperationAction>
 		<OperationString1>SetWidgetValue</OperationString1>

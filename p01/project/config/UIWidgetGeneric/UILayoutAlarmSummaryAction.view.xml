@@ -8,8 +8,7 @@
 		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
-		<uiCtrl>UIWidgetBlackboard</uiCtrl>
+		<uiCtrl>UIWidgetConfiguration</uiCtrl>
 		<uiView>UIWidgetAlarmSummaryCounter.view.xml</uiView>
 		<uiOpts>UIWidgetAlarmSummaryCounter.opts.xml</uiOpts>
 		<element>UIWidgetAlarmSummaryCounter</element>

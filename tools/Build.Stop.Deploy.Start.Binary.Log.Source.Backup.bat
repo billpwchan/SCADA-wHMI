@@ -1,5 +1,8 @@
-CALL R:\\1166B\whmi\tools\Log.Clear.Backup
-CD R:\1166B\whmi\tools
-CALL R:\\1166B\whmi\tools\Build.Stop.Deploy.Start.bat
-CD R:\1166B\whmi\tools
-CALL R:\1166B\whmi\tools\Binary.Log.Source.Backup.bat
+SET BASE_TOOLS_PATH=R:\1166B\whmi\tools
+
+CD %BASE_TOOLS_PATH%
+CALL %BASE_TOOLS_PATH%\Log.Clear.Backup
+CD %BASE_TOOLS_PATH%
+CALL %BASE_TOOLS_PATH%\Build.Stop.Deploy.Start.bat
+CD %BASE_TOOLS_PATH%
+CALL %BASE_TOOLS_PATH%\Binary.Log.Source.Backup.bat

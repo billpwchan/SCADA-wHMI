@@ -77,7 +77,10 @@ public class UIGws {
 			List<String> values = paramsMap.get(key);
 			if ( values.size() > 0 ) {
 				String value = values.get(0);
-				setting.set(key.toLowerCase(), value);
+				String keyLowerCase = key.toLowerCase();
+				setting.set(keyLowerCase, value);
+				
+				logger.info(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
 			}
 		}
 		// end of parameter override

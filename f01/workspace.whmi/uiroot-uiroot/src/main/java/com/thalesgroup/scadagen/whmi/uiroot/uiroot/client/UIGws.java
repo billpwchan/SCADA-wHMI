@@ -118,16 +118,13 @@ public class UIGws {
 		
 		// Num Of Screen
 		String strNumOfScreen = setting.get("numofscreen");
-		
 		if ( null == strNumOfScreen ) {
 			setting.set("numofscreen", Integer.toString(1));
 		} else {
 			boolean valid = false;
 			try {
 				int numOfScreen = Integer.parseInt(strNumOfScreen);
-				if ( numOfScreen >= 1 && numOfScreen <= 3 ) {
-					valid = true;
-				}
+				valid = true;
 			} catch ( NumberFormatException e) {
 				logger.warn(className, function, "getMainPanel NumberFormatException e[{}]", e.toString());
 			}

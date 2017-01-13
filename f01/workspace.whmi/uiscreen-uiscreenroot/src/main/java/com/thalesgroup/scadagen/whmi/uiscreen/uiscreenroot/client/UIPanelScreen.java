@@ -187,15 +187,13 @@ public class UIPanelScreen extends UIWidget_i {
 										logger.info(className, function, "strCssRootContainer[{}] cssClassName[{}]", strCssRootContainer, cssClassName);
 										DOM.getParent(panel.getElement()).setClassName(cssClassName);
 									}
-									
 								} else {
 									logger.warn(className, function, "uiCtrl[{}] panel IS NULL");
 								}
-								
+							} else {
+								logger.warn(className, function, "uiWidget_i IS NULL");
 							}
-							
 						}
-
 					} else {
 						logger.warn(className, function, "taskProvide IS UNKNOW");
 					}

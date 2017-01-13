@@ -77,7 +77,10 @@ public class UIGws {
 			List<String> values = paramsMap.get(key);
 			if ( values.size() > 0 ) {
 				String value = values.get(0);
-				setting.set(key.toLowerCase(), value);
+				String keyLowerCase = key.toLowerCase();
+				setting.set(keyLowerCase, value);
+				
+				logger.info(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
 			}
 		}
 		// end of parameter override
@@ -115,16 +118,13 @@ public class UIGws {
 		
 		// Num Of Screen
 		String strNumOfScreen = setting.get("numofscreen");
-		
 		if ( null == strNumOfScreen ) {
 			setting.set("numofscreen", Integer.toString(1));
 		} else {
 			boolean valid = false;
 			try {
 				int numOfScreen = Integer.parseInt(strNumOfScreen);
-				if ( numOfScreen >= 1 && numOfScreen <= 3 ) {
-					valid = true;
-				}
+				valid = true;
 			} catch ( NumberFormatException e) {
 				logger.warn(className, function, "getMainPanel NumberFormatException e[{}]", e.toString());
 			}

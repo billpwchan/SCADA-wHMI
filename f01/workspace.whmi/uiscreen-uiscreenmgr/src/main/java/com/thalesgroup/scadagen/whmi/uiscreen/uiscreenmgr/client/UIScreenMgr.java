@@ -43,15 +43,18 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 
 			uiWidget_i = new UIScreenMMI();
 
-		} else if ( UIWidgetUtil.getClassSimpleName(
+		}
+		else if ( UIWidgetUtil.getClassSimpleName(
+				UIScreenEmpty.class.getName()).equals(uiCtrl) ) {
+			
+			uiWidget_i = new UIScreenEmpty();
+
+		}
+		else if ( UIWidgetUtil.getClassSimpleName(
 				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
 			
 			uiWidget_i = new UILayoutEntryPoint();
 			
-		} else {
-			
-			uiWidget_i = new UIScreenEmpty();
-
 		}
 
 		if ( null != uiWidget_i ) {

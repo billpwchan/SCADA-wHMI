@@ -6,7 +6,7 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout</groupId>
   <artifactId>uipanel-uipanelviewlayout</artifactId>
@@ -95,13 +95,7 @@
 	  <artifactId>uiinspector-uiinspector</artifactId>
 	  <version>${commons.whmi.version}</version>
 	</dependency>
-	
-	<dependency>
-	  <groupId>com.thalesgroup.scadagen.whmi.opm.authentication</groupId>
-	  <artifactId>opm-authentication</artifactId>
-	  <version>${commons.whmi.version}</version>
-	</dependency>
-	
+
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
 	  <artifactId>uiwidget-uiwidget</artifactId>

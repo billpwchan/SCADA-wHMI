@@ -9,9 +9,10 @@
     </parent>
 
     <properties>
-    <commons.uiwidget.version>1.0</commons.uiwidget.version>
-    <commons.whmi.version>1.0</commons.whmi.version>
-    <commons.uiwrapper.version>1.0</commons.uiwrapper.version>
+    <commons.uiwidget.version>1.1-SNAPSHOT</commons.uiwidget.version>
+    <commons.whmi.version>1.1-SNAPSHOT</commons.whmi.version>
+    <commons.uiwrapper.version>1.1-SNAPSHOT</commons.uiwrapper.version>
+	<commons.whmi.fun.version>1.1-SNAPSHOT</commons.whmi.fun.version>
 	
         <myproject.version>1.2.5</myproject.version>
         <scadasoft.model.version>6.3.1</scadasoft.model.version>
@@ -234,7 +235,7 @@
 		<dependency>
 			<groupId>com.thalesgroup.hv.myproject</groupId>
 			<artifactId>myproject-webapp-func</artifactId>
-			<version>0.0.1</version>
+			<version>${commons.whmi.fun.version}</version>
 			<scope>provided</scope>
 		</dependency>		
 		

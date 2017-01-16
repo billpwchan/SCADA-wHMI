@@ -1,0 +1,25 @@
+.project-UIDialogMsg-panel-dialogmsg {
+	background-color: #BEBEBE;
+}
+
+.project-UIDialogMsg-btnbar {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+.project-UIDialogMsg-button-ok {
+	width: 100px;
+	height: 30px;
+}
+
+.project-UIDialogMsg-button-cancel {
+	width: 100px;
+	height: 30px;
+}
+
+.project-UIDialogMsg-textarea {
+	background-color: #BEBEBE;
+	font-size: 16px !important;
+	cursor: default;
+}

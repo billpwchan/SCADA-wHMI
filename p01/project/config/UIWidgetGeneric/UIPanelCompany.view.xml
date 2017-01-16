@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>Image</widget>
-		<label>/resources/project/img/logo/Logo_Corp-300dpi-SymbolOnly-50px.png</label>
+		<label>/resources/img/project/logo/Logo_Corp-300dpi-SymbolOnly-50px.png</label>
 		<css>project-gwt-image-statusbar-companylogo-0-0</css>
 		<element>image</element>
 		<format></format>

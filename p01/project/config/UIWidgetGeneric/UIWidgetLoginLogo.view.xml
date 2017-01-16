@@ -11,7 +11,7 @@
 	<option key="0|0">
 		<widget>Image</widget>
 		<tooltip>Version: 20161118181136, Startup Time: 2016-11-18 18:23:36</tooltip>
-		<label>/resources/project/img/logo/logologinmtr.jpg</label>
+		<label>/resources/img/project/logo/logologinmtr.jpg</label>
 		<css>project-UIWidgetLoginLogo-login</css>
 		<element>login</element>
 	</option>

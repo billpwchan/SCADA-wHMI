@@ -27,9 +27,9 @@
 		<tooltip>Alarm Sound Audible</tooltip>
 		<css>project-gwt-button-alarmbanner-button-1-0</css>
 		<element>alarmsound</element>
-		<icon>/resources/project/img/hscs/Sound.png</icon>
+		<icon>/resources/img/project/hscs/Sound.png</icon>
 		<labelDown>Silent</labelDown>
-		<iconDown>/resources/project/img/hscs/NoSound.png</iconDown>
+		<iconDown>/resources/img/project/hscs/NoSound.png</iconDown>
 		<cssDown>project-gwt-button-alarmbanner-button-1-0-down</cssDown>
 		<tooltipDown>Alarm Sound Silent</tooltipDown>
 		<iconDivWidth>90</iconDivWidth>

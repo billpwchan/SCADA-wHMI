@@ -13,12 +13,12 @@
 		<tooltip>Horizontal Split</tooltip>
 		<css>project-gwt-button-accessbar-button-0-0</css>
 		<element>splith</element>
-		<icon>/resources/project/img/hscs/SplitH.png</icon>
-		<iconDown>/resources/project/img/hscs/SplitH.png</iconDown>
+		<icon>/resources/img/project/hscs/SplitH.png</icon>
+		<iconDown>/resources/img/project/hscs/SplitH.png</iconDown>
 		<cssDown>project-gwt-button-accessbar-button-0-0-down</cssDown>
 		<tooltipDown>Horizontal Split Activate</tooltipDown>
 		<tooltipDisable>Horizontal Split Disabled</tooltipDisable>
-		<iconDisable>/resources/project/img/hscs/SplitHDisable.png</iconDisable>
+		<iconDisable>/resources/img/project/hscs/SplitHDisable.png</iconDisable>
 		<cssDisable>project-gwt-button-accessbar-button-0-0</cssDisable>
 		
 		<iconDivWidth>90</iconDivWidth>
@@ -32,12 +32,12 @@
 		<tooltip>Vertical Split</tooltip>
 		<css>project-gwt-button-accessbar-button-0-1</css>
 		<element>splitv</element>
-		<icon>/resources/project/img/hscs/SplitV.png</icon>
-		<iconDown>/resources/project/img/hscs/SplitV.png</iconDown>
+		<icon>/resources/img/project/hscs/SplitV.png</icon>
+		<iconDown>/resources/img/project/hscs/SplitV.png</iconDown>
 		<cssDown>project-gwt-button-accessbar-button-0-1-down</cssDown>
 		<tooltipDown>Vertical Split Activate</tooltipDown>
 		<tooltipDisable>Vertical Split Disabled</tooltipDisable>
-		<iconDisable>/resources/project/img/hscs/SplitVDisable.png</iconDisable>
+		<iconDisable>/resources/img/project/hscs/SplitVDisable.png</iconDisable>
 		<cssDisable>project-gwt-button-accessbar-button-0-1</cssDisable>
 		
 		<iconDivWidth>90</iconDivWidth>
@@ -80,7 +80,7 @@
 		<tooltip>Help</tooltip>
 		<css>project-gwt-button-accessbar-button-0-4</css>
 		<element>help</element>
-		<icon>/resources/project/img/hscs/help.png</icon>
+		<icon>/resources/img/project/hscs/help.png</icon>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>
@@ -94,7 +94,7 @@
 		<tooltip>Station Operation</tooltip>
 		<css>project-gwt-button-accessbar-button-0-5</css>
 		<element>stationoperation</element>
-		<icon>/resources/project/img/hscs/Emergency.png</icon>
+		<icon>/resources/img/project/hscs/Emergency.png</icon>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>
@@ -108,7 +108,7 @@
 		<tooltip>Print Screen</tooltip>
 		<css>project-gwt-button-accessbar-button-0-6</css>
 		<element>print</element>
-		<icon>/resources/project/img/hscs/Print.png</icon>
+		<icon>/resources/img/project/hscs/Print.png</icon>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>
@@ -122,7 +122,7 @@
 		<tooltip>Decision Support System</tooltip>
 		<css>project-gwt-button-accessbar-button-0-7</css>
 		<element>dss</element>
-		<icon>/resources/project/img/hscs/DSS.png</icon>
+		<icon>/resources/img/project/hscs/DSS.png</icon>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>
@@ -136,7 +136,7 @@
 		<tooltip>Logout</tooltip>
 		<css>project-gwt-button-accessbar-button-0-8</css>
 		<element>logout</element>
-		<icon>/resources/project/img/hscs/Logout.PNG</icon>
+		<icon>/resources/img/project/hscs/Logout.PNG</icon>
 		
 		<iconDivWidth>90</iconDivWidth>
 		<iconDivHeight>32</iconDivHeight>

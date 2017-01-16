@@ -8,6 +8,7 @@
 	</header>
 
 	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_default_widget_ctlptwcontrol</OperationString1>
 	</actionset>
 	

@@ -1,5 +1,4 @@
 @import url('project-panel-uigwslogin.css');
-@import url('project-panel-dialogmsg.css');
 
 /* inspector panel */
 @import url('project-panel-inspector.css');
@@ -40,14 +39,10 @@
 @import url("project-panel-event-summary.css");
 @import url("project-symbol.css");
 
-@import url("project-import-UILayoutEntryPointDpcTagSummary.css");
-@import url("project-import-UILayoutEntryPointLoginSummary.css");
-@import url("project-import-UILayoutEntryPointSocSummary.view.css");
-
 .project-gwt-panel-root {
 	width: 100%;
 	height: 100%;
-	background-image:url('../img/background/ERL_system_map.png');
+	background-image:url('../../img/project/background/ERL_system_map.png');
 }
 
 .project-gwt-panel-root-container-0 {

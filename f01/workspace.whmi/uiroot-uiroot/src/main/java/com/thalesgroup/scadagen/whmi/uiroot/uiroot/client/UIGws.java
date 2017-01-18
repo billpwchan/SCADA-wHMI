@@ -3,9 +3,6 @@ package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.ResettableEventBus;
@@ -15,9 +12,6 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgr_i;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -25,7 +19,6 @@ import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
 /**
@@ -85,35 +78,35 @@ public class UIGws {
 		}
 		// end of parameter override
 		
-		String strLogModule = setting.get("logmodule");
-		String strLogModuleLevel = setting.get("logmodulelevel");
-		
-		logger.info(className, function, "getMainPanel Debug strLogModule[{}]", strLogModule);
-		logger.info(className, function, "getMainPanel Debug strLogModuleLevel[{}]", strLogModuleLevel);
-		
-		if ( null != strLogModule && null != strLogModuleLevel ) {
-			Level level = Level.FINE;
-			if ( Level.ALL.getName().equals(strLogModuleLevel) ) {
-				level = Level.ALL;
-			} else if ( Level.FINE.getName().equals(strLogModuleLevel) ) {
-				level = Level.FINE;
-			} else if ( Level.INFO.getName().equals(strLogModuleLevel) ) {
-				level = Level.INFO;
-			} else if ( Level.CONFIG.getName().equals(strLogModuleLevel) ) {
-				level = Level.CONFIG;
-			} else if ( Level.WARNING.getName().equals(strLogModuleLevel) ) {
-				level = Level.WARNING;
-			} else if ( Level.SEVERE.getName().equals(strLogModuleLevel) ) {
-				level = Level.SEVERE;
-			}
-			
-			Logger.getLogger(strLogModule).setLevel(level);
-			
-//			String strLogModules [] = strLogModule.split("\\|");
-//			for ( String s: strLogModules ) {
-//				Logger.getLogger(s).setLevel(level);
+//		String strLogModule = setting.get("logmodule");
+//		String strLogModuleLevel = setting.get("logmodulelevel");
+//		
+//		logger.info(className, function, "getMainPanel Debug strLogModule[{}]", strLogModule);
+//		logger.info(className, function, "getMainPanel Debug strLogModuleLevel[{}]", strLogModuleLevel);
+//		
+//		if ( null != strLogModule && null != strLogModuleLevel ) {
+//			Level level = Level.FINE;
+//			if ( Level.ALL.getName().equals(strLogModuleLevel) ) {
+//				level = Level.ALL;
+//			} else if ( Level.FINE.getName().equals(strLogModuleLevel) ) {
+//				level = Level.FINE;
+//			} else if ( Level.INFO.getName().equals(strLogModuleLevel) ) {
+//				level = Level.INFO;
+//			} else if ( Level.CONFIG.getName().equals(strLogModuleLevel) ) {
+//				level = Level.CONFIG;
+//			} else if ( Level.WARNING.getName().equals(strLogModuleLevel) ) {
+//				level = Level.WARNING;
+//			} else if ( Level.SEVERE.getName().equals(strLogModuleLevel) ) {
+//				level = Level.SEVERE;
 //			}
-		}
+//			
+//			Logger.getLogger(strLogModule).setLevel(level);
+//			
+////			String strLogModules [] = strLogModule.split("\\|");
+////			for ( String s: strLogModules ) {
+////				Logger.getLogger(s).setLevel(level);
+////			}
+//		}
 		
 		
 		// Num Of Screen
@@ -124,7 +117,7 @@ public class UIGws {
 			boolean valid = false;
 			try {
 				int numOfScreen = Integer.parseInt(strNumOfScreen);
-				valid = true;
+				if ( numOfScreen > 0 ) valid = true;
 			} catch ( NumberFormatException e) {
 				logger.warn(className, function, "getMainPanel NumberFormatException e[{}]", e.toString());
 			}
@@ -228,14 +221,6 @@ public class UIGws {
 		logger.info(className, function, "folder[{}] received[{}]", folder, received);
 
 		if ( ! isCreated ) {
-			
-			String key = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
-			UIDialogMgr.getInstance().addDialogs(key, new UIDialogMgr_i() {
-				@Override
-				public UIDialog_i getDialog() {
-					return new UIDialogMsg();
-				}
-			});
 			
 			UIWidget_i uiWidget_i = new UIPanelScreen();
 			uiWidget_i.setDictionaryFolder(dictionaryFolder);

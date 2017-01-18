@@ -33,16 +33,20 @@ public class UIPanelStatusBar extends UIWidget_i {
 	
 	private UILayoutGeneric uiLayoutGeneric =  null;
 	
-	private String strTitle = "";
+	private String title = "";
 	
 	private String strUIWidgetGeneric = "UIWidgetGeneric";
 	
-	private String opmApi = null;
-	private String stropmapi = "opmapi";
-	private String strHeader = "header";
+	private String opmApi			= null;
+	private final String strOpmApi	= "OpmApi";
+	private final String strHeader	= "header";
 	
 	private final String strOperator = "operator";
-	private final String strProfile = "profile";
+	private final String strProfile	= "profile";
+	
+	private final String strDate = "date";
+	private final String strTime = "time";
+	private final String strTitle = "title";
 
 	@Override
 	public void init() {
@@ -53,7 +57,7 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			opmApi = dictionariesCache.getStringValue(optsXMLFile, stropmapi, strHeader);
+			opmApi = dictionariesCache.getStringValue(optsXMLFile, strOpmApi, strHeader);
 		}
 
 		handlerRegistrations.add(
@@ -81,8 +85,8 @@ public class UIPanelStatusBar extends UIWidget_i {
 		
 		Timer t = new Timer() {
 			public void run() {
-				uiPanelGenericDateTime.setWidgetValue("date", null);
-				uiPanelGenericDateTime.setWidgetValue("time", null);
+				uiPanelGenericDateTime.setWidgetValue(strDate, null);
+				uiPanelGenericDateTime.setWidgetValue(strTime, null);
 			}
 		};
 		// Schedule the timer to run once every second, 250 ms.
@@ -125,12 +129,12 @@ public class UIPanelStatusBar extends UIWidget_i {
 						logger.info(className, function, "TaskTitle is match");
 
 						UITaskTitle taskTitle = (UITaskTitle) taskProvide;
-						String strTitle = taskTitle.getTitle();
+						String title = taskTitle.getTitle();
 
-						logger.info(className, function, "strTitle[{}]", strTitle);
-						if (null != strTitle)		this.strTitle = strTitle;
+						logger.info(className, function, "strTitle[{}]", title);
+						if (null != title)		this.title = title;
 						
-						uiPanelGenericTitle.setWidgetValue("title", this.strTitle);
+						uiPanelGenericTitle.setWidgetValue(strTitle, this.title);
 						
 					}
 				}

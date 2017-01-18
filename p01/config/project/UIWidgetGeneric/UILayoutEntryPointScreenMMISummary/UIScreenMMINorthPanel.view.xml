@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>DockLayoutPanel</rootPanel>
+		<rootCSS>project-gwt-panel-mminorth-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UIPanelStatusBar</uiCtrl>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar.opts.xml</uiOpts>
+		<direction>North</direction>
+		<width>42</width>
+	</option>
+	
+	<option key="0|1">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UILayoutEntryPointScreenMMISummary/UIPanelVerticalSpliter</uiCtrl>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelVerticalSpliter.view.xml</uiView>
+		<direction>South</direction>
+		<width>20</width>
+	</option>
+	<option key="0|2">
+		<type>predefine</type>
+		<uiCtrl>UILayoutSummary</uiCtrl>
+		<uiView>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.opts.xml</uiOpts>
+		<element>UILayoutAlarmBanner</element>
+		<direction>Center</direction>
+	</option>
+</data-set>

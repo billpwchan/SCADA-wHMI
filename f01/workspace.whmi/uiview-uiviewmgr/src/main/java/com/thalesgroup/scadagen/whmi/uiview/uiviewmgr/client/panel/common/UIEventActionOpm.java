@@ -36,14 +36,14 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 		}
 		
 		String action		= (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-		String opmapi		= (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+		String opmApi		= (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
 		
 		if ( action == null ) {
 			logger.warn(className, function, logPrefix+"action IS NULL");
 			return bContinue;
 		}
 		
-		if ( opmapi == null ) {
+		if ( opmApi == null ) {
 			logger.warn(className, function, logPrefix+"opmapi IS NULL");
 			return bContinue;
 		}
@@ -54,12 +54,12 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			
 			logger.info(className, function, logPrefix+"logout");
 			
-			UIOpm_i opm_i = OpmMgr.getInstance(opmapi);
+			UIOpm_i opm_i = OpmMgr.getInstance(opmApi);
 			if ( null != opm_i ) {
 				logger.debug(className, function, "call opm_i logout");
 				opm_i.logout();
 			} else {
-				logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", opmapi);
+				logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", opmApi);
 			}
 			
 		} else if ( action.equals(UIEventActionOpmAction.OpmLogin.toString()) ) {
@@ -79,12 +79,12 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 				return bContinue;
 			}
 			
-			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmapi);
+			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmApi);
 			if ( null != uiOpm_i ) {
 				logger.debug(className, function, "call opm_i login");
 				uiOpm_i.login(operator, password);
 			} else {
-				logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", opmapi);
+				logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", opmApi);
 			}
 			
 		} else {

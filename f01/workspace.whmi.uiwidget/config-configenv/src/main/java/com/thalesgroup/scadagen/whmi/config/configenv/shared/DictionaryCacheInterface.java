@@ -26,7 +26,9 @@ public class DictionaryCacheInterface {
 	}
 	
 	public enum XMLAttribute {
-		FileName("FileName")
+		  FileSeparator("FileSeparator")
+		, RelativePath("RelativePath")
+		, FileName("FileName")
 		, Tag("Tag")
 		, DateTime("DateTime")
 		;
@@ -38,7 +40,9 @@ public class DictionaryCacheInterface {
 	}
 	
 	public enum PropertiesAttribute {
-		FileName("FileName")
+		  FileSeparator("FileSeparator")
+		, RelativePath("RelativePath")
+		, FileName("FileName")
 		, DateTime("DateTime")
 		;
 		private final String text;

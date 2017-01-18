@@ -35,12 +35,12 @@ public class UILayoutLogin extends UIWidget_i {
 	private UIWidget_i uiWidgetGenericInfo		= null;
 	private UIWidget_i uiWidgetGenericButton	= null;
 	
-	private String opmApi				= null;
-	private String stropmapi			= "opmapi";
-	private String strHeader			= "header";
+	private String opmApi					= null;
+	private final String strOpmApi			= "OpmApi";
+	private final String strHeader			= "header";
 	
-	private String strname				= "name";
-	private String strpassword			= "password";
+	private final String strname			= "name";
+	private final String strpassword		= "password";
 	
 	// External
 	private SimpleEventBus eventBus = null;
@@ -130,7 +130,7 @@ public class UILayoutLogin extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			opmApi = dictionariesCache.getStringValue(optsXMLFile, stropmapi, strHeader);
+			opmApi = dictionariesCache.getStringValue(optsXMLFile, strOpmApi, strHeader);
 		}
 		
 		uiLayoutGeneric = new UILayoutGeneric();

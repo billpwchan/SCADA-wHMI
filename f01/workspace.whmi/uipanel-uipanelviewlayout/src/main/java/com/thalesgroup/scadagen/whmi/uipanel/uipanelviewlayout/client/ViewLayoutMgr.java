@@ -301,7 +301,7 @@ public class ViewLayoutMgr {
 			
 			UIEventAction uiEventAction = null;
 			
-			String optsXMLFile = "UISchematic_"+configurationId+".opts.xml";
+			String optsXMLFile = "UISchematic" + "/" + "UISchematic_"+configurationId+".opts.xml";
 			String dictionariesCacheName = "UIWidgetGeneric";
 			String tag = UIActionEventType.actionset.toString();
 			

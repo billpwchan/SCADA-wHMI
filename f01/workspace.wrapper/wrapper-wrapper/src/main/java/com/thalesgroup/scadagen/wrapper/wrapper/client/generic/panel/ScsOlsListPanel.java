@@ -21,7 +21,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.e
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.GDGAttribute;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterName;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterValue;
@@ -33,7 +32,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDa
  */
 public class ScsOlsListPanel extends UIWidget_i {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
+	private static final String className = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
 
     /** Logger */
     private static final ClientLogger LOGGER = ClientLogger.getClientLogger();

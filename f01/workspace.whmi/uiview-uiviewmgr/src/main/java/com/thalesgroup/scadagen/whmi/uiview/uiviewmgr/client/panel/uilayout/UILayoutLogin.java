@@ -213,9 +213,7 @@ public class UILayoutLogin extends UIWidget_i {
 		
 		String authErrCode = Window.Location.getParameter("autherr");
 		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
-			
-			uiEventActionProcessor_i.executeActionSet("set_result_value_invalid");
-			
+			uiEventActionProcessor_i.executeActionSet("set_result_value_invalid"+"_"+authErrCode);
 		}
 		
 		logger.begin(className, function);

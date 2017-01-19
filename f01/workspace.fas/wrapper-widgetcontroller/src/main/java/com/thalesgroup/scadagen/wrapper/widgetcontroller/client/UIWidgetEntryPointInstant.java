@@ -113,7 +113,7 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
 		String folder = "UIWidgetGeneric";
-		String extention = ".xml";
+		String extention = "*.xml";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		for(String tag : tags ) {
 			dictionariesCache.add(folder, extention, tag);

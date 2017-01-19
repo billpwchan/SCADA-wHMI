@@ -5,6 +5,9 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgr_i;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -39,6 +42,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocTitle;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBox;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
@@ -86,8 +90,8 @@ public class UILayoutSummary extends UIWidget_i {
 		if ( null == eventBusName || eventBusName.trim().length() == 0) {
 			eventBusName = this.viewXMLFile;
 		}
-		if ( 0 == "global".compareToIgnoreCase(eventBusScope) ) {
-			eventBusName += uiNameCard.getUiScreen();
+		if ( ! ( null != eventBusScope && 0 != ParameterValue.Global.toString().compareTo(eventBusScope) ) ) {
+			eventBusName += "_" + uiNameCard.getUiScreen();
 		}
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
 		
@@ -101,6 +105,14 @@ public class UILayoutSummary extends UIWidget_i {
 				message = Translation.getDBMessage(message);
 				
 				return message;
+			}
+		});
+		
+		String key = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
+		UIDialogMgr.getInstance().addDialogs(key, new UIDialogMgr_i() {
+			@Override
+			public UIDialog_i getDialog() {
+				return new UIDialogMsg();
 			}
 		});
 

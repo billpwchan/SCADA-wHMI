@@ -257,7 +257,7 @@ public class ScsOlsListPanel extends UIWidget_i {
 			if ( null == mwtEventBusName || mwtEventBusName.trim().length() == 0) {
 				mwtEventBusName = this.viewXMLFile;
 			}
-			if ( mwtEventBusScope != null && mwtEventBusScope.equalsIgnoreCase(ParameterValue.Global.toString()) ) {
+			if ( ! ( mwtEventBusScope != null && mwtEventBusScope.equalsIgnoreCase(ParameterValue.Global.toString()) ) ) {
 				mwtEventBusName += uiNameCard.getUiScreen();
 			}
 			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");

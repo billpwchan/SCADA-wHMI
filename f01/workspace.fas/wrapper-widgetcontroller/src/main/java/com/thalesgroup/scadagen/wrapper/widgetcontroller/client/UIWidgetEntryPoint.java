@@ -142,10 +142,11 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		final String action			= "action";
 		final String actionset		= "actionset";
 		final String [] tags = {header, option, action, actionset};
+		
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
 		String folder = "UIWidgetGeneric";
-		String extention = ".xml";
+		String extention = "*.xml";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		for(String tag : tags ) {
 			dictionariesCache.add(folder, extention, tag);

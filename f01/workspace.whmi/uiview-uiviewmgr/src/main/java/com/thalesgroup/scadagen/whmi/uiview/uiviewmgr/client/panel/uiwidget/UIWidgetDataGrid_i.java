@@ -8,6 +8,8 @@ public interface UIWidgetDataGrid_i {
 		, DataGridColumnsType("DataGridColumnsType")
 		, DataGridColumnsLabel("DataGridColumnsLabel")
 		, DataGridColumnsWidth("DataGridColumnsWidth")
+		, DataGridColumnsFilter("DataGridColumnsFilter")
+		, DataGridColumnsSourceTableIndex("DataGridColumnSourceTableIndex")
 		
 		, TargetDataGrid_A("TargetDataGrid_A")
 		, TargetDataGridColumn_A("TargetDataGridColumn_A")

@@ -8,12 +8,5 @@
 		<rootCss>project-UILayoutSocSummaryViewer2-root</rootCss>
 		<!--<rootCSS>project-gwt-panel-viewerview-inner</rootCSS>-->
 	</header>
-	<!--
-	<option key="0|0">
-		<type>predefine</type>
-		<uiCtrl>ScsOlsListPanel</uiCtrl>
-		<uiOpts>UILayoutAlarmSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
-	</option>
-	-->
 
 </data-set>

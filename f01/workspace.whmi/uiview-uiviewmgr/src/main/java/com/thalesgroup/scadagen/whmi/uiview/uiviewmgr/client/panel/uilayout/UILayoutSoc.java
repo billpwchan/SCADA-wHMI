@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.Window;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -121,27 +120,6 @@ public class UILayoutSoc extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
-		handleErrorCode();
-		
 		logger.end(className, function);
 	}
-
-	private int handleErrorCode() {
-		final String function = "handleErrorMessage";
-		logger.begin(className, function);
-		
-		int code = 0;
-		
-		String authErrCode = Window.Location.getParameter("autherr");
-		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
-			
-			uiEventActionProcessor_i.executeActionSet("set_result_value_invalid");
-			
-		}
-		
-		logger.begin(className, function);
-		
-		return code;
-	}
-	
 }

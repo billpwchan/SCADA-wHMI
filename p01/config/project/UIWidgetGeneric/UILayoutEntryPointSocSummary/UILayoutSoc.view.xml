@@ -32,6 +32,7 @@
 		<element>UILayoutSocSummaryViewer2</element>
 	</option>
 	
+	<!--
 	<option key="0|3">
 		<type>predefine</type>
 		<uiCtrl>UIWidgetSocDelayControl</uiCtrl>
@@ -39,6 +40,16 @@
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.opts.xml</uiOpts>
 		<element>UIWidgetSocDelayControl</element>
 	</option>
+	-->
+	
+	<option key="0|3">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetSocGrcPoint</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocGrcPoint.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocGrcPoint.opts.xml</uiOpts>
+		<element>UIWidgetSocGrcPoint</element>
+	</option>
+	
 	<option key="0|4">
 		<type>predefine</type>
 		<uiCtrl>UIWidgetSocAutoManuControl</uiCtrl>

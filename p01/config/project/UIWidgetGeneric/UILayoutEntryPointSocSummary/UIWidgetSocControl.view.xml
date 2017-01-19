@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>3</cols>
+		<cols>4</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIWidgetSocControl-root</rootCss>
 		<!--<rootCss>project-gwt-simplepanel-controlview</rootCss>-->
@@ -42,6 +42,21 @@
 	</option>
 	
 	<option key="0|2">
+		<widget>Button</widget>
+		<label>Retry</label>
+		<css>project-UIWidgetSocControl-button-retry</css>
+		<element>retry</element>
+		
+		<cssContainer>project-UIWidgetSocControl-container-retry</cssContainer>
+		
+		<cssDown>project-UIWidgetSocControl-button-retry-down</cssDown>
+		<cssDisable>project-UIWidgetSocControl-button-retry-disable</cssDisable>
+		<tooltip>Retry</tooltip>
+		<tooltipDown>Retry Activate</tooltipDown>
+		<tooltipDisable>Retry Disabled</tooltipDisable>
+	</option>
+	
+	<option key="0|3">
 		<widget>Button</widget>
 		<label>Skip Failed Step</label>
 		<css>project-UIWidgetSocControl-button-skip</css>

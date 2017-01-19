@@ -1,0 +1,41 @@
+.project-UIWidgetGrcPoint-container-grccursteplabel {
+	vertical-align: middle !important;
+}
+.project-UIWidgetGrcPoint-label-grccurstep {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+.project-UIWidgetSocGrcPoint-container-grccurstepvalue {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-textbox-grccurstep {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}
+
+.project-UIWidgetSocGrcPoint-container-grccurstatuslabel {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-label-grccurstatus {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+.project-UIWidgetSocGrcPoint-container-grccurstatusvalue {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-textbox-grccurstatus {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}

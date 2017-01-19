@@ -1,11 +1,16 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.IPollerComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.poller.ScsPollerComponentAccess;
 
@@ -21,6 +26,10 @@ public class WrapperScsPollerAccess {
 	}
 	
 	private ScsPollerComponentAccess poller_ = null;
+	
+	private Map<String, SubscribeResult> subMap = new HashMap<String, SubscribeResult>();
+	
+	private Map<String, UnSubscribeResult> unSubMap = new HashMap<String, UnSubscribeResult>();
 	
 	private WrapperScsPollerAccess () {
 		poller_ = new ScsPollerComponentAccess(new IPollerComponentClient() {
@@ -45,27 +54,41 @@ public class WrapperScsPollerAccess {
 			}
 
 			@Override
-			public void setSubscribeResult(String clientKey, String subUUID, String pollerState, String[] dbaddress,
+			public void setSubscribeResult(String clientKey, String subUUID, String pollerState, String[] dbaddresses,
 					String[] values, int errorCode, String errorMessage) {
-				if (errorCode != 0) {
-					logger.error("subscribe failed. clientKey=" + clientKey + "  " + errorMessage);
-				} else {
-					logger.info("subscribe success. clientKey=" + clientKey + " subscriptionID=" + subUUID);
+				
+				SubscribeResult subRes = subMap.get(clientKey);
+
+				if (subRes != null) {
+					subRes.setSubscribeResult(clientKey, subUUID, pollerState, dbaddresses, values, errorCode, errorMessage);
 					
-					setSubscribeResult(clientKey, subUUID, pollerState, dbaddress, values, errorCode, errorMessage);
+					if (errorCode != 0) {
+						logger.error("subscribe failed. clientKey=" + clientKey + "  " + errorMessage);
+						subRes.notifyError();
+					} else {
+						logger.debug("subscribe success. clientKey=" + clientKey + " subscriptionID=" + subUUID);
+						subRes.update();
+					}
 				}
 			}
 
 			@Override
 			public void setUnSubscribeResult(String clientKey, int errorCode, String errorMessage) {
-				if (errorCode != 0) {
-					logger.error("unsubscribe failed. clientKey=" + clientKey + "  " + errorMessage);
-				} else {
-					logger.info("unsubscribe success. clientKey=" + clientKey);
+				
+				UnSubscribeResult unSubRes = unSubMap.get(clientKey);
+				
+				if (unSubRes != null) {
+					unSubRes.setUnSubscribeResult(clientKey, errorCode, errorMessage);
+
+					if (errorCode != 0) {
+						logger.error("unsubscribe failed. clientKey=" + clientKey + "  " + errorMessage);
+						unSubRes.notifyError();
+					} else {
+						logger.debug("unsubscribe success. clientKey=" + clientKey);
+						unSubRes.update();
+					}
 				}
 			}
-
-			
 		});
 	}
 	
@@ -73,12 +96,14 @@ public class WrapperScsPollerAccess {
 		poller_.deleteGroup(key, scsEnvId, groupName);
 	}
 	
-	public void subscribe(String key, String scsEnvId, String groupName, String[] dataFields, int periodMS) {
+	public void subscribe(String key, String scsEnvId, String groupName, String[] dataFields, int periodMS, SubscribeResult subResult) {
 		poller_.subscribe(key, scsEnvId, groupName, dataFields, periodMS);
+		subMap.put(key, subResult);
 	}
 	
-	public void unSubscribe(String key, String scsEnvId, String groupName, String subscriptionId) {
+	public void unSubscribe(String key, String scsEnvId, String groupName, String subscriptionId, UnSubscribeResult unsubResult) {
 		poller_.unSubscribe(key, scsEnvId, groupName, subscriptionId);
+		unSubMap.put(key, unsubResult);
 	}
 
 }

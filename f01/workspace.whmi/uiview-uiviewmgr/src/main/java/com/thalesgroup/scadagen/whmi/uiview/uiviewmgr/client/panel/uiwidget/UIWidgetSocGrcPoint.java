@@ -2,33 +2,35 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsPollerAccess;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
-public class UIWidgetSocTitle extends UIWidget_i {
-	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocTitle.class.getName());
+public class UIWidgetSocGrcPoint extends UIWidget_i {
+
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocGrcPoint.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private SimpleEventBus eventBus 	= null;
@@ -38,37 +40,32 @@ public class UIWidgetSocTitle extends UIWidget_i {
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
 	private String targetDataGridColumn = "";
+	private String targetDataGridColumn2 = "";
+	private String targetDataGridColumn3 = "";
 	private String targetDataGrid		= "";
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
 	
+	private String soccard = null;
+	private String scsEnvId = null;
+	private String grcdbaddress = null;
+	
+	// Generate unique widget ID as scs request key
+	private String widgetId = UUIDWrapper.getUUID();
+	private String subscriptionId = null;
+	
+	// GRC point attributes defined in SCADAsoft DB (excluding brctable)
+	private String [] grcPointAttributes = { "name", "label", "initcond", "lexectime", "inhibflag", "curstep", "curstatus", "type" };
+	
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
 		@Override
-		public void onUIEvent(UIEvent uiEvent) {
-			// TODO Auto-generated method stub
-			
+		public void onUIEvent(UIEvent uiEvent) {	
 		}
 		
 		@Override
 		public void onClick(ClickEvent event) {
-			final String function = "onClick";
-			
-			logger.begin(className, function);
-			
-			if ( null != event ) {
-				Widget widget = (Widget) event.getSource();
-				if ( null != widget ) {
-					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
-					if ( null != element ) {
-						String actionsetkey = element;
-						uiEventActionProcessor_i.executeActionSet(actionsetkey);
-					}
-				}
-			}
-			logger.begin(className, function);
 		}
 		
 		@Override
@@ -79,7 +76,7 @@ public class UIWidgetSocTitle extends UIWidget_i {
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1[{}]", os1);
+			logger.info(className, function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
 				if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -104,17 +101,23 @@ public class UIWidgetSocTitle extends UIWidget_i {
 										if ( obj2 instanceof Equipment_i ) {
 											equipmentSelected = (Equipment_i) obj2;
 											
-											String soccard = equipmentSelected.getStringValue(targetDataGridColumn);
+											soccard = equipmentSelected.getStringValue(targetDataGridColumn);
+											scsEnvId = equipmentSelected.getStringValue(targetDataGridColumn2);
+											grcdbaddress = equipmentSelected.getStringValue(targetDataGridColumn3);
 											
 											logger.info(className, function, "soccard[{}]", soccard);
 											
-											uiWidgetGeneric.setWidgetValue("selectedsoccardvalue", soccard);
+											// UnSubscribe to current grcpoint
+											if (subscriptionId != null) {
+												unSubscribeGrcPoint();
+											}
+											
+											// Subscribe to soccard grcpoint
+											subscribeGrcPoint(grcdbaddress);
 											
 										} else {
 											equipmentSelected = null;
-											
-											
-											
+
 											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
 										}
 									} else {
@@ -163,6 +166,8 @@ public class UIWidgetSocTitle extends UIWidget_i {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
+			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn2.toString(), strHeader);
+			targetDataGridColumn3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn3.toString(), strHeader);
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
 		}
 		
@@ -225,5 +230,78 @@ public class UIWidgetSocTitle extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
+	
+	private void subscribeGrcPoint(String dbaddress) {
+		final String function = "subscribeGrcPoint";
+		
+		logger.begin(className, function);
+		
+		String key = widgetId + "_" + function + "_" + dbaddress;
+		String groupName = key;
+		int periodMS = 0;
+		
+		String [] dataFields = new String [grcPointAttributes.length];
+		for (int i=0; i<grcPointAttributes.length; i++) {
+			dataFields[i] = dbaddress + "." + grcPointAttributes[i];
+		}
+		
+		SubscribeResult subResult = new SubscribeResult() {
 
+			@Override
+			public void update() {
+				final String className ="SubscribeResult";
+				final String function ="update";
+				int curStepIdx = -1;
+				int curStatusIdx = -1;
+				
+				logger.debug(className, function, "subUUID = [{}]", getSubUUID());
+				subscriptionId = getSubUUID();
+					
+				logger.debug(className, function, "pollerState = [{}]", getPollerState());
+				
+				final String [] dbaddresses = getDbAddresses();
+				for (int j=0; j<dbaddresses.length; j++) {
+					logger.debug(className, function, "dbaddr[{}] = [{}]", j, dbaddresses[j]);
+					
+					if (dbaddresses[j].endsWith("curstep")) {
+						curStepIdx = j;
+					} else if (dbaddresses[j].endsWith("curstatus")) {
+						curStatusIdx = j;
+					}
+				}
+				
+				final String [] values = getValues();
+				for (int k=0; k<values.length; k++) {
+					logger.debug(className, function, "value[{}] = [{}]", k, values[k]);
+					
+					if (k == curStepIdx) {
+						uiWidgetGeneric.setWidgetValue("grccurstepvalue", values[k]);
+					} else if (k == curStatusIdx) {
+						uiWidgetGeneric.setWidgetValue("grccurstatusvalue", values[k]);
+					}
+				}
+			}
+		};
+		WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
+		poller.subscribe(key, scsEnvId, groupName, dataFields, periodMS, subResult);
+
+		logger.end(className, function);
+	}
+
+	
+	private void unSubscribeGrcPoint() {
+		final String function = "unSubscribeGrcPoint";
+		
+		logger.begin(className, function);
+		
+		String key = widgetId + "_" + function;
+		String groupName = key;
+
+		UnSubscribeResult unsubResult = new UnSubscribeResult();
+		
+		WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
+		poller.unSubscribe(key, scsEnvId, groupName, subscriptionId, unsubResult);
+		
+		logger.end(className, function);
+	}
 }

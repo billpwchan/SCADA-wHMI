@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<TargetDataGrid>UIDataGridFomatterSOC</TargetDataGrid>
+		<TargetDataGridColumn>SOCCard</TargetDataGridColumn>
+		<TargetDataGridColumn2>ScsEnvID</TargetDataGridColumn2>
+		<TargetDataGridColumn3>Alias</TargetDataGridColumn3>
+	</header>
+	
+	<actionset key="init">
+	</actionset>
+	
+		<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>	
+	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+
+</data-set>

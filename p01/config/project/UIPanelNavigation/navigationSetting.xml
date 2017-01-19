@@ -403,7 +403,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointPTWSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointPTWSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>PTW Summary</tooltips>
 	</option>
 	<option key="43">
@@ -413,7 +413,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointAlarmSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointAlarmSummary/UILayoutEntryPointAlarmSummary.view.xml</uiView>
 		<tooltips>Alarm Summary</tooltips>
 	</option>
 	<option key="44">
@@ -423,7 +423,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointEventSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointEventSummary/UILayoutEntryPointEventSummary.view.xml</uiView>
 		<tooltips>Event Summary</tooltips>
 	</option>
 	<option key="45">
@@ -433,7 +433,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
 		<tooltips>Alarm Management</tooltips>
 	</option>
 	<option key="46">
@@ -443,7 +443,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointHelpURLSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointHelpURLSummary/UILayoutEntryPointHelpURLSummary.view.xml</uiView>
 		<tooltips>Help</tooltips>
 	</option>
 	<option key="47">
@@ -469,7 +469,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointInputTableSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointInputTableSummary/UILayoutEntryPointInputTableSummary.view.xml</uiView>
 		<tooltips>Input Table</tooltips>
 	</option>
 	<option key="50">
@@ -479,7 +479,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointDBMSURLSummary/UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
 		<tooltips>Historical Report</tooltips>
 	</option>
 	<option key="51">
@@ -756,7 +756,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointPTWSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointPTWSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>PTW Summary</tooltips>
 	</option>
 	<option key="83">
@@ -766,7 +766,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointAlarmSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointAlarmSummary/UILayoutEntryPointAlarmSummary.view.xml</uiView>
 		<tooltips>Alarm Summary</tooltips>
 	</option>
 	<option key="84">
@@ -776,7 +776,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointEventSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointEventSummary/UILayoutEntryPointEventSummary.view.xml</uiView>
 		<tooltips>Event Summary</tooltips>
 	</option>
 	<option key="85">
@@ -786,7 +786,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
 		<tooltips>Alarm Management</tooltips>
 	</option>
 	<option key="86">
@@ -796,7 +796,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointHelpURLSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointHelpURLSummary/UILayoutEntryPointHelpURLSummary.view.xml</uiView>
 		<tooltips>Help</tooltips>
 	</option>
 	<option key="87">
@@ -822,7 +822,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointInputTableSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointInputTableSummary/UILayoutEntryPointInputTableSummary.view.xml</uiView>
 		<tooltips>Input Table</tooltips>
 	</option>
 	<option key="90">
@@ -832,7 +832,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointDBMSURLSummary/UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
 		<tooltips>Historical Report</tooltips>
 	</option>
 	<option key="91">
@@ -876,7 +876,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointPTWSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointPTWSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
 		<tooltips>PTW Summary</tooltips>
 	</option>
 	<option key="96">
@@ -886,7 +886,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointAlarmSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointAlarmSummary/UILayoutEntryPointAlarmSummary.view.xml</uiView>
 		<tooltips>Alarm Summary</tooltips>
 	</option>
 	<option key="97">
@@ -896,7 +896,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointEventSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointEventSummary/UILayoutEntryPointEventSummary.view.xml</uiView>
 		<tooltips>Event Summary</tooltips>
 	</option>
 	<option key="98">
@@ -906,7 +906,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutEntryPointAlmMgnSummary.view.xml</uiView>
 		<tooltips>Alarm Management</tooltips>
 	</option>
 	<option key="99">
@@ -916,7 +916,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointHelpURLSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointHelpURLSummary/UILayoutEntryPointHelpURLSummary.view.xml</uiView>
 		<tooltips>Help</tooltips>
 	</option>
 	<option key="100">
@@ -942,7 +942,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointInputTableSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointInputTableSummary/UILayoutEntryPointInputTableSummary.view.xml</uiView>
 		<tooltips>Input Table</tooltips>
 	</option>
 	<option key="103">
@@ -952,7 +952,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointDBMSURLSummary/UILayoutEntryPointDBMSURLSummary.view.xml</uiView>
 		<tooltips>Historical Report</tooltips>
 	</option>
 	<option key="104">
@@ -970,7 +970,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointDpcTagSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointDpcTagSummary/UILayoutEntryPointDpcTagSummary.view.xml</uiView>
 		<tooltips>PTW Summary(DpcTag)</tooltips>
 	</option>
 	<option key="106">
@@ -980,7 +980,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMVerifySummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointOPMVerifySummary/UILayoutEntryPointOPMVerifySummary.view.xml</uiView>
 		<tooltips>OPM Verify Summary</tooltips>
 	</option>
 	<option key="107">
@@ -990,7 +990,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointOPMChangePasswordSummary/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
 		<tooltips>OPM Summary</tooltips>
 	</option>
 	<option key="108">
@@ -1000,7 +1000,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointLoginSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointLoginSummary/UILayoutEntryPointLoginSummary.view.xml</uiView>
 		<tooltips>Login Summary</tooltips>
 	</option>
 	<option key="109">
@@ -1010,7 +1010,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointSocSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC Summary</tooltips>
 	</option>
 	<option key="110">
@@ -1020,7 +1020,7 @@
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointSocSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC Summary</tooltips>
 		<opmName1>location</opmName1>
 		<opmValue1>1</opmValue1>

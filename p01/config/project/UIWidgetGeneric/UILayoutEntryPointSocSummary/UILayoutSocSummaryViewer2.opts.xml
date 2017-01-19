@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<header key="header">
+		<EventBusName>socsummary</EventBusName>
+		<EventBusScope>local</EventBusScope>
+		<DataGrid>UIDataGridFomatterSOCDetails</DataGrid>
+		<DataGridColumnsType>Number,String,String,String,String,String,String,Boolean</DataGridColumnsType>
+		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Reserved,PTW,LR,Disable</DataGridColumnsLabel>
+		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
+	</header>
+	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="RowSelected">
+		<OperationString1>RowSelected</OperationString1>
+	</actionset>
+	
+	<action key="RowSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+</data-set>

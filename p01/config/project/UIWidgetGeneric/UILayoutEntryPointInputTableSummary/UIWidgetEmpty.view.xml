@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>0</rows>
+		<cols>0</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-gwt-simplepanel-controlview</rootCss>
+		<cssFlexTable>project-gwt-verticalpanel-controlview</cssFlexTable>
+	</header>
+	
+	<option>
+	</option>
+
+</data-set>

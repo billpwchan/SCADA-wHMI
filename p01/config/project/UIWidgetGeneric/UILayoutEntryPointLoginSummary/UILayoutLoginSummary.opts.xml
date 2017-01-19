@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<EventBusName>loginsummary</EventBusName>
+		<EventBusScope>local</EventBusScope>
+		<InitDelayMS>1000</InitDelayMS>
+	</header>
+
+	<actionset key="init">
+	<!--
+		<OperationString1>set_default_widget_ctlptwcontrol</OperationString1>
+		-->
+	</actionset>
+	
+	<actionset key="init_delay">
+	<!--
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_default_widget_filter</OperationString1>
+		-->
+	</actionset>
+	<!--
+	<action key="set_default_widget_ctlptwcontrol">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UIWidgetPTWControl</OperationElement>
+		<OperationString1>set_default_action</OperationString1>
+	</action>
+	
+	<action key="set_default_widget_filter">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UIWidgetPTWFilter</OperationElement>
+		<OperationString1>set_default_action</OperationString1>
+	</action>
+	-->
+</data-set>

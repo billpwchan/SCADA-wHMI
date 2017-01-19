@@ -45,7 +45,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
 	private String opmApi = null;
-	private String stropmapi = "opmapi";
+	private String strOpmApi = "OpmApi";
 	private String strHeader = "header";
 
 	private final String stroldpassvalue	= "oldpassvalue";
@@ -214,7 +214,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			opmApi = dictionariesCache.getStringValue(optsXMLFile, stropmapi, strHeader);
+			opmApi = dictionariesCache.getStringValue(optsXMLFile, strOpmApi, strHeader);
 		}
 
 		uiWidgetGeneric = new UIWidgetGeneric();

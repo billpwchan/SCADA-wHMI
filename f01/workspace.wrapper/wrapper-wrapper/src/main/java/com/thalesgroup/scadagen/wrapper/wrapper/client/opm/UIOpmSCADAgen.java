@@ -56,6 +56,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			dto.addParameter( opmName4, opmValue4 );
 		
 			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
+			
+			// TO: remove the non target role in here
 		
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
 			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );

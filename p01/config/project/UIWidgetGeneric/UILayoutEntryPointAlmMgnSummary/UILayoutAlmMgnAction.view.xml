@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>4</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetDpcControl</uiCtrl>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UIWidgetAlmMgnControl.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlmMgnSummary/UIWidgetAlmMgnControl.opts.xml</uiOpts>
+		<element>UIWidgetAlmMgnControl</element>
+		<csscontainer>project-gwt-panel-action-control</csscontainer>
+	</option>
+	<option key="0|1">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIWidgetEmpty</uiCtrl>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UIWidgetEmpty.view.xml</uiView>
+		<csscontainer>project-gwt-panel-action-empty</csscontainer>
+	</option>
+	<option key="0|2">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetCSSSelection</uiCtrl>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UIWidgetAlmMgnCSSSelection.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlmMgnSummary/UIWidgetAlmMgnCSSSelection.opts.xml</uiOpts>
+		<element>UIWidgetAlmMgnCSSSelection</element>
+		<csscontainer>project-gwt-panel-action-almgn-filter1</csscontainer>
+	</option>
+	<option key="0|3">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>UILayoutEntryPointAlmMgnSummary/UIWidgetAlmMgnFilter.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlmMgnSummary/UIWidgetAlmMgnFilter.opts.xml</uiOpts>
+		<element>UIWidgetAlmMgnFilter</element>
+		<csscontainer>project-gwt-panel-action-almgn-filter2</csscontainer>
+	</option>
+</data-set>

@@ -51,7 +51,7 @@ public class UIWidgetViewer extends UIWidget_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private String contextMenuOptsXMLFile = "UIEventActionProcessor_CallImage.opts.xml";
+	private String contextMenuOptsXMLFile = "UIEventActionProcessor_CallImage/" + "UIEventActionProcessor_CallImage.opts.xml";
 
 	// External
 	private SimpleEventBus eventBus		= null;

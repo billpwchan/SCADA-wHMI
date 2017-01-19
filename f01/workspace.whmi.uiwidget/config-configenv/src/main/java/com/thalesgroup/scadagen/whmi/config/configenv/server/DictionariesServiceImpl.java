@@ -1,10 +1,13 @@
 package com.thalesgroup.scadagen.whmi.config.configenv.server;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,31 +27,37 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 	
 	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getName());
 	
-	public Dictionary dictionariesServer(String mode, String module, String folder, String extension, String tag) {
+	public Dictionary dictionariesServer(String configType, String configPath, String folderName, String extension, String tag) {
 		
 		logger.debug("Begin");
 		
+		logger.debug("configType[{}] configPath[{}] folderName[{}] extension[{}] tag[{}]", new Object[]{configType, configPath, folderName, extension, tag});
 		
-		logger.debug("mode[{}] module[{}] folder[{}] extension[{}] tag[{}]", new Object[]{mode, module, folder, extension, tag});
-		
-		if ( null == module ) {
-			module = getServletContext().getInitParameter("project.dictionaries.module");
-			logger.debug("module[{}]", module);
+		if ( null == configPath ) {
+			configPath = getServletContext().getInitParameter("project.dictionaries.module");
+			logger.debug("configPath[{}]", configPath);
 		}
 
 		Dictionary dictionaries = new Dictionary();
 		
-		String base = getServletContext().getRealPath("/");
+		String realBase = getServletContext().getRealPath("/");
 		
-		logger.debug("base[{}]", base);
+		logger.debug("realBase[{}]", realBase);
+		
+		final String basePath = realBase + File.separator + configPath;
+		
+		logger.debug("basePath[{}]", basePath);
 		
 		ReadFiles configs = new ReadFiles();
-		configs.setFilePathExtension(base + File.separator + module, folder, extension, false);
+		
+		configs.setFilePathExtension(basePath, folderName, extension);
+//		configs.setFilePathExtension(basePath, folderName, extension, false);
+		
 		List<File> files = configs.getFiles();
 		
 		logger.debug("files.size()[{}]", files.size());
 		
-		if ( mode.equals(ConfigurationType.XMLFile.toString()) ) {
+		if ( configType.equals(ConfigurationType.XMLFile.toString()) ) {
 		
 			dictionaries.setAttribute(DictionaryCacheInterface.strContainerType, ContainerType.Dictionaries.toString());
 			dictionaries.setAttribute(DictionaryCacheInterface.strConfigurationType, ConfigurationType.XMLFile.toString());
@@ -62,9 +71,25 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 				String filename = file.getName();
 	
 				logger.debug("Loop path[{}] xmlFile[{}] tag[{}]", new Object[]{path, filename, tag});
+				
+				Path fullPath = Paths.get(path);
+				Path dir = Paths.get(basePath, folderName);
+				Path subPath = dir.relativize(fullPath);
+				
+				logger.debug("Loop subPath[{}] dir[{}] fullPath[{}]", new Object[]{subPath, dir, fullPath});
+				
+				String relativePath = subPath.toString();
+				
+				logger.debug("Loop relativePath[{}] BF", relativePath);
+				
+				relativePath = relativePath.replaceAll(Matcher.quoteReplacement("\\"), "/");
+				
+				logger.debug("Loop relativePath[{}] AF", relativePath);
 	
 				Dictionary dictionary = new Dictionary();
-					
+				
+				dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.FileSeparator.toString(), File.separator);
+				dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.RelativePath.toString(), relativePath);
 				dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString(), filename);
 				dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString(), tag);
 				dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString()
@@ -81,7 +106,7 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 				
 			}
 		
-		} else if ( mode.equals(ConfigurationType.PropertiesFile.toString()) ) {
+		} else if ( configType.equals(ConfigurationType.PropertiesFile.toString()) ) {
 			
 			dictionaries.setAttribute(DictionaryCacheInterface.strContainerType, ContainerType.Dictionaries.toString());
 			dictionaries.setAttribute(DictionaryCacheInterface.strConfigurationType, ConfigurationType.PropertiesFile.toString());
@@ -95,9 +120,25 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 				String filename = file.getName();
 	
 				logger.debug("Loop path[{}] xmlFile[{}] tag[{}]", new Object[]{path, filename, tag});
+				
+				Path fullPath = Paths.get(path);
+				Path dir = Paths.get(basePath, folderName);
+				Path subPath = dir.relativize(fullPath);
+				
+				logger.debug("Loop subPath[{}] dir[{}] fullPath[{}]", new Object[]{subPath, dir, fullPath});
+				
+				String relativePath = subPath.toString();
+				
+				logger.debug("Loop relativePath[{}] BF", relativePath);
+				
+				relativePath = relativePath.replaceAll(Matcher.quoteReplacement("\\"), "/");
+				
+				logger.debug("Loop relativePath[{}] AF", relativePath);
 	
 				Dictionary dictionary = new Dictionary();
 					
+				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.FileSeparator.toString(), File.separator);
+				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.RelativePath.toString(), relativePath);
 				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.FileName.toString(), filename);
 				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.DateTime.toString()
 						, new SimpleDateFormat(DictionaryCacheInterface.strDateTimeFormat).format(new Date()));

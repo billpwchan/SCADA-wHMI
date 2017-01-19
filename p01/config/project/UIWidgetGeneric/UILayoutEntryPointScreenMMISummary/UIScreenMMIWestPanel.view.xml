@@ -11,14 +11,14 @@
 	<option key="0|0">
 		<type>widgetconfiguration</type>
 		<uiCtrl>UIPanelNavigation_2</uiCtrl>
-		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation_2.view.xml</uiView>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_2.view.xml</uiView>
 		<width>150</width>
 	</option>
 	
 	<option key="0|1">
 		<type>widgetconfiguration</type>
 		<uiCtrl>UIPanelNavigation_3</uiCtrl>
-		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation_3.view.xml</uiView>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_3.view.xml</uiView>
 		<width>150</width>
 	</option>
 	

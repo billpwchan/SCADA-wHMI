@@ -36,6 +36,11 @@ public interface Task_i {
 		
 		, Tooltips("tooltips")
 		
+		, FunCat("funCat")
+		, LocCat("locCat")
+		, ActionCat("actionCat")
+		, ModeCat("modeCat")
+		
 		, OpmName1("opmName1")
 		, OpmValue1("opmValue1")
 		, OpmName2("opmName2")

@@ -15,6 +15,7 @@ public interface UILayoutSummary_i {
 		  EventBusName("EventBusName")
 		, EventBusScope("EventBusScope")
 		, InitDelayMS("InitDelayMS")
+		, ScsEnvIds("ScsEnvIds")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

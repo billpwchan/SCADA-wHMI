@@ -40,6 +40,8 @@ public class GrcMgr {
 		final String function = "GrcMgr";
 		logger.begin(className, function);
 		
+		this.subject = new Subject();
+		
 		scsGRCComponentAccess = new ScsGRCComponentAccessQF(new IGRCComponentClient() {
 			
 			@Override
@@ -289,7 +291,8 @@ public class GrcMgr {
 		    	
 		        JSONArray grcListJSArray = new JSONArray();
 		        for ( int i = 0 ; i < grcList.length ; ++i ) {
-		        	grcListJSArray.set(0, new JSONString(grcList[i]));
+		        	grcListJSArray.set(i, new JSONString(grcList[i]));
+		        	logger.debug(className, function, "grcList [{}] = [{}]", i, grcList[i]);
 		        }
 
 		    	JSONObject jsdata = null;

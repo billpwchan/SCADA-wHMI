@@ -32,6 +32,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcTagControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMChangePasswordControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyControl;
@@ -67,6 +68,7 @@ public class UILayoutSummary extends UIWidget_i {
 	private String eventBusName			= null;
 	private String eventBusScope		= null;
 	private String initDelayMS 			= null;
+	private String scsEnvIds			= null;
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	private final String strHeader = "header";
@@ -82,6 +84,7 @@ public class UILayoutSummary extends UIWidget_i {
 			eventBusName = dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusName.toString(), strHeader);
 			eventBusScope = dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusScope.toString(), strHeader);
 			initDelayMS = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
+			scsEnvIds = dictionariesCache.getStringValue(optsXMLFile, ParameterName.ScsEnvIds.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
@@ -311,12 +314,20 @@ public class UILayoutSummary extends UIWidget_i {
 
 					uiWidget_i = new UIWidgetSocTitle();
 
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetSocGrcPoint.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetSocGrcPoint();
+
 				}  else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 				
 				if ( null != uiWidget_i ) {
 					uiWidget_i.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
+					uiWidget_i.setParameter(WidgetParameterName.ScsEnvIds.toString(), scsEnvIds);
 					uiWidget_i.setUINameCard(uiNameCard);
 					uiWidget_i.setElement(uiElement);
 					uiWidget_i.setDictionaryFolder(uiDict);

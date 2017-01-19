@@ -16,14 +16,15 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.EquipmentBuilder;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.EquipmentBuilder_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridDatabase;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter_i;
@@ -53,53 +54,23 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridColumnsType = null;
 	private String strDataGridColumnsLabel = null;
 	private String strDataGridColumnsWidth = null;
+	private String strDataGridColumnsFilter = null;
+	private String strDataGridColumnsSourceTableIndex = null;
+
+	private String targetDataGrid		= "";
+	private String targetDataGridColumn1 = "";
+	private String targetDataGridColumn2 = "";
+	
+	private String datagridSelected = null;
+	private Equipment_i equipmentSelected = null;
+	
 	private final String split = ",";
 	
 	private DataGrid<Equipment_i> dataGrid = null;
 	
-//	private ScsOlsListPanel scsOlsListPanel					= null;
-//	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
-//	private ScsGenericDataGridView gridView					= null;
-//	private ScsOlsListPanelMenu contextMenu					= null;
+	private UIDataGridDatabase uiDataGridDatabase = null;
 	
-//	public void removeFilter() {
-//		final String function = "removeFilter";
-//		
-//		logger.begin(className, function);
-//		if ( null != gridPresenter ) {
-//			Set<String> entitles = gridPresenter.getFilterColumns();
-//			for ( String entitle : entitles ) {
-//				logger.warn(className, function, "entitle[{}]", entitle);
-//				gridPresenter.removeContainerFilter(entitle);
-//			}
-//		} else {
-//			logger.warn(className, function, "gridPresenter IS NULL");
-//		}
-//		logger.end(className, function);
-//	}
-	
-//	public void applyFilter(String column, String value) {
-//		final String function = "applyFilter";
-//		
-//		logger.begin(className, function);
-//		logger.info(className, function, "column[{}] value[{}]", column, value);
-//
-//		ColumnFilterData cfd = new ColumnFilterData(column, value);
-//		
-//		FilterDescription fd = null;
-//		boolean isEnumType = true;
-//		if ( isEnumType ) {
-//			Set<String> s = new HashSet<String>();
-//			s.add(value);
-//			fd = new StringEnumFilterDescription(s);			
-//		} else {
-//			fd = new StringFilterDescription(StringFilterTypes.EQUALS, cfd.getFilterValue());
-//		}
-//		
-//		gridPresenter.setContainerFilter(cfd.getColumnName(), fd);
-//		logger.info(className, function, "column[{}] value[{}]", column, value);
-//		logger.end(className, function);
-//	}
+	private String scsEnvIdsStr = null;
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -134,42 +105,66 @@ public class UIWidgetDataGrid extends UIWidget_i {
 				logger.info(className, function, "os4[{}]", os4);
 				
 				if ( null != os1 ) {
-//					if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
-//						if ( null != os2 && null != os3 && null != os4) {
-//							String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
-//							logger.info(className, function, "listConfigId[{}]", listConfigId);
-//							if ( null != listConfigId ) {
-//								if ( os2.equals(listConfigId) ) {
-//									applyFilter(os3, os4);
-//								} else {
-//									logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
-//								}
-//							} else {
-//								logger.warn(className, function, "listConfigId IS NULL", listConfigId);
-//							}
-//		
-//						} else if ( null == os2 ) {
-//							logger.warn(className, function, "od1 IS NULL");
-//						} else if ( null == os3 ) {
-//							logger.warn(className, function, "od2 IS NULL");
-//						}
-//					} else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
-//						removeFilter();
-//					} else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
-//						if ( null != gridView ) { 
-//							gridView.ackVisible();
-//						} else {
-//							logger.warn(className, function, "gridView IS NULL");
-//						}
-//					} else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
-//						if ( null != gridView ) { 
-//							gridView.ackVisibleSelected();
-//						} else {
-//							logger.warn(className, function, "gridView IS NULL");
-//						}
-//					} else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
-//						Window.alert("Print Event");
-//					}
+					if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+						
+						logger.info(className, function, "Store Selected Row");
+						
+						if ( null != targetDataGrid ) {
+							
+							logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+							
+							if ( null != obj1 ) {
+								if ( obj1 instanceof String ) {
+									datagridSelected	= (String) obj1;
+									
+									logger.info(className, function, "datagridSelected[{}]", datagridSelected);
+
+									if ( datagridSelected.equals(targetDataGrid) ) {
+										if ( null != obj2 ) {
+											if ( obj2 instanceof Equipment_i ) {
+												equipmentSelected = (Equipment_i) obj2;
+												
+												uiDataGridDatabase = UIDataGridDatabase.getInstance(strDataGrid);
+												String scsEnvId = equipmentSelected.getStringValue(targetDataGridColumn1);
+												String dbaddress = equipmentSelected.getStringValue(targetDataGridColumn2);												
+												String clientKey = strDataGrid + "_" + "RowSelected";
+												
+												uiDataGridDatabase.loadData(clientKey, scsEnvId, dbaddress);
+									
+											} else {
+												equipmentSelected = null;
+
+												logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+											}
+										} else {
+											logger.warn(className, function, "obj2 IS NULL");
+										}
+									}
+								} else {
+									logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+								}
+							} else {
+								logger.warn(className, function, "obj1 IS NULL");
+							}
+						} else {
+							logger.warn(className, function, "targetDataGrid IS NULL");
+						}
+					} else {
+						// General Case
+						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+						
+						logger.info(className, function, "oe ["+oe+"]");
+						logger.info(className, function, "os1["+os1+"]");
+						
+						if ( null != oe ) {
+							if ( oe.equals(element) ) {
+								uiEventActionProcessor_i.executeActionSet(os1);
+							}
+						}
+					}
 				} else {
 					logger.warn(className, function, "op IS NULL");
 				}
@@ -200,10 +195,23 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridColumnsType			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsType.toString(), strHeader);
 			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
 			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
+			strDataGridColumnsFilter		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsFilter.toString(), strHeader);
+			strDataGridColumnsSourceTableIndex = dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsSourceTableIndex.toString(), strHeader);
+
+			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
+			targetDataGridColumn1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
+			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A2.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "strDataGrid[{}]", strDataGrid);
 		
+		scsEnvIdsStr = getStringParameter(WidgetParameterName.ScsEnvIds.toString());
+		logger.debug(className, function, "scsEnvIdsStr [{}]", scsEnvIdsStr);
+		logger.debug(className, function, "strDataGridColumnsType [{}]", strDataGridColumnsType);
+		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
+		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
+		logger.debug(className, function, "strDataGridColumnsFilter [{}]", strDataGridColumnsFilter);
+
 		uiWidgetGeneric = new UIWidgetGeneric();
 		
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -251,101 +259,6 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			})
 		);
 		
-//		String strScsOlsListPanel = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
-//		scsOlsListPanel = (ScsOlsListPanel)uiLayoutGeneric.getPredefineWidget(strScsOlsListPanel);
-//		
-//		if ( null != scsOlsListPanel ) {
-//			
-//			gridView = scsOlsListPanel.getView();
-//			gridPresenter = scsOlsListPanel.getPresenter();
-//			contextMenu = scsOlsListPanel.getContextMenu();
-//			
-//			if ( null != gridPresenter ) {
-//				gridPresenter.setSelectionEvent(new SelectionEvent() {
-//
-//					@Override
-//					public void onSelection(Set<HashMap<String, String>> entities) {
-//						final String function = "onSelection fireFilterEvent";
-//						
-//						logger.begin(className, function);
-//						
-//						String actionsetkey = "RowSelected";
-//						HashMap<String, Object> parameter = new HashMap<String, Object>();
-//						parameter.put(ViewAttribute.OperationObject1.toString(), entities);
-//						
-//						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-//						override.put("RowSelected", parameter);
-//						
-//						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-//
-//						logger.end(className, function);
-//					}
-//				});
-//				
-//				gridPresenter.setFilterEvent(new FilterEvent() {
-//					
-//					@Override
-//					public void onFilterChange(ArrayList<String> columns) {
-//						final String function = "onFilterChange fireFilterEvent";
-//
-//						logger.begin(className, function);
-//						
-//						// Dump
-//						logger.debug(className, function, "columns.size[{}]", columns.size());
-//						for ( String column : columns ) {
-//							logger.debug(className, function, "column[{}]", column);
-//						}
-//						
-//						
-//						ViewerViewEvent viewerViewEvent = ViewerViewEvent.FilterRemoved;
-//						if ( null != columns && columns.size() > 0 ) {
-//							viewerViewEvent = ViewerViewEvent.FilterAdded;
-//						}
-//						String actionsetkey = viewerViewEvent.toString();
-//						uiEventActionProcessor_i.executeActionSet(actionsetkey);
-//
-//						logger.end(className, function);
-//					}
-//				});
-//				
-//				gridPresenter.setCounterEvent(new CounterEvent() {
-//					
-//					@Override
-//					public void onCounterChange(Map<String, Integer> countersValue) {
-//						final String function = "onCounterChange fire onCounterChange";
-//						
-//						logger.begin(className, function);
-//						
-//						if ( null != countersValue ) {
-//							for ( Entry<String, Integer> keyValue : countersValue.entrySet() ) {
-//								
-//								String key = keyValue.getKey();
-//								Integer value = keyValue.getValue();
-//								String strValue = value.toString();
-//								
-//								String actionsetkey = "CounterValueChanged";
-//								HashMap<String, Object> parameter = new HashMap<String, Object>();
-//								parameter.put(ViewAttribute.OperationString2.toString(), key);
-//								parameter.put(ViewAttribute.OperationString3.toString(), strValue);
-//								
-//								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-//								override.put("CounterValueChanged", parameter);
-//								
-//								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-//								
-//							}
-//						}
-//
-//						logger.end(className, function);
-//					}
-//				});
-//
-//			} else {
-//				logger.warn(className, function, "gridPresenter IS NULL");
-//			}
-			
-			
-//			if ( null != contextMenu ) {
 				
 				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
 
@@ -362,41 +275,6 @@ public class UIWidgetDataGrid extends UIWidget_i {
 				uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
 				uiEventActionProcessorContextMenu_i.init();
 
-//	            contextMenu.setScsOlsListPanelMenuHandler(new ScsOlsListPanelMenuHandler() {
-//	    			
-//	    			@Override
-//	    			public void onSelection(Set<HashMap<String, String>> entity) {
-//	    				logger.warn(className, function, "entity[{}]", entity);
-//	    				
-//	    				if ( null != entity ) {
-//	    					HashMap<String, String> hashMap = entity.iterator().next();
-//	    					if ( null != hashMap ) {
-//	    						String sourceID = hashMap.get("sourceID");
-//	    						logger.info(className, function, "sourceID[{}]", sourceID);
-//	    						if ( null != sourceID ) {
-//	    							if ( null != uiEventActionProcessorContextMenu_i ) {
-//	    								uiEventActionProcessorContextMenu_i.executeActionSet(sourceID);
-//	    							} else {
-//	    								logger.warn(className, function, "uiEventActionProcessorContextMenu IS NULL");	
-//	    							}
-//	    						} else {
-//	    							logger.warn(className, function, "sourceID IS NULL");	
-//	    						}
-//	    					} else {
-//	    						logger.warn(className, function, "hashMap IS NULL");	
-//	    					}
-//	    				} else {
-//	    					logger.warn(className, function, "entity IS NULL");	
-//	    				}
-//	    			}
-//	    		});
-//			} else {
-//				logger.warn(className, function, "contextMenu IS NULL");
-//			}
-//			
-//		} else {
-//			logger.warn(className, function, "scsOlsListPanel IS NULL");
-//		}
 		
 		uiEventActionProcessor_i.executeActionSetInit();
 		
@@ -405,10 +283,12 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	
 	@Override
 	public void terminate() {
-//		if ( null != scsOlsListPanel ) {
-//			scsOlsListPanel.terminate();
-//		}
+
+		if (uiDataGridDatabase != null) {
+			uiDataGridDatabase.disconnect();
+		}
 	}
+	
 	
 	private Widget createDataGrid () {
 		
@@ -419,10 +299,13 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.info(className, function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
 		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
 		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
+		logger.info(className, function, "strDataGridColumnsFilter[{}]", strDataGridColumnsFilter);
 		
 		String [] strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
 		String [] strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
 		int [] strDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
+		String [] strDataGridColumnsFilters = UIWidgetUtil.getStringArray(strDataGridColumnsFilter, split);
+		String [] strDataGridColumnsSourceTableIndexes = UIWidgetUtil.getStringArray(strDataGridColumnsSourceTableIndex, split);
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
 	    UIDataGridFomatter_i dataGridFomatter = null;
@@ -501,57 +384,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    dataGrid = dataGridFomatter.addDataGridColumn(dataGrid);
 	    
 	    // Add the CellList to the adapter in the database.
-	    UIDataGridDatabase uiDataGridDatabase = new UIDataGridDatabase();
-//	    UIDataGridDatabase uiDataGridDatabase = UIDataGridDatabase.getInstance(strDataGrid);
+	    //UIDataGridDatabase uiDataGridDatabase = new UIDataGridDatabase();
+	    uiDataGridDatabase = UIDataGridDatabase.getInstance(strDataGrid);
 	    uiDataGridDatabase.addDataDisplay(dataGrid);
-	    
-	    // Testing
-	    if ( strDataGrid.equals("UIDataGridFomatterSOC") ) {
-	    	
-	    	EquipmentBuilder_i builder = new EquipmentBuilder();
-	    	Equipment_i equipment_i = builder
-	    			.setValue(strDataGridColumnsLabels[0], "GrcPoint_TMP")
-	    			.setValue(strDataGridColumnsLabels[1], "OCCENVCONN")
-	    			.setValue(strDataGridColumnsLabels[2], "ScadaSoft:ScsCtlGrc"+":"+"GrcPoint_TMP")
-	    			.build();
-	    	uiDataGridDatabase.addEquipment(equipment_i);
-//	    	UIDataGridDatabase.getInstance(strDataGrid).addEquipment(equipment_i);
-	    }
-	    
-	    // Testing
-	    if ( strDataGrid.equals("UIDataGridFomatterSOCDetails") ) {
-	    	
-//	    	EquipmentBuilder_i builder1 = new EquipmentBuilderImpl();
-	    	Equipment_i equipment_i = null;
-	    	
-	    	EquipmentBuilder_i builder1 = new EquipmentBuilder();
-	    	equipment_i = builder1
-	    			.setValue(strDataGridColumnsLabels[0], 1)
-	    			.setValue(strDataGridColumnsLabels[1], "OPEN HM513")
-	    			.setValue(strDataGridColumnsLabels[2], "OPEN")
-	    			.setValue(strDataGridColumnsLabels[3], "")
-	    			.setValue(strDataGridColumnsLabels[4], "Reserved")
-	    			.setValue(strDataGridColumnsLabels[5], "Not Set")
-	    			.setValue(strDataGridColumnsLabels[6], "CLOSE")
-	    			.setValue(strDataGridColumnsLabels[7], new Boolean(true))
-	    			.build();
-	    	uiDataGridDatabase.addEquipment(equipment_i);
-//	    	UIDataGridDatabase.getInstance(strDataGrid).addEquipment(equipment_i);
-	    	
-	    	EquipmentBuilder_i builder2 = new EquipmentBuilder();
-	    	equipment_i = builder2
-	    			.setValue(strDataGridColumnsLabels[0], 2)
-	    			.setValue(strDataGridColumnsLabels[1], "CLOSE HOM514")
-	    			.setValue(strDataGridColumnsLabels[2], "CLOSE")
-	    			.setValue(strDataGridColumnsLabels[3], "")
-	    			.setValue(strDataGridColumnsLabels[4], "Reserved")
-	    			.setValue(strDataGridColumnsLabels[5], "Not Set")
-	    			.setValue(strDataGridColumnsLabels[6], "OPEN")
-	    			.setValue(strDataGridColumnsLabels[7], new Boolean(false))
-	    			.build();
-	    	uiDataGridDatabase.addEquipment(equipment_i);
-//	    	UIDataGridDatabase.getInstance(strDataGrid).addEquipment(equipment_i);
-	    }
+	    uiDataGridDatabase.setScsEnv(strDataGrid, scsEnvIdsStr, strDataGridColumnsLabels, strDataGridColumnsTypes, strDataGridColumnsFilters, strDataGridColumnsSourceTableIndexes);
+	    uiDataGridDatabase.connect();
 	    
 	    logger.end(className, function);
 	    

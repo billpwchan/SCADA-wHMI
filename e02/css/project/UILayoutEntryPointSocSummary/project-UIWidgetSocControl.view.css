@@ -59,3 +59,22 @@
 .project-UIWidgetSocControl-button-skip-disable {
 
 }
+
+.project-UIWidgetSocControl-container-retry {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocControl-button-retry {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+.project-UIWidgetSocControl-button-retry-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocControl-button-retry-disable {
+
+}

@@ -5,6 +5,7 @@ public interface UIView_i
 	public enum WidgetParameterName {
 		SimpleEventBus("SimpleEventBus")
 		, MwtEventBus("MwtEventBus")
+		, ScsEnvIds("ScsEnvIds")
 		;
 		private final String text;
 		private WidgetParameterName(final String text) { this.text = text; }

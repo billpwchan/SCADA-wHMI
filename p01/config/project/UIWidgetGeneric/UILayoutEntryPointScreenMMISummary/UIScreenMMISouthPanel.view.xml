@@ -19,8 +19,8 @@
 	<option key="0|1">
 		<type>predefine</type>
 		<uiCtrl>UIPanelAccessBar</uiCtrl>
-		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelAccessBarButton.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelAccessBarButton.opts.xml</uiOpts>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelAccessBarButton/UIPanelAccessBarButton.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelAccessBarButton/UIPanelAccessBarButton.opts.xml</uiOpts>
 		<direction>East</direction>
 		<width>410</width>
 	</option>
@@ -28,7 +28,7 @@
 	<option key="0|2">
 		<type>widgetconfiguration</type>
 		<uiCtrl>UIPanelNavigation_1</uiCtrl>
-		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation_1.view.xml</uiView>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_1.view.xml</uiView>
 		<direction>Center</direction>
 		<width>160</width>
 	</option>

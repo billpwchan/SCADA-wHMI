@@ -268,17 +268,17 @@
 }
 
 .gwt-ToggleButton.mwt-muteButton.gwt-ToggleButton-up {
-    background-image: url('../../../../scsmain/resources/project/img/hscs/AlarmButtonAudible.png');
+    background-image: url('../../../../scsmain/resources/img/project/hscs/AlarmButtonAudible.png');
 }
 
 .gwt-ToggleButton.mwt-muteButton.gwt-ToggleButton-down {
-    background-image: url('../../../../scsmain/resources/project/img/hscs/AlarmButtonSilent.png');
+    background-image: url('../../../../scsmain/resources/img/project/hscs/AlarmButtonSilent.png');
 }
 
 .gwt-ToggleButton.mwt-muteButton.gwt-ToggleButton-down-hovering{
-    background-image: url('../../../../scsmain/resources/project/img/hscs/AlarmButtonSilentHovered.png');
+    background-image: url('../../../../scsmain/resources/img/project/hscs/AlarmButtonSilentHovered.png');
 }
 
 .gwt-ToggleButton.mwt-muteButton.gwt-ToggleButton-up-hovering {
-    background-image: url('../../../../scsmain/resources/project/img/hscs/AlarmButtonAudibleHovered.png');
+    background-image: url('../../../../scsmain/resources/img/project/hscs/AlarmButtonAudibleHovered.png');
 }

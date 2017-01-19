@@ -11,8 +11,8 @@
 	<option key="0|0">
 		<type>predefine</type>
 		<uiCtrl>UIPanelStatusBar</uiCtrl>
-		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar.opts.xml</uiOpts>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar/UIPanelStatusBar.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar/UIPanelStatusBar.opts.xml</uiOpts>
 		<direction>North</direction>
 		<width>42</width>
 	</option>

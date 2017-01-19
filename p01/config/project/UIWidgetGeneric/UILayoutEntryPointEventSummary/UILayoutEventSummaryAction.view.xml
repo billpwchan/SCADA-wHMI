@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIWidgetEmpty</uiCtrl>
+		<uiView>UILayoutEntryPointEventSummary/UIWidgetEmpty.view.xml</uiView>
+		<csscontainer>project-gwt-panel-eventsummary-action-empty</csscontainer>
+	</option>
+	<option key="0|1">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetPrint</uiCtrl>
+		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryPrint.view.xml</uiView>
+		<csscontainer>project-gwt-panel-action-filter</csscontainer>
+	</option>
+	<option key="0|2">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryFilter.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointEventSummary/UIWidgetEventSummaryFilter.opts.xml</uiOpts>
+		<element>UIWidgetEventSummaryFilter</element>
+		<csscontainer>project-gwt-panel-action-filter</csscontainer>
+	</option>
+
+</data-set>

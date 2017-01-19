@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>3</cols>
+		<rootPanel>DockLayoutPanel</rootPanel>
+		<rootCSS>project-gwt-panel-mmisouth-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIPanelVerticalSpliter</uiCtrl>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelVerticalSpliter.view.xml</uiView>
+		<direction>North</direction>
+		<width>20</width>
+	</option>
+
+	<option key="0|1">
+		<type>predefine</type>
+		<uiCtrl>UIPanelAccessBar</uiCtrl>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelAccessBarButton.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelAccessBarButton.opts.xml</uiOpts>
+		<direction>East</direction>
+		<width>410</width>
+	</option>
+	
+	<option key="0|2">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIPanelNavigation_1</uiCtrl>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation_1.view.xml</uiView>
+		<direction>Center</direction>
+		<width>160</width>
+	</option>
+	
+</data-set>

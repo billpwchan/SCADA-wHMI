@@ -54,7 +54,7 @@ public class UIScreenMMI extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			initdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.initdelayms.toString(), strHeader);
+			initdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
 		}
 		
 		handlerRegistrations.add(		

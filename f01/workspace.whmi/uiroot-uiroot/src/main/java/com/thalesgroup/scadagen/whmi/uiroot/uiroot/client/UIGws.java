@@ -155,7 +155,7 @@ public class UIGws {
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
 		String folder = dictionaryFolder;
-		String extention = ".xml";
+		String extention = "*.xml";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		for(String tag : tags ) {
 			dictionariesCache.add(folder, extention, tag);
@@ -179,7 +179,7 @@ public class UIGws {
 		String mode = ConfigurationType.PropertiesFile.toString();
 		String module = null;
 		String folder = propertyFolder;
-		String extention = ".properties";
+		String extention = "*.properties";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		dictionariesCache.add(folder, extention, null);
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {

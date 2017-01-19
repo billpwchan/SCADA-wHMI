@@ -49,6 +49,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i.ParameterValue;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UILayoutSummary extends UIWidget_i {
@@ -62,10 +63,10 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 
-	private SimpleEventBus eventBus = null;
-	private String eventBusName = null;
-	private String eventBusScope = null;
-	private String initdelayms = null;
+	private SimpleEventBus eventBus		= null;
+	private String eventBusName			= null;
+	private String eventBusScope		= null;
+	private String initDelayMS 			= null;
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	private final String strHeader = "header";
@@ -76,12 +77,11 @@ public class UILayoutSummary extends UIWidget_i {
 
 		logger.begin(className, function);
 		
-		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			eventBusName = dictionariesCache.getStringValue(optsXMLFile, ParameterName.eventbusname.toString(), strHeader);
-			eventBusScope = dictionariesCache.getStringValue(optsXMLFile, ParameterName.eventbusscope.toString(), strHeader);
-			initdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.initdelayms.toString(), strHeader);
+			eventBusName = dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusName.toString(), strHeader);
+			eventBusScope = dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusScope.toString(), strHeader);
+			initDelayMS = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
@@ -356,11 +356,11 @@ public class UILayoutSummary extends UIWidget_i {
 		uiEventActionProcessor_i.executeActionSetInit();
 		
 		int delay = 1000;
-		if ( null != initdelayms ) {
+		if ( null != initDelayMS ) {
 			try { 
-				delay = Integer.parseInt(initdelayms);
+				delay = Integer.parseInt(initDelayMS);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initdelayms);
+				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
 			}
 		}
 		uiEventActionProcessor_i.executeActionSetInit(delay, null);

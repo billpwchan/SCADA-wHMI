@@ -24,15 +24,16 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.TextArea;
 
-public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgMgrEvent*/ {
+public class UIDialogMsg extends DialogBox implements UIDialog_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static final String basePath	= GWT.getModuleBaseURL();
-	private static final String folder		= "/resources/project/img/dialog/";
+	private static final String folder		= "/resources/img/project/dialog/";
 	
-	/*UIDialogMsgCtrl dialogMsgCtrl;*/
+	private String element = className;
+	
 	int baseBoderX = 28, baseBoderY = 28;
 	
 	int baseWidth = 400, baseHeight = 600;
@@ -48,7 +49,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgM
 		;
 		private final String text;
 		private UIConfimDlgType(final String text) { this.text = text; }
-//		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
 		@Override
 		public String toString() { return this.text; }
 	}
@@ -95,8 +95,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgM
 	}
 	
 	public void popUp() {
-		
-//		dialogMsgCtrl = new UIDialogMsgCtrl(this.uiNameCard, this);
 
 		int baseWidth = 500;
 		int baseHeight = 200;
@@ -106,7 +104,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgM
 		txtMsg = new TextArea();
 
 		btnOk = new Button();
-		btnOk.addStyleName("project-gwt-button");
 		btnOk.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				UIDialogMsgCtrl_i uiDialogCtrl_i = uiDialogMsgCtrls.get(UIDialogMsgEventType.MSG_OPT_1.toString());
@@ -117,7 +114,6 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgM
 			}
 		});
 		btnCancel = new Button();
-		btnCancel.addStyleName("project-gwt-button");
 		btnCancel.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				UIDialogMsgCtrl_i uiDialogCtrl_i = uiDialogMsgCtrls.get(UIDialogMsgEventType.MSG_OPT_2.toString());
@@ -185,12 +181,13 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgM
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setHeight(baseHeight, Unit.PX);	
-		dockLayoutPanel.addStyleName("project-gwt-panel-dialogmsg");
+		dockLayoutPanel.addStyleName("project-"+element+"-panel-dialogmsg");
 
-		btnOk.addStyleName("project-gwt-button-ok");
-		btnCancel.addStyleName("project-gwt-button-cancel");	
+		btnOk.addStyleName("project-"+element+"-button-ok");
+		
+		btnCancel.addStyleName("project-"+element+"-button-cancel");
 
-		btnBar.addStyleName("project-gwt-panel-btnbar");
+		btnBar.addStyleName("project-"+element+"-btnbar");
 		dockLayoutPanel.addSouth(btnBar, 50);
 		
 		image.getElement().getStyle().setPadding(25, Unit.PX);  
@@ -198,8 +195,8 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i/*, UIDialogMsgM
 		
 		txtMsg.setWidth("90%");
 		txtMsg.setHeight("95%");
-		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);		
-		txtMsg.addStyleName("project-gwt-textarea-dialogmsg");
+		txtMsg.getElement().getStyle().setPadding(10, Unit.PX);
+		txtMsg.addStyleName("project-"+element+"-textarea");
 		dockLayoutPanel.add(txtMsg);
 		
 		this.add(dockLayoutPanel);

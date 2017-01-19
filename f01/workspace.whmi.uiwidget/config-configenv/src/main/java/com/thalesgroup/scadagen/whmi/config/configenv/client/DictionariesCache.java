@@ -201,13 +201,19 @@ public class DictionariesCache implements DictionariesMgrEvent {
 							if ( value instanceof Dictionary ) {
 								Dictionary dictionary = (Dictionary) value;
 								
+//								String fileSeparator = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileSeparator.toString());
+								String relativePath = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.RelativePath.toString());
 								String fileName = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
 								String tag = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
-								String CreateDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
+								String createDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 								
-								logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{fileName, tag, CreateDateTimeLabel});		
+								logger.info(className, function, "fileName[{}] tag[{}] createDateTimeLabel[{}]", new Object[]{fileName, tag, createDateTimeLabel});
+								
+								logger.info(className, function, "relativePath[{}]", relativePath);
+								
+								String dictionariesKey = relativePath+"|"+tag;
 
-								this.dictionaries.put(fileName+"|"+tag, dictionary);
+								this.dictionaries.put(dictionariesKey, dictionary);
 
 							} else {
 								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);

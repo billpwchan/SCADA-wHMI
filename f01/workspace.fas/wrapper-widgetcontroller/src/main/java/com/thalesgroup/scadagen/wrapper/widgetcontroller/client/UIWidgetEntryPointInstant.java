@@ -21,13 +21,13 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 
-public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetController {
+public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidgetController {
 	
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(UIWidgetEntryPoint.class.getName());
-	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetEntryPointInstant.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private UINameCard uiNameCard = null;
 	
@@ -37,11 +37,9 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	private String uiElem = null;
 	private String uiDict = null;
 	
-	private UIWidget_i uiWidget_i = null;
-	
 	private SimplePanel simplePanel = null;
 	
-	public UIWidgetEntryPoint(String uiCtrl, String uiView, String uiOpts, String uiElem, String uiDict) {
+	public UIWidgetEntryPointInstant(String uiCtrl, String uiView, String uiOpts, String uiElem, String uiDict) {
 		final String function = "UIWidgetEntryPoint";
 		
 		logger.begin(className, function);
@@ -55,7 +53,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiElem, uiDict});
 
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
-		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
+		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);		
 		
 		uiNameCard = new UINameCard(0, "", RESETABLE_EVENT_BUS);
 
@@ -65,40 +63,9 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		
 		initWidget(simplePanel);
 		
-		buildWidget();
+		initCacheXMLFile();
 		
 		logger.end(className, function);
-	}
-	
-	private void buildWidget() {
-		final String function = "buildWidget";
-		
-		logger.begin(className, function);
-		
-		logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
-		
-		HashMap<String, Object> options = new HashMap<String, Object>();
-		
-		UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
-		
-		uiWidget_i = viewFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
-		
-		if ( null != uiWidget_i ) {
-			
-			logger.info(className, function, "initWidget before");
-		
-			Widget widget = uiWidget_i.getMainPanel();
-			
-			if ( null == widget ) {
-				logger.warn(className, function, "initWidget widget IS null");
-			}
-			
-			simplePanel.add(widget);
-			
-			logger.info(className, function, "initWidget after");
-
-		}
-
 	}
 	
     /**
@@ -133,15 +100,16 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		return uiElem;
 	}
 	
-	public static void initCacheXMLFile() {
+	private void initCacheXMLFile() {
 		final String function = "initCacheXMLFile";
-		logger.begin(className, function);
-		
 		final String header			= "header";
 		final String option			= "option";
 		final String action			= "action";
 		final String actionset		= "actionset";
 		final String [] tags = {header, option, action, actionset};
+		
+		logger.begin(className, function);
+		
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
 		String folder = "UIWidgetGeneric";
@@ -154,10 +122,54 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			@Override
 			public void dictionariesCacheEventReady(int received) {
 				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+				ready("UIWidgetGeneric", received);
 			}
 		});
 		
 		logger.end(className, function);
 	}
+	
+	private UIWidget_i uiWidget_i = null;
+	private boolean isCreated = false;
+	private void ready(String folder, int received) {
+		final String function = "ready";
+		
+		logger.begin(className, function);
+		
+		logger.info(className, function, "folder[{}] received[{}]", folder, received);
 
+		if ( ! isCreated ) {
+
+			logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+			
+			HashMap<String, Object> options = new HashMap<String, Object>();
+			
+			UIViewMgr viewFactoryMgr = UIViewMgr.getInstance();
+			
+			uiWidget_i = viewFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
+			
+			if ( null != uiWidget_i ) {
+				
+				logger.info(className, function, "initWidget before");
+			
+				Widget widget = uiWidget_i.getMainPanel();
+				
+				if ( null == widget ) {
+					logger.warn(className, function, "initWidget widget IS null");
+				}
+				
+				simplePanel.add(widget);
+				
+				logger.info(className, function, "initWidget after");
+
+			}
+			
+			isCreated = true;
+			
+		} else {
+			logger.warn(className, function, "ready folder[{}] received[{}] isCreated", folder, received);
+		}
+		
+		logger.end(className, function);
+	}
 }

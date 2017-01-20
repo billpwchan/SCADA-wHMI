@@ -63,7 +63,7 @@
 		<OperationAction>alm</OperationAction>
 		<OperationString1>NotifyExternalEvent</OperationString1>
 		<OperationString2>Key</OperationString2>
-		<OperationString3>ScsEnvId</OperationString3>
+		<OperationString3>OCCENVCONN</OperationString3>
 		<OperationString4>ConfigFileName</OperationString4>
 		<OperationString5>1</OperationString5>
 		<OperationString6>PointAlias</OperationString6>

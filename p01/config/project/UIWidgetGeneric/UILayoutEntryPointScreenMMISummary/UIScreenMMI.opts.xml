@@ -31,36 +31,4 @@
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
-	<!--
-	<action key="login_event">
-		<OperationType>actionsetkey</OperationType>
-		<OperationAction>alm</OperationAction>
-		<OperationString1>NotifyExternalEvent</OperationString1>
-		<OperationString2>Key</OperationString2>
-		<OperationString3>ScsEnvId</OperationString3>
-		<OperationString4>ConfigFileName</OperationString4>
-		<OperationString5>ClassId</OperationString5>
-		<OperationString6>PointAlias</OperationString6>
-		<OperationString7>ObjectId</OperationString7>
-		<OperationString8>ExtSourceId</OperationString8>
-		<OperationString9>GETOPERATOR : Login on GETWORKSTATION</OperationString9>
-		<OperationString10>UIOpmSCADAgen</OperationString10>
-	</action>
-
-	<action key="logout_event">
-		<OperationType>actionsetkey</OperationType>
-		<OperationAction>alm</OperationAction>
-		<OperationString1>NotifyExternalEvent</OperationString1>
-		<OperationString2>Key</OperationString2>
-		<OperationString3>ScsEnvId</OperationString3>
-		<OperationString4>ConfigFileName</OperationString4>
-		<OperationString5>ClassId</OperationString5>
-		<OperationString6>PointAlias</OperationString6>
-		<OperationString7>ObjectId</OperationString7>
-		<OperationString8>ExtSourceId</OperationString8>
-		<OperationString9>GETOPERATOR : Logout on GETWORKSTATION</OperationString9>
-		<OperationString10>UIOpmSCADAgen</OperationString10>
-	</action>
-	-->
-	
 </data-set>

@@ -20,8 +20,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	private UIOpmSCADAgen () {}
 
 	@Override
-	public boolean checkAccess(String mode, String action, String function, String location) {
-		logger.debug("checkAccess - mode={}, action={}, function={}, location={}",
+	public boolean checkAccess(String function, String location, String action, String mode) {
+		logger.debug("checkAccess - function=[{}], location=[{}], action=[{}], mode=[{}]",
 				new Object[] {mode, action, function, location });
 		boolean result = false;
 		result = checkAccess(
@@ -40,7 +40,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, String opmName3, String opmValue3
 			, String opmName4, String opmValue4
 			) {
-		logger.debug("checkAccess - {}={}, {}={}, {}={}, {}={}",
+		logger.debug("checkAccess - [{}]=[{}], [{}]=[{}], [{}]=[{}], [{}]=[{}]",
 				new Object[] { 
 						  opmName1, opmValue1
 						, opmName2, opmValue2
@@ -76,7 +76,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, String opmName3, String opmValue3
 			, String opmName4, String opmValue4
 			) {
-		logger.debug("checkAccess - {}={}, {}={}, {}={}, {}={}, {}={}",
+		logger.debug("checkAccess - [{}]=[{}], [{}]=[{}], [{}]=[{}], [{}]=[{}]",
 				new Object[] { 
 						operatorOpmInfo
 						, opmName1, opmValue1
@@ -95,7 +95,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 
 			result = OpmSessionManager.checkOperationIsPermitted(operatorOpmInfo, dto);
 		} else {
-			logger.error("operatorOpmInfo={} is null !!, checkAccess return 'false'", operatorOpmInfo);
+			logger.error("operatorOpmInfo=[{}] is null !!, checkAccess return 'false'", operatorOpmInfo);
 		}
 		return result;
 	}

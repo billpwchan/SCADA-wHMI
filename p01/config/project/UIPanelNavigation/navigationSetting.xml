@@ -17,6 +17,10 @@
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
+		<funCat>8</funCat>
+		<locCat>1</locCat>
+		<actionCat>MDAC</actionCat>
+		<modeCat>1</modeCat>
 	</option>
 	<option key="2">
 		<type>S</type>
@@ -642,6 +646,10 @@
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
+		<funCat>8</funCat>
+		<locCat>25</locCat>
+		<actionCat>MDAC</actionCat>
+		<modeCat>1</modeCat>
 	</option>
 	<option key="70">
 		<type>S</type>
@@ -992,6 +1000,10 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointOPMChangePasswordSummary/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
 		<tooltips>OPM Summary</tooltips>
+		<funCat>101</funCat>
+		<locCat>1</locCat>
+		<actionCat>1</actionCat>
+		<modeCat>1</modeCat>
 	</option>
 	<option key="108">
 		<type>P</type>

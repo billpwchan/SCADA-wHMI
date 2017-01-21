@@ -13,4 +13,15 @@ public interface UIWidgetSocGrcPoint_i {
 		@Override
 		public String toString() { return this.text; }
 	}
+	
+	// Event Send from View
+	public enum GrcPointEvent {
+		  CurStep("GrcCurStep")
+		,  CurStatus("GrcCurStatus")
+		;
+		private final String text;
+		private GrcPointEvent(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
 }

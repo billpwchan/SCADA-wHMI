@@ -9,6 +9,7 @@
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_auto_down</OperationString1>
 		<OperationString2>set_manu_disable</OperationString2>
+		<OperationString3>select_auto</OperationString3>
 	</actionset>
 	
 	<actionset key="auto">

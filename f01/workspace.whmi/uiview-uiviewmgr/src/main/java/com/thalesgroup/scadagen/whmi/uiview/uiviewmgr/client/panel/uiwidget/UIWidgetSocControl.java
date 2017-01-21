@@ -20,6 +20,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl_i.AutoManuEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -52,7 +53,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
 	
-	private int selectedStep = -1;
+	private int selectedStep = 1;
 	
 	private int autoMenu = -1;
 	
@@ -122,7 +123,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						}
 						{
 							HashMap<String, Object> parameter = new HashMap<String, Object>();
-							parameter.put(ActionAttribute.OperationString2.toString(), strKeyAbortGrc);
+							parameter.put(ActionAttribute.OperationString2.toString(), strKeyLaunchGrc);
 							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
 							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
 							parameter.put(ActionAttribute.OperationString5.toString(), executemode);
@@ -218,6 +219,32 @@ public class UIWidgetSocControl extends UIWidget_i {
 					} else {
 						logger.warn(className, function, "targetDataGrid IS NULL");
 					}
+
+				} else if ( os1.equals(GrcPointEvent.CurStatus.toString() ) ) {
+					
+					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+					
+					logger.info(className, function, "GrcPointUpdated CurStatus");
+	
+					if ( null != obj1 ) {
+						if ( obj1 instanceof String ) {
+							String curStatusStr = (String) obj1;
+							int curStatus = 1;
+							
+							logger.info(className, function, "curStatus=[{}]", curStatusStr);
+
+							curStatus = Integer.parseInt(curStatusStr);
+							logger.debug(className, function, "Current status [{}] received", curStatus);
+							
+							//TODO: Update Start Stop skip button state according to curStatus
+								
+						} else {
+							logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+						}
+					} else {
+						logger.warn(className, function, "obj1 IS NULL");
+					}
+
 				} else {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());

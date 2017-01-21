@@ -168,13 +168,15 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		clearEquipment();
 	
 		if (strDataGrid != null && !scsEnvIdSet.isEmpty()) {
+
 			if ( strDataGrid.equals("UIDataGridFomatterSOC") ) {
 				
 				for (String scsEnvId: scsEnvIdSet) {
 
 					final String scsEnvId_ = scsEnvId;
-					String clientKey = "strDataGrid" + "_" + scsEnvId;
-					String dbaddress = ":ScadaSoft:ScsCtlGrc";
+					final String clientKey = "strDataGrid" + "_" + scsEnvId;
+					final String dbaddress = ":ScadaSoft:ScsCtlGrc";
+					final String grcPathRoot = "ScadaSoft";
 					
 					rtdb.getChildren(clientKey, scsEnvId_, dbaddress, new GetChildrenResult() {
 
@@ -182,18 +184,31 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 						public void setGetChildrenResult(String clientKey, String[] instances, int errorCode,
 								String errorMessage) {
 							for (int i=0; i<instances.length; i++) {
-						    	EquipmentBuilder_i builder = new EquipmentBuilder();
-						    	
-						    	String [] columnValues = new String [3];
-						    	
-						    	columnValues[0] = instances[i].substring(instances[i].lastIndexOf(":")+1);
-						    	columnValues[1] = scsEnvId_;
-						    	columnValues[2] = instances[i];
+		    	
+						    	String [] columnValues = new String [strDataGridColumnsLabels.length];
+						    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
+						    		// Set column values according to pre-defined labels (SOCCard, ScsEnvID, Alias)
+						    		if (strDataGridColumnsLabels[col].compareToIgnoreCase("SOCCard") == 0) {
+						    			columnValues[col] = instances[i].substring(instances[i].lastIndexOf(":")+1);
+						    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase("ScsEnvID") == 0) {
+						    			columnValues[col] = scsEnvId_;
+						    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase("Alias") == 0) {
+						    			// Temporary handling. Remove all ":" and leading "ScadaSoft"
+						    			String alias = instances[i].replace(":", "");
+						    			if (alias.startsWith(grcPathRoot)) {
+						    				alias = alias.substring(grcPathRoot.length());
+						    			}
+						    			columnValues[col] = alias;
+						    			//TODO: Handle db full path to alias
+						    		}
+						    	}
+
+						    	// Handle column filter option
 						    	boolean skip = false;
 						    	
 						    	if (strDataGridColumnsFilters != null) {		
-						    		for (int j=0; j<strDataGridColumnsFilters.length; j++) {
-						    			if (!strDataGridColumnsFilters[j].isEmpty() && !columnValues[j].matches(strDataGridColumnsFilters[j])) {
+						    		for (int col=0; col<strDataGridColumnsFilters.length; col++) {
+						    			if (!strDataGridColumnsFilters[col].isEmpty() && !columnValues[col].matches(strDataGridColumnsFilters[col])) {
 						    				skip = true;
 						    				break;
 						    			}
@@ -202,54 +217,20 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 						    	if (skip) {
 						    		continue;
 						    	}
-						    	Equipment_i equipment_i = builder
-						    			.setValue(strDataGridColumnsLabels[0], columnValues[0])
-						    			.setValue(strDataGridColumnsLabels[1], columnValues[1])
-						    			.setValue(strDataGridColumnsLabels[2], columnValues[2])
-						    			.build();
+						    	
+						    	// Build row data
+						    	EquipmentBuilder_i builder = new EquipmentBuilder();
+						    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
+						    		builder = builder.setValue(strDataGridColumnsLabels[col], columnValues[col]);
+						    	}
+						    	Equipment_i equipment_i = builder.build();
+						    	
+						    	// Add row data to data grid
 						    	addEquipment(equipment_i);
-
 							}
 						}
 						
 					});
-					
-//					db.addStaticRequest(api, clientKey, scsEnvId, dbaddress, new DatabaseEvent() {
-//						
-//						@Override
-//						public void update(String key, String[] value) {
-//							for (int i=0; i<value.length; i++) {
-//						    	EquipmentBuilder_i builder = new EquipmentBuilder();
-//						    	
-//						    	String [] columnValues = new String [3];
-//						    	
-//						    	columnValues[0] = value[i].substring(value[i].lastIndexOf(":")+1);
-//						    	columnValues[1] = scsEnvId_;
-//						    	columnValues[2] = value[i];
-//						    	boolean skip = false;
-//						    	
-//						    	if (strDataGridColumnsFilters != null) {		
-//						    		for (int j=0; j<strDataGridColumnsFilters.length; j++) {
-//						    			if (!strDataGridColumnsFilters[j].isEmpty() && !columnValues[j].matches(strDataGridColumnsFilters[j])) {
-//						    				skip = true;
-//						    				break;
-//						    			}
-//						    		}
-//						    	}
-//						    	if (skip) {
-//						    		continue;
-//						    	}
-//						    	Equipment_i equipment_i = builder
-//						    			.setValue(strDataGridColumnsLabels[0], columnValues[0])
-//						    			.setValue(strDataGridColumnsLabels[1], columnValues[1])
-//						    			.setValue(strDataGridColumnsLabels[2], columnValues[2])
-//						    			.build();
-//						    	addEquipment(equipment_i);
-//
-//							}
-//						}
-//						
-//					});
 				}
 
 		    } else if ( strDataGrid.equals("UIDataGridFomatterSOCDetails") ) {
@@ -309,7 +290,7 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 						numberColFound = true;
 						numberCol = col;
 					}
-					indexHolder[count++] = dbaddress + ".brctable(0:$, " + brctableFields[col] + ")";
+					indexHolder[count++] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[col] + ")";
 				}
 			}
 			
@@ -325,7 +306,7 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 					dbaddresses[i] = indexHolder[i];
 					logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
 				}
-				dbaddresses[numberCol] = dbaddress + ".brctable(0:$, " + brctableFields[0] + ")";
+				dbaddresses[numberCol] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[0] + ")";
 			} else {
 				for (int i=0; i<count; i++) {
 					dbaddresses[i] = indexHolder[i];
@@ -372,8 +353,9 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 					
 						logger.debug(className, function, "numSteps=[{}] ", numSteps);
 						logger.debug(className, function, "strDataGridColumnsLabels.length=[{}] ", strDataGridColumnsLabels.length);
-						
-						String [][] columnValues = new String [strDataGridColumnsLabels.length][numSteps];
+
+						// Build two dimension table
+						String [][] tableValues = new String [strDataGridColumnsLabels.length][numSteps];
 						
 						for (int col=0; col<strDataGridColumnsLabels.length; col++) {
 							logger.debug(className, function, "col=[{}] value=[{}]", col, values[col]);
@@ -389,8 +371,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 							logger.debug(className, function, "splittedStr.length=[{}] ", splittedStr.length);
 							
 							for (int row=0; row<numSteps; row++) {
-								columnValues[col][row] = splittedStr[row];
-								logger.debug(className, function, "row=[{}] columnValues=[{}] ", row, splittedStr[row]);
+								tableValues[col][row] = splittedStr[row];
+								logger.debug(className, function, "row=[{}] tableValues=[{}] ", row, splittedStr[row]);
 							}
 						}
 
@@ -399,9 +381,9 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 							
 							for (int col=0; col<strDataGridColumnsLabels.length; col++) {
 								if (strDataGridColumnsTypes[col].compareToIgnoreCase("Number") == 0) {
-									builder = builder.setValue(strDataGridColumnsLabels[col], Integer.parseInt(columnValues[col][row]));
+									builder = builder.setValue(strDataGridColumnsLabels[col], Integer.parseInt(tableValues[col][row]));
 								} else {
-									builder = builder.setValue(strDataGridColumnsLabels[col], columnValues[col][row]);
+									builder = builder.setValue(strDataGridColumnsLabels[col], tableValues[col][row]);
 								}
 							}
 							Equipment_i equipment_i = builder.build();
@@ -409,52 +391,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 						}
 					}
 				}
-					
-//			    	EquipmentBuilder_i builder = new EquipmentBuilder();
-//			    	
-//			    	String [] columnValues = new String [3];
-//			    	
-//			    	columnValues[0] = "";
-//			    	columnValues[1] = "";
-//			    	columnValues[2] = "";
-//
-//			    	Equipment_i equipment_i = builder
-//			    			.setValue(strDataGridColumnsLabels[0], columnValues[0])
-//			    			.setValue(strDataGridColumnsLabels[1], columnValues[1])
-//			    			.setValue(strDataGridColumnsLabels[2], columnValues[2])
-//			    			.build();
-//			    	addEquipment(equipment_i);
-
 				
 			});
-			
-//			db.addStaticRequest(api, clientKey, scsEnvId_, brctablePath, new DatabaseEvent() {
-//				
-//				@Override
-//				public void update(String key, String[] values) {
-//					
-//					for (String val: values) {
-//						logger.debug(className, "update", "value = [{}]", val);
-//					}
-//					
-//			    	EquipmentBuilder_i builder = new EquipmentBuilder();
-//			    	
-//			    	String [] columnValues = new String [3];
-//			    	
-//			    	columnValues[0] = "";
-//			    	columnValues[1] = "";
-//			    	columnValues[2] = "";
-//
-//			    	Equipment_i equipment_i = builder
-//			    			.setValue(strDataGridColumnsLabels[0], columnValues[0])
-//			    			.setValue(strDataGridColumnsLabels[1], columnValues[1])
-//			    			.setValue(strDataGridColumnsLabels[2], columnValues[2])
-//			    			.build();
-//			    	addEquipment(equipment_i);
-//
-//				}
-//				
-//			});
 		}
 		
 		logger.end(className, function);

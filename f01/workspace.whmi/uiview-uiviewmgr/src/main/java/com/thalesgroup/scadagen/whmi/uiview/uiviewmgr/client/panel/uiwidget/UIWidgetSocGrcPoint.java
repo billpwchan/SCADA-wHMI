@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -15,6 +16,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -26,6 +28,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsPollerAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class UIWidgetSocGrcPoint extends UIWidget_i {
@@ -242,7 +245,7 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 		
 		String [] dataFields = new String [grcPointAttributes.length];
 		for (int i=0; i<grcPointAttributes.length; i++) {
-			dataFields[i] = dbaddress + "." + grcPointAttributes[i];
+			dataFields[i] = "<alias>" + dbaddress + "." + grcPointAttributes[i];
 		}
 		
 		SubscribeResult subResult = new SubscribeResult() {
@@ -276,8 +279,25 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 					
 					if (k == curStepIdx) {
 						uiWidgetGeneric.setWidgetValue("grccurstepvalue", values[k]);
+
+						UIEventAction updateCurStepAction = new UIEventAction();
+						if (updateCurStepAction != null) {
+							updateCurStepAction.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.CurStep.toString());
+							updateCurStepAction.setParameter(ViewAttribute.OperationObject1.toString(), values[k]);
+							getEventBus().fireEvent(updateCurStepAction);
+							logger.debug(className, function, "fire UIEventAction updateCurStepAction");
+						}
 					} else if (k == curStatusIdx) {
-						uiWidgetGeneric.setWidgetValue("grccurstatusvalue", values[k]);
+						String valueLabel = "&GrcCurStatus" + values[k];
+						uiWidgetGeneric.setWidgetValue("grccurstatusvalue", Translation.getWording(valueLabel));
+						
+						UIEventAction updateCurStatusAction = new UIEventAction();
+						if (updateCurStatusAction != null) {
+							updateCurStatusAction.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.CurStatus.toString());
+							updateCurStatusAction.setParameter(ViewAttribute.OperationObject1.toString(), values[k]);
+							getEventBus().fireEvent(updateCurStatusAction);
+							logger.debug(className, function, "fire UIEventAction updateCurStatusAction");
+						}
 					}
 				}
 			}
@@ -303,5 +323,9 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 		poller.unSubscribe(key, scsEnvId, groupName, subscriptionId, unsubResult);
 		
 		logger.end(className, function);
+	}
+	
+	private EventBus getEventBus() {
+		return this.eventBus;
 	}
 }

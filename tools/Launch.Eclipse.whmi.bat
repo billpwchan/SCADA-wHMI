@@ -1,4 +1,4 @@
-REM @echo off
+@ECHO OFF
 
 CALL LoadPath.bat
 

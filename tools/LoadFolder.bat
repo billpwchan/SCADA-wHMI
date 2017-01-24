@@ -1,4 +1,4 @@
-@echo off
+@ECHO OFF
 
 SET CUR_PATH=%~dp0
 SET CUR_PATH=%CUR_PATH:~0,-1%

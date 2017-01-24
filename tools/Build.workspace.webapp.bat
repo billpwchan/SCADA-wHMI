@@ -1,4 +1,4 @@
-@echo off
+@ECHO OFF
 
 call LoadPath.bat
 
@@ -13,7 +13,7 @@ REM echo & echo. >> %SOURCE_BASE%/%sp_webapp%\mywebapp\src\main\resources\com\th
 
 echo "" > %LOG_FILE%
 
-start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
+REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
 cd /d %SOURCE_BASE%/%sp_webapp%
 

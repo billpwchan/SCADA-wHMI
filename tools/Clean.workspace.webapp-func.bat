@@ -1,4 +1,4 @@
-@echo off
+@ECHO OFF
 
 call LoadPath.bat
 
@@ -9,7 +9,7 @@ SET LOG_FILE=%LOG_HOME%\Clean.%sp_webapp_func_name%.%v_strdt%.log
 
 echo "" > %LOG_FILE%
 
-start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
+REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
 cd /d %SOURCE_BASE%/%sp_webapp_func%
 

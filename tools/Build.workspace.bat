@@ -1,34 +1,37 @@
-@echo off
+@ECHO OFF
 
-call LoadPath.bat
+SET CUR_PATH=%~dp0
+SET TOOLS_PATH=%CUR_PATH:~0,-1%
 
-call %TOOLS_BASE%/Log.Clear.Backup.bat
+CALL %TOOLS_PATH%\LoadPath.bat
+
+CALL %TOOLS_PATH%\Log.Backup.bat
 
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
-start /B Launch.Tail.bat %LOG_FILE%
+REM start /B Launch.Tail.bat %LOG_FILE%
 
-cd %sp%
+CD %sp%
 
-echo starting to build...
+ECHO starting to build...
 
-echo Build all...
+ECHO Build all...
 
-call %TOOLS_BASE%/Build.workspace.whmi.uiwidget.bat %strdt%
+CALL %TOOLS_PATH%\Build.workspace.whmi.uiwidget.bat %strdt%
 
-call %TOOLS_BASE%/Build.workspace.wrapper.bat %strdt%
+CALL %TOOLS_PATH%\Build.workspace.wrapper.bat %strdt%
 
-call %TOOLS_BASE%/Build.workspace.whmi.bat %strdt%
+CALL %TOOLS_PATH%\Build.workspace.whmi.bat %strdt%
 
-call %TOOLS_BASE%/Build.workspace.fas.bat %strdt%
+CALL %TOOLS_PATH%\Build.workspace.fas.bat %strdt%
 
-call %TOOLS_BASE%/Build.workspace.webapp-fun.bat %strdt%
+CALL %TOOLS_PATH%\Build.workspace.webapp-fun.bat %strdt%
 
-call %TOOLS_BASE%/Build.workspace.webapp.bat %strdt%
+CALL %TOOLS_PATH%\Build.workspace.webapp.bat %strdt%
  
-echo End of build
+ECHO End of build
 
-call %TOOLS_BASE%/Log.Clear.Backup.bat
+REM CALL %TOOLS_BASE%/Log.Backup.bat
 
 REM PAUSE

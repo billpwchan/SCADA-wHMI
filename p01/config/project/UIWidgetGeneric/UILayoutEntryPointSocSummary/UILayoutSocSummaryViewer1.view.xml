@@ -13,6 +13,7 @@
 		<type>predefine</type>
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutAlarmSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
+		<element>UILayoutAlarmSummaryViewerScsOlsListPanel</element>
 	</option>
 	-->
 

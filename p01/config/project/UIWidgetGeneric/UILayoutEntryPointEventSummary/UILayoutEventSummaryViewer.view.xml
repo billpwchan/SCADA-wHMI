@@ -12,6 +12,7 @@
 		<type>predefine</type>
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
+		<element>UILayoutEventSummaryViewerScsOlsListPanel</element>
 	</option>
 
 </data-set>

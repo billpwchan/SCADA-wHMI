@@ -4,7 +4,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.action.ChangePasswordAction;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.monitor.AsyncCallbackMwtAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.security.client.OperatorActionSecurityFault;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.security.client.SecurityExceptionC;
@@ -16,6 +15,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.rpc.action.
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.shared.SCADAgenChangePasswordAction;
 
 public class SpringChangePassword {
 	
@@ -34,11 +34,16 @@ public class SpringChangePassword {
 	}
 
 	public void changePassword(String oldPass, String newPass, final UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
+		changePassword(null, oldPass, newPass, uiWrapperRpcEvent_i);
+	}
+	
+	public void changePassword(String userId, String oldPass, String newPass, final UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
 		
 		logger.begin(className, function);
 			    
-        final ChangePasswordAction action = new ChangePasswordAction();
+        final SCADAgenChangePasswordAction action = new SCADAgenChangePasswordAction();
+        action.setUserId(userId);
         action.setOldPassword(oldPass);
         action.setNewPassword(newPass);
         

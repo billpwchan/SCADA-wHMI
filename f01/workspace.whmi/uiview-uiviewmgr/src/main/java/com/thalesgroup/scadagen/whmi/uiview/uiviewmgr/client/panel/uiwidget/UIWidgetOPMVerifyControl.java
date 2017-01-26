@@ -65,7 +65,8 @@ public class UIWidgetOPMVerifyControl extends UIWidget_i {
 							
 							UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
 							
-							boolean result = uiOpm_i.checkAccess(modevalue, actionvalue, functionvalue, locationvalue);
+							boolean result = uiOpm_i.checkAccess(functionvalue, locationvalue, actionvalue, modevalue);
+//							boolean result = uiOpm_i.checkAccess(modevalue, actionvalue, functionvalue, locationvalue);
 							
 							uiWidgetGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 							

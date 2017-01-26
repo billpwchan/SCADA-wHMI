@@ -12,6 +12,7 @@
 		<type>predefine</type>
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutEntryPointDpcTagSummary/UILayoutDpcTagViewerScsOlsListPanel.opts.xml</uiOpts>
+		<element>UILayoutDpcTagViewerScsOlsListPanel</element>
 	</option>
 
 </data-set>

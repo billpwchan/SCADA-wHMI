@@ -57,6 +57,8 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	private String valueSet				= "";
 	private String valueUnSet			= "";
 	
+	private String periodMillis			= "";
+	
 	private Set<HashMap<String, String>> selectedSet = null;
 	
 	private final String strSet					= "set";
@@ -69,6 +71,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	private String address = null;
 	private String scsEnvId = null;
 	
+	private int iPeriodMillis = 500;
 	
 	UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 
@@ -139,7 +142,12 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 													logger.info(className, function, "scsEnvIdscsEnvIdvalue[{}]", value);
 													dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
 												} else if ( pointType == PointType.aci ) {
-													float value = Float.parseFloat(txtValues.getText());
+													float value = 0.0f;
+													try {
+														value = Float.parseFloat(txtValues.getText());
+													} catch (NumberFormatException e) {
+														logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+													}
 													logger.info(className, function, "value[{}]", value);
 													dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
 												} else if ( pointType == PointType.sci ) {
@@ -264,6 +272,19 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 		final String function = "connect";
 		
 		logger.begin(className, function);
+		
+		logger.info(className, function, "periodMillis[{}]", periodMillis);
+		
+		try {
+			iPeriodMillis = Integer.parseInt(periodMillis);
+		} catch ( NumberFormatException e) {
+			logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+		}
+		
+		logger.info(className, function, "periodMillis[{}] iPeriodMillis[{}]", periodMillis, iPeriodMillis);
+		
+		database.connect();
+		database.connectTimer(this.iPeriodMillis);
 
 		// Read static
 		{
@@ -276,29 +297,29 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 			String[] dbaddresses = null;
 			{
 				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-//				for ( String dbaddress : this.addresses ) {
+
 				String dbaddress = address;
-					String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
-					logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
-					if ( null != point ) {
-						PointType pointType = DatabaseHelper.getPointType(point);
-						if ( pointType == PointType.dci ) {
-							for ( String attribute : staticDciAttibutes ) {
-								dbaddressesArrayList.add(dbaddress+attribute);
-							}
-						} else if ( pointType == PointType.aci ) {
-							for ( String attribute : staticAciAttibutes ) {
-								dbaddressesArrayList.add(dbaddress+attribute);
-							}
-						} else if ( pointType == PointType.sci ) {
-							for ( String attribute : staticSciAttibutes ) {
-								dbaddressesArrayList.add(dbaddress+attribute);
-							}
-						} else {
-							logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+				String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
+				logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
+				if ( null != point ) {
+					PointType pointType = DatabaseHelper.getPointType(point);
+					if ( pointType == PointType.dci ) {
+						for ( String attribute : staticDciAttibutes ) {
+							dbaddressesArrayList.add(dbaddress+attribute);
 						}
+					} else if ( pointType == PointType.aci ) {
+						for ( String attribute : staticAciAttibutes ) {
+							dbaddressesArrayList.add(dbaddress+attribute);
+						}
+					} else if ( pointType == PointType.sci ) {
+						for ( String attribute : staticSciAttibutes ) {
+							dbaddressesArrayList.add(dbaddress+attribute);
+						}
+					} else {
+						logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
 					}
-//				}
+				}
+
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}			
 			
@@ -314,6 +335,8 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 				
 				@Override
 				public void update(String key, String[] value) {
+					final String function = "update";
+					logger.begin(className, function);
 					String clientKeyStatic = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
 					if ( clientKeyStatic.equals(key) ) {
 						String [] dbaddresses	= database.getKeyAndAddress(key);
@@ -325,6 +348,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 
 						updateValue(key, keyAndValue);
 					}
+					logger.end(className, function);
 				}
 			});
 			
@@ -515,6 +539,7 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
 			valueSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueSet.toString(), strHeader);
 			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueUnSet.toString(), strHeader);
+			periodMillis		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.PeriodMillis.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "columnAlias[{}]", columnAlias);

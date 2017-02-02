@@ -50,4 +50,4 @@ webapp\src\main\webapp\WEB-INF\deploy
 *.keep
 
 # BuildTime
-f01/workspace.whmi/uiview-uiviewmgr/src/main/java/com/thalesgroup/scadagen/whmi/uiview/uiviewmgr/client\LastCompilation.java
+f01/workspace.whmi/uiview-uiviewmgr/src/main/java/com/thalesgroup/scadagen/whmi/uiview/uiviewmgr/client/LastCompilation.java

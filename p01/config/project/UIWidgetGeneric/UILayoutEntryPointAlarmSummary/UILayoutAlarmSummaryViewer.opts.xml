@@ -3,6 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<header key="header">
+		<ScsOlsListElement>UILayoutAlarmSummaryViewerScsOlsListPanel</ScsOlsListElement>
 	</header>
 
 	<actionset key="FilterAdded">

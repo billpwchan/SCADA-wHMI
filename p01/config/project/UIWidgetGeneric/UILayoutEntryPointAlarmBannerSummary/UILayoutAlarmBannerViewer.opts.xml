@@ -2,6 +2,10 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+	<header key="header">
+		<ScsOlsListElement>UILayoutAlarmBannerViewerScsOlsListPanel</ScsOlsListElement>
+	</header>
+
 	<actionset key="FilterAdded">
 		<OperationString1>FilterAdded</OperationString1>
 	</actionset>

@@ -15,4 +15,13 @@ public interface UIWidgetViewer_i {
 		@Override
 		public String toString() { return this.text; }
 	}
+	
+	public enum ParameterName {
+		  ScsOlsListElement("ScsOlsListElement")
+		;
+		private final String text;
+		private ParameterName(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
 }

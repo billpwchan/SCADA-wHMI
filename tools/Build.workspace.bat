@@ -18,6 +18,8 @@ ECHO starting to build...
 
 ECHO Build all...
 
+CALL %TOOLS_PATH%\Echo.LastCompilation.bat %strdt%
+
 CALL %TOOLS_PATH%\Build.workspace.whmi.uiwidget.bat %strdt%
 
 CALL %TOOLS_PATH%\Build.workspace.wrapper.bat %strdt%

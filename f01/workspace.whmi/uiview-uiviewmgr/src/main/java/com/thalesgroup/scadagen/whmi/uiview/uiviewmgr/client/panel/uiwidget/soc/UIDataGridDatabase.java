@@ -1,22 +1,13 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsPollerAccess;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
 
 public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	
@@ -30,7 +21,6 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		UIDataGridDatabase instance = instances.get(key);
 		return instance;
 	}
-	private UIDataGridDatabase() {}
 	
 	private String strDataGrid = null;
 	
@@ -38,24 +28,17 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	
 	private String [] strDataGridColumnsTypes = null;
 	
-	private String [] strDataGridColumnsFilters = null;
+	private String strDataGridOptsXMLFile = null;
 	
-	private String [] strDataGridColumnsSourceTableIndexes = null;
+	private String [] scsEnvIds = null;
 	
-	private Set<String> scsEnvIdSet = new HashSet<String>();
+	private IDataGridDataSource dataSource = null;
 	
-	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
-	
-	private Map<String, String> subscriptionMap = new HashMap<String, String>();
-	
-	private final String [] brctableFields = { "number", "brctype", "label", "inhibflag", "exestatus", "succns",
-			"succdelay", "failns", "faildelay", "enveqp", "eqp", "cmdname", "cmdval", "cmdlabel", "cmdtype",
-			"maxretry", "bpretcond", "bpinitcond", "sndbehavr" };
-
 	/**
 	 * The provider that holds the list of contacts in the database.
 	 */
 	private ListDataProvider<Equipment_i> dataProvider = new ListDataProvider<Equipment_i>();
+	
 
 	/**
 	 * Add a new contact.
@@ -76,10 +59,21 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		equipments.clear();
 	}
 	
-	public void setEquipment(Equipment_i equipment) {
+	@Override
+	public void updateEquipmentElement(int index, Equipment_i equipment) {
 		List<Equipment_i> equipments = dataProvider.getList();
-		equipments.clear();
-		equipments.add(equipment);
+		if (equipments != null && index >= 0 && index < equipments.size()) {
+			equipments.remove(index);
+			equipments.add(index, equipment);
+		}
+	}
+	
+	public Equipment_i getEquipmentElement(int index) {
+		List<Equipment_i> equipments = dataProvider.getList();
+		if (equipments != null && index >= 0 && index < equipments.size()) {
+			return equipments.get(index);
+		}
+		return null;
 	}
 
 	/**
@@ -106,21 +100,16 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		dataProvider.refresh();
 	}
 
-	public void setScsEnv(String strDataGrid, String scsEnvIdsStr, String [] strDataGridColumnsLabels, String []strDataGridColumnsTypes, String[] strDataGridColumnsFilters, String[] strDataGridColumnsSourceTableIndexes) {
+	public void setScsEnv(String strDataGrid, String scsEnvIdsStr, String [] strDataGridColumnsLabels, String []strDataGridColumnsTypes, String strDataGridOptsXMLFile) {
 		final String function = "setScsEnv";
 		
 		logger.begin(className, function);
 		
 		if (scsEnvIdsStr != null) {
-			logger.debug(className, function, "scsEnvIdsStr [{}]", scsEnvIdsStr);
 			String [] tokens = scsEnvIdsStr.split(",");
-			
-			// Clear existing scsEnvIdSet
-			scsEnvIdSet.clear();
-			
-			// Add new scsEnvIdSet
-			for (String token: tokens) {
-				scsEnvIdSet.add(token.trim());
+			scsEnvIds = new String [tokens.length];
+			for (int i=0; i<tokens.length; i++) {
+				scsEnvIds[i] = tokens[i].trim();
 			}
 		}
 		
@@ -139,22 +128,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 				logger.debug(className, function, "type=[{}]", type);
 			}
 		}
-		
-		this.strDataGridColumnsFilters = strDataGridColumnsFilters;
-		
-		if (strDataGridColumnsFilters != null) {
-			for (String filter: strDataGridColumnsFilters) {
-				logger.debug(className, function, "filter=[{}]", filter);
-			}
-		}
-		
-		this.strDataGridColumnsSourceTableIndexes = strDataGridColumnsSourceTableIndexes;
-		
-		if (strDataGridColumnsSourceTableIndexes != null) {
-			for (String index: strDataGridColumnsSourceTableIndexes) {
-				logger.debug(className, function, "index=[{}]", index);
-			}
-		}
+				
+		this.strDataGridOptsXMLFile = strDataGridOptsXMLFile;
 		
 		logger.end(className, function);
 	}
@@ -166,290 +141,51 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 
 		// Clear data grid
 		clearEquipment();
-	
-		if (strDataGrid != null && !scsEnvIdSet.isEmpty()) {
 
-			if ( strDataGrid.equals("UIDataGridFomatterSOC") ) {
-				
-				for (String scsEnvId: scsEnvIdSet) {
+		if ( strDataGrid.equals("UIDataGridFomatterSOC") ) {
+			
+			dataSource = new SocCardList();
 
-					final String scsEnvId_ = scsEnvId;
-					final String clientKey = "strDataGrid" + "_" + scsEnvId;
-					final String dbaddress = ":ScadaSoft:ScsCtlGrc";
-					final String grcPathRoot = "ScadaSoft";
-					
-					rtdb.getChildren(clientKey, scsEnvId_, dbaddress, new GetChildrenResult() {
+	    } else if (strDataGrid.equals("UIDataGridFomatterSOCDetails")) {
 
-						@Override
-						public void setGetChildrenResult(String clientKey, String[] instances, int errorCode,
-								String errorMessage) {
-							for (int i=0; i<instances.length; i++) {
-		    	
-						    	String [] columnValues = new String [strDataGridColumnsLabels.length];
-						    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
-						    		// Set column values according to pre-defined labels (SOCCard, ScsEnvID, Alias)
-						    		if (strDataGridColumnsLabels[col].compareToIgnoreCase("SOCCard") == 0) {
-						    			columnValues[col] = instances[i].substring(instances[i].lastIndexOf(":")+1);
-						    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase("ScsEnvID") == 0) {
-						    			columnValues[col] = scsEnvId_;
-						    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase("Alias") == 0) {
-						    			// Temporary handling. Remove all ":" and leading "ScadaSoft"
-						    			String alias = instances[i].replace(":", "");
-						    			if (alias.startsWith(grcPathRoot)) {
-						    				alias = alias.substring(grcPathRoot.length());
-						    			}
-						    			columnValues[col] = alias;
-						    			//TODO: Handle db full path to alias
-						    		}
-						    	}
-
-						    	// Handle column filter option
-						    	boolean skip = false;
-						    	
-						    	if (strDataGridColumnsFilters != null) {		
-						    		for (int col=0; col<strDataGridColumnsFilters.length; col++) {
-						    			if (!strDataGridColumnsFilters[col].isEmpty() && !columnValues[col].matches(strDataGridColumnsFilters[col])) {
-						    				skip = true;
-						    				break;
-						    			}
-						    		}
-						    	}
-						    	if (skip) {
-						    		continue;
-						    	}
-						    	
-						    	// Build row data
-						    	EquipmentBuilder_i builder = new EquipmentBuilder();
-						    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
-						    		builder = builder.setValue(strDataGridColumnsLabels[col], columnValues[col]);
-						    	}
-						    	Equipment_i equipment_i = builder.build();
-						    	
-						    	// Add row data to data grid
-						    	addEquipment(equipment_i);
-							}
-						}
-						
-					});
-				}
-
-		    } else if ( strDataGrid.equals("UIDataGridFomatterSOCDetails") ) {
-		    	
-		    	// No SOC Detail until SOC Card is selected
-
-		    }
-		} else {
-			logger.error(className, function, "strDataGrid or scsEnvId is null");
-		}
+	    	dataSource = new SocCardDetail();
+	    }
+		
+		dataSource.init(scsEnvIds, strDataGridOptsXMLFile, this);
+	    	
+	    dataSource.connect();
 		
 		logger.end(className, function);
 	}
 	
-	public void disconnect() {
-
-	}
-	
-	// input dbaddress is db point address
-	public void loadData(String clientKey, String scsEnvId, String dbaddress) {
+	public void loadData(String scsEnvId, String dbaddress) {
 		final String function = "loadData";
 		
 		logger.begin(className, function);
 		
 		clearEquipment();
 		
-		if ( strDataGrid.equals("UIDataGridFomatterSOCDetails") && 
-				(strDataGridColumnsSourceTableIndexes != null) && 
-				(strDataGridColumnsSourceTableIndexes.length > 0)) {
-				
-			//String brctablePath = dbaddress + ".brctable(0:$, label)";
-			String [] indexHolder = new String[strDataGridColumnsSourceTableIndexes.length];
-			
-			int count = 0;
-			int numberCol = -1;
-			boolean numberColFound = false;
-			for (String indexStr: strDataGridColumnsSourceTableIndexes) {
-				int col = -1;
-				if (indexStr != null) {
-					try {
-						// Expected format for index string \d+(:\d+)?
-						// First token is the column index (0 based index)
-						// Separator is colon (:)
-						// Second token is the token number
-						String [] tokens = indexStr.split(":");
-						col = Integer.parseInt(tokens[0]);
-						
-						//TODO: Handle second token
-						
-					} catch (Exception e) {
-						logger.warn(className, function, "[{}]", e.getMessage());
-						continue;
-					}
-				}
-				if (col >= 0 && col < brctableFields.length) {
-					if (col == 0) {
-						numberColFound = true;
-						numberCol = col;
-					}
-					indexHolder[count++] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[col] + ")";
-				}
-			}
-			
-			if (!numberColFound) {
-				// Add number column at the end of the subscription list
-				numberCol = count;
-				count++;
-			}
-
-			String [] dbaddresses = new String [count];
-			if (!numberColFound) {
-				for (int i=0; i<count-1; i++) {
-					dbaddresses[i] = indexHolder[i];
-					logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
-				}
-				dbaddresses[numberCol] = "<alias>" + dbaddress + ".brctable(0:$, " + brctableFields[0] + ")";
-			} else {
-				for (int i=0; i<count; i++) {
-					dbaddresses[i] = indexHolder[i];
-					logger.debug(className, function, "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
-				}
-			}
-		
-			logger.debug(className, function, "clientKey=[{}] scsEnvId=[{}]", clientKey, scsEnvId);
-
-			// Use multiRead to read brctable		
-			rtdb.multiReadValue(clientKey, scsEnvId, dbaddresses, new MultiReadResult() {
-
-				@Override
-				public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
-					final String function = "setReadResult";
-					int numberCol = 0;
-					
-					// Find number column
-					boolean numberColFound = false;
-					for (int col=0; col<strDataGridColumnsSourceTableIndexes.length; col++) {
-						if (strDataGridColumnsSourceTableIndexes[col].compareTo("0") == 0) {
-							logger.debug(className, function, "numberColFound=true at col=[{}]", col);
-							numberColFound = true;
-							numberCol = col;
-							break;						
-						}
-					}
-					if (!numberColFound) {
-						numberCol = values.length;
-						logger.debug(className, function, "numberColFound=false; set numberCol=[{}]", numberCol);
-					}
-					
-					// Get number of steps from number col
-					if (values != null && values.length > 0) {
-						String [] numbers = values[numberCol].replaceAll("\"", "").split(",");
-						int numSteps = 0;
-						
-						for (String num: numbers) {
-							if (numSteps > 0 && num.compareTo("0")==0) {
-								break;
-							}
-							numSteps++;
-						}
-					
-						logger.debug(className, function, "numSteps=[{}] ", numSteps);
-						logger.debug(className, function, "strDataGridColumnsLabels.length=[{}] ", strDataGridColumnsLabels.length);
-
-						// Build two dimension table
-						String [][] tableValues = new String [strDataGridColumnsLabels.length][numSteps];
-						
-						for (int col=0; col<strDataGridColumnsLabels.length; col++) {
-							logger.debug(className, function, "col=[{}] value=[{}]", col, values[col]);
-							
-							String removedBracketStr = values[col].substring(1, values[col].length()-1);
-							
-							String unquotedStr = removedBracketStr.replaceAll("\"", "");
-							
-							logger.debug(className, function, "unquotedStr=[{}] ", unquotedStr);
-							
-							String [] splittedStr = unquotedStr.split(",");
-							
-							logger.debug(className, function, "splittedStr.length=[{}] ", splittedStr.length);
-							
-							for (int row=0; row<numSteps; row++) {
-								tableValues[col][row] = splittedStr[row];
-								logger.debug(className, function, "row=[{}] tableValues=[{}] ", row, splittedStr[row]);
-							}
-						}
-
-						for (int row=0; row<numSteps; row++) {
-							EquipmentBuilder_i builder = new EquipmentBuilder();
-							
-							for (int col=0; col<strDataGridColumnsLabels.length; col++) {
-								if (strDataGridColumnsTypes[col].compareToIgnoreCase("Number") == 0) {
-									builder = builder.setValue(strDataGridColumnsLabels[col], Integer.parseInt(tableValues[col][row]));
-								} else {
-									builder = builder.setValue(strDataGridColumnsLabels[col], tableValues[col][row]);
-								}
-							}
-							Equipment_i equipment_i = builder.build();
-							addEquipment(equipment_i);
-						}
-					}
-				}
-				
-			});
-		}
-		
-		logger.end(className, function);
-	}
-
-	
-	private void subscribe(String key, String scsEnvId, String dbaddress) {
-		final String function = "subscribe";
-		
-		logger.begin(className, function);
-		
-		String groupName = key;
-		int periodMS = 0;
-		String [] dataFields = new String [1];
-		dataFields[0] = dbaddress;
-	
-		SubscribeResult subResult = new SubscribeResult() {
-
-			@Override
-			public void update() {
-				final String className ="SubscribeResult";
-				final String function ="update";
-
-				String key_ = getKey();
-				
-				String subscriptionId = getSubUUID();
-				logger.debug(className, function, "subUUID = [{}]", subscriptionId);
-				
-				subscriptionMap.put(key_, subscriptionId);
-				
-				String [] values = getValues();
-
-				for (String value: values) {
-					logger.debug(className, function, "value=[{}]", value);
-				}
-			}
-		};
-		WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
-		poller.subscribe(key, scsEnvId, groupName, dataFields, periodMS, subResult);
-
-		logger.end(className, function);
-	}
-
-	
-	private void unSubscribe(String key, String scsEnvId, String subscriptionId) {
-		final String function = "unSubscribe";
-		
-		logger.begin(className, function);
-
-		String groupName = key;
-
-		UnSubscribeResult unsubResult = new UnSubscribeResult();
-		
-		WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
-		poller.unSubscribe(key, scsEnvId, groupName, subscriptionId, unsubResult);
+		dataSource.loadData(scsEnvId, dbaddress);
 		
 		logger.end(className, function);
 	}
 	
+	@Override
+	public int getColumnCount() {
+		return strDataGridColumnsLabels.length;
+	}
+	
+	@Override
+	public String[] getColumnLabels() {
+		return strDataGridColumnsLabels;
+	}
+	
+	@Override
+	public String[] getColumnTypes() {
+		return strDataGridColumnsTypes;
+	}
+	
+	public void disconnect() {
+		dataSource.disconnect();
+	}
 }

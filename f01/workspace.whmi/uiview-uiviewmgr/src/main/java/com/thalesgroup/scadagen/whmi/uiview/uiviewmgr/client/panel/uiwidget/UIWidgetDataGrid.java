@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -34,13 +35,12 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandl
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class UIWidgetDataGrid extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDataGrid.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-//	private String contextMenuOptsXMLFile = "UIEventActionProcessor_CallImage.opts.xml";
 
 	// External
 	private SimpleEventBus eventBus		= null;
@@ -54,8 +54,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridColumnsType = null;
 	private String strDataGridColumnsLabel = null;
 	private String strDataGridColumnsWidth = null;
-	private String strDataGridColumnsFilter = null;
-	private String strDataGridColumnsSourceTableIndex = null;
+	private String strDataGridOptsXMLFile = null;
 
 	private String targetDataGrid		= "";
 	private String targetDataGridColumn1 = "";
@@ -71,6 +70,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private UIDataGridDatabase uiDataGridDatabase = null;
 	
 	private String scsEnvIdsStr = null;
+	
+	private String uuid = UUIDWrapper.getUUID();
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -127,12 +128,12 @@ public class UIWidgetDataGrid extends UIWidget_i {
 											if ( obj2 instanceof Equipment_i ) {
 												equipmentSelected = (Equipment_i) obj2;
 												
-												uiDataGridDatabase = UIDataGridDatabase.getInstance(strDataGrid);
 												String scsEnvId = equipmentSelected.getStringValue(targetDataGridColumn1);
-												String dbaddress = equipmentSelected.getStringValue(targetDataGridColumn2);												
-												String clientKey = strDataGrid + "_" + "RowSelected";
+												String dbaddress = equipmentSelected.getStringValue(targetDataGridColumn2);																							
 												
-												uiDataGridDatabase.loadData(clientKey, scsEnvId, dbaddress);
+												if (uiDataGridDatabase != null) {
+													uiDataGridDatabase.loadData(scsEnvId, dbaddress);
+												}
 									
 											} else {
 												equipmentSelected = null;
@@ -195,8 +196,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridColumnsType			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsType.toString(), strHeader);
 			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
 			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
-			strDataGridColumnsFilter		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsFilter.toString(), strHeader);
-			strDataGridColumnsSourceTableIndex = dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsSourceTableIndex.toString(), strHeader);
+			strDataGridOptsXMLFile 			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridOptsXMLFile.toString(), strHeader);
 
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 			targetDataGridColumn1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
@@ -210,7 +210,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridColumnsType [{}]", strDataGridColumnsType);
 		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
 		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
-		logger.debug(className, function, "strDataGridColumnsFilter [{}]", strDataGridColumnsFilter);
+		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		
@@ -299,13 +299,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.info(className, function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
 		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
 		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
-		logger.info(className, function, "strDataGridColumnsFilter[{}]", strDataGridColumnsFilter);
+		logger.info(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
 		
-		String [] strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
-		String [] strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
-		int [] strDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
-		String [] strDataGridColumnsFilters = UIWidgetUtil.getStringArray(strDataGridColumnsFilter, split);
-		String [] strDataGridColumnsSourceTableIndexes = UIWidgetUtil.getStringArray(strDataGridColumnsSourceTableIndex, split);
+		final String [] strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
+		final String [] strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
+		final int [] strDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
 	    UIDataGridFomatter_i dataGridFomatter = null;
@@ -328,6 +326,33 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    
 	    // Set the message to display when the table is empty.
 	    dataGrid.setEmptyTableWidget(new Label(dataGridFomatter.getEmptyLabel()));
+	    
+	    dataGrid.setRowStyles(new RowStyles<Equipment_i>() {
+	    	
+	    	final String strCssPrefix = strDataGrid;
+
+			@Override
+			public String getStyleNames(Equipment_i row, int rowIndex) {
+				String strCssResult = strCssPrefix;
+				
+				for (int i=0; i<strDataGridColumnsLabels.length; i++) {
+					String label = strDataGridColumnsLabels[i];
+					
+					if (strDataGridColumnsTypes[i].compareToIgnoreCase("Number") == 0) {
+						Number value = row.getNumberValue(label);
+						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
+					} else if (strDataGridColumnsTypes[i].compareToIgnoreCase("Boolean") == 0) {
+						Boolean value = row.getBooleanValue(label);
+						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
+					} else {
+						String value = row.getStringValue(label);
+						strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
+					}
+				}
+                return strCssResult;
+			}
+	    	
+	    });
 
 	    // Attach a column sort handler to the ListDataProvider to sort the list.
 //	    ListHandler<ContactInfo> sortHandler =
@@ -384,10 +409,10 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    dataGrid = dataGridFomatter.addDataGridColumn(dataGrid);
 	    
 	    // Add the CellList to the adapter in the database.
-	    //UIDataGridDatabase uiDataGridDatabase = new UIDataGridDatabase();
-	    uiDataGridDatabase = UIDataGridDatabase.getInstance(strDataGrid);
+	    String dbKey = strDataGrid + uuid;
+	    uiDataGridDatabase = UIDataGridDatabase.getInstance(dbKey);
 	    uiDataGridDatabase.addDataDisplay(dataGrid);
-	    uiDataGridDatabase.setScsEnv(strDataGrid, scsEnvIdsStr, strDataGridColumnsLabels, strDataGridColumnsTypes, strDataGridColumnsFilters, strDataGridColumnsSourceTableIndexes);
+	    uiDataGridDatabase.setScsEnv(strDataGrid, scsEnvIdsStr, strDataGridColumnsLabels, strDataGridColumnsTypes, strDataGridOptsXMLFile);
 	    uiDataGridDatabase.connect();
 	    
 	    logger.end(className, function);

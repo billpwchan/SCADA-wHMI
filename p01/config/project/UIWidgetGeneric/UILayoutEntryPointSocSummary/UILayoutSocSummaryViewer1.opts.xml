@@ -9,6 +9,7 @@
 		<DataGridColumnsType>String,String,String</DataGridColumnsType>
 		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias</DataGridColumnsLabel>
 		<DataGridColumnsWidth>50,40,100</DataGridColumnsWidth>
+		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardList.xml</DataGridOptsXMLFile>
 	</header>
 	
 	<actionset key="set_default_action">

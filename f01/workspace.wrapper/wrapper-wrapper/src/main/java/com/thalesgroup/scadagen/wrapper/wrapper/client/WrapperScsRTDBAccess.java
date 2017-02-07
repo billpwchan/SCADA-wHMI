@@ -194,6 +194,8 @@ public class WrapperScsRTDBAccess {
 				if (getChildrenRes != null) {
 					getChildrenRes.setGetChildrenResult(clientKey, instances, errorCode, errorMessage);
 					getChildrenMap.remove(clientKey);
+				} else {
+					logger.warn("setGetChildrenResult result callback not found");
 				}
 				
 				logger.debug("setGetChildrenResult End");
@@ -589,14 +591,19 @@ public class WrapperScsRTDBAccess {
     }
     
     public void getChildren(String key, String scsEnvId, String dbaddress, GetChildrenResult getChildrenRes) {
-    	rtdb.getChildren(key, scsEnvId, dbaddress);
-    	
+    	final String function = "getChildren";
     	getChildrenMap.put(key, getChildrenRes);
+    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	
+    	rtdb.getChildren(key, scsEnvId, dbaddress);
     }
     
     public void multiReadValue(String key, String scsEnvId, String [] dbaddress, MultiReadResult multiReadRes) {
-    	rtdb.multiReadValueRequest(key, scsEnvId, dbaddress);
-    	
+    	final String function = "multiReadValue";
     	multiReadMap.put(key, multiReadRes);
+    	
+    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+    	
+    	rtdb.multiReadValueRequest(key, scsEnvId, dbaddress);
     }
 }

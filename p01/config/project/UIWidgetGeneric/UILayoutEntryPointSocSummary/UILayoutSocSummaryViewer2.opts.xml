@@ -12,10 +12,10 @@
 		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
 		-->
 
-		<DataGridColumnsType>Number,String,String</DataGridColumnsType>
-		<DataGridColumnsLabel>Step,EquipmentLabel,Action</DataGridColumnsLabel>
-		<DataGridColumnsWidth>80,80,80</DataGridColumnsWidth>
-		<DataGridColumnSourceTableIndex>0,2:1,2:0</DataGridColumnSourceTableIndex>
+		<DataGridColumnsType>Number,String,String,String,Number,Number,Boolean</DataGridColumnsType>
+		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Equipment,Reserved,TagStatus,Skip</DataGridColumnsLabel>
+		<DataGridColumnsWidth>80,80,80,80,80,80,80</DataGridColumnsWidth>
+		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardDetail.xml</DataGridOptsXMLFile>
 
 		<TargetDataGrid_A>UIDataGridFomatterSOC</TargetDataGrid_A>
 		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>

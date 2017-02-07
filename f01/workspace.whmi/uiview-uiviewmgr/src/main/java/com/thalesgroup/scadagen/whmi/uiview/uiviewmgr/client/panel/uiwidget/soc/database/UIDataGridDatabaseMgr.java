@@ -3,13 +3,12 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter_i;
 
 public class UIDataGridDatabaseMgr {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIDataGridDatabaseMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private static UIDataGridDatabaseMgr instance = null;

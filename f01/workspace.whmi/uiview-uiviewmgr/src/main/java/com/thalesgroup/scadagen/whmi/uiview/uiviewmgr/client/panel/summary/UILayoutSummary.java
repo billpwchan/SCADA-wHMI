@@ -44,6 +44,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocTitle;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetBox;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewerPager;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
@@ -161,6 +162,13 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 
 					uiWidget_i = new UIWidgetViewer();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetViewerPager.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetViewerPager();
 
 				} else if ( 
 						UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName())

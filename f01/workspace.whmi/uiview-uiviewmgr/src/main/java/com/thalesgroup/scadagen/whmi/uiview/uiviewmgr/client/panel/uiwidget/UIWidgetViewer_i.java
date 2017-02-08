@@ -9,9 +9,30 @@ public interface UIWidgetViewer_i {
 		, CounterValueChanged("CounterValueChanged")
 		, AckVisible("AckVisible")
 		, AckVisibleSelected("AckVisibleSelected")
+		
+		, HasPreviousPage("HasPreviousPage")
+		, HasNextPage("HasNextPage")
+		, HasFastForwardPage("HasFastForwardPage")
+		, CreateText("CreateText")
+		
+		, FirstPageSelected("FirstPageSelected")
+		, PreviousPageSelected("PreviousPageSelected")
+		, NextPageSelected("NextPageSelected")
+		, LastPageSelected("LastPageSelected")
+		, FastForwardPageSelected("FastForwardPageSelected")
+		
 		;
 		private final String text;
 		private ViewerViewEvent(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
+	public enum ParameterName {
+		  ScsOlsListElement("ScsOlsListElement")
+		;
+		private final String text;
+		private ParameterName(final String text) { this.text = text; }
 		@Override
 		public String toString() { return this.text; }
 	}

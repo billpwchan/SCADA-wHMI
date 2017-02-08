@@ -40,6 +40,7 @@ public class ScsOlsListPanel extends UIWidget_i {
 
     private String selectionMode = null;
     private boolean colorMode = false;
+    private boolean hasSCADAgenPager = false;
     
     private LinkedList<String> attributes = new LinkedList<String>();
     
@@ -187,6 +188,9 @@ public class ScsOlsListPanel extends UIWidget_i {
     	final String strCssResultNormal		= strCssPrefix+listConfigId_+"_NORMAL";
     	
         gridView_ = new ScsGenericDataGridView();
+        
+        gridView_.setHasSCADAgenPager(hasSCADAgenPager);
+        
         // Customize CSS class according to the alarm state
         gridView_.setRowStyles(new RowStyles<EntityClient>() {
 
@@ -267,6 +271,11 @@ public class ScsOlsListPanel extends UIWidget_i {
 			String colorMode	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColorMode.toString(), strHeader);
 			if ( null != colorMode && ParameterValue.ColorMode.toString().equals(colorMode) ) {
 				this.colorMode = true;
+			}
+			
+			String pagerName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.PagerName.toString(), strHeader);
+			if ( null != pagerName && ParameterValue.SCADAgenPager.toString().equals(pagerName) ) {
+				this.hasSCADAgenPager = true;
 			}
 			
             for ( String strGDGAttribute : GDGAttribute.toStrings() ) {

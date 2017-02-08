@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.ColumnFilterData;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
@@ -21,6 +22,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
@@ -29,6 +31,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -44,6 +47,9 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.Counter
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 
 public class UIWidgetViewer extends UIWidget_i {
@@ -139,6 +145,65 @@ public class UIWidgetViewer extends UIWidget_i {
 				logger.info(className, function, "os3[{}]", os3);
 				logger.info(className, function, "os4[{}]", os4);
 				
+				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+				
+				logger.info(className, function, "oe[{}] element[{}]", oe, element);
+				
+				if ( null != oe ) {
+					
+					if ( oe.equals(element) ) {
+				
+						if ( null != os1 ) {
+					
+							AbstractPager pager = gridView.getPager();
+							
+							if ( null != pager ) {
+								
+								if ( pager instanceof SCADAgenPager ) {
+									
+									SCADAgenPager simplePager = (SCADAgenPager)pager;
+									
+									if ( os1.equals(ViewerViewEvent.FirstPageSelected.toString()) ) {
+										
+										simplePager.firstPage();
+										
+									}
+									else
+									if ( os1.equals(ViewerViewEvent.PreviousPageSelected.toString()) ) {
+										
+										simplePager.previousPage();
+										
+									}
+									else
+									if ( os1.equals(ViewerViewEvent.NextPageSelected.toString()) ) {
+										
+										simplePager.nextPage();
+										
+									}
+									else
+									if ( os1.equals(ViewerViewEvent.LastPageSelected.toString()) ) {
+										
+										simplePager.lastPage();
+
+									}
+									else
+									if ( os1.equals(ViewerViewEvent.FastForwardPageSelected.toString()) ) {
+										
+										simplePager.fastForwardPage();
+
+									}
+								} else {
+									logger.warn(className, function, "pager instanceof SimplePager IS NOT");
+								}
+								
+
+							} else {
+								logger.warn(className, function, "pager IS NULL");
+							}
+						}
+					}
+				}
+				
 				if ( null != os1 ) {
 					if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
 						if ( null != os2 && null != os3 && null != os4) {
@@ -177,7 +242,7 @@ public class UIWidgetViewer extends UIWidget_i {
 						Window.alert("Print Event");
 					}
 				} else {
-					logger.warn(className, function, "op IS NULL");
+					logger.warn(className, function, "os1 IS NULL");
 				}
 			} else {
 				logger.warn(className, function, "uiEventAction IS NULL");
@@ -330,6 +395,117 @@ public class UIWidgetViewer extends UIWidget_i {
 							}
 						}
 
+						logger.end(className, function);
+					}
+				});
+				
+				
+				gridView.setButtonOperation(new ButtonOperation_i() {
+					
+					@Override
+					public void buttonOperation(String operation, boolean status) {
+						final String function = "setButtonOperation buttonOperation";
+						
+						logger.begin(className, function);
+						
+						logger.debug(className, function, "operation[{}] status[{}]", operation, status);
+						
+						String actionsetkey = "PagerButtonChanged_"+operation;
+						String actionkey = "PagerButtonChanged_"+operation;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), operation);
+						parameter.put(ActionAttribute.OperationString2.toString(), Boolean.toString(status));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+				});
+				
+				
+				gridView.setCreateText(new CreateText_i() {
+					
+					@Override
+					public String CreateText(int pageStart, int endIndex, boolean exact, int dataSize) {
+						// TODO Auto-generated method stub
+						return null;
+					}
+
+					@Override
+					public void pageStart(int pageStart) {
+						final String function = "setCreateText pageStart";
+						
+						logger.begin(className, function);
+						
+						String strType = "PageStart";
+						
+						logger.debug(className, function, "Type[{}]", strType);
+						
+						String strPageValueChanged = "PagerValueChanged_";
+						String actionsetkey = strPageValueChanged+strType;
+						String actionkey = strPageValueChanged+strType;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
+						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(pageStart));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+
+					@Override
+					public void endIndex(int endIndex) {
+						final String function = "setCreateText endIndex";
+						
+						logger.begin(className, function);
+						
+						String strType = "EndIndex";
+						
+						logger.debug(className, function, "strType[{}]", strType);
+						
+						String strPageValueChanged = "PagerValueChanged_";
+						String actionsetkey = strPageValueChanged+strType;
+						String actionkey = strPageValueChanged+strType;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
+						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(endIndex));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+
+					@Override
+					public void exact(boolean exact, int dataSize) {
+						final String function = "setCreateText exact";
+						
+						logger.begin(className, function);
+						
+						String strType = "Exact";
+						
+						logger.debug(className, function, "exact[{}] dataSize[{}]", exact, dataSize);
+						
+						String strPageValueChanged = "PagerValueChanged_";
+						String actionsetkey = strPageValueChanged+strType;
+						String actionkey = strPageValueChanged+strType;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
+						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(dataSize));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
 						logger.end(className, function);
 					}
 				});

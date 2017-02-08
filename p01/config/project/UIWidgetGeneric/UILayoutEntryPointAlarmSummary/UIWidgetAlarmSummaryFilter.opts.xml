@@ -11,6 +11,7 @@
 		<OperationString2>set_clean_disable</OperationString2>
 		<OperationString3>set_applied_disable</OperationString3>
 		<OperationString4>event_applyfilter0</OperationString4>
+		<OperationString5>event_applyfilter_opm</OperationString5>
 	</actionset>
 
 	<actionset key="clear">
@@ -98,6 +99,18 @@
 		<OperationString2>applied</OperationString2>
 		<OperationString3>Disable</OperationString3>
 	</action>
+	
+	
+	<action key="event_applyfilter_opm">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>AddIntRangeFilter</OperationString1>
+		<OperationString2>scsalarmList</OperationString2>
+		<OperationString3>scsalarmList_checkaccess</OperationString3>
+		<OperationString4>1</OperationString4>
+		<OperationString5>2</OperationString5>
+	</action>	
 	
 	<action key="event_applyfilter0">
 		<SenderOperation>event</SenderOperation>

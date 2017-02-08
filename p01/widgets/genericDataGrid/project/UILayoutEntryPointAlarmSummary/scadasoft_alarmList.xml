@@ -9,6 +9,20 @@
         </p:dataSource>
     </p:subject>
 
+	<!--
+	<p:column filterable="true" i18n="false" name="scsalarmList_functionalcategory" template="{}" templateMarker="{}" sortable="true" width="60" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+        <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
+    </p:column>
+	
+    <p:column filterable="true" i18n="false" name="scsalarmList_areaID" template="{}" templateMarker="{}" sortable="true" width="60" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+        <p:source name="areaID" xsi:type="cmn:statusDataSourceType"/>
+    </p:column>
+	-->
+
+    <p:column filterable="true" format="" name="scsalarmList_checkaccess" sortable="true" type="INTEGER" width="0" widthUnit="PX" xsi:type="p:numberColumnType">
+        <p:source name="GDGMessageCheckAccess" statusComputerName="GDGMessageCheckAccess" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+	
     <!-- Ack -->
     <p:column filterable="true" sortable="true" i18n="true" name="scsalarmList_state_name" width="60" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="ackstate" statusComputerName="ackstate" xsi:type="cmn:computedStatusDataSourceType"/>

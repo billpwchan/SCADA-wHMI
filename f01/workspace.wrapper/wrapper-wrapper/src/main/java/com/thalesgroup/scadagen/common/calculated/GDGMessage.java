@@ -123,11 +123,13 @@ public abstract class GDGMessage extends SCSStatusComputer {
 		key1		= mappings.get(keyname1);
 		sperater	= mappings.get(speratername);
 		
-		logger.debug("{} {} field1[{}]", 		new Object[]{logPrefix,fieldname1,field1});
-		logger.debug("{} {} keyindex1[{}]", 	new Object[]{logPrefix,keyindexname1,keyindex1});
-		logger.debug("{} {} key1[{}]", 		new Object[]{logPrefix,keyname1,key1});
-		logger.debug("{} {} sperater[{}]", 	new Object[]{logPrefix,sperater,sperater});
-
+		if ( logger.isDebugEnabled() ) {
+			logger.debug("{} {} field1[{}]", 		new Object[]{logPrefix,fieldname1,field1});
+			logger.debug("{} {} keyindex1[{}]", 	new Object[]{logPrefix,keyindexname1,keyindex1});
+			logger.debug("{} {} key1[{}]", 			new Object[]{logPrefix,keyname1,key1});
+			logger.debug("{} {} sperater[{}]", 		new Object[]{logPrefix,sperater,sperater});
+		}
+		
 		if ( isInteger(keyindex1) ) {
 			keyindex = Integer.parseInt(keyindex1);
 		} else {
@@ -213,8 +215,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     { 
-		logger.debug("{} compute m_name[{}]", logPrefix, m_name);
-    	logger.debug("{} compute field1[{}]", logPrefix, field1);
+		logger.debug("{} compute m_name[{}], field1[{}]", new Object[]{logPrefix, m_name, field1});
     	
 //		logger.debug("{} compute PRINT operatorOpmInfo[{}]", logPrefix, operatorOpmInfo);
 //		logger.debug("{} compute PRINT entityId[{}]", logPrefix, entityId);
@@ -280,7 +281,7 @@ public abstract class GDGMessage extends SCSStatusComputer {
 			                	} catch ( IllegalFormatException e) {
 			                		logger.warn("{} compute Exception String.format inValueFormat[{}]", logPrefix, inValueFormat);
 			                		logger.warn("{} compute String.format Exception[{}]", logPrefix, e.toString());
-			                		printStringArray(rawTokens);
+			                		if ( logger.isDebugEnabled() ) printStringArray(rawTokens);
 			                	}
 		                	} else {
 		                		logger.error("{} compute inValueFormat IS NULL", logPrefix);

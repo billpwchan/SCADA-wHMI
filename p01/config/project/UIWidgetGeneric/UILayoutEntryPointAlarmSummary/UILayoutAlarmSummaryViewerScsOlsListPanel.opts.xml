@@ -6,6 +6,7 @@
 		<MenuEnableCallImage>true</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
 		<ColorMode>ColorMode</ColorMode>
+		<PagerName>SCADAgenPager</PagerName>
 		<MwtEventBusName>scsalarmList</MwtEventBusName>
 		<MwtEventBusScope>local</MwtEventBusScope>
 		

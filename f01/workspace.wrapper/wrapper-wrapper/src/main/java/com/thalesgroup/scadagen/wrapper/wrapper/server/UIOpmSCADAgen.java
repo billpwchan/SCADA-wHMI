@@ -22,10 +22,25 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	@Override
 	public boolean checkAccess(String function, String location, String action, String mode) {
 		logger.debug("checkAccess - function=[{}], location=[{}], action=[{}], mode=[{}]",
-				new Object[] {mode, action, function, location });
+				new Object[] {function, location, action, mode});
 		boolean result = false;
 		result = checkAccess(
 				  UIOpm_i.FUNCTION, function
+				, UIOpm_i.LOCATION, location
+				, UIOpm_i.ACTION, action
+				, UIOpm_i.MODE, mode);
+
+		return result;
+	}
+	
+	@Override
+	public boolean checkAccess(OperatorOpmInfo operatorOpmInfo, String function, String location, String action, String mode) {
+		logger.debug("checkAccess - function=[{}], location=[{}], action=[{}], mode=[{}]",
+				new Object[] {function, location, action, mode});
+		boolean result = false;
+		result = checkAccess(
+				  operatorOpmInfo
+				, UIOpm_i.FUNCTION, function
 				, UIOpm_i.LOCATION, location
 				, UIOpm_i.ACTION, action
 				, UIOpm_i.MODE, mode);

@@ -16,6 +16,8 @@ public interface UIOpm_i {
 	
 	boolean checkAccess(String function, String location, String action, String mode);
 	
+	boolean checkAccess(OperatorOpmInfo operatorOpmInfo, String function, String location, String action, String mode);
+	
 	boolean checkAccess(
 			  String opmName1, String opmValue1
 			, String opmName2, String opmValue2

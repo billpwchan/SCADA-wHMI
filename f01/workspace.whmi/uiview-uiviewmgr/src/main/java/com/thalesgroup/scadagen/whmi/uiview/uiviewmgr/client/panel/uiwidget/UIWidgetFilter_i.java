@@ -32,6 +32,7 @@ public interface UIWidgetFilter_i {
 
 	public enum FilterViewEvent {
 		  AddFilter("AddFilter")
+		, AddIntRangeFilter("AddIntRangeFilter")
 		, RemoveFilter("RemoveFilter")
 		;
 		private final String text;

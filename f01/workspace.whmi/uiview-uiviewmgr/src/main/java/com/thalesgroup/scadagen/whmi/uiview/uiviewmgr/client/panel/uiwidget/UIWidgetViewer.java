@@ -208,6 +208,48 @@ public class UIWidgetViewer extends UIWidget_i {
 				}
 				
 				if ( null != os1 ) {
+					
+					if ( os1.equals(FilterViewEvent.AddIntRangeFilter.toString()) ) {
+						if ( null != os2 && null != os3 && null != os4 && null != os5 ) {
+							String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
+							logger.info(className, function, "listConfigId[{}]", listConfigId);
+							if ( null != listConfigId ) {
+								if ( os2.equals(listConfigId) ) {
+									int start = 0;
+									int end = 0;
+									
+									try {
+										start = Integer.parseInt(os4);
+									} catch ( NumberFormatException ex ) {
+										logger.warn(className, function, "os4[{}] IS INVALID", os4);
+										logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+									}
+									
+									try {
+										end = Integer.parseInt(os5);
+									} catch ( NumberFormatException ex ) {
+										logger.warn(className, function, "os5[{}] IS INVALID", os5);
+										logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+									}
+									
+									logger.debug(className, function, "start[{}] end[{}]", start, end);
+									
+									applyFilter(os3, start, end);
+									
+								} else {
+									logger.warn(className, function, "od1[{}] AND listConfigId[{}] IS NOT EQUALS", os1, listConfigId);
+								}
+							} else {
+								logger.warn(className, function, "listConfigId IS NULL", listConfigId);
+							}
+		
+						} else if ( null == os2 ) {
+							logger.warn(className, function, "od1 IS NULL");
+						} else if ( null == os3 ) {
+							logger.warn(className, function, "od2 IS NULL");
+						}
+					} 
+					else
 					if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
 						if ( null != os2 && null != os3 && null != os4) {
 							String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());

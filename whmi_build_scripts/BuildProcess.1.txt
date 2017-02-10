@@ -3,14 +3,14 @@
 1. Create the base directory.
 2. Copy the COTS to the base directory.
 
-3. Start from step 4 if whmi_scripts folder not exists, other start from step 6.
+3. Start from step 4 if whmi_build_scripts folder not exists, other start from step 6.
 
 4. Using git to clone the "git clone %REPO_URL% %REPO_DIR%".
-5. Copy the whmi_scripts folder to the base directory.
+5. Copy the whmi_build_scripts folder to the base directory.
 
-6. Start from step 7 if whmi_scripts folder not exists, other start from step 10.
+6. Start from step 7 if whmi_build_scripts folder not exists, other start from step 10.
 
-7. Check the whmi_scripts is update-to-date with the Git Repo.
+7. Check the whmi_build_scripts is update-to-date with the Git Repo.
 8. Check the git account in git_clone_whmi.bat, modify if incorrect.
 9. Check the git account in git_clone_fas.bat, modify if incorrect.
 

@@ -8,7 +8,7 @@ set strdt=%ldt%
 set ldt=%ldt:~0,4%-%ldt:~4,2%-%ldt:~6,2% %ldt:~8,2%:%ldt:~10,2%:%ldt:~12,2%.%ldt:~15,3%
 set strdt=%strdt:~0,4%_%strdt:~4,2%_%strdt:~6,2%_%strdt:~8,2%_%strdt:~10,2%_%strdt:~12,2%_%strdt:~15,3%
 
-SET GIT_HOME="C:\Program Files\Git"
+SET GIT_HOME="%SCRIPT_PATH%\..\cots\softs.x86_64\Git"
 SET GIT_BIN="%GIT_HOME%\bin"
 
 SET REPO_URL="http://syau@titanium.hk.thales:7990/scm/fa/fas.git"

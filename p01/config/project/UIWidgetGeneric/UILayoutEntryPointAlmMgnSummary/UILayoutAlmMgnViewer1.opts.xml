@@ -2,6 +2,7 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
+		<ScsOlsListElement>UILayoutAlmMgnViewer1ScsOlsListPanel</ScsOlsListElement>
 	</header>
 	
 	<actionset key="FilterAdded">

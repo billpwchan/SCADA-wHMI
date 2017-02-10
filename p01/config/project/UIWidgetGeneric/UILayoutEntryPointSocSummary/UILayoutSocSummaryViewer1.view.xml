@@ -6,15 +6,6 @@
 		<cols>0</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCss>project-UILayoutSocSummaryViewer1-root</rootCss>
-		<!--<rootCSS>project-gwt-panel-viewerview-inner</rootCSS>-->
 	</header>
-	<!--
-	<option key="0|0">
-		<type>predefine</type>
-		<uiCtrl>ScsOlsListPanel</uiCtrl>
-		<uiOpts>UILayoutAlarmSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
-		<element>UILayoutAlarmSummaryViewerScsOlsListPanel</element>
-	</option>
-	-->
 
 </data-set>

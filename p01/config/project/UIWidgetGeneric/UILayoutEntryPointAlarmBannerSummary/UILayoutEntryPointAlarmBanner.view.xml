@@ -5,13 +5,13 @@
 		<rows>1</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
-		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
+		<rootCSS>project-gwt-panel-alarmsummaryview-inner</rootCSS>
 	</header>
 	<option key="0|0">
 		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
-		<uiView>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmSummary.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmSummary.opts.xml</uiOpts>
-		<element>UILayoutAlarmSummary</element>
+		<uiView>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.opts.xml</uiOpts>
+		<element>UILayoutAlarmBanner</element>
 	</option>
 </data-set>

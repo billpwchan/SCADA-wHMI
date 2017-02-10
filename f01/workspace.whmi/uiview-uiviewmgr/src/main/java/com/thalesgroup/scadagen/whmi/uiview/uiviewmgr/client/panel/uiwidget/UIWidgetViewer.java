@@ -15,6 +15,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presen
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringFilterDescription.StringFilterTypes;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -29,6 +30,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -62,6 +64,8 @@ public class UIWidgetViewer extends UIWidget_i {
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	private UIEventActionProcessor_i uiEventActionProcessorContextMenu_i = null;
+	
+	private String scsOlsListElement = null;
 	
 	private ScsOlsListPanel scsOlsListPanel					= null;
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
@@ -197,6 +201,15 @@ public class UIWidgetViewer extends UIWidget_i {
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 		
+		
+		String strUIWidgetGeneric = "UIWidgetGeneric";
+		String strHeader = "header";
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			scsOlsListElement			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ScsOlsListElement.toString(), strHeader);
+		}
+		logger.info(className, function, "scsOlsListElement[{}]", scsOlsListElement);
+		
 		uiLayoutGeneric = new UILayoutGeneric();
 		
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
@@ -242,8 +255,27 @@ public class UIWidgetViewer extends UIWidget_i {
 			})
 		);
 		
-		String strScsOlsListPanel = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
-		scsOlsListPanel = (ScsOlsListPanel)uiLayoutGeneric.getPredefineWidget(strScsOlsListPanel);
+		logger.info(className, function, "scsOlsListElement[{}]", scsOlsListElement);
+		if ( null == scsOlsListElement ) {
+			
+			logger.warn(className, function, "scsOlsListElement IS NULL");
+			
+			String strScsOlsListPanel = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
+			scsOlsListElement = strScsOlsListPanel;
+			
+			logger.warn(className, function, "Using default ScsOlsListPanel ClassName for scsOlsListElement[{}] AS DEFAULT", scsOlsListElement);
+		}
+			
+		Object object = (ScsOlsListPanel)uiLayoutGeneric.getUIWidget(scsOlsListElement);
+		if ( null != object ) {
+			if ( object instanceof ScsOlsListPanel ) {
+				scsOlsListPanel = (ScsOlsListPanel)object;
+			} else {
+				logger.warn(className, function, "scsOlsListElement[{}] instanceof ScsOlsListPanel IS FALSE");
+			}
+		} else {
+			logger.warn(className, function, "scsOlsListElement[{}] IS NULL");
+		}
 		
 		if ( null != scsOlsListPanel ) {
 			

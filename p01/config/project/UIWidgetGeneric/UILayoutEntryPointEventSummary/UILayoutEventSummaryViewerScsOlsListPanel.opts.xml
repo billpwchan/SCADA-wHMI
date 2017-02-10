@@ -7,7 +7,7 @@
 		<SelectionMode>Multiple</SelectionMode>
 		<ColorMode>ColorMode</ColorMode>
 		<MwtEventBusName>scseventList</MwtEventBusName>
-		<MwtEventBusScope>local</MwtEventBusScope>
+		<MwtEventBusScope>Global</MwtEventBusScope>
 		
 		<OperationString1>priority</OperationString1>
 		<OperationString2>state</OperationString2>

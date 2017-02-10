@@ -63,11 +63,22 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private final String dynamicAciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.afoForcedStatus.toString()};
 	private final String dynamicSciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.sfoForcedStatus.toString()};
 
-
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private String[] addresses	= null;
 	private Database database	= null;
+	
+	@Override
+	public void setRight(HashMap<String, String> rights) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void applyRight() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -75,8 +86,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.info(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.info(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
+		logger.debug(className, function, "this.parent[{}]", this.parent);
 	}
 	
 	@Override
@@ -126,7 +137,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		int stopper = pageCounter.pageRowCount;
 		
-		logger.info(className, function
+		logger.debug(className, function
 				, "pageIndex[{}] pageSize[{}], stopper[{}]"
 				, new Object[]{pageIndex, pageSize, stopper});
 		
@@ -371,7 +382,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			
 			int pageSize = pageCounter.pageSize;
 			
-			logger.info(className, function, "pageSize[{}]", pageSize);
+			logger.debug(className, function, "pageSize[{}]", pageSize);
 				
 			lblAttibuteLabel	= new InlineLabel[pageSize];
 			
@@ -401,7 +412,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				
 				int r = 0;
 				
-				logger.info(className, function, "i[{}]", i);
+				logger.debug(className, function, "i[{}]", i);
 					
 				lblAttibuteLabel[i] = new InlineLabel();
 				lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
@@ -533,7 +544,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "updateValueStatic";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "clientkey[{}]", clientKey);
+		logger.debug(className, function, "clientkey[{}]", clientKey);
 		
 		valueRefreshed = false;
 		
@@ -544,7 +555,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		
-		logger.info(className, function, "clientKeyStatic[{}]", clientKeyStatic);
+		logger.debug(className, function, "clientKeyStatic[{}]", clientKeyStatic);
 		
 		if ( clientKeyStatic.equals(clientKey) ) {
 	
@@ -593,7 +604,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							lstValues[y].addItem(labels[r]);
 							
-							logger.info(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
+							logger.debug(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
 						}
 					} else {
 						logger.warn(className, function, "valueTable IS NULL!");
@@ -725,7 +736,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							if ( PointType.dci == pointType ) {
 
 								String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-								logger.info(className, function, "valueTable[{}]", valueTable);
+								logger.debug(className, function, "valueTable[{}]", valueTable);
 								
 								if ( null != valueTable ) {
 									int valueCol = 0;
@@ -795,20 +806,20 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			}
 		}
 		
-		logger.info(className, function, "btnIndex[{}]", btnIndex);
+		logger.debug(className, function, "btnIndex[{}]", btnIndex);
 		
 		pageCounter.calc(pageIndex);
 	
 		int x = pageCounter.pageRowBegin + btnIndex;
 		int y = btnIndex;
 
-		logger.info(className, function, "pageCounter.pageRowBegin[{}] x[{}] y[{}]", new Object[]{pageCounter.pageRowBegin, x, y});
+		logger.debug(className, function, "pageCounter.pageRowBegin[{}] x[{}] y[{}]", new Object[]{pageCounter.pageRowBegin, x, y});
 		
 		if ( -1 != btnIndex ) {
 			
 			String dbaddress = addresses[x];
 			
-			logger.info(className, function, "dbaddress[{}]", dbaddress);
+			logger.debug(className, function, "dbaddress[{}]", dbaddress);
 			
 			if ( null != dbaddress ) {
 				
@@ -819,9 +830,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					
 					String alias	= "<alias>" + dbaddress.replace(":", "");
 					
-					logger.info(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);				
+					logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);				
 					
-					logger.info(className, function, "point[{}] type[{}]", point, pointType);
+					logger.debug(className, function, "point[{}] type[{}]", point, pointType);
 					
 					if ( null != chkDPMs[y] ) {
 						
@@ -903,16 +914,16 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 								
 								int moIndex = lstValues[y].getSelectedIndex();
 								
-								logger.info(className, function, "moIndex[{}]", moIndex);
+								logger.debug(className, function, "moIndex[{}]", moIndex);
 								
 								String valueTable = DatabaseHelper.getAttributeValue(dbaddress, PointName.dalValueTable.toString(), dbvalues);
-								logger.info(className, function, "sforcedStatus[{}]", valueTable);
+								logger.debug(className, function, "sforcedStatus[{}]", valueTable);
 
 								int valueCol = 0;
 								String sValue	= DatabaseHelper.getArrayValues(valueTable, valueCol, moIndex);
 								sValue			= DatabaseHelper.removeDBStringWrapper(sValue);
 								
-								logger.info(className, function, "sValue[{}]", sValue);
+								logger.debug(className, function, "sValue[{}]", sValue);
 								try {
 									moIValue = Integer.parseInt(sValue);
 								} catch ( NumberFormatException e ) {
@@ -924,7 +935,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 								
 								moSValue = txtValues[y].getText();
 								
-								logger.info(className, function, "moSValue[{}]", moSValue);
+								logger.debug(className, function, "moSValue[{}]", moSValue);
 								
 								if ( PointType.aci == pointType ) {
 									
@@ -937,7 +948,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 								}
 							}
 							
-							logger.info(className, function, "moIValue[{}] moFValue[{}] moSValue[{}]", new Object[]{moIValue, moFValue, moSValue});
+							logger.debug(className, function, "moIValue[{}] moFValue[{}] moSValue[{}]", new Object[]{moIValue, moFValue, moSValue});
 						}
 						
 						// Alarm Inhibit
@@ -995,25 +1006,25 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							if ( null != key ) {
 								
-								logger.info(className, function, "pointType[{}]", pointType);
+								logger.debug(className, function, "pointType[{}]", pointType);
 								
 								if ( PointType.dci == pointType ) {
 									
-									logger.info(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moIValue[{}]"
+									logger.debug(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moIValue[{}]"
 											, new Object[]{key, scsEnvId, alias, forceAction, moIValue});
 									
 									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moIValue );
 									
 								} else if ( PointType.aci == pointType ) {
 									
-									logger.info(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moFValue[{}]"
+									logger.debug(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moFValue[{}]"
 											, new Object[]{key, scsEnvId, alias, forceAction, moFValue});
 									
 									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moFValue );
 									
 								} else if ( PointType.sci == pointType ) {
 									
-									logger.info(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moSValue[{}]"
+									logger.debug(className, function, "key[{}] scsEnvId[{}] alias[{}] forceAction[{}] moSValue[{}]"
 											, new Object[]{key, scsEnvId, alias, forceAction, moSValue});
 									
 									dpcMgr.sendChangeVarForce ( key, scsEnvId, alias, forceAction, moSValue );
@@ -1070,7 +1081,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		moApplyWithoutReset = ReadProp.readBoolean(UIInspector_i.strUIInspector, inspAdvProp, inspAdvPropPrefix+"moApplyWithoutReset", false);
 		
-		logger.info(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
+		logger.debug(className, function, "moApplyWithoutReset[{}]", moApplyWithoutReset);
 
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
@@ -1142,7 +1153,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				if ( null != event ) {
 					if ( null != uiInspectorTabClickEvent ) uiInspectorTabClickEvent.onClick(); 
 				} else {
-					logger.info(className, function, "event IS NULL");
+					logger.debug(className, function, "event IS NULL");
 				}
 			}
 		});

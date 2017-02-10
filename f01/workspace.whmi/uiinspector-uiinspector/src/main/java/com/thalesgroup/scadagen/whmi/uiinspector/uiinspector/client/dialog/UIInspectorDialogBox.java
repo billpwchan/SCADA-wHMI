@@ -31,6 +31,13 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	private String hvid = null;
 	private String hvType = null;
 	
+	private String function = null;
+	private String location = null;
+	public void setFunctionLocation(String function, String location) {
+		this.function = function;
+		this.location = location;
+	}
+	
 	private boolean modeless = false;
 	public void setModeless(boolean modeless) { 
 		final String function = "setModeless";
@@ -90,13 +97,14 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		final String function = "init";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "viewXMLFile[{}] optsXMLFile[{}]", viewXMLFile, optsXMLFile);
+		logger.debug(className, function, "viewXMLFile[{}] optsXMLFile[{}]", viewXMLFile, optsXMLFile);
 		
 		this.setModal(modeless);
 		
 		uiPanelInspector = new UIPanelInspectorWrapper();
 		uiPanelInspector.setUINameCard(this.uiNameCard);
 		uiPanelInspector.setHvInfo(this.hvid, this.hvType);
+		uiPanelInspector.setFunctionLocation(this.function, this.location);
 		uiPanelInspector.setUIInspectorEvent(new UIPanelInspectorEvent() {
 			
 			@Override
@@ -127,12 +135,12 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 				if ( null != event ) {
 					if ( null != uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClick(); 
 				} else {
-					logger.info(className, function, "event IS NULL");
+					logger.debug(className, function, "event IS NULL");
 				}
 			}
 		});
 		
-		logger.info(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
+		logger.debug(className, function, "mouseX[{}] mouseY[{}]", mouseX, mouseY);
 
 		this.add(rootPanel);
 		this.addStyleName("project-gwt-panel-inspector-dialogbox");

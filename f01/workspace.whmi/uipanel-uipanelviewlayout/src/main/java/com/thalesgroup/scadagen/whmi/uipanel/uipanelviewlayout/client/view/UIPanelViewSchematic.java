@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
+import java.util.HashMap;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
@@ -63,19 +65,24 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 				wrapperScsSituationViewPanel.setSize("100%", "100%");
 				wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(new WrapperScsSituationViewPanelEvent() {
 					@Override
-					public void triggerSymbolWidget(String hv_id, String hv_type, int mouseX, int mouseY) {
+					public void triggerSymbolWidget(HashMap<String, String> options) {
 						
 						final String function = "triggerSymbolWidget";
 						
 						logger.begin(className, function);
 						
-						String configuationId = wrapperScsSituationViewPanel.getConfigurationId();
+						String configurationId = wrapperScsSituationViewPanel.getConfigurationId();
+						
+						logger.debug(className, function, "configurationId[{}]", configurationId);
 						
 						UITaskLaunch taskLaunch = new UITaskLaunch();
 						taskLaunch.setUiPanel("ViewSchematicSymbolSelected");
 						taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
 						taskLaunch.setUiPath(UIPathUIPanelViewLayout);
-						taskLaunch.setOption(new Object[]{configuationId, hv_id, hv_type, mouseX, mouseY});
+						
+						taskLaunch.setOptions(options);
+						taskLaunch.setOption("configurationId", configurationId);
+						
 						uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 						
 						logger.end(className, function);

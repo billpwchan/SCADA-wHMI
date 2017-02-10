@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -23,6 +24,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEv
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
@@ -78,13 +80,48 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.info.properties";
 	private static final String VAL_LABEL_FROM_COMPUTED_MESSAGE_PREFIX = "inspectorpanel.info.valLabelFromComputedMessage.";
 	
+	private Button btnAckCurPage = null;
+	
+	private HashMap<String, String> rights = new HashMap<String, String>();
+	@Override
+	public void setRight(HashMap<String, String> rights) {
+		final String function = "setRight";
+		if ( null != rights ) {
+			for ( Entry<String, String> right : rights.entrySet() ) {
+				String key = right.getKey();
+				String value = right.getValue();
+				this.rights.put(key, value);
+			}
+		} else {
+			logger.warn(className, function, "rights IS NULL");
+		}
+	}
+	
+	@Override
+	public void applyRight() {
+		final String function = "applyRight";
+		String rightname5 = UIPanelInspector_i.strConfigAction+5;
+		String right5 = rights.get(rightname5);
+		
+		logger.debug(className, function, "Checking rightname5[{}] right5[{}]", rightname5, right5);
+		if ( null != right5 ) {
+			if ( right5.equals(String.valueOf(false))) {
+				logger.warn(className, function, "right5 IS INSUFFICIENT RIGHT");
+				
+				btnAckCurPage.setVisible(false);
+			}
+		} else {
+			logger.warn(className, function, "right5 IS NULL");
+		}
+	}
+	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
 		final String function = "setParent";
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.info(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.info(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
+		logger.debug(className, function, "this.parent[{}]", this.parent);
 	}
 	
 	@Override
@@ -144,9 +181,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}			
 			
-			logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+			logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 			
 			String api = "multiReadValue";
@@ -226,9 +263,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 			
-			logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+			logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 			
 			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
@@ -289,7 +326,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		int stopper = pageCounter.pageRowCount;
 		
-		logger.info(className, function
+		logger.debug(className, function
 				, "pageIndex[{}] pageSize[{}], stopper[{}]"
 				, new Object[]{pageIndex, pageSize, stopper});
 		
@@ -343,8 +380,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "numOfWidgets[{}]", numOfWidgets);
-		logger.info(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
+		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.debug(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
@@ -355,7 +392,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			int pageSize = pageCounter.pageSize;
 			
-			logger.info(className, function, "pageSize[{}]", pageSize);
+			logger.debug(className, function, "pageSize[{}]", pageSize);
 			
 //			if ( DatabaseHelper.addressesIsValid(this.addresses) ) {
 				
@@ -367,7 +404,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				flexTableAttibutes.setWidth("100%");
 				for( int i = 0 ; i < pageSize ; ++i ) {
 					
-					logger.info(className, function, "i[{}]", i);
+					logger.debug(className, function, "i[{}]", i);
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
@@ -392,7 +429,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspectorstatus-col");
 
 //			} else {
-//				logger.info(className, function, "this.addresses IS INVALID");
+//				logger.debug(className, function, "this.addresses IS INVALID");
 //			}
 			
 			vpCtrls.add(flexTableAttibutes);
@@ -472,11 +509,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		int rowBegin	= pageCounter.pageRowBegin;
 		int rowEnd		= pageCounter.pageRowEnd;
 
-		logger.info(className, function, "clientkey[{}]", clientKey);
+		logger.debug(className, function, "clientkey[{}]", clientKey);
 		
 		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
 		
-		logger.info(className, function, "clientKeyStatic[{}]", clientKeyStatic);
+		logger.debug(className, function, "clientKeyStatic[{}]", clientKeyStatic);
 		
 		if ( clientKeyStatic.equals(clientKey) ) {
 			
@@ -722,7 +759,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			}
 		});	
 		
-		Button btnAckCurPage = new Button();
+		btnAckCurPage = new Button();
 		btnAckCurPage.addStyleName("project-gwt-button-inspector-"+tagname+"-ackpage");
 		btnAckCurPage.setText("Ack. Page");
 		btnAckCurPage.addClickHandler(new ClickHandler() {
@@ -772,7 +809,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				if ( null != event ) {
 					if ( null != uiInspectorTabClickEvent ) uiInspectorTabClickEvent.onClick(); 
 				} else {
-					logger.info(className, function, "event IS NULL");
+					logger.debug(className, function, "event IS NULL");
 				}
 			}
 		});
@@ -822,11 +859,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			boolean bIsNeedAck	= DatabaseHelper.isNeedAck(valueAlarmVector);
 			
-			logger.info(className, function, "address[{}] bIsValid[{}] bIsAlarm[{}] bIsNeedAck[{}]", new Object[]{address, bIsValid, bIsAlarm, bIsNeedAck});
+			logger.debug(className, function, "address[{}] bIsValid[{}] bIsAlarm[{}] bIsNeedAck[{}]", new Object[]{address, bIsValid, bIsAlarm, bIsNeedAck});
 
 			if ( bIsValid && bIsAlarm && bIsNeedAck ) {
 				
-				logger.info(className, function, "address[{}] added to alarm list", address);
+				logger.debug(className, function, "address[{}] added to alarm list", address);
 				alarmList.add(address);
 			
 			}
@@ -834,9 +871,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		String [] alarmIds = alarmList.toArray(new String[0]);
 		
-		if ( logger.isInfoEnabled() ) {
+		if ( logger.isDebugEnabled() ) {
 			for ( String alarmId : alarmIds ) {
-				logger.info(className, function, "alarmId[{}]", alarmId);
+				logger.debug(className, function, "alarmId[{}]", alarmId);
 			}
 		}
 		

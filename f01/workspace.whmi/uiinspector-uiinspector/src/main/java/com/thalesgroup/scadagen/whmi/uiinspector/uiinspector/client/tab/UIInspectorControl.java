@@ -57,12 +57,24 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private Database database	= null;
 	
 	@Override
+	public void setRight(HashMap<String, String> rights) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void applyRight() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public void setParent(String scsEnvId, String parent) {
 		final String function = "setParent";
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.info(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.info(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
+		logger.debug(className, function, "this.parent[{}]", this.parent);
 	}
 	
 	@Override
@@ -112,7 +124,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		
 		int stopper = pageCounter.pageRowCount;
 		
-		logger.info(className, function
+		logger.debug(className, function
 				, "pageIndex[{}] pageSize[{}], stopper[{}]"
 				, new Object[]{pageIndex, pageSize, stopper});
 		
@@ -143,8 +155,8 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "numOfWidgets[{}]", numOfWidgets);
-		logger.info(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
+		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.debug(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
@@ -157,7 +169,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			
 			int stopper = pageCounter.pageRowCount;
 			
-			logger.info(className, function, "pageIndex[{}] pageSize[{}], stopper[{}]"
+			logger.debug(className, function, "pageIndex[{}] pageSize[{}], stopper[{}]"
 					, new Object[]{pageIndex, pageSize, stopper});
 			
 			widgetBoxes	= new VerticalPanel[pageSize];
@@ -932,7 +944,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				if ( null != event ) {
 					if ( null != uiInspectorTabClickEvent ) uiInspectorTabClickEvent.onClick(); 
 				} else {
-					logger.info(className, function, "event IS NULL");
+					logger.debug(className, function, "event IS NULL");
 				}
 			}
 		});
@@ -1027,7 +1039,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		Button btn = (Button)event.getSource();
 		if ( btn instanceof UIButtonToggle ) {
 			
-			logger.info(className, function, "Button IS UIButtonToggle");
+			logger.debug(className, function, "Button IS UIButtonToggle");
 			
 			Widget[] targetGroups = getSelectedGroup(btn);
 			if ( null != targetGroups ) {
@@ -1035,11 +1047,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			}
 			
 		} else if ( btn instanceof Button ) {
-			logger.info(className, function, "Button IS Button");
+			logger.debug(className, function, "Button IS Button");
 			
 			if ( btnExecute == btn ) {
 				
-				logger.info(className, function, "btn IS btnExecute");
+				logger.debug(className, function, "btn IS btnExecute");
 				
 				Widget widget = getActivateWidget();
 				
@@ -1064,10 +1076,10 @@ public class UIInspectorControl implements UIInspectorTab_i {
 							String sDbAddress	= controlPoint.getValue("dbaddress");
 							String sValue		= controlPoint.getValue("value");
 							
-							logger.info(className, function, "sPoint[{}]", sPoint);
-							logger.info(className, function, "sScsEnvId[{}]", sScsEnvId);
-							logger.info(className, function, "sDbAddress[{}]", sDbAddress);
-							logger.info(className, function, "sValue[{}]", sValue);
+							logger.debug(className, function, "sPoint[{}]", sPoint);
+							logger.debug(className, function, "sScsEnvId[{}]", sScsEnvId);
+							logger.debug(className, function, "sDbAddress[{}]", sDbAddress);
+							logger.debug(className, function, "sValue[{}]", sValue);
 							
 							subscribe(sDbAddress+PointName.execStatus.toString());
 							
@@ -1076,19 +1088,19 @@ public class UIInspectorControl implements UIInspectorTab_i {
 							
 							if ( 0 == sPoint.compareTo("dio") ) {
 								
-								logger.info(className, function, "controlPoint.dbaddress[{}] Integer [{}]", sDbAddress, Integer.parseInt(sValue));
+								logger.debug(className, function, "controlPoint.dbaddress[{}] Integer [{}]", sDbAddress, Integer.parseInt(sValue));
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Integer.valueOf(sValue), byPassInitCond, byPassRetCond, sendAnyway);
 								
 							} else if ( 0 == sPoint.compareTo("aio") ) {
 								
-								logger.info(className, function, "controlPoint.dbaddress[{}] Float [{}]", sDbAddress, Float.parseFloat(sValue));
+								logger.debug(className, function, "controlPoint.dbaddress[{}] Float [{}]", sDbAddress, Float.parseFloat(sValue));
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, Float.parseFloat(sValue), byPassInitCond, byPassRetCond, sendAnyway);
 								
 							} else if ( 0 == sPoint.compareTo("sio") ) {
 								
-								logger.info(className, function, "controlPoint.dbaddress[{}] String [{}]", sDbAddress, sValue);
+								logger.debug(className, function, "controlPoint.dbaddress[{}] String [{}]", sDbAddress, sValue);
 								
 								ctlMgr.sendControl(sScsEnvId, new String[]{sDbAddress}, sValue, byPassInitCond, byPassRetCond, sendAnyway);
 
@@ -1166,9 +1178,9 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private void subscribe(String address) {
 		final String function = "subscribe";
 		logger.begin(className, function);
-		logger.info(className, function, "address[{}]", address);
+		logger.debug(className, function, "address[{}]", address);
 		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.debug(className, function, "clientKey[{}]", clientKey);
 		database.subscribe(clientKey, new String[]{address}, new DatabaseEvent() {
 			@Override
 			public void update(String key, String[] value) {
@@ -1181,9 +1193,9 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private void unsubscribe(String address) {
 		final String function = "unsubscribe";
 		logger.begin(className, function);
-		logger.info(className, function, "address[{}]", address);
+		logger.debug(className, function, "address[{}]", address);
 		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
-		logger.info(className, function, "clientKey[{}]", clientKey);
+		logger.debug(className, function, "clientKey[{}]", clientKey);
 		database.unSubscribe(clientKey);
 		logger.end(className, function);
 	}

@@ -84,7 +84,8 @@ public class UIInspectorConnectionBox extends DialogBox {
 		taskLaunch.setUiPanel("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
 		taskLaunch.setUiPath(UIPathUIScreenMMI);
-		taskLaunch.setOption(new String[]{dbAddress, String.valueOf(periodMillis)});
+		taskLaunch.setOption("dbAddress", dbAddress);
+		taskLaunch.setOption("periodMillis", String.valueOf(periodMillis));
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 	}
 	

@@ -129,7 +129,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.info(className, function, "operator[{}]", operator);
 
-		new SpringChangePassword().changePassword(oldPass, newPass, uiWrapperRpcEvent_i); 
+		new SpringChangePassword().changePassword(operator, oldPass, newPass, uiWrapperRpcEvent_i); 
 		
 		logger.end(className, function);
 		

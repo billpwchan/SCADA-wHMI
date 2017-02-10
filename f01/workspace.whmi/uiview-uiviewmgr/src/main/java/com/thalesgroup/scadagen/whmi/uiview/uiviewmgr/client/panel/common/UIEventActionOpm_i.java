@@ -4,6 +4,7 @@ public interface UIEventActionOpm_i {
 	public enum UIEventActionOpmAction {
 		  OpmLogin("OpmLogin")
 		, OpmLogout("OpmLogout")
+		, OpmChangePassword("OpmChangePassword") 
 		;
 		private final String text;
 		private UIEventActionOpmAction(final String text) { this.text = text; }

@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view;
 
-public interface SCADAgenPAger_i {
+public interface SCADAgenPager_i {
 	public enum ParameterName {
 		  HasPreviousPage("HasPreviousPage")
 		, HasNextPage("HasNextPage")

@@ -11,11 +11,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.client.Window;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.ColumnFilterData;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.IntFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringFilterDescription;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringFilterDescription.StringFilterTypes;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -98,21 +96,28 @@ public class UIWidgetViewer extends UIWidget_i {
 		
 		logger.begin(className, function);
 		logger.info(className, function, "column[{}] value[{}]", column, value);
-
-		ColumnFilterData cfd = new ColumnFilterData(column, value);
 		
 		FilterDescription fd = null;
-		boolean isEnumType = true;
-		if ( isEnumType ) {
-			Set<String> s = new HashSet<String>();
-			s.add(value);
-			fd = new StringEnumFilterDescription(s);			
-		} else {
-			fd = new StringFilterDescription(StringFilterTypes.EQUALS, cfd.getFilterValue());
-		}
+
+		Set<String> s = new HashSet<String>();
+		s.add(value);
+		fd = new StringEnumFilterDescription(s);
 		
-		gridPresenter.setContainerFilter(cfd.getColumnName(), fd);
-		logger.info(className, function, "column[{}] value[{}]", column, value);
+		gridPresenter.setContainerFilter(column, fd);
+		
+		logger.end(className, function);
+	}
+	
+	public void applyFilter(String column, int start, int end) {
+		final String function = "applyFilter";
+		
+		logger.begin(className, function);
+		logger.info(className, function, "column[{}] start[{}] end[{}]", new Object[]{column, start, end});
+
+		FilterDescription fd = new IntFilterDescription(start, end);
+
+		gridPresenter.setContainerFilter(column, fd);
+
 		logger.end(className, function);
 	}
 
@@ -142,11 +147,13 @@ public class UIWidgetViewer extends UIWidget_i {
 				String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
 				String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 				String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
+				String os5 = (String) uiEventAction.getParameter(ActionAttribute.OperationString5.toString());
 				
 				logger.info(className, function, "os1[{}]", os1);
 				logger.info(className, function, "os2[{}]", os2);
 				logger.info(className, function, "os3[{}]", os3);
 				logger.info(className, function, "os4[{}]", os4);
+				logger.info(className, function, "os5[{}]", os5);
 				
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 				

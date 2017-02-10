@@ -6,7 +6,7 @@ import com.google.gwt.view.client.Range;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPAger_i.ParameterName;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager_i.ParameterName;
 
 public class SCADAgenPager extends SimplePager {
 	

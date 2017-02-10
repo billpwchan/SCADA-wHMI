@@ -8,6 +8,7 @@ public interface UIWidgetDpcControl_i {
 		, ColumnServiceOwner("ColumnServiceOwner")
 		, ValueSet("ValueSet")
 		, ValueUnSet("ValueUnSet")
+		, PeriodMillis("PeriodMillis")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

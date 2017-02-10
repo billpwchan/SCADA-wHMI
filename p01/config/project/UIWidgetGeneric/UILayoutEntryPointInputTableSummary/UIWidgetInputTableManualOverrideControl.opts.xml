@@ -7,6 +7,7 @@
 		<ColumnServiceOwner>serviceOwnerID</ColumnServiceOwner>
 		<ValueSet>2</ValueSet>
 		<ValueUnSet>0</ValueUnSet>
+		<PeriodMillis>200</PeriodMillis>
 	</header>
 	
 	<actionset key="init">

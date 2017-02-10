@@ -256,6 +256,16 @@ public class UIWidgetViewer extends UIWidget_i {
 		);
 		
 		logger.info(className, function, "scsOlsListElement[{}]", scsOlsListElement);
+		if ( null == scsOlsListElement ) {
+			
+			logger.warn(className, function, "scsOlsListElement IS NULL");
+			
+			String strScsOlsListPanel = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
+			scsOlsListElement = strScsOlsListPanel;
+			
+			logger.warn(className, function, "Using default ScsOlsListPanel ClassName for scsOlsListElement[{}] AS DEFAULT", scsOlsListElement);
+		}
+			
 		Object object = (ScsOlsListPanel)uiLayoutGeneric.getUIWidget(scsOlsListElement);
 		if ( null != object ) {
 			if ( object instanceof ScsOlsListPanel ) {

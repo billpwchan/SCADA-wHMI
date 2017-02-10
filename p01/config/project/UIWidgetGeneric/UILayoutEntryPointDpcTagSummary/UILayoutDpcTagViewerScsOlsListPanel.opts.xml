@@ -6,6 +6,6 @@
 		<MenuEnableCallImage>false</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
 		<MwtEventBusName>dpctagset</MwtEventBusName>
-		<MwtEventBusScope>local</MwtEventBusScope>
+		<MwtEventBusScope>Global</MwtEventBusScope>
 	</header>
 </data-set>

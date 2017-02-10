@@ -6,7 +6,7 @@
 		<MenuEnableCallImage>true</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
 		<MwtEventBusName>inputtablenotsuspended</MwtEventBusName>
-		<MwtEventBusScope>local</MwtEventBusScope>
+		<MwtEventBusScope>Global</MwtEventBusScope>
 	</header>
 	
 </data-set>

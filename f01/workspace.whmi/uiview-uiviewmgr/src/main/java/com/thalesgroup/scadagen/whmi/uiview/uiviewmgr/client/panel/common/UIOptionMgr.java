@@ -20,7 +20,7 @@ public class UIOptionMgr {
 		
 		this.logPrefix = "-> "+logPrefix+" ";
 		
-		logger.info(className, function, "this.logPrefix[{}]", this.logPrefix);
+		logger.trace(className, function, "this.logPrefix[{}]", this.logPrefix);
 		
 		logger.end(className, function);
 	}
@@ -29,30 +29,30 @@ public class UIOptionMgr {
 		final String function = "getOptionKey";
 		logger.begin(className, function);
 		
-		logger.info(className, function, this.logPrefix+"dictionariesCacheName[{}]", dictionariesCacheName);
-		logger.info(className, function, this.logPrefix+"fileName[{}]", fileName);
-		logger.info(className, function, this.logPrefix+"tag[{}]", tag);
+		logger.trace(className, function, this.logPrefix+"dictionariesCacheName[{}]", dictionariesCacheName);
+		logger.trace(className, function, this.logPrefix+"fileName[{}]", fileName);
+		logger.trace(className, function, this.logPrefix+"tag[{}]", tag);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
 		Dictionary dictionary = dictionariesCache.getDictionary(fileName+(null!=tag?"|"+tag:""));
 		
 		HashMap<String, HashMap<String, String>> result = new HashMap<String, HashMap<String, String>>();
 		if ( null != dictionary ) {
-			logger.info(className, function, logPrefix+"begin of for dictionary");
+			logger.trace(className, function, logPrefix+"begin of for dictionary");
 			for ( Object o : dictionary.getValueKeys() ) {
 				if ( null != o ) {
 					Dictionary d2 = (Dictionary) dictionary.getValue(o);
-					logger.info(className, function, logPrefix+"d2[{}]", d2);
+					logger.trace(className, function, logPrefix+"d2[{}]", d2);
 					if ( null != d2 ) {
 						String d2ak = "key";
-						logger.info(className, function, logPrefix+"d2ak[{}]", d2ak);
+						logger.trace(className, function, logPrefix+"d2ak[{}]", d2ak);
 						String d2av = (String) d2.getAttribute(d2ak);
-						logger.info(className, function, logPrefix+"d2ak[{}] d2av[{}]", d2ak, d2av);
+						logger.trace(className, function, logPrefix+"d2ak[{}] d2av[{}]", d2ak, d2av);
 						HashMap<String, String> option = new HashMap<String, String>();
 						for ( Object objd2vk : d2.getValueKeys() ) {
 							String d2vk = (String) objd2vk;
 							String d2vv = (String) d2.getValue(objd2vk);
-							logger.info(className, function, logPrefix+"d2vk[{}] d2vv[{}]", d2vk, d2vv);
+							logger.trace(className, function, logPrefix+"d2vk[{}] d2vv[{}]", d2vk, d2vv);
 							option.put(d2vk, d2vv);
 						}
 						result.put(d2av, option);
@@ -63,7 +63,7 @@ public class UIOptionMgr {
 					logger.warn(className, function, logPrefix+"o IS NULL");
 				}
 			}
-			logger.info(className, function, logPrefix+"end of for dictionary");
+			logger.trace(className, function, logPrefix+"end of for dictionary");
 		} else {
 			logger.warn(className, function, logPrefix+"dictionary IS NULL");
 		}

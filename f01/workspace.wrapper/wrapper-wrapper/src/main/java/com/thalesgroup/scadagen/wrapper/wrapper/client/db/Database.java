@@ -758,6 +758,12 @@ public class Database {
 		logger.end(className, function);
 	}
 	
+	public boolean isTimer() {
+		boolean result = false;
+		if ( null != timer ) result = true;
+		return result;
+	}
+	
 	/**
 	 * Connect to database
 	 */

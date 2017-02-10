@@ -11,7 +11,7 @@ set strdt=%strdt:~0,4%_%strdt:~4,2%_%strdt:~6,2%_%strdt:~8,2%_%strdt:~10,2%_%str
 SET GIT_HOME="%SCRIPT_PATH%\..\cots\softs.x86_64\Git"
 SET GIT_BIN="%GIT_HOME%\bin"
 
-SET REPO_URL="http://syau@titanium.hk.thales:7990/scm/fa/fas.git"
+SET REPO_URL="http://titanium.hk.thales:7990/scm/fa/fas.git"
 
 SET REPO_DIR="%SCRIPT_PATH%\..\fas"
 

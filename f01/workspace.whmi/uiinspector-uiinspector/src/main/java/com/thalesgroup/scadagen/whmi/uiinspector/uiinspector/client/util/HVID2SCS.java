@@ -33,7 +33,7 @@ public class HVID2SCS {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "this.hvid[{}]", hvid);
+		logger.debug(className, function, "this.hvid[{}]", hvid);
 		
 		String dbaddresses	= null;
 		String hvids[] = hvid.split("_");

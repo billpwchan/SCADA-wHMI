@@ -67,7 +67,7 @@ public class ScsWidgetFactory extends WidgetFactory {
 
         }
 		
-        //1166B Symbol Click
+        // SCADAgen Symbol Click
         w.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -94,7 +94,14 @@ public class ScsWidgetFactory extends WidgetFactory {
 						int mouseX = event.getClientX();
 						int mouseY = event.getClientY();
 						
-						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(hv_id, hv_type, mouseX, mouseY);
+						HashMap<String, String> options = new HashMap<String, String>();
+						
+						options.put("hv_id", hv_id);
+						options.put("hv_type", hv_type);
+						options.put("mouseX", Integer.toString(mouseX));
+						options.put("mouseY", Integer.toString(mouseY));
+						
+						wrapperScsSituationViewPanelEvent.triggerSymbolWidget(options);
 						
 					}
 					

@@ -27,6 +27,8 @@ public class Database_i {
 		label(".label")
 		, shortLabel(".shortLabel")
 		, geographicalCat(".geographicalCat")
+		, functionalCat(".functionalCat")
+		
 		, aalValueTable(":aal.valueTable")
 		, dalValueTable(":dal.valueTable")
 		, salValueTable(":sal.valueTable")

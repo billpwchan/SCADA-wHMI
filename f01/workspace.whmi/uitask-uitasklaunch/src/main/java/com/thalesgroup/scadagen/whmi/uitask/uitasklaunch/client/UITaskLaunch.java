@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client;
 
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribute;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITaskDictionary;
@@ -91,9 +94,28 @@ public class UITaskLaunch extends UITaskDictionary {
 		}
 	}
 
-	private Object[] options;
-	public Object[] getOption() { return options; }
-	public void setOption(Object[] options) { this.options = options; }
+	private HashMap<String, String> options = new HashMap<String, String>();
+	public String getOption(String key) { return this.options.get(key); }
+	public void setOption(String key, String value) { this.options.put(key, value); }
+	
+	public HashMap<String, String> getOptions() { 
+		HashMap<String, String> options = new HashMap<String, String>();
+		for ( Entry<String, String> option : this.options.entrySet() ) {
+			String key = option.getKey();
+			String value = option.getValue();
+			options.put(key, value); 
+		}
+		return options; 
+	}
+	public void setOptions(HashMap<String, String> options) {
+		if ( null != options ) {
+			for ( Entry<String, String> option : options.entrySet() ) {
+				String key = option.getKey();
+				String value = option.getValue();
+				this.options.put(key, value);
+			}
+		}
+	}
 
 	public String getHeader() {
 		return (String) getValue(UITaskLaunchAttribute.Key.toString());

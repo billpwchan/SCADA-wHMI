@@ -33,13 +33,13 @@ public class UIButtonToggle extends Button {
 		final String function = "setHightLight";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "setHightLight Begin hightLight[{}]", hightLight);
+		logger.debug(className, function, "setHightLight Begin hightLight[{}]", hightLight);
 
 		this.hightLight = hightLight;
 		
 		String styleName = "project-gwt-button-inspector-control-selected";
 		
-		logger.info(className, function, "setHightLight addStyleName[{}] hightLight[{}]", styleName, hightLight);
+		logger.debug(className, function, "setHightLight addStyleName[{}] hightLight[{}]", styleName, hightLight);
 
 		if ( hightLight ) {
 			this.addStyleName(styleName);

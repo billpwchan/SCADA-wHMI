@@ -40,13 +40,25 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private Database database	= null;
 	
 	@Override
+	public void setRight(HashMap<String, String> rights) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void applyRight() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public void setParent(String scsEnvId, String parent) {
 		final String function = "";
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.info(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.info(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
+		logger.debug(className, function, "this.parent[{}]", this.parent);
 	}
 	
 	@Override
@@ -85,9 +97,9 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
 				
-				logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
 
 				String api = "multiReadValue";
@@ -133,9 +145,9 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 				}
 
-				logger.info(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.info(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
 
 				database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {

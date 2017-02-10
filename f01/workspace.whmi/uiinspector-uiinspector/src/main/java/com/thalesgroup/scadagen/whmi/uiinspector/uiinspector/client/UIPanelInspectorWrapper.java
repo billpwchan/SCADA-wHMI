@@ -49,6 +49,13 @@ public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEven
 	protected Set<String> nonGenericDataModelNamespaces = new HashSet<String>();
 	private final List<HandlerRegistration> listHandlerRegistrations_ = new ArrayList<HandlerRegistration>();
 
+	private String function = null;
+	private String location = null;
+	public void setFunctionLocation(String function, String location) {
+		logger.debug("UIPanelInspectorWrapper setFunctionLocation function[" + function + "]  location[" + location +"]");
+		this.function = function;
+		this.location = location;
+	}
 	
 	public void setHvInfo(String hvid, String hvType) {
 		logger.debug("UIPanelInspectorWrapper setHvInfo hvid=" + hvid + "  hvType=" + hvType);
@@ -128,6 +135,7 @@ public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEven
 				}
 				uiPanelInspector_.setUINameCard(uiNameCard_);
 				uiPanelInspector_.setUIInspectorEvent(uiPanelInspectorEvent_);
+				uiPanelInspector_.setFunctionLocation(this.function, this.location);
 				uiPanelInspector_.init();
 			}
 		}

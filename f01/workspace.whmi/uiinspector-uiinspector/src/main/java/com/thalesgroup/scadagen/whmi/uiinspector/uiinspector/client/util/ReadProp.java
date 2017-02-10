@@ -20,16 +20,18 @@ public class ReadProp {
 		if ( null != dictionariesCache ) {
 			
 			String strResult = dictionariesCache.getStringValue(fileName, valueKey);
-			logger.info(className, function, "strResult[{}]", strResult);
+			logger.debug(className, function, "strResult[{}]", strResult);
 			if ( null != strResult ) {
 				if ( "true".equals(strResult) ) {
-					logger.info(className, function, "strResult IS TRUE");
+					logger.debug(className, function, "strResult IS TRUE");
 					result = true;
 				} else {
 					result = false;
 				}
+			} else {
+				logger.warn(className, function, "fileName [{}] valueKey [{}] not found in DictionaryCache. Default value is used.", fileName, valueKey);
 			}
-			logger.info(className, function, "strResult[{}]", strResult);
+			logger.debug(className, function, "strResult[{}]", strResult);
 			
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
@@ -50,7 +52,7 @@ public class ReadProp {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
 		if ( null != dictionariesCache ) {
 			String strInt = dictionariesCache.getStringValue(fileName, valueKey);
-			logger.info(className, function, "strInt[{}]", strInt);
+			logger.debug(className, function, "strInt[{}]", strInt);
 			
 			if (null != strInt) {
 				try {
@@ -59,13 +61,13 @@ public class ReadProp {
 					logger.warn(className, function, "invalid integer value of result[{}]", result);
 				}
 			} else {
-				logger.warn(className, function, "valueKey [{}] not found in DictionaryCache. Default value is used.", valueKey);
+				logger.warn(className, function, "fileName [{}] valueKey [{}] not found in DictionaryCache. Default value is used.", fileName, valueKey);
 			}
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}
 		
-		logger.info(className, function, "result[{}]", result);
+		logger.debug(className, function, "result[{}]", result);
 		
 		return result;
 	}
@@ -82,13 +84,13 @@ public class ReadProp {
 			result = dictionariesCache.getStringValue(fileName, valueKey);
 			if (result == null) {
 				result = defaultValue;
-				logger.warn(className, function, "valueKey [{}] not found in DictionaryCache. Default value is used.", valueKey);
+				logger.warn(className, function, "fileName [{}] valueKey [{}] not found in DictionaryCache. Default value is used.", fileName, valueKey);
 			}
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}
 		
-		logger.info(className, function, "result[{}]", result);
+		logger.debug(className, function, "result[{}]", result);
 		
 		return result;
 	}

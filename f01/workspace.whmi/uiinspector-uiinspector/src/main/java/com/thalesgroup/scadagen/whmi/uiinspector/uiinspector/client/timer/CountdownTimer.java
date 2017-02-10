@@ -34,7 +34,7 @@ public class CountdownTimer {
 		logger.begin(function, function);
 		
 		if ( null != timer ) {
-			logger.info(className, function, "autoClose timer extended [{}]", timerExpiredMillSecond);
+			logger.debug(className, function, "autoClose timer extended [{}]", timerExpiredMillSecond);
 			timer.cancel();
 			timer.schedule(timerExpiredMillSecond);
 		} else {
@@ -49,13 +49,13 @@ public class CountdownTimer {
 		
 		logger.begin(function, function);
 		
-		logger.info(className, function, "timer enabled, creating timer");
+		logger.debug(className, function, "timer enabled, creating timer");
 		timer = new Timer() {
 			@Override
 			public void run() {
 				final String function = "Timer run";
 				logger.begin(className, function);
-				logger.info(className, function, "timer timerExpiredMillSecond[{}] trigged", timerExpiredMillSecond);
+				logger.debug(className, function, "timer timerExpiredMillSecond[{}] trigged", timerExpiredMillSecond);
 				close();
 				
 				if ( null != countdownTimerEvent ) countdownTimerEvent.timeup();
@@ -63,7 +63,7 @@ public class CountdownTimer {
 				logger.end(className, function);
 			}
 		};
-		logger.info(className, function, "timer enabled, schedule timer timerExpiredMillSecond[{}]", timerExpiredMillSecond);
+		logger.debug(className, function, "timer enabled, schedule timer timerExpiredMillSecond[{}]", timerExpiredMillSecond);
 		timer.schedule(timerExpiredMillSecond);			
 
 		logger.end(function, function);
@@ -78,7 +78,7 @@ public class CountdownTimer {
 			timer.cancel();
 			timer = null;
 		} else {
-			logger.info(className, function, "timer IS NULL");
+			logger.debug(className, function, "timer IS NULL");
 		}
 	
 		

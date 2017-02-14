@@ -24,6 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
@@ -55,6 +57,8 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private String parent		= null;
 	private String[] addresses	= null;
 	private Database database	= null;
+	
+	private final String INSPECTOR = "inspector"; 
 	
 	@Override
 	public void setRight(HashMap<String, String> rights) {
@@ -214,26 +218,28 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private HashMap<String, Widget> initCondGLAndWidget		= new HashMap<String, Widget>();
 	private HashMap<String, String[]> addressAndInitCongGL	= new HashMap<String, String[]>();
 	
-	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
+	public void updateValue(String strClientKey, HashMap<String, String> keyAndValue) {
 		final String function = "updateValue";
 		
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "clientkey[{}]", clientKey);
+		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		
+		final DataBaseClientKey clientKey = new DataBaseClientKey(strClientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
 		}
 		
-		if ( "static".equals(clientKey.split("_")[2]) ) {
+		if ( clientKey.isStatic() ) {
 			
-			keyAndValuesStatic.put(clientKey, keyAndValue);
+			keyAndValuesStatic.put(strClientKey, keyAndValue);
 			
 			updateValue(true);
 			
-		} else if ( "dynamic".equals(clientKey.split("_")[2]) ) {
+		} else if ( clientKey.isDynaimc() ) {
 			
-			keyAndValuesDynamic.put(clientKey, keyAndValue);
+			keyAndValuesDynamic.put(strClientKey, keyAndValue);
 			
 			updateValue(false);
 		}
@@ -266,14 +272,21 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private void updateValueStatic(String clientKey, HashMap<String, String> keyAndValue) {
+	private void updateValueStatic(String key, HashMap<String, String> keyAndValue) {
 		final String function = "updateValueStatic";
 		
 		logger.begin(className, function);
 
-		String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
-		if ( clientKeyStatic.equals(clientKey) ) {
-			
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setStability(Stability.STATIC);
+		clientKey.setAdress(parent);
+		
+		String strClientKey = clientKey.getClientKey();
+
+		if ( strClientKey.equalsIgnoreCase(key) ) {
+		
 			initCondGLAndWidget.clear();
 			addressAndInitCongGL.clear();
 			
@@ -663,16 +676,32 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 		}
 		
-		String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setStability(Stability.STATIC);
+		clientKey.setAdress(parent);
 		
-		String api = "multiReadValue";
-		database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-			
+		String strClientKey = clientKey.toClientKey();
+		
+		String strApi = clientKey.getApi().toString();
+		
+		database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+
 			@Override
 			public void update(String key, String[] value) {
 				{
-					String clientKeyStatic = "multiReadValue" + "_" + "inspector" + tagname + "_" + "static" + "_" + parent;
-					if ( 0 == clientKeyStatic.compareTo(key) ) {
+					
+					DataBaseClientKey clientKey = new DataBaseClientKey();
+					clientKey.setAPI(API.multiReadValue);
+					clientKey.setWidget(INSPECTOR + tagname);
+					clientKey.setStability(Stability.STATIC);
+					clientKey.setAdress(parent);
+					
+					String strClientKey = clientKey.getClientKey();
+
+					if ( strClientKey.equalsIgnoreCase(key) ) {
+					
 							String [] dbaddresses	= database.getKeyAndAddress(key);
 							String [] dbvalues		= database.getKeyAndValues(key);
 						HashMap<String, String> keyAndValue = new HashMap<String, String>();
@@ -788,7 +817,13 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			final String functionEmb = "multiReadValue";
 			logger.begin(className, functionEmb);
 			
-			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.multiReadValue);
+			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setAdress(parent);
+			
+			String strClientKey = clientKey.getClientKey();
 
 			String[] dbaddresses = null;
 			{
@@ -802,14 +837,14 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			}
 			
 			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				logger.debug(className, function, "strClientKey[{}] scsEnvId[{}]", strClientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
 					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}				
 			}
 
-			database.subscribe(clientKey, dbaddresses, new DatabaseEvent() {
-
+			database.subscribe(strClientKey, dbaddresses, new DatabaseEvent() {
+				
 				@Override
 				public void update(String key, String[] value) {
 					// TODO Auto-generated method stub
@@ -825,8 +860,14 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	public void disconnect() {
 		final String function = "disconnect";
 		{
-			String clientKey = "multiReadValue" + "_" + "inspector" + tagname + "_" + "dynamic" + "_" + parent;
-			database.unSubscribe(clientKey);
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.multiReadValue);
+			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setAdress(parent);
+			
+			String strClientKey = clientKey.toClientKey();
+			database.unSubscribe(strClientKey);
 		}
 		logger.beginEnd(className, function);
 	}
@@ -1179,9 +1220,17 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		final String function = "subscribe";
 		logger.begin(className, function);
 		logger.debug(className, function, "address[{}]", address);
-		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
-		logger.debug(className, function, "clientKey[{}]", clientKey);
-		database.subscribe(clientKey, new String[]{address}, new DatabaseEvent() {
+		
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR);
+		clientKey.setStability(Stability.DYNAMIC);
+		clientKey.setAdress(address);
+		
+		String strClientKey = clientKey.getClientKey();
+		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		database.subscribe(strClientKey, new String[]{address}, new DatabaseEvent() {
+			
 			@Override
 			public void update(String key, String[] value) {
 				// TODO Auto-generated method stub
@@ -1194,9 +1243,17 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		final String function = "unsubscribe";
 		logger.begin(className, function);
 		logger.debug(className, function, "address[{}]", address);
-		String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + address;
-		logger.debug(className, function, "clientKey[{}]", clientKey);
-		database.unSubscribe(clientKey);
+		
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR);
+		clientKey.setStability(Stability.DYNAMIC);
+		clientKey.setAdress(address);
+		
+		String strClientKey = clientKey.toClientKey();
+		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		database.unSubscribe(strClientKey);
+		
 		logger.end(className, function);
 	}
 	

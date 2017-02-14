@@ -187,12 +187,12 @@ public class UIInspectorMgr {
 		
 		logger.debug(className, function, "action[{}] mode[{}]", action, mode);
 		
-		boolean right = true;
+		boolean right0 = true;
 		if ( null != function2 && null != location2 ) {
 			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmapi);
 			
 			if ( null != uiOpm_i ) {
-				right = uiOpm_i.checkAccess(function2, location2, action, mode);
+				right0 = uiOpm_i.checkAccess(function2, location2, action, mode);
 			} else {
 				logger.warn(className, function, "uiOpm_i IS NULL");
 			}
@@ -203,13 +203,13 @@ public class UIInspectorMgr {
 		
 		logger.debug(className, function, "Launch the UIInspectorMgr...");
 		
-		if ( right ) {
+		if ( right0 ) {
 
 			openInspectorDialog(uiNameCard, options);
 		
 		} else {
-			
-			logger.warn(className, function, "Launch the UIInspectorMgr IS INSUFFICIENT RIGHT");
+			logger.warn(className, function, "right0 function2[{}] location2[{}] action[{}] mode[{}]", new Object[]{function2, location2, action, mode});
+			logger.warn(className, function, "right0 IS INSUFFICIENT RIGHT");
 			
 		}
 		

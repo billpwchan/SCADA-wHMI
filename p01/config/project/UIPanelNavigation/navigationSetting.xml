@@ -993,19 +993,26 @@
 	</option>
 	<option key="107">
 		<type>P</type>
-		<name>OPM Summary</name>
-		<title>OPM Summary</title>
+		<name>Change Password Summary</name>
+		<title>Change Password Summary</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointOPMChangePasswordSummary/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
-		<tooltips>OPM Summary</tooltips>
-		<funCat>101</funCat>
-		<locCat>1</locCat>
-		<actionCat>1</actionCat>
-		<modeCat>1</modeCat>
+		<tooltips>Change Password Summary</tooltips>
 	</option>
 	<option key="108">
+		<type>P</type>
+		<name>Change Target User Password Summary</name>
+		<title>Change Target User Password Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointOPMChangeTargetUserPasswordSummary/UILayoutEntryPointOPMChangeTargetUserPasswordSummary.view.xml</uiView>
+		<tooltips>Change User Password Summary</tooltips>
+	</option>	
+	
+	<option key="109">
 		<type>P</type>
 		<name>Login Summary</name>
 		<title>Login Summary</title>
@@ -1014,16 +1021,6 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointLoginSummary/UILayoutEntryPointLoginSummary.view.xml</uiView>
 		<tooltips>Login Summary</tooltips>
-	</option>
-	<option key="109">
-		<type>P</type>
-		<name>SOC Summary</name>
-		<title>SOC Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
-		<tooltips>SOC Summary</tooltips>
 	</option>
 	<option key="110">
 		<type>P</type>
@@ -1034,13 +1031,5 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC Summary</tooltips>
-		<opmName1>location</opmName1>
-		<opmValue1>1</opmValue1>
-		<opmName2>function</opmName2>
-		<opmValue2>1</opmValue2>
-		<opmName3>action</opmName3>
-		<opmValue3>ACDM</opmValue3>
-		<opmName4>mode</opmName4>
-		<opmValue4>1</opmValue4>
 	</option>
 </data-set>

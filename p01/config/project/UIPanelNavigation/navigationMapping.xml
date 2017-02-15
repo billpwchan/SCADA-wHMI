@@ -175,8 +175,8 @@
 	<option key="OCC|Utilities|OPM"><setting>104</setting></option>
 	<option key="LMC|MCS|PTW Summary(DpcTag)"><setting>105</setting></option>
 	<option key="LMC|MCS|OPM Verify Summary"><setting>106</setting></option>
-	<option key="LMC|MCS|OPM Summary"><setting>107</setting></option>
-	<option key="LMC|MCS|Login Summary"><setting>108</setting></option>
-	<option key="LMC|MCS|Soc Summary"><setting>109</setting></option>
-	<option key="LMC|MCS|OPM Testing"><setting>110</setting></option>
+	<option key="LMC|MCS|Change Password Summary"><setting>107</setting></option>
+	<option key="LMC|MCS|Change Target User Password Summary"><setting>108</setting></option>
+	<option key="LMC|MCS|Login Summary"><setting>109</setting></option>
+	<option key="LMC|MCS|Soc Summary"><setting>110</setting></option>
 </data-set>

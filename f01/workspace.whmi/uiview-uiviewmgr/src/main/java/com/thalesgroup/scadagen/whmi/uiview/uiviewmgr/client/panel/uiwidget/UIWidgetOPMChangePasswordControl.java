@@ -45,9 +45,13 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
 	private String opmApi = null;
+	private String fillCurrentOperator = null;
+	
 	private String strOpmApi = "OpmApi";
+	private String strFillCurrentOperator = "FillCurrentOperator";
 	private String strHeader = "header";
 
+	private final String stroperatorvalue	= "operatorvalue";
 	private final String stroldpassvalue	= "oldpassvalue";
 	private final String strnewpassvalue	= "newpassvalue";
 	private final String strnewpassvalue2	= "newpassvalue2";
@@ -70,7 +74,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 				Widget widget = (Widget) event.getSource();
 				if ( null != widget ) {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
+					logger.debug(className, function, "element[{}]", element);
 					if ( null != element ) {
 						
 						String actionsetkey = element;
@@ -84,18 +88,31 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 								// TODO Auto-generated method stub
 								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
 								
-								logger.info(className, function, "os1[{}]", os1);
+								logger.debug(className, function, "os1[{}]", os1);
 								
 								boolean bContinue = true;
 								
 								if ( null != os1 ) {
 									
-									if ( os1.equals("CheckNewPasswordIsEmpty") ) {
+									if ( os1.equals("CheckOperatorIsEmpty") ) {
+										
+										String operatorvalue		= uiWidgetGeneric.getWidgetValue(stroperatorvalue);
+										
+										logger.debug(className, function, "stroperatorvalue[{}] operatorvalue[{}]", stroperatorvalue, operatorvalue);
+										
+										if ( null != operatorvalue && operatorvalue.trim().length() > 0 ) {
+											// Valid
+										} else {
+											
+											uiEventActionProcessor_i.executeActionSet("set_result_operator_is_empty");
+											
+											bContinue = false;
+										}
+									} else if ( os1.equals("CheckNewPasswordIsEmpty") ) {
 										
 										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
 										
-										logger.info(className, function, "strnewpassvalue[{}]", strnewpassvalue);
-										logger.info(className, function, "newpassvalue[{}]", newpassvalue);
+										logger.debug(className, function, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
 										
 										if ( null != newpassvalue && newpassvalue.trim().length() > 0 ) {
 											// Valid
@@ -110,11 +127,9 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
 										String newpassvalue2	= uiWidgetGeneric.getWidgetValue(strnewpassvalue2);
 										
-										logger.info(className, function, "strnewpassvalue[{}]", strnewpassvalue);
-										logger.info(className, function, "newpassvalue[{}]", newpassvalue);
+										logger.debug(className, function, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
 										
-										logger.info(className, function, "strnewpassvalue2[{}]", strnewpassvalue2);
-										logger.info(className, function, "newpassvalue2[{}]", newpassvalue2);
+										logger.debug(className, function, "strnewpassvalue2[{}] newpassvalue2[{}]", strnewpassvalue2, newpassvalue2);
 										
 										if ( null != newpassvalue && null != newpassvalue2 && newpassvalue.equals(newpassvalue2) ) {
 											// Valid
@@ -127,18 +142,21 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 									} else if ( os1.equals("SendChangePasswordControl") ) {
 										
 										String uiopmapivalue	= opmApi;
-										String oldpassvalue		= uiWidgetGeneric.getWidgetValue(stroldpassvalue);
-										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
-										
-										logger.info(className, function, "stroldpassvalue[{}]", stroldpassvalue);
-										logger.info(className, function, "oldpassvalue[{}]", oldpassvalue);
-										
-										logger.info(className, function, "strnewpassvalue[{}]", strnewpassvalue);
-										logger.info(className, function, "newpassvalue[{}]", newpassvalue);
 										
 										UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
 										
-										uiOpm_i.changePassword(uiopmapivalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
+										// Operator
+										String operatorvalue	= uiWidgetGeneric.getWidgetValue(stroperatorvalue);
+										String oldpassvalue		= uiWidgetGeneric.getWidgetValue(stroldpassvalue);
+										String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
+										
+										logger.debug(className, function, "stroperatorvalue[{}], operatorvalue[{}]", stroperatorvalue, operatorvalue);
+										
+										logger.debug(className, function, "stroldpassvalue[{}], oldpassvalue[{}]", stroldpassvalue, oldpassvalue);
+										
+										logger.debug(className, function, "strnewpassvalue[{}], newpassvalue[{}]", strnewpassvalue, newpassvalue);
+										
+										uiOpm_i.changePassword(operatorvalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 			
 											@Override
 											public void event(JSONObject jsobject) {
@@ -210,11 +228,12 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.debug(className, function, "strEventBusName[{}]", strEventBusName);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			opmApi = dictionariesCache.getStringValue(optsXMLFile, strOpmApi, strHeader);
+			fillCurrentOperator = dictionariesCache.getStringValue(optsXMLFile, strFillCurrentOperator, strHeader);
 		}
 
 		uiWidgetGeneric = new UIWidgetGeneric();
@@ -270,6 +289,41 @@ public class UIWidgetOPMChangePasswordControl extends UIWidget_i {
 		);
 
 		uiEventActionProcessor_i.executeActionSetInit();
+		
+		if ( null != fillCurrentOperator ) {
+			if ( fillCurrentOperator.equalsIgnoreCase(String.valueOf(true))) {
+				
+				String actionsetkey = "SetCurrentOperator";
+				String actionkey = "SetCurrentOperator";
+				
+				HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+
+				HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+				String uiopmapivalue	= opmApi;
+				
+				UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
+				
+				String operator = uiOpm_i.getOperator();
+					
+				logger.debug(className, function, "Set Operator Value operator[{}]", operator);
+					
+				if ( null != operator ) {
+					parameters.put(ActionAttribute.OperationString3.toString(), operator);
+				} else {
+					logger.warn(className, function, "operator IS NULL");
+				}
+				
+				override.put(actionkey, parameters);
+					
+				uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+				
+			} else {
+				logger.debug(className, function, "fillCurrentOperator[{}] IS FALSE");
+			}
+		} else {
+			logger.warn(className, function, "fillCurrentOperator IS NULL");
+		}
 		
 		logger.end(className, function);
 	}

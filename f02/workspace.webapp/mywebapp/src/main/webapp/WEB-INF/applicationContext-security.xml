@@ -145,8 +145,9 @@
     </beans:bean>
 
     <!-- Change-Password Bean Configuration -->
-    <beans:bean id="passChanger" class="com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.LdapPasswordChange">
+    <beans:bean id="passChanger" class="com.thalesgroup.scadagen.wrapper.wrapper.server.SCADAgenLdapChangePassword">
 <!--
+    <beans:bean id="passChanger" class="com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.LdapPasswordChange">
     <beans:bean id="passChanger" class="com.thalesgroup.scadasoft.gwebhmi.security.server.session.MyLdapPasswordChange">
 
 -->

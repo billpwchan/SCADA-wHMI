@@ -33,10 +33,6 @@ public class SpringChangePassword {
         oaEndPoint.setServiceEntryPoint(oaServletURL);
 	}
 
-	public void changePassword(String oldPass, String newPass, final UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
-		changePassword(null, oldPass, newPass, uiWrapperRpcEvent_i);
-	}
-	
 	public void changePassword(String userId, String oldPass, String newPass, final UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
 		

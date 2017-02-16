@@ -23,10 +23,13 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTag;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserveEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
@@ -60,6 +63,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private int periodMillis	= 250;
+	
+	final private String INSPECTOR = "inspector";
 	
 	public void setPeriodMillis(int periodMillis) {
 		this.periodMillis = periodMillis;
@@ -264,19 +269,43 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 		{
 			logger.begin(className, function+" GetChildren");
+			
+			
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.GetChildren);
+			clientKey.setWidget(INSPECTOR);
+			clientKey.setStability(Stability.STATIC);
+			clientKey.setAdress(parent);
+			
+			String strClientKey = clientKey.toClientKey();
+			
+			String strApi = clientKey.getApi().toString();
 
-			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
+//			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
 
-			String api = "GetChildren";
+//			String api = "GetChildren";
 			String dbaddress = parent;
-			database.addStaticRequest(api, clientKey, scsEnvId, dbaddress, new DatabaseEvent() {
+			
+			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddress, new DatabaseEvent() {
+//			database.addStaticRequest(api, clientKey, scsEnvId, dbaddress, new DatabaseEvent() {
 				
 				@Override
 				public void update(String key, String[] values) {
 					
 					{
-						String clientKey_GetChildren_inspector_static = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
-						if ( 0 == clientKey_GetChildren_inspector_static.compareTo(key) ) {
+						
+						DataBaseClientKey clientKey = new DataBaseClientKey();
+						clientKey.setAPI(API.GetChildren);
+						clientKey.setWidget(INSPECTOR);
+						clientKey.setStability(Stability.STATIC);
+						clientKey.setAdress(parent);
+						
+						String strClientKey = clientKey.toString();
+						
+//						String clientKey_GetChildren_inspector_static = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
+//						if ( 0 == clientKey_GetChildren_inspector_static.compareTo(key) ) {
+						
+						if ( strClientKey.equalsIgnoreCase(key) ) {
 							buildTabsAddress(values);
 							makeTabsSetAddress();
 							makeTabsBuildWidgets();
@@ -299,10 +328,18 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 							@Override
 							public void update(String key, String[] value) {
 								
-								String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
+								DataBaseClientKey clientKey = new DataBaseClientKey();
+								clientKey.setAPI(API.multiReadValue);
+								clientKey.setWidget(INSPECTOR);
+								clientKey.setStability(Stability.DYNAMIC);
+								clientKey.setAdress(parent);
 								
-								String [] dbaddresses	= database.getKeyAndAddress(clientKey);
-								String [] dbvalues		= database.getKeyAndValues(clientKey);
+								String strClientKey = clientKey.toClientKey();
+								
+//								String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
+								
+								String [] dbaddresses	= database.getKeyAndAddress(strClientKey);
+								String [] dbvalues		= database.getKeyAndValues(strClientKey);
 								if (dbaddresses == null || dbvalues == null) {
 									logger.error("DatabaseEvent", "update", "dbaddresses or dbvalues is null");
 									return;
@@ -346,7 +383,16 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		{
 			logger.begin(className, function+" multiReadValue");
 			
-			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
+			
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.multiReadValue);
+			clientKey.setWidget(INSPECTOR);
+			clientKey.setStability(Stability.STATIC);
+			clientKey.setAdress(parent);
+			
+			String strClientKey = clientKey.toClientKey();
+			
+//			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
 			
 			String[] dbaddresses = null;
 			{
@@ -358,15 +404,16 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			}
 			
 			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				logger.debug(className, function, "strClientKey[{}] scsEnvId[{}]", strClientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
 					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
 			}
-
-			String api = "multiReadValue";
 			
-			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+			String strApi = clientKey.getApi().toString();
+			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+//			String api = "multiReadValue";
+//			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
 				
 				@Override
 				public void update(String key, String[] values) {

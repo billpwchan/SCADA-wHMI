@@ -11,7 +11,7 @@ echo "" > %LOG_FILE%
 
 REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd /d %SOURCE_BASE%/%sp_fas%
+cd /d %SOURCE_BASE_F01%/%sp_fas%
 
 echo Starting Clean %sp_fas% process and log to %LOG_FILE%...
 

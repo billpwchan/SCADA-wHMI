@@ -19,7 +19,7 @@ rmdir /s /q %PATH_FOLDER%
 
 echo copy war file
 
-set PATH_RELEASE="%SOURCE_BASE%\%sp_webapp%\mywebapp\target\mywebapp-%war_ver%.war"
+set PATH_RELEASE="%SOURCE_BASE_F01%\%sp_webapp%\mywebapp\target\mywebapp-%war_ver%.war"
 
 echo FROM %PATH_RELEASE%
 echo TO   %PATH_WAR%

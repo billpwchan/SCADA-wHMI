@@ -11,7 +11,7 @@ echo "" > %LOG_FILE%
 
 REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd /d %SOURCE_BASE%/%sp_webapp_fas%
+cd /d %SOURCE_BASE_F01%/%sp_webapp_fas%
 
 echo Starting build %sp_webapp_fas_name% process and log to %LOG_FILE%...
 

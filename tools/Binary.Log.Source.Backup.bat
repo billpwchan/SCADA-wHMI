@@ -1,12 +1,17 @@
 @ECHO OFF
 
-call LoadPath.bat
+SET CUR_PATH=%~dp0
+SET TOOLS_PATH=%CUR_PATH:~0,-1%
 
-SET _YYYY=%date:~10,4%
-SET _MM=%date:~7,2%
-SET _DD=%date:~4,2%
-SET _time=%time::=.%
-SET _folder="C:\1166B.source\%_YYYY%.%_MM%.%_DD%.%_time%"
+CALL %TOOLS_PATH%\LoadPath.bat
+
+IF [%1] == [] SET v_strdt=%strdt%
+IF [%v_strdt%] == [] SET v_strdt=%1
+
+ECHO "v_strdt=%v_strdt%"
+
+SET _folder="%DEPOT_HOME%\%v_strdt%"
+
 SET _folderlogs=%_folder%\logs
 
 ECHO _folder=%_folder% 
@@ -15,13 +20,12 @@ ECHO _folderlogs=%_folderlogs%
 MD %_folder%
 MD %_folder%\logs
 
-SET _1166B="R:\1166B\whmi"
-SET _F01_WEBAPPFUNC="%_1166B%\f01\workspace.webapp-func"
-SET _F01_WHMI="%_1166B%\f01\workspace.whmi"
-SET _F01_WHMI_UIWIDGET="%_1166B%\f01\workspace.whmi.uiwidget"
-SET _F01_WRAPPER="%_1166B%\f01\workspace.wrapper"
-SET _F01_FAS="%_1166B%\f01\workspace.fas"
-SET _F02_WEBAPP="%_1166B%\f02\workspace.webapp\mywebapp"
+SET _F01_WEBAPPFUNC="%SOURCE_BASE_HOME%\f01\workspace.webapp-func"
+SET _F01_WHMI="%SOURCE_BASE_HOME%\f01\workspace.whmi"
+SET _F01_WHMI_UIWIDGET="%SOURCE_BASE_HOME%\f01\workspace.whmi.uiwidget"
+SET _F01_WRAPPER="%SOURCE_BASE_HOME%\f01\workspace.wrapper"
+SET _F01_FAS="%SOURCE_BASE_HOME%\f01\workspace.fas"
+SET _F02_WEBAPP="%SOURCE_BASE_HOME%\f02\workspace.webapp\mywebapp"
 
 SET _E02="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\e02-resources-current"
 SET _P01="%scstraning_loc%\scspaths\%_WEBAPP%\apache-tomcat%TOMCAT_VER%\conf\p01-func-current"
@@ -51,9 +55,9 @@ REM COPY "%_F01_WEBAPPFUNC%\webapp-func\target\myproject-webapp-func*.zip" %_fol
 
 REM COPY "%_F02_WEBAPP%\target\*.war" %_folder%\scadagen-f02-webapp-generic.war
 
-COPY "%_1166B%\tools\Build*.log" %_folder%\logs
+COPY "%TOOLS_BASE%\Build*.log" %_folder%\logs
 
-CALL "%_1166B%\tools\Clean.workspace.bat"
+CALL "%TOOLS_BASE%\Clean.workspace.bat"
 
 SET _EXCLUDE=-mx0 "-xr!.metadata" "-xr!.settings" "-xr!.recommenders" "-xr!RemoteSystemsTempFiles"
 SET _EXCLUDE2="-xr!mywebapp\src\main\gwt-unitCache"

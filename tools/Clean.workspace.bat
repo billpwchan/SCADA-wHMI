@@ -5,7 +5,7 @@ call LoadPath.bat
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
-cd /d %SOURCE_BASE%
+cd /d %SOURCE_BASE_F01%
 
 echo starting to Clean...
 

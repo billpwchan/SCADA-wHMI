@@ -11,7 +11,7 @@ echo "" > %LOG_FILE%
 
 REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd /d %SOURCE_BASE%/%sp_integration%
+cd /d %SOURCE_BASE_F01%/%sp_integration%
 
 echo Starting build %sp_integration% process and log to %LOG_FILE%...
 

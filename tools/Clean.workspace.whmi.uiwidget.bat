@@ -11,7 +11,7 @@ echo "" > %LOG_FILE%
 
 REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd /d %SOURCE_BASE%/%sp_uiwidget%
+cd /d %SOURCE_BASE_F01%/%sp_uiwidget%
 
 echo Starting Clean %sp_uiwidget% process and log to %LOG_FILE%...
 

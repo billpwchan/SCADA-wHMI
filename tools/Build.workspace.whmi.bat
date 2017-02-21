@@ -12,7 +12,7 @@ echo "" > %LOG_FILE%
 
 REM start /B %TOOLS_BASE%/Launch.Tail.bat %LOG_FILE%
 
-cd /d %SOURCE_BASE%/%sp_whmi%
+cd /d %SOURCE_BASE_F01%/%sp_whmi%
 
 echo Starting build %sp_whmi% process and log to %LOG_FILE%...
 

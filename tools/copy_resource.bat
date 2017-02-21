@@ -1,5 +1,5 @@
 SET resource_source=C:\SCSTraining\scspaths\OCCENVWEB1\apache-tomcat-8.0.23\conf
-SET resource_dest=R:\1166B\whmi\f01\workspace.project-conf\project-conf\src\main
+SET resource_dest=%SOURCE_BASE_F01%\workspace.project-conf\project-conf\src\main
 
 SET project_source=project
 SET project_dest=project

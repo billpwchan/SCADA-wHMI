@@ -11,7 +11,7 @@ echo DELETE %PATH_FILES%
 
 del /s /f /q %PATH_FILES%
 
-set PATH_SOURCE="R:\1166B\whmi\f01\workspace.webapp-func\webapp-func\target"
+set PATH_SOURCE="%SOURCE_BASE_F01%\workspace.webapp-func\webapp-func\target"
 
 cd %PATH_SOURCE%
 

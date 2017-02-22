@@ -606,4 +606,30 @@ public class WrapperScsRTDBAccess {
     	
     	rtdb.multiReadValueRequest(key, scsEnvId, dbaddress);
     }
+    
+    public void writeIntValue(String key, String scsEnvId, String address, int value) {
+    	final String function = "writeIntValue";
+    	
+    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+
+    	rtdb.writeIntValueRequest(key, scsEnvId, address, value);
+    }
+    
+    public void writeFloatValue(String key, String scsEnvId, String address, float value) {
+    	final String function = "writeFloatValue";
+    	
+    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+
+    	rtdb.writeFloatValueRequest(key, scsEnvId, address, value);
+    }
+    
+    public void writeStringValue(String key, String scsEnvId, String address, String value) {
+    	final String function = "writeStringValue";
+    	
+    	logger.debug(className, function, "key=[{}] scsEnvId=[{}]", key, scsEnvId);
+
+    	rtdb.writeStringValueRequest(key, scsEnvId, address, value);
+    }
+    	
+    
 }

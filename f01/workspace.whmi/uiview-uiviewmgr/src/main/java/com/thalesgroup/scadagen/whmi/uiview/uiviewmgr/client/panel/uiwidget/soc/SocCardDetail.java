@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,8 +38,10 @@ public class SocCardDetail implements IDataGridDataSource {
 	"maxretry", "bpretcond", "bpinitcond", "sndbehavr" };
 	
 	private String scsEnvId_ = null;	
+	private String dbalias_  = "";
 	private String optsXMLFile_ = null;
-	private UIDataGridDatabase_i dataGrid_ = null;
+	private UIDataGridDatabase_i dataGridDb_ = null;
+	private int numSteps = 0;
 	
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
@@ -68,7 +71,7 @@ public class SocCardDetail implements IDataGridDataSource {
 		logger.begin(className, function);
 		
 		optsXMLFile_ = strDataGridOptsXMLFile;
-		dataGrid_ = uiDataGridDatabase;
+		dataGridDb_ = uiDataGridDatabase;
 		
 		readConfig();
 		
@@ -107,9 +110,9 @@ public class SocCardDetail implements IDataGridDataSource {
 			}
 		}
 		
-		if (dataGrid_ != null) {
-			strDataGridColumnsLabels = dataGrid_.getColumnLabels();
-			strDataGridColumnsTypes = dataGrid_.getColumnTypes();
+		if (dataGridDb_ != null) {
+			strDataGridColumnsLabels = dataGridDb_.getColumnLabels();
+			strDataGridColumnsTypes = dataGridDb_.getColumnTypes();
 		}
 		
 		logger.end(className, function);
@@ -126,6 +129,7 @@ public class SocCardDetail implements IDataGridDataSource {
 		logger.begin(className, function);
 		
 		scsEnvId_ = scsEnvId;
+		dbalias_ = dbaddress;
 		String [] indexHolder = new String[brcTableIndexes_.length];
 		
 		int count = 0;
@@ -293,9 +297,9 @@ public class SocCardDetail implements IDataGridDataSource {
 			}
 			
 			Equipment_i equipment_i = builder.build();
-			dataGrid_.updateEquipmentElement(r, equipment_i);
+			dataGridDb_.updateEquipmentElement(r, equipment_i);
 		}
-		dataGrid_.refreshDisplays();
+		dataGridDb_.refreshDisplays();
 		
 		logger.end(className, function);
 	}
@@ -345,7 +349,7 @@ public class SocCardDetail implements IDataGridDataSource {
 			
 			// Get number of steps from number col					
 			String [] numbers = values[numberCol].replaceAll("\"", "").split(",");
-			int numSteps = 0;
+			numSteps = 0;
 			
 			for (String num: numbers) {
 				if (numSteps > 0 && num.compareTo("0")==0) {
@@ -353,6 +357,7 @@ public class SocCardDetail implements IDataGridDataSource {
 				}
 				numSteps++;
 			}
+			
 		
 			logger.debug(className, function, "numSteps=[{}] ", numSteps);
 			logger.debug(className, function, "strDataGridColumnsLabels.length=[{}] ", strDataGridColumnsLabels.length);
@@ -426,7 +431,7 @@ public class SocCardDetail implements IDataGridDataSource {
 					}
 				}
 				Equipment_i equipment_i = builder.build();
-				dataGrid_.addEquipment(equipment_i);
+				dataGridDb_.addEquipment(equipment_i);
 			}
 		}
 		
@@ -453,5 +458,93 @@ public class SocCardDetail implements IDataGridDataSource {
 		}
 	}
 
+	@Override
+	public void resetColumnData(String columnLabel, String columnType) {
+		final String function = "resetColumnData";
+		
+		logger.begin(className, function);
+		
+		String address = "<alias>" + dbalias_;
+		for (int i=0; i<strDataGridColumnsLabels.length; i++) {
+			if (columnLabel.equals(strDataGridColumnsLabels[i])) {	
+				if (columnType.equals("String")) {
+					
+					for (int row=0; row<numSteps; row++) {
+						address = address + ".brctable(row, " + brcTableIndexes_[i] + ")";
+						logger.debug(className, function, "write empty string to address[{}]", address);
+						
+						rtdb.writeStringValue(clientKey, scsEnvId_, address, "");
+					}
+					
+				} else if (columnType.equals("Number")) {
+					
+					for (int row=0; row<numSteps; row++) {
+						address = address + ".brctable(row, " + brcTableIndexes_[i] + ")";
+						logger.debug(className, function, "write integer 0 to address[{}]", address);
+						
+						rtdb.writeIntValue(clientKey, scsEnvId_, address, 0);
+					}
+				}		
+				break;
+			}
+		}
+		logger.end(className, function);
+		
+	}
+
+	@Override
+	public void reloadColumnData(final String columnLabel, final String columnType) {
+		final String function = "reloadColumnData";
+		
+		logger.begin(className, function);
+		
+		String address = "<alias>" + dbalias_;
+		for (int i=0; i<strDataGridColumnsLabels.length; i++) {
+			if (columnLabel.equals(strDataGridColumnsLabels[i])) {	
+				String [] addresses = new String [numSteps];
+				for (int row=0; row<numSteps; row++) {
+					String alias = address + ".brctable(" + row +", " + brcTableIndexes_[i] + ")";
+					logger.debug(className, function, "read address[{}]", alias);
+
+					addresses[row] = alias;	
+				}				
+				
+				rtdb.multiReadValue(clientKey, scsEnvId_, addresses, new MultiReadResult() {
+					@Override
+					public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+						final String function = "setReadResult";
+						
+						if (errorCode == 0) {
+							List<Equipment_i> eqList = dataGridDb_.getDataProvider().getList();
+							if (eqList != null && !eqList.isEmpty()) {
+								for (int row=0; row<numSteps && row<values.length; row++) {
+									Equipment_i eq = eqList.get(row);
+									if (eq != null) {
+										if (columnType.equals("String")) {
+											eq.setValue(columnLabel, values[row]);
+										} else if (columnType.equals("Number")) {
+											eq.setNumberValue(columnLabel, Integer.parseInt(values[row]));
+										} else if (columnType.equals("Boolean")) {
+											eq.setBooleanValue(columnLabel, Boolean.parseBoolean(values[row]));
+										}
+										logger.debug(className, function, "load data [{}] to row [{}]", values[row], row);
+									}  else {
+										logger.warn(className, function, "DataGrid DataProvider row[{}] is null", row);
+									}
+								}
+								dataGridDb_.refreshDisplays();
+							} else {
+								logger.warn(className, function, "DataGrid DataProvider list is null or empty");
+							}
+						}
+					}
+					
+				});
+				
+				break;
+			}
+		}
+		logger.end(className, function);
+	}
 
 }

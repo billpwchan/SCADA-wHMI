@@ -2,10 +2,11 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<TargetDataGrid>UIDataGridFomatterSOC</TargetDataGrid>
-		<TargetDataGridColumn>SOCCard</TargetDataGridColumn>
-		<TargetDataGridColumn2>ScsEnvID</TargetDataGridColumn2>
-		<TargetDataGridColumn3>Alias</TargetDataGridColumn3>
+		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
+		<TargetDataGridColumn_A>SOCCard</TargetDataGridColumn_A>
+		<TargetDataGridColumn_A2>ScsEnvID</TargetDataGridColumn_A2>
+		<TargetDataGridColumn_A3>Alias</TargetDataGridColumn_A3>
+		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
 	</header>
 	
 	<actionset key="init">
@@ -23,5 +24,4 @@
 		<SenderOperation>event</SenderOperation>
 		<OperationString1>RowSelected</OperationString1>
 	</action>
-
 </data-set>

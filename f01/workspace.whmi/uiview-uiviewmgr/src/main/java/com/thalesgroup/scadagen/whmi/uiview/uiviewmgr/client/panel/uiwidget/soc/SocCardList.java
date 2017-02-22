@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -16,17 +19,14 @@ public class SocCardList implements IDataGridDataSource {
 	
 	private String [] scsEnvIds_ = null;
 	private String optsXMLFile_ = null;
-	private UIDataGridDatabase_i dataGrid_ = null;
+	private UIDataGridDatabase_i dataGridDb_ = null;
 	private String separater = ",";
 	private String [] strDataGridColumnsFilters = null;
 	private final String grcPathRoot = "ScadaSoft";
 	private String [] strDataGridColumnsLabels = null;
+	private Map<String, String> scsEnvIdMap = new HashMap<String, String>();
 	
 	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
-	
-	// Create unique clientKey
-	private String clientKey = "SocCardList" + "_" + UUIDWrapper.getUUID();
-
 
 	@Override
 	public void init(String[] scsEnvIds, String strDataGridOptsXMLFile, UIDataGridDatabase uiDataGridDatabase) {
@@ -35,7 +35,7 @@ public class SocCardList implements IDataGridDataSource {
 		
 		scsEnvIds_ = scsEnvIds;
 		optsXMLFile_ = strDataGridOptsXMLFile;
-		dataGrid_ = uiDataGridDatabase;
+		dataGridDb_ = uiDataGridDatabase;
 		
 		readConfig();
 		
@@ -50,8 +50,8 @@ public class SocCardList implements IDataGridDataSource {
 		String strHeader = "header";
 		String strColumnValueFilters = null;
 		
-		if (dataGrid_ != null) {
-			strDataGridColumnsLabels = dataGrid_.getColumnLabels();
+		if (dataGridDb_ != null) {
+			strDataGridColumnsLabels = dataGridDb_.getColumnLabels();
 		}
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
@@ -64,29 +64,41 @@ public class SocCardList implements IDataGridDataSource {
 		logger.end(className, function);
 	}
 	
+	private String genClientKey(String scsEnvId) {
+		String clientKey = className + UUIDWrapper.getUUID();
+		scsEnvIdMap.put(clientKey, scsEnvId);
+		return clientKey;
+	}
+	
+	private String getScsEnvIdFromMap(String key) {
+		return scsEnvIdMap.get(key);
+	}
+	
 	@Override
 	public void connect() {
 		final String function = "connect";
 		logger.begin(className, function);
 		
 		for (String scsEnvId: scsEnvIds_) {
-			final String scsEnvStr = scsEnvId;
 			final String grcAddress = ":ScadaSoft:ScsCtlGrc";
+			final String clientKey = genClientKey(scsEnvId);
 
 			rtdb.getChildren(clientKey, scsEnvId, grcAddress, new GetChildrenResult() {
 	
 				@Override
 				public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
-					updateSocCardList(scsEnvStr, instances);
+					updateSocCardList(clientKey, instances);
 				}
 			});
 		}
 		logger.end(className, function);
 	}
 
-	protected void updateSocCardList(String scsEnvId, String[] instances) {
+	protected void updateSocCardList(String clientKey, String[] instances) {
 		final String function = "updateSocCardList";
 		logger.begin(className, function);
+		
+		String scsEnvId = getScsEnvIdFromMap(clientKey);
 		
 		for (int i=0; i<instances.length; i++) {
 
@@ -132,7 +144,7 @@ public class SocCardList implements IDataGridDataSource {
 	    	Equipment_i equipment_i = builder.build();
 	    	
 	    	// Add row data to data grid
-	    	dataGrid_.addEquipment(equipment_i);
+	    	dataGridDb_.addEquipment(equipment_i);
 	    	logger.debug(className, function, "addEquipment");
 		}
 		logger.end(className, function);
@@ -145,6 +157,16 @@ public class SocCardList implements IDataGridDataSource {
 
 	@Override
 	public void disconnect() {
+		
+	}
+
+	@Override
+	public void resetColumnData(String columnLabel, String columnType) {
+		
+	}
+	
+	@Override
+	public void reloadColumnData(String columnLabel, String columnType) {
 		
 	}
 

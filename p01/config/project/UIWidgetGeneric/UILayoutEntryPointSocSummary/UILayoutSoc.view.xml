@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>6</rows>
+		<rows>7</rows>
 		<cols>1</cols>
 		<rootPanel>AbsolutePanel</rootPanel>
 		<rootCSS>project-UILayoutSocSummary-root</rootCSS>
@@ -32,15 +32,6 @@
 		<element>UILayoutSocSummaryViewer2</element>
 	</option>
 	
-	<!--
-	<option key="0|3">
-		<type>predefine</type>
-		<uiCtrl>UIWidgetSocDelayControl</uiCtrl>
-		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.opts.xml</uiOpts>
-		<element>UIWidgetSocDelayControl</element>
-	</option>
-	-->
 	
 	<option key="0|3">
 		<type>predefine</type>
@@ -52,12 +43,20 @@
 	
 	<option key="0|4">
 		<type>predefine</type>
+		<uiCtrl>UIWidgetSocDelayControl</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.opts.xml</uiOpts>
+		<element>UIWidgetSocDelayControl</element>
+	</option>
+	
+	<option key="0|5">
+		<type>predefine</type>
 		<uiCtrl>UIWidgetSocAutoManuControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocAutoManuControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocAutoManuControl.opts.xml</uiOpts>
 		<element>UIWidgetSocAutoManuControl</element>
 	</option>
-	<option key="0|5">
+	<option key="0|6">
 		<type>predefine</type>
 		<uiCtrl>UIWidgetSocControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocControl.view.xml</uiView>

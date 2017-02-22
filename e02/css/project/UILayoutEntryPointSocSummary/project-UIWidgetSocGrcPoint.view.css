@@ -1,7 +1,7 @@
-.project-UIWidgetGrcPoint-container-grccursteplabel {
+.project-UIWidgetSocGrcPoint-container-grccursteplabel {
 	vertical-align: middle !important;
 }
-.project-UIWidgetGrcPoint-label-grccurstep {
+.project-UIWidgetSocGrcPoint-label-grccurstep {
 	color: black;
 	font-weight: bold;
 	font-size: 16px;
@@ -35,6 +35,51 @@
 	font-size: 16px;
 	height: 39px;
 	width: 150px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}
+
+
+
+.project-UIWidgetSocGrcPoint-container-grcstepstatuslabel {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-label-grcstepstatus {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+.project-UIWidgetSocGrcPoint-container-grcstepstatusvalue {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-textbox-grcstepstatus {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background-color: white;
+	border: thin solid black !important;
+}
+
+
+.project-UIWidgetSocGrcPoint-container-grcmessagelabel {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-label-grcmessage {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+.project-UIWidgetSocGrcPoint-container-grcmessagevalue {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocGrcPoint-textbox-grcmessage {
+	font-size: 16px;
+	height: 39px;
+	width: 500px;
 	color: black;
 	background-color: white;
 	border: thin solid black !important;

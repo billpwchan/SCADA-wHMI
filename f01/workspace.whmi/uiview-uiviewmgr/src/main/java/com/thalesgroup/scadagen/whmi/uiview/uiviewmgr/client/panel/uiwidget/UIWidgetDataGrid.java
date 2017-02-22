@@ -2,14 +2,19 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
 
+import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.IGenericDataGridView;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -28,7 +33,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridDatabase;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFormatter_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.database.UIDataGridDatabaseMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -55,10 +60,16 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridColumnsLabel = null;
 	private String strDataGridColumnsWidth = null;
 	private String strDataGridOptsXMLFile = null;
+	private String strDataGridPageSize = null;
 
 	private String targetDataGrid		= "";
 	private String targetDataGridColumn1 = "";
 	private String targetDataGridColumn2 = "";
+	private String targetDataGridColumn3 = "";
+	
+	private String [] strDataGridColumnsLabels = null;
+	private String [] strDataGridColumnsTypes = null;
+	private int [] strDataGridColumnsWidths = null;
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
@@ -69,9 +80,17 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	
 	private UIDataGridDatabase uiDataGridDatabase = null;
 	
+	protected static final DataGrid.Resources GRID_RESOURCES = GWT.create(IGenericDataGridView.Resources.class);
+
+	protected int pageSize = 200;
+	
 	private String scsEnvIdsStr = null;
 	
 	private String uuid = UUIDWrapper.getUUID();
+	
+    UIDataGridFormatter_i dataGridFormatter = null;
+	
+	private SingleSelectionModel<Equipment_i> singleSelectionModel = null;
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -96,14 +115,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			if ( null != uiEventAction ) {
 				
 				String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-				String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
-				String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
-				String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
+//				String os2 = (String) uiEventAction.getParameter(ActionAttribute.OperationString2.toString());
+//				String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
+//				String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 				
 				logger.info(className, function, "os1[{}]", os1);
-				logger.info(className, function, "os2[{}]", os2);
-				logger.info(className, function, "os3[{}]", os3);
-				logger.info(className, function, "os4[{}]", os4);
+//				logger.info(className, function, "os2[{}]", os2);
+//				logger.info(className, function, "os3[{}]", os3);
+//				logger.info(className, function, "os4[{}]", os4);
 				
 				if ( null != os1 ) {
 					if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -153,6 +172,112 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						} else {
 							logger.warn(className, function, "targetDataGrid IS NULL");
 						}
+					} else if ( os1.equals(DataGridEvent.ReloadFromDataSource.toString() ) ) {
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+						Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
+						
+						logger.info(className, function, "Reload from DataSource");
+						
+						if ( null != strDataGrid ) {
+							
+							logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+							
+							if ( null != obj1 ) {
+								if ( obj1 instanceof String ) {
+									datagridSelected	= (String) obj1;
+									
+									logger.info(className, function, "datagridSelected[{}]", datagridSelected);
+
+									if ( datagridSelected.equals(strDataGrid) ) {
+										if ( obj2 instanceof String && obj3 instanceof String ) {
+											String scsEnvId = (String) obj2;
+											String dbaddress = (String) obj3;																					
+											
+											if (uiDataGridDatabase != null) {
+												uiDataGridDatabase.loadData(scsEnvId, dbaddress);
+											}
+								
+										} else {
+											equipmentSelected = null;
+
+											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
+										}
+									}
+								} else {
+									logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+								}
+							} else {
+								logger.warn(className, function, "obj1 IS NULL");
+							}
+						} else {
+							logger.warn(className, function, "targetDataGrid IS NULL");
+						}
+					}  else if ( os1.equals(DataGridEvent.ResetColumnData.toString() ) ) {
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+						
+						logger.info(className, function, "Reset Column Data");
+						
+						if ( null != strDataGrid ) {
+							
+							logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+							
+							if ( null != obj1 && null != obj2 ) {
+								if ( obj1 instanceof String && obj2 instanceof String ) {
+	
+									String dataGridSelected = (String) obj1;
+									
+									if (dataGridSelected.equals(strDataGrid)) {
+										String columnLabel = (String) obj2;
+										String columnType = dataGridFormatter.getColumnType(columnLabel);
+										
+										uiDataGridDatabase.resetColumnData(columnLabel, columnType);
+									}
+								} else {
+									logger.warn(className, function, "obj1 or obj2 IS NOT TYPE OF String");
+								}
+							} else {
+								logger.warn(className, function, "obj1 or obj2 IS NULL");
+							}
+						} else {
+							logger.warn(className, function, "strDataGrid IS NULL");
+						}
+					
+					}  else if ( os1.equals(DataGridEvent.ReloadColumnData.toString() ) ) {
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+						
+						logger.info(className, function, "Reload Column Data");
+						
+						if ( null != strDataGrid ) {
+							
+							logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+							
+							if ( null != obj1 && null != obj2) {
+								if ( obj1 instanceof String && obj2 instanceof String) {
+	
+									String dataGridSelected = (String) obj1;
+									
+									if (dataGridSelected.equals(strDataGrid)) {
+										String columnLabel = (String) obj2;
+										String columnType = dataGridFormatter.getColumnType(columnLabel);
+										
+										uiDataGridDatabase.reloadColumnData(columnLabel, columnType);
+									}
+								} else {
+									logger.warn(className, function, "obj1 or obj2 IS NOT TYPE OF String");
+								}
+							} else {
+								logger.warn(className, function, "obj1 or obj2 IS NULL");
+							}
+						} else {
+							logger.warn(className, function, "strDataGrid IS NULL");
+						}
+					
 					} else {
 						// General Case
 						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
@@ -197,10 +322,12 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
 			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
 			strDataGridOptsXMLFile 			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridOptsXMLFile.toString(), strHeader);
+			strDataGridPageSize			 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPageSize.toString(), strHeader);
 
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 			targetDataGridColumn1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
 			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A2.toString(), strHeader);
+			targetDataGridColumn3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A3.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "strDataGrid[{}]", strDataGrid);
@@ -211,6 +338,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
 		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
 		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
+		
+		logger.debug(className, function, "targetDataGrid [{}]", targetDataGrid);
+		logger.debug(className, function, "targetDataGridColumn1 [{}]", targetDataGridColumn1);
+		logger.debug(className, function, "targetDataGridColumn2 [{}]", targetDataGridColumn2);
+		logger.debug(className, function, "targetDataGridColumn3 [{}]", targetDataGridColumn3);
 
 		uiWidgetGeneric = new UIWidgetGeneric();
 		
@@ -300,21 +432,31 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
 		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
 		logger.info(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
+		logger.info(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
 		
-		final String [] strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
-		final String [] strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
-		final int [] strDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
+		strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
+		strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
+		strDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
+		if (strDataGridPageSize != null) {
+			try {
+				int size = Integer.parseInt(strDataGridPageSize);
+				if (size > 0) {
+					pageSize = size;
+				}
+			} catch (NumberFormatException e) {
+				logger.warn(className, function, "NumberFormatException for PageSize [{}]", strDataGridPageSize);
+			}
+		}
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
-	    UIDataGridFomatter_i dataGridFomatter = null;
-	    dataGridFomatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsLabels, strDataGridColumnsWidths);
+	    dataGridFormatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsLabels, strDataGridColumnsWidths);
 	    
 	    /*
 	     * Set a key provider that provides a unique key for each contact. If key is
 	     * used to identify contacts when fields (such as the name and address)
 	     * change.
 	     */
-	    dataGrid = new DataGrid<Equipment_i>();
+	    dataGrid = new DataGrid<Equipment_i>(pageSize, GRID_RESOURCES);
 	    dataGrid.addStyleName("project-"+strDataGrid+"-table");
 	    
 	    /*
@@ -325,7 +467,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //	    dataGrid.setAutoHeaderRefreshDisabled(true);
 	    
 	    // Set the message to display when the table is empty.
-	    dataGrid.setEmptyTableWidget(new Label(dataGridFomatter.getEmptyLabel()));
+	    dataGrid.setEmptyTableWidget(new Label(dataGridFormatter.getEmptyLabel()));
 	    
 	    dataGrid.setRowStyles(new RowStyles<Equipment_i>() {
 	    	
@@ -363,51 +505,47 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
 //	    pager = new SimplePager(TextLocation.CENTER, pagerResources, false, 0, true);
 //	    pager.setDisplay(dataGrid);
-	    
-	    // Add a selection model so we can select cells.
-//	    final SelectionModel<Equipment_i> selectionModel = new SingleSelectionModel<Equipment_i>();
-//	    dataGrid.setSelectionModel(selectionModel, DefaultSelectionEventManager.<Equipment_i>createCheckboxManager());
 
-		final SingleSelectionModel<Equipment_i> selectionModel = new SingleSelectionModel<Equipment_i>();
-		dataGrid.setSelectionModel(selectionModel);
-		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-					public void onSelectionChange(SelectionChangeEvent event) {
-						Equipment_i selected = selectionModel.getSelectedObject();
-						if (selected != null) {
-							
-							final String function = "onSelection fireFilterEvent";
-							
-							logger.begin(className, function);
-							
-							String actionsetkey = "RowSelected";
-							HashMap<String, Object> parameter = new HashMap<String, Object>();
-							parameter.put(ViewAttribute.OperationObject1.toString(), strDataGrid);
-							parameter.put(ViewAttribute.OperationObject2.toString(), selected);
-							
-							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-							override.put("RowSelected", parameter);
-							
-							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+		singleSelectionModel = new SingleSelectionModel<Equipment_i>();
+		singleSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
+			public void onSelectionChange(SelectionChangeEvent event) {
+				Equipment_i selected = singleSelectionModel.getSelectedObject();
+				if (selected != null) {
+					
+					final String function = "onSelection fireFilterEvent";
+					
+					logger.begin(className, function);
+					
+					String actionsetkey = "RowSelected";
+					HashMap<String, Object> parameter = new HashMap<String, Object>();
+					parameter.put(ViewAttribute.OperationObject1.toString(), strDataGrid);
+					parameter.put(ViewAttribute.OperationObject2.toString(), selected);
+					
+					HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+					override.put("RowSelected", parameter);
+					
+					uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 
-							logger.end(className, function);
-							
-//							{
-//								String [] keys = selected.getFields();
-//								String msg = "You selected: ";
-//								for ( String key : keys ) {
-//									msg += key + ":["+selected.getValue(key)+"]";
-//									msg += " ";
-//								}
-//								Window.alert(msg);
-//							}
-						}
-					}
-				});
+					logger.end(className, function);
+				}
+			}
+		});
+		
+		dataGrid.setSelectionModel(singleSelectionModel);
 
 //	    initDataGridColumn(selectionModel, header, dataGrid);
 	    
-	    dataGrid = dataGridFomatter.addDataGridColumn(dataGrid);
+	    dataGrid = dataGridFormatter.addDataGridColumn(dataGrid);
 	    
+	    // Add column field updater for Boolean column
+	    int numColumns = dataGridFormatter.getNumberOfColumn();
+	    for (int col=0; col<numColumns; col++) {
+	    	String colType = dataGridFormatter.getColumnType(col);
+	    	if (colType.equals("Boolean")) {
+	    		addColumnFieldUpdateHandler(dataGridFormatter.getColumnLabel(col));
+	    	}
+	    }
+   
 	    // Add the CellList to the adapter in the database.
 	    String dbKey = strDataGrid + uuid;
 	    uiDataGridDatabase = UIDataGridDatabase.getInstance(dbKey);
@@ -418,6 +556,57 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    logger.end(className, function);
 	    
 	    return dataGrid;
+	}
+	
+	public void addColumnFieldUpdateHandler(final String columnLabel) {
+		final String function = "addColumnFieldUpdateHandler";
+		
+		logger.begin(className, function);
+
+		int index = -1;
+		
+		for (int i=0; i<strDataGridColumnsLabels.length;i++) {
+			if (strDataGridColumnsLabels[i].equals(columnLabel)) {
+				index = i;
+				logger.debug(className, function, "label [{}] found", columnLabel);
+				break;
+			}
+		}
+
+		if (index >= 0) {
+			Column<Equipment_i, Boolean> column = (Column<Equipment_i, Boolean>)dataGrid.getColumn(index);
+			
+			column.setFieldUpdater(new FieldUpdater<Equipment_i, Boolean>() {
+	
+				@Override
+				public void update(int paramInt, Equipment_i paramT, Boolean paramC) {
+					Boolean oldValue = paramT.getBooleanValue(columnLabel);
+					String paramString = "index=" + String.valueOf(paramInt) + " oldValue=" + String.valueOf(oldValue) + " newValue=" + String.valueOf(paramC);
+					//Window.alert(paramString);
+					logger.debug(className, function, "update [{}]", paramString);
+					paramT.setBooleanValue(columnLabel, paramC);
+					
+					UIEventAction dataGridValueChangeEvent = new UIEventAction();
+					if (dataGridValueChangeEvent != null) {
+						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationString1.toString(), DataGridEvent.ValueChange.toString());
+						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationObject1.toString(), strDataGrid);
+						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationObject2.toString(), columnLabel);
+						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationObject3.toString(), paramT);
+						dataGridValueChangeEvent.setParameter(ViewAttribute.OperationObject4.toString(), paramC);
+						getEventBus().fireEvent(dataGridValueChangeEvent);
+						logger.debug(className, function, "fire UIEventAction dataGridValueChangeEvent");
+					}
+				}
+			});
+		} else {
+			logger.debug(className, function, "label [{}] not found", columnLabel);
+		}
+		logger.end(className, function);
+
+	}
+	
+	private EventBus getEventBus() {
+		return this.eventBus;
 	}
 	
 }

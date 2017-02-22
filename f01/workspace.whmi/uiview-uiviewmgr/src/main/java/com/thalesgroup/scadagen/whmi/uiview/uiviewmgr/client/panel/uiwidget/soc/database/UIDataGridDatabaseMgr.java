@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFomatter_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFormatter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFormatter_i;
 
 public class UIDataGridDatabaseMgr {
 	
@@ -19,11 +19,11 @@ public class UIDataGridDatabaseMgr {
 		return instance;
 	}
 
-	public UIDataGridFomatter_i getDataGrid(String strDataGrid, String[] columnTypes, String[] columnLabels, int[] columnWidth) {
+	public UIDataGridFormatter_i getDataGrid(String strDataGrid, String[] columnTypes, String[] columnLabels, int[] columnWidth) {
 		String function = "getDataGrid";
 		logger.begin(className, function);
-		UIDataGridFomatter_i dataGrid_i = null;
-		dataGrid_i = new UIDataGridFomatter(columnTypes, columnLabels, columnWidth);
+		UIDataGridFormatter_i dataGrid_i = null;
+		dataGrid_i = new UIDataGridFormatter(columnTypes, columnLabels, columnWidth);
 		logger.end(className, function);
 		return dataGrid_i;
 	}

@@ -1,6 +1,9 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.ctl;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
@@ -27,21 +30,33 @@ public class GrcMgr {
 	
 	private static HashMap<String, GrcMgr> instances = new HashMap<String, GrcMgr>();
 	public static GrcMgr getInstance(String key) {
-		if ( ! instances.containsKey(key) ) {	instances.put(key, new GrcMgr()); }
+		if ( ! instances.containsKey(key) ) {
+			GrcMgr grcMgr = new GrcMgr();
+			instances.put(key, grcMgr);
+		}
 		GrcMgr instance = instances.get(key);
 		return instance;
 	}
+
+	public static Set<Entry<String, GrcMgr>> getGrcMgrInstances() {
+		return instances.entrySet();
+	}
 	
-	private Subject subject = null;
-	public Subject getSubject() { return subject; }
+	private Map<String, Subject> subjectMap = new HashMap<String, Subject>();
+	
+	public void setSubject(String key, Subject subject) {
+		final String function = "setSubject";
+		subjectMap.put(key, subject);
+		logger.debug(className, function, "SubjectMap subject count=[{}]", subjectMap.size());
+	}
+	
+	public Subject getSubject(String key) { return subjectMap.get(key); }
 	
 	private ScsGRCComponentAccessQF scsGRCComponentAccess = null;
 	private GrcMgr () {
 		final String function = "GrcMgr";
 		logger.begin(className, function);
-		
-		this.subject = new Subject();
-		
+
 		scsGRCComponentAccess = new ScsGRCComponentAccessQF(new IGRCComponentClient() {
 			
 			@Override
@@ -81,8 +96,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -109,8 +129,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -118,7 +143,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setStepResult(String clientKey, int step, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setStepResult";
 		    	
 		    	logger.begin(className, function);
@@ -137,8 +161,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -146,7 +175,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setResumeGrcResult(String clientKey, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setResumeGrcResult";
 		    	
 		    	logger.begin(className, function);
@@ -163,8 +191,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -172,7 +205,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setPrepareGrcResult(String clientKey, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setPrepareGrcResult";
 		    	
 		    	logger.begin(className, function);
@@ -189,8 +221,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -198,7 +235,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setLaunchGrcResult(String clientKey, String name, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setLaunchGrcResult";
 		    	
 		    	logger.begin(className, function);
@@ -217,8 +253,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -226,8 +267,7 @@ public class GrcMgr {
 			
 			@Override
 			public void setGrcStatusResult(String clientKey, int grcStatus, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
-		    	final String function = "setGetGrcStateResult";
+		    	final String function = "setGrcStatusResult";
 		    	
 		    	logger.begin(className, function);
 		    	
@@ -240,11 +280,17 @@ public class GrcMgr {
 		    	jsdata = new JSONObject();
 		    	jsdata.put("function", new JSONString(function));
 		    	jsdata.put("clientKey", new JSONString(clientKey));
+		    	jsdata.put("grcStatus", new JSONNumber(grcStatus));
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -252,7 +298,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setGetGrcStateResult(String clientKey, int state, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setGetGrcStateResult";
 		    	
 		    	logger.begin(className, function);
@@ -271,8 +316,13 @@ public class GrcMgr {
 		    	jsdata.put("state", new JSONNumber(state));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -280,7 +330,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setGetGrcListResult(String clientKey, String[] grcList, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setGetGrcListResult";
 		    	
 		    	logger.begin(className, function);
@@ -304,8 +353,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -313,7 +367,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setAbortGrcResult(String clientKey, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setAbortGrcResult";
 		    	
 		    	logger.begin(className, function);
@@ -330,8 +383,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -339,7 +397,6 @@ public class GrcMgr {
 			
 			@Override
 			public void setAbortGrcPreparationResult(String clientKey, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
 		    	final String function = "setAbortGrcPreparationResult";
 		    	
 		    	logger.begin(className, function);
@@ -356,8 +413,13 @@ public class GrcMgr {
 		    	jsdata.put("errorCode", new JSONNumber(errorCode));
 		    	jsdata.put("errorMessage", new JSONString(errorMessage));
 		    	
+		    	logger.debug(className, function, "GrcMgr subjectMap subject count=[{}]", subjectMap.size());
+		    	Subject subject = subjectMap.get(clientKey + function);
+		    	
 		    	if ( null != subject ) {
 		    		subject.setState(jsdata);
+		        } else {
+		        	logger.warn(className, function, "subject for key [{}] not found", clientKey + function);
 		        }
 		    	
 		        logger.end(className, function);
@@ -373,7 +435,9 @@ public class GrcMgr {
 		logger.begin(className, function);
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
+		
 		scsGRCComponentAccess.getGrcList(key, scsEnvId);
+
 		logger.end(className, function);
     }
 
@@ -383,7 +447,9 @@ public class GrcMgr {
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.info(className, function, "grcName[{}]", grcName);
+		
 		scsGRCComponentAccess.getGrcState(key, scsEnvId, grcName);
+
 		logger.end(className, function);
     }
 
@@ -393,7 +459,9 @@ public class GrcMgr {
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.info(className, function, "name[{}]", name);
+		
 		scsGRCComponentAccess.prepareGrc(key, scsEnvId, name);
+
 		logger.end(className, function);
     }
 
@@ -403,7 +471,9 @@ public class GrcMgr {
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.info(className, function, "name[{}]", name);
+
 		scsGRCComponentAccess.abortGrcPreparation(key, scsEnvId, name);
+
 		logger.end(className, function);
     }
 
@@ -416,9 +486,12 @@ public class GrcMgr {
 		logger.info(className, function, "grcExecMode[{}]", grcExecMode);
 		logger.info(className, function, "firstStep[{}]", firstStep);
 		logger.info(className, function, "grcStepsToSkip[{}]", grcStepsToSkip);
+
 		scsGRCComponentAccess.launchGrc(key, scsEnvId, name, grcExecMode, firstStep, grcStepsToSkip);
+
 		logger.end(className, function);
     }
+    
     public void launchGrc(String key, String scsEnvId, String name, short grcExecMode, int firstStep, int [] grcStepsToSkips) {
 		String function = "launchGrc";
 		logger.begin(className, function);
@@ -432,15 +505,19 @@ public class GrcMgr {
 			logger.info(className, function, "grcStepsToSkips({})[{}]", i, grcStepsToSkips[i]);
 		}
 		scsGRCComponentAccess.launchGrc(key, scsEnvId, name, grcExecMode, firstStep, grcStepsToSkips);
+
 		logger.end(className, function);
     }
+    
     public void abortGrc(String key, String scsEnvId, String name) {
 		String function = "abortGrc";
 		logger.begin(className, function);
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.info(className, function, "name[{}]", name);
+		
 		scsGRCComponentAccess.abortGrc(key, scsEnvId, name);
+
 		logger.end(className, function);
     }
     
@@ -450,7 +527,9 @@ public class GrcMgr {
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.info(className, function, "name[{}]", name);
+		
 		scsGRCComponentAccess.suspendGrc(key, scsEnvId, name);
+
 		logger.end(className, function);
     }
 
@@ -460,7 +539,9 @@ public class GrcMgr {
     	logger.info(className, function, "key[{}]", key);
 		logger.info(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.info(className, function, "name[{}]", name);
+		
 		scsGRCComponentAccess.resumeGrc(key, scsEnvId, name);
+
 		logger.end(className, function);
     }
 	

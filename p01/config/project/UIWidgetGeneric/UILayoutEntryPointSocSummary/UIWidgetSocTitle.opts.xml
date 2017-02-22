@@ -4,8 +4,8 @@
 	<header key="header">
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
-		<TargetDataGrid>UIDataGridFomatterSOC</TargetDataGrid>
-		<TargetDataGridColumn>SOCCard</TargetDataGridColumn>
+		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
+		<TargetDataGridColumn_A>SOCCard</TargetDataGridColumn_A>
 	</header>
 	
 	<actionset key="init">

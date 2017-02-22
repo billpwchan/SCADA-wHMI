@@ -5,7 +5,7 @@
 	<header key="header">
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
-		<DataGrid>UIDataGridFomatterSOC</DataGrid>
+		<DataGrid>UIDataGridFormatterSOC</DataGrid>
 		<DataGridColumnsType>String,String,String</DataGridColumnsType>
 		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias</DataGridColumnsLabel>
 		<DataGridColumnsWidth>50,40,100</DataGridColumnsWidth>

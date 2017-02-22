@@ -20,6 +20,7 @@
 		<OperationString4>set_default_action_UIWidgetSocDelayControl</OperationString4>
 		<OperationString5>set_default_action_UIWidgetSocAutoManuControl</OperationString5>
 		<OperationString6>set_default_action_UIWidgetSocControl</OperationString6>
+		<OperationString7>set_default_action_UIWidgetSocGrcPoint</OperationString7>
 	</actionset>
 	
 	<action key="set_default_action_UIWidgetSocTitle">

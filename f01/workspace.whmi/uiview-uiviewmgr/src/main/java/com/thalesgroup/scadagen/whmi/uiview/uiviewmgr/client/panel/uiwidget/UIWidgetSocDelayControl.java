@@ -101,7 +101,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 						
 						logger.info(className, function, "step[{}]", step);
 						
-						String dbalias = alias+".brctable("+step+",succdelay)";
+						String dbalias = "<alias>" + alias+".brctable("+step+",succdelay)";
 						
 						// build delay value
 						String strDelay = uiWidgetGeneric.getWidgetValue(strDelayValue);

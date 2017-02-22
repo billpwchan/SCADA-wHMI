@@ -2,13 +2,55 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>1</rows>
-		<cols>4</cols>
+		<rows>4</rows>
+		<cols>1</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIWidgetSocGrcPoint-root</rootCss>
 	</header>
 	
 	<option key="0|0">
+		<widget>Label</widget>
+		<label>GRC Current Status</label>
+		<css>project-UIWidgetSocGrcPoint-label-grccurstatus</css>
+		<element>grccurstatuslabel</element>
+		
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstatuslabel</cssContainer>
+		
+	</option>
+	
+	<option key="0|1">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocGrcPoint-textbox-grccurstatus</css>
+		<element>grccurstatusvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstatusvalue</cssContainer>
+		
+	</option>
+	
+	<!--<option key="0|2">
+		<widget>Label</widget>
+		<label>Message</label>
+		<css>project-UIWidgetSocGrcPoint-label-grcmessage</css>
+		<element>grcmessagelabel</element>
+		
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagelabel</cssContainer>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocGrcPoint-textbox-grcmessage</css>
+		<element>grcmessagevalue</element>
+		<maxlength>40</maxlength>
+		
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagevalue</cssContainer>
+		
+	</option>-->
+	
+	<option key="0|2">
 		<widget>Label</widget>
 		<label>GRC Current Step</label>
 		<css>project-UIWidgetSocGrcPoint-label-grccurstep</css>
@@ -18,7 +60,7 @@
 		
 	</option>
 	
-	<option key="0|1">
+	<option key="0|3">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetSocGrcPoint-textbox-grccurstep</css>
@@ -29,24 +71,24 @@
 		
 	</option>
 	
-	<option key="0|2">
+	<!--<option key="0|6">
 		<widget>Label</widget>
-		<label>GRC Current Status</label>
-		<css>project-UIWidgetSocGrcPoint-label-grccurstatus</css>
-		<element>grccurstatuslabel</element>
+		<label>GRC Step Status</label>
+		<css>project-UIWidgetSocGrcPoint-label-grcstepstatus</css>
+		<element>grcstepstatuslabel</element>
 		
-		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstatuslabel</cssContainer>
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grcstepstatuslabel</cssContainer>
 		
 	</option>
 	
-	<option key="0|3">
+	<option key="0|7">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetSocGrcPoint-textbox-grccurstatus</css>
-		<element>grccurstatusvalue</element>
-		<maxlength>16</maxlength>
+		<css>project-UIWidgetSocGrcPoint-textbox-grcstepstatus</css>
+		<element>grcstepstatusvalue</element>
+		<maxlength>4</maxlength>
 		
-		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstatusvalue</cssContainer>
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grcstepstatusvalue</cssContainer>
 		
-	</option>
+	</option>-->
 </data-set>

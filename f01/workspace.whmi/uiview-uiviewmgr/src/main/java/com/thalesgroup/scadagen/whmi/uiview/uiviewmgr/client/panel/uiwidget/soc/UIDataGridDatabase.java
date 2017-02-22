@@ -142,11 +142,11 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		// Clear data grid
 		clearEquipment();
 
-		if ( strDataGrid.equals("UIDataGridFomatterSOC") ) {
+		if ( strDataGrid.equals("UIDataGridFormatterSOC") ) {
 			
 			dataSource = new SocCardList();
 
-	    } else if (strDataGrid.equals("UIDataGridFomatterSOCDetails")) {
+	    } else if (strDataGrid.equals("UIDataGridFormatterSOCDetails")) {
 
 	    	dataSource = new SocCardDetail();
 	    }
@@ -170,6 +170,15 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		logger.end(className, function);
 	}
 	
+	
+	public void reloadColumnData(String columnLabel, String columnType) {
+		dataSource.reloadColumnData(columnLabel, columnType);
+	}
+	
+	public void resetColumnData(String columnLabel, String columnType) {
+		dataSource.resetColumnData(columnLabel, columnType);
+	}
+	
 	@Override
 	public int getColumnCount() {
 		return strDataGridColumnsLabels.length;
@@ -188,4 +197,5 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	public void disconnect() {
 		dataSource.disconnect();
 	}
+
 }

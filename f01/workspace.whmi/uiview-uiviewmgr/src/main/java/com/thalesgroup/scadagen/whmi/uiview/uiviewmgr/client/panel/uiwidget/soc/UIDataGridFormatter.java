@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.cell.client.TextCell;
@@ -7,7 +10,7 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 
-public class UIDataGridFomatter implements UIDataGridFomatter_i {
+public class UIDataGridFormatter implements UIDataGridFormatter_i {
 	
 //	private String[] columnTypes	= new String[]{"String", "String", "String"};
 //	private String[] columnLabels	= new String[]{"SOCCard", "ScsEnvID", "Alias"};
@@ -17,7 +20,9 @@ public class UIDataGridFomatter implements UIDataGridFomatter_i {
 	private String[] columnLabels	= null;
 	private int[] columnWidth		= null;
 	
-	public UIDataGridFomatter (String[] columnTypes, String[] columnLabels, int[] columnWidth) {
+	private Map<String, String> columnLabelTypeMap = new HashMap<String, String>();
+	
+	public UIDataGridFormatter (String[] columnTypes, String[] columnLabels, int[] columnWidth) {
 		this.columnTypes = columnTypes;
 		this.columnLabels = columnLabels;
 		this.columnWidth = columnWidth;
@@ -49,13 +54,19 @@ public class UIDataGridFomatter implements UIDataGridFomatter_i {
 	}
 	
 	@Override
+	public String getColumnType(String columnLabel) {
+		return columnLabelTypeMap.get(columnLabel);
+	}
+	
+	@Override
 	public DataGrid<Equipment_i> addDataGridColumn(DataGrid<Equipment_i> dataGrid) {
 	   
 	    for ( int i = 0 ; i < columnLabels.length ; ++i ) {
 	    	final String columnType = getColumnType(i);
 	    	final String columnLabel = getColumnLabel(i);
 	    	final int columnWidth = getColumnWidth(i);
-	    	
+
+	    	columnLabelTypeMap.put(columnLabel, columnType);
 			if ( columnType.equals("String") ) {
 			    Column<Equipment_i, String> stringColumn = new Column<Equipment_i, String>(new TextCell()) {
 				      @Override
@@ -71,7 +82,7 @@ public class UIDataGridFomatter implements UIDataGridFomatter_i {
 //				      }
 //				    });
 				    dataGrid.addColumn(stringColumn, columnLabel);
-				    dataGrid.setColumnWidth(stringColumn, columnWidth, Unit.PX);
+				    dataGrid.setColumnWidth(stringColumn, columnWidth, Unit.PX);				    
 			} else if ( columnType.equals("Number") ) {
 			    Column<Equipment_i, Number> numberColumn = new Column<Equipment_i, Number>(new NumberCell()) {
 			      @Override

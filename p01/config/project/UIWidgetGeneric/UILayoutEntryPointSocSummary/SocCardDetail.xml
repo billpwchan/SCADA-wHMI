@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<header key="header">
-		<BrcTableIndexes>0,2:1,2:0,10</BrcTableIndexes>
+		<BrcTableIndexes>0,2:1,2:0,4,10</BrcTableIndexes>
 		<ExtraRelativePoints>.reserved,.tagStatus</ExtraRelativePoints>
 	</header>
 </data-set>

@@ -5,19 +5,19 @@
 	<header key="header">
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
-		<DataGrid>UIDataGridFomatterSOCDetails</DataGrid>
+		<DataGrid>UIDataGridFormatterSOCDetails</DataGrid>
 		<!--
 		<DataGridColumnsType>Number,String,String,String,String,String,String,Boolean</DataGridColumnsType>
 		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Reserved,PTW,LR,Disable</DataGridColumnsLabel>
 		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
 		-->
 
-		<DataGridColumnsType>Number,String,String,String,Number,Number,Boolean</DataGridColumnsType>
-		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Equipment,Reserved,TagStatus,Skip</DataGridColumnsLabel>
-		<DataGridColumnsWidth>80,80,80,80,80,80,80</DataGridColumnsWidth>
+		<DataGridColumnsType>Number,String,String,Number,String,Number,Number,Boolean</DataGridColumnsType>
+		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Equipment,Reserved,TagStatus,Disable</DataGridColumnsLabel>
+		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
 		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardDetail.xml</DataGridOptsXMLFile>
 
-		<TargetDataGrid_A>UIDataGridFomatterSOC</TargetDataGrid_A>
+		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
 		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>
 		<TargetDataGridColumn_A2>Alias</TargetDataGridColumn_A2>
 	</header>

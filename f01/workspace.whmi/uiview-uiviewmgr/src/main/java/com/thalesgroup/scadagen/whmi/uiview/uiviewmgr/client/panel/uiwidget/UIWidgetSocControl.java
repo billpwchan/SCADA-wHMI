@@ -1,8 +1,16 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.json.client.JSONNumber;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -10,26 +18,32 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl_i.AutoManuEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.CtlBrcStatus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcExecStatus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr_i.GrcExecMode;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
 public class UIWidgetSocControl extends UIWidget_i {
 	
@@ -46,18 +60,37 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private final String strLaunchGrc = "LaunchGrc";
 	private final String strAbortGrc = "AbortGrc";
 	
-	private String targetDataGrid		= "";
-	private String targetDataGridColumn = "";
-	private String targetDataGridColumn2 = "";
+	String strKeyPrepareGrc	= "";
+	String strKeyLaunchGrc	= "";
+	String strKeyAbortGrc	= "";
+	
+	private String targetDataGridA			= "";
+	private String targetDataGridColumnA	= "";
+	private String targetDataGridColumnA2	= "";
+	private String targetDataGridB			= "";
+	private String targetDataGridColumnB	= "";
+	private String targetDataGridColumnB2	= "";
+	private String targetDataGridColumnB3	= "";
 	
 	private String datagridSelected = null;
 	private Equipment_i equipmentSelected = null;
 	
-	private int selectedStep = 1;
+	private String scsenvid = "";
+	private String dbalias = "";
 	
-	private int autoMenu = -1;
+	private int curStep = 1;
 	
-	private int [] skips = null;
+	private int grcStatus = 0;
+	private int stepStatus = 0;
+	
+	private int autoManu = 0;
+	
+	private List<Integer> skipList = new ArrayList<Integer>();
+	
+	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
+	
+	//TODO: Need to change GrcMgr to support multiple instances
+	private GrcMgr grcMgr = GrcMgr.getInstance("UIEventActionGrc");
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -82,12 +115,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 						String actionsetkey = element;
 						
 						// build scsEnvId
-						String scsenvid = equipmentSelected.getStringValue(targetDataGridColumn);
+						scsenvid = equipmentSelected.getStringValue(targetDataGridColumnA);
 						
 						logger.info(className, function, "scsenvid[{}]", scsenvid);
 						
 						// build dbalias						
-						String dbalias = equipmentSelected.getStringValue(targetDataGridColumn2);
+						dbalias = equipmentSelected.getStringValue(targetDataGridColumnA2);
 						
 						logger.info(className, function, "dbalias[{}]", dbalias);
 						
@@ -99,18 +132,25 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						int [] iSkips = getSkips();
 						String skips = convertToStringSkips(iSkips);
+						
+						String startStep = "1";
+						if (element.equals("retry")) {
+							startStep = curstep;
+						} else if (element.equals("skip")) {
+							startStep = String.valueOf(curStep + 1);
+						}
 
 						// build key
-						String strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
-						String strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
-						String strKeyAbortGrc	= "grc"+strAbortGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
+						strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
+						strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
+						strKeyAbortGrc	= "grc"+strAbortGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
 						
 						logger.info(className, function, "strKeyPrepareGrc[{}]", strKeyPrepareGrc);
 						logger.info(className, function, "strKeyLaunchGrc[{}]", strKeyLaunchGrc);
 						logger.info(className, function, "strKeyAbortGrc[{}]", strKeyAbortGrc);
 						
 						logger.info(className, function, "executemode[{}]", executemode);
-						logger.info(className, function, "curstep[{}]", curstep);
+						logger.info(className, function, "startStep[{}]", startStep);
 						logger.info(className, function, "skipstep[{}]", skips);
 						
 						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
@@ -127,7 +167,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
 							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
 							parameter.put(ActionAttribute.OperationString5.toString(), executemode);
-							parameter.put(ActionAttribute.OperationString6.toString(), curstep);
+							parameter.put(ActionAttribute.OperationString6.toString(), startStep);
 							parameter.put(ActionAttribute.OperationString7.toString(), skips);
 							override.put(strLaunchGrc, parameter);
 						}
@@ -138,6 +178,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
 							override.put(strAbortGrc, parameter);
 						}
+						
+						// Set up callbacks before execute
+						setGrcCallbacks();
 
 						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 					}
@@ -167,12 +210,14 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						logger.info(className, function, "os2[{}]", os2);
 						
-						String autoManu = os2;
+						String autoManuStr = os2;
 						
-						if ( autoManu.equals("auto") ) {
-							autoMenu = GrcExecMode.Auto.getValue();
-						} else if ( autoManu.equals("manu") ) {
-							autoMenu = GrcExecMode.StopOnFailed.getValue();
+						if ( autoManuStr.equals("auto") ) {
+							autoManu = GrcExecMode.Auto.getValue();
+
+						} else if ( autoManuStr.equals("manu") ) {
+							autoManu = GrcExecMode.StopOnFailed.getValue();
+
 						} else {
 							logger.warn(className, function, "os2[{}] type IS UNKNOW", os2);
 						}
@@ -187,9 +232,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 					
 					logger.info(className, function, "Store Selected Row");
 					
-					if ( null != targetDataGrid ) {
+					if ( null != targetDataGridA ) {
 						
-						logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+						logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
 						
 						if ( null != obj1 ) {
 							if ( obj1 instanceof String ) {
@@ -197,10 +242,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 								
 								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
 
-								if ( datagridSelected.equals(targetDataGrid) ) {
+								if ( datagridSelected.equals(targetDataGridA) ) {
 									if ( null != obj2 ) {
 										if ( obj2 instanceof Equipment_i ) {
 											equipmentSelected = (Equipment_i) obj2;
+											
+											scsenvid = equipmentSelected.getStringValue(targetDataGridColumnA);
+											dbalias = equipmentSelected.getStringValue(targetDataGridColumnA2);
+											
+											// Reset GRC and Status
+											grcStatus = 0;											
+											readGrcCurStatus();
+											
 										} else {
 											equipmentSelected = null;
 											
@@ -217,34 +270,39 @@ public class UIWidgetSocControl extends UIWidget_i {
 							logger.warn(className, function, "obj1 IS NULL");
 						}
 					} else {
-						logger.warn(className, function, "targetDataGrid IS NULL");
+						logger.warn(className, function, "targetDataGridA IS NULL");
 					}
-
-				} else if ( os1.equals(GrcPointEvent.CurStatus.toString() ) ) {
+					
+				} else if ( os1.equals(DataGridEvent.ValueChange.toString() )) {
 					
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
+					Object obj4 = uiEventAction.getParameter(ViewAttribute.OperationObject4.toString());
 					
-					logger.info(className, function, "GrcPointUpdated CurStatus");
+					logger.info(className, function, "DataGrid ValueChange");
 	
-					if ( null != obj1 ) {
+					if ( null != obj1 && null != obj2 && null != obj3 && null != obj4 ) {
 						if ( obj1 instanceof String ) {
-							String curStatusStr = (String) obj1;
-							int curStatus = 1;
-							
-							logger.info(className, function, "curStatus=[{}]", curStatusStr);
-
-							curStatus = Integer.parseInt(curStatusStr);
-							logger.debug(className, function, "Current status [{}] received", curStatus);
-							
-							//TODO: Update Start Stop skip button state according to curStatus
+							String dataGrid = (String) obj1;
+							if (dataGrid.equals(targetDataGridB)) {
 								
-						} else {
-							logger.warn(className, function, "obj1 IS NOT TYPE OF String");
+								String label = (String)obj2;
+								Equipment_i eqp = (Equipment_i)obj3;
+								Boolean value = (Boolean)obj4;
+								
+								if (label.equals(targetDataGridColumnB)) {
+									Integer n = eqp.getNumberValue(targetDataGridColumnB2).intValue();
+									if (value) {
+										addStepToSkip(n);
+									} else {
+										removeStepToSkip(n);
+									}
+								}
+							}
 						}
-					} else {
-						logger.warn(className, function, "obj1 IS NULL");
 					}
-
+					
 				} else {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
@@ -276,13 +334,22 @@ public class UIWidgetSocControl extends UIWidget_i {
 		String strHeader = "header";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
-			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
-			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn2.toString(), strHeader);
+			targetDataGridA			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
+			targetDataGridColumnA	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
+			targetDataGridColumnA2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A2.toString(), strHeader);
+			targetDataGridB			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_B.toString(), strHeader);
+			targetDataGridColumnB	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B.toString(), strHeader);
+			targetDataGridColumnB2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B2.toString(), strHeader);
+			targetDataGridColumnB3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B3.toString(), strHeader);
 		}
-		
-		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+
+		logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
+		logger.info(className, function, "targetDataGridColumnA[{}]", targetDataGridColumnA);
+		logger.info(className, function, "targetDataGridColumnA2[{}]", targetDataGridColumnA2);
+		logger.info(className, function, "targetDataGridB[{}]", targetDataGridB);
+		logger.info(className, function, "targetDataGridColumnB[{}]", targetDataGridColumnB);
+		logger.info(className, function, "targetDataGridColumnB2[{}]", targetDataGridColumnB2);
+		logger.info(className, function, "targetDataGridColumnB3[{}]", targetDataGridColumnB3);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -341,20 +408,390 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
+	private void setGrcCallbacks() {
+		
+		setPrepareGrcResultCallback();
+		
+		setLaunchGrcResultCallback();
+		
+		setGrcStatusResultCallback();
+		
+		setStepStatusResultCallback();
+		
+		setStepResultCallback();
+		
+		setAbortGrcResultCallback();
+	}
+	
+	private void setPrepareGrcResultCallback() {
+		final String function = "setPrepareGrcResultCallback";
+		
+		logger.begin(className, function);
+		
+		Subject prepareGrcSubject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "prepareGrcSubject update");
+				JSONObject obj = this.subject.getState();
+				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
+				if (errorCodeObj != null) {
+					int errorCode = (int)errorCodeObj.doubleValue();
+					
+					if (errorCode != 0) {
+						JSONString errorMsgObj = obj.get("errorMessage").isString();
+						if (errorMsgObj != null) {
+							String errorMsg = errorMsgObj.stringValue();
+							logger.error(className, function, errorMsg);
+							
+							sendDisplayMessageEvent(errorMsg);
+						}
+					}
+				}
+			}
+			
+		};
+		observer.setSubject(prepareGrcSubject);
+		
+		String callback = "setPrepareGrcResult";
+		String key = strKeyPrepareGrc + callback;
+		grcMgr.setSubject(key, prepareGrcSubject);
+		
+		logger.end(className, function);
+	}
+	
+	private void setLaunchGrcResultCallback() {
+		final String function = "setLaunchGrcResultCallback";
+		
+		logger.begin(className, function);
+		
+		Subject launchGrcSubject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "launchGrcSubject update");
+				JSONObject obj = this.subject.getState();
+				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
+				if (errorCodeObj != null) {
+					int errorCode = (int)errorCodeObj.doubleValue();
+					
+					if (errorCode != 0) {
+						JSONString errorMsgObj = obj.get("errorMessage").isString();
+						if (errorMsgObj != null) {
+							String errorMsg = errorMsgObj.stringValue();
+							logger.error(className, function, errorMsg);
+							
+							sendDisplayMessageEvent(errorMsg);
+						}
+					}
+				}
+			}
+			
+		};
+		observer.setSubject(launchGrcSubject);
+		
+		String callback = "setLaunchGrcResult";
+		String key = strKeyLaunchGrc + callback;
+		grcMgr.setSubject(key, launchGrcSubject);
+		
+		logger.end(className, function);
+	}
+	
+	private void setGrcStatusResultCallback() {
+		final String function = "setGrcStatusResultCallback";
+		
+		logger.begin(className, function);
+		
+		Subject grcStatusSubject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "grcStatusSubject update");
+				JSONObject obj = this.subject.getState();
+				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
+				int errorCode = 0;
+				if (errorCodeObj != null) {
+					errorCode = (int)errorCodeObj.doubleValue();
+					
+					if (errorCode != 0) {
+						JSONString errorMsgObj = obj.get("errorMessage").isString();
+						if (errorMsgObj != null) {
+							String errorMsg = errorMsgObj.stringValue();
+							logger.error(className, function, errorMsg);
+							
+							sendDisplayMessageEvent(errorMsg);
+						}
+					}
+				}
+				
+				if (errorCode == 0) {
+					JSONNumber grcStatusObj = obj.get("grcStatus").isNumber();
+					if (grcStatusObj != null) {
+						String grcStatusStr = grcStatusObj.toString();
+	
+						sendGrcStatusEvent(grcStatusStr);
+						
+						int status = (int) grcStatusObj.doubleValue();
+						String actionsetkey = "GrcStatus_";
+						if (status == GrcExecStatus.Terminated.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Terminated.name();
+						} else if (status == GrcExecStatus.WaitForRun.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.WaitForRun.name();
+						} else if (status == GrcExecStatus.Initializing.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Initializing.name();
+						} else if (status == GrcExecStatus.Running.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Running.name();
+						} else if (status == GrcExecStatus.Waiting.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Waiting.name();
+						} else if (status == GrcExecStatus.Stopped.getValue()) {
+							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
+							} else {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+							}
+						} else if (status == GrcExecStatus.Aborted.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
+						} else if (status == GrcExecStatus.Suspended.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Suspended.name();
+						} else if (status == GrcExecStatus.Resumed.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Resumed.name();
+						}
+						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
+					}
+				}
+			}
+			
+		};
+		observer.setSubject(grcStatusSubject);
+		
+		String callback = "setGrcStatusResult";
+		String key = strKeyLaunchGrc + callback;
+		grcMgr.setSubject(key, grcStatusSubject);
+		
+		logger.end(className, function);
+	}
+	
+	private void setStepStatusResultCallback() {
+		final String function = "setStepStatusResultCallback";
+		
+		logger.begin(className, function);
+		
+		Subject stepStatusSubject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "stepStatusSubject update");
+				JSONObject obj = this.subject.getState();
+				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
+				int errorCode = 0;
+				if (errorCodeObj != null) {
+					errorCode = (int)errorCodeObj.doubleValue();
+					
+					if (errorCode != 0) {
+						JSONString errorMsgObj = obj.get("errorMessage").isString();
+						if (errorMsgObj != null) {
+							String errorMsg = errorMsgObj.stringValue();
+							logger.error(className, function, errorMsg);
+							
+							sendDisplayMessageEvent(errorMsg);
+						}
+					}
+				}
+				
+				if (errorCode == 0) {
+					JSONNumber stepStatusObj = obj.get("stepStatus").isNumber();
+					if (stepStatusObj != null) {
+						String stepStatusStr = stepStatusObj.toString();
+						
+						sendStepStatusEvent(stepStatusStr);
+						
+						stepStatus = (int)stepStatusObj.doubleValue();
+					}
+				}
+				
+				sendReloadColumnDataEvent();
+			}
+
+		};
+		observer.setSubject(stepStatusSubject);
+		
+		String callback = "setStepStatusResult";
+		String key = strKeyLaunchGrc + callback;
+		grcMgr.setSubject(key, stepStatusSubject);
+		
+		logger.end(className, function);
+	}
+	
+	private void setStepResultCallback() {
+		final String function = "setStepResultCallback";
+		
+		logger.begin(className, function);
+		
+		Subject stepSubject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "stepSubject update");
+				JSONObject obj = this.subject.getState();
+				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
+				int errorCode = 0;
+				if (errorCodeObj != null) {
+					errorCode = (int)errorCodeObj.doubleValue();
+					
+					if (errorCode != 0) {
+						JSONString errorMsgObj = obj.get("errorMessage").isString();
+						if (errorMsgObj != null) {
+							String errorMsg = errorMsgObj.stringValue();
+							logger.error(className, function, errorMsg);
+							
+							sendDisplayMessageEvent(errorMsg);
+						}
+					}
+				}
+				
+				if (errorCode == 0) {
+					JSONNumber stepObj = obj.get("step").isNumber();
+					if (stepObj != null) {
+						String stepStr = stepObj.toString();
+						
+						// Ignore step 0
+						//if (!stepStr.equals("0")) {
+							sendGrcStepEvent(stepStr);
+						//}
+							
+						curStep = (int)stepObj.doubleValue();
+					}
+				}
+				
+				sendReloadColumnDataEvent();
+			}
+			
+		};
+		observer.setSubject(stepSubject);
+		
+		String callback = "setStepResult";
+		String key = strKeyLaunchGrc + callback;
+		grcMgr.setSubject(key, stepSubject);
+		
+		logger.end(className, function);
+	}
+	
+	private void setAbortGrcResultCallback() {
+		final String function = "setAbortGrcCallback";
+		
+		logger.begin(className, function);
+		
+		Subject abortGrcSubject = new Subject();
+		Observer observer = new Observer() {
+
+			@Override
+			public void setSubject(Subject subject) {
+				this.subject = subject;	
+				this.subject.attach(this);
+			}
+
+			@Override
+			public void update() {
+				logger.debug(className, function, "abortGrcSubject update");
+				JSONObject obj = this.subject.getState();
+				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
+				if (errorCodeObj != null) {
+					int errorCode = (int)errorCodeObj.doubleValue();
+					
+					if (errorCode != 0) {
+						JSONString errorMsgObj = obj.get("errorMessage").isString();
+						if (errorMsgObj != null) {
+							String errorMsg = errorMsgObj.stringValue();
+							logger.error(className, function, errorMsg);
+							
+							sendDisplayMessageEvent(errorMsg);
+						}
+					}
+				}
+				readGrcCurStatus();
+			}
+			
+		};
+		observer.setSubject(abortGrcSubject);
+		
+		String callback = "setAbortGrcResult";
+		String key = strKeyAbortGrc + callback;
+		grcMgr.setSubject(key, abortGrcSubject);
+		
+		logger.end(className, function);
+	}
+	
+	protected void removeStepToSkip(Integer n) {
+		final String function = "removeStepToSkip";
+		logger.debug(className, function, "remove [{}] from skip list", n);
+		if (skipList.contains(n)) {
+			skipList.remove(n);
+			logger.debug(className, function, "[{}] removed from skip list", n);
+		}
+	}
+
+	protected void addStepToSkip(Integer n) {
+		final String function = "addStepToSkip";
+		logger.debug(className, function, "add [{}] to skip list", n);
+		if (!skipList.contains(n)) {
+			skipList.add(n);
+			logger.debug(className, function, "[{}] added to skip list", n);
+		}
+	}
+
 	private int getAutoManuMode() {
 		final String function = "getAutoManuMode";
 		logger.begin(className, function);
 		int result = -1;
-		result = autoMenu;
+		result = autoManu;
 		logger.end(className, function);
-		return result;		
+		return result;
 	}
 	
 	private int getCurStep() {
 		final String function = "getCurStep";
 		logger.begin(className, function);
-		int result = -1;
-		result = selectedStep;
+		int result = 1;
+		
+		if (curStep > 0) {
+			result = curStep;
+		}
 		logger.end(className, function);
 		return result;
 	}
@@ -379,13 +816,170 @@ public class UIWidgetSocControl extends UIWidget_i {
 		final String function = "getSkips";
 		logger.begin(className, function);
 		int [] skips = null;
-		if ( null == this.skips ) {
-			skips = new int[]{};
+		if ( null == this.skipList || skipList.isEmpty() ) {
+			skips = new int []{};
 		} else {
-			skips = this.skips;
+			Collections.sort(skipList);
+			Integer [] a = skipList.toArray(new Integer[skipList.size()]);
+			skips = new int [skipList.size()];
+			for (int i=0; i<a.length; i++) {
+				skips[i] = a[i];
+			}
+		}
+		
+		if (logger.isDebugEnabled()) {
+			String skipStepsStr = "";
+			for (int i=0; i<skips.length; i++) {
+				skipStepsStr += skips[i] + " ";
+			}
+			logger.debug(className, function, "skip steps=[{}]", skipStepsStr);
 		}
 		logger.end(className, function);
 		return skips;
 	}
 
+	private EventBus getEventBus() {
+		return this.eventBus;
+	}
+	
+//	private void sendReloadDataEvent() {
+//		final String function = "sendReloadDataEvent";
+//		UIEventAction reloadDataEvent = new UIEventAction();
+//		if (reloadDataEvent != null) {
+//			reloadDataEvent.setParameter(ViewAttribute.OperationString1.toString(), DataGridEvent.ReloadFromDataSource.toString());
+//			reloadDataEvent.setParameter(ViewAttribute.OperationObject1.toString(), targetDataGridB);
+//			reloadDataEvent.setParameter(ViewAttribute.OperationObject2.toString(), scsenvid);
+//			reloadDataEvent.setParameter(ViewAttribute.OperationObject3.toString(), dbalias);
+//			getEventBus().fireEvent(reloadDataEvent);
+//			logger.debug(className, function, "fire UIEventAction reloadDataEvent");
+//		}
+//	}
+	
+	private void sendReloadColumnDataEvent() {
+		final String function = "sendReloadColumnDataEvent";
+		UIEventAction reloadDataEvent = new UIEventAction();
+		if (reloadDataEvent != null) {
+			reloadDataEvent.setParameter(ViewAttribute.OperationString1.toString(), DataGridEvent.ReloadColumnData.toString());
+			reloadDataEvent.setParameter(ViewAttribute.OperationObject1.toString(), targetDataGridB);
+			reloadDataEvent.setParameter(ViewAttribute.OperationObject2.toString(), targetDataGridColumnB3);
+			getEventBus().fireEvent(reloadDataEvent);
+			logger.debug(className, function, "fire UIEventAction reloadDataEvent");
+		}
+	}
+
+	private void sendDisplayMessageEvent(String msg) {
+		final String function = "sendDisplayMessageEvent";
+		UIEventAction displayMessageEvent = new UIEventAction();
+		if (displayMessageEvent != null) {
+			displayMessageEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.DisplayMessage.toString());
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject3.toString(), msg);
+			getEventBus().fireEvent(displayMessageEvent);
+			logger.debug(className, function, "fire UIEventAction displayMessageEvent");
+		}
+	}
+	
+	private void sendGrcStatusEvent(String statusStr) {
+		final String function = "sendGrcStatusEvent";
+		
+		UIEventAction grcStatusEvent = new UIEventAction();
+		if (grcStatusEvent != null) {
+			grcStatusEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.CurStatus.toString());
+			grcStatusEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
+			grcStatusEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
+			grcStatusEvent.setParameter(ViewAttribute.OperationObject3.toString(), statusStr);
+			getEventBus().fireEvent(grcStatusEvent);
+			logger.debug(className, function, "fire UIEventAction grcStatusEvent");
+		}
+	}
+	
+	private void sendGrcStepEvent(String stepStr) {
+		final String function = "sendGrcStepEvent";
+		
+		UIEventAction grcStepEvent = new UIEventAction();
+		if (grcStepEvent != null) {
+			grcStepEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.CurStep.toString());
+			grcStepEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
+			grcStepEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
+			grcStepEvent.setParameter(ViewAttribute.OperationObject3.toString(), stepStr);
+			getEventBus().fireEvent(grcStepEvent);
+			logger.debug(className, function, "fire UIEventAction grcStepEvent");
+		}
+	}
+	
+	private void sendStepStatusEvent(String stepStatusStr) {
+		final String function = "sendStepStatusEvent";
+		UIEventAction stepStatusEvent = new UIEventAction();
+		if (stepStatusEvent != null) {
+			stepStatusEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.StepStatus.toString());
+			stepStatusEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
+			stepStatusEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
+			stepStatusEvent.setParameter(ViewAttribute.OperationObject3.toString(), stepStatusStr);
+			getEventBus().fireEvent(stepStatusEvent);
+			logger.debug(className, function, "fire UIEventAction stepStatusEvent");
+		}
+	}
+	
+	private void readGrcCurStatus() {
+		final String function = "readGrcCurStatus";
+		
+		logger.begin(className, function);
+		
+		String clientKey = function + "_" + scsenvid + "_" + dbalias;
+		String [] dbaddresses = new String [1];
+		
+		dbaddresses[0] = "<alias>" + dbalias + ".curstatus";
+		// Use multiRead to read GRC curstatus
+		rtdb.multiReadValue(clientKey, scsenvid, dbaddresses, new MultiReadResult() {
+
+			@Override
+			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+				final String function = "setReadResult";
+
+				if (errorCode != 0) {
+					logger.debug(className, function, "readResult errorCode=[{}]");
+					sendDisplayMessageEvent(errorMessage);
+				} else {
+					if (values != null) {
+						String curStatusStr = values[0];
+						sendGrcStatusEvent(curStatusStr);
+						
+						grcStatus = Integer.parseInt(curStatusStr);
+						String actionsetkey = "GrcStatus_";
+						if (grcStatus == GrcExecStatus.Terminated.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Terminated.name();
+						} else if (grcStatus == GrcExecStatus.WaitForRun.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.WaitForRun.name();
+						} else if (grcStatus == GrcExecStatus.Initializing.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Initializing.name();
+						} else if (grcStatus == GrcExecStatus.Running.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Running.name();
+						} else if (grcStatus == GrcExecStatus.Waiting.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Waiting.name();
+						} else if (grcStatus == GrcExecStatus.Stopped.getValue()) {
+							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
+							} else {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+							}						
+						} else if (grcStatus == GrcExecStatus.Aborted.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
+						} else if (grcStatus == GrcExecStatus.Suspended.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Suspended.name();
+						} else if (grcStatus == GrcExecStatus.Resumed.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Resumed.name();
+						}
+						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						
+						logger.debug(className, function, "readResult curStatus=[{}]", curStatusStr);
+					}
+				}
+			}
+
+		});
+		
+		logger.end(className, function);
+	}
 }

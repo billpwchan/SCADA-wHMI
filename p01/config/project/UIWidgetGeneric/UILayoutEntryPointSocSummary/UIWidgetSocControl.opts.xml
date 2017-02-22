@@ -2,15 +2,23 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<TargetDataGrid>UIDataGridFomatterSOC</TargetDataGrid>
-		<TargetDataGridColumn>ScsEnvID</TargetDataGridColumn>
-		<TargetDataGridColumn2>Alias</TargetDataGridColumn2>
+		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
+		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>
+		<TargetDataGridColumn_A2>Alias</TargetDataGridColumn_A2>
+		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
+		<TargetDataGridColumn_B>Disable</TargetDataGridColumn_B>
+		<TargetDataGridColumn_B2>Step</TargetDataGridColumn_B2>
+		<TargetDataGridColumn_B3>Status</TargetDataGridColumn_B3>
 	</header>
 	
 	<actionset key="init">
 	</actionset>
 	
 	<actionset key="set_default_action">
+		<OperationString1>set_start_disable</OperationString1>
+		<OperationString2>set_stop_disable</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
 	</actionset>
 	
 	<actionset key="RowSelected">
@@ -35,8 +43,43 @@
 	
 	<actionset key="start">
 		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirmLaunchGrc</OperationString1>
+	</actionset>
+	
+	<action key="confirmLaunchGrc">
+		<OperationType>action</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_YESNO</OperationString2>
+		<OperationString3>&amp;UIWidgetSocControl_title_ask_launchgrc</OperationString3>
+		<OperationString4>&amp;UIWidgetSocControl_ask_launhgrc</OperationString4>
+		<OperationString5>LaunchGrcFromStep1</OperationString5>
+	</action>
+	
+	<actionset key="LaunchGrcFromStep1">
+		<OperationType>actionsetkey</OperationType>
 		<OperationString1>PrepareGrc</OperationString1>
 		<OperationString2>LaunchGrc</OperationString2>
+		<OperationString3>set_start_disable</OperationString3>
+		<OperationString4>set_stop_up</OperationString4>
+		<OperationString4>set_retry_disable</OperationString4>
+		<OperationString4>set_skip_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="LaunchGrcFromCurStep">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>PrepareGrc</OperationString1>
+		<OperationString2>LaunchGrc</OperationString2>
+		<OperationString3>set_start_disable</OperationString3>
+		<OperationString4>set_stop_up</OperationString4>
+	</actionset>
+	
+	<actionset key="LaunchGrcFromNextStep">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>PrepareGrc</OperationString1>
+		<OperationString2>LaunchGrc</OperationString2>
+		<OperationString3>set_start_disable</OperationString3>
+		<OperationString4>set_stop_up</OperationString4>
 	</actionset>
 	
 	<action key="PrepareGrc">
@@ -53,10 +96,9 @@
 		<OperationString1>LaunchGrc</OperationString1>
 		<OperationString2>key</OperationString2>
 		<OperationString3>alias</OperationString3>
-		
 		<OperationString4>2</OperationString4>
 		<OperationString5>1</OperationString5>
-		<OperationString6></OperationString6>
+		<OperationString6>1</OperationString6>
 	</action>
 
 	<actionset key="stop">
@@ -70,6 +112,112 @@
 		<OperationString1>AbortGrc</OperationString1>
 		<OperationString2>key</OperationString2>
 		<OperationString3>alias</OperationString3>
+	</action>
+	
+	<actionset key="retry">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>LaunchGrc</OperationString1>
+		<OperationString2>set_retry_disable</OperationString2>
+		<OperationString3>set_skip_disable</OperationString3>
+		<OperationString4>set_start_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="skip">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>LaunchGrc</OperationString1>
+		<OperationString2>set_retry_disable</OperationString2>
+		<OperationString3>set_skip_disable</OperationString3>
+		<OperationString4>set_start_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="GrcStatus_Terminated">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_up</OperationString1>
+		<OperationString2>set_stop_disable</OperationString2>
+	</actionset>
+	
+	<actionset key="GrcStatus_Stopped">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_up</OperationString1>
+		<OperationString2>set_stop_disable</OperationString2>
+	</actionset>
+	
+	<actionset key="GrcStatus_Stopped_Manu_Failed">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_retry_up</OperationString1>
+		<OperationString2>set_skip_up</OperationString2>
+		<OperationString3>set_start_up</OperationString3>
+		<OperationString4>set_stop_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="GrcStatus_Aborted">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_up</OperationString1>
+		<OperationString2>set_stop_disable</OperationString2>
+	</actionset>
+	
+	<action key="set_start_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>start</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_start_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>start</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	<action key="set_stop_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>stop</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_stop_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>stop</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	<action key="set_retry_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>retry</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_retry_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>retry</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	<action key="set_skip_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>skip</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_skip_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>skip</OperationString2>
+		<OperationString3>Up</OperationString3>
 	</action>
 
 </data-set>

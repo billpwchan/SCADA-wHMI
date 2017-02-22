@@ -1,9 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -15,21 +13,14 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.ParameterName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsPollerAccess;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.UnSubscribeResult;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class UIWidgetSocGrcPoint extends UIWidget_i {
 
@@ -41,26 +32,7 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
-	
-	private String targetDataGridColumn = "";
-	private String targetDataGridColumn2 = "";
-	private String targetDataGridColumn3 = "";
-	private String targetDataGrid		= "";
-	
-	private String datagridSelected = null;
-	private Equipment_i equipmentSelected = null;
-	
-	private String soccard = null;
-	private String scsEnvId = null;
-	private String grcdbaddress = null;
-	
-	// Generate unique widget ID as scs request key
-	private String widgetId = UUIDWrapper.getUUID();
-	private String subscriptionId = null;
-	
-	// GRC point attributes defined in SCADAsoft DB (excluding brctable)
-	private String [] grcPointAttributes = { "name", "label", "initcond", "lexectime", "inhibflag", "curstep", "curstatus", "type" };
-	
+
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
 		@Override
@@ -82,59 +54,86 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 			logger.info(className, function, "os1["+os1+"]");
 			
 			if ( null != os1 ) {
-				if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
-					
+				if ( os1.equals(GrcPointEvent.CurStatus.toString())) {
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 					
-					logger.info(className, function, "Store Selected Row");
-					
-					if ( null != targetDataGrid ) {
-						
-						logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
-						
-						if ( null != obj1 ) {
-							if ( obj1 instanceof String ) {
-								datagridSelected	= (String) obj1;
-								
-								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
-
-								if ( datagridSelected.equals(targetDataGrid) ) {
-									if ( null != obj2 ) {
-										if ( obj2 instanceof Equipment_i ) {
-											equipmentSelected = (Equipment_i) obj2;
-											
-											soccard = equipmentSelected.getStringValue(targetDataGridColumn);
-											scsEnvId = equipmentSelected.getStringValue(targetDataGridColumn2);
-											grcdbaddress = equipmentSelected.getStringValue(targetDataGridColumn3);
-											
-											logger.info(className, function, "soccard[{}]", soccard);
-											
-											// UnSubscribe to current grcpoint
-											if (subscriptionId != null) {
-												unSubscribeGrcPoint();
-											}
-											
-											// Subscribe to soccard grcpoint
-											subscribeGrcPoint(grcdbaddress);
-											
-										} else {
-											equipmentSelected = null;
-
-											logger.warn(className, function, "obj2 IS NOT TYPE OF Equipment_i");
-										}
-									} else {
-										logger.warn(className, function, "obj2 IS NULL");
-									}
-								}
-							} else {
-								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
-							}
+					logger.info(className, function, "GRC Current Status");
+										
+					if ( null != obj1 && null != obj2 && null != obj3) {
+						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
+							String scsenvid = (String)obj1;
+							String dbalias = (String)obj2;
+							String curStatusStr = (String)obj3;
+							
+							displayCurStatus(curStatusStr);
 						} else {
-							logger.warn(className, function, "obj1 IS NULL");
+							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
 						}
 					} else {
-						logger.warn(className, function, "targetDataGrid IS NULL");
+						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+					}
+
+				} else if ( os1.equals(GrcPointEvent.CurStep.toString())) {
+					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
+					
+					logger.info(className, function, "GRC Current Step");
+										
+					if ( null != obj1 && null != obj2 && null != obj3) {
+						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
+							String scsenvid = (String)obj1;
+							String dbalias = (String)obj2;
+							String curStepStr = (String)obj3;
+							
+							displayCurStep(curStepStr);
+						} else {
+							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+						}
+					} else {
+						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+					}
+				} else if ( os1.equals(GrcPointEvent.StepStatus.toString())) {
+					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
+					
+					logger.info(className, function, "Step Status");
+										
+					if ( null != obj1 && null != obj2 && null != obj3) {
+						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
+							String scsenvid = (String)obj1;
+							String dbalias = (String)obj2;
+							String stepStatusStr = (String)obj3;
+							
+							displayStepStatus(stepStatusStr);
+						} else {
+							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+						}
+					} else {
+						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
+					}
+				} else if ( os1.equals(GrcPointEvent.DisplayMessage.toString())) {
+					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
+					
+					logger.info(className, function, "Display Message");
+										
+					if ( null != obj1 && null != obj2 && null != obj3) {
+						if ( obj1 instanceof String && obj2 instanceof String && obj3 instanceof String) {
+							String scsenvid = (String)obj1;
+							String dbalias = (String)obj2;
+							String message = (String)obj3;
+							
+							displayMessage(message);
+						} else {
+							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
+						}
+					} else {
+						logger.warn(className, function, "obj1 or obj2 or obj3 IS NULL");
 					}
 				} else {
 					// General Case
@@ -164,18 +163,13 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 
-		String strUIWidgetGeneric = "UIWidgetGeneric";
-		String strHeader = "header";
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
-		if ( null != dictionariesCache ) {
-			targetDataGridColumn	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn.toString(), strHeader);
-			targetDataGridColumn2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn2.toString(), strHeader);
-			targetDataGridColumn3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn3.toString(), strHeader);
-			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid.toString(), strHeader);
-		}
-		
-		logger.info(className, function, "targetDataGridColumn[{}]", targetDataGridColumn);
-		logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+//		String strUIWidgetGeneric = "UIWidgetGeneric";
+//		String strHeader = "header";
+//		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+//		if ( null != dictionariesCache ) {
+//			targetDataGridColumnA	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
+//			targetDataGridA			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
+//		}
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -234,98 +228,21 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	private void subscribeGrcPoint(String dbaddress) {
-		final String function = "subscribeGrcPoint";
-		
-		logger.begin(className, function);
-		
-		String key = widgetId + "_" + function + "_" + dbaddress;
-		String groupName = key;
-		int periodMS = 0;
-		
-		String [] dataFields = new String [grcPointAttributes.length];
-		for (int i=0; i<grcPointAttributes.length; i++) {
-			dataFields[i] = "<alias>" + dbaddress + "." + grcPointAttributes[i];
-		}
-		
-		SubscribeResult subResult = new SubscribeResult() {
-
-			@Override
-			public void update() {
-				final String className ="SubscribeResult";
-				final String function ="update";
-				int curStepIdx = -1;
-				int curStatusIdx = -1;
-				
-				logger.debug(className, function, "subUUID = [{}]", getSubUUID());
-				subscriptionId = getSubUUID();
-					
-				logger.debug(className, function, "pollerState = [{}]", getPollerState());
-				
-				final String [] dbaddresses = getDbAddresses();
-				for (int j=0; j<dbaddresses.length; j++) {
-					logger.debug(className, function, "dbaddr[{}] = [{}]", j, dbaddresses[j]);
-					
-					if (dbaddresses[j].endsWith("curstep")) {
-						curStepIdx = j;
-					} else if (dbaddresses[j].endsWith("curstatus")) {
-						curStatusIdx = j;
-					}
-				}
-				
-				final String [] values = getValues();
-				for (int k=0; k<values.length; k++) {
-					logger.debug(className, function, "value[{}] = [{}]", k, values[k]);
-					
-					if (k == curStepIdx) {
-						uiWidgetGeneric.setWidgetValue("grccurstepvalue", values[k]);
-
-						UIEventAction updateCurStepAction = new UIEventAction();
-						if (updateCurStepAction != null) {
-							updateCurStepAction.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.CurStep.toString());
-							updateCurStepAction.setParameter(ViewAttribute.OperationObject1.toString(), values[k]);
-							getEventBus().fireEvent(updateCurStepAction);
-							logger.debug(className, function, "fire UIEventAction updateCurStepAction");
-						}
-					} else if (k == curStatusIdx) {
-						String valueLabel = "&GrcCurStatus" + values[k];
-						uiWidgetGeneric.setWidgetValue("grccurstatusvalue", Translation.getWording(valueLabel));
-						
-						UIEventAction updateCurStatusAction = new UIEventAction();
-						if (updateCurStatusAction != null) {
-							updateCurStatusAction.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.CurStatus.toString());
-							updateCurStatusAction.setParameter(ViewAttribute.OperationObject1.toString(), values[k]);
-							getEventBus().fireEvent(updateCurStatusAction);
-							logger.debug(className, function, "fire UIEventAction updateCurStatusAction");
-						}
-					}
-				}
-			}
-		};
-		WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
-		poller.subscribe(key, scsEnvId, groupName, dataFields, periodMS, subResult);
-
-		logger.end(className, function);
+	void displayMessage(String message) {
+		uiWidgetGeneric.setWidgetValue("grcmessagevalue", message);
 	}
 
-	
-	private void unSubscribeGrcPoint() {
-		final String function = "unSubscribeGrcPoint";
-		
-		logger.begin(className, function);
-		
-		String key = widgetId + "_" + function;
-		String groupName = key;
-
-		UnSubscribeResult unsubResult = new UnSubscribeResult();
-		
-		WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
-		poller.unSubscribe(key, scsEnvId, groupName, subscriptionId, unsubResult);
-		
-		logger.end(className, function);
+	void displayCurStep(String stepStr) {
+		uiWidgetGeneric.setWidgetValue("grccurstepvalue", stepStr);
 	}
 	
-	private EventBus getEventBus() {
-		return this.eventBus;
+	void displayCurStatus(String statusStr) {
+		String translatedGrcCurStatus = "&grcCurStatus" + statusStr;
+		uiWidgetGeneric.setWidgetValue("grccurstatusvalue", translatedGrcCurStatus);
+	}
+	
+	void displayStepStatus(String stepStatusStr) {
+		String translatedStepStatus = "&grcStepStatus" + stepStatusStr;
+		uiWidgetGeneric.setWidgetValue("grcstepstatusvalue", translatedStepStatus);
 	}
 }

@@ -8,4 +8,8 @@ public interface IDataGridDataSource {
 	void loadData(String scsEnvId, String dbaddress);
 	
 	void disconnect();
+
+	void resetColumnData(String columnLabel, String columnType);
+	
+	void reloadColumnData(String columnLabel, String columnType);
 }

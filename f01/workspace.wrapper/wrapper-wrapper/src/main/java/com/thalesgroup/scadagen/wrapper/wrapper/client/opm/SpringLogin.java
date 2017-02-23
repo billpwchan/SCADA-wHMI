@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -63,6 +64,9 @@ public class SpringLogin {
         inlineLabel.addStyleName("project-gwt-inlinelabel-gwslogin-connecting");
         
         horizontalPanel.add(inlineLabel);
+        
+        // Fix the Chrome "Form submission canceled because the form is not connected"
+        RootLayoutPanel.get().add(form);
         
         logger.end(className, function);
 	}

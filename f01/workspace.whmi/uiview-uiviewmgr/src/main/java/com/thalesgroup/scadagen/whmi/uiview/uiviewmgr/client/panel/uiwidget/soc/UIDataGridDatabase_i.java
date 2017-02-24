@@ -12,4 +12,5 @@ public interface UIDataGridDatabase_i {
 	int getColumnCount();
 	String [] getColumnLabels();
 	String [] getColumnTypes();
+	int [] getColumnTranslation();
 }

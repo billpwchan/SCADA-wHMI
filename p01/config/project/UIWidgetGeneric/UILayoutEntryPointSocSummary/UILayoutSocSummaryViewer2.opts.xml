@@ -6,9 +6,10 @@
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
 		<DataGrid>UIDataGridFormatterSOCDetails</DataGrid>
-		<DataGridColumnsType>Number,String,String,Number,String,Number,Number,Boolean</DataGridColumnsType>
+		<DataGridColumnsType>Number,String,String,String,String,Number,Number,Boolean</DataGridColumnsType>
 		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Equipment,Reserved,TagStatus,Disable</DataGridColumnsLabel>
-		<DataGridColumnsWidth>50,200,200,80,200,80,80,80</DataGridColumnsWidth>
+		<DataGridColumnsWidth>50,200,200,150,200,80,80,80</DataGridColumnsWidth>
+		<DataGridColumnsTranslation>0,0,0,1,0,0,0,0</DataGridColumnsTranslation>
 		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardDetail.xml</DataGridOptsXMLFile>
 		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
 		<DataGridPageSize>10</DataGridPageSize>

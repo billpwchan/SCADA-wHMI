@@ -166,7 +166,7 @@ public class SocCardList implements IDataGridDataSource {
 	}
 	
 	@Override
-	public void reloadColumnData(String columnLabel, String columnType) {
+	public void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation) {
 		
 	}
 

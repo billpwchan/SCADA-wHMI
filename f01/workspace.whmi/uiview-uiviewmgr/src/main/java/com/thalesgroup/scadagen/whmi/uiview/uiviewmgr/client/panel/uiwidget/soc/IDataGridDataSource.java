@@ -11,5 +11,5 @@ public interface IDataGridDataSource {
 
 	void resetColumnData(String columnLabel, String columnType);
 	
-	void reloadColumnData(String columnLabel, String columnType);
+	void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation);
 }

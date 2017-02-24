@@ -6,16 +6,13 @@
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
 		<DataGrid>UIDataGridFormatterSOCDetails</DataGrid>
-		<!--
-		<DataGridColumnsType>Number,String,String,String,String,String,String,Boolean</DataGridColumnsType>
-		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Reserved,PTW,LR,Disable</DataGridColumnsLabel>
-		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
-		-->
-
 		<DataGridColumnsType>Number,String,String,Number,String,Number,Number,Boolean</DataGridColumnsType>
 		<DataGridColumnsLabel>Step,EquipmentLabel,Action,Status,Equipment,Reserved,TagStatus,Disable</DataGridColumnsLabel>
-		<DataGridColumnsWidth>80,80,80,80,80,80,80,80</DataGridColumnsWidth>
+		<DataGridColumnsWidth>50,200,200,80,200,80,80,80</DataGridColumnsWidth>
 		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardDetail.xml</DataGridOptsXMLFile>
+		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
+		<DataGridPageSize>10</DataGridPageSize>
+		<DataGridFastForwardRows>30</DataGridFastForwardRows>
 
 		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
 		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>
@@ -37,6 +34,68 @@
 	<action key="RowSelected">
 		<SenderOperation>event</SenderOperation>
 		<OperationString1>RowSelected</OperationString1>
+	</action>
+	
+	<!-- Update Pager Value -->
+	<actionset key="PagerValueChanged_PageStart">
+		<OperationString1>PagerValueChanged_PageStart</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_PageStart">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetSocSummaryPager2</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_EndIndex">
+		<OperationString1>PagerValueChanged_EndIndex</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_EndIndex">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetSocSummaryPager2</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_Exact">
+		<OperationString1>PagerValueChanged_Exact</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_Exact">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetSocSummaryPager2</OperationElement>
+	</action>
+	
+	<!-- Update Pager Button -->
+	<actionset key="PagerButtonChanged_HasPreviousPage">
+		<OperationString1>PagerButtonChanged_HasPreviousPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasPreviousPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetSocSummaryPager2</OperationElement>
+		<OperationString1>PagerButtonChanged_HasPreviousPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasNextPage">
+		<OperationString1>PagerButtonChanged_HasNextPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasNextPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetSocSummaryPager2</OperationElement>
+		<OperationString1>PagerButtonChanged_HasNextPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasFastForwardPage">
+		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasFastForwardPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetSocSummaryPager2</OperationElement>
+		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
+		<OperationString2>false</OperationString2>
 	</action>
 	
 </data-set>

@@ -7,6 +7,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.RowStyles;
@@ -31,6 +32,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.Equipment_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridDatabase;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.UIDataGridFormatter_i;
@@ -40,6 +42,9 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandl
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class UIWidgetDataGrid extends UIWidget_i {
@@ -82,7 +87,12 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	
 	protected static final DataGrid.Resources GRID_RESOURCES = GWT.create(IGenericDataGridView.Resources.class);
 
-	protected int pageSize = 200;
+	private String strDataGridPagerName = null;
+	private String strDataGridFastForwardRows = null;
+
+	protected int pageSize = 20;
+	protected int fastForwardRows = 60;
+	private SCADAgenPager pager = null;
 	
 	private String scsEnvIdsStr = null;
 	
@@ -123,6 +133,10 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //				logger.info(className, function, "os2[{}]", os2);
 //				logger.info(className, function, "os3[{}]", os3);
 //				logger.info(className, function, "os4[{}]", os4);
+				
+				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+				
+				logger.info(className, function, "oe[{}] element[{}]", oe, element);
 				
 				if ( null != os1 ) {
 					if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -277,11 +291,50 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						} else {
 							logger.warn(className, function, "strDataGrid IS NULL");
 						}
+					} else if ( oe.equals(element) ) {
+					
+						if ( null != pager ) {
+							
+							if ( pager instanceof SCADAgenPager ) {
+								
+								SCADAgenPager simplePager = (SCADAgenPager)pager;
+								
+								if ( os1.equals(ViewerViewEvent.FirstPageSelected.toString()) ) {
+									
+									simplePager.firstPage();
+									
+								}
+								else
+								if ( os1.equals(ViewerViewEvent.PreviousPageSelected.toString()) ) {
+									
+									simplePager.previousPage();
+									
+								}
+								else
+								if ( os1.equals(ViewerViewEvent.NextPageSelected.toString()) ) {
+									
+									simplePager.nextPage();
+									
+								}
+								else
+								if ( os1.equals(ViewerViewEvent.LastPageSelected.toString()) ) {
+									
+									simplePager.lastPage();
+
+								}
+								else
+								if ( os1.equals(ViewerViewEvent.FastForwardPageSelected.toString()) ) {
+									
+									simplePager.fastForwardPage();
+
+								}
+							} else {
+								logger.warn(className, function, "pager instanceof SimplePager IS NOT");
+							}
+						}
 					
 					} else {
 						// General Case
-						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
-						
 						logger.info(className, function, "oe ["+oe+"]");
 						logger.info(className, function, "os1["+os1+"]");
 						
@@ -322,7 +375,9 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
 			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
 			strDataGridOptsXMLFile 			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridOptsXMLFile.toString(), strHeader);
+			strDataGridPagerName		 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPagerName.toString(), strHeader);
 			strDataGridPageSize			 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPageSize.toString(), strHeader);
+			strDataGridFastForwardRows		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridFastForwardRows.toString(), strHeader);
 
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 			targetDataGridColumn1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
@@ -338,6 +393,9 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
 		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
 		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
+		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
+		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
+		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
 		
 		logger.debug(className, function, "targetDataGrid [{}]", targetDataGrid);
 		logger.debug(className, function, "targetDataGridColumn1 [{}]", targetDataGridColumn1);
@@ -410,6 +468,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		
 		uiEventActionProcessor_i.executeActionSetInit();
 		
+		// Add pager only after uiEventActionProcessor_i is created
+		if (strDataGridPagerName != null && !strDataGridPagerName.isEmpty()) {
+			addPager();
+		}
+		
 		logger.end(className, function);
 	}
 	
@@ -432,7 +495,9 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
 		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
 		logger.info(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
-		logger.info(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
+		logger.info(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
+		logger.info(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
+		logger.info(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
 		
 		strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
 		strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
@@ -445,6 +510,16 @@ public class UIWidgetDataGrid extends UIWidget_i {
 				}
 			} catch (NumberFormatException e) {
 				logger.warn(className, function, "NumberFormatException for PageSize [{}]", strDataGridPageSize);
+			}
+		}
+		if (strDataGridFastForwardRows != null) {
+			try {
+				int ffrows = Integer.parseInt(strDataGridFastForwardRows);
+				if (ffrows > 0) {
+					fastForwardRows = ffrows;
+				}
+			} catch (NumberFormatException e) {
+				logger.warn(className, function, "NumberFormatException for FastForwardRows [{}]", strDataGridFastForwardRows);
 			}
 		}
 		
@@ -556,6 +631,143 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    logger.end(className, function);
 	    
 	    return dataGrid;
+	}
+	
+	private void addPager() {
+		final String function = "addPager";
+		
+		logger.begin(className, function);
+
+		if (strDataGridPagerName.equals("SCADAgenPager")) {
+		    pager = new SCADAgenPager();
+
+			if (pager != null) {
+				
+				pager.setCreateText(new CreateText_i() {
+				
+					@Override
+					public String CreateText(int pageStart, int endIndex, boolean exact, int dataSize) {
+					    NumberFormat formatter = NumberFormat.getFormat("#,###");
+
+					    return formatter.format(pageStart) + "-" + formatter.format(endIndex)
+					        + (exact ? " of " : " of over ") + formatter.format(dataSize);
+					}
+	
+					@Override
+					public void pageStart(int pageStart) {
+						final String function = "CreateText pageStart";
+						
+						logger.begin(className, function);
+						
+						String strType = "PageStart";
+						
+						logger.debug(className, function, "Type[{}]", strType);
+						
+						String strPageValueChanged = "PagerValueChanged_";
+						String actionsetkey = strPageValueChanged+strType;
+						String actionkey = strPageValueChanged+strType;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
+						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(pageStart));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+	
+					@Override
+					public void endIndex(int endIndex) {
+						final String function = "CreateText endIndex";
+						
+						logger.begin(className, function);
+						
+						String strType = "EndIndex";
+						
+						logger.debug(className, function, "strType[{}]", strType);
+						
+						String strPageValueChanged = "PagerValueChanged_";
+						String actionsetkey = strPageValueChanged+strType;
+						String actionkey = strPageValueChanged+strType;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
+						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(endIndex));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+	
+					@Override
+					public void exact(boolean exact, int dataSize) {
+						final String function = "CreateText exact";
+						
+						logger.begin(className, function);
+						
+						String strType = "Exact";
+						
+						logger.debug(className, function, "exact[{}] dataSize[{}]", exact, dataSize);
+						
+						String strPageValueChanged = "PagerValueChanged_";
+						String actionsetkey = strPageValueChanged+strType;
+						String actionkey = strPageValueChanged+strType;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), strPageValueChanged+strType);
+						parameter.put(ActionAttribute.OperationString2.toString(), Integer.toString(dataSize));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+				});
+
+			
+				pager.setButtonOperation(new ButtonOperation_i() {
+						
+					@Override
+					public void buttonOperation(String operation, boolean status) {
+						final String function = "buttonOperation";
+						
+						logger.begin(className, function);
+						
+						logger.debug(className, function, "operation[{}] status[{}]", operation, status);
+						
+						String actionsetkey = "PagerButtonChanged_"+operation;
+						String actionkey = "PagerButtonChanged_"+operation;
+						HashMap<String, Object> parameter = new HashMap<String, Object>();
+						parameter.put(ActionAttribute.OperationString1.toString(), operation);
+						parameter.put(ActionAttribute.OperationString2.toString(), Boolean.toString(status));
+						
+						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+						override.put(actionkey, parameter);
+						
+						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						
+						logger.end(className, function);
+					}
+				});
+			
+			    logger.debug(className, function, "pageSize[" + pageSize + "]");
+				pager.setPageSize(pageSize);
+				
+				logger.debug(className, function, "fastForwardRows[" + fastForwardRows + "]");
+				pager.setFastForwardRows(fastForwardRows);
+				
+				pager.setDisplay(dataGrid);
+				
+				pager.ensureDebugId(this.element + "Pager");
+			}
+		}
+	    
+	    logger.end(className, function);
 	}
 	
 	public void addColumnFieldUpdateHandler(final String columnLabel) {

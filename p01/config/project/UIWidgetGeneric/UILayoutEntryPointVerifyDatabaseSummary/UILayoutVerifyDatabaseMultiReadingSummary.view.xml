@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyDatabaseSummary-root</rootCSS>
+	</header>
+
+	<option key="0|0">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetVerifyDatabaseMultiReadingControl</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingControl.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseMultiReadingControl</element>
+	</option>
+	<option key="0|1">
+		<type>predefine</type>
+		<uiCtrl>UIWidgetVerifyDatabaseMultiReadingControl</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingProxyControl.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingProxyControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseMultiReadingControl</element>
+	</option>
+
+</data-set>

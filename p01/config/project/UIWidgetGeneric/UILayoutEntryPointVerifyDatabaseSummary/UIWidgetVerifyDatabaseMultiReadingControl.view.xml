@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>18</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyDatabaseMultiReadingControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Database Reading Control Class:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-title</css>
+		<element>title</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Create Database Reading Control Class:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-createlabel</css>
+		<element>createlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>DatabaseMultiReading</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-createvalue</css>
+		<element>createvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Create</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-button-create</css>
+		<element>create</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseMultiReadingControl-container-create</cssContainer>
+		<tooltip>create</tooltip>
+	</option>
+	
+	<option key="0|4">
+		<widget>Button</widget>
+		<label>Connect</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-button-connect</css>
+		<element>connect</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseMultiReadingControl-container-connect</cssContainer>
+		<tooltip>connect</tooltip>
+	</option>
+	
+	<option key="0|5">
+		<widget>Button</widget>
+		<label>Disconnect</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-button-disconnect</css>
+		<element>disconnect</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseMultiReadingControl-container-disconnect</cssContainer>
+		<tooltip>disconnect</tooltip>
+	</option>
+
+	<!-- MultiRead -->
+	
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>MultiRead Test Case:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_label</css>
+		<element>multiread_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|7">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_keylabel</css>
+		<element>multiread_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>mutltireadingkey</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_keyvalue</css>
+		<element>multiread_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|9">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_scsenvidlabel</css>
+		<element>multiread_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>OCCENVCONN</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_scsenvidvalue</css>
+		<element>multiread_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>Label</widget>
+		<label>address 1:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_addresslabel1</css>
+		<element>multiread_addresslabel1</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVECTAIR_0001dciECT-PRESSURE.value</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_addressvalue1</css>
+		<element>multiread_addressvalue1</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|13">
+		<widget>Label</widget>
+		<label>address 2:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_addresslabel2</css>
+		<element>multiread_addresslabel2</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVECTAIR_0001.label</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_addressvalue2</css>
+		<element>multiread_addressvalue2</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|15">
+		<widget>Button</widget>
+		<label>multiread</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-button-multiread</css>
+		<element>multiread</element>
+		<cssContainer>project-UIWidgetVerifyDatabaseMultiReadingControl-container-multiread</cssContainer>
+		<tooltip>multiread</tooltip>
+	</option>
+	
+	<option key="0|16">
+		<widget>Label</widget>
+		<label>Multi Read Result:</label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_resultlabel</css>
+		<element>multiread_resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|17">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyDatabaseMultiReadingControl-label-multiread_resultvalue</css>
+		<element>multiread_resultvalue</element>
+		<format></format>
+		<media></media>
+		<characterwidth>20</characterwidth>
+		<visiblelines>5</visiblelines>
+	</option>
+	
+</data-set>

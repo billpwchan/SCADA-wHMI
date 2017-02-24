@@ -1032,4 +1032,94 @@
 		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC Summary</tooltips>
 	</option>
+	<option key="111">
+		<type>M</type>
+		<name>Verify Database Class Summary</name>
+		<title>Verify Database Class Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
+		<tooltips>Database Verify Summary</tooltips>
+	</option>
+	<option key="112">
+		<type>P</type>
+		<name>MultiReading</name>
+		<title>MultiReading</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseMultiReadingSummary.view.xml</uiView>
+		<tooltips>MultiReading</tooltips>
+	</option>
+	<option key="113">
+		<type>P</type>
+		<name>GetChildren</name>
+		<title>GetChildren</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGetChildrenSummary.view.xml</uiView>
+		<tooltips>GetChildren</tooltips>
+	</option>
+	<option key="114">
+		<type>P</type>
+		<name>Subscription</name>
+		<title>Subscription</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSubscriptionSummary.view.xml</uiView>
+		<tooltips>Subscription</tooltips>
+	</option>
+	<option key="115">
+		<type>P</type>
+		<name>Polling</name>
+		<title>Polling</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabasePollingSummary.view.xml</uiView>
+		<tooltips>Polling</tooltips>
+	</option>
+	<option key="116">
+		<type>P</type>
+		<name>GroupPolling</name>
+		<title>GroupPolling</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingSummary.view.xml</uiView>
+		<tooltips>GroupPolling</tooltips>
+	</option>
+	<option key="117">
+		<type>P</type>
+		<name>GroupPollingDiff</name>
+		<title>GroupPollingDiff</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSummary.view.xml</uiView>
+		<tooltips>GroupPollingDiff</tooltips>
+	</option>
+	<option key="118">
+		<type>P</type>
+		<name>GroupPollingDiff Singleton</name>
+		<title>GroupPollingDiff Singleton</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSingletonSummary.view.xml</uiView>
+		<tooltips>GroupPollingDiff Singleton</tooltips>
+	</option>
+	<option key="119">
+		<type>P</type>
+		<name>Writing</name>
+		<title>Writing</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseWritingSummary.view.xml</uiView>
+		<tooltips>Writing</tooltips>
+	</option>	
 </data-set>

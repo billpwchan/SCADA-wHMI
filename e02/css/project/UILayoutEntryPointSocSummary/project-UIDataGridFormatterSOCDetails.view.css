@@ -8,28 +8,28 @@
 }
 
 
-tr.dataGridEvenRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_2 {
+tr.dataGridEvenRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Completed {
 	color: black !important;
 	background: green!important;
 	background-color: green !important;
 	background-image: none !important;
 }
 
-tr.dataGridEvenRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_3  {
+tr.dataGridEvenRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Failed  {
 	color: white !important;
 	background: red!important;
 	background-color: red !important;
 	background-image: none !important;
 }
 
-tr.dataGridOddRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_2 {
+tr.dataGridOddRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Completed {
 	color: black !important;
 	background: green!important;
 	background-color: green !important;
 	background-image: none !important;
 }
 
-tr.dataGridOddRow .UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_3  {
+tr.dataGridOddRow .UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Failed {
 	color: white !important;
 	background: red!important;
 	background-color: red !important;

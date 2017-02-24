@@ -8,6 +8,7 @@ public interface UIWidgetDataGrid_i {
 		, DataGridColumnsType("DataGridColumnsType")
 		, DataGridColumnsLabel("DataGridColumnsLabel")
 		, DataGridColumnsWidth("DataGridColumnsWidth")
+		, DataGridColumnsTranslation("DataGridColumnsTranslation")
 		, DataGridOptsXMLFile("DataGridOptsXMLFile")
 		, DataGridPagerName("DataGridPagerName")
 		, DataGridPageSize("DataGridPageSize")

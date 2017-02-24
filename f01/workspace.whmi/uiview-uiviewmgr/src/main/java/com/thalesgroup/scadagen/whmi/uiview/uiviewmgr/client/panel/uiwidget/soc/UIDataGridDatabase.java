@@ -28,6 +28,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	
 	private String [] strDataGridColumnsTypes = null;
 	
+	private int [] intDataGridColumnsTranslations = null;
+	
 	private String strDataGridOptsXMLFile = null;
 	
 	private String [] scsEnvIds = null;
@@ -100,7 +102,7 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		dataProvider.refresh();
 	}
 
-	public void setScsEnv(String strDataGrid, String scsEnvIdsStr, String [] strDataGridColumnsLabels, String []strDataGridColumnsTypes, String strDataGridOptsXMLFile) {
+	public void setScsEnv(String strDataGrid, String scsEnvIdsStr, String [] strDataGridColumnsLabels, String []strDataGridColumnsTypes, int []intDataGridColumnsTranslations, String strDataGridOptsXMLFile) {
 		final String function = "setScsEnv";
 		
 		logger.begin(className, function);
@@ -126,6 +128,13 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 		if (strDataGridColumnsTypes != null) {
 			for (String type: strDataGridColumnsTypes) {
 				logger.debug(className, function, "type=[{}]", type);
+			}
+		}
+		
+		this.intDataGridColumnsTranslations = intDataGridColumnsTranslations;
+		if (intDataGridColumnsTranslations != null) {
+			for (int translation: intDataGridColumnsTranslations) {
+				logger.debug(className, function, "translation=[{}]", translation);
 			}
 		}
 				
@@ -171,8 +180,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	}
 	
 	
-	public void reloadColumnData(String columnLabel, String columnType) {
-		dataSource.reloadColumnData(columnLabel, columnType);
+	public void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation) {
+		dataSource.reloadColumnData(columnLabel, columnType, enableTranslation);
 	}
 	
 	public void resetColumnData(String columnLabel, String columnType) {
@@ -192,6 +201,11 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	@Override
 	public String[] getColumnTypes() {
 		return strDataGridColumnsTypes;
+	}
+	
+	@Override
+	public int [] getColumnTranslation() {
+		return intDataGridColumnsTranslations;
 	}
 	
 	public void disconnect() {

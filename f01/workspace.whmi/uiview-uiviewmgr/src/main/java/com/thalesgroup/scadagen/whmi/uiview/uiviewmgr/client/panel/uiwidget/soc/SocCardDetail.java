@@ -15,6 +15,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsPollerAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class SocCardDetail implements IDataGridDataSource {
@@ -45,6 +46,7 @@ public class SocCardDetail implements IDataGridDataSource {
 	
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
+	private int [] intDataGridColumnsTranslations = null;
 	private String [] brcTableIndexes_ = null;
 	private String [] extraRelativePoints_ = null;
 
@@ -62,7 +64,7 @@ public class SocCardDetail implements IDataGridDataSource {
 	private WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
 
 	// Create unique clientKey
-	private String clientKey = "SocCardDetail" + "_" + UUIDWrapper.getUUID();
+	private String clientKey = className + "_" + UUIDWrapper.getUUID();
 
 
 	@Override
@@ -113,6 +115,7 @@ public class SocCardDetail implements IDataGridDataSource {
 		if (dataGridDb_ != null) {
 			strDataGridColumnsLabels = dataGridDb_.getColumnLabels();
 			strDataGridColumnsTypes = dataGridDb_.getColumnTypes();
+			intDataGridColumnsTranslations = dataGridDb_.getColumnTranslation();
 		}
 		
 		logger.end(className, function);
@@ -382,19 +385,27 @@ public class SocCardDetail implements IDataGridDataSource {
 					logger.debug(className, function, "splittedStr.length=[{}] ", splittedStr.length);
 					
 					for (int row=0; row<numSteps; row++) {
-						dataGridValues[row][col] = splittedStr[row];
+						if (intDataGridColumnsTranslations != null && intDataGridColumnsTranslations.length > col && intDataGridColumnsTranslations[col] == 1) {
+							String translatedString = "&" + className + strDataGridColumnsLabels[col].replace(' ', '_') + "_" + splittedStr[row];
+							dataGridValues[row][col] = Translation.getWording(translatedString);
+						} else {
+							dataGridValues[row][col] = splittedStr[row];
+						}
 						logger.debug(className, function, "row=[{}] tableValues=[{}] ", row, splittedStr[row]);
 					}
 				} else {
 					for (int row=0; row<numSteps; row++) {
-						if (strDataGridColumnsTypes[col].compareToIgnoreCase("String") == 0) {
-							dataGridValues[row][col] = "";
-						} else if (strDataGridColumnsTypes[col].compareToIgnoreCase("Number") == 0) {
+						if (strDataGridColumnsTypes[col].compareToIgnoreCase("Number") == 0) {
 							dataGridValues[row][col] = "0";
 						} else if (strDataGridColumnsTypes[col].compareToIgnoreCase("Boolean") == 0) {
 							dataGridValues[row][col] = "false";
 						} else {
-							dataGridValues[row][col] = "";
+							if (intDataGridColumnsTranslations != null && intDataGridColumnsTranslations.length > col && intDataGridColumnsTranslations[col] == 1) {
+								String translatedString = "&" + strDataGridColumnsLabels[col].replace(' ', '_') + "_Empty";
+								dataGridValues[row][col] = Translation.getWording(translatedString);
+							} else {
+								dataGridValues[row][col] = "";
+							}
 						}
 					}
 				}
@@ -493,10 +504,12 @@ public class SocCardDetail implements IDataGridDataSource {
 	}
 
 	@Override
-	public void reloadColumnData(final String columnLabel, final String columnType) {
+	public void reloadColumnData(final String columnLabel, final String columnType, final boolean enableTranslation) {
 		final String function = "reloadColumnData";
 		
 		logger.begin(className, function);
+		logger.debug(className, function, "columnLabel=[{}] columnType=[{}]", columnLabel, columnType);
+		logger.debug(className, function, "enableTranslation=[{}]", enableTranslation);
 		
 		String address = "<alias>" + dbalias_;
 		for (int i=0; i<strDataGridColumnsLabels.length; i++) {
@@ -520,12 +533,20 @@ public class SocCardDetail implements IDataGridDataSource {
 								for (int row=0; row<numSteps && row<values.length; row++) {
 									Equipment_i eq = eqList.get(row);
 									if (eq != null) {
-										if (columnType.equals("String")) {
-											eq.setValue(columnLabel, values[row]);
-										} else if (columnType.equals("Number")) {
+										if (columnType.equals("Number")) {
 											eq.setNumberValue(columnLabel, Integer.parseInt(values[row]));
 										} else if (columnType.equals("Boolean")) {
 											eq.setBooleanValue(columnLabel, Boolean.parseBoolean(values[row]));
+										} else {
+											if (enableTranslation) {
+												String translateKey = "&" + className + columnLabel.replace(' ', '_') + "_" + values[row];
+												String translatedString = Translation.getWording(translateKey);
+												logger.debug(className, function, "value [{}] translated to [{}]", translatedString);
+												
+												eq.setValue(columnLabel, translatedString);
+											} else {
+												eq.setValue(columnLabel, values[row]);
+											}
 										}
 										logger.debug(className, function, "load data [{}] to row [{}]", values[row], row);
 									}  else {

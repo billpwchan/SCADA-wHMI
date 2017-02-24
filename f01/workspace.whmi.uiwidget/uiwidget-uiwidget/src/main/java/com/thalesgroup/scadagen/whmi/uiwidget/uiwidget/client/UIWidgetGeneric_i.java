@@ -51,6 +51,9 @@ public interface UIWidgetGeneric_i {
 		, visibleitemcount("visibleitemcount")
 		, enable("enable")
 		
+		, characterwidth("characterwidth")
+		, visiblelines("visiblelines")
+		
 		, disableTranslation("disableTranslation")
 		
 		, labelDown("labelDown")
@@ -104,6 +107,7 @@ public interface UIWidgetGeneric_i {
 		, Label("Label")
 		, TextBox("TextBox")
 		, PasswordTextBox("PasswordTextBox")
+		, TextArea("TextArea")
 		, ListBox("ListBox")
 		, Button("Button")
 		, Image("Image")

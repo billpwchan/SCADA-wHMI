@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.PasswordTextBox;
 import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -185,6 +186,9 @@ public class UIWidgetGeneric extends UIGeneric {
 							String maxlength		= valueMap.get(WidgetAttribute.maxlength.toString());
 							String visibleitemcount	= valueMap.get(WidgetAttribute.visibleitemcount.toString());
 							
+							String characterwidth	= valueMap.get(WidgetAttribute.characterwidth.toString());
+							String visiblelines		= valueMap.get(WidgetAttribute.visiblelines.toString());
+							
 //							String labelDown		= valueMap.get(WidgetAttribute.labelDown.toString());
 //							String labelDisable		= valueMap.get(WidgetAttribute.labelDisable.toString());
 							
@@ -272,6 +276,19 @@ public class UIWidgetGeneric extends UIGeneric {
 								if ( null != readonly )
 									((TextBox)w).setReadOnly(true);
 
+								this.widgets.put(index, w);
+							} else if ( WidgetType.TextArea.equalsName(widget) ) { 
+								
+								w = new TextArea();
+								
+								if ( null != label )	((TextArea)w).setText(label);
+								
+								if ( WidgetAttribute.characterwidth.equalsName(characterwidth) )
+									((TextArea)w).setCharacterWidth(Integer.parseInt(characterwidth));
+								
+								if ( WidgetAttribute.visiblelines.equalsName(visiblelines) )
+									((TextArea)w).setVisibleLines(Integer.parseInt(visiblelines));
+								
 								this.widgets.put(index, w);
 							} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
 								
@@ -770,6 +787,8 @@ public class UIWidgetGeneric extends UIGeneric {
 					value = ((RadioButton)w).getValue().toString();
 				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					value = ((TextBox)w).getText();
+				} else if ( WidgetType.TextArea.equalsName(widget) ) {
+					value = ((TextArea)w).getText();
 				} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
 					value = ((PasswordTextBox)w).getText();
 				} else if ( WidgetType.InlineLabel.equalsName(widget) ) {
@@ -847,6 +866,8 @@ public class UIWidgetGeneric extends UIGeneric {
 					((RadioButton)w).setValue((label.equals("true")?true:false));
 				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					((TextBox)w).setText(label);
+				} else if ( WidgetType.TextArea.equalsName(widget) ) {
+					((TextArea)w).setText(label);
 				} else if ( WidgetType.PasswordTextBox.equalsName(widget) ) {
 					((PasswordTextBox)w).setText(label);
 				} else if ( WidgetType.InlineLabel.equalsName(widget) ) {

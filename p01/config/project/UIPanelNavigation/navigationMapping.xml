@@ -179,4 +179,13 @@
 	<option key="LMC|MCS|Change Target User Password Summary"><setting>108</setting></option>
 	<option key="LMC|MCS|Login Summary"><setting>109</setting></option>
 	<option key="LMC|MCS|Soc Summary"><setting>110</setting></option>
+	<option key="LMC|MCS|Database Verify Summary"><setting>111</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>112</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>113</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>114</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>115</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>116</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>117</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>118</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>119</setting></option>
 </data-set>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>23</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyDatabasePollingControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Database Polling Control Class:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-title</css>
+		<element>title</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Create Database Polling Control Class:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-createlabel</css>
+		<element>createlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>DatabasePolling</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-createvalue</css>
+		<element>createvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>Label</widget>
+		<label>PeriodMillis:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-periodmillislabel</css>
+		<element>periodmillislabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label>250</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-periodmillisvalue</css>
+		<element>periodmillisvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|5">
+		<widget>Button</widget>
+		<label>Create</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-button-create</css>
+		<element>create</element>
+		<cssContainer>project-UIWidgetVerifyDatabasePollingControl-container-create</cssContainer>
+		<tooltip>create</tooltip>
+	</option>
+	
+	<option key="0|6">
+		<widget>Button</widget>
+		<label>Connect</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-button-connect</css>
+		<element>connect</element>
+		<cssContainer>project-UIWidgetVerifyDatabasePollingControl-container-connect</cssContainer>
+		<tooltip>connect</tooltip>
+	</option>
+	
+	<option key="0|7">
+		<widget>Button</widget>
+		<label>Disconnect</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-button-disconnect</css>
+		<element>disconnect</element>
+		<cssContainer>project-UIWidgetVerifyDatabasePollingControl-container-disconnect</cssContainer>
+		<tooltip>disconnect</tooltip>
+	</option>
+	
+	<!-- Polling -->
+	
+	<option key="0|8">
+		<widget>Label</widget>
+		<label>Polling Test Case:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-getchilden_label</css>
+		<element>subscribe_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|9">
+		<widget>Label</widget>
+		<label>key:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_keylabel</css>
+		<element>subscribe_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>pollingkey</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_keyvalue</css>
+		<element>subscribe_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_scsenvidlabel</css>
+		<element>subscribe_scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label>OCCENVCONN</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_scsenvidvalue</css>
+		<element>subscribe_scsenvidvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|13">
+		<widget>Label</widget>
+		<label>address 1:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_addresslabel1</css>
+		<element>subscribe_addresslabel1</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVECTAIR_0001dciECT-PRESSURE.value</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_addressvalue1</css>
+		<element>subscribe_addressvalue1</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|15">
+		<widget>Label</widget>
+		<label>address 2:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_addresslabel2</css>
+		<element>subscribe_addresslabel2</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|16">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVECTAIR_0001.label</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_addressvalue2</css>
+		<element>subscribe_addressvalue2</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|17">
+		<widget>Button</widget>
+		<label>Subscribe</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-button-subscribe</css>
+		<element>subscribe</element>
+		<cssContainer>project-UIWidgetVerifyDatabasePollingControl-container-subscribe</cssContainer>
+		<tooltip>subscribe</tooltip>
+	</option>
+	
+	<option key="0|18">
+		<widget>Label</widget>
+		<label>Subscribe Result:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_resultlabel</css>
+		<element>subscribe_resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|19">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-subscribe_resultvalue</css>
+		<element>subscribe_resultvalue</element>
+		<format></format>
+		<media></media>
+		<characterwidth>20</characterwidth>
+		<visiblelines>5</visiblelines>
+	</option>
+	
+	<option key="0|20">
+		<widget>Label</widget>
+		<label>unsubscribe key:</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-unsubscribe_keylabel</css>
+		<element>unsubscribe_keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|21">
+		<widget>TextBox</widget>
+		<label>pollingkey</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-label-unsubscribe_keyvalue</css>
+		<element>unsubscribe_keyvalue</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|22">
+		<widget>Button</widget>
+		<label>UnSubscribe</label>
+		<css>project-UIWidgetVerifyDatabasePollingControl-button-unsubscribe</css>
+		<element>unsubscribe</element>
+		<cssContainer>project-UIWidgetVerifyDatabasePollingControl-container-unsubscribe</cssContainer>
+		<tooltip>unsubscribe</tooltip>
+	</option>
+
+	
+</data-set>

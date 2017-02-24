@@ -9,7 +9,6 @@
 	</header>
 	
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocTitle</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocTitle.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocTitle.opts.xml</uiOpts>
@@ -17,24 +16,16 @@
 	</option>
 	
 	<option key="0|1">
-		<type>predefine</type>
-		<uiCtrl>UIWidgetDataGrid</uiCtrl>
-		<uiView>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewer1.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewer1.opts.xml</uiOpts>
-		<element>UILayoutSocSummaryViewer1</element>
+		<uiCtrl>UILayoutConfiguration</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewerPager1.view.xml</uiView>
 	</option>
 	
 	<option key="0|2">
-		<type>predefine</type>
-		<uiCtrl>UIWidgetDataGrid</uiCtrl>
-		<uiView>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewer2.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewer2.opts.xml</uiOpts>
-		<element>UILayoutSocSummaryViewer2</element>
+		<uiCtrl>UILayoutConfiguration</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewerPager2.view.xml</uiView>
 	</option>
-	
-	
+
 	<option key="0|3">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocGrcPoint</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocGrcPoint.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocGrcPoint.opts.xml</uiOpts>
@@ -42,7 +33,6 @@
 	</option>
 	
 	<option key="0|4">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocDelayControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.opts.xml</uiOpts>
@@ -50,14 +40,13 @@
 	</option>
 	
 	<option key="0|5">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocAutoManuControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocAutoManuControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocAutoManuControl.opts.xml</uiOpts>
 		<element>UIWidgetSocAutoManuControl</element>
 	</option>
+
 	<option key="0|6">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocControl.opts.xml</uiOpts>

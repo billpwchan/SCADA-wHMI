@@ -1,0 +1,122 @@
+@def selectionBorderWidth 2px;
+.DataGrid.Style-dataGridWidget {
+  
+}
+
+.DataGrid.Style-dataGridFirstColumn {
+  
+}
+
+.DataGrid.Style-dataGridLastColumn {
+  
+}
+
+.DataGrid.Style-dataGridFooter {
+  border-top: 2px solid #6f7277;
+  padding: 3px 15px;
+  text-align: left;
+  color: #4b4a4a;
+  text-shadow: #ddf 1px 1px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.DataGrid.Style-dataGridHeader {
+  border-bottom: 2px solid #6f7277;
+  padding: 3px 15px;
+  text-align: left;
+  color: #4b4a4a;
+  text-shadow: #ddf 1px 1px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.DataGrid.Style-dataGridCell {
+  padding: 2px 15px;
+  overflow: hidden;
+}
+
+.DataGrid.Style-dataGridFirstColumnFooter {
+  
+}
+
+.DataGrid.Style-dataGridFirstColumnHeader {
+  
+}
+
+.DataGrid.Style-dataGridLastColumnFooter {
+  
+}
+
+.DataGrid.Style-dataGridLastColumnHeader {
+  
+}
+
+.DataGrid.Style-dataGridSortableHeader {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.DataGrid.Style-dataGridSortableHeader:hover {
+  color: #6c6b6b;
+}
+
+.DataGrid.Style-dataGridSortedHeaderAscending {
+  
+}
+
+.DataGrid.Style-dataGridSortedHeaderDescending {
+  
+}
+
+.DataGrid.Style-dataGridEvenRow {
+/*  background: #ffffff; */
+  background: BBBBBB !important;
+}
+
+.DataGrid.Style-dataGridEvenRowCell {
+  border: selectionBorderWidth solid #ffffff;
+}
+
+.DataGrid.Style-dataGridOddRow {
+/*  background: #f3f7fb; */
+  background: #AAAAAA;
+}
+
+.DataGrid.Style-dataGridOddRowCell {
+  border: selectionBorderWidth solid #f3f7fb;
+}
+
+.DataGrid.Style-dataGridHoveredRow {
+  background: #eee;
+}
+
+.DataGrid.Style-dataGridHoveredRowCell {
+  border: selectionBorderWidth solid #eee;
+}
+
+.DataGrid.Style-dataGridKeyboardSelectedRow {
+  background: #ffc;
+}
+
+.DataGrid.Style-dataGridKeyboardSelectedRowCell {
+  border: selectionBorderWidth solid #ffc;
+}
+
+.DataGrid.Style-dataGridSelectedRow {
+  background: #628cd5;
+  color: white;
+  height: auto;
+  overflow: auto;
+}
+
+.DataGrid.Style-dataGridSelectedRowCell {
+  border: selectionBorderWidth solid #628cd5;
+}
+
+/**
+ * The keyboard selected cell is visible over selection.
+ */
+.DataGrid.Style-dataGridKeyboardSelectedCell {
+  border: selectionBorderWidth solid #d7dde8;
+}

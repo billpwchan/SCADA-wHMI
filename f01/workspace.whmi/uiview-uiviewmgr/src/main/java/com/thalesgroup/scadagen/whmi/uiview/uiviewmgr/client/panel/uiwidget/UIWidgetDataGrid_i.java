@@ -9,7 +9,9 @@ public interface UIWidgetDataGrid_i {
 		, DataGridColumnsLabel("DataGridColumnsLabel")
 		, DataGridColumnsWidth("DataGridColumnsWidth")
 		, DataGridOptsXMLFile("DataGridOptsXMLFile")
+		, DataGridPagerName("DataGridPagerName")
 		, DataGridPageSize("DataGridPageSize")
+		, DataGridFastForwardRows("DataGridFastForwardRows")
 		
 		, TargetDataGrid_A("TargetDataGrid_A")
 		, TargetDataGridColumn_A("TargetDataGridColumn_A")

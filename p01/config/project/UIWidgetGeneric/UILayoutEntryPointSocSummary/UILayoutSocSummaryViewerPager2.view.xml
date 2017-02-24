@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCSS>project-UILayoutSocSummaryViewerPager2-root</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetDataGrid</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewer2.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointSocSummary/UILayoutSocSummaryViewer2.opts.xml</uiOpts>
+		<element>UILayoutSocSummaryViewer2</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetViewerPager</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocSummaryPager2.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocSummaryPager2.opts.xml</uiOpts>
+		<element>UIWidgetSocSummaryPager2</element>
+	</option>
+	
+</data-set>

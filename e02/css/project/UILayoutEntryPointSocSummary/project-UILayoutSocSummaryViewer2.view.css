@@ -1,4 +1,16 @@
+.project-UILayoutSocSummaryViewerPager2-root {
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
 .project-UILayoutSocSummaryViewer2-root {
-	width: 1000px;
-	height: 200px; 
+	width: 980px;
+	height: 200px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.project-UIWidgetSocSummaryPager2-root {
+	margin-top: 2px;
+	margin-bottom: 2px;
 }

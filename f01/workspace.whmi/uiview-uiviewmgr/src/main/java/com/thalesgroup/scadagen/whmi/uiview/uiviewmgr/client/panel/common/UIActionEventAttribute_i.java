@@ -105,6 +105,23 @@ public interface UIActionEventAttribute_i {
 		, OperationString13("OperationString13")
 		, OperationString14("OperationString14")
 		, OperationString15("OperationString15")
+		, OperationString16("OperationString16")
+		, OperationString17("OperationString17")
+		, OperationString18("OperationString18")
+		, OperationString19("OperationString19")
+		, OperationString20("OperationString20")
+		, OperationString21("OperationString21")
+		, OperationString22("OperationString22")
+		, OperationString23("OperationString23")
+		, OperationString24("OperationString24")
+		, OperationString25("OperationString25")
+		, OperationString26("OperationString26")
+		, OperationString27("OperationString27")
+		, OperationString28("OperationString28")
+		, OperationString29("OperationString29")
+		, OperationString30("OperationString30")
+		, OperationString31("OperationString31")
+		, OperationString32("OperationString32")
 		;
 		private final String text;
 		private ActionAttribute(final String text) { this.text = text; }

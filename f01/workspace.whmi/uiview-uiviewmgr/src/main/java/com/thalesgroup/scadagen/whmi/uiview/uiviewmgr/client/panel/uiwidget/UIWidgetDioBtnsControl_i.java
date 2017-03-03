@@ -3,8 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 public interface UIWidgetDioBtnsControl_i {
 	public enum ParameterName {
 		SimpleEventBus("SimpleEventBus")
+		
 		, ColumnAlias("ColumnAlias")
-		, ColumnStatus("ColumnStatus")
 		, ColumnServiceOwner("ColumnServiceOwner")
 		
 		, IsPolling("IsPolling")

@@ -160,7 +160,7 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	    	dataSource = new SocCardDetail();
 	    }
 		
-		dataSource.init(scsEnvIds, strDataGridOptsXMLFile, this);
+		dataSource.init(strDataGrid, scsEnvIds, strDataGridOptsXMLFile, this);
 	    	
 	    dataSource.connect();
 		

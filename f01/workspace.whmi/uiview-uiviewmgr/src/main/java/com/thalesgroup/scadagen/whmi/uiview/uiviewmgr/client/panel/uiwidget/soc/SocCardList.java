@@ -10,13 +10,13 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.SocCardList_i.SocCardListParameter;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class SocCardList implements IDataGridDataSource {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(SocCardList.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private String strDataGrid_ = "";
 	private String [] scsEnvIds_ = null;
 	private String optsXMLFile_ = null;
 	private UIDataGridDatabase_i dataGridDb_ = null;
@@ -29,10 +29,11 @@ public class SocCardList implements IDataGridDataSource {
 	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
 
 	@Override
-	public void init(String[] scsEnvIds, String strDataGridOptsXMLFile, UIDataGridDatabase uiDataGridDatabase) {
+	public void init(String strDataGrid, String[] scsEnvIds, String strDataGridOptsXMLFile, UIDataGridDatabase uiDataGridDatabase) {
 		final String function = "init";
 		logger.begin(className, function);
 		
+		strDataGrid_ = strDataGrid;
 		scsEnvIds_ = scsEnvIds;
 		optsXMLFile_ = strDataGridOptsXMLFile;
 		dataGridDb_ = uiDataGridDatabase;
@@ -65,7 +66,7 @@ public class SocCardList implements IDataGridDataSource {
 	}
 	
 	private String genClientKey(String scsEnvId) {
-		String clientKey = className + UUIDWrapper.getUUID();
+		String clientKey = className + "_" + strDataGrid_ + "_" + scsEnvId;
 		scsEnvIdMap.put(clientKey, scsEnvId);
 		return clientKey;
 	}

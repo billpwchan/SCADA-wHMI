@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetHDVPrint-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>Print</label>
+		<css>project-UIWidgetHDVPrint-button-0-2</css>
+		
+		<cssContainer>project-UIWidgetHDVPrint-container-0-2</cssContainer>
+		
+		<cssUp>project-UIWidgetHDVPrint-button-0-2-up</cssUp>
+		<cssDown>project-UIWidgetHDVPrint-button-0-2-down</cssDown>
+		<cssDisable>project-UIWidgetHDVPrint-button-0-2-disable</cssDisable>
+		<tooltipUp>Print</tooltipUp>
+		<element>print</element>
+	</option>
+	
+</data-set>

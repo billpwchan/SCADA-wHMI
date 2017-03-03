@@ -1121,5 +1121,27 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseWritingSummary.view.xml</uiView>
 		<tooltips>Writing</tooltips>
-	</option>	
+	</option>
+	<option key="120">
+		<type>M</type>
+		<name>Central Station</name>
+		<title>Central Station</title>
+		<uiPanel>Central Station</uiPanel>
+		<uiScreen>0</uiScreen>
+		<!--
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
+		-->
+		<tooltips>Database Verify Summary</tooltips>
+	</option>
+		<option key="121">
+		<type>P</type>
+		<name>Handover Panel</name>
+		<title>Handover Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointHDVSummary/UILayoutEntryPointHDVSummary.view.xml</uiView>
+		<tooltips>Handover Panel</tooltips>
+	</option>
 </data-set>

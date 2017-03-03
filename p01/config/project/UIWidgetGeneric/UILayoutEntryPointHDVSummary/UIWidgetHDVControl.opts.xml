@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<ColumnAlias>gdg_column_alias</ColumnAlias>
+		<ColumnStatus>gdg_column_status</ColumnStatus>
+		<ColumnServiceOwner>serviceOwnerID</ColumnServiceOwner>
+		
+		<IsPolling>true</IsPolling>
+		
+		<DatabaseGroupPollingDiffSingleton>DatabaseGroupPollingDiffSingleton</DatabaseGroupPollingDiffSingleton>
+		<DatabaseMultiReadingProxySingleton>DatabaseMultiReadingProxySingleton</DatabaseMultiReadingProxySingleton>
+		<DatabaseMultiReading>DatabaseMultiReading</DatabaseMultiReading>
+		
+		<DotValueTable>.valueTable</DotValueTable>
+		<DotInitCondGL>.initCondGL</DotInitCondGL>
+		
+		<RowInValueTable>16</RowInValueTable>
+		<DovnameCol>0</DovnameCol>
+		<LabelCol>1</LabelCol>
+		<ValueCol>2</ValueCol>
+	</header>
+	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="set_default_action">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_0_invisible</OperationString1>
+		<OperationString2>button_1_invisible</OperationString2>
+		<OperationString3>button_2_invisible</OperationString3>
+		<OperationString4>button_3_invisible</OperationString4>
+		<OperationString5>button_4_invisible</OperationString5>
+		<OperationString6>button_5_invisible</OperationString6>
+		<OperationString7>button_6_invisible</OperationString7>
+		<OperationString8>button_7_invisible</OperationString8>
+		<OperationString9>button_8_invisible</OperationString9>
+		<OperationString10>button_9_invisible</OperationString10>
+		<OperationString11>button_10_invisible</OperationString11>
+		<OperationString12>button_11_invisible</OperationString12>
+		<OperationString13>button_12_invisible</OperationString13>
+		<OperationString14>button_13_invisible</OperationString14>
+		<OperationString15>button_14_invisible</OperationString15>
+		<OperationString16>button_15_invisible</OperationString16>
+	</actionset>
+	
+	<actionset key="set_default_kill">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_default_kill</OperationString1>
+	</actionset>
+	
+	<action key="set_default_kill">
+		<OperationType>action</OperationType>
+		<OperationString1>set_default_kill</OperationString1>
+	</action>	
+	
+	
+	<actionset key="RowSelected_valueUnset">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="RowSelected_valueSet">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+
+	<action key="set_set_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>set</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_set_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>set</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_set_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>set</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_unset_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>unset</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_unset_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>unset</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_unset_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>unset</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="set_apply_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>apply</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	<action key="set_apply_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>apply</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+	<action key="set_apply_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>apply</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<!-- button action -->
+	<actionset key="button_set_up">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_set_up</OperationString1>
+	</actionset>
+	<action key="button_set_up">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	<actionset key="button_set_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_set_down</OperationString1>
+	</actionset>
+	<action key="button_set_down">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button</OperationString2>
+		<OperationString3>Down</OperationString3>
+	</action>
+
+	<actionset key="button_set_disable">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_set_disable</OperationString1>
+	</actionset>
+	<action key="button_set_disable">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<actionset key="button_set_visible">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_set_visible</OperationString1>
+	</actionset>
+	<action key="button_set_visible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_0</OperationString2>
+		<OperationString3>Visible</OperationString3>
+	</action>
+	
+	<actionset key="button_set_invisible">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_set_invisible</OperationString1>
+	</actionset>
+	<action key="button_set_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_0</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+
+	<actionset key="button_set_value">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_set_value</OperationString1>
+	</actionset>
+	<action key="button_set_value">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>button_0</OperationString2>
+		<OperationString3>X</OperationString3>
+	</action>
+	
+	<!-- buttons invisible -->
+	<actionset key="buttons_invisible">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_0_invisible</OperationString1>
+		<OperationString2>button_1_invisible</OperationString2>
+		<OperationString3>button_2_invisible</OperationString3>
+		<OperationString4>button_3_invisible</OperationString4>
+		<OperationString5>button_4_invisible</OperationString5>
+		<OperationString6>button_5_invisible</OperationString6>
+		<OperationString7>button_6_invisible</OperationString7>
+		<OperationString8>button_7_invisible</OperationString8>
+		<OperationString9>button_8_invisible</OperationString9>
+		<OperationString10>button_9_invisible</OperationString10>
+		<OperationString11>button_10_invisible</OperationString11>
+		<OperationString12>button_11_invisible</OperationString12>
+		<OperationString13>button_12_invisible</OperationString13>
+		<OperationString14>button_13_invisible</OperationString14>
+		<OperationString15>button_14_invisible</OperationString15>
+		<OperationString16>button_15_invisible</OperationString16>
+	</actionset>
+	
+	<action key="button_0_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_0</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_1_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_1</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_2_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_2</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_3_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_3</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_4_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_4</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_5_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_5</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_6_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_6</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_7_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_7</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_8_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_8</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_9_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_9</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_10_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_10</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_11_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_11</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_12_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_12</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_13_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_13</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_14_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_14</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	<action key="button_15_invisible">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>button_15</OperationString2>
+		<OperationString3>Invisible</OperationString3>
+	</action>
+	
+	<!-- Control -->
+	<actionset key="button_0">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_1">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_2">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_3">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_4">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_5">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_6">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_7">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_8">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_9">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_10">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_11">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_12">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_13">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_14">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_15">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<action key="button_send_control">
+		<OperationType>action</OperationType>
+		<OperationAction>ctl</OperationAction>
+		<OperationString1>SendIntControl</OperationString1>
+		<OperationString2>env</OperationString2>
+		<OperationString3>address</OperationString3>
+		<OperationString4></OperationString4>
+		<OperationString5>0</OperationString5>
+		<OperationString6>0</OperationString6>
+		<OperationString7>0</OperationString7>
+	</action>
+
+</data-set>

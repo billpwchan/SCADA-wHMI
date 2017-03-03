@@ -18,6 +18,12 @@ public interface UIWidgetDioBtnsControl_i {
 		, DovnameCol("DovnameCol")
 		, LabelCol("LabelCol")
 		, ValueCol("ValueCol")
+		
+		, IsAliasAndAlias2("IsAliasAndAlias2")
+		, ColumnAlias2("ColumnAlias2")
+		, SubstituteFrom("SubstituteFrom")
+		, SubstituteTo("SubstituteTo")
+		
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

@@ -53,6 +53,11 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 	
 	private String columnAlias					= "";
 	private String columnServiceOwner			= "";
+	
+	private boolean isAliasAndAlias2			= false;
+	private String columnAlias2					= "";
+	private String substituteFrom				= "dci";
+	private String substituteTo					= "dio";
 
 	private final String strInvisible			= "Invisible";
 	private final String strButton				= "button";
@@ -586,11 +591,34 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 					for ( HashMap<String, String> hashMap : selectedSet ) {
 						String serviceOwner = hashMap.get(columnServiceOwner);
 						String alias = hashMap.get(columnAlias);
-	
+
 						selectedEnv = serviceOwner;
 						selectedAlias = alias;
 						
-						logger.info(className, function, "selectedEnv["+selectedEnv+"]");
+						logger.info(className, function, "selectedEnv[{}], selectedAlias[{}]", selectedEnv, selectedAlias);
+						
+						if ( isAliasAndAlias2 ) {
+							String alias2 = hashMap.get(columnAlias2);
+							
+							logger.info(className, function, "alias2[{}]", alias2);
+							
+							if ( null != alias2 ) {
+								String oldpoint = alias.substring(alias2.length());
+								String newpoint = oldpoint.replace(substituteFrom, substituteTo);
+								
+								logger.info(className, function, "oldpoint[{}], newpoint[{}]", oldpoint, newpoint);
+								
+								selectedAlias = selectedAlias += newpoint;
+							} else {
+								logger.warn(className, function, "alias2 IS NULL");
+							}
+							
+						}
+	
+						logger.info(className, function, "selectedEnv[{}], selectedAlias[{}]", selectedEnv, selectedAlias);
+						
+						if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
+							
 						logger.info(className, function, "selectedAlias["+selectedAlias+"]");
 						
 					}
@@ -647,32 +675,41 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 		
-		String strIsPolling 		= null;
-		String strRowInValueTable	= null;
-		String strDovnameCol		= null;
-		String strLabelCol			= null;
-		String strValueCol			= null;
+		String strIsPolling 			= null;
+		String strRowInValueTable		= null;
+		String strDovnameCol			= null;
+		String strLabelCol				= null;
+		String strValueCol				= null;
+		
+		String strIsAliasAndAlias2		= null;
+		String strColumnAlias2			= null;
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			columnAlias			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias.toString(), strHeader);
-			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
 			
-			strIsPolling		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsPolling.toString(), strHeader);
+			columnAlias				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias.toString(), strHeader);
+			columnServiceOwner		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
 			
-			subScribeMethod1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseGroupPollingDiffSingleton.toString(), strHeader);
-			multiReadMethod1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseMultiReadingProxySingleton.toString(), strHeader);
-			multiReadMethod2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseMultiReading.toString(), strHeader);
+			strIsPolling			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsPolling.toString(), strHeader);
 			
-			DotValueTable		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotValueTable.toString(), strHeader);
-			DotInitCondGL		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotInitCondGL.toString(), strHeader);
+			subScribeMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseGroupPollingDiffSingleton.toString(), strHeader);
+			multiReadMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseMultiReadingProxySingleton.toString(), strHeader);
+			multiReadMethod2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseMultiReading.toString(), strHeader);
 			
-			strRowInValueTable	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.RowInValueTable.toString(), strHeader);
-			strDovnameCol		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DovnameCol.toString(), strHeader);
-			strLabelCol			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.LabelCol.toString(), strHeader);
-			strValueCol			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueCol.toString(), strHeader);
+			DotValueTable			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotValueTable.toString(), strHeader);
+			DotInitCondGL			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotInitCondGL.toString(), strHeader);
+			
+			strRowInValueTable		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.RowInValueTable.toString(), strHeader);
+			strDovnameCol			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DovnameCol.toString(), strHeader);
+			strLabelCol				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.LabelCol.toString(), strHeader);
+			strValueCol				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueCol.toString(), strHeader);
+			
+			strIsAliasAndAlias2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsAliasAndAlias2.toString(), strHeader);
+			strColumnAlias2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias2.toString(), strHeader);
+			substituteFrom			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubstituteFrom.toString(), strHeader);
+			substituteTo			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubstituteTo.toString(), strHeader);
 
 		}
 		
@@ -689,6 +726,11 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		logger.info(className, function, "strDovnameCol[{}]", strDovnameCol);
 		logger.info(className, function, "strLabelCol[{}]", strLabelCol);
 		logger.info(className, function, "strValueCol[{}]", strValueCol);
+		
+		logger.info(className, function, "strIsAliasAndAlias2[{}]", strIsAliasAndAlias2);
+		logger.info(className, function, "strColumnAlias2[{}]", strColumnAlias2);
+		logger.info(className, function, "substituteFrom[{}]", substituteFrom);
+		logger.info(className, function, "substituteTo[{}]", substituteTo);
 		
 		if ( null != strIsPolling && strIsPolling.equals(Boolean.TRUE.toString()) ) {
 			isPolling = true;
@@ -720,6 +762,10 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		} catch ( NumberFormatException ex ) {
 			logger.warn(className, function, "strValueCol[{}] IS INVALID", strValueCol);
 			logger.warn(className, function, "NumberFormatException[{}]", ex.toString());
+		}
+		
+		if ( null != strIsAliasAndAlias2 && strIsAliasAndAlias2.equals(Boolean.TRUE.toString()) ) {
+			isAliasAndAlias2 = true;
 		}
 	
 		uiWidgetGeneric = new UIWidgetGeneric();

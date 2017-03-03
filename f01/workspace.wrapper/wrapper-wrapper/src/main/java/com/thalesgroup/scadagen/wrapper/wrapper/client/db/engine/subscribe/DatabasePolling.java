@@ -5,7 +5,6 @@ import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
@@ -110,10 +109,10 @@ public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsibl
 							String scsEnvId = rq.scsEnvId;
 							String [] dbaddresses = rq.dbaddress;
 							
-							databaseReading.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabaseReadEvent_i() {
+							databaseReading.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
 								
 								@Override
-								public void update(String key, String[] values) {
+								public void update(String key, String [] dbaddress, String[] values) {
 									
 									PollingRequest rq = requests.get(key);
 									String [] dbaddresses = rq.dbaddress;

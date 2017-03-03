@@ -25,6 +25,13 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseSubscribeFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
 
 /**
  * @author syau
@@ -41,7 +48,12 @@ public class UIScreenMMI extends UIWidget_i {
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	
-	private String initdelayms = null;
+	private String strInitdelayms = null;
+	
+	private String strDatabaseReadingSingletonKey = null;
+	private String strDatabaseSubscribeSingletonKey = null;
+	private String strDatabaseSubscribePeriodMillis = null;
+	private String strDatabaseWritingSingleton = null;
 	
 	private final String strHeader = "header";
 	
@@ -54,7 +66,72 @@ public class UIScreenMMI extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			initdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
+			strInitdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
+			
+			strDatabaseReadingSingletonKey		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseReadingSingletonKey.toString(), strHeader);
+			strDatabaseSubscribeSingletonKey	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseSubscribeSingletonKey.toString(), strHeader);
+			strDatabaseSubscribePeriodMillis	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseSubscribeSingletonPeriodMillis.toString(), strHeader);
+			strDatabaseWritingSingleton			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseWritingSingleton.toString(), strHeader);
+		}
+		
+		{
+			logger.debug(className, function, "strDatabaseReadingSingletonKey[{}]", strDatabaseReadingSingletonKey);
+			
+			DatabaseMultiRead_i databaseReading_i = DatabaseMultiReadFactory.get(strDatabaseReadingSingletonKey);
+			if ( null != databaseReading_i ) {
+				if ( databaseReading_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "strDatabaseReadingSingletonKey instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseReading_i).connectOnce();
+				} else {
+					databaseReading_i.connect();
+				}
+			} else {
+				logger.debug(className, function, "databaseReading_i IS NULL");
+			}
+		}
+		
+		
+		int intDatabaseSubscribePeriodMillis = 1000;
+		if ( null != strDatabaseSubscribePeriodMillis ) {
+			try { 
+				intDatabaseSubscribePeriodMillis = Integer.parseInt(strDatabaseSubscribePeriodMillis);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "Value of strDatabaseSubscribePeriodMillis[{}] IS INVALID", strDatabaseSubscribePeriodMillis);
+			}
+		}		
+		{
+			logger.debug(className, function, "strDatabaseSubscribeSingletonKey[{}]", strDatabaseSubscribeSingletonKey);
+			logger.debug(className, function, "intDatabaseSubscribePeriodMillis[{}]", intDatabaseSubscribePeriodMillis);
+			
+			DatabaseSubscribe_i databaseSubscribe_i = DatabaseSubscribeFactory.get(strDatabaseSubscribeSingletonKey);
+			if ( null != databaseSubscribe_i ) {
+				databaseSubscribe_i.setPeriodMillis(intDatabaseSubscribePeriodMillis);
+				if ( databaseSubscribe_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "databaseSubscribe_i instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseSubscribe_i).connectOnce();
+				} else {
+					databaseSubscribe_i.connect();
+				}
+				
+			} else {
+				logger.debug(className, function, "databaseSubscribe_i IS NULL");
+			}
+		}
+
+		{
+			logger.debug(className, function, "strDatabaseWritingSingleton[{}]", strDatabaseWritingSingleton);
+			
+			DatabaseWrite_i databaseWriting_i = DatabaseWriteFactory.get(strDatabaseWritingSingleton);
+			if ( null != databaseWriting_i ) {
+				if ( databaseWriting_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "databaseWriting_i instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseWriting_i).connectOnce();
+				} else {
+					databaseWriting_i.connect();
+				}
+			} else {
+				logger.debug(className, function, "databaseWriting_i IS NULL");
+			}
 		}
 		
 		handlerRegistrations.add(		
@@ -196,11 +273,11 @@ public class UIScreenMMI extends UIWidget_i {
 		uiEventActionProcessor_i.executeActionSetInit();
 		
 		int delay = 1000;
-		if ( null != initdelayms ) {
+		if ( null != strInitdelayms ) {
 			try { 
-				delay = Integer.parseInt(initdelayms);
+				delay = Integer.parseInt(strInitdelayms);
 			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initdelayms);
+				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", strInitdelayms);
 			}
 		}
 		uiEventActionProcessor_i.executeActionSetInit(delay, null);

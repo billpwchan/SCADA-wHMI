@@ -6,10 +6,10 @@ import java.util.LinkedList;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.MultiPairResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 
 public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPairResponsible_i {
 	
@@ -25,8 +25,8 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 		public String scsEnvId = null;
 		public String[] dbAddresses = null;
 		public String[] values = null;
-		public DatabaseReadEvent_i databaseEvent = null;
-		public ReadingRequest(String key, String scsEnvId, String[] dbAddresses, DatabaseReadEvent_i databaseEvent) {
+		public DatabasePairEvent_i databaseEvent = null;
+		public ReadingRequest(String key, String scsEnvId, String[] dbAddresses, DatabasePairEvent_i databaseEvent) {
 			this.key = key;
 			this.scsEnvId = scsEnvId;
 			this.dbAddresses = dbAddresses;
@@ -53,7 +53,7 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 	
 	@Override
 	public void addMultiReadValueRequest(String clientKey, String scsEnvId, String[] dbAddresses,
-			DatabaseReadEvent_i databaseEvent) {
+			DatabasePairEvent_i databaseEvent) {
 		final String function = "addMultiReadValueRequest";
 		logger.begin(className, function);
 		logger.debug(className, function, "clientKey[{}]", clientKey);
@@ -94,10 +94,10 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 			} else {
 				
 				// Prepare Remote Request
-				databaseReading.addMultiReadValueRequest(clientKey, scsEnvId, dbAddresses, new DatabaseReadEvent_i() {
+				databaseReading.addMultiReadValueRequest(clientKey, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
 					
 					@Override
-					public void update(String key, String[] values) {
+					public void update(String key, String [] addresses, String[] values) {
 						ReadingRequest rq = requests.get(key);
 						HashMap<String, HashMap<String, String>> caches = DatabaseMultiReadingCache.getInstance().getCache();
 						HashMap<String, String> vs = caches.get(rq.scsEnvId);
@@ -123,7 +123,7 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 		logger.begin(className, function);
 		logger.info(className, function, "clientKey[{}]", clientKey);
 		ReadingRequest rq = requests.get(clientKey);
-		rq.databaseEvent.update(clientKey, values);
+		rq.databaseEvent.update(clientKey, dbAddresses, values);
 		requests.remove(clientKey);
 		logger.end(className, function);
 	}

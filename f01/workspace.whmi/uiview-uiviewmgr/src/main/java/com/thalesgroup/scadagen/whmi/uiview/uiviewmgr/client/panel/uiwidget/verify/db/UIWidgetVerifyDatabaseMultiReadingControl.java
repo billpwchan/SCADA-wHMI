@@ -21,7 +21,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEven
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 
 public class UIWidgetVerifyDatabaseMultiReadingControl extends UIWidget_i {
@@ -94,14 +94,15 @@ public class UIWidgetVerifyDatabaseMultiReadingControl extends UIWidget_i {
 							
 							String [] addressvalues = new String[]{addressvalue1, addressvalue2};
 							
-							databaseMultiRead_i.addMultiReadValueRequest(keyvalue, scsenvidvalue, addressvalues, new DatabaseReadEvent_i() {
+							databaseMultiRead_i.addMultiReadValueRequest(keyvalue, scsenvidvalue, addressvalues, new DatabasePairEvent_i() {
 								
 								@Override
-								public void update(String key, String[] values) {
+								public void update(String key, String [] dbaddresses, String[] values) {
 									String result = "Result from key["+key+"]";
 									for ( int i = 0 ; i < values.length ; ++i ) {
+										String dbaddress = dbaddresses[i];
 										String value = values[i];
-										result += " ("+i+")value["+value+"]";
+										result += " ("+i+")dbaddress["+dbaddress+"] value["+value+"]";
 									}
 									uiWidgetGeneric.setWidgetValue(muiltreadprefix+"resultvalue", result);
 								}

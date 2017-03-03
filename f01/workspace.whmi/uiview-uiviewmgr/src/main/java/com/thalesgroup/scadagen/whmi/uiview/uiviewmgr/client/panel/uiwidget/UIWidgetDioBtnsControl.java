@@ -682,7 +682,6 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		String strValueCol				= null;
 		
 		String strIsAliasAndAlias2		= null;
-		String strColumnAlias2			= null;
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -707,7 +706,7 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 			strValueCol				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueCol.toString(), strHeader);
 			
 			strIsAliasAndAlias2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsAliasAndAlias2.toString(), strHeader);
-			strColumnAlias2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias2.toString(), strHeader);
+			columnAlias2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias2.toString(), strHeader);
 			substituteFrom			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubstituteFrom.toString(), strHeader);
 			substituteTo			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubstituteTo.toString(), strHeader);
 
@@ -728,7 +727,7 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		logger.info(className, function, "strValueCol[{}]", strValueCol);
 		
 		logger.info(className, function, "strIsAliasAndAlias2[{}]", strIsAliasAndAlias2);
-		logger.info(className, function, "strColumnAlias2[{}]", strColumnAlias2);
+		logger.info(className, function, "columnAlias2[{}]", columnAlias2);
 		logger.info(className, function, "substituteFrom[{}]", substituteFrom);
 		logger.info(className, function, "substituteTo[{}]", substituteTo);
 		

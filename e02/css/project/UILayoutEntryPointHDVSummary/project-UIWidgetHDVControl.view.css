@@ -1,0 +1,89 @@
+.project-UIWidgetHDVControl-panel-inner {
+	height: 100%;
+}
+
+.project-UIWidgetHDVControl-container-button_0
+, .project-UIWidgetHDVControl-container-button_1
+, .project-UIWidgetHDVControl-container-button_2
+, .project-UIWidgetHDVControl-container-button_3
+, .project-UIWidgetHDVControl-container-button_4
+, .project-UIWidgetHDVControl-container-button_5
+, .project-UIWidgetHDVControl-container-button_6
+, .project-UIWidgetHDVControl-container-button_7
+, .project-UIWidgetHDVControl-container-button_8
+, .project-UIWidgetHDVControl-container-button_9
+, .project-UIWidgetHDVControl-container-button_10
+, .project-UIWidgetHDVControl-container-button_11
+, .project-UIWidgetHDVControl-container-button_12
+, .project-UIWidgetHDVControl-container-button_13
+, .project-UIWidgetHDVControl-container-button_14
+, .project-UIWidgetHDVControl-container-button_15
+ {
+	vertical-align: middle !important;
+}
+
+.project-UIWidgetHDVControl-button-button_0
+, .project-UIWidgetHDVControl-button-button_1
+, .project-UIWidgetHDVControl-button-button_2
+, .project-UIWidgetHDVControl-button-button_3
+, .project-UIWidgetHDVControl-button-button_4
+, .project-UIWidgetHDVControl-button-button_5
+, .project-UIWidgetHDVControl-button-button_6
+, .project-UIWidgetHDVControl-button-button_7
+, .project-UIWidgetHDVControl-button-button_8
+, .project-UIWidgetHDVControl-button-button_9
+, .project-UIWidgetHDVControl-button-button_10
+, .project-UIWidgetHDVControl-button-button_11
+, .project-UIWidgetHDVControl-button-button_12
+, .project-UIWidgetHDVControl-button-button_13
+, .project-UIWidgetHDVControl-button-button_14
+, .project-UIWidgetHDVControl-button-button_15
+ {
+    width: 115px;
+    height: 45px;
+    font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+
+.project-UIWidgetHDVControl-button-button_0-down
+, .project-UIWidgetHDVControl-button-button_1-down
+, .project-UIWidgetHDVControl-button-button_2-down
+, .project-UIWidgetHDVControl-button-button_3-down
+, .project-UIWidgetHDVControl-button-button_4-down
+, .project-UIWidgetHDVControl-button-button_5-down
+, .project-UIWidgetHDVControl-button-button_6-down
+, .project-UIWidgetHDVControl-button-button_7-down
+, .project-UIWidgetHDVControl-button-button_8-down
+, .project-UIWidgetHDVControl-button-button_9-down
+, .project-UIWidgetHDVControl-button-button_10-down
+, .project-UIWidgetHDVControl-button-button_11-down
+, .project-UIWidgetHDVControl-button-button_12-down
+, .project-UIWidgetHDVControl-button-button_13-down
+, .project-UIWidgetHDVControl-button-button_14-down
+, .project-UIWidgetHDVControl-button-button_15-down
+{
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+
+.project-UIWidgetHDVControl-button-button_0-disable
+, .project-UIWidgetHDVControl-button-button_1-disable
+, .project-UIWidgetHDVControl-button-button_2-disable
+, .project-UIWidgetHDVControl-button-button_3-disable
+, .project-UIWidgetHDVControl-button-button_4-disable
+, .project-UIWidgetHDVControl-button-button_5-disable
+, .project-UIWidgetHDVControl-button-button_6-disable
+, .project-UIWidgetHDVControl-button-button_7-disable
+, .project-UIWidgetHDVControl-button-button_8-disable
+, .project-UIWidgetHDVControl-button-button_9-disable
+, .project-UIWidgetHDVControl-button-button_10-disable
+, .project-UIWidgetHDVControl-button-button_11-disable
+, .project-UIWidgetHDVControl-button-button_12-disable
+, .project-UIWidgetHDVControl-button-button_13-disable
+, .project-UIWidgetHDVControl-button-button_14-disable
+, .project-UIWidgetHDVControl-button-button_15-disable 
+{
+	
+}

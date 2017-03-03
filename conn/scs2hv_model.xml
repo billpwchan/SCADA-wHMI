@@ -37,6 +37,9 @@
 		 
   <ols scsservername="LstServer" scslistname="dpctagset" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
+		 
+  <ols scsservername="LstServer" scslistname="hdvset" scsfilter=""
+         hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 
   <classdesc hv="com.thalesgroup.myproject.data.config.equipment.common.SGEQPT8StatusesType">
     <statusdesc hv="eqpName"        scsvalue=".type"/>

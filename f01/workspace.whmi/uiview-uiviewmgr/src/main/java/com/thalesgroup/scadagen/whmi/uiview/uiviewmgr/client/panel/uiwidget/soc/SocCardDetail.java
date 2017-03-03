@@ -16,7 +16,6 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsPollerAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.poller.SubscribeResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class SocCardDetail implements IDataGridDataSource {
 	
@@ -36,8 +35,9 @@ public class SocCardDetail implements IDataGridDataSource {
 	
 	private final String [] brctableFields = { "number", "brctype", "label", "inhibflag", "exestatus", "succns",
 	"succdelay", "failns", "faildelay", "enveqp", "eqp", "cmdname", "cmdval", "cmdlabel", "cmdtype",
-	"maxretry", "bpretcond", "bpinitcond", "sndbehavr" };
+	"maxretry", "bpretcond", "bpinitcond", "grcname", "sndbehavr" };
 	
+	private String strDataGrid_ = "";
 	private String scsEnvId_ = null;	
 	private String dbalias_  = "";
 	private String optsXMLFile_ = null;
@@ -63,19 +63,21 @@ public class SocCardDetail implements IDataGridDataSource {
 	
 	private WrapperScsPollerAccess poller = WrapperScsPollerAccess.getInstance();
 
-	// Create unique clientKey
-	private String clientKey = className + "_" + UUIDWrapper.getUUID();
+	// clientKey should be unique
+	private String clientKey = "";
 
 
 	@Override
-	public void init(String[] scsEnvIds, String strDataGridOptsXMLFile, UIDataGridDatabase uiDataGridDatabase) {
+	public void init(String strDataGrid, String[] scsEnvIds, String strDataGridOptsXMLFile, UIDataGridDatabase uiDataGridDatabase) {
 		final String function = "init";	
 		logger.begin(className, function);
-		
+
+		strDataGrid_ = strDataGrid;
 		optsXMLFile_ = strDataGridOptsXMLFile;
 		dataGridDb_ = uiDataGridDatabase;
 		
 		readConfig();
+
 		
 		logger.end(className, function);
 	}
@@ -131,6 +133,8 @@ public class SocCardDetail implements IDataGridDataSource {
 		final String function = "loadData";	
 		logger.begin(className, function);
 		
+		
+		clientKey = className + "_" + strDataGrid_ + "_" + scsEnvId;
 		scsEnvId_ = scsEnvId;
 		dbalias_ = dbaddress;
 		String [] indexHolder = new String[brcTableIndexes_.length];
@@ -274,7 +278,11 @@ public class SocCardDetail implements IDataGridDataSource {
 			Set<Cell> s = addressToCellMap.get(addresses[i]);
 			if (s != null && !s.isEmpty()) {
 				for (Cell c: s) {
-					dataGridValues[c.row][c.column] = values[i];
+					String unquotedStr = "";
+					if (values[i] != null) {
+						unquotedStr = values[i].replaceAll("\"", "");
+					}
+					dataGridValues[c.row][c.column] = unquotedStr;
 					logger.debug(className, function, "update value to dataGridValues at row[{}] column[{}]", c.row, c.column);
 					if (!rows.contains(c.row)) {
 						rows.add(c.row);
@@ -541,7 +549,7 @@ public class SocCardDetail implements IDataGridDataSource {
 											if (enableTranslation) {
 												String translateKey = "&" + className + columnLabel.replace(' ', '_') + "_" + values[row];
 												String translatedString = Translation.getWording(translateKey);
-												logger.debug(className, function, "value [{}] translated to [{}]", translatedString);
+												logger.debug(className, function, "value [{}] translated to [{}]", translateKey, translatedString);
 												
 												eq.setValue(columnLabel, translatedString);
 											} else {
@@ -567,5 +575,7 @@ public class SocCardDetail implements IDataGridDataSource {
 		}
 		logger.end(className, function);
 	}
+	
+	
 
 }

@@ -10,9 +10,26 @@ public interface UIWidgetSocControl_i {
 		, TargetDataGridColumn_B("TargetDataGridColumn_B")
 		, TargetDataGridColumn_B2("TargetDataGridColumn_B2")
 		, TargetDataGridColumn_B3("TargetDataGridColumn_B3")
+		, StartElement("StartElement")
+		, StopElement("StopElement")
+		, RetryElement("RetryElement")
+		, SkipElement("SkipElement")
+		, ReserveAttributeName("ReserveAttributeName")
+		, ReserveAttributeType("ReserveAttributeType")
+		, ReservedValueStr("ReservedValueStr")
+		, UnreservedValueStr("UnreservedValueStr")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
+	
+	// Event Send from View
+	public enum SocControlEvent {
+		  ReadGrcStepStatus("ReadGrcStepStatus");
+		private final String text;
+		private SocControlEvent(final String text) { this.text = text; }
 		@Override
 		public String toString() { return this.text; }
 	}

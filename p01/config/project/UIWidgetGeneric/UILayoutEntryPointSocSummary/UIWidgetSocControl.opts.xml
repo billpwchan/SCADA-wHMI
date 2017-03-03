@@ -9,6 +9,20 @@
 		<TargetDataGridColumn_B>Disable</TargetDataGridColumn_B>
 		<TargetDataGridColumn_B2>Step</TargetDataGridColumn_B2>
 		<TargetDataGridColumn_B3>Status</TargetDataGridColumn_B3>
+		
+		<StartElement>start</StartElement>
+		<StopElement>stop</StopElement>
+		<RetryElement>retry</RetryElement>
+		<SkipElement>skip</SkipElement>
+		
+		<!--<ReserveAttributeName>Reservation_Id</ReserveAttributeName>
+		<ReserveAttributeType>String</ReserveAttributeType>
+		<ReservedValueStr>Operator</ReservedValueStr>
+		<UnreservedValueStr></UnreservedValueStr>-->
+		<ReserveAttributeName>reserved</ReserveAttributeName>
+		<ReserveAttributeType>Integer</ReserveAttributeType>
+		<ReservedValueStr>1</ReservedValueStr>
+		<UnreservedValueStr></UnreservedValueStr>
 	</header>
 	
 	<actionset key="init">
@@ -62,8 +76,8 @@
 		<OperationString2>LaunchGrc</OperationString2>
 		<OperationString3>set_start_disable</OperationString3>
 		<OperationString4>set_stop_up</OperationString4>
-		<OperationString4>set_retry_disable</OperationString4>
-		<OperationString4>set_skip_disable</OperationString4>
+		<OperationString5>set_retry_disable</OperationString5>
+		<OperationString6>set_skip_disable</OperationString6>
 	</actionset>
 	
 	<actionset key="LaunchGrcFromCurStep">
@@ -117,29 +131,59 @@
 	<actionset key="retry">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>LaunchGrc</OperationString1>
-		<OperationString2>set_retry_disable</OperationString2>
-		<OperationString3>set_skip_disable</OperationString3>
-		<OperationString4>set_start_disable</OperationString4>
 	</actionset>
 	
 	<actionset key="skip">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>LaunchGrc</OperationString1>
-		<OperationString2>set_retry_disable</OperationString2>
-		<OperationString3>set_skip_disable</OperationString3>
-		<OperationString4>set_start_disable</OperationString4>
 	</actionset>
 	
 	<actionset key="GrcStatus_Terminated">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_start_up</OperationString1>
 		<OperationString2>set_stop_disable</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="GrcStatus_WaitForRun">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_disable</OperationString1>
+		<OperationString2>set_stop_up</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="GrcStatus_Initializing">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_disable</OperationString1>
+		<OperationString2>set_stop_up</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="GrcStatus_Running">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_disable</OperationString1>
+		<OperationString2>set_stop_up</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
+	</actionset>
+	
+	<actionset key="GrcStatus_Waiting">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_start_disable</OperationString1>
+		<OperationString2>set_stop_up</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
 	</actionset>
 	
 	<actionset key="GrcStatus_Stopped">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_start_up</OperationString1>
 		<OperationString2>set_stop_disable</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
 	</actionset>
 	
 	<actionset key="GrcStatus_Stopped_Manu_Failed">
@@ -154,6 +198,8 @@
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_start_up</OperationString1>
 		<OperationString2>set_stop_disable</OperationString2>
+		<OperationString3>set_retry_disable</OperationString3>
+		<OperationString4>set_skip_disable</OperationString4>
 	</actionset>
 	
 	<action key="set_start_disable">

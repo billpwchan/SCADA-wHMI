@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,7 +17,6 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
@@ -44,6 +42,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.GrcMgr_i.GrcExecMode;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
 
 public class UIWidgetSocControl extends UIWidget_i {
 	
@@ -55,10 +54,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
-	
-	private final String strPrepareGrc = "PrepareGrc";
-	private final String strLaunchGrc = "LaunchGrc";
-	private final String strAbortGrc = "AbortGrc";
 	
 	String strKeyPrepareGrc	= "";
 	String strKeyLaunchGrc	= "";
@@ -79,6 +74,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String dbalias = "";
 	
 	private int curStep = 1;
+	private int firstStep = 1;
 	
 	private int grcStatus = 0;
 	private int stepStatus = 0;
@@ -92,11 +88,24 @@ public class UIWidgetSocControl extends UIWidget_i {
 	//TODO: Need to change GrcMgr to support multiple instances
 	private GrcMgr grcMgr = GrcMgr.getInstance("UIEventActionGrc");
 
+	private int [] steps = null;
+	private String [] eqpList = null;
+	
+	private String startElement = "start";
+	private String stopElement = "stop";
+	private String retryElement = "retry";
+	private String skipElement = "skip";
+	
+	private String reserveAttributeName = null;
+	private String reserveAttributeType = null;
+	private String reservedValueStr = null;
+	private String unreservedValueStr = null;
+	
+
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
 		@Override
 		public void onUIEvent(UIEvent uiEvent) {
-			// TODO Auto-generated method stub
 			
 		}
 		
@@ -112,7 +121,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 					String element = uiWidgetGeneric.getWidgetElement(widget);
 					logger.info(className, function, "element[{}]", element);
 					if ( null != element ) {
-						String actionsetkey = element;
 						
 						// build scsEnvId
 						scsenvid = equipmentSelected.getStringValue(targetDataGridColumnA);
@@ -124,69 +132,47 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						logger.info(className, function, "dbalias[{}]", dbalias);
 						
-						int iExecuteMode = getAutoManuMode();
-						String executemode = String.valueOf(iExecuteMode);
-						
-						int iCurrentStep = getCurStep();
-						String curstep = String.valueOf(iCurrentStep);
-						
-						int [] iSkips = getSkips();
-						String skips = convertToStringSkips(iSkips);
-						
-						String startStep = "1";
-						if (element.equals("retry")) {
-							startStep = curstep;
-						} else if (element.equals("skip")) {
-							startStep = String.valueOf(curStep + 1);
-						}
+						// Custom handler for "start", "retry", "skip", "stop"
+						if (element.equals(startElement)) {
 
-						// build key
-						strKeyPrepareGrc	= "grc"+strPrepareGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
-						strKeyLaunchGrc	= "grc"+strLaunchGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
-						strKeyAbortGrc	= "grc"+strAbortGrc+"_"+className+"_"+scsenvid+"_"+dbalias;
-						
-						logger.info(className, function, "strKeyPrepareGrc[{}]", strKeyPrepareGrc);
-						logger.info(className, function, "strKeyLaunchGrc[{}]", strKeyLaunchGrc);
-						logger.info(className, function, "strKeyAbortGrc[{}]", strKeyAbortGrc);
-						
-						logger.info(className, function, "executemode[{}]", executemode);
-						logger.info(className, function, "startStep[{}]", startStep);
-						logger.info(className, function, "skipstep[{}]", skips);
-						
-						HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-						{
-							HashMap<String, Object> parameter = new HashMap<String, Object>();
-							parameter.put(ActionAttribute.OperationString2.toString(), strKeyPrepareGrc);
-							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
-							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
-							override.put(strPrepareGrc, parameter);
-						}
-						{
-							HashMap<String, Object> parameter = new HashMap<String, Object>();
-							parameter.put(ActionAttribute.OperationString2.toString(), strKeyLaunchGrc);
-							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
-							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
-							parameter.put(ActionAttribute.OperationString5.toString(), executemode);
-							parameter.put(ActionAttribute.OperationString6.toString(), startStep);
-							parameter.put(ActionAttribute.OperationString7.toString(), skips);
-							override.put(strLaunchGrc, parameter);
-						}
-						{
-							HashMap<String, Object> parameter = new HashMap<String, Object>();
-							parameter.put(ActionAttribute.OperationString2.toString(), strKeyAbortGrc);
-							parameter.put(ActionAttribute.OperationString3.toString(), scsenvid);
-							parameter.put(ActionAttribute.OperationString4.toString(), dbalias);
-							override.put(strAbortGrc, parameter);
-						}
-						
-						// Set up callbacks before execute
-						setGrcCallbacks();
+							firstStep = 1;
+							
+							if (reserveNeeded()) {
+								reserveEquipment(steps);
+							} else {
+								preparegrc();
+							}
+							
+						} else if (element.equals(retryElement)) {
 
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+							firstStep = getCurStep();
+							
+							if (reserveNeeded()) {
+								reserveEquipment(steps);
+							} else {
+								preparegrc();
+							}
+							
+						} else if (element.equals(skipElement)) {
+
+							firstStep = getCurStep() + 1;
+							
+							if (reserveNeeded()) {
+								reserveEquipment(steps);
+							} else {
+								preparegrc();
+							}
+							
+						} else if (element.equals(stopElement)) {
+							
+							setAbortGrcResultCallback();
+							
+							grcMgr.abortGrc(strKeyAbortGrc, scsenvid, dbalias);
+						}
 					}
 				}
 			}
-			logger.begin(className, function);
+			logger.end(className, function);
 		}
 		
 		@Override
@@ -254,6 +240,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 											grcStatus = 0;											
 											readGrcCurStatus();
 											
+											// Read step and eqp from brctable for check reserve later
+											readStepEqp();
+											
 										} else {
 											equipmentSelected = null;
 											
@@ -302,7 +291,6 @@ public class UIWidgetSocControl extends UIWidget_i {
 							}
 						}
 					}
-					
 				} else {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
@@ -341,6 +329,28 @@ public class UIWidgetSocControl extends UIWidget_i {
 			targetDataGridColumnB	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B.toString(), strHeader);
 			targetDataGridColumnB2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B2.toString(), strHeader);
 			targetDataGridColumnB3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B3.toString(), strHeader);
+			
+			String element	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.StartElement.toString(), strHeader);
+			if (element != null && !element.isEmpty()) {
+				startElement = element;
+			}
+			element	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.StopElement.toString(), strHeader);
+			if (element != null && !element.isEmpty()) {
+				stopElement = element;
+			}
+			element	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.RetryElement.toString(), strHeader);
+			if (element != null && !element.isEmpty()) {
+				retryElement = element;
+			}
+			element	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SkipElement.toString(), strHeader);
+			if (element != null && !element.isEmpty()) {
+				skipElement = element;
+			}
+			
+			reserveAttributeName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeName.toString(), strHeader);
+			reserveAttributeType	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeType.toString(), strHeader);
+			reservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReservedValueStr.toString(), strHeader);
+			unreservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.UnreservedValueStr.toString(), strHeader);
 		}
 
 		logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
@@ -350,6 +360,16 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "targetDataGridColumnB[{}]", targetDataGridColumnB);
 		logger.info(className, function, "targetDataGridColumnB2[{}]", targetDataGridColumnB2);
 		logger.info(className, function, "targetDataGridColumnB3[{}]", targetDataGridColumnB3);
+		
+		logger.info(className, function, "startElement[{}]", startElement);
+		logger.info(className, function, "stopElement[{}]", stopElement);
+		logger.info(className, function, "retryElement[{}]", retryElement);
+		logger.info(className, function, "skipElement[{}]", skipElement);
+		
+		logger.info(className, function, "reserveAttributeName[{}]", reserveAttributeName);
+		logger.info(className, function, "reserveAttributeType[{}]", reserveAttributeType);
+		logger.info(className, function, "reservedValueStr[{}]", reservedValueStr);
+		logger.info(className, function, "unreservedValueStr[{}]", unreservedValueStr);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -408,19 +428,75 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	private void setGrcCallbacks() {
+	private boolean reserveNeeded() {
+		final String function = "readStepAliases";
 		
-		setPrepareGrcResultCallback();
+		if (reserveAttributeName == null || reserveAttributeName.isEmpty() ||
+			reserveAttributeType == null || reserveAttributeType.isEmpty() ||
+			(!reserveAttributeType.equalsIgnoreCase("String") && !reserveAttributeType.equalsIgnoreCase("Integer")) ||
+			reservedValueStr == null || unreservedValueStr == null) {
+			logger.debug(className, function, "reserve not setup");
+			return false;
+		}
+
+		logger.debug(className, function, "reserve is setup");
+		return true;
+	}
+	
+	private void readStepEqp() {
+		final String function = "readStepAliases";
 		
-		setLaunchGrcResultCallback();
+		logger.begin(className, function);
 		
-		setGrcStatusResultCallback();
+		String clientKey = function + "_" + scsenvid + "_" + dbalias;
 		
-		setStepStatusResultCallback();
+		String [] dbaddresses = new String [2];
 		
-		setStepResultCallback();
+		dbaddresses[0] = "<alias>" + dbalias + ".brctable(0:$, number)";
+		dbaddresses[1] = "<alias>" + dbalias + ".brctable(0:$, eqp)";
 		
-		setAbortGrcResultCallback();
+		rtdb.multiReadValue(clientKey, scsenvid, dbaddresses, new MultiReadResult() {
+
+			@Override
+			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+				
+				if (values == null || values.length != 2) {
+					logger.error(className, function, "return values is null or size not correct");
+					return;
+				}
+				logger.debug(className, function, "numbers [{}]", values[0]);
+				String str1 = values[0].substring(1, values[0].length()-1);
+				String str2 = str1.replaceAll("\"", "");
+				logger.debug(className, function, "numbers substring [{}]", str1);
+				logger.debug(className, function, "numbers replaceAll [{}]", str2);
+				String [] numbers = str2.split(",");
+				
+				logger.debug(className, function, "eqps [{}]", values[1]);
+				String str3 = values[1].substring(1, values[1].length()-1);
+				String str4 = str3.replaceAll("\"", "");
+				logger.debug(className, function, "eqps substring [{}]", str3);
+				logger.debug(className, function, "eqps replaceAll [{}]", str4);
+				String [] eqps = str4.split(",");
+				
+				int numSteps = 0;
+				
+				for (int i=0; i<numbers.length; i++) {
+					if (numSteps > 0 && (numbers[i].equals("0") || eqps[i] == null || eqps[i].isEmpty())) {
+						break;
+					}
+					numSteps++;
+				}
+				
+				steps = new int[numSteps];
+				eqpList = new String[numSteps];
+				for (int row=0; row<numSteps; row++) {
+					steps[row] = Integer.parseInt(numbers[row]);
+					eqpList[row] = eqps[row];
+				}
+			}
+			
+		});
+		
 	}
 	
 	private void setPrepareGrcResultCallback() {
@@ -453,6 +529,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 							sendDisplayMessageEvent(errorMsg);
 						}
+					} else {
+						logger.info(className, function, "prepareGrc done. launchgrc");
+						launchgrc();
 					}
 				}
 			}
@@ -551,34 +630,67 @@ public class UIWidgetSocControl extends UIWidget_i {
 						String grcStatusStr = grcStatusObj.toString();
 	
 						sendGrcStatusEvent(grcStatusStr);
+
+						int prevGrcStatus = grcStatus;
+						grcStatus = (int) grcStatusObj.doubleValue();
 						
-						int status = (int) grcStatusObj.doubleValue();
 						String actionsetkey = "GrcStatus_";
-						if (status == GrcExecStatus.Terminated.getValue()) {
-							actionsetkey = actionsetkey + GrcExecStatus.Terminated.name();
-						} else if (status == GrcExecStatus.WaitForRun.getValue()) {
-							actionsetkey = actionsetkey + GrcExecStatus.WaitForRun.name();
-						} else if (status == GrcExecStatus.Initializing.getValue()) {
-							actionsetkey = actionsetkey + GrcExecStatus.Initializing.name();
-						} else if (status == GrcExecStatus.Running.getValue()) {
-							actionsetkey = actionsetkey + GrcExecStatus.Running.name();
-						} else if (status == GrcExecStatus.Waiting.getValue()) {
-							actionsetkey = actionsetkey + GrcExecStatus.Waiting.name();
-						} else if (status == GrcExecStatus.Stopped.getValue()) {
-							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
-								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
-							} else {
-								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+						if (grcStatus == GrcExecStatus.Terminated.getValue()) {
+							if (prevGrcStatus != grcStatus && reserveNeeded()) {
+								String [] reserveAliases = getReserveAlias();
+								unsetReserve(reserveAliases);
 							}
-						} else if (status == GrcExecStatus.Aborted.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Terminated.name();
+							
+						} else if (grcStatus == GrcExecStatus.WaitForRun.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.WaitForRun.name();
+							
+						} else if (grcStatus == GrcExecStatus.Initializing.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Initializing.name();
+							
+						} else if (grcStatus == GrcExecStatus.Running.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Running.name();
+							
+						} else if (grcStatus == GrcExecStatus.Waiting.getValue()) {
+							actionsetkey = actionsetkey + GrcExecStatus.Waiting.name();
+							
+						} else if (grcStatus == GrcExecStatus.Stopped.getValue()) {
+							
+							logger.debug(className, function, "autoManu[{}]", autoManu);
+							
+							if (prevGrcStatus != grcStatus && reserveNeeded()) {
+								String [] reserveAliases = getReserveAlias();
+								unsetReserve(reserveAliases);
+							}
+							
+							if (autoManu == GrcExecMode.Auto.getValue()) {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+							
+							} else {
+								// Read step status to get step status
+								readGrcStepStatus(curStep);
+								
+								actionsetkey = null;
+								//actionsetkey = SocControlEvent.ReadGrcStepStatus.toString();
+							}
+						} else if (grcStatus == GrcExecStatus.Aborted.getValue()) {
+							if (prevGrcStatus != grcStatus) {
+								String [] reserveAliases = getReserveAlias();
+								unsetReserve(reserveAliases);
+							}
 							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
-						} else if (status == GrcExecStatus.Suspended.getValue()) {
+							
+						} else if (grcStatus == GrcExecStatus.Suspended.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Suspended.name();
-						} else if (status == GrcExecStatus.Resumed.getValue()) {
+						} else if (grcStatus == GrcExecStatus.Resumed.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Resumed.name();
 						}
-						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
-						uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						
+						if (actionsetkey != null) {
+							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+						
+							uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						}
 					}
 				}
 			}
@@ -593,64 +705,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	private void setStepStatusResultCallback() {
-		final String function = "setStepStatusResultCallback";
-		
-		logger.begin(className, function);
-		
-		Subject stepStatusSubject = new Subject();
-		Observer observer = new Observer() {
 
-			@Override
-			public void setSubject(Subject subject) {
-				this.subject = subject;	
-				this.subject.attach(this);
-			}
-
-			@Override
-			public void update() {
-				logger.debug(className, function, "stepStatusSubject update");
-				JSONObject obj = this.subject.getState();
-				JSONNumber errorCodeObj = obj.get("errorCode").isNumber();
-				int errorCode = 0;
-				if (errorCodeObj != null) {
-					errorCode = (int)errorCodeObj.doubleValue();
-					
-					if (errorCode != 0) {
-						JSONString errorMsgObj = obj.get("errorMessage").isString();
-						if (errorMsgObj != null) {
-							String errorMsg = errorMsgObj.stringValue();
-							logger.error(className, function, errorMsg);
-							
-							sendDisplayMessageEvent(errorMsg);
-						}
-					}
-				}
-				
-				if (errorCode == 0) {
-					JSONNumber stepStatusObj = obj.get("stepStatus").isNumber();
-					if (stepStatusObj != null) {
-						String stepStatusStr = stepStatusObj.toString();
-						
-						sendStepStatusEvent(stepStatusStr);
-						
-						stepStatus = (int)stepStatusObj.doubleValue();
-					}
-				}
-				
-				sendReloadColumnDataEvent();
-			}
-
-		};
-		observer.setSubject(stepStatusSubject);
-		
-		String callback = "setStepStatusResult";
-		String key = strKeyLaunchGrc + callback;
-		grcMgr.setSubject(key, stepStatusSubject);
-		
-		logger.end(className, function);
-	}
-	
 	private void setStepResultCallback() {
 		final String function = "setStepResultCallback";
 		
@@ -775,14 +830,14 @@ public class UIWidgetSocControl extends UIWidget_i {
 		}
 	}
 
-	private int getAutoManuMode() {
-		final String function = "getAutoManuMode";
-		logger.begin(className, function);
-		int result = -1;
-		result = autoManu;
-		logger.end(className, function);
-		return result;
-	}
+//	private int getAutoManuMode() {
+//		final String function = "getAutoManuMode";
+//		logger.begin(className, function);
+//		int result = -1;
+//		result = autoManu;
+//		logger.end(className, function);
+//		return result;
+//	}
 	
 	private int getCurStep() {
 		final String function = "getCurStep";
@@ -796,21 +851,21 @@ public class UIWidgetSocControl extends UIWidget_i {
 		return result;
 	}
 	
-	private String convertToStringSkips(int [] skips) {
-		final String function = "convertToStringSkips";
-		logger.begin(className, function);
-		String result = "";
-		if ( null != skips ) {
-			for ( int i = 0 ; i < skips.length ; ++i ) {
-				if ( result.length() > 0 ) result += ",";
-				result += String.valueOf(skips[i]);
-			}
-		} else {
-			logger.warn(className, function, "skips IS NULL");
-		}
-		logger.end(className, function);
-		return result;
-	}
+//	private String convertToStringSkips(int [] skips) {
+//		final String function = "convertToStringSkips";
+//		logger.begin(className, function);
+//		String result = "";
+//		if ( null != skips ) {
+//			for ( int i = 0 ; i < skips.length ; ++i ) {
+//				if ( result.length() > 0 ) result += ",";
+//				result += String.valueOf(skips[i]);
+//			}
+//		} else {
+//			logger.warn(className, function, "skips IS NULL");
+//		}
+//		logger.end(className, function);
+//		return result;
+//	}
 	
 	private int [] getSkips() {
 		final String function = "getSkips";
@@ -907,19 +962,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			logger.debug(className, function, "fire UIEventAction grcStepEvent");
 		}
 	}
-	
-	private void sendStepStatusEvent(String stepStatusStr) {
-		final String function = "sendStepStatusEvent";
-		UIEventAction stepStatusEvent = new UIEventAction();
-		if (stepStatusEvent != null) {
-			stepStatusEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.StepStatus.toString());
-			stepStatusEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
-			stepStatusEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
-			stepStatusEvent.setParameter(ViewAttribute.OperationObject3.toString(), stepStatusStr);
-			getEventBus().fireEvent(stepStatusEvent);
-			logger.debug(className, function, "fire UIEventAction stepStatusEvent");
-		}
-	}
+
 	
 	private void readGrcCurStatus() {
 		final String function = "readGrcCurStatus";
@@ -935,7 +978,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 			@Override
 			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
-				final String function = "setReadResult";
+				final String function = "readGrcCurStatus setReadResult";
 
 				if (errorCode != 0) {
 					logger.debug(className, function, "readResult errorCode=[{}]");
@@ -958,11 +1001,16 @@ public class UIWidgetSocControl extends UIWidget_i {
 						} else if (grcStatus == GrcExecStatus.Waiting.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Waiting.name();
 						} else if (grcStatus == GrcExecStatus.Stopped.getValue()) {
-							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
-								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
-							} else {
+
+							logger.debug(className, function, "autoManu[{}]", autoManu);
+							if (autoManu == GrcExecMode.Auto.getValue()) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
-							}						
+							} else {
+								// Read step status to get step status
+								readGrcStepStatus(curStep);
+								
+								actionsetkey = null;
+							}
 						} else if (grcStatus == GrcExecStatus.Aborted.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
 						} else if (grcStatus == GrcExecStatus.Suspended.getValue()) {
@@ -970,8 +1018,11 @@ public class UIWidgetSocControl extends UIWidget_i {
 						} else if (grcStatus == GrcExecStatus.Resumed.getValue()) {
 							actionsetkey = actionsetkey + GrcExecStatus.Resumed.name();
 						}
-						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
-						uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						
+						if (actionsetkey != null) {
+							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+							uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						}
 						
 						logger.debug(className, function, "readResult curStatus=[{}]", curStatusStr);
 					}
@@ -979,6 +1030,368 @@ public class UIWidgetSocControl extends UIWidget_i {
 			}
 
 		});
+		
+		logger.end(className, function);
+	}
+	
+	private void readGrcStepStatus(int step) {
+		final String function = "readGrcStepStatus";
+		
+		logger.begin(className, function);
+		
+		String clientKey = function + "_" + scsenvid + "_" + dbalias;
+		String [] dbaddresses = new String [1];
+		
+		dbaddresses[0] = "<alias>" + dbalias + ".brctable(" + Integer.toString(step) + ",4)";
+		// Use multiRead to read GRC step status
+		rtdb.multiReadValue(clientKey, scsenvid, dbaddresses, new MultiReadResult() {
+
+			@Override
+			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+				final String function = "readGrcStepStatus setReadResult";
+
+				if (errorCode != 0) {
+					logger.debug(className, function, "readResult errorCode=[{}]");
+					sendDisplayMessageEvent(errorMessage);
+				} else {
+					if (values != null) {
+						String stepStatusStr = values[0];
+						
+						logger.debug(className, function, "stepStatus=[{}]", stepStatusStr);
+											
+						stepStatus = Integer.parseInt(stepStatusStr);
+						String actionsetkey = "GrcStatus_";
+						if (grcStatus == GrcExecStatus.Stopped.getValue()) {
+							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
+							} else {
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+							}
+						}
+						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);					
+					}
+				}
+			}
+
+		});
+		
+		logger.end(className, function);
+	}
+	
+	public void reserveEquipment(int [] steps) {
+		final String function = "reserveEquipment";
+		
+		logger.begin(className, function);
+		final String [] reserveAliases = getReserveAlias();
+		
+		String clientKey = "readReserve1" + "_" + scsenvid + "_" + dbalias;
+
+		// First check if any equipment reserved by other 
+		readReserve(clientKey, reserveAliases, new MultiReadResult() {
+
+			@Override
+			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+				final String function = "readReserve1 setReadResult";
+				logger.begin(className, function);
+				
+				logger.debug(className, function, "clientKey [{}]  values length [{}]", key, values.length);
+				boolean hasFailed = false;
+				String [] reserveAliases2 = new String [reserveAliases.length];
+				int reserveCnt = 0;
+				
+				for (int i=0; i<values.length; i++) {
+					logger.debug(className, function, "values[{}]=[{}]", i, values[i]);
+					String unquotedStr = "";
+					
+					if (values[i] != null) {
+						if (values[i].equals("null")) {
+							unquotedStr = "";
+						} else {
+							unquotedStr = values[i].replaceAll("\"", "");
+						}
+					}
+					logger.debug(className, function, "unquotedStr [{}]", unquotedStr);
+					
+					// Check if reserve is set
+					if (isReserveSet(unquotedStr)) {
+						if (reserveAttributeType.equalsIgnoreCase("String") && reservedValueStr.equalsIgnoreCase("Operator")) {
+							if (checkOperatorRight(unquotedStr)) {
+								continue;
+							} else {
+								// Equipment is reserved by other. return failed
+								hasFailed = true;
+								break;
+							}
+						} else {
+							// Equipment is reserved by other. return failed
+							hasFailed = true;
+							break;
+						}
+					} else {
+						// Reserve not set, save the alias for set reserve
+						logger.debug(className, function, "reserveAliases2 reserveCnt[{}]= reserveAliases[{}]", reserveCnt, reserveAliases[i]);
+						reserveAliases2[reserveCnt] = reserveAliases[i];
+						reserveCnt++;				
+					}
+				}
+				
+				if (hasFailed) {
+					// Found equipment reserved by other
+					//TODO: send failed event
+					logger.warn(className, function, "Reserve equipment failed. Unable to launch GRC.");
+					
+				} else {
+					// No equipment reserved by other
+					// Check any equipment need to set reserve
+					if (reserveCnt > 0) {
+						// Set equipment reserve
+						setReserve(reserveAliases2);
+						
+						String clientKey = "readReserve2" + "_" + scsenvid + "_" + dbalias;
+						
+						// Check reserve is set successfully
+						readReserve(clientKey, reserveAliases2, new MultiReadResult() {
+	
+							@Override
+							public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+								final String function = "readReserve2 setReadResult";
+								logger.begin(className, function);
+								
+								logger.debug(className, function, "clientKey [{}] check reserve are set", key);
+								boolean hasFailed = false;
+								for (int j=0; j<values.length; j++) {
+									String unquotedStr = "";
+									
+									if (values[j] != null) {
+										if (values[j].equals("null")) {
+											unquotedStr = "";
+										} else {
+											unquotedStr = values[j].replaceAll("\"", "");
+										}
+									}
+									// Check if reserve is set
+									if (isReserveSet(unquotedStr)) {
+										if (reserveAttributeType.equalsIgnoreCase("String") && reservedValueStr.equalsIgnoreCase("Operator")) {
+											if (checkOperatorRight(unquotedStr)) {
+												continue;
+											} else {
+												// equipment reserved by other
+												hasFailed = true;
+												break;
+											}
+										}
+									} else {
+										// Unable to set equipment reserve
+										hasFailed = true;
+										break;
+									}
+								}
+								
+								if (hasFailed) {
+									// Unable to set equipment reserve
+									//TODO: send failed event
+									logger.warn(className, function, "Reserve equipment failed. Unable to launch GRC.");
+									
+								} else {
+									// All equipment are now reserved
+									preparegrc();
+								}
+								
+								logger.end(className, function);
+							}			
+						});
+					} else {
+						// All equipment already reserved
+						preparegrc();
+					}
+				}
+				
+				logger.end(className, function);
+			}		
+		});
+		
+		logger.end(className, function);
+	}
+	
+	public String [] getReserveAlias() {
+		final String function = "getReserveAlias";
+		logger.begin(className, function);
+		
+		String [] aliases = null;
+		
+		if (eqpList != null && eqpList.length > 0) {
+			
+			int aliasCnt = 0;
+			for (String eqp: eqpList) {
+				if (eqp != null && !eqp.isEmpty()) {
+					aliasCnt++;
+				}
+			}
+			logger.debug(className, function, "eqpList length[{}]  non empty alias count[{}]", eqpList.length, aliasCnt);
+			
+			aliases = new String [aliasCnt];
+			int index = 0;
+			for (String eqp: eqpList) {
+				if (eqp != null && !eqp.isEmpty()) {
+					aliases[index] = eqp + "." + reserveAttributeName;
+					logger.debug(className, function, "alias[{}] = [{}]", index, aliases[index]);
+					index++;
+				}
+			}
+		}
+		
+		logger.end(className, function);
+		return aliases;
+	}
+	
+	protected void readReserve(String key, String [] reserveAliases, MultiReadResult multiReadResult) {
+		final String function = "readReserve";
+		
+		logger.begin(className, function);
+		
+		rtdb.multiReadValue(key, scsenvid, reserveAliases, multiReadResult);
+		
+		logger.end(className, function);
+	}
+	
+	public boolean isReserveSet(String reserveResult) {
+		final String function = "isReserveSet";
+		
+		logger.begin(className, function);
+		logger.debug(className, function, "reserveResult[{}]", reserveResult);
+		
+		boolean ret = false;
+		
+		if (reserveResult == null) {
+			logger.debug(className, function, "reserveResult is null return false");
+			ret = false;
+		} else {
+			if (reserveResult.isEmpty()) {		
+				logger.debug(className, function, "reserveResult is empty return false");
+				ret = false;
+			} else {
+				logger.debug(className, function, "reserveResult is not empty");
+				if (reserveAttributeType.equalsIgnoreCase("Integer") ||
+					(reserveAttributeType.equalsIgnoreCase("String") && !reservedValueStr.equalsIgnoreCase("Operator"))) {
+					if (reserveResult.equals(reservedValueStr)) {
+						logger.debug(className, function, "reserveResult equals to reservedValueStr[{}]. return true", reservedValueStr);
+						ret = true;
+					} else {
+						logger.debug(className, function, "reserveResult not equals to reservedValueStr[{}]. return false", reservedValueStr);
+						ret = false;
+					}
+				} else if (reserveAttributeType.equalsIgnoreCase("String") && reservedValueStr.equalsIgnoreCase("Operator")) {
+					logger.debug(className, function, "reservedValueStr using operator to check right. return true");
+					ret = true;
+				}			
+			}
+		}
+		
+		logger.end(className, function);
+		return ret;
+	}
+	
+	public void setReserve(String [] reserveAliases) {
+		final String function = "setReserve";
+		
+		logger.begin(className, function);
+
+		String operator = UIOpmSCADAgen.getInstance().getOperator();
+		
+		for (String alias: reserveAliases) {
+			logger.debug(className, function, "check alias[{}]", alias);
+			
+			if (alias != null && !alias.isEmpty()) {
+				String clientKey = function + "_" + scsenvid + "_" + alias;
+				
+				logger.debug(className, function, "setReserve for alias[{}]", alias);
+				
+				if (reserveAttributeType.equalsIgnoreCase("String")) {
+					if (reservedValueStr.equalsIgnoreCase("Operator")) {
+						rtdb.writeStringValue(clientKey, scsenvid, alias, operator);
+					} else {
+						rtdb.writeStringValue(clientKey, scsenvid, alias, reservedValueStr);
+					}
+				} else if (reserveAttributeType.equalsIgnoreCase("Integer")) {
+					rtdb.writeIntValue(clientKey, scsenvid, alias, Integer.parseInt(reservedValueStr));
+				}
+			}
+		}
+		
+		logger.end(className, function);
+	}
+	
+	public void unsetReserve(String [] reserveAliases) {
+		final String function = "unsetReserve";
+		
+		logger.begin(className, function);
+		
+		for (String alias: reserveAliases) {
+			logger.debug(className, function, "reserveAlias alias[{}]", alias);
+			
+			if (alias != null && !alias.isEmpty()) {
+				String clientKey = function + "_" + scsenvid + "_" + alias;
+				
+				logger.debug(className, function, "unsetReserve for alias[{}]", alias);
+		
+				if (reserveAttributeType.equalsIgnoreCase("String")) {
+					rtdb.writeStringValue(clientKey, scsenvid, alias, unreservedValueStr);
+				} else if (reserveAttributeType.equalsIgnoreCase("Integer")) {
+					rtdb.writeIntValue(clientKey, scsenvid, alias, Integer.parseInt(unreservedValueStr));
+				}
+			}
+		}
+		
+		logger.end(className, function);
+	}
+	
+	public boolean checkOperatorRight(String reserveResult) {
+		final String function = "checkReserveRight";
+		
+		logger.begin(className, function);
+		
+		boolean ret = false;
+
+		// Operator is keyword for using runtime login operator name for reserve value		
+		String operator = UIOpmSCADAgen.getInstance().getOperator();
+		logger.debug(className, function, "compare reserveResult[{}] with operator[{}]", reserveResult, operator);
+		if (reserveResult.equals(operator)) {				
+			ret = true;
+		}
+
+
+		logger.debug(className, function, "return [{}]", Boolean.toString(ret));
+		logger.end(className, function);
+		return ret;
+	}
+	
+	protected void preparegrc() {
+		final String function="preparegrc";
+		
+		logger.begin(className, function);
+		
+		setPrepareGrcResultCallback();
+		
+		grcMgr.prepareGrc(strKeyPrepareGrc, scsenvid, dbalias);
+		
+		logger.end(className, function);
+	}
+	
+	protected void launchgrc() {
+		final String function="launchgrc";
+		
+		logger.begin(className, function);
+		
+		int [] iSkips = getSkips();
+		
+		setLaunchGrcResultCallback();
+		
+		setGrcStatusResultCallback();
+		
+		setStepResultCallback();
+
+		grcMgr.launchGrc(strKeyLaunchGrc, scsenvid, dbalias, (short)autoManu, firstStep, iSkips);
 		
 		logger.end(className, function);
 	}

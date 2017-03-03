@@ -680,16 +680,17 @@ public class UIWidgetGeneric extends UIGeneric {
     							}
     						}
 
+    						/*
     						if ( WidgetType.InlineLabel.toString().equals(strWidget) ) {
     							if ( null != label )	((InlineLabel)widget).setText(label);
     						} else if ( WidgetType.Label.toString().equals(strWidget) ) {
     							if ( null != label )	((Label)widget).setText(label);
     						} else {
     							if ( null != label )	((Button)widget).setText(label);
-    						}
+    						}*/
 
     						if ( WidgetType.ImageButton.toString().equals(strWidget) || WidgetType.ImageToggleButton.toString().equals(strWidget) 
-    							|| WidgetType.Button.toString().equals(strWidget)  ) {
+    							/*|| WidgetType.Button.toString().equals(strWidget)*/  ) {
     							if ( null != iconDivWidth && null != iconDivHeight ) {
     								String img = null;
     								String lbl = null;
@@ -764,6 +765,29 @@ public class UIWidgetGeneric extends UIGeneric {
     	logger.end(className, function);
     }
     
+    private final String [] getWidgetValueSupported = new String[]{
+  		  WidgetType.Button.toString(), WidgetType.RadioButton.toString()
+  		, WidgetType.TextBox.toString(), WidgetType.TextArea.toString(), WidgetType.PasswordTextBox.toString()
+  		, WidgetType.InlineLabel.toString(), WidgetType.Label.toString()
+  		, WidgetType.Image.toString()
+  		, WidgetType.ListBox.toString()};
+  public boolean isGetWidgetValueSupported(String widgetType) {
+		final String function = "isGetWidgetValueSupported";
+		logger.begin(className, function);
+		boolean result = false;
+		logger.debug(className, function, "widgetType[{}]", widgetType);
+		if ( null != widgetType ) {
+			for ( int i = 0 ; i < getWidgetValueSupported.length ; ++i ) {
+				if ( 0 == widgetType.compareTo(getWidgetValueSupported[i]) ) {
+					result = true;
+				}
+			}
+		} else {
+			logger.warn(className, function, "widgetType IS NULL");
+		}
+		return result;
+  }
+    
     @Override
     public String getWidgetValue(String element) {
     	final String function = "getWidgetValue";
@@ -783,7 +807,9 @@ public class UIWidgetGeneric extends UIGeneric {
 				HashMap<String, String> valueMap = this.values.get(index);
 				String widget		= valueMap.get(WidgetAttribute.widget.toString());
 
-				if ( WidgetType.RadioButton.equalsName(widget) ) {
+				if ( WidgetType.Button.equalsName(widget) ) {
+					value = ((Button)w).getText().toString();
+				} else if ( WidgetType.RadioButton.equalsName(widget) ) {
 					value = ((RadioButton)w).getValue().toString();
 				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					value = ((TextBox)w).getText();
@@ -818,6 +844,29 @@ public class UIWidgetGeneric extends UIGeneric {
     	logger.end(className, function);
     	
     	return value;
+    }
+    
+    private final String [] setWidgetValueSupported = new String[]{
+    		  WidgetType.Button.toString(), WidgetType.RadioButton.toString()
+    	  		, WidgetType.TextBox.toString(), WidgetType.TextArea.toString(), WidgetType.PasswordTextBox.toString()
+    	  		, WidgetType.InlineLabel.toString(), WidgetType.Label.toString()
+    	  		, WidgetType.Image.toString()
+    	  		, WidgetType.ListBox.toString()};
+    public boolean isSetWidgetValueSupported(String widgetType) {
+		final String function = "setWidgetValueSupported";
+		logger.begin(className, function);
+		boolean result = false;
+		logger.debug(className, function, "widgetType[{}]", widgetType);
+		if ( null != widgetType ) {
+			for ( int i = 0 ; i < setWidgetValueSupported.length ; ++i ) {
+				if ( 0 == widgetType.compareTo(setWidgetValueSupported[i]) ) {
+					result = true;
+				}
+			}
+		} else {
+			logger.warn(className, function, "widgetType IS NULL");
+		}
+		return result;
     }
     
 	@Override
@@ -862,7 +911,9 @@ public class UIWidgetGeneric extends UIGeneric {
 				if ( WidgetMedia.DateTimeFormat.equalsName(media) && (null != format && 0 != format.length()) ) {
 					label = DateTimeFormat.getFormat(format).format(new Date());
 				}
-				if ( WidgetType.RadioButton.equalsName(widget) ) {
+				if ( WidgetType.Button.equalsName(widget) ) {
+					((Button)w).setText(label);
+				} else if ( WidgetType.RadioButton.equalsName(widget) ) {
 					((RadioButton)w).setValue((label.equals("true")?true:false));
 				} else if ( WidgetType.TextBox.equalsName(widget) ) {
 					((TextBox)w).setText(label);

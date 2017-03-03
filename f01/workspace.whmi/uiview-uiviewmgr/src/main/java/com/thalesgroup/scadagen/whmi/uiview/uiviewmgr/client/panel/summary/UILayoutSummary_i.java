@@ -16,6 +16,11 @@ public interface UILayoutSummary_i {
 		, EventBusScope("EventBusScope")
 		, InitDelayMS("InitDelayMS")
 		, ScsEnvIds("ScsEnvIds")
+		
+		, DatabaseReadingSingletonKey("DatabaseReadingSingletonKey")
+		, DatabaseSubscribeSingletonKey("DatabaseSubscribeSingletonKey")
+		, DatabaseSubscribeSingletonPeriodMillis("DatabaseSubscribeSingletonPeriodMillis")
+		, DatabaseWritingSingleton("DatabaseWritingSingleton")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

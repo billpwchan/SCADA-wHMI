@@ -18,7 +18,7 @@ public class DatabaseSubscribeFactory {
 	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseSubscribeFactory.class.getName());
 	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public static DatabaseSubscribe_i get(String key, int periodMillis) {
+	public static DatabaseSubscribe_i get(String key) {
 		final String function = "get";
 		logger.begin(className, function);
 		logger.debug(className, function, "key[{}]", key);
@@ -62,8 +62,6 @@ public class DatabaseSubscribeFactory {
 			else if ( 0 == key.compareTo(strDatabaseGroupPollingDiffSingleton) ) {
 				databaseSubscribe_i = DatabaseGroupPollingDiffSingleton.getInstance();
 			}
-			
-			if ( null != databaseSubscribe_i ) databaseSubscribe_i.setPeriodMillis(periodMillis);
 		}
 		logger.end(className, function);
 		return databaseSubscribe_i;

@@ -72,7 +72,8 @@ public class UIWidgetVerifyDatabaseSubscriptionControl extends UIWidget_i {
 							logger.info(className, function, "strPeriodMillis[{}]", strPeriodMillis);
 							if ( null != strPeriodMillis ) intPeriodMillis = Integer.parseInt(strPeriodMillis);
 							
-							databaseSubscribe_i = DatabaseSubscribeFactory.get(strSubscribeClassName, intPeriodMillis);
+							databaseSubscribe_i = DatabaseSubscribeFactory.get(strSubscribeClassName);
+							databaseSubscribe_i.setPeriodMillis(intPeriodMillis);
 						}
 						
 						if ( 0 == "connect".compareTo(element) ) {

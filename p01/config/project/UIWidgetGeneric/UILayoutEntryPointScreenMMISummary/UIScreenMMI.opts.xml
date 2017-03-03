@@ -5,6 +5,11 @@
 		<EventBusName>uiscreenmmi</EventBusName>
 		<EventBusScope>local</EventBusScope>
 		<InitDelayMS>1000</InitDelayMS>
+
+		<DatabaseReadingSingletonKey>DatabaseMultiReadingProxySingleton</DatabaseReadingSingletonKey>
+		<DatabaseSubscribeSingletonKey>DatabaseGroupPollingDiffSingleton</DatabaseSubscribeSingletonKey>
+		<DatabaseSubscribeSingletonPeriodMillis>500</DatabaseSubscribeSingletonPeriodMillis>
+		<DatabaseWritingSingleton>DatabaseWritingSingleton</DatabaseWritingSingleton>
 	</header>
 	
 	<actionset key="init">

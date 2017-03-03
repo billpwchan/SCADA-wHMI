@@ -106,6 +106,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
      */
     @Override
     public void terminate() {
+    	if ( null != uiWidget_i ) uiWidget_i.terminate();
     	RESETABLE_EVENT_BUS.removeHandlers();
     }
 	

@@ -120,4 +120,11 @@ public class UIPanelViewPanel extends UIWidget_i implements UIPanelViewProvide_i
 		
 	}
 	
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		if ( null != uiWidget_i ) uiWidget_i.terminate();
+		logger.end(className, function);
+	}
 }

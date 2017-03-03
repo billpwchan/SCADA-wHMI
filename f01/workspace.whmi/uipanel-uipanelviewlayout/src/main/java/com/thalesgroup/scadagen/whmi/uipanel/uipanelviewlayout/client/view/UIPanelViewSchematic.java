@@ -105,4 +105,12 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 //			this.uiViewEvent = uiViewEvent;
 //		}
 	}
+	
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		if ( null != wrapperScsSituationViewPanel ) wrapperScsSituationViewPanel.terminate();
+		logger.end(className, function);
+	}
 }

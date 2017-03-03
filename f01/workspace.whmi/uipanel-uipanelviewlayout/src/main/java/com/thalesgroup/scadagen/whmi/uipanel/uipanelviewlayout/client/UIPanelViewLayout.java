@@ -20,7 +20,7 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 
 	private ViewLayoutMgr viewLayoutMgr;
 	
-	private UIPanelView[] uiPanelViews;
+	private UIPanelView[] uiPanelViews = null;
 	
 	private Panel upperMainPanel;
 	
@@ -109,6 +109,12 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 			
 		} else if ( ViewLayoutMode.Panel == viewLayoutMode ) {
 			logger.info(className, function, "ViewLayoutMode.Panel");
+		}
+		
+		if ( null != uiPanelViews ) {
+			for ( UIPanelView uiPanelView : uiPanelViews ) {
+				if ( null != uiPanelView )	uiPanelView.terminate();
+			}
 		}
 		
 		switch (viewLayoutAction) 
@@ -222,7 +228,9 @@ public class UIPanelViewLayout extends UIWidget_i implements UIPanelViewEvent, V
 		
 		if ( null != this.uiPanelViews ) {
 			if ( viewId >= 0 && viewId < this.uiPanelViews.length ) {
-				this.uiPanelViews[viewId].setTaskLaunch(taskLaunch);
+				UIPanelView uiPanelView = this.uiPanelViews[viewId];
+				uiPanelView.terminate();
+				uiPanelView.setTaskLaunch(taskLaunch);
 			} else {
 				logger.info(className, function, "viewId is INVALID viewId["+viewId+"] set to this.uiPanelViews.length["+this.uiPanelViews.length+"]");
 			}

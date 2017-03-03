@@ -226,12 +226,15 @@ public class UIPanelView {
 		
 		return taskLaunch;
 	}
+	private UIWidget_i uiWidget_i = null;
 	public void setTaskLaunch(UITaskLaunch taskLaunch) {
 		final String function = "setTaskLaunch";
 		
 		logger.begin(className, function);
 		
 		if ( null != taskLaunch ) {
+			
+			if ( null != uiWidget_i ) uiWidget_i.terminate();
 		
 			this.taskLaunch = new UITaskLaunch(taskLaunch);
 			basePanel.clear();
@@ -249,7 +252,7 @@ public class UIPanelView {
 			((DockLayoutPanel)basePanel).addNorth(hp, 40);
 			
 			UIPanelViewFactoryMgr uiPanelViewFactoryMgr = new UIPanelViewFactoryMgr();
-			UIWidget_i uiWidget_i = null;
+			
 			Panel panel = null;
 			
 			switch ( this.taskLaunch.getTaskLaunchType() ) {
@@ -295,5 +298,11 @@ public class UIPanelView {
 		lblTitle.setText(title);
 	}
 
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		if ( null != uiWidget_i ) uiWidget_i.terminate();
+		logger.end(className, function);
+	}
 
 }

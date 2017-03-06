@@ -3,22 +3,35 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<ColumnAlias>gdg_column_alias</ColumnAlias>
-		<ColumnStatus>gdg_column_status</ColumnStatus>
 		<ColumnServiceOwner>serviceOwnerID</ColumnServiceOwner>
 		
-		<IsPolling>true</IsPolling>
+		<IsPolling>false</IsPolling>
+		<SubScribeMethod1>DatabaseGroupPollingDiffSingleton</SubScribeMethod1>
+		<MultiReadMethod1>DatabaseMultiReadingProxy</MultiReadMethod1>
+		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
 		
-		<DatabaseGroupPollingDiffSingleton>DatabaseGroupPollingDiffSingleton</DatabaseGroupPollingDiffSingleton>
-		<DatabaseMultiReadingProxySingleton>DatabaseMultiReadingProxySingleton</DatabaseMultiReadingProxySingleton>
-		<DatabaseMultiReading>DatabaseMultiReading</DatabaseMultiReading>
+		<!--
+		<IsPolling>true</IsPolling>
+		<SubScribeMethod1>DatabaseGroupPollingDiffSingleton</SubScribeMethod1>
+		<MultiReadMethod1>DatabaseMultiReadingProxySingleton</MultiReadMethod1>
+		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
+		-->
 		
 		<DotValueTable>.valueTable</DotValueTable>
 		<DotInitCondGL>.initCondGL</DotInitCondGL>
+		
+		<InitCondGLValid>1</InitCondGLValid>
 		
 		<RowInValueTable>16</RowInValueTable>
 		<DovnameCol>0</DovnameCol>
 		<LabelCol>1</LabelCol>
 		<ValueCol>2</ValueCol>
+		
+		<IsAliasAndAlias2>true</IsAliasAndAlias2>
+		<ColumnAlias2>gdg_column_alias2</ColumnAlias2>
+		<SubstituteFrom>dci</SubstituteFrom>
+		<SubstituteTo>dio</SubstituteTo>
+		
 	</header>
 	
 	<actionset key="init">
@@ -415,6 +428,11 @@
 	</actionset>
 	
 	<actionset key="button_15">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>button_send_control</OperationString1>
+	</actionset>
+	
+	<actionset key="button_send_control">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>button_send_control</OperationString1>
 	</actionset>

@@ -15,6 +15,6 @@
 		<Attribute name="DCI_TYPE!UNIVNAME"></Attribute>
 		<Attribute name="BasicEquipment!^.geographicalCat"></Attribute>
 		<Attribute name="BasicEquipment!^.functionalCat"></Attribute>
-		<Condition value='STATIC (BasicEquipment!^.scstype == "FASHDVCFM")'></Condition>               
+		<Condition value='STATIC (BasicEquipment!^.scstype == "FASHDVCFM")'></Condition>
 	</List>
 </StateList>

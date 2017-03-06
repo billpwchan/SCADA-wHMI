@@ -8,11 +8,13 @@ public interface UIWidgetDioBtnsControl_i {
 		, ColumnServiceOwner("ColumnServiceOwner")
 		
 		, IsPolling("IsPolling")
-		, DatabaseGroupPollingDiffSingleton("DatabaseGroupPollingDiffSingleton")
-		, DatabaseMultiReadingProxySingleton("DatabaseMultiReadingProxySingleton")
-		, DatabaseMultiReading("DatabaseMultiReading")
+		, SubScribeMethod1("SubScribeMethod1")
+		, MultiReadMethod1("MultiReadMethod1")
+		, MultiReadMethod2("MultiReadMethod2")
 		, DotValueTable("DotValueTable")
 		, DotInitCondGL("DotInitCondGL")
+		
+		, InitCondGLValid("InitCondGLValid")
 		
 		, RowInValueTable("RowInValueTable")
 		, DovnameCol("DovnameCol")

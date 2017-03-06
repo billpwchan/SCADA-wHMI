@@ -88,7 +88,7 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 	private String [] valueTableLabels 		= null;
 	private String [] valueTableValues 		= null;
 	
-	private final String initCondGLValid 	= "1";
+	private String initCondGLValid 			= "1";
 	
 	private int rowInValueTable 			= 16;
 	private int dovnameCol					= 0;
@@ -97,22 +97,11 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 	
 	private String selectedEnv 				= null;
 	private String selectedAlias			= null;
-	
-	@Override
-	public void terminate() {
-		final String function = "terminate";
-		logger.begin(className, function);
-		if ( isPolling ) {
-			if ( null != selectedEnv && null != selectedAlias ) {
-				unSubscribeValueTable(selectedEnv, selectedAlias);
-			} else {
-				logger.info(className, function, "selectedEnv OR selectedAlias IS NULL");
-			}
-		}
-		logger.begin(className, function);
-	};
-	
+
+	private DatabaseSubscribe_i databaseSubscribe_i = null;
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
+	private DatabaseMultiRead_i databaseMultiRead_i_2 = null;
+	
 	private void readValueTableAndUpdateButtonStatusLabel(String env, String alias ) {
 		final String function = "readValueTableAndUpdateButtonStatusLabel";
 		logger.begin(className, function);
@@ -126,8 +115,6 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		String address = alias+DotValueTable;
 		
 		logger.info(className, function, "address[{}]", address);
-		
-		databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
 		
 		DataBaseClientKey ck1 = new DataBaseClientKey();
 		ck1.setAPI(API.multiReadValue);
@@ -272,7 +259,6 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 					logger.warn(className, function, "values IS NULL");
 				}
 			
-				databaseMultiRead_i.disconnect();
 				logger.end(className, function);
 			}
 		});
@@ -282,9 +268,6 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 	private void readValueTable(String env, String alias) {
 		final String function = "addValueTableSubscribe";
 		logger.begin(className, function);
-		
-		DatabaseMultiRead_i databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod2);
-		databaseMultiRead_i.connect();
 		
 		String address = alias+DotValueTable;
 		
@@ -308,7 +291,7 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		}
 		String [] dovaddresses = dovaddresslist.toArray(new String[0]);
 		
-		databaseMultiRead_i.addMultiReadValueRequest(clientKey, env, dovaddresses, new DatabasePairEvent_i() {
+		databaseMultiRead_i_2.addMultiReadValueRequest(clientKey, env, dovaddresses, new DatabasePairEvent_i() {
 			
 			@Override
 			public void update(String key, String[] dbAddresses, String[] values) {
@@ -362,17 +345,13 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 			}
 		});
 		
-		databaseMultiRead_i.disconnect();
-		
 		logger.end(className, function);
 	}
 	
 	private void subscribeValueTable(String env, String alias) {
 		final String function = "subscribeValueTable";
 		logger.begin(className, function);
-		
-		DatabaseSubscribe_i databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
-		
+
 		String address = alias+DotValueTable;
 		
 		DataBaseClientKey ck2 = new DataBaseClientKey();
@@ -467,7 +446,6 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		
 		String clientKey = ck2.getClientKey();
 		
-		DatabaseSubscribe_i databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
 		databaseSubscribe_i.addUnSubscribeRequest(clientKey);
 		
 		logger.end(className, function);
@@ -579,8 +557,10 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 					String actionsetkey = strButtons+strUnderline+strInvisible;
 					uiEventActionProcessor_i.executeActionSet(actionsetkey);
 					
-					if ( null != selectedEnv && null != selectedAlias ) {
-						unSubscribeValueTable(selectedEnv, selectedAlias);
+					if ( isPolling ) {
+						if ( null != selectedEnv && null != selectedAlias ) {
+							unSubscribeValueTable(selectedEnv, selectedAlias);
+						}
 					}
 					
 					logger.info(className, function, "Store Selected Row");
@@ -608,7 +588,7 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 								
 								logger.info(className, function, "oldpoint[{}], newpoint[{}]", oldpoint, newpoint);
 								
-								selectedAlias = selectedAlias += newpoint;
+								selectedAlias = alias2 + newpoint;
 							} else {
 								logger.warn(className, function, "alias2 IS NULL");
 							}
@@ -646,10 +626,18 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 								@Override
 								public boolean executeHandler(UIEventAction uiEventAction) {
 									String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-			
+									
 									logger.info(className, function, "os1["+os1+"]");					
 									
 									if ( null != os1 ) {
+										if ( os1.equals("set_default_up") ) {
+											String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+											envUp(os2);
+										}
+										if ( os1.equals("set_default_down") ) {
+											String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+											envDown(os2);
+										}
 										if ( os1.equals("set_default_kill") ) {
 											terminate();
 										}
@@ -693,12 +681,14 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 			
 			strIsPolling			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsPolling.toString(), strHeader);
 			
-			subScribeMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseGroupPollingDiffSingleton.toString(), strHeader);
-			multiReadMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseMultiReadingProxySingleton.toString(), strHeader);
-			multiReadMethod2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseMultiReading.toString(), strHeader);
+			subScribeMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubScribeMethod1.toString(), strHeader);
+			multiReadMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MultiReadMethod1.toString(), strHeader);
+			multiReadMethod2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MultiReadMethod2.toString(), strHeader);
 			
 			DotValueTable			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotValueTable.toString(), strHeader);
 			DotInitCondGL			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotInitCondGL.toString(), strHeader);
+			
+			initCondGLValid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitCondGLValid.toString(), strHeader);
 			
 			strRowInValueTable		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.RowInValueTable.toString(), strHeader);
 			strDovnameCol			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DovnameCol.toString(), strHeader);
@@ -821,7 +811,74 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
+		envUp(null);
+		
 		logger.end(className, function);
 	}
+	
+	@Override
+	public void envUp(String env) {
+		final String function = "envUp";
+		logger.begin(className, function);
+
+		logger.info(className, function, "multiReadMethod1[{}]", multiReadMethod1);
+		
+		databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
+		databaseMultiRead_i.connect();
+		
+		if ( isPolling ) {
+			
+			logger.info(className, function, "subScribeMethod1[{}]", subScribeMethod1);
+			
+			databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
+			databaseSubscribe_i.connect();
+		} else {
+			logger.info(className, function, "multiReadMethod2[{}]", multiReadMethod2);
+			
+			databaseMultiRead_i_2 = DatabaseMultiReadFactory.get(multiReadMethod2);
+			databaseMultiRead_i_2.connect();
+		}
+		
+
+		logger.begin(className, function);
+	}
+	
+	@Override
+	public void envDown(String env) {
+		final String function = "envDown";
+		logger.begin(className, function);
+		
+		if ( null != databaseSubscribe_i ) {
+			databaseSubscribe_i.disconnect();
+		}
+		
+		if ( null != databaseMultiRead_i ) {
+			databaseMultiRead_i.disconnect();
+		}
+		
+		if ( null != databaseMultiRead_i_2 ) {
+			databaseMultiRead_i_2.disconnect();
+		}
+		
+		logger.begin(className, function);
+	}
+	
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		
+		if ( isPolling ) {
+			if ( null != selectedEnv && null != selectedAlias ) {
+				unSubscribeValueTable(selectedEnv, selectedAlias);
+			} else {
+				logger.warn(className, function, "selectedEnv OR selectedAlias IS NULL");
+			}
+		}
+		
+		envDown(null);
+		
+		logger.begin(className, function);
+	};
 
 }

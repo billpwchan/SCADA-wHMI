@@ -2,10 +2,10 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<ListConfigId>dpctagset</ListConfigId>
+		<ListConfigId>hdvset</ListConfigId>
 		<MenuEnableCallImage>false</MenuEnableCallImage>
-		<SelectionMode>Multiple</SelectionMode>
-		<MwtEventBusName>dpctagset</MwtEventBusName>
+		<SelectionMode>Single</SelectionMode>
+		<MwtEventBusName>hdvset</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 	</header>
 </data-set>

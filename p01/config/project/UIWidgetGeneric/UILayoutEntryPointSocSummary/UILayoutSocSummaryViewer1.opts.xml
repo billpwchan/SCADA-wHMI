@@ -8,7 +8,8 @@
 		<DataGrid>UIDataGridFormatterSOC</DataGrid>
 		<DataGridColumnsType>String,String,String</DataGridColumnsType>
 		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias</DataGridColumnsLabel>
-		<DataGridColumnsWidth>70,70,250</DataGridColumnsWidth>
+		<DataGridColumnsWidth>70,70,0</DataGridColumnsWidth>
+		<DataGridColumnsSort>1,1,0</DataGridColumnsSort>
 		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardList.xml</DataGridOptsXMLFile>
 		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
 		<DataGridPageSize>10</DataGridPageSize>

@@ -9,6 +9,7 @@ public interface UIDataGridFormatter_i {
 	String getColumnLabel(int column);
 	String getEmptyLabel();
 	int getColumnWidth(int column);
+	int getColumnSort(int column);
 	String getColumnType(String columnLabel);
 	
 	DataGrid<Equipment_i> addDataGridColumn(DataGrid<Equipment_i> dataGrid);

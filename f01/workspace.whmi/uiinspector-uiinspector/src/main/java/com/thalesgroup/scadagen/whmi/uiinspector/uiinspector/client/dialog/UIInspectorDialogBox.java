@@ -240,7 +240,7 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	public void close() {
 		final String function = "close";
 		logger.begin(className, function);
-		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
+		terminate();
 		logger.end(className, function);
 	}
 	
@@ -260,6 +260,14 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	public void setCtrlHandler(String ctrlHandler) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
+		logger.end(className, function);
 	}
 
 }

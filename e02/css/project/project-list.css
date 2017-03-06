@@ -47,24 +47,24 @@
 
 /* DataGrid Header Indicators */
 .dataGridSortedHeaderAscending > div > div > img {
-	background: url(../img/gdg/project-gdg-sortedheader-ascending.svg) no-repeat !important;
+	background: url(../../img/project/gdg/project-gdg-sortedheader-ascending.svg) no-repeat !important;
 	background-size: 11px 11px !important;
 }
 
 .dataGridSortedHeaderDescending > div > div > img {
-	background: url(../img/gdg/project-gdg-sortedheader-descending.svg) no-repeat !important;
+	background: url(../../img/project/gdg/project-gdg-sortedheader-descending.svg) no-repeat !important;
 	background-size: 11px 11px !important;
 }
 
 .dataGridHeader > div > div > img[style*="CpzVV0AAAAASUVORK5CYII"],
 .dataGridHeader > div > div > div > div:nth-of-type(1) > img[style*="CpzVV0AAAAASUVORK5CYII"] {
-	background: url(../img/gdg/project-gdg-header-filtered.svg) no-repeat !important;
+	background: url(../../img/project/gdg/project-gdg-header-filtered.svg) no-repeat !important;
 	background-size: 15px 15px !important;
 }
 
 .dataGridHeader > div > div > img[style*="HcfwvnKUjAAAAAElFTkSuQmCC"],
 .dataGridHeader > div > div > div > div:nth-of-type(1) > img[style*="HcfwvnKUjAAAAAElFTkSuQmCC"] {
-	background: url(../img/gdg/project-gdg-header-unfiltered.svg) no-repeat !important;
+	background: url(../../img/project/gdg/project-gdg-header-unfiltered.svg) no-repeat !important;
 	background-size: 15px 15px !important;
 }
 

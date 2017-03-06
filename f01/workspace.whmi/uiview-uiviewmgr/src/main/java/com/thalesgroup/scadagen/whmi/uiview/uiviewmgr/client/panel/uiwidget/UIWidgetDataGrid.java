@@ -66,6 +66,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridColumnsLabel = null;
 	private String strDataGridColumnsWidth = null;
 	private String strDataGridColumnsTranslation = null;
+	private String strDataGridColumnsSort = null;
 	private String strDataGridOptsXMLFile = null;
 	private String strDataGridPageSize = null;
 
@@ -78,6 +79,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String [] strDataGridColumnsTypes = null;
 	private int [] intDataGridColumnsWidths = null;
 	private int [] intDataGridColumnsTranslations = null;
+	private int [] intDataGridColumnsSort = null;
 	
 	private Map<String, Boolean> columnLabelTranslationMap = new HashMap<String, Boolean>();
 	
@@ -101,7 +103,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	
 	private String scsEnvIdsStr = null;
 	
-	private String uuid = UUIDWrapper.getUUID();
+	//private String uuid = UUIDWrapper.getUUID();
 	
     UIDataGridFormatter_i dataGridFormatter = null;
 	
@@ -387,6 +389,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
 			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
 			strDataGridColumnsTranslation	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsTranslation.toString(), strHeader);
+			strDataGridColumnsSort			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsSort.toString(), strHeader);
 			strDataGridOptsXMLFile 			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridOptsXMLFile.toString(), strHeader);
 			strDataGridPagerName		 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPagerName.toString(), strHeader);
 			strDataGridPageSize			 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPageSize.toString(), strHeader);
@@ -406,6 +409,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
 		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
 		logger.debug(className, function, "strDataGridColumnsTranslation [{}]", strDataGridColumnsTranslation);
+		logger.debug(className, function, "strDataGridColumnsSort [{}]", strDataGridColumnsSort);
 		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
 		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
 		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
@@ -509,6 +513,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
 		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
 		logger.info(className, function, "strDataGridColumnsTranslation[{}]", strDataGridColumnsTranslation);
+		logger.info(className, function, "strDataGridColumnsSort[{}]", strDataGridColumnsSort);
 		logger.info(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
 		logger.info(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
 		logger.info(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
@@ -518,6 +523,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
 		intDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
 		intDataGridColumnsTranslations = UIWidgetUtil.getIntArray(strDataGridColumnsTranslation, split);
+		intDataGridColumnsSort = UIWidgetUtil.getIntArray(strDataGridColumnsSort, split);
 		if (strDataGridPageSize != null) {
 			try {
 				int size = Integer.parseInt(strDataGridPageSize);
@@ -541,7 +547,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		createColumnLabelTranslationMap(strDataGridColumnsLabels, intDataGridColumnsTranslations);
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
-	    dataGridFormatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsLabels, intDataGridColumnsWidths);
+	    dataGridFormatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsLabels, intDataGridColumnsWidths, intDataGridColumnsSort);
 	    
 	    /*
 	     * Set a key provider that provides a unique key for each contact. If key is
@@ -641,7 +647,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	    }
    
 	    // Add the CellList to the adapter in the database.
-	    String dbKey = strDataGrid + uuid;
+	    String dbKey = strDataGrid;
 	    uiDataGridDatabase = UIDataGridDatabase.getInstance(dbKey);
 	    uiDataGridDatabase.addDataDisplay(dataGrid);
 	    uiDataGridDatabase.setScsEnv(strDataGrid, scsEnvIdsStr, strDataGridColumnsLabels, strDataGridColumnsTypes, intDataGridColumnsTranslations, strDataGridOptsXMLFile);

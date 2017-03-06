@@ -20,6 +20,7 @@ public interface UIWidgetView_i {
 	void setViewXMLFile(String viewXMLFile);
 	void setOptsXMLFile(String optsXMLFile);
 	void init();
+	void terminate();
 	Panel getMainPanel();
 
 }

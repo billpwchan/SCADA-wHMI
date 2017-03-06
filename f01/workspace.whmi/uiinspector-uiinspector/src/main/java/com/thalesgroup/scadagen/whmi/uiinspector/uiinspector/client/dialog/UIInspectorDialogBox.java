@@ -240,7 +240,7 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 	public void close() {
 		final String function = "close";
 		logger.begin(className, function);
-		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
+		terminate();
 		logger.end(className, function);
 	}
 	

@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -9,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.SocCardList_i.SocCardListParameter;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
 
 public class SocCardList implements IDataGridDataSource {
@@ -22,9 +24,12 @@ public class SocCardList implements IDataGridDataSource {
 	private UIDataGridDatabase_i dataGridDb_ = null;
 	private String separater = ",";
 	private String [] strDataGridColumnsFilters = null;
+	private String [] strGrcPointAttributes = null;
 	private final String grcPathRoot = "ScadaSoft";
 	private String [] strDataGridColumnsLabels = null;
+	private String [] strDataGridColumnsTypes = null;
 	private Map<String, String> scsEnvIdMap = new HashMap<String, String>();
+	private Map<String, Integer> clientKeyToRowMap = new HashMap<String, Integer>();
 	
 	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
 
@@ -50,16 +55,22 @@ public class SocCardList implements IDataGridDataSource {
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
 		String strColumnValueFilters = null;
+		String strGrcPointAttribute = null;
 		
 		if (dataGridDb_ != null) {
 			strDataGridColumnsLabels = dataGridDb_.getColumnLabels();
+			strDataGridColumnsTypes = dataGridDb_.getColumnTypes();
 		}
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			strColumnValueFilters = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.ColumnValueFilters.toString(), strHeader);
+			strGrcPointAttribute = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.GrcPointAttributes.toString(), strHeader);
 			if (strColumnValueFilters != null) {
 				strDataGridColumnsFilters = UIWidgetUtil.getStringArray(strColumnValueFilters, separater);
+			}
+			if (strGrcPointAttribute != null) {
+				strGrcPointAttributes = UIWidgetUtil.getStringArray(strGrcPointAttribute, separater);
 			}
 		}
 		logger.end(className, function);
@@ -101,6 +112,8 @@ public class SocCardList implements IDataGridDataSource {
 		
 		String scsEnvId = getScsEnvIdFromMap(clientKey);
 		
+		int existingRows = dataGridDb_.getDataProvider().getList().size();
+		
 		for (int i=0; i<instances.length; i++) {
 
 	    	String [] columnValues = new String [strDataGridColumnsLabels.length];
@@ -117,7 +130,79 @@ public class SocCardList implements IDataGridDataSource {
 	    				alias = alias.substring(grcPathRoot.length());
 	    			}
 	    			columnValues[col] = alias;
+	    			
 	    			//TODO: Handle db full path to alias
+	    			
+	    			
+	    			// Read Grc point attribute (e.g. label)
+	    			if (strGrcPointAttributes.length > 0) {
+	    				String [] addresses = new String [strGrcPointAttributes.length];
+	    				int cnt = 0;
+	    				// Add columns
+	    				for (String att: strGrcPointAttributes) {
+	    					String address = "<alias>" + alias + "." + att;
+
+	    					logger.debug(className, function, "Read Grc point attribute address [{}]", address);
+	    					addresses[cnt] = address;
+	    					cnt++;
+	    				}
+	    				
+	    				String key = clientKey + "_" + Integer.toString(existingRows + i);
+	    				
+	    				logger.debug(className, function, "clientKeyToRowMap key[{}]  row[{}]", key, existingRows + i);
+	    				clientKeyToRowMap.put(key, existingRows + i);
+	    				
+	    				rtdb.multiReadValue(key, scsEnvId, addresses, new MultiReadResult() {
+
+							@Override
+							public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+								final String function = "updateSocCardList setReadResult";
+								
+								logger.begin(className, function);
+								// Get row number from map
+								Integer intObj = clientKeyToRowMap.get(key);
+								logger.debug(className, function, "clientKey [{}] row [{}]", key, intObj);
+								if (intObj != null) {
+									int row = intObj;
+									int index = 0;
+									
+									for (int col=0; col<strDataGridColumnsLabels.length && index < values.length; col++) {
+										logger.debug(className, function, "col[{}] label[{}]", col, strDataGridColumnsLabels[col]);
+									
+										if (!strDataGridColumnsLabels[col].equalsIgnoreCase("SOCCard") &&
+											!strDataGridColumnsLabels[col].equalsIgnoreCase("ScsEnvID") &&
+											!strDataGridColumnsLabels[col].equalsIgnoreCase("Alias")) {
+											
+											logger.debug(className, function, "set value for label[{}]", strDataGridColumnsLabels[col]);
+											
+											// Remove quotes from value string
+											String unquotedStr = "";
+											if (values[col] != null) {
+												unquotedStr = values[col].replace("\"", "");
+											}
+																													
+											List<Equipment_i> list = dataGridDb_.getDataProvider().getList();
+											Equipment_i contact = list.get(row);
+											if (strDataGridColumnsTypes[col].equalsIgnoreCase("String")) {
+												logger.debug(className, function, "set string value [{}]", unquotedStr);
+												contact.setStringValue(strDataGridColumnsLabels[col], unquotedStr);
+												index++;
+											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Integer")) {
+												logger.debug(className, function, "set number value [{}]", unquotedStr);
+												contact.setNumberValue(strDataGridColumnsLabels[col], Integer.parseInt(unquotedStr));
+												index++;
+											} else {
+												logger.warn(className, function, "DataGrid [{}] column type [{}] not supported", strDataGrid_, strDataGridColumnsTypes[col]);
+											}
+										}
+									}
+									
+									dataGridDb_.refreshDisplays();
+								}
+								logger.end(className, function);
+							}   					
+	    				});
+	    			}
 	    		}
 	    	}
 

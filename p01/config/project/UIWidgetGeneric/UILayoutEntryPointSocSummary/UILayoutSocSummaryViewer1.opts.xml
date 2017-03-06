@@ -6,10 +6,10 @@
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
 		<DataGrid>UIDataGridFormatterSOC</DataGrid>
-		<DataGridColumnsType>String,String,String</DataGridColumnsType>
-		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias</DataGridColumnsLabel>
-		<DataGridColumnsWidth>70,70,0</DataGridColumnsWidth>
-		<DataGridColumnsSort>1,1,0</DataGridColumnsSort>
+		<DataGridColumnsType>String,String,String,String</DataGridColumnsType>
+		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias,Description</DataGridColumnsLabel>
+		<DataGridColumnsWidth>70,70,0,200</DataGridColumnsWidth>
+		<DataGridColumnsSort>1,1,0,0</DataGridColumnsSort>
 		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardList.xml</DataGridOptsXMLFile>
 		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
 		<DataGridPageSize>10</DataGridPageSize>

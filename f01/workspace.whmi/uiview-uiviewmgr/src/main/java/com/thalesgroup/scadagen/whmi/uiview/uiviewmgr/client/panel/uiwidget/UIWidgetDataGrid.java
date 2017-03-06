@@ -46,7 +46,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.UUIDWrapper;
 
 public class UIWidgetDataGrid extends UIWidget_i {
 	
@@ -586,9 +585,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
 					} else {
 						String value = row.getStringValue(label);
-						// Replace space with '_'
-						value.replace(' ','_');
-						strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
+						if (value != null && !value.isEmpty()) {
+							// Replace space with '_'
+							value.replace(' ','_');
+							strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
+						}
 					}
 				}
                 return strCssResult;

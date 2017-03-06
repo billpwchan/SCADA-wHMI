@@ -262,4 +262,12 @@ public class UIInspectorDialogBox extends DialogBox implements UIInspector_i {
 		
 	}
 
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		if ( null != this.uiInspectorDialogBoxEvent ) uiInspectorDialogBoxEvent.onClose();
+		logger.end(className, function);
+	}
+
 }

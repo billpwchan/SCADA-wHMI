@@ -177,8 +177,8 @@ public class SocCardList implements IDataGridDataSource {
 											
 											// Remove quotes from value string
 											String unquotedStr = "";
-											if (values[col] != null) {
-												unquotedStr = values[col].replace("\"", "");
+											if (values[index] != null) {
+												unquotedStr = values[index].replaceAll("\"", "");
 											}
 																													
 											List<Equipment_i> list = dataGridDb_.getDataProvider().getList();

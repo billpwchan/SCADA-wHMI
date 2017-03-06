@@ -6,7 +6,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * @author syau
  * UIEvent API
  */
-public interface UIWidgetEventable_i extends UIWidgetView_i {
+public interface UIWidgetEventable_i extends UIWidgetEnvActivity_i {
 	
 	/**
 	 * @param handlerRegistration
@@ -16,8 +16,5 @@ public interface UIWidgetEventable_i extends UIWidgetView_i {
 	 * 
 	 */
 	void removeHandlerRegistrations();
-	/**
-	 * 
-	 */
-	void terminate();
+
 }

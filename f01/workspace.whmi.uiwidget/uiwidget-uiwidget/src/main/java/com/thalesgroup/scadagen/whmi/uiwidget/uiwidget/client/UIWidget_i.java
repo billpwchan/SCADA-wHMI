@@ -248,5 +248,17 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public void envUp(String env) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void envDown(String env) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

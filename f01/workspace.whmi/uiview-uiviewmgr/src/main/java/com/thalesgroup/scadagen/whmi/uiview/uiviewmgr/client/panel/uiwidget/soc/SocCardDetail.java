@@ -270,7 +270,7 @@ public class SocCardDetail implements IDataGridDataSource {
 		
 		logger.debug(className, function, "subscriptionId = [{}]", subscriptionId_);
 		
-		Set<Integer> rows = new HashSet<Integer>(); 
+		List<Equipment_i> list = dataGridDb_.getDataProvider().getList();
 
 		for (int i=0; i<values.length && i<addresses.length; i++) {
 			logger.debug(className, function, "address=[{}]  value=[{}]", addresses[i], values[i]);
@@ -282,34 +282,34 @@ public class SocCardDetail implements IDataGridDataSource {
 					if (values[i] != null) {
 						unquotedStr = values[i].replaceAll("\"", "");
 					}
-					dataGridValues[c.row][c.column] = unquotedStr;
-					logger.debug(className, function, "update value to dataGridValues at row[{}] column[{}]", c.row, c.column);
-					if (!rows.contains(c.row)) {
-						rows.add(c.row);
+					logger.debug(className, function, "update value using unquotedStr[{}]", unquotedStr);
+					
+					Equipment_i contact = list.get(c.row);
+					String label = strDataGridColumnsLabels[c.column];
+					String type = strDataGridColumnsTypes[c.column];
+
+					if (type.equalsIgnoreCase("String")) {
+						contact.setStringValue(label, unquotedStr);
+					} else if (type.equalsIgnoreCase("Number")) {
+						if (unquotedStr.isEmpty()) {
+							contact.setNumberValue(label, 0);
+						} else {
+							contact.setNumberValue(label, Integer.parseInt(unquotedStr));
+						}
+					} else if (type.equalsIgnoreCase("Boolean")) {
+						if (unquotedStr.isEmpty()) {
+							contact.setBooleanValue(label, false);
+						} else {
+							contact.setBooleanValue(label, Boolean.parseBoolean(unquotedStr));
+						}
 					}
+					
 				}
 			} else {
 				logger.warn(className, function, "addressToCellMap entry not found for address [{}]", addresses[i]);
 			}
 		}
-				
-		for (Integer r: rows) {
-			EquipmentBuilder_i builder = new EquipmentBuilder();
-			
-			for (int col=0; col<strDataGridColumnsLabels.length; col++) {
-				if (strDataGridColumnsTypes[col].compareToIgnoreCase("String") == 0) {
-					builder = builder.setValue(strDataGridColumnsLabels[col], dataGridValues[r][col]);
-				} else if (strDataGridColumnsTypes[col].compareToIgnoreCase("Number") == 0) {
-					builder = builder.setValue(strDataGridColumnsLabels[col], Integer.parseInt(dataGridValues[r][col]));
-				} else if (strDataGridColumnsTypes[col].compareToIgnoreCase("Boolean") == 0) {
-					builder = builder.setValue(strDataGridColumnsLabels[col], Boolean.parseBoolean(dataGridValues[r][col]));
-				}
-	    		logger.debug(className, function, "builder setValue [{}] [{}]", strDataGridColumnsLabels[col], dataGridValues[r][col]);
-			}
-			
-			Equipment_i equipment_i = builder.build();
-			dataGridDb_.updateEquipmentElement(r, equipment_i);
-		}
+
 		dataGridDb_.refreshDisplays();
 		
 		logger.end(className, function);
@@ -546,14 +546,18 @@ public class SocCardDetail implements IDataGridDataSource {
 										} else if (columnType.equals("Boolean")) {
 											eq.setBooleanValue(columnLabel, Boolean.parseBoolean(values[row]));
 										} else {
+											String unquotedStr = "";
+											if (values[row] != null) {
+												unquotedStr = (values[row]).replaceAll("\"", "");
+											}
 											if (enableTranslation) {
-												String translateKey = "&" + className + columnLabel.replace(' ', '_') + "_" + values[row];
+												String translateKey = "&" + className + columnLabel.replace(' ', '_') + "_" + unquotedStr;
 												String translatedString = Translation.getWording(translateKey);
 												logger.debug(className, function, "value [{}] translated to [{}]", translateKey, translatedString);
 												
-												eq.setValue(columnLabel, translatedString);
+												eq.setStringValue(columnLabel, translatedString);
 											} else {
-												eq.setValue(columnLabel, values[row]);
+												eq.setStringValue(columnLabel, unquotedStr);
 											}
 										}
 										logger.debug(className, function, "load data [{}] to row [{}]", values[row], row);

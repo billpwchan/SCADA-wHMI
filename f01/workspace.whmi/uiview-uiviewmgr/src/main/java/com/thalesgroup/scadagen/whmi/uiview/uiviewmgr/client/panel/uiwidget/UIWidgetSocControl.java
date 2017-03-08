@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -62,6 +63,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String targetDataGridA			= "";
 	private String targetDataGridColumnA	= "";
 	private String targetDataGridColumnA2	= "";
+	private String targetDataGridColumnA3	= "";
 	private String targetDataGridB			= "";
 	private String targetDataGridColumnB	= "";
 	private String targetDataGridColumnB2	= "";
@@ -72,12 +74,15 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private String scsenvid = "";
 	private String dbalias = "";
+	private String grcName = "";
 	
 	private int curStep = 1;
 	private int firstStep = 1;
+	private int lastExecutedStep = 0;
+	private int numSteps = 0;
 	
 	private int grcStatus = 0;
-	private int stepStatus = 0;
+	//private int stepStatus = 0;
 	
 	private int autoManu = 0;
 	
@@ -101,6 +106,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String reservedValueStr = null;
 	private String unreservedValueStr = null;
 	
+	private int notExecutedSteps = 0;
+	private int completedSteps = 0;
+	private int failedSteps = 0;
+	private int skippedSteps = 0;
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -235,10 +244,22 @@ public class UIWidgetSocControl extends UIWidget_i {
 											
 											scsenvid = equipmentSelected.getStringValue(targetDataGridColumnA);
 											dbalias = equipmentSelected.getStringValue(targetDataGridColumnA2);
+											grcName = equipmentSelected.getStringValue(targetDataGridColumnA3);
 											
 											// Reset GRC and Status
 											grcStatus = 0;											
 											readGrcCurStatus();
+											
+											// Reset step counts
+											notExecutedSteps = 0;
+											completedSteps = 0;
+											failedSteps = 0;
+											skippedSteps = 0;
+											lastExecutedStep = 0;
+											
+											// Clear display message
+											String msg = "";
+											sendDisplayMessageEvent(msg);
 											
 											// Read step and eqp from brctable for check reserve later
 											readStepEqp();
@@ -325,6 +346,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			targetDataGridA			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 			targetDataGridColumnA	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
 			targetDataGridColumnA2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A2.toString(), strHeader);
+			targetDataGridColumnA3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A3.toString(), strHeader);
 			targetDataGridB			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_B.toString(), strHeader);
 			targetDataGridColumnB	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B.toString(), strHeader);
 			targetDataGridColumnB2	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_B2.toString(), strHeader);
@@ -356,6 +378,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
 		logger.info(className, function, "targetDataGridColumnA[{}]", targetDataGridColumnA);
 		logger.info(className, function, "targetDataGridColumnA2[{}]", targetDataGridColumnA2);
+		logger.info(className, function, "targetDataGridColumnA3[{}]", targetDataGridColumnA3);
 		logger.info(className, function, "targetDataGridB[{}]", targetDataGridB);
 		logger.info(className, function, "targetDataGridColumnB[{}]", targetDataGridColumnB);
 		logger.info(className, function, "targetDataGridColumnB2[{}]", targetDataGridColumnB2);
@@ -478,7 +501,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 				logger.debug(className, function, "eqps replaceAll [{}]", str4);
 				String [] eqps = str4.split(",");
 				
-				int numSteps = 0;
+				numSteps = 0;
 				
 				for (int i=0; i<numbers.length; i++) {
 					if (numSteps > 0 && (numbers[i].equals("0") || eqps[i] == null || eqps[i].isEmpty())) {
@@ -636,9 +659,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						String actionsetkey = "GrcStatus_";
 						if (grcStatus == GrcExecStatus.Terminated.getValue()) {
-							if (prevGrcStatus != grcStatus && reserveNeeded()) {
-								String [] reserveAliases = getReserveAlias();
-								unsetReserve(reserveAliases);
+							if (prevGrcStatus != grcStatus ) {
+								if (reserveNeeded()) {
+									String [] reserveAliases = getReserveAlias();
+									unsetReserve(reserveAliases);
+								}
+								
+								readGrcStepStatuses(numSteps);
 							}
 							actionsetkey = actionsetkey + GrcExecStatus.Terminated.name();
 							
@@ -658,25 +685,29 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 							logger.debug(className, function, "autoManu[{}]", autoManu);
 							
-							if (prevGrcStatus != grcStatus && reserveNeeded()) {
-								String [] reserveAliases = getReserveAlias();
-								unsetReserve(reserveAliases);
+							if (prevGrcStatus != grcStatus) {
+								if (reserveNeeded()) {
+									String [] reserveAliases = getReserveAlias();
+									unsetReserve(reserveAliases);
+								}
+								
+								readGrcStepStatuses(numSteps);
 							}
 							
 							if (autoManu == GrcExecMode.Auto.getValue()) {
-								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
-							
+								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();							
 							} else {
-								// Read step status to get step status
-								readGrcStepStatus(curStep);
 								
 								actionsetkey = null;
-								//actionsetkey = SocControlEvent.ReadGrcStepStatus.toString();
 							}
 						} else if (grcStatus == GrcExecStatus.Aborted.getValue()) {
 							if (prevGrcStatus != grcStatus) {
-								String [] reserveAliases = getReserveAlias();
-								unsetReserve(reserveAliases);
+								if (reserveNeeded()) {
+									String [] reserveAliases = getReserveAlias();
+									unsetReserve(reserveAliases);
+								}
+								
+								readGrcStepStatuses(numSteps);
 							}
 							actionsetkey = actionsetkey + GrcExecStatus.Aborted.name();
 							
@@ -751,6 +782,11 @@ public class UIWidgetSocControl extends UIWidget_i {
 						//}
 							
 						curStep = (int)stepObj.doubleValue();
+						if (curStep > 0) {
+							lastExecutedStep = curStep;
+						}
+						logger.debug(className, function, "current step [{}]", curStep);
+						logger.debug(className, function, "last executed step [{}]", lastExecutedStep);
 					}
 				}
 				
@@ -1007,7 +1043,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
 							} else {
 								// Read step status to get step status
-								readGrcStepStatus(curStep);
+								readGrcStepStatuses(numSteps);
 								
 								actionsetkey = null;
 							}
@@ -1034,15 +1070,61 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	private void readGrcStepStatus(int step) {
-		final String function = "readGrcStepStatus";
+//	private void readGrcStepStatus(int step) {
+//		final String function = "readGrcStepStatus";
+//		
+//		logger.begin(className, function);
+//		
+//		String clientKey = function + "_" + scsenvid + "_" + dbalias;
+//		String [] dbaddresses = new String [1];
+//		
+//		dbaddresses[0] = "<alias>" + dbalias + ".brctable(" + Integer.toString(step) + ",4)";
+//		// Use multiRead to read GRC step status
+//		rtdb.multiReadValue(clientKey, scsenvid, dbaddresses, new MultiReadResult() {
+//
+//			@Override
+//			public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+//				final String function = "readGrcStepStatus setReadResult";
+//
+//				if (errorCode != 0) {
+//					logger.debug(className, function, "readResult errorCode=[{}]");
+//					sendDisplayMessageEvent(errorMessage);
+//				} else {
+//					if (values != null) {
+//						String stepStatusStr = values[0];
+//						
+//						logger.debug(className, function, "stepStatus=[{}]", stepStatusStr);
+//											
+//						stepStatus = Integer.parseInt(stepStatusStr);
+//						String actionsetkey = "GrcStatus_";
+//						if (grcStatus == GrcExecStatus.Stopped.getValue()) {
+//							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
+//								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
+//							} else {
+//								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
+//							}
+//						}
+//						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+//						uiEventActionProcessor_i.executeActionSet(actionsetkey);					
+//					}
+//				}
+//			}
+//
+//		});
+//		
+//		logger.end(className, function);
+//	}
+	
+	private void readGrcStepStatuses(int step) {
+		final String function = "readGrcStepStatuses";
 		
 		logger.begin(className, function);
 		
 		String clientKey = function + "_" + scsenvid + "_" + dbalias;
 		String [] dbaddresses = new String [1];
+
+		dbaddresses[0] = "<alias>" + dbalias + ".brctable(1:" + Integer.toString(step) + ",4)";
 		
-		dbaddresses[0] = "<alias>" + dbalias + ".brctable(" + Integer.toString(step) + ",4)";
 		// Use multiRead to read GRC step status
 		rtdb.multiReadValue(clientKey, scsenvid, dbaddresses, new MultiReadResult() {
 
@@ -1054,22 +1136,66 @@ public class UIWidgetSocControl extends UIWidget_i {
 					logger.debug(className, function, "readResult errorCode=[{}]");
 					sendDisplayMessageEvent(errorMessage);
 				} else {
-					if (values != null) {
-						String stepStatusStr = values[0];
+					if (values != null) {					
+						logger.debug(className, function, "step Statuses=[{}]", values[0]);
 						
-						logger.debug(className, function, "stepStatus=[{}]", stepStatusStr);
+						String removedBracketStr = values[0].substring(1, values[0].length()-1);
+						String [] statuses = removedBracketStr.replaceAll("\"", "").split(",");
 											
-						stepStatus = Integer.parseInt(stepStatusStr);
+						for (String status: statuses) {
+							if (status.equals("1")) {
+								notExecutedSteps++;
+							} else if (status.equals("2")) {
+								completedSteps++;
+							} else if (status.equals("3")) {
+								failedSteps++;
+							} else if (status.equals("4")) {
+								skippedSteps++;
+							} 
+						}
+						
+						logger.debug(className, function, "notExecutedSteps[{}]", Integer.toString(notExecutedSteps));
+						logger.debug(className, function, "completedSteps[{}]", Integer.toString(completedSteps));
+						logger.debug(className, function, "failedSteps[{}]", Integer.toString(failedSteps));
+						logger.debug(className, function, "skippedSteps[{}]", Integer.toString(skippedSteps));
+						logger.debug(className, function, "lastExecutedStep[{}]", Integer.toString(lastExecutedStep));
+						logger.debug(className, function, "numSteps[{}]", Integer.toString(numSteps));
+						
+						// Send display message event
+						Date d = new Date();
+						String msg = d.toString() + ": SOC [" + grcName + "] ";
+
+						if (failedSteps > 0) {
+							if (lastExecutedStep < numSteps-1) {
+								msg = msg + "incomplete with " + Integer.toString(failedSteps) + " failed step(s)";
+							} else {
+								msg = msg + "complete with " + Integer.toString(failedSteps) + " failed step(s)";
+							}
+						} else {
+							if (lastExecutedStep < numSteps-1) {
+								msg = msg + "incomplete without any failed step";
+							} else {
+								msg = msg + "complete without any failed step";
+							}
+						}
+
+						if (lastExecutedStep > 0) {
+							sendDisplayMessageEvent(msg);
+						}
+
 						String actionsetkey = "GrcStatus_";
 						if (grcStatus == GrcExecStatus.Stopped.getValue()) {
-							if (autoManu == GrcExecMode.StopOnFailed.getValue() && stepStatus == CtlBrcStatus.Failed.getValue() ) {
+							logger.debug(className, function, "GrcStatus is STOPPED");
+
+							if (autoManu == GrcExecMode.StopOnFailed.getValue() && lastExecutedStep > 0 && failedSteps > 0 ) {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name() + "_Manu_" + CtlBrcStatus.Failed.name();
 							} else {
 								actionsetkey = actionsetkey + GrcExecStatus.Stopped.name();
 							}
-						}
-						logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
-						uiEventActionProcessor_i.executeActionSet(actionsetkey);					
+							
+							logger.debug(className, function, "send actionsetkey [{}]", actionsetkey);
+							uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						}							
 					}
 				}
 			}
@@ -1138,8 +1264,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 				
 				if (hasFailed) {
 					// Found equipment reserved by other
-					//TODO: send failed event
-					logger.warn(className, function, "Reserve equipment failed. Unable to launch GRC.");
+					String errorMsg = "Reserve equipment failed. Unable to launch GRC.";
+					sendDisplayMessageEvent(errorMsg);
+					
+					logger.warn(className, function, errorMsg);			
 					
 				} else {
 					// No equipment reserved by other
@@ -1190,8 +1318,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 								
 								if (hasFailed) {
 									// Unable to set equipment reserve
-									//TODO: send failed event
-									logger.warn(className, function, "Reserve equipment failed. Unable to launch GRC.");
+									String errorMsg = "Reserve equipment failed. Unable to launch GRC.";
+									sendDisplayMessageEvent(errorMsg);
+									
+									logger.warn(className, function, errorMsg);
 									
 								} else {
 									// All equipment are now reserved
@@ -1390,6 +1520,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 		setGrcStatusResultCallback();
 		
 		setStepResultCallback();
+		
+		// Reset step counts
+		notExecutedSteps = 0;
+		completedSteps = 0;
+		failedSteps = 0;
+		skippedSteps = 0;
+		lastExecutedStep = 0;
 
 		grcMgr.launchGrc(strKeyLaunchGrc, scsenvid, dbalias, (short)autoManu, firstStep, iSkips);
 		

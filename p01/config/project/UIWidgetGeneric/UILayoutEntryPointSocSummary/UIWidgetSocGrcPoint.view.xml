@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>4</rows>
+		<rows>6</rows>
 		<cols>1</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIWidgetSocGrcPoint-root</rootCss>
@@ -29,27 +29,6 @@
 		
 	</option>
 	
-	<!--<option key="0|2">
-		<widget>Label</widget>
-		<label>Message</label>
-		<css>project-UIWidgetSocGrcPoint-label-grcmessage</css>
-		<element>grcmessagelabel</element>
-		
-		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagelabel</cssContainer>
-		
-	</option>
-	
-	<option key="0|3">
-		<widget>TextBox</widget>
-		<label></label>
-		<css>project-UIWidgetSocGrcPoint-textbox-grcmessage</css>
-		<element>grcmessagevalue</element>
-		<maxlength>40</maxlength>
-		
-		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagevalue</cssContainer>
-		
-	</option>-->
-	
 	<option key="0|2">
 		<widget>Label</widget>
 		<label>GRC Current Step</label>
@@ -68,6 +47,27 @@
 		<maxlength>4</maxlength>
 		
 		<cssContainer>project-UIWidgetSocGrcPoint-container-grccurstepvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|4">
+		<widget>Label</widget>
+		<label>Message</label>
+		<css>project-UIWidgetSocGrcPoint-label-grcmessage</css>
+		<element>grcmessagelabel</element>
+		
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagelabel</cssContainer>
+		
+	</option>
+	
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocGrcPoint-textbox-grcmessage</css>
+		<element>grcmessagevalue</element>
+		<maxlength>80</maxlength>
+		
+		<cssContainer>project-UIWidgetSocGrcPoint-container-grcmessagevalue</cssContainer>
 		
 	</option>
 	

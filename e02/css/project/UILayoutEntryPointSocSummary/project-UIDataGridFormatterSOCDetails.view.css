@@ -29,7 +29,7 @@ tr.dataGridOddRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_St
 	background-image: none !important;
 }
 
-tr.dataGridOddRow .UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Failed {
+tr.dataGridOddRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Failed {
 	color: white !important;
 	background: red!important;
 	background-color: red !important;

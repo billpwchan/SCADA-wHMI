@@ -6,6 +6,7 @@ public interface UIWidgetSocControl_i {
 		, TargetDataGrid_A("TargetDataGrid_A")
 		, TargetDataGridColumn_A("TargetDataGridColumn_A")
 		, TargetDataGridColumn_A2("TargetDataGridColumn_A2")
+		, TargetDataGridColumn_A3("TargetDataGridColumn_A3")
 		, TargetDataGrid_B("TargetDataGrid_B")
 		, TargetDataGridColumn_B("TargetDataGridColumn_B")
 		, TargetDataGridColumn_B2("TargetDataGridColumn_B2")

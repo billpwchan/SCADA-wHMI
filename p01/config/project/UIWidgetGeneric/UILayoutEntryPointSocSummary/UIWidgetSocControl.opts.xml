@@ -5,6 +5,7 @@
 		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
 		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>
 		<TargetDataGridColumn_A2>Alias</TargetDataGridColumn_A2>
+		<TargetDataGridColumn_A3>SOCCard</TargetDataGridColumn_A3>
 		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
 		<TargetDataGridColumn_B>Disable</TargetDataGridColumn_B>
 		<TargetDataGridColumn_B2>Step</TargetDataGridColumn_B2>

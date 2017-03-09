@@ -35,10 +35,16 @@
   <ols scsservername="LstServer" scslistname="almmgnvalidated" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 		 
+  <!-- PTW (dpctag) -->	
   <ols scsservername="LstServer" scslistname="dpctagset" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
-		 
+		
+  <!-- hdvset Central connector -->		
   <ols scsservername="LstServer" scslistname="hdvset" scsfilter=""
+         hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
+		 
+  <!-- Uncomment if station connector -->
+  <ols scsservername="LstServer" scslistname="hdvsetstn" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 
   <classdesc hv="com.thalesgroup.myproject.data.config.equipment.common.SGEQPT8StatusesType">

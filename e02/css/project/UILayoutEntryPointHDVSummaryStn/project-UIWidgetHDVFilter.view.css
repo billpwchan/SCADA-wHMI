@@ -1,0 +1,98 @@
+.project-UIWidgetHDVFilter-panel-inner {
+    height: 25px;
+	width: 500px;
+}
+
+.project-UIWidgetHDVFilter-container-0-0 {
+    vertical-align: middle !important;
+    text-align: right;
+}
+.project-UIWidgetHDVFilter-button-0-0 {
+	width:115px;
+	height:45px;
+	color: black;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-right: 25px !important;
+}
+.project-UIWidgetHDVFilter-button-0-0-up {
+	
+}
+.project-UIWidgetHDVFilter-button-0-0-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetHDVFilter-button-0-0-disable {
+	
+}
+
+.project-UIWidgetHDVFilter-container-0-1 {
+    vertical-align: middle !important;
+    text-align: right;
+	width: 130px;
+}
+.project-UIWidgetHDVFilter-button-0-1 {
+	width:115px;
+	height:45px;
+	color: black;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-right: 40px !important;
+}
+.project-UIWidgetHDVFilter-button-0-1-up {
+	
+}
+.project-UIWidgetHDVFilter-button-0-1-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetHDVFilter-button-0-1-disable {
+	
+}
+
+.project-UIWidgetHDVFilter-container-0-2 {
+    vertical-align: middle !important;
+    text-align: right;
+    width: 1%;
+}
+.project-UIWidgetHDVFilter-button-0-2 {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+}
+.project-UIWidgetHDVFilter-button-0-2-up {
+	
+}
+.project-UIWidgetHDVFilter-button-0-2-down {
+
+}
+.project-UIWidgetHDVFilter-button-0-2-disable {
+	
+}
+
+.project-UIWidgetHDVFilter-container-0-3 {
+    vertical-align: middle !important;
+    text-align: right;
+}
+.project-UIWidgetHDVFilter-button-0-3 {
+	width:115px;
+	height:45px;
+	font-weight: bold;
+	font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+	cursor: default !important;
+	border: unset !important;
+}
+.project-UIWidgetHDVFilter-button-0-3-up {
+
+}
+.project-UIWidgetHDVFilter-button-0-3-down {
+	color: white !important;
+	background-color: red !important;
+	background-image: none !important;
+}
+.project-UIWidgetHDVFilter-button-0-3-disable {
+	
+}

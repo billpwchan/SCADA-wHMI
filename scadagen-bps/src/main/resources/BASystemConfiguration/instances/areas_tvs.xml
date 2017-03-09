@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of all the areas defined in the system -->
+<conf:entitiesConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:conf="http://www.thalesgroup.com/hv/data-v1/entity/configuration"
+	xmlns:area="http://www.thalesgroup.com/hv/data-v1/area/configuration">
+	<conf:entity xsi:type="area:AreaType" id="area-1" />
+</conf:entitiesConfiguration>

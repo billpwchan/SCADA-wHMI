@@ -34,7 +34,7 @@ public class OperationConfigLoader {
     private static final String COMMON_XSD_PATH = "xsd/common.xsd";
     private static final String XSD_RELATIVE_PATH = "xsd/operationAction.xsd";
 
-    private static final String FILE_NAME_PATTERN = "classpath*:bpsConfig/*operation*.xml";
+    private static final String FILE_NAME_PATTERN = "classpath*:bpsActionConfig/*operation*.xml";
 
 	public static synchronized OperationConfigLoader getInstance() throws HypervisorException {
 		if (instance_ == null) {

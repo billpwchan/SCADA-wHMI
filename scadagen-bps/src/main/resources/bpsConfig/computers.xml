@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:computerPackageConfiguration xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/computers" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/computers xsd/computers-config.xsd ">
+  <p:computerPackage>com.thalesgroup.scadagen.bps.computers</p:computerPackage>
+</p:computerPackageConfiguration>

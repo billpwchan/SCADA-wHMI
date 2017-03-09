@@ -1,0 +1,6 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
+<nextCatalog catalog="classpath:lib-hypervisor/lib-hypervisor-catalog.xml"/>
+<nextCatalog catalog="classpath:lib-tvs/lib-tvs-catalog.xml"/>
+<nextCatalog catalog="classpath:scadasoft/scadasoft-catalog.xml"/>
+<nextCatalog catalog="classpath:MyProject/MyProject-catalog.xml"/>
+</catalog>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+ 	<p:bpsConfiguration name="testmodel" />
+
+ 	<p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:configuredDataSource>
+				<sds:id>B01CA001</sds:id>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="state"/>
+				<sds:statuses xsi:type="cmn:statusDataSourceType" name="recstate"/>
+			</sds:configuredDataSource>
+		</p:dataSource>
+	</p:subject>
+
+	<p:trigger>
+		<p:action>
+			<p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.Hvmodel2scsdb</p:actionHandler>
+			<p:actionConfig>hvmodel2scsdb1</p:actionConfig>
+		</p:action>
+	</p:trigger>
+</p:bpsConfig>

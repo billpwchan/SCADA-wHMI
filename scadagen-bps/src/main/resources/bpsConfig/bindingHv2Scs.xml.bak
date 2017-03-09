@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><configuration xmlns="http://www.thalesgroup.com/scadagen/binding">
+  <binding id="CameraDome">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
+      <input name="state" type="STRING"/>
+      <item value="0">
+        <stringValue value="REACHABLE"/>
+      </item>
+      <item value="1">
+        <stringValue value="NOT_REACHABLE"/>
+      </item>
+      <item value="2">
+        <stringValue value="UNKNOWN"/>
+      </item>
+    </attribute>
+  </binding>
+  <binding id="PTZFICamera">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
+      <input name="state" type="STRING"/>
+      <item value="0">
+        <stringValue value="REACHABLE"/>
+      </item>
+      <item value="1">
+        <stringValue value="NOT_REACHABLE"/>
+      </item>
+      <item value="2">
+        <stringValue value="UNKNOWN"/>
+      </item>
+    </attribute>
+  </binding>
+  <!--
+  <binding id="PTZFICamera_eqPTZC">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
+      <input name="state" type="STRING"/>
+      <item value="0">
+        <stringValue value="REACHABLE"/>
+      </item>
+      <item value="1">
+        <stringValue value="NOT_REACHABLE"/>
+      </item>
+      <item value="2">
+        <stringValue value="UNKNOWN"/>
+      </item>
+    </attribute>
+  </binding>
+  -->
+  <binding id="Nvr">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="0" id="dciCCT-STATUS:dco.computedValue" xsi:type="BooleanToIntegerBinding">
+      <input name="isReachable" type="BOOL"/>
+	  <item value="0">
+        <booleanValue value="true"/>
+      </item>
+      <item value="1">
+        <booleanValue value="false"/>
+      </item>
+    </attribute>
+  </binding>
+  <!--
+  <binding id="PTZFICamera_eqCAME">
+    <attribute xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default="2" id="dciCCT-STATUS:dco.computedValue" xsi:type="StringToIntegerBinding">
+      <input name="state" type="STRING"/>
+      <item value="0">
+        <stringValue value="REACHABLE"/>
+      </item>
+      <item value="1">
+        <stringValue value="NOT_REACHABLE"/>
+      </item>
+      <item value="2">
+        <stringValue value="UNKNOWN"/>
+      </item>
+    </attribute>
+  </binding>
+  -->
+</configuration>

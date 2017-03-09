@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutHDVSummary-panel-inner</rootCSS>
+
+	</header>
+	<option key="0|0">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UILayoutHDVAction</uiCtrl>
+		<uiView>UILayoutEntryPointHDVSummaryStn/UILayoutHDVAction.view.xml</uiView>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetViewer</uiCtrl>
+		<uiView>UILayoutEntryPointHDVSummaryStn/UILayoutHDVViewer.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointHDVSummaryStn/UILayoutHDVViewer.opts.xml</uiOpts>
+		<element>UILayoutHDVViewer</element>
+	</option>
+</data-set>

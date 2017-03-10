@@ -17,4 +17,6 @@ public interface UIPanelInspector_i {
 	public final static String strNumOfAction = "numOfAction";
 	public final static String strConfigAction = "action";
 	public final static String strConfigMode = "mode";
+	
+	public final static String strDatabaseMultiReadingKey = "DatabaseMultiReadingKey";
 }

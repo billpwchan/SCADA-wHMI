@@ -9,7 +9,8 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDbm_i.UIEventActionDbmAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
 
 public class UIEventActionDbm extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDbm.class.getName());
@@ -42,50 +43,55 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 			}
 		}
 		
-		Database database = new Database();
-		
-		database.connect();
-		
-		String key = strAction + "_" + className + "_" + "dynamic" + "_" + strAddress;
-		
-		if ( strAction.equals(UIEventActionDbmAction.WriteIntValue.toString()) ) {
-			boolean isValid = false;
-			int value = 0;
-			try {
-				value = Integer.parseInt(strValue);
-				isValid = true;
-			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strValue[{}] NumberFormatException", strValue);
+		String strDatabaseWritingKey = "DatabaseWriting";
+		logger.debug(className, function, "strDatabaseWritingKey[{}]", strDatabaseWritingKey);
+		DatabaseWrite_i databaseWriting_i = DatabaseWriteFactory.get(strDatabaseWritingKey);
+		if ( null != databaseWriting_i ) {
+			
+			databaseWriting_i.connect();
+			
+			String key = strAction + "_" + className + "_" + "dynamic" + "_" + strAddress;
+			
+			if ( strAction.equals(UIEventActionDbmAction.WriteIntValue.toString()) ) {
+				boolean isValid = false;
+				int value = 0;
+				try {
+					value = Integer.parseInt(strValue);
+					isValid = true;
+				} catch ( NumberFormatException ex ) {
+					logger.warn(className, function, "strValue[{}] NumberFormatException", strValue);
+				}
+				if ( isValid ) {
+					databaseWriting_i.addWriteIntValueRequest(key, strScsEnvId, strAddress, value);
+				} else {
+					logger.warn(className, function, "strValue[{}] IS INVALID", strValue);
+				}
+			} else if ( strAction.equals(UIEventActionDbmAction.WriteFloatValue.toString()) ) {
+				boolean isValid = false;
+				float value = 0;
+				try {
+					value = Float.parseFloat(strValue);
+					isValid = true;
+				} catch ( NumberFormatException ex ) {
+					logger.warn(className, function, "strValue[{}] NumberFormatException", strValue);
+				}
+				if ( isValid ) {
+					databaseWriting_i.addWriteFloatValueRequest(key, strScsEnvId, strAddress, value);
+				} else {
+					logger.warn(className, function, "strValue[{}] IS INVALID", strValue);
+				}
+			} else if ( strAction.equals(UIEventActionDbmAction.WriteStringValue.toString()) ) {
+				databaseWriting_i.addWriteStringValueRequest(key, strScsEnvId, strAddress, strValue);
 			}
-			if ( isValid ) {
-				database.addWriteIntValueRequest(key, strScsEnvId, strAddress, value);
-			} else {
-				logger.warn(className, function, "strValue[{}] IS INVALID", strValue);
-			}
-		} else if ( strAction.equals(UIEventActionDbmAction.WriteFloatValue.toString()) ) {
-			boolean isValid = false;
-			float value = 0;
-			try {
-				value = Float.parseFloat(strValue);
-				isValid = true;
-			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "strValue[{}] NumberFormatException", strValue);
-			}
-			if ( isValid ) {
-				database.addWriteFloatValueRequest(key, strScsEnvId, strAddress, value);
-			} else {
-				logger.warn(className, function, "strValue[{}] IS INVALID", strValue);
-			}
-		} else if ( strAction.equals(UIEventActionDbmAction.WriteStringValue.toString()) ) {
-			database.addWriteStringValueRequest(key, strScsEnvId, strAddress, strValue);
+			
+			databaseWriting_i.disconnect();
+			
+			databaseWriting_i = null;
+			
+		} else {
+			logger.warn(className, function, "strDatabaseWritingKey IS INVALID", strDatabaseWritingKey);
 		}
-		
-//		if ( null != database ) {
-//			database.disconnect();
-//		}
-		
-		database = null;
-		
+
 		logger.end(className, function);
 		return bContinue;
 	}

@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,9 +15,6 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.DatabaseHelper;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.Database_i.PointName;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
@@ -37,8 +33,15 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
 
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.PointName;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.PointType;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
 public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
@@ -57,21 +60,24 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	private String valueSet				= "";
 	private String valueUnSet			= "";
 	
-	private String periodMillis			= "";
-	
 	private Set<HashMap<String, String>> selectedSet = null;
 	
 	private final String strSet					= "set";
 	private final String strTxtValue			= "txtvalue";
 	private final String strLstValue			= "lstvalue";
 	
+	private String strLabel = PointName.label.toString();
+	private String strValue = PointName.value.toString();
+	private String strAalValueTable = PointName.aalValueTable.toString();
+	private String strDalValueTable = PointName.dalValueTable.toString();
+	private String strSalValueTable = PointName.salValueTable.toString();
+	private String strHmiOrder = PointName.salValueTable.toString();
+	
 	private ListBox lstValues					= null;
 	private TextBox txtValues					= null;
 	
 	private String address = null;
 	private String scsEnvId = null;
-	
-	private int iPeriodMillis = 500;
 	
 	UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 
@@ -221,7 +227,8 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 
 					}
 					
-					connect();
+//					connect();
+					readPointValueTable(scsEnvId, address);
 					
 					if ( null != selectedStatus1 ) {
 						if ( valueSet.equals(selectedStatus1) ) {
@@ -256,265 +263,167 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	private UIWidgetGeneric uiWidgetGeneric = null;
 	
 	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
-
-	// Static Attribute List
-	private final String staticDciAttibutes []	= new String[] {PointName.label.toString(), PointName.dalValueTable.toString(), PointName.hmiOrder.toString()};
-	private final String staticAciAttibutes []	= new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
-	private final String staticSciAttibutes []	= new String[] {PointName.label.toString(), PointName.salValueTable.toString(), PointName.hmiOrder.toString()};
 	
-	// Dynamic Attribute List
-//	private final String dynamicDciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.dfoForcedStatus.toString()};
-//	private final String dynamicAciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.afoForcedStatus.toString()};
-//	private final String dynamicSciAttibutes []	= new String[] {PointName.value.toString(), PointName.validity.toString(), PointName.sfoForcedStatus.toString()};
-
-	private Database database = new Database();
-	public void connect() {
-		final String function = "connect";
-		
+	// Static Attribute List
+	private final String staticDciAttibutes []	= new String[] {strLabel, strDalValueTable, strHmiOrder};
+	private final String staticAciAttibutes []	= new String[] {strLabel, strAalValueTable, strHmiOrder};
+	private final String staticSciAttibutes []	= new String[] {strLabel, strSalValueTable, strHmiOrder};
+	
+	private void updateDropDownListBox(String key, String[] dbAddresses, String[] dbValues) {
+		final String function = "readPoint";
 		logger.begin(className, function);
-		
-		logger.info(className, function, "periodMillis[{}]", periodMillis);
-		
-		try {
-			iPeriodMillis = Integer.parseInt(periodMillis);
-		} catch ( NumberFormatException e) {
-			logger.warn(className, function, "NumberFormatException[{}]", e.toString());
-		}
-		
-		logger.info(className, function, "periodMillis[{}] iPeriodMillis[{}]", periodMillis, iPeriodMillis);
-		
-		database.connect();
-		database.connectTimer(this.iPeriodMillis);
 
-		// Read static
-		{
-			logger.begin(className, function);
+		// ACI, SCI Show the TextBox
+		// DCI, Show the ListBox and store the valueTable
+
+		String point = DatabaseHelper.getPointFromAliasAddress(address);
+		
+		logger.info(className, function, "point[{}]", point);
+		
+		PointType pointType = DatabaseHelper.getPointType(point);
+		
+		logger.info(className, function, "pointType[{}]", pointType);
+		
+		if ( PointType.dci == pointType ) {
+
+			String actionsetkey = "selectdcipoint";
+			uiEventActionProcessor_i.executeActionSet(actionsetkey);
+
+			String targetDbAddress = address+strDalValueTable;
+			String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
 			
-			String clientKey = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
-			
-			logger.info(className, function, "clientkey[{}]", clientKey);
+			if ( null != targetValue ) {
+				// Update the Label
+				String valueTable = targetValue;
+				logger.debug(className, function, "valueTable[{}]", valueTable);
 
-			String[] dbaddresses = null;
-			{
-				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-
-				String dbaddress = address;
-				String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
-				logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
-				if ( null != point ) {
-					PointType pointType = DatabaseHelper.getPointType(point);
-					if ( pointType == PointType.dci ) {
-						for ( String attribute : staticDciAttibutes ) {
-							dbaddressesArrayList.add(dbaddress+attribute);
-						}
-					} else if ( pointType == PointType.aci ) {
-						for ( String attribute : staticAciAttibutes ) {
-							dbaddressesArrayList.add(dbaddress+attribute);
-						}
-					} else if ( pointType == PointType.sci ) {
-						for ( String attribute : staticSciAttibutes ) {
-							dbaddressesArrayList.add(dbaddress+attribute);
-						}
+				int valueCol = 0, labelCol = 1;
+				String labels[]	= new String[12];
+				String values[]	= new String[12];
+				{
+					for( int r = 0 ; r < 12 ; ++r ) {
+						values[r]	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+						values[r]	= DatabaseHelper.removeDBStringWrapper(values[r]);
+						labels[r]	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+						labels[r]	= DatabaseHelper.removeDBStringWrapper(labels[r]);
+					}					
+				}
+				
+				lstValues.clear();
+				for( int r = 0 ; r < 12 ; ++r ) {
+					
+					if ( null != labels[r] && labels[r].length() > 0 && ! labels[r].equals("null") ) {
+						lstValues.addItem(labels[r]);
 					} else {
-						logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+						break;
 					}
+						
+					logger.info(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
 				}
-
-				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-			}			
-			
-			if (logger.isDebugEnabled() ) {
-				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
-				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
-				}
+			} else {
+				logger.warn(className, function, "valueTable IS NULL!");
 			}
 			
-			String api = "multiReadValue";
-			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-				
-				@Override
-				public void update(String key, String[] value) {
-					final String function = "update";
-					logger.begin(className, function);
-					String clientKeyStatic = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
-					if ( clientKeyStatic.equals(key) ) {
-						String [] dbaddresses	= database.getKeyAndAddress(key);
-						String [] dbvalues		= database.getKeyAndValues(key);
-						HashMap<String, String> keyAndValue = new HashMap<String, String>();
-						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-							keyAndValue.put(dbaddresses[i], dbvalues[i]);
-						}
+		} else if ( PointType.aci == pointType ) {
 
-						updateValue(key, keyAndValue);
-					}
-					logger.end(className, function);
-				}
-			});
-			
-			logger.end(className, function);
-		}
-	}
-	
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private HashMap<String, String> dbvalues = new HashMap<String, String>();
-	public void updateValue(String clientKey, HashMap<String, String> keyAndValue) {
-		final String function = "updateValue";
+			String actionsetkey = "selectacipoint";
+			uiEventActionProcessor_i.executeActionSet(actionsetkey);
 
-		logger.begin(className, function);
-		logger.debug(className, function, "clientkey[{}]", clientKey);
-		
-		for ( String key : keyAndValue.keySet() ) {
-			dbvalues.put(key, keyAndValue.get(key));
-		}
-	
-		if ( "static".equals(clientKey.split("_")[2]) ) {
+			// Update the Label
+			String targetDbAddress = address+strValue;
+			String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
+			logger.debug(className, function, "targetValue[{}]", targetValue);
 			
-			keyAndValuesStatic.put(clientKey, keyAndValue);
+			txtValues.setText(targetValue);
 			
-			updateValue(true);
+		} else if ( PointType.sci == pointType ) {
+
+			String actionsetkey = "selectscipoint";
+			uiEventActionProcessor_i.executeActionSet(actionsetkey);
+
+			String targetDbAddress = address+strValue;
+			String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
+			logger.debug(className, function, "targetValue[{}]", targetValue);
 			
-		} else if ( "dynamic".equals(clientKey.split("_")[2]) ) {
-			
-			keyAndValuesDynamic.put(clientKey, keyAndValue);
-			
-			updateValue(false);
+			txtValues.setText(targetValue);
 			
 		}
 
 		logger.end(className, function);
 	}
 	
-	private void updateValue(boolean withStatic) {
-		final String function = "updateValue";
-		
+	private void readPointValueTable(String dbScsEnvId, String dbaddress) {
+		final String function = "readPointValueTable";
 		logger.begin(className, function);
-		
-		if ( withStatic ) {
-			for ( String clientKey : keyAndValuesStatic.keySet() ) {
-				
-				HashMap<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
-				
-				updateValueStatic(clientKey, keyAndValue);
-			}//End of for keyAndValuesStatic
-		}
-	
-//		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
-//			
-//			HashMap<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
-//			
-//			updateValueDynamic(clientKey, keyAndValue);
-//			
-//		}// End of keyAndValuesDynamic
-		
-		logger.end(className, function);
-	}
-	
-	public void updateValueStatic(String clientKey, HashMap<String, String> keyAndValue) {
-		final String function = "updateValueStatic";
-		
-		logger.begin(className, function);
-		logger.info(className, function, "clientkey[{}]", clientKey);
-		
-//		valueRefreshed = false;
-		
-//		pageCounter.calc(pageIndex);
-//		
-//		int rowBegin	= pageCounter.pageRowBegin;
-//		int rowEnd		= pageCounter.pageRowEnd;
-		
-		String clientKeyStatic = "multiReadValue" + "_" + className + "_" + "static" + "_" + address;
-		
-		logger.info(className, function, "clientKeyStatic[{}]", clientKeyStatic);
-		
-		if ( clientKeyStatic.equals(clientKey) ) {
-	
-//			for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
-//				String address = addresses[x];
+		String[] dbaddresses = null;
 
-				// Update the Label
-//				String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
-//				label = DatabaseHelper.removeDBStringWrapper(label);
-//				logger.debug(className, function, "label[{}]", label);
-//
-//				lblAttibuteLabel.setText(label);
-				
-				// ACI, SCI Show the TextBox
-				// DCI, Show the ListBox and store the valueTable
+		ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
 
-				String point = DatabaseHelper.getPointFromAliasAddress(address);
-				
-				logger.info(className, function, "point[{}]", point);
-				
-				PointType pointType = DatabaseHelper.getPointType(point);
-				
-				logger.info(className, function, "pointType[{}]", pointType);
-				
-				if ( PointType.dci == pointType ) {
-
-					String actionsetkey = "selectdcipoint";
-					uiEventActionProcessor_i.executeActionSet(actionsetkey);
-					
-					// Update the Label
-					String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-					logger.debug(className, function, "valueTable[{}]", valueTable);
-					
-					if ( null != valueTable ) {
-						int valueCol = 0, labelCol = 1;
-						String labels[]	= new String[12];
-						String values[]	= new String[12];
-						{
-							for( int r = 0 ; r < 12 ; ++r ) {
-								values[r]	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
-								values[r]	= DatabaseHelper.removeDBStringWrapper(values[r]);
-								labels[r]	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
-								labels[r]	= DatabaseHelper.removeDBStringWrapper(labels[r]);
-							}					
-						}
-						
-						lstValues.clear();
-						for( int r = 0 ; r < 12 ; ++r ) {
-							
-							if ( null != labels[r] && labels[r].length() > 0 && ! labels[r].equals("null") ) {
-								lstValues.addItem(labels[r]);
-							} else {
-								break;
-							}
-								
-							logger.info(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
-						}
-					} else {
-						logger.warn(className, function, "valueTable IS NULL!");
-					}
-				} else if ( PointType.aci == pointType ) {
-
-					String actionsetkey = "selectacipoint";
-					uiEventActionProcessor_i.executeActionSet(actionsetkey);
-
-					// Update the Label
-					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
-					
-					txtValues.setText(value);
-					
-				} else if ( PointType.sci == pointType ) {
-
-					String actionsetkey = "selectscipoint";
-					uiEventActionProcessor_i.executeActionSet(actionsetkey);
-
-					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
-					
-					txtValues.setText(value);
-					
+		String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
+		logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
+		if ( null != point ) {
+			PointType pointType = DatabaseHelper.getPointType(point);
+			if ( pointType == PointType.dci ) {
+				for ( String attribute : staticDciAttibutes ) {
+					dbaddressesArrayList.add(dbaddress+attribute);
 				}
-//			}
-			
+			} else if ( pointType == PointType.aci ) {
+				for ( String attribute : staticAciAttibutes ) {
+					dbaddressesArrayList.add(dbaddress+attribute);
+				}
+			} else if ( pointType == PointType.sci ) {
+				for ( String attribute : staticSciAttibutes ) {
+					dbaddressesArrayList.add(dbaddress+attribute);
+				}
+			} else {
+				logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+			}
+		}
+
+		dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+	
+		DataBaseClientKey ck = new DataBaseClientKey();
+		ck.setAPI(API.multiReadValue);
+		ck.setWidget(className);
+		ck.setStability(Stability.STATIC);
+		ck.setScreen(uiNameCard.getUiScreen());
+		ck.setEnv(scsEnvId);
+		ck.setAdress(address);
+		
+		String clientKey = ck.getClientKey();
+		
+		logger.info(className, function, "clientKey[{}]", clientKey);
+		
+		if (logger.isDebugEnabled() ) {
+			logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+			}
 		}
 		
+		databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
+			
+			@Override
+			public void update(String key, String[] dbAddresses, String[] values) {
+
+				DataBaseClientKey ck = new DataBaseClientKey();
+				ck.setAPI(API.multiReadValue);
+				ck.setWidget(className);
+				ck.setStability(Stability.STATIC);
+				ck.setScreen(uiNameCard.getUiScreen());
+				ck.setEnv(scsEnvId);
+				ck.setAdress(address);
+				
+				String clientKey = ck.getClientKey();
+				
+				logger.info(className, function, "key[{}] clientKey[{}]", key, clientKey);
+				
+				if ( clientKey.equals(key) ) {
+					updateDropDownListBox(key, dbAddresses, values);
+				}
+			}
+		});
+
 		logger.end(className, function);
 	}
 	
@@ -539,7 +448,6 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
 			valueSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueSet.toString(), strHeader);
 			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueUnSet.toString(), strHeader);
-			periodMillis		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.PeriodMillis.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "columnAlias[{}]", columnAlias);
@@ -605,7 +513,47 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		
+		envUp(null);
+		
 		logger.end(className, function);
 	}
+	
+	private DatabaseMultiRead_i databaseMultiRead_i = null;
+	
+	@Override
+	public void envUp(String env) {
+		final String function = "envUp";
+		logger.begin(className, function);
+		String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
+		logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
+		if ( null == databaseMultiRead_i ) {
+			databaseMultiRead_i = DatabaseMultiReadFactory.get(strDatabaseMultiReadingProxyKey);
+			if ( null != databaseMultiRead_i ) {
+				databaseMultiRead_i.connect();
+			}
+		} else {
+			logger.warn(className, function, "databaseMultiRead_i IS NOT NULL");
+		}
 
+		logger.end(className, function);
+	}
+	
+	@Override
+	public void envDown(String env) {
+		final String function = "envDown";
+		logger.begin(className, function);
+		terminate();
+		logger.end(className, function);
+	}
+	
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		if ( null != databaseMultiRead_i ) {
+			databaseMultiRead_i.disconnect();
+			databaseMultiRead_i = null;
+		}
+		logger.end(className, function);
+	}
 }

@@ -210,36 +210,22 @@ public class DatabaseHelper {
 		return string2int(string, "");
 	}
 	
-	public static final String strDynamic			= "dynamic";
-	public static final String strStatic			= "static";
-	public static final String strMultiReadValue	= "multiReadValue";
-	public static final String strGetChildren		= "GetChildren";
-	
-	public static String getGetChildenClientKey(String source, String address, String uiPath, int screen, String tag) {
-		final String function = "getGetChildenClientKey";
-		String key = strGetChildren + "_" + source + "_" + strStatic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
-		logger.beginEnd(className, function, "key[{}]", key);
-		return key;
+	public static String getFromPairArray(String targetDbAddress, String[] dbAddresses, String[] dbValues) {
+		final String function = "getFromPairArray";
+		logger.begin(className, function);
+		String result = null;
+		int targetValueIndex = -1;
+		for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
+			String dbAddress = dbAddresses[i];
+			if ( targetDbAddress.equals(dbAddress) ) {
+				targetValueIndex = i;
+			}
+		}
+		if ( targetValueIndex > -1 ) {
+			result = dbValues[targetValueIndex];
+		}
+		logger.end(className, function);
+		return result;
 	}
 
-	public static String getStaticReadClienyKey(String source, String address, String uiPath, int screen, String tag) {
-		final String function = "getStaticReadClienyKey";
-		String key = strMultiReadValue + "_" + source + "_" + strStatic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
-		logger.beginEnd(className, function, "key[{}]", key);
-		return key;
-	}
-
-	public static String getDyanimcClientKey(String source, String address, String uiPath, int screen, String tag) {
-		final String function = "getSubscribeClientKey";
-		String key = strMultiReadValue + "_" + source + "_" + strDynamic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
-		logger.beginEnd(className, function, "key[{}]", key);
-		return key;
-	}
-	
-	public static String getSubscribeClientKey(String source, String address, String uiPath, int screen, String tag) {
-		final String function = "getSubscribeClientKey";
-		String key = strMultiReadValue + "_" + source + "_" + strDynamic + "_" + uiPath + "_" + screen + "_" + tag + "_" + address;
-		logger.beginEnd(className, function, "key[{}]", key);
-		return key;
-	}
 }

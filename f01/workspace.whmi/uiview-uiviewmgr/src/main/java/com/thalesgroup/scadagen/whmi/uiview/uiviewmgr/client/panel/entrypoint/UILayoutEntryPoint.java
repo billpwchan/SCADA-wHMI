@@ -76,9 +76,10 @@ public class UILayoutEntryPoint extends UIWidget_i {
 	
 	@Override
 	public void terminate() {
-		super.terminate();
-		if ( null != uiLayoutGeneric ) {
-			uiLayoutGeneric.terminate();
-		}
+		final String function = "terminate";
+		logger.begin(className, function);
+//		if ( null != uiWidget_i ) uiWidget_i.terminate();
+		uiLayoutGeneric.terminate();
+		logger.end(className, function);
 	}
 }

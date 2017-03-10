@@ -24,6 +24,9 @@ public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i
 	
 	InlineLabel equipmenpLabel = null;
 	
+	private boolean bInit = false;
+	private boolean bKill = false;
+	
 	@Override
 	public void init() {
 		final String function = "init";
@@ -50,6 +53,10 @@ public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i
 
 		rootPanel = new DockLayoutPanel(Unit.PX);
 		rootPanel.add(hp);
+		
+		if ( ! bInit ) logger.info(className, function, "already init");
+		
+		bInit = true;
 		
 		logger.end(className, function);
 	}
@@ -81,5 +88,17 @@ public class UIPanelViewEmpty extends UIWidget_i implements UIPanelViewProvide_i
 	public void setUIViewEvent(UIViewEvent uiViewEvent) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		
+		if ( ! bKill ) logger.info(className, function, "already kill");
+		
+		bKill = true;
+		
+		logger.end(className, function);
 	}
 }

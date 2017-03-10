@@ -30,6 +30,11 @@ public interface UIEventActionProcessor_i {
 	
 	void executeActionSetInit(int delayMillis, HashMap<String, HashMap<String, Object>> override);
 	void executeActionSetInit(int delayMillis, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
+
+	boolean executeActionSetKill();
+	
+	void executeActionSetKill(int delayMillis, HashMap<String, HashMap<String, Object>> override);
+	void executeActionSetKill(int delayMillis, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
 	
 	boolean executeActionSet(String actionsetkey);
 	

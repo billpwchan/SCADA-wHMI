@@ -456,9 +456,10 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	@Override
 	public void terminate() {
-		
-		if ( null != uiLayoutGeneric ) {
-			uiLayoutGeneric.terminate();
-		}
+		final String function = "terminate";
+		logger.begin(className, function);
+//		if ( null != uiWidget_i ) uiWidget_i.terminate();
+		uiEventActionProcessor_i.executeActionSetKill();
+		logger.end(className, function);
 	}
 }

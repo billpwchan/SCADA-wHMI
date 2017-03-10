@@ -166,6 +166,52 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		}
 		logger.end(className, function);
 	}
+	
+	/**
+	 * Load and Execute the Local Init Action Set
+	 */
+	@Override
+	public boolean executeActionSetKill() {
+		final String function = prefix+" executeActionSetKill";
+		logger.begin(className, function);
+		boolean bContinue = true;
+		bContinue = executeActionSet("kill", null, null);
+		logger.end(className, function);
+		return bContinue;
+	}
+
+	/**
+	 * Load and Execute the Local Init Action Set
+	 */
+	@Override
+	public void executeActionSetKill(int delayMillis, final HashMap<String, HashMap<String, Object>> override) {
+		final String function = prefix+" executeActionSetKill";
+		logger.begin(className, function);
+		logger.info(className, function, "delayMillis[{}]", delayMillis);
+		executeActionSetKill(delayMillis, override, null);
+		logger.end(className, function);
+	}
+	
+	/**
+	 * Load and Execute the Local Init Action Set
+	 */
+	@Override
+	public void executeActionSetKill(int delayMillis, final HashMap<String, HashMap<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
+		final String function = prefix+" executeActionSetInit";
+		logger.begin(className, function);
+		logger.info(className, function, "delayMillis[{}]", delayMillis);
+		if ( delayMillis >= 0 ) {
+			Timer t = new Timer() {
+				public void run() {
+					executeActionSet("kill_delay", override, executeActionHandler);
+				}
+			};
+			t.schedule(delayMillis);
+		} else {
+			logger.warn(className, function, "delayMillis[{}] < 0", delayMillis);
+		}
+		logger.end(className, function);
+	}
 
 	@Override
 	public boolean executeActionSet(String actionsetkey) {

@@ -6,7 +6,6 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.timer.CountdownTimer;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.timer.CountdownTimerEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.HVID2SCS;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.ReadProp;
@@ -14,8 +13,13 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
@@ -35,6 +39,7 @@ public class UIInspectorMgr {
 	private UIInspectorDialogBox uiInspectorDialogbox = null;
 	private CountdownTimer countdownTimer = null;
 
+	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	public void getFunctionLocationAndLaunchInspectorDialog(final UINameCard uiNameCard, final HashMap<String, String> options) {
 		final String function = "getFunctionLocationAndLaunchInspectorDialog";
 				
@@ -51,8 +56,6 @@ public class UIInspectorMgr {
 		
 		if ( null == function2 || null == location2 ) {
 	
-			int periodMillis = 250;
-			
 			HVID2SCS hvid2scs = new HVID2SCS();
 			hvid2scs.setHVID(hv_id);
 			hvid2scs.init();
@@ -62,92 +65,96 @@ public class UIInspectorMgr {
 			
 			logger.debug(className, function+"parent[{}]", parent);
 			logger.debug(className, function+"scsEnvId[{}]", scsEnvId);
-			
-			String keyperiodmillis = inspDialogBoxPropPrefix+UIPanelInspector_i.strPeriodMillis;
-			periodMillis = ReadProp.readInt(dictionariesCacheName, inspDialogBoxProp, keyperiodmillis, 250);
-			
-			logger.debug(className, function, "periodMillis[{}]", periodMillis);
-			
-			final Database database = new Database();
-			database.setDynamic(scsEnvId, parent);
-			database.connect();
-			database.connectTimer(periodMillis);
-			
-			String [] staticAttibutes = new String[]{PointName.functionalCat.toString(), PointName.geographicalCat.toString()};
-			
-			logger.begin(className, function+" multiReadValue");
-			
-			String clientKey = "multiReadValue" + "_" + "launchinspector" + "_" + "static" + "_" + parent;
-			
-			String[] dbaddresses = null;
-			{
-				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-				for(int y=0;y<staticAttibutes.length;++y) {
-					dbaddressesArrayList.add(parent+staticAttibutes[y]);
-				}
-				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-			}
-			
-			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
-				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
-				}
-			}
 
-			String api = "multiReadValue";
+			String strDatabaseMultiReadingKey = inspDialogBoxPropPrefix+UIPanelInspector_i.strDatabaseMultiReadingKey;
+			logger.debug(className, function, "strDatabaseMultiReadingKey[{}]", strDatabaseMultiReadingKey);
 			
-			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-				
-				@Override
-				public void update(String key, String[] values) {
+			String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
+			String DatabaseMultiReadingProxyKey = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, strDatabaseMultiReadingKey, strDatabaseMultiReadingProxyKey);
+			logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
+			
+			if ( null == databaseMultiRead_i ) {
+				databaseMultiRead_i = DatabaseMultiReadFactory.get(DatabaseMultiReadingProxyKey);
+				if ( null != databaseMultiRead_i ) {
+					databaseMultiRead_i.connect();
+					
+					DataBaseClientKey ck = new DataBaseClientKey();
+					ck.setAPI(API.multiReadValue);
+					ck.setWidget(className);
+					ck.setStability(Stability.STATIC);
+					ck.setScreen(uiNameCard.getUiScreen());
+					ck.setEnv(scsEnvId);
+					ck.setAdress(parent);
+					
+					String clientKey = ck.getClientKey();
+					
+					String [] staticAttibutes = new String[]{PointName.functionalCat.toString(), PointName.geographicalCat.toString()};
+					
+					String[] dbaddresses = null;
 					{
-						String clientKey_multiReadValue_inspector_static = "multiReadValue" + "_" + "launchinspector" + "_" + "static" + "_" + parent;
-						if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(key) ) {
-							String [] dbaddresses	= database.getKeyAndAddress(key);
-							String [] dbvalues		= database.getKeyAndValues(key);
-							
-							String function2 = null;
-							String location2 = null;
-							for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-								String dbaddress = dbaddresses[i];
-				
-								// Equipment Label
-								if ( dbaddress.endsWith(PointName.functionalCat.toString()) ) {
-									String value = dbvalues[i];
-									value = DatabaseHelper.removeDBStringWrapper(value);
-									
-									function2 = value;
-									
-									logger.debug(className, function, "PointName.functionalCat.toString() value[{}]", value);
-								}
-								
-								if ( dbaddress.endsWith(PointName.geographicalCat.toString()) ) {
-									String value = dbvalues[i];
-									value = DatabaseHelper.removeDBStringWrapper(value);
-									
-									location2 = value;
-									
-									logger.debug(className, function, "PointName.geographicalCat.toString() value[{}]", value);
-								}
-								
-								logger.debug(className, function, "function2[{}] location2[{}]", function2, location2);
-								
-							}
-							
-							options.put("function", function2);
-							options.put("location", location2);
-							
-							openInspectorDialogBoxWithOpm(uiNameCard, options);
-							
+						ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+						for(int y=0;y<staticAttibutes.length;++y) {
+							dbaddressesArrayList.add(parent+staticAttibutes[y]);
+						}
+						dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+					}
+					
+					if ( logger.isDebugEnabled() ) {
+						logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+						for(int i = 0; i < dbaddresses.length; ++i ) {
+							logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 						}
 					}
+					
+					databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
+						
+						@Override
+						public void update(String key, String[] dbAddresses, String[] dbValues) {
+							
+							
+							String strFunctionAddress = parent+PointName.functionalCat.toString();
+							String strFunctionValue = DatabaseHelper.getFromPairArray(strFunctionAddress, dbAddresses, dbValues);
+							
+							// Equipment Label
+							if ( null != strFunctionValue ) {
+
+								strFunctionValue = DatabaseHelper.removeDBStringWrapper(strFunctionValue);
+								
+								logger.debug(className, function, "strFunctionAddress[{}] strFunctionValue[{}]", strFunctionAddress, strFunctionValue);
+							}
+							
+							String strLocationAddress = parent+PointName.geographicalCat.toString();
+							String strLocationValue = DatabaseHelper.getFromPairArray(strLocationAddress, dbAddresses, dbValues);
+							
+							if ( null != strLocationValue ) {
+								
+								strLocationValue = DatabaseHelper.removeDBStringWrapper(strLocationValue);
+								
+								logger.debug(className, function, "strLocationAddress[{}] strLocationValue[{}]", strLocationAddress, strLocationValue);
+							}
+							
+							logger.debug(className, function, "strFunctionValue[{}] strLocationValue[{}]", strFunctionValue, strLocationValue);
+							
+							options.put("function", strFunctionValue);
+							options.put("location", strLocationValue);
+							
+							if ( null != databaseMultiRead_i) {
+								databaseMultiRead_i.disconnect();
+								databaseMultiRead_i = null;
+							}
+							
+							openInspectorDialogBoxWithOpm(uiNameCard, options);
+						}
+					});
 				}
-			});
-			logger.end(className, function+" multiReadValue");
+			} else {
+				logger.warn(className, function, "databaseMultiRead_i IS NOT NULL, Skip the creation of databaseMultiRead_i");
+			}
+
 		} else {
-			
+			logger.warn(className, function, "function2[{}] || location2[{}] IS FALSE, Skip reading function and location from DB", function2, location2);
 		}
+		logger.end(className, function);
 	}
 	
 	public void openInspectorDialogBoxWithOpm(UINameCard uiNameCard, HashMap<String, String> options) {

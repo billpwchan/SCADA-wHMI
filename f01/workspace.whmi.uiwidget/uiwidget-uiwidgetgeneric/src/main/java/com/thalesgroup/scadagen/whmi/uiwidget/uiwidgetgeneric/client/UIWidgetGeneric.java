@@ -394,6 +394,10 @@ public class UIWidgetGeneric extends UIGeneric {
 								if ( null == groupName )
 									logger.warn(className, function, "getMainPanel created widget["+widget+"] groupName IS NULL");
 								
+								logger.debug(className, function, "groupName BF[{}]", groupName);
+								groupName = groupName + "_" + uiNameCard.getUiScreen();
+								logger.debug(className, function, "groupName AF[{}]", groupName);
+								
 								if ( null != groupName ) 	w = new RadioButton(groupName);
 								
 								if ( null != label )		((RadioButton)w).setText(label);
@@ -439,6 +443,7 @@ public class UIWidgetGeneric extends UIGeneric {
 								
 								String strDebugId = getDefaultDebugId(element);
 								if ( strDebugId != null ) {
+									strDebugId = strDebugId + "_" + uiNameCard.getUiScreen();
 									w.ensureDebugId(strDebugId);
 								}
 								if ( null != debugId ) w.ensureDebugId(debugId);									

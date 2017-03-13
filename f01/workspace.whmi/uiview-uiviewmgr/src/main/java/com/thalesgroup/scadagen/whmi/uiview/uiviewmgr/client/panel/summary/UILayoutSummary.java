@@ -105,11 +105,11 @@ public class UILayoutSummary extends UIWidget_i {
 		if ( null == eventBusName || eventBusName.trim().length() == 0) {
 			eventBusName = this.viewXMLFile;
 		}
-		if ( ! ( null != eventBusScope && 0 != ParameterValue.Global.toString().compareTo(eventBusScope) ) ) {
-			eventBusName += "_" + uiNameCard.getUiScreen();
+		if ( null != eventBusScope && ParameterValue.Global.toString().equals(eventBusScope) ) {
+		} else {
+			eventBusName = eventBusName + "_" + uiNameCard.getUiScreen();
 		}
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
-		
 		
 		eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
 

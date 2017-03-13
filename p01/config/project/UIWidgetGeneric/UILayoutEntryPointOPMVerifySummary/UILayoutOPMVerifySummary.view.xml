@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>2</rows>
+		<rows>1</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
@@ -11,14 +11,6 @@
 		<type>predefine</type>
 		<uiCtrl>UIWidgetOPMVerifyControl</uiCtrl>
 		<uiView>UILayoutEntryPointOPMVerifySummary/UIWidgetOPMVerifyControl.view.xml</uiView>
-		<!--<uiOpts>UILayoutEntryPointOPMVerifySummary/UIWidgetOPMVerifyControl.opts.xml</uiOpts>-->
 		<element>UIWidgetOPMVerifyControl</element>
-	</option>
-	<option key="0|1">
-		<type>predefine</type>
-		<uiCtrl>UIWidgetOPMVerifyChangePassword</uiCtrl>
-		<uiView>UILayoutEntryPointOPMVerifySummary/UIWidgetOPMVerifyChangePassword.view.xml</uiView>
-		<!--<uiOpts>UILayoutEntryPointOPMVerifySummary/UIWidgetOPMVerifyChangePassword.opts.xml</uiOpts>-->
-		<element>UIWidgetOPMVerifyChangePassword</element>
 	</option>
 </data-set>

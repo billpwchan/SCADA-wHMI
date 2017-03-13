@@ -7,15 +7,38 @@
 		<InitDelayMS>1000</InitDelayMS>
 	</header>
 	
+	<actionset key="init">
+		<OperationString1>set_init_viewer</OperationString1>
+	</actionset>
+	
 	<actionset key="init_delay">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_default_widget_filter</OperationString1>
+		<OperationString1>set_init_filter</OperationString1>
 	</actionset>
+	
+	<action key="set_init_viewer">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>from_uilayoutsummary_init</OperationString1>
+	</action>
 
-	<action key="set_default_widget_filter">
+	<action key="set_init_filter">
 		<SenderOperation>event</SenderOperation>
 		<OperationType>actionsetkey</OperationType>
 		<OperationElement>UIWidgetAlarmSummaryFilter</OperationElement>
 		<OperationString1>set_default_action</OperationString1>
 	</action>
+	
+	<actionset key="terminate">
+		<OperationString1>set_terminate_viewer</OperationString1>
+	</actionset>
+	
+	<action key="set_terminate_viewer">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>actionsetkey</OperationType>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+	</action>
+	
 </data-set>

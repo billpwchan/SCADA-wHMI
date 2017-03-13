@@ -34,10 +34,11 @@
 		
 	</header>
 	
+	<!-- Begin of life -->
 	<actionset key="init">
 	</actionset>
 	
-	<actionset key="set_default_action">
+	<actionset key="from_uilayoutsummary_init">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>button_0_invisible</OperationString1>
 		<OperationString2>button_1_invisible</OperationString2>
@@ -57,16 +58,18 @@
 		<OperationString16>button_15_invisible</OperationString16>
 	</actionset>
 	
-	<actionset key="set_default_kill">
+	<actionset key="from_uilayoutsummary_envup">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_default_kill</OperationString1>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
 	</actionset>
 	
-	<action key="set_default_kill">
-		<OperationType>action</OperationType>
-		<OperationString1>set_default_kill</OperationString1>
-	</action>	
-	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
 	
 	<actionset key="RowSelected_valueUnset">
 		<OperationType>actionsetkey</OperationType>

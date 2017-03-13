@@ -39,9 +39,9 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.RootWidgetType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetAttribute;
@@ -94,7 +94,7 @@ public class UIWidgetGeneric extends UIGeneric {
 			}
 		}
 		for( int i=0 ; i < values.size(); ++i ) {
-			logger.info(className, "getElementValues", "name[{}][{}]", i, elements[i]);
+			logger.debug(className, "getElementValues", "name[{}][{}]", i, elements[i]);
 		}
     	return elements;
     }
@@ -111,7 +111,7 @@ public class UIWidgetGeneric extends UIGeneric {
     public void init() {
 		final String function = "init";
     	
-    	logger.info(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
+    	logger.debug(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
     	
     	DictionariesCache uiPanelSettingCache = DictionariesCache.getInstance("UIWidgetGeneric");
 		
@@ -137,9 +137,9 @@ public class UIWidgetGeneric extends UIGeneric {
 			
 		} else {
 
-			logger.info(className, function, "strRootPanel[{}]", strRootPanel);
-			logger.info(className, function, "strRootContainerCss[{}]", strRootContainerCss);
-	    	logger.info(className, function, "strRootCss[{}]", strRootCss);
+			logger.debug(className, function, "strRootPanel[{}]", strRootPanel);
+			logger.debug(className, function, "strRootContainerCss[{}]", strRootContainerCss);
+	    	logger.debug(className, function, "strRootCss[{}]", strRootCss);
 	    	
 	    	if ( RootWidgetType.HorizontalPanel.equalsName(strRootPanel) ) {
 
@@ -162,13 +162,13 @@ public class UIWidgetGeneric extends UIGeneric {
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-				logger.info(className, function, "Build Filter Table Loop i[{}] Begin", i);
+				logger.debug(className, function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
+					logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
 					if ( index < values.size() ) {
 						
@@ -220,9 +220,9 @@ public class UIWidgetGeneric extends UIGeneric {
 							
 							String disableTranslation			= valueMap.get(WidgetAttribute.disableTranslation.toString());
 							
-							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
-							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
-							logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
+							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
+							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
+							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
 							
 							if ( null != label ) {
 								if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
@@ -353,7 +353,7 @@ public class UIWidgetGeneric extends UIGeneric {
 									}
 									String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
 									
-									logger.info(className, function, "getMainPanel html["+html+"]");
+									logger.debug(className, function, "getMainPanel html["+html+"]");
 									
 									((Button)w).setHTML(html);
 								}
@@ -480,7 +480,7 @@ public class UIWidgetGeneric extends UIGeneric {
 						logger.warn(className, function, "Build Filter INVALID index[{}] > values.length[{}]", index, values.size());
 					}
 				}
-				logger.info(className, function, "Build Filter Table Loop i[{}] End", i);
+				logger.debug(className, function, "Build Filter Table Loop i[{}] End", i);
 		    }
 
 	    }
@@ -506,7 +506,7 @@ public class UIWidgetGeneric extends UIGeneric {
     					HashMap<String, String> hashMap = this.values.get(key);
     					if ( null != hashMap) {
     						element = hashMap.get(WidgetAttribute.element.toString());
-    						logger.info(className, function, "key[{}] element[{}]", key, element);
+    						logger.debug(className, function, "key[{}] element[{}]", key, element);
     						break;
     					} else {
     						logger.warn(className, function, "hashMap at key[{}] IS NULL", key);
@@ -528,7 +528,7 @@ public class UIWidgetGeneric extends UIGeneric {
     	
     	logger.begin(className, function);
     	
-    	logger.info(className, function, "element[{}]", element);
+    	logger.debug(className, function, "element[{}]", element);
     	
     	Widget widget = null;
     	Set<Integer> keys = this.values.keySet();
@@ -561,11 +561,11 @@ public class UIWidgetGeneric extends UIGeneric {
     	final String function = "getWidgetStatus";
     	logger.begin(className, function);
     	
-    	logger.info(className, function, "element[{}]", element);
+    	logger.debug(className, function, "element[{}]", element);
     	
     	WidgetStatus status = getWidgetStatus(getWidget(element));
     	
-    	logger.info(className, function, "status[{}]", status);
+    	logger.debug(className, function, "status[{}]", status);
     	
     	logger.end(className, function);
     	
@@ -577,7 +577,7 @@ public class UIWidgetGeneric extends UIGeneric {
     	
     	logger.begin(className, function);
     	
-    	logger.info(className, function, "widget[{}]", widget);
+    	logger.debug(className, function, "widget[{}]", widget);
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
@@ -600,7 +600,7 @@ public class UIWidgetGeneric extends UIGeneric {
 		final String function = "setWidgetStatus";
 		
     	logger.begin(className, function);
-    	logger.info(className, function, "element[{}] status[{}]", element, status.toString());
+    	logger.debug(className, function, "element[{}] status[{}]", element, status.toString());
     	
     	setWidgetStatus(getWidget(element), status);
     	
@@ -611,7 +611,7 @@ public class UIWidgetGeneric extends UIGeneric {
     	final String function = "setWidgetStatus";
     	
     	logger.begin(className, function);
-    	logger.info(className, function, "widget[{}] status[{}]", widget, status);
+    	logger.debug(className, function, "widget[{}] status[{}]", widget, status);
     	
     	if ( null != widget ) {
     		 
@@ -623,7 +623,7 @@ public class UIWidgetGeneric extends UIGeneric {
     			
 	    			if ( WidgetStatus.Visible == status || WidgetStatus.Invisible == status ) {
 	        			boolean visible = (WidgetStatus.Visible == status);
-	        			logger.info(className, function, "visible[{}]", status);
+	        			logger.debug(className, function, "visible[{}]", status);
 	        			widget.setVisible(visible);
 	
 	        			String element						= valueMap.get(WidgetAttribute.element.toString());
@@ -707,7 +707,7 @@ public class UIWidgetGeneric extends UIGeneric {
     								}
     								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
     								
-    								logger.info(className, function, "html["+html+"]");
+    								logger.debug(className, function, "html["+html+"]");
     								
     								((Button)widget).setHTML(html);
     							}							
@@ -731,21 +731,21 @@ public class UIWidgetGeneric extends UIGeneric {
     						}
     						if ( null != cssRemove1 ) {
     							widget.removeStyleName(cssRemove1);
-    							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
+    							logger.debug(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
     						}
     						if ( null != cssRemove2 ) {
     							widget.removeStyleName(cssRemove2);
-    							logger.info(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
+    							logger.debug(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
     						}
     						if ( null != cssAdd ) {
     							widget.addStyleName(cssAdd);
-    							logger.info(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
+    							logger.debug(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
     						}
 
     						if ( widget instanceof FocusWidget ) {
-    							logger.info(className, function, "widget[{}] instanceof FocusWidget", widget);
+    							logger.debug(className, function, "widget[{}] instanceof FocusWidget", widget);
     							boolean bStatus = !(WidgetStatus.Disable == status);
-    							logger.info(className, function, "widget[{}] setEnabled bStatus[{}]", widget, bStatus);
+    							logger.debug(className, function, "widget[{}] setEnabled bStatus[{}]", widget, bStatus);
     							((FocusWidget)widget).setEnabled(bStatus);
     						}
     		    			
@@ -967,14 +967,14 @@ public class UIWidgetGeneric extends UIGeneric {
 	public void ready(Dictionary dictionary) {
 		final String function = "ready";
 		logger.begin(className, function);
-		logger.info(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
+		logger.debug(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 			
-			logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
+			logger.debug(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -1009,13 +1009,13 @@ public class UIWidgetGeneric extends UIGeneric {
 				
 				totals = rows * cols;
 				
-				logger.info(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
+				logger.debug(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
 				}				
 				
-				logger.info(className, function, "dictionary ");
+				logger.debug(className, function, "dictionary ");
 
 			} else if ( 0 == DictionaryCacheInterface.Option.compareTo(XmlTag) ) {
 				
@@ -1042,7 +1042,7 @@ public class UIWidgetGeneric extends UIGeneric {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.info(className, function, "dictionary key[{}]", key);
+										logger.debug(className, function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -1052,7 +1052,7 @@ public class UIWidgetGeneric extends UIGeneric {
 							}
 						}
 						
-						logger.info(className, function, "dictionary key[{}]", key);
+						logger.debug(className, function, "dictionary key[{}]", key);
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -1067,11 +1067,11 @@ public class UIWidgetGeneric extends UIGeneric {
 								}
 								
 								if ( isvalid ) {
-									logger.info(className, function, "dictionary row[{}] col[{}]", row, col);
+									logger.debug(className, function, "dictionary row[{}] col[{}]", row, col);
 									
 									index = (row * cols) + col;
 									
-									logger.info(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
+									logger.debug(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -1080,7 +1080,7 @@ public class UIWidgetGeneric extends UIGeneric {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.info(className, function, "dictionary k[{}] v[{}]", k, v);
+												logger.debug(className, function, "dictionary k[{}] v[{}]", k, v);
 				
 												hashMap.put(k, v);
 											}

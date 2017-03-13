@@ -12,33 +12,7 @@ public interface UIView_i
 		@Override
 		public String toString() { return this.text; }
 	}
-	public enum ViewOperation {
-		  Operation("Operation")
-		, Operation1("Operation1")
-		, Operation2("Operation2")
-		, Operation3("Operation3")
-		, Operation4("Operation4")
-		, Operation5("Operation5")
-		, Operation6("Operation6")
-		, Operation7("Operation7")
-		, Operation8("Operation8")
-		, Operation9("Operation9")
-		, Operation10("Operation10")
-		, Operation11("Operation11")
-		;
-		private final String text;
-		private ViewOperation(final String text) { this.text = text; }
-		@Override
-		public String toString() { return this.text; }
-		public static String[] toStrings() {
-			ViewOperation[] enums = values();
-		    String[] strings = new String[enums.length];
-		    for (int i = 0; i < enums.length; i++) {
-		    	strings[i] = enums[i].name();
-		    }
-		    return strings;
-		}
-	}
+
 	public enum ViewAttribute {
 		  OperationTarget("OperationTarget")
 		, Operation("Operation")

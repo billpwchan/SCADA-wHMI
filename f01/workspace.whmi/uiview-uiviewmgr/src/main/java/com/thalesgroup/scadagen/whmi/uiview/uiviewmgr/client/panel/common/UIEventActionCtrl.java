@@ -6,20 +6,21 @@ import java.util.Map.Entry;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionCtrl_i.UIEventActionCtrlAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 
 public class UIEventActionCtrl extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionCtrl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public final String strSendIntControl = "SendIntControl";
-	public final String strSendFloatControl = "SendFloatControl";
-	public final String strSendStringControl = "SendStringControl";
-	
 	public UIEventActionCtrl ( ) {
-		supportedActions = new String[] {strSendIntControl, strSendFloatControl, strSendStringControl};
+		supportedActions = new String[] {
+				  UIEventActionCtrlAction.SendIntControl.toString()
+				, UIEventActionCtrlAction.SendFloatControl.toString()
+				, UIEventActionCtrlAction.SendStringControl.toString()};
 	}
 	
 	@Override
@@ -61,7 +62,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 		if ( isValid ) {
 			CtlMgr ctlMgr = CtlMgr.getInstance(instance);
 			
-			if ( strAction.equalsIgnoreCase(strSendIntControl) ) {
+			if ( strAction.equalsIgnoreCase(UIEventActionCtrlAction.SendIntControl.toString()) ) {
 				int intCommandValue = -1;
 				boolean isValidCommandValue = false;
 				try {
@@ -77,7 +78,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 					logger.warn(className, function, "isValidCommandValue IS INVALID");
 				}
 	
-			} else if ( strAction.equalsIgnoreCase(strSendFloatControl) ) {
+			} else if ( strAction.equalsIgnoreCase(UIEventActionCtrlAction.SendFloatControl.toString()) ) {
 				float floatCommandValue = -1;
 				boolean isValidCommandValue = false;
 				try {
@@ -92,7 +93,7 @@ public class UIEventActionCtrl extends UIEventActionExecute_i {
 				} else {
 					logger.warn(className, function, "floatCommandValue IS INVALID");
 				}
-			} else if ( strAction.equals(strSendStringControl) ) {
+			} else if ( strAction.equals(UIEventActionCtrlAction.SendStringControl.toString()) ) {
 				logger.info(className, function, "strCommandValue[{}]", strCommandValue);
 				ctlMgr.sendControl(strEnvName, new String[]{strAddress}, strCommandValue, bypassInitCond, bypassRetCond, sendAnyway);
 			}

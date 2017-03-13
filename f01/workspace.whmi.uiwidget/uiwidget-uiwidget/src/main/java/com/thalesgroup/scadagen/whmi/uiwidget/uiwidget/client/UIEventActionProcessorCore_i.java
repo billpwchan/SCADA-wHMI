@@ -1,14 +1,13 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 import java.util.HashMap;
 
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 
-public interface UIEventActionProcessor_i {
+public interface UIEventActionProcessorCore_i {
 	
 	String getName();
 	
@@ -26,16 +25,6 @@ public interface UIEventActionProcessor_i {
 	UIEventAction getUIEventActionSetMgr(String actionsetkey);
 	UIEventAction getUIEventActionMgr(String actionkey);
 	
-	boolean executeActionSetInit();
-	
-	void executeActionSetInit(int delayMillis, HashMap<String, HashMap<String, Object>> override);
-	void executeActionSetInit(int delayMillis, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
-
-	boolean executeActionSetKill();
-	
-	void executeActionSetKill(int delayMillis, HashMap<String, HashMap<String, Object>> override);
-	void executeActionSetKill(int delayMillis, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
-	
 	boolean executeActionSet(String actionsetkey);
 	
 	boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override);
@@ -49,5 +38,4 @@ public interface UIEventActionProcessor_i {
 	
 	boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override);
 	boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler);
-
 }

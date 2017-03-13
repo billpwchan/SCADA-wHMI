@@ -18,12 +18,12 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.DirectionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.PanelAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.RootAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.TypeAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutGeneric_i.WidgetAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 
@@ -84,7 +84,7 @@ public class UILayoutGeneric extends UIGeneric {
 	public void init() {
 		final String function = "init";
 		
-		logger.info(className, function, "viewXMLFile[{}]", this.viewXMLFile);
+		logger.debug(className, function, "viewXMLFile[{}]", this.viewXMLFile);
 
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance("UIWidgetGeneric");
 			
@@ -97,7 +97,7 @@ public class UILayoutGeneric extends UIGeneric {
 		// Start the UIGeneric
 
 		logger.begin(className, function);
-		logger.info(className, function, "strPanel[{}] strCSS[{}]", strPanel, strCSS);
+		logger.debug(className, function, "strPanel[{}] strCSS[{}]", strPanel, strCSS);
 		
 		rootPanel = null;
 		if ( null != strPanel ) {
@@ -128,13 +128,13 @@ public class UILayoutGeneric extends UIGeneric {
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-		    	logger.info(className, function, "Build Filter Table Loop i[{}] Begin", i);
+		    	logger.debug(className, function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.info(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
+					logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
 					HashMap<String, String> valueMap = this.values.get(index);
 					
@@ -162,10 +162,10 @@ public class UILayoutGeneric extends UIGeneric {
 							if ( null != value ) options.put(key, value);
 						}
 						
-						if ( logger.isInfoEnabled() ) {
+						if ( logger.isDebugEnabled() ) {
 							for ( String key : valueMap.keySet() ) {
 								String value = valueMap.get(key);
-								logger.info(className, function, "valueMap key[{}] value[{}]", key, value);
+								logger.debug(className, function, "valueMap key[{}] value[{}]", key, value);
 							}
 						}
 						
@@ -215,12 +215,12 @@ public class UILayoutGeneric extends UIGeneric {
 								if ( null != element ) {
 									if ( null != element && element.trim().length() > 0 ) {
 										uiGeneric.put(element, uiWidget);
-										logger.info(className, function, "uiGeneric element[{}] ADDED", element);
+										logger.debug(className, function, "uiGeneric element[{}] ADDED", element);
 									}
 								}
 								if ( ! uiGeneric.containsKey(element) ) {
 									uiGeneric.put(uiCtrl, uiWidget);
-									logger.info(className, function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
+									logger.debug(className, function, "uiGeneric uiCtrl[{}] ADDED", uiCtrl);									
 								}
 							} else {
 								logger.warn(className, function, "created UIWidgetGeneric type[{}] uiCtrl[{}] IS NULL", type, uiCtrl);
@@ -255,7 +255,7 @@ public class UILayoutGeneric extends UIGeneric {
 											logger.warn(className, function, "direction IS INVALID");
 										}
 									} else {
-										logger.info(className, function, "direction IS null");
+										logger.debug(className, function, "direction IS null");
 									}
 								} else if ( rootPanel instanceof AbsolutePanel ) {
 								
@@ -266,7 +266,7 @@ public class UILayoutGeneric extends UIGeneric {
 										if ( null != left )	x = Integer.parseInt(left);
 										if ( null != top )	y = Integer.parseInt(top);
 									} catch ( NumberFormatException e ) {
-										logger.info(className, function, "left or top IS INVALID");
+										logger.debug(className, function, "left or top IS INVALID");
 									}
 									((AbsolutePanel)rootPanel).add(panel, x, y);
 								
@@ -277,7 +277,7 @@ public class UILayoutGeneric extends UIGeneric {
 									if ( null != cellheight )	((CellPanel) rootPanel).setCellHeight(panel, cellwidth);
 								}
 								
-								logger.info(className, function, "csscontainer["+csscontainer+"]");
+								logger.debug(className, function, "csscontainer["+csscontainer+"]");
 								
 								if ( null != panel ) {
 									if ( null != csscontainer ) {
@@ -305,14 +305,14 @@ public class UILayoutGeneric extends UIGeneric {
 		final String function = "ready";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "this.xmlFile[{}]", this.viewXMLFile);
+		logger.debug(className, function, "this.xmlFile[{}]", this.viewXMLFile);
 		
 		if ( null != dictionary ) {
 			String xmlFile				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.FileName.toString());
 			String XmlTag				= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.Tag.toString());
 			String CreateDateTimeLabel	= (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 			
-			logger.info(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
+			logger.debug(className, function, "dictionary XmlFile[{}] XmlTag[{}] CreateDateTimeLabel[{}]", new Object[]{xmlFile, XmlTag, CreateDateTimeLabel});			
 			
 			if ( 0 == DictionaryCacheInterface.Header.compareTo(XmlTag)) {
 
@@ -345,7 +345,7 @@ public class UILayoutGeneric extends UIGeneric {
 				
 				totals = rows * cols;
 				
-				logger.info(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
+				logger.debug(className, function, "dictionary cols[{}] rows[{}] => totals[{}]", new Object[]{cols, rows, totals});
 				
 				for ( int i = 0 ; i < totals ; ++i ) {
 					values.put(i, new HashMap<String, String>());
@@ -376,7 +376,7 @@ public class UILayoutGeneric extends UIGeneric {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.info(className, function, "dictionary key[{}]", key);
+										logger.debug(className, function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -386,7 +386,7 @@ public class UILayoutGeneric extends UIGeneric {
 							}
 						}
 						
-						logger.info(className, function, "dictionary key[{}]", key);
+						logger.debug(className, function, "dictionary key[{}]", key);
 						
 						if ( null != keys ) {
 							if ( 2 == keys.length ) {
@@ -401,11 +401,11 @@ public class UILayoutGeneric extends UIGeneric {
 								}
 								
 								if ( isvalid ) {
-									logger.info(className, function, "dictionary row[{}] col[{}]", new Object[]{row, col});
+									logger.debug(className, function, "dictionary row[{}] col[{}]", new Object[]{row, col});
 									
 									index = (row * cols) + col;
 									
-									logger.info(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
+									logger.debug(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -414,7 +414,7 @@ public class UILayoutGeneric extends UIGeneric {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.info(className, function, "dictionary k[{}] v[{}]", new Object[]{k, v});
+												logger.debug(className, function, "dictionary k[{}] v[{}]", new Object[]{k, v});
 				
 												hashMap.put(k, v);
 											}
@@ -440,7 +440,7 @@ public class UILayoutGeneric extends UIGeneric {
 	}
 
 	public UIWidget_i getPredefineWidget(String uiCtrl) {
-		logger.info(className, "getPredefineWidget", "uiCtrl[{}]", uiCtrl);
+		logger.debug(className, "getPredefineWidget", "uiCtrl[{}]", uiCtrl);
 		return uiGeneric.get(uiCtrl);
 	}
 

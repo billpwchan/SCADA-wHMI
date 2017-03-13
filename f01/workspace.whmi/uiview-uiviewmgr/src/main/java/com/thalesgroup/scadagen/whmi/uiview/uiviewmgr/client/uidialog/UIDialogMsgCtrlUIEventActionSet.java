@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorCore_i;
 
 public class UIDialogMsgCtrlUIEventActionSet implements UIDialogMsgCtrl_i {
 	
@@ -13,10 +13,10 @@ public class UIDialogMsgCtrlUIEventActionSet implements UIDialogMsgCtrl_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	private String actionsetkey = null;
-	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
+	private UIEventActionProcessorCore_i uiEventActionProcessorCore_i = null;
 	private HashMap<String, HashMap<String, Object>> override = null;
-	public UIDialogMsgCtrlUIEventActionSet(UIEventActionProcessor_i uiEventActionProcessor_i, String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
-		this.uiEventActionProcessor_i = uiEventActionProcessor_i;
+	public UIDialogMsgCtrlUIEventActionSet(UIEventActionProcessorCore_i uiEventActionProcessorCore_i, String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
+		this.uiEventActionProcessorCore_i = uiEventActionProcessorCore_i;
 		this.actionsetkey = actionsetkey;
 		this.override = override;
 	}
@@ -24,9 +24,9 @@ public class UIDialogMsgCtrlUIEventActionSet implements UIDialogMsgCtrl_i {
 	public void response() {
 		String function = "response";
 		logger.begin(className, function);
-		if ( null != uiEventActionProcessor_i ) {
+		if ( null != uiEventActionProcessorCore_i ) {
 			logger.debug(className, function, "call uieventactionprocess executeactionset");
-			uiEventActionProcessor_i.executeActionSet(actionsetkey, override);	
+			uiEventActionProcessorCore_i.executeActionSet(actionsetkey, override);	
 		} else {
 			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
 		}

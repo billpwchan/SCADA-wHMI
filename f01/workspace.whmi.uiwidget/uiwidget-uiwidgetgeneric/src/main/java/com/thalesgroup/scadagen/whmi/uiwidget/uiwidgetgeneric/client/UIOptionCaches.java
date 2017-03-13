@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -35,9 +35,9 @@ public class UIOptionCaches {
 		this.fileName = fileName;
 		this.tag = tag;
 		
-		logger.info(className, function, this.logPrefix+"this.dictionariesCacheName[{}]", this.dictionariesCacheName);
-		logger.info(className, function, this.logPrefix+"this.fileName[{}]", this.fileName);
-		logger.info(className, function, this.logPrefix+"this.tag[{}]", this.tag);
+		logger.trace(className, function, this.logPrefix+"this.dictionariesCacheName[{}]", this.dictionariesCacheName);
+		logger.trace(className, function, this.logPrefix+"this.fileName[{}]", this.fileName);
+		logger.trace(className, function, this.logPrefix+"this.tag[{}]", this.tag);
 		
 		logger.end(className, function);
 	}

@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
@@ -10,9 +10,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
@@ -60,12 +60,13 @@ public class UIWidgetOPMVerifyChangePassword extends UIWidget_i {
 						if ( "changepassword".equals(element) ) {
 							
 							String uiopmapivalue	= uiWidgetGeneric.getWidgetValue("uiopmapivalue");
+							String usernamevalue	= uiWidgetGeneric.getWidgetValue("usernamevalue");
 							String oldpassvalue		= uiWidgetGeneric.getWidgetValue("oldpassvalue");
 							String newpassvalue		= uiWidgetGeneric.getWidgetValue("newpassvalue");
 							
 							UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
 							
-							uiOpm_i.changePassword(uiopmapivalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
+							uiOpm_i.changePassword(usernamevalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 
 								@Override
 								public void event(JSONObject jsobject) {

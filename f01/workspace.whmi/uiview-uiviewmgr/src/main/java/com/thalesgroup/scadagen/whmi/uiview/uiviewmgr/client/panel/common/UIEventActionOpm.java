@@ -8,9 +8,10 @@ import com.google.gwt.json.client.JSONValue;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm_i.UIEventActionOpmAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i;
@@ -153,9 +154,9 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 								&& function.equalsIgnoreCase("onSuccessMwt") 
 								&& resultinstanceof.equalsIgnoreCase("OperatorActionReturn") ) {
 							
-							uiEventActionProcessor_i.executeActionSet("set_result_value_valid");
+							uiEventActionProcessorCore_i.executeActionSet("set_result_value_valid");
 						} else {
-							uiEventActionProcessor_i.executeActionSet("set_result_value_invalid");
+							uiEventActionProcessorCore_i.executeActionSet("set_result_value_invalid");
 						}
 
 //						UIEventAction action = new UIEventAction();

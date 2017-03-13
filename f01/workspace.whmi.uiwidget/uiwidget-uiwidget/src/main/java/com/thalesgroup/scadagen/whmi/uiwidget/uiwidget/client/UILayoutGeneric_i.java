@@ -108,32 +108,6 @@ public interface UILayoutGeneric_i {
 		}
 	}
 	
-	public enum ActionAttribute {
-		  initAction1("initAction1")
-		, initAction2("initAction2")
-		, initAction3("initAction3")
-		, initAction4("initAction4")
-		, initAction5("initAction5")
-		, initAction6("initAction6")
-		;
-		private final String text;
-		private ActionAttribute(final String text) { this.text = text; }
-		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
-		/* (non-Javadoc)
-		 * @see java.lang.Enum#toString()
-		 */
-		@Override
-		public String toString() { return this.text; }
-		public static String[] toStrings() {
-			ActionAttribute[] enums = values();
-		    String[] strings = new String[enums.length];
-		    for (int i = 0; i < enums.length; i++) {
-		    	strings[i] = enums[i].name();
-		    }
-		    return strings;
-		}
-	}
-	
 	public enum TypeAttribute {
 		  predefine("predefine") // MVP Panel
 		, widgetconfiguration("widgetconfiguration") // MVC Widget

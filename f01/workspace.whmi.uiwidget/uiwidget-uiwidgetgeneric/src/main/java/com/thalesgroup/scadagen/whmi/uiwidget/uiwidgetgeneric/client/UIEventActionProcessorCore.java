@@ -1,29 +1,30 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.google.gwt.event.shared.SimpleEventBus;
-import com.google.gwt.user.client.Timer;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventSenderAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventSenderAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorCore_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 
-public class UIEventActionProcessor implements UIEventActionProcessor_i {
+public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i {
 
-	private static final String className = UIWidgetUtil.getClassSimpleName(UIEventActionProcessor.class.getName());
+	private static final String className = UIWidgetUtil.getClassSimpleName(UIEventActionProcessorCore.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private String prefix = null;
+	protected String prefix = null;
 	public void setPrefix(String prefix) { this.prefix = prefix; }
 	
 	private String dictionariesCacheName;
@@ -121,98 +122,6 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		return this.uiEventActionMgr.get(actionkey);
 	}
 	
-	/**
-	 * Load and Execute the Local Init Action Set
-	 */
-	@Override
-	public boolean executeActionSetInit() {
-		final String function = prefix+" executeActionSetInit";
-		logger.begin(className, function);
-		boolean bContinue = true;
-		bContinue = executeActionSet("init", null, null);
-		logger.end(className, function);
-		return bContinue;
-	}
-
-	/**
-	 * Load and Execute the Local Init Action Set
-	 */
-	@Override
-	public void executeActionSetInit(int delayMillis, final HashMap<String, HashMap<String, Object>> override) {
-		final String function = prefix+" executeActionSetInit";
-		logger.begin(className, function);
-		logger.info(className, function, "delayMillis[{}]", delayMillis);
-		executeActionSetInit(delayMillis, override, null);
-		logger.end(className, function);
-	}
-	
-	/**
-	 * Load and Execute the Local Init Action Set
-	 */
-	@Override
-	public void executeActionSetInit(int delayMillis, final HashMap<String, HashMap<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
-		final String function = prefix+" executeActionSetInit";
-		logger.begin(className, function);
-		logger.info(className, function, "delayMillis[{}]", delayMillis);
-		if ( delayMillis >= 0 ) {
-			Timer t = new Timer() {
-				public void run() {
-					executeActionSet("init_delay", override, executeActionHandler);
-				}
-			};
-			t.schedule(delayMillis);
-		} else {
-			logger.warn(className, function, "delayMillis[{}] < 0", delayMillis);
-		}
-		logger.end(className, function);
-	}
-	
-	/**
-	 * Load and Execute the Local Init Action Set
-	 */
-	@Override
-	public boolean executeActionSetKill() {
-		final String function = prefix+" executeActionSetKill";
-		logger.begin(className, function);
-		boolean bContinue = true;
-		bContinue = executeActionSet("kill", null, null);
-		logger.end(className, function);
-		return bContinue;
-	}
-
-	/**
-	 * Load and Execute the Local Init Action Set
-	 */
-	@Override
-	public void executeActionSetKill(int delayMillis, final HashMap<String, HashMap<String, Object>> override) {
-		final String function = prefix+" executeActionSetKill";
-		logger.begin(className, function);
-		logger.info(className, function, "delayMillis[{}]", delayMillis);
-		executeActionSetKill(delayMillis, override, null);
-		logger.end(className, function);
-	}
-	
-	/**
-	 * Load and Execute the Local Init Action Set
-	 */
-	@Override
-	public void executeActionSetKill(int delayMillis, final HashMap<String, HashMap<String, Object>> override, final UIExecuteActionHandler_i executeActionHandler) {
-		final String function = prefix+" executeActionSetInit";
-		logger.begin(className, function);
-		logger.info(className, function, "delayMillis[{}]", delayMillis);
-		if ( delayMillis >= 0 ) {
-			Timer t = new Timer() {
-				public void run() {
-					executeActionSet("kill_delay", override, executeActionHandler);
-				}
-			};
-			t.schedule(delayMillis);
-		} else {
-			logger.warn(className, function, "delayMillis[{}] < 0", delayMillis);
-		}
-		logger.end(className, function);
-	}
-
 	@Override
 	public boolean executeActionSet(String actionsetkey) {
 		final String function = prefix+" executeActionSet";
@@ -253,8 +162,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		UIEventAction actionset = uiEventActionSetMgr.get(actionsetkey);
 		if ( null != actionset ) {
 			actionset.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
-			for ( ActionAttribute ast : ActionAttribute.values() ) {
-				String actionsetattributename = ast.toString();
+			for ( String actionsetattributename : ActionAttribute.toStrings() ) {
 				logger.info(className, function, "actionsetattributename[{}]", actionsetattributename);
 				String actionsetattribute = (String) actionset.getParameter(actionsetattributename);
 				logger.info(className, function, "actionsetattribute[{}]", actionsetattribute);
@@ -313,8 +221,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		logger.begin(className, function);
 		boolean bContinue = true;
 		if ( null != action ) {
-			for ( ActionAttribute eventattribute : ActionAttribute.values() ) {
-				String eventattributename = eventattribute.toString();
+			for ( String eventattributename : ActionAttribute.toStrings() ) {
 				logger.info(className, function, "eventattributename[{}]", eventattributename);
 				String actionkey = (String) action.getParameter(eventattributename);
 				logger.info(className, function, "actionkey[{}]", actionkey);
@@ -403,7 +310,7 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 				
 				if ( null != spt && spt.equals(UIActionEventType.event.toString()) ) {
 					logger.info(className, function, "spt[{}] IS event", spt);
-					String operationElement = UIEventActionProcessor.getOperationElement(prefix, action);
+					String operationElement = UIEventActionProcessorCore.getOperationElement(prefix, action);
 					logger.info(className, function, "operationElement[{}] == element[{}]", operationElement, element);
 					if ( null == operationElement || ( null != operationElement && ! operationElement.equals(element)) ) {
 						if ( null != simpleEventBus ) {
@@ -413,7 +320,9 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 							// Remove the SenderOperation when it done
 							actionCopy.removeParameter(UIActionEventSenderAttribute.SenderOperation.toString());
 							
-							UIEventActionExecute_i uiEventActionExecute_i = new UIEventActionBusFire();
+							UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
+							UIEventActionExecute_i uiEventActionExecute_i = uiEventActionExecuteMgr.getUIEventActionExecute(UIActionEventType.event.toString());
+//							UIEventActionExecute_i uiEventActionExecute_i = new UIEventActionBusFire();
 							uiEventActionExecute_i.setLogPrefix(className);
 							uiEventActionExecute_i.setSimpleEventBus(simpleEventBus);
 							bContinue = uiEventActionExecute_i.executeAction(actionCopy, override);
@@ -496,4 +405,5 @@ public class UIEventActionProcessor implements UIEventActionProcessor_i {
 		}
 		logger.end(className, function);
 	}
+	
 }

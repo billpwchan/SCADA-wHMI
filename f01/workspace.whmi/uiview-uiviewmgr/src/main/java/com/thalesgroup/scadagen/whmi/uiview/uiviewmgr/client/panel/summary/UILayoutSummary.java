@@ -5,18 +5,33 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
 import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
-import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgr_i;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgrFactory;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessor;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorMgrFactory;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.LastCompilation;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionCtrl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDbm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDialogMsg;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDpc;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
@@ -36,8 +51,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMChangePasswordControl;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyChangePassword;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMVerifyControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl;
@@ -53,6 +66,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabasePollingControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseSubscriptionControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseWritingControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyChangePassword;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
@@ -123,11 +138,23 @@ public class UILayoutSummary extends UIWidget_i {
 			}
 		});
 		
-		String key = UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName());
-		UIDialogMgr.getInstance().addDialogs(key, new UIDialogMgr_i() {
+		UIDialogMgr.getInstance().addDialogs(className, new UIDialogMgrFactory() {
+			
 			@Override
-			public UIDialog_i getDialog() {
-				return new UIDialogMsg();
+			public UIDialog_i getUIDialog(String key) {
+				UIDialog_i uiDialog_i = null;
+				if (
+						UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName())
+						.equals(key)
+						) {
+					uiDialog_i = new UIDialogMsg();
+				}
+				
+				if ( null == uiDialog_i ) {
+					logger.warn(className, function, "key[{}] uiDialog_i IS NULL", key);
+				}
+				
+				return uiDialog_i;
 			}
 		});
 
@@ -416,6 +443,59 @@ public class UILayoutSummary extends UIWidget_i {
 				return uiWidget_i;
 			}
 		});
+		
+		UIEventActionProcessorMgr.getInstance().addUIEventActionProcessor(className, new UIEventActionProcessorMgrFactory() {
+			
+			@Override
+			public UIEventActionProcessor_i getUIEventActionProcessor(String key) {
+				UIEventActionProcessor_i uiEventActionProcessor_i = null;
+				
+				if ( UIWidgetUtil.getClassSimpleName(UIEventActionProcessor.class.getName())
+						.equals(key) ) {
+					uiEventActionProcessor_i = new UIEventActionProcessor();
+				}
+				return uiEventActionProcessor_i;
+			}
+		});
+		
+		UIEventActionExecuteMgr.getInstance().addUIEventActionExecute(className, new UIEventActionExecuteMgrFactory() {
+			
+			@Override
+			public UIEventActionExecute_i getUIEventActionExecute(String key) {
+				UIEventActionExecute_i uiEventActionExecute_i = null;
+				if ( key.equals(UIActionEventType.alm.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionAlm();
+				}
+				else if ( key.equals(UIActionEventType.ctl.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionCtrl();
+				}
+				else if ( key.equals(UIActionEventType.dbm.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionDbm();
+				}
+				else if ( key.equals(UIActionEventType.dialogmsg.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionDialogMsg();
+				}
+				else if ( key.equals(UIActionEventType.dpc.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionDpc();
+				}
+				else if ( key.equals(UIActionEventType.grc.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionGrc();
+				}
+				else if ( key.equals(UIActionEventType.opm.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionOpm();
+				}
+				else if ( key.equals(UIActionEventType.uitask.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionTaskLaunch();
+				}
+				else if ( key.equals(UIActionEventType.widget.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionWidget();
+				}
+				else if ( key.equals(UIActionEventType.event.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionBusFire();
+				}
+				return uiEventActionExecute_i;
+			}
+		});
 
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
@@ -451,6 +531,8 @@ public class UILayoutSummary extends UIWidget_i {
 		}
 		uiEventActionProcessor_i.executeActionSetInit(delay, null);
 		
+		uiEventActionProcessor_i.executeActionSetEnvUp(delay, null);
+		
 		logger.end(className, function);
 	}
 	
@@ -459,7 +541,8 @@ public class UILayoutSummary extends UIWidget_i {
 		final String function = "terminate";
 		logger.begin(className, function);
 //		if ( null != uiWidget_i ) uiWidget_i.terminate();
-		uiEventActionProcessor_i.executeActionSetKill();
+		
+		uiEventActionProcessor_i.executeActionSetTerminate();
 		logger.end(className, function);
 	}
 }

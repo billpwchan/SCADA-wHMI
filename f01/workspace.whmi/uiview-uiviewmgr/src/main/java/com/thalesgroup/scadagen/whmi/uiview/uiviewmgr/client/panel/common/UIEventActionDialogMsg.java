@@ -6,7 +6,7 @@ import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDialogMsg_i.UIEventActionDialogMsgAction;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrlUIEventActionSet;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMsgCtrl_i;
@@ -14,6 +14,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.UIDialogMs
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg.UIConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIEventActionDialogMsg extends UIEventActionExecute_i {
@@ -95,14 +96,14 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 				uiDialgogMsg.setDialogMsg(uiConfimDlgType, title, message);
 				
 				if ( strMsgOpt1ActionSetKey != null && ! strMsgOpt1ActionSetKey.trim().isEmpty() ) {
-					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessor_i, strMsgOpt1ActionSetKey, override);
+					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessorCore_i, strMsgOpt1ActionSetKey, override);
 					uiDialgogMsg.setResponse(UIDialogMsgEventType.MSG_OPT_1.toString(), action1);
 				} else {
 					 logger.warn(className, function, logPrefix+"strMsgOpt1ActionSetKey[{}] IS INVALID", strMsgOpt1ActionSetKey);
 				}
 
 				if ( strMsgOpt2ActionSetKey != null && ! strMsgOpt2ActionSetKey.trim().isEmpty() ) {
-					UIDialogMsgCtrl_i action2 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessor_i, strMsgOpt2ActionSetKey, override);
+					UIDialogMsgCtrl_i action2 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessorCore_i, strMsgOpt2ActionSetKey, override);
 					uiDialgogMsg.setResponse(UIDialogMsgEventType.MSG_OPT_2.toString(), action2);
 				} else {
 					 logger.warn(className, function, logPrefix+"strMsgOpt2ActionSetKey[{}] IS INVALID", strMsgOpt2ActionSetKey);

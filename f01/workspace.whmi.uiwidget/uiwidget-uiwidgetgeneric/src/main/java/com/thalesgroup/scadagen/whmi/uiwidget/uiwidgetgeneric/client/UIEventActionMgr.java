@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
 import java.util.Map.Entry;

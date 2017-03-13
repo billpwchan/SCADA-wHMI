@@ -2,7 +2,7 @@ package com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client;
 
 import java.util.HashMap;
 
-import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgr_i;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgrFactory;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -22,28 +22,31 @@ public class UIDialogMgr {
 		return instance;
 	}
 	
-	private HashMap<String, UIDialogMgr_i> dialogs = new HashMap<String, UIDialogMgr_i>();
-	public void addDialogs(String key, UIDialogMgr_i dialog) {
+	private HashMap<String, UIDialogMgrFactory> hashMap = new HashMap<String, UIDialogMgrFactory>();
+	public void addDialogs(String key, UIDialogMgrFactory uiDialogMgrFactory) {
 		String function = "addDialogs";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}]", key);
-		this.dialogs.put(key, dialog);
+		hashMap.put(className, uiDialogMgrFactory);
 		logger.end(className, function);
 	}
 	
 	public UIDialog_i getDialog(String key) {
 		String function = "getDialog";
-		
 		logger.begin(className, function);
+
 		logger.info(className, function, "key[{}]", key);
-		
-		UIDialogMgr_i uiDialogMsgMgr_i = null;
 		UIDialog_i uiDialog_i = null;
-		uiDialogMsgMgr_i = dialogs.get(key);
-		if ( null != uiDialogMsgMgr_i ) {
-			uiDialog_i = uiDialogMsgMgr_i.getDialog();	
-		} else {
-			logger.warn(className, function, "key[{}] uiDialog_i IS NULL", key);
+		for ( String k : hashMap.keySet() ) {
+			UIDialogMgrFactory v = hashMap.get(k);
+			if ( null != k ) {
+				uiDialog_i = v.getUIDialog(key);
+			} else {
+				logger.warn(className, function, "v from the k[{}] IS NULL", k);
+			}
+		}
+		if ( null == uiDialog_i ) {
+			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
 		}
 		
 		logger.begin(className, function);

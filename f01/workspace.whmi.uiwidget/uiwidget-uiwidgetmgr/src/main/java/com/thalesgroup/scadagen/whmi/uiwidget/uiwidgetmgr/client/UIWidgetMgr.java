@@ -32,7 +32,7 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "uiCtrl[{}]", uiCtrl);
+		logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
 		
 		UIWidget_i uiWidget = null;
 		
@@ -42,7 +42,9 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 			
 			if ( null != uiWidgetMgrFactory ) {
 			
-				logger.info(className, function, "uiWidgetMgrFactory");
+				logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
+				logger.debug(className, function, "uiView[{}]", uiView);
+				logger.debug(className, function, "uiOpts[{}]", uiOpts);
 			
 				uiWidget = uiWidgetMgrFactory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, element, uiDict, options);
 				

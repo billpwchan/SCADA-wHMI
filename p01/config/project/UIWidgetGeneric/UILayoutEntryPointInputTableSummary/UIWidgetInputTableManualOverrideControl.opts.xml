@@ -10,10 +10,12 @@
 		<PeriodMillis>200</PeriodMillis>
 	</header>
 	
+	<!-- Begin of life -->
 	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
 	</actionset>
 	
-	<actionset key="set_default_action">
+	<actionset key="from_uilayoutsummary_init">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_set_disable</OperationString1>
 		<OperationString2>set_unset_disable</OperationString2>
@@ -21,6 +23,19 @@
 		<OperationString4>set_txtvalue_invisible</OperationString4>
 		<OperationString5>set_lstvalue_invisible</OperationString5>
 	</actionset>
+	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
 	
 	<actionset key="RowSelected_valueSet">
 		<OperationType>actionsetkey</OperationType>

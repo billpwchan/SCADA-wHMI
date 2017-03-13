@@ -2,9 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 public interface UIWidgetDioBtnsControl_i {
 	public enum ParameterName {
-		SimpleEventBus("SimpleEventBus")
-		
-		, ColumnAlias("ColumnAlias")
+		  ColumnAlias("ColumnAlias")
 		, ColumnServiceOwner("ColumnServiceOwner")
 		
 		, IsPolling("IsPolling")

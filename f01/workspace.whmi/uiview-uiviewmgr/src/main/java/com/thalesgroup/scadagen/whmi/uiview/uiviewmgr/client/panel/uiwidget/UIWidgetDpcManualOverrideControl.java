@@ -5,34 +5,24 @@ import java.util.HashMap;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
@@ -44,12 +34,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper_i.PointType;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
-public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
+public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private SimpleEventBus eventBus 	= null;
 
 	private DpcMgr dpcMgr				= null;
 	
@@ -78,203 +66,22 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	
 	private String address = null;
 	private String scsEnvId = null;
-	
-	UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 
-		@Override
-		public void onUIEvent(UIEvent event) {
-			
-		}
-		
-		@Override
-		public void onClick(ClickEvent event) {
-			final String function = "onClick";
-			
-			logger.begin(className, function);
-			
-			if ( null != event ) {
-				Widget widget = (Widget) event.getSource();
-				if ( null != widget ) {
-					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
-					if ( null != element ) {
-						String actionsetkey = element;
-						
-						HashMap<String, HashMap<String, Object>> override = null;
-						
-						uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new UIExecuteActionHandler_i() {
-							
-							@Override
-							public boolean executeHandler(UIEventAction uiEventAction) {
-								// TODO Auto-generated method stub
-								String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
-								
-								logger.info(className, function, "os1[{}]", os1);
-								
-								if ( null != os1 ) {
-									if ( os1.equals("SendDpcManualControl") ) {
-										
-										for ( HashMap<String, String> hashMap : selectedSet ) {
-											String selectedAlias = hashMap.get(columnAlias);
-											String selectedServiceOwner = hashMap.get(columnServiceOwner);
-											
-											logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
-											
-											scsEnvId = selectedServiceOwner;
-											address = selectedAlias;
-											
-											logger.info(className, function, "alias BF [{}]", address);
-											
-											address = "<alias>" + selectedAlias;
-											
-											logger.info(className, function, "alias AF [{}]", address);
-											
-											WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
-											boolean isApply = false;
-											if ( WidgetStatus.Down == curStatusSet ) {
-												isApply = true;
-											}
-											logger.info(className, function, "isApply[{}]", isApply);
-				
-											String key = "changeEqpStatus" + "_"+ className + "_"+ "manualoverride" + "_"+ isApply + "_" + address;
-											
-											String point = DatabaseHelper.getPointFromAliasAddress(address);
-											logger.info(className, function, "address[{}] point[{}]", address, point);
-											if ( null != point ) {
-												PointType pointType = DatabaseHelper.getPointType(point);
-												logger.info(className, function, "pointType[{}]", pointType);
-												if ( pointType == PointType.dci ) {
-													int value = lstValues.getSelectedIndex();
-													logger.info(className, function, "scsEnvIdscsEnvIdvalue[{}]", value);
-													dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
-												} else if ( pointType == PointType.aci ) {
-													float value = 0.0f;
-													try {
-														value = Float.parseFloat(txtValues.getText());
-													} catch (NumberFormatException e) {
-														logger.warn(className, function, "NumberFormatException[{}]", e.toString());
-													}
-													logger.info(className, function, "value[{}]", value);
-													dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
-												} else if ( pointType == PointType.sci ) {
-													String value = txtValues.getText();
-													logger.info(className, function, "value[{}]", value);
-													dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
-												} else {
-													logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
-												}
-											}
-				
-										}
-				
-									}
-								}
-								return true;
-							}
-						});
-					}
-				}
-			}
-			
-			logger.end(className, function);
-		}
-		
-		@Override
-		@SuppressWarnings("unchecked")
-		public void onActionReceived(UIEventAction uiEventAction) {
-			final String function = "onActionReceived";
-			
-			logger.begin(className, function);
-			
-			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-			
-			logger.info(className, function, "os1["+os1+"]");
-			
-			if ( null != os1 ) {
-				
-				// Filter Action
-				if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
-					
-					uiEventActionProcessor_i.executeActionSet(os1);
-					
-				} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
-					
-					uiEventActionProcessor_i.executeActionSet(os1);
-				
-				} else if ( os1.equals(ViewerViewEvent.RowSelected.toString() ) ) {
-					// Activate Selection
-					
-					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
-					selectedSet	= (Set<HashMap<String, String>>) obj1;
-					
-					String selectedStatus1 = null;
-					for ( HashMap<String, String> hashMap : selectedSet ) {
-						String selectedAlias = hashMap.get(columnAlias);
-						String selectedServiceOwner = hashMap.get(columnServiceOwner);
-						
-						logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
-						
-						logger.info(className, function, "selectedAlias BF [{}]", selectedAlias);
-						
-						if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
-						
-						logger.info(className, function, "selectedAlias AF [{}]", selectedAlias);
-						
-						scsEnvId = selectedServiceOwner;
-						address = selectedAlias;
+	private DatabaseMultiRead_i databaseMultiRead_i = null;
 
-						selectedStatus1 = hashMap.get(columnStatus);
-
-					}
-					
-//					connect();
-					readPointValueTable(scsEnvId, address);
-					
-					if ( null != selectedStatus1 ) {
-						if ( valueSet.equals(selectedStatus1) ) {
-							String actionsetkey = os1+"_valueUnset";
-							uiEventActionProcessor_i.executeActionSet(actionsetkey);
-						}
-						if ( valueUnSet.equals(selectedStatus1) ) {
-							String actionsetkey = os1+"_valueSet";
-							uiEventActionProcessor_i.executeActionSet(actionsetkey);
-						}
-					}
-
-				} else {
-					// General Case
-					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
-					
-					logger.info(className, function, "oe ["+oe+"]");
-					logger.info(className, function, "os1["+os1+"]");
-					
-					if ( null != oe ) {
-						if ( oe.equals(element) ) {
-							uiEventActionProcessor_i.executeActionSet(os1);
-						}
-					}
-				}
-			}
-
-			logger.end(className, function);
-		}
-	};
-	
-	private UIWidgetGeneric uiWidgetGeneric = null;
-	
-	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
-	
 	// Static Attribute List
 	private final String staticDciAttibutes []	= new String[] {strLabel, strDalValueTable, strHmiOrder};
 	private final String staticAciAttibutes []	= new String[] {strLabel, strAalValueTable, strHmiOrder};
 	private final String staticSciAttibutes []	= new String[] {strLabel, strSalValueTable, strHmiOrder};
 	
 	private void updateDropDownListBox(String key, String[] dbAddresses, String[] dbValues) {
-		final String function = "readPoint";
+		final String function = "updateDropDownListBox";
 		logger.begin(className, function);
 
 		// ACI, SCI Show the TextBox
 		// DCI, Show the ListBox and store the valueTable
+		
+		logger.info(className, function, "address[{}]", address);
 
 		String point = DatabaseHelper.getPointFromAliasAddress(address);
 		
@@ -429,131 +236,257 @@ public class UIWidgetDpcManualOverrideControl extends UIWidget_i {
 	
 	@Override
 	public void init() {
-		final String function = "init";
+		super.init();
 		
+		final String function = "init";
 		logger.begin(className, function);
 		
-		dpcMgr = DpcMgr.getInstance(className);
-		
-		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
-		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
-
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			columnAlias			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias.toString(), strHeader);
-			columnStatus		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnStatus.toString(), strHeader);
-			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
-			valueSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueSet.toString(), strHeader);
-			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueUnSet.toString(), strHeader);
+			columnAlias			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcManualOverrideControl_i.ParameterName.ColumnAlias.toString(), strHeader);
+			columnStatus		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcManualOverrideControl_i.ParameterName.ColumnStatus.toString(), strHeader);
+			columnServiceOwner	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcManualOverrideControl_i.ParameterName.ColumnServiceOwner.toString(), strHeader);
+			valueSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcManualOverrideControl_i.ParameterName.ValueSet.toString(), strHeader);
+			valueUnSet			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDpcManualOverrideControl_i.ParameterName.ValueUnSet.toString(), strHeader);
 		}
-		
-		logger.info(className, function, "columnAlias[{}]", columnAlias);
-		logger.info(className, function, "columnStatus[{}]", columnStatus);
-		logger.info(className, function, "columnServiceOwner[{}]", columnServiceOwner);
-		logger.info(className, function, "valueSet[{}]", valueSet);
-		logger.info(className, function, "valueUnSet[{}]", valueUnSet);
-		
-		uiWidgetGeneric = new UIWidgetGeneric();
-		uiWidgetGeneric.setUINameCard(this.uiNameCard);
-		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
-		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
-		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
-		uiWidgetGeneric.init();
-		
-		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
-
-		uiEventActionProcessor_i.setUINameCard(uiNameCard);
-		uiEventActionProcessor_i.setPrefix(className);
-		uiEventActionProcessor_i.setElement(element);
-		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor_i.setEventBus(eventBus);
-		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
-		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor_i.init();
 		
 		lstValues = (ListBox) uiWidgetGeneric.getWidget(strLstValue);
 		txtValues = (TextBox) uiWidgetGeneric.getWidget(strTxtValue);
 		
-		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
+		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
+
 			@Override
-			public void onClickHandler(ClickEvent event) {
-				if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
+			public void onUIEvent(UIEvent event) {
+				
 			}
-		});
-		
-		rootPanel = uiWidgetGeneric.getMainPanel();
-
-		handlerRegistrations.add(
-			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-				@Override
-				public void onEvenBusUIChanged(UIEvent uiEvent) {
-					if ( uiEvent.getSource() != this ) {
-						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				final String function = "onClick";
+				
+				logger.begin(className, function);
+				
+				if ( null != event ) {
+					Widget widget = (Widget) event.getSource();
+					if ( null != widget ) {
+						String element = uiWidgetGeneric.getWidgetElement(widget);
+						logger.info(className, function, "element[{}]", element);
+						if ( null != element ) {
+							String actionsetkey = element;
+							
+							HashMap<String, HashMap<String, Object>> override = null;
+							
+							uiEventActionProcessor_i.executeActionSet(actionsetkey, override, new UIExecuteActionHandler_i() {
+								
+								@Override
+								public boolean executeHandler(UIEventAction uiEventAction) {
+									// TODO Auto-generated method stub
+									String os1 = (String) uiEventAction.getParameter(ActionAttribute.OperationString1.toString());
+									
+									logger.info(className, function, "os1[{}]", os1);
+									
+									if ( null != os1 ) {
+										if ( os1.equals("SendDpcManualControl") ) {
+											
+											for ( HashMap<String, String> hashMap : selectedSet ) {
+												String selectedAlias = hashMap.get(columnAlias);
+												String selectedServiceOwner = hashMap.get(columnServiceOwner);
+												
+												logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+												
+												scsEnvId = selectedServiceOwner;
+												address = selectedAlias;
+												
+												logger.info(className, function, "alias BF [{}]", address);
+												
+												address = "<alias>" + selectedAlias;
+												
+												logger.info(className, function, "alias AF [{}]", address);
+												
+												WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
+												boolean isApply = false;
+												if ( WidgetStatus.Down == curStatusSet ) {
+													isApply = true;
+												}
+												logger.info(className, function, "isApply[{}]", isApply);
+					
+												String key = "changeEqpStatus" + "_"+ className + "_"+ "manualoverride" + "_"+ isApply + "_" + address;
+												
+												String point = DatabaseHelper.getPointFromAliasAddress(address);
+												logger.info(className, function, "address[{}] point[{}]", address, point);
+												if ( null != point ) {
+													PointType pointType = DatabaseHelper.getPointType(point);
+													logger.info(className, function, "pointType[{}]", pointType);
+													if ( pointType == PointType.dci ) {
+														int value = lstValues.getSelectedIndex();
+														logger.info(className, function, "scsEnvIdscsEnvIdvalue[{}]", value);
+														dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
+													} else if ( pointType == PointType.aci ) {
+														float value = 0.0f;
+														try {
+															value = Float.parseFloat(txtValues.getText());
+														} catch (NumberFormatException e) {
+															logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+														}
+														logger.info(className, function, "value[{}]", value);
+														dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
+													} else if ( pointType == PointType.sci ) {
+														String value = txtValues.getText();
+														logger.info(className, function, "value[{}]", value);
+														dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
+													} else {
+														logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+													}
+												}
+					
+											}
+					
+										}
+									}
+									return true;
+								}
+							});
+						}
 					}
 				}
-			})
-		);
+				
+				logger.end(className, function);
+			}
+			
+			@Override
+			@SuppressWarnings("unchecked")
+			public void onActionReceived(UIEventAction uiEventAction) {
+				final String function = "onActionReceived";
+				
+				logger.begin(className, function);
+				
+				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+				
+				logger.info(className, function, "os1["+os1+"]");
+				
+				if ( null != os1 ) {
+					
+					// Filter Action
+					if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
+						
+						uiEventActionProcessor_i.executeActionSet(os1);
+						
+					} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
+						
+						uiEventActionProcessor_i.executeActionSet(os1);
+					
+					} else if ( os1.equals(ViewerViewEvent.RowSelected.toString() ) ) {
+						// Activate Selection
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						
+						if ( null != obj1 ) {
+							selectedSet	= (Set<HashMap<String, String>>) obj1;
+							
+							String selectedStatus1 = null;
+							for ( HashMap<String, String> hashMap : selectedSet ) {
+								String selectedAlias = hashMap.get(columnAlias);
+								String selectedServiceOwner = hashMap.get(columnServiceOwner);
+								
+								logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+								
+								logger.info(className, function, "selectedAlias BF [{}]", selectedAlias);
+								
+								if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
+								
+								logger.info(className, function, "selectedAlias AF [{}]", selectedAlias);
+								
+								scsEnvId = selectedServiceOwner;
+								address = selectedAlias;
 
-		handlerRegistrations.add(
-			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
-				@Override
-				public void onAction(UIEventAction uiEventAction) {
-					if ( uiEventAction.getSource() != this ) {
-						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
+								selectedStatus1 = hashMap.get(columnStatus);
+
+							}
+							
+							readPointValueTable(scsEnvId, address);
+							
+							if ( null != selectedStatus1 ) {
+								if ( valueSet.equals(selectedStatus1) ) {
+									String actionsetkey = os1+"_valueUnset";
+									uiEventActionProcessor_i.executeActionSet(actionsetkey);
+								}
+								if ( valueUnSet.equals(selectedStatus1) ) {
+									String actionsetkey = os1+"_valueSet";
+									uiEventActionProcessor_i.executeActionSet(actionsetkey);
+								}
+							}
+						} else {
+							logger.warn(className, function, "obj1 IS NULL");
+						}
+
+					} else {
+						// General Case
+						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+						
+						logger.info(className, function, "oe ["+oe+"]");
+						logger.info(className, function, "os1["+os1+"]");
+						
+						if ( null != oe ) {
+							if ( oe.equals(element) ) {
+								uiEventActionProcessor_i.executeActionSet(os1);
+							}
+						}
 					}
 				}
-			})
-		);
 
-		uiEventActionProcessor_i.executeActionSetInit();
-		
-		envUp(null);
-		
-		logger.end(className, function);
-	}
-	
-	private DatabaseMultiRead_i databaseMultiRead_i = null;
-	
-	@Override
-	public void envUp(String env) {
-		final String function = "envUp";
-		logger.begin(className, function);
-		String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
-		logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
-		if ( null == databaseMultiRead_i ) {
-			databaseMultiRead_i = DatabaseMultiReadFactory.get(strDatabaseMultiReadingProxyKey);
-			if ( null != databaseMultiRead_i ) {
-				databaseMultiRead_i.connect();
+				logger.end(className, function);
 			}
-		} else {
-			logger.warn(className, function, "databaseMultiRead_i IS NOT NULL");
-		}
+		};
+		
+		uiLayoutSummaryAction_i = new UILayoutSummaryAction_i() {
+			
+			@Override
+			public void init() {
 
-		logger.end(className, function);
-	}
-	
-	@Override
-	public void envDown(String env) {
-		final String function = "envDown";
-		logger.begin(className, function);
-		terminate();
-		logger.end(className, function);
-	}
-	
-	@Override
-	public void terminate() {
-		final String function = "terminate";
-		logger.begin(className, function);
-		if ( null != databaseMultiRead_i ) {
-			databaseMultiRead_i.disconnect();
-			databaseMultiRead_i = null;
-		}
+			}
+			
+			@Override
+			public void envUp(String env) {
+				final String function = "envUp";
+				logger.begin(className, function);
+				
+				dpcMgr = DpcMgr.getInstance(className);
+				
+				String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
+				logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
+				if ( null == databaseMultiRead_i ) {
+					databaseMultiRead_i = DatabaseMultiReadFactory.get(strDatabaseMultiReadingProxyKey);
+					if ( null != databaseMultiRead_i ) {
+						databaseMultiRead_i.connect();
+					}
+				} else {
+					logger.warn(className, function, "databaseMultiRead_i IS NOT NULL");
+				}
+				logger.end(className, function);
+			}
+			
+			@Override
+			public void envDown(String env) {
+				final String function = "envDown";
+				logger.begin(className, function);
+				if ( null != databaseMultiRead_i ) {
+					databaseMultiRead_i.disconnect();
+					databaseMultiRead_i = null;
+				}
+				logger.end(className, function);
+			}
+			
+			@Override
+			public void terminate() {
+				final String function = "terminate";
+				logger.begin(className, function);
+				envDown(null);
+				logger.end(className, function);
+			}
+		};
+		
 		logger.end(className, function);
 	}
 }

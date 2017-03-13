@@ -19,7 +19,7 @@
 		<tooltips>Tunnel Environmental Control System</tooltips>
 		<funCat>8</funCat>
 		<locCat>1</locCat>
-		<actionCat>MDAC</actionCat>
+		<actionCat>M</actionCat>
 		<modeCat>1</modeCat>
 	</option>
 	<option key="2">
@@ -1132,9 +1132,9 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
 		-->
-		<tooltips>Database Verify Summary</tooltips>
+		<tooltips>Central Station</tooltips>
 	</option>
-		<option key="121">
+	<option key="121">
 		<type>P</type>
 		<name>Handover Panel</name>
 		<title>Handover Panel</title>
@@ -1143,5 +1143,15 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHDVSummary/UILayoutEntryPointHDVSummary.view.xml</uiView>
 		<tooltips>Handover Panel</tooltips>
+	</option>
+	<option key="122">
+		<type>P</type>
+		<name>Handover Panel (Station)</name>
+		<title>Handover Panel (Station)</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointHDVSummaryStn/UILayoutEntryPointHDVSummaryStn.view.xml</uiView>
+		<tooltips>Handover Panel (Station)</tooltips>
 	</option>
 </data-set>

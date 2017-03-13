@@ -5,31 +5,21 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
-import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessorMgr;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionProcessor_i;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.ActionAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventTargetAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDioBtnsControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
@@ -40,17 +30,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper;
 
-public class UIWidgetDioBtnsControl extends UIWidget_i {
+//public class UIWidgetDioBtnsControl extends UIWidget_i {
+public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDioBtnsControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private SimpleEventBus eventBus 	= null;
 
-	private UIWidgetGeneric uiWidgetGeneric = null;
-	
-	private UIEventActionProcessor_i uiEventActionProcessor_i = null;
-	
 	private String columnAlias					= "";
 	private String columnServiceOwner			= "";
 	
@@ -450,218 +435,17 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
-	
-	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
-		
-		@Override
-		public void onUIEvent(UIEvent uiEvent) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void onClick(ClickEvent event) {
-			final String function = "onClick";
-			
-			logger.begin(className, function);
-			
-			if ( null != event ) {
-				Widget widget = (Widget) event.getSource();
-				if ( null != widget ) {
-					String element = uiWidgetGeneric.getWidgetElement(widget);
-					logger.info(className, function, "element[{}]", element);
-					if ( null != element ) {
-						
-						String [] elements = element.split(strUnderline);
-						
-						int buttonNumIndex = 1;
-						if ( elements.length > buttonNumIndex ) {
-							if ( elements[0].equals(strButton)) {
-								
-								String strSelectedIndex = elements[buttonNumIndex];
-								
-								logger.info(className, function, "strSelectedIndex[{}]", strSelectedIndex);
-								
-								int selectedIndex = -1;
-								
-								selectedIndex = Integer.parseInt(strSelectedIndex);
-								
-								if ( selectedIndex >= 0 ) {
-									
-									String selectedValue = valueTableValues[selectedIndex];
-									
-									logger.info(className, function, "selectedValue[{}]", selectedValue);
-									
-									String actionsetkey = strButtonSendControl;
-									String actionkey = strButtonSendControl;
-									
-									logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-									
-									logger.info(className, function, "selectedEnv[{}] selectedAlias[{}] selectedValue[{}]", new Object[]{selectedEnv, selectedAlias, selectedValue});
-									
-									HashMap<String, Object> parameter = new HashMap<String, Object>();
-									parameter.put(ActionAttribute.OperationString2.toString(), selectedEnv);
-									parameter.put(ActionAttribute.OperationString3.toString(), selectedAlias);
-									parameter.put(ActionAttribute.OperationString4.toString(), selectedValue);
-									
-									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-									override.put(actionkey, parameter);
-									
-									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-
-								} else {
-									logger.warn(className, function, "selectedIndex[{}] >= 0 IS INVALID", selectedIndex);
-								}
-								
-							}
-						} else {
-							logger.warn(className, function, "elements.length[{}] >= buttonNumIndex[{}] IS INVALID", elements.length, buttonNumIndex);
-						}
-					}
-				}
-			}
-			logger.begin(className, function);
-		}
-		
-		@Override
-		@SuppressWarnings("unchecked")
-		public void onActionReceived(UIEventAction uiEventAction) {
-			final String function = "onActionReceived";
-			
-			logger.begin(className, function);
-			
-			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-			
-			logger.info(className, function, "os1["+os1+"]");
-			
-			if ( null != os1 ) {
-				// Filter Action
-				if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
-					
-					logger.info(className, function, "FilterAdded");
-					
-					uiEventActionProcessor_i.executeActionSet(os1);
-					
-				} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
-					
-					logger.info(className, function, "FilterRemoved");
-					
-					uiEventActionProcessor_i.executeActionSet(os1);
-				
-				} else if ( os1.equals(ViewerViewEvent.RowSelected.toString() ) ) {
-					// Activate Selection
-					
-					// Reset the Button
-					logger.info(className, function, "Reset the button to invisible");
-
-					String actionsetkey = strButtons+strUnderline+strInvisible;
-					uiEventActionProcessor_i.executeActionSet(actionsetkey);
-					
-					if ( isPolling ) {
-						if ( null != selectedEnv && null != selectedAlias ) {
-							unSubscribeValueTable(selectedEnv, selectedAlias);
-						}
-					}
-					
-					logger.info(className, function, "Store Selected Row");
-					
-					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
-					Set<HashMap<String, String>> selectedSet	= (Set<HashMap<String, String>>) obj1;
-
-					for ( HashMap<String, String> hashMap : selectedSet ) {
-						String serviceOwner = hashMap.get(columnServiceOwner);
-						String alias = hashMap.get(columnAlias);
-
-						selectedEnv = serviceOwner;
-						selectedAlias = alias;
-						
-						logger.info(className, function, "selectedEnv[{}], selectedAlias[{}]", selectedEnv, selectedAlias);
-						
-						if ( isAliasAndAlias2 ) {
-							String alias2 = hashMap.get(columnAlias2);
-							
-							logger.info(className, function, "alias2[{}]", alias2);
-							
-							if ( null != alias2 ) {
-								String oldpoint = alias.substring(alias2.length());
-								String newpoint = oldpoint.replace(substituteFrom, substituteTo);
-								
-								logger.info(className, function, "oldpoint[{}], newpoint[{}]", oldpoint, newpoint);
-								
-								selectedAlias = alias2 + newpoint;
-							} else {
-								logger.warn(className, function, "alias2 IS NULL");
-							}
-							
-						}
-	
-						logger.info(className, function, "selectedEnv[{}], selectedAlias[{}]", selectedEnv, selectedAlias);
-						
-						if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
-							
-						logger.info(className, function, "selectedAlias["+selectedAlias+"]");
-						
-					}
-					
-//					// SYAU: Testing
-//					selectedEnv = "OCCENVCONN";
-//					selectedAlias = "<alias>CTVECTMFD_0001dioECT-PTW";
-//					logger.warn(className, function, "Testing value selectedEnv[{}] selectedAlias[{}]", selectedEnv, selectedAlias);
-
-					readValueTableAndUpdateButtonStatusLabel(selectedEnv, selectedAlias);
-
-				} else {
-					// General Case
-					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
-					
-					logger.info(className, function, "oe ["+oe+"]");
-					logger.info(className, function, "os1["+os1+"]");
-					
-					if ( null != oe ) {
-						if ( oe.equals(element) ) {
-							
-							HashMap<String, HashMap<String, Object>> override = null;
-							uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
-								
-								@Override
-								public boolean executeHandler(UIEventAction uiEventAction) {
-									String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-									
-									logger.info(className, function, "os1["+os1+"]");					
-									
-									if ( null != os1 ) {
-										if ( os1.equals("set_default_up") ) {
-											String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-											envUp(os2);
-										}
-										if ( os1.equals("set_default_down") ) {
-											String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-											envDown(os2);
-										}
-										if ( os1.equals("set_default_kill") ) {
-											terminate();
-										}
-									}
-									return true;
-								}
-							});
-						}
-					}
-				}
-			}
-			logger.end(className, function);
-		}
-	};
 		
 	@Override
 	public void init() {
-		final String function = "init";
+		super.init();
 		
+		final String function = "init";
 		logger.begin(className, function);
 		
-		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
-		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+//		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
+//		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
+//		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
 		
 		String strIsPolling 			= null;
 		String strRowInValueTable		= null;
@@ -676,29 +460,29 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			
-			columnAlias				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias.toString(), strHeader);
-			columnServiceOwner		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnServiceOwner.toString(), strHeader);
+			columnAlias				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.ColumnAlias.toString(), strHeader);
+			columnServiceOwner		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.ColumnServiceOwner.toString(), strHeader);
 			
-			strIsPolling			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsPolling.toString(), strHeader);
+			strIsPolling			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.IsPolling.toString(), strHeader);
 			
-			subScribeMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubScribeMethod1.toString(), strHeader);
-			multiReadMethod1		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MultiReadMethod1.toString(), strHeader);
-			multiReadMethod2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MultiReadMethod2.toString(), strHeader);
+			subScribeMethod1		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.SubScribeMethod1.toString(), strHeader);
+			multiReadMethod1		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.MultiReadMethod1.toString(), strHeader);
+			multiReadMethod2		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.MultiReadMethod2.toString(), strHeader);
 			
-			DotValueTable			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotValueTable.toString(), strHeader);
-			DotInitCondGL			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DotInitCondGL.toString(), strHeader);
+			DotValueTable			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.DotValueTable.toString(), strHeader);
+			DotInitCondGL			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.DotInitCondGL.toString(), strHeader);
 			
-			initCondGLValid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitCondGLValid.toString(), strHeader);
+			initCondGLValid			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.InitCondGLValid.toString(), strHeader);
 			
-			strRowInValueTable		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.RowInValueTable.toString(), strHeader);
-			strDovnameCol			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DovnameCol.toString(), strHeader);
-			strLabelCol				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.LabelCol.toString(), strHeader);
-			strValueCol				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ValueCol.toString(), strHeader);
+			strRowInValueTable		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.RowInValueTable.toString(), strHeader);
+			strDovnameCol			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.DovnameCol.toString(), strHeader);
+			strLabelCol				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.LabelCol.toString(), strHeader);
+			strValueCol				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.ValueCol.toString(), strHeader);
 			
-			strIsAliasAndAlias2		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.IsAliasAndAlias2.toString(), strHeader);
-			columnAlias2			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColumnAlias2.toString(), strHeader);
-			substituteFrom			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubstituteFrom.toString(), strHeader);
-			substituteTo			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SubstituteTo.toString(), strHeader);
+			strIsAliasAndAlias2		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.IsAliasAndAlias2.toString(), strHeader);
+			columnAlias2			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.ColumnAlias2.toString(), strHeader);
+			substituteFrom			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.SubstituteFrom.toString(), strHeader);
+			substituteTo			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.SubstituteTo.toString(), strHeader);
 
 		}
 		
@@ -757,128 +541,337 @@ public class UIWidgetDioBtnsControl extends UIWidget_i {
 			isAliasAndAlias2 = true;
 		}
 	
-		uiWidgetGeneric = new UIWidgetGeneric();
-		uiWidgetGeneric.setUINameCard(this.uiNameCard);
-		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
-		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
-		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
-		uiWidgetGeneric.init();
+//		uiWidgetGeneric = new UIWidgetGeneric();
+//		uiWidgetGeneric.setUINameCard(this.uiNameCard);
+//		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
+//		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
+//		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
+//		uiWidgetGeneric.init();
+//		
+//		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+//		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+//
+//		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+//		uiEventActionProcessor_i.setPrefix(className);
+//		uiEventActionProcessor_i.setElement(element);
+//		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
+//		uiEventActionProcessor_i.setEventBus(eventBus);
+//		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
+//		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+//		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+//		uiEventActionProcessor_i.init();
+//		
+//		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
+//			@Override
+//			public void onClickHandler(ClickEvent event) {
+//				if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
+//			}
+//		});
+//		
+//		rootPanel = uiWidgetGeneric.getMainPanel();
+//
+//		handlerRegistrations.add(
+//			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+//				@Override
+//				public void onEvenBusUIChanged(UIEvent uiEvent) {
+//					if ( uiEvent.getSource() != this ) {
+//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
+//					}
+//				}
+//			})
+//		);
+//
+//		handlerRegistrations.add(
+//			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
+//				@Override
+//				public void onAction(UIEventAction uiEventAction) {
+//					if ( uiEventAction.getSource() != this ) {
+//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
+//					}
+//				}
+//			})
+//		);
+//
+//		uiEventActionProcessor_i.executeActionSetInit();
 		
-		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
-
-		uiEventActionProcessor_i.setUINameCard(uiNameCard);
-		uiEventActionProcessor_i.setPrefix(className);
-		uiEventActionProcessor_i.setElement(element);
-		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
-		uiEventActionProcessor_i.setEventBus(eventBus);
-		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
-		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor_i.init();
-		
-		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
+		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
+			
 			@Override
-			public void onClickHandler(ClickEvent event) {
-				if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
+			public void onUIEvent(UIEvent uiEvent) {
+				// TODO Auto-generated method stub
+				
 			}
-		});
-		
-		rootPanel = uiWidgetGeneric.getMainPanel();
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				final String function = "onClick";
+				
+				logger.begin(className, function);
+				
+				if ( null != event ) {
+					Widget widget = (Widget) event.getSource();
+					if ( null != widget ) {
+						String element = uiWidgetGeneric.getWidgetElement(widget);
+						logger.info(className, function, "element[{}]", element);
+						if ( null != element ) {
+							
+							String [] elements = element.split(strUnderline);
+							
+							int buttonNumIndex = 1;
+							if ( elements.length > buttonNumIndex ) {
+								if ( elements[0].equals(strButton)) {
+									
+									String strSelectedIndex = elements[buttonNumIndex];
+									
+									logger.info(className, function, "strSelectedIndex[{}]", strSelectedIndex);
+									
+									int selectedIndex = -1;
+									
+									selectedIndex = Integer.parseInt(strSelectedIndex);
+									
+									if ( selectedIndex >= 0 ) {
+										
+										String selectedValue = valueTableValues[selectedIndex];
+										
+										logger.info(className, function, "selectedValue[{}]", selectedValue);
+										
+										String actionsetkey = strButtonSendControl;
+										String actionkey = strButtonSendControl;
+										
+										logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+										
+										logger.info(className, function, "selectedEnv[{}] selectedAlias[{}] selectedValue[{}]", new Object[]{selectedEnv, selectedAlias, selectedValue});
+										
+										HashMap<String, Object> parameter = new HashMap<String, Object>();
+										parameter.put(ActionAttribute.OperationString2.toString(), selectedEnv);
+										parameter.put(ActionAttribute.OperationString3.toString(), selectedAlias);
+										parameter.put(ActionAttribute.OperationString4.toString(), selectedValue);
+										
+										HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+										override.put(actionkey, parameter);
+										
+										uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 
-		handlerRegistrations.add(
-			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-				@Override
-				public void onEvenBusUIChanged(UIEvent uiEvent) {
-					if ( uiEvent.getSource() != this ) {
-						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
+									} else {
+										logger.warn(className, function, "selectedIndex[{}] >= 0 IS INVALID", selectedIndex);
+									}
+									
+								}
+							} else {
+								logger.warn(className, function, "elements.length[{}] >= buttonNumIndex[{}] IS INVALID", elements.length, buttonNumIndex);
+							}
+						}
 					}
 				}
-			})
-		);
+				logger.begin(className, function);
+			}
+			
+			@Override
+			@SuppressWarnings("unchecked")
+			public void onActionReceived(UIEventAction uiEventAction) {
+				final String function = "onActionReceived";
+				
+				logger.begin(className, function);
+				
+				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+				
+				logger.info(className, function, "os1["+os1+"]");
+				
+				if ( null != os1 ) {
+					// Filter Action
+					if ( os1.equals(ViewerViewEvent.FilterAdded.toString()) ) {
+						
+						logger.info(className, function, "FilterAdded");
+						
+						uiEventActionProcessor_i.executeActionSet(os1);
+						
+					} else if ( os1.equals(ViewerViewEvent.FilterRemoved.toString()) ) {
+						
+						logger.info(className, function, "FilterRemoved");
+						
+						uiEventActionProcessor_i.executeActionSet(os1);
+					
+					} else if ( os1.equals(ViewerViewEvent.RowSelected.toString() ) ) {
+						// Activate Selection
+						
+						// Reset the Button
+						logger.info(className, function, "Reset the button to invisible");
 
-		handlerRegistrations.add(
-			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
-				@Override
-				public void onAction(UIEventAction uiEventAction) {
-					if ( uiEventAction.getSource() != this ) {
-						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
+						String actionsetkey = strButtons+strUnderline+strInvisible;
+						uiEventActionProcessor_i.executeActionSet(actionsetkey);
+						
+						if ( isPolling ) {
+							if ( null != selectedEnv && null != selectedAlias ) {
+								unSubscribeValueTable(selectedEnv, selectedAlias);
+							}
+						}
+						
+						logger.info(className, function, "Store Selected Row");
+						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						Set<HashMap<String, String>> selectedSet	= (Set<HashMap<String, String>>) obj1;
+
+						for ( HashMap<String, String> hashMap : selectedSet ) {
+							String serviceOwner = hashMap.get(columnServiceOwner);
+							String alias = hashMap.get(columnAlias);
+
+							selectedEnv = serviceOwner;
+							selectedAlias = alias;
+							
+							logger.info(className, function, "selectedEnv[{}], selectedAlias[{}]", selectedEnv, selectedAlias);
+							
+							if ( isAliasAndAlias2 ) {
+								String alias2 = hashMap.get(columnAlias2);
+								
+								logger.info(className, function, "alias2[{}]", alias2);
+								
+								if ( null != alias2 ) {
+									String oldpoint = alias.substring(alias2.length());
+									String newpoint = oldpoint.replace(substituteFrom, substituteTo);
+									
+									logger.info(className, function, "oldpoint[{}], newpoint[{}]", oldpoint, newpoint);
+									
+									selectedAlias = alias2 + newpoint;
+								} else {
+									logger.warn(className, function, "alias2 IS NULL");
+								}
+								
+							}
+		
+							logger.info(className, function, "selectedEnv[{}], selectedAlias[{}]", selectedEnv, selectedAlias);
+							
+							if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
+								
+							logger.info(className, function, "selectedAlias["+selectedAlias+"]");
+							
+						}
+						
+//						// SYAU: Testing
+//						selectedEnv = "OCCENVCONN";
+//						selectedAlias = "<alias>CTVECTMFD_0001dioECT-PTW";
+//						logger.warn(className, function, "Testing value selectedEnv[{}] selectedAlias[{}]", selectedEnv, selectedAlias);
+
+						readValueTableAndUpdateButtonStatusLabel(selectedEnv, selectedAlias);
+
+					} else {
+						// General Case
+						String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
+						
+						logger.info(className, function, "oe ["+oe+"]");
+						logger.info(className, function, "os1["+os1+"]");
+						
+						if ( null != oe ) {
+							if ( oe.equals(element) ) {
+								
+								HashMap<String, HashMap<String, Object>> override = null;
+								uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
+									
+									@Override
+									public boolean executeHandler(UIEventAction uiEventAction) {
+										String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+										
+										logger.info(className, function, "os1["+os1+"]");					
+										
+										if ( null != os1 ) {
+											if ( os1.equals("set_default_up") ) {
+												String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+												envUp(os2);
+											}
+											if ( os1.equals("set_default_down") ) {
+												String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+												envDown(os2);
+											}
+											if ( os1.equals("set_default_kill") ) {
+												terminate();
+											}
+										}
+										return true;
+									}
+								});
+							}
+						}
 					}
 				}
-			})
-		);
-
-		uiEventActionProcessor_i.executeActionSetInit();
+				logger.end(className, function);
+			}
+		};
 		
-		envUp(null);
+		uiLayoutSummaryAction_i = new UILayoutSummaryAction_i() {
+			
+			@Override
+			public void init() {
+				
+			}
+		
+			@Override
+			public void envUp(String env) {
+				final String function = "envUp";
+				logger.begin(className, function);
+		
+				logger.info(className, function, "multiReadMethod1[{}]", multiReadMethod1);
+				
+				databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
+				databaseMultiRead_i.connect();
+				
+				if ( isPolling ) {
+					
+					logger.info(className, function, "subScribeMethod1[{}]", subScribeMethod1);
+					
+					databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
+					databaseSubscribe_i.connect();
+				} else {
+					logger.info(className, function, "multiReadMethod2[{}]", multiReadMethod2);
+					
+					databaseMultiRead_i_2 = DatabaseMultiReadFactory.get(multiReadMethod2);
+					databaseMultiRead_i_2.connect();
+				}
+				
+		
+				logger.begin(className, function);
+			}
+			
+			@Override
+			public void envDown(String env) {
+				final String function = "envDown";
+				logger.begin(className, function);
+				
+				if ( null != databaseSubscribe_i ) {
+					databaseSubscribe_i.disconnect();
+				}
+				
+				if ( null != databaseMultiRead_i ) {
+					databaseMultiRead_i.disconnect();
+				}
+				
+				if ( null != databaseMultiRead_i_2 ) {
+					databaseMultiRead_i_2.disconnect();
+				}
+				
+				logger.begin(className, function);
+			}
+			
+			@Override
+			public void terminate() {
+				final String function = "terminate";
+				logger.begin(className, function);
+				
+				if ( isPolling ) {
+					if ( null != selectedEnv && null != selectedAlias ) {
+						unSubscribeValueTable(selectedEnv, selectedAlias);
+					} else {
+						logger.warn(className, function, "selectedEnv OR selectedAlias IS NULL");
+					}
+				}
+				
+				envDown(null);
+				
+				logger.begin(className, function);
+			};
+		
+		};
 		
 		logger.end(className, function);
 	}
-	
-	@Override
-	public void envUp(String env) {
-		final String function = "envUp";
-		logger.begin(className, function);
-
-		logger.info(className, function, "multiReadMethod1[{}]", multiReadMethod1);
-		
-		databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
-		databaseMultiRead_i.connect();
-		
-		if ( isPolling ) {
-			
-			logger.info(className, function, "subScribeMethod1[{}]", subScribeMethod1);
-			
-			databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
-			databaseSubscribe_i.connect();
-		} else {
-			logger.info(className, function, "multiReadMethod2[{}]", multiReadMethod2);
-			
-			databaseMultiRead_i_2 = DatabaseMultiReadFactory.get(multiReadMethod2);
-			databaseMultiRead_i_2.connect();
-		}
-		
-
-		logger.begin(className, function);
-	}
-	
-	@Override
-	public void envDown(String env) {
-		final String function = "envDown";
-		logger.begin(className, function);
-		
-		if ( null != databaseSubscribe_i ) {
-			databaseSubscribe_i.disconnect();
-		}
-		
-		if ( null != databaseMultiRead_i ) {
-			databaseMultiRead_i.disconnect();
-		}
-		
-		if ( null != databaseMultiRead_i_2 ) {
-			databaseMultiRead_i_2.disconnect();
-		}
-		
-		logger.begin(className, function);
-	}
-	
-	@Override
-	public void terminate() {
-		final String function = "terminate";
-		logger.begin(className, function);
-		
-		if ( isPolling ) {
-			if ( null != selectedEnv && null != selectedAlias ) {
-				unSubscribeValueTable(selectedEnv, selectedAlias);
-			} else {
-				logger.warn(className, function, "selectedEnv OR selectedAlias IS NULL");
-			}
-		}
-		
-		envDown(null);
-		
-		logger.begin(className, function);
-	};
 
 }

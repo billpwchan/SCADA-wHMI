@@ -9,58 +9,156 @@
 	
 	<actionset key="init">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_default_widget_dpcmocontrol</OperationString1>
-		<OperationString2>set_default_widget_dpcsscontrol</OperationString2>
-		<OperationString3>set_default_widget_cssswitchcontrol</OperationString3>
-		<OperationString4>set_default_widget_cssswitchview</OperationString4>
-		<OperationString5>set_default_widget_cssselection</OperationString5>
+		<OperationString1>set_init_dpcmocontrol</OperationString1>
+		<OperationString2>set_init_dpcsscontrol</OperationString2>
+		<OperationString3>set_init_cssswitchcontrol</OperationString3>
+		<OperationString4>set_init_cssswitchview</OperationString4>
+		<OperationString5>set_init_cssselection</OperationString5>
+		
+		<OperationString6>set_init_viewer0</OperationString6>
+		<OperationString7>set_init_viewer1</OperationString7>
+		<OperationString8>set_init_viewer2</OperationString8>
+		<OperationString9>set_init_viewer3</OperationString9>
+		
 	</actionset>
 	
+		<action key="set_init_dpcmocontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>
+		
+		<action key="set_init_dpcsscontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+
+		<action key="set_init_cssselection">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableCSSSelection</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+		
+		<action key="set_init_cssswitchcontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableCSSSwitchControl</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+		
+		<action key="set_init_cssswitchview">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableCSSSwitchView</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>
+		
+		<action key="set_init_viewer0">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer0</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>		
+		<action key="set_init_viewer1">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer1</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>		
+		<action key="set_init_viewer2">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer2</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>		
+		<action key="set_init_viewer3">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer3</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>				
+		
 	<actionset key="init_delay">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_default_widget_filter</OperationString1>
+		<OperationString1>set_init_filter</OperationString1>
 	</actionset>
 	
-	<action key="set_default_widget_dpcmocontrol">
-		<SenderOperation>event</SenderOperation>
-		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<action key="set_init_filter">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableFilter</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>	
 	
-	<action key="set_default_widget_dpcsscontrol">
-		<SenderOperation>event</SenderOperation>
+	<actionset key="envup_delay">
 		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<OperationString1>set_envup_dpcmocontrol</OperationString1>
+	</actionset>
+	
+		<action key="set_envup_dpcmocontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_envup</OperationString1>
+		</action>
 
-	<action key="set_default_widget_cssselection">
-		<SenderOperation>event</SenderOperation>
+	<actionset key="envdown">
 		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetInputTableCSSSelection</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<OperationString1>set_envdown_dpcmocontrol</OperationString1>
+	</actionset>
 	
-	<action key="set_default_widget_cssswitchcontrol">
-		<SenderOperation>event</SenderOperation>
-		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UILayoutInputTableCSSSwitchControl</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<action key="set_envdown_dpcmocontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_envdown</OperationString1>
+		</action>
 	
-	<action key="set_default_widget_cssswitchview">
-		<SenderOperation>event</SenderOperation>
+	<actionset key="terminate">
 		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UILayoutInputTableCSSSwitchView</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<OperationString1>set_terminate_dpcmocontrol</OperationString1>
+		
+		<OperationString2>set_terminate_viewer0</OperationString2>
+		<OperationString3>set_terminate_viewer1</OperationString3>
+		<OperationString4>set_terminate_viewer2</OperationString4>
+		<OperationString5>set_terminate_viewer3</OperationString5>
+		
+	</actionset>
 	
-	<action key="set_default_widget_filter">
-		<SenderOperation>event</SenderOperation>
-		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetInputTableFilter</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<action key="set_terminate_dpcmocontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+		
+		<action key="set_terminate_viewer0">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer0</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+		<action key="set_terminate_viewer1">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer1</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+		<action key="set_terminate_viewer2">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer2</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+		<action key="set_terminate_viewer3">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer3</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
 
 </data-set>

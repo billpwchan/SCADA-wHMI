@@ -189,5 +189,6 @@
 	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>118</setting></option>
 	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>119</setting></option>
 	<option key="LMC|MCS|Central Station"><setting>120</setting></option>
-	<option key="LMC|MCS|Central Station|Handover Summary"><setting>121</setting></option>
+	<option key="LMC|MCS|Central Station|HDV Summary"><setting>121</setting></option>
+	<option key="LMC|MCS|Central Station|HDV Summary (Station)"><setting>122</setting></option>
 </data-set>

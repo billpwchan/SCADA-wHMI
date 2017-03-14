@@ -2,8 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 public interface UIWidgetCtlControl_i {
 	public enum ParameterName {
-		SimpleEventBus("SimpleEventBus")
-		, ColumnAlias("ColumnAlias")
+		  ColumnAlias("ColumnAlias")
 		, ColumnStatus("ColumnStatus")
 		, ColumnServiceOwner("ColumnServiceOwner")
 		, ValueSet("ValueSet")

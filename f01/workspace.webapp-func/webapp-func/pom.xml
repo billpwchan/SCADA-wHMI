@@ -95,9 +95,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <artifactId>geronimo-servlet_3.0_spec</artifactId>
                 </exclusion>
                 <exclusion>
-					<groupId>com.thalesgroup.hv.common</groupId>
-					<artifactId>data-model-jaxb</artifactId>
-				</exclusion>
+                    <groupId>com.thalesgroup.hv.common</groupId>
+                    <artifactId>data-model-jaxb</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -110,11 +110,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <artifactId>geronimo-servlet_3.0_spec</artifactId>
                 </exclusion>
                 <exclusion>
-					<groupId>com.thalesgroup.hv.common</groupId>
-					<artifactId>data-model-jaxb</artifactId>
-				</exclusion>
+                    <groupId>com.thalesgroup.hv.common</groupId>
+                    <artifactId>data-model-jaxb</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>com.thalesgroup.hvpp</groupId>
+            <artifactId>opmaddon</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+		
         <!--  Logging implementation  -->
         <dependency>
             <groupId>org.slf4j</groupId>

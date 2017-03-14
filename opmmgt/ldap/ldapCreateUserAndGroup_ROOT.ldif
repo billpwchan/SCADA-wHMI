@@ -1,0 +1,18 @@
+dn: uid=ROOT,ou=people,o=hypervisor
+objectClass: organizationalPerson
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: top
+cn: The ROOT
+givenName: The
+mail: the.ROOT@thalesgroup.com
+sn: ROOT
+uid: ROOT
+userPassword:: e1NIQX1XS2MvM2NoQXdTMWtDOXdWU2ROMVJVMS9YUU09
+
+dn: cn=ROOT,ou=groups,o=hypervisor
+objectClass: groupOfNames
+objectClass: top
+cn: ROOT
+member: uid=ROOT,ou=people,o=hypervisor
+ou: ROOT

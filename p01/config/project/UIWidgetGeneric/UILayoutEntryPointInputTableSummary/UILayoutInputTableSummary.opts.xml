@@ -33,7 +33,7 @@
 			<SenderOperation>event</SenderOperation>
 			<OperationType>actionsetkey</OperationType>
 			<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
-			<OperationString1>set_default_action</OperationString1>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
 		</action>
 
 		<action key="set_init_cssselection">

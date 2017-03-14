@@ -8,42 +8,70 @@
 	</header>
 	
 	<actionset key="init">
-		<OperationString1>set_default_widget_control</OperationString1>
-		<OperationString2>set_default_widget_cssswitchview</OperationString2>
-		<OperationString3>set_default_widget_cssselection</OperationString3>
+		<OperationString1>set_init_control</OperationString1>
+		<OperationString2>set_init_cssswitchview</OperationString2>
+		<OperationString3>set_init_cssselection</OperationString3>
 	</actionset>
 	
+		<action key="set_init_control">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetAlmMgnControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>
+		
+		<action key="set_init_cssswitchview">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutAlmMgnCSSSwitch</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+		
+		<action key="set_init_cssselection">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetAlmMgnCSSSelection</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+
 	<actionset key="init_delay">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>set_default_widget_filter</OperationString1>
+		<OperationString1>set_init_filter</OperationString1>
 	</actionset>
 	
-	<action key="set_default_widget_control">
-		<SenderOperation>event</SenderOperation>
-		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetAlmMgnControl</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<action key="set_init_filter">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetAlmMgnFilter</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
 	
-	<action key="set_default_widget_cssswitchview">
-		<SenderOperation>event</SenderOperation>
+	<actionset key="terminate">
 		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UILayoutAlmMgnCSSSwitch</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<OperationString1>set_terminate_control</OperationString1>
+		<OperationString2>set_terminate_cssswitchview</OperationString2>
+		<OperationString3>set_terminate_cssselection</OperationString3>
+	</actionset>
 	
-	<action key="set_default_widget_cssselection">
-		<SenderOperation>event</SenderOperation>
-		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetAlmMgnCSSSelection</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
-	
-	<action key="set_default_widget_filter">
-		<SenderOperation>event</SenderOperation>
-		<OperationType>actionsetkey</OperationType>
-		<OperationElement>UIWidgetAlmMgnFilter</OperationElement>
-		<OperationString1>set_default_action</OperationString1>
-	</action>
+		<action key="set_terminate_control">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer1</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+		
+		<action key="set_terminate_cssswitchview">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer2</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+		
+		<action key="set_terminate_cssselection">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UILayoutInputTableViewer3</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
 	
 </data-set>

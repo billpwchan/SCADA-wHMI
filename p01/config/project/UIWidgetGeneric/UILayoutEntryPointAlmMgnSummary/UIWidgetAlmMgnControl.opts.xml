@@ -9,16 +9,29 @@
 		<ValueUnSet>0</ValueUnSet>
 	</header>
 	
-	
+	<!-- Begin of life -->
 	<actionset key="init">
 	</actionset>
 	
-	<actionset key="set_default_action">
+	<actionset key="from_uilayoutsummary_init">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_set_disable</OperationString1>
 		<OperationString2>set_unset_disable</OperationString2>
 		<OperationString3>set_apply_disable</OperationString3>
 	</actionset>
+	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
 	
 	<actionset key="RowSelected_valueUnset">
 		<OperationType>actionsetkey</OperationType>

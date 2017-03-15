@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:operationConfig xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/operation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/operation xsd/operationAction.xsd ">
+  <p:operation operationName="ScreenwallApplySource">
+    <p:operationEntry operationEntryId="ScreenwallApplySource1">
+      <p:equipmentList>
+      	<p:equipmentId>scrw-web-1</p:equipmentId>
+      </p:equipmentList>
+      <p:commandContent operationJavaClassName="com.thalesgroup.lib_tvs.data.tvs.cnf.screenwall.operation.ApplySourcesRequest">
+        <p:commandParam paramName="operatorID" paramValue="chief"/>
+        <p:commandParam paramName="requester" paramValue="SCADA1"/>
+		<p:complexCommandParam paramName="sourceMappingContainer" paramType="com.thalesgroup.lib_tvs.data.tvs.exchange.screenwall.attribute.SourceMappingContainerType">
+		  <ns50:sourceMappingContainer timestamp="0" xmlns:ns50="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/screenwall/operation">
+          <ns37:sourceMappings timestamp="0" xmlns:ns37="http://www.thalesgroup.com/lib_tvs/data/tvs/exchange/screenwall/attribute">
+            <ns37:source timestamp="0">
+              <ns37:source timestamp="1476168181255" valid="true" value="stream-1-lq"/>
+              <ns37:type timestamp="1476168181255" valid="true" value="RTSP"/>
+            </ns37:source>
+            <ns37:layoutIdx timestamp="1476168181255" valid="true" value="0"/>
+            <ns37:paneIdx timestamp="1476168181255" valid="true" value="2"/>
+          </ns37:sourceMappings>
+          </ns50:sourceMappingContainer>
+		</p:complexCommandParam>
+      </p:commandContent>
+    </p:operationEntry>
+  </p:operation>
+</p:operationConfig>

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hv-conf:entitiesConfiguration xmlns:hv-conf="http://www.thalesgroup.com/hv/data-v1/entity/configuration"
+			       xmlns:prj-cam="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/camera/configuration" xmlns:prj-scrw="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/screenwall/configuration"
+			       xmlns:prj-stream="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/stream/configuration" xmlns:prj-zonepoi="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/zonepoi/configuration"
+			       xmlns:prj-nvr="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/nvr/configuration" xmlns:prj-nvr-att="http://www.thalesgroup.com/lib_tvs/data/tvs/cnf/nvr/attribute"
+			       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <hv-conf:entity id="camera-1" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2035112" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-1-lq</prj-cam:streams>
+    <prj-cam:streams>stream-1-hq</prj-cam:streams>
+    <prj-cam:host>10.198.165.40</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2001</prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-2" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2088146" y="48.784313" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-2-lq</prj-cam:streams>
+    <prj-cam:streams>stream-2-hq</prj-cam:streams>
+    <prj-cam:host>10.198.165.41</prj-cam:host>
+    <prj-cam:monitoringListeningPort>80</prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-3" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.204363069333333" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-3-lq</prj-cam:streams>
+    <prj-cam:streams>stream-3-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2003
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-4" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2047890039999998" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-4</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2004
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-5" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2052149386666664" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-5</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2005
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-6" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.205640873333333" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-6</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2006
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-7" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2060668079999997" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-7</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2007
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-8" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2064927426666663" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-8</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2008
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-9" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.206918677333333" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-9</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2009
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-10" xsi:type="prj-cam:PTZFICameraType">
+    <hv-conf:location x="2.2073446119999995" y="48.7803976" />
+    <prj-cam:driverType>com.thalesgroup.tvs.services.camera.controller.sim.CameraControllerSim</prj-cam:driverType>
+    <prj-cam:streams>stream-10</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2010
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-11" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-250" y="0" />
+    <prj-cam:streams>stream-11</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2011
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-12" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-150" y="0" />
+    <prj-cam:streams>stream-12</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2012
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-13" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-50" y="0" />
+    <prj-cam:streams>stream-13</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2013
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-14" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="50" y="0" />
+    <prj-cam:streams>stream-14-lq</prj-cam:streams>
+    <prj-cam:streams>stream-14-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2014
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-15" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-350" y="100" />
+    <prj-cam:streams>stream-15-lq</prj-cam:streams>
+    <prj-cam:streams>stream-15-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2015
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-16" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-250" y="100" />
+    <prj-cam:streams>stream-16-lq</prj-cam:streams>
+    <prj-cam:streams>stream-16-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2016
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-17" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-150" y="100" />
+    <prj-cam:streams>stream-17-lq</prj-cam:streams>
+    <prj-cam:streams>stream-17-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2017
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-18" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-50" y="100" />
+    <prj-cam:streams>stream-18-lq</prj-cam:streams>
+    <prj-cam:streams>stream-18-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2018
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-19" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="50" y="100" />
+    <prj-cam:streams>stream-19-lq</prj-cam:streams>
+    <prj-cam:streams>stream-19-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2019
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-20" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-350" y="200" />
+    <prj-cam:streams>stream-20-lq</prj-cam:streams>
+    <prj-cam:streams>stream-20-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2020
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-21" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-250" y="200" />
+    <prj-cam:streams>stream-21-lq</prj-cam:streams>
+    <prj-cam:streams>stream-21-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2021
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-22" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-150" y="200" />
+    <prj-cam:streams>stream-22-lq</prj-cam:streams>
+    <prj-cam:streams>stream-22-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2022
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-23" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-50" y="200" />
+    <prj-cam:streams>stream-23-lq</prj-cam:streams>
+    <prj-cam:streams>stream-23-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2023
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-24" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="50" y="200" />
+    <prj-cam:streams>stream-24-lq</prj-cam:streams>
+    <prj-cam:streams>stream-24-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2024
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-25" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-350" y="300" />
+    <prj-cam:streams>stream-25-lq</prj-cam:streams>
+    <prj-cam:streams>stream-25-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2025
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-26" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-250" y="300" />
+    <prj-cam:streams>stream-26-lq</prj-cam:streams>
+    <prj-cam:streams>stream-26-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2026
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-27" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-150" y="300" />
+    <prj-cam:streams>stream-27-lq</prj-cam:streams>
+    <prj-cam:streams>stream-27-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2027
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-28" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="-50" y="300" />
+    <prj-cam:streams>stream-28-lq</prj-cam:streams>
+    <prj-cam:streams>stream-28-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2028
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="camera-29" xsi:type="prj-cam:CameraType">
+    <hv-conf:location x="50" y="300" />
+    <prj-cam:streams>stream-29-lq</prj-cam:streams>
+    <prj-cam:streams>stream-29-hq</prj-cam:streams>
+    <prj-cam:host>10.198.164.35</prj-cam:host>
+    <prj-cam:monitoringListeningPort>2029
+    </prj-cam:monitoringListeningPort>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-1-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.165.40/axis-media/media.amp</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-1-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.165.40/axis-media/media.amp</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-2-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.165.41/inst=2/h26x=4</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-2-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.165.41/inst=1/h26x=4</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-3-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.165.43</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-3-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.165.43</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-4" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream1</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-5" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream2</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-6" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream3</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-7" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream4</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-8" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream5</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-9" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream6</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-10" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream7</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-11" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream8</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-12" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream9</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-13" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>rtsp://10.198.164.35:12000/stream10</prj-stream:uri>
+    <prj-stream:nvrs>nvr-1</prj-stream:nvrs>
+    <prj-stream:nvrs>nvr-2</prj-stream:nvrs>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-14-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-14-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-15-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-15-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-16-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-16-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-17-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-17-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-18-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-18-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-19-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-19-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-20-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-20-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-21-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-21-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-22-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-22-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-23-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-23-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-24-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-24-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-25-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-25-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-26-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-26-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-27-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-27-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-28-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-28-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-29-lq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="stream-29-hq" xsi:type="prj-stream:StreamType">
+    <prj-stream:uri>10.198.164.30</prj-stream:uri>
+  </hv-conf:entity>
+  <hv-conf:entity id="zone-poi-1" xsi:type="prj-zonepoi:ZonePOIType" />
+  <!-- NVR1 -->
+  <hv-conf:entity id="nvr-1" xsi:type="prj-nvr:NvrType">
+    <prj-nvr:host>10.198.165.111</prj-nvr:host>
+    <prj-nvr:ctrlPort>8088</prj-nvr:ctrlPort>
+    <prj-nvr:rtspPort>8554</prj-nvr:rtspPort>
+    <prj-nvr:connectTimeoutMillisec>4000</prj-nvr:connectTimeoutMillisec>
+    <prj-nvr:checkPeriodSec>9</prj-nvr:checkPeriodSec>
+  </hv-conf:entity>
+  <hv-conf:entity id="nvr-2" xsi:type="prj-nvr:NvrType">
+    <prj-nvr:host>10.198.165.112</prj-nvr:host>
+    <prj-nvr:ctrlPort>8088</prj-nvr:ctrlPort>
+    <prj-nvr:rtspPort>8554</prj-nvr:rtspPort>
+    <prj-nvr:connectTimeoutMillisec>3000</prj-nvr:connectTimeoutMillisec>
+    <prj-nvr:checkPeriodSec>9</prj-nvr:checkPeriodSec>
+  </hv-conf:entity>
+  <hv-conf:entity id="scrw-web-1" xsi:type="prj-scrw:ScreenWallType">
+    <prj-scrw:driverType>com.thalesgroup.tvs.services.controller.plugins.ScreenWallControllerWeb</prj-scrw:driverType>
+  </hv-conf:entity>
+  <hv-conf:entity id="scrw-web-2" xsi:type="prj-scrw:ScreenWallType">
+    <prj-scrw:driverType>com.thalesgroup.tvs.services.controller.plugins.ScreenWallControllerWeb</prj-scrw:driverType>
+  </hv-conf:entity>
+</hv-conf:entitiesConfiguration>

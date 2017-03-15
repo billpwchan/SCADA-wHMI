@@ -20,16 +20,18 @@
         <exclude>scadagen-bps*.jar</exclude>
         <exclude>scsapi*.jar</exclude>
         <exclude>scsba*.jar</exclude>
+        <exclude>scsgenjsonapi*.jar</exclude>
         <exclude>cxf-bundle*.jar</exclude>
       </excludes>
     </fileSet>
-	<fileSet>
+    <fileSet>
       <directory>./target/lib</directory>
       <outputDirectory>./ba_lib</outputDirectory>
       <includes>
         <include>scadagen-bps*.jar</include>
         <include>scsapi*.jar</include>
         <include>scsba*.jar</include>
+        <include>scsgenjsonapi*.jar</include>
       </includes>
     </fileSet>
     <fileSet>

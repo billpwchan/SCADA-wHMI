@@ -76,8 +76,7 @@ public class OLSHistEventConverter extends OLSConverter {
         }
         String eqpType = olsmsgFields.remove("hveqpclass");
         if (eqpType == null) {
-            // TODO: need a better default
-            eqpType = "com.thalesgroup.scadasoft.sample.data.equipment.DoorStatusesType";
+            eqpType = "com.thalesgroup.scadasoft.data.config.equipment.SCSSCADAEqptStatusesType";
         }
 
         // SCADAsoft extra fields in message

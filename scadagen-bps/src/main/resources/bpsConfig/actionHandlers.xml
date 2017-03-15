@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:actionPackageConfiguration xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/actions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/actions xsd/actions-config.xsd ">
+  <p:actionPackage>com.thalesgroup.scadagen.bps.actionhandlers</p:actionPackage>
+</p:actionPackageConfiguration>

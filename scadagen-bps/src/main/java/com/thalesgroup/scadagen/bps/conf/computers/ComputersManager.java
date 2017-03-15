@@ -14,7 +14,7 @@ public class ComputersManager {
     private Map<String, IComputer> computersMap_;
 
     /** default configuration path */
-    public static final String DEFAULT_CONFIGURATION_FILE = "bpsConfig/computers.xml";
+    public static final String DEFAULT_CONFIGURATION_FILE = "bpsActionConfig/computers.xml";
     
     private static ComputersManager instance_;
 

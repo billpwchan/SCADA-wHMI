@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<entitiesConfiguration xmlns="http://www.thalesgroup.com/hv/data-v1/entity/configuration" xmlns:ns2="http://www.thalesgroup.com/hv/data-v1/service/configuration">
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building1"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building2"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building3"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building4"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building5"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building6"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building7"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building8"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building9"/>
+    <entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns4="http://www.thalesgroup.com/hv/data-v1/area/configuration" xsi:type="ns4:AreaType" id="building10"/>
+</entitiesConfiguration>

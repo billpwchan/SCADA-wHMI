@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.bps.actionhandlers;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -92,15 +93,16 @@ public class ActionDbmWrite extends ActionSCADARequest {
 			LOGGER.trace("scseqpPath = {}", scseqpPath);
 			
 			// Get hv2scs class binding by binding ID
-			HashSet<AttributeBinding> bindings = new HashSet<AttributeBinding>(ConfManager.getBindingEngine().getAttributeBindings(hv2scsBindingId));
+			Collection<AttributeBinding> bindings = ConfManager.getBindingEngine().getAttributeBindings(hv2scsBindingId);
 			if (bindings == null || bindings.isEmpty()) {
 				LOGGER.warn("Unable to find binding for binding id {}", hv2scsBindingId);
 				return null;
 			}
-			LOGGER.trace("Number of attribute bindings for binding id [{}] found = [{}]", hv2scsBindingId, bindings.size());
+			HashSet<AttributeBinding> bindingSet = new HashSet<AttributeBinding>(bindings);
+			LOGGER.trace("Number of attribute bindings for binding id [{}] found = [{}]", hv2scsBindingId, bindingSet.size());
 			
 			// Go through each attribute binding
-			for (AttributeBinding binding: bindings) {
+			for (AttributeBinding binding: bindingSet) {
 				LOGGER.trace("Start process attribute binding [{}]", binding.getId());
 				IData data = ConfManager.getBindingEngine().getScsValue(eqp, binding);
 				String dataType = ConfManager.getBindingEngine().getScsValueType(binding);				

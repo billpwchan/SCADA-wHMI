@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:bpsConfig 
+  xmlns:p="http://www.thalesgroup.com/scadagen/bps/conf/bps"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:cmn="http://www.thalesgroup.com/scadagen/bps/conf/common"
+  xmlns:sds="http://www.thalesgroup.com/scadagen/bps/conf/subscription-data-source"
+  xsi:schemaLocation="http://www.thalesgroup.com/scadagen/bps/conf/bps bps-config.xsd
+                      http://www.thalesgroup.com/scadagen/bps/conf/common common.xsd">
+
+    <p:bpsConfiguration name="testalarm" />
+
+    <p:subject>
+		<p:dataSource xsi:type="sds:subscriptionDataSource">
+			<sds:transientDataSource>
+                <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.SCADAsoftAlarmType</sds:type>
+                <!--<sds:type>com.thalesgroup.myproject.data.exchange.entity.alarm.DoorIntrusionAlarmType</sds:type>-->
+			</sds:transientDataSource>
+		</p:dataSource>
+	</p:subject>
+
+    <p:trigger>
+        <p:action>
+            <p:actionHandler>com.thalesgroup.scadagen.bps.actionhandlers.TVSScreenWallAction</p:actionHandler>
+            <!--<p:actionHandler>com.thalesgroup.scadagen.bps.presenter.actionhandlers.AlarmTypeAction</p:actionHandler>-->
+            <p:actionConfig>ScreenwallApplySource1</p:actionConfig>
+        </p:action>
+    </p:trigger>
+
+</p:bpsConfig>

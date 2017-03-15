@@ -1,11 +1,21 @@
 package com.thalesgroup.scadasoft.myba;
 
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.net.InetAddress;
 import java.net.URI;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Properties;
+
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerResponseContext;
+import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.ext.Provider;
 
 import org.apache.log4j.MDC;
 import org.apache.log4j.xml.DOMConfigurator;
@@ -16,6 +26,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.scadagen.bps.BPSException;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
 import com.thalesgroup.scadasoft.hvconnector.BAStateManager;
@@ -26,6 +37,23 @@ public class Main {
 
     private static final Logger s_logger = LoggerFactory.getLogger(Main.class);
 
+    private static Properties s_appConfig = new Properties();
+    
+    @Provider
+    public static class CORSFilter implements ContainerResponseFilter {
+
+        @Override
+        public void filter(ContainerRequestContext request,
+                ContainerResponseContext response) throws IOException {
+            response.getHeaders().add("Access-Control-Allow-Origin", "*");
+            response.getHeaders().add("Access-Control-Allow-Headers",
+                    "origin, content-type, accept, authorization");
+            response.getHeaders().add("Access-Control-Allow-Credentials", "true");
+            response.getHeaders().add("Access-Control-Allow-Methods",
+                    "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        }
+    }
+    
     /**
      * Enable Log4j Watch-dog
      */
@@ -52,7 +80,7 @@ public class Main {
     }
     
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:8899/scs/";
+    public static final String BASE_URI = "http://localhost:8899/";
 
     public static HttpServer startRestServer() {
 
@@ -60,10 +88,17 @@ public class Main {
         // in com.thalesgroup package
     	final ResourceConfig rc = new ResourceConfig().packages("com.thalesgroup");
     	rc.register(LoggingFeature.class);
+    	rc.register(new CORSFilter());
     	
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
-        HttpServer srv = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+    	String rootURI = BASE_URI;
+    	if (s_appConfig != null) {
+    		String host = s_appConfig.getProperty("restapi.hostname", "0.0.0.0").trim();
+    		String port = s_appConfig.getProperty("restapi.port", "8899").trim();
+    		rootURI = "http://" + host + ":" + port + "/";
+    	}
+        HttpServer srv = GrizzlyHttpServerFactory.createHttpServer(URI.create(rootURI), rc);
 
         s_logger.info("Jersey app started with WADL available at {}application.wadl", BASE_URI);
         return srv;
@@ -77,6 +112,8 @@ public class Main {
      *
      */
     public static void main(final String[] args) {
+    	
+    	// init log4j
         RuntimeMXBean rt = ManagementFactory.getRuntimeMXBean();
         MDC.put("PID", rt.getName());
         s_logger.info("");
@@ -85,6 +122,16 @@ public class Main {
 
         enableLog4jWatchdog();
 
+        // load custom properties
+        InputStream pstream = ClassLoader.getSystemClassLoader().getResourceAsStream("myba.properties");
+        if (pstream != null) {
+        	try {
+				s_appConfig.load(pstream);
+			} catch (IOException e) {
+				s_logger.warn("Cannot read 'myba.properties' property file", e);
+			}
+        }
+        
         // First initialize SCADAsoft environment
         // calculate default value
         String hostname = "localhost";
@@ -133,20 +180,8 @@ public class Main {
         // start Jersey server
         HttpServer restServer = startRestServer();
         
-        // start SCADAgen BPS (Business Process Service)
-        s_logger.info("init SCADAgen BPS");       
-        SCADAgenBPS bps = new SCADAgenBPS(scadasoftBA.getConnector());
-
-		try {
-			bps.init();
-
-			bps.start();
-		} catch (BPSException e) {
-			s_logger.error("SCADAgen BA  - Error staring BPS: ", e);
-			scadasoftBA.stop();
-            ScsConnectorProxy.instance().stop();
-            System.exit(2);
-		}
+        // start SCADAgen BPS if configuration found
+        startBPS(scadasoftBA.getConnector());
         
         // start main loop
         s_logger.info("start main loop");
@@ -183,5 +218,56 @@ public class Main {
             // do a C _exit just in case something is stuck at the C level
             ScsConnectorProxy.instance().exit();
         }
+    }
+    
+    private static void startBPS(Connector connector) {
+    	
+    	if (checkBPSConfig()) {
+
+	        s_logger.info("init SCADAgen BPS");       
+	        SCADAgenBPS bps = new SCADAgenBPS(connector);
+	
+			try {
+				bps.init();
+	
+				bps.start();
+			} catch (BPSException e) {
+				s_logger.error("SCADAgen BA - Error staring BPS. Connector will start without BPS. ", e);
+			}
+    	} else {
+    		s_logger.info("SCADAgen BA - No BPS configuration loaded. Connector will start without BPS.");
+    	}
+    }
+    
+    private static boolean checkBPSConfig() {
+        
+        try {
+        	File bpsConfigFolder = new File("bpsConfig");
+        
+	        if (bpsConfigFolder != null && bpsConfigFolder.exists() && bpsConfigFolder.isDirectory()) {
+	        	FilenameFilter filenameFilter = new FilenameFilter() {
+					@Override
+					public boolean accept(File dir, String name) {
+						if (name.length() > 4) {
+							String ext = name.substring(name.length()-4);
+							if (ext.compareToIgnoreCase(".xml") == 0) {
+								return true;
+							}
+						}
+						return false;
+					}
+	        	};
+	        	
+				String [] xmlFiles = bpsConfigFolder.list(filenameFilter);
+				if (xmlFiles != null && xmlFiles.length > 0) {
+					return true;
+				}
+				
+	        }
+        } catch (Exception e) {
+        	s_logger.error("Error accessing files in folder bpsConfig. {}", e);
+        }
+        
+        return false;
     }
 }

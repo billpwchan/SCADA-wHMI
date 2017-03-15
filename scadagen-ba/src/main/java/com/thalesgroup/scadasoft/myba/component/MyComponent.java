@@ -4,16 +4,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.thalesgroup.scadasoft.hvconnector.component.AbstractSCSComponent;
-import com.thalesgroup.scadasoft.hvconnector.operation.ISCSLongRunningOperation;
-import com.thalesgroup.scadasoft.hvconnector.operation.SCADAExecutor;
-import com.thalesgroup.scadasoft.hvconnector.operation.SCSOperationResponder;
-import com.thalesgroup.scadasoft.hvconnector.operation.spi.ISCSComponent;
+import com.thalesgroup.scadasoft.jsoncomponent.AbstractJSComponent;
+import com.thalesgroup.scadasoft.jsoncomponent.IJSComponent;
+import com.thalesgroup.scadasoft.jsoncomponent.IJSNotifier;
+import com.thalesgroup.scadasoft.jsoncomponent.INotifManager;
+import com.thalesgroup.scadasoft.jsoncomponent.JSComponentMgr;
+import com.thalesgroup.scadasoft.jsoncomponent.SCSJSONParameter.SCSJSONParamType;
+import com.thalesgroup.scadasoft.jsoncomponent.SCSJSONRequest;
+import com.thalesgroup.scadasoft.jsoncomponent.SCSJSONParameter;
 
-public class MyComponent extends AbstractSCSComponent {
+public class MyComponent extends AbstractJSComponent {
 
     static private final Logger s_logger = LoggerFactory.getLogger(MyComponent.class);
-
+    
     @Override
     public String getName() {
         return "MyComponent";
@@ -29,7 +32,7 @@ public class MyComponent extends AbstractSCSComponent {
      * 
      * expect the following JSON request
      * 
-     * {"component":"MyComponent", "request":"hello", source="chief" }
+     * {"component":"MyComponent", "request":"hello", "source"="chief" }
      * 
      * Build the following answer {"component":"MyComponent", "request":"hello",
      * "errorCode":0, "response":{"msg":"Hello chief"}}
@@ -40,7 +43,7 @@ public class MyComponent extends AbstractSCSComponent {
     public ObjectNode doHelloRequest(ObjectNode req, String sourceId) {
         s_logger.info("MyComponent doHelloRequest IN:" + req.toString());
 
-        ObjectNode resp = SCADAExecutor.s_json_factory.objectNode();
+        ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
         if ("".equals(sourceId)) {
             resp.put("msg", "Who are you?");
         } else {
@@ -51,47 +54,42 @@ public class MyComponent extends AbstractSCSComponent {
         return resp;
     }
 
-    public static class MyCountDownManager implements ISCSLongRunningOperation, Runnable {
+    public static class MyCountDownManager implements Runnable, IJSNotifier {
 
 		private final String m_correlationId;
-		private final SCSOperationResponder m_opeManager;
+		private final INotifManager m_notifManager;
 		private int m_currentValue;
 		private Thread m_thread;
 		private final String m_name;
 		
-		public MyCountDownManager(String correlationId, String name, int startValue, SCSOperationResponder opeManager) {
+		public MyCountDownManager(String correlationId, String name, int startValue, INotifManager nm) {
 			m_correlationId = correlationId;
-			m_opeManager = opeManager;
+			m_notifManager = nm;
 			m_currentValue = startValue;
 			m_name = name;
-			sendFirstMessage();
 			m_thread = new Thread(this);
 			m_thread.start();
 		}
 
 		@Override
-		public String getName() {
-			return "MyCountDownManager";
-		}
-
-		@Override
-		public String getDescription() {
-			return "Simple count down in seconds. " + m_name + " current value: " + m_currentValue;
-		}
-
-		@Override
 		public void stop() {
+			
 			m_thread.interrupt();
 			try {
 				m_thread.join();
 			} catch (InterruptedException e) {
 				
 			}
+			if (m_notifManager != null) {
+        		m_notifManager.stopLongOperation(m_correlationId);
+        		m_notifManager.unregisterLongRunningOpe(this);
+        	}
 		}
 
 		@Override
 		public void run() {
 			boolean run = true;
+		    sendFirstMessage();
 	        while (run) {
 	            try {
 	                Thread.sleep((long) 1000);
@@ -99,8 +97,10 @@ public class MyComponent extends AbstractSCSComponent {
 	                sendMessage();
 	                if (m_currentValue == 0) {
 	                	run = false;
-	                	m_opeManager.unregisterLongRunningOpe(this);
-	                	m_opeManager.stopLongOperation(m_correlationId);
+	                	if (m_notifManager != null) {
+	                		m_notifManager.stopLongOperation(m_correlationId);
+	                		m_notifManager.unregisterLongRunningOpe(this);
+	                	}
 	                }
 	            } catch (InterruptedException e) {
 	                run = false;
@@ -111,34 +111,38 @@ public class MyComponent extends AbstractSCSComponent {
 
 		private void sendFirstMessage() {
 			 
-			ObjectNode resp = SCADAExecutor.s_json_factory.objectNode();
-			resp.put(ISCSComponent.c_JSON_ERRORCODE_ARG, 0);
-			resp.put(ISCSComponent.c_JSON_REQUEST_ARG, "countdown");
+			ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
+			resp.put(IJSComponent.c_JSON_ERRORCODE_ARG, 0);
+			resp.put(IJSComponent.c_JSON_REQUEST_ARG, "countdown");
 			
-			ObjectNode data = SCADAExecutor.s_json_factory.objectNode();
+			ObjectNode data = JSComponentMgr.s_json_factory.objectNode();
 			data.put("value", m_currentValue);
 			data.put("name", m_name);
-			resp.set(ISCSComponent.c_JSON_RESPONSE_ARG, data);
-			
-	        m_opeManager.sendLongOperationInsert(m_correlationId, "MyComponent", resp);
+			resp.set(IJSComponent.c_JSON_RESPONSE_ARG, data);
+			if (m_notifManager != null) {
+				m_notifManager.sendLongOperationInsert(m_correlationId, "MyComponent", resp);
+			}
 		}
 		
 		private void sendMessage() {
-			ObjectNode resp = SCADAExecutor.s_json_factory.objectNode();
-			resp.put(ISCSComponent.c_JSON_ERRORCODE_ARG, 0);
-			resp.put(ISCSComponent.c_JSON_REQUEST_ARG, "countdown");
+			ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
+			resp.put(IJSComponent.c_JSON_ERRORCODE_ARG, 0);
+			resp.put(IJSComponent.c_JSON_REQUEST_ARG, "countdown");
 			
-			ObjectNode data = SCADAExecutor.s_json_factory.objectNode();
+			ObjectNode data = JSComponentMgr.s_json_factory.objectNode();
 			data.put("value", m_currentValue);
 			data.put("name", m_name);
-			resp.set(ISCSComponent.c_JSON_RESPONSE_ARG, data);
-	        m_opeManager.sendLongOperationUpdate(m_correlationId, "MyComponent", resp);
+			resp.set(IJSComponent.c_JSON_RESPONSE_ARG, data);
+			if (m_notifManager != null) {
+				m_notifManager.sendLongOperationUpdate(m_correlationId, "MyComponent", resp);
+			}
 		}
     	
     }
+    
     @SCSJSONRequest(value = "countdown", longRunning = true,
             inputParam = {
-            		@SCSJSONParameter(value = "name", type = SCSJSONParamType.STRING, mandatory = true),
+            		@SCSJSONParameter(value = "name", type = SCSJSONParamType.STRING, mandatory = false, defaultValue = "counter"),
                     @SCSJSONParameter(value = "start", type = SCSJSONParamType.NUMBER, mandatory = true) 
     },
             outputParam = {
@@ -153,16 +157,21 @@ public class MyComponent extends AbstractSCSComponent {
         String name = getStringParam("name", req);
         
         // first answer is init value
-        ObjectNode resp = SCADAExecutor.s_json_factory.objectNode();
+        ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
         resp.put("value", startValue);
         
         // start thread and register object to long running list
         String correlationId = getUUID(req);
         
-        m_opeManager.registerLongRunningOpe(new MyCountDownManager(correlationId, name, startValue, m_opeManager));
+        MyCountDownManager cd = new MyCountDownManager(correlationId, name, startValue, m_notifManager);
+        m_notifManager.registerLongRunningOpe(cd);
         
         s_logger.info("MyComponent doCountdownRequest OUT:" + resp.toString());
         return resp;
     }
+
+	@Override
+	protected void doComponentInit() {
+	}
 
 }

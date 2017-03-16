@@ -2,13 +2,27 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+	<!-- Begin of life -->
 	<actionset key="init">
 	</actionset>
 	
-	<actionset key="set_default_action">
+	<actionset key="from_uilayoutsummary_init">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_set0_down</OperationString1>
 	</actionset>
+
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
 	
 	<actionset key="set0">
 		<OperationType>actionsetkey</OperationType>

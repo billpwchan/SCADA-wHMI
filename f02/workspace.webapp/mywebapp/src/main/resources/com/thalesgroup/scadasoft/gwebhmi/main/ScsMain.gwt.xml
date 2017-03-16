@@ -11,8 +11,6 @@
 	
 	<inherits name='com.thalesgroup.prj_gz_cocc.gwebhmi.main.scsmain'/>
 	
-	<stylesheet src='resources/project/css/project-main.css'/>
-	
 	<entry-point class='com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint_WHMI'/>
 	
     <!-- <entry-point class='com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint'/> -->

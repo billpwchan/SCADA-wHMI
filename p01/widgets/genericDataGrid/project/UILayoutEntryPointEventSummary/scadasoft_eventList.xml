@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid" xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd                       http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
+<p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid"
+                                xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common"
+                                xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
+
     <p:gridConfiguration fastForwardPages="2" name="scseventList" pageSize="32"/>
 
     <p:subject>
@@ -111,22 +116,29 @@
         <p:textItem sourceValue="34" value="scsalarmList_funccat_function34"/>
         <p:textItem sourceValue="35" value="scsalarmList_funccat_function35"/>
         <p:textItem sourceValue="36" value="scsalarmList_funccat_function36"/>
-        <p:textItem sourceValue="37" value="scsalarmList_funccat_function37"/>
         <p:textItem sourceValue="38" value="scsalarmList_funccat_function38"/>
+        <p:textItem sourceValue="37" value="scsalarmList_funccat_function37"/>
         <p:textItem sourceValue="39" value="scsalarmList_funccat_function39"/>
         <p:textItem sourceValue="40" value="scsalarmList_funccat_function40"/>
         <p:textItem sourceValue="41" value="scsalarmList_funccat_function41"/>
         <p:textItem sourceValue="42" value="scsalarmList_funccat_function42"/>
         <p:textItem sourceValue="43" value="scsalarmList_funccat_function43"/>
         <p:textItem sourceValue="44" value="scsalarmList_funccat_function44"/>
-<!--
         <p:textItem sourceValue="45" value="scsalarmList_funccat_function45"/>
         <p:textItem sourceValue="46" value="scsalarmList_funccat_function46"/>
         <p:textItem sourceValue="47" value="scsalarmList_funccat_function47"/>
         <p:textItem sourceValue="48" value="scsalarmList_funccat_function48"/>
         <p:textItem sourceValue="49" value="scsalarmList_funccat_function49"/>
         <p:textItem sourceValue="50" value="scsalarmList_funccat_function50"/>
--->
+        <p:textItem sourceValue="51" value="scsalarmList_funccat_function51"/>
+        <p:textItem sourceValue="52" value="scsalarmList_funccat_function52"/>
+        <p:textItem sourceValue="53" value="scsalarmList_funccat_function53"/>
+        <p:textItem sourceValue="54" value="scsalarmList_funccat_function54"/>
+        <p:textItem sourceValue="55" value="scsalarmList_funccat_function55"/>
+        <p:textItem sourceValue="56" value="scsalarmList_funccat_function56"/>
+        <p:textItem sourceValue="57" value="scsalarmList_funccat_function57"/>
+        <p:textItem sourceValue="58" value="scsalarmList_funccat_function58"/>
+        <p:textItem sourceValue="59" value="scsalarmList_funccat_function59"/>
     </p:column>
 
     <!-- Equipment -->
@@ -153,8 +165,19 @@
         <p:source name="GDGMessage03" statusComputerName="GDGMessage03" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 
+    <!-- default sorting of the GDG -->
+    <p:operationalSortsConfiguration>
+        <p:operationalSortConfiguration name="defaultSort" descriptionLabelName="defaultSort">
+            <p:criterion columnName="scsalarmList_datetime_name" ascending="false"/>
+            <p:criterion columnName="scsalarmList_area_name"/>
+            <p:criterion columnName="scsalarmList_funccat_name"/>
+            <p:criterion columnName="scsalarmList_sourceID_name"/>
+            <p:criterion columnName="scsalarmList_alarmText_name"/>
+            <p:criterion columnName="scsalarmList_priority_name"/>
+        </p:operationalSortConfiguration>
+    </p:operationalSortsConfiguration>
     <p:defaultSort>
-        <p:simpleSort ascending="false" columnName="scsalarmList_datetime_name"/>
+        <p:operationalSort operationalSortName="defaultSort"/>
     </p:defaultSort>
 
     <p:countersConfiguration>

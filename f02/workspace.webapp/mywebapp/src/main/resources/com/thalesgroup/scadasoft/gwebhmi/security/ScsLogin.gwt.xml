@@ -12,11 +12,7 @@
 	
 	<inherits name='com.thalesgroup.prj_gz_cocc.gwebhmi.security.scslogin'/>
 	
-	<stylesheet src='resources/project/css/project-login.css'/>
-	
 	<entry-point class='com.thalesgroup.scadasoft.gwebhmi.security.client.ScsLoginEntryPoint_WHMI'/>
-	
-	<!-- <entry-point class='com.thalesgroup.scadasoft.gwebhmi.security.client.ScsLoginEntryPoint'/> -->
 	
 </module> 
  

@@ -1,0 +1,44 @@
+/* style for the pager */
+.project-UIWidgetAlarmSummaryPager-panel-Pager{
+	position: relative;
+	top: -35px;
+	text-align:center;
+	color: white;
+}
+
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastForwardPage,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-LastPage{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	color: white;
+}
+
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastForwardPage:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-LastPage:hover{
+	color: black;
+}
+
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage[disabled],
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage[disabled]:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage[disabled],
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage[disabled]:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage[disabled],
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage[disabled]:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastForwardPage[disabled],
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastForwardPage[disabled]:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-LastPage[disabled],
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-LastPage[disabled]:hover{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	color: grey;
+}

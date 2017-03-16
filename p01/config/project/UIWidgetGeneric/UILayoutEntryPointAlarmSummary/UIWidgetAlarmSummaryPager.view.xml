@@ -10,13 +10,13 @@
 
 	<option key="0|0">
 		<widget>Button</widget>
-		<label>FirstPage</label>
+		<label>|&lt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-FirstPage</css>
 		<element>FirstPage</element>
 	</option>
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>PreviousPage</label>
+		<label>&lt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-PreviousPage</css>
 		<element>PreviousPage</element>
 	</option>
@@ -54,19 +54,19 @@
 	
 	<option key="0|7">
 		<widget>Button</widget>
-		<label>NextPage</label>
+		<label>&gt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-NextPage</css>
 		<element>NextPage</element>
 	</option>
 	<option key="0|8">
 		<widget>Button</widget>
-		<label>FastForwardPage</label>
+		<label>&gt;&gt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-FastForwardPage</css>
 		<element>FastForwardPage</element>
 	</option>	
 	<option key="0|9">
 		<widget>Button</widget>
-		<label>LastPage</label>
+		<label>&gt;|</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-LastPage</css>
 		<element>LastPage</element>
 	</option>

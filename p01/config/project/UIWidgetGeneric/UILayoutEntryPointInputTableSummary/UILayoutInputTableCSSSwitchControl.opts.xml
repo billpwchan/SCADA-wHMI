@@ -2,10 +2,11 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	
+	<!-- Begin of life -->
 	<actionset key="init">
 	</actionset>
 	
-	<actionset key="set_default_action">
+	<actionset key="from_uilayoutsummary_init">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>modifycss_element0_visible_remove</OperationString1>
 		<OperationString2>modifycss_element0_invisible_remove</OperationString2>
@@ -16,6 +17,19 @@
 		<OperationString6>modifycss_element1_invisible_apply</OperationString6>
 	</actionset>
 	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
+
 	<actionset key="set0">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>modifycss_element0_visible_remove</OperationString1>

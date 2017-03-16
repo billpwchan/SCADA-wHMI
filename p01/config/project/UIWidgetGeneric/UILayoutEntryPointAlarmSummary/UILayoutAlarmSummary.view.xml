@@ -14,18 +14,18 @@
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutAlarmSummaryAction.view.xml</uiView>
 	</option>
 	<option key="0|1">
-		<uiCtrl>UIWidgetViewerPager</uiCtrl>
-		<uiView>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPager.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPager.opts.xml</uiOpts>
-		<element>UIWidgetAlarmSummaryPager</element>
-		<csscontainer>project-UIWidgetAlarmSummaryPager-panel-Pager</csscontainer>
-	</option>
-	<option key="0|2">
 		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutAlarmSummaryViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmSummary/UILayoutAlarmSummaryViewer.opts.xml</uiOpts>
 		<element>UILayoutAlarmSummaryViewer</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetViewerPager</uiCtrl>
+		<uiView>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPager.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPager.opts.xml</uiOpts>
+		<element>UIWidgetAlarmSummaryPager</element>
+		<csscontainer>project-UIWidgetAlarmSummaryPager-panel-Pager</csscontainer>
 	</option>
 
 </data-set>

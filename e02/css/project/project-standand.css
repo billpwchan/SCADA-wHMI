@@ -10,6 +10,10 @@ body, table td, select {
 	background-image: none;
 }
 
+.gwt-Button:active {
+	color: dimgrey;
+}
+
 .gwt-Button[disabled]:hover {
 	background: url("../../../gwt/standard/images/hborder.png") repeat-x 0px -27px;
 }
@@ -122,4 +126,32 @@ input[type="radio"] {
 .datePickerWeekendLabel,
 .datePickerMonth {
 	font-size: 14px !important;
+}
+
+/* GDG popup menu style */
+.menuStyle > .popupContent table tbody{
+	display: flex;
+	flex-flow: row wrap;
+	width: 20em;
+}
+
+.menuStyle > .popupContent table tbody > tr{
+	flex: 1 1 50%;
+}
+
+.menuStyle > .popupContent table tbody > tr button{
+	font-weight: bold;
+}
+
+.menuStyle > .popupContent table tbody > tr:nth-of-type(1) button{
+	width: 20em;
+}
+
+.menuStyle > .popupContent table tbody > tr:nth-last-of-type(1) button{
+	width: 10em
+}
+
+.menuStyle > .popupContent table tbody > tr .gwt-DateBox,
+.menuStyle > .popupContent table tbody > tr .gwt-TextBox{
+	width: 19em;
 }

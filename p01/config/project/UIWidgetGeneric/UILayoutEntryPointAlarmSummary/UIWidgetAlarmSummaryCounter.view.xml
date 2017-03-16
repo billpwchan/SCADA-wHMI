@@ -21,7 +21,7 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_all_unack</element>
+		<element>alarmlist_counter_unack</element>
 	</option>
 	<option key="0|2">
 		<widget>InlineLabel</widget>
@@ -36,7 +36,7 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_critical_unack</element>
+		<element>alarmlist_counter_supercritical_unack</element>
 	</option>
 	<option key="0|4">
 		<widget>InlineLabel</widget>
@@ -51,7 +51,7 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_hight_unack</element>
+		<element>alarmlist_counter_critical_unack</element>
 	</option>
 	<option key="0|6">
 		<widget>InlineLabel</widget>
@@ -66,7 +66,7 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_medium_unack</element>
+		<element>alarmlist_counter_lesscritical_unack</element>
 	</option>
 	
 	<option key="1|0">
@@ -97,7 +97,7 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_critical</element>
+		<element>alarmlist_counter_supercritical_all</element>
 	</option>
 	<option key="1|4">
 		<widget>InlineLabel</widget>
@@ -112,7 +112,7 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_hight</element>
+		<element>alarmlist_counter_critical_all</element>
 	</option>
 	<option key="1|6">
 		<widget>InlineLabel</widget>
@@ -127,6 +127,6 @@
 		<css>project-gwt-inlinelabel-alarmsummary-counter-value</css>
 		<readonly>true</readonly>
 		<cssContainer>project-gwt-inlinelabel-alarmsummary-counter-value-container</cssContainer>
-		<element>alarmlist_counter_medium</element>
+		<element>alarmlist_counter_lesscritical_all</element>
 	</option>
 </data-set>

@@ -1,4 +1,8 @@
 /* style for the pager */
+.project-UIWidgetAlarmSummaryPager-root {
+	width: 100%;
+}
+
 .project-UIWidgetAlarmSummaryPager-panel-Pager{
 	position: relative;
 	top: -35px;
@@ -7,6 +11,7 @@
 }
 
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastBackwardPage,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastForwardPage,
@@ -20,6 +25,7 @@
 }
 
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastBackwardPage:hover,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage:hover,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage:hover,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastForwardPage:hover,
@@ -29,6 +35,8 @@
 
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage[disabled],
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-FirstPage[disabled]:hover,
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastBackwardPage[disabled],
+.gwt-Button.project-UIWidgetAlarmSummaryPager-button-FastBackwardPage[disabled]:hover,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage[disabled],
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-PreviousPage[disabled]:hover,
 .gwt-Button.project-UIWidgetAlarmSummaryPager-button-NextPage[disabled],

@@ -13,6 +13,8 @@ public interface UIWidgetViewer_i {
 		, HasPreviousPage("HasPreviousPage")
 		, HasNextPage("HasNextPage")
 		, HasFastForwardPage("HasFastForwardPage")
+		, HasFastBackwardPage("HasFastBackwardPage")
+		
 		, CreateText("CreateText")
 		
 		, FirstPageSelected("FirstPageSelected")
@@ -20,6 +22,7 @@ public interface UIWidgetViewer_i {
 		, NextPageSelected("NextPageSelected")
 		, LastPageSelected("LastPageSelected")
 		, FastForwardPageSelected("FastForwardPageSelected")
+		, FastBackwardPageSelected("FastBackwardPageSelected")
 		
 		;
 		private final String text;

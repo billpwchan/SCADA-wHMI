@@ -74,7 +74,8 @@ public class ScsGenericDataGridView extends GenericDataGridView {
 			pager.setPageSize(pageSize);
 			
 			LOGGER.debug(LOG_PREFIX + "fastForwardRows[" + fastForwardRows + "]");
-			pager.setFastForwardRows(fastForwardRows);			
+			pager.setFastForwardRows(fastForwardRows);
+			pager.setFastBackwardRows(fastForwardRows);	
 
 			DataGrid<EntityClient> dataGrid = getInnerDataGrid();
 			pager.setDisplay(dataGrid);

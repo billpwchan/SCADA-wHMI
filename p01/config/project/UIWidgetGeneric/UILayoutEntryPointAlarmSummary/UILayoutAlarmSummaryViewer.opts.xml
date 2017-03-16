@@ -124,7 +124,17 @@
 		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
 		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
 		<OperationString2>false</OperationString2>
-	</action>	
+	</action>
 	
+	<actionset key="PagerButtonChanged_HasFastBackwardPage">
+		<OperationString1>PagerButtonChanged_HasFastBackwardPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasFastBackwardPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetAlarmSummaryPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasFastBackwardPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
 	
 </data-set>

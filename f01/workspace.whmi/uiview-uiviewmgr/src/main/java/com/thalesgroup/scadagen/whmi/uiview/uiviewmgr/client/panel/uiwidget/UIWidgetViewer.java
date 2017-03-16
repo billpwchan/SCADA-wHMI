@@ -482,6 +482,12 @@ public class UIWidgetViewer extends UILayoutRealize implements UIRealize_i {
 											simplePager.fastForwardPage();
 
 										}
+										else
+										if ( os1.equals(ViewerViewEvent.FastBackwardPageSelected.toString()) ) {
+												
+											simplePager.fastBackwardPage();
+
+										}
 									} else {
 										logger.warn(className, function, "pager instanceof SimplePager IS NOT");
 									}

@@ -138,6 +138,34 @@
 		<OperationString3>Disable</OperationString3>
 	</action>
 	
+
+	<!-- HasFastBackwardPage TRUE-->
+	<actionset key="HasFastBackwardPage_true">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFastBackwardPage_true</OperationString1>
+	</actionset>
+
+	<action key="HasFastBackwardPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FastBackwardPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>	
+	
+	<!-- HasFastBackwardPage FALSE-->
+	<actionset key="HasFastBackwardPage_false">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFastBackwardPage_false</OperationString1>
+	</actionset>
+
+	<action key="HasFastBackwardPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FastBackwardPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
 	
 	
 	<!-- HasFastForwardPage TRUE-->
@@ -166,7 +194,7 @@
 		<OperationString1>SetWidgetStatus</OperationString1>
 		<OperationString2>FastForwardPage</OperationString2>
 		<OperationString3>Disable</OperationString3>
-	</action>	
+	</action>
 	
 	
 	<!-- Button Operation -->
@@ -203,6 +231,17 @@
 		<OperationString1>NextPageSelected</OperationString1>
 	</action>
 	
+	<actionset key="FastBackwardPage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>FastBackwardPageSelected</OperationString1>
+	</actionset>
+
+	<action key="FastBackwardPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
+		<OperationString1>FastBackwardPageSelected</OperationString1>
+	</action>
+
 	<actionset key="FastForwardPage">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>FastForwardPageSelected</OperationString1>

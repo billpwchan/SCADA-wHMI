@@ -3,9 +3,9 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>10</cols>
+		<cols>11</cols>
 		<rootPanel>AbsolutePanel</rootPanel>
-		<rootCss>project-gwt-flextable-alarmsummary-filter</rootCss>
+		<rootCss>project-UIWidgetAlarmSummaryPager-root</rootCss>
 	</header>
 
 	<option key="0|0">
@@ -16,55 +16,61 @@
 	</option>
 	<option key="0|1">
 		<widget>Button</widget>
+		<label>&lt;&lt;</label>
+		<css>project-UIWidgetAlarmSummaryPager-button-FastBackwardPage</css>
+		<element>FastBackwardPage</element>
+	</option>
+	<option key="0|2">
+		<widget>Button</widget>
 		<label>&lt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-PreviousPage</css>
 		<element>PreviousPage</element>
 	</option>
 	
-	<option key="0|2">
+	<option key="0|3">
 		<widget>InlineLabel</widget>
 		<label>X</label>
 		<css>project-UIWidgetAlarmSummaryPager-inlinelabel-PageStart</css>
 		<element>PageStart</element>
 	</option>
-	<option key="0|3">
+	<option key="0|4">
 		<widget>InlineLabel</widget>
 		<label> - </label>
 		<css>project-UIWidgetAlarmSummaryPager-inlinelabel-spliter</css>
 	</option>
-	<option key="0|4">
+	<option key="0|5">
 		<widget>InlineLabel</widget>
 		<label>X</label>
 		<css>project-UIWidgetAlarmSummaryPager-inlinelabel-EndIndex</css>
 		<element>EndIndex</element>
 	</option>
 	
-	<option key="0|5">
+	<option key="0|6">
 		<widget>InlineLabel</widget>
 		<label> of </label>
 		<css>project-UIWidgetAlarmSummaryPager-inlinelabel-spliter</css>
 		<element>of</element>
 	</option>
-	<option key="0|6">
+	<option key="0|7">
 		<widget>InlineLabel</widget>
 		<label>X</label>
 		<css>project-UIWidgetAlarmSummaryPager-inlinelabel-Exact</css>
 		<element>Exact</element>
 	</option>
 	
-	<option key="0|7">
+	<option key="0|8">
 		<widget>Button</widget>
 		<label>&gt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-NextPage</css>
 		<element>NextPage</element>
 	</option>
-	<option key="0|8">
+	<option key="0|9">
 		<widget>Button</widget>
 		<label>&gt;&gt;</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-FastForwardPage</css>
 		<element>FastForwardPage</element>
 	</option>	
-	<option key="0|9">
+	<option key="0|10">
 		<widget>Button</widget>
 		<label>&gt;|</label>
 		<css>project-UIWidgetAlarmSummaryPager-button-LastPage</css>

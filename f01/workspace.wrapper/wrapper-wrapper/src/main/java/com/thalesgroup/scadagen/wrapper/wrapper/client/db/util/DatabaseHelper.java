@@ -14,12 +14,26 @@ public class DatabaseHelper {
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public static String getPointFromDbAddress(String dbaddress) {
-		String dbaddressTokenes[] = dbaddress.split(":");
-		return dbaddressTokenes[dbaddressTokenes.length-1];
+		final String function = "getPointFromDbAddress";
+		String result = null;
+		if ( null != dbaddress ) {
+			String dbaddressTokenes[] = dbaddress.split(":");
+			result = dbaddressTokenes[dbaddressTokenes.length-1];
+		} else {
+			logger.warn(className, function, "dbaddress IS NULL");
+		}
+		return result;
 	}
 	public static String getPointFromAliasAddress(String dbaddress) {
-		int index = dbaddress.lastIndexOf('-');
-		return dbaddress.substring(index-6);
+		final String function = "getPointFromAliasAddress";
+		String result = null;
+		if ( null != dbaddress ) {
+			int index = dbaddress.lastIndexOf('-');
+			result = dbaddress.substring(index-6);
+		} else {
+			logger.warn(className, function, "dbaddress IS NULL");
+		}
+		return result;
 	}
 
 	public static boolean isACIPoint(String point) { return PointType.aci == getPointType(point); }

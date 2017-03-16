@@ -14,12 +14,10 @@
 		<OperationString3>set_init_cssswitchcontrol</OperationString3>
 		<OperationString4>set_init_cssswitchview</OperationString4>
 		<OperationString5>set_init_cssselection</OperationString5>
-		
 		<OperationString6>set_init_viewer0</OperationString6>
 		<OperationString7>set_init_viewer1</OperationString7>
 		<OperationString8>set_init_viewer2</OperationString8>
 		<OperationString9>set_init_viewer3</OperationString9>
-		
 	</actionset>
 	
 		<action key="set_init_dpcmocontrol">
@@ -35,25 +33,25 @@
 			<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
 			<OperationString1>from_uilayoutsummary_init</OperationString1>
 		</action>
-
-		<action key="set_init_cssselection">
-			<SenderOperation>event</SenderOperation>
-			<OperationType>actionsetkey</OperationType>
-			<OperationElement>UIWidgetInputTableCSSSelection</OperationElement>
-			<OperationString1>set_default_action</OperationString1>
-		</action>
 		
 		<action key="set_init_cssswitchcontrol">
 			<SenderOperation>event</SenderOperation>
 			<OperationType>actionsetkey</OperationType>
 			<OperationElement>UILayoutInputTableCSSSwitchControl</OperationElement>
-			<OperationString1>set_default_action</OperationString1>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
 		</action>
 		
 		<action key="set_init_cssswitchview">
 			<SenderOperation>event</SenderOperation>
 			<OperationType>actionsetkey</OperationType>
 			<OperationElement>UILayoutInputTableCSSSwitchView</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>
+		
+		<action key="set_init_cssselection">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableCSSSelection</OperationElement>
 			<OperationString1>from_uilayoutsummary_init</OperationString1>
 		</action>
 		
@@ -91,12 +89,13 @@
 			<SenderOperation>event</SenderOperation>
 			<OperationType>actionsetkey</OperationType>
 			<OperationElement>UIWidgetInputTableFilter</OperationElement>
-			<OperationString1>set_default_action</OperationString1>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
 		</action>	
 	
 	<actionset key="envup_delay">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_envup_dpcmocontrol</OperationString1>
+		<OperationString2>set_envup_dpcsscontrol</OperationString2>
 	</actionset>
 	
 		<action key="set_envup_dpcmocontrol">
@@ -105,10 +104,18 @@
 			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
 			<OperationString1>from_uilayoutsummary_envup</OperationString1>
 		</action>
+		
+		<action key="set_envup_dpcsscontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_envup</OperationString1>
+		</action>
 
 	<actionset key="envdown">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_envdown_dpcmocontrol</OperationString1>
+		<OperationString2>set_envdown_dpcsscontrol</OperationString2>
 	</actionset>
 	
 		<action key="set_envdown_dpcmocontrol">
@@ -117,22 +124,35 @@
 			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
 			<OperationString1>from_uilayoutsummary_envdown</OperationString1>
 		</action>
+		
+		<action key="set_envdown_dpcsscontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_envdown</OperationString1>
+		</action>
 	
 	<actionset key="terminate">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>set_terminate_dpcmocontrol</OperationString1>
-		
-		<OperationString2>set_terminate_viewer0</OperationString2>
-		<OperationString3>set_terminate_viewer1</OperationString3>
-		<OperationString4>set_terminate_viewer2</OperationString4>
-		<OperationString5>set_terminate_viewer3</OperationString5>
-		
+		<OperationString2>set_terminate_dpcsscontrol</OperationString2>
+		<OperationString3>set_terminate_viewer0</OperationString3>
+		<OperationString4>set_terminate_viewer1</OperationString4>
+		<OperationString5>set_terminate_viewer2</OperationString5>
+		<OperationString6>set_terminate_viewer3</OperationString6>
 	</actionset>
 	
 		<action key="set_terminate_dpcmocontrol">
 			<SenderOperation>event</SenderOperation>
 			<OperationType>actionsetkey</OperationType>
 			<OperationElement>UIWidgetInputTableManualOverrideControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+		
+		<action key="set_terminate_dpcsscontrol">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetInputTableScanSuspendControl</OperationElement>
 			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
 		</action>
 		

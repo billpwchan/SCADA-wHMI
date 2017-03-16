@@ -126,9 +126,9 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	public boolean executeActionSet(String actionsetkey) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
-		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
+		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		boolean bContinue = true;
-		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
+		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		bContinue = executeActionSet(actionsetkey, null, null);
 		logger.end(className, function);
 		return bContinue;
@@ -138,7 +138,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	public boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
-		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
+		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		boolean bContinue = true;
 		bContinue = executeActionSet(actionsetkey, override, null);
 		logger.end(className, function);
@@ -155,7 +155,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	public boolean executeActionSet(String actionsetkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeActionSet";
 		logger.begin(className, function);
-		logger.info(className, function, "actionsetkey[{}]", actionsetkey);
+		logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
 		
 		boolean bContinue = true;
 
@@ -163,9 +163,9 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		if ( null != actionset ) {
 			actionset.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
 			for ( String actionsetattributename : ActionAttribute.toStrings() ) {
-				logger.info(className, function, "actionsetattributename[{}]", actionsetattributename);
+				logger.debug(className, function, "actionsetattributename[{}]", actionsetattributename);
 				String actionsetattribute = (String) actionset.getParameter(actionsetattributename);
-				logger.info(className, function, "actionsetattribute[{}]", actionsetattribute);
+				logger.debug(className, function, "actionsetattribute[{}]", actionsetattribute);
 				
 				if ( bContinue ) {
 					if ( null != actionsetattribute ) {
@@ -176,13 +176,13 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 							for ( Entry<String, HashMap<String, Object>> entry : override.entrySet() ) {
 								String key = entry.getKey();
 								HashMap<String, Object> parameters = entry.getValue();
-								logger.info(className, function, "key[{}] == actionsetattribute[{}]", key, actionsetattribute);
+								logger.debug(className, function, "key[{}] == actionsetattribute[{}]", key, actionsetattribute);
 								if ( key.equals(actionsetattribute) ) {
 									if ( null != parameters ) {
 										for ( Entry<String, Object> parameter : parameters.entrySet() ) {
 											String parameterKey		= parameter.getKey();
 											Object parameterValue	= parameter.getValue();
-											logger.info(className, function, "parameter[{}] value[{}]", parameterKey, parameterValue);
+											logger.debug(className, function, "parameter[{}] value[{}]", parameterKey, parameterValue);
 											action.setParameter(parameterKey, parameterValue);
 										}
 									} else {
@@ -222,9 +222,9 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		boolean bContinue = true;
 		if ( null != action ) {
 			for ( String eventattributename : ActionAttribute.toStrings() ) {
-				logger.info(className, function, "eventattributename[{}]", eventattributename);
+				logger.debug(className, function, "eventattributename[{}]", eventattributename);
 				String actionkey = (String) action.getParameter(eventattributename);
-				logger.info(className, function, "actionkey[{}]", actionkey);
+				logger.debug(className, function, "actionkey[{}]", actionkey);
 				if ( bContinue ) {
 					if ( null != actionkey ) {
 						bContinue = executeAction(actionkey, override, executeActionHandler);
@@ -247,7 +247,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	public boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
-		logger.info(className, function, "actionkey[{}]", actionkey);
+		logger.debug(className, function, "actionkey[{}]", actionkey);
 		boolean bContinue = true;
 		bContinue = executeAction(actionkey, override, null);
 		logger.end(className, function);
@@ -262,7 +262,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	public boolean executeAction(String actionkey, HashMap<String, HashMap<String, Object>> override, UIExecuteActionHandler_i executeActionHandler) {
 		final String function = prefix+" executeAction";
 		logger.begin(className, function);
-		logger.info(className, function, "actionkey[{}]", actionkey);
+		logger.debug(className, function, "actionkey[{}]", actionkey);
 		boolean bContinue = true;
 		UIEventAction action = uiEventActionMgr.get(actionkey);
 		if ( null != action ) {
@@ -306,12 +306,12 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 				
 				String spt = (String) action.getParameter(UIActionEventSenderAttribute.SenderOperation.toString());
 				
-				logger.info(className, function, "spt[{}]", spt);
+				logger.debug(className, function, "spt[{}]", spt);
 				
 				if ( null != spt && spt.equals(UIActionEventType.event.toString()) ) {
-					logger.info(className, function, "spt[{}] IS event", spt);
+					logger.debug(className, function, "spt[{}] IS event", spt);
 					String operationElement = UIEventActionProcessorCore.getOperationElement(prefix, action);
-					logger.info(className, function, "operationElement[{}] == element[{}]", operationElement, element);
+					logger.debug(className, function, "operationElement[{}] == element[{}]", operationElement, element);
 					if ( null == operationElement || ( null != operationElement && ! operationElement.equals(element)) ) {
 						if ( null != simpleEventBus ) {
 							
@@ -334,7 +334,7 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 					}
 				} else {
 					String opa = (String) action.getParameter(UIActionEventAttribute.OperationAction.toString());
-					logger.info(className, function, "opa[{}]", opa);
+					logger.debug(className, function, "opa[{}]", opa);
 					if ( null != opa ) {
 						UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
 						UIEventActionExecute_i uiEventActionExecute_i = uiEventActionExecuteMgr.getUIEventActionExecute(opa);
@@ -367,14 +367,14 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 	private static String getParameter(String prefix, UIEventAction uiEventAction, String parameter) {
 		final String function = prefix+" getParameter";
 		logger.begin(className, function);
-		logger.info(className, function, "parameter[{}]", parameter);
+		logger.debug(className, function, "parameter[{}]", parameter);
 		String parameterValue = null;
 		if ( null != uiEventAction ) {
 			parameterValue = (String) uiEventAction.getParameter(parameter);
 		} else {
 			logger.warn(className, function, "uiEventAction IS NULL");
 		}
-		logger.info(className, function, "parameter[{}] parameterValue[{}]", parameter, parameterValue);
+		logger.debug(className, function, "parameter[{}] parameterValue[{}]", parameter, parameterValue);
 		logger.end(className, function);
 		return parameterValue;
 	}
@@ -395,9 +395,9 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 				Object object = uiEventAction.getParameter(key);
 				if ( object instanceof String ) {
 					String string = (String)object;
-					logger.info(className, function, "string[{}]", string);
+					logger.debug(className, function, "string[{}]", string);
 				} else {
-					logger.info(className, function, "object[{}]", object);
+					logger.debug(className, function, "object[{}]", object);
 				}
 			}
 		} else {

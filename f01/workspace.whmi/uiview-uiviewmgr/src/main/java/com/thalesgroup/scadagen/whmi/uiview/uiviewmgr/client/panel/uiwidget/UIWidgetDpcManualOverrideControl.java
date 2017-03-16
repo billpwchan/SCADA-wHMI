@@ -78,83 +78,90 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize implements
 	private void updateDropDownListBox(String key, String[] dbAddresses, String[] dbValues) {
 		final String function = "updateDropDownListBox";
 		logger.begin(className, function);
+		
+		String address = this.address;
 
 		// ACI, SCI Show the TextBox
 		// DCI, Show the ListBox and store the valueTable
 		
 		logger.info(className, function, "address[{}]", address);
-
-		String point = DatabaseHelper.getPointFromAliasAddress(address);
 		
-		logger.info(className, function, "point[{}]", point);
-		
-		PointType pointType = DatabaseHelper.getPointType(point);
-		
-		logger.info(className, function, "pointType[{}]", pointType);
-		
-		if ( PointType.dci == pointType ) {
-
-			String actionsetkey = "selectdcipoint";
-			uiEventActionProcessor_i.executeActionSet(actionsetkey);
-
-			String targetDbAddress = address+strDalValueTable;
-			String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
+		if ( null != address ) {
 			
-			if ( null != targetValue ) {
-				// Update the Label
-				String valueTable = targetValue;
-				logger.debug(className, function, "valueTable[{}]", valueTable);
+			String point = DatabaseHelper.getPointFromAliasAddress(address);
+			
+			logger.info(className, function, "point[{}]", point);
+			
+			PointType pointType = DatabaseHelper.getPointType(point);
+			
+			logger.info(className, function, "pointType[{}]", pointType);
+			
+			if ( PointType.dci == pointType ) {
 
-				int valueCol = 0, labelCol = 1;
-				String labels[]	= new String[12];
-				String values[]	= new String[12];
-				{
+				String actionsetkey = "selectdcipoint";
+				uiEventActionProcessor_i.executeActionSet(actionsetkey);
+
+				String targetDbAddress = address+strDalValueTable;
+				String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
+				
+				if ( null != targetValue ) {
+					// Update the Label
+					String valueTable = targetValue;
+					logger.debug(className, function, "valueTable[{}]", valueTable);
+
+					int valueCol = 0, labelCol = 1;
+					String labels[]	= new String[12];
+					String values[]	= new String[12];
+					{
+						for( int r = 0 ; r < 12 ; ++r ) {
+							values[r]	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+							values[r]	= DatabaseHelper.removeDBStringWrapper(values[r]);
+							labels[r]	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+							labels[r]	= DatabaseHelper.removeDBStringWrapper(labels[r]);
+						}					
+					}
+					
+					lstValues.clear();
 					for( int r = 0 ; r < 12 ; ++r ) {
-						values[r]	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
-						values[r]	= DatabaseHelper.removeDBStringWrapper(values[r]);
-						labels[r]	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
-						labels[r]	= DatabaseHelper.removeDBStringWrapper(labels[r]);
-					}					
+						
+						if ( null != labels[r] && labels[r].length() > 0 && ! labels[r].equals("null") ) {
+							lstValues.addItem(labels[r]);
+						} else {
+							break;
+						}
+							
+						logger.info(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
+					}
+				} else {
+					logger.warn(className, function, "valueTable IS NULL!");
 				}
 				
-				lstValues.clear();
-				for( int r = 0 ; r < 12 ; ++r ) {
-					
-					if ( null != labels[r] && labels[r].length() > 0 && ! labels[r].equals("null") ) {
-						lstValues.addItem(labels[r]);
-					} else {
-						break;
-					}
-						
-					logger.info(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
-				}
-			} else {
-				logger.warn(className, function, "valueTable IS NULL!");
+			} else if ( PointType.aci == pointType ) {
+
+				String actionsetkey = "selectacipoint";
+				uiEventActionProcessor_i.executeActionSet(actionsetkey);
+
+				// Update the Label
+				String targetDbAddress = address+strValue;
+				String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
+				logger.debug(className, function, "targetValue[{}]", targetValue);
+				
+				txtValues.setText(targetValue);
+				
+			} else if ( PointType.sci == pointType ) {
+
+				String actionsetkey = "selectscipoint";
+				uiEventActionProcessor_i.executeActionSet(actionsetkey);
+
+				String targetDbAddress = address+strValue;
+				String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
+				logger.debug(className, function, "targetValue[{}]", targetValue);
+				
+				txtValues.setText(targetValue);
+				
 			}
-			
-		} else if ( PointType.aci == pointType ) {
-
-			String actionsetkey = "selectacipoint";
-			uiEventActionProcessor_i.executeActionSet(actionsetkey);
-
-			// Update the Label
-			String targetDbAddress = address+strValue;
-			String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
-			logger.debug(className, function, "targetValue[{}]", targetValue);
-			
-			txtValues.setText(targetValue);
-			
-		} else if ( PointType.sci == pointType ) {
-
-			String actionsetkey = "selectscipoint";
-			uiEventActionProcessor_i.executeActionSet(actionsetkey);
-
-			String targetDbAddress = address+strValue;
-			String targetValue = DatabaseHelper.getFromPairArray(targetDbAddress, dbAddresses, dbValues);
-			logger.debug(className, function, "targetValue[{}]", targetValue);
-			
-			txtValues.setText(targetValue);
-			
+		} else {
+			logger.warn(className, function, "address IS NULL");
 		}
 
 		logger.end(className, function);
@@ -164,73 +171,79 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize implements
 		final String function = "readPointValueTable";
 		logger.begin(className, function);
 		String[] dbaddresses = null;
-
-		ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-
-		String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
-		logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
-		if ( null != point ) {
-			PointType pointType = DatabaseHelper.getPointType(point);
-			if ( pointType == PointType.dci ) {
-				for ( String attribute : staticDciAttibutes ) {
-					dbaddressesArrayList.add(dbaddress+attribute);
-				}
-			} else if ( pointType == PointType.aci ) {
-				for ( String attribute : staticAciAttibutes ) {
-					dbaddressesArrayList.add(dbaddress+attribute);
-				}
-			} else if ( pointType == PointType.sci ) {
-				for ( String attribute : staticSciAttibutes ) {
-					dbaddressesArrayList.add(dbaddress+attribute);
-				}
-			} else {
-				logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
-			}
-		}
-
-		dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-	
-		DataBaseClientKey ck = new DataBaseClientKey();
-		ck.setAPI(API.multiReadValue);
-		ck.setWidget(className);
-		ck.setStability(Stability.STATIC);
-		ck.setScreen(uiNameCard.getUiScreen());
-		ck.setEnv(scsEnvId);
-		ck.setAdress(address);
 		
-		String clientKey = ck.getClientKey();
-		
-		logger.info(className, function, "clientKey[{}]", clientKey);
-		
-		if (logger.isDebugEnabled() ) {
-			logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
-			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
-			}
-		}
-		
-		databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
+		if ( null != dbScsEnvId && null != dbaddress ) {
 			
-			@Override
-			public void update(String key, String[] dbAddresses, String[] values) {
+			ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
 
-				DataBaseClientKey ck = new DataBaseClientKey();
-				ck.setAPI(API.multiReadValue);
-				ck.setWidget(className);
-				ck.setStability(Stability.STATIC);
-				ck.setScreen(uiNameCard.getUiScreen());
-				ck.setEnv(scsEnvId);
-				ck.setAdress(address);
-				
-				String clientKey = ck.getClientKey();
-				
-				logger.info(className, function, "key[{}] clientKey[{}]", key, clientKey);
-				
-				if ( clientKey.equals(key) ) {
-					updateDropDownListBox(key, dbAddresses, values);
+			String point = DatabaseHelper.getPointFromAliasAddress(dbaddress);
+			logger.info(className, function, "dbaddress[{}] point[{}]", dbaddress, point);
+			if ( null != point ) {
+				PointType pointType = DatabaseHelper.getPointType(point);
+				if ( pointType == PointType.dci ) {
+					for ( String attribute : staticDciAttibutes ) {
+						dbaddressesArrayList.add(dbaddress+attribute);
+					}
+				} else if ( pointType == PointType.aci ) {
+					for ( String attribute : staticAciAttibutes ) {
+						dbaddressesArrayList.add(dbaddress+attribute);
+					}
+				} else if ( pointType == PointType.sci ) {
+					for ( String attribute : staticSciAttibutes ) {
+						dbaddressesArrayList.add(dbaddress+attribute);
+					}
+				} else {
+					logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
 				}
 			}
-		});
+
+			dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+		
+			DataBaseClientKey ck = new DataBaseClientKey();
+			ck.setAPI(API.multiReadValue);
+			ck.setWidget(className);
+			ck.setStability(Stability.STATIC);
+			ck.setScreen(uiNameCard.getUiScreen());
+			ck.setEnv(scsEnvId);
+			ck.setAdress(address);
+			
+			String clientKey = ck.getClientKey();
+			
+			logger.info(className, function, "clientKey[{}]", clientKey);
+			
+			if (logger.isDebugEnabled() ) {
+				logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", clientKey, scsEnvId);
+				for(int i = 0; i < dbaddresses.length; ++i ) {
+					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				}
+			}
+			
+			databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbaddresses, new DatabasePairEvent_i() {
+				
+				@Override
+				public void update(String key, String[] dbAddresses, String[] values) {
+
+					DataBaseClientKey ck = new DataBaseClientKey();
+					ck.setAPI(API.multiReadValue);
+					ck.setWidget(className);
+					ck.setStability(Stability.STATIC);
+					ck.setScreen(uiNameCard.getUiScreen());
+					ck.setEnv(scsEnvId);
+					ck.setAdress(address);
+					
+					String clientKey = ck.getClientKey();
+					
+					logger.info(className, function, "key[{}] clientKey[{}]", key, clientKey);
+					
+					if ( clientKey.equals(key) ) {
+						updateDropDownListBox(key, dbAddresses, values);
+					}
+				}
+			});
+			
+		} else {
+			logger.warn(className, function, "dbScsEnvId OR dbaddress IS NULL");
+		}
 
 		logger.end(className, function);
 	}
@@ -300,48 +313,53 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize implements
 												scsEnvId = selectedServiceOwner;
 												address = selectedAlias;
 												
-												logger.info(className, function, "alias BF [{}]", address);
-												
-												address = "<alias>" + selectedAlias;
-												
-												logger.info(className, function, "alias AF [{}]", address);
-												
-												WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
-												boolean isApply = false;
-												if ( WidgetStatus.Down == curStatusSet ) {
-													isApply = true;
-												}
-												logger.info(className, function, "isApply[{}]", isApply);
-					
-												String key = "changeEqpStatus" + "_"+ className + "_"+ "manualoverride" + "_"+ isApply + "_" + address;
-												
-												String point = DatabaseHelper.getPointFromAliasAddress(address);
-												logger.info(className, function, "address[{}] point[{}]", address, point);
-												if ( null != point ) {
-													PointType pointType = DatabaseHelper.getPointType(point);
-													logger.info(className, function, "pointType[{}]", pointType);
-													if ( pointType == PointType.dci ) {
-														int value = lstValues.getSelectedIndex();
-														logger.info(className, function, "scsEnvIdscsEnvIdvalue[{}]", value);
-														dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
-													} else if ( pointType == PointType.aci ) {
-														float value = 0.0f;
-														try {
-															value = Float.parseFloat(txtValues.getText());
-														} catch (NumberFormatException e) {
-															logger.warn(className, function, "NumberFormatException[{}]", e.toString());
-														}
-														logger.info(className, function, "value[{}]", value);
-														dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
-													} else if ( pointType == PointType.sci ) {
-														String value = txtValues.getText();
-														logger.info(className, function, "value[{}]", value);
-														dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
-													} else {
-														logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+												if ( null != scsEnvId && null != address ) {
+													
+													logger.info(className, function, "alias BF [{}]", address);
+													
+													address = "<alias>" + selectedAlias;
+													
+													logger.info(className, function, "alias AF [{}]", address);
+													
+													WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
+													boolean isApply = false;
+													if ( WidgetStatus.Down == curStatusSet ) {
+														isApply = true;
 													}
+													logger.info(className, function, "isApply[{}]", isApply);
+						
+													String key = "changeEqpStatus" + "_"+ className + "_"+ "manualoverride" + "_"+ isApply + "_" + address;
+													
+													String point = DatabaseHelper.getPointFromAliasAddress(address);
+													logger.info(className, function, "address[{}] point[{}]", address, point);
+													if ( null != point ) {
+														PointType pointType = DatabaseHelper.getPointType(point);
+														logger.info(className, function, "pointType[{}]", pointType);
+														if ( pointType == PointType.dci ) {
+															int value = lstValues.getSelectedIndex();
+															logger.info(className, function, "scsEnvIdscsEnvIdvalue[{}]", value);
+															dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
+														} else if ( pointType == PointType.aci ) {
+															float value = 0.0f;
+															try {
+																value = Float.parseFloat(txtValues.getText());
+															} catch (NumberFormatException e) {
+																logger.warn(className, function, "NumberFormatException[{}]", e.toString());
+															}
+															logger.info(className, function, "value[{}]", value);
+															dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
+														} else if ( pointType == PointType.sci ) {
+															String value = txtValues.getText();
+															logger.info(className, function, "value[{}]", value);
+															dpcMgr.sendChangeVarForce(key, scsEnvId, address, isApply, value);
+														} else {
+															logger.warn(className, function, "dbaddress IS UNKNOW TYPE");
+														}
+													}
+												} else {
+													logger.warn(className, function, "scsEnvId OR address IS NULL");
 												}
-					
+
 											}
 					
 										}
@@ -386,38 +404,58 @@ public class UIWidgetDpcManualOverrideControl extends UIWidgetRealize implements
 						if ( null != obj1 ) {
 							selectedSet	= (Set<HashMap<String, String>>) obj1;
 							
-							String selectedStatus1 = null;
-							for ( HashMap<String, String> hashMap : selectedSet ) {
-								String selectedAlias = hashMap.get(columnAlias);
-								String selectedServiceOwner = hashMap.get(columnServiceOwner);
-								
-								logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
-								
-								logger.info(className, function, "selectedAlias BF [{}]", selectedAlias);
-								
-								if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
-								
-								logger.info(className, function, "selectedAlias AF [{}]", selectedAlias);
-								
-								scsEnvId = selectedServiceOwner;
-								address = selectedAlias;
+							if ( null != selectedSet ) {
+								String selectedStatus1 = null;
+								for ( HashMap<String, String> hashMap : selectedSet ) {
+									
+									if ( null != hashMap ) {
+										
+										String selectedAlias = hashMap.get(columnAlias);
+										String selectedServiceOwner = hashMap.get(columnServiceOwner);
+										
+										logger.info(className, function, "selectedAlias[{}] selectedServiceOwner[{}]", selectedAlias, selectedServiceOwner);
+										
+										logger.info(className, function, "selectedAlias BF [{}]", selectedAlias);
+										
+										if ( ! selectedAlias.startsWith("<alias>") ) selectedAlias = "<alias>" + selectedAlias;
+										
+										logger.info(className, function, "selectedAlias AF [{}]", selectedAlias);
+										
+										scsEnvId = selectedServiceOwner;
+										address = selectedAlias;
 
-								selectedStatus1 = hashMap.get(columnStatus);
+										selectedStatus1 = hashMap.get(columnStatus);
+									} else {
+										logger.warn(className, function, "hashMap IS NULL");
+									}
+									
 
+
+								}
+								
+								if ( null != scsEnvId && null != address ) {
+									
+									readPointValueTable(scsEnvId, address);
+									
+									if ( null != selectedStatus1 ) {
+										if ( valueSet.equals(selectedStatus1) ) {
+											String actionsetkey = os1+"_valueUnset";
+											uiEventActionProcessor_i.executeActionSet(actionsetkey);
+										}
+										if ( valueUnSet.equals(selectedStatus1) ) {
+											String actionsetkey = os1+"_valueSet";
+											uiEventActionProcessor_i.executeActionSet(actionsetkey);
+										}
+									}
+								} else {
+									logger.warn(className, function, "scsEnvId OR address IS NULL");
+								}
+										
+
+							} else {
+								logger.warn(className, function, "selectedSet IS NULL");
 							}
 							
-							readPointValueTable(scsEnvId, address);
-							
-							if ( null != selectedStatus1 ) {
-								if ( valueSet.equals(selectedStatus1) ) {
-									String actionsetkey = os1+"_valueUnset";
-									uiEventActionProcessor_i.executeActionSet(actionsetkey);
-								}
-								if ( valueUnSet.equals(selectedStatus1) ) {
-									String actionsetkey = os1+"_valueSet";
-									uiEventActionProcessor_i.executeActionSet(actionsetkey);
-								}
-							}
 						} else {
 							logger.warn(className, function, "obj1 IS NULL");
 						}

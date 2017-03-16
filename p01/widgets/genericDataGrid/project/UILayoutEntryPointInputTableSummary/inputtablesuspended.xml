@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid" xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd                       http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
+<p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid"
+                                xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common"
+                                xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
 
     <p:gridConfiguration fastForwardPages="2" name="inputtablesuspended" pageSize="32"/>
 
@@ -9,30 +13,18 @@
                 <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType</sds:type>
             </sds:transientDataSource>
         </p:dataSource>
-		
+
         <p:criteria xsi:type="cmn:equals" status="listname">
             <cmn:value>almmgnvalidated</cmn:value>
         </p:criteria>
-		
-		<!--
-        <p:criteria xsi:type="cmn:and">
-            <cmn:firstOperand xsi:type="cmn:equals" status="listname">
-                <cmn:value>almmgnvalidated</cmn:value></cmn:firstOperand>
-            <cmn:secondOperand xsi:type="cmn:equals" status="almmgnvalidated_forcedstatus">
-                <cmn:value>0</cmn:value>
-            </cmn:secondOperand>
-        </p:criteria>
-		-->
     </p:subject>
-	
-	<!-- Data & Time, Location, Op Source, System, Equipment, IOName -->
-	
-	<!-- date and time -->
+
+    <!-- date and time -->
     <p:column filterable="true" sortable="true" i18n="true" name="gdg_column_dateandtime" format="scsalarmList_DateFormat" width="50" widthUnit="PX" xsi:type="p:dateColumnType">
         <p:source name="GDGColumnSimpleDateFormat01" statusComputerName="GDGColumnSimpleDateFormat01" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
-	
-	<!-- location -->
+
+    <!-- location -->
     <p:column filterable="true" i18n="true" name="gdg_column_location" sortable="true" width="25" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="geo" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="1" value="scsalarmList_area_location1"/>
@@ -88,8 +80,8 @@
         <p:textItem sourceValue="50" value="scsalarmList_area_location50"/>
 -->
     </p:column>
-	
-	<!-- system -->
+
+    <!-- system -->
     <p:column filterable="true" i18n="true" name="gdg_column_system" sortable="true" width="25" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="func" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="1" value="scsalarmList_funccat_function1"/>
@@ -128,68 +120,125 @@
         <p:textItem sourceValue="34" value="scsalarmList_funccat_function34"/>
         <p:textItem sourceValue="35" value="scsalarmList_funccat_function35"/>
         <p:textItem sourceValue="36" value="scsalarmList_funccat_function36"/>
-        <p:textItem sourceValue="37" value="scsalarmList_funccat_function37"/>
         <p:textItem sourceValue="38" value="scsalarmList_funccat_function38"/>
+        <p:textItem sourceValue="37" value="scsalarmList_funccat_function37"/>
         <p:textItem sourceValue="39" value="scsalarmList_funccat_function39"/>
         <p:textItem sourceValue="40" value="scsalarmList_funccat_function40"/>
         <p:textItem sourceValue="41" value="scsalarmList_funccat_function41"/>
         <p:textItem sourceValue="42" value="scsalarmList_funccat_function42"/>
         <p:textItem sourceValue="43" value="scsalarmList_funccat_function43"/>
         <p:textItem sourceValue="44" value="scsalarmList_funccat_function44"/>
-<!--
         <p:textItem sourceValue="45" value="scsalarmList_funccat_function45"/>
         <p:textItem sourceValue="46" value="scsalarmList_funccat_function46"/>
         <p:textItem sourceValue="47" value="scsalarmList_funccat_function47"/>
         <p:textItem sourceValue="48" value="scsalarmList_funccat_function48"/>
         <p:textItem sourceValue="49" value="scsalarmList_funccat_function49"/>
         <p:textItem sourceValue="50" value="scsalarmList_funccat_function50"/>
--->
-    </p:column>
-	
-	<!-- equipment -->
-   <p:column filterable="true" i18n="false" name="gdg_column_equipment" template="{}" templateMarker="{}" sortable="true" width="50" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn01" statusComputerName="GDGColumn01" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
-	
-	<!-- io name -->
-   <p:column filterable="true" i18n="false" name="gdg_column_ioname" template="{}" templateMarker="{}" sortable="true" width="50" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn02" statusComputerName="GDGColumn02" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
-	
-	<!-- computed message -->
-   <p:column filterable="true" i18n="false" name="gdg_column_computedmessage" template="{}" templateMarker="{}" sortable="true" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn03" statusComputerName="GDGColumn03" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
-	
-	<!-- forced value -->
-   <p:column filterable="true" i18n="false" name="gdg_column_forcedstatus" template="{}" templateMarker="{}" sortable="true" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumnBitwise02" statusComputerName="GDGColumnBitwise02" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
-	
-	<!-- univname -->
-   <p:column filterable="true" i18n="false" name="gdg_column_univname" template="{}" templateMarker="{}" sortable="true" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn04" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
-	
-	<!--
-    <p:column filterable="true" i18n="false" name="almmgnalarminhibit_listname" template="{}" templateMarker="{}" sortable="true" width="80" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-        <p:source name="listname" xsi:type="cmn:statusDataSourceType"/>
+        <p:textItem sourceValue="51" value="scsalarmList_funccat_function51"/>
+        <p:textItem sourceValue="52" value="scsalarmList_funccat_function52"/>
+        <p:textItem sourceValue="53" value="scsalarmList_funccat_function53"/>
+        <p:textItem sourceValue="54" value="scsalarmList_funccat_function54"/>
+        <p:textItem sourceValue="55" value="scsalarmList_funccat_function55"/>
+        <p:textItem sourceValue="56" value="scsalarmList_funccat_function56"/>
+        <p:textItem sourceValue="57" value="scsalarmList_funccat_function57"/>
+        <p:textItem sourceValue="58" value="scsalarmList_funccat_function58"/>
+        <p:textItem sourceValue="1" value="scsalarmList_funccat_function1"/>
+        <p:textItem sourceValue="2" value="scsalarmList_funccat_function2"/>
+        <p:textItem sourceValue="3" value="scsalarmList_funccat_function3"/>
+        <p:textItem sourceValue="4" value="scsalarmList_funccat_function4"/>
+        <p:textItem sourceValue="5" value="scsalarmList_funccat_function5"/>
+        <p:textItem sourceValue="6" value="scsalarmList_funccat_function6"/>
+        <p:textItem sourceValue="7" value="scsalarmList_funccat_function7"/>
+        <p:textItem sourceValue="8" value="scsalarmList_funccat_function8"/>
+        <p:textItem sourceValue="9" value="scsalarmList_funccat_function9"/>
+        <p:textItem sourceValue="10" value="scsalarmList_funccat_function10"/>
+        <p:textItem sourceValue="11" value="scsalarmList_funccat_function11"/>
+        <p:textItem sourceValue="12" value="scsalarmList_funccat_function12"/>
+        <p:textItem sourceValue="13" value="scsalarmList_funccat_function13"/>
+        <p:textItem sourceValue="14" value="scsalarmList_funccat_function14"/>
+        <p:textItem sourceValue="15" value="scsalarmList_funccat_function15"/>
+        <p:textItem sourceValue="16" value="scsalarmList_funccat_function16"/>
+        <p:textItem sourceValue="17" value="scsalarmList_funccat_function17"/>
+        <p:textItem sourceValue="18" value="scsalarmList_funccat_function18"/>
+        <p:textItem sourceValue="19" value="scsalarmList_funccat_function19"/>
+        <p:textItem sourceValue="20" value="scsalarmList_funccat_function20"/>
+        <p:textItem sourceValue="21" value="scsalarmList_funccat_function21"/>
+        <p:textItem sourceValue="22" value="scsalarmList_funccat_function22"/>
+        <p:textItem sourceValue="23" value="scsalarmList_funccat_function23"/>
+        <p:textItem sourceValue="24" value="scsalarmList_funccat_function24"/>
+        <p:textItem sourceValue="25" value="scsalarmList_funccat_function25"/>
+        <p:textItem sourceValue="26" value="scsalarmList_funccat_function26"/>
+        <p:textItem sourceValue="27" value="scsalarmList_funccat_function27"/>
+        <p:textItem sourceValue="28" value="scsalarmList_funccat_function28"/>
+        <p:textItem sourceValue="29" value="scsalarmList_funccat_function29"/>
+        <p:textItem sourceValue="30" value="scsalarmList_funccat_function30"/>
+        <p:textItem sourceValue="31" value="scsalarmList_funccat_function31"/>
+        <p:textItem sourceValue="32" value="scsalarmList_funccat_function32"/>
+        <p:textItem sourceValue="33" value="scsalarmList_funccat_function33"/>
+        <p:textItem sourceValue="34" value="scsalarmList_funccat_function34"/>
+        <p:textItem sourceValue="35" value="scsalarmList_funccat_function35"/>
+        <p:textItem sourceValue="36" value="scsalarmList_funccat_function36"/>
+        <p:textItem sourceValue="38" value="scsalarmList_funccat_function38"/>
+        <p:textItem sourceValue="37" value="scsalarmList_funccat_function37"/>
+        <p:textItem sourceValue="39" value="scsalarmList_funccat_function39"/>
+        <p:textItem sourceValue="40" value="scsalarmList_funccat_function40"/>
+        <p:textItem sourceValue="41" value="scsalarmList_funccat_function41"/>
+        <p:textItem sourceValue="42" value="scsalarmList_funccat_function42"/>
+        <p:textItem sourceValue="43" value="scsalarmList_funccat_function43"/>
+        <p:textItem sourceValue="44" value="scsalarmList_funccat_function44"/>
+        <p:textItem sourceValue="45" value="scsalarmList_funccat_function45"/>
+        <p:textItem sourceValue="46" value="scsalarmList_funccat_function46"/>
+        <p:textItem sourceValue="47" value="scsalarmList_funccat_function47"/>
+        <p:textItem sourceValue="48" value="scsalarmList_funccat_function48"/>
+        <p:textItem sourceValue="49" value="scsalarmList_funccat_function49"/>
+        <p:textItem sourceValue="50" value="scsalarmList_funccat_function50"/>
+        <p:textItem sourceValue="51" value="scsalarmList_funccat_function51"/>
+        <p:textItem sourceValue="52" value="scsalarmList_funccat_function52"/>
+        <p:textItem sourceValue="53" value="scsalarmList_funccat_function53"/>
+        <p:textItem sourceValue="54" value="scsalarmList_funccat_function54"/>
+        <p:textItem sourceValue="55" value="scsalarmList_funccat_function55"/>
+        <p:textItem sourceValue="56" value="scsalarmList_funccat_function56"/>
+        <p:textItem sourceValue="57" value="scsalarmList_funccat_function57"/>
+        <p:textItem sourceValue="58" value="scsalarmList_funccat_function58"/>
+        <p:textItem sourceValue="59" value="scsalarmList_funccat_function59"/>
     </p:column>
 
-    <p:column filterable="true" i18n="false" name="almmgnalarminhibit_dbpath" template="{}" templateMarker="{}" sortable="true" width="80" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-        <p:source name="dbpath" xsi:type="cmn:statusDataSourceType"/>
+    <!-- equipment -->
+    <p:column filterable="true" i18n="false" name="gdg_column_equipment" template="{}" templateMarker="{}" sortable="true" width="50" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn01" statusComputerName="GDGColumn01" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
-    
-    <p:column filterable="true" i18n="false" name="almmgnalarminhibit_serviceOwner" template="{}" templateMarker="{}" sortable="true" width="80" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-        <p:source name="serviceOwnerID" xsi:type="cmn:statusDataSourceType"/>
+
+    <!-- io name -->
+    <p:column filterable="true" i18n="false" name="gdg_column_ioname" template="{}" templateMarker="{}" sortable="true" width="50" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn02" statusComputerName="GDGColumn02" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
-    
-    <p:column filterable="true" i18n="false" name="almmgnalarminhibit_data" template="" templateMarker="" sortable="true" width="80" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-        <p:source name="data" xsi:type="cmn:statusDataSourceType"/>
+
+    <!-- computed message -->
+    <p:column filterable="true" i18n="false" name="gdg_column_computedmessage" template="{}" templateMarker="{}" sortable="true" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn03" statusComputerName="GDGColumn03" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
-	-->
+
+    <!-- forced value -->
+    <p:column filterable="true" i18n="false" name="gdg_column_forcedstatus" template="{}" templateMarker="{}" sortable="true" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumnBitwise02" statusComputerName="GDGColumnBitwise02" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+
+    <!-- univname -->
+    <p:column filterable="true" i18n="false" name="gdg_column_univname" template="{}" templateMarker="{}" sortable="true" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn04" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+
     <!-- default sorting of the GDG -->
+    <p:operationalSortsConfiguration>
+        <p:operationalSortConfiguration name="defaultSort" descriptionLabelName="defaultSort">
+            <p:criterion columnName="gdg_column_dateandtime" ascending="false"/>
+            <p:criterion columnName="gdg_column_location"/>
+            <p:criterion columnName="gdg_column_system"/>
+            <p:criterion columnName="gdg_column_equipment"/>
+            <p:criterion columnName="gdg_column_ioname"/>
+        </p:operationalSortConfiguration>
+    </p:operationalSortsConfiguration>
     <p:defaultSort>
-        <p:simpleSort ascending="false" columnName="gdg_column_dateandtime"/>
+        <p:operationalSort operationalSortName="defaultSort"/>
     </p:defaultSort>
 </p:genericDataGridConfiguration>

@@ -1,4 +1,5 @@
 @import url('project-panel-uigwslogin.css');
+@import url('project-panel-dialogmsg.css');
 
 /* inspector panel */
 @import url('project-panel-inspector.css');
@@ -7,19 +8,16 @@
 @import url('project-panel-inspector-control.css');
 @import url('project-panel-inspector-advance.css');
 
-@import url('project-panel-normal.css');
 @import url('project-panel-uigws.css');
 @import url('project-panel-uigwscache.css');
 @import url('project-panel-uigwslogin.css');
 @import url('project-panel-uipanelaccessbar.css');
 @import url('project-panel-uipanelalarmbanner.css');
-@import url('project-panel-uipanellogin.css');
 @import url('project-panel-uipanelmenu.css');
 @import url('project-panel-uipanelstatusbar.css');
 @import url('project-panel-uipanelview.css');
 @import url('project-panel-uipanelviewlayout.css');
 @import url('project-panel-uipanelviewpanel.css');
-@import url('project-panel-uiscreenlogin.css');
 @import url('project-panel-uiscreenmmi.css');
 @import url('project-panel-uiscreenopm.css');
 @import url('project-panel-uiviewalarm.css');

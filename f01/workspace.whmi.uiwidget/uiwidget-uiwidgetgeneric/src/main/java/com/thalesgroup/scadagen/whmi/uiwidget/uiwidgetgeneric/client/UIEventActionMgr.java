@@ -26,9 +26,8 @@ public class UIEventActionMgr {
 		this.fileName = fileName;
 		this.tag = tag;
 		
-		logger.info(className, function, this.logPrefix+"this.dictionariesCacheName[{}]", this.dictionariesCacheName);
-		logger.info(className, function, this.logPrefix+"this.fileName[{}]", this.fileName);
-		logger.info(className, function, this.logPrefix+"this.tag[{}]", this.tag);
+		logger.debug(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] this.tag[{}]"
+				, new Object[]{this.dictionariesCacheName, this.fileName, this.tag});
 		
 		logger.end(className, function);
 	}
@@ -61,7 +60,7 @@ public class UIEventActionMgr {
 						for ( Entry<String, String> parameters : option.entrySet() ) {
 							String parameterKey = parameters.getKey();
 							String parameterValue = parameters.getValue();
-							logger.info(className, function, this.logPrefix+" ADDED parameterKey[{}] parameterValue[{}]", parameterKey, parameterValue);
+//							logger.debug(className, function, this.logPrefix+" ADDED parameterKey[{}] parameterValue[{}]", parameterKey, parameterValue);
 							uiEventAction.setParameter(parameterKey, parameterValue);
 						}
 					} else {
@@ -78,11 +77,11 @@ public class UIEventActionMgr {
 	
 		int size = uiEventActions.size();
 		if ( size > 0 ) {
-			logger.info(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] size[{}]", new Object[]{this.dictionariesCacheName, this.fileName, this.tag, size});
+			logger.debug(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] size[{}]", new Object[]{this.dictionariesCacheName, this.fileName, this.tag, size});
 			uiEventActionKeys = uiEventActions.keySet().toArray(new String[0]);
 		} else {
 			uiEventActionKeys = new String[]{};
-			logger.info(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] IS EMPTY", new Object[]{this.dictionariesCacheName, this.fileName, this.tag});
+			logger.debug(className, function, this.logPrefix+"this.dictionariesCacheName[{}] this.fileName[{}] tag[{}] IS EMPTY", new Object[]{this.dictionariesCacheName, this.fileName, this.tag});
 		}
 		
 		logger.end(className, function);

@@ -68,6 +68,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseWritingControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.dbm.UIWidgetVerifyUIEventActionControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
@@ -114,8 +115,7 @@ public class UILayoutSummary extends UIWidget_i {
 			scsEnvIds = dictionariesCache.getStringValue(optsXMLFile, ParameterName.ScsEnvIds.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "eventBusName[{}]", eventBusName);
-		logger.info(className, function, "eventBusScope[{}]", eventBusScope);
+		logger.info(className, function, "eventBusName[{}] eventBusScope[{}]", eventBusName, eventBusScope);
 
 		if ( null == eventBusName || eventBusName.trim().length() == 0) {
 			eventBusName = this.viewXMLFile;
@@ -127,21 +127,81 @@ public class UILayoutSummary extends UIWidget_i {
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
 		
 		eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
+		
+		initFactorys();
+
+		uiLayoutGeneric = new UILayoutGeneric();
+		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
+		uiLayoutGeneric.init();
+		rootPanel = uiLayoutGeneric.getMainPanel();
+		
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+		
+		if ( null != uiEventActionProcessor_i ) {
+			uiEventActionProcessor_i.setUINameCard(uiNameCard);
+			uiEventActionProcessor_i.setPrefix(className);
+			uiEventActionProcessor_i.setElement(element);
+			uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
+			uiEventActionProcessor_i.setEventBus(eventBus);
+			uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+			uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
+			uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+			uiEventActionProcessor_i.init();
+
+			uiEventActionProcessor_i.executeActionSetInit();
+			
+			int delay = 1000;
+			if ( null != initDelayMS ) {
+				try { 
+					delay = Integer.parseInt(initDelayMS);
+				} catch ( NumberFormatException ex ) {
+					logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
+				}
+			}
+			uiEventActionProcessor_i.executeActionSetInit(delay, null);
+			
+			uiEventActionProcessor_i.executeActionSetEnvUp(delay, null);
+		} else {
+			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
+		}
+
+		logger.end(className, function);
+	}
+	
+	@Override
+	public void terminate() {
+		final String function = "terminate";
+		logger.begin(className, function);
+		
+		if ( null != uiEventActionProcessor_i) uiEventActionProcessor_i.executeActionSetTerminate();
+		
+		logger.end(className, function);
+	}
+	
+	private void initFactorys () {
+		final String function = "initFactorys";
+		logger.begin(className, function);
 
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
 			public String getMessage(String message) {
 				
-				message = Translation.getDBMessage(message);
-				
-				return message;
+				return Translation.getDBMessage(message);
 			}
 		});
 		
-		UIDialogMgr.getInstance().addDialogs(className, new UIDialogMgrFactory() {
+		UIDialogMgr.getInstance().addUIDialogMgrFactory(className, new UIDialogMgrFactory() {
 			
 			@Override
 			public UIDialog_i getUIDialog(String key) {
+				final String function = "getUIDialog";
+				logger.info(className, function, "key[{}]", key);
+				
 				UIDialog_i uiDialog_i = null;
 				if (
 						UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName())
@@ -150,9 +210,7 @@ public class UILayoutSummary extends UIWidget_i {
 					uiDialog_i = new UIDialogMsg();
 				}
 				
-				if ( null == uiDialog_i ) {
-					logger.warn(className, function, "key[{}] uiDialog_i IS NULL", key);
-				}
+				if ( null == uiDialog_i ) logger.warn(className, function, "key[{}] uiDialog_i IS NULL", key);
 				
 				return uiDialog_i;
 			}
@@ -423,7 +481,14 @@ public class UILayoutSummary extends UIWidget_i {
 
 					uiWidget_i = new UIWidgetVerifyDatabaseGetChildrenControl();
 
-				}  else {
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetVerifyUIEventActionControl();
+
+				} else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 				
@@ -443,26 +508,38 @@ public class UILayoutSummary extends UIWidget_i {
 				return uiWidget_i;
 			}
 		});
-		
-		UIEventActionProcessorMgr.getInstance().addUIEventActionProcessor(className, new UIEventActionProcessorMgrFactory() {
+
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(className, new UIEventActionProcessorMgrFactory() {
 			
 			@Override
 			public UIEventActionProcessor_i getUIEventActionProcessor(String key) {
+				final String function = "getUIEventActionProcessor";
+				logger.info(className, function, "key[{}]", key);
+				
 				UIEventActionProcessor_i uiEventActionProcessor_i = null;
 				
 				if ( UIWidgetUtil.getClassSimpleName(UIEventActionProcessor.class.getName())
 						.equals(key) ) {
 					uiEventActionProcessor_i = new UIEventActionProcessor();
 				}
+				
+				if ( null == uiEventActionProcessor_i ) logger.warn(className, function, "key[{}] uiEventActionProcessor_i IS NULL", key);
+				
 				return uiEventActionProcessor_i;
 			}
 		});
 		
-		UIEventActionExecuteMgr.getInstance().addUIEventActionExecute(className, new UIEventActionExecuteMgrFactory() {
+		UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
+		uiEventActionExecuteMgr.addUIEventActionExecute(className, new UIEventActionExecuteMgrFactory() {
 			
 			@Override
 			public UIEventActionExecute_i getUIEventActionExecute(String key) {
+				final String function = "getUIEventActionExecute";
+				logger.info(className, function, "key[{}]", key);
+				
 				UIEventActionExecute_i uiEventActionExecute_i = null;
+				
 				if ( key.equals(UIActionEventType.alm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionAlm();
 				}
@@ -493,56 +570,13 @@ public class UILayoutSummary extends UIWidget_i {
 				else if ( key.equals(UIActionEventType.event.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionBusFire();
 				}
+				
+				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);
+				
 				return uiEventActionExecute_i;
 			}
 		});
 
-		uiLayoutGeneric = new UILayoutGeneric();
-		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
-		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
-		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
-		uiLayoutGeneric.init();
-		rootPanel = uiLayoutGeneric.getMainPanel();
-		
-		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
-
-		uiEventActionProcessor_i.setUINameCard(uiNameCard);
-		uiEventActionProcessor_i.setPrefix(className);
-		uiEventActionProcessor_i.setElement(element);
-		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
-		uiEventActionProcessor_i.setEventBus(eventBus);
-		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
-		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor_i.init();
-
-		uiEventActionProcessor_i.executeActionSetInit();
-		
-		int delay = 1000;
-		if ( null != initDelayMS ) {
-			try { 
-				delay = Integer.parseInt(initDelayMS);
-			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
-			}
-		}
-		uiEventActionProcessor_i.executeActionSetInit(delay, null);
-		
-		uiEventActionProcessor_i.executeActionSetEnvUp(delay, null);
-		
-		logger.end(className, function);
-	}
-	
-	@Override
-	public void terminate() {
-		final String function = "terminate";
-		logger.begin(className, function);
-//		if ( null != uiWidget_i ) uiWidget_i.terminate();
-		
-		uiEventActionProcessor_i.executeActionSetTerminate();
 		logger.end(className, function);
 	}
 }

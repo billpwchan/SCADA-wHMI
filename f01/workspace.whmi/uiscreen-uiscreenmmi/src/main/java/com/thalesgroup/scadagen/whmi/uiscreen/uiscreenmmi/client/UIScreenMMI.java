@@ -3,6 +3,11 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 import java.util.HashMap;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgrFactory;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
+import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -11,12 +16,30 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.UIPanelVie
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessor;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionCtrl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDbm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDialogMsg;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDpc;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UILayoutConfiguration;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetConfiguration;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelAccessBar;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelEmpty;
@@ -32,6 +55,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseSubscribeFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 /**
  * @author syau
@@ -138,16 +162,92 @@ public class UIScreenMMI extends UIWidget_i {
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 				@Override
 				public void onEvenBusUIChanged(UIEvent uiEvent) {
-					onUIEvent(uiEvent);
 				}
 			})
 		);
 		
+		
 		UIPanelNavigation.getInstance().resetInstance();
 		
-		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
+		initFactorys();
+
+		uiLayoutGeneric = new UILayoutGeneric();
+		uiLayoutGeneric.setUINameCard(this.uiNameCard);
+		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
+		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
+		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
+		uiLayoutGeneric.init();
+		rootPanel = uiLayoutGeneric.getMainPanel();
 		
-		uiWidgetMgr.clearUIWidgetFactorys();		
+		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+
+		uiEventActionProcessor_i.setUINameCard(uiNameCard);
+		uiEventActionProcessor_i.setPrefix(className);
+		uiEventActionProcessor_i.setElement(element);
+		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
+//		uiEventActionProcessor_i.setEventBus(eventBus);
+		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
+		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessor_i.init();
+
+		uiEventActionProcessor_i.executeActionSetInit();
+		
+		int delay = 1000;
+		if ( null != strInitdelayms ) {
+			try { 
+				delay = Integer.parseInt(strInitdelayms);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", strInitdelayms);
+			}
+		}
+		uiEventActionProcessor_i.executeActionSetInit(delay, null);
+		
+		//Start the Navigation Menu
+		logger.info(className, function, "Start the Navigation Menu Begin");
+		
+		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
+		
+		logger.end(className, function);
+	}
+	
+	private void initFactorys() {
+		final String function = "initFactory";
+		logger.begin(className, function);
+
+		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
+			@Override
+			public String getMessage(String message) {
+				
+				return Translation.getDBMessage(message);
+			}
+		});
+		UIDialogMgr uiDialgMgr = UIDialogMgr.getInstance();
+		uiDialgMgr.clearUIDialogMgrFactorys();
+		uiDialgMgr.addUIDialogMgrFactory(className, new UIDialogMgrFactory() {
+			
+			@Override
+			public UIDialog_i getUIDialog(String key) {
+				final String function = "getUIDialog";
+				logger.info(className, function, "key[{}]", key);
+				UIDialog_i uiDialog_i = null;
+				if (
+						UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName())
+						.equals(key)
+						) {
+					uiDialog_i = new UIDialogMsg();
+				}
+				
+				if ( null == uiDialog_i ) logger.warn(className, function, "key[{}] uiDialog_i IS NULL", key);
+				
+				return uiDialog_i;
+			}
+		});
+		
+		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
+		uiWidgetMgr.clearUIWidgetFactorys();
 		uiWidgetMgr.addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			
 			@Override
@@ -174,7 +274,19 @@ public class UIScreenMMI extends UIWidget_i {
 					
 					if ( ! uiCtrl.startsWith("WidgetFactory") ) {
 						
-						if (  UIWidgetUtil.getClassSimpleName(
+						if (		UIWidgetUtil.getClassSimpleName(UIWidgetConfiguration.class.getName())
+								.equals(uiCtrl)
+								) {
+
+							uiWidget_i = new UIWidgetConfiguration();
+
+						} else if (	UIWidgetUtil.getClassSimpleName(UILayoutConfiguration.class.getName())
+								.equals(uiCtrl)
+								) {
+
+							uiWidget_i = new UILayoutConfiguration();
+							
+						} else if (  UIWidgetUtil.getClassSimpleName(
 								UIPanelSoundServerController.class.getName()).equals(uiCtrl) ) {
 							
 							uiWidget_i = new UIPanelSoundServerController();
@@ -246,75 +358,77 @@ public class UIScreenMMI extends UIWidget_i {
 				return uiWidget_i;
 			}
 		});
-
-
-		uiLayoutGeneric = new UILayoutGeneric();
-		uiLayoutGeneric.setUINameCard(this.uiNameCard);
-		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
-		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
-		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
-		uiLayoutGeneric.init();
-		rootPanel = uiLayoutGeneric.getMainPanel();
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
-
-		uiEventActionProcessor_i.setUINameCard(uiNameCard);
-		uiEventActionProcessor_i.setPrefix(className);
-		uiEventActionProcessor_i.setElement(element);
-		uiEventActionProcessor_i.setDictionariesCacheName(strUIWidgetGeneric);
-//		uiEventActionProcessor_i.setEventBus(eventBus);
-		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-//		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
-		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
-		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
-		uiEventActionProcessor_i.init();
-
-		uiEventActionProcessor_i.executeActionSetInit();
-		
-		int delay = 1000;
-		if ( null != strInitdelayms ) {
-			try { 
-				delay = Integer.parseInt(strInitdelayms);
-			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", strInitdelayms);
+		uiEventActionProcessorMgr.clearUIEventActionProcessorMgrFactorys();
+		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(className, new UIEventActionProcessorMgrFactory() {
+			
+			@Override
+			public UIEventActionProcessor_i getUIEventActionProcessor(String key) {
+				final String function = "getUIEventActionProcessor";
+				logger.info(className, function, "key[{}]", key);
+				
+				UIEventActionProcessor_i uiEventActionProcessor_i = null;
+				
+				if ( UIWidgetUtil.getClassSimpleName(UIEventActionProcessor.class.getName())
+						.equals(key) ) {
+					uiEventActionProcessor_i = new UIEventActionProcessor();
+				}
+				
+				if ( null == uiEventActionProcessor_i ) logger.warn(className, function, "key[{}] uiEventActionProcessor_i IS NULL", key);
+				
+				return uiEventActionProcessor_i;
 			}
-		}
-		uiEventActionProcessor_i.executeActionSetInit(delay, null);
+		});
 		
-		//Start the Navigation Menu
-		logger.info(className, function, "Start the Navigation Menu Begin");
-		
-		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
-		
-		logger.end(className, function);
-	}
-	
-	void onUIEvent(UIEvent uiEvent) {
-		
-//		final String function = "onUIEvent";
-//
-//		logger.begin(className, function);
-//
-//		if (null != uiEvent) {
-//			UITask_i taskProvide = uiEvent.getTaskProvide();
-//			if (null != taskProvide) {
-//				if (uiNameCard.getUiScreen() == uiEvent.getTaskProvide().getTaskUiScreen()
-//						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(uiEvent.getTaskProvide().getUiPath())) {
-//
-//					if ( taskProvide instanceof UITaskLaunch ) {
-//
-//						UITaskLaunch taskLaunch = (UITaskLaunch) taskProvide;
-//
-//						logger.info(className, function, "taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
-//
-//					}
-//				}
-//			}
-//
-//		}
-//		
-//		logger.end(className, function);
+		UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
+		uiEventActionExecuteMgr.clearUIEventActionExecuteMgrFactorys();
+		uiEventActionExecuteMgr.addUIEventActionExecute(className, new UIEventActionExecuteMgrFactory() {
+			
+			@Override
+			public UIEventActionExecute_i getUIEventActionExecute(String key) {
+				final String function = "getUIEventActionExecute";
+				logger.info(className, function, "key[{}]", key);
+				
+				UIEventActionExecute_i uiEventActionExecute_i = null;
+				
+				if ( key.equals(UIActionEventType.alm.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionAlm();
+				}
+				else if ( key.equals(UIActionEventType.ctl.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionCtrl();
+				}
+				else if ( key.equals(UIActionEventType.dbm.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionDbm();
+				}
+				else if ( key.equals(UIActionEventType.dialogmsg.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionDialogMsg();
+				}
+				else if ( key.equals(UIActionEventType.dpc.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionDpc();
+				}
+				else if ( key.equals(UIActionEventType.grc.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionGrc();
+				}
+				else if ( key.equals(UIActionEventType.opm.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionOpm();
+				}
+				else if ( key.equals(UIActionEventType.uitask.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionTaskLaunch();
+				}
+				else if ( key.equals(UIActionEventType.widget.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionWidget();
+				}
+				else if ( key.equals(UIActionEventType.event.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionBusFire();
+				}
+				
+				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);
+				
+				return uiEventActionExecute_i;
+			}
+		});
 
+		logger.end(className, function);
 	}
 }

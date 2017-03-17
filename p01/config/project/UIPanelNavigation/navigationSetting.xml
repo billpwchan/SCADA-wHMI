@@ -1154,4 +1154,26 @@
 		<uiView>UILayoutEntryPointHDVSummaryStn/UILayoutEntryPointHDVSummaryStn.view.xml</uiView>
 		<tooltips>Handover Panel (Station)</tooltips>
 	</option>
+	<option key="123">
+		<type>M</type>
+		<name>Verify UIEventAction</name>
+		<title>Verify UIEventAction</title>
+		<!--
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionSummary/UILayoutEntryPointVerifyUIEventActionSummary.view.xml</uiView>
+		-->
+		<tooltips>UIEventAction Verify Summary</tooltips>
+	</option>
+	<option key="124">
+		<type>P</type>
+		<name>UIEventAction Dbm Panel</name>
+		<title>UIEventAction Dbm Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
+		<tooltips>UIEventAction Dbm Panel</tooltips>
+	</option>
 </data-set>

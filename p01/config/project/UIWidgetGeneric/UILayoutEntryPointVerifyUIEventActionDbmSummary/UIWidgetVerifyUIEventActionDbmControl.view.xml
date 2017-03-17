@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>15</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyUIEventActionDbmControl-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify UIEventAction Dbm:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-title</css>
+		<element>title</element>
+	</option>
+	
+	<!-- Create -->
+	<option key="0|1">
+		<widget>Label</widget>
+		<label>Create UIEventAction Dbm Class:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationType_label</css>
+		<element>createlabel</element>
+	</option>
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>dbm</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationType_value</css>
+		<element>OperationType</element>
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Create</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-button-create</css>
+		<element>create</element>
+		<cssContainer>project-UIWidgetVerifyUIEventActionDbmControl-container-create</cssContainer>
+		<tooltip>create</tooltip>
+	</option>
+	
+	<option key="0|4">
+		<widget>Label</widget>
+		<label>WriteIntValue Test Case:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-writeintvalue_label</css>
+		<element>writeintvalue_label</element>
+	</option>
+
+	<option key="0|5">
+		<widget>Label</widget>
+		<label>WriteIntValue Test:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-writeintvalue_label</css>
+		<element>writeintvalue_label</element>
+	</option>
+
+	<option key="0|6">
+		<widget>Label</widget>
+		<label>action:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString1_label</css>
+		<element>OperationString1_label</element>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>WriteIntValue</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString1_value</css>
+		<element>OperationString1</element>
+	</option>
+	
+	<option key="0|8">
+		<widget>Label</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString2_label</css>
+		<element>OperationString2_label</element>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>OCCENVCONN</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString2_value</css>
+		<element>OperationString2</element>
+	</option>
+	
+	<option key="0|10">
+		<widget>Label</widget>
+		<label>address:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString3_label</css>
+		<element>OperationString3_label</element>
+	</option>
+	<option key="0|11">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVECTAIR_0001.tagStatus</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString3_value</css>
+		<element>OperationString3</element>
+	</option>
+	
+	<option key="0|12">
+		<widget>Label</widget>
+		<label>value:</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString4_label</css>
+		<element>OperationString4_label</element>
+	</option>
+	<option key="0|13">
+		<widget>TextBox</widget>
+		<label>1</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-label-OperationString4_value</css>
+		<element>OperationString4</element>
+	</option>
+
+	<option key="0|14">
+		<widget>Button</widget>
+		<label>Execute</label>
+		<css>project-UIWidgetVerifyUIEventActionDbmControl-button-execute</css>
+		<element>execute</element>
+		<cssContainer>project-UIWidgetVerifyUIEventActionDbmControl-container-execute</cssContainer>
+		<tooltip>execute</tooltip>
+	</option>
+	
+</data-set>

@@ -23,13 +23,15 @@ public class UIDialogMgr {
 	}
 	
 	private HashMap<String, UIDialogMgrFactory> hashMap = new HashMap<String, UIDialogMgrFactory>();
-	public void addDialogs(String key, UIDialogMgrFactory uiDialogMgrFactory) {
+	public void addUIDialogMgrFactory(String key, UIDialogMgrFactory uiDialogMgrFactory) {
 		String function = "addDialogs";
 		logger.begin(className, function);
 		logger.info(className, function, "key[{}]", key);
 		hashMap.put(className, uiDialogMgrFactory);
 		logger.end(className, function);
 	}
+	public void removeUIDialogMgrFactory(String key) { hashMap.remove(key); }
+	public void clearUIDialogMgrFactorys() { this.hashMap.clear(); }
 	
 	public UIDialog_i getDialog(String key) {
 		String function = "getDialog";
@@ -44,6 +46,8 @@ public class UIDialogMgr {
 			} else {
 				logger.warn(className, function, "v from the k[{}] IS NULL", k);
 			}
+			
+			if ( null != uiDialog_i ) break;
 		}
 		if ( null == uiDialog_i ) {
 			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");

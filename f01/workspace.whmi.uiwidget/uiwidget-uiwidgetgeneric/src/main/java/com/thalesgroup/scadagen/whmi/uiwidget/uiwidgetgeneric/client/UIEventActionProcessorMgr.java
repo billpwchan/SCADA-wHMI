@@ -20,12 +20,11 @@ public class UIEventActionProcessorMgr {
 	private UIEventActionProcessorMgr() {}
 	
 	public HashMap<String, UIEventActionProcessorMgrFactory> hashMap = new HashMap<String, UIEventActionProcessorMgrFactory>();
-	public void addUIEventActionProcessor(String key, UIEventActionProcessorMgrFactory uiEventActionProcessorMgrFactory) {
+	public void addUIEventActionProcessorMgrFactory(String key, UIEventActionProcessorMgrFactory uiEventActionProcessorMgrFactory) {
 		hashMap.put(key, uiEventActionProcessorMgrFactory);	
 	}
-	public void removeUIEventActionProcessor(String key) {
-		hashMap.remove(key);
-	}
+	public void removeUIEventActionProcessorMgrFactory(String key) { hashMap.remove(key); }
+	public void clearUIEventActionProcessorMgrFactorys() { this.hashMap.clear(); }
 	
 	public UIEventActionProcessor_i getUIEventActionProcessorMgr(String key) {
 		final String function = "getUIEventActionExecute";
@@ -38,6 +37,8 @@ public class UIEventActionProcessorMgr {
 			} else {
 				logger.warn(className, function, "v from the k[{}] IS NULL", k);
 			}
+			
+			if ( null != uiEventActionProcessor_i ) break;
 		}
 		if ( null == uiEventActionProcessor_i ) {
 			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");

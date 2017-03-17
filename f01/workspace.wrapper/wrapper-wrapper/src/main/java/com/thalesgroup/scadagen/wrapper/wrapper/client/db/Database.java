@@ -11,6 +11,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.Hyperv
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
@@ -19,7 +20,7 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
  * @author syau
  *
  */
-public class Database {
+public class Database implements Connectable_i {
 	
 	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -264,6 +265,7 @@ public class Database {
 	/**
 	 * Init and connect to database
 	 */
+	@Override
 	public void connect() {
 		final String function = "connect";
 		
@@ -603,6 +605,7 @@ public class Database {
 	/**
 	 * Disconnect to database
 	 */
+	@Override
 	public void disconnect() {
 
 		try {

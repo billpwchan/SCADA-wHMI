@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.common;
 
 /**
  * @author syau

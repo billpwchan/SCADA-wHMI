@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
+package com.thalesgroup.scadagen.whmi.config.configenv.client;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;

@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -36,17 +37,25 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 		String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 		String strAddress			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
 		String strValue				= (String) action.getParameter(ActionAttribute.OperationString4.toString());
-		if ( logger.isInfoEnabled() ) {
+		if ( logger.isDebugEnabled() ) {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+				logger.debug(className, function, "key[{}] obj[{}]", key, obj);
 			}
 		}
 		
-		String strDatabaseWritingKey = "DatabaseWriting";
-		logger.debug(className, function, "strDatabaseWritingKey[{}]", strDatabaseWritingKey);
-		DatabaseWrite_i databaseWriting_i = DatabaseWriteFactory.get(strDatabaseWritingKey);
+		final String strProperties				= "properties";
+		final String dictionariesCacheName		= "UIInspectorPanel";
+		final String strPropPrefix				= "UIEventAction.Dbm.";
+		final String strPropName	 			= strPropPrefix+strProperties;
+		final String strDatabaseMultiReadingKey	= strPropPrefix+"DatabaseWritingKey";
+		
+		String databaseWritingKey = "DatabaseWritingSingleton";
+		databaseWritingKey = ReadProp.readString(dictionariesCacheName, strPropName, strDatabaseMultiReadingKey, databaseWritingKey);
+		logger.debug(className, function, "databaseWritingKey[{}]", databaseWritingKey);
+		
+		DatabaseWrite_i databaseWriting_i = DatabaseWriteFactory.get(databaseWritingKey);
 		if ( null != databaseWriting_i ) {
 			
 			databaseWriting_i.connect();
@@ -90,7 +99,7 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 			databaseWriting_i = null;
 			
 		} else {
-			logger.warn(className, function, "strDatabaseWritingKey IS INVALID", strDatabaseWritingKey);
+			logger.warn(className, function, "databaseWritingKey IS INVALID", databaseWritingKey);
 		}
 
 		logger.end(className, function);

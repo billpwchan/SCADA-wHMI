@@ -24,9 +24,8 @@ public class UIEventActionExecuteMgr {
 	public void addUIEventActionExecute(String key, UIEventActionExecuteMgrFactory uiEventActionExecuteMgrFactory) {
 		hashMap.put(key, uiEventActionExecuteMgrFactory);
 	}
-	public void removeUIEventActionExecute(String key) {
-		hashMap.remove(key);
-	}
+	public void removeUIEventActionExecuteMgrFactory(String key) { hashMap.remove(key); }
+	public void clearUIEventActionExecuteMgrFactorys() { this.hashMap.clear(); }
 	
 	public UIEventActionExecute_i getUIEventActionExecute(String key) {
 		final String function = "getUIEventActionExecute";
@@ -39,6 +38,8 @@ public class UIEventActionExecuteMgr {
 			} else {
 				logger.warn(className, function, "v from the k[{}] IS NULL", k);
 			}
+			
+			if ( null != uiEventActionExecute ) break;
 		}
 		if ( null == uiEventActionExecute ) {
 			logger.warn(className, function, "uiEventActionExecute IS NULL");

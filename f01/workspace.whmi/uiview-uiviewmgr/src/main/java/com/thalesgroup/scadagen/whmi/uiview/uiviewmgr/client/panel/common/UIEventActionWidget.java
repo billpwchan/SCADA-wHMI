@@ -12,6 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecu
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 
 public class UIEventActionWidget extends UIEventActionExecute_i {
+	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionWidget.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	

@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
 
+import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
+
 public interface DatabaseWrite_i extends Connectable_i {
 	
 	void addWriteDateValueRequest(String key, String scsEnvId, String dbAddress, long second, long usecond);

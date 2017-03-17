@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize;
 
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+
 public interface UIRealize_i {
 	public enum ParameterName {
 		  SimpleEventBus("SimpleEventBus")
@@ -21,4 +23,12 @@ public interface UIRealize_i {
 		@Override
 		public String toString() { return this.text; }
 	}
+	
+	boolean fromUILayoutSummaryInit(UIEventAction uiEventAction);
+	
+	boolean fromUILayoutSummaryEnvUp(UIEventAction uiEventAction);
+	
+	boolean fromUILayoutSummaryEnvDown(UIEventAction uiEventAction);
+	
+	boolean fromUILayoutSummaryTerminate(UIEventAction uiEventAction);
 }

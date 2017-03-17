@@ -4,6 +4,7 @@ public interface SCADAgenPager_i {
 	public enum ParameterName {
 		  HasPreviousPage("HasPreviousPage")
 		, HasNextPage("HasNextPage")
+		, HasFastBackwardPage("HasFastBackwardPage")
 		, HasFastForwardPage("HasFastForwardPage")
 		;
 		private final String text;

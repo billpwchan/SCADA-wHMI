@@ -20,10 +20,16 @@ public class UIWidgetViewerPager extends UIWidgetRealize implements UIRealize_i 
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewerPager.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private final String strUnderLine = "_";
+	
+	private String logPrefix = "";
 
 	@Override
 	public void init() {
 		super.init();
+		
+		logPrefix = "element[{}] ";
 		
 		final String function = "init";
 		logger.begin(className, function);
@@ -68,7 +74,7 @@ public class UIWidgetViewerPager extends UIWidgetRealize implements UIRealize_i 
 				
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 				
-				logger.info(className, function, "oe[{}] element[{}]", oe, element);
+				logger.info(className, function, logPrefix+"oe[{}] element[{}]", oe, element);
 				
 				if ( null != oe ) {
 					
@@ -76,40 +82,47 @@ public class UIWidgetViewerPager extends UIWidgetRealize implements UIRealize_i 
 						
 						String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 						
-						logger.info(className, function, "os1[{}]", os1);
+						logger.info(className, function, logPrefix+"os1[{}]", os1);
 						
 						if ( null != os1 ) {
 							
 							String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+							
+							logger.info(className, function, logPrefix+"os2[{}]", os2);
 						
-							if ( os1.equals("HasPreviousPage") ) {
+							if ( os1.equals(UIWidgetViewerPager_i.ParameterName.HasPreviousPage.toString()) ) {
 								
-								String actionsetkey = os1+"_"+os2;
-								
-								uiEventActionProcessor_i.executeActionSet(actionsetkey);
-								
-							} else if ( os1.equals("HasNextPage") ) {
-								
-								String actionsetkey = os1+"_"+os2;
+								String actionsetkey = os1+strUnderLine+os2;
 								
 								uiEventActionProcessor_i.executeActionSet(actionsetkey);
 								
-							} else if ( os1.equals("HasFastForwardPage") ) {
+							} else if ( os1.equals(UIWidgetViewerPager_i.ParameterName.HasFastBackwardPage.toString()) ) {
 								
-								String actionsetkey = os1+"_"+os2;
+								String actionsetkey = os1+strUnderLine+os2;
+								
+								uiEventActionProcessor_i.executeActionSet(actionsetkey);
+								
+							} else if ( os1.equals(UIWidgetViewerPager_i.ParameterName.HasFastForwardPage.toString()) ) {
+								
+								String actionsetkey = os1+strUnderLine+os2;
+								
+								uiEventActionProcessor_i.executeActionSet(actionsetkey);
+								
+							} else if ( os1.equals(UIWidgetViewerPager_i.ParameterName.HasNextPage.toString()) ) {
+								
+								String actionsetkey = os1+strUnderLine+os2;
 								
 								uiEventActionProcessor_i.executeActionSet(actionsetkey);
 								
 							}
 							
-							String strPageValueChanged = "PagerValueChanged_";
-							if ( os1.equals(strPageValueChanged+"PageStart") ) {
+							if ( os1.equals(UIWidgetViewerPager_i.ParameterName.PagerValueChanged_PageStart.toString()) ) {
 								if ( null != os2 ) {
 									int value = 0;
 									try {
 										value = Integer.parseInt(os2);
 									} catch ( NumberFormatException ex ) {
-										logger.warn(className, function, "os2["+os2+"] ex[{}]", os2, ex.toString());
+										logger.warn(className, function, logPrefix+"os2[{}] ex[{}]", os2, ex.toString());
 									}
 									
 									String actionsetkey = os1;
@@ -123,16 +136,16 @@ public class UIWidgetViewerPager extends UIWidgetRealize implements UIRealize_i 
 									
 									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 								} else {
-									logger.warn(className, function, "os2 IS NULL");
+									logger.warn(className, function, logPrefix+"os2 IS NULL");
 								}
 								
-							} else if ( os1.equals(strPageValueChanged+"EndIndex") ) {
+							} else if ( os1.equals(UIWidgetViewerPager_i.ParameterName.PagerValueChanged_EndIndex.toString()) ) {
 								if ( null != os2 ) {
 									int value = 0;
 									try {
 										value = Integer.parseInt(os2);
 									} catch ( NumberFormatException ex ) {
-										logger.info(className, function, "os2["+os2+"] ex[{}]", os2, ex.toString());
+										logger.info(className, function, logPrefix+"os2[{}] ex[{}]", os2, ex.toString());
 									}
 									
 									String actionsetkey = os1;
@@ -146,15 +159,15 @@ public class UIWidgetViewerPager extends UIWidgetRealize implements UIRealize_i 
 									
 									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 								} else {
-									logger.warn(className, function, "os2 IS NULL");
+									logger.warn(className, function, logPrefix+"os2 IS NULL");
 								}
-							} else if ( os1.equals(strPageValueChanged+"Exact") ) {
+							} else if ( os1.equals(UIWidgetViewerPager_i.ParameterName.PagerValueChanged_Exact.toString()) ) {
 								if ( null != os2 ) {
 									int value = 0;
 									try {
 										value = Integer.parseInt(os2);
 									} catch ( NumberFormatException ex ) {
-										logger.info(className, function, "os2["+os2+"] ex[{}]", os2, ex.toString());
+										logger.info(className, function, logPrefix+"os2[{}] ex[{}]", os2, ex.toString());
 									}
 									
 									String actionsetkey = os1;
@@ -168,7 +181,7 @@ public class UIWidgetViewerPager extends UIWidgetRealize implements UIRealize_i 
 									
 									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 								} else {
-									logger.warn(className, function, "os2 IS NULL");
+									logger.warn(className, function, logPrefix+"os2 IS NULL");
 								}
 							}
 						}

@@ -1,6 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize;
-
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+package com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client;
 
 public interface UIRealize_i {
 	

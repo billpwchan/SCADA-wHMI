@@ -129,7 +129,9 @@ public class UILayoutSummary extends UIWidget_i {
 		}
 		logger.info(className, function, "eventBusName[{}]", eventBusName);
 		
-		eventBus = UIEventActionBus.getInstance().getEventBus(eventBusName);
+		UIEventActionBus uiEventActionBus = UIEventActionBus.getInstance();
+		uiEventActionBus.resetEventBus(eventBusName);
+		eventBus = uiEventActionBus.getEventBus(eventBusName);
 		
 		initFactorys();
 
@@ -198,7 +200,8 @@ public class UILayoutSummary extends UIWidget_i {
 			}
 		});
 		
-		UIDialogMgr.getInstance().addUIDialogMgrFactory(className, new UIDialogMgrFactory() {
+		UIDialogMgr uiDialogMgr = UIDialogMgr.getInstance();
+		uiDialogMgr.addUIDialogMgrFactory(className, new UIDialogMgrFactory() {
 			
 			@Override
 			public UIDialog_i getUIDialog(String key) {
@@ -219,7 +222,8 @@ public class UILayoutSummary extends UIWidget_i {
 			}
 		});
 
-		UIWidgetMgr.getInstance().addUIWidgetFactory(className, new UIWidgetMgrFactory() {
+		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
+		uiWidgetMgr.addUIWidgetFactory(className, new UIWidgetMgrFactory() {
 			@Override
 			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
 					, String uiDict
@@ -441,7 +445,8 @@ public class UILayoutSummary extends UIWidget_i {
 			}
 		});
 		
-		UIWidgetMgr.getInstance().addUIWidgetFactory("verify", new UIWidgetMgrFactory() {
+		UIWidgetMgr uiWidgetMgr1Verify = UIWidgetMgr.getInstance();
+		uiWidgetMgr1Verify.addUIWidgetFactory("verify", new UIWidgetMgrFactory() {
 			@Override
 			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
 					, String uiDict

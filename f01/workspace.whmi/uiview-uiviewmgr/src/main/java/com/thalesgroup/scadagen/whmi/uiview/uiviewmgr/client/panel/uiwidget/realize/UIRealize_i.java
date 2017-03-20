@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.rea
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
 public interface UIRealize_i {
+	
 	public enum ParameterName {
 		  SimpleEventBus("SimpleEventBus")
 		;

@@ -29,4 +29,19 @@ public class UIEventActionBus {
 		logger.end(className, function);
 		return buses.get(key);
 	}
+	public void resetEventBus(String key) {
+		final String function = "resetEventBus";
+		logger.begin(className, function);
+		logger.debug(className, function, "key[{}]", key);
+		if ( buses.containsKey(key) ) {
+			buses.remove(key);
+		}
+		logger.end(className, function);
+	}
+	public void cleanEventBuses() {
+		final String function = "cleanEventBuses";
+		logger.begin(className, function);
+		buses.clear();
+		logger.end(className, function);
+	}
 }

@@ -29,7 +29,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UILayoutRealize;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIRealize_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.event.ScsOlsListPanelMenuHandler;
@@ -45,7 +44,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 
-public class UIWidgetViewer extends UILayoutRealize implements UIRealize_i {
+public class UIWidgetViewer extends UILayoutRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);

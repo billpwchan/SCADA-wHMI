@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -49,7 +50,9 @@ public class UIWidgetRealize extends UIWidget_i implements UIRealize_i {
 		if ( null != strEventBusName ) eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, logPrefix+"strEventBusName[{}]", strEventBusName);
 		
-		uiWidgetGeneric = new UIWidgetGeneric();
+		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
+		uiWidgetGeneric = (UIWidgetGeneric) uiGenericMgr.getUIGeneric("UIWidgetGeneric");
+		
 		uiWidgetGeneric.setUINameCard(uiNameCard);
 		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
 		uiWidgetGeneric.setViewXMLFile(viewXMLFile);

@@ -11,14 +11,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandl
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UILayoutRealize extends UIRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UILayoutRealize.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-
-	protected UILayoutGeneric uiLayoutGeneric	= null;
 
 	@Override
 	public void init() {
@@ -34,14 +31,13 @@ public class UILayoutRealize extends UIRealize {
 		logger.info(className, function, logPrefix+"strEventBusName[{}]", strEventBusName);
 		
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
-		uiLayoutGeneric = (UILayoutGeneric) uiGenericMgr.getUIGeneric("UILayoutGeneric");
-		uiGeneric = uiLayoutGeneric;
+		uiGeneric = uiGenericMgr.getUIGeneric("UILayoutGeneric");
 		
-		uiLayoutGeneric.setUINameCard(uiNameCard);
-		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
-		uiLayoutGeneric.setViewXMLFile(viewXMLFile);
-		uiLayoutGeneric.setOptsXMLFile(optsXMLFile);
-		uiLayoutGeneric.init();
+		uiGeneric.setUINameCard(uiNameCard);
+		uiGeneric.setDictionaryFolder(dictionaryFolder);
+		uiGeneric.setViewXMLFile(viewXMLFile);
+		uiGeneric.setOptsXMLFile(optsXMLFile);
+		uiGeneric.init();
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
@@ -61,7 +57,7 @@ public class UILayoutRealize extends UIRealize {
 			logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
 		}
 		
-		rootPanel = uiLayoutGeneric.getMainPanel();
+		rootPanel = uiGeneric.getMainPanel();
 		
 		if ( null != uiNameCard ) {
 			handlerRegistrations.add(

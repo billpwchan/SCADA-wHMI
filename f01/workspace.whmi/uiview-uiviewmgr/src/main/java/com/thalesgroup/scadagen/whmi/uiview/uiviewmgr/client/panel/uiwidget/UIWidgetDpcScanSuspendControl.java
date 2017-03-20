@@ -14,7 +14,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIRealize_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
@@ -25,7 +24,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.ValidityStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
-public class UIWidgetDpcScanSuspendControl extends UIWidgetRealize implements UIRealize_i {
+public class UIWidgetDpcScanSuspendControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDpcScanSuspendControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -86,7 +85,7 @@ public class UIWidgetDpcScanSuspendControl extends UIWidgetRealize implements UI
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
-						String element = uiWidgetGeneric.getWidgetElement(widget);
+						String element = uiGeneric.getWidgetElement(widget);
 						logger.info(className, function, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;
@@ -121,7 +120,7 @@ public class UIWidgetDpcScanSuspendControl extends UIWidgetRealize implements UI
 													
 													logger.info(className, function, "alias AF [{}]", alias);
 													
-													WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
+													WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
 													
 													ValidityStatus validityStatus = DCP_i.ValidityStatus.VALID;
 													if ( WidgetStatus.Down == curStatusSet ) {

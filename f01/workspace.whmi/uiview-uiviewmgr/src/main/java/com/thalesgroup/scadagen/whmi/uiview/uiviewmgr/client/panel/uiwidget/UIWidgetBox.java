@@ -6,14 +6,13 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIRealize_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 
-public class UIWidgetBox extends UIWidgetRealize implements UIRealize_i {
+public class UIWidgetBox extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetBox.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -42,7 +41,7 @@ public class UIWidgetBox extends UIWidgetRealize implements UIRealize_i {
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
-						String element = uiWidgetGeneric.getWidgetElement(widget);
+						String element = uiGeneric.getWidgetElement(widget);
 						logger.info(className, function, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;

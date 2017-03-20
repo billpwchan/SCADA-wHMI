@@ -13,7 +13,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIRealize_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
@@ -23,7 +22,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i;
 
-public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize implements UIRealize_i {
+public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetOPMChangePasswordControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -72,7 +71,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize implements
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
-						String element = uiWidgetGeneric.getWidgetElement(widget);
+						String element = uiGeneric.getWidgetElement(widget);
 						logger.debug(className, function, "element[{}]", element);
 						if ( null != element ) {
 							
@@ -95,7 +94,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize implements
 										
 										if ( os1.equals("CheckOperatorIsEmpty") ) {
 											
-											String operatorvalue		= uiWidgetGeneric.getWidgetValue(stroperatorvalue);
+											String operatorvalue		= uiGeneric.getWidgetValue(stroperatorvalue);
 											
 											logger.debug(className, function, "stroperatorvalue[{}] operatorvalue[{}]", stroperatorvalue, operatorvalue);
 											
@@ -109,7 +108,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize implements
 											}
 										} else if ( os1.equals("CheckNewPasswordIsEmpty") ) {
 											
-											String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
+											String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
 											
 											logger.debug(className, function, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
 											
@@ -123,8 +122,8 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize implements
 											}
 										} else if ( os1.equals("CheckRetypePasswordIsMatch") ) {
 
-											String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
-											String newpassvalue2	= uiWidgetGeneric.getWidgetValue(strnewpassvalue2);
+											String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
+											String newpassvalue2	= uiGeneric.getWidgetValue(strnewpassvalue2);
 											
 											logger.debug(className, function, "strnewpassvalue[{}] newpassvalue[{}]", strnewpassvalue, newpassvalue);
 											
@@ -145,9 +144,9 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize implements
 											UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
 											
 											// Operator
-											String operatorvalue	= uiWidgetGeneric.getWidgetValue(stroperatorvalue);
-											String oldpassvalue		= uiWidgetGeneric.getWidgetValue(stroldpassvalue);
-											String newpassvalue		= uiWidgetGeneric.getWidgetValue(strnewpassvalue);
+											String operatorvalue	= uiGeneric.getWidgetValue(stroperatorvalue);
+											String oldpassvalue		= uiGeneric.getWidgetValue(stroldpassvalue);
+											String newpassvalue		= uiGeneric.getWidgetValue(strnewpassvalue);
 											
 											logger.debug(className, function, "stroperatorvalue[{}], operatorvalue[{}]", stroperatorvalue, operatorvalue);
 											

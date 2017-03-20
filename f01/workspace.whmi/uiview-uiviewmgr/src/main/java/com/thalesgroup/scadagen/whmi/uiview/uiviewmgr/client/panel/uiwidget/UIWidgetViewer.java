@@ -22,6 +22,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
@@ -130,8 +131,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 			
 			logger.warn(className, function, "Using default ScsOlsListPanel ClassName for scsOlsListElement[{}] AS DEFAULT", scsOlsListElement);
 		}
-			
-		Object object = (ScsOlsListPanel)uiLayoutGeneric.getUIWidget(scsOlsListElement);
+		
+		Object object = (ScsOlsListPanel)((UILayoutGeneric)uiGeneric).getUIWidget(scsOlsListElement);
 		if ( null != object ) {
 			if ( object instanceof ScsOlsListPanel ) {
 				scsOlsListPanel = (ScsOlsListPanel)object;

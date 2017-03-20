@@ -8,7 +8,6 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIRealize_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
@@ -18,7 +17,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
 
-public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize implements UIRealize_i {
+public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -54,7 +53,7 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize implemen
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
-						String element = uiWidgetGeneric.getWidgetElement(widget);
+						String element = uiGeneric.getWidgetElement(widget);
 						
 						logger.info(className, function, "element[{}]", element);
 
@@ -65,7 +64,7 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize implemen
 							
 							if ( 0 == create.compareTo(element) ) {
 
-								String strOperationType = uiWidgetGeneric.getWidgetValue(UIActionEventAttribute.OperationType.toString());
+								String strOperationType = uiGeneric.getWidgetValue(UIActionEventAttribute.OperationType.toString());
 								logger.info(className, function, "strOperationType[{}]", strOperationType);
 								
 								UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
@@ -83,7 +82,7 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize implemen
 									HashMap<String, HashMap<String, Object>> override = null;
 									
 									for ( String strActionAttribute : ActionAttribute.toStrings() ) {
-										String strOperationString		= uiWidgetGeneric.getWidgetValue(strActionAttribute);
+										String strOperationString		= uiGeneric.getWidgetValue(strActionAttribute);
 										logger.info(className, function, "strActionAttribute[{}]", strActionAttribute);
 										
 										uiEventAction.setParameter(strActionAttribute, strOperationString);

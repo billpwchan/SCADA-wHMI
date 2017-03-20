@@ -14,7 +14,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttri
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIRealize_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
@@ -24,7 +23,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i.TaggingStatus;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 
-public class UIWidgetDpcTagControl extends UIWidgetRealize implements UIRealize_i {
+public class UIWidgetDpcTagControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetDpcTagControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
@@ -91,7 +90,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize implements UIRealize_
 				if ( null != event ) {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
-						String element = uiWidgetGeneric.getWidgetElement(widget);
+						String element = uiGeneric.getWidgetElement(widget);
 						logger.info(className, function, "element[{}]", element);
 						if ( null != element ) {
 							String actionsetkey = element;
@@ -125,7 +124,7 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize implements UIRealize_
 												
 												logger.info(className, function, "alias AF [{}]", alias);
 												
-												WidgetStatus curStatusSet = uiWidgetGeneric.getWidgetStatus(strSet);
+												WidgetStatus curStatusSet = uiGeneric.getWidgetStatus(strSet);
 												
 												TaggingStatus taggingStatus = TaggingStatus.NO_TAGGING;
 												if ( WidgetStatus.Down == curStatusSet ) {
@@ -152,8 +151,8 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize implements UIRealize_
 //												if ( null != os2 && os2.length() > 0 ) taggingLabel1 = os2;
 //												if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
 												
-												taggingLabel1 = uiWidgetGeneric.getWidgetValue(strTextValue);
-												uiWidgetGeneric.setWidgetValue(strTextValue, strEMPTY);
+												taggingLabel1 = uiGeneric.getWidgetValue(strTextValue);
+												uiGeneric.setWidgetValue(strTextValue, strEMPTY);
 												
 												logger.info(className, function, "key[{}]", key);
 												

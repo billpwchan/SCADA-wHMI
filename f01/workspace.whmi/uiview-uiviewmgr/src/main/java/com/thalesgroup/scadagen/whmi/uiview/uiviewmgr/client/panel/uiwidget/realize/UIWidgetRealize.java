@@ -13,14 +13,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMg
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.event.UIWidgetEventOnClickHandler;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 
 public class UIWidgetRealize extends UIRealize {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetRealize.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-
-	protected UIWidgetGeneric uiWidgetGeneric = null;
 	
 	private String logPrefix = "";
 
@@ -38,14 +35,13 @@ public class UIWidgetRealize extends UIRealize {
 		logger.info(className, function, logPrefix+"strEventBusName[{}]", strEventBusName);
 		
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
-		uiWidgetGeneric = (UIWidgetGeneric) uiGenericMgr.getUIGeneric("UIWidgetGeneric");
-		uiGeneric = uiWidgetGeneric;
+		uiGeneric = uiGenericMgr.getUIGeneric("UIWidgetGeneric");
 		
-		uiWidgetGeneric.setUINameCard(uiNameCard);
-		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
-		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
-		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
-		uiWidgetGeneric.init();
+		uiGeneric.setUINameCard(uiNameCard);
+		uiGeneric.setDictionaryFolder(dictionaryFolder);
+		uiGeneric.setViewXMLFile(viewXMLFile);
+		uiGeneric.setOptsXMLFile(optsXMLFile);
+		uiGeneric.init();
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
@@ -65,14 +61,14 @@ public class UIWidgetRealize extends UIRealize {
 			logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
 		}
 		
-		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
+		uiGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
 			@Override
 			public void onClickHandler(ClickEvent event) {
 				if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
 			}
 		});
 		
-		rootPanel = uiWidgetGeneric.getMainPanel();
+		rootPanel = uiGeneric.getMainPanel();
 
 		if ( null != uiNameCard ) {
 			handlerRegistrations.add(

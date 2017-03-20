@@ -9,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.realize.UILayoutRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
@@ -27,7 +28,7 @@ public class UIWidgetCSSSwitch extends UILayoutRealize {
 		
 		logger.info(className, function, "element[{}] style[{}] set[{}]", new Object[]{element, style, set});
 		
-		UIWidget_i uiWidget = uiLayoutGeneric.getUIWidget(element);
+		UIWidget_i uiWidget = ((UILayoutGeneric)uiGeneric).getUIWidget(element);
 		if ( null != uiWidget ) {
 			Panel panel = uiWidget.getMainPanel();
 			if ( null != panel ) {

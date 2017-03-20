@@ -431,7 +431,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		rootPanel.add(createDataGrid());
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 
 		uiEventActionProcessor_i.setUINameCard(uiNameCard);
 		uiEventActionProcessor_i.setPrefix(className);
@@ -469,7 +469,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 				
 				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
 
-				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 				
 				uiEventActionProcessorContextMenu_i.setUINameCard(uiNameCard);
 				uiEventActionProcessorContextMenu_i.setPrefix(className);

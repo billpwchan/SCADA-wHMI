@@ -352,7 +352,7 @@ public class UIWidgetViewer extends UILayoutRealize implements UIRealize_i {
 				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
 
 				UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 				
 				uiEventActionProcessorContextMenu_i.setUINameCard(uiNameCard);
 				uiEventActionProcessorContextMenu_i.setPrefix(className);

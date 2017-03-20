@@ -15,9 +15,12 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessor;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGenericMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.LastCompilation;
@@ -546,7 +549,32 @@ public class UILayoutSummary extends UIWidget_i {
 				return uiWidget_i;
 			}
 		});
+		
+		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
+		uiGenericMgr.addUIGenericMgrFactory(className, new UIGenericMgrFactory() {
 
+			@Override
+			public UIGeneric getUIGeneric(String key) {
+				final String function = "getUIGeneric";
+				logger.info(className, function, "key[{}]", key);
+				
+				UIGeneric uiGeneric = null;
+				
+				if ( UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName())
+						.equals(key) ) {
+					uiGeneric = new UILayoutGeneric();
+				} 
+				else
+				if ( UIWidgetUtil.getClassSimpleName(UIWidgetGeneric.class.getName())
+						.equals(key) ) {
+					uiGeneric = new UIWidgetGeneric();
+				}
+				
+				if ( null == uiGeneric ) logger.warn(className, function, "key[{}] uiGeneric IS NULL", key);
+				
+				return uiGeneric;
+			}
+		});
 
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(className, new UIEventActionProcessorMgrFactory() {

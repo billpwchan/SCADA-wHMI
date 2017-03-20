@@ -19,10 +19,13 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessor;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessorMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGenericMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
@@ -46,6 +49,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelSoundServerController;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container.UIPanelStatusBar;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
@@ -356,6 +360,33 @@ public class UIScreenMMI extends UIWidget_i {
 				logger.info(className, function, "getUIWidget uiWidget[{}]", uiWidget_i);
 
 				return uiWidget_i;
+			}
+		});
+		
+		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
+		uiGenericMgr.clearUIGenericMgrFactorys();
+		uiGenericMgr.addUIGenericMgrFactory(className, new UIGenericMgrFactory() {
+
+			@Override
+			public UIGeneric getUIGeneric(String key) {
+				final String function = "getUIGeneric";
+				logger.info(className, function, "key[{}]", key);
+				
+				UIGeneric uiGeneric = null;
+				
+				if ( UIWidgetUtil.getClassSimpleName(UILayoutGeneric.class.getName())
+						.equals(key) ) {
+					uiGeneric = new UILayoutGeneric();
+				} 
+				else
+				if ( UIWidgetUtil.getClassSimpleName(UIWidgetGeneric.class.getName())
+						.equals(key) ) {
+					uiGeneric = new UIWidgetGeneric();
+				}
+				
+				if ( null == uiGeneric ) logger.warn(className, function, "key[{}] uiGeneric IS NULL", key);
+				
+				return uiGeneric;
 			}
 		});
 		

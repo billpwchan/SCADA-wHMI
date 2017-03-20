@@ -362,21 +362,6 @@ public class UILayoutSummary extends UIWidget_i {
 					
 					
 				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyChangePassword.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetOPMVerifyChangePassword();
-					
-					
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetOPMVerifyControl();
-
-				} else if (
 						UIWidgetUtil.getClassSimpleName(UILayoutLogin.class.getName())
 						.equals(uiCtrl)
 						) {
@@ -432,62 +417,6 @@ public class UILayoutSummary extends UIWidget_i {
 
 					uiWidget_i = new UIWidgetSocGrcPoint();
 
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseWritingControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabaseWritingControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseMultiReadingControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabaseMultiReadingControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabasePollingControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabasePollingControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseSubscriptionControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabaseSubscriptionControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabaseGroupPollingControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingDiffControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabaseGroupPollingDiffControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGetChildrenControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyDatabaseGetChildrenControl();
-
-				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName())
-						.equals(uiCtrl)
-						) {
-
-					uiWidget_i = new UIWidgetVerifyUIEventActionControl();
-
 				} else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
@@ -508,6 +437,116 @@ public class UILayoutSummary extends UIWidget_i {
 				return uiWidget_i;
 			}
 		});
+		
+		UIWidgetMgr.getInstance().addUIWidgetFactory("verify", new UIWidgetMgrFactory() {
+			@Override
+			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
+					, String uiDict
+					, HashMap<String, Object> options) {
+				final String function = "getUIWidget";
+
+				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});
+
+				if (null != uiNameCard) {
+					logger.info(className, function, "uiNameCard UIPath[{}] UIScreen[{}]", uiNameCard.getUiPath(),
+							uiNameCard.getUiScreen());
+				} else {
+					logger.warn(className, function, "uiNameCard IS NULL");
+				}
+				logger.info(className, function, "options IS NULL[{}]", null == options);
+
+				UIWidget_i uiWidget_i = null;
+
+				if (
+					UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyChangePassword.class.getName())
+					.equals(uiCtrl)
+					) {
+
+					uiWidget_i = new UIWidgetOPMVerifyChangePassword();
+				
+				
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetOPMVerifyControl();
+
+				} else if (
+					UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseWritingControl.class.getName())
+					.equals(uiCtrl)
+					) {
+
+					uiWidget_i = new UIWidgetVerifyDatabaseWritingControl();
+
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseMultiReadingControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseMultiReadingControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabasePollingControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabasePollingControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseSubscriptionControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseSubscriptionControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseGroupPollingControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingDiffControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseGroupPollingDiffControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGetChildrenControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseGetChildrenControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyUIEventActionControl();
+		
+				}
+				
+				if ( null != uiWidget_i ) {
+					uiWidget_i.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
+					uiWidget_i.setParameter(WidgetParameterName.ScsEnvIds.toString(), scsEnvIds);
+					uiWidget_i.setUINameCard(uiNameCard);
+					uiWidget_i.setElement(uiElement);
+					uiWidget_i.setDictionaryFolder(uiDict);
+					uiWidget_i.setViewXMLFile(uiView);
+					uiWidget_i.setOptsXMLFile(uiOpts);
+					uiWidget_i.init();	
+				} else {
+					logger.warn(className, function, "uiCtrl[{}] uiWidget IS NULL", uiCtrl);
+				}
+		
+				return uiWidget_i;
+			}
+		});
+
 
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(className, new UIEventActionProcessorMgrFactory() {

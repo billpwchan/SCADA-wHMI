@@ -47,7 +47,7 @@ public class UIWidgetRealize extends UIWidget_i implements UIRealize_i {
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.info(className, function, logPrefix+"strEventBusName[{}]", strEventBusName);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(uiNameCard);
@@ -71,7 +71,7 @@ public class UIWidgetRealize extends UIWidget_i implements UIRealize_i {
 			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 			uiEventActionProcessor_i.init();
 		} else {
-			logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL", element);
+			logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
 		}
 		
 		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
@@ -85,38 +85,38 @@ public class UIWidgetRealize extends UIWidget_i implements UIRealize_i {
 
 		if ( null != uiNameCard ) {
 			handlerRegistrations.add(
-					uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-						@Override
-						public void onEvenBusUIChanged(UIEvent uiEvent) {
-							if ( uiEvent.getSource() != this ) {
-								if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
-							}
+				uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
+					@Override
+					public void onEvenBusUIChanged(UIEvent uiEvent) {
+						if ( uiEvent.getSource() != this ) {
+							if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
 						}
-					})
-				);
+					}
+				})
+			);
 		} else {
-			logger.warn(className, function, logPrefix+"uiNameCard IS NULL", element);
+			logger.warn(className, function, logPrefix+"uiNameCard IS NULL");
 		}
 
 		if ( null != eventBus ) {
 			handlerRegistrations.add(
-					eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
-						@Override
-						public void onAction(UIEventAction uiEventAction) {
-							if ( uiEventAction.getSource() != this ) {
-								if ( ! fromUILayoutSummaryAction(uiEventAction) ) {
-									if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
-								}
+				eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
+					@Override
+					public void onAction(UIEventAction uiEventAction) {
+						if ( uiEventAction.getSource() != this ) {
+							if ( ! fromUILayoutSummaryAction(uiEventAction) ) {
+								if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
 							}
 						}
-					})
-				);
+					}
+				})
+			);
 		} else {
-			logger.warn(className, function, logPrefix+"eventBus IS NULL", element);
+			logger.warn(className, function, logPrefix+"eventBus IS NULL");
 		}
 		
 		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSetInit();
-		
+				
 		logger.end(className, function);
 	}
 	
@@ -150,30 +150,52 @@ public class UIWidgetRealize extends UIWidget_i implements UIRealize_i {
 		if ( null != oe ) {
 			if ( oe.equals(element) ) {
 				
-				if ( null != uiEventActionProcessor_i ) logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
-				if ( null != uiLayoutSummaryAction_i ) logger.warn(className, function, logPrefix+"uiLayoutSummaryAction_i IS NULL");
+				if ( null == uiEventActionProcessor_i ) logger.warn(className, function, logPrefix+"uiEventActionProcessor_i IS NULL");
+				if ( null == uiLayoutSummaryAction_i ) logger.warn(className, function, logPrefix+"uiLayoutSummaryAction_i IS NULL");
 				
 				if ( os1.equals(ActionSetName.from_uilayoutsummary_init.toString()) ) {
-					if ( null != uiEventActionProcessor_i )	uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_init.toString());
-					if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.init();
-					result = true;
+					result = fromUILayoutSummaryInit(uiEventAction);
 				} else if ( os1.equals(ActionSetName.from_uilayoutsummary_envup.toString()) ) {
-					if ( null != uiEventActionProcessor_i )	uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_envup.toString());
-					if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.envUp(os2);
-					result = true;
+					result = fromUILayoutSummaryEnvUp(uiEventAction);
 				} else if ( os1.equals(ActionSetName.from_uilayoutsummary_envdown.toString()) ) {
-					if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_envdown.toString());
-					if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.envDown(os2);
-					result = true;
+					result = fromUILayoutSummaryEnvDown(uiEventAction);
 				} else if ( os1.equals(ActionSetName.from_uilayoutsummary_terminate.toString()) ) {
-					if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_terminate.toString());
-					if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.terminate();
-					result = true;
+					result = fromUILayoutSummaryTerminate(uiEventAction);
 				}
 			}
 		}
 		logger.end(className, function);
 		return result;
+	}
+	
+	@Override
+	public boolean fromUILayoutSummaryInit(UIEventAction uiEventAction) {
+		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_init.toString());
+		if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.init();
+		return true;
+	}
+	
+	@Override
+	public boolean fromUILayoutSummaryEnvUp(UIEventAction uiEventAction) {
+		String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_envup.toString());
+		if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.envUp(os2);
+		return true;
+	}
+	
+	@Override
+	public boolean fromUILayoutSummaryEnvDown(UIEventAction uiEventAction) {
+		String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_envdown.toString());
+		if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.envDown(os2);
+		return true;
+	}
+	
+	@Override
+	public boolean fromUILayoutSummaryTerminate(UIEventAction uiEventAction) {
+		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSet(ActionSetName.from_uilayoutsummary_terminate.toString());
+		if ( null != uiLayoutSummaryAction_i ) uiLayoutSummaryAction_i.terminate();
+		return true;
 	}
 
 }

@@ -49,6 +49,47 @@ public class UIWidgetCSSSwitch extends UILayoutRealize implements UIRealize_i {
 		}
 	}
 	
+	private void execute(UIEventAction uiEventAction) {
+		final String function = "execute";
+		logger.begin(className, function);
+		
+		String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+		
+		logger.info(className, function, "os1["+os1+"]");
+
+		HashMap<String, HashMap<String, Object>> override = null;
+		
+		uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
+			
+			@Override
+			public boolean executeHandler(UIEventAction uiEventAction) {
+				String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
+				String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+				String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
+				String os4	= (String) uiEventAction.getParameter(ViewAttribute.OperationString4.toString());
+
+				logger.info(className, function, "os1["+os1+"]");
+				logger.info(className, function, "os2["+os2+"]");
+				logger.info(className, function, "os3["+os3+"]");
+				logger.info(className, function, "os4["+os4+"]");						
+				
+				if ( os1.equals("ModifyCSS") ) {
+					
+					if ( null != os2 && null != os3 && null != os4 ) {
+						String cssElementName = os2;
+						String cssValueName = os3;
+						boolean applyRemove = os4.equals("true");
+						modifyCss(cssElementName, cssValueName, applyRemove);
+					} else {
+						logger.warn(className, function, "os2 IS NULL or os3 IS NULL or os4 IS NULL ");
+					}
+				}
+				return true;
+			}
+		});
+		logger.end(className, function);
+	}
+	
 	@Override
 	public void init() {
 		super.init();
@@ -73,7 +114,6 @@ public class UIWidgetCSSSwitch extends UILayoutRealize implements UIRealize_i {
 			@Override
 			public void onActionReceived(UIEventAction uiEventAction) {
 				final String function = "onActionReceived";
-				
 				logger.begin(className, function);
 				
 				if ( null != uiEventAction ) {
@@ -85,40 +125,7 @@ public class UIWidgetCSSSwitch extends UILayoutRealize implements UIRealize_i {
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
 							
-							String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-							
-							logger.info(className, function, "os1["+os1+"]");
-					
-							HashMap<String, HashMap<String, Object>> override = null;
-							
-							uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
-								
-								@Override
-								public boolean executeHandler(UIEventAction uiEventAction) {
-									String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-									String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-									String os3	= (String) uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
-									String os4	= (String) uiEventAction.getParameter(ViewAttribute.OperationString4.toString());
-			
-									logger.info(className, function, "os1["+os1+"]");
-									logger.info(className, function, "os2["+os2+"]");
-									logger.info(className, function, "os3["+os3+"]");
-									logger.info(className, function, "os4["+os4+"]");						
-									
-									if ( os1.equals("ModifyCSS") ) {
-										
-										if ( null != os2 && null != os3 && null != os4 ) {
-											String cssElementName = os2;
-											String cssValueName = os3;
-											boolean applyRemove = os4.equals("true");
-											modifyCss(cssElementName, cssValueName, applyRemove);
-										} else {
-											logger.warn(className, function, "os2 IS NULL or os3 IS NULL or os4 IS NULL ");
-										}
-									}
-									return true;
-								}
-							});
+							execute(uiEventAction);
 						}
 					}
 				}
@@ -157,6 +164,12 @@ public class UIWidgetCSSSwitch extends UILayoutRealize implements UIRealize_i {
 		};
 
 		logger.end(className, function);
+	}
+	
+	@Override
+	public boolean fromUILayoutSummaryInit(UIEventAction uiEventAction) {
+		execute(uiEventAction);
+		return true;
 	}
 
 }

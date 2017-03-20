@@ -22,6 +22,8 @@ public class UILayoutRealize extends UIRealize {
 
 	@Override
 	public void init() {
+		super.init();
+		
 		final String function = "init";
 		logger.begin(className, function);
 		
@@ -33,6 +35,7 @@ public class UILayoutRealize extends UIRealize {
 		
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
 		uiLayoutGeneric = (UILayoutGeneric) uiGenericMgr.getUIGeneric("UILayoutGeneric");
+		uiGeneric = uiLayoutGeneric;
 		
 		uiLayoutGeneric.setUINameCard(uiNameCard);
 		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);

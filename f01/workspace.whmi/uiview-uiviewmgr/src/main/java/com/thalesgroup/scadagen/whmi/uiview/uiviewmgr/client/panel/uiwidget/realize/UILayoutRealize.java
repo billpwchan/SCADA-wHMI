@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionHandler;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIGenericMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGeneric;
 
 public class UILayoutRealize extends UIRealize {
@@ -30,7 +31,8 @@ public class UILayoutRealize extends UIRealize {
 		if ( null != strEventBusName ) eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, logPrefix+"strEventBusName[{}]", strEventBusName);
 		
-		uiLayoutGeneric = new UILayoutGeneric();
+		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
+		uiLayoutGeneric = (UILayoutGeneric) uiGenericMgr.getUIGeneric("UILayoutGeneric");
 		
 		uiLayoutGeneric.setUINameCard(uiNameCard);
 		uiLayoutGeneric.setDictionaryFolder(dictionaryFolder);
@@ -48,7 +50,7 @@ public class UILayoutRealize extends UIRealize {
 			uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
 			uiEventActionProcessor_i.setEventBus(eventBus);
 			uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-			uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
+			uiEventActionProcessor_i.setUIGeneric(uiGeneric);
 			uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
 			uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
 			uiEventActionProcessor_i.init();
@@ -93,18 +95,6 @@ public class UILayoutRealize extends UIRealize {
 		if ( null != uiEventActionProcessor_i ) uiEventActionProcessor_i.executeActionSetInit();
 		
 		logger.end(className, function);
-	}
-	
-	@Override
-	public void envUp(String env) {
-	}
-	
-	@Override
-	public void envDown(String env) {
-	}
-	
-	@Override
-	public void terminate() {
 	}
 	
 }

@@ -39,7 +39,7 @@ public class UILayoutRealize extends UIRealize {
 		uiLayoutGeneric.init();
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 
 		if ( null != uiEventActionProcessor_i ) {
 			uiEventActionProcessor_i.setUINameCard(uiNameCard);

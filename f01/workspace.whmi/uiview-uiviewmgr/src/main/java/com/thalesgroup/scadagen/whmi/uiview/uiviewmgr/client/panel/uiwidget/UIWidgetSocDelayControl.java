@@ -272,7 +272,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 		uiWidgetGeneric.init();
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 
 		uiEventActionProcessor_i.setUINameCard(uiNameCard);
 		uiEventActionProcessor_i.setPrefix(className);

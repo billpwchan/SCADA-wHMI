@@ -264,7 +264,7 @@ public class ViewLayoutMgr {
 			
 			UIEventActionProcessor_i uiEventActionProcessor_i = null;
 			UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-			uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+			uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 			
 			uiEventActionProcessor_i.setUINameCard(uiNameCard);
 			uiEventActionProcessor_i.setPrefix(className);

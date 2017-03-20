@@ -26,8 +26,8 @@ public class UIEventActionProcessorMgr {
 	public void removeUIEventActionProcessorMgrFactory(String key) { hashMap.remove(key); }
 	public void clearUIEventActionProcessorMgrFactorys() { this.hashMap.clear(); }
 	
-	public UIEventActionProcessor_i getUIEventActionProcessorMgr(String key) {
-		final String function = "getUIEventActionExecute";
+	public UIEventActionProcessor_i getUIEventActionProcessor(String key) {
+		final String function = "getUIEventActionProcessor";
 		logger.info(className, function, "key[{}]", key);
 		UIEventActionProcessor_i uiEventActionProcessor_i = null;
 		for ( String k : hashMap.keySet() ) {

@@ -146,7 +146,7 @@ public class UILayoutLogin extends UIWidget_i {
 		uiWidgetGenericButton	= uiLayoutGeneric.getUIWidget(strUIWidgetLoginButton);
 
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessorMgr("UIEventActionProcessor");
+		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
 
 		uiEventActionProcessor_i.setUINameCard(uiNameCard);
 		uiEventActionProcessor_i.setPrefix(className);

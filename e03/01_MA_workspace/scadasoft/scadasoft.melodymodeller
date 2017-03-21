@@ -51,7 +51,7 @@
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
           id="a12d0bbc-2d6e-4031-8bc5-d65edc800454" name="artifactId" value="scs-data-model"/>
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-          id="1791df5a-7219-40e3-b105-8b8f501adf30" name="version" value="6.2.4.5"/>
+          id="1791df5a-7219-40e3-b105-8b8f501adf30" name="version" value="6.3.1"/>
       <ownedTraces xsi:type="org.polarsys.capella.core.data.capellacommon:TransfoLink"
           id="e42fdc62-1f61-4ed4-9b35-8cf4098edbec" targetElement="#6e289543-bf4f-4647-af7d-e0231546b6b9"
           sourceElement="#6e289543-bf4f-4647-af7d-e0231546b6b9"/>
@@ -221,6 +221,30 @@
                   id="3084a1bc-a31a-47e9-9c7b-0d5cbf1c0453" value="1"/>
               <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                   id="b7001525-ed82-40b7-b07f-aceb1f07b367" value="1"/>
+            </ownedElements>
+            <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
+                id="965dcf10-f509-4a6b-9007-6fb2a0ca1956" name="tag1Label" abstractType="org.polarsys.capella.core.data.information.datatype:StringType ../lib-shared-assets/lib-shared-assets.melodymodeller#eeb8dfe2-49bc-4b63-9112-655392c90f8b"
+                direction="UNSET" composite="true">
+              <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="32341146-545b-41e0-9a79-25f2f0bb5467" value="1"/>
+              <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="3a64b8e5-f992-42bd-b8b0-3eb88517e739" value="1"/>
+            </ownedElements>
+            <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
+                id="7a0bc449-b7d7-425e-a40f-18435c785fb6" name="tag2Label" abstractType="org.polarsys.capella.core.data.information.datatype:StringType ../lib-shared-assets/lib-shared-assets.melodymodeller#eeb8dfe2-49bc-4b63-9112-655392c90f8b"
+                direction="UNSET" composite="true">
+              <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="a1d9c834-0c60-4cd5-98a2-17f659f471c5" value="1"/>
+              <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="797aa52d-0a5f-461d-9deb-bf86f86d9e8d" value="1"/>
+            </ownedElements>
+            <ownedElements xsi:type="org.polarsys.capella.core.data.information:ExchangeItemElement"
+                id="fbff82c8-7581-45c6-84f1-37a8aee9e5c8" name="dataGroup" abstractType="org.polarsys.capella.core.data.information.datatype:StringType ../lib-shared-assets/lib-shared-assets.melodymodeller#eeb8dfe2-49bc-4b63-9112-655392c90f8b"
+                direction="UNSET" composite="true">
+              <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="4f6e665e-61ae-4c8f-8e3c-315ee0b186a4" value="1"/>
+              <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                  id="31bef022-d319-4818-9df4-37849fc4ead1" value="1"/>
             </ownedElements>
           </ownedExchangeItems>
           <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
@@ -1243,6 +1267,12 @@
               <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
                   id="87d79a5a-ec85-436c-9f7e-b985937e744e" super="#b22929f5-f513-42bf-8034-29c49899dc1e"
                   sub="#09db5292-2871-4ef6-b88c-41b0f5ad5f88"/>
+            </ownedClasses>
+            <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
+                id="2c26cd1d-efa1-4d01-ae79-d377db809825" name="BasicEquipment">
+              <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
+                  id="116e71c5-7d2d-40e2-bebb-650147bde386" super="#b22929f5-f513-42bf-8034-29c49899dc1e"
+                  sub="#2c26cd1d-efa1-4d01-ae79-d377db809825"/>
             </ownedClasses>
           </ownedDataPkgs>
         </ownedDataPkgs>

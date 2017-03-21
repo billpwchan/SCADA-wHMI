@@ -1,0 +1,58 @@
+<jaxb:bindings
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    version="2.0"> 
+  <jaxb:globalBindings> 
+    <jaxb:serializable/> 
+    
+       <!-- KEET IT to remember that it doesn't work <jaxb:javaType name="java.util.Date" xmlType="xsd:dateTime"/> -->
+       
+       <!-- Remove XMLGregorianCalendar binding and bind to java.util.Date, Use custom binding because the
+       cxf solution has cxf dependencies. -->
+       <!--
+       <jaxb:javaType name="java.util.Date"
+                    xmlType="xsd:dateTime"
+                    parseMethod="com.thalesgroup.hv.core.tools.data.binding.XSDateTimeCustomBinder.parseDateTime"
+                    printMethod="com.thalesgroup.hv.core.tools.data.binding.XSDateTimeCustomBinder.printDateTime" />
+     -->
+    </jaxb:globalBindings>
+</jaxb:bindings>
+
+<!-- 
+Q: How to map xsd:dateTime to java.util.Date?
+Well, people don't like the XMLGregorianCalendar which is the default mapping from the xsd:dateTime (xsd:time and xsd:date as well),
+We can use the jaxws customization to change the default mapping, here are some sample binding files
+If you have schema inside the wsdl, here is the binding file you can use:
+
+<jaxws:bindings wsdlLocation="YOUR_WSDL_LOCATION"
+          xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
+          xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+          xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <jaxws:bindings  node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='THE_NAMESPACE_OF_YOUR_SCHEMA']">
+      <jxb:globalBindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <jxb:javaType name="java.util.Date" xmlType="xs:dateTime"
+                      parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime"
+                      printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
+      </jxb:globalBindings>
+  </jaxws:bindings>
+</jaxws:bindings>
+
+If you want to use java.util.Calendar, just change the org.apache.cxf.tools.common.DataTypeAdapter to javax.xml.bind.DatatypeConverter, and change the name value to "java.util.Calendar"
+
+If your schema is out of wsdl, here is an example you can try:
+
+<jxb:bindings version="2.0"
+              xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <jxb:bindings schemaLocation="file:<path><name>.xsd" node="/xs:schema">
+    <jxb:globalBindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <jxb:javaType name="java.util.Date" xmlType="xs:dateTime" 
+                    parseMethod="org.apache.cxf.tools.common.DataTypeAdapter.parseDateTime" 
+                    printMethod="org.apache.cxf.tools.common.DataTypeAdapter.printDateTime"/>
+    </jxb:globalBindings>
+  </jxb:bindings>
+</jxb:bindings>
+-->
+
+

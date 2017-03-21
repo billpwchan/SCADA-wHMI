@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/scadaphysicalsystem/scada_cluster/configuration" xmlns:hv-svc-cfg="http://www.thalesgroup.com/hv/data-v1/service/configuration" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.thalesgroup.com/scadagen/scadaphysicalsystem/scada_cluster/configuration" version="01.00.00">
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/service/configuration"/>
+  <xsd:complexType name="SCADAType">
+    <xsd:complexContent>
+      <xsd:extension base="hv-svc-cfg:AbstractBusinessServiceType">
+        <xsd:sequence/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

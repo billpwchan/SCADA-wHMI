@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.thalesgroup.com/hv/dummy" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.thalesgroup.com/hv/dummy" version="01.00.00">
+
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">Dummy model to be able to generate with JAXB episodes</xsd:documentation>
+  </xsd:annotation>
+
+  <!-- Notification Model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/notification"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/notification/list"/>
+  
+  <!-- Alarm model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/alarm"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/alarm/operation"/>
+  
+  <!-- Equipment Model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/equipment"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/equipment/configuration"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/equipment/operation"/>
+  
+  <!-- SubSystem Model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/service"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/service/configuration"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/service/operation"/>
+  
+   <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/area/configuration"/>
+   
+   <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/system/configuration"/>
+  
+  <!-- Event Model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/event"/>
+  
+  <!-- Workflow model (process management) -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/procedure"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/procedure/operation"/>
+  
+  <!--  AMS Model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/ams/operation"/>
+  
+  <!-- Connection -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/connection"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/connection/attribute"/>
+  
+  <!-- Historization Model -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/histo/operation"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/alarm/historization"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/event/historization"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/operator/historization"/>
+    <!-- business processes -->
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/process/attribute"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/process"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/process/operation"/>
+<xsd:import namespace="http://www.thalesgroup.com/scadasoft/data/config/equipment"/>
+  <xsd:import namespace="http://www.thalesgroup.com/scadasoft/data/config/equipment/configuration"/>
+  <xsd:import namespace="http://www.thalesgroup.com/scadasoft/data/config/equipment/operation"/>
+  <xsd:import namespace="http://www.thalesgroup.com/scadasoft/data/exchange/entity/alarm"/>
+  <xsd:import namespace="http://www.thalesgroup.com/scadasoft/scsphysicalsystem/scsscada_cluster/configuration"/>
+</xsd:schema>

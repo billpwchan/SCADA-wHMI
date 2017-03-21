@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/data/config/equipment/configuration" xmlns:hv-eqpt-cfg="http://www.thalesgroup.com/hv/data-v1/equipment/configuration" xmlns:prj-sca-4="http://www.thalesgroup.com/scadasoft/data/config/equipment/configuration" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.thalesgroup.com/scadagen/data/config/equipment/configuration" version="01.00.00">
+  <xsd:import namespace="http://www.thalesgroup.com/scadasoft/data/config/equipment/configuration"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/equipment/configuration"/>
+  <xsd:complexType name="BasicEquipmentType">
+    <xsd:complexContent>
+      <xsd:extension base="prj-sca-4:SCSSCADAEqptType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="eqpType" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="eqphvid" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

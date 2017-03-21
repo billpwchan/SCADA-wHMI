@@ -207,7 +207,7 @@ public class UIScreenMMI extends UIWidget_i {
 				logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", strInitdelayms);
 			}
 		}
-		uiEventActionProcessor_i.executeActionSetInit(delay, null);
+		uiEventActionProcessor_i.executeActionSet("init_delay", delay, null);
 		
 		//Start the Navigation Menu
 		logger.info(className, function, "Start the Navigation Menu Begin");

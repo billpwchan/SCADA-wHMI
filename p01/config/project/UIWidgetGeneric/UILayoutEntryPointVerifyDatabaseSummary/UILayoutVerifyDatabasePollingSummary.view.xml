@@ -9,14 +9,12 @@
 	</header>
 
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabasePollingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabasePollingControl.view.xml</uiView>
 		<element>UIWidgetVerifyDatabasePollingControl</element>
 	</option>
 	<!--
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabasePollingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabasePollingSingletonControl.view.xml</uiView>
 		<element>UIWidgetVerifyDatabasePollingSingletonControl</element>

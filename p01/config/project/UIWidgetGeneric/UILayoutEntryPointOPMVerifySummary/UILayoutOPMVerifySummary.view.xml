@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetOPMVerifyControl</uiCtrl>
 		<uiView>UILayoutEntryPointOPMVerifySummary/UIWidgetOPMVerifyControl.view.xml</uiView>
 		<element>UIWidgetOPMVerifyControl</element>

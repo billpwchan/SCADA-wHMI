@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutVerifyData-panel-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutVerifyDatabaseSubscriptionSummary.view.xml</uiView>
 		<element>UILayoutVerifyDatabaseSubscriptionSummary</element>

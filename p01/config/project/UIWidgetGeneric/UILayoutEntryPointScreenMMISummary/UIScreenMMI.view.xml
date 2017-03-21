@@ -45,7 +45,6 @@
 	</option>	
 
 	<option key="0|4">
-		<type>predefine</type>
 		<uiCtrl>UIPanelViewLayout</uiCtrl>
 		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelViewLayout.view.xml</uiView>
 		<element>UIPanelViewLayout</element>

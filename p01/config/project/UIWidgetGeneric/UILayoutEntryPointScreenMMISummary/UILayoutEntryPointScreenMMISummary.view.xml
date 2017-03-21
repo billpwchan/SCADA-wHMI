@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutEntryPointScreenMMISummary-container</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointUIScreenMMISummary/UILayoutScreenMMISummary.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointUIScreenMMISummary/UILayoutScreenMMISummary.opts.xml</uiOpts>

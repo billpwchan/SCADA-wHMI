@@ -14,13 +14,11 @@
 		<csscontainer>project-gwt-panel-eventsummary-action-empty</csscontainer>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetPrint</uiCtrl>
 		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryPrint.view.xml</uiView>
 		<csscontainer>project-gwt-panel-action-filter</csscontainer>
 	</option>
 	<option key="0|2">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetFilter</uiCtrl>
 		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryFilter.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointEventSummary/UIWidgetEventSummaryFilter.opts.xml</uiOpts>

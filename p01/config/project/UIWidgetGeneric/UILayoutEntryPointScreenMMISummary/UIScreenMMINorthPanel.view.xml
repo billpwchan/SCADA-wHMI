@@ -9,7 +9,6 @@
 	</header>
 	
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIPanelStatusBar</uiCtrl>
 		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar/UIPanelStatusBar.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelStatusBar/UIPanelStatusBar.opts.xml</uiOpts>
@@ -25,7 +24,6 @@
 		<width>20</width>
 	</option>
 	<option key="0|2">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.opts.xml</uiOpts>

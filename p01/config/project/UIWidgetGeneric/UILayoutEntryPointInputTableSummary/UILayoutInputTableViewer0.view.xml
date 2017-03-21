@@ -9,7 +9,6 @@
 	</header>
 
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutEntryPointInputTableSummary/UILayoutInputTableViewer0ScsOlsListPanel.opts.xml</uiOpts>
 		<element>UILayoutInputTableViewer0ScsOlsListPanel</element>

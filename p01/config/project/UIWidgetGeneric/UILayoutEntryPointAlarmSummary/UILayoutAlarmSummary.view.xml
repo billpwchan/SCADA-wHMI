@@ -14,7 +14,6 @@
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutAlarmSummaryAction.view.xml</uiView>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmSummary/UILayoutAlarmSummaryViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmSummary/UILayoutAlarmSummaryViewer.opts.xml</uiOpts>

@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutEntryPointOPMVerifySummary-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointOPMVerifySummary/UILayoutOPMVerifySummary.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointOPMVerifySummary/UILayoutOPMVerifySummary.opts.xml</uiOpts>

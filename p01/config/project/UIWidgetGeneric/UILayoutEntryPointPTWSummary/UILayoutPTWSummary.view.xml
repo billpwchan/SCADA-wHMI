@@ -14,7 +14,6 @@
 		<uiView>UILayoutEntryPointPTWSummary/UILayoutPTWAction.view.xml</uiView>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointPTWSummary/UILayoutPTWViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointPTWSummary/UILayoutPTWViewer.opts.xml</uiOpts>

@@ -9,7 +9,6 @@
 	</header>
 
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnViewer0ScsOlsListPanel.opts.xml</uiOpts>
 		<element>UILayoutAlmMgnViewer0ScsOlsListPanel</element>

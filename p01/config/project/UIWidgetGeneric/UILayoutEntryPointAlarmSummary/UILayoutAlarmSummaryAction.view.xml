@@ -15,7 +15,6 @@
 		<csscontainer>project-gwt-panel-action-counter</csscontainer>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetBox</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryAck.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryAck.opts.xml</uiOpts>
@@ -23,12 +22,10 @@
 		<csscontainer>project-gwt-panel-action-control</csscontainer>
 	</option>
 	<option key="0|2">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetPrint</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPrint.view.xml</uiView>
 	</option>
 	<option key="0|3">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetFilter</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryFilter.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryFilter.opts.xml</uiOpts>

@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutEntryPointVerifyUIEventActionDbmSummary-panel-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutVerifyUIEventActionDbmControl.view.xml</uiView>
 		<element>UIWidgetVerifyUIEventActionDbmControl</element>

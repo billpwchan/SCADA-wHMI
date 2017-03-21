@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutEntryPointVerifyDatabasePollingDiffSingletonSummary-panel-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutVerifyDatabaseGroupPollingDiffSingletonSummary.view.xml</uiView>
 		<element>UILayoutVerifyDatabaseGroupPollingDiffSingletonSummary</element>

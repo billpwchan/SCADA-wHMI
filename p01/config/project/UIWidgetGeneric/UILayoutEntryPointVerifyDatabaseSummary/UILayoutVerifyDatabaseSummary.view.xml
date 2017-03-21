@@ -9,7 +9,6 @@
 	</header>
 	<!--
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseWritingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseWritingControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseWritingControl.opts.xml</uiOpts>
@@ -18,7 +17,6 @@
 	-->
 	<!--
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseMultiReadingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingControl.opts.xml</uiOpts>
@@ -26,14 +24,12 @@
 	</option>
 	-->
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseMultiReadingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingProxyControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseMultiReadingProxyControl.opts.xml</uiOpts>
 		<element>UIWidgetVerifyDatabaseMultiReadingControl</element>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseGetChildrenControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseGetChildrenProxyControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseGetChildrenProxyControl.opts.xml</uiOpts>
@@ -41,21 +37,18 @@
 	</option>
 	<!--
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabasePollingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabasePollingControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabasePollingControl.opts.xml</uiOpts>
 		<element>UIWidgetVerifyDatabasePollingControl</element>
 	</option>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseGroupPollingControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseGroupPollingControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseGroupPollingControl.opts.xml</uiOpts>
 		<element>UIWidgetVerifyDatabaseGroupPollingControl</element>
 	</option>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseGroupPollingDiffControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseGroupPollingDiffControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseGroupPollingDiffControl.opts.xml</uiOpts>
@@ -63,7 +56,6 @@
 	</option>
 
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseSubscriptionControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseSubscriptionControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseSubscriptionControl.opts.xml</uiOpts>

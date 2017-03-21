@@ -6,7 +6,6 @@
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-UILayoutHDVSummary-panel-inner</rootCSS>
-
 	</header>
 	<option key="0|0">
 		<type>layoutconfiguration</type>

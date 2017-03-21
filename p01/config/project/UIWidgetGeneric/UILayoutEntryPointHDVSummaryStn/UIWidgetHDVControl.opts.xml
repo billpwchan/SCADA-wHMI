@@ -5,18 +5,28 @@
 		<ColumnAlias>gdg_column_alias</ColumnAlias>
 		<ColumnServiceOwner>serviceOwnerID</ColumnServiceOwner>
 		
+		<!-- Single Reading -->
+		<!--
 		<IsPolling>false</IsPolling>
 		<SubScribeMethod1>DatabaseGroupPollingDiffSingleton</SubScribeMethod1>
 		<MultiReadMethod1>DatabaseMultiReadingProxy</MultiReadMethod1>
 		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
+		-->
 		
-		<!--
+		<!-- Polling -->
 		<IsPolling>true</IsPolling>
 		<SubScribeMethod1>DatabaseGroupPollingDiffSingleton</SubScribeMethod1>
 		<MultiReadMethod1>DatabaseMultiReadingProxySingleton</MultiReadMethod1>
 		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
+
+		<!-- Subscribe -->
+		<!--
+		<IsPolling>true</IsPolling>
+		<SubScribeMethod1>DatabaseSubscription</SubScribeMethod1>
+		<MultiReadMethod1>DatabaseMultiReadingProxySingleton</MultiReadMethod1>
+		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
 		-->
-		
+				
 		<DotValueTable>.valueTable</DotValueTable>
 		<DotInitCondGL>.initCondGL</DotInitCondGL>
 		

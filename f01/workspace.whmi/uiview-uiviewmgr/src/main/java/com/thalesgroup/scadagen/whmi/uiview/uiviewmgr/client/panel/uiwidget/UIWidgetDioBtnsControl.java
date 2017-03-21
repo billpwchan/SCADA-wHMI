@@ -14,7 +14,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIExecuteActionHandler_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
@@ -96,156 +95,161 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		valueTableLabels = new String[rowInValueTable];
 		valueTableValues = new String[rowInValueTable];
 		
-		String address = alias+DotValueTable;
-		
-		logger.info(className, function, "address[{}]", address);
-		
-		DataBaseClientKey ck1 = new DataBaseClientKey();
-		ck1.setAPI(API.multiReadValue);
-		ck1.setWidget(className);
-		ck1.setStability(Stability.STATIC);
-		ck1.setScreen(uiNameCard.getUiScreen());
-		ck1.setEnv(env);
-		ck1.setAdress(address);
-		
-		String clientKey = ck1.getClientKey();
-		
-		String [] dbaddresses = new String[]{address};
-
-		databaseMultiRead_i.addMultiReadValueRequest(clientKey, env, dbaddresses, new DatabasePairEvent_i() {
+		if ( null != databaseMultiRead_i ) {
+			String address = alias+DotValueTable;
 			
-			@Override
-			public void update(String key, String [] dbaddress, String[] values) {
-				final String function = "addMultiReadValueRequest update";
-				logger.begin(className, function);
+			logger.info(className, function, "address[{}]", address);
+			
+			DataBaseClientKey ck1 = new DataBaseClientKey();
+			ck1.setAPI(API.multiReadValue);
+			ck1.setWidget(className);
+			ck1.setStability(Stability.STATIC);
+			ck1.setScreen(uiNameCard.getUiScreen());
+			ck1.setEnv(env);
+			ck1.setAdress(address);
+			
+			String clientKey = ck1.getClientKey();
+			
+			String [] dbaddresses = new String[]{address};
+
+			databaseMultiRead_i.addMultiReadValueRequest(clientKey, env, dbaddresses, new DatabasePairEvent_i() {
 				
-				if ( logger.isInfoEnabled() ) {
-					for ( int i = 0 ; i < values.length ; ++i ) {
-						logger.info(className, function, "values({})[{}]", i, values[i]);
+				@Override
+				public void update(String key, String [] dbaddress, String[] values) {
+					final String function = "addMultiReadValueRequest update";
+					logger.begin(className, function);
+					
+					if ( logger.isInfoEnabled() ) {
+						for ( int i = 0 ; i < values.length ; ++i ) {
+							logger.info(className, function, "values({})[{}]", i, values[i]);
+						}
 					}
-				}
-				
-				if ( null != values ) {
-					if ( values.length > 0 ) {
-						String valueTable = values[0];
-						logger.info(className, function, "valueTable[{}]", valueTable);
-						
-						if ( null != valueTable ) {
+					
+					if ( null != values ) {
+						if ( values.length > 0 ) {
+							String valueTable = values[0];
+							logger.info(className, function, "valueTable[{}]", valueTable);
 							
-							for( int r = 0 ; r < rowInValueTable ; ++r ) {
-								String dovname = "", label = "", value = "";
-
-								dovname	= DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
-								dovname	= DatabaseHelper.removeDBStringWrapper(dovname);
+							if ( null != valueTable ) {
 								
-								logger.info(className, function, "dovname({})[{}]", r, dovname);
-								if ( null != dovname && dovname.length() > 0 ) {
-									valueTableDovnames[r] = dovname;
+								for( int r = 0 ; r < rowInValueTable ; ++r ) {
+									String dovname = "", label = "", value = "";
+
+									dovname	= DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+									dovname	= DatabaseHelper.removeDBStringWrapper(dovname);
+									
+									logger.info(className, function, "dovname({})[{}]", r, dovname);
+									if ( null != dovname && dovname.length() > 0 ) {
+										valueTableDovnames[r] = dovname;
+									}
+									
+									label	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+									label	= DatabaseHelper.removeDBStringWrapper(label);
+									logger.info(className, function, "label({})[{}]", r, label);
+									
+									String button = strButtonWUnderLine+r;
+									
+									logger.info(className, function, "button[{}]", button);
+									
+									if ( null != label && label.length() > 0 ) {
+										valueTableLabels[r] = label;
+										{
+											String actionsetkey = strButtonSetVisible;
+											String actionkey = strButtonSetVisible;
+											
+											logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+											
+											HashMap<String, Object> parameter = new HashMap<String, Object>();
+											parameter.put(ActionAttribute.OperationString2.toString(), button);
+											
+											HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+											override.put(actionkey, parameter);
+											
+											uiEventActionProcessor_i.executeActionSet(actionsetkey, override);								
+										}
+										
+										{
+											String actionsetkey = strButtonSetDisable;
+											String actionkey = strButtonSetDisable;
+											
+											logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+											
+											HashMap<String, Object> parameter = new HashMap<String, Object>();
+											parameter.put(ActionAttribute.OperationString2.toString(), button);
+											
+											HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+											override.put(actionkey, parameter);
+											
+											uiEventActionProcessor_i.executeActionSet(actionsetkey, override);								
+										}
+										
+										{
+											String actionsetkey = strButtonSetValue;
+											String actionkey = strButtonSetValue;
+											
+											logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+											
+											HashMap<String, Object> parameter = new HashMap<String, Object>();
+											parameter.put(ActionAttribute.OperationString2.toString(), button);
+											parameter.put(ActionAttribute.OperationString3.toString(), label);
+											
+											HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+											override.put(actionkey, parameter);
+											
+											uiEventActionProcessor_i.executeActionSet(actionsetkey, override);								
+										}
+
+									} else {
+										
+										{
+											String actionsetkey = strButtonSetInvisible;
+											String actionkey = strButtonSetInvisible;
+											
+											logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+											
+											HashMap<String, Object> parameter = new HashMap<String, Object>();
+											parameter.put(ActionAttribute.OperationString2.toString(), button);
+											
+											HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+											override.put(actionkey, parameter);
+											
+											uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+										}
+
+									}
+									
+									value	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+									value	= DatabaseHelper.removeDBStringWrapper(value);
+									logger.info(className, function, "value({})[{}]", r, value);
+									if ( null != value && value.length() > 0 ) {
+										valueTableValues[r] = value;
+									}
+									
 								}
 								
-								label	= DatabaseHelper.getArrayValues(valueTable, labelCol, r );
-								label	= DatabaseHelper.removeDBStringWrapper(label);
-								logger.info(className, function, "label({})[{}]", r, label);
-								
-								String button = strButtonWUnderLine+r;
-								
-								logger.info(className, function, "button[{}]", button);
-								
-								if ( null != label && label.length() > 0 ) {
-									valueTableLabels[r] = label;
-									{
-										String actionsetkey = strButtonSetVisible;
-										String actionkey = strButtonSetVisible;
-										
-										logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-										
-										HashMap<String, Object> parameter = new HashMap<String, Object>();
-										parameter.put(ActionAttribute.OperationString2.toString(), button);
-										
-										HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-										override.put(actionkey, parameter);
-										
-										uiEventActionProcessor_i.executeActionSet(actionsetkey, override);								
-									}
-									
-									{
-										String actionsetkey = strButtonSetDisable;
-										String actionkey = strButtonSetDisable;
-										
-										logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-										
-										HashMap<String, Object> parameter = new HashMap<String, Object>();
-										parameter.put(ActionAttribute.OperationString2.toString(), button);
-										
-										HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-										override.put(actionkey, parameter);
-										
-										uiEventActionProcessor_i.executeActionSet(actionsetkey, override);								
-									}
-									
-									{
-										String actionsetkey = strButtonSetValue;
-										String actionkey = strButtonSetValue;
-										
-										logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-										
-										HashMap<String, Object> parameter = new HashMap<String, Object>();
-										parameter.put(ActionAttribute.OperationString2.toString(), button);
-										parameter.put(ActionAttribute.OperationString3.toString(), label);
-										
-										HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-										override.put(actionkey, parameter);
-										
-										uiEventActionProcessor_i.executeActionSet(actionsetkey, override);								
-									}
-
+								if ( isPolling ) {
+									subscribeValueTable(selectedEnv, selectedAlias);
 								} else {
-									
-									{
-										String actionsetkey = strButtonSetInvisible;
-										String actionkey = strButtonSetInvisible;
-										
-										logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-										
-										HashMap<String, Object> parameter = new HashMap<String, Object>();
-										parameter.put(ActionAttribute.OperationString2.toString(), button);
-										
-										HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-										override.put(actionkey, parameter);
-										
-										uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-									}
+									readValueTable(selectedEnv, selectedAlias);
+								}
 
-								}
-								
-								value	= DatabaseHelper.getArrayValues(valueTable, valueCol, r );
-								value	= DatabaseHelper.removeDBStringWrapper(value);
-								logger.info(className, function, "value({})[{}]", r, value);
-								if ( null != value && value.length() > 0 ) {
-									valueTableValues[r] = value;
-								}
-								
-							}
-							
-							if ( isPolling ) {
-								subscribeValueTable(selectedEnv, selectedAlias);
 							} else {
-								readValueTable(selectedEnv, selectedAlias);
+								logger.info(className, function, "valueTable IS NULL");
 							}
-
 						} else {
-							logger.info(className, function, "valueTable IS NULL");
+							logger.warn(className, function, "values.length > 0 IS INVALID");
 						}
 					} else {
-						logger.warn(className, function, "values.length > 0 IS INVALID");
+						logger.warn(className, function, "values IS NULL");
 					}
-				} else {
-					logger.warn(className, function, "values IS NULL");
+				
+					logger.end(className, function);
 				}
-			
-				logger.end(className, function);
-			}
-		});
+			});
+		} else {
+			logger.warn(className, function, "databaseMultiRead_i IS NULL");
+		}
+
 		logger.end(className, function);
 	}
 	
@@ -253,81 +257,86 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		final String function = "addValueTableSubscribe";
 		logger.begin(className, function);
 		
-		String address = alias+DotValueTable;
-		
-		DataBaseClientKey ck2 = new DataBaseClientKey();
-		ck2.setAPI(API.multiReadValue);
-		ck2.setWidget(className);
-		ck2.setStability(Stability.STATIC);
-		ck2.setScreen(uiNameCard.getUiScreen());
-		ck2.setEnv(env);
-		ck2.setAdress(address);
-		
-		String clientKey = ck2.getClientKey();
-		
-		LinkedList<String> dovaddresslist = new LinkedList<String>();
-		for ( int i = 0 ; i < valueTableDovnames.length ; ++i ) {
-			String dovname = valueTableDovnames[i];
-			if ( null != dovname ) {
-				dovaddresslist.add(alias+dovname+DotInitCondGL);
-			}
+		if ( null != databaseMultiRead_i_2 ) {
+
+			String address = alias+DotValueTable;
 			
-		}
-		String [] dovaddresses = dovaddresslist.toArray(new String[0]);
-		
-		databaseMultiRead_i_2.addMultiReadValueRequest(clientKey, env, dovaddresses, new DatabasePairEvent_i() {
+			DataBaseClientKey ck2 = new DataBaseClientKey();
+			ck2.setAPI(API.multiReadValue);
+			ck2.setWidget(className);
+			ck2.setStability(Stability.STATIC);
+			ck2.setScreen(uiNameCard.getUiScreen());
+			ck2.setEnv(env);
+			ck2.setAdress(address);
 			
-			@Override
-			public void update(String key, String[] dbAddresses, String[] values) {
-				final String function = "addSubscribeRequest update";
-				logger.begin(className, function);
-				if ( null != dbAddresses && null != values ) {
-					for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
-						String dbAddress = dbAddresses[i];
-						String value = values[i];
-						logger.warn(className, function, "dbAddress[{}] value[{}]", dbAddress, value);
-						if ( null != dbAddress && null != value ) {
-							String button = strButtonWUnderLine+i;
-							
-							logger.info(className, function, "button[{}]", button);
-							
-							if ( value.equals(initCondGLValid) ) {
-								String actionsetkey = strButtonSetUp;
-								String actionkey = strButtonSetUp;
-								
-								logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-								
-								HashMap<String, Object> parameter = new HashMap<String, Object>();
-								parameter.put(ActionAttribute.OperationString2.toString(), button);
-								
-								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-								override.put(actionkey, parameter);
-								
-								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-							} else {
-								String actionsetkey = strButtonSetDisable;
-								String actionkey = strButtonSetDisable;
-								
-								logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-								
-								HashMap<String, Object> parameter = new HashMap<String, Object>();
-								parameter.put(ActionAttribute.OperationString2.toString(), button);
-								
-								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-								override.put(actionkey, parameter);
-								
-								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-							}
-						} else {
-							logger.warn(className, function, "dbAddress OR value IS NULL");
-						}
-					}
-				} else {
-					logger.warn(className, function, "dbAddresses OR values IS NULL");
+			String clientKey = ck2.getClientKey();
+			
+			LinkedList<String> dovaddresslist = new LinkedList<String>();
+			for ( int i = 0 ; i < valueTableDovnames.length ; ++i ) {
+				String dovname = valueTableDovnames[i];
+				if ( null != dovname ) {
+					dovaddresslist.add(alias+dovname+DotInitCondGL);
 				}
-				logger.end(className, function);
+				
 			}
-		});
+			String [] dovaddresses = dovaddresslist.toArray(new String[0]);
+			
+			databaseMultiRead_i_2.addMultiReadValueRequest(clientKey, env, dovaddresses, new DatabasePairEvent_i() {
+				
+				@Override
+				public void update(String key, String[] dbAddresses, String[] values) {
+					final String function = "addSubscribeRequest update";
+					logger.begin(className, function);
+					if ( null != dbAddresses && null != values ) {
+						for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
+							String dbAddress = dbAddresses[i];
+							String value = values[i];
+							logger.warn(className, function, "dbAddress[{}] value[{}]", dbAddress, value);
+							if ( null != dbAddress && null != value ) {
+								String button = strButtonWUnderLine+i;
+								
+								logger.info(className, function, "button[{}]", button);
+								
+								if ( value.equals(initCondGLValid) ) {
+									String actionsetkey = strButtonSetUp;
+									String actionkey = strButtonSetUp;
+									
+									logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+									
+									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									parameter.put(ActionAttribute.OperationString2.toString(), button);
+									
+									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									override.put(actionkey, parameter);
+									
+									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+								} else {
+									String actionsetkey = strButtonSetDisable;
+									String actionkey = strButtonSetDisable;
+									
+									logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+									
+									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									parameter.put(ActionAttribute.OperationString2.toString(), button);
+									
+									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									override.put(actionkey, parameter);
+									
+									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+								}
+							} else {
+								logger.warn(className, function, "dbAddress OR value IS NULL");
+							}
+						}
+					} else {
+						logger.warn(className, function, "dbAddresses OR values IS NULL");
+					}
+					logger.end(className, function);
+				}
+			});
+		} else {
+			logger.warn(className, function, "databaseMultiRead_i_2 IS NULL");
+		}
 		
 		logger.end(className, function);
 	}
@@ -335,82 +344,87 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private void subscribeValueTable(String env, String alias) {
 		final String function = "subscribeValueTable";
 		logger.begin(className, function);
-
-		String address = alias+DotValueTable;
 		
-		DataBaseClientKey ck2 = new DataBaseClientKey();
-		ck2.setAPI(API.multiReadValue);
-		ck2.setWidget(className);
-		ck2.setStability(Stability.DYNAMIC);
-		ck2.setScreen(uiNameCard.getUiScreen());
-		ck2.setEnv(env);
-		ck2.setAdress(address);
-		
-		String clientKey = ck2.getClientKey();
-		
-		LinkedList<String> dovaddresslist = new LinkedList<String>();
-		for ( int i = 0 ; i < valueTableDovnames.length ; ++i ) {
-			String dovname = valueTableDovnames[i];
-			if ( null != dovname ) {
-				dovaddresslist.add(alias+dovname+DotInitCondGL);
-			}
+		if ( null != databaseSubscribe_i ) {
+			String address = alias+DotValueTable;
 			
-		}
-		String [] dovaddresses = dovaddresslist.toArray(new String[0]);
-		
-		databaseSubscribe_i.addSubscribeRequest(clientKey, env, dovaddresses, new DatabasePairEvent_i() {
+			DataBaseClientKey ck2 = new DataBaseClientKey();
+			ck2.setAPI(API.multiReadValue);
+			ck2.setWidget(className);
+			ck2.setStability(Stability.DYNAMIC);
+			ck2.setScreen(uiNameCard.getUiScreen());
+			ck2.setEnv(env);
+			ck2.setAdress(address);
 			
-			@Override
-			public void update(String key, String[] dbAddresses, String[] values) {
-				final String function = "addSubscribeRequest update";
-				logger.begin(className, function);
-				if ( null != dbAddresses && null != values ) {
-					for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
-						String dbAddress = dbAddresses[i];
-						String value = values[i];
-						logger.warn(className, function, "dbAddress[{}] value[{}]", dbAddress, value);
-						if ( null != dbAddress && null != value ) {
-							String button = strButtonWUnderLine+i;
-							
-							logger.info(className, function, "button[{}]", button);
-							
-							if ( value.equals(initCondGLValid) ) {
-								String actionsetkey = strButtonSetUp;
-								String actionkey = strButtonSetUp;
-								
-								logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-								
-								HashMap<String, Object> parameter = new HashMap<String, Object>();
-								parameter.put(ActionAttribute.OperationString2.toString(), button);
-								
-								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-								override.put(actionkey, parameter);
-								
-								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-							} else {
-								String actionsetkey = strButtonSetDisable;
-								String actionkey = strButtonSetDisable;
-								
-								logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
-								
-								HashMap<String, Object> parameter = new HashMap<String, Object>();
-								parameter.put(ActionAttribute.OperationString2.toString(), button);
-								
-								HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-								override.put(actionkey, parameter);
-								
-								uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
-							}
-						} else {
-							logger.warn(className, function, "dbAddress OR value IS NULL");
-						}
-					}
-				} else {
-					logger.warn(className, function, "dbAddresses OR values IS NULL");
+			String clientKey = ck2.getClientKey();
+			
+			LinkedList<String> dovaddresslist = new LinkedList<String>();
+			for ( int i = 0 ; i < valueTableDovnames.length ; ++i ) {
+				String dovname = valueTableDovnames[i];
+				if ( null != dovname ) {
+					dovaddresslist.add(alias+dovname+DotInitCondGL);
 				}
-				logger.end(className, function);
+				
 			}
-		});
+			String [] dovaddresses = dovaddresslist.toArray(new String[0]);
+			
+			databaseSubscribe_i.addSubscribeRequest(clientKey, env, dovaddresses, new DatabasePairEvent_i() {
+				
+				@Override
+				public void update(String key, String[] dbAddresses, String[] values) {
+					final String function = "addSubscribeRequest update";
+					logger.begin(className, function);
+					if ( null != dbAddresses && null != values ) {
+						for ( int i = 0 ; i < dbAddresses.length ; ++i ) {
+							String dbAddress = dbAddresses[i];
+							String value = values[i];
+							logger.warn(className, function, "dbAddress[{}] value[{}]", dbAddress, value);
+							if ( null != dbAddress && null != value ) {
+								String button = strButtonWUnderLine+i;
+								
+								logger.info(className, function, "button[{}]", button);
+								
+								if ( value.equals(initCondGLValid) ) {
+									String actionsetkey = strButtonSetUp;
+									String actionkey = strButtonSetUp;
+									
+									logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+									
+									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									parameter.put(ActionAttribute.OperationString2.toString(), button);
+									
+									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									override.put(actionkey, parameter);
+									
+									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+								} else {
+									String actionsetkey = strButtonSetDisable;
+									String actionkey = strButtonSetDisable;
+									
+									logger.info(className, function, "actionsetkey[{}] actionkey[{}]", actionsetkey, actionkey);
+									
+									HashMap<String, Object> parameter = new HashMap<String, Object>();
+									parameter.put(ActionAttribute.OperationString2.toString(), button);
+									
+									HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+									override.put(actionkey, parameter);
+									
+									uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+								}
+							} else {
+								logger.warn(className, function, "dbAddress OR value IS NULL");
+							}
+						}
+					} else {
+						logger.warn(className, function, "dbAddresses OR values IS NULL");
+					}
+					logger.end(className, function);
+				}
+			});
+		} else {
+			logger.warn(className, function, "databaseSubscribe_i IS NULL");
+		}
+
 		logger.end(className, function);
 	}
 	
@@ -418,20 +432,25 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		final String function = "unSubscribeValueTable";
 		logger.begin(className, function);
 		
-		String address = alias+DotValueTable;
-		
-		DataBaseClientKey ck2 = new DataBaseClientKey();
-		ck2.setAPI(API.multiReadValue);
-		ck2.setWidget(className);
-		ck2.setStability(Stability.DYNAMIC);
-		ck2.setScreen(uiNameCard.getUiScreen());
-		ck2.setEnv(env);
-		ck2.setAdress(address);
-		
-		String clientKey = ck2.getClientKey();
-		
-		databaseSubscribe_i.addUnSubscribeRequest(clientKey);
-		
+		if ( null != databaseSubscribe_i ) {
+			
+			String address = alias+DotValueTable;
+			
+			DataBaseClientKey ck2 = new DataBaseClientKey();
+			ck2.setAPI(API.multiReadValue);
+			ck2.setWidget(className);
+			ck2.setStability(Stability.DYNAMIC);
+			ck2.setScreen(uiNameCard.getUiScreen());
+			ck2.setEnv(env);
+			ck2.setAdress(address);
+			
+			String clientKey = ck2.getClientKey();
+			
+			databaseSubscribe_i.addUnSubscribeRequest(clientKey);
+		} else {
+			logger.warn(className, function, "databaseSubscribe_i IS NULL");
+		}
+
 		logger.end(className, function);
 	}
 		
@@ -441,11 +460,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		
 		final String function = "init";
 		logger.begin(className, function);
-		
-//		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
-//		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-//		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
-		
+
 		String strIsPolling 			= null;
 		String strRowInValueTable		= null;
 		String strDovnameCol			= null;
@@ -539,60 +554,6 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		if ( null != strIsAliasAndAlias2 && strIsAliasAndAlias2.equals(Boolean.TRUE.toString()) ) {
 			isAliasAndAlias2 = true;
 		}
-	
-//		uiWidgetGeneric = new UIWidgetGeneric();
-//		uiWidgetGeneric.setUINameCard(this.uiNameCard);
-//		uiWidgetGeneric.setDictionaryFolder(dictionaryFolder);
-//		uiWidgetGeneric.setViewXMLFile(viewXMLFile);
-//		uiWidgetGeneric.setOptsXMLFile(optsXMLFile);
-//		uiWidgetGeneric.init();
-//		
-//		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-//		uiEventActionProcessor_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
-//
-//		uiEventActionProcessor_i.setUINameCard(uiNameCard);
-//		uiEventActionProcessor_i.setPrefix(className);
-//		uiEventActionProcessor_i.setElement(element);
-//		uiEventActionProcessor_i.setDictionariesCacheName("UIWidgetGeneric");
-//		uiEventActionProcessor_i.setEventBus(eventBus);
-//		uiEventActionProcessor_i.setOptsXMLFile(optsXMLFile);
-//		uiEventActionProcessor_i.setUIGeneric(uiWidgetGeneric);
-//		uiEventActionProcessor_i.setActionSetTagName(UIActionEventType.actionset.toString());
-//		uiEventActionProcessor_i.setActionTagName(UIActionEventType.action.toString());
-//		uiEventActionProcessor_i.init();
-//		
-//		uiWidgetGeneric.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
-//			@Override
-//			public void onClickHandler(ClickEvent event) {
-//				if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
-//			}
-//		});
-//		
-//		rootPanel = uiWidgetGeneric.getMainPanel();
-//
-//		handlerRegistrations.add(
-//			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-//				@Override
-//				public void onEvenBusUIChanged(UIEvent uiEvent) {
-//					if ( uiEvent.getSource() != this ) {
-//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
-//					}
-//				}
-//			})
-//		);
-//
-//		handlerRegistrations.add(
-//			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
-//				@Override
-//				public void onAction(UIEventAction uiEventAction) {
-//					if ( uiEventAction.getSource() != this ) {
-//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
-//					}
-//				}
-//			})
-//		);
-//
-//		uiEventActionProcessor_i.executeActionSetInit();
 		
 		uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 			
@@ -764,30 +725,8 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 							if ( oe.equals(element) ) {
 								
 								HashMap<String, HashMap<String, Object>> override = null;
-								uiEventActionProcessor_i.executeActionSet(os1, override, new UIExecuteActionHandler_i() {
-									
-									@Override
-									public boolean executeHandler(UIEventAction uiEventAction) {
-										String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
-										
-										logger.info(className, function, "os1["+os1+"]");					
-										
-										if ( null != os1 ) {
-											if ( os1.equals("set_default_up") ) {
-												String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-												envUp(os2);
-											}
-											if ( os1.equals("set_default_down") ) {
-												String os2	= (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-												envDown(os2);
-											}
-											if ( os1.equals("set_default_kill") ) {
-												terminate();
-											}
-										}
-										return true;
-									}
-								});
+								uiEventActionProcessor_i.executeActionSet(os1, override);
+								
 							}
 						}
 					}
@@ -811,6 +750,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				logger.info(className, function, "multiReadMethod1[{}]", multiReadMethod1);
 				
 				databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
+				if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
 				databaseMultiRead_i.connect();
 				
 				if ( isPolling ) {
@@ -818,14 +758,15 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 					logger.info(className, function, "subScribeMethod1[{}]", subScribeMethod1);
 					
 					databaseSubscribe_i = DatabaseSubscribeFactory.get(subScribeMethod1);
+					if ( null == databaseMultiRead_i ) logger.warn(className, function, "subScribeMethod1[{}] databaseSubscribe_i IS NULL", subScribeMethod1);
 					databaseSubscribe_i.connect();
 				} else {
 					logger.info(className, function, "multiReadMethod2[{}]", multiReadMethod2);
 					
 					databaseMultiRead_i_2 = DatabaseMultiReadFactory.get(multiReadMethod2);
+					if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod2[{}] databaseMultiRead_i_2 IS NULL", multiReadMethod2);
 					databaseMultiRead_i_2.connect();
 				}
-				
 		
 				logger.begin(className, function);
 			}
@@ -837,14 +778,17 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 				
 				if ( null != databaseSubscribe_i ) {
 					databaseSubscribe_i.disconnect();
+					databaseSubscribe_i = null;
 				}
 				
 				if ( null != databaseMultiRead_i ) {
 					databaseMultiRead_i.disconnect();
+					databaseMultiRead_i = null;
 				}
 				
 				if ( null != databaseMultiRead_i_2 ) {
 					databaseMultiRead_i_2.disconnect();
+					databaseMultiRead_i_2 = null;
 				}
 				
 				logger.begin(className, function);

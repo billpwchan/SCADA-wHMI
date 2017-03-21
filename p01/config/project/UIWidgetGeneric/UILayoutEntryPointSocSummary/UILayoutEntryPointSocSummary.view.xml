@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutEntryPointSocSummary-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UILayoutSocSummary.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UILayoutSocSummary.opts.xml</uiOpts>

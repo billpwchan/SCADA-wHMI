@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutDpcTagAction-panel-inner</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetDpcTagControl</uiCtrl>
 		<uiView>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagControl.opts.xml</uiOpts>
@@ -16,12 +15,10 @@
 		<csscontainer>project-UILayoutDpcTagAction-panel-control</csscontainer>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetPrint</uiCtrl>
 		<uiView>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagPrint.view.xml</uiView>
 	</option>
 	<option key="0|2">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetFilter</uiCtrl>
 		<uiView>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagFilter.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagFilter.opts.xml</uiOpts>

@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetCtlControl</uiCtrl>
 		<uiView>UILayoutEntryPointPTWSummary/UIWidgetPTWControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointPTWSummary/UIWidgetPTWControl.opts.xml</uiOpts>
@@ -16,7 +15,6 @@
 		<csscontainer>project-gwt-panel-action-control</csscontainer>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetFilter</uiCtrl>
 		<uiView>UILayoutEntryPointPTWSummary/UIWidgetPTWFilter.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointPTWSummary/UIWidgetPTWFilter.opts.xml</uiOpts>

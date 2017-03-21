@@ -14,7 +14,6 @@
 		<uiView>UILayoutEntryPointEventSummary/UILayoutEventSummaryAction.view.xml</uiView>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewer.opts.xml</uiOpts>

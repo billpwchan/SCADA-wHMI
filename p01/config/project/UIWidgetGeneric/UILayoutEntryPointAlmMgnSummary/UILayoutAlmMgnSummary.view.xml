@@ -14,7 +14,6 @@
 		<element>UILayoutAlmMgnAction</element>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetCSSSwitch</uiCtrl>
 		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnCSSSwitch.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnCSSSwitch.opts.xml</uiOpts>

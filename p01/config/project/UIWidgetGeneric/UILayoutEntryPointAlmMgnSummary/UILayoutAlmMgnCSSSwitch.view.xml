@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-viewswap-almmgn</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnViewer0.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnViewer0.opts.xml</uiOpts>
@@ -17,7 +16,6 @@
 		<top>0</top>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnViewer1.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlmMgnSummary/UILayoutAlmMgnViewer1.opts.xml</uiOpts>

@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-viewswap-almmgn</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetDpcScanSuspendControl</uiCtrl>
 		<uiView>UILayoutEntryPointInputTableSummary/UIWidgetInputTableScanSuspendControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointInputTableSummary/UIWidgetInputTableScanSuspendControl.opts.xml</uiOpts>
@@ -18,7 +17,6 @@
 		<top>0</top>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetDpcManualOverrideControl</uiCtrl>
 		<uiView>UILayoutEntryPointInputTableSummary/UIWidgetInputTableManualOverrideControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointInputTableSummary/UIWidgetInputTableManualOverrideControl.opts.xml</uiOpts>

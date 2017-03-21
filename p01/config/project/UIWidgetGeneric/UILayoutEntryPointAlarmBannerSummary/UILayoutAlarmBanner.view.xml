@@ -10,7 +10,6 @@
 	</header>
 	
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetViewer</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBannerViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBannerViewer.opts.xml</uiOpts>
@@ -20,7 +19,6 @@
 	</option>
 	
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetBox</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmBannerSummary/UIWidgetAlarmBannerButton.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UIWidgetAlarmBannerButton.opts.xml</uiOpts>
@@ -39,7 +37,6 @@
 	</option>
 	
 	<option key="0|3">
-		<type>predefine</type>
 		<uiCtrl>UIPanelSoundServerController</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmBannerSummary/UIPanelSoundServerController.view.xml</uiView>
 		<element>UIPanelSoundServerController</element>

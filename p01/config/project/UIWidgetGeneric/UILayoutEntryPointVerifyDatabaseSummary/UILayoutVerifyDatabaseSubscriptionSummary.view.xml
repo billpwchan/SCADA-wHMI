@@ -9,7 +9,6 @@
 	</header>
 
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetVerifyDatabaseSubscriptionControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseSubscriptionControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointVerifyDatabaseSummary/UIWidgetVerifyDatabaseSubscriptionControl.opts.xml</uiOpts>

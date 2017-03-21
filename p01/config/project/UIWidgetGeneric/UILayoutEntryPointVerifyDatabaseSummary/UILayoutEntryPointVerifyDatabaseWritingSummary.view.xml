@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutEntryPointVerifyDatabasePollingSummary-panel-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutVerifyDatabaseWritingSummary.view.xml</uiView>
 		<element>UILayoutVerifyDatabaseWritingSummary</element>

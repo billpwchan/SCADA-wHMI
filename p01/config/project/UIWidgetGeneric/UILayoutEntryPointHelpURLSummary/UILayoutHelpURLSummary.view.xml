@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-summaryview-htmlurl</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetBox</uiCtrl>
 		<uiView>UILayoutEntryPointHelpURLSummary/UIWidgetHelpURL.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointHelpURLSummary/UIWidgetHelpURL.opts.xml</uiOpts>

@@ -8,7 +8,6 @@
 		<rootCSS>project-UIScreenMMI-container</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIScreenMMI</uiCtrl>
 		<uiView>UILayoutEntryPointUIScreenMMISummary/UIScreenMMI.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointUIScreenMMISummary/UIScreenMMI.opts.xml</uiOpts>

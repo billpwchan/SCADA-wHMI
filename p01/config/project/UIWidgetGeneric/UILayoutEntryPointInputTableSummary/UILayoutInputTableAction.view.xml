@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetCSSSwitch</uiCtrl>
 		<uiView>UILayoutEntryPointInputTableSummary/UILayoutInputTableCSSSwitchControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointInputTableSummary/UILayoutInputTableCSSSwitchControl.opts.xml</uiOpts>
@@ -16,7 +15,6 @@
 		<csscontainer>project-gwt-panel-action-almgn-filter0</csscontainer>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetCSSSelection</uiCtrl>
 		<uiView>UILayoutEntryPointInputTableSummary/UIWidgetInputTableCSSSelection.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointInputTableSummary/UIWidgetInputTableCSSSelection.opts.xml</uiOpts>
@@ -24,7 +22,6 @@
 		<csscontainer>project-gwt-panel-action-almgn-filter1</csscontainer>
 	</option>
 	<option key="0|2">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetFilter</uiCtrl>
 		<uiView>UILayoutEntryPointInputTableSummary/UIWidgetInputTableFilter.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointInputTableSummary/UIWidgetInputTableFilter.opts.xml</uiOpts>

@@ -8,7 +8,6 @@
 		<rootCSS>project-UILayoutSocAction-root</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocDelayControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocDelayControl.opts.xml</uiOpts>
@@ -16,7 +15,6 @@
 		<csscontainer>project-UILayoutSocAction-container-delay</csscontainer>
 	</option>
 	<option key="0|1">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocAutoManuControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocAutoManuControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocAutoManuControl.opts.xml</uiOpts>
@@ -24,7 +22,6 @@
 		<csscontainer>project-UILayoutSocAction-container-automanucontrol</csscontainer>
 	</option>
 	<option key="0|2">
-		<type>predefine</type>
 		<uiCtrl>UIWidgetSocControl</uiCtrl>
 		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocControl.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocControl.opts.xml</uiOpts>

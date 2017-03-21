@@ -8,7 +8,6 @@
 		<rootCSS>project-gwt-panel-alarmsummaryview-inner</rootCSS>
 	</header>
 	<option key="0|0">
-		<type>predefine</type>
 		<uiCtrl>UILayoutSummary</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointAlarmBannerSummary/UILayoutAlarmBanner.opts.xml</uiOpts>

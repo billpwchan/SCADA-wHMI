@@ -23,6 +23,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProce
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIGenericMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.WidgetParameterName;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.LastCompilation;
@@ -36,6 +37,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.LifeValue;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutSoc;
@@ -96,8 +98,21 @@ public class UILayoutSummary extends UIWidget_i {
 	private SimpleEventBus eventBus		= null;
 	private String eventBusName			= null;
 	private String eventBusScope		= null;
-	private String initDelayMS 			= null;
+	
 	private String scsEnvIds			= null;
+	
+	private String init					= null;
+	private String envUp				= null;
+	private String envDown				= null;
+	private String terminate			= null;
+	
+	private String initDelayMS 			= null;
+	private String initDelay			= null;
+	private String envUpDelayMS 		= null;
+	private String envUpDelay			= null;
+	
+	private String disableInitDelay		= null;
+	private String disableEnvUpDelay	= null;
 	
 	private final String strUIWidgetGeneric = "UIWidgetGeneric";
 	private final String strHeader = "header";
@@ -112,10 +127,24 @@ public class UILayoutSummary extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			eventBusName = dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusName.toString(), strHeader);
-			eventBusScope = dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusScope.toString(), strHeader);
-			initDelayMS = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
-			scsEnvIds = dictionariesCache.getStringValue(optsXMLFile, ParameterName.ScsEnvIds.toString(), strHeader);
+			eventBusName		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusName.toString(), strHeader);
+			eventBusScope		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EventBusScope.toString(), strHeader);
+			
+			scsEnvIds			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ScsEnvIds.toString(), strHeader);
+			
+			init				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Init.toString(), strHeader);
+			envUp				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EnvUp.toString(), strHeader);
+			envDown				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EnvDown.toString(), strHeader);
+			terminate			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Terminate.toString(), strHeader);
+			
+			initDelayMS			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
+			initDelay			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelay.toString(), strHeader);
+			
+			envUpDelayMS		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EnvUpDelayMS.toString(), strHeader);
+			envUpDelay			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EnvUpDelay.toString(), strHeader);
+
+			disableInitDelay	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DisableInitDelay.toString(), strHeader);
+			disableEnvUpDelay	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DisableEnvUpDelay.toString(), strHeader);
 		}
 		
 		logger.info(className, function, "eventBusName[{}] eventBusScope[{}]", eventBusName, eventBusScope);
@@ -160,17 +189,46 @@ public class UILayoutSummary extends UIWidget_i {
 
 			uiEventActionProcessor_i.executeActionSetInit();
 			
-			int delay = 1000;
-			if ( null != initDelayMS ) {
-				try { 
-					delay = Integer.parseInt(initDelayMS);
-				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
+			if ( ! ( null != disableInitDelay && Boolean.parseBoolean(disableInitDelay) ) ) {
+				int iInitDelay = 1000;
+				if ( null != initDelayMS ) {
+					try { 
+						iInitDelay = Integer.parseInt(initDelayMS);
+					} catch ( NumberFormatException ex ) {
+						logger.warn(className, function, "Value of initdelayms[{}] IS INVALID", initDelayMS);
+					}
+				}
+				if ( null != initDelay ) {
+					if ( iInitDelay > 0 ) {
+						uiEventActionProcessor_i.executeActionSet(initDelay, iInitDelay, null);
+					} else {
+						uiEventActionProcessor_i.executeActionSet(initDelay);
+					}
+				} else {
+					uiEventActionProcessor_i.executeActionSet(LifeValue.init_delay.toString(), 1000, null);
 				}
 			}
-			uiEventActionProcessor_i.executeActionSetInit(delay, null);
 			
-			uiEventActionProcessor_i.executeActionSetEnvUp(delay, null);
+			if ( ! ( null != disableInitDelay && Boolean.parseBoolean(disableEnvUpDelay) ) ) {
+				int iEnvUpdelay = 1000;
+				if ( null != envUpDelayMS ) {
+					try { 
+						iEnvUpdelay = Integer.parseInt(envUpDelayMS);
+					} catch ( NumberFormatException ex ) {
+						logger.warn(className, function, "Value of envUpDelayMS[{}] IS INVALID", envUpDelayMS);
+					}
+				}
+				if ( null != envUpDelay ) {
+					if ( iEnvUpdelay > 0 ) {
+						uiEventActionProcessor_i.executeActionSet(envUpDelay, iEnvUpdelay, null);
+					} else {
+						uiEventActionProcessor_i.executeActionSet(envUpDelay);
+					}
+				} else {
+					uiEventActionProcessor_i.executeActionSet(LifeValue.envup_delay.toString(), 1000, null);
+				}
+			}
+			
 		} else {
 			logger.warn(className, function, "uiEventActionProcessor_i IS NULL");
 		}
@@ -179,11 +237,65 @@ public class UILayoutSummary extends UIWidget_i {
 	}
 	
 	@Override
+	public void envUp(String env) {
+		final String function = "envUp";
+		logger.begin(className, function);
+		
+		if ( null != uiEventActionProcessor_i) {
+			
+			String actionkey = envUp;
+			if ( null == envUp ) {
+				actionkey = LifeValue.envup.toString();
+			};
+			
+			HashMap<String, Object> parameter = new HashMap<String, Object>();
+			parameter.put(ActionAttribute.OperationString2.toString(), env);
+			
+			HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+			override.put(actionkey, parameter);
+			
+			uiEventActionProcessor_i.executeActionSet(actionkey, override);
+		}
+		
+		logger.end(className, function);
+	}
+	
+	@Override
+	public void envDown(String env) {
+		final String function = "envDown";
+		logger.begin(className, function);
+		
+		if ( null != uiEventActionProcessor_i) {
+			
+			String actionkey = envDown;
+			if ( null == envDown ) {
+				actionkey = LifeValue.envdown.toString();
+			};
+			
+			HashMap<String, Object> parameter = new HashMap<String, Object>();
+			parameter.put(ActionAttribute.OperationString2.toString(), env);
+			
+			HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+			override.put(actionkey, parameter);
+			
+			uiEventActionProcessor_i.executeActionSet(actionkey, override);
+		}
+		
+		logger.end(className, function);
+	}
+	
+	@Override
 	public void terminate() {
 		final String function = "terminate";
 		logger.begin(className, function);
 		
-		if ( null != uiEventActionProcessor_i) uiEventActionProcessor_i.executeActionSetTerminate();
+		if ( null != uiEventActionProcessor_i) {
+			String actionkey = terminate;
+			if ( null == terminate ) {
+				actionkey = LifeValue.terminate.toString();
+			};
+			uiEventActionProcessor_i.executeActionSet(actionkey);
+		}
 		
 		logger.end(className, function);
 	}

@@ -163,12 +163,10 @@ public class UIEventActionProcessorCore implements UIEventActionProcessorCore_i 
 		if ( null != actionset ) {
 			actionset.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.actionsetkey.toString());
 			for ( String actionsetattributename : ActionAttribute.toStrings() ) {
-				logger.debug(className, function, "actionsetattributename[{}]", actionsetattributename);
 				String actionsetattribute = (String) actionset.getParameter(actionsetattributename);
-				logger.debug(className, function, "actionsetattribute[{}]", actionsetattribute);
-				
 				if ( bContinue ) {
 					if ( null != actionsetattribute ) {
+						logger.debug(className, function, "actionsetattributename[{}] actionsetattribute[{}]", actionsetattributename, actionsetattribute);
 						UIEventAction action = uiEventActionMgr.get(actionsetattribute);
 						action.setParameter(UIActionEventAttribute.OperationType.toString(), UIActionEventType.action.toString());
 						if ( null != override ) {

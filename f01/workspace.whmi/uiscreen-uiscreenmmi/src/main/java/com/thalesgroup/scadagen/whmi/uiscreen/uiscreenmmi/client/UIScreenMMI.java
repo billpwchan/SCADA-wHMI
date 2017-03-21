@@ -277,20 +277,8 @@ public class UIScreenMMI extends UIWidget_i {
 				if ( null != uiCtrl) {
 					
 					if ( ! uiCtrl.startsWith("WidgetFactory") ) {
-						
-						if (		UIWidgetUtil.getClassSimpleName(UIWidgetConfiguration.class.getName())
-								.equals(uiCtrl)
-								) {
 
-							uiWidget_i = new UIWidgetConfiguration();
-
-						} else if (	UIWidgetUtil.getClassSimpleName(UILayoutConfiguration.class.getName())
-								.equals(uiCtrl)
-								) {
-
-							uiWidget_i = new UILayoutConfiguration();
-							
-						} else if (  UIWidgetUtil.getClassSimpleName(
+						if (  UIWidgetUtil.getClassSimpleName(
 								UIPanelSoundServerController.class.getName()).equals(uiCtrl) ) {
 							
 							uiWidget_i = new UIPanelSoundServerController();

@@ -7,11 +7,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.calculated.util.Util;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 
@@ -24,8 +25,6 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	protected Logger logger					= null;
 	
 	protected String logPrefix				= null;
-	
-	protected String className				= null;
 	
 	protected final String mappingname		= ".valuemapping.";
 	
@@ -48,8 +47,6 @@ public abstract class GDGMessage extends SCSStatusComputer {
 	protected int keyindex					= -1;
 	
 	protected Map<String, String> mappings	= new HashMap<String, String>();
-	
-	protected Util util 					= new Util();
 
 	/**
 	 * Split input string
@@ -108,7 +105,18 @@ public abstract class GDGMessage extends SCSStatusComputer {
     	
     	logger.debug("{} getComputerId[{}]", logPrefix, getComputerId());
     	
-    	mappings = util.loadMapping(this.getClass().getSimpleName());
+    	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
+		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
+		if (properties != null) {
+			int classNameLength = m_name.length();
+			// Load all setting with class prefix into buffer
+			for ( String key : properties.keySet() ) {
+				if ( key.startsWith(m_name) ) {
+					String keyname = key.substring(classNameLength);
+					mappings.put(keyname, properties.get(key));
+				}
+			}
+		}
 		
 		field1		= mappings.get(fieldname1);
 		keyindex1	= mappings.get(keyindexname1);
@@ -209,6 +217,21 @@ public abstract class GDGMessage extends SCSStatusComputer {
     { 
 		logger.debug("{} compute m_name[{}], field1[{}]", new Object[]{logPrefix, m_name, field1});
     	
+//		logger.debug("{} compute PRINT operatorOpmInfo[{}]", logPrefix, operatorOpmInfo);
+//		logger.debug("{} compute PRINT entityId[{}]", logPrefix, entityId);
+//		
+//		for ( AttributeClientAbstract<?> obj1 : inputStatusByName.values() ) {
+//			if ( obj1 instanceof StringAttribute ) {
+//				logger.warn("{} compute inputStatusByName obj1[{}]", logPrefix, ((StringAttribute) obj1).getValue());
+//			} else {
+//				logger.warn("{} compute inputStatusByName obj1 IS NOT instanceof StringAttribute ");
+//			}
+//		}
+//
+//		for ( String key : inputPropertiesByName.keySet() ) {
+//			logger.warn("{} compute inputPropertiesByName key[{}] value[{}] ", new Object[]{logPrefix, key, inputPropertiesByName.get(key)});
+//		}
+		
 		boolean isvalid = false;
 		
 		// Return String value

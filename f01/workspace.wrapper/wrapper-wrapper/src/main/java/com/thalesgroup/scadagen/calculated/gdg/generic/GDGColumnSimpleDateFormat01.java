@@ -7,7 +7,7 @@ public class GDGColumnSimpleDateFormat01 extends GDGColumnSimpleDateFormat {
 	public GDGColumnSimpleDateFormat01 () {
 		super();
 		
-		className = this.getClass().getSimpleName();
+		classname = this.getClass().getSimpleName();
 		
 		loadCnf();
 	}

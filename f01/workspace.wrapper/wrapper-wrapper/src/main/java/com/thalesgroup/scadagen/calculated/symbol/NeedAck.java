@@ -77,6 +77,7 @@ public class NeedAck extends SCSStatusComputer {
 		logger.debug(propertiesname+" field1[{}]", field1);
     	
 		m_statusSet.add(field1);
+		m_statusSet.add(field2);
         
     }
 
@@ -92,13 +93,15 @@ public class NeedAck extends SCSStatusComputer {
     	String inValue1 = util.loadStringValue(inputStatusByName, field1);
     	logger.debug("compute inValue1[{}]", inValue1);
     	
+    	// Load inValue value
+    	int inValue2 = util.loadIntValue(inputStatusByName, field2);
+    	logger.debug("compute inValue2[{}]", inValue2);
+    	
     	// Append the prefix if exists
     	String configPrefix = util.getConfigPrefix(mappings, propertiesname, inValue1);
     	logger.debug("compute configPrefix[{}]", configPrefix);
 
     	util.setPrefix(inValue1);
-    	
-    	int inValue2 = util.getInputStatusByConfigPrefixMappingIntValue(mappings, inputStatusByName, configPrefix, fieldname2);
     	
     	int outValue1 = 0;
     	

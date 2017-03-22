@@ -13,8 +13,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implement
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.IntAttribute;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
-import com.thalesgroup.scadagen.calculated.util.Util;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
 
@@ -58,8 +58,6 @@ public class GDGMessageCheckAccess extends SCSStatusComputer {
 	private UIOpm_i uiOpm_i 				= null;
 	
 	protected static Map<String, String> mappings	= new HashMap<String, String>();
-	
-	protected static Util util = new Util();
 
 	@Override
 	public String getComputerId() {
@@ -151,13 +149,27 @@ public class GDGMessageCheckAccess extends SCSStatusComputer {
 		}
 
     	// Load value 1
-    	// Load eqpType value
-    	int inValue1 = util.loadIntValue(inputStatusByName, field1);
+		int inValue1 = -1;
+    	{
+	    	AttributeClientAbstract<?> obj1 = inputStatusByName.get(field1);
+	    	if (obj1 != null && obj1 instanceof IntAttribute) {
+	    		inValue1 = ((IntAttribute) obj1).getValue();
+	    	} else {
+	    		logger.warn("compute field1[{}] IS INVALID", field1);
+	    	}
+		}
     	logger.debug("compute inValue1[{}]", inValue1);
     	
     	// Load value 2
-    	// Load eqpType value
-    	String inValue2 = util.loadStringValue(inputStatusByName, field2);
+    	String inValue2 = null;
+    	{
+	    	AttributeClientAbstract<?> obj1 = inputStatusByName.get(field2);
+	    	if (obj1 != null && obj1 instanceof StringAttribute) {
+	    		inValue2 = ((StringAttribute) obj1).getValue();
+	    	} else {
+	    		logger.warn("compute field2[{}] IS INVALID", field2);
+	    	}
+		}
     	logger.debug("compute inValue2[{}]", inValue2);
     	
     	int outValue1 = 0;

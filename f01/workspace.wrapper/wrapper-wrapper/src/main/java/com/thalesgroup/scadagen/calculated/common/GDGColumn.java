@@ -3,17 +3,17 @@ package com.thalesgroup.scadagen.calculated.common;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.calculated.util.Util;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
 
 public abstract class GDGColumn extends OlsDecoder {
@@ -22,15 +22,13 @@ public abstract class GDGColumn extends OlsDecoder {
 	
 	protected String logPrefix				= null;
 	
-	protected String className				= null;
+	protected String classname				= null;
 	
 	protected String fieldName				= null;
-	
-	protected Util util 					= new Util();
 
 	@Override
 	public String getComputerId() {
-		return className;
+		return classname;
 	}
 	
 	/**
@@ -40,17 +38,32 @@ public abstract class GDGColumn extends OlsDecoder {
 
 		logger = LoggerFactory.getLogger(GDGColumn.class.getName());
 		
-		className = this.getClass().getSimpleName();
+		classname = this.getClass().getSimpleName();
 		
-    	logPrefix = className;
+    	logPrefix = classname;
     	
-    	logger.debug("[{}] classname[{}] getComputerId[{}]", new Object[]{logPrefix, className, getComputerId()});
+    	logger.debug("[{}] classname[{}] getComputerId[{}]", new Object[]{logPrefix, classname, getComputerId()});
     	
-    	mappings = util.loadMapping(className);
+    	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
+		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
+		if (properties != null) {
+			int classNameLength = classname.length();
+			// Load all setting with class prefix into buffer
+			for ( String key : properties.keySet() ) {
+//				logger.debug("[{}] properties.keySet() key[{}]", new Object[]{logPrefix, key});
+				if ( key.startsWith(classname) ) {
+					String keyname = key.substring(classNameLength);
+					mappings.put(keyname, properties.get(key));
+//					logger.debug("[{}] keyname[{}] properties.get(key)[{}]", new Object[]{logPrefix, keyname, properties.get(key)});
+				}
+			}
+		} else {
+			logger.warn("[{}] properties IS NULL", logPrefix);
+		}
 		
-		m_name = className;
+		m_name = classname;
 		
-		logger.debug("[{}] m_name[{}] classname[{}]", new Object[]{logPrefix, m_name, className});
+		logger.debug("[{}] m_name[{}] classname[{}]", new Object[]{logPrefix, m_name, classname});
 
 	}
 	

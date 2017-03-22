@@ -7,7 +7,7 @@ public class GDGColumnBitwise02 extends GDGColumnBitwise {
 	public GDGColumnBitwise02 () {
 		super();
 		
-		className = this.getClass().getSimpleName();
+		classname = this.getClass().getSimpleName();
 		
 		loadCnf();
 	}

@@ -12,9 +12,9 @@ import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.IntAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
-import com.thalesgroup.scadagen.calculated.util.Util;
 
 public class IntFormatting extends SCSStatusComputer {
 	
@@ -32,8 +32,6 @@ public class IntFormatting extends SCSStatusComputer {
 	protected String field2					= "symbol1";
 	
 	protected Map<String, String> mappings	= new HashMap<String, String>();
-	
-	protected static Util util = new Util();
 
 	@Override
 	public String getComputerId() {
@@ -79,20 +77,51 @@ public class IntFormatting extends SCSStatusComputer {
 		logger.debug("compute field1[{}]", field1);
 		logger.debug("compute field2[{}]", field2);
     	
-		// Load eqpType value
-    	String inValue1 = util.loadStringValue(inputStatusByName, field1);
+    	// Load eqpType value
+    	String inValue1 = null;
+    	{
+	    	AttributeClientAbstract<?> obj1 = inputStatusByName.get(field1);
+	    	if (obj1 != null && obj1 instanceof StringAttribute) {
+	    		inValue1 = ((StringAttribute) obj1).getValue();
+	    	} else {
+	    		logger.warn("compute field1[{}] IS INVALID", field1);
+	    	}
+		}
     	logger.debug("compute inValue1[{}]", inValue1);
     	
-    	// Append the prefix if exists
-    	String configPrefix = util.getConfigPrefix(mappings, propertiesname, inValue1);
-    	logger.debug("compute configPrefix[{}]", configPrefix);
-    	
     	// Load Int value
-    	int inValue2 = util.getInputStatusByConfigPrefixMappingIntValue(mappings, inputStatusByName, configPrefix, field2);
+    	int inValue2 = 0;
+    	{
+	    	AttributeClientAbstract<?> obj1 = inputStatusByName.get(field2);
+	    	if (obj1 != null && obj1 instanceof IntAttribute) {
+	    		inValue2 = ((IntAttribute) obj1).getValue();
+	    	} else {
+	    		logger.warn("compute field2[{}] IS INVALID", field2);
+	    	}
+		}
     	logger.debug("compute inValue2[{}]", inValue2);
 
+    	// Append the prefix if exists
+    	String configPrefix = propertiesname;
+    	if ( null != inValue1 ) {
+    		String keyToFind = propertiesname+"."+inValue1;
+    		for ( String key : mappings.keySet() ) {
+    			if ( key.startsWith(keyToFind)) {
+    				configPrefix = keyToFind;
+    				break;
+    			}
+    		}
+    	}
+    	logger.debug("compute configPrefix[{}]", configPrefix);
+    	
     	// Find mapping
-    	String inValue3 = util.getConfigPrefixMappingValue(mappings, configPrefix, formatting);
+    	String inValue3 = null;
+    	{
+	    	String keyToMap = configPrefix+formatting;
+	    	logger.debug("compute keyToMap[{}]", keyToMap);
+	    	inValue3 = mappings.get(keyToMap);
+	    	logger.debug("compute inValue3[{}]", inValue3);    		
+    	}
     	logger.debug("compute inValue3[{}]", inValue3);
     	
     	String outValue1 = null;

@@ -7,7 +7,7 @@ public class GDGColumn05 extends GDGColumn {
 	public GDGColumn05 () {
 		super();
 		
-		className = this.getClass().getSimpleName();
+		classname = this.getClass().getSimpleName();
 		
 		loadCnf();
 	}

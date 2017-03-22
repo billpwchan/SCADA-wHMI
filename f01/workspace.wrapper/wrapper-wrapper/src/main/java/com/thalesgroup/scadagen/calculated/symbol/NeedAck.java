@@ -27,11 +27,11 @@ public class NeedAck extends SCSStatusComputer {
 	
 	protected final String fieldname1		= ".fieldname1";
 	protected final String fieldname2		= ".fieldname2";
-	
 	protected final String fieldname3		= ".fieldname3";
-	
 	protected final String fieldname4		= ".fieldname4";
+	
 	protected final String fieldname5		= ".fieldname5";
+	
 	protected final String fieldname6		= ".fieldname6";
 	protected final String fieldname7		= ".fieldname7";
 	
@@ -42,6 +42,8 @@ public class NeedAck extends SCSStatusComputer {
 	
 	protected String field1					= "eqpType";
 	protected String field2					= "needack";
+	protected String field3					= "func";
+	protected String field4					= "geoc";
 	
 	protected static Map<String, String> mappings	= new HashMap<String, String>();
 	
@@ -73,11 +75,16 @@ public class NeedAck extends SCSStatusComputer {
 		}
 		
 		field1 = mappings.get(propertiesname+fieldname1);
+		field2 = mappings.get(propertiesname+fieldname2);
+		field3 = mappings.get(propertiesname+fieldname3);
+		field4 = mappings.get(propertiesname+fieldname4);
 		
 		logger.debug(propertiesname+" field1[{}]", field1);
     	
 		m_statusSet.add(field1);
 		m_statusSet.add(field2);
+		m_statusSet.add(field3);
+		m_statusSet.add(field4);
         
     }
 
@@ -109,7 +116,7 @@ public class NeedAck extends SCSStatusComputer {
         		
         	outValue1 = inValue2;
         	
-        	String opmKey = util.getConfigPrefixMappingValue(mappings, configPrefix, fieldname3);
+        	String opmKey = util.getConfigPrefixMappingValue(mappings, configPrefix, fieldname5);
         	
         	logger.debug("compute opmKey[{}]", opmKey);
 	    	
@@ -118,10 +125,10 @@ public class NeedAck extends SCSStatusComputer {
         	// Field Value: function, location, action, mode
         	String opmValue1 = null, opmValue2 = null, opmValue3 = null, opmValue4 = null;
         	
-        	int iOpmValue1 = util.getInputStatusByConfigPrefixMappingIntValue(mappings, inputStatusByName, configPrefix, fieldname4);
+        	int iOpmValue1 = util.loadIntValue(inputStatusByName, field3);
 	    	opmValue1 = Integer.toString(iOpmValue1);
 	    	
-	    	int iOpmValue2 = util.getInputStatusByConfigPrefixMappingIntValue(mappings, inputStatusByName, configPrefix, fieldname4);
+	    	int iOpmValue2 = util.loadIntValue(inputStatusByName, field4);
 	    	opmValue2 = Integer.toString(iOpmValue2);
 	    	
 	    	opmValue3 = util.getConfigPrefixMappingValue(mappings, configPrefix, fieldname6);

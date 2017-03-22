@@ -36,11 +36,11 @@ public class Util {
 			int classNameLength = className.length();
 			// Load all setting with class prefix into buffer
 			for ( String key : properties.keySet() ) {
-//				logger.debug("[{}] properties.keySet() key[{}]", new Object[]{logPrefix, key});
+				logger.debug("{} {} properties.keySet() key[{}]", new Object[]{function, className, key});
 				if ( key.startsWith(className) ) {
 					String keyname = key.substring(classNameLength);
 					mappings.put(keyname, properties.get(key));
-//					logger.debug("[{}] keyname[{}] properties.get(key)[{}]", new Object[]{logPrefix, keyname, properties.get(key)});
+					logger.debug("{} {} keyname[{}] properties.get(key)[{}]", new Object[]{function, className, keyname, properties.get(key)});
 				}
 			}
 		} else {

@@ -48,6 +48,7 @@ public interface UIWidgetGeneric_i {
 		, media("media")
 		, readonly("readonly")
 		, maxlength("maxlength")
+		, placeholder("placeholder")
 		, visibleitemcount("visibleitemcount")
 		, enable("enable")
 		

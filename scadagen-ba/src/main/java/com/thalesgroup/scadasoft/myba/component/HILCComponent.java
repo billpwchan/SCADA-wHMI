@@ -34,7 +34,7 @@ public class HILCComponent extends AbstractJSComponent {
      */
 	@Override
 	protected void doComponentInit() {
-		m_hilcService = new ScadagenHILCServicesProxy(SCSConfManager.instance().getRemoteEnv(), "HILCServer");
+		m_hilcService = new ScadagenHILCServicesProxy(SCSConfManager.instance().getRemoteEnv(), "SigHILCServer");
 	}
 
 	/**

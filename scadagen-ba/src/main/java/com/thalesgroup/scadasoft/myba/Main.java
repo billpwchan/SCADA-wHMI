@@ -167,7 +167,6 @@ public class Main {
         	s_logger.error("SCADAgen BA  - cannot initialize SCADAsoft: {}@{}", serverName, physicalEnv);
             System.exit(1);
         }
-        s_logger.info("ScadagenConnectorProxy is not null");
         proxy.initialize(physicalEnv, serverName, smgr);
         if (!ScadagenConnectorProxy.instance().isInitialized()) {
             s_logger.error("SCADAgen BA  - cannot initialize SCADAsoft: {}@{}", serverName, physicalEnv);

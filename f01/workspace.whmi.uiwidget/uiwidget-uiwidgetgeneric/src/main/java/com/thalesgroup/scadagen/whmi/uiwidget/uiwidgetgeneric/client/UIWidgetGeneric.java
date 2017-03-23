@@ -184,6 +184,7 @@ public class UIWidgetGeneric extends UIGeneric {
 							String css				= valueMap.get(WidgetAttribute.css.toString());
 							String readonly			= valueMap.get(WidgetAttribute.readonly.toString());
 							String maxlength		= valueMap.get(WidgetAttribute.maxlength.toString());
+							String placeholder	    = valueMap.get(WidgetAttribute.placeholder.toString());
 							String visibleitemcount	= valueMap.get(WidgetAttribute.visibleitemcount.toString());
 							
 							String characterwidth	= valueMap.get(WidgetAttribute.characterwidth.toString());
@@ -272,7 +273,8 @@ public class UIWidgetGeneric extends UIGeneric {
 								
 								if ( null != maxlength && maxlength.length() > 0 )
 									((TextBox)w).setMaxLength(Integer.parseInt(maxlength));
-								
+								if ( null != placeholder && placeholder.length()>0)
+									((TextBox)w).getElement().setPropertyString("placeholder", placeholder);
 								if ( null != readonly )
 									((TextBox)w).setReadOnly(true);
 

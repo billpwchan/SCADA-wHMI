@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.calculated.util;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,27 +27,45 @@ public class Util {
 	private String prefix = "";
 	public void setPrefix(String prefix) { this.prefix = prefix; }
 	
-	public Map<String, String> loadMapping(String className) {
+	public Map<String, String> loadMappingWithConfigPrefix(String m_name) {
 		final String function = "loadStringValue";
-		logger.debug("{} {} Begin", function, className);
+		logger.debug("{} {} Begin", function, m_name);
 		Map<String, String> mappings	= new HashMap<String, String>();
     	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
 		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
 		if (properties != null) {
-			int classNameLength = className.length();
 			// Load all setting with class prefix into buffer
 			for ( String key : properties.keySet() ) {
-				logger.debug("{} {} properties.keySet() key[{}]", new Object[]{function, className, key});
-				if ( key.startsWith(className) ) {
-					String keyname = key.substring(classNameLength);
-					mappings.put(keyname, properties.get(key));
-					logger.debug("{} {} keyname[{}] properties.get(key)[{}]", new Object[]{function, className, keyname, properties.get(key)});
+				if ( key.startsWith(m_name) ) {
+					mappings.put(key, properties.get(key));
 				}
 			}
 		} else {
 			logger.warn("[{}] properties IS NULL", prefix);
 		}
-		logger.debug("{} {} End", function, className);
+		logger.debug("{} {} End", function, m_name);
+		return mappings;
+	}
+	
+	public Map<String, String> loadMapping(String m_name) {
+		final String function = "loadStringValue";
+		logger.debug("{} {} Begin", function, m_name);
+		Map<String, String> mappings	= new HashMap<String, String>();
+    	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
+		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
+		if (properties != null) {
+			int classNameLength = m_name.length();
+			// Load all setting with class prefix into buffer
+			for ( String key : properties.keySet() ) {
+				if ( key.startsWith(m_name) ) {
+					String keyname = key.substring(classNameLength);
+					mappings.put(keyname, properties.get(key));
+				}
+			}
+		} else {
+			logger.warn("[{}] properties IS NULL", prefix);
+		}
+		logger.debug("{} {} End", function, m_name);
 		return mappings;
 	}
 	
@@ -62,7 +81,7 @@ public class Util {
     		if ( logger.isDebugEnabled() ) checkAttributeType(inputStatusByName, inValue);
     	}
     	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
-    	logger.debug("{} {} End", prefix, function);
+    	logger.debug("{} {} End", function, prefix);
     	return outValue;
 	}
 	
@@ -78,21 +97,38 @@ public class Util {
     		if ( logger.isDebugEnabled() ) checkAttributeType(inputStatusByName, inValue);
     	}
     	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
-    	logger.debug("{} {} End", prefix, function);
+    	logger.debug("{} {} End", function, prefix);
     	return outValue;
 	}
+	
+	public IntAttribute getIntAttribute(int value, boolean isValid, Date date) {
+    	IntAttribute ret = new IntAttribute();
+        ret.setValue(value);
+        ret.setValid(isValid);
+        ret.setTimestamp(date);
+        return ret;
+	}
+	
+	public StringAttribute getStringAttribute(String value, boolean isValid, Date date) {
+		StringAttribute ret = new StringAttribute();
+	    ret.setValue(value);
+	    ret.setValid(isValid);
+	    ret.setTimestamp(date);
+	    return ret;
+	}
+
 	
 	public String getConfigPrefixMappingValue(Map<String, String> mappings, String configPrefix, String fieldname) {
 		final String function = "getConfigPrefixMappingValue";
 		logger.debug("{} {} Begin", function, prefix);
-    	String outValue = null;
-    	{
-    		String keyToMap = configPrefix+fieldname;
-    		logger.debug("{} {} keyToMap[{}]", new Object[]{function, prefix, keyToMap});
-	    	outValue = mappings.get(keyToMap);
-    	}
+		String outValue = null;
+		
+    	String keyToMap = configPrefix+fieldname;
+    	logger.debug("{} {} keyToMap[{}]", new Object[]{function, prefix, keyToMap});
+    	outValue = mappings.get(keyToMap);
+    	
     	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
-    	logger.debug("{} {} End", prefix, function);
+    	logger.debug("{} {} End", function, prefix);
     	return outValue;
 	}
 	
@@ -172,6 +208,8 @@ public class Util {
 		logger.debug("{} {} keyToMap[{}]", new Object[]{function, prefix, keyToMap});
 		outValue1 = Integer.parseInt(mappings.get(keyToMap));
 		logger.debug("{} {} outValue1[{}]", new Object[]{function, prefix, outValue1});
+		
+		logger.debug("{} {} End", function, prefix);
 		return outValue1;
 	}
 	

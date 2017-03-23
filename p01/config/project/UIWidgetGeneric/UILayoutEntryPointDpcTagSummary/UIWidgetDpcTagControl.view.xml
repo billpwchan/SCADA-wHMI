@@ -31,7 +31,7 @@
 		<css>project-UIWidgetDpcTagControlcontainer-textbox-0-2</css>
 		<element>txtvalue</element>
 		<maxlength>16</maxlength>
-		
+		<placeholder>PTW Comment</placeholder>
 		<cssContainer>project-UIWidgetDpcTagControl-container-0-2</cssContainer>
 		
 	</option>

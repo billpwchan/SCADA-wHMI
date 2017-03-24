@@ -152,13 +152,12 @@ public class UIWidgetDpcTagControl extends UIWidgetRealize {
 //												if ( null != os3 && os3.length() > 0 ) taggingLabel2 = os3;
 												
 												taggingLabel1 = uiGeneric.getWidgetValue(strTextValue);
-												uiGeneric.setWidgetValue(strTextValue, strEMPTY);
 												
 												logger.info(className, function, "key[{}]", key);
 												
 												dpcMgr.sendChangeEqpTag(key, scsEnvId, alias, taggingStatus, taggingLabel1, taggingLabel2);
-					
 											}
+											uiGeneric.setWidgetValue(strTextValue, strEMPTY);
 										}
 									}
 									return true;

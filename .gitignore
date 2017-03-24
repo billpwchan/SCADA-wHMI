@@ -51,3 +51,34 @@ webapp\src\main\webapp\WEB-INF\deploy
 
 # BuildTime
 f01/workspace.whmi/uiview-uiviewmgr/src/main/java/com/thalesgroup/scadagen/whmi/uiview/uiviewmgr/client/LastCompilation.java
+
+#eclipse runtime
+f01/workspace.whmi.uiwidget/.project
+f01/workspace.whmi.uiwidget/config-config/.project
+f01/workspace.whmi.uiwidget/config-configenv/.project
+f01/workspace.whmi.uiwidget/translation-translationmgr/.project
+f01/workspace.whmi.uiwidget/uievent/.project
+f01/workspace.whmi.uiwidget/uinamecard/.project
+f01/workspace.whmi.uiwidget/uitask-uitask/.project
+f01/workspace.whmi.uiwidget/uiutil-uilogger/.project
+f01/workspace.whmi.uiwidget/uiutil-uiutil/.project
+f01/workspace.whmi.uiwidget/uiwidget-uiwidget/.project
+f01/workspace.whmi.uiwidget/uiwidget-uiwidgetgeneric/.project
+f01/workspace.whmi.uiwidget/uiwidget-uiwidgetmgr/.project
+f01/workspace.whmi/config-confignav/.project
+f01/workspace.whmi/uiinspector-uiinspector/.project
+f01/workspace.whmi/uipanel-uipanelnavigation/.project
+f01/workspace.whmi/uipanel-uipanelroot/.project
+f01/workspace.whmi/uipanel-uipanelviewlayout/.project
+f01/workspace.whmi/uiroot-uiroot/.project
+f01/workspace.whmi/uiscreen-uiscreenempty/.project
+f01/workspace.whmi/uiscreen-uiscreenmgr/.project
+f01/workspace.whmi/uiscreen-uiscreenmmi/.project
+f01/workspace.whmi/uiscreen-uiscreenroot/.project
+f01/workspace.whmi/uitask-uitaskhistory/.project
+f01/workspace.whmi/uitask-uitasklaunch/.project
+f01/workspace.whmi/uitask-uitaskmgr/.project
+f01/workspace.whmi/uitask-uitasksplit/.project
+f01/workspace.whmi/uitask-uitasktitle/.project
+f01/workspace.whmi/uiview-uiviewmgr/.project
+f01/workspace.whmi/uiwidget-uiwidgetcontainer/.project

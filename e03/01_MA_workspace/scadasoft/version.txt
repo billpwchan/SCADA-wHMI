@@ -1,10 +1,10 @@
 {
   "name": "scadasoft",
-  "version": "6.2.4.4",
+  "version": "6.3.1",
   "melody": "4.0.1",
   "owner": "SCADAsoft",
   "dependencies": [
-        {"lib-shared-assets":"1.5.3" }
-        {"lib-hypervisor":"1.5.3" }
+        {"lib-shared-assets":"1.5.4" }
+        {"lib-hypervisor":"1.5.4" }
       ]
 }

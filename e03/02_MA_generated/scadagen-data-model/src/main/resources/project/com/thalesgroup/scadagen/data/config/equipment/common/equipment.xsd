@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/data/config/equipment/common" xmlns:hv-att="http://www.thalesgroup.com/hv/data-v1/attribute" xmlns:hv-eqpt="http://www.thalesgroup.com/hv/data-v1/equipment" xmlns:prj-scadagen-1="http://www.thalesgroup.com/scadagen/data/config/equipment/common/attribute" xmlns:prj-scadagen-6="http://www.thalesgroup.com/scadagen/data/config/equipment" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.thalesgroup.com/scadagen/data/config/equipment/common" version="01.00.00">
+  <xsd:import namespace="http://www.thalesgroup.com/scadagen/data/config/equipment/common/attribute"/>
+  <xsd:import namespace="http://www.thalesgroup.com/scadagen/data/config/equipment"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/equipment"/>
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/attribute"/>
+  <xsd:complexType name="SGEQPT2StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT1StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol2" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber2" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating2" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string2" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ACIVStatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SCSIVarStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValue" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValuePrev" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValueInit" type="hv-att:FloatAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT3StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT2StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol3" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber3" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating3" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string3" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT5StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT4StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol5" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber5" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating5" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string5" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SCIVStatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SCSIVarStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValue" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValuePrev" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValueInit" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT1StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="prj-scadagen-6:BasicEquipmentStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="tag1" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="tag2" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="tag3" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="tag4" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol1" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber1" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating1" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string1" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT8StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT7StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol8" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber8" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating8" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string8" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="DCIVStatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SCSIVarStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValue" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValuePrev" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsValueInit" type="hv-att:IntAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT7StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT6StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol7" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber7" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating7" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string7" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExtSysEquipmentStatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="hv-eqpt:AbstractEquipmentStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="eqpType" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="eqpID" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="group" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT4StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT3StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol4" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber4" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating4" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string4" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExtSysVariableStatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="ExtSysEquipmentStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="evarName" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="evarValue" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="evarType" type="prj-scadagen-1:EVValueTypeEnumerationAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="evarSec" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="evarMs" type="hv-att:IntAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SCSIVarStatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="hv-eqpt:AbstractEquipmentStatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="userfield" type="hv-att:StringAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsStatus" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="scsSource" type="hv-att:IntAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="SGEQPT6StatusesType">
+    <xsd:complexContent>
+      <xsd:extension base="SGEQPT5StatusesType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="0" name="symbol6" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="colorNumber6" type="hv-att:IntAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="floating6" type="hv-att:FloatAttributeType"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="string6" type="hv-att:StringAttributeType"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

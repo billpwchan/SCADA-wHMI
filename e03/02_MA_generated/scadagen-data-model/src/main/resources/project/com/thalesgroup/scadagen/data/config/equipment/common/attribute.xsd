@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns="http://www.thalesgroup.com/scadagen/data/config/equipment/common/attribute" xmlns:hv-att="http://www.thalesgroup.com/hv/data-v1/attribute" xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.thalesgroup.com/scadagen/data/config/equipment/common/attribute" version="01.00.00">
+  <xsd:import namespace="http://www.thalesgroup.com/hv/data-v1/attribute"/>
+  <xsd:simpleType name="EVValueTypeEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="integer"/>
+      <xsd:enumeration value="float"/>
+      <xsd:enumeration value="hexstring"/>
+      <xsd:enumeration value="asciistring"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="EVValueTypeEnumerationAttributeType">
+    <xsd:complexContent>
+      <xsd:restriction base="hv-att:StringAttributeType">
+        <xsd:attribute name="value" type="EVValueTypeEnumeration" use="required"/>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:schema>

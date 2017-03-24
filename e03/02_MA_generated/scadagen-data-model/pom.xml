@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.thalesgroup.hv.common</groupId>
+    <artifactId>common-integ</artifactId>
+    <version>1.8.0_P03</version>
+  </parent>
+  <groupId>com.thalesgroup.scadagen</groupId>
+  <artifactId>scadagen-data-model</artifactId>
+  <version>1.3.0</version>
+  <!-- Here we are using bundle packaging to ease the filtering of
+   some generated packages which can lead to errors
+   -->
+  <packaging>bundle</packaging>
+  <name>Hypervisor :: Test :: Specific Data Model JaxB</name>
+  <description>JaxB Implementation of Specific Data Model</description>
+  <properties>
+    <hv.osgi.export>com.thalesgroup.scadagen.*;version=${project.version},project.com.thalesgroup.scadagen*;version=${project.version},SCADAgen;version=${project.version}</hv.osgi.export>
+    <!-- Enforce JAXB API version -->
+    <hv.osgi.import>javax.xml.bind*;version=${hv.osgi.javax.bind.version}</hv.osgi.import>
+    <!-- Define it as a fragment of the data model -->
+    <hv.fragment.host>com.thalesgroup.hv.common.data-model-jaxb</hv.fragment.host>
+    <hv.currentSource>${project.basedir}</hv.currentSource>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.thalesgroup.hv.common</groupId>
+      <artifactId>data-model-jaxb</artifactId>
+      <version>1.8.0_P03</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.thalesgroup.scadasoft</groupId>
+      <artifactId>scs-data-model</artifactId>
+      <version>6.3.1</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <!-- Generate Java classes from dialect and model xsd -->
+      <plugin>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <version>0.8.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <extension>true</extension>
+              <schemas>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/a_jaxb_generation_fix.xsd</url>
+                </schema>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/scadagen/data/config/equipment/common/attribute.xsd</url>
+                </schema>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/scadagen/scadaphysicalsystem/scada_cluster/service_configuration.xsd</url>
+                </schema>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/scadagen/data/config/equipment/equipment.xsd</url>
+                </schema>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/scadagen/data/config/equipment/common/equipment.xsd</url>
+                </schema>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/scadagen/data/config/equipment/equipment_configuration.xsd</url>
+                </schema>
+                <schema>
+                  <url>file:///${project.basedir}/src/main/resources/project/com/thalesgroup/scadagen/data/config/equipment/common/equipment_configuration.xsd</url>
+                </schema>
+              </schemas>
+              <!-- Binding to enable the serialization -->
+              <bindingDirectory>${basedir}/src/main/resources</bindingDirectory>
+              <bindingIncludes>
+                <bindingInclude>jaxws-binding.xml</bindingInclude>
+              </bindingIncludes>
+              <!-- add episodes management : to avoid to regenerate the Hypervisor Generic Data Model -->
+              <episodes>
+                <episode>
+                  <groupId>com.thalesgroup.hv.common</groupId>
+                  <artifactId>data-model-jaxb</artifactId>
+                  <version>1.8.0_P03</version>
+                </episode>
+                <episode>
+                  <groupId>com.thalesgroup.scadasoft</groupId>
+                  <artifactId>scs-data-model</artifactId>
+                  <version>6.3.1</version>
+                </episode>
+              </episodes>
+              <!-- declare as plugin of JAXB plugin to be able to manage episodes -->
+              <plugins>
+                <plugin>
+                  <groupId>com.thalesgroup.hv.common</groupId>
+                  <artifactId>data-model-jaxb</artifactId>
+                  <version>1.8.0_P03</version>
+                </plugin>
+                <plugin>
+                  <groupId>com.thalesgroup.scadasoft</groupId>
+                  <artifactId>scs-data-model</artifactId>
+                  <version>6.3.1</version>
+                </plugin>
+                <plugin>
+                  <groupId>com.thalesgroup.hv.common.generation</groupId>
+                  <artifactId>resolver</artifactId>
+                  <version>0.0.2</version>
+                </plugin>
+              </plugins>
+              <!-- Define the mechanism to read and interpret the catalog -->
+              <catalog>${basedir}/src/main/resources/SCADAgen/SCADAgen-catalog.xml</catalog>
+              <!-- use specific hypervisor resolver -->
+              <catalogResolver>com.thalesgroup.hv.jaxb.resolver.HypervisorResolver</catalogResolver>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <!-- Enable bundle packaging -->
+        <extensions>true</extensions>
+        <executions>
+          <!-- deactivate the manifest step used for jar packaging 
+          (bundle packaging will perform this step)-->
+          <execution>
+            <id>bundle-manifest</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- skip cobertura as it is only generated classes -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

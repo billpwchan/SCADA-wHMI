@@ -1,0 +1,10 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
+<nextCatalog catalog="classpath:lib-hypervisor/lib-hypervisor-catalog.xml"/>
+<nextCatalog catalog="classpath:scadasoft/scadasoft-catalog.xml"/>
+<public publicId="http://www.thalesgroup.com/scadagen/data/config/equipment/common/attribute" uri="classpath:project/com/thalesgroup/scadagen/data/config/equipment/common/attribute.xsd" />
+<public publicId="http://www.thalesgroup.com/scadagen/scadaphysicalsystem/scada_cluster/configuration" uri="classpath:project/com/thalesgroup/scadagen/scadaphysicalsystem/scada_cluster/service_configuration.xsd" />
+<public publicId="http://www.thalesgroup.com/scadagen/data/config/equipment" uri="classpath:project/com/thalesgroup/scadagen/data/config/equipment/equipment.xsd" />
+<public publicId="http://www.thalesgroup.com/scadagen/data/config/equipment/common" uri="classpath:project/com/thalesgroup/scadagen/data/config/equipment/common/equipment.xsd" />
+<public publicId="http://www.thalesgroup.com/scadagen/data/config/equipment/configuration" uri="classpath:project/com/thalesgroup/scadagen/data/config/equipment/equipment_configuration.xsd" />
+<public publicId="http://www.thalesgroup.com/scadagen/data/config/equipment/common/configuration" uri="classpath:project/com/thalesgroup/scadagen/data/config/equipment/common/equipment_configuration.xsd" />
+</catalog>

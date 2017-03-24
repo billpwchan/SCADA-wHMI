@@ -27,11 +27,13 @@
 	<actionset key="set0">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>event_applyfilter0</OperationString1>
+		<OperationString2>event_reset_control</OperationString2>
 	</actionset>
 	
 	<actionset key="set1">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>event_applyfilter1</OperationString1>
+		<OperationString2>event_reset_control</OperationString2>
 	</actionset>
 	
 	<actionset key="set_filter_added">
@@ -124,6 +126,13 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutDpcTagViewer</OperationElement>
 		<OperationString1>RemoveFilter</OperationString1>
+	</action>
+	
+	<action key="event_reset_control">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UIWidgetDpcTagControl</OperationElement>
+		<OperationString1>set_reset_control</OperationString1>
 	</action>
 
 </data-set>

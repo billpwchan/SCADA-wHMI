@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="cf87806b9605feeb5894a8c9206fdbf0ed4bf43d" datatype="html">
+        <source>Modify Profile</source>
+        <target/>
+        <note priority="1" from="description">Link to modify profile page</note>
+      </trans-unit>
+      <trans-unit id="703db1fd56e25af23401bf8a0a77a0a1a2875107" datatype="html">
+        <source>Add Profile</source>
+        <target/>
+        <note priority="1" from="description">Link to add profile page</note>
+      </trans-unit>
+      <trans-unit id="f0b1adefbede969d82af5ba52f39126493fa4d97" datatype="html">
+        <source>Remove Profile</source>
+        <target/>
+        <note priority="1" from="description">Link to remove profile page</note>
+      </trans-unit>
+      <trans-unit id="d20a2edb78998e2f731779086bd9859e1ab0e179" datatype="html">
+        <source>Profile List</source>
+        <target/>
+        <note priority="1" from="description">Header for list of profile</note>
+      </trans-unit>
+      <trans-unit id="2798cc1e152b1ec07fd8daf94a2a073d1ba1ebcc" datatype="html">
+        <source>Id</source>
+        <target/>
+        <note priority="1" from="description">Header for list of profile id column</note>
+      </trans-unit>
+      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+        <source>Name</source>
+        <target/>
+        <note priority="1" from="description">Header for list of profile name column</note>
+      </trans-unit>
+      <trans-unit id="eec715de352a6b114713b30b640d319fa78207a0" datatype="html">
+        <source>Description</source>
+        <target/>
+        <note priority="1" from="description">Header for list of profile description column</note>
+      </trans-unit>
+      <trans-unit id="8fc92c585c017c117f2574460f5b3b4973f5f5b7" datatype="html">
+        <source>Confirm to remove the following profile(s)?</source>
+        <target/>
+        <note priority="1" from="description">Question to ask for confirmation to remove selected profiles</note>
+      </trans-unit>
+      <trans-unit id="dd55ab195d7c2af9a3f34d2e785bc914c308bf20" datatype="html">
+        <source>No profile(s) selected</source>
+        <target/>
+        <note priority="1" from="description">Indication on no profiles are selected for deletion</note>
+      </trans-unit>
+      <trans-unit id="68e710782ccb5398b3acb8844caf0b199da2c3da" datatype="html">
+        <source>Confirm</source>
+        <target/>
+        <note priority="1" from="description">Confirm button</note>
+      </trans-unit>
+      <trans-unit id="d7b35c384aecd25a516200d6921836374613dfe7" datatype="html">
+        <source>Cancel</source>
+        <target/>
+        <note priority="1" from="description">Cancel button</note>
+      </trans-unit>
+      <trans-unit id="ea1c70b874904216cc5af24bd7cb3dab2d074d42" datatype="html">
+        <source>Removing</source>
+        <target/>
+        <note priority="1" from="description">Indication on deletion is under progress</note>
+      </trans-unit>
+      <trans-unit id="ba034899ec18bcd8f157d123653f47f2723d9acf" datatype="html">
+        <source>Retrieving profile content...</source>
+        <target/>
+        <note priority="1" from="description">Indication for retrieving profile content</note>
+      </trans-unit>
+      <trans-unit id="68b592a614350d3672a5b50302a4bed89f39e0f6" datatype="html">
+        <source>No profile is current selected</source>
+        <target/>
+        <note priority="1" from="description">Indication for no profile selected</note>
+      </trans-unit>
+      <trans-unit id="c2d0ac9f528bbd5f53fd34269fde8b59e029621b" datatype="html">
+        <source>Apply</source>
+        <target/>
+        <note priority="1" from="description">Apply button</note>
+      </trans-unit>
+      <trans-unit id="06c663bf1474713f57551123a46b34318543b67d" datatype="html">
+        <source>Reset</source>
+        <target/>
+        <note priority="1" from="description">Reset button</note>
+      </trans-unit>
+      <trans-unit id="57ed498bccd13e85743ea9576f5dca74c900660f" datatype="html">
+        <source>Saving</source>
+        <target/>
+        <note priority="1" from="description">Indication on saving profile</note>
+      </trans-unit>
+      <trans-unit id="70a67e04629f6d412db0a12d51820b480788d795" datatype="html">
+        <source>Create</source>
+        <target/>
+        <note priority="1" from="description">Create button</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

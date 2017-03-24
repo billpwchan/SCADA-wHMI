@@ -1,0 +1,43 @@
+<div class="profile-remove-page">
+    <div class="profile-remove-list-panel">
+        <div class="profile-remove-list-label" i18n="Header for list of profile">Profile List</div>
+        <div class="profile-remove-list-table">
+            <div class="profile-remove-list-table-header">
+                <div class="profile-remove-list-header-id" i18n="Header for list of profile id column">Id</div>
+                <div class="profile-remove-list-header-name" i18n="Header for list of profile name column">Name</div>
+                <div class="profile-remove-list-header-description" i18n="Header for list of profile description column">Description</div>
+            </div>
+            <div class="profile-remove-list-items">
+                <div
+                    class="profile-remove-list-item"
+                    *ngFor="let profile of profiles"
+                    [class.selected]="0 <= selectedProfiles.indexOf(profile)"
+                    (click)="onSelect(profile, $event)"
+                >
+                    <div class="profile-remove-list-item-cell profile-remove-list-item-id">{{profile.id}}</div>
+                    <div class="profile-remove-list-item-cell profile-remove-list-item-name">{{profile.name}}</div>
+                    <div class="profile-remove-list-item-cell profile-remove-list-item-description">{{profile.description}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-remove-confirm-panel">
+        <div class="profile-remove-confirm-message" *ngIf="selectedProfiles.length > 0" i18n="Question to ask for confirmation to remove selected profiles">Confirm to remove the following profile(s)?</div>
+        <div class="profile-remove-confirm-message" *ngIf="selectedProfiles.length <= 0" i18n="Indication on no profiles are selected for deletion">No profile(s) selected</div>
+        <div class="profile-remove-confirm-list-panel">
+            <div class="profile-remove-confirm-list-item" *ngFor="let profile of selectedProfiles">{{profile.name}}</div>
+        </div>
+        <div class="profile-remove-confim-buttons" *ngIf="profilesToRemoveTotal <= 0">
+            <button class="profile-remove-confim-confirm-button" (click)="onConfirm()" [disabled]="selectedProfiles ? selectedProfiles.length <= 0:true" i18n="Confirm button">Confirm</button>
+            <button class="profile-remove-confim-cancel-button" (click)="onCancel()" [disabled]="selectedProfiles ? selectedProfiles.length <= 0:true" i18n="Cancel button">Cancel</button>
+        </div>
+        <div class="profile-remove-progress" *ngIf="profilesToRemoveTotal > 0">
+            <button class="profile-remove-progress-button">
+                <div class="profile-remove-progress-label" i18n="Indication on deletion is under progress">Removing</div>
+                <div class="profile-remove-progress-current">
+                    {{profilesToRemove[profilesToRemoveIndex].name}}
+                </div>
+            </button>
+        </div>
+    </div>
+</div>

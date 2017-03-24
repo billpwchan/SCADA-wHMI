@@ -1,0 +1,185 @@
+/* Profile Management - Detail Panel */
+.profile-detail-panel{
+    cursor: default;
+    user-select: none;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-detail-name{
+    padding: 0.1em;
+    font-size: 1.5em;
+}
+
+.profile-detail-name > input{
+    padding: 0.1em;
+    font-size: 1.5em;
+    width: 100%;
+}
+
+.profile-detail-table-cell {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip-text{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+.tooltip-text-bottom{
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+.tooltip-text-right{
+    top: -5px;
+    left: 110%;
+}
+
+.profile-detail-table-cell:hover .tooltip-text{
+    visibility: visible;
+}
+
+.profile-detail-table-cell .tooltip-text-bottom::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.profile-detail-table-cell .tooltip-text-right::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+.profile-detail-table{
+    border: thin solid black;
+    text-align: left;
+    vertical-align: middle;
+    overflow: auto;
+}
+
+.profile-detail-table-header{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.profile-detail-table-header-cell{
+    background: darkgrey;
+    font-weight: bold;
+}
+
+.profile-detail-table-items{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.profile-detail-table-rows{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.profile-detail-table-cell{
+    border: thin solid black;
+    padding: 0.2em;
+    text-align: center;
+    vertical-align: middle;
+    width: 3em;
+    flex: 1 0 auto;
+}
+
+.profile-detail-table-action{
+    cursor: pointer;
+}
+
+.profile-detail-table-action.selected{
+    background-color: black;
+    color: white;
+}
+
+.profile-detail-table-action.disabled{
+    cursor: default;
+}
+
+.profile-detail-modify-panel{
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 0 0 auto;
+}
+
+.profile-detail-modify-masks{
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 auto;
+}
+
+.profile-detail-modify-mask{
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1em;
+    padding: 0.5em;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.profile-detail-modify-mask > input:not(disabled){
+    cursor: pointer;
+}
+
+.profile-detail-modify-mask > input[disabled]{
+    cursor: default;
+}
+
+.profile-detail-modify-actions{
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 0 0 auto;
+}
+
+.profile-detail-modify-actions button:not(disabled){
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1em;
+    padding: 0.5em;
+    cursor: pointer;
+}
+
+.profile-detail-modify-actions button[disabled]{
+    cursor: default;
+}
+
+.profile-detail-modify-progress-label,
+.profile-detail-modify-progress-current{
+    display: inline;
+}
+
+.profile-detail-modify-progress-label:after{
+    content: ":";
+    display: inline;
+    padding-right: 1ch;
+}
+
+.profile-detail-modify-progress-current:after{
+    content: "%";
+    display: inline;
+}

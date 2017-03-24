@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
 <data:RootIntegration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://www.thalesgroup.com/hypervisorapi/data/hv/configuration/components/presentationlayer/core" xmlns:data="http://www.thalesgroup.com/hypervisorapi/data" xmlns:genericdatagrid="http://www.thalesgroup.com/hypervisorapi/data/hv/configuration/components/presentationlayer/widgets/genericdatagrid" xmlns:informationpanel="http://www.thalesgroup.com/hypervisorapi/data/hv/configuration/components/presentationlayer/widgets/informationpanel" xmlns:operationpanel="http://www.thalesgroup.com/hypervisorapi/data/hv/configuration/components/presentationlayer/widgets/operationpanel" xmlns:typem2="http://www.thalesgroup.com/hypervisorapi/data/common/basic/typem2" javaQnamePackagePrefix="com.thalesgroup.">
   <ownFactoryData>
-    <entityTypeCol serviceTypes="//@ownFactoryData/@entityTypeCol/@objectType.0 //@ownFactoryData/@entityTypeCol/@objectType.1 //@ownFactoryData/@entityTypeCol/@objectType.2 //@ownFactoryData/@entityTypeCol/@objectType.3 //@ownFactoryData/@entityTypeCol/@objectType.4 //@ownFactoryData/@entityTypeCol/@objectType.5 //@ownFactoryData/@entityTypeCol/@objectType.6 //@ownFactoryData/@entityTypeCol/@objectType.7 //@ownFactoryData/@entityTypeCol/@objectType.8 //@ownFactoryData/@entityTypeCol/@objectType.9 //@ownFactoryData/@entityTypeCol/@objectType.10 //@ownFactoryData/@entityTypeCol/@objectType.11 //@ownFactoryData/@entityTypeCol/@objectType.12 //@ownFactoryData/@entityTypeCol/@objectType.13" equipmentTypes="//@ownFactoryData/@entityTypeCol/@objectType.14 //@ownFactoryData/@entityTypeCol/@objectType.15 //@ownFactoryData/@entityTypeCol/@objectType.18 //@ownFactoryData/@entityTypeCol/@objectType.20 //@ownFactoryData/@entityTypeCol/@objectType.21 //@ownFactoryData/@entityTypeCol/@objectType.22 //@ownFactoryData/@entityTypeCol/@objectType.23 //@ownFactoryData/@entityTypeCol/@objectType.24 //@ownFactoryData/@entityTypeCol/@objectType.25 //@ownFactoryData/@entityTypeCol/@objectType.26 //@ownFactoryData/@entityTypeCol/@objectType.29 //@ownFactoryData/@entityTypeCol/@objectType.30 //@ownFactoryData/@entityTypeCol/@objectType.36 //@ownFactoryData/@entityTypeCol/@objectType.37 //@ownFactoryData/@entityTypeCol/@objectType.38 //@ownFactoryData/@entityTypeCol/@objectType.41 //@ownFactoryData/@entityTypeCol/@objectType.43 //@ownFactoryData/@entityTypeCol/@objectType.44 //@ownFactoryData/@entityTypeCol/@objectType.46 //@ownFactoryData/@entityTypeCol/@objectType.51 //@ownFactoryData/@entityTypeCol/@objectType.52" eventTypes="//@ownFactoryData/@entityTypeCol/@objectType.16" alarmTypes="//@ownFactoryData/@entityTypeCol/@objectType.17 //@ownFactoryData/@entityTypeCol/@objectType.19 //@ownFactoryData/@entityTypeCol/@objectType.27 //@ownFactoryData/@entityTypeCol/@objectType.28 //@ownFactoryData/@entityTypeCol/@objectType.33 //@ownFactoryData/@entityTypeCol/@objectType.35 //@ownFactoryData/@entityTypeCol/@objectType.40 //@ownFactoryData/@entityTypeCol/@objectType.45 //@ownFactoryData/@entityTypeCol/@objectType.49 //@ownFactoryData/@entityTypeCol/@objectType.50" businessProcessTypes="//@ownFactoryData/@entityTypeCol/@objectType.39">
-      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.1" name="scadagen.scadaphysicalsystem.scada_cluster.SCADA" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.30 //@ownFactoryData/@entityTypeCol/@objectType.15 //@ownFactoryData/@entityTypeCol/@objectType.25 //@ownFactoryData/@entityTypeCol/@objectType.29 //@ownFactoryData/@entityTypeCol/@objectType.18 //@ownFactoryData/@entityTypeCol/@objectType.37 //@ownFactoryData/@entityTypeCol/@objectType.51 //@ownFactoryData/@entityTypeCol/@objectType.38 //@ownFactoryData/@entityTypeCol/@objectType.24 //@ownFactoryData/@entityTypeCol/@objectType.23 //@ownFactoryData/@entityTypeCol/@objectType.46 //@ownFactoryData/@entityTypeCol/@objectType.44 //@ownFactoryData/@entityTypeCol/@objectType.21 //@ownFactoryData/@entityTypeCol/@objectType.26 //@ownFactoryData/@entityTypeCol/@objectType.41 //@ownFactoryData/@entityTypeCol/@objectType.36"/>
+    <entityTypeCol serviceTypes="//@ownFactoryData/@entityTypeCol/@objectType.0 //@ownFactoryData/@entityTypeCol/@objectType.1 //@ownFactoryData/@entityTypeCol/@objectType.2 //@ownFactoryData/@entityTypeCol/@objectType.3 //@ownFactoryData/@entityTypeCol/@objectType.4 //@ownFactoryData/@entityTypeCol/@objectType.5 //@ownFactoryData/@entityTypeCol/@objectType.6 //@ownFactoryData/@entityTypeCol/@objectType.7 //@ownFactoryData/@entityTypeCol/@objectType.8 //@ownFactoryData/@entityTypeCol/@objectType.9 //@ownFactoryData/@entityTypeCol/@objectType.10 //@ownFactoryData/@entityTypeCol/@objectType.11 //@ownFactoryData/@entityTypeCol/@objectType.12 //@ownFactoryData/@entityTypeCol/@objectType.13" equipmentTypes="//@ownFactoryData/@entityTypeCol/@objectType.14 //@ownFactoryData/@entityTypeCol/@objectType.15 //@ownFactoryData/@entityTypeCol/@objectType.18 //@ownFactoryData/@entityTypeCol/@objectType.20 //@ownFactoryData/@entityTypeCol/@objectType.21 //@ownFactoryData/@entityTypeCol/@objectType.22 //@ownFactoryData/@entityTypeCol/@objectType.23 //@ownFactoryData/@entityTypeCol/@objectType.24 //@ownFactoryData/@entityTypeCol/@objectType.25 //@ownFactoryData/@entityTypeCol/@objectType.26 //@ownFactoryData/@entityTypeCol/@objectType.29 //@ownFactoryData/@entityTypeCol/@objectType.30 //@ownFactoryData/@entityTypeCol/@objectType.36 //@ownFactoryData/@entityTypeCol/@objectType.37 //@ownFactoryData/@entityTypeCol/@objectType.38 //@ownFactoryData/@entityTypeCol/@objectType.41 //@ownFactoryData/@entityTypeCol/@objectType.43 //@ownFactoryData/@entityTypeCol/@objectType.44 //@ownFactoryData/@entityTypeCol/@objectType.46 //@ownFactoryData/@entityTypeCol/@objectType.51 //@ownFactoryData/@entityTypeCol/@objectType.52" eventTypes="//@ownFactoryData/@entityTypeCol/@objectType.16" alarmTypes="//@ownFactoryData/@entityTypeCol/@objectType.17 //@ownFactoryData/@entityTypeCol/@objectType.19 //@ownFactoryData/@entityTypeCol/@objectType.27 //@ownFactoryData/@entityTypeCol/@objectType.28 //@ownFactoryData/@entityTypeCol/@objectType.32 //@ownFactoryData/@entityTypeCol/@objectType.35 //@ownFactoryData/@entityTypeCol/@objectType.40 //@ownFactoryData/@entityTypeCol/@objectType.45 //@ownFactoryData/@entityTypeCol/@objectType.49 //@ownFactoryData/@entityTypeCol/@objectType.50" businessProcessTypes="//@ownFactoryData/@entityTypeCol/@objectType.39">
+      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.1" name="scadagen.scadaphysicalsystem.scada_cluster.SCADA" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.24 //@ownFactoryData/@entityTypeCol/@objectType.15 //@ownFactoryData/@entityTypeCol/@objectType.37 //@ownFactoryData/@entityTypeCol/@objectType.22 //@ownFactoryData/@entityTypeCol/@objectType.29 //@ownFactoryData/@entityTypeCol/@objectType.26 //@ownFactoryData/@entityTypeCol/@objectType.21 //@ownFactoryData/@entityTypeCol/@objectType.25 //@ownFactoryData/@entityTypeCol/@objectType.18 //@ownFactoryData/@entityTypeCol/@objectType.36 //@ownFactoryData/@entityTypeCol/@objectType.41 //@ownFactoryData/@entityTypeCol/@objectType.38 //@ownFactoryData/@entityTypeCol/@objectType.44 //@ownFactoryData/@entityTypeCol/@objectType.51 //@ownFactoryData/@entityTypeCol/@objectType.30 //@ownFactoryData/@entityTypeCol/@objectType.46"/>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceaacluster.HypervisorServiceAA" concrete="true"/>
-      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.3" name="lib_hypervisor.hvphysicalsystem.application.service_ams.hypervisorservicecluster_ams.HypervisorService_AMS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.33 //@ownFactoryData/@entityTypeCol/@objectType.28"/>
+      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.3" name="lib_hypervisor.hvphysicalsystem.application.service_ams.hypervisorservicecluster_ams.HypervisorService_AMS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.28 //@ownFactoryData/@entityTypeCol/@objectType.32"/>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceaacluster.HypervisorServiceAA" concrete="true"/>
       <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.5" name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.HypervisorService_HIS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.4">
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.HistorizeInformationRequest"/>
@@ -13,27 +13,27 @@
           <parameters name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.HistorizeEvent.data" minCardinality="1" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.HistorizeSearchHistory">
-          <parameters valueType="//@ownFactoryData/@objectTypeCol/@objectType.1" name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.HistorizeSearchHistory.data" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@objectTypeCol/@objectType.2" name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.HistorizeSearchHistory.data" minCardinality="1" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.HistorizeOperatorLogin"/>
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.SearchHistory">
-          <parameters valueType="//@ownFactoryData/@objectTypeCol/@objectType.1" name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.SearchHistory.data" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@objectTypeCol/@objectType.2" name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.SearchHistory.data" minCardinality="1" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_his.hypervisorservicecluster_his.operation.ConsultHistoryEntry"/>
       </objectType>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceapcluster.HypervisorServiceAP" concrete="true"/>
-      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.7" name="lib_hypervisor.hvphysicalsystem.application.service_bps.hypervisorservicecluster_bps.HypervisorService_BPS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.39 //@ownFactoryData/@entityTypeCol/@objectType.28"/>
+      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.7" name="lib_hypervisor.hvphysicalsystem.application.service_bps.hypervisorservicecluster_bps.HypervisorService_BPS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.28 //@ownFactoryData/@entityTypeCol/@objectType.39"/>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceaacluster.HypervisorServiceAA" concrete="true"/>
-      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.9" name="lib_hypervisor.hvphysicalsystem.application.service_cms.hypervisorservicecluster_cms.HypervisorService_CMS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.47 //@ownFactoryData/@entityTypeCol/@objectType.8">
+      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.9" name="lib_hypervisor.hvphysicalsystem.application.service_cms.hypervisorservicecluster_cms.HypervisorService_CMS" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.8 //@ownFactoryData/@entityTypeCol/@objectType.47">
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_cms.hypervisorservicecluster_cms.operation.SubscribeConnection"/>
         <operations name="lib_hypervisor.hvphysicalsystem.application.service_cms.hypervisorservicecluster_cms.operation.UnsubscribeConnection"/>
       </objectType>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceaacluster.HypervisorServiceAA" concrete="true"/>
       <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.11" name="lib_hypervisor.hvphysicalsystem.application.service_tss.hypervisorservicecluster_tss.HypervisorService_TSS" concrete="true"/>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceaacluster.HypervisorServiceAA" concrete="true"/>
-      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.13" name="scadasoft.scsphysicalsystem.scsscada_cluster.SCSSCADA" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.43 //@ownFactoryData/@entityTypeCol/@objectType.30 //@ownFactoryData/@entityTypeCol/@objectType.50 //@ownFactoryData/@entityTypeCol/@objectType.49 //@ownFactoryData/@entityTypeCol/@objectType.19 //@ownFactoryData/@entityTypeCol/@objectType.40 //@ownFactoryData/@entityTypeCol/@objectType.17 //@ownFactoryData/@entityTypeCol/@objectType.45 //@ownFactoryData/@entityTypeCol/@objectType.52 //@ownFactoryData/@entityTypeCol/@objectType.14"/>
+      <objectType xsi:type="typem2:ServiceType" superType="//@ownFactoryData/@entityTypeCol/@objectType.13" name="scadasoft.scsphysicalsystem.scsscada_cluster.SCSSCADA" concrete="true" managedEntityType="//@ownFactoryData/@entityTypeCol/@objectType.49 //@ownFactoryData/@entityTypeCol/@objectType.14 //@ownFactoryData/@entityTypeCol/@objectType.43 //@ownFactoryData/@entityTypeCol/@objectType.45 //@ownFactoryData/@entityTypeCol/@objectType.40 //@ownFactoryData/@entityTypeCol/@objectType.19 //@ownFactoryData/@entityTypeCol/@objectType.50 //@ownFactoryData/@entityTypeCol/@objectType.17 //@ownFactoryData/@entityTypeCol/@objectType.30 //@ownFactoryData/@entityTypeCol/@objectType.52"/>
       <objectType xsi:type="typem2:ServiceType" name="lib_hypervisor.hvphysicalsystem.application.service.hypervisorserviceaacluster.HypervisorServiceAA" concrete="true"/>
-      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.22" name="scadasoft.data.config.equipment.SCSEquipment" concrete="true" shortname="SCSEquipment">
+      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.23" name="scadasoft.data.config.equipment.SCSEquipment" concrete="true" shortname="SCSEquipment">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.config.equipment.SCSEquipment.validity" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.config.equipment.SCSEquipment.alarm" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.config.equipment.SCSEquipment.needack" minCardinality="1" maxCardinality="1"/>
@@ -78,7 +78,7 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.SGEQPT2.floating2" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT2.string2" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:EventType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="lib_shared_assets.data.public.transient.event.AbstractEvent"/>
+      <objectType xsi:type="typem2:EventType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="lib_shared_assets.data.public.transient.event.AbstractEvent"/>
       <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.45" name="scadasoft.data.exchange.entity.alarm.Scsevent" concrete="true">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="scadasoft.data.exchange.entity.alarm.Scsevent.acquisitiondate" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.exchange.entity.alarm.Scsevent.alarmid" minCardinality="1" maxCardinality="1"/>
@@ -92,7 +92,7 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.ACIV.scsValuePrev" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.ACIV.scsValueInit" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="scadasoft.data.exchange.entity.alarm.OperationLongNotif" concrete="true">
+      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="scadasoft.data.exchange.entity.alarm.OperationLongNotif" concrete="true">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.OperationLongNotif.opeId" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.OperationLongNotif.data" minCardinality="1" maxCardinality="1"/>
       </objectType>
@@ -103,14 +103,14 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.SGEQPT3.floating3" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT3.string3" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.48" name="lib_shared_assets.data.public.configuration.application.equipment.AbstractEquipment" shortname="AbstractEquipment">
-        <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.46" name="lib_shared_assets.data.public.configuration.application.equipment.AbstractEquipment.location" maxCardinality="1"/>
-      </objectType>
       <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.38" name="scadagen.data.config.equipment.common.SGEQPT5" concrete="true" shortname="SGEQPT5">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.SGEQPT5.symbol5" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.SGEQPT5.colorNumber5" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.SGEQPT5.floating5" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT5.string5" minCardinality="1" maxCardinality="1"/>
+      </objectType>
+      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.48" name="lib_shared_assets.data.public.configuration.application.equipment.AbstractEquipment" shortname="AbstractEquipment">
+        <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.46" name="lib_shared_assets.data.public.configuration.application.equipment.AbstractEquipment.location" maxCardinality="1"/>
       </objectType>
       <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.44" name="scadagen.data.config.equipment.common.SCIV" concrete="true" shortname="SCIV">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SCIV.scsValue" minCardinality="1" maxCardinality="1"/>
@@ -134,19 +134,19 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT8.string8" minCardinality="1" maxCardinality="1"/>
       </objectType>
       <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.28" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm4States" concrete="true"/>
-      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm">
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.54" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.logbookDiscussionID" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.55" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.isShelved" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.55" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.isInService" minCardinality="1" maxCardinality="1"/>
+      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm">
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.53" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.logbookDiscussionID" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.54" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.isShelved" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.54" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.isInService" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.resolutionCode" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@objectTypeCol/@objectType.2" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.shelvingOperatorID" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@objectTypeCol/@objectType.1" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.shelvingOperatorID" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.shelvingDate" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.automaticUnshelvingDate" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@objectTypeCol/@objectType.2" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.maintenanceOperatorID" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@objectTypeCol/@objectType.1" name="lib_hypervisor.data.hv.exchange.entity.alarm.Alarm.maintenanceOperatorID" minCardinality="1" maxCardinality="1"/>
         <operations name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.RequestAlarmAck">
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.RequestAlarmAck.comments" minCardinality="1" maxCardinality="1"/>
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.RequestAlarmAck.acknowledgementTimeStamp" minCardinality="1" maxCardinality="1"/>
-          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.50" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.RequestAlarmAck.ackOperatorID" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.49" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.RequestAlarmAck.ackOperatorID" minCardinality="1" maxCardinality="1"/>
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.RequestAlarmAck.comment" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.ClearAlarm">
@@ -154,11 +154,11 @@
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.ClearAlarm.comment" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.AddLogbookDiscussion">
-          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.54" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.AddLogbookDiscussion.logbookDiscussionID" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.53" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.AddLogbookDiscussion.logbookDiscussionID" minCardinality="1" maxCardinality="1"/>
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.AddLogbookDiscussion.comment" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.DeleteLogbookDiscussion">
-          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.54" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.DeleteLogbookDiscussion.logbookDiscussionID" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.53" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.DeleteLogbookDiscussion.logbookDiscussionID" minCardinality="1" maxCardinality="1"/>
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.DeleteLogbookDiscussion.comment" maxCardinality="1"/>
         </operations>
         <operations name="lib_hypervisor.data.hv.exchange.entity.alarm.operation.ReturnAlarmToService">
@@ -180,7 +180,7 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.DCIV.scsValuePrev" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.DCIV.scsValueInit" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.22" name="scadasoft.data.config.equipment.SCSEnvironment" concrete="true" shortname="SCSEnvironment">
+      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.23" name="scadasoft.data.config.equipment.SCSEnvironment" concrete="true" shortname="SCSEnvironment">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.config.equipment.SCSEnvironment.state" minCardinality="1" maxCardinality="1"/>
         <operations name="scadasoft.data.config.equipment.operation.OpSCADA" returnType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" returnMaxCard="1">
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.config.equipment.operation.OpSCADA.action" minCardinality="1" maxCardinality="1"/>
@@ -189,13 +189,12 @@
       <objectType xsi:type="typem2:PhysicalAreaType" superType="//@ownFactoryData/@entityTypeCol/@objectType.42" name="lib_shared_assets.data.public.configuration.application.area.PhysicalArea" concrete="true">
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@entityTypeCol/@objectType.31" name="lib_shared_assets.data.public.configuration.application.area.PhysicalArea.physicalArea" maxCardinality="-1"/>
       </objectType>
-      <objectType xsi:type="typem2:TransientEntityType" name="lib_shared_assets.data.public.transient.AbstractTransientEntity"/>
-      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="lib_shared_assets.data.public.transient.alarm.AbstractAlarm">
+      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="lib_shared_assets.data.public.transient.alarm.AbstractAlarm">
         <operations name="lib_shared_assets.data.public.transient.alarm.operation.StopAbnormalSituation">
-          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.50" name="lib_shared_assets.data.public.transient.alarm.operation.StopAbnormalSituation.stopOperatorID" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.49" name="lib_shared_assets.data.public.transient.alarm.operation.StopAbnormalSituation.stopOperatorID" minCardinality="1" maxCardinality="1"/>
         </operations>
         <operations name="lib_shared_assets.data.public.transient.alarm.operation.DeleteAttachment">
-          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.51" name="lib_shared_assets.data.public.transient.alarm.operation.DeleteAttachment.attachmentID" minCardinality="1" maxCardinality="1"/>
+          <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.50" name="lib_shared_assets.data.public.transient.alarm.operation.DeleteAttachment.attachmentID" minCardinality="1" maxCardinality="1"/>
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_shared_assets.data.public.transient.alarm.operation.DeleteAttachment.comment" maxCardinality="1"/>
         </operations>
         <operations name="lib_shared_assets.data.public.transient.alarm.operation.AddAttachment">
@@ -203,6 +202,7 @@
           <parameters valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="lib_shared_assets.data.public.transient.alarm.operation.AddAttachment.comment" maxCardinality="1"/>
         </operations>
       </objectType>
+      <objectType xsi:type="typem2:TransientEntityType" name="lib_shared_assets.data.public.transient.AbstractTransientEntity"/>
       <objectType xsi:type="typem2:ConfiguredEntityType" superType="//@ownFactoryData/@entityTypeCol/@objectType.42" name="lib_shared_assets.data.public.configuration.application.area.LogicalArea" concrete="true">
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@entityTypeCol/@objectType.34" name="lib_shared_assets.data.public.configuration.application.area.LogicalArea.subLogicalArea" maxCardinality="-1"/>
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.48" name="lib_shared_assets.data.public.configuration.application.area.LogicalArea.entityType" maxCardinality="-1"/>
@@ -214,7 +214,7 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.SGEQPT7.floating7" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT7.string7" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.22" name="scadagen.data.config.equipment.common.ExtSysEquipment" concrete="true" shortname="ExtSysEquipment">
+      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.23" name="scadagen.data.config.equipment.common.ExtSysEquipment" concrete="true" shortname="ExtSysEquipment">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.ExtSysEquipment.eqpType" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.ExtSysEquipment.eqpID" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.ExtSysEquipment.group" minCardinality="1" maxCardinality="1"/>
@@ -225,13 +225,13 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.SGEQPT4.floating4" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT4.string4" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:BusinessProcessType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess">
+      <objectType xsi:type="typem2:BusinessProcessType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess.startDate" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess.endDate" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.52" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess.executionResult" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.51" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess.executionResult" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.16" name="lib_shared_assets.data.public.configuration.application.process.AbstractBusinessProcess.timeToLive" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="scadasoft.data.exchange.entity.alarm.ScsList" concrete="true">
+      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="scadasoft.data.exchange.entity.alarm.ScsList" concrete="true">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.ScsList.data" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.ScsList.dbpath" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.exchange.entity.alarm.ScsList.func" minCardinality="1" maxCardinality="1"/>
@@ -241,7 +241,7 @@
       <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.37" name="scadagen.data.config.equipment.common.ExtSysVariable" concrete="true" shortname="ExtSysVariable">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.ExtSysVariable.evarName" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.ExtSysVariable.evarValue" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.53" name="scadagen.data.config.equipment.common.ExtSysVariable.evarType" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.52" name="scadagen.data.config.equipment.common.ExtSysVariable.evarType" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.ExtSysVariable.evarSec" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.ExtSysVariable.evarMs" maxCardinality="1"/>
       </objectType>
@@ -278,14 +278,14 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.config.equipment.SCSSCADAEqpt.func" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.config.equipment.SCSSCADAEqpt.geo" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.22" name="scadagen.data.config.equipment.common.SCSIVar" concrete="true" shortname="SCSIVar">
+      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.23" name="scadagen.data.config.equipment.common.SCSIVar" concrete="true" shortname="SCSIVar">
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SCSIVar.eqpType" maxCardinality="1"/>
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SCSIVar.eqphvid" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SCSIVar.userfield" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.SCSIVar.scsStatus" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.SCSIVar.scsSource" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon">
+      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon.acknowledgerequired" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon.defaultImage" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon.dsseventtype" minCardinality="1" maxCardinality="1"/>
@@ -303,16 +303,16 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon.value" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadasoft.data.exchange.entity.alarm.ScsAlmCommon.valuestate" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.23" name="scadagen.data.config.equipment.common.SGEQPT6" concrete="true" shortname="SGEQPT6">
+      <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.22" name="scadagen.data.config.equipment.common.SGEQPT6" concrete="true" shortname="SGEQPT6">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.SGEQPT6.symbol6" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.common.SGEQPT6.colorNumber6" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.1" name="scadagen.data.config.equipment.common.SGEQPT6.floating6" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.common.SGEQPT6.string6" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType xsi:type="typem2:TransientEntityType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection" concrete="true">
+      <objectType xsi:type="typem2:TransientEntityType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection" concrete="true">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection.nbAliveNodesCurrent" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection.nbAliveNodesMaximum" minCardinality="1" maxCardinality="1"/>
-        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.49" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection.connectionState" minCardinality="1" maxCardinality="1"/>
+        <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.55" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection.connectionState" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="lib_hypervisor.data.hv.exchange.entity.connection.Connection.monitoredService" minCardinality="1" maxCardinality="1"/>
       </objectType>
       <objectType xsi:type="typem2:ConfiguredEntityType" name="lib_shared_assets.data.public.configuration.application.AbstractConfiguredEntity">
@@ -321,7 +321,7 @@
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.32" name="lib_shared_assets.data.public.configuration.application.AbstractConfiguredEntity.longLabel" maxCardinality="1"/>
       </objectType>
       <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.45" name="scadasoft.data.exchange.entity.alarm.SCADAsoftAlarm" concrete="true"/>
-      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.33" name="scadasoft.data.exchange.entity.alarm.DpceqpEntry" concrete="true">
+      <objectType xsi:type="typem2:AlarmType" superType="//@ownFactoryData/@entityTypeCol/@objectType.32" name="scadasoft.data.exchange.entity.alarm.DpceqpEntry" concrete="true">
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.11" name="scadasoft.data.exchange.entity.alarm.DpceqpEntry.scstime" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.DpceqpEntry.environment" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.DpceqpEntry.equipmentalias" minCardinality="1" maxCardinality="1"/>
@@ -341,7 +341,6 @@
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadasoft.data.exchange.entity.alarm.DpceqpEntry.eqptype" minCardinality="1" maxCardinality="1"/>
       </objectType>
       <objectType xsi:type="typem2:EquipmentType" superType="//@ownFactoryData/@entityTypeCol/@objectType.43" name="scadagen.data.config.equipment.BasicEquipment" concrete="true" shortname="BasicEquipment">
-        <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.BasicEquipment.eqpType" maxCardinality="1"/>
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="scadagen.data.config.equipment.BasicEquipment.eqphvid" maxCardinality="1"/>
         <attributes xsi:type="typem2:StatusType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.2" name="scadagen.data.config.equipment.BasicEquipment.fault" minCardinality="1" maxCardinality="1"/>
       </objectType>
@@ -443,21 +442,7 @@
       <simpleType xsi:type="typem2:CoordinatesType" name="lib_shared_assets.data.public.types.customtypes.Coordinates"/>
       <simpleType xsi:type="typem2:KeyRefType" name="lib_shared_assets.data.public.configuration.application.AbstractConfiguredEntityREF" complexType="//@ownFactoryData/@entityTypeCol/@objectType.48" keyType="//@ownFactoryData/@simpleTypeCol/@simpleType.3"/>
       <simpleType xsi:type="typem2:KeyRefType" name="lib_shared_assets.data.internal.typem2.EntityTypeREF" complexType="//@ownFactoryData/@objectTypeCol/@objectType.3" keyType="//@ownFactoryData/@simpleTypeCol/@simpleType.3"/>
-      <simpleType xsi:type="typem2:EnumerationType" name="lib_hypervisor.data.hv.exchange.entity.connection.ConnectionStateAttribute" attributeType="true" domain="//@ownFactoryData/@simpleTypeCol/@simpleType.3">
-        <literal name="UNKNOWN">
-          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="UNKNOWN"/>
-        </literal>
-        <literal name="ERROR">
-          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="ERROR"/>
-        </literal>
-        <literal name="ACTIVE">
-          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="ACTIVE"/>
-        </literal>
-        <literal name="WARNING">
-          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="WARNING"/>
-        </literal>
-      </simpleType>
-      <simpleType xsi:type="typem2:KeyRefType" name="lib_shared_assets.data.public.core.UserREF" attributeType="true" complexType="//@ownFactoryData/@objectTypeCol/@objectType.2" keyType="//@ownFactoryData/@simpleTypeCol/@simpleType.3"/>
+      <simpleType xsi:type="typem2:KeyRefType" name="lib_shared_assets.data.public.core.UserREF" attributeType="true" complexType="//@ownFactoryData/@objectTypeCol/@objectType.1" keyType="//@ownFactoryData/@simpleTypeCol/@simpleType.3"/>
       <simpleType xsi:type="typem2:KeyRefType" name="lib_shared_assets.data.public.transient.alarm.AttachmentREF" attributeType="true" complexType="//@ownFactoryData/@objectTypeCol/@objectType.0" keyType="//@ownFactoryData/@simpleTypeCol/@simpleType.3"/>
       <simpleType xsi:type="typem2:EnumerationType" name="lib_hypervisor.data.hv.exchange.entity.process.BUSINESS_PROCESS_RESULT" attributeType="true" domain="//@ownFactoryData/@simpleTypeCol/@simpleType.3">
         <literal name="OK">
@@ -489,22 +474,36 @@
       </simpleType>
       <simpleType xsi:type="typem2:KeyRefType" name="lib_hypervisor.data.hv.exchange.entity.logbook.LogbookDiscussionREF" attributeType="true" complexType="//@ownFactoryData/@objectTypeCol/@objectType.4" keyType="//@ownFactoryData/@simpleTypeCol/@simpleType.3"/>
       <simpleType xsi:type="typem2:BooleanType" name="lib_shared_assets.data.public.types.predefinedtypes.Boolean" attributeType="true"/>
+      <simpleType xsi:type="typem2:EnumerationType" name="lib_hypervisor.data.hv.exchange.entity.connection.ConnectionStateAttribute" attributeType="true" domain="//@ownFactoryData/@simpleTypeCol/@simpleType.3">
+        <literal name="UNKNOWN">
+          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="UNKNOWN"/>
+        </literal>
+        <literal name="ERROR">
+          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="ERROR"/>
+        </literal>
+        <literal name="ACTIVE">
+          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="ACTIVE"/>
+        </literal>
+        <literal name="WARNING">
+          <value xsi:type="typem2:StringValue" type="//@ownFactoryData/@simpleTypeCol/@simpleType.3" value="WARNING"/>
+        </literal>
+      </simpleType>
     </simpleTypeCol>
     <objectTypeCol>
       <objectType name="lib_shared_assets.data.public.transient.alarm.Attachment" concrete="true" attributeType="true">
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="name" minCardinality="1" maxCardinality="1"/>
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.38" name="value" minCardinality="1" maxCardinality="1"/>
       </objectType>
-      <objectType name="lib_hypervisor.data.hv.exchange.servicelayer.his.SearchHistoryRequest" concrete="true" attributeType="true"/>
       <objectType name="lib_shared_assets.data.public.core.User" concrete="true" attributeType="true">
         <attributes xsi:type="typem2:PropertyType" valueType="//@ownFactoryData/@simpleTypeCol/@simpleType.3" name="name" minCardinality="1" maxCardinality="1"/>
       </objectType>
+      <objectType name="lib_hypervisor.data.hv.exchange.servicelayer.his.SearchHistoryRequest" concrete="true" attributeType="true"/>
       <objectType name="lib_shared_assets.data.internal.typem2.EntityType"/>
       <objectType name="lib_hypervisor.data.hv.exchange.entity.logbook.LogbookDiscussion"/>
     </objectTypeCol>
   </ownFactoryData>
   <ownSystemConfiguration>
-    <header creationDate="2017-03-21T13:44:21.757+0800">
+    <header creationDate="2017-03-24T16:59:34.393+0800">
       <modelVersion version="01.00.00"/>
       <dataVersion version="01.00.00"/>
     </header>
@@ -519,8 +518,8 @@
           <entityTypeRepresentation iconRef="ACIV_icon" shortLabelName="ACI" descriptionLabelName="ACIV_desc" longLabelName="ACIV" entityType="//@ownFactoryData/@entityTypeCol/@objectType.18"/>
           <entityTypeRepresentation iconRef="BasicEquipment_icon" shortLabelName="Bas" descriptionLabelName="BasicEquipment_desc" longLabelName="BasicEquipment" entityType="//@ownFactoryData/@entityTypeCol/@objectType.20"/>
           <entityTypeRepresentation iconRef="SGEQPT3_icon" shortLabelName="SGE" descriptionLabelName="SGEQPT3_desc" longLabelName="SGEQPT3" entityType="//@ownFactoryData/@entityTypeCol/@objectType.21"/>
-          <entityTypeRepresentation iconRef="AbstractEquipment_icon" shortLabelName="Abs" descriptionLabelName="AbstractEquipment_desc" longLabelName="AbstractEquipment" entityType="//@ownFactoryData/@entityTypeCol/@objectType.22"/>
-          <entityTypeRepresentation iconRef="SGEQPT5_icon" shortLabelName="SGE" descriptionLabelName="SGEQPT5_desc" longLabelName="SGEQPT5" entityType="//@ownFactoryData/@entityTypeCol/@objectType.23"/>
+          <entityTypeRepresentation iconRef="SGEQPT5_icon" shortLabelName="SGE" descriptionLabelName="SGEQPT5_desc" longLabelName="SGEQPT5" entityType="//@ownFactoryData/@entityTypeCol/@objectType.22"/>
+          <entityTypeRepresentation iconRef="AbstractEquipment_icon" shortLabelName="Abs" descriptionLabelName="AbstractEquipment_desc" longLabelName="AbstractEquipment" entityType="//@ownFactoryData/@entityTypeCol/@objectType.23"/>
           <entityTypeRepresentation iconRef="SCIV_icon" shortLabelName="SCI" descriptionLabelName="SCIV_desc" longLabelName="SCIV" entityType="//@ownFactoryData/@entityTypeCol/@objectType.24"/>
           <entityTypeRepresentation iconRef="SGEQPT1_icon" shortLabelName="SGE" descriptionLabelName="SGEQPT1_desc" longLabelName="SGEQPT1" entityType="//@ownFactoryData/@entityTypeCol/@objectType.25"/>
           <entityTypeRepresentation iconRef="SGEQPT8_icon" shortLabelName="SGE" descriptionLabelName="SGEQPT8_desc" longLabelName="SGEQPT8" entityType="//@ownFactoryData/@entityTypeCol/@objectType.26"/>

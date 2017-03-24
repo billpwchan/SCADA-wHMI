@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-fas-opm',
+  selector: 'app-opm',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

@@ -1,7 +1,7 @@
 @ECHO OFF
 @SETLOCAL
 
-@SET BASE_HREF=/fas-opm/
+@SET BASE_HREF=/opm/
 @SET OUTPUT_PATH=dist
 
 @ECHO Building Application...

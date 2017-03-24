@@ -1,0 +1,17 @@
+/* Profile Management - Modify Panel */
+.profile-add-page{
+    cursor: default;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 60vh;
+}
+
+.profile-add-detail-panel{
+    border: thin solid black;
+    margin: 1em;
+    padding: 1em;
+    flex: 1 1 auto;
+    width: calc(100% - 1em*2 - 1em*2);
+    height: 100%;
+}

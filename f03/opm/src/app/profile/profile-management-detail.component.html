@@ -1,0 +1,135 @@
+<div class="profile-detail-panel" *ngIf="!createProfile">
+    <div class="profile-detail-name" *ngIf="profile">{{profile.name}}</div>
+    <div class="profile-detail-name" *ngIf="profileId && !profile" i18n="Indication for retrieving profile content">Retrieving profile content...</div>
+    <div class="profile-detail-name" *ngIf="!profileId && !profile" i18n="Indication for no profile selected">No profile is current selected</div>
+    <div class="profile-detail-table">
+        <div class="profile-detail-table-header">
+            <div class="profile-detail-table-first-column profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-function-header-empty"></div>
+            <div
+                class="profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-function-header"
+                *ngFor="let function of functions">
+                {{function.name}}
+                <span class="tooltip-text tooltip-text-bottom" *ngIf="function.description">
+                    {{function.description}}
+                </span>
+            </div>
+        </div>
+        <div class="profile-detail-table-items">
+            <div class="profile-detail-table-rows" *ngFor="let location of locations">
+                <div
+                    class="profile-detail-table-first-column profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-location-header"
+                >
+                    {{location.name}}
+                    <span class="tooltip-text tooltip-text-right" *ngIf="location.description">
+                        {{location.description}}
+                    </span>
+                </div>
+                <div class="profile-detail-table-cell profile-detail-table-action"
+                    *ngFor="let function of functions"
+                    [class.selected]="selectedMask && (function.id == selectedMask.function.id && location.id == selectedMask.location.id)"
+                    (click)="profile && onSelectCell(function.id, location.id)"
+                    [class.disabled]="!profile"
+                >
+                    {{getMaskByFuncAndLoc(function.id, location.id).mask1}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-detail-modify-panel">
+        <div class="profile-detail-modify-masks" *ngIf="actions">
+            <div class="profile-detail-modify-mask" *ngFor="let action of actions">
+                <input
+                    type="checkbox"
+                    value={{action.id}}
+                    [checked]="!selectedMask ? false:(selectedMask.mask1 ? (selectedMask.mask1.indexOf(action.abbrev) >= 0):false)"
+                    [disabled]="!selectedMask"
+                    (change)="toggleMask(action.abbrev)"
+                >
+                <div class="profile-detail-modify-mask-label">{{action.abbrev}} - {{action.description}}</div>
+            </div>
+        </div>
+        <div class="profile-detail-modify-actions">
+            <div class="profile-detail-modify-action-buttons" *ngIf="masksToApplyTotal <= 0">
+                <button class="profile-detail-modify-action-apply" (click)="onApply()" [disabled]="!updated" i18n="Apply button">Apply</button>
+                <button class="profile-detail-modify-action-reset" (click)="onReset()" [disabled]="!updated" i18n="Reset button">Reset</button>
+            </div>
+            <div class="profile-detail-modify-action-progress" *ngIf="masksToApplyTotal > 0">
+                <button class="profile-detail-modify-progress-button">
+                    <div class="profile-detail-modify-progress-label" i18n="Indication on saving profile">Saving</div>
+                    <div class="profile-detail-modify-progress-current">
+                        {{Math.floor(100 * masksToApplyIndex / masksToApplyTotal)}}
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-detail-panel" *ngIf="createProfile">
+    <div class="profile-detail-name">
+        <input
+            type="text" placeholder="<New Profile Name>"
+            [(ngModel)]="profile.name"
+        >
+    </div>
+    <div class="profile-detail-table">
+        <div class="profile-detail-table-header">
+            <div class="profile-detail-table-first-column profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-function-header-empty"></div>
+            <div
+                class="profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-function-header"
+                *ngFor="let function of functions">
+                {{function.name}}
+                <span class="tooltip-text tooltip-text-bottom" *ngIf="function.description">
+                    {{function.description}}
+                </span>
+            </div>
+        </div>
+        <div class="profile-detail-table-items">
+            <div class="profile-detail-table-rows" *ngFor="let location of locations">
+                <div
+                    class="profile-detail-table-first-column profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-location-header"
+                >
+                    {{location.name}}
+                    <span class="tooltip-text tooltip-text-right" *ngIf="location.description">
+                        {{location.description}}
+                    </span>
+                </div>
+                <div class="profile-detail-table-cell profile-detail-table-action"
+                    *ngFor="let function of functions"
+                    [class.selected]="profile.name && selectedMask && (function.id == selectedMask.function.id && location.id == selectedMask.location.id)"
+                    (click)="profile.name && onSelectCell(function.id, location.id)"
+                    [class.disabled]="!profile.name"
+                >
+                    {{getMaskByFuncAndLoc(function.id, location.id).mask1}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-detail-modify-panel">
+        <div class="profile-detail-modify-masks" *ngIf="actions">
+            <div class="profile-detail-modify-mask" *ngFor="let action of actions">
+                <input
+                    type="checkbox"
+                    value={{action.id}}
+                    [checked]="!selectedMask ? false:(selectedMask.mask1 ? (selectedMask.mask1.indexOf(action.abbrev) >= 0):false)"
+                    [disabled]="!selectedMask"
+                    (change)="toggleMask(action.abbrev)"
+                >
+                <div class="profile-detail-modify-mask-label">{{action.abbrev}} - {{action.description}}</div>
+            </div>
+        </div>
+        <div class="profile-detail-modify-actions">
+            <div class="profile-detail-modify-action-buttons" *ngIf="masksToApplyTotal <= 0">
+                <button class="profile-detail-modify-action-create" (click)="onCreate()" [disabled]="!profile.name" i18n="Create button">Create</button>
+                <button class="profile-detail-modify-action-reset" (click)="onReset()" [disabled]="!profile.name" i18n="Reset button">Reset</button>
+            </div>
+            <div class="profile-detail-modify-action-progress" *ngIf="masksToApplyTotal > 0">
+                <button class="profile-detail-modify-progress-button">
+                    <div class="profile-detail-modify-progress-label" i18n="Indication on saving profile">Saving</div>
+                    <div class="profile-detail-modify-progress-current">
+                        {{Math.floor(100 * masksToApplyIndex / masksToApplyTotal)}}
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

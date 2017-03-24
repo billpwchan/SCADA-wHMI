@@ -1,0 +1,30 @@
+<div class="profile-modify-page">
+    <div class="profile-modify-list-panel">
+        <div class="profile-modify-list-label" i18n="Header for list of profile">Profile List</div>
+        <div class="profile-modify-list-table">
+            <div class="profile-modify-list-table-header">
+                <div class="profile-modify-list-header-id" i18n="Header for list of profile id column">Id</div>
+                <div class="profile-modify-list-header-name" i18n="Header for list of profile name column">Name</div>
+                <div class="profile-modify-list-header-description" i18n="Header for list of profile description column">Description</div>
+            </div>
+            <div class="profile-modify-list-items">
+                <div
+                    class="profile-modify-list-item"
+                    *ngFor="let profile of profiles"
+                    [class.selected]="selectedProfile === profile"
+                    (click)="onSelect(profile)"
+                >
+                    <div class="profile-modify-list-item-cell profile-modify-list-item-id">{{profile.id}}</div>
+                    <div class="profile-modify-list-item-cell profile-modify-list-item-name">{{profile.name}}</div>
+                    <div class="profile-modify-list-item-cell profile-modify-list-item-description">{{profile.description}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-modify-detail-panel">
+        <profile-management-detail
+            [profileId]="selectedProfile ? selectedProfile.id:undefined"
+            [createProfile]="false"
+        ></profile-management-detail>
+    </div>
+</div>

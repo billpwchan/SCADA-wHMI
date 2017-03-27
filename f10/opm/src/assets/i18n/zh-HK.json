@@ -1,0 +1,41 @@
+{
+    "OPERATOR_MANAGEMENT": {
+        "TITLE": "帳戶管理"
+    },
+    "PROFILE_MANAGEMENT": {
+        "TITLE": "設定檔管理",
+        "MODIFY": {
+            "TITLE": "修改設定檔",
+            "PROFILE_LIST": "設定檔列表",
+            "PROFILE_ID": "號碼",
+            "PROFILE_NAME": "名稱",
+            "PROFILE_DESCRIPTION": "描述"
+        },
+        "ADD": {
+            "TITLE": "新增設定檔"
+        },
+        "REMOVE": {
+            "TITLE": "移除設定檔",
+            "PROFILE_LIST": "設定檔列表",
+            "PROFILE_ID": "號碼",
+            "PROFILE_NAME": "名稱",
+            "PROFILE_DESCRIPTION": "描述",
+            "CONFIRMATION_MSG": "確定移除下列設定檔？",
+            "NO_SELECTION_INDICATION_MSG": "請選擇要移除的設定檔",
+            "REMOVING_INDICATION_MSG": "移除中"
+        },
+        "DETAIL": {
+            "RETRIEVING_PROFILE_INDICATION_MSG": "讀取設定檔中．．．",
+            "NO_SELECTION_INDICATION_MSG": "請選擇要修改的設定檔",
+            "NEW_PROFILE_NAME_PLACEHOLDER": "＜新的設定檔名稱＞",
+            "SAVING_INDICATION_MSG": "存儲中"
+        }
+    },
+    "BUTTON": {
+        "CREATE": "新增",
+        "APPLY": "確定",
+        "CONFIRM": "確定",
+        "CANCEL": "取消",
+        "RESET": "重設"
+    }
+}

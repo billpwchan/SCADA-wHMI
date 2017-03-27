@@ -1,0 +1,76 @@
+/* Profile Management - Modify Panel */
+.profile-modify-page{
+    cursor: default;
+    user-select: none;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 60vh;
+}
+
+.profile-modify-list-panel{
+    display: flex;
+    flex-flow: column nowrap;
+    border: thin solid black;
+    margin: 1em;
+    padding: 1em;
+    height: 100%;
+}
+
+.profile-modify-list-label{
+    border: thin solid black;
+    background: darkgrey;
+    padding: 0.1em;
+    font-size: 1.5em;
+    white-space: nowrap;
+}
+
+.profile-modify-list-table{
+    text-align: left;
+    height: 100%;
+}
+
+.profile-modify-list-table-header{
+    border: thin solid black;
+    background: darkgrey;
+    font-size: 1.5em;
+}
+
+.profile-modify-list-table-header > div{
+    display: none;
+}
+
+.profile-modify-list-items{
+    border: thin solid black;
+    height: calc(100% - 1.5em);
+    overflow-y: auto;
+}
+
+.profile-modify-list-item{
+    border-top: thin solid black;
+}
+
+.profile-modify-list-item > div{
+    display: table-cell;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+.profile-modify-list-item.selected{
+    background-color: black;
+    color: white;
+}
+
+.profile-modify-list-item > div:not(.profile-modify-list-item-name){
+    display: none;
+}
+
+.profile-modify-detail-panel{
+    border: thin solid black;
+    margin: 1em;
+    padding: 1em;
+    flex: 1 1 auto;
+    width: 60vw;
+    height: 100%;
+}

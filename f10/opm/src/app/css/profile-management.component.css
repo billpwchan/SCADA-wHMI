@@ -1,0 +1,116 @@
+.profile-list-panel{
+    padding: 1em 1em 1em 1em;
+    float: left;
+    height: 50em;
+}
+
+/* Profile Management List Component */
+.profile-list,
+.profile-list tr{
+    width: 10em;
+    border: thin solid black;
+    border-collapse: collapse;
+}
+
+.profile-list-header-title{
+    background: darkgrey;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.profile-list-header-id,
+.profile-list-header-name,
+.profile-list-header-description{
+    display: none;
+}
+
+.profile-list tbody{
+    display: block;
+    height: 600px;
+    overflow: auto;
+}
+
+.profile-list-item-cell{
+    cursor: pointer;
+    height: 2em;
+    padding: 0em 0.5em 0em 0.5em;
+    vertical-align: middle;
+    font-size: 1em;
+}
+
+.profile-list-item-id,
+.profile-list-item-description{
+    display: none;
+}
+
+.profile-list-item-name{
+    width: 10em;
+}
+
+.profile-list-item-row.selected{
+    background-color: black;
+    color: white;
+}
+
+.profile-list-detail-panel{
+    padding: 1em 1em 1em 1em;
+}
+
+/* Profile Management Detail Component */
+.profile-detail-name{
+    font-size: 2em;
+}
+
+.profile-detail-table-panel{
+    width: 500px;
+    height: 500px;
+    overflow: auto;
+    margin-top: 2em;
+}
+
+.profile-detail-table{
+    border: thin solid black;
+    border-collapse: collapse;
+}
+
+.profile-detail-table-header-cell{
+    border: thin solid black;
+    background: darkgrey;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.profile-detail-table-function-headers .profile-detail-table-header-cell div{
+/*    position: absolute;
+    margin-top: -2em;*/
+    /*top: -2em;*/
+}
+
+.profile-detail-table-cell{
+    border: thin solid black;
+    cursor: pointer;
+    height: 2em;
+    padding: 0em 0.5em 0em 0.5em;
+    vertical-align: middle;
+    font-size: 1em;
+}
+
+.profile-detail-table-cell.selected{
+    background-color: black;
+    color: white;
+}
+
+.profile-detail-modify{
+    float: left;
+}
+
+.profile-detail-actions{
+}
+
+.profile-detail-modify-item{
+    float: left;
+}
+
+.profile-detail-action-apply{
+    float: left;
+}

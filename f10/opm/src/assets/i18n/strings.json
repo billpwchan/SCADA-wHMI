@@ -1,0 +1,41 @@
+{
+	"BUTTON": {
+		"APPLY": "",
+		"CANCEL": "",
+		"CONFIRM": "",
+		"CREATE": "",
+		"RESET": ""
+	},
+	"OPERATOR_MANAGEMENT": {
+		"TITLE": ""
+	},
+	"PROFILE_MANAGEMENT": {
+		"ADD": {
+			"TITLE": ""
+		},
+		"DETAIL": {
+			"NEW_PROFILE_NAME_PLACEHOLDER": "",
+			"NO_SELECTION_INDICATION_MSG": "",
+			"RETRIEVING_PROFILE_INDICATION_MSG": "",
+			"SAVING_INDICATION_MSG": ""
+		},
+		"MODIFY": {
+			"PROFILE_DESCRIPTION": "",
+			"PROFILE_ID": "",
+			"PROFILE_LIST": "",
+			"PROFILE_NAME": "",
+			"TITLE": ""
+		},
+		"REMOVE": {
+			"CONFIRMATION_MSG": "",
+			"NO_SELECTION_INDICATION_MSG": "",
+			"PROFILE_DESCRIPTION": "",
+			"PROFILE_ID": "",
+			"PROFILE_LIST": "",
+			"PROFILE_NAME": "",
+			"REMOVING_INDICATION_MSG": "",
+			"TITLE": ""
+		},
+		"TITLE": ""
+	}
+}

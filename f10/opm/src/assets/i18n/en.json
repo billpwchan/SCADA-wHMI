@@ -1,0 +1,41 @@
+{
+    "OPERATOR_MANAGEMENT": {
+        "TITLE": "Operator Management"
+    },
+    "PROFILE_MANAGEMENT": {
+        "TITLE": "Profile Management",
+        "MODIFY": {
+            "TITLE": "Modify Profile",
+            "PROFILE_LIST": "Profile List",
+            "PROFILE_ID": "Id",
+            "PROFILE_NAME": "Name",
+            "PROFILE_DESCRIPTION": "Description"
+        },
+        "ADD": {
+            "TITLE": "Add Profile"
+        },
+        "REMOVE": {
+            "TITLE": "Remove Profile",
+            "PROFILE_LIST": "Profile List",
+            "PROFILE_ID": "Id",
+            "PROFILE_NAME": "Name",
+            "PROFILE_DESCRIPTION": "Description",
+            "CONFIRMATION_MSG": "Confirm to remove the following profile(s)?",
+            "NO_SELECTION_INDICATION_MSG": "No profile(s) selected",
+            "REMOVING_INDICATION_MSG": "Removing"
+        },
+        "DETAIL": {
+            "RETRIEVING_PROFILE_INDICATION_MSG": "Retrieving profile content...",
+            "NO_SELECTION_INDICATION_MSG": "No profile is currently selected",
+            "NEW_PROFILE_NAME_PLACEHOLDER": "<New Profile Name>",
+            "SAVING_INDICATION_MSG": "Saving"
+        }
+    },
+    "BUTTON": {
+        "CREATE": "Create",
+        "APPLY": "Apply",
+        "CONFIRM": "Confirm",
+        "CANCEL": "Cancel",
+        "RESET": "Reset"
+    }
+}

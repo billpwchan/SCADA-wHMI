@@ -26,27 +26,7 @@ public class Util {
 	
 	private String prefix = "";
 	public void setPrefix(String prefix) { this.prefix = prefix; }
-	
-	public Map<String, String> loadMappingWithConfigPrefix(String m_name) {
-		final String function = "loadStringValue";
-		logger.debug("{} {} Begin", function, m_name);
-		Map<String, String> mappings	= new HashMap<String, String>();
-    	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
-		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
-		if (properties != null) {
-			// Load all setting with class prefix into buffer
-			for ( String key : properties.keySet() ) {
-				if ( key.startsWith(m_name) ) {
-					mappings.put(key, properties.get(key));
-				}
-			}
-		} else {
-			logger.warn("[{}] properties IS NULL", prefix);
-		}
-		logger.debug("{} {} End", function, m_name);
-		return mappings;
-	}
-	
+
 	public Map<String, String> loadMapping(String m_name) {
 		final String function = "loadStringValue";
 		logger.debug("{} {} Begin", function, m_name);
@@ -78,7 +58,7 @@ public class Util {
     		outValue = ((StringAttribute) obj1).getValue();
     	} else {
     		logger.warn("{} {} inValue[{}] IS INVALID", new Object[]{function, prefix, inValue});
-    		if ( logger.isDebugEnabled() ) checkAttributeType(inputStatusByName, inValue);
+    		if ( logger.isDebugEnabled() ) dumpInputStatusByNameAttributes(inputStatusByName, inValue);
     	}
     	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
     	logger.debug("{} {} End", function, prefix);
@@ -94,7 +74,7 @@ public class Util {
     		outValue = ((IntAttribute) obj1).getValue();
     	} else {
     		logger.warn("{} {} inValue[{}] IS INVALID", new Object[]{function, prefix, inValue});
-    		if ( logger.isDebugEnabled() ) checkAttributeType(inputStatusByName, inValue);
+    		if ( logger.isDebugEnabled() ) dumpInputStatusByNameAttributes(inputStatusByName, inValue);
     	}
     	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
     	logger.debug("{} {} End", function, prefix);
@@ -117,6 +97,21 @@ public class Util {
 	    return ret;
 	}
 
+	public String getConfitPrefix(Map<String, String> mappings, String m_name, String perConfigName) {
+		final String function = "getConfitPrefix";
+    	String configPrefix = "";
+    	if ( null != perConfigName ) {
+    		String keyToFind = configPrefix+"."+perConfigName;
+    		for ( String key : mappings.keySet() ) {
+    			if ( key.startsWith(keyToFind)) {
+    				configPrefix = keyToFind;
+    				break;
+    			}
+    		}
+    	}
+    	logger.debug("{} {} configPrefix[{}]", new Object[]{function, prefix, configPrefix});
+    	return configPrefix;
+	}
 	
 	public String getConfigPrefixMappingValue(Map<String, String> mappings, String configPrefix, String fieldname) {
 		final String function = "getConfigPrefixMappingValue";
@@ -131,90 +126,9 @@ public class Util {
     	logger.debug("{} {} End", function, prefix);
     	return outValue;
 	}
-	
-	public String getInputStatusByConfigPrefixMappingStringValue(Map<String, String> mappings, Map<String, AttributeClientAbstract<?>> inputStatusByName, String configPrefix, String fieldname) {
-		final String function = "getInputStatusByConfigPrefixMappingStringValue";
-		logger.debug("{} {} Begin", function, prefix);
-		
-    	String inValue = getConfigPrefixMappingValue(mappings, configPrefix, fieldname);
-    	logger.debug("{} {} inValue[{}]", new Object[]{function, prefix, inValue});
 
-    	String outValue = loadStringValue(inputStatusByName, inValue);
-    	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
-    	
-    	logger.debug("{} {} End", function, prefix);
-    	return outValue;
-	}
-	
-	public int getInputStatusByConfigPrefixMappingIntValue(Map<String, String> mappings, Map<String, AttributeClientAbstract<?>> inputStatusByName, String configPrefix, String fieldname) {
-		final String function = "getInputStatusByConfigPrefixMappingIntValue";
-		logger.debug("{} {} Begin", function, prefix);
-		
-    	String inValue = null;
-    	inValue = getConfigPrefixMappingValue(mappings, configPrefix, fieldname);
-    	logger.debug("{} {} inValue[{}]", new Object[]{function, prefix, inValue});
-
-    	int outValue = loadIntValue(inputStatusByName, inValue);
-    	logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
-    	
-    	logger.debug("{} {} End", function, prefix);
-    	return outValue;
-	}
-	
-	public String getConfigPrefix(Map<String, String> mappings, String propertiesname, String inValue1) {
-    	String configPrefix = propertiesname;
-    	if ( null != inValue1 ) {
-    		String keyToFind = propertiesname+"."+inValue1;
-    		for ( String key : mappings.keySet() ) {
-    			if ( key.startsWith(keyToFind)) {
-    				configPrefix = keyToFind;
-    				break;
-    			}
-    		}
-    	}
-    	logger.debug("compute configPrefix[{}]", configPrefix);
-    	return configPrefix;
-	}
-	
-	public String findMappingStringValue(Map<String, String> mappings, String mappingname, String configPrefix, int inValue) {
-		final String function = "findMappingStringValue";
-		logger.debug("{} {} Begin", function, prefix);
-		String outValue = null;
-		{
-			String keyToMap = null;
-			try {
-				keyToMap = configPrefix+mappingname+Integer.toString(inValue);
-			} catch ( Exception e ) {
-				logger.warn("{} {} Integer.toString Exception[{}]", new Object[]{function, prefix, e.toString()});
-			}
-			logger.debug("{} {} keyToMap[{}]", new Object[]{function, prefix, keyToMap});
-	    	outValue = mappings.get(keyToMap);
-		}
-		logger.debug("{} {} outValue[{}]", new Object[]{function, prefix, outValue});
-		logger.debug("{} {} End", function, prefix);
-		return outValue;
-	}
-	
-	public int findMappingIntValue(Map<String, String> mappings, String mappingname, String configPrefix, int inValue) {
-		final String function = "findMappingIntValue";
-		logger.debug("{} {} Begin", function, prefix);
-		int outValue1 = 0;
-		String keyToMap = null;
-		try {
-			keyToMap = configPrefix+mappingname+Integer.toString(inValue);
-		} catch ( Exception e ) {
-			logger.warn("compute Integer.toString Exception[{}]", e.toString());
-		}
-		logger.debug("{} {} keyToMap[{}]", new Object[]{function, prefix, keyToMap});
-		outValue1 = Integer.parseInt(mappings.get(keyToMap));
-		logger.debug("{} {} outValue1[{}]", new Object[]{function, prefix, outValue1});
-		
-		logger.debug("{} {} End", function, prefix);
-		return outValue1;
-	}
-	
-	public void checkAttributeType(Map<String, AttributeClientAbstract<?>> inputStatusByName, String fieldname) {
-		final String function = "checkAttributeType";
+	public void dumpInputStatusByNameAttributes(Map<String, AttributeClientAbstract<?>> inputStatusByName, String fieldname) {
+		final String function = "dumpInputStatusByNameAttributes";
 		logger.debug("{} {} Begin", function, prefix);
 		logger.debug("{} {} fieldname[{}]", new Object[]{function, prefix, fieldname});
 		AttributeClientAbstract<?> obj1 = inputStatusByName.get(fieldname);

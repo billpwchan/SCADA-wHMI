@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* Profile Management */
+@import "./app/css/profile-management.component.css";
+@import "./app/css/profile-management-detail.component.css";
+@import "./app/css/profile-management-add.component.css";
+@import "./app/css/profile-management-modify.component.css";
+@import "./app/css/profile-management-remove.component.css";

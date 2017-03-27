@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "fas-opm"
+    "name": "opm-cli"
   },
   "apps": [
     {
@@ -21,6 +21,7 @@
       "styles": [
         "styles.css"
       ],
+      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

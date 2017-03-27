@@ -52,7 +52,7 @@
 .profile-modify-list-item > div{
     display: table-cell;
     vertical-align: middle;
-	cursor: pointer;
+    cursor: pointer;
     padding: 0.5em;
     font-size: 1em;
 }

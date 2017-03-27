@@ -1,19 +1,18 @@
-import {Component, AfterContentInit} from '@angular/core';
+import { Component, AfterContentInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
-import {Profile} from '../type/profile';
-import {ProfileService} from '../service/profile.service';
+import { Profile } from '../type/profile';
+import { ProfileService } from '../service/profile.service';
 
-import {Mask} from '../type/mask';
-import {MaskService} from '../service/mask.service';
+import { MaskService } from '../service/mask.service';
 
-import {UtilService} from '../service/util.service';
+import { UtilService } from '../service/util.service';
 
 @Component({
-    selector: 'profile-management-remove',
-    templateUrl: './profile-management-remove.component.html',
-    styleUrls: ['./profile-management-remove.component.css']
+    selector: 'app-profile-management-remove',
+    templateUrl: './profile-management-remove.component.html'
 })
-export class ProfileManagementRemoveComponent implements AfterContentInit{
+export class ProfileManagementRemoveComponent implements AfterContentInit {
     profiles: Profile[];
     selectedProfiles: Profile[];
 
@@ -22,12 +21,13 @@ export class ProfileManagementRemoveComponent implements AfterContentInit{
     profilesToRemoveTotal: number;
 
     constructor(
+        private translate: TranslateService,
         private profileService: ProfileService,
         private maskService: MaskService,
         private utilService: UtilService
-    ) {}
+    ) { }
 
-    getProfiles(): void{
+    public getProfiles(): void {
         this.profileService.getProfiles().then(
             profiles => {
                 this.profiles = profiles.sort(this.utilService.compareProfile);
@@ -35,36 +35,36 @@ export class ProfileManagementRemoveComponent implements AfterContentInit{
         );
     }
 
-    onSelect(profile: Profile, event: MouseEvent): void {
+    public onSelect(profile: Profile, event: MouseEvent): void {
         console.log('', event);
         const selectedLen = this.selectedProfiles.length;
 
-        if(
+        if (
             0 >= selectedLen /* no selection yet */ ||
             !(event.ctrlKey || event.shiftKey) /* no modifiers */
-        ){
+        ) {
             // use the current profile as the only selection
             this.selectedProfiles = [profile];
-        }else if(event.ctrlKey){
+        } else if (event.ctrlKey) {
             // single add / remove
             const index = this.selectedProfiles.indexOf(profile);
-            if(0 <= index){
+            if (0 <= index) {
                 // remove from selection
                 this.selectedProfiles.splice(index, 1);
-            }else{
+            } else {
                 // add to selection
                 this.selectedProfiles.push(profile);
             }
-        }else if(event.shiftKey){
+        } else if (event.shiftKey) {
             // range add / remove
             const startIndex = this.profiles.indexOf(this.selectedProfiles[0]);
             const endIndex = this.profiles.indexOf(profile);
-            if(0 <= startIndex && 0 <= endIndex){
+            if (0 <= startIndex && 0 <= endIndex) {
                 this.selectedProfiles = [];
-                for(let i = Math.min(startIndex, endIndex); i <= Math.max(startIndex, endIndex); ++i){
+                for (let i = Math.min(startIndex, endIndex); i <= Math.max(startIndex, endIndex); ++i) {
                     this.selectedProfiles.push(this.profiles[i]);
                 }
-            }else{
+            } else {
                 console.error(
                     '[onSelect]',
                     'Internal Logic Error',
@@ -74,7 +74,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit{
                 );
                 return;
             }
-        }else{
+        } else {
             console.error(
                 '[onSelect]',
                 'Internal Logic Error',
@@ -91,22 +91,22 @@ export class ProfileManagementRemoveComponent implements AfterContentInit{
         );
     }
 
-    onConfirm(): void{
+    public onConfirm(): void {
         this.profilesToRemove = this.selectedProfiles;
         this.selectedProfiles = [];
         this.profilesToRemoveIndex = 0;
         this.profilesToRemoveTotal = this.profilesToRemove.length;
 
         const remove = () => {
-            if(this.profilesToRemoveIndex < this.profilesToRemoveTotal){
-                let profile = this.profilesToRemove[this.profilesToRemoveIndex];
+            if (this.profilesToRemoveIndex < this.profilesToRemoveTotal) {
+                const profile = this.profilesToRemove[this.profilesToRemoveIndex];
                 console.log(
                     '[onConfirm]',
                     'Removing profile [' + profile.id + '/' + profile.name + ']',
                     '[' + (this.profilesToRemoveIndex + 1) + '/' + this.profilesToRemoveTotal + ']'
                 );
                 const masks = profile.masks;
-                if(masks && 0 < masks.length){
+                if (masks && 0 < masks.length) {
                     const mask = masks.pop();
                     console.log(
                         '[onConfirm]',
@@ -128,7 +128,7 @@ export class ProfileManagementRemoveComponent implements AfterContentInit{
                             this.onInit();
                         }
                     );
-                }else{
+                } else {
                     this.profileService.deleteProfile(profile).then(
                         success => {
                             console.log(
@@ -149,39 +149,39 @@ export class ProfileManagementRemoveComponent implements AfterContentInit{
                         }
                     );
                 }
-            }else{
+            } else {
                 console.log(
                     '[onConfirm]',
                     'Successfully removed all profiles'
-                )
+                );
                 this.onInit();
             }
         };
         remove();
     }
 
-    onCancel(): void{
+    public onCancel(): void {
         this.selectedProfiles = [];
-        console.debug(
+        console.log(
             '[onCacnel]'
         );
     }
 
-    onInit(): void{
+    public onInit(): void {
         this.profiles = undefined;
         this.selectedProfiles = [];
         this.profilesToRemove = [];
         this.profilesToRemoveIndex = 0;
         this.profilesToRemoveTotal = 0;
         this.getProfiles();
-        console.debug(
+        console.log(
             '[onInit]',
             'Profiles#:',
-            this.profiles ? this.profiles.length:0
+            this.profiles ? this.profiles.length : 0
         );
     }
 
-    ngAfterContentInit(): void {
+    public ngAfterContentInit(): void {
         this.onInit();
     }
 }

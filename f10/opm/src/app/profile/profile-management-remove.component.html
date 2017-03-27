@@ -1,11 +1,11 @@
 <div class="profile-remove-page">
     <div class="profile-remove-list-panel">
-        <div class="profile-remove-list-label" i18n="Header for list of profile">Profile List</div>
+        <div class="profile-remove-list-label" i18n="Header for list of profile">{{'PROFILE_MANAGEMENT.REMOVE.PROFILE_LIST' | translate}}</div>
         <div class="profile-remove-list-table">
             <div class="profile-remove-list-table-header">
-                <div class="profile-remove-list-header-id" i18n="Header for list of profile id column">Id</div>
-                <div class="profile-remove-list-header-name" i18n="Header for list of profile name column">Name</div>
-                <div class="profile-remove-list-header-description" i18n="Header for list of profile description column">Description</div>
+                <div class="profile-remove-list-header-id" i18n="Header for list of profile id column">{{'PROFILE_MANAGEMENT.REMOVE.PROFILE_ID' | translate}}</div>
+                <div class="profile-remove-list-header-name" i18n="Header for list of profile name column">{{'PROFILE_MANAGEMENT.REMOVE.PROFILE_NAME' | translate}}</div>
+                <div class="profile-remove-list-header-description" i18n="Header for list of profile description column">{{'PROFILE_MANAGEMENT.REMOVE.PROFILE_DESCRIPTION' | translate}}</div>
             </div>
             <div class="profile-remove-list-items">
                 <div
@@ -22,18 +22,18 @@
         </div>
     </div>
     <div class="profile-remove-confirm-panel">
-        <div class="profile-remove-confirm-message" *ngIf="selectedProfiles.length > 0" i18n="Question to ask for confirmation to remove selected profiles">Confirm to remove the following profile(s)?</div>
-        <div class="profile-remove-confirm-message" *ngIf="selectedProfiles.length <= 0" i18n="Indication on no profiles are selected for deletion">No profile(s) selected</div>
+        <div class="profile-remove-confirm-message" *ngIf="selectedProfiles.length > 0" i18n="Question to ask for confirmation to remove selected profiles">{{'PROFILE_MANAGEMENT.REMOVE.CONFIRMATION_MSG' | translate}}</div>
+        <div class="profile-remove-confirm-message" *ngIf="selectedProfiles.length <= 0" i18n="Indication on no profiles are selected for deletion">{{'PROFILE_MANAGEMENT.REMOVE.NO_SELECTION_INDICATION_MSG' | translate}}</div>
         <div class="profile-remove-confirm-list-panel">
             <div class="profile-remove-confirm-list-item" *ngFor="let profile of selectedProfiles">{{profile.name}}</div>
         </div>
         <div class="profile-remove-confim-buttons" *ngIf="profilesToRemoveTotal <= 0">
-            <button class="profile-remove-confim-confirm-button" (click)="onConfirm()" [disabled]="selectedProfiles ? selectedProfiles.length <= 0:true" i18n="Confirm button">Confirm</button>
-            <button class="profile-remove-confim-cancel-button" (click)="onCancel()" [disabled]="selectedProfiles ? selectedProfiles.length <= 0:true" i18n="Cancel button">Cancel</button>
+            <button class="profile-remove-confim-confirm-button" (click)="onConfirm()" [disabled]="selectedProfiles ? selectedProfiles.length <= 0:true" i18n="Confirm button">{{'BUTTON.CONFIRM' | translate}}</button>
+            <button class="profile-remove-confim-cancel-button" (click)="onCancel()" [disabled]="selectedProfiles ? selectedProfiles.length <= 0:true" i18n="Cancel button">{{'BUTTON.CANCEL' | translate}}</button>
         </div>
         <div class="profile-remove-progress" *ngIf="profilesToRemoveTotal > 0">
             <button class="profile-remove-progress-button">
-                <div class="profile-remove-progress-label" i18n="Indication on deletion is under progress">Removing</div>
+                <div class="profile-remove-progress-label" i18n="Indication on deletion is under progress">{{'PROFILE_MANAGEMENT.REMOVE.REMOVING_INDICATION_MSG' | translate}}</div>
                 <div class="profile-remove-progress-current">
                     {{profilesToRemove[profilesToRemoveIndex].name}}
                 </div>

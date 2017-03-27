@@ -2,7 +2,6 @@
 
 # compiled output
 /dist
-/dist_map
 /tmp
 
 # dependencies
@@ -40,6 +39,4 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
-
-#Backup Files
 *.bak

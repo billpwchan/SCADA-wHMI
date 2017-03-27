@@ -1,10 +1,10 @@
-import { FasOpmPage } from './app.po';
+import { OpmCliPage } from './app.po';
 
-describe('fas-opm App', () => {
-  let page: FasOpmPage;
+describe('opm-cli App', () => {
+  let page: OpmCliPage;
 
   beforeEach(() => {
-    page = new FasOpmPage();
+    page = new OpmCliPage();
   });
 
   it('should display message saying app works', () => {

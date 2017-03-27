@@ -1,6 +1,6 @@
 .profile-list-panel{
     padding: 1em 1em 1em 1em;
-	float: left;
+    float: left;
     height: 50em;
 }
 
@@ -14,7 +14,7 @@
 
 .profile-list-header-title{
     background: darkgrey;
-	font-size: 1.5em;
+    font-size: 1.5em;
     text-align: left;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .profile-list-item-cell{
-	cursor: pointer;
+    cursor: pointer;
     height: 2em;
     padding: 0em 0.5em 0em 0.5em;
     vertical-align: middle;
@@ -40,7 +40,7 @@
 
 .profile-list-item-id,
 .profile-list-item-description{
-	display: none;
+    display: none;
 }
 
 .profile-list-item-name{
@@ -48,8 +48,8 @@
 }
 
 .profile-list-item-row.selected{
-	background-color: black;
-	color: white;
+    background-color: black;
+    color: white;
 }
 
 .profile-list-detail-panel{
@@ -58,7 +58,7 @@
 
 /* Profile Management Detail Component */
 .profile-detail-name{
-	font-size: 2em;
+    font-size: 2em;
 }
 
 .profile-detail-table-panel{
@@ -88,7 +88,7 @@
 
 .profile-detail-table-cell{
     border: thin solid black;
-	cursor: pointer;
+    cursor: pointer;
     height: 2em;
     padding: 0em 0.5em 0em 0.5em;
     vertical-align: middle;
@@ -96,12 +96,12 @@
 }
 
 .profile-detail-table-cell.selected{
-	background-color: black;
-	color: white;
+    background-color: black;
+    color: white;
 }
 
 .profile-detail-modify{
-	float: left;
+    float: left;
 }
 
 .profile-detail-actions{
@@ -112,5 +112,5 @@
 }
 
 .profile-detail-action-apply{
-	float: left;
+    float: left;
 }

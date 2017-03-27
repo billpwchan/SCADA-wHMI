@@ -1,34 +1,35 @@
-import {Injectable} from '@angular/core'
-import {Headers, Http} from '@angular/http'
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Config} from '../type/config';
+import { Config } from '../type/config';
 
 @Injectable()
-export class ConfigService{
-	private static headers = new Headers({
-		'Content-Type': 'application/json;charset=UTF-8'
-	})
-	private static url = './config/settings.json';
-	constructor(private http: Http){
-        this.config = new Config();
-    }
+export class ConfigService {
+    private static url = './assets/config/settings.json';
+    private static opmmgr_url_default = 'http://localhost:12080/';
+    private static i18n_default_lang_default = 'en';
+    private static i18n_use_culture_lang_default = true;
 
     public config: Config;
 
-	public load(): Promise<boolean>{
+    constructor(private http: Http) {
+        this.config = new Config();
+    }
+
+    public load(): Promise<boolean> {
         return this.http.get(ConfigService.url).toPromise().then(
             response => {
-                console.debug(
-                    '[ConfigServer]', response
-                );
                 this.config = response.json() as Config;
+                if (!this.config.opmmgr_url) { this.config.opmmgr_url = ConfigService.opmmgr_url_default; }
+                if (!this.config.i18n_default_lang) { this.config.i18n_default_lang = ConfigService.i18n_default_lang_default; }
+                if (!this.config.i18n_use_culture_lang) { this.config.i18n_use_culture_lang = ConfigService.i18n_use_culture_lang_default; }
                 return true;
             },
             failure => {
                 console.error(
-                    '[ConfigServer]',
+                    '[ConfigService]',
                     'Failed to retrieve config:', ConfigService.url,
                     'Response:', failure
                 );
@@ -37,8 +38,8 @@ export class ConfigService{
         ).catch(this.handleError);
     }
 
-	private handleError(error: any): Promise<any>{
-		console.debug('ProfileService', 'An error occurred', error);
-		return Promise.reject(error.message || error);
-	}
+    private handleError(error: any): Promise<any> {
+        console.error('[ConfigService]', 'An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
 }

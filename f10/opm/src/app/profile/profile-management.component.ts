@@ -1,11 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-    selector: 'profile-management',
-    templateUrl: './profile-management.component.html',
-    styleUrls: ['./profile-management.component.css']
+    selector: 'app-profile-management',
+    templateUrl: './profile-management.component.html'
 })
 
 export class ProfileManagementComponent {
+    constructor(
+        private translate: TranslateService
+    ) { }
 
 }

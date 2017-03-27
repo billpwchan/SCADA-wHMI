@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class FasOpmPage {
+export class OpmCliPage {
   navigateTo() {
     return browser.get('/');
   }

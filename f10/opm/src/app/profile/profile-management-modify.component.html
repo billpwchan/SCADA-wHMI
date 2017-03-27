@@ -1,11 +1,11 @@
 <div class="profile-modify-page">
     <div class="profile-modify-list-panel">
-        <div class="profile-modify-list-label" i18n="Header for list of profile">Profile List</div>
+        <div class="profile-modify-list-label" i18n="Header for list of profile">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_LIST' | translate}}</div>
         <div class="profile-modify-list-table">
             <div class="profile-modify-list-table-header">
-                <div class="profile-modify-list-header-id" i18n="Header for list of profile id column">Id</div>
-                <div class="profile-modify-list-header-name" i18n="Header for list of profile name column">Name</div>
-                <div class="profile-modify-list-header-description" i18n="Header for list of profile description column">Description</div>
+                <div class="profile-modify-list-header-id" i18n="Header for list of profile id column">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_ID' | translate}}</div>
+                <div class="profile-modify-list-header-name" i18n="Header for list of profile name column">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_NAME' | translate}}</div>
+                <div class="profile-modify-list-header-description" i18n="Header for list of profile description column">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_DESCRIPTION' | translate}}</div>
             </div>
             <div class="profile-modify-list-items">
                 <div
@@ -22,9 +22,9 @@
         </div>
     </div>
     <div class="profile-modify-detail-panel">
-        <profile-management-detail
+        <app-profile-management-detail
             [profileId]="selectedProfile ? selectedProfile.id:undefined"
             [createProfile]="false"
-        ></profile-management-detail>
+        ></app-profile-management-detail>
     </div>
 </div>

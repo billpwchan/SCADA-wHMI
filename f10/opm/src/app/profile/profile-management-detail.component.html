@@ -1,7 +1,7 @@
 <div class="profile-detail-panel" *ngIf="!createProfile">
     <div class="profile-detail-name" *ngIf="profile">{{profile.name}}</div>
-    <div class="profile-detail-name" *ngIf="profileId && !profile" i18n="Indication for retrieving profile content">Retrieving profile content...</div>
-    <div class="profile-detail-name" *ngIf="!profileId && !profile" i18n="Indication for no profile selected">No profile is current selected</div>
+    <div class="profile-detail-name" *ngIf="profileId && !profile" i18n="Indication for retrieving profile content">{{'PROFILE_MANAGEMENT.DETAIL.RETRIEVING_PROFILE_INDICATION_MSG' | translate}}</div>
+    <div class="profile-detail-name" *ngIf="!profileId && !profile" i18n="Indication for no profile selected">{{'PROFILE_MANAGEMENT.DETAIL.NO_SELECTION_INDICATION_MSG' | translate}}</div>
     <div class="profile-detail-table">
         <div class="profile-detail-table-header">
             <div class="profile-detail-table-first-column profile-detail-table-cell profile-detail-table-header-cell profile-detail-table-function-header-empty"></div>
@@ -50,12 +50,12 @@
         </div>
         <div class="profile-detail-modify-actions">
             <div class="profile-detail-modify-action-buttons" *ngIf="masksToApplyTotal <= 0">
-                <button class="profile-detail-modify-action-apply" (click)="onApply()" [disabled]="!updated" i18n="Apply button">Apply</button>
-                <button class="profile-detail-modify-action-reset" (click)="onReset()" [disabled]="!updated" i18n="Reset button">Reset</button>
+                <button class="profile-detail-modify-action-apply" (click)="onApply()" [disabled]="!updated" i18n="Apply button">{{'BUTTON.APPLY' | translate}}</button>
+                <button class="profile-detail-modify-action-reset" (click)="onReset()" [disabled]="!updated" i18n="Reset button">{{'BUTTON.RESET' | translate}}</button>
             </div>
             <div class="profile-detail-modify-action-progress" *ngIf="masksToApplyTotal > 0">
                 <button class="profile-detail-modify-progress-button">
-                    <div class="profile-detail-modify-progress-label" i18n="Indication on saving profile">Saving</div>
+                    <div class="profile-detail-modify-progress-label" i18n="Indication on saving profile">{{'PROFILE_MANAGEMENT.DETAIL.SAVING_INDICATION_MSG' | translate}}</div>
                     <div class="profile-detail-modify-progress-current">
                         {{Math.floor(100 * masksToApplyIndex / masksToApplyTotal)}}
                     </div>
@@ -67,7 +67,7 @@
 <div class="profile-detail-panel" *ngIf="createProfile">
     <div class="profile-detail-name">
         <input
-            type="text" placeholder="<New Profile Name>"
+            type="text" placeholder="{{'PROFILE_MANAGEMENT.DETAIL.NEW_PROFILE_NAME_PLACEHOLDER' | translate}}"
             [(ngModel)]="profile.name"
         >
     </div>
@@ -119,12 +119,12 @@
         </div>
         <div class="profile-detail-modify-actions">
             <div class="profile-detail-modify-action-buttons" *ngIf="masksToApplyTotal <= 0">
-                <button class="profile-detail-modify-action-create" (click)="onCreate()" [disabled]="!profile.name" i18n="Create button">Create</button>
-                <button class="profile-detail-modify-action-reset" (click)="onReset()" [disabled]="!profile.name" i18n="Reset button">Reset</button>
+                <button class="profile-detail-modify-action-create" (click)="onCreate()" [disabled]="!profile.name" i18n="Create button">{{'BUTTON.CREATE' | translate}}</button>
+                <button class="profile-detail-modify-action-reset" (click)="onReset()" [disabled]="!profile.name" i18n="Reset button">{{'BUTTON.RESET' | translate}}</button>
             </div>
             <div class="profile-detail-modify-action-progress" *ngIf="masksToApplyTotal > 0">
                 <button class="profile-detail-modify-progress-button">
-                    <div class="profile-detail-modify-progress-label" i18n="Indication on saving profile">Saving</div>
+                    <div class="profile-detail-modify-progress-label" i18n="Indication on saving profile">{{'PROFILE_MANAGEMENT.DETAIL.SAVING_INDICATION_MSG' | translate}}</div>
                     <div class="profile-detail-modify-progress-current">
                         {{Math.floor(100 * masksToApplyIndex / masksToApplyTotal)}}
                     </div>

@@ -1,7 +1,6 @@
 package com.thalesgroup.scadagen.calculated.symbol;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,15 +8,14 @@ import org.slf4j.LoggerFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
+import com.thalesgroup.scadagen.calculated.common.SGSymbol_i;
 import com.thalesgroup.scadagen.calculated.util.Util;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpmSCADAgen;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
 
-public class NeedAck extends SCSStatusComputer {
+public class NeedAck extends SCSStatusComputer implements SGSymbol_i {
 	
 	private final Logger logger = LoggerFactory.getLogger(NeedAck.class.getName());
-
-	protected String propertiesname			= null;
 	
 	protected final String fieldname1		= ".fieldname1";
 	protected final String fieldname2		= ".fieldname2";
@@ -50,7 +48,7 @@ public class NeedAck extends SCSStatusComputer {
 	protected String field10				= null;//"action";
 	protected String field11				= null;//"mode";
 	
-	protected static Map<String, String> mappings	= new HashMap<String, String>();
+	protected static Map<String, String> mappings	= null;
 	
 	protected static Util util = new Util();
 
@@ -59,16 +57,11 @@ public class NeedAck extends SCSStatusComputer {
 		return m_name;
 	}
 	
-    public NeedAck() {
-    	
-    	m_name = this.getClass().getSimpleName();
-
-    	propertiesname = m_name;
-    	
-    	logger.debug(propertiesname+" getComputerId[{}]", getComputerId());
-    	logger.debug(propertiesname+" propertiesname[{}]", propertiesname);
-    	
-    	mappings = util.loadMapping(propertiesname);
+	@Override
+	public void loadCnf() {
+		
+		// Loading properties
+    	mappings = util.loadMapping(m_name);
 		
 		field1	= mappings.get(fieldname1);
 		field2	= mappings.get(fieldname2);
@@ -85,12 +78,24 @@ public class NeedAck extends SCSStatusComputer {
 		field10 = mappings.get(fieldname10);
 		field11 = mappings.get(fieldname11);
 		
-		logger.debug(propertiesname+" field1[{}] field2[{}] field3[{}] field4[{}]", new Object[]{field1, field2, field3, field4});
+		
+		// Field to Subscribe
+		logger.debug("field1[{}] field2[{}] field3[{}] field4[{}]", new Object[]{field1, field2, field3, field4});
     	
 		m_statusSet.add(field1);
 		m_statusSet.add(field2);
 		m_statusSet.add(field3);
 		m_statusSet.add(field4);
+		
+	}
+	
+    public NeedAck() {
+    	
+    	m_name = this.getClass().getSimpleName();
+    	
+    	logger.debug("getComputerId[{}]", getComputerId());
+    	
+    	loadCnf();
         
     }
 
@@ -99,7 +104,6 @@ public class NeedAck extends SCSStatusComputer {
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     {
-		logger.debug("compute Begin");
 		logger.debug("compute field1[{}] field2[{}]", field1, field2);
 		
     	// Load eqpType value
@@ -110,11 +114,11 @@ public class NeedAck extends SCSStatusComputer {
     	int inValue2 = util.loadIntValue(inputStatusByName, field2);
     	logger.debug("compute inValue2[{}]", inValue2);
     	
-    	// Append the prefix if exists
-    	String configPrefix = "." + inValue1;
-    	logger.debug("compute configPrefix[{}]", configPrefix);
-
     	util.setPrefix(inValue1);
+    	
+    	// Append the prefix if exists
+    	String configPrefix = util.getConfitPrefix(mappings, m_name, inValue1);
+    	logger.debug("compute configPrefix[{}]", configPrefix);
     	
     	int outValue1 = 0;
     	
@@ -190,7 +194,6 @@ public class NeedAck extends SCSStatusComputer {
     	AttributeClientAbstract<?> ret = util.getIntAttribute(outValue1, true, new Date());
 
         logger.debug("compute ret.getValue()[{}]", ret.getValue());
-        logger.debug("compute End");
 		
 		return ret;
 

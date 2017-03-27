@@ -1,28 +1,20 @@
 package com.thalesgroup.scadagen.calculated.symbol;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.IntAttribute;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
+import com.thalesgroup.scadagen.calculated.common.SGSymbol_i;
+import com.thalesgroup.scadagen.calculated.util.Util;
 
-public class IntMapping extends SCSStatusComputer {
+public class IntMapping extends SCSStatusComputer implements SGSymbol_i {
 	
 	private final Logger logger = LoggerFactory.getLogger(IntMapping.class.getName());
-	
-	protected String classname				= null;
-	protected String propertiesname			= null;
-	
+
 	protected final String mappingname		= ".valuemapping.";
 	
 	protected final String fieldname1		= ".fieldname1";
@@ -31,42 +23,40 @@ public class IntMapping extends SCSStatusComputer {
 	protected String field1					= "eqpType";
 	protected String field2					= "symbol1";
 	
-	protected static Map<String, String> mappings	= new HashMap<String, String>();
+	protected static Map<String, String> mappings	= null;
+	
+	protected static Util util = new Util();
 
 	@Override
 	public String getComputerId() {
-		return this.getClass().getName();
+		return m_name;
+	}
+	
+	@Override
+	public void loadCnf() {
+    	
+		// Loading properties
+		mappings = util.loadMapping(m_name);
+		
+		field1 = mappings.get(fieldname1);
+		field2 = mappings.get(fieldname2);
+		
+		
+		// Field to Subscribe
+		logger.debug("field1[{}] field2[{}]", new Object[]{field1, field2});
+    	
+		m_statusSet.add(field1);
+    	m_statusSet.add(field2);
 	}
 	
     public IntMapping() {
     	
-    	String classnames [] = getComputerId().split(Pattern.quote("."));
-    	propertiesname = classnames[classnames.length-1];
+    	m_name = this.getClass().getSimpleName();
     	
-    	logger.debug(propertiesname+" getComputerId[{}]", getComputerId());
-    	logger.debug(propertiesname+" propertiesname[{}]", propertiesname);
+    	logger.debug("getComputerId[{}]", getComputerId());
+
+    	loadCnf();
     	
-    	IConfigLoader configLoader		= ServicesImplFactory.getInstance().getService(IConfigLoader.class);
-		Map<String,String> properties	= configLoader.getProjectConfigurationMap();
-		if (properties != null) {
-			
-			// Load all setting with class prefix into buffer
-			for ( String key : properties.keySet() ) {
-				if ( key.startsWith(propertiesname) ) {
-					mappings.put(key, properties.get(key));
-				}
-			}
-		}
-		
-		field1 = mappings.get(propertiesname+fieldname1);
-		field2 = mappings.get(propertiesname+fieldname2);
-		
-		logger.debug(propertiesname+" field1[{}]", field1);
-		logger.debug(propertiesname+" field2[{}]", field2);
-    	
-		m_statusSet.add(field1);
-    	m_statusSet.add(field2);
-        
     }
 
 	@Override
@@ -74,45 +64,20 @@ public class IntMapping extends SCSStatusComputer {
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
 
     {
-		logger.debug("compute Begin");
-		logger.debug("compute field1[{}]", field1);
-		logger.debug("compute field2[{}]", field2);
+		logger.debug("compute field1[{}] field2[{}]", field1, field2);
     	
     	// Load eqpType value
-    	String inValue1 = null;
-    	{
-	    	AttributeClientAbstract<?> obj1 = inputStatusByName.get(field1);
-	    	if (obj1 != null && obj1 instanceof StringAttribute) {
-	    		inValue1 = ((StringAttribute) obj1).getValue();
-	    	} else {
-	    		logger.warn("compute field1[{}] IS INVALID", field1);
-	    	}
-		}
+    	String inValue1 = util.loadStringValue(inputStatusByName, field1);
     	logger.debug("compute inValue1[{}]", inValue1);
     	
     	// Load Int value
-    	int inValue2 = 0;
-    	{
-	    	AttributeClientAbstract<?> obj1 = inputStatusByName.get(field2);
-	    	if (obj1 != null && obj1 instanceof IntAttribute) {
-	    		inValue2 = ((IntAttribute) obj1).getValue();
-	    	} else {
-	    		logger.warn("compute field2[{}] IS INVALID", field2);
-	    	}
-		}
+    	int inValue2 = util.loadIntValue(inputStatusByName, field2);
     	logger.debug("compute inValue2[{}]", inValue2);
+    	
+    	util.setPrefix(inValue1);
 
     	// Append the prefix if exists
-    	String configPrefix = propertiesname;
-    	if ( null != inValue1 ) {
-    		String keyToFind = propertiesname+"."+inValue1;
-    		for ( String key : mappings.keySet() ) {
-    			if ( key.startsWith(keyToFind)) {
-    				configPrefix = keyToFind;
-    				break;
-    			}
-    		}
-    	}
+    	String configPrefix = util.getConfitPrefix(mappings, m_name, inValue1);
     	logger.debug("compute configPrefix[{}]", configPrefix);
     	
     	// Find mapping
@@ -130,14 +95,10 @@ public class IntMapping extends SCSStatusComputer {
     	logger.debug("compute outValue1[{}]", outValue1);	
     	
     	// Return value
-    	StringAttribute ret = new StringAttribute();
-        ret.setValue(outValue1);
-        ret.setValid(true);
-        ret.setTimestamp(new Date());
+    	logger.debug("compute outValue1[{}]", outValue1);
+    	AttributeClientAbstract<?> ret = util.getStringAttribute(outValue1, true, new Date());
 
-        logger.debug("compute outValue1[{}]", outValue1);
         logger.debug("compute ret.getValue()[{}]", ret.getValue());
-        logger.debug("compute End");
 		
 		return ret;
 

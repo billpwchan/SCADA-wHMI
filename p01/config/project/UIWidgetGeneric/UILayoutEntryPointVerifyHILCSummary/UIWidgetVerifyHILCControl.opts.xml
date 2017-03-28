@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<EventBusName></EventBusName>
+		<EventBusScope>local</EventBusScope>
+	</header>
+	
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="init_delay">
+	</actionset>
+	
+	<actionset key="HILCPreparationRequest">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HILCPreparationRequest</OperationString1>
+	</actionset>
+	
+	<action key="HILCPreparationRequest">
+		<OperationType>action</OperationType>
+		<OperationString1>HILCPreparationRequest</OperationString1>
+	</action>
+	
+	<actionset key="HILCConfirmRequest">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HILCConfirmRequest</OperationString1>
+	</actionset>
+	
+	<action key="HILCConfirmRequest">
+		<OperationType>action</OperationType>
+		<OperationString1>HILCConfirmRequest</OperationString1>
+	</action>
+	
+</data-set>

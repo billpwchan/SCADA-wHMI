@@ -193,4 +193,5 @@
 	<option key="LMC|MCS|Central Station|HDV Summary (Station)"><setting>122</setting></option>
 	<option key="LMC|MCS|UIEventAction Verify Summary"><setting>123</setting></option>
 	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionDbm"><setting>124</setting></option>
+	<option key="LMC|MCS|HILC Verify Summary"><setting>125</setting></option>
 </data-set>

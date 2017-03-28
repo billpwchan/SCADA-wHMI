@@ -1,0 +1,102 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.important {
+		font-weight: bold;
+	}
+	
+	@external .DecoratedVP;
+	.DecoratedVP {
+		background-color: #b3b3b3;
+		border-radius: 5px;
+		border-color: #FFFFFF;
+		border-left: 1px solid #FFFFFF;
+		border-right: 1px solid #FFFFFF;
+		border-style: solid;
+		border-width: 1px;
+		color: #000000;
+	}
+	
+	@external .TabPanel;
+	.TabPanel {
+		
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelTabs;
+	.TabPanel .gwt-TabLayoutPanelTabs {
+		padding-left: 5px;
+		padding-top: 6px;
+		border-bottom: 0;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelContentContainer;
+	.TabPanel .gwt-TabLayoutPanelContentContainer {
+		border-color: #000000;
+		border-style: solid;
+		border-width: 0 1px 1px;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelContent;
+	.TabPanel .gwt-TabLayoutPanelContent {
+		overflow: hidden;
+		padding: 6px;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelTab;
+	.TabPanel .gwt-TabLayoutPanelTab {
+		background: none repeat scroll 0 0 #8E8E8E;
+		border-radius: 5px 5px 0 0;
+		color: #FFFFFF;
+		cursor: pointer;
+		font-weight: normal;
+		margin-left: 4px;
+		padding: 4px 8px;
+		text-align: center;
+		border-right-width: 1px;
+		margin-top: 7px;
+	}
+	
+	@external .TabPanel .gwt-TabLayoutPanelTab-selected;
+	.TabPanel .gwt-TabLayoutPanelTab-selected {
+		background: none repeat scroll 0 0 #FFFFFF;
+		color: #333333;
+		cursor: default;
+		font-weight: bold;
+	}
+	</ui:style>
+	<g:VerticalPanel width="600px" height="390px"
+		horizontalAlignment="ALIGN_CENTER" verticalAlignment="ALIGN_MIDDLE">
+	
+		<g:VerticalPanel>
+			<g:Label text="ScsEnvId (e.g. SCADA2): " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="SCADA2" ui:field="envNameTB" width="300px" />
+			
+			<g:Label text="Workstation : " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="workstation" ui:field="workstationNameTB" width="300px" />
+			
+			<g:Label text="Cmd Type (2 for DIO/3 for AIO) : " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="2" ui:field="cmdTypeTB" width="300px" />
+			
+			<g:Label text="Cmd Value (e.g. 1): " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="1" ui:field="cmdValueTB" width="300px" />
+			
+			<g:Label text="Eqp Alias (e.g. PWRTPSTPS01ICB1_1CB): " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="PWRTPSTPS01ICB1_1CB" ui:field="eqpAliasTB" width="300px" />
+			
+			<g:Label text="Eqp Type (e.g. CBR): " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="CBR" ui:field="eqpTypeTB" width="300px" />
+			
+			<g:Label text="Cmd Name (e.g. Open) : " horizontalAlignment="ALIGN_LEFT" />
+			<g:TextBox readOnly="false" text="Open" ui:field="cmdNameTB" width="300px" />
+		</g:VerticalPanel>
+					
+		<g:HorizontalPanel>
+			<g:Button text="Select" ui:field="selectButton" />
+			<g:Button text="Execute" ui:field="executeButton" />
+			<g:InlineLabel text="Message Label :" ui:field="messageLabel" />
+		</g:HorizontalPanel>
+		
+	</g:VerticalPanel>
+
+</ui:UiBinder> 

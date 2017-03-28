@@ -1,6 +1,6 @@
 {
   "name": "lib-brokers",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "melody": "4.0.1",
   "owner": "HV",
   "dependencies": []

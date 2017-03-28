@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--Capella_Version_0.8.3-->
+<!--Capella_Version_0.8.2-->
 <org.polarsys.capella.core.data.capellamodeller:Library xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:libraries="http://www.polarsys.org/capella/common/libraries/1.0.0"
     xmlns:org.polarsys.capella.core.data.capellacommon="http://www.polarsys.org/capella/core/common/0.8.0"
@@ -42,7 +42,7 @@
   <ownedModelRoots xsi:type="org.polarsys.capella.core.data.capellamodeller:SystemEngineering"
       id="7a64490e-0aa1-485f-8ae8-ed439a8e2415" name="lib-shared-assets" appliedPropertyValues="#38df4ac7-1a58-4597-a4a2-67d1ce0c34e9">
     <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-        id="38df4ac7-1a58-4597-a4a2-67d1ce0c34e9" name="ModelVersion" value="1.5.3"/>
+        id="38df4ac7-1a58-4597-a4a2-67d1ce0c34e9" name="ModelVersion" value="1.5.4"/>
     <ownedArchitectures xsi:type="org.polarsys.capella.core.data.oa:OperationalAnalysis"
         id="48c34270-d9b0-42ba-aa82-e04b0d035b51" name="Shared Assets">
       <ownedFunctionPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalActivityPkg"

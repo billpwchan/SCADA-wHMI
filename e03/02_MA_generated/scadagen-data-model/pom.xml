@@ -4,11 +4,11 @@
   <parent>
     <groupId>com.thalesgroup.hv.common</groupId>
     <artifactId>common-integ</artifactId>
-    <version>1.8.0_P03</version>
+    <version>1.10.0</version>
   </parent>
   <groupId>com.thalesgroup.scadagen</groupId>
   <artifactId>scadagen-data-model</artifactId>
-  <version>1.3.0</version>
+  <version>1.3.1</version>
   <!-- Here we are using bundle packaging to ease the filtering of
    some generated packages which can lead to errors
    -->
@@ -27,7 +27,7 @@
     <dependency>
       <groupId>com.thalesgroup.hv.common</groupId>
       <artifactId>data-model-jaxb</artifactId>
-      <version>1.8.0_P03</version>
+      <version>1.10.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -84,7 +84,7 @@
                 <episode>
                   <groupId>com.thalesgroup.hv.common</groupId>
                   <artifactId>data-model-jaxb</artifactId>
-                  <version>1.8.0_P03</version>
+                  <version>1.10.0</version>
                 </episode>
                 <episode>
                   <groupId>com.thalesgroup.scadasoft</groupId>
@@ -97,7 +97,7 @@
                 <plugin>
                   <groupId>com.thalesgroup.hv.common</groupId>
                   <artifactId>data-model-jaxb</artifactId>
-                  <version>1.8.0_P03</version>
+                  <version>1.10.0</version>
                 </plugin>
                 <plugin>
                   <groupId>com.thalesgroup.scadasoft</groupId>

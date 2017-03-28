@@ -3,9 +3,11 @@ package com.thalesgroup.scadasoft.myba;
 import java.util.UUID;
 
 import com.thalesgroup.hv.common.HypervisorException;
+import com.thalesgroup.scadagen.scadagenba.operation.HILCExecutor;
 import com.thalesgroup.scadasoft.hvconnector.SCADAsoftBA;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager.OLSConfiguration;
+import com.thalesgroup.scadasoft.hvconnector.operation.SCSOperationResponder;
 import com.thalesgroup.scadasoft.hvconnector.subscription.DBMSubscription;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSConverter;
 import com.thalesgroup.scadasoft.hvconnector.subscription.OLSSubscription;
@@ -14,15 +16,20 @@ import com.thalesgroup.scadasoft.myba.subscription.OLSAlmConverter;
 import com.thalesgroup.scadasoft.myba.subscription.OLSHistEventConverter;
 import com.thalesgroup.scadasoft.services.proxy.ScsPollerServicesProxy;
 
-public class MySCADAsoftBA extends SCADAsoftBA {
+public class SCADAgenBA extends SCADAsoftBA {
 
-    public MySCADAsoftBA() {
+    public SCADAgenBA() {
     }
 
     @Override
     public void init() throws HypervisorException {
         super.init();
-        // do other necessary init
+
+        // Register HILCExecutor
+        SCSOperationResponder opeResponder = getOperationManager();
+        if (opeResponder != null) {
+        	opeResponder.register("SigHILCServer", HILCExecutor.class);
+        }
     }
 
     @Override
@@ -59,9 +66,9 @@ public class MySCADAsoftBA extends SCADAsoftBA {
         }
     }
 
-    @Override
-    public DBMSubscription getDbmSubscription(ScsPollerServicesProxy dbpoller, UUID subscriptionID) {
-        return new MyDBMSubscription(dbpoller, subscriptionID, this);
-    }
+	@Override
+	public DBMSubscription getDbmSubscription(ScsPollerServicesProxy dbpoller, UUID subscriptionID) {
+		return new MyDBMSubscription(dbpoller, subscriptionID, this);
+	}
 
 }

@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.scadagen.bps.BPSException;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
+import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenConnectorProxy;
 import com.thalesgroup.scadasoft.hvconnector.BAStateManager;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.services.proxy.ScsConnectorProxy;
@@ -149,7 +150,7 @@ public class Main {
             physicalEnvDefault = scsenv + "_" + hostname;
         }
 
-        String serverName = System.getProperty("scadasoft.servername", "SCSConnector");
+        String serverName = System.getProperty("scadasoft.servername", "SCADAgen Connector");
         String physicalEnv = System.getProperty("scadasoft.physicalenv", physicalEnvDefault);
         s_logger.info("connects to Scadasoft env {} as {}", physicalEnv, serverName);
 
@@ -160,15 +161,27 @@ public class Main {
             s_logger.error("SCADAgen BA  - cannot initialize SCADAsoft: {}@{}", serverName, physicalEnv);
             System.exit(1);
         }
+        
+        ScadagenConnectorProxy proxy = ScadagenConnectorProxy.instance();
+        if (proxy == null) {
+        	s_logger.error("SCADAgen BA  - cannot initialize SCADAsoft: {}@{}", serverName, physicalEnv);
+            System.exit(1);
+        }
+        proxy.initialize(physicalEnv, serverName, smgr);
+        if (!ScadagenConnectorProxy.instance().isInitialized()) {
+            s_logger.error("SCADAgen BA  - cannot initialize SCADAsoft: {}@{}", serverName, physicalEnv);
+            System.exit(1);
+        }
+        s_logger.info("ScadagenConnectorProxy is initialized");
 
         // load scadasoft configuration
         SCSConfManager.instance().loadConfiguration();
 
         // then init hypervisor Generic Connector
         s_logger.info("init hypervisor connector");
-        MySCADAsoftBA scadasoftBA = null;
+        SCADAgenBA scadasoftBA = null;
         try {
-            scadasoftBA = new MySCADAsoftBA();
+            scadasoftBA = new SCADAgenBA();
             scadasoftBA.init();
             scadasoftBA.start();
         } catch (final Exception e) {

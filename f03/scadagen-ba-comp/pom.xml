@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thalesgroup.scadasoft</groupId>
+        <artifactId>scadasoft</artifactId>
+        <version>6.3.1</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
+    <artifactId>scadagen-ba-comp</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>SCADAgen BA Component</name>
+    <description>SCADAgen BA Executor and JSComponent library</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
+		<dependency>
+            <groupId>com.thalesgroup.scadasoft</groupId>
+            <artifactId>scsba</artifactId>
+            <version>6.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.thalesgroup.scadasoft</groupId>
+            <artifactId>scsapi</artifactId>
+            <version>6.3.1</version>
+        </dependency>
+		<dependency>
+            <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
+            <artifactId>fasapi</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+       
+        <!-- copy java sources into the jar -->
+        <!-- <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.keep*</exclude>
+                    <exclude>**/*.contrib*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.keep*</exclude>
+                    <exclude>**/*.contrib*</exclude>
+                </excludes>
+            </resource>
+        </resources>-->
+    </build>
+</project>

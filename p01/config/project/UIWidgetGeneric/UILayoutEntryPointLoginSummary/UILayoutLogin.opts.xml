@@ -4,7 +4,12 @@
 	<header key="header">
 		<EventBusName>loginsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
+		<!-- Opm API Switch -->
 		<OpmApi>UIOpmSCADAgen</OpmApi>
+		<!-- Upsercase switch-->
+		<UpperCaseName>false</UpperCaseName>
+		<!-- Lowercase switch-->
+		<LowerCaseName>false</LowerCaseName>
 	</header>
 
 	<actionset key="init">

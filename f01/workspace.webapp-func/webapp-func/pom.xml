@@ -115,6 +115,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>com.thalesgroup.hvpp</groupId>
+            <artifactId>opmaddon</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+		
         <!--  Logging implementation  -->
         <dependency>
             <groupId>org.slf4j</groupId>

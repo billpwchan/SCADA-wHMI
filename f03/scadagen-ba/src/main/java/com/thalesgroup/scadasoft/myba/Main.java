@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.thalesgroup.hv.sdk.connector.Connector;
 import com.thalesgroup.scadagen.bps.BPSException;
 import com.thalesgroup.scadagen.bps.SCADAgenBPS;
-import com.thalesgroup.scadagen.services.proxy.ScadagenConnectorProxy;
+import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenConnectorProxy;
 import com.thalesgroup.scadasoft.hvconnector.BAStateManager;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.services.proxy.ScsConnectorProxy;

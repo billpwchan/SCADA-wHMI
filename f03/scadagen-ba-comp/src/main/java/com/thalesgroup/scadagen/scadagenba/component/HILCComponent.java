@@ -1,10 +1,10 @@
-package com.thalesgroup.scadasoft.myba.component;
+package com.thalesgroup.scadagen.scadagenba.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.thalesgroup.scadagen.services.proxy.ScadagenHILCServicesProxy;
+import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenHILCServicesProxy;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.jsoncomponent.AbstractJSComponent;
 import com.thalesgroup.scadasoft.jsoncomponent.JSComponentMgr;

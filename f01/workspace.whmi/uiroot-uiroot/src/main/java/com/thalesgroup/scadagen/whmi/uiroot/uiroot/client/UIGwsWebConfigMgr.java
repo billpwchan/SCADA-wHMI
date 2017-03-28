@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
@@ -17,8 +20,6 @@ public class UIGwsWebConfigMgr {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIGwsWebConfigMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
-	String key = "scadagen.launcher.module";
-	
 	private static UIGwsWebConfigMgr instance = null;
 	public static UIGwsWebConfigMgr getInstance () { 
 		if ( null == instance ) {
@@ -41,8 +42,10 @@ public class UIGwsWebConfigMgr {
 			public void onSuccess(String value) {
 				final String function = "onSuccess";
 				logger.begin(className, function);
+				Map<String, String> hashMap = new HashMap<String, String>();
+				hashMap.put(key, value);
 				if ( null != webConfigMgrEvent ) {
-					webConfigMgrEvent.updated(value);
+					webConfigMgrEvent.updated(hashMap);
 				} else {
 					logger.warn(className, function, "webConfigMgrEvent IS NULL");
 				}
@@ -64,7 +67,7 @@ public class UIGwsWebConfigMgr {
 		
 	}
 	
-	public void getWebConfig(final String mode, final String module, final String folder, final String xml, final String tag, final String key, final WebConfigMgrEvent webConfigMgrEvent) {
+	public void getWebConfig(final String mode, final String module, final String folder, final String xml, final String tag, final List<String> keys, final WebConfigMgrEvent webConfigMgrEvent) {
 		final String function = "getWebConfig";
 		
 		logger.begin(className, function);
@@ -72,7 +75,10 @@ public class UIGwsWebConfigMgr {
 		logger.info(className, function, "getWebConfig module[{}]", module);
 		logger.info(className, function, "getWebConfig xml[{}]", xml);
 		logger.info(className, function, "getWebConfig tag[{}]", tag);
-		logger.info(className, function, "getWebConfig key[{}]", key);
+		
+		for ( String key : keys ) {
+			logger.info(className, function, "getWebConfig key[{}]", key);
+		}
 		
 		DictionaryMgr dictionaryMgr = new DictionaryMgr();
 		
@@ -80,27 +86,39 @@ public class UIGwsWebConfigMgr {
 			
 			@Override
 			public void dictionaryMgrEventReady(Dictionary dictionary) {
+				
+				Map<String, String> entrySet = null;
+				
 				if ( null != webConfigMgrEvent ) {
 					if ( null != dictionary ) {
-						for ( Object subobject : dictionary.getValueKeys() ) {
-							if ( subobject instanceof Dictionary ) {
-								Dictionary subdictionary = (Dictionary) subobject;
-								for ( Object dKey : subdictionary.getValueKeys() ) {
-									if ( dKey instanceof String ) {
-										String sKey = (String) dKey;
-										if ( 0 == sKey.compareTo(key) ) {
-											String value = (String) subdictionary.getValue(sKey);
-											if ( null != webConfigMgrEvent ) {
-												webConfigMgrEvent.updated(value);
+					
+						entrySet = new HashMap<String, String>();
+						
+						for ( String key : keys ) {
+							
+							for ( Object subobject : dictionary.getValueKeys() ) {
+								if ( subobject instanceof Dictionary ) {
+									Dictionary subdictionary = (Dictionary) subobject;
+									for ( Object dKey : subdictionary.getValueKeys() ) {
+										if ( dKey instanceof String ) {
+											String sKey = (String) dKey;
+											if ( 0 == sKey.compareTo(key) ) {
+												String value = (String) subdictionary.getValue(sKey);
+												entrySet.put(sKey, value);
 											}
 										}
 									}
 								}
 							}
+							
 						}
+						
 					} else {
 						logger.warn(className, function, "dictionary IS NULL");
 					}
+					
+					webConfigMgrEvent.updated(entrySet);
+					
 				} else {
 					logger.warn(className, function, "webConfigMgrEvent IS NULL");
 				}

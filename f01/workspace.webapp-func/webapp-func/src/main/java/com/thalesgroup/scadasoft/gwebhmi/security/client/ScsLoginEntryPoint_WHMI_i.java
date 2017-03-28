@@ -1,6 +1,8 @@
-package com.thalesgroup.scadasoft.gwebhmi.main.client;
+package com.thalesgroup.scadasoft.gwebhmi.security.client;
 
-public interface AppEntryPoint_WHMI_i {
+import com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint_WHMI_i.PropertiesName;
+
+public interface ScsLoginEntryPoint_WHMI_i {
 	public enum FrameworkName {
 		  SCADAgen("SCADAgen")
 		, FAS("FAS")
@@ -54,5 +56,4 @@ public interface AppEntryPoint_WHMI_i {
 		    return strings;
 		}
 	}
-
 }

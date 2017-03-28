@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin_i.PropertiesName;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionBus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
@@ -36,7 +37,9 @@ public class UILayoutLogin extends UIWidget_i {
 	private UIWidget_i uiWidgetGenericButton	= null;
 	
 	private String opmApi					= null;
-	private final String strOpmApi			= "OpmApi";
+	private String upperCaseName			= null;
+	private String lowerCaseName			= null;
+
 	private final String strHeader			= "header";
 	
 	private final String strname			= "name";
@@ -84,8 +87,14 @@ public class UILayoutLogin extends UIWidget_i {
 				
 				String operator = uiWidgetGenericInfo.getWidgetValue(strname);
 				String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
-					
-				logger.info(className, function, "update Counter Values");
+				
+				if ( null != upperCaseName && Boolean.TRUE.toString().equals(upperCaseName) ) {
+					operator = operator.toUpperCase();
+				}
+				
+				if ( null != lowerCaseName && Boolean.TRUE.toString().equals(lowerCaseName) ) {
+					operator = operator.toLowerCase();
+				}
 					
 				logger.info(className, function, "opmApi[{}]", opmApi);
 				logger.info(className, function, "operator[{}]", operator);
@@ -130,7 +139,9 @@ public class UILayoutLogin extends UIWidget_i {
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
-			opmApi = dictionariesCache.getStringValue(optsXMLFile, strOpmApi, strHeader);
+			opmApi			= dictionariesCache.getStringValue(optsXMLFile, PropertiesName.OpmApi.toString(), strHeader);
+			upperCaseName	= dictionariesCache.getStringValue(optsXMLFile, PropertiesName.UpperCaseName.toString(), strHeader);
+			lowerCaseName	= dictionariesCache.getStringValue(optsXMLFile, PropertiesName.LowerCaseName.toString(), strHeader);
 		}
 		
 		uiLayoutGeneric = new UILayoutGeneric();
@@ -159,41 +170,6 @@ public class UILayoutLogin extends UIWidget_i {
 		uiEventActionProcessor_i.init();
 		
 		uiWidgetGenericButton.setCtrlHandler(uiWidgetCtrl_i);
-
-//		if ( null != uiWidgetGenericButton ) {
-//			uiWidgetGenericButton.setUIWidgetEvent(new UIWidgetEventOnClickHandler() {
-//				
-//				@Override
-//				public void onClickHandler(ClickEvent event) {
-//					if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onClick(event);
-//				}
-//			});
-//			
-//		} else {
-//			logger.warn(className, function, "uiPanelGenericButton IS NULL");
-//		}
-//		
-//		handlerRegistrations.add(
-//			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
-//				@Override
-//				public void onEvenBusUIChanged(UIEvent uiEvent) {
-//					if ( uiEvent.getSource() != this ) {
-//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onUIEvent(uiEvent);
-//					}
-//				}
-//			})
-//		);
-//
-//		handlerRegistrations.add(
-//			this.eventBus.addHandler(UIEventAction.TYPE, new UIEventActionHandler() {
-//				@Override
-//				public void onAction(UIEventAction uiEventAction) {
-//					if ( uiEventAction.getSource() != this ) {
-//						if ( null != uiWidgetCtrl_i ) uiWidgetCtrl_i.onActionReceived(uiEventAction);
-//					}
-//				}
-//			})
-//		);
 
 		uiEventActionProcessor_i.executeActionSetInit();
 		

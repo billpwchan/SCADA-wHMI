@@ -1,8 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +25,8 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.EquipmentsSorting;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.EquipmentsSortingEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
@@ -60,11 +60,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	// Order
 	private final String strTabNames [] 	= new String[] {"Info","Control","Tagging","Advance"};
 	private final String strTabConfigNames [] = {"info", "control", "tag", "advance"};
-
+	
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
 	
-	private final String staticPointAttibutes[]	= new String[] {PointName.hmiOrder.toString(), PointName.shortLabel.toString()};
+	// hmiOrder
+	private boolean hmiOrderEnable = false; 
+	private String hmiOrderAttribute = null;
+	private int hmiOrderFilterThreshold = -1;
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -105,85 +108,11 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.debug(className, function, "this.function[{}] this.location[{}]", this.function, this.location);
 	}
 	
-	private String[] orderEquipmentPoint(String[] addresses, String [] values) {
-		final String function = "orderEquipmentPoint";
-		logger.begin(className, function);
-		class EquipementPoint {
-			String alias;
-			int hmiOrder;
-			String shortLabel;
-			public EquipementPoint(String alias, int hmiOrder, String shortLabel) {
-				this.alias=alias;
-				this.hmiOrder=hmiOrder;
-				this.shortLabel=shortLabel;
-				
-				dump();
-			}
-			public void dump(){
-				logger.debug(className, function, "alias[{}] hmiOrder[{}] shortLabel[{}]", new Object[]{alias, hmiOrder, shortLabel});
-			}
-		}
-		List<EquipementPoint> es = new LinkedList<EquipementPoint>();
-		for ( int i = 0 ; i < addresses.length ; i+= staticPointAttibutes.length ) {
-			String alias = addresses[i];
-			int hmiOrder = -1;
-			try {
-				String s = values[i];
-				if ( null != s ) {
-					hmiOrder = Integer.parseInt(s);
-				}
-			} catch ( NumberFormatException e) {
-				
-			}
-			if ( hmiOrder >= 0 ) {
-				String shortLabel = values[i+1];
-				EquipementPoint e = new EquipementPoint(alias, hmiOrder, shortLabel);
-				es.add(e);
-			}
-		}
-		Collections.sort(es, new Comparator<EquipementPoint>() {
-			@Override
-			public int compare(EquipementPoint o1, EquipementPoint o2) {
-				if ( null != o1 && null != o2 && null != o1.shortLabel && null != o2.shortLabel ) {
-					// Compare with hmiOrder and shortLabel
-					return ( o1.hmiOrder < o2.hmiOrder ? -1 : ( o1.hmiOrder > o2.hmiOrder ? 1 : o1.shortLabel.compareTo(o2.shortLabel) ) );
-				} 
-				else
-				if ( null != o1 && null != o2 ) {
-					// Compare with hmiOrder only
-					return ( o1.hmiOrder < o2.hmiOrder ? -1 : ( o1.hmiOrder > o2.hmiOrder ? 1 : 0 ) );
-				}
-				return 0;
-			}
-		});
-		ArrayList<String> aliases = new ArrayList<String>();
-		for ( EquipementPoint e : es ) {
-			aliases.add(e.alias);
-			e.dump();
-		}
-		String [] result = aliases.toArray(new String[0]);
-		logger.end(className, function);
-		return result;
-	}
-	
-	private void responseOrdering(String[] addresses, String [] values) {
-		final String function = "requestOrdering";
+	private void connectTabs(String[] dbaddress) {
+		final String function = "connectTabs";
 		logger.begin(className, function);
 		
-		if ( logger.isDebugEnabled() ) {
-			if (addresses.length == values.length) {
-				for ( int i = 0 ; i < addresses.length ; i++ ) {
-					logger.warn(className, function, "i[{}] addresses({})[{}] != values({})[{}]", new Object[]{i, addresses[i], values[i]});
-				}
-			} else {
-				logger.warn(className, function, "addresses.length[{}] != values.length[{}]", addresses.length, values.length);
-			}
-		}
-		
-		String [] sorted = orderEquipmentPoint(addresses, values);
-		buildTabsAddress(sorted);
-		
-//		buildTabsAddress(values);
+		buildTabsAddress(dbaddress);
 		makeTabsSetAddress();
 		makeTabsBuildWidgets();
 		makeTabsConnect();
@@ -195,82 +124,34 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
 		if ( tags.size() <= 0 )			panelTab.remove(panelTag);
 		if ( advances.size() <= 0 )		panelTab.remove(panelAdv);
-
-		logger.end(className, function);
-	}
-	
-	private void requestOrdering(String[] values) {	
-		final String function = "requestOrdering";
-		logger.begin(className, function);
-		
-		DataBaseClientKey clientKey = new DataBaseClientKey();
-		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR+"ORDER");
-		clientKey.setStability(Stability.STATIC);
-		clientKey.setAdress(parent);
-		
-		String strClientKey = clientKey.toClientKey();
-		
-		String strApi = clientKey.getApi().toString();
-
-		ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-		for ( String dbaddress : values ) {
-			for ( String attribute : staticPointAttibutes ) {
-				String alias = dbaddress+attribute;
-				dbaddressesArrayList.add(alias);
-				logger.debug(className, function, "alias[{}]", alias);
-			}
-		}
-		final String[] dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-		
-		if ( null != database ) {
-			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-				
-				@Override
-				public void update(String key, String[] values) {
-					final String function = "responseOrdering";
-					logger.begin(className, function);
-					
-					DataBaseClientKey clientKey = new DataBaseClientKey();
-					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR+"ORDER");
-					clientKey.setStability(Stability.STATIC);
-					clientKey.setAdress(parent);
-					
-					String strClientKey = clientKey.toString();
-
-					if ( strClientKey.equalsIgnoreCase(key) ) {
-						
-						responseOrdering(dbaddresses, values);
-						
-					}
-				}
-			});
-		} else {
-			logger.warn(className, function, "database IS NUL");
-		}
 		
 		logger.end(className, function);
 	}
-	
+
 	private void responseGetChilden(String key, String[] values) {
 		final String function = "responseGetChilden";
 		logger.begin(className, function);
+		
+		if ( hmiOrderEnable ) {
+			
+			EquipmentsSorting equipmentSorting = new EquipmentsSorting();
+			equipmentSorting.setDatabase(database);
+			equipmentSorting.setParent(scsEnvId, parent);
+			equipmentSorting.setDBAddresses(values, hmiOrderAttribute);
+			equipmentSorting.setThreshold(hmiOrderFilterThreshold);
+			equipmentSorting.setEquipmentsSortingEvent(new EquipmentsSortingEvent() {
+				
+				@Override
+				public void onSorted(String[] dbaddress) {
+					connectTabs(dbaddress);
 
-//		requestOrdering(values);
-		
-		buildTabsAddress(values);
-		makeTabsSetAddress();
-		makeTabsBuildWidgets();
-		makeTabsConnect();
-		
-		((UIInspectorHeader)			uiInspectorHeader)	.connect();
-		((UIInspectorEquipmentReserve)	equipmentReserve)	.connect();
-		
-		if ( infos.size() <= 0 )		panelTab.remove(panelInfo);
-		if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
-		if ( tags.size() <= 0 )			panelTab.remove(panelTag);
-		if ( advances.size() <= 0 )		panelTab.remove(panelAdv);
+				}
+			});
+			equipmentSorting.init();
+		} else {
+			
+			connectTabs(values);
+		}
 
 		logger.end(className, function);
 	}
@@ -382,22 +263,21 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private void repsonseHeader(String key, String[] values) {
 		final String function = "repsonseHeader";
 		logger.begin(className, function);
-		String clientKey_multiReadValue_inspector_static = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
-		if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(key) ) {
-			String [] dbaddresses	= database.getKeyAndAddress(key);
-			String [] dbvalues		= database.getKeyAndValues(key);
-			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				String dbaddress = dbaddresses[i];
+		
+		String [] dbaddresses	= database.getKeyAndAddress(key);
+		String [] dbvalues		= database.getKeyAndValues(key);
+		for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+			String dbaddress = dbaddresses[i];
 
-				// Equipment Label
-				if ( dbaddress.endsWith(PointName.label.toString()) ) {
-					String value = dbvalues[i];
-					value = DatabaseHelper.removeDBStringWrapper(value);
-					if ( null != value) setText(value);
-					break;
-				}
+			// Equipment Label
+			if ( dbaddress.endsWith(PointName.label.toString()) ) {
+				String value = dbvalues[i];
+				value = DatabaseHelper.removeDBStringWrapper(value);
+				if ( null != value) setText(value);
+				break;
 			}
 		}
+
 		logger.end(className, function);
 	}
 	
@@ -436,7 +316,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	
 				@Override
 				public void update(String key, String[] values) {
-					repsonseHeader(key, values);
+					
+					DataBaseClientKey clientKey = new DataBaseClientKey();
+					clientKey.setAPI(API.multiReadValue);
+					clientKey.setWidget(INSPECTOR);
+					clientKey.setStability(Stability.STATIC);
+					clientKey.setAdress(parent);
+					
+					String strClientKey = clientKey.toClientKey();
+
+					if ( 0 == strClientKey.compareTo(key) ) {
+					
+						repsonseHeader(key, values);
+					}
 				}
 	
 			});
@@ -468,6 +360,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	@Override
 	public void connect() {
 		final String function = "connect";
+
 
 		String fileName = UIPanelInspector_i.strConfigPrefixWODot+UIPanelInspector_i.strConfigExtension;
 		String keyperiodmillis = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strPeriodMillis;
@@ -590,6 +483,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		} else {
 			logger.warn(className, function, "uiOpm_i IS NULL");
 		}
+		
+		// hmiOrder
+		String strHmiOrderEnable = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderEnable;
+		hmiOrderEnable = ReadProp.readBoolean(dictionariesCacheName, fileName, strHmiOrderEnable, false);
+		logger.debug(className, function, "strHmiOrderEnable[{}] hmiOrderEnable[{}]", strHmiOrderEnable, hmiOrderEnable);
+		
+		String strHmiOrderAttribute = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderAttribute;
+		hmiOrderAttribute = ReadProp.readString(dictionariesCacheName, fileName, strHmiOrderAttribute, "");
+		logger.debug(className, function, "strHmiOrderAttribute[{}] hmiOrderAttribute[{}]", strHmiOrderAttribute, hmiOrderAttribute);
+		
+		String strHmiOrderFilterThreshold = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderFilterThreshold;
+		hmiOrderFilterThreshold = ReadProp.readInt(UIInspector_i.strUIInspector, fileName, strHmiOrderFilterThreshold, -1);
+		logger.debug(className, function, "strHmiOrderFilterThreshold[{}] hmiOrderFilterThreshold[{}]", strHmiOrderFilterThreshold, hmiOrderFilterThreshold);
 
 		requestGetChilden();
 
@@ -609,7 +515,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		makeTabsDisconnect();
 		
-		((UIInspectorHeader)	uiInspectorHeader)		.disconnect();
+		((UIInspectorHeader)				uiInspectorHeader)		.disconnect();
 		((UIInspectorEquipmentReserve)		equipmentReserve)		.disconnect();
 		
 		database.disconnectTimer();

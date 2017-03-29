@@ -19,4 +19,10 @@ public interface UIPanelInspector_i {
 	public final static String strConfigMode = "mode";
 	
 	public final static String strDatabaseMultiReadingKey = "DatabaseMultiReadingKey";
+	
+	// hmiOrder
+	public final static String strHmiOrderEnable = "HmiOrderEnable";
+	public final static String strHmiOrderAttribute = "HmiOrderAttribute";
+	public final static String strHmiOrderFilterThreshold = "HmiOrderFilterThreshold";
+	
 }

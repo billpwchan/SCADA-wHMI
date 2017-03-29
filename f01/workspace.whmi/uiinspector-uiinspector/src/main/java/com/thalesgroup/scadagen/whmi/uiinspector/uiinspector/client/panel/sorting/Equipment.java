@@ -4,9 +4,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
-public class Equipement {
+public class Equipment {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(Equipement.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(Equipment.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	String alias;
@@ -15,15 +15,15 @@ public class Equipement {
 	String attribute;
 	int attributeValue;
 	
-	public Equipement(String alias, String hmiOrderAttribute) {
+	public Equipment(String alias, String hmiOrderAttribute) {
+		final String function = "Equipment";
+		
 		this.alias=alias;
 		this.attribute=hmiOrderAttribute;
 		
 		this.aliasWithAttribute = this.alias + this.attribute;
-		dump();
-	}
-	public void dump(){
-		final String function = "function";
-		logger.debug(className, function, "alias[{}] attribute[{}] attributeValue[{}]", new Object[]{alias, attribute, attributeValue});
+		
+		if ( logger.isDebugEnabled() )
+			logger.debug(className, function, "alias[{}] attribute[{}] attributeValue[{}]", new Object[]{alias, attribute, attributeValue});
 	}
 }

@@ -32,10 +32,10 @@ public class EquipmentsSorting {
 		this.parent = parent;
 	}
 	
-	private List<Equipement> es = new LinkedList<Equipement>();
+	private List<Equipment> es = new LinkedList<Equipment>();
 	public void setDBAddresses(String [] dbaddresses, String dbattribute ) {
 		for ( String dbaddress : dbaddresses ) {
-			es.add(new Equipement(dbaddress, dbattribute));
+			es.add(new Equipment(dbaddress, dbattribute));
 		}
 	}
 	
@@ -52,9 +52,9 @@ public class EquipmentsSorting {
 	private void sort() {
 		final String function = "sort";
 		logger.begin(className, function);
-		Collections.sort(es, new Comparator<Equipement>() {
+		Collections.sort(es, new Comparator<Equipment>() {
 			@Override
-			public int compare(Equipement o1, Equipement o2) {
+			public int compare(Equipment o1, Equipment o2) {
 				if ( null != o1 && null != o2 ) {
 					// Compare with hmiOrder only
 					return ( o1.attributeValue < o2.attributeValue ? -1 : ( o1.attributeValue == o2.attributeValue ? 0 : 1 ) );
@@ -78,7 +78,7 @@ public class EquipmentsSorting {
 			} catch ( NumberFormatException e) {
 				
 			}
-			for ( Equipement e : es ) {
+			for ( Equipment e : es ) {
 				if ( alias.equals(e.aliasWithAttribute) ) {
 					e.attributeValue = attributeValue;
 					break;
@@ -121,7 +121,7 @@ public class EquipmentsSorting {
 		logger.begin(className, function);
 		String [] result = null;
 		List<String> dbaddress = new LinkedList<String>();
-		for ( Equipement e : this.es ) {
+		for ( Equipment e : this.es ) {
 			dbaddress.add(e.aliasWithAttribute);
 		}
 		result = dbaddress.toArray(new String[0]);
@@ -129,12 +129,12 @@ public class EquipmentsSorting {
 		return result;
 	}
 	
-	private String[] getSortedDBAddress(boolean filterNegative) {
+	private String[] getSortedDBAddress() {
 		final String function = "getSortedDBAddress";
 		logger.begin(className, function);
 		String [] result = null;
 		List<String> dbaddress = new LinkedList<String>();
-		for ( Equipement e : this.es ) {
+		for ( Equipment e : this.es ) {
 			if ( e.attributeValue > hmiOrderFilterThreshold )
 				dbaddress.add(e.alias);
 		}

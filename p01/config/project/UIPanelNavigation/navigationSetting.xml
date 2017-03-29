@@ -1176,4 +1176,16 @@
 		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
 		<tooltips>UIEventAction Dbm Panel</tooltips>
 	</option>
+	<option key="125">
+		<type>P</type>
+		<name>Verify HILC API</name>
+		<title>Verify HILC API</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyHILCSummary/UILayoutEntryPointVerifyHILCSummary.view.xml</uiView>
+
+		<tooltips>HILC Verify Summary</tooltips>
+	</option>
 </data-set>

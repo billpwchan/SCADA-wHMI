@@ -35,20 +35,11 @@ public interface Task_i {
 		, UIElem("uiElem")
 		
 		, Tooltips("tooltips")
-		
-		, FunCat("funCat")
-		, LocCat("locCat")
-		, ActionCat("actionCat")
-		, ModeCat("modeCat")
-		
-		, OpmName1("opmName1")
-		, OpmValue1("opmValue1")
-		, OpmName2("opmName2")
-		, OpmValue2("opmValue2")
-		, OpmName3("opmName3")
-		, OpmValue3("opmValue3")
-		, OpmName4("opmName4")
-		, OpmValue4("opmValue4")
+
+		, opm("opm")
+		, opmOperation("opmOperation")
+		, opmName("opmName")
+
 		;
 		private final String text;
 		private TaskAttribute(final String text) { this.text = text; }

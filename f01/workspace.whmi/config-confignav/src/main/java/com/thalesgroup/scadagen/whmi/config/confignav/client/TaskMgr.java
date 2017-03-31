@@ -88,7 +88,7 @@ public class TaskMgr implements AsyncCallback<Tasks> {
 
 		if ( null != tsksCur ) {
 
-			logger.info(className, function, "tsksCur.size()[{}]", tsksCur.size());
+			logger.debug(className, function, "tsksCur.size()[{}]", tsksCur.size());
 		
 			this.ready = true;
 			

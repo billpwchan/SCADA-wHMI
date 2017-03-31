@@ -24,47 +24,58 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 
 	public Tasks taskServer(String module, String strMapping, String strSetting, String profile, String location, int targetLevel, String targetHeader) {
 		
+		final String function = "taskServer";
+		
 		UIOpm_i uiOpm_i = OpmMgr.getInstance("UIOpmSCADAgen");
 		
 		Tasks tasks = new Tasks();
 		tasks.setParentLevel(targetLevel);
 		tasks.setParentHeader(targetHeader);
 		
-		logger.debug("taskServer strMapping[{}] strSetting[{}]", strMapping, strSetting);
+		logger.debug("{} strMapping[{}] strSetting[{}]", new Object[]{function, strMapping, strSetting});
 		
-		logger.debug("taskServer profile[{}] location[{}] targetLevel[{}] targetHeader[{}]", new Object[]{profile, location, targetLevel, targetHeader});
+		logger.debug("{} profile[{}] location[{}] targetLevel[{}] targetHeader[{}]", new Object[]{function, profile, location, targetLevel, targetHeader});
 		
 		if ( null == module ) {
-			module = getServletContext().getInitParameter("project.navigation.module");
-			logger.info("project.navigation.module module[{}]", module);
+			module = getServletContext().getInitParameter(TaskServiceImpl_i.MODULE_NAME);
+			logger.debug("{} properties[{}] module[{}]", new Object[]{function, TaskServiceImpl_i.MODULE_NAME, module});
 		}
 		
 		if ( null == strMapping ) {
-			strMapping = getServletContext().getInitParameter("project.navigation.module.mapping");
-			logger.info("project.navigation.module strMapping[{}]", strMapping);
+			strMapping = getServletContext().getInitParameter(TaskServiceImpl_i.MAPPING_NAME);
+			logger.debug("{} properties[{}] strMapping[{}]", new Object[]{function, TaskServiceImpl_i.MAPPING_NAME, strMapping});
 		}
 		
 		if ( null == strSetting ) {
-			strSetting = getServletContext().getInitParameter("project.navigation.module.setting");
-			logger.info("project.navigation.module module[{}]", strSetting);
+			strSetting = getServletContext().getInitParameter(TaskServiceImpl_i.SETTING_NAME);
+			logger.debug("{} properties[{}] module[{}]", new Object[]{function, TaskServiceImpl_i.SETTING_NAME, strSetting});
 		}
 		
-		String tag = "option";
-		String mapping = getServletContext().getRealPath("/") + "/" + module + "/" + strMapping;
-		String setting = getServletContext().getRealPath("/") + "/" + module + "/" + strSetting;
+		String rootPath = getServletContext().getRealPath(TaskServiceImpl_i.SERVLET_ROOT_PATH) + TaskServiceImpl_i.FILE_SEPARATOR + module;
+		
+		logger.debug("{} rootPath[{}]", function, rootPath);
+		
+		String mapping = rootPath + TaskServiceImpl_i.FILE_SEPARATOR + strMapping;
+		String setting = rootPath + TaskServiceImpl_i.FILE_SEPARATOR + strSetting;
+		
 		ReadConfigXML configs = new ReadConfigXML();
 		
-		logger.debug("taskServer mapping[{}] setting[{}] tag[{}]", new Object[]{mapping, setting, tag});
+		logger.debug("{} mapping[{}] setting[{}] tag[{}]", new Object[]{function, mapping, setting, TaskServiceImpl_i.XML_TAG});
 		
-		ArrayList<Task> tsks = configs.getTasks(mapping, setting, tag);
+		ArrayList<Task> tsks = configs.getTasks(mapping, setting, TaskServiceImpl_i.XML_TAG);
 		
 		for(Task tsk: tsks) {
 			
-			boolean checkAccessIsInvalid_1 = opmCheckAccessIsInvalid_1(uiOpm_i, tsk);
-			
-			boolean checkAccessIsInvalid_2 = opmCheckAccessIsInvalid_2(uiOpm_i, tsk);
-			
-			if ( checkAccessIsInvalid_1 || checkAccessIsInvalid_2 ) continue;
+			String opm = tsk.getParameter(TaskAttribute.opm.toString());
+			if ( null != opm ) {
+				String opmOperation = tsk.getParameter(TaskAttribute.opmOperation.toString());
+				String opmName = tsk.getParameter(TaskAttribute.opmName.toString());
+				
+				logger.warn("{} opm[{}] opmOperation[{}] opmName[{}]", new Object[]{function, opm, opmOperation, opmName});
+				
+				boolean opmIsValid = opmCheckAccess(uiOpm_i, opm, opmOperation, opmName);
+				if ( opmIsValid ) continue;
+			}
 
 			tasks.add(tsk);
 		}
@@ -72,74 +83,117 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 		return tasks;
 	}
 	
-	private boolean opmCheckAccessIsInvalid_1 (UIOpm_i uiOpm_i, Task tsk) {
+	final String setSpliter = "\\|";
+	final String valSpliter = ":";
+	final int lengthOfOpmName = 4;
+	final int lengthOfOpmValue = 4;
+	private boolean opmCheckAccess(UIOpm_i uiOpm_i, String opm, String opmName, String opmOperation) {
+		final String function = "opmCheckAccess";
+		
 		boolean result = false;
-		
-		String opmName1		= tsk.getParameter(TaskAttribute.OpmName1.toString());
-		String opmValue1	= tsk.getParameter(TaskAttribute.OpmValue1.toString());
-		String opmName2		= tsk.getParameter(TaskAttribute.OpmName2.toString());
-		String opmValue2	= tsk.getParameter(TaskAttribute.OpmValue2.toString());
-		String opmName3		= tsk.getParameter(TaskAttribute.OpmName3.toString());
-		String opmValue3	= tsk.getParameter(TaskAttribute.OpmValue3.toString());
-		String opmName4		= tsk.getParameter(TaskAttribute.OpmName4.toString());
-		String opmValue4	= tsk.getParameter(TaskAttribute.OpmValue4.toString());
-		
-		logger.debug("opmName1[{}] opmValue1[{}]", opmName1, opmValue1 );
-		logger.debug("opmName2[{}] opmValue2[{}]", opmName2, opmValue2 );
-		logger.debug("opmName3[{}] opmValue3[{}]", opmName3, opmValue3 );
-		logger.debug("opmName4[{}] opmValue4[{}]", opmName4, opmValue4 );
-		
 		if ( null != uiOpm_i ) {
 			
-			if ( 
-					   null != opmName1 && ! opmName1.trim().isEmpty()
-					&& null != opmValue1 && ! opmValue1.trim().isEmpty()
-					&& null != opmName2 && ! opmName2.trim().isEmpty()
-					&& null != opmValue2 && ! opmValue2.trim().isEmpty()
-					&& null != opmName3 && ! opmName3.trim().isEmpty()
-					&& null != opmValue3 && ! opmValue3.trim().isEmpty()
-					&& null != opmName4 && ! opmName4.trim().isEmpty()
-					&& null != opmValue4 && ! opmValue4.trim().isEmpty()
-					) {
-				
-				boolean bResult = uiOpm_i.checkAccess(
-						  opmName1, opmValue1
-						, opmName2, opmValue2
-						, opmName3, opmValue3
-						, opmName4, opmValue4);
-				
-				if ( ! bResult ) result = true;
+			String opmName0 = null, opmName1 = null, opmName2 = null, opmName3 = null;
+			
+			if ( null != opmName ) {
+				String [] opmNames = opmName.split(valSpliter);
+				if ( null != opmNames ) {
+					if ( opmNames.length > 1 ) {
+						if ( opmNames.length == lengthOfOpmName ) {
+							opmName0	= opmNames[0];
+							opmName1	= opmNames[1];
+							opmName2	= opmNames[2];
+							opmName3	= opmNames[3];
+						} else {
+							logger.warn("{} opmNames.length[{}] == lengthOfOpmName[{}] IS NOT"
+									, new Object[]{function, opmNames.length, lengthOfOpmValue});
+						}
+					}
+				}
 			}
 			
-		}
-		return result;
-	}
-	
-	private boolean opmCheckAccessIsInvalid_2 (UIOpm_i uiOpm_i, Task tsk) {
-		boolean result = false;
-		String func = tsk.getParameter(TaskAttribute.FunCat.toString());
-		String geoc = tsk.getParameter(TaskAttribute.LocCat.toString());
-		String action = tsk.getParameter(TaskAttribute.ActionCat.toString());
-		String mode = tsk.getParameter(TaskAttribute.ModeCat.toString());
-		
-		logger.debug("func[{}] geoc[{}] action[{}] mode[{}]", new Object[]{func, geoc, action, mode});
-		
-		if ( null != uiOpm_i ) {
-			
-			if ( null != func && ! func.trim().isEmpty() 
-					&& null != geoc && ! geoc.trim().isEmpty() 
-					&& null != action && ! action.trim().isEmpty()
-					&& null != mode && ! mode.trim().isEmpty() ) {
+			if ( null != opm ) {
+				String [] opmSets = opm.split(setSpliter);
 				
-				boolean bResult = uiOpm_i.checkAccess(func, geoc, action, mode);
-			
-				logger.debug("func[{}] geoc[{}] action[{}] mode[{}] => result[{}]", new Object[]{func, geoc, action, mode, result});
+				boolean isAndOperation = false;
 				
-				if ( ! bResult ) result = true;
-			}
-			
-		}
-		return result;
-	}
+				if ( opmSets.length > 1 ) {
+					if ( null != opmOperation ) {
+						if ( 0 == opmOperation.compareToIgnoreCase(TaskServiceImpl_i.AttributeValue.AND.toString()) ) {
+							isAndOperation = true;
+						}
+					}
+				}
+				
+				for ( int i = 0 ; i < opmSets.length ; ++i ) {
+					String opmSet = opmSets[i];
+					logger.debug("{} opmSet[{}]", function, opmSet);
+					String [] opmValues = opmSet.split(valSpliter);
+					if ( null != opmValues ) {
+						if ( opmValues.length > 1 ) {
+							if ( opmValues.length == lengthOfOpmValue ) {
+								String opmValue0	= opmValues[0];
+								String opmValue1	= opmValues[1];
+								String opmValue2	= opmValues[2];
+								String opmValue3	= opmValues[3];
+								
+								if (
+										   null != opmValue0
+										&& null != opmValue1
+										&& null != opmValue2
+										&& null != opmValue3
+									) {
+									
+									boolean bResult = false;
+									if ( null == opmName || null == opmName0 || null == opmName1 || null == opmName2 || null == opmName3 ) {
+										
+										bResult = uiOpm_i.checkAccess(
+												  opmValue0
+												, opmValue1
+												, opmValue2
+												, opmValue3);
+										
+										logger.debug("{} opmValue0[{}] opmValue1[{}] opmValue2[{}] opmValue3[{}] => result[{}]"
+												, new Object[]{function, opmValue0, opmValue1, opmValue2, opmValue3, result});
+										
+									} else {
+										
+										bResult = uiOpm_i.checkAccess(
+												  opmName0, opmValue0
+												, opmName1, opmValue1
+												, opmName2, opmValue2
+												, opmName3, opmValue3);
+										
+										logger.debug("{} opmName0[{}] opmValue0[{}] opmName1[{}] opmValue1[{}] opmName2[{}] opmValue2[{}] opmName3[{}] opmValue3[{}] => result[{}]"
+												, new Object[]{function, opmName0, opmValue0, opmName1, opmValue1, opmName2, opmValue2, opmName3, opmValue3, result});
 
+									}
+									
+									if ( ! isAndOperation ) {
+										// OR Operation
+										if ( ! bResult ) {
+											result = true;
+											break;
+										}
+									} else {
+										// AND Operation
+										if ( ! bResult ) {
+											result = false;
+											break;
+										} else {
+											result = true;
+										}
+									}
+									
+								}
+							} else {
+								logger.warn("{} opmValues.length[{}] == lengthOfOpmName[{}] IS NOT", new Object[]{function, opmValues.length, lengthOfOpmName});
+							}
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
 }

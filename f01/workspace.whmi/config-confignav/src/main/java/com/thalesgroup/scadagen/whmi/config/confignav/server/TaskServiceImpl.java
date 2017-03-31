@@ -67,14 +67,14 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 		for(Task tsk: tsks) {
 			
 			String opm = tsk.getParameter(TaskAttribute.opm.toString());
-			if ( null != opm ) {
+			if ( null != opm && opm.length() > 0 ) {
 				String opmOperation = tsk.getParameter(TaskAttribute.opmOperation.toString());
 				String opmName = tsk.getParameter(TaskAttribute.opmName.toString());
 				
 				logger.warn("{} opm[{}] opmOperation[{}] opmName[{}]", new Object[]{function, opm, opmOperation, opmName});
 				
-				boolean opmIsValid = opmCheckAccess(uiOpm_i, opm, opmOperation, opmName);
-				if ( opmIsValid ) continue;
+				boolean opmValid = opmCheckAccess(uiOpm_i, opm, opmOperation, opmName);
+				if ( ! opmValid ) continue;
 			}
 
 			tasks.add(tsk);
@@ -87,37 +87,30 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 	final String valSpliter = ":";
 	final int lengthOfOpmName = 4;
 	final int lengthOfOpmValue = 4;
-	private boolean opmCheckAccess(UIOpm_i uiOpm_i, String opm, String opmName, String opmOperation) {
+	private boolean opmCheckAccess(UIOpm_i uiOpm_i, String opm, String opmOperation, String opmName) {
 		final String function = "opmCheckAccess";
 		
 		boolean result = false;
 		if ( null != uiOpm_i ) {
-			
-			String opmName0 = null, opmName1 = null, opmName2 = null, opmName3 = null;
-			
-			if ( null != opmName ) {
-				String [] opmNames = opmName.split(valSpliter);
-				if ( null != opmNames ) {
-					if ( opmNames.length > 1 ) {
-						if ( opmNames.length == lengthOfOpmName ) {
-							opmName0	= opmNames[0];
-							opmName1	= opmNames[1];
-							opmName2	= opmNames[2];
-							opmName3	= opmNames[3];
-						} else {
-							logger.warn("{} opmNames.length[{}] == lengthOfOpmName[{}] IS NOT"
-									, new Object[]{function, opmNames.length, lengthOfOpmValue});
-						}
+
+			if ( null != opm && opm.length() > 0 ) {
+				
+				String [] opmNames = null;
+				if ( null != opmName && opmName.length() > 0 ) {
+					opmNames = opmName.split(valSpliter);
+					if ( null != opmNames && opmNames.length != lengthOfOpmName ) {
+						logger.warn("{} opmNames.length[{}] == lengthOfOpmName[{}] IS NOT"
+								, new Object[]{function, opmNames.length, lengthOfOpmValue});
 					}
 				}
-			}
-			
-			if ( null != opm ) {
-				String [] opmSets = opm.split(setSpliter);
 				
 				boolean isAndOperation = false;
 				
-				if ( opmSets.length > 1 ) {
+				String [] opmSets = opm.split(setSpliter);
+				int opmSetsLength = opmSets.length;
+				logger.debug("{} opmSetsLength[{}]", new Object[]{function, opmSetsLength});
+				
+				if ( null != opmSets && opmSetsLength > 1 ) {
 					if ( null != opmOperation ) {
 						if ( 0 == opmOperation.compareToIgnoreCase(TaskServiceImpl_i.AttributeValue.AND.toString()) ) {
 							isAndOperation = true;
@@ -125,63 +118,60 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 					}
 				}
 				
-				for ( int i = 0 ; i < opmSets.length ; ++i ) {
-					String opmSet = opmSets[i];
-					logger.debug("{} opmSet[{}]", function, opmSet);
-					String [] opmValues = opmSet.split(valSpliter);
-					if ( null != opmValues ) {
-						if ( opmValues.length > 1 ) {
+				logger.debug("{} opmOperation[{}] isAndOperation[{}]", new Object[]{function, opmOperation, isAndOperation});
+				
+				for ( int i = 0 ; i < opmSetsLength ; ++i ) {
+					if ( null != opmSets[i] ) {
+						logger.debug("{} i[{}] opmSet[{}]", new Object[]{function, i, opmSets[i]});
+						String [] opmValues = opmSets[i].split(valSpliter);
+						if ( null != opmValues ) {
 							if ( opmValues.length == lengthOfOpmValue ) {
-								String opmValue0	= opmValues[0];
-								String opmValue1	= opmValues[1];
-								String opmValue2	= opmValues[2];
-								String opmValue3	= opmValues[3];
 								
 								if (
-										   null != opmValue0
-										&& null != opmValue1
-										&& null != opmValue2
-										&& null != opmValue3
+										   null != opmValues[0]
+										&& null != opmValues[1]
+										&& null != opmValues[2]
+										&& null != opmValues[3]
 									) {
 									
 									boolean bResult = false;
-									if ( null == opmName || null == opmName0 || null == opmName1 || null == opmName2 || null == opmName3 ) {
+									if ( null == opmNames || null == opmNames[0] || null == opmNames[1] || null == opmNames[2] || null == opmNames[3] ) {
 										
 										bResult = uiOpm_i.checkAccess(
-												  opmValue0
-												, opmValue1
-												, opmValue2
-												, opmValue3);
+												  opmValues[0]
+												, opmValues[1]
+												, opmValues[2]
+												, opmValues[3]);
 										
-										logger.debug("{} opmValue0[{}] opmValue1[{}] opmValue2[{}] opmValue3[{}] => result[{}]"
-												, new Object[]{function, opmValue0, opmValue1, opmValue2, opmValue3, result});
+										logger.debug("{} opmValues(0)[{}] opmValues(1)[{}] opmValues(2)[{}] opmValues(3)[{}] => bResult[{}]"
+												, new Object[]{function, opmValues[0], opmValues[1], opmValues[2], opmValues[3], bResult});
 										
 									} else {
 										
 										bResult = uiOpm_i.checkAccess(
-												  opmName0, opmValue0
-												, opmName1, opmValue1
-												, opmName2, opmValue2
-												, opmName3, opmValue3);
+												  opmNames[0], opmValues[0]
+												, opmNames[1], opmValues[1]
+												, opmNames[2], opmValues[2]
+												, opmNames[3], opmValues[3]);
 										
-										logger.debug("{} opmName0[{}] opmValue0[{}] opmName1[{}] opmValue1[{}] opmName2[{}] opmValue2[{}] opmName3[{}] opmValue3[{}] => result[{}]"
-												, new Object[]{function, opmName0, opmValue0, opmName1, opmValue1, opmName2, opmValue2, opmName3, opmValue3, result});
+										logger.debug("{} opmNames(0)[{}] opmValues(0)[{}] opmNames(1)[{}] opmValues(1)[{}] opmNames(2)[{}] opmValues(2)[{}] opmNames(3)[{}] opmValues(3)[{}] => bResult[{}]"
+												, new Object[]{function, opmNames[0], opmValues[0], opmNames[1], opmValues[1], opmNames[2], opmValues[2], opmNames[3], opmValues[3], bResult});
 
 									}
 									
 									if ( ! isAndOperation ) {
 										// OR Operation
-										if ( ! bResult ) {
+										if ( bResult ) {
 											result = true;
 											break;
 										}
 									} else {
 										// AND Operation
-										if ( ! bResult ) {
+										if ( bResult ) {
+											result = true;
+										} else {
 											result = false;
 											break;
-										} else {
-											result = true;
 										}
 									}
 									
@@ -190,10 +180,15 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 								logger.warn("{} opmValues.length[{}] == lengthOfOpmName[{}] IS NOT", new Object[]{function, opmValues.length, lengthOfOpmName});
 							}
 						}
+					} else {
+						logger.debug("opmSets({}) IS NULL", i);
 					}
 				}
 			}
 		}
+		
+		logger.debug("result[{}]", result);
+		
 		return result;
 	}
 }

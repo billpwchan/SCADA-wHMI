@@ -91,10 +91,12 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, String opmName3, String opmValue3
 			, String opmName4, String opmValue4
 			) {
+		
+		logger.debug("checkAccess - operatorOpmInfo[{}]", operatorOpmInfo);
+		
 		logger.debug("checkAccess - [{}]=[{}], [{}]=[{}], [{}]=[{}], [{}]=[{}]",
 				new Object[] { 
-						operatorOpmInfo
-						, opmName1, opmValue1
+						  opmName1, opmValue1
 						, opmName2, opmValue2
 						, opmName3, opmValue3
 						, opmName4, opmValue4

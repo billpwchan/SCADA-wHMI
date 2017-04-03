@@ -17,10 +17,55 @@
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
-		<funCat>8</funCat>
-		<locCat>1</locCat>
-		<actionCat>M</actionCat>
-		<modeCat>1</modeCat>
+	
+		<!-- Test Single Pass Case-->
+		<!--
+		<opm>3:2:M:1</opm>
+		-->
+		
+		<!-- Test Single Not Pass Case -->
+		<!--
+		<opm>32:3:M:1</opm>
+		-->
+		
+		<!-- Test Two Pass Case, OR-->
+		<!--
+		<opm>3:2:M:1|32:2:M:1</opm>
+		-->
+		
+		<!-- Test Two Pass Case, OR-->
+		<!--
+		<opm>4:2:M:1|32:2:M:1</opm>
+		-->
+		
+		<!-- Test Two Not Pass Case, OR-->
+		<!--
+		<opm>4:2:M:1|32:4:M:1</opm>
+		-->
+		
+		<!-- Test Three Pass Case, OR-->
+		<!--
+		<opm>4:2:M:1|32:4:M:1|3:2:M:1</opm>
+		-->
+		
+		<!-- Test Two Pass Case, AND-->
+		<!--
+		<opm>3:4:M:1|32:2:M:1</opm>
+		<opmOperation>AND</opmOperation>
+		-->
+		
+		<!-- Test Two Not Pass Case, AND-->
+		<!--
+		<opm>3:4:M:1|32:4:M:1</opm>
+		<opmOperation>AND</opmOperation>
+		-->
+		
+		<!-- Test * Pass Case, OR-->
+		<!--
+		<opm>3:*:M:1</opm>
+		<opmOperation>AND</opmOperation>
+		-->
+		
 	</option>
 	<option key="2">
 		<type>S</type>
@@ -646,10 +691,6 @@
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<tooltips>Tunnel Environmental Control System</tooltips>
-		<funCat>8</funCat>
-		<locCat>25</locCat>
-		<actionCat>MDAC</actionCat>
-		<modeCat>1</modeCat>
 	</option>
 	<option key="70">
 		<type>S</type>

@@ -1,6 +1,6 @@
-package com.thalesgroup.scadagen.whmi.config.confignav.server;
+package com.thalesgroup.scadagen.whmi.config.confignav.server.opm;
 
-public class SCADAgenOpmTask_i {
+public class SCADAgenTaskOpm_i {
 	
 	public final static String setSpliter = "\\|";
 	public final static String valSpliter = ":";

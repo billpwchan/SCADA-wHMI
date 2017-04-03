@@ -3,6 +3,8 @@ package com.thalesgroup.scadagen.whmi.config.confignav.server;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import com.thalesgroup.scadagen.whmi.config.confignav.client.TaskService;
+import com.thalesgroup.scadagen.whmi.config.confignav.server.opm.SCADAgenTaskOpm;
+import com.thalesgroup.scadagen.whmi.config.confignav.server.opm.UIOpmTask_i;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.OpmMgr;
@@ -59,16 +61,15 @@ public class TaskServiceImpl extends RemoteServiceServlet implements TaskService
 		
 		logger.debug("{} mapping[{}] setting[{}] tag[{}]", new Object[]{function, mapping, setting, TaskServiceImpl_i.XML_TAG});
 		
-		
 		UIOpm_i uiOpm_i = OpmMgr.getInstance("UIOpmSCADAgen");
-		SCADAgenTaskOpm taskOpm = new SCADAgenTaskOpm();
+		UIOpmTask_i taskOpm = new SCADAgenTaskOpm();
 		taskOpm.setUIOpm_i(uiOpm_i);
 		
 		ArrayList<Task> tsks = configs.getTasks(mapping, setting, TaskServiceImpl_i.XML_TAG);
 		
 		for(Task tsk: tsks) {
 			
-			int opmResult = taskOpm.taskOpmIsValid(tsk);
+			int opmResult = taskOpm.isValid(tsk);
 			if ( opmResult < 0 ) {
 				continue;
 			}

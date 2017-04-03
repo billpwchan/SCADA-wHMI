@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.config.confignav.server;
+package com.thalesgroup.scadagen.whmi.config.confignav.server.opm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
  * @author syau
  *
  */
-public class SCADAgenTaskOpm {
+public class SCADAgenTaskOpm implements UIOpmTask_i {
 	
 	private Logger logger					= LoggerFactory.getLogger(SCADAgenTaskOpm.class.getName());
 	
@@ -23,16 +23,17 @@ public class SCADAgenTaskOpm {
 	/*
 	* 
 	*/
-	public int taskOpmIsValid(Task tsk) {
-		final String function = "opmChechAccess";
+	@Override
+	public int isValid(Task task) {
+		final String function = "isValid";
 		
 		int result = 0;
 		
 		if ( null != uiOpm_i ) {
-			String opm = tsk.getParameter(TaskAttribute.opm.toString());
+			String opm = task.getParameter(TaskAttribute.opm.toString());
 			if ( null != opm && opm.length() > 0 ) {
-				String opmOperation = tsk.getParameter(TaskAttribute.opmOperation.toString());
-				String opmName = tsk.getParameter(TaskAttribute.opmName.toString());
+				String opmOperation = task.getParameter(TaskAttribute.opmOperation.toString());
+				String opmName = task.getParameter(TaskAttribute.opmName.toString());
 				
 				logger.warn("{} opm[{}] opmOperation[{}] opmName[{}]", new Object[]{function, opm, opmOperation, opmName});
 				
@@ -65,7 +66,7 @@ public class SCADAgenTaskOpm {
 				
 				String [] opmNames = null;
 				if ( null != opmName && opmName.length() > 0 ) {
-					opmNames = opmName.split(SCADAgenOpmTask_i.valSpliter);
+					opmNames = opmName.split(SCADAgenTaskOpm_i.valSpliter);
 					if ( null != opmNames && opmNames.length != lengthOfOpmName ) {
 						logger.warn("{} opmNames.length[{}] == lengthOfOpmName[{}] IS NOT"
 								, new Object[]{function, opmNames.length, lengthOfOpmValue});
@@ -74,13 +75,13 @@ public class SCADAgenTaskOpm {
 				
 				boolean isAndOperation = false;
 				
-				String [] opmSets = opm.split(SCADAgenOpmTask_i.setSpliter);
+				String [] opmSets = opm.split(SCADAgenTaskOpm_i.setSpliter);
 				int opmSetsLength = opmSets.length;
 				logger.debug("{} opmSetsLength[{}]", new Object[]{function, opmSetsLength});
 				
 				if ( null != opmSets && opmSetsLength > 1 ) {
 					if ( null != opmOperation ) {
-						if ( 0 == opmOperation.compareToIgnoreCase(SCADAgenOpmTask_i.AttributeValue.AND.toString()) ) {
+						if ( 0 == opmOperation.compareToIgnoreCase(SCADAgenTaskOpm_i.AttributeValue.AND.toString()) ) {
 							isAndOperation = true;
 						}
 					}
@@ -91,7 +92,7 @@ public class SCADAgenTaskOpm {
 				for ( int i = 0 ; i < opmSetsLength ; ++i ) {
 					if ( null != opmSets[i] ) {
 						logger.debug("{} i[{}] opmSet[{}]", new Object[]{function, i, opmSets[i]});
-						String [] opmValues = opmSets[i].split(SCADAgenOpmTask_i.valSpliter);
+						String [] opmValues = opmSets[i].split(SCADAgenTaskOpm_i.valSpliter);
 						if ( null != opmValues ) {
 							if ( opmValues.length == lengthOfOpmValue ) {
 								

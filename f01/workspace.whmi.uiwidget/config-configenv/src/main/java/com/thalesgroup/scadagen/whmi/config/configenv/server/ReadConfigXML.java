@@ -19,21 +19,22 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 
 public class ReadConfigXML implements ReadConfigInterface {
 	
 	private Logger logger					= LoggerFactory.getLogger(ReadConfigXML.class.getName());
 	
 	@Override
-	public List<Dictionary> getDictionary(String path) {
+	public List<Dictionary_i> getDictionary(String path) {
 		return getDictionary( path, null);
 	}
 	@Override
-	public List<Dictionary> getDictionary(String path, String elm) {
+	public List<Dictionary_i> getDictionary(String path, String elm) {
 		logger.debug("Begin");
 		logger.debug("Reading from the path[{}] elm[{}]", path, elm);
 		
-		List<Dictionary> dictionarys = new ArrayList<Dictionary>();
+		List<Dictionary_i> dictionarys = new ArrayList<Dictionary_i>();
 
 		try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
@@ -56,7 +57,7 @@ public class ReadConfigXML implements ReadConfigInterface {
         		Node cfgNode = cfgList.item(temp);
         		if (cfgNode.getNodeType() == Node.ELEMENT_NODE) {
         			
-        			Dictionary config = new Dictionary();
+        			Dictionary_i config = new Dictionary();
         			
         			Element eElement = (Element) cfgNode;
         			

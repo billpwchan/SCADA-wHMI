@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.server;
+package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

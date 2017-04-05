@@ -2,10 +2,9 @@ package com.thalesgroup.scadagen.whmi.config.configenv.server;
 
 import java.util.List;
 
-import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 
 public interface ReadConfigInterface {
-//	List<String> getTags(String path);
-	List<Dictionary> getDictionary(String path);
-	List<Dictionary> getDictionary(String path, String tag);
+	List<Dictionary_i> getDictionary(String path);
+	List<Dictionary_i> getDictionary(String path, String tag);
 }

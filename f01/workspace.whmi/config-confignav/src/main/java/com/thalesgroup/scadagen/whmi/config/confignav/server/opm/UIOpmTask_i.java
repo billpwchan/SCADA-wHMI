@@ -1,7 +1,7 @@
 package com.thalesgroup.scadagen.whmi.config.confignav.server.opm;
 
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 public interface UIOpmTask_i {
 	

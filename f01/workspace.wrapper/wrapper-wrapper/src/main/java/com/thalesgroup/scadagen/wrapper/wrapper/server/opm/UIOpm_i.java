@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.server;
+package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 

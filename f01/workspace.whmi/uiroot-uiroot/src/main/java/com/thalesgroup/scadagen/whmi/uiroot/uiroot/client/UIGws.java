@@ -115,6 +115,10 @@ public class UIGws {
 	}
 	
 	public void initCacheXMLFile() {
+		initCacheXMLFile(uiDict, "*.xml");
+	}
+	
+	public void initCacheXMLFile(String folder, String extention) {
 		final String function = "initCacheXMLFile";
 		
 		logger.begin(className, function);
@@ -126,8 +130,6 @@ public class UIGws {
 		final String [] tags = {header, option, action, actionset};
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
-		String folder = uiDict;
-		String extention = "*.xml";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		for(String tag : tags ) {
 			dictionariesCache.add(folder, extention, tag);
@@ -144,14 +146,16 @@ public class UIGws {
 	}
 	
 	public void initCachePropertiesFile () {
+		initCachePropertiesFile(uiProp, "*.properties");
+	}
+	
+	public void initCachePropertiesFile (String folder, String extention) {
 		final String function = "initCachePropertiesFile";
 		
 		logger.begin(className, function);
 
 		String mode = ConfigurationType.PropertiesFile.toString();
 		String module = null;
-		String folder = uiProp;
-		String extention = "*.properties";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		dictionariesCache.add(folder, extention, null);
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {

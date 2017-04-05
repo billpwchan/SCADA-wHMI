@@ -14,7 +14,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implement
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.translation.Translation;
 
 public abstract class GDGColumn extends OlsDecoder {
 	

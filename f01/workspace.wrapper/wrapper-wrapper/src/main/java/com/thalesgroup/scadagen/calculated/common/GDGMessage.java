@@ -13,7 +13,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.MapStringByStringAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.Translation;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.translation.Translation;
 
 
 /**

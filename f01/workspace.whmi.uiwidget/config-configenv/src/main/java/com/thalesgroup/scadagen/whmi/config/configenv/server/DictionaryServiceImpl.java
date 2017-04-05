@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.config.configenv.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryService;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
@@ -22,13 +23,13 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 	
 	private Logger logger					= LoggerFactory.getLogger(DictionaryServiceImpl.class.getName());
 
-	public Dictionary dictionaryServer(String mode, String module, String folder, String xmlFile, String tag) {
+	public Dictionary_i dictionaryServer(String mode, String module, String folder, String xmlFile, String tag) {
 		
 		logger.debug("Begin");
 		
 		logger.debug("module[{}] [{}] tag[{}]", new Object[]{module, xmlFile, tag});
 		
-		Dictionary dictionary = new Dictionary();
+		Dictionary_i dictionary = new Dictionary();
 		
 		if ( mode.equals(ConfigurationType.XMLFile.toString()) ) {
 		
@@ -50,8 +51,8 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 			dictionary.setAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString()
 					, new SimpleDateFormat(DictionaryCacheInterface.strDateTimeFormat).format(new Date()));
 			
-			List<Dictionary> cfgs = new ReadConfigXML().getDictionary(path, tag);
-			for(Dictionary cfg: cfgs) {
+			List<Dictionary_i> cfgs = new ReadConfigXML().getDictionary(path, tag);
+			for(Dictionary_i cfg: cfgs) {
 				dictionary.addValue(cfg, cfg);
 			}
 			
@@ -70,8 +71,8 @@ public class DictionaryServiceImpl extends RemoteServiceServlet implements Dicti
 			dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.DateTime.toString()
 					, new SimpleDateFormat(DictionaryCacheInterface.strDateTimeFormat).format(new Date()));
 			
-			List<Dictionary> cfgs = new ReadConfigINI().getDictionary(path, tag);
-			for(Dictionary cfg: cfgs) {
+			List<Dictionary_i> cfgs = new ReadConfigINI().getDictionary(path, tag);
+			for(Dictionary_i cfg: cfgs) {
 				dictionary.addValue(cfg, cfg);
 			}
 			

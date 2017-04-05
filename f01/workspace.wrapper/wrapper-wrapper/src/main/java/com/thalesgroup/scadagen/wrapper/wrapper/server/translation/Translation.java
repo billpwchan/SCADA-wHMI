@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.server;
+package com.thalesgroup.scadagen.wrapper.wrapper.server.translation;
 
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.ISessionListContainer;
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.SessionContainer;

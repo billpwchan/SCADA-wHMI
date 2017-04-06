@@ -1,0 +1,12 @@
+{
+  "HOMAction": ["c","x"],
+  "DBAttribute": ".hom",
+  "ByPassValue": 0,
+  "HOMLevel":[{
+  "Key": "PC16011",
+  "Value": "2",
+  },{
+  "Key": "PC13055",
+  "Value": "4",
+  }]
+}

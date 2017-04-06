@@ -263,7 +263,7 @@ public class UIWidgetOPMChangePasswordControl extends UIWidgetRealize {
 				OpmMgr opmMgr = OpmMgr.getInstance();
 				UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 				
-				String operator = uiOpm_i.getOperator();
+				String operator = uiOpm_i.getCurrentOperator();
 					
 				logger.debug(className, function, "Set Operator Value operator[{}]", operator);
 					

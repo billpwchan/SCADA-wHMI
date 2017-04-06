@@ -12,6 +12,8 @@
 		<dictionary>UIWidgetGeneric</dictionary>
 		<!-- Property Folder -->
 		<property>UIInspectorPanel</property>
+		<!-- Json Folder -->
+		<json>UIJson</json>
 		
 		<!-- UIWidget Option uiCtrl -->
 		<uiCtrl>UIPanelScreen</uiCtrl>

@@ -96,8 +96,8 @@ public class UIPanelStatusBar extends UIWidget_i {
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
 		
-		String operator = uiOpm_i.getOperator();
-		String profile = uiOpm_i.getProfile();
+		String operator = uiOpm_i.getCurrentOperator();
+		String profile = uiOpm_i.getCurrentProfile();
 
 		logger.info(className, function, "operator[{}] profile[{}]", operator, profile);
 

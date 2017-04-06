@@ -73,8 +73,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseWritingControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dictionaries.UIWidgetVerifyDictionariesCachedJSON;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.hilc.UIWidgetVerifyHILCControl;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyChangePassword;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMChangePassword;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMCheckAccess;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.dbm.UIWidgetVerifyUIEventActionControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
@@ -580,19 +580,19 @@ public class UILayoutSummary extends UIWidget_i {
 				UIWidget_i uiWidget_i = null;
 
 				if (
-					UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyChangePassword.class.getName())
+					UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMChangePassword.class.getName())
 					.equals(uiCtrl)
 					) {
 
-					uiWidget_i = new UIWidgetOPMVerifyChangePassword();
+					uiWidget_i = new UIWidgetVerifyOPMChangePassword();
 				
 				
 				} else if (
-						UIWidgetUtil.getClassSimpleName(UIWidgetOPMVerifyControl.class.getName())
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMCheckAccess.class.getName())
 						.equals(uiCtrl)
 						) {
 
-					uiWidget_i = new UIWidgetOPMVerifyControl();
+					uiWidget_i = new UIWidgetVerifyOPMCheckAccess();
 
 				} else if (
 					UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseWritingControl.class.getName())

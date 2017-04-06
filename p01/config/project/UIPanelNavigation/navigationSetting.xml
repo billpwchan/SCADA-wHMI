@@ -1022,16 +1022,7 @@
 		<uiView>UILayoutEntryPointDpcTagSummary/UILayoutEntryPointDpcTagSummary.view.xml</uiView>
 		<tooltips>PTW Summary(DpcTag)</tooltips>
 	</option>
-	<option key="106">
-		<type>P</type>
-		<name>OPM Verify Summary</name>
-		<title>OPM Verify Summary</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMVerifySummary/UILayoutEntryPointOPMVerifySummary.view.xml</uiView>
-		<tooltips>OPM Verify Summary</tooltips>
-	</option>
+
 	<option key="107">
 		<type>P</type>
 		<name>Change Password Summary</name>
@@ -1229,4 +1220,29 @@
 
 		<tooltips>HILC Verify Summary</tooltips>
 	</option>
+	
+	
+	
+	<option key="130">
+		<type>M</type>
+		<name>OPM Verify Summary</name>
+		<title>OPM Verify Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
+		<tooltips>OPM Verify Summary</tooltips>
+	</option>
+	
+	<option key="131">
+		<type>P</type>
+		<name>OPM Verify Summary</name>
+		<title>OPM Verify Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
+		<tooltips>OPM Verify Summary</tooltips>
+	</option>
+	
 </data-set>

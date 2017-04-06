@@ -18,7 +18,7 @@ public interface UIOpm_i {
 	
 	boolean checkAccess(String function, String location, String action, String mode);
 
-	boolean checkAccess(String key, String function, String location, String action, String mode);
+	boolean checkAccessWithHom(String function, String location, String action, String mode, String key);
 	
 	boolean checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue);
 	
@@ -26,11 +26,12 @@ public interface UIOpm_i {
 	
 	void changePassword(String operator, String oldPassword, String newPassword, UIWrapperRpcEvent_i uiWrapperRpcEvent_i);
 	
-	String getOperator();
-	String getProfile();
-	String[] getProfiles();
+	String getCurrentOperator();
+	String getCurrentProfile();
+	String[] getCurrentProfiles();
 	
-	String getHostName();
+	String getCurrentHostName();
+	String getCurrentIPAddress();
 	String getCurrentHOMValue(String hvid);
 	String getConfigHOMMask(String key);
 	

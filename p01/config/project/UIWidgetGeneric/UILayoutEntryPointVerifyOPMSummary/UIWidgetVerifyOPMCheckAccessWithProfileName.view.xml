@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>14</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyOPMCheckAccessWithProfileName-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Check Access:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-firstlabel</css>
+		<element>first_checkaccesswithprofilename_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-uiopmapilabel</css>
+		<element>uiopmapi_checkaccesswithprofilename_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-uiopmapivalue</css>
+		<element>uiopmapi_checkaccesswithprofilename_value</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-uiopmapivalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>Function:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-functionlabel</css>
+		<element>function_checkaccesswithprofilename_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-functionvalue</css>
+		<element>function_checkaccesswithprofilename_value</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-functionvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>Location:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-locationlabel</css>
+		<element>location_checkaccesswithprofilename_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-locationvalue</css>
+		<element>location_checkaccesswithprofilename_value</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-locationvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>Action:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-actionlabel</css>
+		<element>action_checkaccesswithprofilename_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-actionvalue</css>
+		<element>action_checkaccesswithprofilename_value</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-actionvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|9">
+		<widget>InlineLabel</widget>
+		<label>Mode:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-modelabel</css>
+		<element>mode_checkaccesswithprofilename_label</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-modevalue</css>
+		<element>mode_checkaccesswithprofilename_value</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-modevalue</cssContainer>
+		
+	</option>
+
+	
+	<option key="0|11">
+		<widget>Button</widget>
+		<label>Check Access</label>
+		<css>project-UIWidgetDpcTagControl-button-checkaccess</css>
+		<element>checkaccess</element>
+		
+		<cssContainer>project-UIWidgetDpcTagControl-container-checkaccess</cssContainer>
+		
+		<tooltip>Check Access</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|12">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|13">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-resultvalue</css>
+		<element>result_checkaccesswithprofilename_value</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

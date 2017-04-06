@@ -304,24 +304,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 								logger.trace(className, function, "dictionariesKey[{}]", dictionariesKey);
 								
 								this.dictionaries.put(dictionariesKey, dictionary);
-								
-//								// Debug
-//								for ( Object o : dictionary.getValueKeys() ) {
-//									if ( null != o ) {
-//										Dictionary d2 = (Dictionary) dictionary.getValue(o);
-//										for ( Object o2 : d2.getAttributeKeys() ) {
-//											if ( null != o2 ) {
-//											}
-//										}
-//										for ( Object o2 : d2.getValueKeys() ) {
-//											String s = (String) o2;
-//											String v = (String) d2.getValue(o2);
-//											
-//											logger.trace(className, function, "s[{}] v[{}]",s, v);
-//										}
-//									}
-//								}
-//								// End of Debug
+
 							} else {
 								logger.warn(className, function, "key[{}] value IS NOT Dictionary", key);
 							}

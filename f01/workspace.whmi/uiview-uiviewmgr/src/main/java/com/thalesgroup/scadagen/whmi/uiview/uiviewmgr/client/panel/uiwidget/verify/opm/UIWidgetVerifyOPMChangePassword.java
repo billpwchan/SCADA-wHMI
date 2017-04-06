@@ -1,62 +1,57 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dictionaries;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UILayoutRealize;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i;
 
-public class UIWidgetVerifyDictionariesCachedJSON extends UILayoutRealize {
+public class UIWidgetVerifyOPMChangePassword extends UIWidgetRealize {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDictionariesCachedJSON.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMChangePassword.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private void readString() {
-		final String function = "readString";
+	private void changePassword() {
+		final String function = "changePassword";
 		logger.begin(className, function);
-		String funKey = function.toLowerCase();
+		String funkey = function.toLowerCase();
 		
-		String dictionariesCacheName	= uiGeneric.getWidgetValue("dictionariescache_"+funKey+"_value");
-		String filenamevalue			= uiGeneric.getWidgetValue("filename_"+funKey+"_value");
-		String keyvalue					= uiGeneric.getWidgetValue("key_"+funKey+"_value");
-		String defaultvalue				= uiGeneric.getWidgetValue("default_"+funKey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		String usernamevalue	= uiGeneric.getWidgetValue("usernamevalue");
+		String oldpassvalue		= uiGeneric.getWidgetValue("oldpassvalue");
+		String newpassvalue		= uiGeneric.getWidgetValue("newpassvalue");
 		
-		String result = ReadJson.readString(dictionariesCacheName, filenamevalue, keyvalue, defaultvalue);
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		uiGeneric.setWidgetValue("resultvalue", result);
-		logger.end(className, function);
-	}
-	
-	private void readInt() {
-		final String function = "readInt";
-		logger.begin(className, function);
-		String funKey = function.toLowerCase();
+		uiOpm_i.changePassword(usernamevalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
+
+			@Override
+			public void event(JSONObject jsobject) {
+				// TODO Auto-generated method stub
+				uiGeneric.setWidgetValue("resultvalue", jsobject.toString());
+			}
+
+		});
 		
-		String dictionariesCacheName	= uiGeneric.getWidgetValue("dictionariescache_"+funKey+"_value");
-		String filenamevalue			= uiGeneric.getWidgetValue("filename_"+funKey+"_value");
-		String keyvalue					= uiGeneric.getWidgetValue("key_"+funKey+"_value");
-		String defaultvalue				= uiGeneric.getWidgetValue("default_"+funKey+"_value");
-		
-		String result = ReadJson.readString(dictionariesCacheName, filenamevalue, keyvalue, defaultvalue);
-		
-		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
 	}
 	
 	private void launch(String element) {
-		if ( "readstring".equals(element) ) {
-			readString();
-		} else if ( "readInt".equals(element) ) {
-			readInt();
+		if ( "changepassword".equals(element) ) {
+			changePassword();
 		}
 	}
-	
+
 	@Override
 	public void init() {
 		super.init();

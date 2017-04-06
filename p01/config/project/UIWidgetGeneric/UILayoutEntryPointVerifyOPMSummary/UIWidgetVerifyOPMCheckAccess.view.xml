@@ -5,15 +5,15 @@
 		<rows>1</rows>
 		<cols>14</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-UIWidgetOPMVerifyChangePassword-panel-inner</rootCss>
+		<rootCss>project-UIWidgetVerifyOPMCheckAccess-panel-inner</rootCss>
 	</header>
 	
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
 		<label>Check Access:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-firstlabel</css>
-		<element>firstlabel</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-firstlabel</css>
+		<element>first_checkaccess_label</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -22,8 +22,8 @@
 	<option key="0|1">
 		<widget>InlineLabel</widget>
 		<label>UIOPM API:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-uiopmapilabel</css>
-		<element>uiopmapilabel</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-uiopmapilabel</css>
+		<element>uiopmapi_checkaccess_label</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -31,11 +31,11 @@
 	<option key="0|2">
 		<widget>TextBox</widget>
 		<label>UIOpmSCADAgen</label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-uiopmapivalue</css>
-		<element>uiopmapivalue</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-uiopmapivalue</css>
+		<element>uiopmapi_checkaccess_value</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-uiopmapivalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-uiopmapivalue</cssContainer>
 		
 	</option>
 	
@@ -43,8 +43,8 @@
 	<option key="0|3">
 		<widget>InlineLabel</widget>
 		<label>Function:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-functionlabel</css>
-		<element>functionlabel</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-functionlabel</css>
+		<element>function_checkaccess_label</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -52,11 +52,11 @@
 	<option key="0|4">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-functionvalue</css>
-		<element>functionvalue</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-functionvalue</css>
+		<element>function_checkaccess_value</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-functionvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-functionvalue</cssContainer>
 		
 	</option>
 	
@@ -64,8 +64,8 @@
 	<option key="0|5">
 		<widget>InlineLabel</widget>
 		<label>Location:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-locationlabel</css>
-		<element>locationlabel</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-locationlabel</css>
+		<element>location_checkaccess_label</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -73,11 +73,11 @@
 	<option key="0|6">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-locationvalue</css>
-		<element>locationvalue</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-locationvalue</css>
+		<element>location_checkaccess_value</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-locationvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-locationvalue</cssContainer>
 		
 	</option>
 	
@@ -85,8 +85,8 @@
 	<option key="0|7">
 		<widget>InlineLabel</widget>
 		<label>Action:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-actionlabel</css>
-		<element>actionlabel</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-actionlabel</css>
+		<element>action_checkaccess_label</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -94,11 +94,11 @@
 	<option key="0|8">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-actionvalue</css>
-		<element>actionvalue</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-actionvalue</css>
+		<element>action_checkaccess_value</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-actionvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-actionvalue</cssContainer>
 		
 	</option>
 	
@@ -106,8 +106,8 @@
 	<option key="0|9">
 		<widget>InlineLabel</widget>
 		<label>Mode:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-modelabel</css>
-		<element>modelabel</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-modelabel</css>
+		<element>mode_checkaccess_label</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -115,11 +115,11 @@
 	<option key="0|10">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-modevalue</css>
-		<element>modevalue</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-modevalue</css>
+		<element>mode_checkaccess_value</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-modevalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-modevalue</cssContainer>
 		
 	</option>
 
@@ -140,7 +140,7 @@
 	<option key="0|12">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-resultlabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccess-inlinelabel-resultlabel</css>
 		<element>resultlabel</element>
 		<format></format>
 		<media></media>
@@ -149,11 +149,11 @@
 	<option key="0|13">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-resultvalue</css>
-		<element>resultvalue</element>
+		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-resultvalue</css>
+		<element>result_checkaccess_value</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-resultvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-resultvalue</cssContainer>
 		
 	</option>
 	

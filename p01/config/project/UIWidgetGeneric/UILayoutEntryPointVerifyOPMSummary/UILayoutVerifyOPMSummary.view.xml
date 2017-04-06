@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccess.view.xml</uiView>
+		<element>UIWidgetVerifyOPMCheckAccess</element>
+	</option>
+	<!--
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHostName.view.xml</uiView>
+		<element>UIWidgetVerifyOPMControl</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithProfileName.view.xml</uiView>
+		<element>UIWidgetVerifyOPMControl</element>
+	</option>
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHom.view.xml</uiView>
+		<element>UIWidgetVerifyOPMControl</element>
+	</option>
+	-->
+</data-set>

@@ -34,12 +34,10 @@ public class UIGws {
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-//	private Logger jul_logger = Logger.getLogger("");
-	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIGws.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
-	private SimplePanel root = null;
+	private Panel root = null;
 
 	protected UINameCard uiNameCard = null;
 	public void setUINameCard(UINameCard uiNameCard) {
@@ -79,7 +77,7 @@ public class UIGws {
 				String keyLowerCase = key.toLowerCase();
 				setting.set(keyLowerCase, value);
 				
-				logger.info(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
+				logger.debug(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
 			}
 		}
 		// end of parameter override
@@ -193,7 +191,7 @@ public class UIGws {
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 			@Override
 			public void dictionariesCacheEventReady(int received) {
-				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
 			}
 		});
 
@@ -216,7 +214,7 @@ public class UIGws {
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 			@Override
 			public void dictionariesCacheEventReady(int received) {
-				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
 			}
 		});
 
@@ -269,7 +267,7 @@ public class UIGws {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "folder[{}] received[{}]", folder, received);
+		logger.debug(className, function, "folder[{}] received[{}]", folder, received);
 
 		if ( ! isCreated ) {
 			
@@ -286,6 +284,14 @@ public class UIGws {
 			}
 
 			isCreated = true;
+			
+			// Try to init the OPM
+			String opmkey = "UIOpmSCADAgen";
+			logger.debug(className, function, "Try to init opm[{}]", opmkey);
+			
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmkey);
+			uiOpm_i.init();
 			
 		} else {
 			logger.warn(className, function, "ready folder[{}] received[{}] isCreated", folder, received);

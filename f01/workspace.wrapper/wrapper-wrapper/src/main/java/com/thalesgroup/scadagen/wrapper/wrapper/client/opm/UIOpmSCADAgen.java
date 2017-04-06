@@ -28,10 +28,12 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	private UIOpmSCADAgen () {}
 	
 	private String hostName = null;
+	private String ipAddress = null;
 	private String [] profileNames = null;
 	@Override
 	public void init() {
-
+		//hostName
+		//ipAddress
 	}
 	
 	@Override
@@ -107,15 +109,13 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 
 	@Override
-	public boolean checkAccess(String key, String functionValue, String locationValue, String actionValue, String modeValue) {
+	public boolean checkAccessWithHom(String functionValue, String locationValue, String actionValue, String modeValue, String key) {
 		final String function = "checkAccess";
 		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] key[{}]", new Object[]{function, locationValue, actionValue, modeValue, key});
 		
 		boolean result = false;
 		
-		
-
 		result = checkAccess(
 				  functionValue
 				, locationValue
@@ -135,12 +135,12 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		boolean result = false;
 
-		result = checkAccess(
-				  getHostName()
-				, functionValue
+		result = checkAccessWithHom(
+				  functionValue
 				, locationValue
 				, actionValue
 				, modeValue
+				, getCurrentHostName()
 				);
 		
 		logger.end(className, function);
@@ -155,12 +155,12 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		boolean result = false;
 
-		result = checkAccess(
-				  getProfile()
-				, functionValue
+		result = checkAccessWithHom(
+				  functionValue
 				, locationValue
 				, actionValue
 				, modeValue
+				, getCurrentProfile()
 				);
 		
 		logger.end(className, function);
@@ -180,8 +180,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 	}
 	@Override
-	public String getOperator() {
-		String function = "getOperator";
+	public String getCurrentOperator() {
+		String function = "getCurrentOperator";
 		logger.begin(className, function);
 		String operatorId = null;
 		operatorId = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getId();
@@ -189,12 +189,12 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return operatorId;
 	}
 	@Override
-	public String getProfile() {
-		String function = "getProfile";
+	public String getCurrentProfile() {
+		String function = "getCurrentProfile";
 		logger.begin(className, function);
 		String profile = null;
 		if ( null == profileNames ) {
-			getProfiles();
+			getCurrentProfiles();
 		}
 		if ( null != profileNames ) {
 			if ( profileNames.length > 0 ) {
@@ -207,8 +207,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
-	public String[] getProfiles() {
-		String function = "getProfile";
+	public String[] getCurrentProfiles() {
+		String function = "getCurrentProfiles";
 		logger.begin(className, function);
 		
 		if ( null == profileNames ) {
@@ -240,9 +240,22 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
-	public String getHostName() {
-		logger.debug(className, "getHostName", "hostName[{}]", hostName);
+	public String getCurrentHostName() {
+		String function = "getCurrentHostName";
+		logger.begin(className, function);
+		hostName = ConfigProvider.getInstance().getClientData().getClientWorkstationProperties().getIpAddress();
+		logger.debug(className, function, "hostName[{}]", hostName);
+		logger.end(className, function);
 		return hostName;
+	}
+	@Override
+	public String getCurrentIPAddress() {
+		String function = "getCurrentIPAddress";
+		logger.begin(className, function);
+		ipAddress = ConfigProvider.getInstance().getClientData().getClientWorkstationProperties().getIpAddress();
+		logger.debug(className, "getCurrentIPAddress", "ipAddress[{}]", ipAddress);
+		logger.end(className, function);
+		return ipAddress;
 	}
 	@Override
 	public String getCurrentHOMValue(String hvid) {

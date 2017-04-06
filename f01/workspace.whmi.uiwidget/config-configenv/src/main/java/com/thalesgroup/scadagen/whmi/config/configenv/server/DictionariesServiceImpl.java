@@ -26,7 +26,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInte
 @SuppressWarnings("serial")
 public class DictionariesServiceImpl extends RemoteServiceServlet implements DictionariesService {
 	
-	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getName());
+	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getSimpleName());
 	
 	public Dictionary_i dictionariesServer(String configType, String configPath, String folderName, String extension, String tag) {
 		
@@ -145,6 +145,53 @@ public class DictionariesServiceImpl extends RemoteServiceServlet implements Dic
 						, new SimpleDateFormat(DictionaryCacheInterface.strDateTimeFormat).format(new Date()));
 					
 				List<Dictionary_i> cfgs = new ReadConfigINI().getDictionary(path, tag);
+				for(Dictionary_i cfg: cfgs) {
+					dictionary.addValue(cfg, cfg);
+				}
+					
+				dictionaries.addValue(dictionary, dictionary);
+					
+				logger.debug("dictionary.getValueKeys().size()[{}]", dictionary.getValueKeys().size());
+				
+			}
+		} else if ( configType.equals(ConfigurationType.JsonFile.toString()) ) {
+			
+			dictionaries.setAttribute(DictionaryCacheInterface.strContainerType, ContainerType.Dictionaries.toString());
+			dictionaries.setAttribute(DictionaryCacheInterface.strConfigurationType, ConfigurationType.JsonFile.toString());
+			dictionaries.setAttribute(DictionaryCacheInterface.strCreateDateTimeLabel
+					, new SimpleDateFormat(DictionaryCacheInterface.strDateTimeFormat).format(new Date()));		
+			
+			Iterator<File> fileIterator = files.iterator();
+			while ( fileIterator.hasNext() ) {
+				File file = fileIterator.next();
+				String path = file.getPath();
+				String filename = file.getName();
+	
+				logger.debug("Loop path[{}] xmlFile[{}] tag[{}]", new Object[]{path, filename, tag});
+				
+				Path fullPath = Paths.get(path);
+				Path dir = Paths.get(basePath, folderName);
+				Path subPath = dir.relativize(fullPath);
+				
+				logger.debug("Loop subPath[{}] dir[{}] fullPath[{}]", new Object[]{subPath, dir, fullPath});
+				
+				String relativePath = subPath.toString();
+				
+				logger.debug("Loop relativePath[{}] BF", relativePath);
+				
+				relativePath = relativePath.replaceAll(Matcher.quoteReplacement("\\"), "/");
+				
+				logger.debug("Loop relativePath[{}] AF", relativePath);
+	
+				Dictionary_i dictionary = new Dictionary();
+					
+				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.FileSeparator.toString(), File.separator);
+				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.RelativePath.toString(), relativePath);
+				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.FileName.toString(), filename);
+				dictionary.setAttribute(DictionaryCacheInterface.PropertiesAttribute.DateTime.toString()
+						, new SimpleDateFormat(DictionaryCacheInterface.strDateTimeFormat).format(new Date()));
+					
+				List<Dictionary_i> cfgs = new ReadConfigJson().getDictionary(path, tag);
 				for(Dictionary_i cfg: cfgs) {
 					dictionary.addValue(cfg, cfg);
 				}

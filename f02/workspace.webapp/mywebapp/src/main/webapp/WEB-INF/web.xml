@@ -200,6 +200,22 @@
     <servlet-name>webConfigServiceServlet</servlet-name>
     <url-pattern>/scsmain/webConfigServiceServlet</url-pattern>
   </servlet-mapping>  
+  
+  <servlet>
+    <servlet-name>uiGenericServiceServlet</servlet-name>
+	<servlet-class>com.thalesgroup.scadagen.whmi.config.configenv.server.uigeneric.UIGenericServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>uiGenericServiceServlet</servlet-name>
+    <url-pattern>/scslogin/uiGenericServiceServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>uiGenericServiceServlet</servlet-name>
+    <url-pattern>/scsmain/uiGenericServiceServlet</url-pattern>
+  </servlet-mapping> 
+  
   <!-- SCADAgen WHMI Configuration -->
 
   <servlet-mapping>

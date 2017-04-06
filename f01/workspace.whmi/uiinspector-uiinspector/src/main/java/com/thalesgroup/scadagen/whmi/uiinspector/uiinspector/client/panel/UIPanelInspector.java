@@ -165,6 +165,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				
 				@Override
 				public void update(String key, String[] value) {
+					final String function2 = "DatabaseEvent update";
 					
 					DataBaseClientKey clientKey = new DataBaseClientKey();
 					clientKey.setAPI(API.multiReadValue);
@@ -177,18 +178,18 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					String [] dbaddresses	= database.getKeyAndAddress(strClientKey);
 					String [] dbvalues		= database.getKeyAndValues(strClientKey);
 					if (dbaddresses == null || dbvalues == null) {
-						logger.error("DatabaseEvent", "update", "dbaddresses or dbvalues is null");
+						logger.error(className, function, "{} dbaddresses or dbvalues is null", function2);
 						return;
 					}
 					if (logger.isDebugEnabled()) {
 						for (int i=0; i<dbaddresses.length; i++) {
-							logger.debug("DatabaseEvent", "update", "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+							logger.debug(className, function, "{} dbaddresses[{}]=[{}]", new Object[]{function2, i, dbaddresses[i]});
 						}
 						for (int i=0; i<dbvalues.length; i++) {
-							logger.debug("DatabaseEvent", "update", "dbvalues[{}]=[{}]", i, dbvalues[i]);
+							logger.debug(className, function, "{} dbvalues[{}]=[{}]", new Object[]{function2, i, dbvalues[i]});
 						}
 						for (int i=0; i<value.length; i++) {
-							logger.debug("DatabaseEvent", "update", "value[{}]=[{}]", i, value[i]);
+							logger.debug(className, function, "{} value[{}]=[{}]", new Object[]{function2, i, value[i]});
 						}
 					}
 					
@@ -361,7 +362,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	public void connect() {
 		final String function = "connect";
 
-
 		String fileName = UIPanelInspector_i.strConfigPrefixWODot+UIPanelInspector_i.strConfigExtension;
 		String keyperiodmillis = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strPeriodMillis;
 		periodMillis = ReadProp.readInt(UIInspector_i.strUIInspector, fileName, keyperiodmillis, 250);
@@ -376,27 +376,17 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		// OPM
 		String dictionariesCacheName = "UIInspectorPanel";
 		
-		
 		String keyopmapi = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strOpmApi;
 		String keyopmapivalue = ReadProp.readString(dictionariesCacheName, fileName, keyopmapi, "");
 		
 		String opmapi = keyopmapivalue;
-		
+
 		logger.debug(className, function, "opmapi[{}]", opmapi);
-		
-		int numofaction = 0;
-		try {
-			numofaction = Integer.parseInt(opmapi);
-		} catch ( NumberFormatException ex ) {
-			logger.debug(className, function, "numofaction[{}] IS INVALID", numofaction);
-			logger.debug(className, function, "numofaction[{}] NumberFormatException.ex[{}]", numofaction, ex.toString());
-		}
-		
-		logger.debug(className, function, "opmapi[{}]", opmapi);
-		UIOpm_i uiOpm_i = OpmMgr.getInstance(opmapi);
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		UIOpm_i uiOpm_i = opmMgr.getOpm(opmapi);
 		
 		if ( null != uiOpm_i ) {
-	
+
 			String mode = null;
 			String keymode = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strConfigMode;
 			logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keymode[{}]", new Object[]{dictionariesCacheName, fileName, keymode});
@@ -408,7 +398,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			
 			String keynumofaction = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strNumOfAction;
 			String keynumofactionvalue = ReadProp.readString(dictionariesCacheName, fileName, keynumofaction, "");
-			
+
+			int numofaction = 0;
 			try {
 				numofaction = Integer.parseInt(keynumofactionvalue);
 			} catch ( NumberFormatException ex ) {
@@ -1088,4 +1079,5 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		EquipmentReserve.equipmentUnreservation(scsEnvId, parent, database);
 		logger.end(className, function);
 	}
+
 }

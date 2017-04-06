@@ -71,6 +71,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabasePollingControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseSubscriptionControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseWritingControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dictionaries.UIWidgetVerifyDictionariesCachedJSON;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.hilc.UIWidgetVerifyHILCControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetOPMVerifyControl;
@@ -655,6 +656,13 @@ public class UILayoutSummary extends UIWidget_i {
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyHILCControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDictionariesCachedJSON.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDictionariesCachedJSON();
 		
 				}
 				

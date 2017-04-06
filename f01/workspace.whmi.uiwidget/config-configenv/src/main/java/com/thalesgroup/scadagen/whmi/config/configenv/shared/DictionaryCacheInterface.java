@@ -5,6 +5,7 @@ public class DictionaryCacheInterface {
 	public enum ConfigurationType {
 		XMLFile("XMLFile")
 		, PropertiesFile("PropertyFile")
+		, JsonFile("JSONFile")
 		;
 		private final String text;
 		private ConfigurationType(final String text) { this.text = text; }

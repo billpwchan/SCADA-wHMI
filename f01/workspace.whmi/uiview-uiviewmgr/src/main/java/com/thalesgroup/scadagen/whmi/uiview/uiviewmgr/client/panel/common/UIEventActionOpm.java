@@ -60,10 +60,11 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 			
 			logger.info(className, function, logPrefix+"logout");
 			
-			UIOpm_i opm_i = OpmMgr.getInstance(opmApi);
-			if ( null != opm_i ) {
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
+			if ( null != uiOpm_i ) {
 				logger.debug(className, function, "call opm_i logout");
-				opm_i.logout();
+				uiOpm_i.logout();
 			} else {
 				logger.warn(className, function, logPrefix+"opmapi[{}] instance IS NULL", opmApi);
 			}
@@ -85,7 +86,8 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 				return bContinue;
 			}
 			
-			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmApi);
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
 			if ( null != uiOpm_i ) {
 				logger.debug(className, function, "call opm_i login");
 				uiOpm_i.login(operator, password);
@@ -116,15 +118,15 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 				return bContinue;
 			}
 			
-			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmApi);
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
 			if ( null != uiOpm_i ) {
 				logger.debug(className, function, "call opm_i login");
 				uiOpm_i.changePassword(userid, oldpass, newpass, new UIWrapperRpcEvent_i() {
 					
 					@Override
 					public void event(JSONObject jsobject) {
-						// TODO Auto-generated method stub
-						
+
 						String function = null;
 						String resultinstanceof = null;
 						

@@ -196,7 +196,8 @@ public class UIInspectorMgr {
 		
 		boolean right0 = true;
 		if ( null != function2 && null != location2 ) {
-			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmapi);
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmapi);
 			
 			if ( null != uiOpm_i ) {
 				right0 = uiOpm_i.checkAccess(function2, location2, action, mode);

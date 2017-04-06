@@ -64,7 +64,8 @@ public class UIWidgetOPMVerifyChangePassword extends UIWidget_i {
 							String oldpassvalue		= uiWidgetGeneric.getWidgetValue("oldpassvalue");
 							String newpassvalue		= uiWidgetGeneric.getWidgetValue("newpassvalue");
 							
-							UIOpm_i uiOpm_i = OpmMgr.getInstance(uiopmapivalue);
+							OpmMgr opmMgr = OpmMgr.getInstance();
+							UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 							
 							uiOpm_i.changePassword(usernamevalue, oldpassvalue, newpassvalue, new UIWrapperRpcEvent_i() {
 

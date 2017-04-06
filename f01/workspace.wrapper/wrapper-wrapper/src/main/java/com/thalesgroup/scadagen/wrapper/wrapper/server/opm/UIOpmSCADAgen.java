@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,6 +117,24 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			logger.error("operatorOpmInfo=[{}] is null !!, checkAccess return 'false'", operatorOpmInfo);
 		}
 		return result;
+	}
+	@Override
+	public String getRemoteHostName(HttpServletRequest httpServletRequest) {
+		return httpServletRequest.getRemoteHost();
+	}
+	@Override
+	public String getRemoteIPAddress(HttpServletRequest httpServletRequest) {
+		return httpServletRequest.getRemoteAddr();
+	}
+	@Override
+	public String getHostName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String getIPAddress() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

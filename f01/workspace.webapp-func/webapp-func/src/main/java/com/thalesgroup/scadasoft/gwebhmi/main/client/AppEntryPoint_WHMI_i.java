@@ -29,8 +29,10 @@ public interface AppEntryPoint_WHMI_i {
 		  project("project")
 		  
 		, framework("framework")
+		
 		, dictionary("dictionary")
 		, property("property")
+		, json("json")
 		
 		, uiCtrl("uiCtrl")
 		, uiView("uiView")

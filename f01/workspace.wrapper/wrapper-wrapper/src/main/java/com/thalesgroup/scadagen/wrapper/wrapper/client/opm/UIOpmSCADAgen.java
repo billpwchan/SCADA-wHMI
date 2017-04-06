@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,10 +27,22 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	private UIOpmSCADAgen () {}
 	
+	private String hostName = null;
+	private String [] profileNames = null;
 	@Override
-	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3, String opmValue3, String opmName4, String opmValue4) {
+	public void init() {
+
+	}
+	
+	@Override
+	public boolean checkAccess(
+			  String opmName1, String opmValue1
+			, String opmName2, String opmValue2
+			, String opmName3, String opmValue3
+			, String opmName4, String opmValue4) {
 		String function = "checkAccess";
 		logger.begin(className, function);
+		
 		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
 		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
 		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
@@ -73,42 +87,11 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
-//	@Override
-//	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3, String opmValue3) {
-//		String function = "checkAccess";
-//		logger.begin(className, function);
-//		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
-//		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
-//		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
-//
-//		boolean result = false;
-//		
-//		result = checkAccess(
-//				  opmName1, opmValue1
-//				, opmName2, opmValue2
-//				, opmName3, opmValue3
-//				, MODE, DefaultModeValue);
-//
-//		return result;
-//	}
-
-//	@Override
-//	public boolean checkAccess(String functionValue, String locationValue, String actionValue) {
-//		String function = "checkAccess";
-//		logger.begin(className, function);
-//		logger.info(className, function, "functionValue[{}] locationValue[{}] actionValue[{}]", new Object[]{functionValue, locationValue, actionValue});
-//		
-//		boolean result = false;
-//		
-//		result = checkAccess(functionValue, locationValue, actionValue, DefaultModeValue);
-//		
-//		logger.end(className, function);
-//		return result;
-//	}
 	@Override
 	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
-		logger.begin(className, functionValue);
-		logger.info(className, functionValue, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
+		final String function = "function";
+		logger.begin(className, function);
+		logger.info(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
 		
 		boolean result = false;
 		
@@ -117,17 +100,79 @@ public class UIOpmSCADAgen implements UIOpm_i {
 								, LOCATION, locationValue
 								, ACTION, actionValue
 								, MODE, modeValue
-								);
+							);
 		
-		logger.end(className, functionValue);
+		logger.end(className, function);
 		return result;
 	}
+
+	@Override
+	public boolean checkAccess(String key, String functionValue, String locationValue, String actionValue, String modeValue) {
+		final String function = "checkAccess";
+		logger.begin(className, function);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		
+		boolean result = false;
+		
+		
+
+		result = checkAccess(
+				  functionValue
+				, locationValue
+				, actionValue
+				, modeValue
+				);
+		
+		logger.end(className, function);
+		return result;
+	}
+	
+	@Override
+	public boolean checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue) {
+		final String function = "checkAccessWithHostName";
+		logger.begin(className, function);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		
+		boolean result = false;
+
+		result = checkAccess(
+				  getHostName()
+				, functionValue
+				, locationValue
+				, actionValue
+				, modeValue
+				);
+		
+		logger.end(className, function);
+		return result;
+	}
+	
+	@Override
+	public boolean checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue) {
+		final String function = "checkAccessWithProfileName";
+		logger.begin(className, function);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		
+		boolean result = false;
+
+		result = checkAccess(
+				  getProfile()
+				, functionValue
+				, locationValue
+				, actionValue
+				, modeValue
+				);
+		
+		logger.end(className, function);
+		return result;
+	}
+	
 	@Override
 	public void changePassword(String operator, String oldPass, String newPass, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
 		logger.begin(className, function);
 		
-		logger.info(className, function, "operator[{}]", operator);
+		logger.debug(className, function, "operator[{}]", operator);
 
 		new SpringChangePassword().changePassword(operator, oldPass, newPass, uiWrapperRpcEvent_i); 
 		
@@ -140,34 +185,76 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.begin(className, function);
 		String operatorId = null;
 		operatorId = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getId();
-		logger.info(className, function, "operatorId[{}]", operatorId);
+		logger.debug(className, function, "operatorId[{}]", operatorId);
 		return operatorId;
 	}
 	@Override
 	public String getProfile() {
 		String function = "getProfile";
 		logger.begin(className, function);
-		String roleId = null;
-		Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
-		if ( null != roles ) {
-			Set<String> keys = roles.keySet();
-			for ( String key : keys ) {
-				logger.info(className, function, "key[{}]", key);
-				roleId = roles.get(key).getId();
-				logger.info(className, function, "roleId[{}]", roleId);
-				break;
-			}
-		} else {
-			logger.warn(className, function, "roleId IS NULL");
+		String profile = null;
+		if ( null == profileNames ) {
+			getProfiles();
 		}
-		logger.info(className, function, "roleId[{}]", roleId);
-		return roleId;
+		if ( null != profileNames ) {
+			if ( profileNames.length > 0 ) {
+				profile = profileNames[0];
+			}
+		}
+		logger.debug(className, function, "profile[{}]", profile);
+		logger.end(className, function);
+		return profile;
+	}
+	
+	@Override
+	public String[] getProfiles() {
+		String function = "getProfile";
+		logger.begin(className, function);
+		
+		if ( null == profileNames ) {
+			List<String> roleIds = null;
+			Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
+			if ( null != roles ) {
+				Set<String> keys = roles.keySet();
+				for ( String key : keys ) {
+					logger.debug(className, function, "key[{}]", key);
+					
+					String roleId = roles.get(key).getId();
+					logger.debug(className, function, "roleId[{}]", roleId);
+					
+					if ( null == roleIds ) roleIds = new LinkedList<String>();
+					
+					roleIds.add(roleId);
+				}
+			} else {
+				logger.warn(className, function, "roleId IS NULL");
+			}
+			
+			profileNames = roleIds.toArray(new String[0]);
+		}
+		
+		logger.debug(className, function, "profileNames[{}]", profileNames);
+
+		logger.end(className, function);
+		return profileNames;
+	}
+	
+	@Override
+	public String getHostName() {
+		logger.debug(className, "getHostName", "hostName[{}]", hostName);
+		return hostName;
 	}
 	@Override
-	public String getWorkstation() {
+	public String getCurrentHOMValue(String hvid) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public String getConfigHOMMask(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public boolean createOperator(String operator) {
 		// TODO Auto-generated method stub
@@ -209,5 +296,6 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 		return true;
 	}
+
 	
 }

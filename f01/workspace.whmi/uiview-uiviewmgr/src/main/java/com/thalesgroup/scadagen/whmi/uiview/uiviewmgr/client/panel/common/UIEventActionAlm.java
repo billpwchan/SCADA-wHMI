@@ -113,7 +113,8 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		String strProfile = null;
 		String strWorkstation = null;
 		
-		UIOpm_i uiOpm_i = OpmMgr.getInstance(strOpmApi);
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		UIOpm_i uiOpm_i = opmMgr.getOpm(strOpmApi);
 		if ( null != uiOpm_i ) {
 			logger.debug(className, function, "call opm_i login");
 			
@@ -135,7 +136,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				logger.info(className, function, logPrefix+"strProfile IS NULL");
 			}
 
-			strWorkstation = uiOpm_i.getWorkstation();
+			strWorkstation = uiOpm_i.getHostName();
 			if ( null != strWorkstation ) {
 				logger.info(className, function, logPrefix+"strGetWorkstation[{}] strWorkstation[{}]", strGetWorkstation, strWorkstation);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetWorkstation, strWorkstation);

@@ -14,4 +14,7 @@ public interface Dictionary_i {
 
 	public void addValue(Object key);
 	public Object[] getValues();
+	
+	public void setData(String value);
+	public String getData();
 }

@@ -20,6 +20,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 /**
  * @author syau
@@ -56,6 +60,9 @@ public class UIGws {
 		
 		initCacheXMLFile();
 		initCachePropertiesFile();
+		initCacheJsonsFile();
+		
+		initOpmFactory();
 		
 		setUINameCard(new UINameCard(0, "", RESETABLE_EVENT_BUS));
 		
@@ -101,13 +108,38 @@ public class UIGws {
 		// Debug
 		HashMap<String, String> hashMap = setting.getMaps();
 		for ( Map.Entry<String, String> entry : hashMap.entrySet() ) {
-			logger.info(className, function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
+			logger.debug(className, function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
 		}
 		// End of Debug
 
 		logger.end(className, function);
 	}
 	
+	private void initOpmFactory() {
+		final String function = "initOpmFactory";
+		logger.begin(className, function);
+		
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		opmMgr.addUIOpmFactory(className, new UIOpmFactory() {
+			
+			@Override
+			public UIOpm_i getOpm(String key) {
+				UIOpm_i uiOpm_i = null;
+				if ( null != key ) {
+					
+					String UIOpmSCADAgenClassName = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
+					
+					if ( key.equalsIgnoreCase(UIOpmSCADAgenClassName) ) {
+						uiOpm_i = UIOpmSCADAgen.getInstance();
+					}
+				}
+				return uiOpm_i;
+			}
+		});
+		
+		logger.end(className, function);
+	}
+
 	public Panel getMainPanel() {
 		final String function = "getMainPanel";
 		logger.beginEnd(className, function);
@@ -137,7 +169,7 @@ public class UIGws {
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 			@Override
 			public void dictionariesCacheEventReady(int received) {
-				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
 				ready("UIWidgetGeneric", received);
 			}
 		});
@@ -168,6 +200,29 @@ public class UIGws {
 		logger.end(className, function);
 	}
 	
+	public void initCacheJsonsFile () {
+		initCacheJsonsFile(uiJson, "*.json");
+	}
+	
+	public void initCacheJsonsFile (String folder, String extention) {
+		final String function = "initCacheJsonsFile";
+		
+		logger.begin(className, function);
+
+		String mode = ConfigurationType.JsonFile.toString();
+		String module = null;
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
+		dictionariesCache.add(folder, extention, null);
+		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
+			@Override
+			public void dictionariesCacheEventReady(int received) {
+				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+			}
+		});
+
+		logger.end(className, function);
+	}
+	
 	private String uiDict = null;
 	public void setDictionaryFolder ( String uiDict ) {
 		this.uiDict = uiDict;
@@ -176,6 +231,11 @@ public class UIGws {
 	private String uiProp = null;
 	public void setPropertyFolder ( String uiProp ) {
 		this.uiProp = uiProp;
+	}
+	
+	private String uiJson = null;
+	public void setJsonFolder ( String uiJson ) {
+		this.uiJson = uiJson;
 	}
 
 	private String uiCtrl = null;

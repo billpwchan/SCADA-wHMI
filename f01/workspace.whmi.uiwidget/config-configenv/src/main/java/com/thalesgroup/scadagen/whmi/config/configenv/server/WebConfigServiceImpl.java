@@ -12,7 +12,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.WebConfigService;
 @SuppressWarnings("serial")
 public class WebConfigServiceImpl extends RemoteServiceServlet implements WebConfigService {
 	
-	private Logger logger					= LoggerFactory.getLogger(WebConfigServiceImpl.class.getName());
+	private Logger logger					= LoggerFactory.getLogger(WebConfigServiceImpl.class.getSimpleName());
 	
 	@Override
 	public String webConfigServer(String key) throws IllegalArgumentException {

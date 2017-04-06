@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenHILCServicesProxy;
+import com.thalesgroup.scadasoft.services.proxy.ScsDbmServicesProxy;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.jsoncomponent.AbstractJSComponent;
 import com.thalesgroup.scadasoft.jsoncomponent.JSComponentMgr;
@@ -18,6 +19,7 @@ public class HILCComponent extends AbstractJSComponent {
 	private static final String LOG_PREFIX = "[HILCComponent] ";
 
     private ScadagenHILCServicesProxy m_hilcService = null;
+    private ScsDbmServicesProxy m_dbmService = null;
 
 	@Override
 	public String getName() {
@@ -35,6 +37,7 @@ public class HILCComponent extends AbstractJSComponent {
 	@Override
 	protected void doComponentInit() {
 		m_hilcService = new ScadagenHILCServicesProxy(SCSConfManager.instance().getRemoteEnv(), "SigHILCServer");
+		m_dbmService = new ScsDbmServicesProxy(SCSConfManager.instance().getRemoteEnv(), "DbmServer");
 	}
 
 	/**
@@ -74,9 +77,15 @@ public class HILCComponent extends AbstractJSComponent {
         
         ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
 
-        // Call Control Service
+        // Call HILC Service
         try {
-        	//name = m_notifManager.convertEqpIdFromRemoteId(name);
+        	eqpAlias = m_notifManager.convertEqpIdFromRemoteId(eqpAlias);
+        	// convert to alias
+        	String alias = m_dbmService.getAlias(eqpAlias);
+        	if (alias != null) {
+        		eqpAlias = alias;
+        	}
+        	
             int operationResult = m_hilcService.hilcPreparationRequest(operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
             if (operationResult != 0) {
                 return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
@@ -128,9 +137,14 @@ public class HILCComponent extends AbstractJSComponent {
         
         ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
 
-        // Call Control Service
+        // Call HILC Service
         try {
-        	//name = m_notifManager.convertEqpIdFromRemoteId(name);
+        	eqpAlias = m_notifManager.convertEqpIdFromRemoteId(eqpAlias);
+        	// convert to alias
+        	String alias = m_dbmService.getAlias(eqpAlias);
+        	if (alias != null) {
+        		eqpAlias = alias;
+        	}
             int operationResult = m_hilcService.hilcConfirmRequest(operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
             if (operationResult != 0) {
                 return buildErrorObject(c_UNKNOWN_SERVER_ERROR,

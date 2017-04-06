@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.thalesgroup.hv.data_v1.operation.AbstractEntityOperationRequestType;
 import com.thalesgroup.hv.data_v1.operation.ResponseStatusTypeEnum;
 import com.thalesgroup.scadagen.scadagenba.services.proxy.ScadagenHILCServicesProxy;
+import com.thalesgroup.scadasoft.services.proxy.ScsDbmServicesProxy;
 import com.thalesgroup.scadasoft.hvconnector.configuration.SCSConfManager;
 import com.thalesgroup.scadasoft.hvconnector.operation.IOperationExecutor;
 import com.thalesgroup.scadasoft.hvconnector.operation.SCSOperationResponder;
@@ -17,6 +18,7 @@ public class HILCExecutor implements IOperationExecutor {
     private static final Logger s_logger = LoggerFactory.getLogger(HILCExecutor.class);
 
     private ScadagenHILCServicesProxy m_hilcService = null;
+    private ScsDbmServicesProxy m_dbmService = null;
 
     private static final String CmdType_HILCPreparationRequest = "HILCPreparationRequest";
     private static final String CmdType_HILCConfirmRequest = "HILCConfirmRequest";
@@ -26,6 +28,7 @@ public class HILCExecutor implements IOperationExecutor {
      */
     public HILCExecutor() {
         m_hilcService = new ScadagenHILCServicesProxy(SCSConfManager.instance().getRemoteEnv(), "SigHILCServer");
+        m_dbmService = new ScsDbmServicesProxy(SCSConfManager.instance().getRemoteEnv(), "DbmServer");
     }
     
 	@Override
@@ -63,7 +66,11 @@ public class HILCExecutor implements IOperationExecutor {
         }
         
         // Convert scs path to alias
-        String alias = scsid.replaceAll(":", "");
+        //String alias = scsid.replaceAll(":", "");
+    	String alias = m_dbmService.getAlias(scsid);
+    	if (alias != null) {
+    		scsid = alias;
+    	}
 
         String cmdType = SCSOperationResponder.getValueFromOperation(operationRequest, param[1]);
         ResponseStatusTypeEnum cmdResult = ResponseStatusTypeEnum.FAILURE;

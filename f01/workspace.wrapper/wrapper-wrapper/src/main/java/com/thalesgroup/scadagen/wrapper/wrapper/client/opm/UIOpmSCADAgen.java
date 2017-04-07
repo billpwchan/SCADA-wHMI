@@ -18,6 +18,10 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.HVID2SCS;
 
 public class UIOpmSCADAgen implements UIOpm_i {
 	
@@ -39,16 +43,19 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	
 	private HashMap<String, Integer> confighommasks	= new HashMap<String, Integer>();
 	
-	private int currenthomvalue			= -1;
-	private boolean bCurrenthomvalue	= false;
+	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	
 	private String [] profileNames	= null;
 	@Override
 	public void init() {
 		String function = "init";
 		logger.begin(className, function);
-		//hostName
-		//ipAddress
+
+		String multiReadMethod1 = "DatabaseMultiReading";
+		
+		databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
+		if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
+		databaseMultiRead_i.connect();
 		
 		currentHostName = getHostName();
 		logger.debug(className, function, "currentHostName[{}]", currentHostName);
@@ -278,13 +285,50 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return currentIPAddress;
 	}
 	@Override
-	public int getCurrentHOMValue(String hvid) {
-		// TODO Auto-generated method stub
-		if ( ! bCurrenthomvalue ) {
-			
-			bCurrenthomvalue = true;
-		}
-		return currenthomvalue;
+	public void getCurrentHOMValue(final String hv_id, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
+		final String function = "getCurrentHOMValue";
+		logger.begin(className, function);
+		logger.debug(className, function, "hv_id[{}]", hv_id);
+		HVID2SCS hvid2scs = new HVID2SCS();
+		hvid2scs.setHVID(hv_id);
+		hvid2scs.init();
+		
+		String scsEnvId	= hv_id;
+		String parent	= hvid2scs.getDBAddress();
+		
+		String dbAddress = parent + dbAttribute;
+		String [] dbAddresses = new String[]{dbAddress};
+		
+		final String clientKey = className+function;
+		
+		databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
+
+			@Override
+			public void update(String key, String[] dbAddresses, String[] dbValues) {
+				// TODO Auto-generated method stub
+				if ( null != key ) {
+					if ( key.equals(clientKey) ) {
+						if ( null != getCurrentHOMValueEvent_i ) {
+							if ( null != dbAddresses && null != dbValues ) {
+								if ( dbAddresses.length > 0 && dbValues.length > 0 ) {
+									String dbaddress = dbAddresses[0];
+									String dbvalue = dbValues[0];
+									int value = Integer.parseInt(dbvalue);
+									getCurrentHOMValueEvent_i.update(dbaddress, value);
+								} else {
+									logger.warn(className, function, "dbAddresses.length > 0 || dbAddresses.length > 0 IS INVALID");
+								}
+							} else {
+								logger.warn(className, function, "dbAddresses || dbValues IS NULL");
+							}
+						} else {
+							logger.warn(className, function, "getCurrentHOMValueEvent_i IS NULL");
+						}
+					}
+				}
+			}
+		});
+		logger.end(className, function);
 	}
 	@Override
 	public int getConfigHOMMask(String key) {

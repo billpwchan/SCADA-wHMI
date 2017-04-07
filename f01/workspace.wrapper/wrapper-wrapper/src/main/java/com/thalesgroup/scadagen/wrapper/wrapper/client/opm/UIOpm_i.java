@@ -30,10 +30,15 @@ public interface UIOpm_i {
 	String getCurrentProfile();
 	String[] getCurrentProfiles();
 	
+	int getConfigHOMMask(String key);
+	
 	String getCurrentHostName();
 	String getCurrentIPAddress();
-	int getCurrentHOMValue(String hvid);
-	int getConfigHOMMask(String key);
+	
+	interface GetCurrentHOMValueEvent_i {
+		void update(final String dbaddress, final int value);
+	}
+	void getCurrentHOMValue(final String hvid, final GetCurrentHOMValueEvent_i event);
 	
 	boolean createOperator(String operator);
 	boolean removeOperator(String operator);

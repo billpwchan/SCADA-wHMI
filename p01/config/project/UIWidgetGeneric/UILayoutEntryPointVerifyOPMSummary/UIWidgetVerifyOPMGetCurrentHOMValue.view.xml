@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>6</cols>
+		<cols>8</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIWidgetVerifyOPMGetCurrentHOMValue-panel-inner</rootCss>
 	</header>
@@ -11,7 +11,7 @@
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>Get Client Info:</label>
+		<label>Get Current Hom Value:</label>
 		<css>project-UIWidgetVerifyOPMGetCurrentHOMValue-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>
@@ -40,19 +40,39 @@
 	</option>
 	
 	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>HVID</label>
+		<css>project-UIWidgetVerifyOPMGetCurrentHOMValue-inlinelabel-hvidlabel</css>
+		<element>hvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label>OCC_CTVLV_CLP_0001</label>
+		<css>project-UIWidgetVerifyOPMGetCurrentHOMValue-textbox-hvidvalue</css>
+		<element>hvidvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHOMValue-container-hvidvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|5">
 		<widget>Button</widget>
-		<label>resultvalue</label>
-		<css>project-UIWidgetDpcTagControl-button-resultvalue</css>
-		<element>resultvalue</element>
+		<label>getcurrenthomvalue</label>
+		<css>project-UIWidgetDpcTagControl-button-getcurrenthomvalue</css>
+		<element>getcurrenthomvalue</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-resultvalue</cssContainer>
+		<cssContainer>project-UIWidgetDpcTagControl-container-getcurrenthomvalue</cssContainer>
 		
-		<tooltip>resultvalue</tooltip>
+		<tooltip>getcurrenthomvalue</tooltip>
 		
 	</option>
 	
 	
-	<option key="0|4">
+	<option key="0|6">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
 		<css>project-UIWidgetVerifyOPMGetCurrentHOMValue-inlinelabel-resultlabel</css>
@@ -61,7 +81,7 @@
 		<media></media>
 	</option>
 	
-	<option key="0|5">
+	<option key="0|7">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMGetCurrentHOMValue-textbox-resultvalue</css>

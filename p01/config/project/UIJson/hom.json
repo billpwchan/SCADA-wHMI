@@ -1,7 +1,7 @@
 {
   "HOMEnable": true,
   "HOMAction": ["c","x"],
-  "DBAttribute": ".hom",
+  "DBAttribute": ".hdvFlag",
   "ByPassValue": 0,
   "HOMLevel":[{
   "Key": "PC16011",

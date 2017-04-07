@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>4</cols>
+		<cols>3</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
@@ -24,14 +24,12 @@
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMGetCurrentHOMValue.view.xml</uiView>
 		<element>UIWidgetVerifyOPMGetCurrentHOMValue</element>
 	</option>
-	
+	<!--	
 	<option key="0|3">
 		<uiCtrl>UIWidgetVerifyOPMGetInfo</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMGetCurrentHostName.view.xml</uiView>
 		<element>UIWidgetVerifyOPMGetCurrentHostName</element>
 	</option>
-	
-	<!--
 	<option key="0|1">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHostName.view.xml</uiView>

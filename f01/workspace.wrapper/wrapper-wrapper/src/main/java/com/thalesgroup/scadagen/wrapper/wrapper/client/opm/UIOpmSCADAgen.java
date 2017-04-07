@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	private String dbAttribute			= null;
 	private int bypassvalue				= -1;
 	
-	private int confighommask			= -1;
-	private boolean bConfighommask		= false;
+	private HashMap<String, Integer> confighommasks	= new HashMap<String, Integer>();
 	
 	private int currenthomvalue			= -1;
 	private boolean bCurrenthomvalue	= false;
@@ -290,7 +290,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	public int getConfigHOMMask(String key) {
 		String function = "getConfigHOMMask";
 		logger.begin(className, function);
-		if ( ! bConfighommask ) {
+		
+		if ( ! confighommasks.containsKey(key) ) {
 			
 			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
 			String fileName = UIOpmSCADAgen_i.fileName;
@@ -301,12 +302,15 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			JSONObject jsonObject = ReadJson.readObject(jsonArray, objectkey, key);
 			
 			String valueKey = "Value";
-			confighommask = ReadJson.readInt(jsonObject, valueKey, confighommask);
+			int confighommask = ReadJson.readInt(jsonObject, valueKey, -1);
 			
-			bConfighommask = true;
-			
-			logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+			confighommasks.put(key, confighommask);
 		}
+
+		int confighommask = confighommasks.get(key);
+		
+		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+
 		logger.end(className, function);
 		return confighommask;
 	}

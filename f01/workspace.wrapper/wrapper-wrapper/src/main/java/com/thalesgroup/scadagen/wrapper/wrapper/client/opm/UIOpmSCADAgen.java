@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
@@ -15,6 +16,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.uigeneric.UIGenericMgr;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.uigeneric.UIGenericMgrEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -57,11 +60,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
 		databaseMultiRead_i.connect();
 		
-		currentHostName = getHostName();
-		logger.debug(className, function, "currentHostName[{}]", currentHostName);
+		getHostName();
 		
-		currentIPAddress = getIPAddress();
-		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
+		getIPAddress();
 		
 		dbAttribute = getDbAttribute();
 		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
@@ -432,11 +433,67 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
-	private String getIPAddress() {
-		return null;
+	private void getIPAddress() {
+		String function = "init";
+		logger.begin(className, function);
+		
+		UIGenericMgr uiGenericMgr = new UIGenericMgr();
+		JSONObject request = new JSONObject();
+		request.put("OperatingString1", new JSONString("request"));
+		request.put("OperatingString2", new JSONString("opm"));
+		request.put("OperatingString3", new JSONString("getCurrentIPAddress"));
+		uiGenericMgr.executeUIGeneric(request, new UIGenericMgrEvent() {
+			
+			@Override
+			public void uiGenericMgrEventReady(JSONObject response) {
+				String function = "uiGenericMgrEventReady";
+				logger.begin(className, function);
+				if ( null != response ) {
+					currentIPAddress = ReadJson.readString(response, "OperationString4");
+					logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
+				}
+				logger.end(className, function);
+			}
+			
+			@Override
+			public void uiGenericMgrEventFailed(JSONObject jsonObject) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+		
+		logger.end(className, function);
 	}
 	
-	private String getHostName() {
-		return null;
+	private void getHostName() {
+		String function = "init";
+		logger.begin(className, function);
+		UIGenericMgr uiGenericMgr = new UIGenericMgr();
+		JSONObject request = new JSONObject();
+		request.put("OperatingString1", new JSONString("request"));
+		request.put("OperatingString2", new JSONString("opm"));
+		request.put("OperatingString3", new JSONString("getCurrentHostName"));
+		uiGenericMgr.executeUIGeneric(request, new UIGenericMgrEvent() {
+			
+			@Override
+			public void uiGenericMgrEventReady(JSONObject response) {
+				String function = "uiGenericMgrEventReady";
+				logger.begin(className, function);
+				if ( null != response ) {
+					currentHostName = ReadJson.readString(response, "OperationString4");
+					logger.debug(className, function, "currentHostName[{}]", currentHostName);
+				}
+				logger.end(className, function);
+			}
+			
+			@Override
+			public void uiGenericMgrEventFailed(JSONObject jsonObject) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
+		logger.end(className, function);
 	}
 }

@@ -4,9 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.uigeneric.UIGenericService;
+import com.thalesgroup.scadagen.whmi.config.configenv.server.uigeneric.factory.UIActionMgr;
+import com.thalesgroup.scadagen.whmi.config.configenv.server.uigeneric.factory.UIAction_i;
+import com.thalesgroup.scadagen.whmi.config.configenv.server.uigeneric.util.JSONUtil;
 
 /**
  * The server-side implementation of the RPC service.
@@ -16,26 +19,39 @@ public class UIGenericServiceImpl extends RemoteServiceServlet implements UIGene
 
 	private Logger logger					= LoggerFactory.getLogger(UIGenericServiceImpl.class.getName());
 	
-	final String componse = "componse";
-	final String request = "request";
-	final String response = "response";
-	final String data = "data";
-	
 	@Override
-	public JSONObject execute(JSONObject jsonObject) {
+	public JSONObject execute(JSONObject request) {
 		logger.debug("Begin");
 		
-//		UIOpm_i uiOpm_i = UIOpmSCADAgen.getInstance();
+		JSONObject response = null;
+		
+		if ( null != request ) {
+			
+			JSONValue value1 = JSONUtil.getJSONValue(request, UIGenericServiceImpl_i.OperationString1);
+			String os1 = JSONUtil.getString(value1);
+			
+			logger.debug("execute os1[{}]", os1);
 
-//		String ip = getThreadLocalRequest().getRemoteAddr();
-//		
-//		JSONObject response = new JSONObject();
-//		response.put(data, new JSONString(ip));
+			if ( os1.equalsIgnoreCase(UIGenericServiceImpl_i.REQUEST) ) {
+				
+				JSONValue value2 = JSONUtil.getJSONValue(request, UIGenericServiceImpl_i.OperationString2);
+				String os2 = JSONUtil.getString(value2);
+				
+				logger.debug("execute os2[{}]", os2);
+				
+				UIActionMgr uiActionMgr = UIActionMgr.getInstance();
+				UIAction_i uiAction_i = uiActionMgr.getUIAction(os2);
+				if ( null != uiAction_i ) {
+					response = uiAction_i.execute(getThreadLocalRequest(), request);
+				} else {
+					logger.warn("execute os2[{}] uiAction_i IS NULL", os2);
+				}
+			}
+		}
 		
-		String host = getThreadLocalRequest().getRemoteHost();
-		
-		JSONObject response = new JSONObject();
-		response.put(data, new JSONString(host));
+		if ( null != response ) {
+			response.put("source", request);
+		}
 		
 		logger.debug("End");
 		return response;

@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dictionaries;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.json.client.JSONArray;

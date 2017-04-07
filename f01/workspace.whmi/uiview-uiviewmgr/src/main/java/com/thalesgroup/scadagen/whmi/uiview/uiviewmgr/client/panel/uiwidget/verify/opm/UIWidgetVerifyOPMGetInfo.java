@@ -30,8 +30,9 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
+		String result = null;
 		if ( null != uiOpm_i ) {
-			String result = uiOpm_i.getCurrentHostName();
+			result = uiOpm_i.getCurrentHostName();
 		} else {
 			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
 		}
@@ -51,8 +52,9 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
+		String result = null;
 		if ( null != uiOpm_i ) {
-			String result = uiOpm_i.getCurrentIPAddress();
+			result = uiOpm_i.getCurrentIPAddress();
 		} else {
 			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
 		}
@@ -106,8 +108,9 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
+		int result = -1;
 		if ( null != uiOpm_i ) {
-			int result = uiOpm_i.getConfigHOMMask(keyvalue);
+			result = uiOpm_i.getConfigHOMMask(keyvalue);
 		} else {
 			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
 		}

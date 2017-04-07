@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class ReadFiles {
 	
-	private Logger logger					= LoggerFactory.getLogger(ReadFiles.class.getSimpleName());
+	private Logger logger					= LoggerFactory.getLogger(ReadFiles.class.getName());
 	
 	private List<File> files = new ArrayList<>();
 

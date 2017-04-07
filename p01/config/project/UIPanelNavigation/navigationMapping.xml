@@ -195,7 +195,10 @@
 	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionDbm"><setting>124</setting></option>
 	<option key="LMC|MCS|HILC Verify Summary"><setting>125</setting></option>
 	
-	<option key="LMC|MCS|OPM Verify"><setting>130</setting></option>
-	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>131</setting></option>
+	<option key="LMC|MCS|JSON Verify Summary"><setting>130</setting></option>
+	<option key="LMC|MCS|JSON Verify Summary|JSON Read"><setting>131</setting></option>
+	
+	<option key="LMC|MCS|OPM Verify"><setting>132</setting></option>
+	<option key="LMC|MCS|OPM Verify Summary|OPM Summary"><setting>133</setting></option>
 
 </data-set>

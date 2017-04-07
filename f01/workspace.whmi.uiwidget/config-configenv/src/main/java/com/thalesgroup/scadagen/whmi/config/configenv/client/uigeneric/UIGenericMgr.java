@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class UIGenericMgr implements AsyncCallback<JSONObject> {
 
-	private final String className = UIWidgetUtil.getClassSimpleName(UIGenericMgr.class.getSimpleName());
+	private final String className = UIWidgetUtil.getClassSimpleName(UIGenericMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	@Override

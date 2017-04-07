@@ -14,7 +14,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.uigeneric.UIGeneric
 @SuppressWarnings("serial")
 public class UIGenericServiceImpl extends RemoteServiceServlet implements UIGenericService {
 
-	private Logger logger					= LoggerFactory.getLogger(UIGenericServiceImpl.class.getSimpleName());
+	private Logger logger					= LoggerFactory.getLogger(UIGenericServiceImpl.class.getName());
 	
 	final String componse = "componse";
 	final String request = "request";

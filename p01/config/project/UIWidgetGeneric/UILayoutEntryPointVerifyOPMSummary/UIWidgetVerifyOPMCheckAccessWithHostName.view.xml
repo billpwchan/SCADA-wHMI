@@ -13,7 +13,7 @@
 		<widget>InlineLabel</widget>
 		<label>Check Access With Host Name:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-firstlabel</css>
-		<element>first_checkaccesswithhostname_label</element>
+		<element>firstlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -23,7 +23,7 @@
 		<widget>InlineLabel</widget>
 		<label>UIOPM API:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-uiopmapilabel</css>
-		<element>uiopmapi_checkaccesswithhostname_label</element>
+		<element>uiopmapilabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -32,7 +32,7 @@
 		<widget>TextBox</widget>
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-uiopmapivalue</css>
-		<element>uiopmapi_checkaccesswithhostname_value</element>
+		<element>uiopmapivalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-uiopmapivalue</cssContainer>
@@ -44,7 +44,7 @@
 		<widget>InlineLabel</widget>
 		<label>Function:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-functionlabel</css>
-		<element>function_checkaccesswithhostname_label</element>
+		<element>functionlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -53,7 +53,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-functionvalue</css>
-		<element>function_checkaccesswithhostname_value</element>
+		<element>functionvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-functionvalue</cssContainer>
@@ -65,7 +65,7 @@
 		<widget>InlineLabel</widget>
 		<label>Location:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-locationlabel</css>
-		<element>location_checkaccesswithhostname_label</element>
+		<element>locationlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -74,7 +74,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-locationvalue</css>
-		<element>location_checkaccesswithhostname_value</element>
+		<element>locationvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-locationvalue</cssContainer>
@@ -86,7 +86,7 @@
 		<widget>InlineLabel</widget>
 		<label>Action:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-actionlabel</css>
-		<element>action_checkaccesswithhostname_label</element>
+		<element>actionlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -95,7 +95,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-actionvalue</css>
-		<element>action_checkaccesswithhostname_value</element>
+		<element>actionvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-actionvalue</cssContainer>
@@ -107,7 +107,7 @@
 		<widget>InlineLabel</widget>
 		<label>Mode:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-modelabel</css>
-		<element>mode_checkaccesswithhostname_label</element>
+		<element>modelabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -116,7 +116,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-modevalue</css>
-		<element>mode_checkaccesswithhostname_value</element>
+		<element>modevalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-modevalue</cssContainer>
@@ -150,7 +150,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-resultvalue</css>
-		<element>result_checkaccesswithhostname_value</element>
+		<element>resultvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-resultvalue</cssContainer>

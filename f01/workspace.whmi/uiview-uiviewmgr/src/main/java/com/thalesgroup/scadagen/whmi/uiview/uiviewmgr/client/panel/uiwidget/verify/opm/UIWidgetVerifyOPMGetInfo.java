@@ -18,81 +18,77 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMGetInfo.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private void getHostName() {
-		final String function = "getHostName";
+	private void getCurrentHostName() {
+		final String function = "getCurrentHostName";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
 		String result = uiOpm_i.getCurrentHostName();
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", result);
+		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
 	}
 	
-	private void getIPAddress() {
-		final String function = "getIPAddress";
+	private void getCurrentIPAddress() {
+		final String function = "getCurrentIPAddress";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
 		String result = uiOpm_i.getCurrentIPAddress();
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", result);
+		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
 	}
 	
 	private void getCurrentHOMValue() {
 		final String function = "getCurrentHOMValue";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
-		String hvidvalue	= uiGeneric.getWidgetValue("hvid_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		String hvidvalue		= uiGeneric.getWidgetValue("hvidvalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		String result = uiOpm_i.getCurrentHOMValue(hvidvalue);
+		int result = uiOpm_i.getCurrentHOMValue(hvidvalue);
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", result);
+		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 		logger.end(className, function);
 	}
 	
 	private void getConfigHOMMask() {
 		final String function = "getConfigHOMMask";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
-		String keyvalue	= uiGeneric.getWidgetValue("key_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		String result = uiOpm_i.getConfigHOMMask(keyvalue);
+		int result = uiOpm_i.getConfigHOMMask(keyvalue);
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", result);
+		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 		logger.end(className, function);
 	}
 	
 	private void launch(String element) {
-		if ( "gethostname".equals(element) ) {
-			getHostName();
-		} else if ( "getipaddress".equals(element) ) {
-			getIPAddress();
-		} else if ( "getconfighommask".equals(element) ) {
-			getConfigHOMMask();
+		if ( "getcurrenthostname".equals(element) ) {
+			getCurrentHostName();
+		} else if ( "getcurrentipaddress".equals(element) ) {
+			getCurrentIPAddress();
 		} else if ( "getcurrenthomvalue".equals(element) ) {
 			getCurrentHOMValue();
+		} else if ( "getconfighommask".equals(element) ) {
+			getConfigHOMMask();
 		}
 	}
 	

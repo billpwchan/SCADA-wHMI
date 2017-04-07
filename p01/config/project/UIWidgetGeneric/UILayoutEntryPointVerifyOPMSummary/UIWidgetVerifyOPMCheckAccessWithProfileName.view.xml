@@ -13,7 +13,7 @@
 		<widget>InlineLabel</widget>
 		<label>Check Access:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-firstlabel</css>
-		<element>first_checkaccesswithprofilename_label</element>
+		<element>firstlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -23,7 +23,7 @@
 		<widget>InlineLabel</widget>
 		<label>UIOPM API:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-uiopmapilabel</css>
-		<element>uiopmapi_checkaccesswithprofilename_label</element>
+		<element>uiopmapilabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -32,7 +32,7 @@
 		<widget>TextBox</widget>
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-uiopmapivalue</css>
-		<element>uiopmapi_checkaccesswithprofilename_value</element>
+		<element>uiopmapivalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-uiopmapivalue</cssContainer>
@@ -44,7 +44,7 @@
 		<widget>InlineLabel</widget>
 		<label>Function:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-functionlabel</css>
-		<element>function_checkaccesswithprofilename_label</element>
+		<element>functionlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -53,7 +53,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-functionvalue</css>
-		<element>function_checkaccesswithprofilename_value</element>
+		<element>functionvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-functionvalue</cssContainer>
@@ -65,7 +65,7 @@
 		<widget>InlineLabel</widget>
 		<label>Location:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-locationlabel</css>
-		<element>location_checkaccesswithprofilename_label</element>
+		<element>locationlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -74,7 +74,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-locationvalue</css>
-		<element>location_checkaccesswithprofilename_value</element>
+		<element>locationvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-locationvalue</cssContainer>
@@ -86,7 +86,7 @@
 		<widget>InlineLabel</widget>
 		<label>Action:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-actionlabel</css>
-		<element>action_checkaccesswithprofilename_label</element>
+		<element>actionlabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -95,7 +95,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-actionvalue</css>
-		<element>action_checkaccesswithprofilename_value</element>
+		<element>actionvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-actionvalue</cssContainer>
@@ -107,7 +107,7 @@
 		<widget>InlineLabel</widget>
 		<label>Mode:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-modelabel</css>
-		<element>mode_checkaccesswithprofilename_label</element>
+		<element>modelabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -116,7 +116,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-modevalue</css>
-		<element>mode_checkaccesswithprofilename_value</element>
+		<element>modevalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-modevalue</cssContainer>
@@ -150,7 +150,7 @@
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-textbox-resultvalue</css>
-		<element>result_checkaccesswithprofilename_value</element>
+		<element>resultvalue</element>
 		<maxlength>16</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithProfileName-container-resultvalue</cssContainer>

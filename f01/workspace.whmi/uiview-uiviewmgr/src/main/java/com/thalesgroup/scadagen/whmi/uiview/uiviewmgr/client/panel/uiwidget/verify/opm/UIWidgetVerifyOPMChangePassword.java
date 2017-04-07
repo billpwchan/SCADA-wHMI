@@ -23,9 +23,9 @@ public class UIWidgetVerifyOPMChangePassword extends UIWidgetRealize {
 	private void changePassword() {
 		final String function = "changePassword";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
 		String usernamevalue	= uiGeneric.getWidgetValue("usernamevalue");
 		String oldpassvalue		= uiGeneric.getWidgetValue("oldpassvalue");
 		String newpassvalue		= uiGeneric.getWidgetValue("newpassvalue");

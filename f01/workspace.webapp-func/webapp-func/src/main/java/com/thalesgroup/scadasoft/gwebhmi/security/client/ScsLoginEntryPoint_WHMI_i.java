@@ -1,7 +1,5 @@
 package com.thalesgroup.scadasoft.gwebhmi.security.client;
 
-import com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint_WHMI_i.PropertiesName;
-
 public interface ScsLoginEntryPoint_WHMI_i {
 	public enum FrameworkName {
 		  SCADAgen("SCADAgen")
@@ -33,6 +31,7 @@ public interface ScsLoginEntryPoint_WHMI_i {
 		, framework("framework")
 		, dictionary("dictionary")
 		, property("property")
+		, json("json")
 		
 		, uiCtrl("uiCtrl")
 		, uiView("uiView")

@@ -16,7 +16,7 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 
 public class ReadConfigINI implements ReadConfigInterface {
 	
-	private Logger logger					= LoggerFactory.getLogger(ReadConfigINI.class.getSimpleName());
+	private Logger logger					= LoggerFactory.getLogger(ReadConfigINI.class.getName());
 	
 	@Override
 	public List<Dictionary_i> getDictionary(String path) {

@@ -40,17 +40,31 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	// For Json Option
 	public String getData(final String fileName) {
 		final String function = "getData";
-		
 		logger.begin(className, function);
-		
-		logger.trace(className, function, "fileName[{}]", new Object[]{fileName});
-		
+		logger.trace(className, function, "fileName[{}]", fileName);
 		String value = null;
 		Dictionary dictionary = getDictionary(fileName);
-		if ( null != dictionary ) {
-			value = dictionary.getData();
+    	if ( null != dictionary ) {
+    		logger.trace(className, function, "begin of for dictionary");
+			for ( Object o : dictionary.getValueKeys() ) {
+				if ( null != o ) {
+					Dictionary d2 = (Dictionary) dictionary.getValue(o);
+					if ( null != d2 ) {
+						value = d2.getData();
+						break;
+					} else {
+						logger.warn(className, function, "d2 IS NULL");
+					}
+				} else {
+					logger.warn(className, function, "o IS NULL");
+				}
+			}
+    	} else {
+			logger.warn(className, function, "dictionary IS NULL");
 		}
-		
+//		if ( null != dictionary ) {
+//			value = dictionary.getData();
+//		}
 		return value;
 	}
 	
@@ -115,9 +129,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	
 	public void add(String folder, String extention, String tag) {
 		final String function = "add";
-		
 		logger.begin(className, function);
-		
 		logger.trace(className, function, "path[{}] extention[{}] tag[{}]", new Object[]{folder, extention, tag});
 		
 		incoming.add(folder+"|"+extention+"|"+tag);
@@ -127,7 +139,6 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	
 	public void init(String mode, String module, DictionariesCacheEvent dictionariesCacheEvent) {
 		final String function = "init";
-		
 		logger.begin(className, function);
 		
 		this.dictionariesCacheEvent = dictionariesCacheEvent;
@@ -158,15 +169,12 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		}
 		
 		logger.end(className, function);
-
 	}
 	
 	@Override
 	public void dictionariesMgrEventFailed(String xmlFile) {
 		final String function = "dictionariesMgrEventFailed";
-		
 		logger.begin(className, function);
-		
 		logger.trace(className, function, "xmlFile[{}]", xmlFile);
 		
 		received++;
@@ -185,7 +193,6 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	@Override
 	public void dictionariesMgrEventReady(Dictionary_i dictionaries) {
 		final String function = "dictionariesMgrEventReady";
-		
 		logger.begin(className, function);
 		
 		received++;

@@ -26,7 +26,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInte
 @SuppressWarnings("serial")
 public class DictionariesServiceImpl extends RemoteServiceServlet implements DictionariesService {
 	
-	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getSimpleName());
+	private Logger logger					= LoggerFactory.getLogger(DictionariesServiceImpl.class.getName());
 	
 	public Dictionary_i dictionariesServer(String configType, String configPath, String folderName, String extension, String tag) {
 		

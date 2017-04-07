@@ -1225,24 +1225,46 @@
 	
 	<option key="130">
 		<type>M</type>
-		<name>OPM Verify Summary</name>
-		<title>OPM Verify Summary</title>
+		<name>Verify Read JSON Summary</name>
+		<title>Verify Read JSON Summary</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
-		<tooltips>OPM Verify Summary</tooltips>
+		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
+		<tooltips>Verify Read JSON Summary</tooltips>
 	</option>
 	
 	<option key="131">
 		<type>P</type>
-		<name>OPM Verify Summary</name>
-		<title>OPM Verify Summary</title>
+		<name>Verify Read JSON Summary</name>
+		<title>Verify Read JSON Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
+		<tooltips>Verify Read JSON Summary</tooltips>
+	</option>
+	
+	<option key="132">
+		<type>M</type>
+		<name>Verify OPM Summary</name>
+		<title>Verify OPM Summary</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
-		<tooltips>OPM Verify Summary</tooltips>
+		<tooltips>Verify OPM Summary</tooltips>
+	</option>
+	
+	<option key="133">
+		<type>P</type>
+		<name>Verify OPM Summary</name>
+		<title>Verify OPM Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
+		<tooltips>Verify OPM Summary</tooltips>
 	</option>
 	
 </data-set>

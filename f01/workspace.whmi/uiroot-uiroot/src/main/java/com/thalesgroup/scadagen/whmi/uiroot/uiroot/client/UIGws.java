@@ -150,8 +150,8 @@ public class UIGws {
 	
 	public void initCacheXMLFile(String folder, String extention) {
 		final String function = "initCacheXMLFile";
-		
 		logger.begin(className, function);
+		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
 		
 		final String header			= "header";
 		final String option			= "option";
@@ -181,8 +181,8 @@ public class UIGws {
 	
 	public void initCachePropertiesFile (String folder, String extention) {
 		final String function = "initCachePropertiesFile";
-		
 		logger.begin(className, function);
+		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
 
 		String mode = ConfigurationType.PropertiesFile.toString();
 		String module = null;
@@ -204,8 +204,8 @@ public class UIGws {
 	
 	public void initCacheJsonsFile (String folder, String extention) {
 		final String function = "initCacheJsonsFile";
-		
 		logger.begin(className, function);
+		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
 
 		String mode = ConfigurationType.JsonFile.toString();
 		String module = null;

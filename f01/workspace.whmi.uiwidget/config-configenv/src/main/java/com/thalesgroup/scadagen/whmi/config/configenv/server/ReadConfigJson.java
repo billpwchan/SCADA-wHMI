@@ -1,14 +1,11 @@
 package com.thalesgroup.scadagen.whmi.config.configenv.server;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +14,7 @@ import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 
 public class ReadConfigJson implements ReadConfigInterface {
 	
-	private Logger logger					= LoggerFactory.getLogger(ReadConfigJson.class.getSimpleName());
+	private Logger logger					= LoggerFactory.getLogger(ReadConfigJson.class.getName());
 	
 	@Override
 	public List<Dictionary_i> getDictionary(String path) {
@@ -26,25 +23,25 @@ public class ReadConfigJson implements ReadConfigInterface {
 	@Override
 	public List<Dictionary_i> getDictionary(String path, String elm) {
 		
-		logger.debug("Begin");
-		logger.debug("Reading from the path[{}] elm[{}]", path, elm);
+		logger.debug("getDictionary Begin");
+		logger.debug("getDictionary Reading from the path[{}] elm[{}]", path, elm);
 		
 		List<Dictionary_i> dictionaries = new LinkedList<Dictionary_i>();
-		Dictionary_i dictionary = new Dictionary();
 		
-		Scanner scanner = null;
 		String data = null;
-		try  {
-			scanner = new Scanner(new File(path));
-			data = scanner.useDelimiter("\\Z").next();
-		} catch ( FileNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			if ( scanner != null ) {
-				scanner.close();
-			}
-		}
-logger.debug("Reading from the path[{}] elm[{}] data[{}]", new Object[]{path, elm, data});
+		
+//		Scanner scanner = null;
+//		try  {
+//			scanner = new Scanner(new File(path));
+//			data = scanner.useDelimiter("\\Z").next();
+//		} catch ( FileNotFoundException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if ( scanner != null ) {
+//				scanner.close();
+//			}
+//		}
+//logger.debug("Reading from the path[{}] elm[{}] data[{}]", new Object[]{path, elm, data});
 		
 		try {
 			data = readFile(path, Charset.defaultCharset());
@@ -52,13 +49,14 @@ logger.debug("Reading from the path[{}] elm[{}] data[{}]", new Object[]{path, el
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-logger.debug("Reading from the path[{}] elm[{}] data[{}]", new Object[]{path, elm, data});
+logger.debug("getDictionary Reading from the path[{}] elm[{}] data[{}]", new Object[]{path, elm, data});
 		
+		Dictionary_i dictionary = new Dictionary();
 		dictionary.setData(data);
 		
 		dictionaries.add(dictionary);
 		
-		logger.debug("End");
+		logger.debug("getDictionary End");
 		
 		return dictionaries;
 	}

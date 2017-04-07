@@ -32,8 +32,8 @@ public interface UIOpm_i {
 	
 	String getCurrentHostName();
 	String getCurrentIPAddress();
-	String getCurrentHOMValue(String hvid);
-	String getConfigHOMMask(String key);
+	int getCurrentHOMValue(String hvid);
+	int getConfigHOMMask(String key);
 	
 	boolean createOperator(String operator);
 	boolean removeOperator(String operator);

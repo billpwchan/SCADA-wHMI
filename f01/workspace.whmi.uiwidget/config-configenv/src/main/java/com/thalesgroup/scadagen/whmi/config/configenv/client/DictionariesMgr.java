@@ -15,13 +15,13 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private String folder		= null;
-	private String extension	= null;
-	private String tag			= null;
+//	private String extension	= null;
+//	private String tag			= null;
 	
 	public void setDactionaryMgrParam(String folder, String extension, String tag) {
 		this.folder		= folder;
-		this.extension	= extension;
-		this.tag		= tag;
+//		this.extension	= extension;
+//		this.tag		= tag;
 	}
 
 	private LinkedList<DictionariesMgrEvent> dictionariesMgrEvents = new LinkedList<DictionariesMgrEvent>();
@@ -46,8 +46,8 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 		logger.begin(className, function);
 		
 		this.folder		= folder;
-		this.extension	= extension;
-		this.tag		= tag;
+//		this.extension	= extension;
+//		this.tag		= tag;
 		
 		logger.info(className, function, "folder[{}] extension[{}] tag[{}]", new Object[]{folder, extension, tag});
 		

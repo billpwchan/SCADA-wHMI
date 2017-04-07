@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -27,13 +30,39 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	private UIOpmSCADAgen () {}
 	
-	private String hostName = null;
-	private String ipAddress = null;
-	private String [] profileNames = null;
+	private String currentHostName		= null;
+	private String currentIPAddress		= null;
+	
+	private String dbAttribute			= null;
+	private int bypassvalue				= -1;
+	
+	private int confighommask			= -1;
+	private boolean bConfighommask		= false;
+	
+	private int currenthomvalue			= -1;
+	private boolean bCurrenthomvalue	= false;
+	
+	private String [] profileNames	= null;
 	@Override
 	public void init() {
+		String function = "init";
+		logger.begin(className, function);
 		//hostName
 		//ipAddress
+		
+		currentHostName = getHostName();
+		logger.debug(className, function, "currentHostName[{}]", currentHostName);
+		
+		currentIPAddress = getIPAddress();
+		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
+		
+		dbAttribute = getDbAttribute();
+		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
+		
+		bypassvalue = getByPassValue();
+		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		
+		logger.end(className, function);
 	}
 	
 	@Override
@@ -234,38 +263,52 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		}
 		
 		logger.debug(className, function, "profileNames[{}]", profileNames);
-
 		logger.end(className, function);
 		return profileNames;
 	}
 	
 	@Override
 	public String getCurrentHostName() {
-		String function = "getCurrentHostName";
-		logger.begin(className, function);
-		hostName = ConfigProvider.getInstance().getClientData().getClientWorkstationProperties().getIpAddress();
-		logger.debug(className, function, "hostName[{}]", hostName);
-		logger.end(className, function);
-		return hostName;
+		// TODO Auto-generated method stub
+		return currentHostName;
 	}
 	@Override
 	public String getCurrentIPAddress() {
-		String function = "getCurrentIPAddress";
+		// TODO Auto-generated method stub
+		return currentIPAddress;
+	}
+	@Override
+	public int getCurrentHOMValue(String hvid) {
+		// TODO Auto-generated method stub
+		if ( ! bCurrenthomvalue ) {
+			
+			bCurrenthomvalue = true;
+		}
+		return currenthomvalue;
+	}
+	@Override
+	public int getConfigHOMMask(String key) {
+		String function = "getConfigHOMMask";
 		logger.begin(className, function);
-		ipAddress = ConfigProvider.getInstance().getClientData().getClientWorkstationProperties().getIpAddress();
-		logger.debug(className, "getCurrentIPAddress", "ipAddress[{}]", ipAddress);
+		if ( ! bConfighommask ) {
+			
+			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+			String fileName = UIOpmSCADAgen_i.fileName;
+			String arraykey = UIOpmSCADAgen_i.homLevelArrayKey;
+			JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arraykey);
+			
+			String objectkey = "Key";
+			JSONObject jsonObject = ReadJson.readObject(jsonArray, objectkey, key);
+			
+			String valueKey = "Value";
+			confighommask = ReadJson.readInt(jsonObject, valueKey, confighommask);
+			
+			bConfighommask = true;
+			
+			logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		}
 		logger.end(className, function);
-		return ipAddress;
-	}
-	@Override
-	public String getCurrentHOMValue(String hvid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String getConfigHOMMask(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		return confighommask;
 	}
 	
 	@Override
@@ -310,5 +353,42 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return true;
 	}
 
+	private String getDbAttribute() {
+		String function = "getDbAttribute";
+		logger.begin(className, function);
+		String result = null;
+		
+		String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+		String fileName = UIOpmSCADAgen_i.fileName;
+		String key = UIOpmSCADAgen_i.dbAttributekey;
+		String defaultValue = "Can't not read db attribute";
+		result = ReadJson.readString(dictionariesCacheName, fileName, key, defaultValue);
+		
+		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
+		logger.end(className, function);
+		return result;
+	}
 	
+	private int getByPassValue() {
+		String function = "getByPassValue";
+		logger.begin(className, function);
+		int result = -1;
+		String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+		String fileName = UIOpmSCADAgen_i.fileName;
+		String key = UIOpmSCADAgen_i.byPassValuekey;
+		int defaultValue = -1;
+		result = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
+		
+		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		logger.end(className, function);
+		return result;
+	}
+	
+	private String getIPAddress() {
+		return null;
+	}
+	
+	private String getHostName() {
+		return null;
+	}
 }

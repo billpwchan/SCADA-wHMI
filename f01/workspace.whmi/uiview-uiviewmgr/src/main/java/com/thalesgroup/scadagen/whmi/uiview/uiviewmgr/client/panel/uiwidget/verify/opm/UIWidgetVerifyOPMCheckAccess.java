@@ -42,20 +42,20 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 	private void checkAccessWithProfile() {
 		final String function = "checkAccessWithProfileName";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
-		String functionvalue	= uiGeneric.getWidgetValue("function_"+funkey+"_value");
-		String locationvalue	= uiGeneric.getWidgetValue("location_"+funkey+"_value");
-		String actionvalue		= uiGeneric.getWidgetValue("action_"+funkey+"_value");
-		String modevalue		= uiGeneric.getWidgetValue("mode_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
+		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
+		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
+		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
+		String modevalue		= uiGeneric.getWidgetValue("modevalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
 		boolean result = uiOpm_i.checkAccessWithProfileName(functionvalue, locationvalue, actionvalue, modevalue);
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", Boolean.toString(result));
+		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 		
 		logger.end(className, function);
 	}
@@ -63,20 +63,20 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 	private void checkAccessWithHostName() {
 		final String function = "checkAccessWithHostName";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
-		String functionvalue	= uiGeneric.getWidgetValue("function_"+funkey+"_value");
-		String locationvalue	= uiGeneric.getWidgetValue("location_"+funkey+"_value");
-		String actionvalue		= uiGeneric.getWidgetValue("action_"+funkey+"_value");
-		String modevalue		= uiGeneric.getWidgetValue("mode_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
+		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
+		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
+		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
+		String modevalue		= uiGeneric.getWidgetValue("modevalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
 		boolean result = uiOpm_i.checkAccessWithHostName(functionvalue, locationvalue, actionvalue, modevalue);
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", Boolean.toString(result));
+		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 		
 		logger.end(className, function);
 	}
@@ -84,23 +84,22 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 	private void checkAccessWithHom() {
 		final String function = "checkAccessWithHom";
 		logger.begin(className, function);
-		String funkey = function.toLowerCase();
 		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapi_"+funkey+"_value");
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
-		String functionvalue	= uiGeneric.getWidgetValue("function_"+funkey+"_value");
-		String locationvalue	= uiGeneric.getWidgetValue("location_"+funkey+"_value");
-		String actionvalue		= uiGeneric.getWidgetValue("action_"+funkey+"_value");
-		String modevalue		= uiGeneric.getWidgetValue("mode_"+funkey+"_value");
+		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
+		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
+		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
+		String modevalue		= uiGeneric.getWidgetValue("modevalue");
 		
-		String keyvalue			= uiGeneric.getWidgetValue("key_"+funkey+"_value");
+		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
 		boolean result = uiOpm_i.checkAccessWithHom(functionvalue, locationvalue, actionvalue, modevalue, keyvalue);
 		
-		uiGeneric.setWidgetValue("result_"+funkey+"_value", Boolean.toString(result));
+		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 		
 		logger.end(className, function);
 	}

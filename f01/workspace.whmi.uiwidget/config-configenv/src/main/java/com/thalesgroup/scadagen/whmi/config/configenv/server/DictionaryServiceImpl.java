@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class DictionaryServiceImpl extends RemoteServiceServlet implements DictionaryService {
 	
-	private Logger logger					= LoggerFactory.getLogger(DictionaryServiceImpl.class.getSimpleName());
+	private Logger logger					= LoggerFactory.getLogger(DictionaryServiceImpl.class.getName());
 
 	public Dictionary_i dictionaryServer(String mode, String module, String folder, String xmlFile, String tag) {
 		

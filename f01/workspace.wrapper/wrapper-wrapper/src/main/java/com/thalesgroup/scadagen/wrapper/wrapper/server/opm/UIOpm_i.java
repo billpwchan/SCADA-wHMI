@@ -1,4 +1,6 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.server;
+package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 
@@ -8,11 +10,6 @@ public interface UIOpm_i {
 	public static final String ACTION = "action";
 	public static final String FUNCTION = "function";
 	public static final String LOCATION = "location";
-	
-	public static final String M = "M";
-	public static final String D = "D";
-	public static final String A = "A";
-	public static final String C = "C";
 	
 	boolean checkAccess(String function, String location, String action, String mode);
 	
@@ -29,5 +26,11 @@ public interface UIOpm_i {
 			, String opmName2, String opmValue2
 			, String opmName3, String opmValue3
 			, String opmName4, String opmValue4);
+
+	String getHostName();
+	String getIPAddress();
+
+	String getRemoteHostName(HttpServletRequest httpServletRequest);
+	String getRemoteIPAddress(HttpServletRequest httpServletRequest);
 
 }

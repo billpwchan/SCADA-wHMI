@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.server;
+package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
 public interface OpmMgr_i {
 	public enum MODE {

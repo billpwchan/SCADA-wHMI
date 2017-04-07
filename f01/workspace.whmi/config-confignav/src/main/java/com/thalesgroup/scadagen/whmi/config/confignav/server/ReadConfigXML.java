@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,6 +20,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribute;
 
@@ -26,10 +28,10 @@ public class ReadConfigXML implements ReadConfigInterface {
 	
 	private Logger logger					= LoggerFactory.getLogger(ReadConfigXML.class.getName());
 
-	private ArrayList<Dictionary> getXMLDictionary(String path, String elm) {
+	private ArrayList<Dictionary_i> getXMLDictionary(String path, String elm) {
 //logger.debug("Reading from the path[{}] elm[{}]", path, elm);
 		
-		ArrayList<Dictionary> dictionarys = new ArrayList<Dictionary>();
+		ArrayList<Dictionary_i> dictionarys = new ArrayList<Dictionary_i>();
 
 		try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance ();
@@ -52,7 +54,7 @@ public class ReadConfigXML implements ReadConfigInterface {
         		Node cfgNode = cfgList.item(temp);
         		if (cfgNode.getNodeType() == Node.ELEMENT_NODE) {
         			
-        			Dictionary config = new Dictionary();
+        			Dictionary_i config = new Dictionary();
         			
         			Element eElement = (Element) cfgNode;
         			
@@ -106,28 +108,28 @@ public class ReadConfigXML implements ReadConfigInterface {
 
 		ArrayList<Task> tasks = new ArrayList<Task>();
 
-		ArrayList<Dictionary> mappings = getXMLDictionary(mappingPath, "option");
-		ArrayList<Dictionary> settings = getXMLDictionary(settingPath, "option");
+		ArrayList<Dictionary_i> mappings = getXMLDictionary(mappingPath, "option");
+		ArrayList<Dictionary_i> settings = getXMLDictionary(settingPath, "option");
 		
 		String strKey = "key";
 		String strSetting = "setting";
 
-		HashMap<String, Dictionary> settingMap = new HashMap<String, Dictionary>();
+		Map<String, Dictionary_i> settingMap = new HashMap<String, Dictionary_i>();
 		for ( int i = 0 ; i < settings.size() ; ++i ) {
-			Dictionary dictionary = settings.get(i);
+			Dictionary_i dictionary = settings.get(i);
 			String key = (String) dictionary.getAttribute(strKey);
 //logger.debug("Reading from the key[{}] dictionary[{}]", key, dictionary);
 			settingMap.put(key, dictionary);
 		}
 		
 		for ( int i = 0 ; i < mappings.size() ; ++i) {
-			Dictionary dictionaryMapping = mappings.get(i);
+			Dictionary_i dictionaryMapping = mappings.get(i);
 			String key = (String) dictionaryMapping.getAttribute(strKey);
 			String setting = (String) dictionaryMapping.getValue(strSetting);
 			
 //logger.debug("Reading from the key[{}] setting[{}]", key, setting);
 
-			Dictionary dictionarySetting = settingMap.get(setting);
+			Dictionary_i dictionarySetting = settingMap.get(setting);
 			
 			if ( dictionarySetting != null ) {
 			

@@ -138,7 +138,7 @@
     </beans:bean>
 
     <!-- Change-Password Bean Configuration -->
-    <beans:bean id="passChanger" class="com.thalesgroup.scadagen.wrapper.wrapper.server.SCADAgenLdapChangePassword">
+    <beans:bean id="passChanger" class="com.thalesgroup.scadagen.wrapper.wrapper.server.opm.SCADAgenLdapChangePassword">
         <!--  LDAP template to access the server -->
         <beans:property name="ldapTemplate">
             <beans:bean id="simpleLdapTemplate" class="org.springframework.security.ldap.SpringSecurityLdapTemplate">

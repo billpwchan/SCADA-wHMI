@@ -95,6 +95,7 @@ public class ScsLoginEntryPoint_WHMI implements EntryPoint {
     	
 		String dictionary	= map.get(PropertiesName.dictionary.toString());
 		String property 	= map.get(PropertiesName.property.toString());
+		String json		 	= map.get(PropertiesName.json.toString());
 		String uiCtrl		= map.get(PropertiesName.uiCtrl.toString());
 		String uiView		= map.get(PropertiesName.uiView.toString());
 		String uiOpts		= map.get(PropertiesName.uiOpts.toString());
@@ -103,6 +104,7 @@ public class ScsLoginEntryPoint_WHMI implements EntryPoint {
 		final UIGws uiGws = new UIGws();
 		uiGws.setDictionaryFolder(dictionary);
 		uiGws.setPropertyFolder(property);
+		uiGws.setJsonFolder(json);
 		uiGws.setUICtrl(uiCtrl);
 		uiGws.setViewXMLFile(uiView);
 		uiGws.setOptsXMLFile(uiOpts);

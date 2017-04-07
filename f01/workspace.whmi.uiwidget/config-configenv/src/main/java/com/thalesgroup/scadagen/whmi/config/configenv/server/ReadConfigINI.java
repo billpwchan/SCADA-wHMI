@@ -12,23 +12,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 
 public class ReadConfigINI implements ReadConfigInterface {
 	
 	private Logger logger					= LoggerFactory.getLogger(ReadConfigINI.class.getName());
 	
 	@Override
-	public List<Dictionary> getDictionary(String path) {
+	public List<Dictionary_i> getDictionary(String path) {
 		return getDictionary( path, null);
 	}
 	@Override
-	public List<Dictionary> getDictionary(String path, String elm) {
+	public List<Dictionary_i> getDictionary(String path, String elm) {
 		
 		logger.debug("Begin");
 		logger.debug("Reading from the path[{}] elm[{}]", path, elm);
 		
-		List<Dictionary> dictionaries = new LinkedList<Dictionary>();
-		Dictionary dictionary = new Dictionary();
+		List<Dictionary_i> dictionaries = new LinkedList<Dictionary_i>();
+		Dictionary_i dictionary = new Dictionary();
 		
 		Properties prop = new Properties();
 		InputStream input = null;

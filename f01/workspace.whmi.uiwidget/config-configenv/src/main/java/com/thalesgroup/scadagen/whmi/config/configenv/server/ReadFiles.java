@@ -44,38 +44,5 @@ public class ReadFiles {
 			this.files.add(file);
 		}
 	}
-	
-//	public void setFilePathExtension( final String configPath, final String folderName, final String extension, final boolean recursive) {
-//	logger.debug("Begin");
-//	logger.debug("configPath[{}] folderName[{}] extension[{}] extension[{}]", new Object[]{configPath, folderName, extension, recursive});
-//	String path = configPath + File.separator + folderName;
-//	logger.debug("folder[{}]", folderName);
-//	File base = new File(path);
-//	getFiles(base, extension, recursive);
-//	logger.debug("End");
-//}
-	
-//	private void getFiles ( final File folder, final String extension, final boolean recursive ) {
-//		logger.debug("Begin");
-//		logger.debug("folder[{}] extension[{}] recursive[{}]", new Object[]{folder.getPath(), extension, recursive});
-//		try {
-//			for ( final File fileEntry: folder.listFiles() ) {
-//				if ( fileEntry.isDirectory() ) {
-//					if ( recursive ) {
-//						getFiles(fileEntry, extension, recursive);
-//					}
-//				} else {
-//					logger.debug("fileEntry.getPath()[{}]", fileEntry.getPath());
-//					if ( fileEntry.getPath().endsWith(extension) ) {
-//						logger.debug("fileEntry.getPath()[{}] MATCH extension[{}]", fileEntry.getPath(), extension);
-//						this.files.add(fileEntry);
-//					}
-//				}
-//			}
-//		} catch (SecurityException e) {
-//			logger.warn("Error on get file: " + e.toString());
-//			e.printStackTrace();
-//		}
-//		logger.debug("End");
-//	}
+
 }

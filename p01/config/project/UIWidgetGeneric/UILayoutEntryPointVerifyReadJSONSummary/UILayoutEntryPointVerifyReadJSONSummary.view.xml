@@ -5,12 +5,12 @@
 		<rows>1</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
-		<rootCSS>project-UILayoutEntryPointOPMVerifySummary-root</rootCSS>
+		<rootCSS>project-UILayoutEntryPointVerifyOPMSummary-root</rootCSS>
 	</header>
 	<option key="0|0">
 		<uiCtrl>UILayoutSummary</uiCtrl>
-		<uiView>UILayoutEntryPointOPMVerifySummary/UILayoutOPMVerifySummary.view.xml</uiView>
-		<uiOpts>UILayoutEntryPointOPMVerifySummary/UILayoutOPMVerifySummary.opts.xml</uiOpts>
-		<element>UILayoutOPMVerifySummary</element>
+		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutVerifyReadJSONSummary.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointVerifyReadJSONSummary/UILayoutVerifyReadJSONSummary.opts.xml</uiOpts>
+		<element>UILayoutVerifyReadJSONSummary</element>
 	</option>
 </data-set>

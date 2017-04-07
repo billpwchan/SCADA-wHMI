@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>12</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyReadJSONReadString-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>readstring:</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>Dictionaries Cache Name:</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-inlinelabel-dictionariescachenamelabel</css>
+		<element>dictionariescachenamelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>UIJson</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-textbox-dictionariescachenamevalue</css>
+		<element>dictionariescachenamevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadString-container-dictionariescachenamevalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>File Name:</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-inlinelabel-filenamelabel</css>
+		<element>filenamelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label>hom.json</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-textbox-filenamevalue</css>
+		<element>filenamevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadString-container-filenamevalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>Key:</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-inlinelabel-keylabel</css>
+		<element>keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextBox</widget>
+		<label>DBAttribute</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-textbox-keyvalue</css>
+		<element>keyvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadString-container-keyvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>Default Value:</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-inlinelabel-defaultvaluelabel</css>
+		<element>defaultvaluelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>Can't read from json</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-textbox-defaultvaluevalue</css>
+		<element>defaultvaluevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadString-container-defaultvaluevalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|9">
+		<widget>Button</widget>
+		<label>readstring</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-button-readstring</css>
+		<element>readstring</element>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadString-container-readstring</cssContainer>
+		
+		<tooltip>readstring</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|10">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyReadJSONReadString-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyReadJSONReadString-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadString-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

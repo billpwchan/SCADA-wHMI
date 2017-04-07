@@ -113,11 +113,12 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		String strProfile = null;
 		String strWorkstation = null;
 		
-		UIOpm_i uiOpm_i = OpmMgr.getInstance(strOpmApi);
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		UIOpm_i uiOpm_i = opmMgr.getOpm(strOpmApi);
 		if ( null != uiOpm_i ) {
 			logger.debug(className, function, "call opm_i login");
 			
-			strOperator = uiOpm_i.getOperator();
+			strOperator = uiOpm_i.getCurrentOperator();
 			if ( null != strOperator ) {
 				logger.info(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetOperator, strOperator);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetOperator, strOperator);
@@ -126,7 +127,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				logger.info(className, function, logPrefix+"strOperator IS NULL");
 			}
 
-			strProfile = uiOpm_i.getOperator();
+			strProfile = uiOpm_i.getCurrentOperator();
 			if ( null != strProfile ) {
 				logger.info(className, function, logPrefix+"strGetOperator[{}] strOperator[{}]", strGetProfile, strProfile);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetProfile, strProfile);
@@ -135,7 +136,7 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 				logger.info(className, function, logPrefix+"strProfile IS NULL");
 			}
 
-			strWorkstation = uiOpm_i.getWorkstation();
+			strWorkstation = uiOpm_i.getCurrentHostName();
 			if ( null != strWorkstation ) {
 				logger.info(className, function, logPrefix+"strGetWorkstation[{}] strWorkstation[{}]", strGetWorkstation, strWorkstation);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetWorkstation, strWorkstation);

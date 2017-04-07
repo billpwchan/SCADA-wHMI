@@ -1,14 +1,19 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -25,10 +30,50 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	private UIOpmSCADAgen () {}
 	
+	private String currentHostName		= null;
+	private String currentIPAddress		= null;
+	
+	private String dbAttribute			= null;
+	private int bypassvalue				= -1;
+	
+	private int confighommask			= -1;
+	private boolean bConfighommask		= false;
+	
+	private int currenthomvalue			= -1;
+	private boolean bCurrenthomvalue	= false;
+	
+	private String [] profileNames	= null;
 	@Override
-	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3, String opmValue3, String opmName4, String opmValue4) {
+	public void init() {
+		String function = "init";
+		logger.begin(className, function);
+		//hostName
+		//ipAddress
+		
+		currentHostName = getHostName();
+		logger.debug(className, function, "currentHostName[{}]", currentHostName);
+		
+		currentIPAddress = getIPAddress();
+		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
+		
+		dbAttribute = getDbAttribute();
+		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
+		
+		bypassvalue = getByPassValue();
+		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		
+		logger.end(className, function);
+	}
+	
+	@Override
+	public boolean checkAccess(
+			  String opmName1, String opmValue1
+			, String opmName2, String opmValue2
+			, String opmName3, String opmValue3
+			, String opmName4, String opmValue4) {
 		String function = "checkAccess";
 		logger.begin(className, function);
+		
 		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
 		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
 		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
@@ -73,42 +118,11 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
-//	@Override
-//	public boolean checkAccess(String opmName1, String opmValue1, String opmName2, String opmValue2, String opmName3, String opmValue3) {
-//		String function = "checkAccess";
-//		logger.begin(className, function);
-//		logger.debug(className, function, "opmName1[{}] opmValue1[{}]", opmName1, opmValue1);
-//		logger.debug(className, function, "opmName2[{}] opmValue2[{}]", opmName2, opmValue2);
-//		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
-//
-//		boolean result = false;
-//		
-//		result = checkAccess(
-//				  opmName1, opmValue1
-//				, opmName2, opmValue2
-//				, opmName3, opmValue3
-//				, MODE, DefaultModeValue);
-//
-//		return result;
-//	}
-
-//	@Override
-//	public boolean checkAccess(String functionValue, String locationValue, String actionValue) {
-//		String function = "checkAccess";
-//		logger.begin(className, function);
-//		logger.info(className, function, "functionValue[{}] locationValue[{}] actionValue[{}]", new Object[]{functionValue, locationValue, actionValue});
-//		
-//		boolean result = false;
-//		
-//		result = checkAccess(functionValue, locationValue, actionValue, DefaultModeValue);
-//		
-//		logger.end(className, function);
-//		return result;
-//	}
 	@Override
 	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
-		logger.begin(className, functionValue);
-		logger.info(className, functionValue, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
+		final String function = "function";
+		logger.begin(className, function);
+		logger.info(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
 		
 		boolean result = false;
 		
@@ -117,17 +131,77 @@ public class UIOpmSCADAgen implements UIOpm_i {
 								, LOCATION, locationValue
 								, ACTION, actionValue
 								, MODE, modeValue
-								);
+							);
 		
-		logger.end(className, functionValue);
+		logger.end(className, function);
 		return result;
 	}
+
+	@Override
+	public boolean checkAccessWithHom(String functionValue, String locationValue, String actionValue, String modeValue, String key) {
+		final String function = "checkAccess";
+		logger.begin(className, function);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] key[{}]", new Object[]{function, locationValue, actionValue, modeValue, key});
+		
+		boolean result = false;
+		
+		result = checkAccess(
+				  functionValue
+				, locationValue
+				, actionValue
+				, modeValue
+				);
+		
+		logger.end(className, function);
+		return result;
+	}
+	
+	@Override
+	public boolean checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue) {
+		final String function = "checkAccessWithHostName";
+		logger.begin(className, function);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		
+		boolean result = false;
+
+		result = checkAccessWithHom(
+				  functionValue
+				, locationValue
+				, actionValue
+				, modeValue
+				, getCurrentHostName()
+				);
+		
+		logger.end(className, function);
+		return result;
+	}
+	
+	@Override
+	public boolean checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue) {
+		final String function = "checkAccessWithProfileName";
+		logger.begin(className, function);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		
+		boolean result = false;
+
+		result = checkAccessWithHom(
+				  functionValue
+				, locationValue
+				, actionValue
+				, modeValue
+				, getCurrentProfile()
+				);
+		
+		logger.end(className, function);
+		return result;
+	}
+	
 	@Override
 	public void changePassword(String operator, String oldPass, String newPass, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
 		logger.begin(className, function);
 		
-		logger.info(className, function, "operator[{}]", operator);
+		logger.debug(className, function, "operator[{}]", operator);
 
 		new SpringChangePassword().changePassword(operator, oldPass, newPass, uiWrapperRpcEvent_i); 
 		
@@ -135,39 +209,108 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 	}
 	@Override
-	public String getOperator() {
-		String function = "getOperator";
+	public String getCurrentOperator() {
+		String function = "getCurrentOperator";
 		logger.begin(className, function);
 		String operatorId = null;
 		operatorId = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getId();
-		logger.info(className, function, "operatorId[{}]", operatorId);
+		logger.debug(className, function, "operatorId[{}]", operatorId);
 		return operatorId;
 	}
 	@Override
-	public String getProfile() {
-		String function = "getProfile";
+	public String getCurrentProfile() {
+		String function = "getCurrentProfile";
 		logger.begin(className, function);
-		String roleId = null;
-		Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
-		if ( null != roles ) {
-			Set<String> keys = roles.keySet();
-			for ( String key : keys ) {
-				logger.info(className, function, "key[{}]", key);
-				roleId = roles.get(key).getId();
-				logger.info(className, function, "roleId[{}]", roleId);
-				break;
-			}
-		} else {
-			logger.warn(className, function, "roleId IS NULL");
+		String profile = null;
+		if ( null == profileNames ) {
+			getCurrentProfiles();
 		}
-		logger.info(className, function, "roleId[{}]", roleId);
-		return roleId;
+		if ( null != profileNames ) {
+			if ( profileNames.length > 0 ) {
+				profile = profileNames[0];
+			}
+		}
+		logger.debug(className, function, "profile[{}]", profile);
+		logger.end(className, function);
+		return profile;
+	}
+	
+	@Override
+	public String[] getCurrentProfiles() {
+		String function = "getCurrentProfiles";
+		logger.begin(className, function);
+		
+		if ( null == profileNames ) {
+			List<String> roleIds = null;
+			Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
+			if ( null != roles ) {
+				Set<String> keys = roles.keySet();
+				for ( String key : keys ) {
+					logger.debug(className, function, "key[{}]", key);
+					
+					String roleId = roles.get(key).getId();
+					logger.debug(className, function, "roleId[{}]", roleId);
+					
+					if ( null == roleIds ) roleIds = new LinkedList<String>();
+					
+					roleIds.add(roleId);
+				}
+			} else {
+				logger.warn(className, function, "roleId IS NULL");
+			}
+			
+			profileNames = roleIds.toArray(new String[0]);
+		}
+		
+		logger.debug(className, function, "profileNames[{}]", profileNames);
+		logger.end(className, function);
+		return profileNames;
+	}
+	
+	@Override
+	public String getCurrentHostName() {
+		// TODO Auto-generated method stub
+		return currentHostName;
 	}
 	@Override
-	public String getWorkstation() {
+	public String getCurrentIPAddress() {
 		// TODO Auto-generated method stub
-		return null;
+		return currentIPAddress;
 	}
+	@Override
+	public int getCurrentHOMValue(String hvid) {
+		// TODO Auto-generated method stub
+		if ( ! bCurrenthomvalue ) {
+			
+			bCurrenthomvalue = true;
+		}
+		return currenthomvalue;
+	}
+	@Override
+	public int getConfigHOMMask(String key) {
+		String function = "getConfigHOMMask";
+		logger.begin(className, function);
+		if ( ! bConfighommask ) {
+			
+			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+			String fileName = UIOpmSCADAgen_i.fileName;
+			String arraykey = UIOpmSCADAgen_i.homLevelArrayKey;
+			JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arraykey);
+			
+			String objectkey = "Key";
+			JSONObject jsonObject = ReadJson.readObject(jsonArray, objectkey, key);
+			
+			String valueKey = "Value";
+			confighommask = ReadJson.readInt(jsonObject, valueKey, confighommask);
+			
+			bConfighommask = true;
+			
+			logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		}
+		logger.end(className, function);
+		return confighommask;
+	}
+	
 	@Override
 	public boolean createOperator(String operator) {
 		// TODO Auto-generated method stub
@@ -209,5 +352,43 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 		return true;
 	}
+
+	private String getDbAttribute() {
+		String function = "getDbAttribute";
+		logger.begin(className, function);
+		String result = null;
+		
+		String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+		String fileName = UIOpmSCADAgen_i.fileName;
+		String key = UIOpmSCADAgen_i.dbAttributekey;
+		String defaultValue = "Can't not read db attribute";
+		result = ReadJson.readString(dictionariesCacheName, fileName, key, defaultValue);
+		
+		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
+		logger.end(className, function);
+		return result;
+	}
 	
+	private int getByPassValue() {
+		String function = "getByPassValue";
+		logger.begin(className, function);
+		int result = -1;
+		String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+		String fileName = UIOpmSCADAgen_i.fileName;
+		String key = UIOpmSCADAgen_i.byPassValuekey;
+		int defaultValue = -1;
+		result = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
+		
+		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		logger.end(className, function);
+		return result;
+	}
+	
+	private String getIPAddress() {
+		return null;
+	}
+	
+	private String getHostName() {
+		return null;
+	}
 }

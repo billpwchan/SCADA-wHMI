@@ -3,16 +3,16 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>14</cols>
+		<cols>16</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-UIWidgetOPMVerifyChangePassword-panel-inner</rootCss>
+		<rootCss>project-UIWidgetVerifyOPMChangePassword-panel-inner</rootCss>
 	</header>
 	
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>Check Access:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-firstlabel</css>
+		<label>Check Access With HOM:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>
 		<media></media>
@@ -22,7 +22,7 @@
 	<option key="0|1">
 		<widget>InlineLabel</widget>
 		<label>UIOPM API:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-uiopmapilabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-uiopmapilabel</css>
 		<element>uiopmapilabel</element>
 		<format></format>
 		<media></media>
@@ -31,11 +31,11 @@
 	<option key="0|2">
 		<widget>TextBox</widget>
 		<label>UIOpmSCADAgen</label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-uiopmapivalue</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-uiopmapivalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-uiopmapivalue</cssContainer>
 		
 	</option>
 	
@@ -43,7 +43,7 @@
 	<option key="0|3">
 		<widget>InlineLabel</widget>
 		<label>Function:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-functionlabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-functionlabel</css>
 		<element>functionlabel</element>
 		<format></format>
 		<media></media>
@@ -52,11 +52,11 @@
 	<option key="0|4">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-functionvalue</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-functionvalue</css>
 		<element>functionvalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-functionvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-functionvalue</cssContainer>
 		
 	</option>
 	
@@ -64,7 +64,7 @@
 	<option key="0|5">
 		<widget>InlineLabel</widget>
 		<label>Location:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-locationlabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-locationlabel</css>
 		<element>locationlabel</element>
 		<format></format>
 		<media></media>
@@ -73,11 +73,11 @@
 	<option key="0|6">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-locationvalue</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-locationvalue</css>
 		<element>locationvalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-locationvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-locationvalue</cssContainer>
 		
 	</option>
 	
@@ -85,7 +85,7 @@
 	<option key="0|7">
 		<widget>InlineLabel</widget>
 		<label>Action:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-actionlabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-actionlabel</css>
 		<element>actionlabel</element>
 		<format></format>
 		<media></media>
@@ -94,11 +94,11 @@
 	<option key="0|8">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-actionvalue</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-actionvalue</css>
 		<element>actionvalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-actionvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-actionvalue</cssContainer>
 		
 	</option>
 	
@@ -106,7 +106,7 @@
 	<option key="0|9">
 		<widget>InlineLabel</widget>
 		<label>Mode:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-modelabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-modelabel</css>
 		<element>modelabel</element>
 		<format></format>
 		<media></media>
@@ -115,16 +115,37 @@
 	<option key="0|10">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-modevalue</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-modevalue</css>
 		<element>modevalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-modevalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-modevalue</cssContainer>
+		
+	</option>
+	
+
+	<option key="0|11">
+		<widget>InlineLabel</widget>
+		<label>Key:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-keylabel</css>
+		<element>modelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-keyvalue</css>
+		<element>keyvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-keyvalue</cssContainer>
 		
 	</option>
 
 	
-	<option key="0|11">
+	<option key="0|13">
 		<widget>Button</widget>
 		<label>Check Access</label>
 		<css>project-UIWidgetDpcTagControl-button-checkaccess</css>
@@ -137,23 +158,23 @@
 	</option>
 	
 	
-	<option key="0|12">
+	<option key="0|14">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
-		<css>project-UIWidgetOPMVerifyControl-inlinelabel-resultlabel</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-resultlabel</css>
 		<element>resultlabel</element>
 		<format></format>
 		<media></media>
 	</option>
 	
-	<option key="0|13">
+	<option key="0|15">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetOPMVerifyControl-textbox-resultvalue</css>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-resultvalue</css>
 		<element>resultvalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetOPMVerifyControl-container-resultvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-resultvalue</cssContainer>
 		
 	</option>
 	

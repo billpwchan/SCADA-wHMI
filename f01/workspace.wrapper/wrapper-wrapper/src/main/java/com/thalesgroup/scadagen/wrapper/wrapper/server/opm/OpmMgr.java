@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.server;
+package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
 import java.util.HashMap;
 
@@ -18,8 +18,10 @@ public class OpmMgr {
 		UIOpm_i uiOpm_i = instances.get(key);
 		
 		if ( null == uiOpm_i ) {
+			
+			String UIOpmSCADAgenClassName = UIOpmSCADAgen.class.getSimpleName();
 
-			if ( "UIOpmSCADAgen".equals(key) ) {	uiOpm_i = UIOpmSCADAgen.getInstance(); }
+			if ( UIOpmSCADAgenClassName.equals(key) ) {	uiOpm_i = UIOpmSCADAgen.getInstance(); }
 			
 			if ( null != uiOpm_i ) instances.put(key, uiOpm_i);
 		}

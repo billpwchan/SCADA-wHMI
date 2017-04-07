@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>8</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyOPMGetConfigHOMMask-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Get Client Info:</label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-inlinelabel-uiopmapilabel</css>
+		<element>uiopmapilabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-textbox-uiopmapivalue</css>
+		<element>uiopmapivalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMGetConfigHOMMask-container-uiopmapivalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>Key:</label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-inlinelabel-keylabel</css>
+		<element>keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label>PC16011</label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-textbox-keyvalue</css>
+		<element>keyvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMGetConfigHOMMask-container-keyvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|5">
+		<widget>Button</widget>
+		<label>getconfighommask</label>
+		<css>project-UIWidgetDpcTagControl-button-getconfighommask</css>
+		<element>getconfighommask</element>
+		
+		<cssContainer>project-UIWidgetDpcTagControl-container-getconfighommask</cssContainer>
+		
+		<tooltip>getconfighommask</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMGetConfigHOMMask-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

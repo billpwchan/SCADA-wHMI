@@ -203,7 +203,7 @@
   
   <servlet>
     <servlet-name>uiGenericServiceServlet</servlet-name>
-	<servlet-class>com.thalesgroup.scadagen.whmi.config.configenv.server.uigeneric.UIGenericServiceImpl</servlet-class>
+	<servlet-class>com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>

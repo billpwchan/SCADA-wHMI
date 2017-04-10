@@ -11,7 +11,7 @@
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>Get Client Info:</label>
+		<label>Get Config HOM Mask:</label>
 		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>

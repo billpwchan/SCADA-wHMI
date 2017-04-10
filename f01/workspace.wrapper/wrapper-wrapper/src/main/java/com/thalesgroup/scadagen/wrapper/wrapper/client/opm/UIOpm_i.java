@@ -17,18 +17,24 @@ public interface UIOpm_i {
 			);
 	
 	boolean checkAccess(String function, String location, String action, String mode);
+	
+	public interface CheckAccessWithHOMEvent_i {
+		void result(boolean result);
+	}
 
-	boolean checkAccessWithHom(String function, String location, String action, String mode, String key);
+	void checkAccessWithHom(String function, String location, String action, String mode, String hvid, String key, CheckAccessWithHOMEvent_i resultEvent);
 	
-	boolean checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue);
+	void checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent);
 	
-	boolean checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue);
+	void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent);
 	
 	void changePassword(String operator, String oldPassword, String newPassword, UIWrapperRpcEvent_i uiWrapperRpcEvent_i);
 	
 	String getCurrentOperator();
+	
 	String getCurrentProfile();
 	String[] getCurrentProfiles();
+	void setCurrentProfile();
 	
 	int getConfigHOMMask(String key);
 	
@@ -47,5 +53,4 @@ public interface UIOpm_i {
 	boolean login(String operator, String password);
 	boolean logout();
 
-	
 }

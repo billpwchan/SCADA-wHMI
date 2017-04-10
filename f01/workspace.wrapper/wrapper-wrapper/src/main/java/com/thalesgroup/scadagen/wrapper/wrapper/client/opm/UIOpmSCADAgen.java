@@ -9,6 +9,7 @@ import java.util.Set;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.json.client.JSONValue;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.config.client.ConfigProvider;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.AuthorizationCheckerC;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.checker.IAuthorizationCheckerC;
@@ -16,8 +17,6 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.uigeneric.UIGenericMgr;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.uigeneric.UIGenericMgrEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -25,6 +24,10 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRe
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.HVID2SCS;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgrEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction.UIActionOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 
 public class UIOpmSCADAgen implements UIOpm_i {
 	
@@ -37,15 +40,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return instance;
 	}
 	private UIOpmSCADAgen () {}
-	
-	private String currentHostName		= null;
-	private String currentIPAddress		= null;
-	
-	private String dbAttribute			= null;
-	private int bypassvalue				= -1;
-	
-	private HashMap<String, Integer> confighommasks	= new HashMap<String, Integer>();
-	
+
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	
 	private String [] profileNames	= null;
@@ -57,18 +52,17 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		String multiReadMethod1 = "DatabaseMultiReading";
 		
 		databaseMultiRead_i = DatabaseMultiReadFactory.get(multiReadMethod1);
-		if ( null == databaseMultiRead_i ) logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
-		databaseMultiRead_i.connect();
+		if ( null != databaseMultiRead_i ) {
+			databaseMultiRead_i.connect();
+		} else {
+			logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
+		}
 		
-		getHostName();
+		// Prepare HostName
+		getCurrentHostName();
 		
-		getIPAddress();
-		
-		dbAttribute = getDbAttribute();
-		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
-		
-		bypassvalue = getByPassValue();
-		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		// Prepare IPAddress
+		getCurrentIPAddress();
 		
 		logger.end(className, function);
 	}
@@ -146,62 +140,100 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 
 	@Override
-	public boolean checkAccessWithHom(String functionValue, String locationValue, String actionValue, String modeValue, String key) {
+	public void checkAccessWithHom(final String functionValue
+			, final String locationValue
+			, final String actionValue
+			, final String modeValue
+			, final String hvid
+			, final String key
+			, final CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccess";
 		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] key[{}]", new Object[]{function, locationValue, actionValue, modeValue, key});
+		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hvid[{}] key[{}]"
+				, new Object[]{functionValue, locationValue, actionValue, modeValue, hvid, key});
 		
-		boolean result = false;
-		
-		result = checkAccess(
-				  functionValue
-				, locationValue
-				, actionValue
-				, modeValue
-				);
+		if ( null != resultEvent ) {
+			if ( isHOMAction(actionValue) ) {
+				getCurrentHOMValue(hvid, new GetCurrentHOMValueEvent_i() {
+					@Override
+					public void update(String dbaddress, int value) {
+
+						boolean caResult = false;
+						boolean homResult = false;
+					
+						if ( ! isByPassValue(value) ) {
+							if ( (value & getConfigHOMMask(key)) > 0 ) {
+								homResult = true;
+							}
+						} else {
+							homResult = true;
+						}
+						
+						caResult = checkAccess(
+										  functionValue
+										, locationValue
+										, actionValue
+										, modeValue
+										);
+						
+						resultEvent.result(caResult && homResult);
+					}
+				});
+			} else {
+				boolean caResult = false;
+				
+				caResult = checkAccess(
+						  functionValue
+						, locationValue
+						, actionValue
+						, modeValue
+						);
+				
+				resultEvent.result(caResult);
+			}
+		} else {
+			logger.warn(className, function, "resultEvent IS NULL");
+		}
 		
 		logger.end(className, function);
-		return result;
 	}
 	
 	@Override
-	public boolean checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue) {
+	public void checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccessWithHostName";
 		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] hvid[{}]", new Object[]{function, locationValue, actionValue, modeValue, hvid});
 		
-		boolean result = false;
-
-		result = checkAccessWithHom(
+		checkAccessWithHom(
 				  functionValue
 				, locationValue
 				, actionValue
 				, modeValue
+				, hvid
 				, getCurrentHostName()
+				, resultEvent
 				);
 		
 		logger.end(className, function);
-		return result;
 	}
 	
 	@Override
-	public boolean checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue) {
+	public void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccessWithProfileName";
 		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]", new Object[]{function, locationValue, actionValue, modeValue});
-		
-		boolean result = false;
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] hvid[{}]", new Object[]{function, locationValue, actionValue, modeValue, hvid});
 
-		result = checkAccessWithHom(
+		checkAccessWithHom(
 				  functionValue
 				, locationValue
 				, actionValue
 				, modeValue
+				, hvid
 				, getCurrentProfile()
+				, resultEvent
 				);
 		
 		logger.end(className, function);
-		return result;
 	}
 	
 	@Override
@@ -214,7 +246,6 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		new SpringChangePassword().changePassword(operator, oldPass, newPass, uiWrapperRpcEvent_i); 
 		
 		logger.end(className, function);
-		
 	}
 	@Override
 	public String getCurrentOperator() {
@@ -276,61 +307,171 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
-	public String getCurrentHostName() {
+	public void setCurrentProfile() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	private String currentHostName = null;
+	@Override
+	public String getCurrentHostName() {
+		final String function = "getCurrentHostName";
+		logger.begin(className, function);
+		
+		if ( null == currentHostName ) {
+			JSONObject request = new JSONObject();
+	        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
+	        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.GetCurrentHostName));
+			
+			UIGenericMgr uiGenericMgr = new UIGenericMgr();
+			uiGenericMgr.execute(request, new UIGenericMgrEvent() {
+				
+				@Override
+				public void uiGenericMgrEventReady(JSONObject response) {
+					final String function2 = function + " uiGenericMgrEventReady";
+					logger.begin(className, function2);
+					if ( null != response ) {
+						logger.debug(className, function2, "response[{}]", response.toString());
+						JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
+						if ( null != v && null != v.isObject() ) {
+							JSONObject o = v.isObject();
+							if ( null != o ) {
+								JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
+								if ( null != tv && null != tv.isString() ) {
+									currentHostName = tv.isString().stringValue();
+								} else {
+									logger.warn(className, function2, "tv[{}] IS INVALID", tv);
+								}
+							} else {
+								logger.warn(className, function2, "o IS NULL");
+							}
+						} else {
+							logger.warn(className, function2, "v[{}] IS INVALID", v);
+						}
+						logger.debug(className, function2, "currentHostName[{}]", currentHostName);
+					} else {
+						logger.warn(className, function2, "response IS NULL");
+					}
+					logger.end(className, function2);
+				}
+	
+				@Override
+				public void uiGenericMgrEventFailed(JSONObject response) {
+					final String function2 = function + " uiGenericMgrEventFailed";
+					logger.beginEnd(className, function2);
+				}
+			});			
+		}
+		logger.debug(className, function, "currentHostName[{}]", currentHostName);
+		logger.end(className, function);
 		return currentHostName;
 	}
+	
+	private String currentIPAddress = null;
 	@Override
 	public String getCurrentIPAddress() {
-		// TODO Auto-generated method stub
+		final String function = "getIPAddress";
+		logger.begin(className, function);
+		
+		if ( null == currentIPAddress ) {
+			UIGenericMgr uiGenericMgr = new UIGenericMgr();
+			JSONObject request = new JSONObject();
+	        request.put(UIGenericServiceImpl_i.OperationAttribute3, new JSONString(UIActionOpm_i.ComponentName));
+	        request.put(UIGenericServiceImpl_i.OperationAttribute4, new JSONString(UIActionOpm_i.GetCurrentIPAddress));
+			
+			uiGenericMgr.execute(request, new UIGenericMgrEvent() {
+				
+				@Override
+				public void uiGenericMgrEventReady(JSONObject response) {
+					final String function2 = function + " uiGenericMgrEventReady";
+					logger.begin(className, function2);
+					if ( null != response ) {
+						logger.debug(className, function2, "response[{}]", response.toString());
+						JSONValue v = response.get(UIGenericServiceImpl_i.OperationParameter1);
+						if ( null != v && null != v.isObject() ) {
+							JSONObject o = v.isObject();
+							if ( null != o ) {
+								JSONValue tv = o.get(UIGenericServiceImpl_i.OperationValue1);
+								if ( null != tv && null != tv.isString() ) {
+									currentIPAddress = tv.isString().stringValue();
+								} else {
+									logger.warn(className, function2, "tv[{}] IS INVALID", tv);
+								}
+							} else {
+								logger.warn(className, function2, "o IS NULL");
+							}
+						} else {
+							logger.warn(className, function2, "v[{}] IS INVALID", v);
+						}
+						logger.debug(className, function2, "currentIPAddress[{}]", currentIPAddress);
+					} else {
+						logger.debug(className, function2, "response IS NULL");
+					}
+					logger.end(className, function2);
+				}
+
+				@Override
+				public void uiGenericMgrEventFailed(JSONObject response) {
+					final String function2 = function + " uiGenericMgrEventFailed";
+					logger.beginEnd(className, function2);
+				}
+			});
+		}
+		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
+		logger.end(className, function);
 		return currentIPAddress;
 	}
 	@Override
-	public void getCurrentHOMValue(final String hv_id, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
+	public void getCurrentHOMValue(final String hvid, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
 		final String function = "getCurrentHOMValue";
 		logger.begin(className, function);
-		logger.debug(className, function, "hv_id[{}]", hv_id);
+		logger.debug(className, function, "hvid[{}]", hvid);
 		HVID2SCS hvid2scs = new HVID2SCS();
-		hvid2scs.setHVID(hv_id);
+		hvid2scs.setHVID(hvid);
 		hvid2scs.init();
 		
-		String scsEnvId	= hv_id;
+		String scsEnvId	= hvid;
 		String parent	= hvid2scs.getDBAddress();
 		
-		String dbAddress = parent + dbAttribute;
+		String dbAddress = parent + getDbAttribute();
 		String [] dbAddresses = new String[]{dbAddress};
 		
 		final String clientKey = className+function;
-		
-		databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
+		if ( null != databaseMultiRead_i ) {
+			databaseMultiRead_i.addMultiReadValueRequest(clientKey, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
 
-			@Override
-			public void update(String key, String[] dbAddresses, String[] dbValues) {
-				// TODO Auto-generated method stub
-				if ( null != key ) {
-					if ( key.equals(clientKey) ) {
-						if ( null != getCurrentHOMValueEvent_i ) {
-							if ( null != dbAddresses && null != dbValues ) {
-								if ( dbAddresses.length > 0 && dbValues.length > 0 ) {
-									String dbaddress = dbAddresses[0];
-									String dbvalue = dbValues[0];
-									int value = Integer.parseInt(dbvalue);
-									getCurrentHOMValueEvent_i.update(dbaddress, value);
+				@Override
+				public void update(String key, String[] dbAddresses, String[] dbValues) {
+					if ( null != key ) {
+						if ( key.equals(clientKey) ) {
+							if ( null != getCurrentHOMValueEvent_i ) {
+								if ( null != dbAddresses && null != dbValues ) {
+									if ( dbAddresses.length > 0 && dbValues.length > 0 ) {
+										String dbaddress = dbAddresses[0];
+										String dbvalue = dbValues[0];
+										int value = Integer.parseInt(dbvalue);
+										getCurrentHOMValueEvent_i.update(dbaddress, value);
+									} else {
+										logger.warn(className, function, "dbAddresses.length > 0 || dbAddresses.length > 0 IS INVALID");
+									}
 								} else {
-									logger.warn(className, function, "dbAddresses.length > 0 || dbAddresses.length > 0 IS INVALID");
+									logger.warn(className, function, "dbAddresses || dbValues IS NULL");
 								}
 							} else {
-								logger.warn(className, function, "dbAddresses || dbValues IS NULL");
+								logger.warn(className, function, "getCurrentHOMValueEvent_i IS NULL");
 							}
-						} else {
-							logger.warn(className, function, "getCurrentHOMValueEvent_i IS NULL");
 						}
 					}
 				}
-			}
-		});
+			});
+		} else {
+			logger.warn(className, function, "databaseMultiRead_i IS NULL");
+		}
+
 		logger.end(className, function);
 	}
+	
+	private HashMap<String, Integer> confighommasks	= new HashMap<String, Integer>();
 	@Override
 	public int getConfigHOMMask(String key) {
 		String function = "getConfigHOMMask";
@@ -340,7 +481,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			
 			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
 			String fileName = UIOpmSCADAgen_i.fileName;
-			String arraykey = UIOpmSCADAgen_i.homLevelArrayKey;
+			String arraykey = UIOpmSCADAgen_i.homLevelsArrayKey;
 			JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arraykey);
 			
 			String objectkey = "Key";
@@ -351,11 +492,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			
 			confighommasks.put(key, confighommask);
 		}
-
 		int confighommask = confighommasks.get(key);
-		
-		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
-
+		logger.debug(className, function, "confighommask[{}]", confighommask);
 		logger.end(className, function);
 		return confighommask;
 	}
@@ -402,98 +540,99 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return true;
 	}
 
+	private String dbAttribute = null;
 	private String getDbAttribute() {
 		String function = "getDbAttribute";
 		logger.begin(className, function);
-		String result = null;
-		
-		String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-		String fileName = UIOpmSCADAgen_i.fileName;
-		String key = UIOpmSCADAgen_i.dbAttributekey;
-		String defaultValue = "Can't not read db attribute";
-		result = ReadJson.readString(dictionariesCacheName, fileName, key, defaultValue);
-		
+
+		if ( null == dbAttribute ) {
+			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+			String fileName = UIOpmSCADAgen_i.fileName;
+			String key = UIOpmSCADAgen_i.dbAttributekey;
+			String defaultValue = "Can't not read db attribute";
+			dbAttribute = ReadJson.readString(dictionariesCacheName, fileName, key, defaultValue);
+		}
 		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
+		logger.end(className, function);
+		return dbAttribute;
+	}
+	
+	private String homActions[] = null;
+	private String[] getHomActions() {
+		final String function = "getHomActions";
+		logger.begin(className, function);
+		
+		if ( null == homActions ) {
+			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+			String fileName = UIOpmSCADAgen_i.fileName;
+			String key = UIOpmSCADAgen_i.homActionsArrayKey;
+			JSONArray array = ReadJson.readArray(dictionariesCacheName, fileName, key);
+			if ( null != array ) {
+				homActions = new String[array.size()];
+				for ( int i = 0 ; i < array.size() ; ++i ) {
+					JSONValue v = array.get(i);
+					if ( null != v && null != v.isString() ) {
+						homActions[i] = v.isString().stringValue();
+						logger.debug(className, function, "homActions({})[{}]", i, homActions[i]);
+					}
+				}
+			} else {
+				logger.warn(className, function, "array IS NULL");
+			}
+		}
+		logger.end(className, function);
+		return homActions;
+	}
+	
+	public boolean isHOMAction(String action) {
+		final String function = "isHOMAction";
+		logger.begin(className, function);
+		boolean result = false;
+		String [] homActions = getHomActions();
+		if ( null != homActions) {
+			for ( int i = 0 ; i < homActions.length ; i++ ) {
+				String homAction = homActions[i];
+				if ( homAction != null ) {
+					logger.debug(className, function, "homActions[{}] == action[{}]", homAction, action);
+					if ( 0 == homAction.compareTo(action) ) {
+						result = true;
+						break;
+					}
+				} else {
+					logger.warn(className, function, "homActions([{}]) IS NULL", i);
+				}
+			}
+		} else {
+			logger.warn(className, function, "homActions IS NULL");
+		}
 		logger.end(className, function);
 		return result;
 	}
-	
+
+	private int byPassValue				= -1;
+	boolean byPassValueReady 			= false;
 	private int getByPassValue() {
 		String function = "getByPassValue";
 		logger.begin(className, function);
-		int result = -1;
-		String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
-		String fileName = UIOpmSCADAgen_i.fileName;
-		String key = UIOpmSCADAgen_i.byPassValuekey;
-		int defaultValue = -1;
-		result = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
 		
-		logger.debug(className, function, "bypassvalue[{}]", bypassvalue);
+		if ( ! byPassValueReady ) {
+			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+			String fileName = UIOpmSCADAgen_i.fileName;
+			String key = UIOpmSCADAgen_i.byPassValuekey;
+			int defaultValue = -1;
+			byPassValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
+			
+			byPassValueReady = true;
+		}
+		logger.debug(className, function, "byPassValue[{}]", byPassValue);
 		logger.end(className, function);
-		return result;
+		return byPassValue;
 	}
 	
-	private void getIPAddress() {
-		String function = "init";
-		logger.begin(className, function);
-		
-		UIGenericMgr uiGenericMgr = new UIGenericMgr();
-		JSONObject request = new JSONObject();
-		request.put("OperatingString1", new JSONString("request"));
-		request.put("OperatingString2", new JSONString("opm"));
-		request.put("OperatingString3", new JSONString("getCurrentIPAddress"));
-		uiGenericMgr.executeUIGeneric(request, new UIGenericMgrEvent() {
-			
-			@Override
-			public void uiGenericMgrEventReady(JSONObject response) {
-				String function = "uiGenericMgrEventReady";
-				logger.begin(className, function);
-				if ( null != response ) {
-					currentIPAddress = ReadJson.readString(response, "OperationString4");
-					logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
-				}
-				logger.end(className, function);
-			}
-			
-			@Override
-			public void uiGenericMgrEventFailed(JSONObject jsonObject) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+	public boolean isByPassValue(int value) {
+		String function = "isByPassValue";
+		logger.debug(className, function, "getByPassValue()[{}] == value[{}]", getByPassValue(), value);
+		return (getByPassValue() == value);
+	}
 
-		
-		logger.end(className, function);
-	}
-	
-	private void getHostName() {
-		String function = "init";
-		logger.begin(className, function);
-		UIGenericMgr uiGenericMgr = new UIGenericMgr();
-		JSONObject request = new JSONObject();
-		request.put("OperatingString1", new JSONString("request"));
-		request.put("OperatingString2", new JSONString("opm"));
-		request.put("OperatingString3", new JSONString("getCurrentHostName"));
-		uiGenericMgr.executeUIGeneric(request, new UIGenericMgrEvent() {
-			
-			@Override
-			public void uiGenericMgrEventReady(JSONObject response) {
-				String function = "uiGenericMgrEventReady";
-				logger.begin(className, function);
-				if ( null != response ) {
-					currentHostName = ReadJson.readString(response, "OperationString4");
-					logger.debug(className, function, "currentHostName[{}]", currentHostName);
-				}
-				logger.end(className, function);
-			}
-			
-			@Override
-			public void uiGenericMgrEventFailed(JSONObject jsonObject) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		logger.debug(className, function, "currentIPAddress[{}]", currentIPAddress);
-		logger.end(className, function);
-	}
 }

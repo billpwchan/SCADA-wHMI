@@ -3,9 +3,9 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>16</cols>
+		<cols>18</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-UIWidgetVerifyOPMChangePassword-panel-inner</rootCss>
+		<rootCss>project-UIWidgetVerifyOPMCheckAccessWithHom-panel-inner</rootCss>
 	</header>
 	
 	
@@ -123,8 +123,29 @@
 		
 	</option>
 	
-
+	
 	<option key="0|11">
+		<widget>InlineLabel</widget>
+		<label>HVID:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-hvidlabel</css>
+		<element>hvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-hvidvalue</css>
+		<element>hvidvalue</element>
+		<maxlength>32</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-hvidvalue</cssContainer>
+		
+	</option>
+	
+
+	<option key="0|13">
 		<widget>InlineLabel</widget>
 		<label>Key:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-keylabel</css>
@@ -133,32 +154,32 @@
 		<media></media>
 	</option>
 	
-	<option key="0|12">
+	<option key="0|14">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-keyvalue</css>
 		<element>keyvalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-keyvalue</cssContainer>
+		<cssContainer>project-v-container-keyvalue</cssContainer>
 		
 	</option>
 
 	
-	<option key="0|13">
+	<option key="0|15">
 		<widget>Button</widget>
-		<label>Check Access</label>
-		<css>project-UIWidgetDpcTagControl-button-checkaccess</css>
-		<element>checkaccess</element>
+		<label>checkaccesswithhom</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-button-checkaccess</css>
+		<element>checkaccesswithhom</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-checkaccess</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-checkaccess</cssContainer>
 		
-		<tooltip>Check Access</tooltip>
+		<tooltip>checkaccesswithhom</tooltip>
 		
 	</option>
 	
 	
-	<option key="0|14">
+	<option key="0|16">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-resultlabel</css>
@@ -167,7 +188,7 @@
 		<media></media>
 	</option>
 	
-	<option key="0|15">
+	<option key="0|17">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-resultvalue</css>

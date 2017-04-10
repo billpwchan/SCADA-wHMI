@@ -30,6 +30,7 @@ public class OpmMgr {
 			UIOpmFactory uiOpmFactory = uiOpmFactorys.get(className);
 			if ( null != uiOpmFactory ) {
 				uiOpm_i = uiOpmFactory.getOpm(key);
+				if ( null != uiOpm_i ) break;
 			}
 		}
 		logger.end(className, function);

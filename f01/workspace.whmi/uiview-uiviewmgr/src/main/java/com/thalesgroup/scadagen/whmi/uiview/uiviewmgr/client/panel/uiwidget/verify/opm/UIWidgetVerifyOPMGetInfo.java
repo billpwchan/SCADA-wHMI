@@ -12,6 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.GetCurrentHOMValueEvent_i;
 
 public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 	
@@ -24,10 +25,17 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
+		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
+		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		String result = uiOpm_i.getCurrentHostName();
+		String result = null;
+		if ( null != uiOpm_i ) {
+			result = uiOpm_i.getCurrentHostName();
+		} else {
+			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
+		}
 		
 		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
@@ -39,10 +47,17 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
+		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
+		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		String result = uiOpm_i.getCurrentIPAddress();
+		String result = null;
+		if ( null != uiOpm_i ) {
+			result = uiOpm_i.getCurrentIPAddress();
+		} else {
+			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
+		}
 		
 		uiGeneric.setWidgetValue("resultvalue", result);
 		logger.end(className, function);
@@ -55,12 +70,28 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		String hvidvalue		= uiGeneric.getWidgetValue("hvidvalue");
 		
+		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
+		logger.debug(className, function, "hvidvalue[{}]", hvidvalue);
+		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		int result = uiOpm_i.getCurrentHOMValue(hvidvalue);
-		
-		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
+		if ( null != uiOpm_i ) {
+			uiOpm_i.getCurrentHOMValue(hvidvalue, new GetCurrentHOMValueEvent_i() {
+				
+				@Override
+				public void update(final String dbaddress, final int value) {
+					
+					String result = Integer.toString(value);
+					logger.debug(className, function, "result[{}]", result);
+					
+					uiGeneric.setWidgetValue("resultvalue", result);
+				}
+			});
+		} else {
+			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
+		}
+
 		logger.end(className, function);
 	}
 	
@@ -71,10 +102,18 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
 		
+		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
+		logger.debug(className, function, "keyvalue[{}]", keyvalue);
+		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
-		int result = uiOpm_i.getConfigHOMMask(keyvalue);
+		int result = -1;
+		if ( null != uiOpm_i ) {
+			result = uiOpm_i.getConfigHOMMask(keyvalue);
+		} else {
+			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
+		}
 		
 		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 		logger.end(className, function);
@@ -115,7 +154,7 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 					Widget widget = (Widget) event.getSource();
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
-						logger.info(className, function, "element[{}]", element);
+						logger.debug(className, function, "element[{}]", element);
 						if ( null != element ) {
 							launch(element);
 						}

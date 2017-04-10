@@ -70,7 +70,7 @@
 	
 	<option key="0|6">
 		<widget>TextBox</widget>
-		<label>HOMLevel</label>
+		<label>HOMActions</label>
 		<css>project-UIWidgetVerifyReadJSONReadArray-textbox-keyvalue</css>
 		<element>keyvalue</element>
 		<maxlength>16</maxlength>

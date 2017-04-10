@@ -4,6 +4,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionaryService;
+import com.thalesgroup.scadagen.whmi.config.configenv.server.util.ReadConfigINI;
+import com.thalesgroup.scadagen.whmi.config.configenv.server.util.ReadConfigXML;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 

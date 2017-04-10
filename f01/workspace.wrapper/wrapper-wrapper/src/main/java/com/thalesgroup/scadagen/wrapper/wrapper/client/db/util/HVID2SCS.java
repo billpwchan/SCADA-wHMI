@@ -1,10 +1,11 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
+package com.thalesgroup.scadagen.wrapper.wrapper.client.db.util;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class HVID2SCS {
+	
 	private final String className = UIWidgetUtil.getClassSimpleName(HVID2SCS.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
@@ -17,8 +18,7 @@ public class HVID2SCS {
 	public String getDBAddress() {
 		final String function = "getDBAddress";
 		logger.beginEnd(className, function, "this.dbaddress[{}]", this.dbaddress);
-		return this.dbaddress; 
-		
+		return this.dbaddress;
 	}
 	
 	private String scsEnvId = null;
@@ -30,9 +30,7 @@ public class HVID2SCS {
 	
 	public void init() {
 		final String function = "init";
-		
 		logger.begin(className, function);
-		
 		logger.debug(className, function, "this.hvid[{}]", hvid);
 		
 		String dbaddresses	= null;

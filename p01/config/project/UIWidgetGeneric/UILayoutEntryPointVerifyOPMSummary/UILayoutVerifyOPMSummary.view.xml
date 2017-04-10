@@ -3,10 +3,11 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>4</cols>
+		<cols>8</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
+	
 	<option key="0|0">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccess.view.xml</uiView>
@@ -31,21 +32,27 @@
 		<element>UIWidgetVerifyOPMGetCurrentHostName</element>
 	</option>
 	
-	<!--
-	<option key="0|1">
-		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHostName.view.xml</uiView>
-		<element>UIWidgetVerifyOPMCheckAccessWithHostName</element>
+	<option key="0|4">
+		<uiCtrl>UIWidgetVerifyOPMGetInfo</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMGetCurrentIPAddress.view.xml</uiView>
+		<element>UIWidgetVerifyOPMGetCurrentHostName</element>
 	</option>
-	<option key="0|2">
-		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithProfileName.view.xml</uiView>
-		<element>UIWidgetVerifyOPMCheckAccessWithProfileName</element>
-	</option>
-	<option key="0|3">
+	
+	<option key="0|5">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHom.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHom</element>
 	</option>
-	-->
+	
+	<option key="0|6">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHostName.view.xml</uiView>
+		<element>UIWidgetVerifyOPMCheckAccessWithHostName</element>
+	</option>
+	
+	<option key="0|7">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithProfileName.view.xml</uiView>
+		<element>UIWidgetVerifyOPMCheckAccessWithProfileName</element>
+	</option>
 </data-set>

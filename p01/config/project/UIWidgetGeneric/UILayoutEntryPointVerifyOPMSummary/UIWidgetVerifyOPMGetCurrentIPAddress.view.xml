@@ -5,14 +5,14 @@
 		<rows>1</rows>
 		<cols>6</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-UIWidgetVerifyOPMGetCurrentHostName-panel-inner</rootCss>
+		<rootCss>project-UIWidgetVerifyOPMGetCurrentIPAddress-panel-inner</rootCss>
 	</header>
 	
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>Get Current Host Name:</label>
-		<css>project-UIWidgetVerifyOPMGetCurrentHostName-inlinelabel-firstlabel</css>
+		<label>Get Current IP Address:</label>
+		<css>project-UIWidgetVerifyOPMGetCurrentIPAddress-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>
 		<media></media>
@@ -22,7 +22,7 @@
 	<option key="0|1">
 		<widget>InlineLabel</widget>
 		<label>UIOPM API:</label>
-		<css>project-UIWidgetVerifyOPMGetCurrentHostName-inlinelabel-uiopmapilabel</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentIPAddress-inlinelabel-uiopmapilabel</css>
 		<element>uiopmapilabel</element>
 		<format></format>
 		<media></media>
@@ -31,23 +31,23 @@
 	<option key="0|2">
 		<widget>TextBox</widget>
 		<label>UIOpmSCADAgen</label>
-		<css>project-UIWidgetVerifyOPMGetCurrentHostName-textbox-uiopmapivalue</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentIPAddress-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHostName-container-uiopmapivalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMGetCurrentIPAddress-container-uiopmapivalue</cssContainer>
 		
 	</option>
 	
 	<option key="0|3">
 		<widget>Button</widget>
-		<label>getcurrenthostname</label>
-		<css>project-UIWidgetDpcTagControl-button-getcurrenthostname</css>
-		<element>getcurrenthostname</element>
+		<label>getcurrentipaddress</label>
+		<css>project-UIWidgetDpcTagControl-button-getcurrentipaddress</css>
+		<element>getcurrentipaddress</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-getcurrenthostname</cssContainer>
+		<cssContainer>project-UIWidgetDpcTagControl-container-getcurrentipaddress</cssContainer>
 		
-		<tooltip>getcurrenthostname</tooltip>
+		<tooltip>getcurrentipaddress</tooltip>
 		
 	</option>
 	
@@ -55,7 +55,7 @@
 	<option key="0|4">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
-		<css>project-UIWidgetVerifyOPMGetCurrentHostName-inlinelabel-resultlabel</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentIPAddress-inlinelabel-resultlabel</css>
 		<element>resultlabel</element>
 		<format></format>
 		<media></media>
@@ -64,11 +64,11 @@
 	<option key="0|5">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetVerifyOPMGetCurrentHostName-textbox-resultvalue</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentIPAddress-textbox-resultvalue</css>
 		<element>resultvalue</element>
 		<maxlength>16</maxlength>
 		
-		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHostName-container-resultvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMGetCurrentIPAddress-container-resultvalue</cssContainer>
 		
 	</option>
 	

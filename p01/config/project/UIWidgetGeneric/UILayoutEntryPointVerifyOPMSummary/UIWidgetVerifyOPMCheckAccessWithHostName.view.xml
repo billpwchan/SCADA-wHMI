@@ -3,9 +3,9 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>14</cols>
+		<cols>16</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-UIWidgetVerifyOPMChangePassword-panel-inner</rootCss>
+		<rootCss>project-UIWidgetVerifyOPMCheckAccessWithHostName-panel-inner</rootCss>
 	</header>
 	
 	
@@ -122,22 +122,43 @@
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-modevalue</cssContainer>
 		
 	</option>
-
+	
 	
 	<option key="0|11">
+		<widget>InlineLabel</widget>
+		<label>HVID:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-hvidlabel</css>
+		<element>hvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-hvidvalue</css>
+		<element>hvidvalue</element>
+		<maxlength>32</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-hvidvalue</cssContainer>
+		
+	</option>
+
+	
+	<option key="0|13">
 		<widget>Button</widget>
-		<label>Check Access</label>
-		<css>project-UIWidgetDpcTagControl-button-checkaccess</css>
-		<element>checkaccess</element>
+		<label>checkaccesswithhostname</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-button-checkaccess</css>
+		<element>checkaccesswithhostname</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-checkaccess</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-checkaccess</cssContainer>
 		
-		<tooltip>Check Access</tooltip>
+		<tooltip>checkaccesswithhostname</tooltip>
 		
 	</option>
 	
 	
-	<option key="0|12">
+	<option key="0|14">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-resultlabel</css>
@@ -146,7 +167,7 @@
 		<media></media>
 	</option>
 	
-	<option key="0|13">
+	<option key="0|15">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-resultvalue</css>

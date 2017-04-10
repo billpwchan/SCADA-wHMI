@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.config.configenv.server;
+package com.thalesgroup.scadagen.whmi.config.configenv.server.util;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

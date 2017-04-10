@@ -41,11 +41,10 @@ public class Dictionary implements Dictionary_i, java.io.Serializable {
 	@Override
 	public Object[] getValues() { return this.valueSet.toArray((new Object[valueSet.size()])); }
 	
-	
+	// JSON Value
 	private String data = null;
 	@Override
 	public void setData(String data) { this.data = data; }
 	@Override
 	public String getData() { return data; }
-	
 }

@@ -6,7 +6,7 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-    <version>1.3</version>
+  <version>1.4-SNAPSHOT</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty</groupId>
   <artifactId>uiscreen-uiscreenempty</artifactId>

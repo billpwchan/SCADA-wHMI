@@ -1,713 +1,898 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tns:maestroHMIConfiguration
-     xmlns:tns="http://www.thalesgroup.com/hv/mwt/conf/opm/permission"
-     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/opm/permission mwt-opm.xsd">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:maestroHMIConfiguration xmlns:tns="http://www.thalesgroup.com/hv/mwt/conf/opm/permission" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/opm/permission mwt-opm.xsd">
 
   <!-- Validation configuration -->
-  <validationConfiguration enabled="true" checkAlarmSourceID="true"
-                           checkEventSourceID="true" displayLogOnCheck="true" />
+  <validationConfiguration checkAlarmSourceID="true" checkEventSourceID="true" displayLogOnCheck="true" enabled="true"/>
 
   <!-- List of ROLES -->
-  <role id="SA">
-	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
-    <permissionAllowList>permission_SA_1</permissionAllowList>
-    <permissionAllowList>permission_SA_2</permissionAllowList>
-    <permissionAllowList>permission_SA_3</permissionAllowList>
-    <permissionAllowList>permission_SA_4</permissionAllowList>
+  <role id="ROOT">
+    <permissionAllowList>permission_ROOT_11</permissionAllowList>
+    <permissionAllowList>permission_ROOT_12</permissionAllowList>
+    <permissionAllowList>permission_ROOT_13</permissionAllowList>
+    <permissionAllowList>permission_ROOT_14</permissionAllowList>
+    <permissionAllowList>permission_ROOT_21</permissionAllowList>
+    <permissionAllowList>permission_ROOT_22</permissionAllowList>
+    <permissionAllowList>permission_ROOT_23</permissionAllowList>
+    <permissionAllowList>permission_ROOT_24</permissionAllowList>
+    <permissionAllowList>permission_ROOT_31</permissionAllowList>
+    <permissionAllowList>permission_ROOT_32</permissionAllowList>
+    <permissionAllowList>permission_ROOT_33</permissionAllowList>
+    <permissionAllowList>permission_ROOT_34</permissionAllowList>
+    <permissionAllowList>permission_ROOT_41</permissionAllowList>
+    <permissionAllowList>permission_ROOT_42</permissionAllowList>
+    <permissionAllowList>permission_ROOT_43</permissionAllowList>
+    <permissionAllowList>permission_ROOT_44</permissionAllowList>
+    <permissionAllowList>permission_ROOT_51</permissionAllowList>
+    <permissionAllowList>permission_ROOT_52</permissionAllowList>
+    <permissionAllowList>permission_ROOT_53</permissionAllowList>
+    <permissionAllowList>permission_ROOT_54</permissionAllowList>
+    <permissionAllowList>permission_ROOT_61</permissionAllowList>
+    <permissionAllowList>permission_ROOT_62</permissionAllowList>
+    <permissionAllowList>permission_ROOT_63</permissionAllowList>
+    <permissionAllowList>permission_ROOT_64</permissionAllowList>
+    <permissionAllowList>permission_ROOT_71</permissionAllowList>
+    <permissionAllowList>permission_ROOT_72</permissionAllowList>
+    <permissionAllowList>permission_ROOT_73</permissionAllowList>
+    <permissionAllowList>permission_ROOT_74</permissionAllowList>
+    <permissionAllowList>permission_ROOT_81</permissionAllowList>
+    <permissionAllowList>permission_ROOT_82</permissionAllowList>
+    <permissionAllowList>permission_ROOT_83</permissionAllowList>
+    <permissionAllowList>permission_ROOT_84</permissionAllowList>
+    <permissionAllowList>permission_ROOT_91</permissionAllowList>
+    <permissionAllowList>permission_ROOT_92</permissionAllowList>
+    <permissionAllowList>permission_ROOT_93</permissionAllowList>
+    <permissionAllowList>permission_ROOT_94</permissionAllowList>
+    <permissionAllowList>permission_ROOT_101</permissionAllowList>
+    <permissionAllowList>permission_ROOT_102</permissionAllowList>
+    <permissionAllowList>permission_ROOT_103</permissionAllowList>
+    <permissionAllowList>permission_ROOT_104</permissionAllowList>
+    <permissionAllowList>permission_ROOT_111</permissionAllowList>
+    <permissionAllowList>permission_ROOT_112</permissionAllowList>
+    <permissionAllowList>permission_ROOT_113</permissionAllowList>
+    <permissionAllowList>permission_ROOT_114</permissionAllowList>
+    <permissionAllowList>permission_ROOT_121</permissionAllowList>
+    <permissionAllowList>permission_ROOT_122</permissionAllowList>
+    <permissionAllowList>permission_ROOT_123</permissionAllowList>
+    <permissionAllowList>permission_ROOT_124</permissionAllowList>
+  <permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
   </role>
-
-  <role id="OCC_POW">
-	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_1</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_2</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_3</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_4</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_5</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_6</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_7</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_8</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_9</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_10</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_11</permissionAllowList>
-    <permissionAllowList>permission_OCC_POW_12</permissionAllowList>
-  </role>
-
-  <role id="LMC_POW">
-	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_1</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_2</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_3</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_4</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_5</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_6</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_7</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_8</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_9</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_10</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_11</permissionAllowList>
-    <permissionAllowList>permission_LMC_POW_12</permissionAllowList>
-  </role>
-
-  <role id="OCC_TECS">
-	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
-    <permissionAllowList>permission_OCC_TECS_1</permissionAllowList>
-    <permissionAllowList>permission_OCC_TECS_2</permissionAllowList>
-    <permissionAllowList>permission_OCC_TECS_3</permissionAllowList>
-    <permissionAllowList>permission_OCC_TECS_4</permissionAllowList>
-  </role>
-
-  <role id="LMC_TECS">
-	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
-    <permissionAllowList>permission_LMC_TECS_1</permissionAllowList>
-    <permissionAllowList>permission_LMC_TECS_2</permissionAllowList>
-    <permissionAllowList>permission_LMC_TECS_3</permissionAllowList>
-    <permissionAllowList>permission_LMC_TECS_4</permissionAllowList>
-  </role>
-
-  <role id="KOT_TECS">
-	<permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
-	<permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
-	<permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
-	<permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
-    <permissionAllowList>permission_KOT_TECS_1</permissionAllowList>
-    <permissionAllowList>permission_KOT_TECS_2</permissionAllowList>
-    <permissionAllowList>permission_KOT_TECS_3</permissionAllowList>
-    <permissionAllowList>permission_KOT_TECS_4</permissionAllowList>
-  </role>
-
 
   <!-- List of PERMISSIONS -->
-  
-  <!-- PERMISSIONS for HV and SCS -->
-
+  <!-- PERMISSIONS for ROOT -->
   <permission id="permissionAllow_SCS_ALL">
-    <criterion key="action" xsi:type="tns:criterionAll" />
-    <criterion key="areaId" xsi:type="tns:criterionAll" />
+    <criterion key="action" xsi:type="tns:criterionAll"/>
+    <criterion key="areaId" xsi:type="tns:criterionAll"/>
     
   </permission>
-  
-	<permission id="permission_VIEW_ENTITY_ALL">
-		<criterion key="action" xsi:type="tns:criterionList">
-			<value>VIEW_ENTITY</value>
-		</criterion>
-		<criterion key="entityTypeId" xsi:type="tns:criterionAll" />
-		<criterion key="entityId" xsi:type="tns:criterionAll" />
-	</permission>
-
-	<permission id="permission_VIEW_IMAGE_ALL">
-		<criterion key="action" xsi:type="tns:criterionList">
-			<value>VIEW_IMAGE</value>
-		</criterion>
-		<criterion key="imageId" xsi:type="tns:criterionAll" />
-	</permission>
-
-	<permission id="permission_COMMAND_ENTITY_ALL">
-		<criterion key="action" xsi:type="tns:criterionList">
-			<value>COMMAND_ENTITY</value>
-		</criterion>
-		<criterion key="commandType" xsi:type="tns:criterionAll" />
-		<criterion key="entityTypeId" xsi:type="tns:criterionAll" />
-		<criterion key="entityId" xsi:type="tns:criterionAll" />
-	</permission>
-
-	<!-- Permission for Commands -->
-
-	<permission id="permission_COMMAND_ENTITY_ACK">
-		<criterion key="action" xsi:type="tns:criterionList">
-			<value>COMMAND_ENTITY</value>
-		</criterion>
-		<criterion key="commandType" xsi:type="tns:criterionList">
-			<value>com.thalesgroup.hv.data_v1.alarm.operation.AlarmAckRequest</value>
-		</criterion>
-		<criterion key="entityTypeId" xsi:type="tns:criterionAll" />
-		<criterion key="entityId" xsi:type="tns:criterionAll" />
-	</permission>
-
-	<!-- Permission for Context -->
-
-	<permission id="permission_VIEW_ENTITY_CONTEXTUAL">
-		<criterion key="action" xsi:type="tns:criterionList">
-			<value>VIEW_ENTITY</value>
-		</criterion>
-		<criterion key="entityTypeId" xsi:type="tns:criterionAll" />
-		<criterion key="entityId" xsi:type="tns:criterionContext" />
-	</permission>
-
-	<permission id="permission_COMMAND_ENTITY_CONTEXTUAL">
-		<criterion key="action" xsi:type="tns:criterionList">
-			<value>COMMAND_ENTITY</value>
-		</criterion>
-		<criterion key="commandType" xsi:type="tns:criterionAll" />
-		<criterion key="entityTypeId" xsi:type="tns:criterionAll" />
-		<criterion key="entityId" xsi:type="tns:criterionContext" />
-	</permission> 
-
-  <!-- PERMISSIONS for SA -->
-
-  <permission id="permission_SA_1">
+  <permission id="permission_VIEW_ENTITY_ALL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>VIEW_ENTITY</value>
+    </criterion>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll"/>
+    <criterion key="entityId" xsi:type="tns:criterionAll"/>
+  </permission>
+  <permission id="permission_VIEW_IMAGE_ALL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>VIEW_IMAGE</value>
+    </criterion>
+    <criterion key="imageId" xsi:type="tns:criterionAll"/>
+  </permission>
+  <permission id="permission_COMMAND_ENTITY_ALL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>COMMAND_ENTITY</value>
+    </criterion>
+    <criterion key="commandType" xsi:type="tns:criterionAll"/>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll"/>
+    <criterion key="entityId" xsi:type="tns:criterionAll"/>
+  </permission>
+  <permission id="permission_COMMAND_ENTITY_ACK">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>COMMAND_ENTITY</value>
+    </criterion>
+    <criterion key="commandType" xsi:type="tns:criterionList">
+    <value>com.thalesgroup.hv.data_v1.alarm.operation.AlarmAckRequest</value>
+    </criterion>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll"/>
+    <criterion key="entityId" xsi:type="tns:criterionAll"/>
+  </permission>
+  <permission id="permission_VIEW_ENTITY_CONTEXTUAL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>VIEW_ENTITY</value>
+    </criterion>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll"/>
+    <criterion key="entityId" xsi:type="tns:criterionContext"/>
+  </permission>
+  <permission id="permission_COMMAND_ENTITY_CONTEXTUAL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>COMMAND_ENTITY</value>
+    </criterion>
+    <criterion key="commandType" xsi:type="tns:criterionAll"/>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll"/>
+    <criterion key="entityId" xsi:type="tns:criterionContext"/>
+  </permission>
+  <permission id="permission_ROOT_11">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionAll"/>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_SA_2">
+  <permission id="permission_ROOT_12">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionAll"/>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_SA_3">
+  <permission id="permission_ROOT_13">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionAll"/>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_SA_4">
+  <permission id="permission_ROOT_14">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionAll"/>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <!-- PERMISSIONS for OCC_POW -->
-
-  <permission id="permission_OCC_POW_1">
+  <permission id="permission_ROOT_21">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
-      <value>1</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_2">
+  <permission id="permission_ROOT_22">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
-      <value>1</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_3">
+  <permission id="permission_ROOT_23">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
-      <value>1</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_4">
+  <permission id="permission_ROOT_24">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
-      <value>1</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_5">
+  <permission id="permission_ROOT_31">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
-      <value>2</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_6">
+  <permission id="permission_ROOT_32">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
-      <value>2</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_7">
+  <permission id="permission_ROOT_33">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
-      <value>2</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_8">
+  <permission id="permission_ROOT_34">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
-      <value>2</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_9">
+  <permission id="permission_ROOT_41">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_10">
+  <permission id="permission_ROOT_42">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_11">
+  <permission id="permission_ROOT_43">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_POW_12">
+  <permission id="permission_ROOT_44">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
     <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_51">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_52">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_53">
+    <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
-  </permission>
-
-  <!-- PERMISSIONS for LMC_POW -->
-
-  <permission id="permission_LMC_POW_1">
-    <criterion key="mode" xsi:type="tns:criterionList">
-      <value>1</value>
-    </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
-      <value>1</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
-    </criterion>
-  </permission>
-
-  <permission id="permission_LMC_POW_2">
-    <criterion key="mode" xsi:type="tns:criterionList">
-      <value>2</value>
-    </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
       <value>1</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
-    </criterion>
-  </permission>
-
-  <permission id="permission_LMC_POW_3">
-    <criterion key="mode" xsi:type="tns:criterionList">
-      <value>3</value>
-    </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
     <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
-      <value>1</value>
+      <value>11</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_4">
+  <permission id="permission_ROOT_54">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : HV_ -->
+    <criterion key="location" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_5">
+  <permission id="permission_ROOT_61">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
+    <criterion key="location" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_6">
+  <permission id="permission_ROOT_62">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
+    <criterion key="location" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_7">
+  <permission id="permission_ROOT_63">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
+    <criterion key="location" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_8">
+  <permission id="permission_ROOT_64">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : OHL -->
+    <criterion key="location" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_9">
+  <permission id="permission_ROOT_71">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_10">
+  <permission id="permission_ROOT_72">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_11">
+  <permission id="permission_ROOT_73">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_POW_12">
+  <permission id="permission_ROOT_74">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : LV_ -->
-      <value>3</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <!-- PERMISSIONS for OCC_TECS -->
-
-  <permission id="permission_OCC_TECS_1">
+  <permission id="permission_ROOT_81">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_TECS_2">
+  <permission id="permission_ROOT_82">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_TECS_3">
+  <permission id="permission_ROOT_83">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <permission id="permission_OCC_TECS_4">
+  <permission id="permission_ROOT_84">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
     </criterion>
-    <criterion key="location" xsi:type="tns:criterionAll"/>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
   </permission>
-
-  <!-- PERMISSIONS for LMC_TECS -->
-
-  <permission id="permission_LMC_TECS_1">
+  <permission id="permission_ROOT_91">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_TECS_2">
+  <permission id="permission_ROOT_92">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_TECS_3">
+  <permission id="permission_ROOT_93">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_LMC_TECS_4">
+  <permission id="permission_ROOT_94">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>2</value>
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <!-- PERMISSIONS for KOT_TECS -->
-
-  <permission id="permission_KOT_TECS_1">
+  <permission id="permission_ROOT_101">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>1</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>25</value>
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
     </criterion>
   </permission>
-
-  <permission id="permission_KOT_TECS_2">
+  <permission id="permission_ROOT_102">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>2</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>25</value>
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_KOT_TECS_3">
+  <permission id="permission_ROOT_103">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>3</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>25</value>
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
-  <permission id="permission_KOT_TECS_4">
+  <permission id="permission_ROOT_104">
     <criterion key="mode" xsi:type="tns:criterionList">
       <value>4</value>
     </criterion>
-    <criterion key="action" xsi:type="tns:criterionAll"/>
-    <criterion key="function" xsi:type="tns:criterionList">
-      <!-- function : ECT -->
-      <value>8</value>
-    </criterion>
     <criterion key="location" xsi:type="tns:criterionList">
-      <!-- location : LMC -->
-      <value>25</value>
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>11</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
     </criterion>
   </permission>
-
+  <permission id="permission_ROOT_111">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_112">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_113">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>3</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_114">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>4</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_121">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>1</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>D</value>
+      <value>M</value>
+      <value>A</value>
+      <value>C</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_122">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_123">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>3</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
+  <permission id="permission_ROOT_124">
+    <criterion key="mode" xsi:type="tns:criterionList">
+      <value>4</value>
+    </criterion>
+    <criterion key="location" xsi:type="tns:criterionList">
+      <value>2</value>
+    </criterion>
+    <criterion key="function" xsi:type="tns:criterionList">
+      <value>12</value>
+    </criterion>
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>M</value>
+      <value>C</value>
+      <value>D</value>
+    </criterion>
+  </permission>
 </tns:maestroHMIConfiguration>

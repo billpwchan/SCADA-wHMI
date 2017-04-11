@@ -1,7 +1,7 @@
 {
   "name": "lib-hypervisor",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "melody": "4.0.1",
   "owner": "HV",
-  "dependencies": [lib-shared-assets-1.5.3, lib-brokers-1.5.3]
+  "dependencies": [lib-shared-assets-1.5.4, lib-brokers-1.5.4]
 }

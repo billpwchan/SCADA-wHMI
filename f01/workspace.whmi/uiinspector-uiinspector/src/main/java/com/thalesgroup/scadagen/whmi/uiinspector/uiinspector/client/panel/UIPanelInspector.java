@@ -3,6 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,6 +25,8 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.EquipmentsSorting;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.EquipmentsSortingEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
@@ -56,9 +60,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	// Order
 	private final String strTabNames [] 	= new String[] {"Info","Control","Tagging","Advance"};
 	private final String strTabConfigNames [] = {"info", "control", "tag", "advance"};
-
+	
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
+	
+	// hmiOrder
+	private boolean hmiOrderEnable = false; 
+	private String hmiOrderAttribute = null;
+	private int hmiOrderFilterThreshold = -1;
 
 	private String scsEnvId		= null;
 	private String parent		= null;
@@ -81,8 +90,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
 		
-		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.debug(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.scsEnvId[{}] this.parent[{}]", this.scsEnvId, this.parent);
 		
 		database.setDynamic(scsEnvId, parent);
 		
@@ -100,9 +108,259 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.debug(className, function, "this.function[{}] this.location[{}]", this.function, this.location);
 	}
 	
+	private void connectTabs(String[] dbaddress) {
+		final String function = "connectTabs";
+		logger.begin(className, function);
+		
+		buildTabsAddress(dbaddress);
+		makeTabsSetAddress();
+		makeTabsBuildWidgets();
+		makeTabsConnect();
+		
+		((UIInspectorHeader)			uiInspectorHeader)	.connect();
+		((UIInspectorEquipmentReserve)	equipmentReserve)	.connect();
+		
+		if ( infos.size() <= 0 )		panelTab.remove(panelInfo);
+		if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
+		if ( tags.size() <= 0 )			panelTab.remove(panelTag);
+		if ( advances.size() <= 0 )		panelTab.remove(panelAdv);
+		
+		logger.end(className, function);
+	}
+
+	private void responseGetChilden(String key, String[] values) {
+		final String function = "responseGetChilden";
+		logger.begin(className, function);
+		
+		if ( hmiOrderEnable ) {
+			
+			EquipmentsSorting equipmentSorting = new EquipmentsSorting();
+			equipmentSorting.setDatabase(database);
+			equipmentSorting.setParent(scsEnvId, parent);
+			equipmentSorting.setDBAddresses(values, hmiOrderAttribute);
+			equipmentSorting.setThreshold(hmiOrderFilterThreshold);
+			equipmentSorting.setEquipmentsSortingEvent(new EquipmentsSortingEvent() {
+				
+				@Override
+				public void onSorted(String[] dbaddress) {
+					connectTabs(dbaddress);
+
+				}
+			});
+			equipmentSorting.init();
+		} else {
+			
+			connectTabs(values);
+		}
+
+		logger.end(className, function);
+	}
+	
+	private void requestDynamic() {
+		final String function = "requestDynamic";
+		logger.begin(className, function);
+		
+		if ( null != database ) {
+			database.setDynamicEvent(new DatabaseEvent() {
+				
+				@Override
+				public void update(String key, String[] value) {
+					
+					DataBaseClientKey clientKey = new DataBaseClientKey();
+					clientKey.setAPI(API.multiReadValue);
+					clientKey.setWidget(INSPECTOR);
+					clientKey.setStability(Stability.DYNAMIC);
+					clientKey.setAdress(parent);
+					
+					String strClientKey = clientKey.toClientKey();
+					
+					String [] dbaddresses	= database.getKeyAndAddress(strClientKey);
+					String [] dbvalues		= database.getKeyAndValues(strClientKey);
+					if (dbaddresses == null || dbvalues == null) {
+						logger.error("DatabaseEvent", "update", "dbaddresses or dbvalues is null");
+						return;
+					}
+					if (logger.isDebugEnabled()) {
+						for (int i=0; i<dbaddresses.length; i++) {
+							logger.debug("DatabaseEvent", "update", "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
+						}
+						for (int i=0; i<dbvalues.length; i++) {
+							logger.debug("DatabaseEvent", "update", "dbvalues[{}]=[{}]", i, dbvalues[i]);
+						}
+						for (int i=0; i<value.length; i++) {
+							logger.debug("DatabaseEvent", "update", "value[{}]=[{}]", i, value[i]);
+						}
+					}
+					
+					HashMap<String, String> dynamicvalues = new HashMap<String, String>();
+					for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+						dynamicvalues.put(dbaddresses[i], dbvalues[i]);
+					}
+					
+					((UIInspectorHeader)			uiInspectorHeader)		.updateValue(key, dynamicvalues);
+					((UIInspectorEquipmentReserve)	equipmentReserve)		.updateValue(key, dynamicvalues);
+					
+					((UIInspectorInfo)				uiInspectorInfo)		.updateValue(key, dynamicvalues);
+					((UIInspectorControl)			uiInspectorControl)		.updateValue(key, dynamicvalues);
+					((UIInspectorTag)				uiInspectorTag)			.updateValue(key, dynamicvalues);
+					((UIInspectorAdvance)			uiInspectorAdvance)		.updateValue(key, dynamicvalues);
+					
+				}
+			});
+		} else {
+			logger.warn(className, function, "database IS NUL");
+		}
+		logger.end(className, function);
+	}
+	
+	private void requestGetChilden() {
+		final String function = "requestGetChilden";
+		logger.begin(className, function);
+		
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.GetChildren);
+		clientKey.setWidget(INSPECTOR);
+		clientKey.setStability(Stability.STATIC);
+		clientKey.setAdress(parent);
+		
+		String strClientKey = clientKey.toClientKey();
+		
+		String strApi = clientKey.getApi().toString();
+
+		String dbaddress = parent;
+		
+		if ( null != database ) {
+			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddress, new DatabaseEvent() {
+				
+				@Override
+				public void update(String key, String[] values) {
+					
+					DataBaseClientKey clientKey = new DataBaseClientKey();
+					clientKey.setAPI(API.GetChildren);
+					clientKey.setWidget(INSPECTOR);
+					clientKey.setStability(Stability.STATIC);
+					clientKey.setAdress(parent);
+					
+					String strClientKey = clientKey.toString();
+
+					if ( strClientKey.equalsIgnoreCase(key) ) {
+						
+						responseGetChilden(key, values);
+						
+					}
+					
+					requestDynamic();
+	
+				}
+			});
+		} else {
+			logger.warn(className, function, "database IS NUL");
+		}
+
+		logger.end(className, function);
+	}
+	
+	private void repsonseHeader(String key, String[] values) {
+		final String function = "repsonseHeader";
+		logger.begin(className, function);
+		
+		String [] dbaddresses	= database.getKeyAndAddress(key);
+		String [] dbvalues		= database.getKeyAndValues(key);
+		for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+			String dbaddress = dbaddresses[i];
+
+			// Equipment Label
+			if ( dbaddress.endsWith(PointName.label.toString()) ) {
+				String value = dbvalues[i];
+				value = DatabaseHelper.removeDBStringWrapper(value);
+				if ( null != value) setText(value);
+				break;
+			}
+		}
+
+		logger.end(className, function);
+	}
+	
+	private void requestHeader() {
+		final String function = "requestHeader";
+		logger.begin(className, function);
+		
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR);
+		clientKey.setStability(Stability.STATIC);
+		clientKey.setAdress(parent);
+		
+		String strClientKey = clientKey.toClientKey();
+
+		String[] dbaddresses = null;
+		{
+			ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+			for(int y=0;y<staticAttibutes.length;++y) {
+				dbaddressesArrayList.add(parent+staticAttibutes[y]);
+			}
+			dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+		}
+		
+		if ( logger.isDebugEnabled() ) {
+			logger.debug(className, function, "strClientKey[{}] scsEnvId[{}]", strClientKey, scsEnvId);
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+			}
+		}
+		
+		String strApi = clientKey.getApi().toString();
+		
+		if ( null != database ) {
+			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+	
+				@Override
+				public void update(String key, String[] values) {
+					
+					DataBaseClientKey clientKey = new DataBaseClientKey();
+					clientKey.setAPI(API.multiReadValue);
+					clientKey.setWidget(INSPECTOR);
+					clientKey.setStability(Stability.STATIC);
+					clientKey.setAdress(parent);
+					
+					String strClientKey = clientKey.toClientKey();
+
+					if ( 0 == strClientKey.compareTo(key) ) {
+					
+						repsonseHeader(key, values);
+					}
+				}
+	
+			});
+		} else {
+				logger.warn(className, function, "database IS NUL");
+		}
+		
+		logger.end(className, function);
+	}
+	
+	private void removeTabWithoutRight(Map<String, String> rights, String rightname, String right, Panel tab) {
+		final String function = "removeTabWithoutRight";
+		logger.begin(className, function);
+		
+		logger.debug(className, function, "Checking rightname[{}] right[{}]", rightname, right);
+		if ( null != right ) {
+			if ( right.equals(String.valueOf(false))) {
+				logger.warn(className, function, "right IS INSUFFICIENT RIGHT");
+				
+				panelTab.remove(tab);
+			}
+		} else {
+			logger.warn(className, function, "right IS NULL");
+		}
+		
+		logger.end(className, function);
+	}
+	
 	@Override
 	public void connect() {
 		final String function = "connect";
+
 
 		String fileName = UIPanelInspector_i.strConfigPrefixWODot+UIPanelInspector_i.strConfigExtension;
 		String keyperiodmillis = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strPeriodMillis;
@@ -205,240 +463,43 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			// Right 1
 			String rightname1 = UIPanelInspector_i.strConfigAction+1;
 			String right1 = rights.get(UIPanelInspector_i.strConfigAction+1);
-			
-			logger.debug(className, function, "Checking rightname1[{}] right1[{}]", rightname1, right1);
-			if ( null != right1 ) {
-				if ( right1.equals(String.valueOf(false))) {
-					logger.warn(className, function, "right1 IS INSUFFICIENT RIGHT");
-					
-					panelTab.remove(panelInfo);
-				}
-			} else {
-				logger.warn(className, function, "right1 IS NULL");
-			}
+			removeTabWithoutRight(rights, rightname1, right1, panelInfo);
 			
 			// Right 2
 			String rightname2 = UIPanelInspector_i.strConfigAction+2;
 			String right2 = rights.get(UIPanelInspector_i.strConfigAction+2);
-			
-			logger.debug(className, function, "Checking rightname2[{}] right2[{}]", rightname2, right2);
-			if ( null != right2 ) {
-				if ( right2.equals(String.valueOf(false))) {
-					logger.warn(className, function, "right2 IS INSUFFICIENT RIGHT");
-					
-					panelTab.remove(panelCtrl);
-				}
-			} else {
-				logger.warn(className, function, "right2 IS NULL");
-			}
+			removeTabWithoutRight(rights, rightname2, right2, panelCtrl);
 			
 			// Right 3
 			String rightname3 = UIPanelInspector_i.strConfigAction+3;
 			String right3 = rights.get(UIPanelInspector_i.strConfigAction+3);
-			
-			logger.debug(className, function, "Checking rightname3[{}] right3[{}]", rightname3, right3);
-			if ( null != right3 ) {
-				if ( right3.equals(String.valueOf(false))) {
-					logger.warn(className, function, "right3 IS INSUFFICIENT RIGHT");
-					
-					panelTab.remove(panelTag);
-				}
-			} else {
-				logger.warn(className, function, "right3 IS NULL");
-			}
+			removeTabWithoutRight(rights, rightname3, right3, panelTag);
 			
 			// Right 4
 			String rightname4 = UIPanelInspector_i.strConfigAction+4;
 			String right4 = rights.get(rightname4);
-			
-			logger.debug(className, function, "Checking rightname4[{}] right4[{}]", rightname4, right4);
-			if ( null != right4 ) {
-				if ( right4.equals(String.valueOf(false))) {
-					logger.warn(className, function, "right4 IS INSUFFICIENT RIGHT");
-					
-					panelTab.remove(panelAdv);
-				}
-			} else {
-				logger.warn(className, function, "right4 IS NULL");
-			}
+			removeTabWithoutRight(rights, rightname4, right4, panelAdv);
 		
 		} else {
 			logger.warn(className, function, "uiOpm_i IS NULL");
 		}
-
-
-		{
-			logger.begin(className, function+" GetChildren");
-			
-			
-			DataBaseClientKey clientKey = new DataBaseClientKey();
-			clientKey.setAPI(API.GetChildren);
-			clientKey.setWidget(INSPECTOR);
-			clientKey.setStability(Stability.STATIC);
-			clientKey.setAdress(parent);
-			
-			String strClientKey = clientKey.toClientKey();
-			
-			String strApi = clientKey.getApi().toString();
-
-//			String clientKey = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
-
-//			String api = "GetChildren";
-			String dbaddress = parent;
-			
-			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddress, new DatabaseEvent() {
-//			database.addStaticRequest(api, clientKey, scsEnvId, dbaddress, new DatabaseEvent() {
-				
-				@Override
-				public void update(String key, String[] values) {
-					
-					{
-						
-						DataBaseClientKey clientKey = new DataBaseClientKey();
-						clientKey.setAPI(API.GetChildren);
-						clientKey.setWidget(INSPECTOR);
-						clientKey.setStability(Stability.STATIC);
-						clientKey.setAdress(parent);
-						
-						String strClientKey = clientKey.toString();
-						
-//						String clientKey_GetChildren_inspector_static = "GetChildren" + "_" + "inspector" + "_" + "static" + "_" + parent;
-//						if ( 0 == clientKey_GetChildren_inspector_static.compareTo(key) ) {
-						
-						if ( strClientKey.equalsIgnoreCase(key) ) {
-							buildTabsAddress(values);
-							makeTabsSetAddress();
-							makeTabsBuildWidgets();
-							makeTabsConnect();
-							
-							((UIInspectorHeader)			uiInspectorHeader)	.connect();
-							((UIInspectorEquipmentReserve)	equipmentReserve)	.connect();
-							
-							if ( infos.size() <= 0 )		panelTab.remove(panelInfo);
-							if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
-							if ( tags.size() <= 0 )			panelTab.remove(panelTag);
-							if ( advances.size() <= 0 )		panelTab.remove(panelAdv);
-				
-						}			
-					}
-					
-					{
-						database.setDynamicEvent(new DatabaseEvent() {
-							
-							@Override
-							public void update(String key, String[] value) {
-								
-								DataBaseClientKey clientKey = new DataBaseClientKey();
-								clientKey.setAPI(API.multiReadValue);
-								clientKey.setWidget(INSPECTOR);
-								clientKey.setStability(Stability.DYNAMIC);
-								clientKey.setAdress(parent);
-								
-								String strClientKey = clientKey.toClientKey();
-								
-//								String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
-								
-								String [] dbaddresses	= database.getKeyAndAddress(strClientKey);
-								String [] dbvalues		= database.getKeyAndValues(strClientKey);
-								if (dbaddresses == null || dbvalues == null) {
-									logger.error("DatabaseEvent", "update", "dbaddresses or dbvalues is null");
-									return;
-								}
-								if (logger.isDebugEnabled()) {
-									for (int i=0; i<dbaddresses.length; i++) {
-										logger.debug("DatabaseEvent", "update", "dbaddresses[{}]=[{}]", i, dbaddresses[i]);
-									}
-									for (int i=0; i<dbvalues.length; i++) {
-										logger.debug("DatabaseEvent", "update", "dbvalues[{}]=[{}]", i, dbvalues[i]);
-									}
-									for (int i=0; i<value.length; i++) {
-										logger.debug("DatabaseEvent", "update", "value[{}]=[{}]", i, value[i]);
-									}
-								}
-								
-								HashMap<String, String> dynamicvalues = new HashMap<String, String>();
-								for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-									dynamicvalues.put(dbaddresses[i], dbvalues[i]);
-								}
-								
-								((UIInspectorHeader)			uiInspectorHeader)		.updateValue(key, dynamicvalues);
-								((UIInspectorEquipmentReserve)	equipmentReserve)		.updateValue(key, dynamicvalues);
-								
-								((UIInspectorInfo)				uiInspectorInfo)		.updateValue(key, dynamicvalues);
-								((UIInspectorControl)			uiInspectorControl)		.updateValue(key, dynamicvalues);
-								((UIInspectorTag)				uiInspectorTag)			.updateValue(key, dynamicvalues);
-								((UIInspectorAdvance)			uiInspectorAdvance)		.updateValue(key, dynamicvalues);
-								
-							}
-						});
-
-					}
-
-				}
-			});
-			
-			logger.end(className, function+" GetChildren");
-		}
 		
-		{
-			logger.begin(className, function+" multiReadValue");
-			
-			
-			DataBaseClientKey clientKey = new DataBaseClientKey();
-			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR);
-			clientKey.setStability(Stability.STATIC);
-			clientKey.setAdress(parent);
-			
-			String strClientKey = clientKey.toClientKey();
-			
-//			String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
-			
-			String[] dbaddresses = null;
-			{
-				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-				for(int y=0;y<staticAttibutes.length;++y) {
-					dbaddressesArrayList.add(parent+staticAttibutes[y]);
-				}
-				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-			}
-			
-			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "strClientKey[{}] scsEnvId[{}]", strClientKey, scsEnvId);
-				for(int i = 0; i < dbaddresses.length; ++i ) {
-					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
-				}
-			}
-			
-			String strApi = clientKey.getApi().toString();
-			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-//			String api = "multiReadValue";
-//			database.addStaticRequest(api, clientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-				
-				@Override
-				public void update(String key, String[] values) {
-					{
-						String clientKey_multiReadValue_inspector_static = "multiReadValue" + "_" + "inspector" + "_" + "static" + "_" + parent;
-						if ( 0 == clientKey_multiReadValue_inspector_static.compareTo(key) ) {
-							String [] dbaddresses	= database.getKeyAndAddress(key);
-							String [] dbvalues		= database.getKeyAndValues(key);
-							for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-								String dbaddress = dbaddresses[i];
-				
-								// Equipment Label
-								if ( dbaddress.endsWith(PointName.label.toString()) ) {
-									String value = dbvalues[i];
-									value = DatabaseHelper.removeDBStringWrapper(value);
-									if ( null != value) setText(value);
-									break;
-								}
-							}
-						}
-					}
-				}
-			});
-			logger.end(className, function+" multiReadValue");
-		}
+		// hmiOrder
+		String strHmiOrderEnable = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderEnable;
+		hmiOrderEnable = ReadProp.readBoolean(dictionariesCacheName, fileName, strHmiOrderEnable, false);
+		logger.debug(className, function, "strHmiOrderEnable[{}] hmiOrderEnable[{}]", strHmiOrderEnable, hmiOrderEnable);
+		
+		String strHmiOrderAttribute = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderAttribute;
+		hmiOrderAttribute = ReadProp.readString(dictionariesCacheName, fileName, strHmiOrderAttribute, "");
+		logger.debug(className, function, "strHmiOrderAttribute[{}] hmiOrderAttribute[{}]", strHmiOrderAttribute, hmiOrderAttribute);
+		
+		String strHmiOrderFilterThreshold = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderFilterThreshold;
+		hmiOrderFilterThreshold = ReadProp.readInt(UIInspector_i.strUIInspector, fileName, strHmiOrderFilterThreshold, -1);
+		logger.debug(className, function, "strHmiOrderFilterThreshold[{}] hmiOrderFilterThreshold[{}]", strHmiOrderFilterThreshold, hmiOrderFilterThreshold);
+
+		requestGetChilden();
+
+		requestHeader();
 		
 		logger.end(className, function);
 	}
@@ -454,7 +515,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		makeTabsDisconnect();
 		
-		((UIInspectorHeader)	uiInspectorHeader)		.disconnect();
+		((UIInspectorHeader)				uiInspectorHeader)		.disconnect();
 		((UIInspectorEquipmentReserve)		equipmentReserve)		.disconnect();
 		
 		database.disconnectTimer();
@@ -483,7 +544,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		return matchFound;
 	}
 	
-	private boolean isRegExpMatch(LinkedList<String> regExpPatterns, String dbaddress) {
+	private boolean isRegExpMatch(List<String> regExpPatterns, String dbaddress) {
 		boolean listMatch = false;
 		for ( String regExpPattern : regExpPatterns ) {
 			if ( isRegExpMatch( RegExp.compile(regExpPattern), dbaddress) )	{ 
@@ -493,89 +554,104 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		}
 		return listMatch;
 	}
+	
+	private void prepareBlackList(List<List<String>> backLists, String dictionariesCacheName, String tab, int i) {
+		final String function = "prepareBlackList";
+		logger.begin(className, function);
+		logger.debug(className, function, " get"+UIPanelInspector_i.strBlack+"Lists");
+		List<String> backList = backLists.get(i);
+		String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+		String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
+		logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+		int numOfBack = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
+		for ( int y = 0 ; y < numOfBack ; ++y ) {
+			String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
+			String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
+			logger.debug(className, function, "key[{}] value[{}]", key, value);
+			backList.add(value);
+		}
+
+		logger.end(className, function);
+	}
+	
+	private void prepareWhiteList(List<List<String>> lists, String dictionariesCacheName, String tab, int i) {
+		final String function = "prepareBlackList";
+		logger.begin(className, function);
+		logger.debug(className, function, " get"+UIPanelInspector_i.strWhite+"Lists");
+		List<String> whiteList = lists.get(i);
+		String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+		String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
+		logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+		int numOfWhite = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
+		for ( int y = 0 ; y < numOfWhite ; ++y ) {
+			String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
+			String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
+			logger.debug(className, function, "key[{}] value[{}]", key, value);
+			whiteList.add(value);
+		}
+
+		logger.end(className, function);
+	}
+	
+	private void applyFiltedList(List<String> list, List<String> regExpPatternBlackList, List<String> regExpPatternWhiteList, String dbaddress) {
+		final String function = "applyFiltedList";
+		logger.begin(className, function);
+		boolean blackListMatch=false;
+		boolean whileListMatch=false;
+		blackListMatch = isRegExpMatch(regExpPatternBlackList, dbaddress);
+		if ( !blackListMatch ) { 
+			whileListMatch = isRegExpMatch(regExpPatternWhiteList, dbaddress);
+		}
+		if ( whileListMatch ) { list.add(dbaddress); }
+		logger.end(className, function);
+	}
 
 	private TextBox txtMsg = null;
-	private LinkedList<String> infos	= new LinkedList<String>();
-	private LinkedList<String> controls	= new LinkedList<String>();
-	private LinkedList<String> tags		= new LinkedList<String>();
-	private LinkedList<String> advances	= new LinkedList<String>();
+	private List<String> infos		= new LinkedList<String>();
+	private List<String> controls	= new LinkedList<String>();
+	private List<String> tags		= new LinkedList<String>();
+	private List<String> advances	= new LinkedList<String>();
 	@Override
 	public void buildTabsAddress(String[] instances) {
 		final String function = "buildTabsAddress";
-		
 		logger.begin(className, function);
 
-		LinkedList<String> infoRegExpPatternBlackList		= new LinkedList<String>();
-		LinkedList<String> controlRegExpPatternBlackList	= new LinkedList<String>();
-		LinkedList<String> tagRegExpPatternBlackList		= new LinkedList<String>();
-		LinkedList<String> advanceRegExpPatternBlackList	= new LinkedList<String>();
+		List<String> infoRegExpPatternBlackList		= new LinkedList<String>();
+		List<String> controlRegExpPatternBlackList	= new LinkedList<String>();
+		List<String> tagRegExpPatternBlackList		= new LinkedList<String>();
+		List<String> advanceRegExpPatternBlackList	= new LinkedList<String>();
 		
-		LinkedList<String> infoRegExpPatternWhileList		= new LinkedList<String>();
-		LinkedList<String> controlRegExpPatternWhileList	= new LinkedList<String>();
-		LinkedList<String> tagRegExpPatternWhileList		= new LinkedList<String>();
-		LinkedList<String> advanceRegExpPatternWhileList	= new LinkedList<String>();
+		List<String> infoRegExpPatternWhileList		= new LinkedList<String>();
+		List<String> controlRegExpPatternWhileList	= new LinkedList<String>();
+		List<String> tagRegExpPatternWhileList		= new LinkedList<String>();
+		List<String> advanceRegExpPatternWhileList	= new LinkedList<String>();
 		
 		logger.begin(className, function + " getLists");
 		
 		String dictionariesCacheName = "UIInspectorPanel";
-//		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strConfingInstance);
-//		if ( null != dictionariesCache ) {
 
-			LinkedList<LinkedList<String>> backLists = new LinkedList<LinkedList<String>>();
-			backLists.add(infoRegExpPatternBlackList);
-			backLists.add(controlRegExpPatternBlackList);
-			backLists.add(tagRegExpPatternBlackList);
-			backLists.add(advanceRegExpPatternBlackList);
+		List<List<String>> backLists = new LinkedList<List<String>>();
+		backLists.add(infoRegExpPatternBlackList);
+		backLists.add(controlRegExpPatternBlackList);
+		backLists.add(tagRegExpPatternBlackList);
+		backLists.add(advanceRegExpPatternBlackList);
+		
+		List<List<String>> whiteLists = new LinkedList<List<String>>();
+		whiteLists.add(infoRegExpPatternWhileList);
+		whiteLists.add(controlRegExpPatternWhileList);
+		whiteLists.add(tagRegExpPatternWhileList);
+		whiteLists.add(advanceRegExpPatternWhileList);
+		
+		for ( int i = 0 ; i < strTabConfigNames.length ; ++i ) {
+			String tab = strTabConfigNames[i];
+			logger.begin(className, function+" "+tab);
 			
-			LinkedList<LinkedList<String>> whiteLists = new LinkedList<LinkedList<String>>();
-			whiteLists.add(infoRegExpPatternWhileList);
-			whiteLists.add(controlRegExpPatternWhileList);
-			whiteLists.add(tagRegExpPatternWhileList);
-			whiteLists.add(advanceRegExpPatternWhileList);
+			prepareBlackList(backLists, dictionariesCacheName, tab, i);
+
+			prepareWhiteList(whiteLists, dictionariesCacheName, tab, i);
 			
-			for ( int i = 0 ; i < strTabConfigNames.length ; ++i ) {
-				String tab = strTabConfigNames[i];
-				logger.begin(className, function+" "+tab);
-				
-				{
-					String functionEmb = function + " get"+UIPanelInspector_i.strBlack+"Lists";
-					logger.begin(className, functionEmb);
-					LinkedList<String> backList = backLists.get(i);
-					String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
-					String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
-					logger.debug(className, functionEmb, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-					int numOfBack = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
-					for ( int y = 0 ; y < numOfBack ; ++y ) {
-						String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
-						String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-						logger.debug(className, functionEmb, "key[{}] value[{}]", key, value);
-						backList.add(value);
-					}
-
-					logger.end(className, functionEmb);
-				}
-
-				{
-					String functionEmb = function + " get"+UIPanelInspector_i.strWhite+"Lists";
-					logger.begin(className, functionEmb);
-					LinkedList<String> whiteList = whiteLists.get(i);
-					String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
-					String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
-					logger.debug(className, functionEmb, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-					int numOfWhite = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
-					for ( int y = 0 ; y < numOfWhite ; ++y ) {
-						String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
-						String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-						logger.debug(className, functionEmb, "key[{}] value[{}]", key, value);
-						whiteList.add(value);
-					}
-
-					logger.end(className, functionEmb);
-				}
-				
-				logger.end(className, function+" "+tab);
-			}
-//		}
+			logger.end(className, function+" "+tab);
+		}
 
 		logger.end(className, function + " getLists");
 
@@ -588,45 +664,13 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 				logger.debug(className, function, "Iterator dbaddress[{}]", dbaddress);
 				
-				{
-					boolean infoBlackListMatch=false;
-					boolean infoWhileListMatch=false;
-					infoBlackListMatch = isRegExpMatch(infoRegExpPatternBlackList, dbaddress);
-					if ( !infoBlackListMatch ) { 
-						infoWhileListMatch = isRegExpMatch(infoRegExpPatternWhileList, dbaddress);
-					}
-					if ( infoWhileListMatch ) { infos.add(dbaddress); }
-				}
-
-				{
-					boolean controlBlackListMatch=false;
-					boolean controlWhileListMatch=false;
-					controlBlackListMatch = isRegExpMatch(controlRegExpPatternBlackList, dbaddress);
-					if ( !controlBlackListMatch ) { 
-						controlWhileListMatch = isRegExpMatch(controlRegExpPatternWhileList, dbaddress);
-					}
-					if ( controlWhileListMatch ) { controls.add(dbaddress); }	
-				}
+				applyFiltedList(infos, infoRegExpPatternBlackList, infoRegExpPatternWhileList, dbaddress);
 				
-				{
-					boolean tagBlackListMatch=false;
-					boolean tagWhileListMatch=false;
-					tagBlackListMatch = isRegExpMatch(tagRegExpPatternBlackList, dbaddress);
-					if ( ! tagBlackListMatch ) { 
-						tagWhileListMatch = isRegExpMatch(tagRegExpPatternWhileList, dbaddress);
-					}
-					if ( tagWhileListMatch ) { tags.add(dbaddress); }	
-				}
+				applyFiltedList(controls, controlRegExpPatternBlackList, controlRegExpPatternWhileList, dbaddress);
 				
-				{
-					boolean advanceBlackListMatch=false;
-					boolean advanceWhileListMatch=false;
-					advanceBlackListMatch = isRegExpMatch(advanceRegExpPatternBlackList, dbaddress);
-					if ( !advanceBlackListMatch ) { 
-						advanceWhileListMatch = isRegExpMatch(advanceRegExpPatternWhileList, dbaddress);
-					}
-					if ( advanceWhileListMatch ) { advances.add(dbaddress); }	
-				}
+				applyFiltedList(tags, tagRegExpPatternBlackList, tagRegExpPatternWhileList, dbaddress);
+				
+				applyFiltedList(advances, advanceRegExpPatternBlackList, advanceRegExpPatternWhileList, dbaddress);
 
 			} else {
 				logger.warn(className, function, "Iterator dbaddress IS NULL");
@@ -726,7 +770,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	}
 	
 	
-	
 	private UIInspectorTab_i uiInspectorHeader		= null;
 	private UIInspectorTab_i equipmentReserve		= null;
 	
@@ -734,10 +777,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private UIInspectorTab_i uiInspectorControl		= null;
 	private UIInspectorTab_i uiInspectorTag			= null;
 	private UIInspectorTab_i uiInspectorAdvance		= null;
-	
 
-//	private TabLayoutPanel panelTabLayout = null;
-	
 	private TabPanel panelTab = null;
 
 	private Panel panelHeader		= null;
@@ -804,7 +844,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				}
 			}
 		});
-		
 		
 		uiInspectorInfo.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
 			

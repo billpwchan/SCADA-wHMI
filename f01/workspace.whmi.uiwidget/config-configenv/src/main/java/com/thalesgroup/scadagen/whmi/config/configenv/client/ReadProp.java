@@ -22,7 +22,7 @@ public class ReadProp {
 			String strResult = dictionariesCache.getStringValue(fileName, valueKey);
 			logger.debug(className, function, "strResult[{}]", strResult);
 			if ( null != strResult ) {
-				if ( "true".equals(strResult) ) {
+				if ( 0 == Boolean.TRUE.toString().compareToIgnoreCase(strResult) ) {
 					logger.debug(className, function, "strResult IS TRUE");
 					result = true;
 				} else {

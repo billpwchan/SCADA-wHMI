@@ -46,11 +46,7 @@
 
     <!-- Session Authentication Strategy -->
     <beans:bean id="sas"
-	      class="com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.session.MwtSessionAuthenticationStrategy">
-<!--
-	<beans:bean id="sas"
-	      class="com.thalesgroup.scadasoft.gwebhmi.security.server.session.MySessionAuthenticationStrategy">
--->
+	      class="com.thalesgroup.hvpp.opmgate.OpmAuthentifier">
 		<beans:constructor-arg name="sessionRegistry" ref="sessionRegistry" />
         <beans:property name="maximumSessions" value="-1" />
         <beans:property name="exceptionIfMaximumExceeded" value="true" />
@@ -118,9 +114,6 @@
     <!-- LDAP Authorities Populator -->
     <beans:bean id="populator"
 		class="com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.ldap.ApacheDsAuthoritiesPopulator">
-<!--
-		class="com.thalesgroup.scadasoft.gwebhmi.security.server.session.MyApacheDsAuthoritiesPopulator">
--->
         <beans:constructor-arg ref="contextSource" />
         <!-- group based DN - we will be searching for groups in "ou=groups,o=hypervisor" -->
         <beans:constructor-arg value="${ldap.populator.apache.groupSearchBase}" />
@@ -146,11 +139,6 @@
 
     <!-- Change-Password Bean Configuration -->
     <beans:bean id="passChanger" class="com.thalesgroup.scadagen.wrapper.wrapper.server.SCADAgenLdapChangePassword">
-<!--
-    <beans:bean id="passChanger" class="com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.LdapPasswordChange">
-    <beans:bean id="passChanger" class="com.thalesgroup.scadasoft.gwebhmi.security.server.session.MyLdapPasswordChange">
-
--->
         <!--  LDAP template to access the server -->
         <beans:property name="ldapTemplate">
             <beans:bean id="simpleLdapTemplate" class="org.springframework.security.ldap.SpringSecurityLdapTemplate">

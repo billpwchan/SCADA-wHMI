@@ -1,0 +1,8 @@
+# MERGE file.
+# Files to read and merge into 'mwt-opm-permission.xml'.
+
+# This is the name of the permissions file downloaded from the OPM Manager. It does not change.
+mwt-opm-permission_SCADA.xml
+
+# Add here the names of all the permissions file you want to merge.
+mwt-opm-permission_MWT.xml

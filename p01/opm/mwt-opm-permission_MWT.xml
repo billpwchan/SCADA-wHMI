@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tns:maestroHMIConfiguration xmlns:tns="http://www.thalesgroup.com/hv/mwt/conf/opm/permission" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/opm/permission mwt-opm.xsd">
+
+  <!-- Validation configuration -->
+  <validationConfiguration checkAlarmSourceID="true" checkEventSourceID="true" displayLogOnCheck="true" enabled="true"/>
+
+  <!-- List of ROLES -->
+  <role id="ROOT">
+    <permissionAllowList>permission_VIEW_IMAGE_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_ALL</permissionAllowList>
+    <permissionAllowList>permissionAllow_SCS_ALL</permissionAllowList>
+    <permissionAllowList>permission_VIEW_ENTITY_CONTEXTUAL</permissionAllowList>
+    <permissionAllowList>permission_COMMAND_ENTITY_CONTEXTUAL</permissionAllowList>
+  </role>
+
+  <!-- PERMISSIONS for HV and SCS -->
+
+  <permission id="permissionAllow_SCS_ALL">
+    <criterion key="action" xsi:type="tns:criterionAll" />
+    <criterion key="areaId" xsi:type="tns:criterionAll" />
+    
+  </permission>
+  
+  <permission id="permission_VIEW_ENTITY_ALL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>VIEW_ENTITY</value>
+    </criterion>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll" />
+    <criterion key="entityId" xsi:type="tns:criterionAll" />
+  </permission>
+
+  <permission id="permission_VIEW_IMAGE_ALL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>VIEW_IMAGE</value>
+    </criterion>
+    <criterion key="imageId" xsi:type="tns:criterionAll" />
+  </permission>
+
+  <permission id="permission_COMMAND_ENTITY_ALL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>COMMAND_ENTITY</value>
+    </criterion>
+    <criterion key="commandType" xsi:type="tns:criterionAll" />
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll" />
+    <criterion key="entityId" xsi:type="tns:criterionAll" />
+  </permission>
+
+  <!-- Permission for Commands -->
+
+  <permission id="permission_COMMAND_ENTITY_ACK">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>COMMAND_ENTITY</value>
+    </criterion>
+    <criterion key="commandType" xsi:type="tns:criterionList">
+    <value>com.thalesgroup.hv.data_v1.alarm.operation.AlarmAckRequest</value>
+    </criterion>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll" />
+    <criterion key="entityId" xsi:type="tns:criterionAll" />
+  </permission>
+
+  <!-- Permission for Context -->
+
+  <permission id="permission_VIEW_ENTITY_CONTEXTUAL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>VIEW_ENTITY</value>
+    </criterion>
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll" />
+    <criterion key="entityId" xsi:type="tns:criterionContext" />
+  </permission>
+
+  <permission id="permission_COMMAND_ENTITY_CONTEXTUAL">
+    <criterion key="action" xsi:type="tns:criterionList">
+      <value>COMMAND_ENTITY</value>
+    </criterion>
+    <criterion key="commandType" xsi:type="tns:criterionAll" />
+    <criterion key="entityTypeId" xsi:type="tns:criterionAll" />
+    <criterion key="entityId" xsi:type="tns:criterionContext" />
+  </permission> 
+</tns:maestroHMIConfiguration>

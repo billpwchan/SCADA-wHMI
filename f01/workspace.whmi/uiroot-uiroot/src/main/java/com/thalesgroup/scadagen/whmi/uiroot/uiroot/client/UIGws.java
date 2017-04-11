@@ -15,7 +15,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInte
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIPanelScreen;
+import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIScreenRootMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -47,9 +47,8 @@ public class UIGws {
 		}
 	}
 	
-	public Panel getMainPanel() {
-		final String function = "getMainPanel";
-
+	public void init() {
+		final String function = "init";
 		logger.begin(className, function);
 		
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
@@ -77,38 +76,7 @@ public class UIGws {
 			}
 		}
 		// end of parameter override
-		
-//		String strLogModule = setting.get("logmodule");
-//		String strLogModuleLevel = setting.get("logmodulelevel");
-//		
-//		logger.info(className, function, "getMainPanel Debug strLogModule[{}]", strLogModule);
-//		logger.info(className, function, "getMainPanel Debug strLogModuleLevel[{}]", strLogModuleLevel);
-//		
-//		if ( null != strLogModule && null != strLogModuleLevel ) {
-//			Level level = Level.FINE;
-//			if ( Level.ALL.getName().equals(strLogModuleLevel) ) {
-//				level = Level.ALL;
-//			} else if ( Level.FINE.getName().equals(strLogModuleLevel) ) {
-//				level = Level.FINE;
-//			} else if ( Level.INFO.getName().equals(strLogModuleLevel) ) {
-//				level = Level.INFO;
-//			} else if ( Level.CONFIG.getName().equals(strLogModuleLevel) ) {
-//				level = Level.CONFIG;
-//			} else if ( Level.WARNING.getName().equals(strLogModuleLevel) ) {
-//				level = Level.WARNING;
-//			} else if ( Level.SEVERE.getName().equals(strLogModuleLevel) ) {
-//				level = Level.SEVERE;
-//			}
-//			
-//			Logger.getLogger(strLogModule).setLevel(level);
-//			
-////			String strLogModules [] = strLogModule.split("\\|");
-////			for ( String s: strLogModules ) {
-////				Logger.getLogger(s).setLevel(level);
-////			}
-//		}
-		
-		
+
 		// Num Of Screen
 		String strNumOfScreen = setting.get("numofscreen");
 		if ( null == strNumOfScreen ) {
@@ -138,7 +106,11 @@ public class UIGws {
 		// End of Debug
 
 		logger.end(className, function);
-				
+	}
+	
+	public Panel getMainPanel() {
+		final String function = "getMainPanel";
+		logger.beginEnd(className, function);
 		return root;
 	}
 	
@@ -154,7 +126,7 @@ public class UIGws {
 		final String [] tags = {header, option, action, actionset};
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
-		String folder = dictionaryFolder;
+		String folder = uiDict;
 		String extention = "*.xml";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		for(String tag : tags ) {
@@ -178,7 +150,7 @@ public class UIGws {
 
 		String mode = ConfigurationType.PropertiesFile.toString();
 		String module = null;
-		String folder = propertyFolder;
+		String folder = uiProp;
 		String extention = "*.properties";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		dictionariesCache.add(folder, extention, null);
@@ -192,24 +164,39 @@ public class UIGws {
 		logger.end(className, function);
 	}
 	
-	private String dictionaryFolder = null;
-	public void setDictionaryFolder ( String dictionaryFolder ) {
-		this.dictionaryFolder = dictionaryFolder;
+	private String uiDict = null;
+	public void setDictionaryFolder ( String uiDict ) {
+		this.uiDict = uiDict;
 	}
 	
-	private String propertyFolder = null;
-	public void setPropertyFolder ( String propertyFolder ) {
-		this.propertyFolder = propertyFolder;
+	private String uiProp = null;
+	public void setPropertyFolder ( String uiProp ) {
+		this.uiProp = uiProp;
 	}
 
-	private String viewXMLFile = null;
-	public void setViewXMLFile(String viewXMLFile) {
-		this.viewXMLFile = viewXMLFile;
+	private String uiCtrl = null;
+	public void setUICtrl(String uiCtrl) {
+		this.uiCtrl = uiCtrl;
+	}	
+	
+	private String uiView = null;
+	public void setViewXMLFile(String uiView) {
+		this.uiView = uiView;
 	}
 	
-	private String optsXMLFile = null;
-	public void setOptsXMLFile(String optsXMLFile) {
-		this.optsXMLFile = optsXMLFile;
+	private String uiOpts = null;
+	public void setOptsXMLFile(String uiOpts) {
+		this.uiOpts = uiOpts;
+	}
+	
+	private String uiElem = null;
+	public void setElement(String uiElem) {
+		this.uiElem = uiElem;
+	}
+	
+	private HashMap<String, Object> options = null;
+	public void setOptions(HashMap<String, Object> options) {
+		this.options = options;
 	}
 
 	private boolean isCreated = false;
@@ -222,17 +209,18 @@ public class UIGws {
 
 		if ( ! isCreated ) {
 			
-			UIWidget_i uiWidget_i = new UIPanelScreen();
-			uiWidget_i.setDictionaryFolder(dictionaryFolder);
-			uiWidget_i.setViewXMLFile(viewXMLFile);
-			uiWidget_i.setOptsXMLFile(optsXMLFile);
-			uiWidget_i.setUINameCard(uiNameCard);
-			uiWidget_i.init();
-			Panel panel = uiWidget_i.getMainPanel();
+			UIScreenRootMgr uiPanelFactoryMgr = UIScreenRootMgr.getInstance();
+			UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 			
-			this.root.clear();	
-			this.root.add(panel);
-			
+			if ( null != uiWidget_i ) {
+				Panel panel = uiWidget_i.getMainPanel();
+				
+				this.root.clear();	
+				this.root.add(panel);
+			} else {
+				logger.warn(className, function, "uiWidget_i IS NULL");
+			}
+
 			isCreated = true;
 			
 		} else {

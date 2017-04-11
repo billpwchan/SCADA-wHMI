@@ -49,7 +49,7 @@
       id="a25dcdf7-d8b6-4406-81e0-97ba30478fe2" name="lib-hypervisor" appliedPropertyValues="#6a9509c0-a2cd-4226-a7c7-c605d6c0dc44"
       appliedPropertyValueGroups="#c15a0c7f-9e3b-4e32-a6f0-e6e751c64940">
     <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-        id="6a9509c0-a2cd-4226-a7c7-c605d6c0dc44" name="ModelVersion" value="1.5.3"/>
+        id="6a9509c0-a2cd-4226-a7c7-c605d6c0dc44" name="ModelVersion" value="1.5.4"/>
     <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
         id="c15a0c7f-9e3b-4e32-a6f0-e6e751c64940" name="PomInfos">
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
@@ -57,7 +57,7 @@
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
           id="69667cf8-bb27-47b3-b13a-71d82cbc8006" name="artifactId" value="data-model-jaxb"/>
       <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
-          id="38b1ede8-2850-4b06-bc3b-1f8c073edc24" name="version" value="1.8.0_P03"/>
+          id="38b1ede8-2850-4b06-bc3b-1f8c073edc24" name="version" value="1.10.0"/>
     </ownedPropertyValueGroups>
     <ownedArchitectures xsi:type="org.polarsys.capella.core.data.oa:OperationalAnalysis"
         id="b1552101-6e89-4305-989b-eb064b046065" name="Operational Analysis">
@@ -22615,6 +22615,18 @@ else need a grahpic definition per instance layer entry</bodies>
                           id="185187c2-fc8c-4142-8951-fa1f75fa1d33" value="1"/>
                     </ownedMembers>
                   </ownedAssociations>
+                  <ownedAssociations xsi:type="org.polarsys.capella.core.data.information:Association"
+                      id="6706891a-fb0a-4369-abd2-313893a24a63" name="histoAssociation6"
+                      navigableMembers="#96b1eb1a-46fa-4bba-b898-c18e7d6f4636">
+                    <ownedMembers xsi:type="org.polarsys.capella.core.data.information:Property"
+                        id="5b8ae73d-ce63-4472-b84b-c13826962816" name="alarmHistoData"
+                        abstractType="#3c823302-64ee-4457-b158-5b1d6558e58e" aggregationKind="ASSOCIATION">
+                      <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="f28cf551-f936-452f-bf83-cdc036d5a116" value="1"/>
+                      <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="f1a80f2b-9ae8-49fd-ace3-870aa78f4cfa" value="1"/>
+                    </ownedMembers>
+                  </ownedAssociations>
                   <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
                       id="f0551772-b431-42da-8592-6a9d8541af54" name="AbstractHistoData">
                     <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
@@ -22705,6 +22717,35 @@ else need a grahpic definition per instance layer entry</bodies>
                           id="e5ec7880-42d1-408b-8064-b6ae0f7aab8b" value="1"/>
                       <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                           id="b0bbdfa9-773f-4b0c-b761-bcd9f8193abd" value="1"/>
+                    </ownedFeatures>
+                  </ownedClasses>
+                  <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
+                      id="3c823302-64ee-4457-b158-5b1d6558e58e" name="AlarmHistoData">
+                    <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
+                        id="075473b2-dfeb-492e-831f-977514c3eb44" super="#f0551772-b431-42da-8592-6a9d8541af54"
+                        sub="#3c823302-64ee-4457-b158-5b1d6558e58e"/>
+                    <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+                        id="e17923dc-dce8-4fa9-8f46-a946a788baa8" name="date" abstractType="org.polarsys.capella.core.data.information.datatype:StringType ../lib-shared-assets/lib-shared-assets.melodymodeller#02905d0f-869f-4c83-b5e8-6fd79005dfe3">
+                      <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="3afd2e34-944b-4b11-b81d-aca543facd46" value="1"/>
+                      <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="47506002-018e-4c86-9cfd-c422ef4b15df" value="1"/>
+                    </ownedFeatures>
+                    <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+                        id="4f5c2e0e-b9fe-4b2d-9072-b18ef49633db" name="businessAction"
+                        abstractType="org.polarsys.capella.core.data.information.datatype:StringType ../lib-shared-assets/lib-shared-assets.melodymodeller#eeb8dfe2-49bc-4b63-9112-655392c90f8b">
+                      <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="9b240e3c-7820-4e58-9358-47d574746e6d" value="1"/>
+                      <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="18bfcf7e-d2c6-4eec-961e-73b149a390e7" value="1"/>
+                    </ownedFeatures>
+                    <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+                        id="96b1eb1a-46fa-4bba-b898-c18e7d6f4636" name="alarm" abstractType="org.polarsys.capella.core.data.information:Class ../lib-shared-assets/lib-shared-assets.melodymodeller#c304d3bf-0718-4d8e-8211-e9275f1dea6d"
+                        aggregationKind="COMPOSITION">
+                      <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="6a05f634-639e-4f01-bc1e-1a276c7227c1" value="1"/>
+                      <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                          id="ef1e3966-1291-474c-8c5e-7cbf0ed917e0" value="1"/>
                     </ownedFeatures>
                   </ownedClasses>
                   <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:Enumeration"
@@ -23002,7 +23043,11 @@ else need a grahpic definition per instance layer entry</bodies>
                   </ownedFeatures>
                 </ownedClasses>
                 <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
-                    id="732646b9-57ba-44a7-a0b1-f57c2348a4d0" name="HistorizeEquipmentOperationRequest"/>
+                    id="732646b9-57ba-44a7-a0b1-f57c2348a4d0" name="HistorizeEquipmentOperationRequest">
+                  <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
+                      id="cab632f1-24f4-4505-a4e2-fe7211a6f81a" super="#4e6db465-754e-4db3-a3c3-e87c476dcf19"
+                      sub="#732646b9-57ba-44a7-a0b1-f57c2348a4d0"/>
+                </ownedClasses>
                 <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
                     id="e64e1fd2-7836-4a76-8c47-0ff9de9d6f51" name="HistorizeEquipmentUpdateRequest">
                   <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
@@ -23027,6 +23072,20 @@ else need a grahpic definition per instance layer entry</bodies>
                 </ownedClasses>
                 <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
                     id="ca544fb2-6e28-46b2-b6f4-0463c528376c" name="HistorizeServiceUpdateRequest"/>
+                <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
+                    id="4e6db465-754e-4db3-a3c3-e87c476dcf19" name="AbstractHistoOperationRequest">
+                  <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
+                      id="b19020f3-2b98-45f1-bb82-e68018901ea5" super="org.polarsys.capella.core.data.information:Class ../lib-brokers/lib-brokers.melodymodeller#726070bf-0dc9-43a7-9031-b7ba2346d9a8"
+                      sub="#4e6db465-754e-4db3-a3c3-e87c476dcf19"/>
+                  <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+                      id="0bb4b9a3-1085-40fa-b95b-0d422aa17a26" name="historianServiceId"
+                      abstractType="org.polarsys.capella.core.data.information.datatype:StringType ../lib-shared-assets/lib-shared-assets.melodymodeller#eeb8dfe2-49bc-4b63-9112-655392c90f8b">
+                    <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                        id="14bfbabf-9d27-4ef5-9473-374f8098ad5f" value="1"/>
+                    <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                        id="ac965ec4-0ffd-4067-a2b3-83984549b1e9" value="1"/>
+                  </ownedFeatures>
+                </ownedClasses>
               </ownedDataPkgs>
             </ownedDataPkgs>
             <ownedDataPkgs xsi:type="org.polarsys.capella.core.data.information:DataPkg"
@@ -27839,6 +27898,18 @@ else need a grahpic definition per instance layer entry</bodies>
                   <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                       id="b8a95d10-6b74-4e50-9c2a-eb4c861fc18f" value="1"/>
                 </ownedFeatures>
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+                    id="a5231e39-56d8-4cbb-b0bb-d1269129b606" name="hazelcastPort"
+                    abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#f75c16de-bc5f-4b37-bc70-f7af47400ffe"
+                    unique="true">
+                  <ownedDefaultValue xsi:type="org.polarsys.capella.core.data.information.datavalue:NumericReference"
+                      id="46018c7d-cd8d-4510-b44f-98b7fb85abf3" name="" abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#f75c16de-bc5f-4b37-bc70-f7af47400ffe"
+                      referencedValue="#4d45892d-ab5c-4f7f-9b0b-eddb22b3323e"/>
+                  <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                      id="6913368b-c8eb-4ddf-9648-ef12e8abb65a" value="1"/>
+                  <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                      id="cc4bbdee-0159-4c16-9fcc-b7196a717495" value="1"/>
+                </ownedFeatures>
                 <ownedDataValues xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                     id="711fd950-c59f-40c5-b4bd-4284fa953f12" name="NOTIFICATION_PORT"
                     abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#f75c16de-bc5f-4b37-bc70-f7af47400ffe"/>
@@ -27852,6 +27923,10 @@ else need a grahpic definition per instance layer entry</bodies>
                     id="25dd8ba2-63e0-4310-ac36-a0e24a47da39" name="HISTORIZATION_ENABLED"
                     abstractType="org.polarsys.capella.core.data.information.datatype:BooleanType ../lib-shared-assets/lib-shared-assets.melodymodeller#c5525565-9819-4c8a-aff0-6373c15e6e74"
                     referencedValue="org.polarsys.capella.core.data.information.datavalue:LiteralBooleanValue ../lib-shared-assets/lib-shared-assets.melodymodeller#8233e220-83d8-4648-a2b1-77bf702d2a9d"/>
+                <ownedDataValues xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                    id="ff9286e2-2f0b-41ef-a9d7-11441f011ed0" name="HAZELCAST_PORT"
+                    abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#f75c16de-bc5f-4b37-bc70-f7af47400ffe"
+                    value="5701"/>
               </ownedClasses>
               <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
                   id="5641f528-0286-48cb-9b91-46c9c0bf767f" name="HVServiceSettings"
@@ -28133,6 +28208,10 @@ else need a grahpic definition per instance layer entry</bodies>
                     id="c8232757-f796-421f-999b-313d850a221c" name="HISTORIZATION_ENABLED"
                     abstractType="org.polarsys.capella.core.data.information.datatype:BooleanType ../lib-shared-assets/lib-shared-assets.melodymodeller#c5525565-9819-4c8a-aff0-6373c15e6e74"
                     referencedValue="org.polarsys.capella.core.data.information.datavalue:LiteralBooleanValue ../lib-shared-assets/lib-shared-assets.melodymodeller#8233e220-83d8-4648-a2b1-77bf702d2a9d"/>
+                <ownedDataValues xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                    id="089dab6d-fbc0-4608-a1c5-b6ea054a7d8a" name="HAZELCAST_PORT"
+                    abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#f75c16de-bc5f-4b37-bc70-f7af47400ffe"
+                    value="5701"/>
               </ownedClasses>
               <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
                   id="b5d82d2a-056e-49c9-8398-7e1d20228197" name="HVServiceSettings_AMS">
@@ -28182,6 +28261,10 @@ else need a grahpic definition per instance layer entry</bodies>
                     id="7e0b66e0-a3df-41f2-81dc-736dd2f68513" name="HISTORIZATION_ENABLED"
                     abstractType="org.polarsys.capella.core.data.information.datatype:BooleanType ../lib-shared-assets/lib-shared-assets.melodymodeller#c5525565-9819-4c8a-aff0-6373c15e6e74"
                     referencedValue="org.polarsys.capella.core.data.information.datavalue:LiteralBooleanValue ../lib-shared-assets/lib-shared-assets.melodymodeller#8233e220-83d8-4648-a2b1-77bf702d2a9d"/>
+                <ownedDataValues xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                    id="7e9700fe-9c69-4d77-b107-f39f486679ae" name="HAZELCAST_PORT"
+                    abstractType="org.polarsys.capella.core.data.information.datatype:NumericType ../lib-shared-assets/lib-shared-assets.melodymodeller#f75c16de-bc5f-4b37-bc70-f7af47400ffe"
+                    value="5801"/>
               </ownedClasses>
               <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
                   id="30fddc6e-df5e-4f73-8c3d-451d8dafaf3c" name="HVServiceSettings_BPS">
@@ -28391,7 +28474,7 @@ else need a grahpic definition per instance layer entry</bodies>
                 </ownedFeatures>
                 <ownedDataValues xsi:type="org.polarsys.capella.core.data.information.datavalue:EnumerationReference"
                     id="90e09c4b-4a50-4541-a0d6-4ac134d6e606" name="OPERATION_MODE"
-                    abstractType="#d8a252d0-5d4c-4446-b0c8-0875714a11c7" referencedValue="#7fb7b28c-35c6-48ef-bf0d-273988fa93a5"/>
+                    abstractType="#d8a252d0-5d4c-4446-b0c8-0875714a11c7" referencedValue="#54775cf6-6513-407c-a171-6ce770e63f5e"/>
                 <ownedDataValues xsi:type="org.polarsys.capella.core.data.information.datavalue:EnumerationReference"
                     id="58aa736f-2baf-43d3-991d-2a507c21f473" name="NOTIFICATION_MODE"
                     abstractType="#b5e8a7d0-7332-42da-9189-c6df7aed27ba" referencedValue="#a221f62f-f2fe-409b-a24d-91013e0eefa2"/>

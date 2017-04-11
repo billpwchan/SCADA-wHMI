@@ -16,7 +16,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
   <groupId>com.thalesgroup.hv.myproject</groupId>
   <artifactId>myproject-webapp-func</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
   <packaging>jar</packaging>
   <name>ScsTraining :: Reactor</name>
 	
@@ -28,10 +28,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <name> Hypervisor :: Guangzhou COCC :: Functional Components for HMI Web Application</name>
 	-->
     <properties>
-    <commons.uiwidget.version>1.3-SNAPSHOT</commons.uiwidget.version>
-    <commons.whmi.version>1.3-SNAPSHOT</commons.whmi.version>
-    <commons.uiwrapper.version>1.3-SNAPSHOT</commons.uiwrapper.version>
-	<commons.whmi.fun.version>1.3-SNAPSHOT</commons.whmi.fun.version>
+    <commons.uiwidget.version>1.3</commons.uiwidget.version>
+    <commons.whmi.version>1.3</commons.whmi.version>
+    <commons.uiwrapper.version>1.3</commons.uiwrapper.version>
+	<commons.whmi.fun.version>1.3</commons.whmi.fun.version>
 	
 	
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>

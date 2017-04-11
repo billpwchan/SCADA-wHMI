@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,10 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sortin
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorEquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTabFactory;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTag;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
@@ -57,23 +61,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelInspector.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
-	// Order
-	private final String strTabNames [] 	= new String[] {"Info","Control","Tagging","Advance"};
-	private final String strTabConfigNames [] = {"info", "control", "tag", "advance"};
-	
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
 	
 	// hmiOrder
-	private boolean hmiOrderEnable = false; 
-	private String hmiOrderAttribute = null;
-	private int hmiOrderFilterThreshold = -1;
+	private boolean hmiOrderEnable		= false; 
+	private String hmiOrderAttribute	= null;
+	private int hmiOrderFilterThreshold	= -1;
 
 	private String scsEnvId		= null;
 	private String parent		= null;
 	private int periodMillis	= 250;
 	
-	final private String INSPECTOR = "inspector";
+	final private String INSPECTOR		= "inspector";
 	
 	public void setPeriodMillis(int periodMillis) {
 		this.periodMillis = periodMillis;
@@ -117,14 +117,16 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsBuildWidgets();
 		makeTabsConnect();
 		
-		((UIInspectorHeader)			uiInspectorHeader)	.connect();
-		((UIInspectorEquipmentReserve)	equipmentReserve)	.connect();
+		uiInspectorHeader.connect();
+		equipmentReserve.connect();
 		
-		if ( infos.size() <= 0 )		panelTab.remove(panelInfo);
-		if ( controls.size() <= 0 )		panelTab.remove(panelCtrl);
-		if ( tags.size() <= 0 )			panelTab.remove(panelTag);
-		if ( advances.size() <= 0 )		panelTab.remove(panelAdv);
-		
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			if ( d.points.size() <= 0 ) {
+				panelTab.remove(d.panel);
+			}
+		}
+
 		logger.end(className, function);
 	}
 
@@ -201,11 +203,11 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					((UIInspectorHeader)			uiInspectorHeader)		.updateValue(key, dynamicvalues);
 					((UIInspectorEquipmentReserve)	equipmentReserve)		.updateValue(key, dynamicvalues);
 					
-					((UIInspectorInfo)				uiInspectorInfo)		.updateValue(key, dynamicvalues);
-					((UIInspectorControl)			uiInspectorControl)		.updateValue(key, dynamicvalues);
-					((UIInspectorTag)				uiInspectorTag)			.updateValue(key, dynamicvalues);
-					((UIInspectorAdvance)			uiInspectorAdvance)		.updateValue(key, dynamicvalues);
-					
+					((UIInspectorInfo)				panelData.get(info).uiInspectorTab_i)		.updateValue(key, dynamicvalues);
+					((UIInspectorControl)			panelData.get(control).uiInspectorTab_i)	.updateValue(key, dynamicvalues);
+					((UIInspectorTag)				panelData.get(tag).uiInspectorTab_i)		.updateValue(key, dynamicvalues);
+					((UIInspectorAdvance)			panelData.get(advance).uiInspectorTab_i)	.updateValue(key, dynamicvalues);
+
 				}
 			});
 		} else {
@@ -339,36 +341,38 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.end(className, function);
 	}
-	
-	private void removeTabWithoutRight(Map<String, String> rights, String rightname, String right, Panel tab) {
-		final String function = "removeTabWithoutRight";
+
+	private boolean checkRight(String dictionariesCacheName, String fileName, UIOpm_i uiOpm_i, String actionname, String mode) {
+		final String function = "checkRight";
 		logger.begin(className, function);
+		boolean right = false;
+		String keyaction = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strConfigAction+"_"+actionname;
 		
-		logger.debug(className, function, "Checking rightname[{}] right[{}]", rightname, right);
-		if ( null != right ) {
-			if ( right.equals(String.valueOf(false))) {
-				logger.warn(className, function, "right IS INSUFFICIENT RIGHT");
-				
-				panelTab.remove(tab);
-			}
+		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keyaction[{}]", new Object[]{dictionariesCacheName, fileName, keyaction});
+		String action = ReadProp.readString(dictionariesCacheName, fileName, keyaction, null);
+		logger.warn(className, function, "action[{}]", action);
+		if ( null != action ) {
+			logger.debug(className, function, "this.function[{}] this.location[{}] action[{}] mode[{}]"
+					, new Object[]{this.function, this.location, action, mode});
+			right = uiOpm_i.checkAccess(this.function, this.location, action, mode);
+			logger.debug(className, function, "actionname[{}] right[{}]", new Object[]{actionname, right});
 		} else {
-			logger.warn(className, function, "right IS NULL");
+			logger.warn(className, function, "action IS NULL");
 		}
-		
 		logger.end(className, function);
+		return right;
 	}
 	
+	private Map<String, Boolean> rights = null;
 	@Override
 	public void connect() {
 		final String function = "connect";
-
+		logger.begin(className, function);
 		String fileName = UIPanelInspector_i.strConfigPrefixWODot+UIPanelInspector_i.strConfigExtension;
 		String keyperiodmillis = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strPeriodMillis;
 		periodMillis = ReadProp.readInt(UIInspector_i.strUIInspector, fileName, keyperiodmillis, 250);
 		
 		logger.debug(className, function, "database pollor periodMillis[{}]", periodMillis);
-		
-		logger.begin(className, function);
 
 		database.connect();
 		database.connectTimer(this.periodMillis);
@@ -390,87 +394,29 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			String mode = null;
 			String keymode = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strConfigMode;
 			logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keymode[{}]", new Object[]{dictionariesCacheName, fileName, keymode});
-			String keymodevalue = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
-			
-			mode = keymodevalue;
+			mode = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
 			
 			logger.debug(className, function, "mode[{}]", mode);
-			
-			String keynumofaction = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strNumOfAction;
-			String keynumofactionvalue = ReadProp.readString(dictionariesCacheName, fileName, keynumofaction, "");
 
-			int numofaction = 0;
-			try {
-				numofaction = Integer.parseInt(keynumofactionvalue);
-			} catch ( NumberFormatException ex ) {
-				logger.warn(className, function, "keynumofactionvalue[{}] IS INVALID", keynumofactionvalue);
-				logger.warn(className, function, "keynumofactionvalue[{}] NumberFormatException.ex[{}]", keynumofactionvalue, ex.toString());
+			rights = new HashMap<String, Boolean>();
+			for ( String k : panelData.keySet() ) {
+				PanelData d = panelData.get(k);
+				d.opmright = checkRight(dictionariesCacheName, fileName, uiOpm_i, d.tabConfigName, mode);
+				rights.put(d.tabConfigName, d.opmright);
 			}
 			
-			logger.debug(className, function, "numofaction[{}]", numofaction);
-			
-			String [] actions = null;
-			String [] rightnames = null;
-			
-			if ( null == actions ) { actions = new String[numofaction]; }
-			if ( null == rightnames ) { rightnames = new String[numofaction]; }
-			
-			HashMap<String, String> rights = new HashMap<String, String>();
-			
-			for ( int i = 1 ; i <= numofaction ; ++i ) {
-				String actionname = UIPanelInspector_i.strConfigAction + i;
-				rightnames[i] = actionname;
+			boolean right = checkRight(dictionariesCacheName, fileName, uiOpm_i, "ackalarm", mode);
+			rights.put("ackalarm", right);
+
+			for ( String k : panelData.keySet() ) {
+				PanelData d = panelData.get(k);
 				
-				String keyaction = UIPanelInspector_i.strConfigPrefix+actionname;
+				d.uiInspectorTab_i.setRight(rights);
+				d.uiInspectorTab_i.applyRight();
 				
-				logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keyaction[{}]", new Object[]{dictionariesCacheName, fileName, keyaction});
-				String keyactionvalue = ReadProp.readString(dictionariesCacheName, fileName, keyaction, "");
-				actions[i] = keyactionvalue;
-				
-				boolean right = false;
-				
-				String action = actions[i];
-				if ( null != action ) {
-					logger.debug(className, function, "this.function[{}] this.location[{}] action[{}] mode[{}]", new Object[]{this.function, this.location, action, mode});
-					right = uiOpm_i.checkAccess(this.function, this.location, action, mode);
-					logger.debug(className, function, "i[{}] actionname[{}] right[{}]", new Object[]{i, actionname, right});
-					
-					rights.put(actionname, String.valueOf(right));
-				} else {
-					logger.warn(className, function, "action({}) IS NULL", i);
-				}
+				if ( ! d.opmright ) panelTab.remove(d.panel);
 			}
-			
-			uiInspectorInfo		.setRight(rights);
-			uiInspectorControl	.setRight(rights);
-			uiInspectorTag		.setRight(rights);
-			uiInspectorAdvance	.setRight(rights);
-			
-			uiInspectorInfo		.applyRight();
-			uiInspectorControl	.applyRight();
-			uiInspectorTag		.applyRight();
-			uiInspectorAdvance	.applyRight();
-			
-			// Right 1
-			String rightname1 = UIPanelInspector_i.strConfigAction+1;
-			String right1 = rights.get(UIPanelInspector_i.strConfigAction+1);
-			removeTabWithoutRight(rights, rightname1, right1, panelInfo);
-			
-			// Right 2
-			String rightname2 = UIPanelInspector_i.strConfigAction+2;
-			String right2 = rights.get(UIPanelInspector_i.strConfigAction+2);
-			removeTabWithoutRight(rights, rightname2, right2, panelCtrl);
-			
-			// Right 3
-			String rightname3 = UIPanelInspector_i.strConfigAction+3;
-			String right3 = rights.get(UIPanelInspector_i.strConfigAction+3);
-			removeTabWithoutRight(rights, rightname3, right3, panelTag);
-			
-			// Right 4
-			String rightname4 = UIPanelInspector_i.strConfigAction+4;
-			String right4 = rights.get(rightname4);
-			removeTabWithoutRight(rights, rightname4, right4, panelAdv);
-		
+
 		} else {
 			logger.warn(className, function, "uiOpm_i IS NULL");
 		}
@@ -506,8 +452,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		makeTabsDisconnect();
 		
-		((UIInspectorHeader)				uiInspectorHeader)		.disconnect();
-		((UIInspectorEquipmentReserve)		equipmentReserve)		.disconnect();
+		uiInspectorHeader.disconnect();
+		equipmentReserve.disconnect();
 		
 		database.disconnectTimer();
 		database.disconnect();
@@ -546,44 +492,48 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		return listMatch;
 	}
 	
-	private void prepareBlackList(List<List<String>> backLists, String dictionariesCacheName, String tab, int i) {
+	private void prepareBlackList(List<String> backList, String dictionariesCacheName, String tab) {
 		final String function = "prepareBlackList";
 		logger.begin(className, function);
 		logger.debug(className, function, " get"+UIPanelInspector_i.strBlack+"Lists");
-		List<String> backList = backLists.get(i);
-		String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
-		String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
-		logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-		int numOfBack = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
-		for ( int y = 0 ; y < numOfBack ; ++y ) {
-			String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
-			String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-			logger.debug(className, function, "key[{}] value[{}]", key, value);
-			backList.add(value);
+		if ( null != backList ) {
+			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+			String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
+			logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+			int numOfBack = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
+			for ( int y = 0 ; y < numOfBack ; ++y ) {
+				String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
+				String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
+				logger.debug(className, function, "key[{}] value[{}]", key, value);
+				backList.add(value);
+			}
+		} else {
+			logger.warn(className, function, "backList IS NULL");
 		}
-
 		logger.end(className, function);
 	}
-	
-	private void prepareWhiteList(List<List<String>> lists, String dictionariesCacheName, String tab, int i) {
+
+	private void prepareWhiteList(List<String> whiteList, String dictionariesCacheName, String tab) {
 		final String function = "prepareBlackList";
 		logger.begin(className, function);
 		logger.debug(className, function, " get"+UIPanelInspector_i.strWhite+"Lists");
-		List<String> whiteList = lists.get(i);
-		String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
-		String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
-		logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-		int numOfWhite = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
-		for ( int y = 0 ; y < numOfWhite ; ++y ) {
-			String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
-			String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-			logger.debug(className, function, "key[{}] value[{}]", key, value);
-			whiteList.add(value);
+		if ( null != whiteList ) {
+			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
+			String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
+			logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
+			int numOfWhite = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
+			for ( int y = 0 ; y < numOfWhite ; ++y ) {
+				String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
+				String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
+				logger.debug(className, function, "key[{}] value[{}]", key, value);
+				whiteList.add(value);
+			}
+		} else {
+			logger.warn(className, function, "whiteList IS NULL");
 		}
-
 		logger.end(className, function);
 	}
-	
+
 	private void applyFiltedList(List<String> list, List<String> regExpPatternBlackList, List<String> regExpPatternWhiteList, String dbaddress) {
 		final String function = "applyFiltedList";
 		logger.begin(className, function);
@@ -598,49 +548,28 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	}
 
 	private TextBox txtMsg = null;
-	private List<String> infos		= new LinkedList<String>();
-	private List<String> controls	= new LinkedList<String>();
-	private List<String> tags		= new LinkedList<String>();
-	private List<String> advances	= new LinkedList<String>();
 	@Override
 	public void buildTabsAddress(String[] instances) {
 		final String function = "buildTabsAddress";
 		logger.begin(className, function);
 
-		List<String> infoRegExpPatternBlackList		= new LinkedList<String>();
-		List<String> controlRegExpPatternBlackList	= new LinkedList<String>();
-		List<String> tagRegExpPatternBlackList		= new LinkedList<String>();
-		List<String> advanceRegExpPatternBlackList	= new LinkedList<String>();
-		
-		List<String> infoRegExpPatternWhileList		= new LinkedList<String>();
-		List<String> controlRegExpPatternWhileList	= new LinkedList<String>();
-		List<String> tagRegExpPatternWhileList		= new LinkedList<String>();
-		List<String> advanceRegExpPatternWhileList	= new LinkedList<String>();
-		
 		logger.begin(className, function + " getLists");
 		
 		String dictionariesCacheName = "UIInspectorPanel";
 
-		List<List<String>> backLists = new LinkedList<List<String>>();
-		backLists.add(infoRegExpPatternBlackList);
-		backLists.add(controlRegExpPatternBlackList);
-		backLists.add(tagRegExpPatternBlackList);
-		backLists.add(advanceRegExpPatternBlackList);
-		
-		List<List<String>> whiteLists = new LinkedList<List<String>>();
-		whiteLists.add(infoRegExpPatternWhileList);
-		whiteLists.add(controlRegExpPatternWhileList);
-		whiteLists.add(tagRegExpPatternWhileList);
-		whiteLists.add(advanceRegExpPatternWhileList);
-		
-		for ( int i = 0 ; i < strTabConfigNames.length ; ++i ) {
-			String tab = strTabConfigNames[i];
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			String tab = d.tabConfigName;
 			logger.begin(className, function+" "+tab);
 			
-			prepareBlackList(backLists, dictionariesCacheName, tab, i);
-
-			prepareWhiteList(whiteLists, dictionariesCacheName, tab, i);
+			d.regExpPatternBlackList = new LinkedList<String>();
 			
+			prepareBlackList(d.regExpPatternBlackList, dictionariesCacheName, tab);
+			
+			d.regExpPatternWhileList = new LinkedList<String>();
+			
+			prepareWhiteList(d.regExpPatternWhileList, dictionariesCacheName, tab);
+
 			logger.end(className, function+" "+tab);
 		}
 
@@ -650,19 +579,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		for ( String dbaddress : instances ) {
 			logger.debug(className, function,"Iterator dbaddress[{}]", dbaddress);
-			
 			if ( null != dbaddress ) {
-
 				logger.debug(className, function, "Iterator dbaddress[{}]", dbaddress);
-				
-				applyFiltedList(infos, infoRegExpPatternBlackList, infoRegExpPatternWhileList, dbaddress);
-				
-				applyFiltedList(controls, controlRegExpPatternBlackList, controlRegExpPatternWhileList, dbaddress);
-				
-				applyFiltedList(tags, tagRegExpPatternBlackList, tagRegExpPatternWhileList, dbaddress);
-				
-				applyFiltedList(advances, advanceRegExpPatternBlackList, advanceRegExpPatternWhileList, dbaddress);
-
+				for ( String k : panelData.keySet() ) {
+					PanelData d = panelData.get(k);
+					applyFiltedList(d.points, d.regExpPatternBlackList, d.regExpPatternWhileList, dbaddress);
+				}
 			} else {
 				logger.warn(className, function, "Iterator dbaddress IS NULL");
 			}
@@ -677,42 +599,43 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.begin(className, function);
 		
 		if ( logger.isDebugEnabled() ) {
-			for ( String dbaddress : infos )	{ logger.debug(className, function, "infos dbaddress[{}]", dbaddress); }
-			for ( String dbaddress : controls )	{ logger.debug(className, function, "controls dbaddress[{}]", dbaddress); }
-			for ( String dbaddress : tags )		{ logger.debug(className, function, "tags dbaddress[{}]", dbaddress); }
-			for ( String dbaddress : advances )	{ logger.debug(className, function, "advances dbaddress[{}]", dbaddress); }			
+			for ( String k : panelData.keySet() ) {
+				PanelData d = panelData.get(k);
+				for ( String dbaddress : d.points ) {
+					logger.debug(className, function, "points[{}] dbaddress[{}]", d.tabName, dbaddress);
+				}
+			}	
 		}
-
 		
 		uiInspectorHeader	.setParent(scsEnvId, parent);
 		equipmentReserve	.setParent(scsEnvId, parent);
 		
-		uiInspectorInfo		.setParent(scsEnvId, parent);
-		uiInspectorControl	.setParent(scsEnvId, parent);
-		uiInspectorTag		.setParent(scsEnvId, parent);
-		uiInspectorAdvance	.setParent(scsEnvId, parent);
-		
-		
-		uiInspectorHeader	.setAddresses	(infos		.toArray(new String[0]));
-		equipmentReserve	.setAddresses	(infos		.toArray(new String[0]));
-		
-		uiInspectorInfo		.setAddresses	(infos		.toArray(new String[0]));
-		uiInspectorControl	.setAddresses	(controls	.toArray(new String[0]));
-		uiInspectorTag		.setAddresses	(tags		.toArray(new String[0]));
-		uiInspectorAdvance	.setAddresses	(advances	.toArray(new String[0]));
-		
-		
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			d.uiInspectorTab_i.setParent(scsEnvId, parent);
+		}
+
+		uiInspectorHeader	.setAddresses	(panelData.get(info).points.toArray(new String[0]));
+		equipmentReserve	.setAddresses	(panelData.get(info).points.toArray(new String[0]));
+
+		for ( String k : panelData.keySet() ) {
+			final PanelData d = panelData.get(k);
+			d.uiInspectorTab_i.setAddresses	(d.points		.toArray(new String[0]));
+		}
+
 		logger.end(className, function);
 	}
 	
 	@Override
 	public void makeTabsBuildWidgets() {
 		final String function = "makeTabsBuildWidgets";
-
-		for ( int i = 0 ; i < uiInspectorTabs.size() ; ++i ) {
-			UIInspectorTab_i uiPanelInspector = uiInspectorTabs.get(i);
+		
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			
+			UIInspectorTab_i uiPanelInspector = d.uiInspectorTab_i;
 			String dictionariesCacheName = "UIInspectorPanel";
-			String tab = strTabConfigNames[i];
+			String tab = d.tabConfigName;
 			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
 			String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strDot+UIPanelInspector_i.strConfigNumberOfPointPerPage;
 			int numOfPointForEachPage = ReadProp.readInt(dictionariesCacheName, fileName, key, 0);
@@ -720,7 +643,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				uiPanelInspector.buildWidgets(numOfPointForEachPage);
 			} else {
 				logger.warn(className, function, " uiPanelInspector_i IS NULL");
-			}	
+			}
 		}
 
 		logger.end(className, function);
@@ -729,12 +652,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	@Override
 	public void makeTabsConnect() {
 		final String function = "makeTabsConnect";
-		
 		logger.begin(className, function);
 		
-		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
-			if ( null != uiPanelInspector ) {
-				uiPanelInspector.connect();
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			if ( null != d.uiInspectorTab_i ) {
+				d.uiInspectorTab_i.connect();
 			} else {
 				logger.warn(className, function, "uiPanelInspector_i IS NULL");
 			}
@@ -746,12 +669,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	@Override
 	public void makeTabsDisconnect() {
 		final String function = "makeTabsDisconnect";
-		
 		logger.begin(className, function);
-		
-		for ( UIInspectorTab_i uiPanelInspector : uiInspectorTabs ) {
-			if ( null != uiPanelInspector ) {
-				uiPanelInspector.disconnect();
+
+		for ( String k : panelData.keySet() ) {
+			final PanelData d = panelData.get(k);
+			if ( null != d.uiInspectorTab_i ) {
+				d.uiInspectorTab_i.disconnect();
 			} else {
 				logger.warn(className, function, "uiPanelInspector_i IS NULL");
 			}
@@ -760,47 +683,95 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 	}
 	
+	class PanelData {
+		String tabName = null;
+		String tabConfigName = null;
+		UIInspectorTab_i uiInspectorTab_i = null;
+		Panel panel = null;
+		
+		boolean isReserveEquipment = false;
+		boolean hasSetMessageBoxEvent = false;
+		
+		List<String> points = null;
+		
+		List<String> regExpPatternBlackList = null;
+		List<String> regExpPatternWhileList = null;
+		
+		String opmaction = null;
+		boolean opmright = false;
+	}
+	private Map<String, PanelData> panelData = null;
 	
 	private UIInspectorTab_i uiInspectorHeader		= null;
 	private UIInspectorTab_i equipmentReserve		= null;
-	
-	private UIInspectorTab_i uiInspectorInfo		= null;
-	private UIInspectorTab_i uiInspectorControl		= null;
-	private UIInspectorTab_i uiInspectorTag			= null;
-	private UIInspectorTab_i uiInspectorAdvance		= null;
 
 	private TabPanel panelTab = null;
 
 	private Panel panelHeader		= null;
-	private Panel panelInfo			= null;
-	private Panel panelCtrl			= null;
-	private Panel panelTag			= null;
-	private Panel panelAdv			= null;
+
+	private PanelData getPanelData(String tabName, String tabConfigName, String uiInspectorTabName, boolean isReserveEquipment, boolean hasSetMessageBoxEvent) {
+		final String function = "getPanelData";
+		logger.begin(className, function);
+		logger.debug(className, function, "tabName[{}] tabConfigName[{}] uiInspectorTabName[{}] isReserveEquipment[{}] hasSetMessageBoxEvent[{}]"
+				, new Object[]{tabName, tabConfigName, uiInspectorTabName, isReserveEquipment, hasSetMessageBoxEvent});
+		PanelData d = new PanelData();
+		d.tabName = tabName;
+		d.tabConfigName = tabConfigName;
+		d.uiInspectorTab_i = UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(uiInspectorTabName);
+		d.uiInspectorTab_i.setTabName(d.tabConfigName);
+		
+		d.isReserveEquipment = isReserveEquipment;
+		d.hasSetMessageBoxEvent = hasSetMessageBoxEvent;
+		
+		d.points = new LinkedList<String>();
+		logger.end(className, function);
+		return d;
+	}
 	
-	private LinkedList<UIInspectorTab_i> uiInspectorTabs = null;
+	private final static String strUIInspectorHeader 			= "UIInspectorHeader";
+	private final static String strUIInspectorEquipmentReserve 	= "UIInspectorEquipmentReserve";
+	
+	private final static String info							= "info";
+	private final static String strInfo							= "Info";
+	private final static String strUIInspectorInfo 				= "UIInspectorInfo";
+	
+	private final static String control 						= "control";
+	private final static String strControl						= "Control";
+	private final static String strUIInspectorControl 			= "UIInspectorControl";
+	
+	private final static String tag								= "tag";
+	private final static String strTagging						= "Tagging";
+	private final static String strUIInspectorTag 				= "UIInspectorTag";
+	
+	private final static String advance							= "advance";
+	private final static String strAdvance						= "Advance";
+	private final static String strUIInspectorAdvance 			= "UIInspectorAdvance";
 
 	@Override
 	public void init() {
 		final String function = "init";
-
 		logger.begin(className, function);
 
-		uiInspectorTabs 	= new LinkedList<UIInspectorTab_i>();
-		
-		uiInspectorHeader	= new UIInspectorHeader();
-		equipmentReserve	= new UIInspectorEquipmentReserve();
-		
-		uiInspectorInfo		= new UIInspectorInfo();
-		uiInspectorControl	= new UIInspectorControl();
-		uiInspectorTag		= new UIInspectorTag();
-		uiInspectorAdvance	= new UIInspectorAdvance();
-		
+		uiInspectorHeader	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorHeader);
+		equipmentReserve	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorEquipmentReserve);
 
-		uiInspectorTabs.add(uiInspectorInfo);
-		uiInspectorTabs.add(uiInspectorControl);
-		uiInspectorTabs.add(uiInspectorTag);
-		uiInspectorTabs.add(uiInspectorAdvance);
+		panelData = new LinkedHashMap<String, PanelData>();
 		
+		panelData.put(info, getPanelData(strInfo, info, strUIInspectorInfo, false, false));
+		panelData.put(control, getPanelData(strControl, control, strUIInspectorControl, true, true));
+		panelData.put(tag, getPanelData(strTagging, tag, strUIInspectorTag, true, true));
+		panelData.put(advance, getPanelData(strAdvance, advance, strUIInspectorAdvance, true, true));
+
+		if ( logger.isDebugEnabled() ) {
+			for ( String k : panelData.keySet() ) {
+				PanelData d = panelData.get(k);
+				if ( null != d ) { 
+					logger.debug(className, function, "k[{}] d.tabName[{}] d.tabConfigName[{}]", new Object[]{k, d.tabName, d.tabConfigName}); 
+				} else {
+					logger.debug(className, function, "k[{}] IS NULL", k); 
+				}
+			}
+		}
 		
 		((UIInspectorEquipmentReserve)equipmentReserve).setEquipmentReserveEvent(new EquipmentReserveEvent() {
 			
@@ -836,118 +807,51 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			}
 		});
 		
-		uiInspectorInfo.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
-			
-			@Override
-			public void onClick() {
-				logger.debug(className, function, "onClick uiInspectorInfo");
-				unReserveEquipment();
-			}
-		});
-
-		
-		uiInspectorControl.setMessageBoxEvent(new MessageBoxEvent() {
-			
-			@Override
-			public void setMessage(String message) {
-				if ( null != txtMsg ) {
-					logger.debug(className, function, "setMessage message[{}]", message);
-					if ( null != message ) {
-						String msg = txtMsg.getText();
-						if ( null != msg ) {
-							if ( ! msg.equals(message) ) txtMsg.setText(message);
-						}
+		for ( String k : panelData.keySet() ) {
+			final PanelData d = panelData.get(k);
+			d.uiInspectorTab_i.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
+				
+				@Override
+				public void onClick() {
+					logger.debug(className, function, d.tabConfigName );
+					if ( d.isReserveEquipment ) {
+						reserveEquipment();
+					} else {
+						unReserveEquipment();
 					}
 					
 				}
-			}
+			});
 			
-			@Override
-			public void addMessage(String message) {
-				if ( null != txtMsg ) {
-					logger.debug(className, function, "setMessage message[{}]", message);
-					String text = txtMsg.getText();
-					logger.debug(className, function, "setMessage text[{}]", text);
-					if ( text.length() > 0 ) text += "\n";
-					logger.debug(className, function, "setMessage text + message[{}]", text + message);
-					txtMsg.setText(text + message);
+			d.uiInspectorTab_i.setMessageBoxEvent(new MessageBoxEvent() {
+				
+				@Override
+				public void setMessage(String message) {
+					if ( null != txtMsg ) {
+						logger.debug(className, function, "setMessage message[{}]", message);
+						if ( null != message ) {
+							String msg = txtMsg.getText();
+							if ( null != msg ) {
+								if ( ! msg.equals(message) ) txtMsg.setText(message);
+							}
+						}
+						
+					}
 				}
-			}
-		});
-		
-		uiInspectorControl.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
-			
-			@Override
-			public void onClick() {
-				logger.debug(className, function, "onClick uiInspectorControl");
-				reserveEquipment();
-			}
-		});
-		
-		uiInspectorTag.setMessageBoxEvent(new MessageBoxEvent() {
-			
-			@Override
-			public void setMessage(String message) {
-				if ( null != txtMsg ) {
-					logger.debug(className, function, "setMessage message[{}]", message);
-					txtMsg.setText(message);
+				
+				@Override
+				public void addMessage(String message) {
+					if ( null != txtMsg ) {
+						logger.debug(className, function, "setMessage message[{}]", message);
+						String text = txtMsg.getText();
+						logger.debug(className, function, "setMessage text[{}]", text);
+						if ( text.length() > 0 ) text += "\n";
+						logger.debug(className, function, "setMessage text + message[{}]", text + message);
+						txtMsg.setText(text + message);
+					}
 				}
-			}
-			
-			@Override
-			public void addMessage(String message) {
-				if ( null != txtMsg ) {
-					logger.debug(className, function, "setMessage message[{}]", message);
-					String text = txtMsg.getText();
-					logger.debug(className, function, "setMessage text[{}]", text);
-					if ( text.length() > 0 ) text += "\n";
-					logger.debug(className, function, "setMessage text + message[{}]", text + message);
-					txtMsg.setText(text + message);
-				}
-			}
-		});
-		
-		uiInspectorTag.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
-			
-			@Override
-			public void onClick() {
-				logger.debug(className, function, "onClick uiInspectorTag");
-				reserveEquipment();
-			}
-		});
-		
-		uiInspectorAdvance.setMessageBoxEvent(new MessageBoxEvent() {
-			
-			@Override
-			public void setMessage(String message) {
-				if ( null != txtMsg ) {
-					logger.debug(className, function, "setMessage message[{}]", message);
-					txtMsg.setText(message);
-				}
-			}
-			
-			@Override
-			public void addMessage(String message) {
-				if ( null != txtMsg ) {
-					logger.debug(className, function, "setMessage message[{}]", message);
-					String text = txtMsg.getText();
-					logger.debug(className, function, "setMessage text[{}]", text);
-					if ( text.length() > 0 ) text += "\n";
-					logger.debug(className, function, "setMessage text + message[{}]", text + message);
-					txtMsg.setText(text + message);
-				}
-			}
-		});
-		
-		uiInspectorAdvance.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
-			
-			@Override
-			public void onClick() {
-				logger.debug(className, function, "onClick uiInspectorAdvance");
-				reserveEquipment();
-			}
-		});
-		
+			});
+		}
 
 		uiInspectorHeader.setUINameCard(this.uiNameCard);
 		uiInspectorHeader.init();
@@ -959,27 +863,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		equipmentReserve.setDatabase(database);
 		equipmentReserve.getMainPanel();
 		
-		uiInspectorInfo.setUINameCard(this.uiNameCard);
-		uiInspectorInfo.init();
-		uiInspectorInfo.setDatabase(database);
-		panelInfo = uiInspectorInfo.getMainPanel();
-		
-		uiInspectorControl.setUINameCard(this.uiNameCard);
-		uiInspectorControl.init();
-		uiInspectorControl.setDatabase(database);
-		panelCtrl = uiInspectorControl.getMainPanel();
-		
-		uiInspectorTag.setUINameCard(this.uiNameCard);
-		uiInspectorTag.init();
-		uiInspectorTag.setDatabase(database);
-		panelTag = uiInspectorTag.getMainPanel();
-		
-		uiInspectorAdvance.setUINameCard(this.uiNameCard);
-		uiInspectorAdvance.init();
-		uiInspectorAdvance.setDatabase(database);
-		panelAdv = uiInspectorAdvance.getMainPanel();
-		
-		
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			
+			d.uiInspectorTab_i.setUINameCard(this.uiNameCard);
+			d.uiInspectorTab_i.init();
+			d.uiInspectorTab_i.setDatabase(database);
+			d.panel = d.uiInspectorTab_i.getMainPanel();
+		}
+
 		panelTab = new TabPanel();
 		panelTab.addBeforeSelectionHandler(new BeforeSelectionHandler<Integer>() {
 			
@@ -1011,10 +903,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		panelTab.addStyleName("project-gwt-tabpanel-inspector-tabpanel");
 
-		panelTab.add(panelInfo	, strTabNames[0]);
-		panelTab.add(panelCtrl	, strTabNames[1]);
-		panelTab.add(panelTag	, strTabNames[2]);
-		panelTab.add(panelAdv	, strTabNames[3]);
+		for ( String k : panelData.keySet() ) {
+			PanelData d = panelData.get(k);
+			panelTab.add(d.panel, d.tabName);
+		}
 		panelTab.selectTab(0);
 		
 		Button btnClose = new Button("Close");

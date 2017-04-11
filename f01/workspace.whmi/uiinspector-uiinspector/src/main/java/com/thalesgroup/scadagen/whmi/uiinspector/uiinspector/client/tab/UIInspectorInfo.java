@@ -24,7 +24,6 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEv
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
@@ -45,12 +44,10 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String tagname			= "info";
-	
-	public final String strCSSStatusGreen		= "project-gwt-inlinelabel-inspector"+tagname+"status-green";
-	public final String strCSSStatusRed			= "project-gwt-inlinelabel-inspector"+tagname+"status-red";
-	public final String strCSSStatusBlue		= "project-gwt-inlinelabel-inspector"+tagname+"status-blue";
-	public final String strCSSStatusGrey		= "project-gwt-inlinelabel-inspector"+tagname+"status-grey";
+	public String strCSSStatusGreen		= null;
+	public String strCSSStatusRed		= null;
+	public String strCSSStatusBlue		= null;
+	public String strCSSStatusGrey		= null;
 	
 	// Static Attribute List
 	private final String staticAciAttibutes [] = new String[] {PointName.label.toString(), PointName.aalValueTable.toString(), PointName.hmiOrder.toString()};
@@ -84,40 +81,77 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private final String INSPECTOR = "inspector";
 	
+	private String tabName = null;
+	@Override
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+	
 	private Button btnAckCurPage = null;
 	
-	private HashMap<String, String> rights = new HashMap<String, String>();
+	private Map<String, Boolean> rights = null;
 	@Override
-	public void setRight(HashMap<String, String> rights) {
+	public void setRight(Map<String, Boolean> rights) {
 		final String function = "setRight";
-		if ( null != rights ) {
-			for ( Entry<String, String> right : rights.entrySet() ) {
-				String key = right.getKey();
-				String value = right.getValue();
-				this.rights.put(key, value);
-			}
-		} else {
+		if ( null == rights ) {
 			logger.warn(className, function, "rights IS NULL");
+		}		
+		if ( null == this.rights ) this.rights = new HashMap<String, Boolean>();
+		for ( Entry<String, Boolean> right : rights.entrySet() ) {
+			String key = right.getKey();
+			boolean value = right.getValue();
+			this.rights.put(key, value);
 		}
 	}
+	
+//	private HashMap<String, String> rights = new HashMap<String, String>();
+//	@Override
+//	public void setRight(Map<String, String> rights) {
+//		final String function = "setRight";
+//		if ( null != rights ) {
+//			for ( Entry<String, String> right : rights.entrySet() ) {
+//				String key = right.getKey();
+//				String value = right.getValue();
+//				this.rights.put(key, value);
+//			}
+//		} else {
+//			logger.warn(className, function, "rights IS NULL");
+//		}
+//	}
 	
 	@Override
 	public void applyRight() {
 		final String function = "applyRight";
-		String rightname5 = UIPanelInspector_i.strConfigAction+5;
-		String right5 = rights.get(rightname5);
-		
-		logger.debug(className, function, "Checking rightname5[{}] right5[{}]", rightname5, right5);
-		if ( null != right5 ) {
-			if ( right5.equals(String.valueOf(false))) {
-				logger.warn(className, function, "right5 IS INSUFFICIENT RIGHT");
-				
+		String rightname = "ackalarm";
+		if ( rights.containsKey(rightname) && null != rights.get(rightname) ) {
+			boolean right = rights.get(rightname);
+			logger.debug(className, function, "Checking rightname[{}] right[{}]", rightname, right);
+			if ( ! right ) {
+				logger.warn(className, function, "rightname[{}] right IS INSUFFICIENT RIGHT", rightname);		
 				btnAckCurPage.setVisible(false);
 			}
 		} else {
-			logger.warn(className, function, "right5 IS NULL");
+			logger.warn(className, function, "rightname[{}] right IS INVALID", rightname);
 		}
 	}
+	
+//	@Override
+//	public void applyRight() {
+//		final String function = "applyRight";
+//		String rightname5 = UIPanelInspector_i.strConfigAction+"ackalarm";
+//		String right5 = rights.get(rightname5);
+//		
+//		logger.debug(className, function, "Checking rightname5[{}] right5[{}]", rightname5, right5);
+//		if ( null != right5 ) {
+//			if ( right5.equals(String.valueOf(false))) {
+//				logger.warn(className, function, "right5 IS INSUFFICIENT RIGHT");
+//				
+//				btnAckCurPage.setVisible(false);
+//			}
+//		} else {
+//			logger.warn(className, function, "right5 IS NULL");
+//		}
+//	}
 	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
@@ -158,7 +192,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR+tagname);
+			clientKey.setWidget(INSPECTOR+tabName);
 			clientKey.setStability(Stability.STATIC);
 			clientKey.setAdress(parent);
 			
@@ -207,7 +241,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					
 					DataBaseClientKey clientKey = new DataBaseClientKey();
 					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR+tagname);
+					clientKey.setWidget(INSPECTOR+tabName);
 					clientKey.setStability(Stability.STATIC);
 					clientKey.setAdress(parent);
 					
@@ -235,7 +269,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
 			clientKey.setAdress(parent);
 
@@ -321,7 +355,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
 			clientKey.setAdress(parent);
 			
@@ -445,13 +479,13 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 						
 					lblAttibuteLabel[i] = new InlineLabel();
 					lblAttibuteLabel[i].setWidth("100%");
-					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
+					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-label");
 					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
 					flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
 					txtAttributeValue[i] = new TextBox();
 					txtAttributeValue[i].setWidth("95%");
 					txtAttributeValue[i].setText("ATTRIBUTE_STATUS_"+(i+1));
-					txtAttributeValue[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-value");
+					txtAttributeValue[i].addStyleName("project-gwt-textbox-inspector-"+tabName+"-value");
 					txtAttributeValue[i].setReadOnly(true);
 					txtAttributeValue[i].setMaxLength(16);
 					flexTableAttibutes.setWidget(i+1, 1, txtAttributeValue[i]);
@@ -552,7 +586,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
 		clientKey.setAdress(parent);
 		
@@ -774,11 +808,16 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 		logger.begin(className, function);
 		
+		strCSSStatusGreen		= "project-gwt-inlinelabel-inspector"+tabName+"status-green";
+		strCSSStatusRed			= "project-gwt-inlinelabel-inspector"+tabName+"status-red";
+		strCSSStatusBlue		= "project-gwt-inlinelabel-inspector"+tabName+"status-blue";
+		strCSSStatusGrey		= "project-gwt-inlinelabel-inspector"+tabName+"status-grey";
+		
 		vpCtrls = new VerticalPanel();
 		vpCtrls.setWidth("100%");
 		
 		btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
+		btnUp.addStyleName("project-gwt-button-inspector-"+tabName+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -790,11 +829,11 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});
 		
 		lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
+		btnDown.addStyleName("project-gwt-button-inspector-"+tabName+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -804,7 +843,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});	
 		
 		btnAckCurPage = new Button();
-		btnAckCurPage.addStyleName("project-gwt-button-inspector-"+tagname+"-ackpage");
+		btnAckCurPage.addStyleName("project-gwt-button-inspector-"+tabName+"-ackpage");
 		btnAckCurPage.setText("Ack. Page");
 		btnAckCurPage.addClickHandler(new ClickHandler() {
 			@Override
@@ -828,7 +867,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		pageBar.add(btnDown);
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.addStyleName("project-gwt-panel-inspector-"+tagname+"-bottom");
+		bottomBar.addStyleName("project-gwt-panel-inspector-"+tabName+"-bottom");
 		
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -839,7 +878,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		bottomBar.add(btnAckCurPage);
 		
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
+		basePanel.addStyleName("project-gwt-panel-"+tabName+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 

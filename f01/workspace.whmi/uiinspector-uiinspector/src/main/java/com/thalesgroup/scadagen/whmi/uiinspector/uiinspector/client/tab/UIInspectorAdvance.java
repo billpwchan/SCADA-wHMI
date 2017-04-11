@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -48,8 +49,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private final String tagname				= "advance";
-	
 	private final String inspAdvPropPrefix = "inspectorpanel.advance.";
 	private final String inspAdvProp = inspAdvPropPrefix+"properties";
 
@@ -72,8 +71,14 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	final private String INSPECTOR = "inspector";
 	
+	private String tabName = null;
 	@Override
-	public void setRight(HashMap<String, String> rights) {
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+	
+	@Override
+	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -198,7 +203,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.STATIC);
 			clientKey.setAdress(parent);
 			
@@ -248,7 +253,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					
 					DataBaseClientKey clientKey = new DataBaseClientKey();
 					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR + tagname);
+					clientKey.setWidget(INSPECTOR + tabName);
 					clientKey.setStability(Stability.STATIC);
 					clientKey.setAdress(parent);
 					
@@ -277,7 +282,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
 			clientKey.setAdress(parent);
 			
@@ -364,7 +369,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
 			clientKey.setAdress(parent);
 			
@@ -441,7 +446,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				for ( int i = 0 ; i < header.length ; ++i ) {
 					InlineLabel label = new InlineLabel();
 					label.setWidth("100%");
-					label.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-header-label");
+					label.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-header-label");
 					label.setText(header[i]);
 					flexTableAttibutes.setWidget(1, i, label);
 				}
@@ -454,33 +459,33 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				logger.debug(className, function, "i[{}]", i);
 					
 				lblAttibuteLabel[i] = new InlineLabel();
-				lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-label");
+				lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-label");
 				lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
 				flexTableAttibutes.setWidget(i+1+1, r++, lblAttibuteLabel[i]);
 				
 				chkDPMs[i] = new CheckBox[3];
 				chkDPMs[i][0] = new CheckBox();
-				chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ai");
+				chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-ai");
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][0]);
 				
 				chkDPMs[i][1] = new CheckBox();
-				chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-ss");
+				chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-ss");
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][1]);
 				
 				chkDPMs[i][2] = new CheckBox();
-				chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tagname+"-points-mo");
+				chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-mo");
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][2]);
 				
 				lstValues[i] = new ListBox();
 				lstValues[i].setVisibleItemCount(1);
-				lstValues[i].addStyleName("project-gwt-listbox-inspector-"+tagname+"-points-value");
+				lstValues[i].addStyleName("project-gwt-listbox-inspector-"+tabName+"-points-value");
 
 				txtValues[i] = new TextBox();
 				txtValues[i].setVisible(false);
-				txtValues[i].addStyleName("project-gwt-textbox-inspector-"+tagname+"-points-value");
+				txtValues[i].addStyleName("project-gwt-textbox-inspector-"+tabName+"-points-value");
 
 				HorizontalPanel hp = new HorizontalPanel();
 				hp.add(lstValues[i]);
@@ -489,7 +494,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				flexTableAttibutes.setWidget(i+1+1, r++, hp);
 				
 				btnApplys[i] = new UIButtonToggle(strApply);
-				btnApplys[i].addStyleName("project-gwt-button-inspector-"+tagname+"-point-apply");
+				btnApplys[i].addStyleName("project-gwt-button-inspector-"+tabName+"-point-apply");
 				
 				btnApplys[i].addClickHandler(new ClickHandler() {
 					
@@ -508,7 +513,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			}
 			
 			for ( int i = 0 ; i < 8 ; ++i ) {
-				flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-"+tagname+"-status-col"+i);
+				flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-"+tabName+"-status-col"+i);
 			}
 
 			vpCtrls.add(flexTableAttibutes);
@@ -596,7 +601,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
 		clientKey.setAdress(parent);
 		
@@ -702,7 +707,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			
 			// Update the AI, SS and MO status
 			{
-				String stylename = "project-gwt-checkbox-inspector" + tagname + "-points-activated";
+				String stylename = "project-gwt-checkbox-inspector" + tabName + "-points-activated";
 				
 				String point = DatabaseHelper.getPoint(address);
 				PointType pointType = DatabaseHelper.getPointType(point);
@@ -1001,7 +1006,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 						if ( isAIApply ) {
 							
 							// SCSDPC ALARM_INHIBIT_VAR
-							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
+							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "alarminhibit" + "_"+ "true" + "_" + dbaddress;
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.ALARM_INHIBIT_VAR);
 							
@@ -1010,7 +1015,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 
 						if (isAICancel ) {
 							// SCSDPC NO_ALARM_INHIBIT_VAR
-							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
+							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "alarminhibit" + "_"+ "false" + "_" + dbaddress;
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.NO_ALARM_INHIBIT_VAR);
 
@@ -1020,7 +1025,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 						// Scan Suspend
 						if ( isSSApply ) {
 							// SS
-							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
+							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "scansuspend" + "_"+ "true" + "_" + dbaddress;
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.OPERATOR_INHIBIT);
 							
@@ -1030,7 +1035,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 
 						if ( isSSCancel ) {
 							
-							String key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
+							String key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "scansuspend" + "_"+ "false" + "_" + dbaddress;
 							
 							dpcMgr.sendChangeVarStatus(key, scsEnvId, alias, DCP_i.ValidityStatus.VALID);
 							
@@ -1042,11 +1047,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							String key = null;
 							boolean forceAction = false;
 							if ( isManualOverrideApply || isManualOverrideChange ) {
-								key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "manualoverride" + "_"+ "true" + "_" + dbaddress;
+								key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "manualoverride" + "_"+ "true" + "_" + dbaddress;
 								forceAction = true;
 							}
 							if ( isManualOverrideCancel ){
-								key = "changeEqpStatus" + "_"+ "inspector" + tagname + "_"+ "manualoverride" + "_"+ "false" + "_" + dbaddress;
+								key = "changeEqpStatus" + "_"+ "inspector" + tabName + "_"+ "manualoverride" + "_"+ "false" + "_" + dbaddress;
 								forceAction = false;
 							}
 							
@@ -1133,7 +1138,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		vpCtrls.setWidth("100%");
 
 		btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
+		btnUp.addStyleName("project-gwt-button-inspector-"+tabName+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -1148,11 +1153,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		});
 		
 		lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
+		btnDown.addStyleName("project-gwt-button-inspector-"+tabName+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -1185,7 +1190,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		bottomBar.add(pageBar);
 		
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
+		basePanel.addStyleName("project-gwt-panel-"+tabName+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 

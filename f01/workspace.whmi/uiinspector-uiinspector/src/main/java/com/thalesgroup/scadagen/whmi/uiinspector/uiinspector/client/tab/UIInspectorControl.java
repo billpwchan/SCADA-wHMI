@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.dom.client.Style.Unit;
@@ -45,8 +46,6 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-
-	private final String tagname				= "control";
 	
 	// Static Attribute List
 	private final String aioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
@@ -58,10 +57,16 @@ public class UIInspectorControl implements UIInspectorTab_i {
 	private String[] addresses	= null;
 	private Database database	= null;
 	
-	private final String INSPECTOR = "inspector"; 
+	private final String INSPECTOR = "inspector";
+	
+	private String tabName = null;
+	@Override
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
 	
 	@Override
-	public void setRight(HashMap<String, String> rights) {
+	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -179,7 +184,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			widgetBoxes	= new VerticalPanel[pageSize];
 			for ( int i = 0 ; i < pageSize ; i++ ) {
 				widgetBoxes[i] = new VerticalPanel();
-				widgetBoxes[i].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+				widgetBoxes[i].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 			}
 			
 			updatePager();
@@ -279,7 +284,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
 		clientKey.setAdress(parent);
 		
@@ -351,7 +356,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
-		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
@@ -390,7 +395,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				if ( labels[i].length() == 0  ) break;
 				
 				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addStyleName("project-gwt-button-inspector-"+tabName+"-ctrl");
 				btnOption.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -414,7 +419,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		}
 		
 //		widgetBoxes[row] = new VerticalPanel();
-//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
@@ -434,7 +439,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
-		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 		
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
@@ -473,7 +478,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				if ( labels[i].length() == 0  ) break;
 				
 				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addStyleName("project-gwt-button-inspector-"+tabName+"-ctrl");
 				btnOption.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -499,7 +504,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		}
 		
 //		widgetBoxes[row] = new VerticalPanel();
-//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
@@ -519,7 +524,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
-		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
@@ -558,7 +563,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 				if ( labels[i].length() == 0  ) break;
 				
 				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addStyleName("project-gwt-button-inspector-"+tabName+"-ctrl");
 				btnOption.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -584,7 +589,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		}
 		
 //		widgetBoxes[row] = new VerticalPanel();
-//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
@@ -678,7 +683,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
 		clientKey.setAdress(parent);
 		
@@ -694,7 +699,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 					
 					DataBaseClientKey clientKey = new DataBaseClientKey();
 					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR + tagname);
+					clientKey.setWidget(INSPECTOR + tabName);
 					clientKey.setStability(Stability.STATIC);
 					clientKey.setAdress(parent);
 					
@@ -715,7 +720,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		});
 		
 		{
-			ctlMgr = CtlMgr.getInstance(tagname);
+			ctlMgr = CtlMgr.getInstance(tabName);
 			controlMgrSubject = ctlMgr.getSubject();
 			
 			observer = new Observer() {
@@ -819,7 +824,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
 			clientKey.setAdress(parent);
 			
@@ -862,7 +867,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		{
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
 			clientKey.setAdress(parent);
 			
@@ -900,7 +905,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		btnExecute = new Button();
 		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
 		btnExecute.setText("Execute");
-		btnExecute.addStyleName("project-gwt-button-inspector-"+tagname+"-execute");
+		btnExecute.addStyleName("project-gwt-button-inspector-"+tabName+"-execute");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -914,7 +919,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 //		btnExecute.setEnabled(false);
 		
 		btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
+		btnUp.addStyleName("project-gwt-button-inspector-"+tabName+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -928,11 +933,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		});
 		
 		lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
+		btnDown.addStyleName("project-gwt-button-inspector-"+tabName+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -971,7 +976,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		bottomBar.add(btnExecute);
 		
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
+		basePanel.addStyleName("project-gwt-panel-"+tabName+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 

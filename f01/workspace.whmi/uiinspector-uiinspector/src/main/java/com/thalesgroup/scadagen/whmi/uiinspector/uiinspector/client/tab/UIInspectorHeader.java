@@ -1,8 +1,10 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
+
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -12,7 +14,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
@@ -46,8 +47,14 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	final private String HEADER = "header";
 	final private String INSPECTORHEADER = INSPECTOR+HEADER;
 	
+	private String tabName = null;
 	@Override
-	public void setRight(HashMap<String, String> rights) {
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+	
+	@Override
+	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
 		
 	}

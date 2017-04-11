@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.Panel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
@@ -13,6 +13,8 @@ public interface UIInspectorTab_i {
 	void init();
 	Panel getMainPanel();
 	
+	void setTabName(String tabName);
+	
 	void buildWidgets(int numOfPointForEachPage);
 
 	void setMessageBoxEvent(MessageBoxEvent messageBoxEvent);
@@ -22,7 +24,7 @@ public interface UIInspectorTab_i {
 	void setAddresses(String[] addresses);
 	String[] getAddresses();
 	
-	void setRight(HashMap<String, String> rights);
+	void setRight(Map<String, Boolean> rights);
 	void applyRight();
 	
 	void connect();

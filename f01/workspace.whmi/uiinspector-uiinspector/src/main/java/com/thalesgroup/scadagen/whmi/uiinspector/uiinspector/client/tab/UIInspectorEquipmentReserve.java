@@ -1,8 +1,9 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel;
+package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
@@ -30,9 +31,15 @@ public class UIInspectorEquipmentReserve implements UIInspectorTab_i {
 	private String parent		= null;
 	private String[] addresses	= null;
 	private Database database	= null;
+	
+	private String tabName = null;
+	@Override
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
 
 	@Override
-	public void setRight(HashMap<String, String> rights) {
+	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
 		
 	}

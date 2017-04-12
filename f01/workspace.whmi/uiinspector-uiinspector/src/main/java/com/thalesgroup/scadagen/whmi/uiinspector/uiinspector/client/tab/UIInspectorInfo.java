@@ -25,8 +25,6 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
@@ -37,6 +35,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIInspectorInfo implements UIInspectorTab_i {
@@ -103,22 +104,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			this.rights.put(key, value);
 		}
 	}
-	
-//	private HashMap<String, String> rights = new HashMap<String, String>();
-//	@Override
-//	public void setRight(Map<String, String> rights) {
-//		final String function = "setRight";
-//		if ( null != rights ) {
-//			for ( Entry<String, String> right : rights.entrySet() ) {
-//				String key = right.getKey();
-//				String value = right.getValue();
-//				this.rights.put(key, value);
-//			}
-//		} else {
-//			logger.warn(className, function, "rights IS NULL");
-//		}
-//	}
-	
+
 	@Override
 	public void applyRight() {
 		final String function = "applyRight";
@@ -135,24 +121,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		}
 	}
 	
-//	@Override
-//	public void applyRight() {
-//		final String function = "applyRight";
-//		String rightname5 = UIPanelInspector_i.strConfigAction+"ackalarm";
-//		String right5 = rights.get(rightname5);
-//		
-//		logger.debug(className, function, "Checking rightname5[{}] right5[{}]", rightname5, right5);
-//		if ( null != right5 ) {
-//			if ( right5.equals(String.valueOf(false))) {
-//				logger.warn(className, function, "right5 IS INSUFFICIENT RIGHT");
-//				
-//				btnAckCurPage.setVisible(false);
-//			}
-//		} else {
-//			logger.warn(className, function, "right5 IS NULL");
-//		}
-//	}
-	
+	private boolean equipmentReserveHasScreen = false;
+	@Override
+	public void setEquipmentReserveHasScreen(boolean equipmentReserveHasScreen) {
+		this.equipmentReserveHasScreen = equipmentReserveHasScreen;
+	}
+
 	@Override
 	public void setParent(String scsEnvId, String parent) {
 		final String function = "setParent";
@@ -165,7 +139,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void setAddresses(String[] addresses) {
 		final String function = "setAddresses";
-		
 		logger.begin(className, function);
 		
 		this.addresses = addresses;
@@ -181,10 +154,9 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
+		logger.begin(className, function);
 		
 		ReadLabelProperties();
-		
-		logger.begin(className, function);
 
 		// Read static
 		{
@@ -194,6 +166,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTOR+tabName);
 			clientKey.setStability(Stability.STATIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -243,6 +217,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					clientKey.setAPI(API.multiReadValue);
 					clientKey.setWidget(INSPECTOR+tabName);
 					clientKey.setStability(Stability.STATIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
 					clientKey.setAdress(parent);
 					
 					String strClientKey = clientKey.toClientKey();
@@ -271,6 +247,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 
 			String[] dbaddresses = null;
@@ -343,7 +321,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		
 			logger.begin(className, function);
 		}
-		
 		logger.end(className, function);
 	}
 
@@ -351,24 +328,23 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	public void disconnect() {
 		final String function = "disconnect";
 		logger.begin(className, function);
-		{
-			
-			DataBaseClientKey clientKey = new DataBaseClientKey();
-			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tabName);
-			clientKey.setStability(Stability.DYNAMIC);
-			clientKey.setAdress(parent);
-			
-			String strClientKey = clientKey.toClientKey();
-			database.unSubscribe(strClientKey);
 
-		}
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR + tabName);
+		clientKey.setStability(Stability.DYNAMIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
+		clientKey.setAdress(parent);
+		
+		String strClientKey = clientKey.toClientKey();
+		database.unSubscribe(strClientKey);
+
 		logger.end(className, function);
 	}
 	
 	private void updatePager() {
 		final String function = "updatePager";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -388,7 +364,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private void updateLayout() {
 		final String function = "updateLayout";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -416,7 +391,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private void onButton(Button btn) {
 		final String function = "onButton";
-		
 		logger.begin(className, function);
 		
 		if (  btn == btnUp || btn == btnDown ) {
@@ -436,7 +410,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void buildWidgets(int numOfPointEachPage) {
 		final String function = "buildWidgets";
-		
 		logger.begin(className, function);
 		
 		buildWidgets(this.addresses.length, numOfPointEachPage);
@@ -448,7 +421,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	private PageCounter pageCounter = null;
 	void buildWidgets(int numOfWidgets, int numOfPointEachPage) {
 		final String function = "buildWidgets";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
@@ -515,16 +487,17 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private HashMap<String, String> dbvalues = new HashMap<String, String>();
-	public void updateValue(String strClientKey, HashMap<String, String> keyAndValue) {
+	private Map<String, Map<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, Map<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, String> dbvalues = new HashMap<String, String>();
+	@Override
+	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
-
 		logger.begin(className, function);
+		
 		logger.debug(className, function, "strClientKey[{}]", strClientKey);
 		
-		final DataBaseClientKey clientKey = new DataBaseClientKey(strClientKey);
+		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -549,13 +522,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private void updateValue(boolean withStatic) {
 		final String function = "updateValue";
-		
 		logger.begin(className, function);
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
 				
-				HashMap<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
+				Map<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
 				
 				updateValueStatic(clientKey, keyAndValue);
 			}//End of for keyAndValuesStatic
@@ -563,7 +535,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
 			
-			HashMap<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
+			Map<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
 			
 			updateValueDynamic(clientKey, keyAndValue);
 			
@@ -572,9 +544,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private void updateValueStatic(String key, HashMap<String, String> keyAndValue) {
+	private void updateValueStatic(String key, Map<String, String> keyAndValue) {
 		final String function = "updateValueStatic";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -588,6 +559,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(parent);
 		
 		String strClientKey = clientKey.toClientKey();
@@ -609,9 +582,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private void updateValueDynamic(String strClientKey, HashMap<String, String> keyAndValue) {
+	private void updateValueDynamic(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -644,7 +616,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private void updateDci(String address, int row) {
 		final String function = "updateDci";
-		
 		logger.begin(className, function);
 		
 		String label = null;
@@ -709,7 +680,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 
 	private void updateAci(String address, int row) {
 		final String function = "updateAci";
-		
 		logger.begin(className, function);
 		
 		String value = "";
@@ -747,7 +717,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	void updateSci(String address, int row) {
 		final String function = "updateSci";
-		
 		logger.begin(className, function);
 		
 		String value = "";
@@ -805,7 +774,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		
 		logger.begin(className, function);
 		
 		strCSSStatusGreen		= "project-gwt-inlinelabel-inspector"+tabName+"status-green";
@@ -903,7 +871,6 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private void ackPageAlarms() {
 		final String function = "ackPageAlarms";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);

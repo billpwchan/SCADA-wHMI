@@ -5,21 +5,21 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
+import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 
-public class EquipmentsSorting {
+public class PointsSorting {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(EquipmentsSorting.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(PointsSorting.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
-	
 	private Database database = null;
 	public void setDatabase(Database database) {
 		this.database = database;
@@ -32,10 +32,10 @@ public class EquipmentsSorting {
 		this.parent = parent;
 	}
 	
-	private List<Equipment> es = new LinkedList<Equipment>();
+	private List<Point> es = new LinkedList<Point>();
 	public void setDBAddresses(String [] dbaddresses, String dbattribute ) {
 		for ( String dbaddress : dbaddresses ) {
-			es.add(new Equipment(dbaddress, dbattribute));
+			es.add(new Point(dbaddress, dbattribute));
 		}
 	}
 	
@@ -44,17 +44,17 @@ public class EquipmentsSorting {
 		this.hmiOrderFilterThreshold = hmiOrderFilterThreshold;
 	}
 	
-	private EquipmentsSortingEvent event = null;
-	public void setEquipmentsSortingEvent( EquipmentsSortingEvent event) {
+	private PointsSortingEvent event = null;
+	public void setEquipmentsSortingEvent( PointsSortingEvent event) {
 		this.event = event;
 	}
 	
 	private void sort() {
 		final String function = "sort";
 		logger.begin(className, function);
-		Collections.sort(es, new Comparator<Equipment>() {
+		Collections.sort(es, new Comparator<Point>() {
 			@Override
-			public int compare(Equipment o1, Equipment o2) {
+			public int compare(Point o1, Point o2) {
 				if ( null != o1 && null != o2 ) {
 					// Compare with hmiOrder only
 					return ( o1.attributeValue < o2.attributeValue ? -1 : ( o1.attributeValue == o2.attributeValue ? 0 : 1 ) );
@@ -78,7 +78,7 @@ public class EquipmentsSorting {
 			} catch ( NumberFormatException e) {
 				
 			}
-			for ( Equipment e : es ) {
+			for ( Point e : es ) {
 				if ( alias.equals(e.aliasWithAttribute) ) {
 					e.attributeValue = attributeValue;
 					break;
@@ -121,7 +121,7 @@ public class EquipmentsSorting {
 		logger.begin(className, function);
 		String [] result = null;
 		List<String> dbaddress = new LinkedList<String>();
-		for ( Equipment e : this.es ) {
+		for ( Point e : this.es ) {
 			dbaddress.add(e.aliasWithAttribute);
 		}
 		result = dbaddress.toArray(new String[0]);
@@ -134,7 +134,7 @@ public class EquipmentsSorting {
 		logger.begin(className, function);
 		String [] result = null;
 		List<String> dbaddress = new LinkedList<String>();
-		for ( Equipment e : this.es ) {
+		for ( Point e : this.es ) {
 			if ( e.attributeValue > hmiOrderFilterThreshold )
 				dbaddress.add(e.alias);
 		}
@@ -151,6 +151,8 @@ public class EquipmentsSorting {
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(className);
 		clientKey.setStability(Stability.STATIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(parent);
 		
 		String strClientKey = clientKey.toClientKey();
@@ -171,6 +173,8 @@ public class EquipmentsSorting {
 					clientKey.setAPI(API.multiReadValue);
 					clientKey.setWidget(className);
 					clientKey.setStability(Stability.STATIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
 					clientKey.setAdress(parent);
 					
 					String strClientKey = clientKey.toString();
@@ -187,6 +191,12 @@ public class EquipmentsSorting {
 		}
 		
 		logger.end(className, function);
+	}
+	
+	private UINameCard uiNameCard = null;
+	public void setUINameCard(UINameCard uiNameCard) {
+		this.uiNameCard = new UINameCard(uiNameCard);
+		this.uiNameCard.appendUIPanel(this);
 	}
 	
 	public void init() {

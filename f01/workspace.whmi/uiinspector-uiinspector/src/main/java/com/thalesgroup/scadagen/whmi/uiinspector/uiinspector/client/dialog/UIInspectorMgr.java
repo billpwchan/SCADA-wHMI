@@ -180,14 +180,14 @@ public class UIInspectorMgr {
 		
 		String action = null;
 		
-		String keyaction = inspDialogBoxPropPrefix+UIPanelInspector_i.strConfigAction;
+		String keyaction = inspDialogBoxPropPrefix+UIPanelInspector_i.strAction;
 		String actionvalue = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, keyaction, null);
 		
 		action = actionvalue;
 		
 		String mode = null;
 		
-		String keymode = inspDialogBoxPropPrefix+UIPanelInspector_i.strConfigMode;
+		String keymode = inspDialogBoxPropPrefix+UIPanelInspector_i.strMode;
 		String modevalue = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, keymode, null);
 		
 		mode = modevalue;

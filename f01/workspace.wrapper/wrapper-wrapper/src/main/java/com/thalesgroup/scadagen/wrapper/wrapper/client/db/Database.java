@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
@@ -12,6 +13,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.IRTDBComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
@@ -24,20 +26,18 @@ public class Database implements Connectable_i {
 	
 	private static final String className = UIWidgetUtil.getClassSimpleName(Database.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-//	private static Database instance = null;
-//	public static Database getInstance () {
-//		if ( null == instance ) instance = new Database();
-//		return instance;
-//	}
-//	private Database() {}
-	
+
 	private String scsEnvId;
 	private String parent;
 	
 	public void setDynamic(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
+	}
+	
+	private String dynamicClientKey = null;
+	public void setDynamicClientKey(String dynamicClientKey) {
+		this.dynamicClientKey = dynamicClientKey;
 	}
 	
 	private DatabaseEvent dynaimcDatabaseEvent = null;
@@ -48,25 +48,23 @@ public class Database implements Connectable_i {
 	/**
 	 * Store the Request: key and address
 	 */
-	private HashMap<String, String[]> KeyAndAddress			= new HashMap<String, String[]>();
+	private Map<String, String[]> KeyAndAddress			= new HashMap<String, String[]>();
 	public String[] getKeyAndAddress(String key) { return this.KeyAndAddress.get(key); }
-	
 	
 	/**
 	 * Store the Request: key and address
 	 */
-	private HashMap<String, String[]> KeyAndValues			= new HashMap<String, String[]>();
+	private Map<String, String[]> KeyAndValues			= new HashMap<String, String[]>();
 	public String[] getKeyAndValues(String key) { return this.KeyAndValues.get(key); }
-	
 	
 	/**
 	 * SCSDatabase handle
 	 */
 	private ScsRTDBComponentAccess rtdb = null;
 	
-	private LinkedList<JSONRequest> requestStatics			= new LinkedList<JSONRequest>();
-	private HashMap<String, String[]> requestDynamics		= new HashMap<String, String[]>();
-	private HashMap<String, DatabaseEvent> databaseEvents	= new HashMap<String, DatabaseEvent>();
+	private LinkedList<JSONRequest> requestStatics		= new LinkedList<JSONRequest>();
+	private Map<String, String[]> requestDynamics		= new HashMap<String, String[]>();
+	private Map<String, DatabaseEvent> databaseEvents	= new HashMap<String, DatabaseEvent>();
 	
 	private void printCachesStatic(String logPrefix) {
 		final String function = "printCachesStatic";
@@ -136,9 +134,7 @@ public class Database implements Connectable_i {
 			logger.warn(className, function, "rtdb IS NULL");
 		}
 		logger.end(className, function);
-	}
-	
-	
+	}	
 	
 	/**
 	 * @param api : Database API to call
@@ -225,8 +221,6 @@ public class Database implements Connectable_i {
 		logger.end(className, function);
 	}
 	
-
-	
 	/**
 	 * @param clientKey : Key for the Reading and Result
 	 * @param dbaddresses : dbaddress to read
@@ -253,12 +247,14 @@ public class Database implements Connectable_i {
 	 * @param databaseEvent : Callback for result
 	 */
 	public void unSubscribe(String clientKey) {
-		final String function = "addDynamicRequest";
+		final String function = "unSubscribe";
 		logger.begin(className, function);
 		logger.info(className, function, "clientKey[{}]", clientKey);
+		
 		requestDynamics.remove(clientKey);
 		KeyAndAddress.remove(clientKey);
 		databaseEvents.remove(clientKey);
+		
 		logger.end(className, function);
 	}
 	
@@ -268,7 +264,6 @@ public class Database implements Connectable_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		
 		logger.begin(className, function);
 		
 		rtdb = new ScsRTDBComponentAccess(new IRTDBComponentClient() {
@@ -306,18 +301,16 @@ public class Database implements Connectable_i {
 						}	
 					}
 				}
-
 		    	
 		    	KeyAndValues.put(key, value);
-		    	
-//		    	updateValue(key, value);
-				
+
 		    	// Static
 				DatabaseEvent databaseEvent = databaseEvents.get(key);
 				if ( null != databaseEvent ) databaseEvent.update(key, value);
 				
+				DataBaseClientKey clientKey = new DataBaseClientKey("_", key);
 				// Dynamic
-				if ( "dynamic".equals(key.split("_")[2]) ) {
+				if ( clientKey.isDynaimc() ) {
 					if ( null != dynaimcDatabaseEvent ) {
 						dynaimcDatabaseEvent.update(key, value);
 					}
@@ -399,8 +392,6 @@ public class Database implements Connectable_i {
 				}
 		    	
 				KeyAndValues.put(clientKey, instances);
-				
-//				updateValue(clientKey, instances);
 				
 				// Static
 				DatabaseEvent databaseEvent = databaseEvents.get(clientKey);
@@ -508,11 +499,14 @@ public class Database implements Connectable_i {
 		
 		logger.end(className, function);
 	}
-	
+
 	/**
 	 * Timer for the database reading
 	 */
 	private Timer timer = null;
+	
+	private final String strGetChildren = "GetChildren";
+	private final String strMultiReadValue = "multiReadValue";
 	
 	/**
 	 * Timer to execute the request
@@ -520,10 +514,6 @@ public class Database implements Connectable_i {
 	 */
 	public void connectTimer(int periodMillis) {
 		final String function = "connectTimer";
-		
-		final String strGetChildren = "GetChildren";
-		final String strMultiReadValue = "multiReadValue";
-		
 		logger.begin(className, function);
 		
 		if ( null == timer ) {
@@ -574,11 +564,9 @@ public class Database implements Connectable_i {
 							}
 							String[] dbaddresses = dbaddresslist.toArray(new String[0]);
 							
-							String clientKey = "multiReadValue" + "_" + "inspector" + "_" + "dynamic" + "_" + parent;
-							
-							KeyAndAddress.put(clientKey, dbaddresses);
+							KeyAndAddress.put(dynamicClientKey, dbaddresses);
 
-							rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
+							rtdb.multiReadValueRequest(dynamicClientKey, scsEnvId, dbaddresses);
 						}
 					}
 				}
@@ -587,7 +575,6 @@ public class Database implements Connectable_i {
 			
 			timer.scheduleRepeating(periodMillis);
 		}
-
 		logger.end(className, function);
 	}
 	
@@ -595,11 +582,14 @@ public class Database implements Connectable_i {
 	 * Connect to database
 	 */
 	public void disconnectTimer() {
+		final String function = "disconnectTimer";
+		logger.begin(className, function);
 		requestStatics.clear();
 		requestDynamics.clear();
 		
 		if ( null != timer ) timer.cancel();
 		timer = null;
+		logger.end(className, function);
 	}
 	
 	/**
@@ -607,7 +597,8 @@ public class Database implements Connectable_i {
 	 */
 	@Override
 	public void disconnect() {
-
+		final String function = "disconnect";
+		logger.begin(className, function);
 		try {
 			rtdb.terminate();
 		} catch (IllegalStatePresenterException e) {
@@ -615,5 +606,7 @@ public class Database implements Connectable_i {
 			e.printStackTrace();
 		}
 		rtdb=null;
+		logger.end(className, function);
 	}
 }
+

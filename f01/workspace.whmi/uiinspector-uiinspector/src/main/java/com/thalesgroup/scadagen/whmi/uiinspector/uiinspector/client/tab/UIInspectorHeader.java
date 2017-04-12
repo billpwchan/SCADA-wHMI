@@ -14,9 +14,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserve.EquipmentReserve;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
@@ -25,6 +23,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIInspectorHeader implements UIInspectorTab_i {
@@ -65,9 +66,15 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		
 	}
 	
+	private boolean equipmentReserveHasScreen = false;
+	@Override
+	public void setEquipmentReserveHasScreen(boolean equipmentReserveHasScreen) {
+		this.equipmentReserveHasScreen = equipmentReserveHasScreen;
+	}
+	
 	@Override
 	public void setParent(String scsEnvId, String parent) {
-		final String function = "";
+		final String function = "setParent";
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
@@ -89,137 +96,142 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		
 		logger.begin(className, function);
 
+		{
+			final String functionEmb = function + " multiReadValue";
+			logger.begin(className, functionEmb);
+			
+			
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.multiReadValue);
+			clientKey.setWidget(INSPECTORHEADER);
+			clientKey.setStability(Stability.STATIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
+			clientKey.setAdress(parent);
+			
+			String strClientKey = clientKey.toClientKey();
+
+			String[] parents = new String[]{parent};
+
+			String[] dbaddresses = null;
 			{
-				final String functionEmb = function + " multiReadValue";
-				logger.begin(className, functionEmb);
-				
-				
-				DataBaseClientKey clientKey = new DataBaseClientKey();
-				clientKey.setAPI(API.multiReadValue);
-				clientKey.setWidget(INSPECTORHEADER);
-				clientKey.setStability(Stability.STATIC);
-				clientKey.setAdress(parent);
-				
-				String strClientKey = clientKey.toClientKey();
-
-				String[] parents = new String[]{parent};
-
-				String[] dbaddresses = null;
-				{
-					ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-					for(int x=0;x<parents.length;++x) {
-						for(int y=0;y<staticAttibutes.length;++y) {
-							dbaddressesArrayList.add(parents[x]+staticAttibutes[y]);
-						}
-					}
-					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-				}
-				
-				if ( logger.isDebugEnabled() ) {
-					logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
-					for(int i = 0; i < dbaddresses.length; ++i ) {
-						logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for(int x=0;x<parents.length;++x) {
+					for(int y=0;y<staticAttibutes.length;++y) {
+						dbaddressesArrayList.add(parents[x]+staticAttibutes[y]);
 					}
 				}
-
-				String strApi = clientKey.getApi().toString();
-				
-				database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
-
-					@Override
-					public void update(String key, String[] value) {
-						{
-							
-							DataBaseClientKey clientKey = new DataBaseClientKey();
-							clientKey.setAPI(API.multiReadValue);
-							clientKey.setWidget(INSPECTORHEADER);
-							clientKey.setStability(Stability.STATIC);
-							clientKey.setAdress(parent);
-							
-							String strClientKey = clientKey.toClientKey();
-
-							if ( 0 == strClientKey.compareTo(key) ) {
-								String [] dbaddresses	= database.getKeyAndAddress(key);
-								String [] dbvalues		= database.getKeyAndValues(key);
-								HashMap<String, String> keyAndValue = new HashMap<String, String>();
-								for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-									keyAndValue.put(dbaddresses[i], dbvalues[i]);
-								}
-								updateValue(key, keyAndValue);
-							}			
-						}
-					}
-				});
-				
-				logger.end(className, function);
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 			}
 			
-			{
-				
-				final String functionEmb = function + " multiReadValue";
-				logger.begin(className, functionEmb);
-				
-				
-				DataBaseClientKey clientKey = new DataBaseClientKey();
-				clientKey.setAPI(API.multiReadValue);
-				clientKey.setWidget(INSPECTORHEADER);
-				clientKey.setStability(Stability.DYNAMIC);
-				clientKey.setAdress(parent);
-				
-				String strClientKey = clientKey.toClientKey();
-
-				String[] parents = new String[]{parent};
-				
-				String[] dbaddresses = null;
-				{
-					ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-					for(int x=0;x<parents.length;++x) {
-						for(int y=0;y<dynamicAttibutes.length;++y) {
-							dbaddressesArrayList.add(parents[x]+dynamicAttibutes[y]);
-						}
-					}
-					dbaddresses = dbaddressesArrayList.toArray(new String[0]);
-				}
-
+			if ( logger.isDebugEnabled() ) {
 				logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
 				for(int i = 0; i < dbaddresses.length; ++i ) {
 					logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 				}
-
-				database.subscribe(strClientKey, dbaddresses, new DatabaseEvent() {
-
-					@Override
-					public void update(String key, String[] value) {
-						{
-							DataBaseClientKey clientKey = new DataBaseClientKey();
-							clientKey.setAPI(API.multiReadValue);
-							clientKey.setWidget(INSPECTOR);
-							clientKey.setStability(Stability.DYNAMIC);
-							clientKey.setAdress(parent);
-							
-							String strClientKeyDynamic = clientKey.toClientKey();
-							
-							if ( 0 == strClientKeyDynamic.compareTo(key) ) {
-
-								String [] dbaddresses	= database.getKeyAndAddress(key);
-								String [] dbvalues		= database.getKeyAndValues(key);
-								HashMap<String, String> dynamicvalues = new HashMap<String, String>();
-								for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-									dynamicvalues.put(dbaddresses[i], dbvalues[i]);
-								}
-								updateValue(key, dynamicvalues);
-							}			
-						}
-					}
-				});
-				
-				logger.end(className, functionEmb);
 			}
-		
+
+			String strApi = clientKey.getApi().toString();
+			
+			database.addStaticRequest(strApi, strClientKey, scsEnvId, dbaddresses, new DatabaseEvent() {
+
+				@Override
+				public void update(String key, String[] value) {
+					{
+						
+						DataBaseClientKey clientKey = new DataBaseClientKey();
+						clientKey.setAPI(API.multiReadValue);
+						clientKey.setWidget(INSPECTORHEADER);
+						clientKey.setStability(Stability.STATIC);
+						clientKey.setScreen(uiNameCard.getUiScreen());
+						clientKey.setEnv(scsEnvId);
+						clientKey.setAdress(parent);
+						
+						String strClientKey = clientKey.toClientKey();
+
+						if ( 0 == strClientKey.compareTo(key) ) {
+							String [] dbaddresses	= database.getKeyAndAddress(key);
+							String [] dbvalues		= database.getKeyAndValues(key);
+							HashMap<String, String> keyAndValue = new HashMap<String, String>();
+							for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+								keyAndValue.put(dbaddresses[i], dbvalues[i]);
+							}
+							updateValue(key, keyAndValue);
+						}			
+					}
+				}
+			});
+			
 			logger.end(className, function);
+		}
+		
+		{
+			
+			final String functionEmb = function + " multiReadValue";
+			logger.begin(className, functionEmb);
+			
+			
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.multiReadValue);
+			clientKey.setWidget(INSPECTORHEADER);
+			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
+			clientKey.setAdress(parent);
+			
+			String strClientKey = clientKey.toClientKey();
+
+			String[] parents = new String[]{parent};
+			
+			String[] dbaddresses = null;
+			{
+				ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+				for(int x=0;x<parents.length;++x) {
+					for(int y=0;y<dynamicAttibutes.length;++y) {
+						dbaddressesArrayList.add(parents[x]+dynamicAttibutes[y]);
+					}
+				}
+				dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+			}
+
+			logger.debug(className, function, "key[{}] scsEnvId[{}]", clientKey, scsEnvId);
+			for(int i = 0; i < dbaddresses.length; ++i ) {
+				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+			}
+
+			database.subscribe(strClientKey, dbaddresses, new DatabaseEvent() {
+
+				@Override
+				public void update(String key, String[] value) {
+					DataBaseClientKey clientKey = new DataBaseClientKey();
+					clientKey.setAPI(API.multiReadValue);
+					clientKey.setWidget(INSPECTOR);
+					clientKey.setStability(Stability.DYNAMIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
+					clientKey.setAdress(parent);
+					
+					String strClientKeyDynamic = clientKey.toClientKey();
+					
+					if ( 0 == strClientKeyDynamic.compareTo(key) ) {
+
+						String [] dbaddresses	= database.getKeyAndAddress(key);
+						String [] dbvalues		= database.getKeyAndValues(key);
+						HashMap<String, String> dynamicvalues = new HashMap<String, String>();
+						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+							dynamicvalues.put(dbaddresses[i], dbvalues[i]);
+						}
+						updateValue(key, dynamicvalues);
+					}
+				}
+			});
+			
+			logger.end(className, functionEmb);
+		}
+	
+		logger.end(className, function);
 	}
 	
 	@Override
@@ -232,6 +244,8 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTORHEADER);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -243,6 +257,8 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTOR);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -267,16 +283,17 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 
 	}
 	
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private HashMap<String, String> dbvalues = new HashMap<String, String>();
-	public void updateValue(String strClientKey, HashMap<String, String> keyAndValue) {
+	private Map<String, Map<String, String>> keyAndValuesStatic		= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, Map<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, String> dbvalues = new HashMap<String, String>();
+	@Override
+	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
 
 		logger.begin(className, function);
 		logger.debug(className, function, "strClientKey[{}]", strClientKey);
 		
-		final DataBaseClientKey clientKey = new DataBaseClientKey(strClientKey);
+		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -307,7 +324,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
 				
-				HashMap<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
+				Map<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
 				
 				updateValueStatic(clientKey, keyAndValue);
 			}//End of for keyAndValuesStatic
@@ -315,7 +332,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
 			
-			HashMap<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
+			Map<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
 			
 			updateValueDynamic(clientKey, keyAndValue);
 			
@@ -324,7 +341,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private void updateValueStatic(String strClientKey, HashMap<String, String> keyAndValue) {
+	private void updateValueStatic(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueStatic";
 		
 		logger.begin(className, function);
@@ -348,16 +365,14 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 	private final String strNotReserved = "Not Reserved";
 	private final String strReserved = "Reserved";
-	private void updateValueDynamic(String strClientKey, HashMap<String, String> keyAndValue) {
+	private void updateValueDynamic(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
-		
 		logger.begin(className, function);
-
 		
 		String resrvReservedIDValue = DatabaseHelper.getAttributeValue(parent, PointName.resrvReservedID.toString(), dbvalues);
 		resrvReservedIDValue = DatabaseHelper.removeDBStringWrapper(resrvReservedIDValue);
 		if ( null != resrvReservedIDValue ) {
-			int eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue);
+			int eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue, equipmentReserveHasScreen, uiNameCard.getUiScreen());
 			String strEqtReserved = strNotReserved;
 			if ( 2 == eqtReserved ) {
 				strEqtReserved = strReserved;
@@ -388,7 +403,6 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		
 		logger.begin(className, function);
 		
 		String strHeadersLabel [] = new String[] { "Equipment Description", "Location", "Control Right","Control Right Reserved","Handover Right" };

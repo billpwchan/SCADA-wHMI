@@ -12,11 +12,26 @@ public interface UIPanelInspector_i {
 	public final static String strConfigNameSize = strDot+"size";
 	public final static String strConfigNumberOfPointPerPage = "numOfPointPerPage";
 	
+	public final static String strNumOfTab = "NumOfTab";
+	public final static String strTab = "Tab";
+	public final static String strTabConfigName = "TabConfigName";
+	public final static String strTabName = "TabName";
+	public final static String strUIInspectorTabName = "UIInspectorTabName";
+	public final static String strIsReserveEquipment = "IsReserveEquipment";
+	public final static String strHasSetMessageBoxEvent = "HasSetMessageBoxEvent";
+	
 	public final static String strPeriodMillis = "periodMillis";
-	public final static String strOpmApi = "opmApi";
-	public final static String strNumOfAction = "numOfAction";
-	public final static String strConfigAction = "action";
-	public final static String strConfigMode = "mode";
+	
+	public final static String strEquipmentReserveHasScreen = "EquipmentReserveHasScreen";
+	public final static String strEquipmentReserveUseHostName = "EquipmentReserveUseHostName";	
+	
+	public final static String strOpmApi = "OpmApi";
+	
+	public final static String strMode = "Mode";
+	public final static String strAction = "Action";
+	
+	public final static String strNumOfAction = "NumOfAction";
+	public final static String strName = "Name";
 	
 	public final static String strDatabaseMultiReadingKey = "DatabaseMultiReadingKey";
 	

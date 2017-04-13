@@ -21,6 +21,8 @@ public interface UIOpm_i {
 	public interface CheckAccessWithHOMEvent_i {
 		void result(boolean result);
 	}
+	
+	void checkAccessWithHom(String function, String location, String action, String mode, int hdvValue, String key, CheckAccessWithHOMEvent_i resultEvent);
 
 	void checkAccessWithHom(String function, String location, String action, String mode, String hvid, String key, CheckAccessWithHOMEvent_i resultEvent);
 	

@@ -138,6 +138,61 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 		return result;
 	}
+	
+	@Override
+	public void checkAccessWithHom(final String functionValue
+			, final String locationValue
+			, final String actionValue
+			, final String modeValue
+			, final int hdvValue
+			, final String key
+			, final CheckAccessWithHOMEvent_i resultEvent) {
+		final String function = "checkAccess";
+		logger.begin(className, function);
+		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hdvValue[{}] key[{}]"
+				, new Object[]{functionValue, locationValue, actionValue, modeValue, hdvValue, key});
+		
+		if ( null != resultEvent ) {
+			if ( isHOMAction(actionValue) ) {
+
+				boolean caResult = false;
+				boolean homResult = false;
+			
+				if ( ! isByPassValue(hdvValue) ) {
+					if ( (hdvValue & getConfigHOMMask(key)) > 0 ) {
+						homResult = true;
+					}
+				} else {
+					homResult = true;
+				}
+				
+				caResult = checkAccess(
+								  functionValue
+								, locationValue
+								, actionValue
+								, modeValue
+								);
+				
+				resultEvent.result(caResult && homResult);
+
+			} else {
+				boolean caResult = false;
+				
+				caResult = checkAccess(
+						  functionValue
+						, locationValue
+						, actionValue
+						, modeValue
+						);
+				
+				resultEvent.result(caResult);
+			}
+		} else {
+			logger.warn(className, function, "resultEvent IS NULL");
+		}
+		
+		logger.end(className, function);
+	}
 
 	@Override
 	public void checkAccessWithHom(final String functionValue
@@ -157,26 +212,15 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				getCurrentHOMValue(hvid, new GetCurrentHOMValueEvent_i() {
 					@Override
 					public void update(String dbaddress, int value) {
+						
+						checkAccessWithHom(functionValue
+								, locationValue
+								, actionValue
+								, modeValue
+								, value
+								, key
+								, resultEvent);
 
-						boolean caResult = false;
-						boolean homResult = false;
-					
-						if ( ! isByPassValue(value) ) {
-							if ( (value & getConfigHOMMask(key)) > 0 ) {
-								homResult = true;
-							}
-						} else {
-							homResult = true;
-						}
-						
-						caResult = checkAccess(
-										  functionValue
-										, locationValue
-										, actionValue
-										, modeValue
-										);
-						
-						resultEvent.result(caResult && homResult);
 					}
 				});
 			} else {

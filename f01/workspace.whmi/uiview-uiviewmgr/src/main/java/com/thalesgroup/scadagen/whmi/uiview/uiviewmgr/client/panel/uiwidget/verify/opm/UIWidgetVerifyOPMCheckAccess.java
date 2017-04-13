@@ -88,6 +88,35 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
+	private void checkAccessWithHomValue() {
+		final String function = "checkAccessWithHomValue";
+		logger.begin(className, function);
+		
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
+		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
+		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
+		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
+		String modevalue		= uiGeneric.getWidgetValue("modevalue");
+		
+		String hdvflagvalue		= uiGeneric.getWidgetValue("hdvflagvalue");
+		
+		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
+		
+		int hdvflag = Integer.parseInt(hdvflagvalue);
+		
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
+		
+		uiOpm_i.checkAccessWithHom(functionvalue, locationvalue, actionvalue, modevalue, hdvflag, keyvalue, new CheckAccessWithHOMEvent_i() {
+			
+			@Override
+			public void result(boolean result) {
+				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
+			}
+		});
+		logger.end(className, function);
+	}
+	
 	private void checkAccessWithHom() {
 		final String function = "checkAccessWithHom";
 		logger.begin(className, function);
@@ -124,6 +153,8 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 			checkAccessWithHostName();
 		} else if ( "checkaccesswithhom".equals(element) ) {
 			checkAccessWithHom();
+		} else if ( "checkaccesswithhomvalue".equals(element) ) {
+			checkAccessWithHomValue();
 		}
 	}
 

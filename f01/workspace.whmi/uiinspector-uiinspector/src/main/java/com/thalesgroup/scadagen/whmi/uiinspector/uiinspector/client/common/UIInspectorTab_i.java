@@ -13,6 +13,8 @@ public interface UIInspectorTab_i extends UIInspectorTabUpdateValue_i {
 	void init();
 	Panel getMainPanel();
 	
+	void setAttribute(String type, String key, String value);
+	
 	void setTabName(String tabName);
 	
 	void buildWidgets(int numOfPointForEachPage);

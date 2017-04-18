@@ -58,6 +58,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			logger.warn(className, function, "multiReadMethod1[{}] databaseMultiRead_i IS NULL", multiReadMethod1);
 		}
 		
+		profileNames = null;
+		
 		// Prepare HostName
 		getCurrentHostName();
 		
@@ -65,6 +67,46 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		getCurrentIPAddress();
 		
 		logger.end(className, function);
+	}
+	
+	@Override
+	public boolean checkAccess(Map<String, String> parameter) {
+		String function = "checkAccess";
+		logger.begin(className, function);
+		
+		boolean result = false;
+		
+		if ( null != parameter ) {
+			
+			OpmRequestDto dto = new OpmRequestDto();
+			for ( Map.Entry<String, String> entry : parameter.entrySet() ) {
+				String k = entry.getKey();
+				String v = entry.getValue();
+				
+				logger.trace(className, function, "k[{}] v[{}]", k, v);
+				
+				if ( (k != null && ! k.isEmpty()) || (v != null && ! v.isEmpty()) ) {
+					dto.addParameter( k, v );
+				} else {
+					logger.warn(className, function, "k OR v is empty");
+				}
+			}
+			if ( ! dto.getRequestParameters().isEmpty() ) {
+				OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
+				
+				// TO: remove the non target role in here
+			
+				IAuthorizationCheckerC checker = new AuthorizationCheckerC();
+				result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
+			} else {
+				logger.warn(className, function, "result[{}]", result);
+			}
+
+		} else {
+			logger.warn(className, function,  "dto.getRequestParameters() IS NULL" );
+		}
+		logger.debug(className, function, "result[{}]", result);
+		return result;
 	}
 	
 	@Override
@@ -109,7 +151,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
 			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 		} else {
-			logger.debug( "checkAccess args null, or empty - " 
+			logger.warn(className, function, "args null, or empty - " 
 				+ "  "+opmName1+"=" + opmValue1 
 				+ ", "+opmName2+"=" + opmValue2 
 				+ ", "+opmName3+"=" + opmValue3 
@@ -124,7 +166,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
 		final String function = "function";
 		logger.begin(className, function);
-		logger.info(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
 		
 		boolean result = false;
 		
@@ -137,6 +179,61 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 		return result;
+	}
+	
+	@Override
+	public void checkAccessWithHom(final String functionValue
+			, final String locationValue
+			, final String actionValue
+			, final String modeValue
+			, final int hdvValue
+			, final String key
+			, final CheckAccessWithHOMEvent_i resultEvent) {
+		final String function = "checkAccess";
+		logger.begin(className, function);
+		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hdvValue[{}] key[{}]"
+				, new Object[]{functionValue, locationValue, actionValue, modeValue, hdvValue, key});
+		
+		if ( null != resultEvent ) {
+			if ( isHOMAction(actionValue) ) {
+
+				boolean caResult = false;
+				boolean homResult = false;
+			
+				if ( ! isByPassValue(hdvValue) ) {
+					if ( (hdvValue & getConfigHOMMask(key)) > 0 ) {
+						homResult = true;
+					}
+				} else {
+					homResult = true;
+				}
+				
+				caResult = checkAccess(
+								  functionValue
+								, locationValue
+								, actionValue
+								, modeValue
+								);
+				
+				resultEvent.result(caResult && homResult);
+
+			} else {
+				boolean caResult = false;
+				
+				caResult = checkAccess(
+						  functionValue
+						, locationValue
+						, actionValue
+						, modeValue
+						);
+				
+				resultEvent.result(caResult);
+			}
+		} else {
+			logger.warn(className, function, "resultEvent IS NULL");
+		}
+		
+		logger.end(className, function);
 	}
 
 	@Override
@@ -157,26 +254,15 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				getCurrentHOMValue(hvid, new GetCurrentHOMValueEvent_i() {
 					@Override
 					public void update(String dbaddress, int value) {
+						
+						checkAccessWithHom(functionValue
+								, locationValue
+								, actionValue
+								, modeValue
+								, value
+								, key
+								, resultEvent);
 
-						boolean caResult = false;
-						boolean homResult = false;
-					
-						if ( ! isByPassValue(value) ) {
-							if ( (value & getConfigHOMMask(key)) > 0 ) {
-								homResult = true;
-							}
-						} else {
-							homResult = true;
-						}
-						
-						caResult = checkAccess(
-										  functionValue
-										, locationValue
-										, actionValue
-										, modeValue
-										);
-						
-						resultEvent.result(caResult && homResult);
 					}
 				});
 			} else {
@@ -284,21 +370,21 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			Map<String, RoleDto> roles = ConfigProvider.getInstance().getOperatorOpmInfo().getOperator().getRoleId();
 			if ( null != roles ) {
 				Set<String> keys = roles.keySet();
+				
+				if ( null == roleIds ) roleIds = new LinkedList<String>();
 				for ( String key : keys ) {
 					logger.debug(className, function, "key[{}]", key);
 					
 					String roleId = roles.get(key).getId();
 					logger.debug(className, function, "roleId[{}]", roleId);
-					
-					if ( null == roleIds ) roleIds = new LinkedList<String>();
-					
+
 					roleIds.add(roleId);
 				}
+				
+				profileNames = roleIds.toArray(new String[0]);
 			} else {
 				logger.warn(className, function, "roleId IS NULL");
 			}
-			
-			profileNames = roleIds.toArray(new String[0]);
 		}
 		
 		logger.debug(className, function, "profileNames[{}]", profileNames);
@@ -499,22 +585,27 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
-	public boolean createOperator(String operator) {
+	public void createOperator(String operator) {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 	@Override
-	public boolean removeOperator(String operator) {
+	public void removeOperator(String operator) {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 	@Override
-	public boolean addOperatorProfile(String operator, String profile) {
+	public void addProfileToOperator(String operator, String profile) {
 		// TODO Auto-generated method stub
-		return false;
+
 	}
 	@Override
-	public boolean login(String operator, String password) {
+	public void removeProfileFromOperatior(String operator, String profile) {
+		// TODO Auto-generated method stub
+
+	}
+	@Override
+	public void login(String operator, String password) {
 		String function = "login";
 		logger.begin(className, function);
 		String SPRING_SEC_CHECK_URL = "j_spring_security_check";
@@ -525,10 +616,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		new SpringLogin(SPRING_SEC_CHECK_URL, user_name, pass_name).login(operator, password);
 		
 		logger.end(className, function);
-		return true;
 	}
 	@Override
-	public boolean logout() {
+	public void logout() {
 		String function = "logout";
 		logger.begin(className, function);
 		
@@ -537,7 +627,6 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		new SpringLogout(SPRING_SEC_LOGOUT_URL).logout();
 		
 		logger.end(className, function);
-		return true;
 	}
 
 	private String dbAttribute = null;

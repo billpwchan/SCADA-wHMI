@@ -78,6 +78,16 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		this.tabName = tabName;
 	}
 	
+	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
+	@Override
+	public void setAttribute(String type, String key, String value) {
+		final String function = "setAttribute";
+		logger.begin(className, function);
+		if ( null == attributesList.get(type) ) attributesList.put(type, new HashMap<String, String>());
+		attributesList.get(type).put(key, value);
+		logger.end(className, function);
+	}
+	
 	@Override
 	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
@@ -418,8 +428,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "buildWidgets";
 		logger.begin(className, function);
 		
-		logger.warn(className, function, "numOfWidgets[{}]", numOfWidgets);
-		logger.warn(className, function, "numOfPointEach[{}]", numOfPointEachPage);
+		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.debug(className, function, "numOfPointEach[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
@@ -727,7 +737,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				} else if ( PointType.sci == pointType ) {
 					sForcedStatusPoint = PointName.sfoForcedStatus.toString();
 				}
-				logger.debug(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
+				logger.trace(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
 				
 				String sForcedStatus = null;
 				sForcedStatus = getStatusValue(address, sForcedStatusPoint);
@@ -789,12 +799,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 						if ( null != point ) {
 							PointType pointType = DatabaseHelper.getPointType(point);
 
-							logger.debug(className, function, "point[{}]", point);
+							logger.trace(className, function, "point[{}]", point);
 							
 							if ( PointType.dci == pointType ) {
 
 								String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-								logger.debug(className, function, "valueTable[{}]", valueTable);
+								logger.trace(className, function, "valueTable[{}]", valueTable);
 								
 								if ( null != valueTable ) {
 									int valueCol = 0;
@@ -843,7 +853,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		String sforcedStatus = DatabaseHelper.getAttributeValue(address, strForcedStatus, dbvalues);
 		sforcedStatus = DatabaseHelper.removeDBStringWrapper(sforcedStatus);
-		logger.debug(className, function, "sforcedStatus[{}]", sforcedStatus);
+		logger.trace(className, function, "sforcedStatus[{}]", sforcedStatus);
 		
 		logger.end(className, function);
 		

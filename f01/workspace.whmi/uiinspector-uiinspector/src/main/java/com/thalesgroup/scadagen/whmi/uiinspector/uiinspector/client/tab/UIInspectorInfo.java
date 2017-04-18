@@ -88,6 +88,16 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		this.tabName = tabName;
 	}
 	
+	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
+	@Override
+	public void setAttribute(String type, String key, String value) {
+		final String function = "setAttribute";
+		logger.begin(className, function);
+		if ( null == attributesList.get(type) ) attributesList.put(type, new HashMap<String, String>());
+		attributesList.get(type).put(key, value);
+		logger.end(className, function);
+	}
+	
 	private Button btnAckCurPage = null;
 	
 	private Map<String, Boolean> rights = null;
@@ -596,7 +606,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
 			String address = this.addresses[x];
 			
-			logger.debug(className, function, "address[{}]", address);
+			logger.trace(className, function, "address[{}]", address);
 			
 			String point = DatabaseHelper.getPoint(address);
 			PointType pointType = DatabaseHelper.getPointType(point);
@@ -625,25 +635,25 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			value = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
 			if (value != null) {
 				label = Translation.getDBMessage(value);
-				logger.debug(className, function, "computedMessage[{}] translated to label[{}]", value, label);
+				logger.trace(className, function, "computedMessage[{}] translated to label[{}]", value, label);
 			}
 		} else {
 			value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-			logger.debug(className, function, "value[{}]", value);
+			logger.trace(className, function, "value[{}]", value);
 		
 			String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-			logger.debug(className, function, "valueTable[{}]", valueTable);
+			logger.trace(className, function, "valueTable[{}]", valueTable);
 				
 			{
 				int valueCol = 0, labelCol = 1;
 				
-				logger.debug(className, function, "valueCol[{}] nameCol[{}]", valueCol, labelCol);
+				logger.trace(className, function, "valueCol[{}] nameCol[{}]", valueCol, labelCol);
 				
 				for( int r = 0 ; r < 12 ; ++r ) {
 					String v = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
-					logger.debug(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
+					logger.trace(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
 					if ( 0 == v.compareTo(value) ) {
-						logger.debug(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
+						logger.trace(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
 						label = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
 						break;
 					}
@@ -651,7 +661,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			}
 		}
 		
-		logger.debug(className, function, "name[{}]", label);
+		logger.trace(className, function, "name[{}]", label);
 		
 		if ( null != label ) {
 			label = DatabaseHelper.removeDBStringWrapper(label);
@@ -662,18 +672,18 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		}
 		
 		String valueAlarmVector = DatabaseHelper.getAttributeValue(address, PointName.dalValueAlarmVector.toString(), dbvalues);
-		logger.debug(className, function, "dalValueAlarmVector[{}]", valueAlarmVector);
+		logger.trace(className, function, "dalValueAlarmVector[{}]", valueAlarmVector);
 		
 		String validity = DatabaseHelper.getAttributeValue(address, PointName.validity.toString(), dbvalues);
-		logger.debug(className, function, "validity[{}]", validity);
+		logger.trace(className, function, "validity[{}]", validity);
 		
 		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.dfoForcedStatus.toString(), dbvalues);
-		logger.debug(className, function, "dfoForcedStatus[{}]", forcedStatus);
+		logger.trace(className, function, "dfoForcedStatus[{}]", forcedStatus);
 		
 		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
+		logger.trace(className, function, "strColorCSS[{}]", strColorCSS);
 		
 		logger.end(className, function);
 	}

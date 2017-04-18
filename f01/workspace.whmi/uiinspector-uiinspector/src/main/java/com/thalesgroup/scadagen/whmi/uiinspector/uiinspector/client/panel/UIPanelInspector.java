@@ -25,11 +25,12 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.filter.PointsFilter;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.hom.HomEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserve.EquipmentReserve;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserve.EquipmentReserveEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSorting;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSortingEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorEquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTabFactory;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
@@ -45,6 +46,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i;
 
 /**
  * @author syau
@@ -69,6 +71,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	
 	private boolean equipmentReserveHasScreen = false;
 	private boolean equipmentReserveUseHostName = false;
+	private int equipmentReserveDefaultIndex = 0;
+	
+	private boolean homUseHostName = false;
 	
 	final private String INSPECTOR		= "inspector";
 	
@@ -106,15 +111,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	}
 	
 	private String location = null;
+	public String getLocation() { return this.location; }
+	public void setLocation(String location) { this.location = location; }
+	
 	private String function = null;
-	public void setFunctionLocation(String function2, String location2) {
-		final String function = "setFunctionLocation";
-		
-		this.function = function2;
-		this.location = location2;
-		
-		logger.debug(className, function, "this.function[{}] this.location[{}]", this.function, this.location);
-	}
+	public String getFunction() { return this.function; }
+	public void setFunction(String function) { this.function = function; }
 	
 	private void connectTabs(String[] dbaddress) {
 		final String function = "connectTabs";
@@ -126,7 +128,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsConnect();
 		
 		uiInspectorHeader.connect();
-		equipmentReserve.connect();
 		
 		for ( String k : tabDatas.keySet() ) {
 			TabData d = tabDatas.get(k);
@@ -216,7 +217,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					}
 					
 					uiInspectorHeader	.updateValue(key, dynamicvalues);
-					equipmentReserve	.updateValue(key, dynamicvalues);
 					
 					for ( String k : tabDatas.keySet() ) {
 						tabDatas.get(k).uiInspectorTab_i	.updateValue(key, dynamicvalues);
@@ -439,7 +439,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsDisconnect();
 		
 		uiInspectorHeader.disconnect();
-		equipmentReserve.disconnect();
 		
 		database.disconnectTimer();
 		database.disconnect();
@@ -508,14 +507,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		}
 		
 		uiInspectorHeader	.setParent(scsEnvId, parent);
-		equipmentReserve	.setParent(scsEnvId, parent);
 		
 		for ( String k : tabDatas.keySet() ) {
 			tabDatas.get(k).uiInspectorTab_i.setParent(scsEnvId, parent);
 		}
 
 		uiInspectorHeader	.setAddresses	(tabDatas.get(info).points.toArray(new String[0]));
-		equipmentReserve	.setAddresses	(tabDatas.get(info).points.toArray(new String[0]));
 
 		for ( String k : tabDatas.keySet() ) {
 			final TabData d = tabDatas.get(k);
@@ -599,7 +596,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private Map<String, TabData> tabDatas = null;
 	
 	private UIInspectorTab_i uiInspectorHeader		= null;
-	private UIInspectorTab_i equipmentReserve		= null;
 
 	private TabPanel panelTab = null;
 
@@ -683,6 +679,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		mode = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
 		logger.debug(className, function, "mode[{}]", mode);
 		
+		String keyStrHOMUseHostName = prefix+UIPanelInspector_i.strHOMUseHostName;
+		homUseHostName = ReadProp.readBoolean(dictionariesCacheName, fileName, keyStrHOMUseHostName, false);
+		logger.debug(className, function, "homUseHostName[{}]", homUseHostName);
+		
 		String keyNumOfAction = prefix+UIPanelInspector_i.strNumOfAction;
 		int numOfAction = ReadProp.readInt(dictionariesCacheName, fileName, keyNumOfAction, 0);
 		logger.debug(className, function, "numOfAction[{}]", numOfAction);
@@ -733,6 +733,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		equipmentReserveUseHostName = ReadProp.readBoolean(dictionariesCacheName, fileName, keystrEquipmentReserveUseHostName, false);
 		logger.debug(className, function, "equipmentReserveUseHostName[{}]", equipmentReserveUseHostName);
 		
+		String keyStrEquipmentReserveDefaultIndex = prefix+UIPanelInspector_i.strEquipmentReserveDefaultIndex;
+		equipmentReserveDefaultIndex = ReadProp.readInt(dictionariesCacheName, fileName, keyStrEquipmentReserveDefaultIndex, 0);
+		logger.debug(className, function, "equipmentReserveDefaultIndex[{}]",equipmentReserveDefaultIndex);
+		
 		logger.end(className, function);
 	}	
 	private void loadConfigurationHmiOrder(String dictionariesCacheName, String fileName, String prefix) {
@@ -755,27 +759,74 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 	}
 	
+	private Map<Integer, String> tabHtmls = new HashMap<Integer, String>();
+	private Map<String, Boolean> tabHomRights = new HashMap<String, Boolean>();
+	private void checkAccessWithHomAndApplyTab(String action, int eqtHom, String key, final int i, final String tabHtml) {
+		final String function = "checkAccessWithHomAndApplyTab";
+		logger.begin(className, function);
+		uiOpm_i.checkAccessWithHom(getFunction(), getLocation(), action, mode, eqtHom, key
+				, new CheckAccessWithHOMEvent_i() {
+			
+			@Override
+			public void result(boolean result) {
+				final String function = "result";
+				logger.begin(className, function);
+				logger.debug(className, function, "result[{}]", result);
+				
+				logger.debug(className, function, "i[{}] tabHtml[{}]", i, tabHtml);
+				tabHtmls.put(i, tabHtml);
+				logger.debug(className, function, "tabHtml[{}] result[{}]", tabHtml, result);
+				tabHomRights.put(tabHtml, result);
+				
+				int selected = panelTab.getTabBar().getSelectedTab();
+				logger.debug(className, function, "selected[{}]", selected);
+				if ( ! result ) {
+					if ( 0 != selected ) {
+						logger.debug(className, function, "selectTab to 0");
+						panelTab.getTabBar().selectTab(0);
+					}
+				}
+				
+				String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
+
+				String cssNameNum = cssName + i;
+				if ( ! result ) {
+					logger.debug(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
+					((Widget)panelTab.getTabBar().getTab(i)).addStyleName(cssNameNum);
+				} else {
+					logger.debug(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
+					((Widget)panelTab.getTabBar().getTab(i)).removeStyleName(cssNameNum);
+				}
+				
+				logger.end(className, function);
+			}
+		});
+		logger.end(className, function);
+	}
+	
 	private final static String strUIInspectorHeader 			= "UIInspectorHeader";
-	private final static String strUIInspectorEquipmentReserve 	= "UIInspectorEquipmentReserve";
 	
 	private final static String info							= "info";
 
+	private final String strUIPanelInspector = "inspectorpanel";
+	private final String dictionariesCacheName = UIInspector_i.strUIInspector;
+	private final String dictionariesCacheName_fileName = strUIPanelInspector+UIPanelInspector_i.strConfigExtension;
+	private final String dictionariesCacheName_prefix = strUIPanelInspector+UIPanelInspector_i.strDot;
+	
 	@Override
 	public void init() {
 		final String function = "init";
 		logger.begin(className, function);
 		
-		String dictionariesCacheName = UIInspector_i.strUIInspector;
-		String fileName = UIPanelInspector_i.strConfigPrefixWODot+UIPanelInspector_i.strConfigExtension;
-		String prefix = UIPanelInspector_i.strConfigPrefix;
-
-		loadConfigurationTabAndCreate(dictionariesCacheName, fileName, prefix);
-		loadConfigurationOpm(dictionariesCacheName, fileName, prefix);
-		loadConfigurationDatabase(dictionariesCacheName, fileName, prefix);
-		loadConfigurationEquipmentReserve(dictionariesCacheName, fileName, prefix);
-		loadConfigurationHmiOrder(dictionariesCacheName, fileName, prefix);
+		loadConfigurationTabAndCreate(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationOpm(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationDatabase(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationEquipmentReserve(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationHmiOrder(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
 		
 		prepareOpm();
+		
+		EquipmentReserve.loadConfiguration();
 		
 		if ( equipmentReserveUseHostName ) {
 			logger.debug(className, function, "equipmentReserveUseHostName[{}] Using HostName as equipmentReserve key", equipmentReserveUseHostName); 
@@ -783,7 +834,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		}
 
 		uiInspectorHeader	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorHeader);
-		equipmentReserve	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorEquipmentReserve);
 
 		if ( logger.isDebugEnabled() ) {
 			for ( String k : tabDatas.keySet() ) {
@@ -795,22 +845,23 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				}
 			}
 		}
-		
-		((UIInspectorEquipmentReserve)equipmentReserve).setEquipmentReserveEvent(new EquipmentReserveEvent() {
+
+		((UIInspectorHeader)uiInspectorHeader).setEquipmentReserveEvent(new EquipmentReserveEvent() {
 			
 			@Override
 			public void isAvaiable(int eqtReserved) {
 				final String function = "isAvaiable";
+				logger.begin(className, function);
 				if ( null != panelTab ) {
 					logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
 					int tabCount = panelTab.getTabBar().getTabCount();
 					logger.debug(className, function, "tabCount[{}]", tabCount);
 					if ( tabCount > 1 ) {
-						int selected = panelTab.getTabBar().getSelectedTab();
-						logger.debug(className, function, "selected[{}]", selected);
+						int selectedIndex = panelTab.getTabBar().getSelectedTab();
+						logger.debug(className, function, "selectedIndex[{}]", selectedIndex);
 						if ( 2 == eqtReserved || 0 == eqtReserved ) {
-							if ( 0 != selected ) {
-								logger.debug(className, function, "selectTab to 0");
+							if ( equipmentReserveDefaultIndex != selectedIndex ) {
+								logger.debug(className, function, "selectTab to equipmentReserveDefaultIndex[{}]", equipmentReserveDefaultIndex);
 								panelTab.getTabBar().selectTab(0);
 							}
 						}
@@ -827,6 +878,48 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 						}
 					}
 				}
+				logger.end(className, function);
+			}
+		});
+		
+		((UIInspectorHeader)uiInspectorHeader).setHomEvent(new HomEvent() {
+			
+			@Override
+			public void isAvaiable(int eqtHom) {
+				logger.begin(className, function);
+				final String function = "isAvaiable";
+				
+				logger.debug(className, function, "eqtHom[{}]", eqtHom);
+				if ( null != panelTab ) {
+					
+					String key = null;
+					if ( homUseHostName ) {
+						key = uiOpm_i.getCurrentHostName();
+					} else {
+						key = uiOpm_i.getCurrentIPAddress();
+					}
+					
+					int tabCount = panelTab.getTabBar().getTabCount();
+					if ( tabCount > 0 ) {
+						for ( int i = 0 ; i < tabCount ; ++i ) {
+							
+							String tabHtml = panelTab.getTabBar().getTabHTML(i);
+							logger.debug(className, function, "i[{}] title[{}]", i, tabHtml);
+							
+							for ( String k : tabDatas.keySet() ) {
+								TabData d = tabDatas.get(k);
+								logger.debug(className, function, "d.tabName[{}] == tabHtml[{}]", d.tabName, tabHtml);
+								if ( d.tabName.equals(tabHtml) ) {
+									String tabConfigName = d.tabConfigName;
+									String action = rightNames.get(tabConfigName);
+									logger.debug(className, function, "tabConfigName[{}] action[{}]", tabConfigName, action);
+									checkAccessWithHomAndApplyTab(action, eqtHom, key, i, tabHtml);
+								}
+							}
+						}
+					}
+				}
+				logger.end(className, function);
 			}
 		});
 		
@@ -836,7 +929,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				
 				@Override
 				public void onClick() {
-					logger.debug(className, function, d.tabConfigName );
+					logger.debug(className, function, "d.tabConfigName[{}]", d.tabConfigName );
 					if ( d.isReserveEquipment ) {
 						reserveEquipment();
 					} else {
@@ -882,12 +975,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		uiInspectorHeader.setDatabase(database);
 		panelHeader	= uiInspectorHeader.getMainPanel();
 		
-		equipmentReserve.setUINameCard(this.uiNameCard);
-		equipmentReserve.setEquipmentReserveHasScreen(equipmentReserveHasScreen);
-		equipmentReserve.init();
-		equipmentReserve.setDatabase(database);
-		equipmentReserve.getMainPanel();
-		
 		for ( String k : tabDatas.keySet() ) {
 			TabData d = tabDatas.get(k);
 			
@@ -905,23 +992,44 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
 				final String function = "onBeforeSelection";
 				logger.begin(className, function);
-				logger.debug(className, function, "event[{}]", event);
-				logger.debug(className, function, "event.getItem()[{}]", event.getItem());
-				int intEvent = event.getItem().intValue();
-				logger.debug(className, function, "intEvent[{}]", intEvent);
-				if ( 0 == intEvent ) {
-					unReserveEquipment();
-				} else {
-					int intEqtReserved = ((UIInspectorEquipmentReserve)equipmentReserve).getEqtReservedValue();
-					logger.debug(className, function, "intEqtReserved[{}]", intEqtReserved);
-					if ( 2 == intEqtReserved ) {
-						logger.debug(className, function, "intReserve equals to 2, Cancel event...");
-						event.cancel();
-					} else {
-						logger.debug(className, function, "intReserve not equals to 2, reserve equipment...");
-						reserveEquipment();
+				logger.debug(className, function, "event[{}] event.getItem()[{}]", event, event.getItem());
+				int index = event.getItem().intValue();
+				logger.debug(className, function, "index[{}]", index);
+				
+				boolean homInsufficientRight = false;
+				String tabHtml = tabHtmls.get(index);
+				logger.debug(className, function, "tabHtml[{}]", tabHtml);
+				if ( null != tabHtml ) {
+					if ( null != tabHomRights.get(tabHtml) ) {
+						boolean homRight = tabHomRights.get(tabHtml);
+						logger.debug(className, function, "tabHtml[{}] homRight[{}]", tabHtml, homRight);
+						if ( ! homRight ) {
+							event.cancel();
+							logger.debug(className, function, "homRight[{}] IS FASLE, Event Cancelled", homRight);
+							homInsufficientRight = true;
+						}
 					}
 				}
+				logger.debug(className, function, "homInsufficientRight[{}]", homInsufficientRight);
+				
+				
+				// Equipment
+				if ( equipmentReserveDefaultIndex == index ) {
+					unReserveEquipment();
+				} else {
+					if ( !homInsufficientRight ) {
+						int eqtReservedValue = ((UIInspectorHeader)uiInspectorHeader).getEqtReservedValue();
+						logger.debug(className, function, "eqtReservedValue[{}]", eqtReservedValue);
+						if ( 2 == eqtReservedValue ) {
+							logger.debug(className, function, "eqtReservedValue equals to 2, Cancel event...");
+							event.cancel();
+						} else {
+							logger.debug(className, function, "eqtReservedValue not equals to 2, reserve equipment...");
+							reserveEquipment();
+						}
+					}
+				}
+
 						
 				logger.end(className, function);
 			}

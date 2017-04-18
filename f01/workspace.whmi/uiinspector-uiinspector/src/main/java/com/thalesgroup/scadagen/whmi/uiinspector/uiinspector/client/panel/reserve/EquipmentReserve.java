@@ -1,10 +1,15 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserve;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader_i.AttributeName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -22,6 +27,39 @@ public class EquipmentReserve {
 	
 	public static void setReservationName(String iReservationName) {
 		reservationName = iReservationName;
+	}
+	
+	private static Map<String, String> attributes = new HashMap<String, String>();
+	public static void setAttribute(String key, String value) {
+		final String function = "setAttribute";
+		logger.begin(className, function);
+		logger.debug(className, function, "key[{}] value[{}]", key, value);
+		attributes.put(key, value);
+		logger.end(className, function);
+	}
+	
+	public static void loadConfiguration() {
+		final String function = "loadConfiguration";
+		logger.begin(className, function);
+		
+		String dictionariesCacheName = UIInspector_i.strUIInspector;
+		String dictionariesCacheName_fileName = className+UIPanelInspector_i.strConfigExtension;
+		String dictionariesCacheName_prefix = className+UIPanelInspector_i.strDot;
+		
+		{
+			String keyResrvReserveReqIDAttribute= dictionariesCacheName_prefix+AttributeName.ResrvReserveReqIDAttribute.toString();
+			String resrvReserveReqIDAttribute = ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, keyResrvReserveReqIDAttribute, "");
+			logger.debug(className, function, "resrvReserveReqIDAttribute[{}]", resrvReserveReqIDAttribute);
+			setAttribute(AttributeName.ResrvReserveReqIDAttribute.toString(), resrvReserveReqIDAttribute);
+		}
+		{
+			String keyResrvUnreserveReqIDAttribute= dictionariesCacheName_prefix+AttributeName.ResrvUnreserveReqIDAttribute.toString();
+			String resrvUnreserveReqIDAttribute = ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, keyResrvUnreserveReqIDAttribute, "");
+			logger.debug(className, function, "resrvUnreserveReqIDAttribute[{}]", resrvUnreserveReqIDAttribute);
+			setAttribute(AttributeName.ResrvUnreserveReqIDAttribute.toString(), resrvUnreserveReqIDAttribute);
+		}
+		
+		logger.end(className, function);
 	}
 
 	/** Return the EquipmentReservationID
@@ -73,13 +111,13 @@ public class EquipmentReserve {
 		logger.debug(className, function, "scsEnvId[{}] address[{}]", scsEnvId, dbaddress);
 		logger.debug(className, function, "hasScreen[{}] screen[{}]", hasScreen, screen);
 		
+		String resrvReserveReqIDAttribute = attributes.get(AttributeName.ResrvReserveReqIDAttribute.toString());
 		String reservationName = getEquipmentReservationName(hasScreen, screen);
-		String addressWrite = dbaddress + PointName.resrvReserveReqID.toString();
-//		String key = "addWriteStringValueRequest" + "_" + "inspector" + className + "_" + "dynamic" + "_" + dbaddress;
+		String addressWrite = dbaddress + resrvReserveReqIDAttribute;
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.WriteStringValue);
-		clientKey.setWidget("inspector" + className);
+		clientKey.setWidget(className);
 		clientKey.setStability(Stability.DYNAMIC);
 		clientKey.setScreen(screen);
 		clientKey.setEnv(scsEnvId);
@@ -103,13 +141,13 @@ public class EquipmentReserve {
 		logger.debug(className, function, "hasScreen[{}] screen[{}]", hasScreen, screen);
 		
 		// Write
+		String resrvUnreserveReqIDAttribute = attributes.get(AttributeName.ResrvUnreserveReqIDAttribute.toString());
 		String reservationName = getEquipmentReservationName(hasScreen, screen);
-		String addressWrite = dbaddress + PointName.resrvUnreserveReqID.toString();
-//		String key = "addWriteStringValueRequest" + "_" + "inspector" + className + "_" + "dynamic" + "_" + dbaddress;
+		String addressWrite = dbaddress + resrvUnreserveReqIDAttribute;
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.WriteStringValue);
-		clientKey.setWidget("inspector" + className);
+		clientKey.setWidget(className);
 		clientKey.setStability(Stability.DYNAMIC);
 		clientKey.setScreen(screen);
 		clientKey.setEnv(scsEnvId);

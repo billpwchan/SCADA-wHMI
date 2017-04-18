@@ -25,6 +25,8 @@ public interface UIPanelInspector_i {
 	public final static String strEquipmentReserveHasScreen = "EquipmentReserveHasScreen";
 	public final static String strEquipmentReserveUseHostName = "EquipmentReserveUseHostName";	
 	
+	public final static String strEquipmentReserveDefaultIndex = "EquipmentReserveDefaultIndex";
+	
 	public final static String strOpmApi = "OpmApi";
 	
 	public final static String strMode = "Mode";
@@ -39,5 +41,10 @@ public interface UIPanelInspector_i {
 	public final static String strHmiOrderEnable = "HmiOrderEnable";
 	public final static String strHmiOrderAttribute = "HmiOrderAttribute";
 	public final static String strHmiOrderFilterThreshold = "HmiOrderFilterThreshold";
+	
+	public final static String strHOMUseHostName = "HOMUseHostName";
+	
+	public final static String strStaticAttibutes = "StaticAttibutes";
+	public final static String strDynamicAttibutes = "DynamicAttibutes";
 	
 }

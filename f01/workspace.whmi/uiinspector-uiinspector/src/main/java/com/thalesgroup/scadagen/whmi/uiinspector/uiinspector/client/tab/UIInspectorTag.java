@@ -66,6 +66,16 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		this.tabName = tabName;
 	}
 	
+	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
+	@Override
+	public void setAttribute(String type, String key, String value) {
+		final String function = "setAttribute";
+		logger.begin(className, function);
+		if ( null == attributesList.get(type) ) attributesList.put(type, new HashMap<String, String>());
+		attributesList.get(type).put(key, value);
+		logger.end(className, function);
+	}
+	
 	@Override
 	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub

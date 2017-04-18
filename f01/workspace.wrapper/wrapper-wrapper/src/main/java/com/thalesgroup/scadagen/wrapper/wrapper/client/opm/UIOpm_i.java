@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm;
 
+import java.util.Map;
+
 public interface UIOpm_i {
 	
 	public static final String MODE = "mode";
@@ -17,10 +19,14 @@ public interface UIOpm_i {
 			);
 	
 	boolean checkAccess(String function, String location, String action, String mode);
+
+	boolean checkAccess(Map<String, String> parameter);
 	
 	public interface CheckAccessWithHOMEvent_i {
 		void result(boolean result);
 	}
+	
+	void checkAccessWithHom(String function, String location, String action, String mode, int hdvValue, String key, CheckAccessWithHOMEvent_i resultEvent);
 
 	void checkAccessWithHom(String function, String location, String action, String mode, String hvid, String key, CheckAccessWithHOMEvent_i resultEvent);
 	
@@ -46,11 +52,12 @@ public interface UIOpm_i {
 	}
 	void getCurrentHOMValue(final String hvid, final GetCurrentHOMValueEvent_i event);
 	
-	boolean createOperator(String operator);
-	boolean removeOperator(String operator);
-	boolean addOperatorProfile(String operator, String profile);
+	void createOperator(String operator);
+	void removeOperator(String operator);
 	
-	boolean login(String operator, String password);
-	boolean logout();
-
+	void addProfileToOperator(String operator, String profile);
+	void removeProfileFromOperatior(String operator, String profile);
+	
+	void login(String operator, String password);
+	void logout();
 }

@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.test;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -6,7 +6,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
 public class ReadPropTest {
-	
 	private final String className = UIWidgetUtil.getClassSimpleName(ReadPropTest.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	

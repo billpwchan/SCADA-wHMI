@@ -4,9 +4,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
-public class Equipment {
+public class Point {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(Equipment.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(Point.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	String alias;
@@ -15,8 +15,8 @@ public class Equipment {
 	String attribute;
 	int attributeValue;
 	
-	public Equipment(String alias, String hmiOrderAttribute) {
-		final String function = "Equipment";
+	public Point(String alias, String hmiOrderAttribute) {
+		final String function = "Point";
 		
 		this.alias=alias;
 		this.attribute=hmiOrderAttribute;

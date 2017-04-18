@@ -67,11 +67,8 @@ public class UIInspectorMgr {
 			logger.debug(className, function+"scsEnvId[{}]", scsEnvId);
 
 			String strDatabaseMultiReadingKey = inspDialogBoxPropPrefix+UIPanelInspector_i.strDatabaseMultiReadingKey;
+			String DatabaseMultiReadingProxyKey = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, strDatabaseMultiReadingKey, "DatabaseMultiReadingProxy");
 			logger.debug(className, function, "strDatabaseMultiReadingKey[{}]", strDatabaseMultiReadingKey);
-			
-			String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
-			String DatabaseMultiReadingProxyKey = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, strDatabaseMultiReadingKey, strDatabaseMultiReadingProxyKey);
-			logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
 			
 			if ( null == databaseMultiRead_i ) {
 				databaseMultiRead_i = DatabaseMultiReadFactory.get(DatabaseMultiReadingProxyKey);
@@ -180,14 +177,14 @@ public class UIInspectorMgr {
 		
 		String action = null;
 		
-		String keyaction = inspDialogBoxPropPrefix+UIPanelInspector_i.strConfigAction;
+		String keyaction = inspDialogBoxPropPrefix+UIPanelInspector_i.strAction;
 		String actionvalue = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, keyaction, null);
 		
 		action = actionvalue;
 		
 		String mode = null;
 		
-		String keymode = inspDialogBoxPropPrefix+UIPanelInspector_i.strConfigMode;
+		String keymode = inspDialogBoxPropPrefix+UIPanelInspector_i.strMode;
 		String modevalue = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, keymode, null);
 		
 		mode = modevalue;

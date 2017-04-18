@@ -135,7 +135,8 @@ public class UIPanelInspectorWrapper implements UIInspector_i, EqptSelectionEven
 				}
 				uiPanelInspector_.setUINameCard(uiNameCard_);
 				uiPanelInspector_.setUIInspectorEvent(uiPanelInspectorEvent_);
-				uiPanelInspector_.setFunctionLocation(this.function, this.location);
+				uiPanelInspector_.setFunction(this.function);
+				uiPanelInspector_.setLocation(this.location);
 				uiPanelInspector_.init();
 			}
 		}

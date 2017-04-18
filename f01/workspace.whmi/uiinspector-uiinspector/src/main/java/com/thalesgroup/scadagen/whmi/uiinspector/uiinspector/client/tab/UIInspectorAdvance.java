@@ -24,8 +24,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
@@ -39,6 +37,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DpcMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.dpc.DCP_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
@@ -77,6 +78,16 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		this.tabName = tabName;
 	}
 	
+	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
+	@Override
+	public void setAttribute(String type, String key, String value) {
+		final String function = "setAttribute";
+		logger.begin(className, function);
+		if ( null == attributesList.get(type) ) attributesList.put(type, new HashMap<String, String>());
+		attributesList.get(type).put(key, value);
+		logger.end(className, function);
+	}
+	
 	@Override
 	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
@@ -87,6 +98,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	public void applyRight() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private boolean equipmentReserveHasScreen = false;
+	@Override
+	public void setEquipmentReserveHasScreen(boolean equipmentReserveHasScreen) {
+		this.equipmentReserveHasScreen = equipmentReserveHasScreen;
 	}
 	
 	@Override
@@ -102,7 +119,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	@Override
 	public void setAddresses(String[] addresses) {
 		final String function = "setAddresses";
-		
 		logger.begin(className, function);
 		
 		this.addresses = addresses;
@@ -117,7 +133,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private void updatePager() {
 		final String function = "updatePager";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -137,7 +152,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private void updateLayout() {
 		final String function = "updateLayout";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -164,13 +178,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			btnApplys[i]			.setVisible(visible);
 
 		}
-
 		logger.end(className, function);
 	}
 
 	private void onButton(Button btn) {
 		final String function = "onButton";
-		
 		logger.begin(className, function);
 		
 		if (  btn == btnUp || btn == btnDown ) {
@@ -194,7 +206,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		
 		logger.begin(className, function);
 
 		// Read static
@@ -205,6 +216,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.STATIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -255,6 +268,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					clientKey.setAPI(API.multiReadValue);
 					clientKey.setWidget(INSPECTOR + tabName);
 					clientKey.setStability(Stability.STATIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
 					clientKey.setAdress(parent);
 					
 					String strClientKey = clientKey.toClientKey();
@@ -284,6 +299,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -366,11 +383,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "disconnect";
 		logger.begin(className, function);
 		{
-			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
 			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -408,11 +426,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private void buildWidgets(int numOfWidgets, int numOfPointEachPage) {
 		final String function = "buildWidgets";
-		
 		logger.begin(className, function);
 		
-		logger.warn(className, function, "numOfWidgets[{}]", numOfWidgets);
-		logger.warn(className, function, "numOfPointEach[{}]", numOfPointEachPage);
+		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
+		logger.debug(className, function, "numOfPointEach[{}]", numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
@@ -509,7 +526,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					}
 				});
 				flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
-
 			}
 			
 			for ( int i = 0 ; i < 8 ; ++i ) {
@@ -529,16 +545,17 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	}
 	
 	private boolean valueRefreshed = false;
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private HashMap<String, String> dbvalues = new HashMap<String, String>();
-	public void updateValue(String strClientKey, HashMap<String, String> keyAndValue) {
+	private Map<String, Map<String, String>> keyAndValuesStatic		= new LinkedHashMap<String,Map<String, String>>();
+	private Map<String, Map<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, String> dbvalues = new HashMap<String, String>();
+	@Override
+	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
 
 		logger.begin(className, function);
 		logger.debug(className, function, "strClientKey[{}]", strClientKey);
 		
-		DataBaseClientKey clientKey = new DataBaseClientKey(strClientKey);
+		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -569,7 +586,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
 				
-				HashMap<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
+				Map<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
 				
 				updateValueStatic(clientKey, keyAndValue);
 			}//End of for keyAndValuesStatic
@@ -577,7 +594,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
 			
-			HashMap<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
+			Map<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
 			
 			updateValueDynamic(clientKey, keyAndValue);
 			
@@ -586,7 +603,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	public void updateValueStatic(String key, HashMap<String, String> keyAndValue) {
+	public void updateValueStatic(String key, Map<String, String> keyAndValue) {
 		final String function = "updateValueStatic";
 		
 		logger.begin(className, function);
@@ -603,8 +620,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(parent);
-		
 		
 		String strClientKey = clientKey.toClientKey();
 		
@@ -691,9 +709,8 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	public void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
+	public void updateValueDynamic(String clientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
-		
 		logger.begin(className, function);
 		logger.debug(className, function, "clientkey[{}]", clientKey);
 		
@@ -720,7 +737,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				} else if ( PointType.sci == pointType ) {
 					sForcedStatusPoint = PointName.sfoForcedStatus.toString();
 				}
-				logger.debug(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
+				logger.trace(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
 				
 				String sForcedStatus = null;
 				sForcedStatus = getStatusValue(address, sForcedStatusPoint);
@@ -782,12 +799,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 						if ( null != point ) {
 							PointType pointType = DatabaseHelper.getPointType(point);
 
-							logger.debug(className, function, "point[{}]", point);
+							logger.trace(className, function, "point[{}]", point);
 							
 							if ( PointType.dci == pointType ) {
 
 								String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-								logger.debug(className, function, "valueTable[{}]", valueTable);
+								logger.trace(className, function, "valueTable[{}]", valueTable);
 								
 								if ( null != valueTable ) {
 									int valueCol = 0;
@@ -836,7 +853,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		String sforcedStatus = DatabaseHelper.getAttributeValue(address, strForcedStatus, dbvalues);
 		sforcedStatus = DatabaseHelper.removeDBStringWrapper(sforcedStatus);
-		logger.debug(className, function, "sforcedStatus[{}]", sforcedStatus);
+		logger.trace(className, function, "sforcedStatus[{}]", sforcedStatus);
 		
 		logger.end(className, function);
 		

@@ -1,5 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting;
 
-public interface EquipmentsSortingEvent {
+public interface PointsSortingEvent {
 	void onSorted(String [] dbaddress);
 }

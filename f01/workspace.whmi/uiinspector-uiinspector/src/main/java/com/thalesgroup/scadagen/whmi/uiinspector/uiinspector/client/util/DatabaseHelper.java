@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.RTDB_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
@@ -130,7 +130,7 @@ public class DatabaseHelper {
 		return str;
 	}
 	
-	public static String getAttributeValue(String address, String point, HashMap<String, String> dbvalues) {
+	public static String getAttributeValue(String address, String point, Map<String, String> dbvalues) {
 		final String function = "getAttributeValue";
 		logger.begin(className, function);
 		String value = null;

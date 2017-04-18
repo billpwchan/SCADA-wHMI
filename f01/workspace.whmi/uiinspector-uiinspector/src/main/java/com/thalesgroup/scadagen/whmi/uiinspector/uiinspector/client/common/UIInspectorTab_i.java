@@ -7,11 +7,13 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEv
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 
-public interface UIInspectorTab_i {
+public interface UIInspectorTab_i extends UIInspectorTabUpdateValue_i {
 	
 	void setUINameCard(UINameCard uiNameCard);
 	void init();
 	Panel getMainPanel();
+	
+	void setAttribute(String type, String key, String value);
 	
 	void setTabName(String tabName);
 	
@@ -31,5 +33,7 @@ public interface UIInspectorTab_i {
 	void disconnect();
 	
 	void setDatabase(Database database);
+	
+	void setEquipmentReserveHasScreen(boolean equipmentReserveHasScreen);
 	
 }

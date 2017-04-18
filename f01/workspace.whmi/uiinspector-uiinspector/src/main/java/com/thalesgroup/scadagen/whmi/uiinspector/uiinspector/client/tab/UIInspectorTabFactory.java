@@ -30,7 +30,6 @@ public class UIInspectorTabFactory {
 		String strUIInspectorAdvance			= UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 		
 		String strUIInspectorHeader				= UIWidgetUtil.getClassSimpleName(UIInspectorHeader.class.getName());
-		String strUIInspectorEquipmentReserve	= UIWidgetUtil.getClassSimpleName(UIInspectorEquipmentReserve.class.getName());
 		
 		if ( null != key ) {
 			if ( key.equals(strUIInspectorInfo) ) {
@@ -47,9 +46,6 @@ public class UIInspectorTabFactory {
 			} else 
 			if ( key.equals(strUIInspectorHeader) ) {
 				uiInspectorTab_i = new UIInspectorHeader();
-			} else 
-			if ( key.equals(strUIInspectorEquipmentReserve) ) {
-				uiInspectorTab_i = new UIInspectorEquipmentReserve();
 			}
 		} else {
 			logger.warn(className, function, "key IS NULL");

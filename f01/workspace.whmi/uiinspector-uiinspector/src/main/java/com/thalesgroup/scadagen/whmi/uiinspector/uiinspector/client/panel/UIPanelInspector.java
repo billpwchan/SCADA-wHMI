@@ -11,8 +11,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.BeforeSelectionEvent;
 import com.google.gwt.event.logical.shared.BeforeSelectionHandler;
-import com.google.gwt.regexp.shared.MatchResult;
-import com.google.gwt.regexp.shared.RegExp;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -26,20 +24,14 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTags_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPanelInspector_i;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.EquipmentsSorting;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.EquipmentsSortingEvent;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorAdvance;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorControl;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorEquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.filter.PointsFilter;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.hom.HomEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserve.EquipmentReserve;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserve.EquipmentReserveEvent;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSorting;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSortingEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTabFactory;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTag;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserve;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.EquipmentReserveEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
@@ -49,8 +41,12 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i;
 
 /**
  * @author syau
@@ -73,6 +69,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private String parent		= null;
 	private int periodMillis	= 250;
 	
+	private boolean equipmentReserveHasScreen = false;
+	private boolean equipmentReserveUseHostName = false;
+	private int equipmentReserveDefaultIndex = 0;
+	
+	private boolean homUseHostName = false;
+	
 	final private String INSPECTOR		= "inspector";
 	
 	public void setPeriodMillis(int periodMillis) {
@@ -93,20 +95,28 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.debug(className, function, "this.scsEnvId[{}] this.parent[{}]", this.scsEnvId, this.parent);
 		
 		database.setDynamic(scsEnvId, parent);
+
+		DataBaseClientKey clientKey = new DataBaseClientKey();
+		clientKey.setAPI(API.multiReadValue);
+		clientKey.setWidget(INSPECTOR);
+		clientKey.setStability(Stability.DYNAMIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
+		clientKey.setAdress(parent);
+		String strClientKey = clientKey.toClientKey();
+		
+		database.setDynamicClientKey(strClientKey);
 		
 		logger.end(className, function);
 	}
 	
 	private String location = null;
+	public String getLocation() { return this.location; }
+	public void setLocation(String location) { this.location = location; }
+	
 	private String function = null;
-	public void setFunctionLocation(String function2, String location2) {
-		final String function = "setFunctionLocation";
-		
-		this.function = function2;
-		this.location = location2;
-		
-		logger.debug(className, function, "this.function[{}] this.location[{}]", this.function, this.location);
-	}
+	public String getFunction() { return this.function; }
+	public void setFunction(String function) { this.function = function; }
 	
 	private void connectTabs(String[] dbaddress) {
 		final String function = "connectTabs";
@@ -118,11 +128,11 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsConnect();
 		
 		uiInspectorHeader.connect();
-		equipmentReserve.connect();
 		
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
-			if ( d.points.size() <= 0 ) {
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
+			if ( d.points.isEmpty() ) {
+				logger.debug(className, function, "k[{}] d.points.isEmpty() Remove it", k);
 				panelTab.remove(d.panel);
 			}
 		}
@@ -136,12 +146,13 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		if ( hmiOrderEnable ) {
 			
-			EquipmentsSorting equipmentSorting = new EquipmentsSorting();
-			equipmentSorting.setDatabase(database);
-			equipmentSorting.setParent(scsEnvId, parent);
-			equipmentSorting.setDBAddresses(values, hmiOrderAttribute);
-			equipmentSorting.setThreshold(hmiOrderFilterThreshold);
-			equipmentSorting.setEquipmentsSortingEvent(new EquipmentsSortingEvent() {
+			PointsSorting pointsSorting = new PointsSorting();
+			pointsSorting.setUINameCard(uiNameCard);
+			pointsSorting.setDatabase(database);
+			pointsSorting.setParent(scsEnvId, parent);
+			pointsSorting.setDBAddresses(values, hmiOrderAttribute);
+			pointsSorting.setThreshold(hmiOrderFilterThreshold);
+			pointsSorting.setEquipmentsSortingEvent(new PointsSortingEvent() {
 				
 				@Override
 				public void onSorted(String[] dbaddress) {
@@ -149,7 +160,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 				}
 			});
-			equipmentSorting.init();
+			pointsSorting.init();
 		} else {
 			
 			connectTabs(values);
@@ -163,22 +174,27 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.begin(className, function);
 		
 		if ( null != database ) {
+
+			DataBaseClientKey clientKey = new DataBaseClientKey();
+			clientKey.setAPI(API.multiReadValue);
+			clientKey.setWidget(INSPECTOR);
+			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
+			clientKey.setAdress(parent);
+			
+			database.setDynamicClientKey(clientKey.toClientKey());
+			
 			database.setDynamicEvent(new DatabaseEvent() {
 				
 				@Override
 				public void update(String key, String[] value) {
 					final String function2 = "DatabaseEvent update";
-					
-					DataBaseClientKey clientKey = new DataBaseClientKey();
-					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR);
-					clientKey.setStability(Stability.DYNAMIC);
-					clientKey.setAdress(parent);
-					
-					String strClientKey = clientKey.toClientKey();
-					
-					String [] dbaddresses	= database.getKeyAndAddress(strClientKey);
-					String [] dbvalues		= database.getKeyAndValues(strClientKey);
+					logger.begin(className, function);
+					logger.debug(className, function, "{} key[{}]", new Object[]{function2, key});
+
+					String [] dbaddresses	= database.getKeyAndAddress(key);
+					String [] dbvalues		= database.getKeyAndValues(key);
 					if (dbaddresses == null || dbvalues == null) {
 						logger.error(className, function, "{} dbaddresses or dbvalues is null", function2);
 						return;
@@ -195,19 +211,18 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 						}
 					}
 					
-					HashMap<String, String> dynamicvalues = new HashMap<String, String>();
+					Map<String, String> dynamicvalues = new HashMap<String, String>();
 					for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 						dynamicvalues.put(dbaddresses[i], dbvalues[i]);
 					}
 					
-					((UIInspectorHeader)			uiInspectorHeader)		.updateValue(key, dynamicvalues);
-					((UIInspectorEquipmentReserve)	equipmentReserve)		.updateValue(key, dynamicvalues);
+					uiInspectorHeader	.updateValue(key, dynamicvalues);
 					
-					((UIInspectorInfo)				panelData.get(info).uiInspectorTab_i)		.updateValue(key, dynamicvalues);
-					((UIInspectorControl)			panelData.get(control).uiInspectorTab_i)	.updateValue(key, dynamicvalues);
-					((UIInspectorTag)				panelData.get(tag).uiInspectorTab_i)		.updateValue(key, dynamicvalues);
-					((UIInspectorAdvance)			panelData.get(advance).uiInspectorTab_i)	.updateValue(key, dynamicvalues);
-
+					for ( String k : tabDatas.keySet() ) {
+						tabDatas.get(k).uiInspectorTab_i	.updateValue(key, dynamicvalues);
+					}
+					
+					logger.end(className, function);
 				}
 			});
 		} else {
@@ -224,6 +239,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		clientKey.setAPI(API.GetChildren);
 		clientKey.setWidget(INSPECTOR);
 		clientKey.setStability(Stability.STATIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(parent);
 		
 		String strClientKey = clientKey.toClientKey();
@@ -242,6 +259,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					clientKey.setAPI(API.GetChildren);
 					clientKey.setWidget(INSPECTOR);
 					clientKey.setStability(Stability.STATIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
 					clientKey.setAdress(parent);
 					
 					String strClientKey = clientKey.toString();
@@ -292,6 +311,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(INSPECTOR);
 		clientKey.setStability(Stability.STATIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(parent);
 		
 		String strClientKey = clientKey.toClientKey();
@@ -324,6 +345,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					clientKey.setAPI(API.multiReadValue);
 					clientKey.setWidget(INSPECTOR);
 					clientKey.setStability(Stability.STATIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
 					clientKey.setAdress(parent);
 					
 					String strClientKey = clientKey.toClientKey();
@@ -333,7 +356,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 						repsonseHeader(key, values);
 					}
 				}
-	
 			});
 		} else {
 				logger.warn(className, function, "database IS NUL");
@@ -341,26 +363,50 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		logger.end(className, function);
 	}
-
-	private boolean checkRight(String dictionariesCacheName, String fileName, UIOpm_i uiOpm_i, String actionname, String mode) {
-		final String function = "checkRight";
+	
+	
+	private UIOpm_i uiOpm_i = null;
+	private void prepareOpm() {
+		final String function = "prepareOpm";
 		logger.begin(className, function);
-		boolean right = false;
-		String keyaction = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strConfigAction+"_"+actionname;
-		
-		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keyaction[{}]", new Object[]{dictionariesCacheName, fileName, keyaction});
-		String action = ReadProp.readString(dictionariesCacheName, fileName, keyaction, null);
-		logger.warn(className, function, "action[{}]", action);
-		if ( null != action ) {
-			logger.debug(className, function, "this.function[{}] this.location[{}] action[{}] mode[{}]"
-					, new Object[]{this.function, this.location, action, mode});
-			right = uiOpm_i.checkAccess(this.function, this.location, action, mode);
-			logger.debug(className, function, "actionname[{}] right[{}]", new Object[]{actionname, right});
-		} else {
-			logger.warn(className, function, "action IS NULL");
+		// OPM
+		logger.debug(className, function, "opmapi[{}]", opmapi);
+		uiOpm_i = OpmMgr.getInstance().getOpm(opmapi);
+		if ( null == uiOpm_i ) {
+			logger.warn(className, function, "uiOpm_i IS NULL");
 		}
 		logger.end(className, function);
-		return right;
+	}
+
+	private void checkRights() {
+		final String function = "checkRights";
+		logger.begin(className, function);
+		
+		if ( null != uiOpm_i ) {
+
+			rights = new HashMap<String, Boolean>();
+			for ( String k : rightNames.keySet() ) {
+				String action = rightNames.get(k);
+				logger.debug(className, function, "k[{}] action[{}]", k, action);
+				boolean right = uiOpm_i.checkAccess(this.function, this.location, action, mode);
+				logger.debug(className, function, "k[{}] action[{}] right[{}]", new Object[]{k, action, right});
+				rights.put(k, right);
+			}
+
+			for ( String k : tabDatas.keySet() ) {
+				TabData d = tabDatas.get(k);
+				d.uiInspectorTab_i.setRight(rights);
+				d.uiInspectorTab_i.applyRight();
+				if ( null != rights.get(k) && ! rights.get(k) ) {
+					logger.warn(className, function, "k[{}] right, remove page", k);
+					panelTab.remove(d.panel);
+				}
+			}
+
+		} else {
+			logger.warn(className, function, "uiOpm_i IS NULL");
+		}
+		logger.end(className, function);
 	}
 	
 	private Map<String, Boolean> rights = null;
@@ -368,72 +414,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	public void connect() {
 		final String function = "connect";
 		logger.begin(className, function);
-		String fileName = UIPanelInspector_i.strConfigPrefixWODot+UIPanelInspector_i.strConfigExtension;
-		String keyperiodmillis = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strPeriodMillis;
-		periodMillis = ReadProp.readInt(UIInspector_i.strUIInspector, fileName, keyperiodmillis, 250);
 		
-		logger.debug(className, function, "database pollor periodMillis[{}]", periodMillis);
-
 		database.connect();
 		database.connectTimer(this.periodMillis);
 		
-		// OPM
-		String dictionariesCacheName = "UIInspectorPanel";
+		checkRights();
 		
-		String keyopmapi = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strOpmApi;
-		String keyopmapivalue = ReadProp.readString(dictionariesCacheName, fileName, keyopmapi, "");
-		
-		String opmapi = keyopmapivalue;
-
-		logger.debug(className, function, "opmapi[{}]", opmapi);
-		OpmMgr opmMgr = OpmMgr.getInstance();
-		UIOpm_i uiOpm_i = opmMgr.getOpm(opmapi);
-		
-		if ( null != uiOpm_i ) {
-
-			String mode = null;
-			String keymode = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strConfigMode;
-			logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keymode[{}]", new Object[]{dictionariesCacheName, fileName, keymode});
-			mode = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
-			
-			logger.debug(className, function, "mode[{}]", mode);
-
-			rights = new HashMap<String, Boolean>();
-			for ( String k : panelData.keySet() ) {
-				PanelData d = panelData.get(k);
-				d.opmright = checkRight(dictionariesCacheName, fileName, uiOpm_i, d.tabConfigName, mode);
-				rights.put(d.tabConfigName, d.opmright);
-			}
-			
-			boolean right = checkRight(dictionariesCacheName, fileName, uiOpm_i, "ackalarm", mode);
-			rights.put("ackalarm", right);
-
-			for ( String k : panelData.keySet() ) {
-				PanelData d = panelData.get(k);
-				
-				d.uiInspectorTab_i.setRight(rights);
-				d.uiInspectorTab_i.applyRight();
-				
-				if ( ! d.opmright ) panelTab.remove(d.panel);
-			}
-
-		} else {
-			logger.warn(className, function, "uiOpm_i IS NULL");
-		}
-		
-		// hmiOrder
-		String strHmiOrderEnable = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderEnable;
-		hmiOrderEnable = ReadProp.readBoolean(dictionariesCacheName, fileName, strHmiOrderEnable, false);
-		logger.debug(className, function, "strHmiOrderEnable[{}] hmiOrderEnable[{}]", strHmiOrderEnable, hmiOrderEnable);
-		
-		String strHmiOrderAttribute = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderAttribute;
-		hmiOrderAttribute = ReadProp.readString(dictionariesCacheName, fileName, strHmiOrderAttribute, "");
-		logger.debug(className, function, "strHmiOrderAttribute[{}] hmiOrderAttribute[{}]", strHmiOrderAttribute, hmiOrderAttribute);
-		
-		String strHmiOrderFilterThreshold = UIPanelInspector_i.strConfigPrefix+UIPanelInspector_i.strHmiOrderFilterThreshold;
-		hmiOrderFilterThreshold = ReadProp.readInt(UIInspector_i.strUIInspector, fileName, strHmiOrderFilterThreshold, -1);
-		logger.debug(className, function, "strHmiOrderFilterThreshold[{}] hmiOrderFilterThreshold[{}]", strHmiOrderFilterThreshold, hmiOrderFilterThreshold);
-
 		requestGetChilden();
 
 		requestHeader();
@@ -453,97 +439,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsDisconnect();
 		
 		uiInspectorHeader.disconnect();
-		equipmentReserve.disconnect();
 		
 		database.disconnectTimer();
 		database.disconnect();
 
-		logger.end(className, function);
-	}
-	
-	private boolean isRegExpMatch(RegExp regExp, String input) {
-		final String function = "isRegExpMatch";
-		
-		logger.begin(className, function);
-		logger.debug(className, function, "regExp[{}] input[{}]", regExp, input);
-		MatchResult matcher = regExp.exec(input);
-		boolean matchFound = matcher != null;
-		if ( matchFound ) {
-			if ( logger.isDebugEnabled() ) {
-				for ( int i = 0 ; i < matcher.getGroupCount(); i++) {
-					String groupStr = matcher.getGroup(i);
-					logger.debug(className, function, "input[{}] groupStr[{}]", input, groupStr);
-				}
-			}
-		}
-		logger.debug(className, function, "matchFound[{}]", matchFound);
-		logger.end(className, function);
-		return matchFound;
-	}
-	
-	private boolean isRegExpMatch(List<String> regExpPatterns, String dbaddress) {
-		boolean listMatch = false;
-		for ( String regExpPattern : regExpPatterns ) {
-			if ( isRegExpMatch( RegExp.compile(regExpPattern), dbaddress) )	{ 
-				listMatch = true;
-				break;
-			}
-		}
-		return listMatch;
-	}
-	
-	private void prepareBlackList(List<String> backList, String dictionariesCacheName, String tab) {
-		final String function = "prepareBlackList";
-		logger.begin(className, function);
-		logger.debug(className, function, " get"+UIPanelInspector_i.strBlack+"Lists");
-		if ( null != backList ) {
-			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
-			String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strConfigNameSize;
-			logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-			int numOfBack = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
-			for ( int y = 0 ; y < numOfBack ; ++y ) {
-				String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameBackList+UIPanelInspector_i.strDot+y;
-				String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-				logger.debug(className, function, "key[{}] value[{}]", key, value);
-				backList.add(value);
-			}
-		} else {
-			logger.warn(className, function, "backList IS NULL");
-		}
-		logger.end(className, function);
-	}
-
-	private void prepareWhiteList(List<String> whiteList, String dictionariesCacheName, String tab) {
-		final String function = "prepareBlackList";
-		logger.begin(className, function);
-		logger.debug(className, function, " get"+UIPanelInspector_i.strWhite+"Lists");
-		if ( null != whiteList ) {
-			String fileName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigExtension;
-			String keyNumName = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strConfigNameSize;
-			logger.debug(className, function, "fileName[{}] keyNumName[{}]", fileName, keyNumName);
-			int numOfWhite = ReadProp.readInt(dictionariesCacheName, fileName, keyNumName, 0);
-			for ( int y = 0 ; y < numOfWhite ; ++y ) {
-				String key = UIPanelInspector_i.strConfigPrefix+tab+UIPanelInspector_i.strConfigNameWhileList+UIPanelInspector_i.strDot+y;
-				String value = ReadProp.readString(dictionariesCacheName, fileName, key, "");
-				logger.debug(className, function, "key[{}] value[{}]", key, value);
-				whiteList.add(value);
-			}
-		} else {
-			logger.warn(className, function, "whiteList IS NULL");
-		}
-		logger.end(className, function);
-	}
-
-	private void applyFiltedList(List<String> list, List<String> regExpPatternBlackList, List<String> regExpPatternWhiteList, String dbaddress) {
-		final String function = "applyFiltedList";
-		logger.begin(className, function);
-		boolean blackListMatch=false;
-		boolean whileListMatch=false;
-		blackListMatch = isRegExpMatch(regExpPatternBlackList, dbaddress);
-		if ( !blackListMatch ) { 
-			whileListMatch = isRegExpMatch(regExpPatternWhiteList, dbaddress);
-		}
-		if ( whileListMatch ) { list.add(dbaddress); }
 		logger.end(className, function);
 	}
 
@@ -556,19 +455,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.begin(className, function + " getLists");
 		
 		String dictionariesCacheName = "UIInspectorPanel";
-
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
+		
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
 			String tab = d.tabConfigName;
 			logger.begin(className, function+" "+tab);
 			
 			d.regExpPatternBlackList = new LinkedList<String>();
 			
-			prepareBlackList(d.regExpPatternBlackList, dictionariesCacheName, tab);
+			PointsFilter.prepareFilter(d.regExpPatternBlackList, dictionariesCacheName, tab, UIPanelInspector_i.strConfigNameBackList);
 			
 			d.regExpPatternWhileList = new LinkedList<String>();
 			
-			prepareWhiteList(d.regExpPatternWhileList, dictionariesCacheName, tab);
+			PointsFilter.prepareFilter(d.regExpPatternWhileList, dictionariesCacheName, tab, UIPanelInspector_i.strConfigNameWhileList);
 
 			logger.end(className, function+" "+tab);
 		}
@@ -581,9 +480,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			logger.debug(className, function,"Iterator dbaddress[{}]", dbaddress);
 			if ( null != dbaddress ) {
 				logger.debug(className, function, "Iterator dbaddress[{}]", dbaddress);
-				for ( String k : panelData.keySet() ) {
-					PanelData d = panelData.get(k);
-					applyFiltedList(d.points, d.regExpPatternBlackList, d.regExpPatternWhileList, dbaddress);
+				for ( String k : tabDatas.keySet() ) {
+					TabData d = tabDatas.get(k);
+					PointsFilter.applyFiltedList(d.points, d.regExpPatternBlackList, d.regExpPatternWhileList, dbaddress);
 				}
 			} else {
 				logger.warn(className, function, "Iterator dbaddress IS NULL");
@@ -599,8 +498,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.begin(className, function);
 		
 		if ( logger.isDebugEnabled() ) {
-			for ( String k : panelData.keySet() ) {
-				PanelData d = panelData.get(k);
+			for ( String k : tabDatas.keySet() ) {
+				TabData d = tabDatas.get(k);
 				for ( String dbaddress : d.points ) {
 					logger.debug(className, function, "points[{}] dbaddress[{}]", d.tabName, dbaddress);
 				}
@@ -608,18 +507,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		}
 		
 		uiInspectorHeader	.setParent(scsEnvId, parent);
-		equipmentReserve	.setParent(scsEnvId, parent);
 		
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
-			d.uiInspectorTab_i.setParent(scsEnvId, parent);
+		for ( String k : tabDatas.keySet() ) {
+			tabDatas.get(k).uiInspectorTab_i.setParent(scsEnvId, parent);
 		}
 
-		uiInspectorHeader	.setAddresses	(panelData.get(info).points.toArray(new String[0]));
-		equipmentReserve	.setAddresses	(panelData.get(info).points.toArray(new String[0]));
+		uiInspectorHeader	.setAddresses	(tabDatas.get(info).points.toArray(new String[0]));
 
-		for ( String k : panelData.keySet() ) {
-			final PanelData d = panelData.get(k);
+		for ( String k : tabDatas.keySet() ) {
+			final TabData d = tabDatas.get(k);
 			d.uiInspectorTab_i.setAddresses	(d.points		.toArray(new String[0]));
 		}
 
@@ -630,8 +526,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	public void makeTabsBuildWidgets() {
 		final String function = "makeTabsBuildWidgets";
 		
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
 			
 			UIInspectorTab_i uiPanelInspector = d.uiInspectorTab_i;
 			String dictionariesCacheName = "UIInspectorPanel";
@@ -654,8 +550,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		final String function = "makeTabsConnect";
 		logger.begin(className, function);
 		
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
 			if ( null != d.uiInspectorTab_i ) {
 				d.uiInspectorTab_i.connect();
 			} else {
@@ -671,8 +567,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		final String function = "makeTabsDisconnect";
 		logger.begin(className, function);
 
-		for ( String k : panelData.keySet() ) {
-			final PanelData d = panelData.get(k);
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
 			if ( null != d.uiInspectorTab_i ) {
 				d.uiInspectorTab_i.disconnect();
 			} else {
@@ -683,7 +579,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 	}
 	
-	class PanelData {
+	class TabData {
 		String tabName = null;
 		String tabConfigName = null;
 		UIInspectorTab_i uiInspectorTab_i = null;
@@ -696,25 +592,23 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		List<String> regExpPatternBlackList = null;
 		List<String> regExpPatternWhileList = null;
-		
-		String opmaction = null;
-		boolean opmright = false;
 	}
-	private Map<String, PanelData> panelData = null;
+	private Map<String, TabData> tabDatas = null;
 	
 	private UIInspectorTab_i uiInspectorHeader		= null;
-	private UIInspectorTab_i equipmentReserve		= null;
 
 	private TabPanel panelTab = null;
 
 	private Panel panelHeader		= null;
 
-	private PanelData getPanelData(String tabName, String tabConfigName, String uiInspectorTabName, boolean isReserveEquipment, boolean hasSetMessageBoxEvent) {
-		final String function = "getPanelData";
+	private TabData getTabData(String tabName, String tabConfigName, String uiInspectorTabName, boolean isReserveEquipment, boolean hasSetMessageBoxEvent) {
+		final String function = "getTabData";
 		logger.begin(className, function);
 		logger.debug(className, function, "tabName[{}] tabConfigName[{}] uiInspectorTabName[{}] isReserveEquipment[{}] hasSetMessageBoxEvent[{}]"
 				, new Object[]{tabName, tabConfigName, uiInspectorTabName, isReserveEquipment, hasSetMessageBoxEvent});
-		PanelData d = new PanelData();
+		
+		TabData d = new TabData();
+		
 		d.tabName = tabName;
 		d.tabConfigName = tabConfigName;
 		d.uiInspectorTab_i = UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(uiInspectorTabName);
@@ -727,44 +621,223 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.end(className, function);
 		return d;
 	}
+
+	private void loadConfigurationTabAndCreate(String dictionariesCacheName, String fileName, String prefix) {
+		final String function = "loadConfigurationTabAndCreate";
+		logger.begin(className, function);
+		
+		tabDatas = new LinkedHashMap<String, TabData>();
+		
+		String keyNumOfTab = prefix+UIPanelInspector_i.strNumOfTab;
+		int numOfTab = ReadProp.readInt(dictionariesCacheName, fileName, keyNumOfTab, 0);
+		logger.debug(className, function, "numOfTab[{}]", numOfTab);
+		
+		for ( int i = 0 ; i < numOfTab ; ++i ) {
+			
+			String prefix2 = prefix+UIPanelInspector_i.strTab+UIPanelInspector_i.strDot+i+UIPanelInspector_i.strDot;
+			logger.debug(className, function, "prefix[{}] prefix2[{}]", prefix, prefix2);
+			
+			String keyTabConfigName = prefix2+UIPanelInspector_i.strTabConfigName;
+			String tabConfigName = ReadProp.readString(dictionariesCacheName, fileName, keyTabConfigName, "");
+			logger.debug(className, function, "tabConfigName[{}]", tabConfigName);
+			
+			String keyTabName = prefix2+UIPanelInspector_i.strTabName;
+			String tabName = ReadProp.readString(dictionariesCacheName, fileName, keyTabName, "");
+			logger.debug(className, function, "tabName[{}]", tabName);
+			
+			String keyUIInspectorTabName = prefix2+UIPanelInspector_i.strUIInspectorTabName;
+			String uiInspectorTabName = ReadProp.readString(dictionariesCacheName, fileName, keyUIInspectorTabName, "");
+			logger.debug(className, function, "uiInspectorTabName[{}]", uiInspectorTabName);
+
+			String keyIsReserveEquipment = prefix2+UIPanelInspector_i.strIsReserveEquipment;
+			boolean isReserveEquipment = ReadProp.readBoolean(dictionariesCacheName, fileName, keyIsReserveEquipment, false);
+			logger.debug(className, function, "isReserveEquipment[{}]", isReserveEquipment);
+			
+			String keyHasSetMessageBoxEvent = prefix2+UIPanelInspector_i.strHasSetMessageBoxEvent;
+			boolean hasSetMessageBoxEvent = ReadProp.readBoolean(dictionariesCacheName, fileName, keyHasSetMessageBoxEvent, false);
+			logger.debug(className, function, "hasSetMessageBoxEvent[{}]", hasSetMessageBoxEvent);
+			
+			tabDatas.put(tabConfigName, getTabData(tabName, tabConfigName, uiInspectorTabName, isReserveEquipment, hasSetMessageBoxEvent));
+		}
+		logger.end(className, function);
+	}
+	
+	private String opmapi = null;
+	private String mode = null;
+	private Map<String, String> rightNames = null;
+	private void loadConfigurationOpm(String dictionariesCacheName, String fileName, String prefix) {
+		final String function = "loadConfigurationOpm";
+		logger.begin(className, function);
+		
+		// OPM
+		String keyopmapi = prefix+UIPanelInspector_i.strOpmApi;
+		opmapi = ReadProp.readString(dictionariesCacheName, fileName, keyopmapi, "");
+		logger.debug(className, function, "opmapi[{}]", opmapi);
+		
+		String keymode = prefix+UIPanelInspector_i.strMode;
+		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keymode[{}]", new Object[]{dictionariesCacheName, fileName, keymode});
+		mode = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
+		logger.debug(className, function, "mode[{}]", mode);
+		
+		String keyStrHOMUseHostName = prefix+UIPanelInspector_i.strHOMUseHostName;
+		homUseHostName = ReadProp.readBoolean(dictionariesCacheName, fileName, keyStrHOMUseHostName, false);
+		logger.debug(className, function, "homUseHostName[{}]", homUseHostName);
+		
+		String keyNumOfAction = prefix+UIPanelInspector_i.strNumOfAction;
+		int numOfAction = ReadProp.readInt(dictionariesCacheName, fileName, keyNumOfAction, 0);
+		logger.debug(className, function, "numOfAction[{}]", numOfAction);
+		
+		rightNames = new HashMap<String, String>();
+		for ( int i = 0 ; i < numOfAction ; ++i ) {
+			
+			String prefix2 = prefix+UIPanelInspector_i.strAction+UIPanelInspector_i.strDot+i+UIPanelInspector_i.strDot;
+			logger.debug(className, function, "prefix[{}] prefix2[{}]", prefix, prefix2);
+			
+			String keyName = prefix2+UIPanelInspector_i.strName;
+			logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keymode[{}]", new Object[]{dictionariesCacheName, fileName, keyName});
+			String name = ReadProp.readString(dictionariesCacheName, fileName, keyName, "");
+			logger.debug(className, function, "name[{}]", name);
+			
+			String keyAction = prefix2+UIPanelInspector_i.strAction;
+			logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] keymode[{}]", new Object[]{dictionariesCacheName, fileName, keyAction});
+			String action = ReadProp.readString(dictionariesCacheName, fileName, keyAction, "");
+			logger.debug(className, function, "action[{}]", action);
+		
+			rightNames.put(name, action);
+		}
+		
+		logger.end(className, function);
+	}
+	
+	private void loadConfigurationDatabase(String dictionariesCacheName, String fileName, String prefix) {
+		final String function = "loadConfigurationDatabase";
+		logger.begin(className, function);
+		
+		// Database polling
+		String keyperiodmillis = prefix+UIPanelInspector_i.strPeriodMillis;
+		periodMillis = ReadProp.readInt(dictionariesCacheName, fileName, keyperiodmillis, 250);
+		logger.debug(className, function, "database pollor periodMillis[{}]", periodMillis);
+		
+		logger.end(className, function);
+	}	
+	private void loadConfigurationEquipmentReserve(String dictionariesCacheName, String fileName, String prefix) {
+		final String function = "loadConfigurationEquipmentReserve";
+		logger.begin(className, function);
+		
+		// EquipmentReserve
+		String keystrEquipmentReserveHasScreen = prefix+UIPanelInspector_i.strEquipmentReserveHasScreen;
+		equipmentReserveHasScreen = ReadProp.readBoolean(dictionariesCacheName, fileName, keystrEquipmentReserveHasScreen, false);
+		logger.debug(className, function, "equipmentReserveHasScreen[{}]", equipmentReserveHasScreen);
+		
+		String keystrEquipmentReserveUseHostName = prefix+UIPanelInspector_i.strEquipmentReserveUseHostName;
+		equipmentReserveUseHostName = ReadProp.readBoolean(dictionariesCacheName, fileName, keystrEquipmentReserveUseHostName, false);
+		logger.debug(className, function, "equipmentReserveUseHostName[{}]", equipmentReserveUseHostName);
+		
+		String keyStrEquipmentReserveDefaultIndex = prefix+UIPanelInspector_i.strEquipmentReserveDefaultIndex;
+		equipmentReserveDefaultIndex = ReadProp.readInt(dictionariesCacheName, fileName, keyStrEquipmentReserveDefaultIndex, 0);
+		logger.debug(className, function, "equipmentReserveDefaultIndex[{}]",equipmentReserveDefaultIndex);
+		
+		logger.end(className, function);
+	}	
+	private void loadConfigurationHmiOrder(String dictionariesCacheName, String fileName, String prefix) {
+		final String function = "loadConfigurationHmiOrder";
+		logger.begin(className, function);
+		
+		// hmiOrder
+		String strHmiOrderEnable = prefix+UIPanelInspector_i.strHmiOrderEnable;
+		hmiOrderEnable = ReadProp.readBoolean(dictionariesCacheName, fileName, strHmiOrderEnable, false);
+		logger.debug(className, function, "strHmiOrderEnable[{}] hmiOrderEnable[{}]", strHmiOrderEnable, hmiOrderEnable);
+		
+		String strHmiOrderAttribute = prefix+UIPanelInspector_i.strHmiOrderAttribute;
+		hmiOrderAttribute = ReadProp.readString(dictionariesCacheName, fileName, strHmiOrderAttribute, "");
+		logger.debug(className, function, "strHmiOrderAttribute[{}] hmiOrderAttribute[{}]", strHmiOrderAttribute, hmiOrderAttribute);
+		
+		String strHmiOrderFilterThreshold = prefix+UIPanelInspector_i.strHmiOrderFilterThreshold;
+		hmiOrderFilterThreshold = ReadProp.readInt(dictionariesCacheName, fileName, strHmiOrderFilterThreshold, -1);
+		logger.debug(className, function, "strHmiOrderFilterThreshold[{}] hmiOrderFilterThreshold[{}]", strHmiOrderFilterThreshold, hmiOrderFilterThreshold);
+	
+		logger.end(className, function);
+	}
+	
+	private Map<Integer, String> tabHtmls = new HashMap<Integer, String>();
+	private Map<String, Boolean> tabHomRights = new HashMap<String, Boolean>();
+	private void checkAccessWithHomAndApplyTab(String action, int eqtHom, String key, final int i, final String tabHtml) {
+		final String function = "checkAccessWithHomAndApplyTab";
+		logger.begin(className, function);
+		uiOpm_i.checkAccessWithHom(getFunction(), getLocation(), action, mode, eqtHom, key
+				, new CheckAccessWithHOMEvent_i() {
+			
+			@Override
+			public void result(boolean result) {
+				final String function = "result";
+				logger.begin(className, function);
+				logger.debug(className, function, "result[{}]", result);
+				
+				logger.debug(className, function, "i[{}] tabHtml[{}]", i, tabHtml);
+				tabHtmls.put(i, tabHtml);
+				logger.debug(className, function, "tabHtml[{}] result[{}]", tabHtml, result);
+				tabHomRights.put(tabHtml, result);
+				
+				int selected = panelTab.getTabBar().getSelectedTab();
+				logger.debug(className, function, "selected[{}]", selected);
+				if ( ! result ) {
+					if ( 0 != selected ) {
+						logger.debug(className, function, "selectTab to 0");
+						panelTab.getTabBar().selectTab(0);
+					}
+				}
+				
+				String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
+
+				String cssNameNum = cssName + i;
+				if ( ! result ) {
+					logger.debug(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
+					((Widget)panelTab.getTabBar().getTab(i)).addStyleName(cssNameNum);
+				} else {
+					logger.debug(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
+					((Widget)panelTab.getTabBar().getTab(i)).removeStyleName(cssNameNum);
+				}
+				
+				logger.end(className, function);
+			}
+		});
+		logger.end(className, function);
+	}
 	
 	private final static String strUIInspectorHeader 			= "UIInspectorHeader";
-	private final static String strUIInspectorEquipmentReserve 	= "UIInspectorEquipmentReserve";
 	
 	private final static String info							= "info";
-	private final static String strInfo							= "Info";
-	private final static String strUIInspectorInfo 				= "UIInspectorInfo";
-	
-	private final static String control 						= "control";
-	private final static String strControl						= "Control";
-	private final static String strUIInspectorControl 			= "UIInspectorControl";
-	
-	private final static String tag								= "tag";
-	private final static String strTagging						= "Tagging";
-	private final static String strUIInspectorTag 				= "UIInspectorTag";
-	
-	private final static String advance							= "advance";
-	private final static String strAdvance						= "Advance";
-	private final static String strUIInspectorAdvance 			= "UIInspectorAdvance";
 
+	private final String strUIPanelInspector = "inspectorpanel";
+	private final String dictionariesCacheName = UIInspector_i.strUIInspector;
+	private final String dictionariesCacheName_fileName = strUIPanelInspector+UIPanelInspector_i.strConfigExtension;
+	private final String dictionariesCacheName_prefix = strUIPanelInspector+UIPanelInspector_i.strDot;
+	
 	@Override
 	public void init() {
 		final String function = "init";
 		logger.begin(className, function);
+		
+		loadConfigurationTabAndCreate(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationOpm(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationDatabase(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationEquipmentReserve(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		loadConfigurationHmiOrder(dictionariesCacheName, dictionariesCacheName_fileName, dictionariesCacheName_prefix);
+		
+		prepareOpm();
+		
+		EquipmentReserve.loadConfiguration();
+		
+		if ( equipmentReserveUseHostName ) {
+			logger.debug(className, function, "equipmentReserveUseHostName[{}] Using HostName as equipmentReserve key", equipmentReserveUseHostName); 
+			EquipmentReserve.setReservationName(uiOpm_i.getCurrentHostName());
+		}
 
 		uiInspectorHeader	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorHeader);
-		equipmentReserve	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorEquipmentReserve);
-
-		panelData = new LinkedHashMap<String, PanelData>();
-		
-		panelData.put(info, getPanelData(strInfo, info, strUIInspectorInfo, false, false));
-		panelData.put(control, getPanelData(strControl, control, strUIInspectorControl, true, true));
-		panelData.put(tag, getPanelData(strTagging, tag, strUIInspectorTag, true, true));
-		panelData.put(advance, getPanelData(strAdvance, advance, strUIInspectorAdvance, true, true));
 
 		if ( logger.isDebugEnabled() ) {
-			for ( String k : panelData.keySet() ) {
-				PanelData d = panelData.get(k);
+			for ( String k : tabDatas.keySet() ) {
+				TabData d = tabDatas.get(k);
 				if ( null != d ) { 
 					logger.debug(className, function, "k[{}] d.tabName[{}] d.tabConfigName[{}]", new Object[]{k, d.tabName, d.tabConfigName}); 
 				} else {
@@ -772,22 +845,23 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				}
 			}
 		}
-		
-		((UIInspectorEquipmentReserve)equipmentReserve).setEquipmentReserveEvent(new EquipmentReserveEvent() {
+
+		((UIInspectorHeader)uiInspectorHeader).setEquipmentReserveEvent(new EquipmentReserveEvent() {
 			
 			@Override
 			public void isAvaiable(int eqtReserved) {
 				final String function = "isAvaiable";
+				logger.begin(className, function);
 				if ( null != panelTab ) {
 					logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
 					int tabCount = panelTab.getTabBar().getTabCount();
 					logger.debug(className, function, "tabCount[{}]", tabCount);
 					if ( tabCount > 1 ) {
-						int selected = panelTab.getTabBar().getSelectedTab();
-						logger.debug(className, function, "selected[{}]", selected);
+						int selectedIndex = panelTab.getTabBar().getSelectedTab();
+						logger.debug(className, function, "selectedIndex[{}]", selectedIndex);
 						if ( 2 == eqtReserved || 0 == eqtReserved ) {
-							if ( 0 != selected ) {
-								logger.debug(className, function, "selectTab to 0");
+							if ( equipmentReserveDefaultIndex != selectedIndex ) {
+								logger.debug(className, function, "selectTab to equipmentReserveDefaultIndex[{}]", equipmentReserveDefaultIndex);
 								panelTab.getTabBar().selectTab(0);
 							}
 						}
@@ -804,16 +878,58 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 						}
 					}
 				}
+				logger.end(className, function);
 			}
 		});
 		
-		for ( String k : panelData.keySet() ) {
-			final PanelData d = panelData.get(k);
+		((UIInspectorHeader)uiInspectorHeader).setHomEvent(new HomEvent() {
+			
+			@Override
+			public void isAvaiable(int eqtHom) {
+				logger.begin(className, function);
+				final String function = "isAvaiable";
+				
+				logger.debug(className, function, "eqtHom[{}]", eqtHom);
+				if ( null != panelTab ) {
+					
+					String key = null;
+					if ( homUseHostName ) {
+						key = uiOpm_i.getCurrentHostName();
+					} else {
+						key = uiOpm_i.getCurrentIPAddress();
+					}
+					
+					int tabCount = panelTab.getTabBar().getTabCount();
+					if ( tabCount > 0 ) {
+						for ( int i = 0 ; i < tabCount ; ++i ) {
+							
+							String tabHtml = panelTab.getTabBar().getTabHTML(i);
+							logger.debug(className, function, "i[{}] title[{}]", i, tabHtml);
+							
+							for ( String k : tabDatas.keySet() ) {
+								TabData d = tabDatas.get(k);
+								logger.debug(className, function, "d.tabName[{}] == tabHtml[{}]", d.tabName, tabHtml);
+								if ( d.tabName.equals(tabHtml) ) {
+									String tabConfigName = d.tabConfigName;
+									String action = rightNames.get(tabConfigName);
+									logger.debug(className, function, "tabConfigName[{}] action[{}]", tabConfigName, action);
+									checkAccessWithHomAndApplyTab(action, eqtHom, key, i, tabHtml);
+								}
+							}
+						}
+					}
+				}
+				logger.end(className, function);
+			}
+		});
+		
+		for ( String k : tabDatas.keySet() ) {
+			final TabData d = tabDatas.get(k);
 			d.uiInspectorTab_i.setUIInspectorTabClickEvent(new UIInspectorTabClickEvent() {
 				
 				@Override
 				public void onClick() {
-					logger.debug(className, function, d.tabConfigName );
+					logger.debug(className, function, "d.tabConfigName[{}]", d.tabConfigName );
 					if ( d.isReserveEquipment ) {
 						reserveEquipment();
 					} else {
@@ -854,19 +970,16 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		}
 
 		uiInspectorHeader.setUINameCard(this.uiNameCard);
+		uiInspectorHeader.setEquipmentReserveHasScreen(equipmentReserveHasScreen);
 		uiInspectorHeader.init();
 		uiInspectorHeader.setDatabase(database);
 		panelHeader	= uiInspectorHeader.getMainPanel();
 		
-		equipmentReserve.setUINameCard(this.uiNameCard);
-		equipmentReserve.init();
-		equipmentReserve.setDatabase(database);
-		equipmentReserve.getMainPanel();
-		
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
 			
 			d.uiInspectorTab_i.setUINameCard(this.uiNameCard);
+			d.uiInspectorTab_i.setEquipmentReserveHasScreen(equipmentReserveHasScreen);
 			d.uiInspectorTab_i.init();
 			d.uiInspectorTab_i.setDatabase(database);
 			d.panel = d.uiInspectorTab_i.getMainPanel();
@@ -879,23 +992,44 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			public void onBeforeSelection(BeforeSelectionEvent<Integer> event) {
 				final String function = "onBeforeSelection";
 				logger.begin(className, function);
-				logger.debug(className, function, "event[{}]", event);
-				logger.debug(className, function, "event.getItem()[{}]", event.getItem());
-				int intEvent = event.getItem().intValue();
-				logger.debug(className, function, "intEvent[{}]", intEvent);
-				if ( 0 == intEvent ) {
-					unReserveEquipment();
-				} else {
-					int intEqtReserved = ((UIInspectorEquipmentReserve)equipmentReserve).getEqtReservedValue();
-					logger.debug(className, function, "intEqtReserved[{}]", intEqtReserved);
-					if ( 2 == intEqtReserved ) {
-						logger.debug(className, function, "intReserve equals to 2, Cancel event...");
-						event.cancel();
-					} else {
-						logger.debug(className, function, "intReserve not equals to 2, reserve equipment...");
-						reserveEquipment();
+				logger.debug(className, function, "event[{}] event.getItem()[{}]", event, event.getItem());
+				int index = event.getItem().intValue();
+				logger.debug(className, function, "index[{}]", index);
+				
+				boolean homInsufficientRight = false;
+				String tabHtml = tabHtmls.get(index);
+				logger.debug(className, function, "tabHtml[{}]", tabHtml);
+				if ( null != tabHtml ) {
+					if ( null != tabHomRights.get(tabHtml) ) {
+						boolean homRight = tabHomRights.get(tabHtml);
+						logger.debug(className, function, "tabHtml[{}] homRight[{}]", tabHtml, homRight);
+						if ( ! homRight ) {
+							event.cancel();
+							logger.debug(className, function, "homRight[{}] IS FASLE, Event Cancelled", homRight);
+							homInsufficientRight = true;
+						}
 					}
 				}
+				logger.debug(className, function, "homInsufficientRight[{}]", homInsufficientRight);
+				
+				
+				// Equipment
+				if ( equipmentReserveDefaultIndex == index ) {
+					unReserveEquipment();
+				} else {
+					if ( !homInsufficientRight ) {
+						int eqtReservedValue = ((UIInspectorHeader)uiInspectorHeader).getEqtReservedValue();
+						logger.debug(className, function, "eqtReservedValue[{}]", eqtReservedValue);
+						if ( 2 == eqtReservedValue ) {
+							logger.debug(className, function, "eqtReservedValue equals to 2, Cancel event...");
+							event.cancel();
+						} else {
+							logger.debug(className, function, "eqtReservedValue not equals to 2, reserve equipment...");
+							reserveEquipment();
+						}
+					}
+				}
+
 						
 				logger.end(className, function);
 			}
@@ -903,8 +1037,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		
 		panelTab.addStyleName("project-gwt-tabpanel-inspector-tabpanel");
 
-		for ( String k : panelData.keySet() ) {
-			PanelData d = panelData.get(k);
+		for ( String k : tabDatas.keySet() ) {
+			TabData d = tabDatas.get(k);
 			panelTab.add(d.panel, d.tabName);
 		}
 		panelTab.selectTab(0);
@@ -961,14 +1095,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private void reserveEquipment() {
 		final String function = "reserveEquipment";
 		logger.begin(className, function);
-		EquipmentReserve.equipmentReservation(scsEnvId, parent, database);
+		EquipmentReserve.equipmentReservation(scsEnvId, parent, database, equipmentReserveHasScreen, uiNameCard.getUiScreen());
 		logger.end(className, function);
 	}
 	
 	private void unReserveEquipment() {
 		final String function = "unReserveEquipment";
 		logger.begin(className, function);
-		EquipmentReserve.equipmentUnreservation(scsEnvId, parent, database);
+		EquipmentReserve.equipmentUnreservation(scsEnvId, parent, database, equipmentReserveHasScreen, uiNameCard.getUiScreen());
 		logger.end(className, function);
 	}
 

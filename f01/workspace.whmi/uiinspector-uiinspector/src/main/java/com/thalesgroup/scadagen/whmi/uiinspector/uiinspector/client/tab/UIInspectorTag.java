@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.gwt.dom.client.Style.Unit;
@@ -24,8 +25,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.API;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
@@ -38,6 +37,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ctl.CtlMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.DatabaseEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 
@@ -45,8 +47,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorTag.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-
-	private final String tagname				= "tag";
 	
 	// Static Attribute List
 	private final String aioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
@@ -58,10 +58,26 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private String[] addresses	= null;
 	private Database database	= null;
 	
-	private final String INSPECTOR = "inspector"; 
+	private final String INSPECTOR = "inspector";
+	
+	private String tabName = null;
+	@Override
+	public void setTabName(String tabName) {
+		this.tabName = tabName;
+	}
+	
+	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
+	@Override
+	public void setAttribute(String type, String key, String value) {
+		final String function = "setAttribute";
+		logger.begin(className, function);
+		if ( null == attributesList.get(type) ) attributesList.put(type, new HashMap<String, String>());
+		attributesList.get(type).put(key, value);
+		logger.end(className, function);
+	}
 	
 	@Override
-	public void setRight(HashMap<String, String> rights) {
+	public void setRight(Map<String, Boolean> rights) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -70,6 +86,12 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	public void applyRight() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private boolean equipmentReserveHasScreen = false;
+	@Override
+	public void setEquipmentReserveHasScreen(boolean equipmentReserveHasScreen) {
+		this.equipmentReserveHasScreen = equipmentReserveHasScreen;
 	}
 	
 	@Override
@@ -156,7 +178,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private HorizontalPanel[] controlboxes = null;
 	private void buildWidgets(int numOfWidgets, int numOfPointEachPage) {
 		final String function = "buildWidgets";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
@@ -179,7 +200,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			widgetBoxes	= new VerticalPanel[pageSize];
 			for ( int i = 0 ; i < pageSize ; i++ ) {
 				widgetBoxes[i] = new VerticalPanel();
-				widgetBoxes[i].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+				widgetBoxes[i].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 			}
 			
 			updatePager();
@@ -208,24 +229,24 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		}
 	}
 	
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesStatic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private LinkedHashMap<String, HashMap<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, HashMap<String, String>>();
-	private HashMap<String, String> dbvalues				= new HashMap<String, String>();
+	private Map<String, Map<String, String>> keyAndValuesStatic		= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, Map<String, String>> keyAndValuesDynamic	= new LinkedHashMap<String, Map<String, String>>();
+	private Map<String, String> dbvalues							= new HashMap<String, String>();
 	
-	private HashMap<Widget, ControlPoint> widgetPoints		= new HashMap<Widget, ControlPoint>();
-	private HashMap<String, Widget[]> widgetGroups			= new HashMap<String, Widget[]>();
+	private Map<Widget, ControlPoint> widgetPoints		= new HashMap<Widget, ControlPoint>();
+	private Map<String, Widget[]> widgetGroups			= new HashMap<String, Widget[]>();
 	
-	private HashMap<String, Widget> initCondGLAndWidget		= new HashMap<String, Widget>();
-	private HashMap<String, String[]> addressAndInitCongGL	= new HashMap<String, String[]>();
+	private Map<String, Widget> initCondGLAndWidget		= new HashMap<String, Widget>();
+	private Map<String, String[]> addressAndInitCongGL	= new HashMap<String, String[]>();
 	
-	public void updateValue(String strClientKey, HashMap<String, String> keyAndValue) {
+	@Override
+	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "strClientKey[{}]", strClientKey);
 		
-		final DataBaseClientKey clientKey = new DataBaseClientKey(strClientKey);
+		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
 		for ( String key : keyAndValue.keySet() ) {
 			dbvalues.put(key, keyAndValue.get(key));
@@ -249,13 +270,12 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	private void updateValue(boolean withStatic) {
 		final String function = "updateValue";
-		
 		logger.begin(className, function);
 		
 		if ( withStatic ) {
 			for ( String clientKey : keyAndValuesStatic.keySet() ) {
 				
-				HashMap<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
+				Map<String, String> keyAndValue = keyAndValuesStatic.get(clientKey);
 				
 				updateValueStatic(clientKey, keyAndValue);
 			}//End of for keyAndValuesStatic
@@ -263,7 +283,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 		for ( String clientKey : keyAndValuesDynamic.keySet() ) {
 			
-			HashMap<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
+			Map<String, String> keyAndValue = keyAndValuesDynamic.get(clientKey);
 			
 			updateValueDynamic(clientKey, keyAndValue);
 			
@@ -272,14 +292,13 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
-	private void updateValueStatic(String key, HashMap<String, String> keyAndValue) {
+	private void updateValueStatic(String key, Map<String, String> keyAndValue) {
 		final String function = "updateValueStatic";
-		
 		logger.begin(className, function);
 
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
 		clientKey.setAdress(parent);
 		
@@ -343,7 +362,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	private ComplexPanel updateDioControl(String address, int row) {
 		final String function = "updateDioControl";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "address[{}] row[{}]", address, row);
@@ -351,7 +369,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
-		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
@@ -390,7 +408,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 				if ( labels[i].length() == 0  ) break;
 				
 				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addStyleName("project-gwt-button-inspector-"+tabName+"-ctrl");
 				btnOption.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -414,7 +432,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		}
 		
 //		widgetBoxes[row] = new VerticalPanel();
-//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
@@ -426,7 +444,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	private ComplexPanel updateAioControl(String address, int row) {
 		final String function = "updateAioControl";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "address[{}] row[{}]", address, row);
@@ -434,7 +451,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
-		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 		
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
@@ -473,7 +490,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 				if ( labels[i].length() == 0  ) break;
 				
 				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addStyleName("project-gwt-button-inspector-"+tabName+"-ctrl");
 				btnOption.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -499,7 +516,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		}
 		
 //		widgetBoxes[row] = new VerticalPanel();
-//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
@@ -511,7 +528,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		
 	private ComplexPanel updateSioControl(String address, int row) {
 		final String function = "updateSioControl";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "address[{}] row[{}]", address, row);
@@ -519,7 +535,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
-		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tagname+"-control");
+		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 
 		String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 		label = DatabaseHelper.removeDBStringWrapper(label);
@@ -558,7 +574,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 				if ( labels[i].length() == 0  ) break;
 				
 				UIButtonToggle btnOption = new UIButtonToggle(labels[i]);
-				btnOption.addStyleName("project-gwt-button-inspector-"+tagname+"-ctrl");
+				btnOption.addStyleName("project-gwt-button-inspector-"+tabName+"-ctrl");
 				btnOption.addClickHandler(new ClickHandler() {
 					
 					@Override
@@ -584,7 +600,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		}
 		
 //		widgetBoxes[row] = new VerticalPanel();
-//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tagname+"-control");
+//		widgetBoxes[row].addStyleName("project-gwt-panel-inspector-"+tabName+"-control");
 		widgetBoxes[row].clear();
 		widgetBoxes[row].add(inlineLabels[row]);
 		widgetBoxes[row].add(controlboxes[row]);
@@ -599,9 +615,8 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private final String strSending	= strPrefix+" "+"Sending Command";
 	private final String strSucceed	= strPrefix+" "+"Succeed";
 	private final String strFailed	= strPrefix+" "+"Failed";
-	private void updateValueDynamic(String clientKey, HashMap<String, String> keyAndValue) {
+	private void updateValueDynamic(String clientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
-		
 		logger.begin(className, function);
 		
 		pageCounter.calc(pageIndex);
@@ -647,7 +662,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	@Override
 	public void connect() {
 		final String function = "connect";
-		
 		logger.begin(className, function);
 			
 		String[] dbaddresses = null;
@@ -678,8 +692,10 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
-		clientKey.setWidget(INSPECTOR + tagname);
+		clientKey.setWidget(INSPECTOR + tabName);
 		clientKey.setStability(Stability.STATIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(parent);
 		
 		String strClientKey = clientKey.toClientKey();
@@ -694,8 +710,10 @@ public class UIInspectorTag implements UIInspectorTab_i {
 					
 					DataBaseClientKey clientKey = new DataBaseClientKey();
 					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR + tagname);
+					clientKey.setWidget(INSPECTOR + tabName);
 					clientKey.setStability(Stability.STATIC);
+					clientKey.setScreen(uiNameCard.getUiScreen());
+					clientKey.setEnv(scsEnvId);
 					clientKey.setAdress(parent);
 					
 					String strClientKey = clientKey.getClientKey();
@@ -715,7 +733,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		});
 		
 		{
-			ctlMgr = CtlMgr.getInstance(tagname);
+			ctlMgr = CtlMgr.getInstance(tabName);
 			controlMgrSubject = ctlMgr.getSubject();
 			
 			observer = new Observer() {
@@ -759,7 +777,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	void createDioInitConds() {
 		final String function = "createDioInitConds";
-		
 		logger.begin(className, function);
 		
 		int dovnameCol = 0, labelCol = 1, valueCol = 2;
@@ -809,7 +826,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	void connectDIOinitConds() {
 		final String function = "connectDIOinitConds";
-		
 		logger.begin(className, function);
 		
 		// Read dynamic
@@ -819,8 +835,10 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.getClientKey();
@@ -862,8 +880,10 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		{
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
-			clientKey.setWidget(INSPECTOR + tagname);
+			clientKey.setWidget(INSPECTOR + tabName);
 			clientKey.setStability(Stability.DYNAMIC);
+			clientKey.setScreen(uiNameCard.getUiScreen());
+			clientKey.setEnv(scsEnvId);
 			clientKey.setAdress(parent);
 			
 			String strClientKey = clientKey.toClientKey();
@@ -891,7 +911,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	@Override
 	public void init() {
 		final String function = "init";
-		
 		logger.begin(className, function);
 
 		vpCtrls  = new VerticalPanel();
@@ -900,7 +919,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		btnExecute = new Button();
 		btnExecute.getElement().getStyle().setPadding(10, Unit.PX);
 		btnExecute.setText("Execute");
-		btnExecute.addStyleName("project-gwt-button-inspector-"+tagname+"-execute");
+		btnExecute.addStyleName("project-gwt-button-inspector-"+tabName+"-execute");
 		btnExecute.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -914,7 +933,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 //		btnExecute.setEnabled(false);
 		
 		btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-"+tagname+"-up");
+		btnUp.addStyleName("project-gwt-button-inspector-"+tabName+"-up");
 		btnUp.setText("▲");
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
@@ -928,11 +947,11 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		});
 		
 		lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tagname+"-pagenum");
+		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-pagenum");
 		lblPageNum.setText("1 / 1");
 		
 		btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-"+tagname+"-down");
+		btnDown.addStyleName("project-gwt-button-inspector-"+tabName+"-down");
 		btnDown.setText("▼");
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
@@ -971,7 +990,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		bottomBar.add(btnExecute);
 		
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tagname+"-inspector");
+		basePanel.addStyleName("project-gwt-panel-"+tabName+"-inspector");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 
@@ -992,7 +1011,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		rootPanel.addStyleName("project-gwt-panel-inspector-dialogbox");
 		
 		logger.end(className, function);
-		
 	}
 	
 	@Override
@@ -1034,7 +1052,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	private Widget getActivateWidget() {
 		final String function = "getActivateWidget";
-		
 		logger.begin(className, function);
 		
 		Widget target = null;
@@ -1070,7 +1087,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	
 	private void onButton(ClickEvent event) {
 		final String function = "onButton";
-		
 		logger.begin(className, function);
 		
 		int byPassInitCond = 0;
@@ -1183,7 +1199,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		this.uiInspectorTabClickEvent = uiInspectorTabClickEvent;
 	}
 	
-	private void updateMsgBox(HashMap<String, String> keyAndValue) {
+	private void updateMsgBox(Map<String, String> keyAndValue) {
 		final String function = "updateMsgBox";
 		logger.begin(className, function);
 		for ( Entry<String, String> entry : keyAndValue.entrySet() ) {
@@ -1225,6 +1241,8 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(INSPECTOR);
 		clientKey.setStability(Stability.DYNAMIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(address);
 		
 		String strClientKey = clientKey.getClientKey();
@@ -1248,6 +1266,8 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(INSPECTOR);
 		clientKey.setStability(Stability.DYNAMIC);
+		clientKey.setScreen(uiNameCard.getUiScreen());
+		clientKey.setEnv(scsEnvId);
 		clientKey.setAdress(address);
 		
 		String strClientKey = clientKey.toClientKey();

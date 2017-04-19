@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>14</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyReadJSONReadObjectFromArray-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>readarray:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>Dictionaries Cache Name:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-dictionariescachenamelabel</css>
+		<element>dictionariescachenamelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>UIJson</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-textbox-dictionariescachenamevalue</css>
+		<element>dictionariescachenamevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-dictionariescachenamevalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>File Name:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-filenamelabel</css>
+		<element>filenamelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label>hom.json</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-textbox-filenamevalue</css>
+		<element>filenamevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-filenamevalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>Array Key:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-arraykeylabel</css>
+		<element>arraykeylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextBox</widget>
+		<label>HOMLevels</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-textbox-arraykeyvalue</css>
+		<element>arraykeyvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-arraykeyvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>Object Key:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-objectkeylabel</css>
+		<element>objectkeylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>Key</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-textbox-objectkeyvalue</css>
+		<element>objectkeyvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-objectkeyvalue</cssContainer>
+		
+	</option>
+	
+
+	<option key="0|9">
+		<widget>InlineLabel</widget>
+		<label>Object Key Value:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-objectkeyvaluelabel</css>
+		<element>objectkeyvaluelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label>PC16011</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-textbox-objectkeyvaluevalue</css>
+		<element>objectkeyvaluevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-objectkeyvaluevalue</cssContainer>
+		
+	</option>
+
+	
+	<option key="0|11">
+		<widget>Button</widget>
+		<label>readobjectfromarray</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-button-readobjectfromarray</css>
+		<element>readobjectfromarray</element>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-readobjectfromarray</cssContainer>
+		
+		<tooltip>readobjectfromarray</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|12">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|13">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyReadJSONReadObjectFromArray-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyReadJSONReadObjectFromArray-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

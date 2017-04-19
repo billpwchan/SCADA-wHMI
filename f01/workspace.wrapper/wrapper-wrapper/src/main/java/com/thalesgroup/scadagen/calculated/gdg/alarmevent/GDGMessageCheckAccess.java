@@ -15,8 +15,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.IntAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.StringAttribute;
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.OpmMgr;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 public class GDGMessageCheckAccess extends SCSStatusComputer {
 	

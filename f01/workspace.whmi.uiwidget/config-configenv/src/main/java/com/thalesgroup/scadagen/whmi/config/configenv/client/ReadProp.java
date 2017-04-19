@@ -9,35 +9,25 @@ public class ReadProp {
 	private static final String className = UIWidgetUtil.getClassSimpleName(ReadProp.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public static boolean readBoolean(String dictionariesCacheName, String fileName, String valueKey, boolean defaulValue) {
-		final String function = "readBoolean";
+	public static String readString(String dictionariesCacheName, String fileName, String valueKey, String defaultValue) {
+		final String function = "readString";
 		
 		logger.begin(className, function);
 		
-		boolean result = defaulValue;
+		String result = defaultValue;
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
 		if ( null != dictionariesCache ) {
-			
-			String strResult = dictionariesCache.getStringValue(fileName, valueKey);
-			logger.debug(className, function, "strResult[{}]", strResult);
-			if ( null != strResult ) {
-				if ( 0 == Boolean.TRUE.toString().compareToIgnoreCase(strResult) ) {
-					logger.debug(className, function, "strResult IS TRUE");
-					result = true;
-				} else {
-					result = false;
-				}
-			} else {
+			result = dictionariesCache.getStringValue(fileName, valueKey);
+			if (result == null) {
+				result = defaultValue;
 				logger.warn(className, function, "fileName [{}] valueKey [{}] not found in DictionaryCache. Default value is used.", fileName, valueKey);
 			}
-			logger.debug(className, function, "strResult[{}]", strResult);
-			
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}
 		
-		logger.end(className, function);
+		logger.debug(className, function, "result[{}]", result);
 		
 		return result;
 	}
@@ -72,26 +62,37 @@ public class ReadProp {
 		return result;
 	}
 	
-	public static String readString(String dictionariesCacheName, String fileName, String valueKey, String defaultValue) {
-		final String function = "readString";
+	public static boolean readBoolean(String dictionariesCacheName, String fileName, String valueKey, boolean defaulValue) {
+		final String function = "readBoolean";
 		
 		logger.begin(className, function);
 		
-		String result = defaultValue;
+		boolean result = defaulValue;
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(dictionariesCacheName);
 		if ( null != dictionariesCache ) {
-			result = dictionariesCache.getStringValue(fileName, valueKey);
-			if (result == null) {
-				result = defaultValue;
+			
+			String strResult = dictionariesCache.getStringValue(fileName, valueKey);
+			logger.debug(className, function, "strResult[{}]", strResult);
+			if ( null != strResult ) {
+				if ( 0 == Boolean.TRUE.toString().compareToIgnoreCase(strResult) ) {
+					logger.debug(className, function, "strResult IS TRUE");
+					result = true;
+				} else {
+					result = false;
+				}
+			} else {
 				logger.warn(className, function, "fileName [{}] valueKey [{}] not found in DictionaryCache. Default value is used.", fileName, valueKey);
 			}
+			logger.debug(className, function, "strResult[{}]", strResult);
+			
 		} else {
 			logger.warn(className, function, "dictionariesCacheName[{}], dictionariesCache IS NULL", dictionariesCacheName);
 		}
 		
-		logger.debug(className, function, "result[{}]", result);
+		logger.end(className, function);
 		
 		return result;
 	}
+	
 }

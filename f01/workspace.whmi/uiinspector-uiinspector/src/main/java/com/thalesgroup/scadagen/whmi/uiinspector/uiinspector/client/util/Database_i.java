@@ -20,12 +20,12 @@ public class Database_i {
 		@Override
 		public String toString() { return this.text; }
 	}
-
+	
 	public enum PointName {
 		
 		// Static 
 		label(".label")
-		, shortLabel(".shortLabel")
+//		, shortLabel(".shortLabel")
 		, geographicalCat(".geographicalCat")
 		, functionalCat(".functionalCat")
 		
@@ -42,7 +42,7 @@ public class Database_i {
 		// Dynamic
 		, value(".value")
 		, validity(".validity") // 0=invalid, 1=valid
-		, isControlable(".isControlable")
+//		, isControlable(".isControlable")
 		, computedMessage(".computedMessage")
 		
 		, aalValueAlarmVector(":aal.valueAlarmVector") // (0,1)==0 = normal, (0,1)==1 = alarm
@@ -54,10 +54,10 @@ public class Database_i {
 		, sfoForcedStatus(":sfo.forcedStatus") // 2=MO, AI=8, 512=SS //dfo.forcedStatus
 		
 		// Equipment Reservation
-		, reserved(".reserved")
-		, resrvReservedID(".resrvReservedID")
-		, resrvReserveReqID(".resrvReserveReqID")
-		, resrvUnreserveReqID(".resrvUnreserveReqID")
+//		, reserved(".reserved")
+//		, resrvReservedID(".resrvReservedID")
+//		, resrvReserveReqID(".resrvReserveReqID")
+//		, resrvUnreserveReqID(".resrvUnreserveReqID")
 		;
 		private final String text;
 		private PointName(final String text) { this.text = text; }

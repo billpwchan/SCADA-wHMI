@@ -10,8 +10,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.
 import com.thalesgroup.scadagen.calculated.common.SCSStatusComputer;
 import com.thalesgroup.scadagen.calculated.common.SGSymbol_i;
 import com.thalesgroup.scadagen.calculated.util.Util;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpmSCADAgen;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpmSCADAgen;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 public class NeedAck extends SCSStatusComputer implements SGSymbol_i {
 	

@@ -7,7 +7,6 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIPan
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.timer.CountdownTimer;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.timer.CountdownTimerEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
-import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.HVID2SCS;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -20,6 +19,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.API;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DataBaseClientKey_i.Stability;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseHelper;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.HVID2SCS;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
@@ -67,11 +67,8 @@ public class UIInspectorMgr {
 			logger.debug(className, function+"scsEnvId[{}]", scsEnvId);
 
 			String strDatabaseMultiReadingKey = inspDialogBoxPropPrefix+UIPanelInspector_i.strDatabaseMultiReadingKey;
+			String DatabaseMultiReadingProxyKey = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, strDatabaseMultiReadingKey, "DatabaseMultiReadingProxy");
 			logger.debug(className, function, "strDatabaseMultiReadingKey[{}]", strDatabaseMultiReadingKey);
-			
-			String strDatabaseMultiReadingProxyKey = "DatabaseMultiReadingProxy";
-			String DatabaseMultiReadingProxyKey = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, strDatabaseMultiReadingKey, strDatabaseMultiReadingProxyKey);
-			logger.debug(className, function, "strDatabaseMultiReadingProxyKey[{}]", strDatabaseMultiReadingProxyKey);
 			
 			if ( null == databaseMultiRead_i ) {
 				databaseMultiRead_i = DatabaseMultiReadFactory.get(DatabaseMultiReadingProxyKey);
@@ -180,14 +177,14 @@ public class UIInspectorMgr {
 		
 		String action = null;
 		
-		String keyaction = inspDialogBoxPropPrefix+UIPanelInspector_i.strConfigAction;
+		String keyaction = inspDialogBoxPropPrefix+UIPanelInspector_i.strAction;
 		String actionvalue = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, keyaction, null);
 		
 		action = actionvalue;
 		
 		String mode = null;
 		
-		String keymode = inspDialogBoxPropPrefix+UIPanelInspector_i.strConfigMode;
+		String keymode = inspDialogBoxPropPrefix+UIPanelInspector_i.strMode;
 		String modevalue = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, keymode, null);
 		
 		mode = modevalue;
@@ -196,7 +193,8 @@ public class UIInspectorMgr {
 		
 		boolean right0 = true;
 		if ( null != function2 && null != location2 ) {
-			UIOpm_i uiOpm_i = OpmMgr.getInstance(opmapi);
+			OpmMgr opmMgr = OpmMgr.getInstance();
+			UIOpm_i uiOpm_i = opmMgr.getOpm(opmapi);
 			
 			if ( null != uiOpm_i ) {
 				right0 = uiOpm_i.checkAccess(function2, location2, action, mode);

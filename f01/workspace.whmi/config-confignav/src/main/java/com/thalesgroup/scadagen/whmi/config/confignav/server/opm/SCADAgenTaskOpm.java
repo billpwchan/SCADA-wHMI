@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task_i.TaskAttribute;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 /**
  * @author syau

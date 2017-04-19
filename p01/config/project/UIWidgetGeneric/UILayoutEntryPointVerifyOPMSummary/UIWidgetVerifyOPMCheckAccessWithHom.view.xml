@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>18</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyOPMCheckAccessWithHom-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Check Access With HOM:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-uiopmapilabel</css>
+		<element>uiopmapilabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-uiopmapivalue</css>
+		<element>uiopmapivalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-uiopmapivalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>Function:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-functionlabel</css>
+		<element>functionlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-functionvalue</css>
+		<element>functionvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-functionvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>Location:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-locationlabel</css>
+		<element>locationlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-locationvalue</css>
+		<element>locationvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-locationvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>Action:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-actionlabel</css>
+		<element>actionlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-actionvalue</css>
+		<element>actionvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-actionvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|9">
+		<widget>InlineLabel</widget>
+		<label>Mode:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-modelabel</css>
+		<element>modelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|10">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-modevalue</css>
+		<element>modevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-modevalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|11">
+		<widget>InlineLabel</widget>
+		<label>HVID:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-hvidlabel</css>
+		<element>hvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|12">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-hvidvalue</css>
+		<element>hvidvalue</element>
+		<maxlength>32</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-hvidvalue</cssContainer>
+		
+	</option>
+	
+
+	<option key="0|13">
+		<widget>InlineLabel</widget>
+		<label>Key:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-keylabel</css>
+		<element>modelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-keyvalue</css>
+		<element>keyvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-v-container-keyvalue</cssContainer>
+		
+	</option>
+
+	
+	<option key="0|15">
+		<widget>Button</widget>
+		<label>checkaccesswithhom</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-button-checkaccess</css>
+		<element>checkaccesswithhom</element>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-checkaccess</cssContainer>
+		
+		<tooltip>checkaccesswithhom</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|16">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|17">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

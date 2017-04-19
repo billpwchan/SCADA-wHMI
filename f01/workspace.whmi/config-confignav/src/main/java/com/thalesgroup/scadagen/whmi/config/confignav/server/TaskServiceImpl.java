@@ -7,8 +7,8 @@ import com.thalesgroup.scadagen.whmi.config.confignav.server.opm.SCADAgenTaskOpm
 import com.thalesgroup.scadagen.whmi.config.confignav.server.opm.UIOpmTask_i;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.OpmMgr;
-import com.thalesgroup.scadagen.wrapper.wrapper.server.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.UIOpm_i;
 
 import java.util.ArrayList;
 

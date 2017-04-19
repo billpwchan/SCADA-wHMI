@@ -27,6 +27,7 @@ public interface DataBaseClientKey_i {
 	public enum API {
 		  multiReadValue("multiReadValue")
 		, GetChildren("GetChildren")
+		, WriteStringValue("WriteStringValue")
 		;
 		
 		private final String text;

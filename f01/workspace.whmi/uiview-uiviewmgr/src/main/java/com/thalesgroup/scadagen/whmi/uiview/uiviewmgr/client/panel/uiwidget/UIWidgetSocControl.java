@@ -1427,7 +1427,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		
 		logger.begin(className, function);
 
-		String operator = UIOpmSCADAgen.getInstance().getOperator();
+		String operator = UIOpmSCADAgen.getInstance().getCurrentOperator();
 		
 		for (String alias: reserveAliases) {
 			logger.debug(className, function, "check alias[{}]", alias);
@@ -1484,7 +1484,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		boolean ret = false;
 
 		// Operator is keyword for using runtime login operator name for reserve value		
-		String operator = UIOpmSCADAgen.getInstance().getOperator();
+		String operator = UIOpmSCADAgen.getInstance().getCurrentOperator();
 		logger.debug(className, function, "compare reserveResult[{}] with operator[{}]", reserveResult, operator);
 		if (reserveResult.equals(operator)) {				
 			ret = true;

@@ -4,24 +4,24 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
+import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 
-public class DictionariesMgr implements AsyncCallback<Dictionary> {
+public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DictionariesMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private String folder		= null;
-	private String extension	= null;
-	private String tag			= null;
+//	private String extension	= null;
+//	private String tag			= null;
 	
 	public void setDactionaryMgrParam(String folder, String extension, String tag) {
 		this.folder		= folder;
-		this.extension	= extension;
-		this.tag		= tag;
+//		this.extension	= extension;
+//		this.tag		= tag;
 	}
 
 	private LinkedList<DictionariesMgrEvent> dictionariesMgrEvents = new LinkedList<DictionariesMgrEvent>();
@@ -46,8 +46,8 @@ public class DictionariesMgr implements AsyncCallback<Dictionary> {
 		logger.begin(className, function);
 		
 		this.folder		= folder;
-		this.extension	= extension;
-		this.tag		= tag;
+//		this.extension	= extension;
+//		this.tag		= tag;
 		
 		logger.info(className, function, "folder[{}] extension[{}] tag[{}]", new Object[]{folder, extension, tag});
 		
@@ -73,7 +73,7 @@ public class DictionariesMgr implements AsyncCallback<Dictionary> {
 		logger.end(className, function);
 	}// onFailure
 
-	public void onSuccess(Dictionary dictionaryCur) {
+	public void onSuccess(Dictionary_i dictionaryCur) {
 		final String function = "onSuccess";
 		// Success on get Menu from server
 		

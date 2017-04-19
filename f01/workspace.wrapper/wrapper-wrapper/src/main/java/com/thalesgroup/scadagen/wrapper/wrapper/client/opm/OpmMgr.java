@@ -11,38 +11,30 @@ public class OpmMgr {
 	private static final String className = UIWidgetUtil.getClassSimpleName(OpmMgr.class.getName());
 	private static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private static HashMap<String, UIOpm_i> instances = new HashMap<String, UIOpm_i>();
+	private HashMap<String, UIOpmFactory> uiOpmFactorys = new HashMap<String, UIOpmFactory>();
+	public void addUIOpmFactory(String className, UIOpmFactory uiOpmFactory) { this.uiOpmFactorys.put(className, uiOpmFactory); }
+	public void cleanUIOpmFactory() { this.uiOpmFactorys.clear(); };
 	
-	public static UIOpm_i getInstance(String key) {
-		String function = "getInstance";
-		
+	private OpmMgr() {}
+	private static OpmMgr instance = null;
+	public static OpmMgr getInstance() {
+		if ( null == instance ) instance = new OpmMgr();
+		return instance;
+	}
+	
+	public UIOpm_i getOpm(String key) {
+		String function = "getOpm";
 		logger.begin(className, function);
-		
-		logger.info(className, function, "key[{}]", key);
-		
-		UIOpm_i uiOpm_i = instances.get(key);
-		
-		if ( null == uiOpm_i ) {
-			
-			String classNameUIOpmSCS = UIWidgetUtil.getClassSimpleName(UIOpmSCS.class.getName());
-			String classNameUIOpmSCADAgen = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
-			
-			logger.info(className, function, "classNameUIOpmSCS[{}]", classNameUIOpmSCS);
-			logger.info(className, function, "classNameUIOpmSCADAgen[{}]", classNameUIOpmSCADAgen);
-			
-			if ( classNameUIOpmSCS.equals(key) ) {	uiOpm_i = UIOpmSCS.getInstance(); }
-			if ( classNameUIOpmSCADAgen.equals(key) ) {	uiOpm_i = UIOpmSCADAgen.getInstance(); }
-			
-			if ( null != uiOpm_i ) instances.put(key, uiOpm_i);
+		UIOpm_i uiOpm_i = null;
+		for ( String className : uiOpmFactorys.keySet() ) {
+			UIOpmFactory uiOpmFactory = uiOpmFactorys.get(className);
+			if ( null != uiOpmFactory ) {
+				uiOpm_i = uiOpmFactory.getOpm(key);
+				if ( null != uiOpm_i ) break;
+			}
 		}
-		
-		if ( null == uiOpm_i ) logger.warn(className, function, "uiOpm_i IS NULL");
-		
 		logger.end(className, function);
-		
 		return uiOpm_i;
 	}
-	private OpmMgr () {}
-
-
+	
 }

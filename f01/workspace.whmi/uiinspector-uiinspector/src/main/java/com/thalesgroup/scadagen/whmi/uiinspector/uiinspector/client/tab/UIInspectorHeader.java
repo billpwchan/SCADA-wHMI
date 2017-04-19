@@ -391,7 +391,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		return eqtReserved;
 	}
 	
-	private String resrvReservedPreviewValue = "";
+	private String resrvReservedPreviewValue = null;
 	private String hdvFlagPreviewValue = "";
 
 	private void updateValueDynamic(String strClientKey, Map<String, String> keyAndValue) {
@@ -414,22 +414,22 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{		
 			String resrvReservedIDValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.ResrvReservedIDAttribute.toString()), dbvalues);
 			resrvReservedIDValue = DatabaseHelper.removeDBStringWrapper(resrvReservedIDValue);
-			
-			String strEqtReservedLabel = null;
-			if ( null != resrvReservedIDValue ) {
-				logger.debug(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
-				if ( ! resrvReservedIDValue.equals(resrvReservedPreviewValue) ) {
-					eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue, equipmentReserveHasScreen, uiNameCard.getUiScreen());
-					logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
-					
-					if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(eqtReserved);
-					resrvReservedPreviewValue = resrvReservedIDValue;
-					
-					strEqtReservedLabel = controlRightReservedLabels.get(eqtReserved);
-					logger.debug(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
-					strEqtReservedLabel = Translation.getWording(strEqtReservedLabel);
-					txtAttributeStatus[3].setText(strEqtReservedLabel);
-				}
+			logger.debug(className, function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
+
+			logger.debug(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
+			if ( null == resrvReservedPreviewValue || (null != resrvReservedIDValue && ! resrvReservedIDValue.equals(resrvReservedPreviewValue)) ) { 
+				
+				eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue, equipmentReserveHasScreen, uiNameCard.getUiScreen());
+				logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
+				
+				if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(eqtReserved);
+				resrvReservedPreviewValue = resrvReservedIDValue;
+
+				String strEqtReservedLabel = null;
+				strEqtReservedLabel = controlRightReservedLabels.get(eqtReserved);
+				logger.debug(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
+				strEqtReservedLabel = Translation.getWording(strEqtReservedLabel);
+				txtAttributeStatus[3].setText(strEqtReservedLabel);
 			}
 		}
 		{

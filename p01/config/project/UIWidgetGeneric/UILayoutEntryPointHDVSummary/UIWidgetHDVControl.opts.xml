@@ -42,6 +42,8 @@
 		<SubstituteFrom>dci</SubstituteFrom>
 		<SubstituteTo>dio</SubstituteTo>
 		
+		<DelayBetweenCmd>3000</DelayBetweenCmd>
+		
 	</header>
 	
 	<!-- Begin of life -->

@@ -24,6 +24,8 @@ public interface UIWidgetDioBtnsControl_i {
 		, SubstituteFrom("SubstituteFrom")
 		, SubstituteTo("SubstituteTo")
 		
+		, DelayBetweenCmd("DelayBetweenCmd")
+		
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

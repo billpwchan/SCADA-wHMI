@@ -137,7 +137,15 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	public String getWidgetTitle() {
 		return uiElem;
 	}
-	
+	public static void init(final InitReady_i initReady) {
+		final String function = "init";
+		logger.begin(className, function);
+        initCacheXMLFile("UIWidgetGeneric", "*.xml", initReady);
+        initCacheJsonsFile("UIJson", "*.json");
+        initOpmFactory();
+        initOpm();
+        logger.end(className, function);
+	}
 	public static void initOpmFactory() {
 		final String function = "initOpmFactory";
 		logger.begin(className, function);
@@ -162,8 +170,23 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		
 		logger.end(className, function);
 	}
-	
-	public static void initCacheJsonsFile (String folder, String extention) {
+	public static void initOpm() {
+		final String function = "initOpm";
+		logger.begin(className, function);
+		String opmkey = "UIOpmSCADAgen";
+		logger.debug(className, function, "Try to init opm[{}]", opmkey);
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		UIOpm_i uiOpm_i = opmMgr.getOpm(opmkey);
+		uiOpm_i.init();
+		logger.end(className, function);
+	}
+	public interface InitReady_i {
+		void ready(int received);
+	}
+	public static void initCacheJsonsFile(final String folder, final String extention) {
+		initCacheJsonsFile(folder, extention, null);
+	}
+	public static void initCacheJsonsFile(final String folder, final String extention, final InitReady_i initReady) {
 		final String function = "initCacheJsonsFile";
 		logger.begin(className, function);
 		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
@@ -176,13 +199,16 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			@Override
 			public void dictionariesCacheEventReady(int received) {
 				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
+				if ( null != initReady ) initReady.ready(received);
 			}
 		});
 
 		logger.end(className, function);
 	}
-	
-	public static void initCacheXMLFile(String folder, String extention) {
+	public static void initCacheXMLFile(final String folder, final String extention) {
+		initCacheXMLFile(folder, extention, null);
+	}
+	public static void initCacheXMLFile(final String folder, final String extention, final InitReady_i initReady) {
 		final String function = "initCacheXMLFile";
 		logger.begin(className, function);
 		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
@@ -202,6 +228,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			@Override
 			public void dictionariesCacheEventReady(int received) {
 				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
+				if ( null != initReady ) initReady.ready(received);
 			}
 		});
 		

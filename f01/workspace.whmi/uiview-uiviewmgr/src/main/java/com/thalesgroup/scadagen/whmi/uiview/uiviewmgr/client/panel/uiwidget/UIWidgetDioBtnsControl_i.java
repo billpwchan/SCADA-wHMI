@@ -9,6 +9,9 @@ public interface UIWidgetDioBtnsControl_i {
 		, SubScribeMethod1("SubScribeMethod1")
 		, MultiReadMethod1("MultiReadMethod1")
 		, MultiReadMethod2("MultiReadMethod2")
+		
+		, MultiReadMethod3("MultiReadMethod3")
+		
 		, DotValueTable("DotValueTable")
 		, DotInitCondGL("DotInitCondGL")
 		
@@ -24,7 +27,9 @@ public interface UIWidgetDioBtnsControl_i {
 		, SubstituteFrom("SubstituteFrom")
 		, SubstituteTo("SubstituteTo")
 		
-		, DelayBetweenCmd("DelayBetweenCmd")
+		, DelayMSBetweenCmds("DelayMSBetweenCmds")
+		
+		, InitCondValidity("InitCondValidity")
 		
 		;
 		private final String text;

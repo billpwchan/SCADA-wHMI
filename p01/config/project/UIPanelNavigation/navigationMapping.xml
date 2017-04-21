@@ -201,4 +201,5 @@
 	<option key="LMC|MCS|OPM Verify"><setting>132</setting></option>
 	<option key="LMC|MCS|OPM Verify Summary|OPM Summary"><setting>133</setting></option>
 
+	<option key="LMC|MCS|Central Station|HDV Matrix Summary"><setting>134</setting></option>
 </data-set>

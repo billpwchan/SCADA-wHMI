@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutHDVMatrixSummary-panel-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UILayoutHDVMatrixAction</uiCtrl>
+		<uiView>UILayoutEntryPointHDVMatrixSummary/UILayoutHDVMatrixAction.view.xml</uiView>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetMatrixViewer</uiCtrl>
+		<uiView>UILayoutEntryPointHDVMatrixSummary/UILayoutHDVMatrixViewer.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointHDVMatrixSummary/UILayoutHDVMatrixViewer.opts.xml</uiOpts>
+		<element>UILayoutHDVMatrixViewer</element>
+	</option>
+</data-set>

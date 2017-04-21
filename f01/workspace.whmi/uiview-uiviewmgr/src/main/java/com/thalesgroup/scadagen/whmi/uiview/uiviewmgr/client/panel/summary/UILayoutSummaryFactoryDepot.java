@@ -37,6 +37,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcScanSuspendControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDpcTagControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetMatrixViewer;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMChangePasswordControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl;
@@ -77,6 +78,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UILayoutGen
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGeneric;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
@@ -176,6 +178,13 @@ public class UILayoutSummaryFactoryDepot {
 						) {
 
 					uiWidget_i = new UIWidgetViewerPager();
+					
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetMatrixViewer.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetMatrixViewer();
 
 				} else if ( 
 						UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName())
@@ -238,6 +247,13 @@ public class UILayoutSummaryFactoryDepot {
 						) {
 					
 					uiWidget_i = new ScsOlsListPanel();
+					
+				} else if (
+						UIWidgetUtil.getClassSimpleName(ScsMatrixPanel.class.getName())
+						.equals(uiCtrl)
+						) {
+					
+					uiWidget_i = new ScsMatrixPanel();
 
 				} else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelection.class.getName())

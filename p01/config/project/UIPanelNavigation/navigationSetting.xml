@@ -1267,4 +1267,15 @@
 		<tooltips>Verify OPM Summary</tooltips>
 	</option>
 	
+	<option key="134">
+		<type>P</type>
+		<name>Handover Matrix Panel</name>
+		<title>Handover Matrix Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointHDVMatrixSummary/UILayoutEntryPointHDVMatrixSummary.view.xml</uiView>
+		<tooltips>Handover Matrix Panel</tooltips>
+	</option>
+	
 </data-set>

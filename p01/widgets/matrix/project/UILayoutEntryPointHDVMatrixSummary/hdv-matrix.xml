@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:maestroHMIConfiguration xmlns:tns="http://matrix.util.core.mwt.hypervisor.thalesgroup.com"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                             xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common"
+                             xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source"
+                             xsi:schemaLocation="http://matrix.util.core.mwt.hypervisor.thalesgroup.com mwt-matrix-config.xsd http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd ">
+
+  <matrixPanel id="hdv-matrix">
+  	<subject>
+		<subscriptionDataSource>
+            <sds:transientDataSource>
+                <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType</sds:type>
+            </sds:transientDataSource>
+        </subscriptionDataSource>
+        <criteria xsi:type="cmn:equals" status="listname">
+            <cmn:value>hdvset</cmn:value>
+        </criteria>
+	</subject>
+	
+    <subjectSources>
+      <source xsi:type="cmn:computedStatusDataSourceType" name="gdg_column_status" statusComputerName="GDGColumn03" />
+	  <source xsi:type="cmn:computedStatusDataSourceType" name="gdg_column_functionalcategory" statusComputerName="GDGColumn02" />
+	  <source xsi:type="cmn:computedStatusDataSourceType" name="gdg_column_geographicalcategory" statusComputerName="GDGColumn01" />
+	  <source xsi:type="cmn:computedStatusDataSourceType" name="gdg_column_alias" statusComputerName="GDGColumn04" />
+	  <source xsi:type="cmn:computedStatusDataSourceType" name="gdg_column_alias2" statusComputerName="GDGColumn05" />
+	  <source xsi:type="cmn:computedStatusDataSourceType" name="gdg_column_SL_Cond_Res" statusComputerName="GDGColumn06" />
+    </subjectSources>
+
+    <layoutOptions>
+      <matrixPadding left="20" right="30" />
+      <labelPadding />
+      <labelPosition />
+      <squareSize width="40" height="20" />
+      <selectionSize width="50" height="24" />
+      <coeffPosition left="20" top="15" />
+    </layoutOptions>
+
+    <criteriaColumns>
+	  <column columnName="column_hdvState" sourceName="gdg_column_status" sourceType="STRING"/>
+      <column columnName="column_functionalcategory" sourceName="gdg_column_functionalcategory" sourceType="STRING"/>
+      <column columnName="column_geographicalcategory" sourceName="gdg_column_geographicalcategory" sourceType="STRING"/> 
+    </criteriaColumns>
+
+    <matrixAxisList>
+      <matrixStaticAxisList>
+	    <axisRows id="AxisSubsystem">
+	      <entry id="axis_R1" labelName="matrix_axis_Subsystem1">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>1</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R2" labelName="matrix_axis_Subsystem2">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>2</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R3" labelName="matrix_axis_Subsystem3">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>3</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R4" labelName="matrix_axis_Subsystem4">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>4</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R5" labelName="matrix_axis_Subsystem5">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>5</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R6" labelName="matrix_axis_Subsystem6">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>6</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R7" labelName="matrix_axis_Subsystem7">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>7</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R8" labelName="matrix_axis_Subsystem8">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>8</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R9" labelName="matrix_axis_Subsystem9">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>9</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_R10" labelName="matrix_axis_Subsystem10">
+	        <criteria columnName="column_functionalcategory">
+	          <cmn:equalTo>10</cmn:equalTo>
+	        </criteria>
+	      </entry>
+	    </axisRows>
+
+	    <axisColumns id="AxisStation">
+	      <entry id="axis_C01" labelName="matrix_axis_area1">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>1</cmn:equalTo>
+	        </criteria>
+	      </entry>
+	      <entry id="axis_C02" labelName="matrix_axis_area2">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>2</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C03" labelName="matrix_axis_area3">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>3</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C04" labelName="matrix_axis_area4">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>4</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C05" labelName="matrix_axis_area5">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>5</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C06" labelName="matrix_axis_area6">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>6</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C07" labelName="matrix_axis_area7">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>7</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C08" labelName="matrix_axis_area8">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>8</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C09" labelName="matrix_axis_area9">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>9</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C10" labelName="matrix_axis_area10">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>10</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C11" labelName="matrix_axis_area11">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>11</cmn:equalTo>
+	        </criteria>
+	      </entry>
+	      <entry id="axis_C12" labelName="matrix_axis_area12">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>12</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C13" labelName="matrix_axis_area13">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>13</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C14" labelName="matrix_axis_area14">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>14</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C15" labelName="matrix_axis_area15">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>15</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C16" labelName="matrix_axis_area16">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>16</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C17" labelName="matrix_axis_area17">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>17</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C18" labelName="matrix_axis_area18">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>18</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C19" labelName="matrix_axis_area19">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>19</cmn:equalTo>
+	        </criteria>
+	      </entry>
+		  <entry id="axis_C20" labelName="matrix_axis_area20">
+	        <criteria columnName="column_geographicalcategory">
+	          <cmn:equalTo>20</cmn:equalTo>
+	        </criteria>
+	      </entry>
+	    </axisColumns>
+	  </matrixStaticAxisList>
+	</matrixAxisList>
+
+    <matrixIntersection>
+      <entry id="square_hdv_0" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-0">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>0</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_257" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-257">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>257</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_258" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-258">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>258</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_513" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-513">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>513</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_514" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-514">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>514</cmn:equalTo>
+	    </criteria>
+	  </entry>
+    </matrixIntersection>
+	
+	<countersConfiguration>
+      <cmn:counter name="counter_hdvState_0" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>0</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+      <cmn:counter name="counter_hdvState_257" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>257</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+      <cmn:counter name="counter_hdvState_258" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>258</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+      <cmn:counter name="counter_hdvState_513" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>513</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+	  <cmn:counter name="counter_hdvState_514" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>514</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+    </countersConfiguration>
+  </matrixPanel>
+
+</tns:maestroHMIConfiguration>

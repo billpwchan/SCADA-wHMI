@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-UILayoutHDVMatrixAction-panel-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UIWidgetDioBtnsControl</uiCtrl>
+		<uiView>UILayoutEntryPointHDVMatrixSummary/UIWidgetHDVMatrixControl.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointHDVMatrixSummary/UIWidgetHDVMatrixControl.opts.xml</uiOpts>
+		<element>UIWidgetHDVMatrixControl</element>
+		<csscontainer>project-UILayoutHDVMatrixAction-panel-control</csscontainer>
+	</option>
+	<!--
+	<option key="0|1">
+		<uiCtrl>UIWidgetPrint</uiCtrl>
+		<uiView>UILayoutEntryPointHDVSummary/UIWidgetHDVPrint.view.xml</uiView>
+	</option>
+	-->
+	<!--<option key="0|1">
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>UILayoutEntryPointHDVSummary/UIWidgetHDVFilter.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointHDVSummary/UIWidgetHDVFilter.opts.xml</uiOpts>
+		<element>UIWidgetHDVFilter</element>
+		<csscontainer>project-UILayoutHDVAction-panel-filter</csscontainer>
+	</option>-->
+
+</data-set>

@@ -20,6 +20,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidgetController {
 	
@@ -63,7 +67,11 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		
 		initWidget(simplePanel);
 		
-		initCacheXMLFile();
+		initOpmFactory();
+		
+		initCacheJsonsFile("UIJson", "*.json");
+		
+		initCacheXMLFile("UIWidgetGeneric", "*.xml");
 		
 		logger.end(className, function);
 	}
@@ -100,20 +108,62 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		return uiElem;
 	}
 	
-	private void initCacheXMLFile() {
+	private void initOpmFactory() {
+		final String function = "initOpmFactory";
+		logger.begin(className, function);
+		
+		OpmMgr opmMgr = OpmMgr.getInstance();
+		opmMgr.addUIOpmFactory(className, new UIOpmFactory() {
+			
+			@Override
+			public UIOpm_i getOpm(String key) {
+				UIOpm_i uiOpm_i = null;
+				if ( null != key ) {
+					
+					String UIOpmSCADAgenClassName = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
+					
+					if ( key.equalsIgnoreCase(UIOpmSCADAgenClassName) ) {
+						uiOpm_i = UIOpmSCADAgen.getInstance();
+					}
+				}
+				return uiOpm_i;
+			}
+		});
+		
+		logger.end(className, function);
+	}
+	
+	public void initCacheJsonsFile (String folder, String extention) {
+		final String function = "initCacheJsonsFile";
+		logger.begin(className, function);
+		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
+
+		String mode = ConfigurationType.JsonFile.toString();
+		String module = null;
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
+		dictionariesCache.add(folder, extention, null);
+		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
+			@Override
+			public void dictionariesCacheEventReady(int received) {
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
+			}
+		});
+
+		logger.end(className, function);
+	}
+	
+	public void initCacheXMLFile(String folder, String extention) {
 		final String function = "initCacheXMLFile";
+		logger.begin(className, function);
+		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
+		
 		final String header			= "header";
 		final String option			= "option";
 		final String action			= "action";
 		final String actionset		= "actionset";
 		final String [] tags = {header, option, action, actionset};
-		
-		logger.begin(className, function);
-		
 		String mode = ConfigurationType.XMLFile.toString();
 		String module = null;
-		String folder = "UIWidgetGeneric";
-		String extention = "*.xml";
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
 		for(String tag : tags ) {
 			dictionariesCache.add(folder, extention, tag);
@@ -121,7 +171,7 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
 			@Override
 			public void dictionariesCacheEventReady(int received) {
-				logger.info(className, function, "dictionaryCacheEventReady received[{}]", received);
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
 				ready("UIWidgetGeneric", received);
 			}
 		});

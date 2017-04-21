@@ -78,32 +78,25 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		if ( null != parameter ) {
 			
-			OpmRequestDto dto = new OpmRequestDto();
-			for ( Map.Entry<String, String> entry : parameter.entrySet() ) {
-				String k = entry.getKey();
-				String v = entry.getValue();
-				
-				logger.trace(className, function, "k[{}] v[{}]", k, v);
-				
-				if ( (k != null && ! k.isEmpty()) || (v != null && ! v.isEmpty()) ) {
-					dto.addParameter( k, v );
-				} else {
-					logger.warn(className, function, "k OR v is empty");
+			if ( logger.isTraceEnabled() ) {
+				for ( Map.Entry<String, String> entry : parameter.entrySet() ) {
+					String k = entry.getKey();
+					String v = entry.getValue();
+					logger.trace(className, function, "k[{}] v[{}]", k, v);
+					if ( k == null || k.isEmpty() || v == null || v.isEmpty() ) {
+						logger.warn(className, function, "k[{}] OR v[{}] is INVALID", k, v);
+					}
 				}
 			}
-			if ( ! dto.getRequestParameters().isEmpty() ) {
-				OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
-				
-				// TO: remove the non target role in here
-			
-				IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-				result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
-			} else {
-				logger.warn(className, function, "result[{}]", result);
-			}
+
+			OpmRequestDto dto = new OpmRequestDto();
+			dto.setRequestParameters(parameter);
+			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
+			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
+			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 
 		} else {
-			logger.warn(className, function,  "dto.getRequestParameters() IS NULL" );
+			logger.warn(className, function,  "parameter IS NULL");
 		}
 		logger.debug(className, function, "result[{}]", result);
 		return result;
@@ -194,12 +187,13 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hdvValue[{}] key[{}]"
 				, new Object[]{functionValue, locationValue, actionValue, modeValue, hdvValue, key});
 		
+		boolean isHOMRequested = false;
+		boolean caResult = false;
+		boolean homResult = false;
+		
 		if ( null != resultEvent ) {
 			if ( isHOMAction(actionValue) ) {
-
-				boolean caResult = false;
-				boolean homResult = false;
-			
+				isHOMRequested = true;
 				if ( ! isByPassValue(hdvValue) ) {
 					if ( (hdvValue & getConfigHOMMask(key)) > 0 ) {
 						homResult = true;
@@ -207,28 +201,17 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				} else {
 					homResult = true;
 				}
-				
-				caResult = checkAccess(
-								  functionValue
-								, locationValue
-								, actionValue
-								, modeValue
-								);
-				
-				resultEvent.result(caResult && homResult);
-
-			} else {
-				boolean caResult = false;
-				
-				caResult = checkAccess(
-						  functionValue
-						, locationValue
-						, actionValue
-						, modeValue
-						);
-				
-				resultEvent.result(caResult);
 			}
+			
+			caResult = checkAccess(
+					  functionValue
+					, locationValue
+					, actionValue
+					, modeValue
+					);
+			
+			resultEvent.result(isHOMRequested?(caResult && homResult):caResult);
+			
 		} else {
 			logger.warn(className, function, "resultEvent IS NULL");
 		}
@@ -584,26 +567,26 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return confighommask;
 	}
 	
-	@Override
-	public void createOperator(String operator) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void removeOperator(String operator) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void addProfileToOperator(String operator, String profile) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void removeProfileFromOperatior(String operator, String profile) {
-		// TODO Auto-generated method stub
-
-	}
+//	@Override
+//	public void createOperator(String operator) {
+//		// TODO Auto-generated method stub
+//
+//	}
+//	@Override
+//	public void removeOperator(String operator) {
+//		// TODO Auto-generated method stub
+//
+//	}
+//	@Override
+//	public void addProfileToOperator(String operator, String profile) {
+//		// TODO Auto-generated method stub
+//
+//	}
+//	@Override
+//	public void removeProfileFromOperatior(String operator, String profile) {
+//		// TODO Auto-generated method stub
+//
+//	}
 	@Override
 	public void login(String operator, String password) {
 		String function = "login";

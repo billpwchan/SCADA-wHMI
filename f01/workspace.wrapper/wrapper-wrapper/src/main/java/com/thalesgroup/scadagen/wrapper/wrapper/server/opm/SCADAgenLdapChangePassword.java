@@ -13,7 +13,7 @@ import org.springframework.security.authentication.encoding.LdapShaPasswordEncod
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.action.ChangePasswordAction;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.ChangePasswordException;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.security.server.IPasswordChange;
-import com.thalesgroup.scadagen.wrapper.wrapper.shared.SCADAgenChangePasswordAction;
+import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenChangePasswordAction;
 
 
 /**

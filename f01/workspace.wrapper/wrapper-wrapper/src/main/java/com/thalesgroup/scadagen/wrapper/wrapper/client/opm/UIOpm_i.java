@@ -51,12 +51,12 @@ public interface UIOpm_i {
 		void update(final String dbaddress, final int value);
 	}
 	void getCurrentHOMValue(final String hvid, final GetCurrentHOMValueEvent_i event);
-	
-	void createOperator(String operator);
-	void removeOperator(String operator);
-	
-	void addProfileToOperator(String operator, String profile);
-	void removeProfileFromOperatior(String operator, String profile);
+
+//	void createOperator(String operator);
+//	void removeOperator(String operator);
+//	
+//	void addProfileToOperator(String operator, String profile);
+//	void removeProfileFromOperatior(String operator, String profile);
 	
 	void login(String operator, String password);
 	void logout();

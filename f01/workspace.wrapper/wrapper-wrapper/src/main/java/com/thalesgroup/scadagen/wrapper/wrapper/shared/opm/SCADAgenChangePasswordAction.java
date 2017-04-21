@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.wrapper.wrapper.shared;
+package com.thalesgroup.scadagen.wrapper.wrapper.shared.opm;
 
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.action.ChangePasswordAction;
 

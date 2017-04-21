@@ -54,6 +54,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private final String strButtonWUnderLine	= strButton+strUnderline;
 	private final String strSet					= "set";
 	private final String strValue				= "value";
+	private final String strIndex				= "index";
 	
 	private final String strButtonSetUp = strButtonWUnderLine+strSet+strUnderline+"up";
 //	private final String strButtonSetDown = strButtonWUnderLine+strSet+strUnderline+"down";
@@ -452,12 +453,12 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	}
 	
 	private static int readingCount = 0;
-	private void executeCmdWithInitCond(final String env, final String alias, final String value) {
+	private void executeCmdWithInitCond(final String env, final String alias, final String value, final String strIndex) {
 		final String function = "executeCmdWithInitCond";
 		logger.begin(className, function);
-		logger.debug(className, function, "env[{}] alias[{}] value[{}]", new Object[]{env, alias, value});
+		logger.debug(className, function, "env[{}] alias[{}] value[{}] strIndex[{}]", new Object[]{env, alias, value, strIndex});
 
-		int index = Integer.parseInt(value);
+		int index = Integer.parseInt(strIndex);
 		
 		if ( null != valueTableDovnames ) {
 			List<String> dovaddresslist = new LinkedList<String>();
@@ -554,12 +555,12 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	}
 	
 
-	private void executeCmd(String env, String alias, String value, boolean isMultiEntity) {
+	private void executeCmd(String env, String alias, String value, String index, boolean isMultiEntity) {
 		final String function = "executeCmd";
 		logger.begin(className, function);
-		logger.debug(className, function, "env[{}] alias[{}] value[{}] isMultiEntity[{}]", new Object[]{env, alias, value, isMultiEntity});
+		logger.debug(className, function, "env[{}] alias[{}] value[{}] index[{}] isMultiEntity[{}]", new Object[]{env, alias, value, index, isMultiEntity});
 		if ( isMultiEntity ) {
-			executeCmdWithInitCond(env, alias, value);
+			executeCmdWithInitCond(env, alias, value, index);
 		} else {
 			executeCmd(env, alias, value);
 		}
@@ -594,7 +595,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 							Map<String, String> map = its.next();
 							if ( null != map ) {
 								
-								executeCmd(map.get(columnServiceOwner), map.get(columnAlias), map.get(strValue), isMultiEntity);
+								executeCmd(map.get(columnServiceOwner), map.get(columnAlias), map.get(strValue), map.get(strIndex), isMultiEntity);
 							} else {
 								logger.debug(className, function2, "its.next() map IS NULL");
 							}
@@ -618,7 +619,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			} else {
 			
 				for ( Map<String, String> map : set ) {
-					executeCmd(map.get(columnServiceOwner), map.get(columnAlias), map.get(strValue), isMultiEntity);
+					executeCmd(map.get(columnServiceOwner), map.get(columnAlias), map.get(strValue), map.get(strIndex), isMultiEntity);
 				}
 			}
 		} else {
@@ -834,6 +835,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 													alias = getAliasWithAliasPrefix(alias);
 													map2.put(columnAlias, alias);
 													map2.put(strValue, String.valueOf(selectedValue));
+													map2.put(strIndex, String.valueOf(selectedIndex));
 													set.add(map2);
 												}
 											}

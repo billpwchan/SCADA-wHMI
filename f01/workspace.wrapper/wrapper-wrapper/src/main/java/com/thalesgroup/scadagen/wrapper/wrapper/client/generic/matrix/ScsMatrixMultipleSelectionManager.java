@@ -127,6 +127,7 @@ public class ScsMatrixMultipleSelectionManager implements IMatrixSelectionManage
 		String axisId = axisEntryInfo.getId();
 		ScsMatrixRenderer renderer = null;
 		ScsMatrixPresenterClient presenter = null;
+		HashSet<MxIntersectionState> stateSet = null;
 		
 		if (getView() != null && getView().getRenderer() != null && getView().getRenderer() instanceof ScsMatrixRenderer) {
 			renderer = (ScsMatrixRenderer) getView().getRenderer();
@@ -152,42 +153,30 @@ public class ScsMatrixMultipleSelectionManager implements IMatrixSelectionManage
 				
 				Integer columnIndex = presenter.getColumnIndex(axisId);
 				
-				if (columnIndex >= 0) {
-				
-					HashSet<MxIntersectionState> stateSet = renderer.getColumnSet(columnIndex);
-					
+				if (columnIndex != null) {				
+					stateSet = renderer.getColumnSet(columnIndex);			
 					currentSelectedAxisIdSet_.add(axisId);
 					
-					for (MxIntersectionState state: stateSet) {
-					
-						LocationKey key = state.getLocationKey();
-						
-						currentSelectedLocationKeySet_.add(key);
-		
-						addSelectedLocationToView(key);
-		
+					for (MxIntersectionState state: stateSet) {				
+						LocationKey key = state.getLocationKey();					
+						currentSelectedLocationKeySet_.add(key);		
+						addSelectedLocationToView(key);		
 						onClickAddSelection(state, key);
 					}
 				}
 				
 			} else if (matrixAxisType == MatrixAxisType.ROW) {
 				
-				Integer rowIndex = presenter.getRowIndex(axisId);
-				
-				if (rowIndex >= 0) {
-				
-					HashSet<MxIntersectionState> stateSet = renderer.getRowSet(rowIndex);
-					
+				Integer rowIndex = presenter.getRowIndex(axisId);				
+
+				if (rowIndex != null) {				
+					stateSet = renderer.getRowSet(rowIndex);					
 					currentSelectedAxisIdSet_.add(axisId);
 					
-					for (MxIntersectionState state: stateSet) {
-					
-						LocationKey key = state.getLocationKey();
-						
-						currentSelectedLocationKeySet_.add(key);
-		
+					for (MxIntersectionState state: stateSet) {					
+						LocationKey key = state.getLocationKey();					
+						currentSelectedLocationKeySet_.add(key);	
 						addSelectedLocationToView(key);
-		
 						onClickAddSelection(state, key);
 					}
 				}
@@ -195,81 +184,46 @@ public class ScsMatrixMultipleSelectionManager implements IMatrixSelectionManage
 			
 		} else {
 
+			Boolean isAxisSelected = currentSelectedAxisIdSet_.contains(axisId);
+	
 			if (matrixAxisType == MatrixAxisType.COLUMN) {
 				
 				Integer columnIndex = presenter.getColumnIndex(axisId);
-				
-				if (columnIndex >= 0) {
-					
-					Boolean isAxisSelected = currentSelectedAxisIdSet_.contains(axisId);
-				
-					HashSet<MxIntersectionState> stateSet = renderer.getColumnSet(columnIndex);
-					
-					for (MxIntersectionState state: stateSet) {
-					
-						LocationKey key = state.getLocationKey();
-						
-						if (!isAxisSelected) {
-						
-							currentSelectedLocationKeySet_.add(key);
-			
-							addSelectedLocationToView(key);
-			
-							onClickAddSelection(state, key);
 
-						} else {
-							currentSelectedLocationKeySet_.remove(key);
-
-							removeSelectedLocationFromView(key);
-
-							onClickRemoveSelection(key);
-						}
-					}
-					
-					if (isAxisSelected) {
-						currentSelectedAxisIdSet_.remove(axisId);
-					} else {
-						currentSelectedAxisIdSet_.add(axisId);
-					}
-				}
-				
+				if (columnIndex != null) {
+					stateSet = renderer.getColumnSet(columnIndex);				
+				}				
 			} else if (matrixAxisType == MatrixAxisType.ROW) {
 				
 				Integer rowIndex = presenter.getRowIndex(axisId);
 				
-				if (rowIndex >= 0) {
-					
-					Boolean isAxisSelected = currentSelectedAxisIdSet_.contains(axisId);
-				
-					HashSet<MxIntersectionState> stateSet = renderer.getRowSet(rowIndex);
-					
-					for (MxIntersectionState state: stateSet) {
-					
-						LocationKey key = state.getLocationKey();
-						
-						if (!isAxisSelected) {
-							
-							currentSelectedLocationKeySet_.add(key);
-			
-							addSelectedLocationToView(key);
-			
-							onClickAddSelection(state, key);
+				if (rowIndex != null) {				
+					stateSet = renderer.getRowSet(rowIndex);
+				}
+			}
 
-						} else {
-							currentSelectedLocationKeySet_.remove(key);
-
-							removeSelectedLocationFromView(key);
-
-							onClickRemoveSelection(key);
-						}
-					}
+			if (stateSet != null) {
+				for (MxIntersectionState state: stateSet) {
 					
-					if (isAxisSelected) {
-						currentSelectedAxisIdSet_.remove(axisId);
+					LocationKey key = state.getLocationKey();
+					
+					if (!isAxisSelected) {		
+						currentSelectedLocationKeySet_.add(key);
+						addSelectedLocationToView(key);
+						onClickAddSelection(state, key);
+	
 					} else {
-						currentSelectedAxisIdSet_.add(axisId);
+						currentSelectedLocationKeySet_.remove(key);
+						removeSelectedLocationFromView(key);
+						onClickRemoveSelection(key);
 					}
 				}
+			}
+			
+			if (isAxisSelected) {
+				currentSelectedAxisIdSet_.remove(axisId);
+			} else {
+				currentSelectedAxisIdSet_.add(axisId);
 			}
 		}
 		
@@ -302,27 +256,17 @@ public class ScsMatrixMultipleSelectionManager implements IMatrixSelectionManage
 			clearExistingSelection();
 
 			currentSelectedLocationKeySet_.add(key);
-
 			addSelectedLocationToView(key);
-
 			onClickAddSelection(square, key);
-
 		} else {
 
 			if (!currentLocationSelected) {
-
 				currentSelectedLocationKeySet_.add(key);
-
 				addSelectedLocationToView(key);
-
 				onClickAddSelection(square, key);
-
 			} else {
-
 				currentSelectedLocationKeySet_.remove(key);
-
 				removeSelectedLocationFromView(key);
-
 				onClickRemoveSelection(key);
 			}
 		}
@@ -499,6 +443,14 @@ public class ScsMatrixMultipleSelectionManager implements IMatrixSelectionManage
 		} else {
 			logger.error("view is NULL");
 		}
+	}
+	
+	public Set<LocationKey> getCurrentSelectedLocationKeySet() {
+		return currentSelectedLocationKeySet_;
+	}
+	
+	public Set<String> getCurrentSelectedAxisIdSet() {
+		return currentSelectedAxisIdSet_;
 	}
 
 	/**

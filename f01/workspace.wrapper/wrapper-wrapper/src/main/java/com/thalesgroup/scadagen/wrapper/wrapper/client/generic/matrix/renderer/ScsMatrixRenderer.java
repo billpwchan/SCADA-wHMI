@@ -170,5 +170,9 @@ public class ScsMatrixRenderer implements IMatrixRenderer {
 		
 		return set;
 	}
+	
+	public MxIntersectionState getMxIntersectionState(LocationKey key) {
+		return locationToMxIntersectionStateMap.get(key);
+	}
 
 }

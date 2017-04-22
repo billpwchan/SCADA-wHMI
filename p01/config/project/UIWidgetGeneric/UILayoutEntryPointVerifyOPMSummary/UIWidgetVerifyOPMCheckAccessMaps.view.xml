@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>12</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyOPMCheckAccessMaps-panel-inner</rootCss>
+	</header>
+	
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>CheckAccessMaps:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-inlinelabel-uiopmapilabel</css>
+		<element>uiopmapilabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-textbox-uiopmapivalue</css>
+		<element>uiopmapivalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessMaps-container-uiopmapivalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>opmname:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-inlinelabel-opmnamelabel</css>
+		<element>opmnamelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-textbox-opmnamevalue</css>
+		<element>opmnamevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessMaps-container-opmnamevalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>opmvalue:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-inlinelabel-opmvaluelabel</css>
+		<element>opmvaluelabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-textbox-opmvaluevalue</css>
+		<element>opmvaluevalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessMaps-container-opmvaluevalue</cssContainer>
+		
+	</option>
+	
+
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>opmoperation:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-inlinelabel-opmoperationlabel</css>
+		<element>opmoperationlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextBox</widget>
+		<label>AND</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-textbox-opmoperationvalue</css>
+		<element>opmoperationvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessMaps-container-opmoperationvalue</cssContainer>
+		
+	</option>
+
+	
+	<option key="0|9">
+		<widget>Button</widget>
+		<label>checkaccess</label>
+		<css>project-UIWidgetDpcTagControl-button-checkaccess</css>
+		<element>checkaccess</element>
+		
+		<cssContainer>project-UIWidgetDpcTagControl-container-checkaccess</cssContainer>
+		
+		<tooltip>checkaccess</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|10">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|11">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyOPMCheckAccessMaps-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessMaps-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

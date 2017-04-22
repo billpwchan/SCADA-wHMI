@@ -22,17 +22,19 @@ public interface UIOpm_i {
 
 	boolean checkAccess(Map<String, String> parameter);
 	
+	boolean checkHom(int hdvValue, String key);
+	
 	public interface CheckAccessWithHOMEvent_i {
 		void result(boolean result);
 	}
 	
 	void checkAccessWithHom(String function, String location, String action, String mode, int hdvValue, String key, CheckAccessWithHOMEvent_i resultEvent);
 
-	void checkAccessWithHom(String function, String location, String action, String mode, String hvid, String key, CheckAccessWithHOMEvent_i resultEvent);
+	void checkAccessWithHom(String function, String location, String action, String mode, String scsEnvId, String alias, String key, CheckAccessWithHOMEvent_i resultEvent);
 	
-	void checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent);
+	void checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent);
 	
-	void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent);
+	void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent);
 	
 	void changePassword(String operator, String oldPassword, String newPassword, UIWrapperRpcEvent_i uiWrapperRpcEvent_i);
 	
@@ -42,6 +44,9 @@ public interface UIOpm_i {
 	String[] getCurrentProfiles();
 	void setCurrentProfile();
 	
+	boolean isHOMAction(String action);
+	boolean isByPassValue(int value);
+	
 	int getConfigHOMMask(String key);
 	
 	String getCurrentHostName();
@@ -50,8 +55,8 @@ public interface UIOpm_i {
 	interface GetCurrentHOMValueEvent_i {
 		void update(final String dbaddress, final int value);
 	}
-	void getCurrentHOMValue(final String hvid, final GetCurrentHOMValueEvent_i event);
-
+	void getCurrentHOMValue(final String scsEnvId, final String alias, final GetCurrentHOMValueEvent_i event);
+	
 //	void createOperator(String operator);
 //	void removeOperator(String operator);
 //	
@@ -60,4 +65,8 @@ public interface UIOpm_i {
 	
 	void login(String operator, String password);
 	void logout();
+
+	
+
+	
 }

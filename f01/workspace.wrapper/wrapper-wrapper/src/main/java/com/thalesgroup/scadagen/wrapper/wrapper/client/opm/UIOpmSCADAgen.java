@@ -23,7 +23,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.HVID2SCS;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgrEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction.UIActionOpm_i;
@@ -175,6 +174,19 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
+	public boolean checkHom(final int hdvValue, final String key) {
+		boolean homResult = false;
+		if ( ! isByPassValue(hdvValue) ) {
+			if ( (hdvValue & getConfigHOMMask(key)) > 0 ) {
+				homResult = true;
+			}
+		} else {
+			homResult = true;
+		}
+		return homResult;
+	}
+	
+	@Override
 	public void checkAccessWithHom(final String functionValue
 			, final String locationValue
 			, final String actionValue
@@ -194,13 +206,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		if ( null != resultEvent ) {
 			if ( isHOMAction(actionValue) ) {
 				isHOMRequested = true;
-				if ( ! isByPassValue(hdvValue) ) {
-					if ( (hdvValue & getConfigHOMMask(key)) > 0 ) {
-						homResult = true;
-					}
-				} else {
-					homResult = true;
-				}
+				homResult = checkHom(hdvValue, key);
 			}
 			
 			caResult = checkAccess(
@@ -224,17 +230,18 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, final String locationValue
 			, final String actionValue
 			, final String modeValue
-			, final String hvid
+			, final String scsEnvId
+			, final String alias
 			, final String key
 			, final CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccess";
 		logger.begin(className, function);
-		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hvid[{}] key[{}]"
-				, new Object[]{functionValue, locationValue, actionValue, modeValue, hvid, key});
+		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] scsEnvId[{}] alias[{}] key[{}]"
+				, new Object[]{functionValue, locationValue, actionValue, modeValue, scsEnvId, alias, key});
 		
 		if ( null != resultEvent ) {
 			if ( isHOMAction(actionValue) ) {
-				getCurrentHOMValue(hvid, new GetCurrentHOMValueEvent_i() {
+				getCurrentHOMValue(scsEnvId, alias, new GetCurrentHOMValueEvent_i() {
 					@Override
 					public void update(String dbaddress, int value) {
 						
@@ -268,17 +275,25 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
-	public void checkAccessWithHostName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent) {
+	public void checkAccessWithHostName(
+			String functionValue
+			, String locationValue
+			, String actionValue
+			, String modeValue
+			, String scsEnvId
+			, String alias
+			, CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccessWithHostName";
 		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] hvid[{}]", new Object[]{function, locationValue, actionValue, modeValue, hvid});
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] scsEnvId[{}] alias[{}]", new Object[]{function, locationValue, actionValue, modeValue, scsEnvId, alias});
 		
 		checkAccessWithHom(
 				  functionValue
 				, locationValue
 				, actionValue
 				, modeValue
-				, hvid
+				, scsEnvId
+				, alias
 				, getCurrentHostName()
 				, resultEvent
 				);
@@ -287,17 +302,18 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	@Override
-	public void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String hvid, CheckAccessWithHOMEvent_i resultEvent) {
+	public void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccessWithProfileName";
 		logger.begin(className, function);
-		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] hvid[{}]", new Object[]{function, locationValue, actionValue, modeValue, hvid});
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] scsEnvId[{}] alias[{}]", new Object[]{function, locationValue, actionValue, modeValue, scsEnvId, alias});
 
 		checkAccessWithHom(
 				  functionValue
 				, locationValue
 				, actionValue
 				, modeValue
-				, hvid
+				, scsEnvId
+				, alias
 				, getCurrentProfile()
 				, resultEvent
 				);
@@ -490,19 +506,14 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 		return currentIPAddress;
 	}
+
 	@Override
-	public void getCurrentHOMValue(final String hvid, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
+	public void getCurrentHOMValue(final String scsEnvId, final String alias, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
 		final String function = "getCurrentHOMValue";
 		logger.begin(className, function);
-		logger.debug(className, function, "hvid[{}]", hvid);
-		HVID2SCS hvid2scs = new HVID2SCS();
-		hvid2scs.setHVID(hvid);
-		hvid2scs.init();
+		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
 		
-		String scsEnvId	= hvid;
-		String parent	= hvid2scs.getDBAddress();
-		
-		String dbAddress = parent + getDbAttribute();
+		String dbAddress = alias + getDbAttribute();
 		String [] dbAddresses = new String[]{dbAddress};
 		
 		final String clientKey = className+function;
@@ -656,6 +667,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return homActions;
 	}
 	
+	@Override
 	public boolean isHOMAction(String action) {
 		final String function = "isHOMAction";
 		logger.begin(className, function);
@@ -701,6 +713,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return byPassValue;
 	}
 	
+	@Override
 	public boolean isByPassValue(int value) {
 		String function = "isByPassValue";
 		logger.debug(className, function, "getByPassValue()[{}] == value[{}]", getByPassValue(), value);

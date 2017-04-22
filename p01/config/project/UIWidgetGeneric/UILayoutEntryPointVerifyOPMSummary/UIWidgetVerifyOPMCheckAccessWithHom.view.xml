@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>18</cols>
+		<cols>20</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIWidgetVerifyOPMCheckAccessWithHom-panel-inner</rootCss>
 	</header>
@@ -126,26 +126,47 @@
 	
 	<option key="0|11">
 		<widget>InlineLabel</widget>
-		<label>HVID:</label>
-		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-hvidlabel</css>
-		<element>hvidlabel</element>
+		<label>ScsEnvId:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-scsenvidlabel</css>
+		<element>scsenvidlabel</element>
 		<format></format>
 		<media></media>
 	</option>
 	
 	<option key="0|12">
 		<widget>TextBox</widget>
-		<label></label>
-		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-hvidvalue</css>
-		<element>hvidvalue</element>
-		<maxlength>32</maxlength>
+		<label>OCC_CTVLV_CLP_0001</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-scsenvidvalue</css>
+		<element>scsenvidvalue</element>
+		<maxlength>100</maxlength>
 		
-		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-hvidvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-scsenvidvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|13">
+		<widget>InlineLabel</widget>
+		<label>Alias:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-aliaslabel</css>
+		<element>aliaslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVLV_CLP_0001</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-aliasvalue</css>
+		<element>aliasvalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-aliasvalue</cssContainer>
 		
 	</option>
 	
 
-	<option key="0|13">
+	<option key="0|15">
 		<widget>InlineLabel</widget>
 		<label>Key:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-keylabel</css>
@@ -154,19 +175,19 @@
 		<media></media>
 	</option>
 	
-	<option key="0|14">
+	<option key="0|16">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-keyvalue</css>
 		<element>keyvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-v-container-keyvalue</cssContainer>
 		
 	</option>
 
 	
-	<option key="0|15">
+	<option key="0|17">
 		<widget>Button</widget>
 		<label>checkaccesswithhom</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-button-checkaccess</css>
@@ -179,7 +200,7 @@
 	</option>
 	
 	
-	<option key="0|16">
+	<option key="0|18">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-inlinelabel-resultlabel</css>
@@ -188,7 +209,7 @@
 		<media></media>
 	</option>
 	
-	<option key="0|17">
+	<option key="0|19">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-resultvalue</css>

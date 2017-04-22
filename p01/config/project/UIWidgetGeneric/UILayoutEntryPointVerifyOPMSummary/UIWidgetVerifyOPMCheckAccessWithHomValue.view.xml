@@ -126,9 +126,9 @@
 	
 	<option key="0|11">
 		<widget>InlineLabel</widget>
-		<label>HDV Flag:</label>
-		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-inlinelabel-hvvflaglabel</css>
-		<element>hvvflaglabel</element>
+		<label>HDV Value:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-inlinelabel-hdvvaluelabel</css>
+		<element>hdvvaluelabel</element>
 		<format></format>
 		<media></media>
 	</option>
@@ -136,11 +136,11 @@
 	<option key="0|12">
 		<widget>TextBox</widget>
 		<label></label>
-		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-hdvflagvalue</css>
-		<element>hdvflagvalue</element>
-		<maxlength>32</maxlength>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-hdvvaluevalue</css>
+		<element>hdvvaluevalue</element>
+		<maxlength>100</maxlength>
 		
-		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-hdvflagvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-hdvvaluevalue</cssContainer>
 		
 	</option>
 	

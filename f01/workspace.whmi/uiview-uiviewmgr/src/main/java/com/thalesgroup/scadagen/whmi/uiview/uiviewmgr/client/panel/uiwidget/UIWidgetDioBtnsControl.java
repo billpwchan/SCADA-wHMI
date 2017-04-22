@@ -393,7 +393,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
 		clientKey.setWidget(className);
-		clientKey.setStability(Stability.STATIC);
+		clientKey.setStability(Stability.DYNAMIC);
 		clientKey.setScreen(uiNameCard.getUiScreen());
 		clientKey.setEnv(env);
 		clientKey.setAdress(address);
@@ -411,7 +411,9 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		final String [] dovaddresses = dovaddresslist.toArray(new String[0]);
 		
 		if ( isPolling ) {
+			
 			if ( null != databaseSubscribe_i ) {
+				logger.debug(className, function, "databaseSubscribe_i...");
 				databaseSubscribe_i.addSubscribeRequest(strClientKey, env, dovaddresses, new DatabasePairEvent_i() {
 					
 					@Override
@@ -428,6 +430,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 
 		} else {
 			if ( null != databaseMultiRead_i_2 ) {
+				logger.debug(className, function, "addMultiReadValueRequest...");
 				databaseMultiRead_i_2.addMultiReadValueRequest(strClientKey, env, dovaddresses, new DatabasePairEvent_i() {
 					
 					@Override
@@ -452,6 +455,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		if ( null != databaseSubscribe_i ) {
 			if ( null != clientKey ) {
 				databaseSubscribe_i.addUnSubscribeRequest(clientKey.getClientKey());
+				clientKey = null;
 			}
 		} else {
 			logger.warn(className, function, "databaseSubscribe_i IS NULL");
@@ -490,6 +494,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 					clientKey.setScreen(uiNameCard.getUiScreen());
 					clientKey.setEnv(env);
 					clientKey.setAdress(address+"_"+readingCount++);
+					if ( readingCount == Integer.MAX_VALUE ) readingCount = 0;
 					
 					String strClientKey = clientKey.getClientKey();
 					logger.debug(className, function, "strClientKey[{}]", strClientKey);

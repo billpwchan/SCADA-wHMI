@@ -68,16 +68,18 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		logger.begin(className, function);
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		String hvidvalue		= uiGeneric.getWidgetValue("hvidvalue");
+		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
+		String aliasvalue		= uiGeneric.getWidgetValue("aliasvalue");
 		
 		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
-		logger.debug(className, function, "hvidvalue[{}]", hvidvalue);
+		logger.debug(className, function, "scsenvidvalue[{}]", scsenvidvalue);
+		logger.debug(className, function, "hvidvalue[{}]", aliasvalue);
 		
 		OpmMgr opmMgr = OpmMgr.getInstance();
 		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
 		
 		if ( null != uiOpm_i ) {
-			uiOpm_i.getCurrentHOMValue(hvidvalue, new GetCurrentHOMValueEvent_i() {
+			uiOpm_i.getCurrentHOMValue(scsenvidvalue, aliasvalue, new GetCurrentHOMValueEvent_i() {
 				
 				@Override
 				public void update(final String dbaddress, final int value) {

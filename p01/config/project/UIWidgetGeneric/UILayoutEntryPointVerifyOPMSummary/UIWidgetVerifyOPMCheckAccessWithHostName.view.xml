@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>16</cols>
+		<cols>18</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIWidgetVerifyOPMCheckAccessWithHostName-panel-inner</rootCss>
 	</header>
@@ -126,26 +126,46 @@
 	
 	<option key="0|11">
 		<widget>InlineLabel</widget>
-		<label>HVID:</label>
-		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-hvidlabel</css>
-		<element>hvidlabel</element>
+		<label>ScsEnvId:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-scsenvidlabel</css>
+		<element>scsenvidlabel</element>
 		<format></format>
 		<media></media>
 	</option>
 	
 	<option key="0|12">
 		<widget>TextBox</widget>
-		<label></label>
-		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-hvidvalue</css>
-		<element>hvidvalue</element>
-		<maxlength>32</maxlength>
+		<label>OCC_CTVLV_CLP_0001</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-scsenvidvalue</css>
+		<element>scsenvidvalue</element>
+		<maxlength>100</maxlength>
 		
-		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-hvidvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-scsenvidvalue</cssContainer>
 		
 	</option>
 
-	
 	<option key="0|13">
+		<widget>InlineLabel</widget>
+		<label>Alias:</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-aliaslabel</css>
+		<element>aliaslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|14">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVLV_CLP_0001</label>
+		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-aliasvalue</css>
+		<element>aliasvalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHostName-container-aliasvalue</cssContainer>
+		
+	</option>
+	
+	
+	<option key="0|15">
 		<widget>Button</widget>
 		<label>checkaccesswithhostname</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-button-checkaccess</css>
@@ -158,7 +178,7 @@
 	</option>
 	
 	
-	<option key="0|14">
+	<option key="0|16">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-inlinelabel-resultlabel</css>
@@ -167,7 +187,7 @@
 		<media></media>
 	</option>
 	
-	<option key="0|15">
+	<option key="0|17">
 		<widget>TextBox</widget>
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHostName-textbox-resultvalue</css>

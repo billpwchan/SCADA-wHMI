@@ -20,6 +20,13 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseSubscribeFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
@@ -137,15 +144,6 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	public String getWidgetTitle() {
 		return uiElem;
 	}
-	public static void init(final InitReady_i initReady) {
-		final String function = "init";
-		logger.begin(className, function);
-        initCacheXMLFile("UIWidgetGeneric", "*.xml", initReady);
-        initCacheJsonsFile("UIJson", "*.json");
-        initOpmFactory();
-        initOpm();
-        logger.end(className, function);
-	}
 	public static void initOpmFactory() {
 		final String function = "initOpmFactory";
 		logger.begin(className, function);
@@ -170,14 +168,16 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		
 		logger.end(className, function);
 	}
-	public static void initOpm() {
+	public static void initOpm(String opmkey) {
 		final String function = "initOpm";
 		logger.begin(className, function);
-		String opmkey = "UIOpmSCADAgen";
 		logger.debug(className, function, "Try to init opm[{}]", opmkey);
-		OpmMgr opmMgr = OpmMgr.getInstance();
-		UIOpm_i uiOpm_i = opmMgr.getOpm(opmkey);
-		uiOpm_i.init();
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmkey);
+		if ( null != uiOpm_i ) {
+			uiOpm_i.init();
+		} else {
+			logger.warn(className, function, "uiOpm_i IS NULL");
+		}
 		logger.end(className, function);
 	}
 	public interface InitReady_i {
@@ -232,6 +232,75 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			}
 		});
 		
+		logger.end(className, function);
+	}
+
+	public static void initDatabaseSingle() {
+		final String function = "initDatabaseSingleton";
+		logger.begin(className, function);
+		initDatabaseReadingSingletonKey("DatabaseMultiReadingProxySingleton");
+		initDatabaseSubscribeSingleton("DatabaseGroupPollingDiffSingleton", 500);
+		initDatabaseWritingSingleton("DatabaseWritingSingleton");
+		logger.end(className, function);
+	}
+	
+	public static void initDatabaseReadingSingletonKey(String strDatabaseReadingSingletonKey) {
+		final String function = "initDatabaseReadingSingletonKey";
+		logger.begin(className, function);
+		logger.debug(className, function, "strDatabaseReadingSingletonKey[{}]", strDatabaseReadingSingletonKey);
+		
+		DatabaseMultiRead_i databaseReading_i = DatabaseMultiReadFactory.get(strDatabaseReadingSingletonKey);
+		if ( null != databaseReading_i ) {
+			if ( databaseReading_i instanceof DatabaseSingleton_i ) {
+				logger.debug(className, function, "strDatabaseReadingSingletonKey instanceof DatabaseSingleton_i");
+				((DatabaseSingleton_i) databaseReading_i).connectOnce();
+			} else {
+				databaseReading_i.connect();
+			}
+		} else {
+			logger.debug(className, function, "databaseReading_i IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public static void initDatabaseSubscribeSingleton(String strDatabaseSubscribeSingletonKey, int intDatabaseSubscribePeriodMillis) {
+		final String function = "initDatabaseSubscribeSingleton";
+		logger.begin(className, function);
+		logger.debug(className, function, "strDatabaseSubscribeSingletonKey[{}]", strDatabaseSubscribeSingletonKey);
+		logger.debug(className, function, "intDatabaseSubscribePeriodMillis[{}]", intDatabaseSubscribePeriodMillis);
+		
+		DatabaseSubscribe_i databaseSubscribe_i = DatabaseSubscribeFactory.get(strDatabaseSubscribeSingletonKey);
+		if ( null != databaseSubscribe_i ) {
+			databaseSubscribe_i.setPeriodMillis(intDatabaseSubscribePeriodMillis);
+			if ( databaseSubscribe_i instanceof DatabaseSingleton_i ) {
+				logger.debug(className, function, "databaseSubscribe_i instanceof DatabaseSingleton_i");
+				((DatabaseSingleton_i) databaseSubscribe_i).connectOnce();
+			} else {
+				databaseSubscribe_i.connect();
+			}
+			
+		} else {
+			logger.debug(className, function, "databaseSubscribe_i IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public static void initDatabaseWritingSingleton(String strDatabaseWritingSingleton) {
+		final String function = "initDatabaseWritingSingleton";
+		logger.begin(className, function);
+		logger.debug(className, function, "strDatabaseWritingSingleton[{}]", strDatabaseWritingSingleton);
+		
+		DatabaseWrite_i databaseWriting_i = DatabaseWriteFactory.get(strDatabaseWritingSingleton);
+		if ( null != databaseWriting_i ) {
+			if ( databaseWriting_i instanceof DatabaseSingleton_i ) {
+				logger.debug(className, function, "databaseWriting_i instanceof DatabaseSingleton_i");
+				((DatabaseSingleton_i) databaseWriting_i).connectOnce();
+			} else {
+				databaseWriting_i.connect();
+			}
+		} else {
+			logger.debug(className, function, "databaseWriting_i IS NULL");
+		}
 		logger.end(className, function);
 	}
 

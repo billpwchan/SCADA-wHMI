@@ -47,7 +47,14 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private String substituteFrom				= "dci";
 	private String substituteTo					= "dio";
 
-	private final String strInvisible			= "Invisible";
+	private final String strVisible				= "visible";
+	private final String strInvisible			= "invisible";
+	private final String strDisable				= "disable";
+	private final String strUp					= "up";
+	private final String strDown				= "down";
+	private final String strControl				= "control";
+	
+	
 	private final String strButton				= "button";
 	private final String strButtons				= strButton+"s";
 	private final String strUnderline			= "_";
@@ -56,15 +63,15 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private final String strValue				= "value";
 	private final String strIndex				= "index";
 	
-	private final String strButtonSetUp = strButtonWUnderLine+strSet+strUnderline+"up";
-//	private final String strButtonSetDown = strButtonWUnderLine+strSet+strUnderline+"down";
-	private final String strButtonSetDisable = strButtonWUnderLine+strSet+strUnderline+"disable";
-	private final String strButtonSetVisible = strButtonWUnderLine+strSet+strUnderline+"visible";
-	private final String strButtonSetInvisible = strButtonWUnderLine+strSet+strUnderline+"invisible";
+	private final String strButtonSetUp = strButtonWUnderLine+strSet+strUnderline+strUp;
+//	private final String strButtonSetDown = strButtonWUnderLine+strSet+strUnderline+strDown;
+	private final String strButtonSetDisable = strButtonWUnderLine+strSet+strUnderline+strDisable;
+	private final String strButtonSetVisible = strButtonWUnderLine+strSet+strUnderline+strVisible;
+	private final String strButtonSetInvisible = strButtonWUnderLine+strSet+strUnderline+strInvisible;
 	private final String strButtonSetValue = strButtonWUnderLine+strSet+strUnderline+strValue;
 	
 	private final String strSend = "send";
-	private final String strButtonSendControl = strButtonWUnderLine+strSend+strUnderline+"control";
+	private final String strButtonSendControl = strButtonWUnderLine+strSend+strUnderline+strControl;
 	
 	private boolean isPolling = false;
 	
@@ -902,22 +909,27 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 						if ( null != obj1 ) {
 							selectedSet	= (Set<Map<String, String>>) obj1;
 							
-							String env = null;
-							String alias = null; 
-							String alias2 = null;
-							for ( Map<String, String> map : selectedSet ) {
-								env = map.get(columnServiceOwner);
-								alias = map.get(columnAlias);
-								alias2 = map.get(columnAlias2);
-
-								if ( isAliasAndAlias2 ) alias = getAliasWithAlias2(alias, alias2, substituteFrom, substituteTo);
-
-								alias = getAliasWithAliasPrefix(alias);
+							if ( ! selectedSet.isEmpty() ) {
 								
-								break;
-							}
+								String env = null;
+								String alias = null; 
+								String alias2 = null;
+								for ( Map<String, String> map : selectedSet ) {
+									env = map.get(columnServiceOwner);
+									alias = map.get(columnAlias);
+									alias2 = map.get(columnAlias2);
 
-							readValueTableAndUpdateButtonStatusLabel(env, alias);
+									if ( isAliasAndAlias2 ) alias = getAliasWithAlias2(alias, alias2, substituteFrom, substituteTo);
+
+									alias = getAliasWithAliasPrefix(alias);
+									
+									break;
+								}
+
+								readValueTableAndUpdateButtonStatusLabel(env, alias);
+							} else {
+								logger.debug(className, function, "selectedSet IS EMPTY");
+							}
 						}
 					} else {
 						// General Case

@@ -4,7 +4,8 @@
 	<header key="header">
 		<ListConfigId>hdvsetstn</ListConfigId>
 		<MenuEnableCallImage>false</MenuEnableCallImage>
-		<SelectionMode>Single</SelectionMode>
+		<!-- Single OR Multiple OR EMPTY -->
+		<SelectionMode>Multiple</SelectionMode>
 		<MwtEventBusName>hdvset</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 	</header>

@@ -11,21 +11,33 @@
 		<SubScribeMethod1>DatabaseGroupPollingDiffSingleton</SubScribeMethod1>
 		<MultiReadMethod1>DatabaseMultiReadingProxy</MultiReadMethod1>
 		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
+		<MultiReadMethod3>DatabaseMultiReading</MultiReadMethod3>
 		-->
 		
 		<!-- Polling -->
+		<!--
+		<IsPolling>true</IsPolling>
+		<SubScribeMethod1>DatabasePolling</SubScribeMethod1>
+		<MultiReadMethod1>DatabaseMultiReadingProxy</MultiReadMethod1>
+		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
+		<MultiReadMethod3>DatabaseMultiReading</MultiReadMethod3>
+		-->
+		
+		<!-- Polling Singleton-->
+		<!--
 		<IsPolling>true</IsPolling>
 		<SubScribeMethod1>DatabaseGroupPollingDiffSingleton</SubScribeMethod1>
 		<MultiReadMethod1>DatabaseMultiReadingProxySingleton</MultiReadMethod1>
 		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
+		<MultiReadMethod3>DatabaseMultiReading</MultiReadMethod3>
+		-->
 		
 		<!-- Subscribe -->
-		<!--
 		<IsPolling>true</IsPolling>
 		<SubScribeMethod1>DatabaseSubscription</SubScribeMethod1>
-		<MultiReadMethod1>DatabaseMultiReadingProxySingleton</MultiReadMethod1>
+		<MultiReadMethod1>DatabaseMultiReadingProxy</MultiReadMethod1>
 		<MultiReadMethod2>DatabaseMultiReading</MultiReadMethod2>
-		-->
+		<MultiReadMethod3>DatabaseMultiReading</MultiReadMethod3>
 				
 		<DotValueTable>.valueTable</DotValueTable>
 		<DotInitCondGL>.initCondGL</DotInitCondGL>
@@ -42,6 +54,10 @@
 		<SubstituteFrom>dci</SubstituteFrom>
 		<SubstituteTo>dio</SubstituteTo>
 		
+		<!-- Delay ms execute on mulit cmds -->
+		<DelayMSBetweenCmds>100</DelayMSBetweenCmds>
+		<!-- Init cond checking before Execute on Mulit Cmds -->
+		<InitCondValidity>true</InitCondValidity>
 	</header>
 	
 	<!-- Begin of life -->
@@ -85,7 +101,7 @@
 		<OperationType>actionsetkey</OperationType>
 	</actionset>
 	
-	<actionset key="RowSelectedChange_valueSet">
+	<actionset key="RowSelected_valueSet">
 		<OperationType>actionsetkey</OperationType>
 	</actionset>
 

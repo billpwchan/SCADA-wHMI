@@ -8,6 +8,9 @@
 		<!-- Framework: SCADAgen, COCC -->
 		<framework>SCADAgen</framework>
 		
+		<!-- Disable Default Context Menu: true | false -->
+		<disableDefaultContextMenu>true</disableDefaultContextMenu>
+		
 		<!-- Dictionary Folder -->
 		<dictionary>UIWidgetGeneric</dictionary>
 		<!-- Property Folder -->
@@ -18,9 +21,9 @@
 		<!-- UIWidget Option uiCtrl -->
 		<uiCtrl>UIPanelScreen</uiCtrl>
 		<!-- UIWidget Option uiView -->
-		<uiView>UILayoutEntryPointLoginSummary/UILayoutEntryPointLoginSummary.view.xml</uiView>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml</uiView>
 		<!-- UIWidget Option uiOpts -->
-		<!--<uiOpts>UILayoutEntryPointLoginSummary/UILayoutEntryPointLoginSummary.opts.xml</uiOpts>-->
+		<uiOpts>UILayoutEntryPointScreenMMISummary/UIScreenMMI.opts.xml</uiOpts>
 		<!-- UIWidget Option element -->
 		<element>UIPanelScreen</element>
 	</header>

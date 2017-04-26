@@ -1,6 +1,6 @@
 package com.thalesgroup.scadasoft.gwebhmi.main.client;
 
-public interface AppEntryPoint_WHMI_i {
+public interface AppEntryPoint_i {
 	public enum FrameworkName {
 		  SCADAgen("SCADAgen")
 		, FAS("FAS")

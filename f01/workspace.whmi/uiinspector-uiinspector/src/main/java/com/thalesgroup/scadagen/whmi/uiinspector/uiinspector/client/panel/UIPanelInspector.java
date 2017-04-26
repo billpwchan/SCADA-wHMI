@@ -483,6 +483,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				for ( String k : tabDatas.keySet() ) {
 					TabData d = tabDatas.get(k);
 					PointsFilter.applyFiltedList(d.points, d.regExpPatternBlackList, d.regExpPatternWhileList, dbaddress);
+					
+					if ( logger.isDebugEnabled() ) {
+						logger.debug(className, function, "k[{}] d.tabConfigName[{}]", k, d.tabConfigName);
+						logger.debug(className, function, "d.points.size()[{}]", d.points.size());
+						for ( String dba : d.points ) {
+							logger.debug(className, function, "d.tabName[{}] dba[{}]", d.tabName, dba);
+						}
+					}	
+
 				}
 			} else {
 				logger.warn(className, function, "Iterator dbaddress IS NULL");
@@ -500,6 +509,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		if ( logger.isDebugEnabled() ) {
 			for ( String k : tabDatas.keySet() ) {
 				TabData d = tabDatas.get(k);
+				logger.debug(className, function, "k[{}] d.tabConfigName[{}] d.points.size[{}]", new Object[]{k, d.tabConfigName, d.points.size()});
 				for ( String dbaddress : d.points ) {
 					logger.debug(className, function, "points[{}] dbaddress[{}]", d.tabName, dbaddress);
 				}
@@ -516,6 +526,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 
 		for ( String k : tabDatas.keySet() ) {
 			final TabData d = tabDatas.get(k);
+			logger.debug(className, function, "k[{}] d.tabConfigName[{}] d.points.size[{}]", new Object[]{k, d.tabConfigName, d.points.size()});
 			d.uiInspectorTab_i.setAddresses	(d.points		.toArray(new String[0]));
 		}
 

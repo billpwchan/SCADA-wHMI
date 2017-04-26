@@ -111,6 +111,13 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		
 		this.addresses = addresses;
 		
+		if ( logger.isDebugEnabled() ) {
+			logger.debug(className, function, "this.addresses.length[{}]", this.addresses.length);
+			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
+				logger.debug(className, function, "this.addresses({})[{}]", i, this.addresses[i]);
+			}
+		}	
+		
 		logger.end(className, function);
 	}
 	
@@ -667,30 +674,33 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		logger.begin(className, function);
 			
 		String[] dbaddresses = null;
-		{
-			ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
-			for ( int i = 0 ; i < this.addresses.length ; ++i ) {
-				String dbaddress = this.addresses[i];
+		
+		logger.debug(className, function, "this.addresses.length[{}]", this.addresses.length);
+
+		ArrayList<String> dbaddressesArrayList = new ArrayList<String>();
+		for ( int i = 0 ; i < this.addresses.length ; ++i ) {
+			String dbaddress = this.addresses[i];
+			logger.debug(className, function, "dbaddress[{}]", dbaddress);
+			
+			String point = DatabaseHelper.getPoint(dbaddress);
+			PointType pointType = DatabaseHelper.getPointType(point);
 				
-				String point = DatabaseHelper.getPoint(dbaddress);
-				PointType pointType = DatabaseHelper.getPointType(point);
-				
-				if ( PointType.dio == pointType ) {
-					for ( String attribute : dioStaticAttibutes ) {
-						dbaddressesArrayList.add(dbaddress+attribute);
-					}
-				} else if ( PointType.aio == pointType ) {
-					for ( String attribute : aioStaticAttibutes ) {
-						dbaddressesArrayList.add(dbaddress+attribute);
-					}
-				} else if ( PointType.sio == pointType ) {
-					for ( String attribute : sioStaticAttibutes ) {
-						dbaddressesArrayList.add(dbaddress+attribute);
-					}
+			if ( PointType.dio == pointType ) {
+				for ( String attribute : dioStaticAttibutes ) {
+					dbaddressesArrayList.add(dbaddress+attribute);
+				}
+			} else if ( PointType.aio == pointType ) {
+				for ( String attribute : aioStaticAttibutes ) {
+					dbaddressesArrayList.add(dbaddress+attribute);
+				}
+			} else if ( PointType.sio == pointType ) {
+				for ( String attribute : sioStaticAttibutes ) {
+					dbaddressesArrayList.add(dbaddress+attribute);
 				}
 			}
-			dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 		}
+		dbaddresses = dbaddressesArrayList.toArray(new String[0]);
+
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey();
 		clientKey.setAPI(API.multiReadValue);
@@ -708,28 +718,26 @@ public class UIInspectorControl implements UIInspectorTab_i {
 
 			@Override
 			public void update(String key, String[] value) {
-				{
-					
-					DataBaseClientKey clientKey = new DataBaseClientKey();
-					clientKey.setAPI(API.multiReadValue);
-					clientKey.setWidget(INSPECTOR + tabName);
-					clientKey.setStability(Stability.STATIC);
-					clientKey.setScreen(uiNameCard.getUiScreen());
-					clientKey.setEnv(scsEnvId);
-					clientKey.setAdress(parent);
-					
-					String strClientKey = clientKey.getClientKey();
 
-					if ( strClientKey.equalsIgnoreCase(key) ) {
+				DataBaseClientKey clientKey = new DataBaseClientKey();
+				clientKey.setAPI(API.multiReadValue);
+				clientKey.setWidget(INSPECTOR + tabName);
+				clientKey.setStability(Stability.STATIC);
+				clientKey.setScreen(uiNameCard.getUiScreen());
+				clientKey.setEnv(scsEnvId);
+				clientKey.setAdress(parent);
 					
-							String [] dbaddresses	= database.getKeyAndAddress(key);
-							String [] dbvalues		= database.getKeyAndValues(key);
-						HashMap<String, String> keyAndValue = new HashMap<String, String>();
-						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-							keyAndValue.put(dbaddresses[i], dbvalues[i]);
-						}
-						updateValue(key, keyAndValue);
+				String strClientKey = clientKey.getClientKey();
+
+				if ( strClientKey.equalsIgnoreCase(key) ) {
+					
+						String [] dbaddresses	= database.getKeyAndAddress(key);
+						String [] dbvalues		= database.getKeyAndValues(key);
+					HashMap<String, String> keyAndValue = new HashMap<String, String>();
+					for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
+						keyAndValue.put(dbaddresses[i], dbvalues[i]);
 					}
+					updateValue(key, keyAndValue);
 				}
 			}
 		});

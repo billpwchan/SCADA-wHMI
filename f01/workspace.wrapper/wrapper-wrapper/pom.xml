@@ -15,14 +15,14 @@
   <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
   <artifactId>wrapper-wrapper</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.1</version>
+  <version>1.4.2</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
-        <commons.uiwidget.version>1.4.1</commons.uiwidget.version>
-        <commons.whmi.version>1.4.1</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.1</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.1</commons.whmi.fun.version>
+        <commons.uiwidget.version>1.4.2</commons.uiwidget.version>
+        <commons.whmi.version>1.4.2</commons.whmi.version>
+        <commons.uiwrapper.version>1.4.2</commons.uiwrapper.version>
+        <commons.whmi.fun.version>1.4.2</commons.whmi.fun.version>
 
 		<scadasoft.version>6.3.1</scadasoft.version>
         <jackson.version>2.7.4</jackson.version>

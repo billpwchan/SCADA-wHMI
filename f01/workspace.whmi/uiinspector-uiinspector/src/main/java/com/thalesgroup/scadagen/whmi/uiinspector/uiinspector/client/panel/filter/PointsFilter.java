@@ -70,12 +70,9 @@ public class PointsFilter {
 	public static void applyFiltedList(List<String> list, List<String> regExpPatternBlackList, List<String> regExpPatternWhiteList, String dbaddress) {
 		final String function = "applyFiltedList";
 		logger.begin(className, function);
-		boolean blackListMatch=false;
-		boolean whileListMatch=false;
+		boolean blackListMatch=false, whileListMatch=false;
 		blackListMatch = isRegExpMatch(regExpPatternBlackList, dbaddress);
-		if ( !blackListMatch ) { 
-			whileListMatch = isRegExpMatch(regExpPatternWhiteList, dbaddress);
-		}
+		if ( !blackListMatch ) { whileListMatch = isRegExpMatch(regExpPatternWhiteList, dbaddress); }
 		if ( whileListMatch ) { list.add(dbaddress); }
 		logger.end(className, function);
 	}

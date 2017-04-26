@@ -24,27 +24,21 @@ public class UIInspectorTabFactory {
 		
 		UIInspectorTab_i uiInspectorTab_i = null;
 		
-		String strUIInspectorInfo				= UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName());
-		String strUIInspectorControl			= UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName());
-		String strUIInspectorTag				= UIWidgetUtil.getClassSimpleName(UIInspectorTag.class.getName());
-		String strUIInspectorAdvance			= UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
-		
-		String strUIInspectorHeader				= UIWidgetUtil.getClassSimpleName(UIInspectorHeader.class.getName());
-		
 		if ( null != key ) {
-			if ( key.equals(strUIInspectorInfo) ) {
+			if ( UIWidgetUtil.getClassSimpleName(UIInspectorInfo.class.getName())
+					.equals(key) ) {
 				uiInspectorTab_i = new UIInspectorInfo();
-			} else 
-			if ( key.equals(strUIInspectorControl) ) {
+			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorControl.class.getName())
+					.equals(key) ) {
 				uiInspectorTab_i = new UIInspectorControl();
-			} else 
-			if ( key.equals(strUIInspectorTag) ) {
+			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorTag.class.getName())
+					.equals(key) ) {
 				uiInspectorTab_i = new UIInspectorTag();
-			} else 
-			if ( key.equals(strUIInspectorAdvance) ) {
+			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName())
+					.equals(key) ) {
 				uiInspectorTab_i = new UIInspectorAdvance();
-			} else 
-			if ( key.equals(strUIInspectorHeader) ) {
+			} else if ( UIWidgetUtil.getClassSimpleName(UIInspectorHeader.class.getName())
+					.equals(key) ) {
 				uiInspectorTab_i = new UIInspectorHeader();
 			}
 		} else {

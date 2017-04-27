@@ -81,7 +81,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 		final String function = "applyFilter";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "column[{}] value[{}]", column, value);
+		logger.debug(className, function, "column[{}] value[{}]", column, value);
 		
 		FilterDescription fd = null;
 

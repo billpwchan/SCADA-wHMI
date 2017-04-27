@@ -38,7 +38,7 @@ public interface ScsOlsListPanel_i {
 		, ListConfigId("ListConfigId")
 		, MenuEnableCallImage("MenuEnableCallImage")
 		, SelectionMode("SelectionMode")
-		, ColorMode("ColorMode")
+		, OlsCssPrefix("OlsCssPrefix")
 		, EventBus("EventBus")
 		, PagerName("PagerName")
 		;
@@ -61,7 +61,6 @@ public interface ScsOlsListPanel_i {
 		, Single("Single")  
 		, Global("Global")
 		, True("True")
-		, ColorMode("ColorMode")
 		, SCADAgenPager("SCADAgenPager")
 		;
 		private final String text;

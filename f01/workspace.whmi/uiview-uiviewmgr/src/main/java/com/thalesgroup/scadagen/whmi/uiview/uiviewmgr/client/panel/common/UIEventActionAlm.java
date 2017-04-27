@@ -41,11 +41,11 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 		String strObjectId			= (String) action.getParameter(ActionAttribute.OperationString7.toString());
 		String strExtSourceId		= (String) action.getParameter(ActionAttribute.OperationString8.toString());
 
-		if ( logger.isInfoEnabled() ) {
+		if ( logger.isDebugEnabled() ) {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+				logger.debug(className, function, "key[{}] obj[{}]", key, obj);
 			}
 		}
 		
@@ -102,8 +102,8 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 	public String replaceOpmKeyword(String strOpmApi, String strMessage) {
 		String function = "replaceOpmKeyword";
 		logger.begin(className, function);
-		logger.info(className, function, "strOpmApi[{}]", strOpmApi);
-		logger.info(className, function, "strMessage[{}]", strMessage);
+		logger.debug(className, function, "strOpmApi[{}]", strOpmApi);
+		logger.debug(className, function, "strMessage[{}]", strMessage);
 		
 		final String strGetOperator = "(GETOPERATOR)";
 		final String strGetProfile = "(GETPROFILE)";
@@ -120,29 +120,29 @@ public class UIEventActionAlm extends UIEventActionExecute_i {
 			
 			strOperator = uiOpm_i.getCurrentOperator();
 			if ( null != strOperator ) {
-				logger.info(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetOperator, strOperator);
+				logger.debug(className, function, logPrefix+"strGetProfile[{}] strProfile[{}]", strGetOperator, strOperator);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetOperator, strOperator);
-				logger.info(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.info(className, function, logPrefix+"strOperator IS NULL");
+				logger.debug(className, function, logPrefix+"strOperator IS NULL");
 			}
 
 			strProfile = uiOpm_i.getCurrentOperator();
 			if ( null != strProfile ) {
-				logger.info(className, function, logPrefix+"strGetOperator[{}] strOperator[{}]", strGetProfile, strProfile);
+				logger.debug(className, function, logPrefix+"strGetOperator[{}] strOperator[{}]", strGetProfile, strProfile);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetProfile, strProfile);
-				logger.info(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.info(className, function, logPrefix+"strProfile IS NULL");
+				logger.debug(className, function, logPrefix+"strProfile IS NULL");
 			}
 
 			strWorkstation = uiOpm_i.getCurrentHostName();
 			if ( null != strWorkstation ) {
-				logger.info(className, function, logPrefix+"strGetWorkstation[{}] strWorkstation[{}]", strGetWorkstation, strWorkstation);
+				logger.debug(className, function, logPrefix+"strGetWorkstation[{}] strWorkstation[{}]", strGetWorkstation, strWorkstation);
 				strMessage = UIWidgetUtil.replaceKeyword(strMessage, strGetWorkstation, strWorkstation);
-				logger.info(className, function, logPrefix+"strMessage[{}]", strMessage);
+				logger.debug(className, function, logPrefix+"strMessage[{}]", strMessage);
 			} else {
-				logger.info(className, function, logPrefix+"strWorkstation IS NULL");
+				logger.debug(className, function, logPrefix+"strWorkstation IS NULL");
 			}
 			
 		} else {

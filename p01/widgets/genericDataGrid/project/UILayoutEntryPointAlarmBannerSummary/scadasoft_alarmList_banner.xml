@@ -13,6 +13,10 @@
             </sds:transientDataSource>
         </p:dataSource>
     </p:subject>
+	
+    <p:column filterable="true" sortable="false" name="scsalarmList_checkaccess" type="INTEGER" format="" width="0" widthUnit="PX" xsi:type="p:numberColumnType">
+        <p:source name="GDGMessageCheckAccess" statusComputerName="GDGMessageCheckAccess" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
 
     <!-- Ack -->
     <p:column filterable="false" sortable="false" i18n="true" name="scsalarmList_state_name" width="60" widthUnit="PX" xsi:type="p:textEnumColumnType">

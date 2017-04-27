@@ -1,6 +1,6 @@
 package com.thalesgroup.scadasoft.gwebhmi.security.client;
 
-public interface ScsLoginEntryPoint_WHMI_i {
+public interface ScsLoginEntryPoint_i {
 	public enum FrameworkName {
 		  SCADAgen("SCADAgen")
 		, FAS("FAS")
@@ -37,6 +37,8 @@ public interface ScsLoginEntryPoint_WHMI_i {
 		, uiView("uiView")
 		, uiOpts("uiOpts")
 		, element("element")
+		
+		, disableDefaultContextMenu("disableDefaultContextMenu")
 		;
 		private final String text;
 		private PropertiesName(final String text) { this.text = text; }

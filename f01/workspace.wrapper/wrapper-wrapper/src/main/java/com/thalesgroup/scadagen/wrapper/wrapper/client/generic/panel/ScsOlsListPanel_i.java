@@ -2,21 +2,21 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel;
 
 public interface ScsOlsListPanel_i {
 	public enum GDGAttribute {
-		  OperationString1("OperationString1")
-		, OperationString2("OperationString2")
-		, OperationString3("OperationString3")
-		, OperationString4("OperationString4")
-		, OperationString5("OperationString5")
-		, OperationString6("OperationString6")
-		, OperationString7("OperationString7")
-		, OperationString8("OperationString8")
-		, OperationString9("OperationString9")
-		, OperationString10("OperationString10")
-		, OperationString11("OperationString11")
-		, OperationString12("OperationString12")
-		, OperationString13("OperationString13")
-		, OperationString14("OperationString14")
-		, OperationString15("OperationString15")
+		  GDGAttributeString1("GDGAttributeString1")
+		, GDGAttributeString2("GDGAttributeString2")
+		, GDGAttributeString3("GDGAttributeString3")
+		, GDGAttributeString4("GDGAttributeString4")
+		, GDGAttributeString5("GDGAttributeString5")
+		, GDGAttributeString6("GDGAttributeString6")
+		, GDGAttributeString7("GDGAttributeString7")
+		, GDGAttributeString8("GDGAttributeString8")
+		, GDGAttributeString9("GDGAttributeString9")
+		, GDGAttributeString10("GDGAttributeString10")
+		, GDGAttributeString11("GDGAttributeString11")
+		, GDGAttributeString12("GDGAttributeString12")
+		, GDGAttributeString13("GDGAttributeString13")
+		, GDGAttributeString14("GDGAttributeString14")
+		, GDGAttributeString15("GDGAttributeString15")
 		;
 		private final String text;
 		private GDGAttribute(final String text) { this.text = text; }

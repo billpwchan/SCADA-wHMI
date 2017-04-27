@@ -98,7 +98,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 		final String function = "applyFilter";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "column[{}] start[{}] end[{}]", new Object[]{column, start, end});
+		logger.debug(className, function, "column[{}] start[{}] end[{}]", new Object[]{column, start, end});
 
 		FilterDescription fd = new IntFilterDescription(start, end);
 
@@ -120,19 +120,18 @@ public class UIWidgetViewer extends UILayoutRealize {
 		if ( null != dictionariesCache ) {
 			scsOlsListElement			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.ScsOlsListElement.toString(), strHeader);
 		}
-		logger.info(className, function, "scsOlsListElement[{}]", scsOlsListElement);
+		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
 		
 		if ( null == scsOlsListElement ) {
 			
 			logger.warn(className, function, "scsOlsListElement IS NULL");
 			
-			String strScsOlsListPanel = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
-			scsOlsListElement = strScsOlsListPanel;
+			scsOlsListElement = UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName());
 			
 			logger.warn(className, function, "Using default ScsOlsListPanel ClassName for scsOlsListElement[{}] AS DEFAULT", scsOlsListElement);
 		}
 		
-		Object object = (ScsOlsListPanel)((UILayoutGeneric)uiGeneric).getUIWidget(scsOlsListElement);
+		Object object = ((UILayoutGeneric)uiGeneric).getUIWidget(scsOlsListElement);
 		if ( null != object ) {
 			if ( object instanceof ScsOlsListPanel ) {
 				scsOlsListPanel = (ScsOlsListPanel)object;
@@ -213,7 +212,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 								Integer value = keyValue.getValue();
 								String strValue = value.toString();
 								
-								logger.info(className, function, "key[{}] value[{}] strValue[{}]", new Object[]{key, value, strValue});								
+								logger.debug(className, function, "key[{}] value[{}] strValue[{}]", new Object[]{key, value, strValue});								
 								
 								String actionsetkey = "CounterValueChanged";
 								String actionkey = "SetWidgetValue";
@@ -349,7 +348,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			
 			if ( null != contextMenu ) {
 				
-				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
+				logger.debug(className, function, "Init uiEventActionProcessorContextMenu");
 
 				UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
 				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
@@ -374,11 +373,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 	    				if ( null != entity ) {
 	    					HashMap<String, String> hashMap = entity.iterator().next();
 	    					if ( null != hashMap ) {
-	    						String sourceID = hashMap.get("sourceID");
-	    						logger.info(className, function, "sourceID[{}]", sourceID);
-	    						if ( null != sourceID ) {
+	    						String actionsetkey = hashMap.get("sourceID");
+	    						logger.debug(className, function, "actionsetkey[{}]", actionsetkey);
+	    						if ( null != actionsetkey ) {
 	    							if ( null != uiEventActionProcessorContextMenu_i ) {
-	    								uiEventActionProcessorContextMenu_i.executeActionSet(sourceID);
+	    								uiEventActionProcessorContextMenu_i.executeActionSet(actionsetkey);
 	    							} else {
 	    								logger.warn(className, function, "uiEventActionProcessorContextMenu IS NULL");	
 	    							}
@@ -429,15 +428,15 @@ public class UIWidgetViewer extends UILayoutRealize {
 					String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 					String os5 = (String) uiEventAction.getParameter(ActionAttribute.OperationString5.toString());
 					
-					logger.info(className, function, "os1[{}]", os1);
-					logger.info(className, function, "os2[{}]", os2);
-					logger.info(className, function, "os3[{}]", os3);
-					logger.info(className, function, "os4[{}]", os4);
-					logger.info(className, function, "os5[{}]", os5);
+					logger.debug(className, function, "os1[{}]", os1);
+					logger.debug(className, function, "os2[{}]", os2);
+					logger.debug(className, function, "os3[{}]", os3);
+					logger.debug(className, function, "os4[{}]", os4);
+					logger.debug(className, function, "os5[{}]", os5);
 					
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe[{}] element[{}]", oe, element);
+					logger.debug(className, function, "oe[{}] element[{}]", oe, element);
 					
 					if ( null != oe ) {
 						
@@ -505,7 +504,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 						if ( os1.equals(FilterViewEvent.AddIntRangeFilter.toString()) ) {
 							if ( null != os2 && null != os3 && null != os4 && null != os5 ) {
 								String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
-								logger.info(className, function, "listConfigId[{}]", listConfigId);
+								logger.debug(className, function, "listConfigId[{}]", listConfigId);
 								if ( null != listConfigId ) {
 									if ( os2.equals(listConfigId) ) {
 										int start = 0;
@@ -546,7 +545,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 						if ( os1.equals(FilterViewEvent.AddFilter.toString()) ) {
 							if ( null != os2 && null != os3 && null != os4) {
 								String listConfigId = scsOlsListPanel.getStringParameter(ScsOlsListPanel_i.ParameterName.ListConfigId.toString());
-								logger.info(className, function, "listConfigId[{}]", listConfigId);
+								logger.debug(className, function, "listConfigId[{}]", listConfigId);
 								if ( null != listConfigId ) {
 									if ( os2.equals(listConfigId) ) {
 										applyFilter(os3, os4);

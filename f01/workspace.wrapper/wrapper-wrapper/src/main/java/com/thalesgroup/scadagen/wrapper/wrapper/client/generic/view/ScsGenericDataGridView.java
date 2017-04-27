@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -103,16 +104,30 @@ public class ScsGenericDataGridView extends GenericDataGridView {
 	}
 	
     public void ackPage() {
+    	ackPage(null, 0, 0);
+    }
+	
+    public void ackPage(String attributeName, int start, int end) {
+    	LOGGER.debug(LOG_PREFIX+ "ackPage");
         DataGrid<EntityClient> dataGrid = getInnerDataGrid();
         List<EntityClient> visibleEntityClient = dataGrid.getVisibleItems();
-        AlarmUtils.acknowledge(visibleEntityClient);
+        AlarmAcknowledgeWithFilter(visibleEntityClient, attributeName, start, end);
     }
     
     public void ackVisible() {
-    	ackPage();
+    	ackVisible(null, 0, 0);
+    }
+    
+    public void ackVisible(String attributeName, int start, int end) {
+    	ackPage(attributeName, start, end);
     }
     
     public void ackVisibleSelected() {
+    	LOGGER.debug(LOG_PREFIX+ "ackVisibleSelected");
+        ackVisibleSelected(null, 0, 0);
+    }
+    public void ackVisibleSelected(String attributeName, int start, int end) {
+    	LOGGER.debug(LOG_PREFIX+ "ackVisibleSelected");
         Set<EntityClient> selectedEntities = new HashSet<EntityClient>();
         List<EntityClient> visibleItems = getInnerDataGrid().getVisibleItems();
         for (EntityClient entity : visibleItems) {
@@ -120,7 +135,34 @@ public class ScsGenericDataGridView extends GenericDataGridView {
                 selectedEntities.add(entity);
             }
         }
-        AlarmUtils.acknowledge(selectedEntities);
+        AlarmAcknowledgeWithFilter(selectedEntities, attributeName, start, end);
+    }
+	private void AlarmAcknowledgeWithFilter(Collection<EntityClient> entities, String attributeName, int start, int end) {
+		Set<EntityClient> validEntities = new HashSet<EntityClient>();
+		if ( null != attributeName  ) {
+			LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter attributeName IS NOT NULL");
+			for ( EntityClient ec : entities ) {
+				int outValue = 0;
+				Object obj1 = ec.getAttribute(attributeName).getValue();
+				if (obj1 != null && obj1 instanceof Integer) {
+					outValue = (Integer) obj1;
+				} else {
+					LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter obj1 IS NULL");
+				}
+				
+				boolean isInRange = outValue >= start && outValue <= end;
+				LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter start["+start+"] >= outValue["+outValue+"] <= end["+end+"] : isInRange["+isInRange+"]");
+				if ( isInRange ) {
+					validEntities.add(ec);
+				} else {
+					LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter Checking is FALSE");
+				}
+			}
+			AlarmUtils.acknowledge(validEntities);
+		} else {
+			LOGGER.debug(LOG_PREFIX+ "AlarmAcknowledgeWithFilter attributeName IS NULL");
+			AlarmUtils.acknowledge(entities);
+		}
     }
 
 }

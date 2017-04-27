@@ -564,14 +564,54 @@ public class UIWidgetViewer extends UILayoutRealize {
 						} else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 							removeFilter();
 						} else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
-							if ( null != gridView ) { 
-								gridView.ackVisible();
+							if ( null != gridView ) {
+								boolean validRequested = false, isValid = false;
+								String attributeName = null;
+								int start = -1, end = -1;
+								if ( null != os2 && null != os3 && null != os4 ) {
+									validRequested = true;
+									attributeName = os2;
+									try {
+										start = Integer.parseInt(os3);
+										end = Integer.parseInt(os4);
+										isValid = true;
+									} catch ( NumberFormatException ex ) {
+										logger.warn(className, function, "ex:", ex.toString());
+									}
+								} else {
+									logger.warn(className, function, "os2[{}] os3[{}] os4[{}]", new Object[]{os2, os3, os4});
+								}
+								logger.warn(className, function, "validRequested[{}] isValid[{}]", validRequested, isValid);
+								if ( validRequested && isValid ) {
+									gridView.ackVisible(attributeName, start, end);
+								} else {
+									gridView.ackVisible();
+								}
 							} else {
 								logger.warn(className, function, "gridView IS NULL");
 							}
 						} else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
-							if ( null != gridView ) { 
-								gridView.ackVisibleSelected();
+							if ( null != gridView ) {
+								boolean validRequested = false, isValid = false;
+								String attributeName = null;
+								int start = -1, end = -1;
+								if ( null != os2 && null != os3 && null != os4 ) {
+									validRequested = true;
+									attributeName = os2;
+									try {
+										start = Integer.parseInt(os3);
+										end = Integer.parseInt(os4);
+										isValid = true;
+									} catch ( NumberFormatException ex ) {
+										logger.warn(className, function, "ex:", ex.toString());
+									}
+								}
+								logger.warn(className, function, "validRequested[{}] isValid[{}]", validRequested, isValid);
+								if ( validRequested && isValid ) {
+									gridView.ackVisibleSelected(attributeName, start, end);
+								} else {
+									gridView.ackVisibleSelected();
+								}
 							} else {
 								logger.warn(className, function, "gridView IS NULL");
 							}

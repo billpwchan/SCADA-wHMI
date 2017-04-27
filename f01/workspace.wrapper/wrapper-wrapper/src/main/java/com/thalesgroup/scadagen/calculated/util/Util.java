@@ -82,18 +82,24 @@ public class Util {
 	}
 	
 	public IntAttribute getIntAttribute(int value, boolean isValid, Date date) {
+		final String function = "getIntAttribute";
+		logger.debug("{} {} value[{}] isValid[{}] date[{}]", new Object[]{function, prefix, value, date});
     	IntAttribute ret = new IntAttribute();
         ret.setValue(value);
         ret.setValid(isValid);
         ret.setTimestamp(date);
+        logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
         return ret;
 	}
 	
 	public StringAttribute getStringAttribute(String value, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} value[{}] isValid[{}] date[{}]", new Object[]{function, prefix, value, date});
 		StringAttribute ret = new StringAttribute();
 	    ret.setValue(value);
 	    ret.setValid(isValid);
 	    ret.setTimestamp(date);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
 	    return ret;
 	}
 
@@ -126,44 +132,57 @@ public class Util {
     	logger.debug("{} {} End", function, prefix);
     	return outValue;
 	}
-
+	public void dumpInputStatusByNameAttribute(AttributeClientAbstract<?> obj1) {
+		final String function = "dumpInputStatusByNameAttribute";
+		logger.debug("{} {} Begin", function, prefix);
+		if ( null != obj1 ) {
+			if ( obj1 instanceof StringAttribute) {
+				logger.debug("{} {} obj1 IS StringAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof IntAttribute) {
+				logger.debug("{} {} obj1 IS IntAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof BooleanAttribute ) {
+				logger.debug("{} {} obj1 IS BooleanAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof CoordinatesAttribute ) {
+				logger.debug("{} {} obj1 IS CoordinatesAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof DateTimeAttribute ) {
+				logger.debug("{} {} obj1 IS DateTimeAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof DoubleAttribute ) {
+				logger.debug("{} {} obj1 IS DoubleAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof FloatAttribute ) {
+				logger.debug("{} {} obj1 IS FloatAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof LongAttribute ) {
+				logger.debug("{} {} obj1 IS LongAttribute", new Object[]{function, prefix});
+			} else if ( obj1 instanceof MapStringByStringAttribute ) {
+				logger.debug("{} {} obj1 IS MapStringByStringAttribute", new Object[]{function, prefix});
+			} else {
+				logger.warn("{} {} IS UNKNOW TYPE", new Object[]{function, prefix});
+			}
+		} else {
+			logger.warn("{} {} fieldname[{}] IS NULL", new Object[]{function, prefix});
+		}
+		logger.debug("{} {} obj1[{}]", new Object[]{function, prefix, obj1});
+		logger.debug("{} {} End", function, prefix);
+	}
+	public void dumpInputStatusByNameAttributes(Map<String, AttributeClientAbstract<?>> inputStatusByName) {
+		final String function = "dumpInputStatusByNameAttributes";
+		logger.debug("{} {} Begin", function, prefix);
+		if ( null != inputStatusByName ) {
+			for ( String key : inputStatusByName.keySet() ) {
+				logger.debug("{} {} key[{}]", new Object[]{function, prefix, key});
+				dumpInputStatusByNameAttribute(inputStatusByName.get(inputStatusByName.get(key)));
+			}
+		} else {
+			logger.warn("{} {} inputStatusByName[{}] IS NULL", new Object[]{function, prefix, inputStatusByName});
+		}
+		logger.debug("{} {} inputStatusByName[{}]", new Object[]{function, prefix, inputStatusByName});
+		logger.debug("{} {} End", function, prefix);
+	}
 	public void dumpInputStatusByNameAttributes(Map<String, AttributeClientAbstract<?>> inputStatusByName, String fieldname) {
 		final String function = "dumpInputStatusByNameAttributes";
 		logger.debug("{} {} Begin", function, prefix);
 		logger.debug("{} {} fieldname[{}]", new Object[]{function, prefix, fieldname});
-		AttributeClientAbstract<?> obj1 = inputStatusByName.get(fieldname);
-		if ( null != obj1 ) {
-			
-			logger.debug("{} {} fieldname[{}] obj1[{}]", new Object[]{function, prefix, fieldname, obj1});
-			
-			if ( obj1 instanceof StringAttribute) {
-				logger.debug("{} {} fieldname[{}] obj1 IS StringAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof IntAttribute) {
-				logger.debug("{} {} fieldname[{}] obj1 IS IntAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof BooleanAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS BooleanAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof CoordinatesAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS CoordinatesAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof DateTimeAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS DateTimeAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof DoubleAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS DoubleAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof FloatAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS FloatAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof LongAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS LongAttribute", new Object[]{function, prefix, fieldname});
-			} else if ( obj1 instanceof MapStringByStringAttribute ) {
-				logger.debug("{} {} fieldname[{}] obj1 IS MapStringByStringAttribute", new Object[]{function, prefix, fieldname});
-			} else {
-				logger.warn("{} {} fieldname[{}] IS UNKNOW TYPE", new Object[]{function, prefix, fieldname});
-			}
-		} else {
-			logger.warn("{} {} fieldname[{}] IS NULL", new Object[]{function, prefix, fieldname});
-			
-		}
-		
-		logger.debug("{} {} inputStatusByName[{}]", new Object[]{function, prefix, inputStatusByName});
-		
+		dumpInputStatusByNameAttribute(inputStatusByName.get(fieldname));
+		logger.warn("{} {} inputStatusByName[{}]", new Object[]{function, prefix, inputStatusByName});
 		logger.debug("{} {} End", function, prefix);
 	}
 }

@@ -5,13 +5,14 @@
 		<ListConfigId>scsalarmList</ListConfigId>
 		<MenuEnableCallImage>true</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
-		<ColorMode>ColorMode</ColorMode>
 		<PagerName>SCADAgenPager</PagerName>
 		<MwtEventBusName>scsalarmList</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 		
-		<OperationString1>priority</OperationString1>
-		<OperationString2>state</OperationString2>
-		<OperationString3>GDGMessage03</OperationString3>
+		<OlsCssPrefix>OLS_LIST_</OlsCssPrefix>
+		<GDGAttributeString1>priority</GDGAttributeString1>
+		<GDGAttributeString2>state</GDGAttributeString2>
+		<GDGAttributeString3>GDGMessage03</GDGAttributeString3>
+		<GDGAttributeString4>GDGMessageCheckAccess</GDGAttributeString4>
 	</header>
 </data-set>

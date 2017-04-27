@@ -17,6 +17,9 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
 		<OperationString1>AckVisible</OperationString1>
+		<OperationString2>scsalarmList_checkaccess</OperationString2>
+		<OperationString3>1</OperationString3>
+		<OperationString4>2</OperationString4>
 	</action>
 	
 	<action key="event_ackvisibleselected">
@@ -24,6 +27,9 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
 		<OperationString1>AckVisibleSelected</OperationString1>
+		<OperationString2>scsalarmList_checkaccess</OperationString2>
+		<OperationString3>1</OperationString3>
+		<OperationString4>2</OperationString4>
 	</action>
 	
 </data-set>

@@ -38,8 +38,9 @@ public class ScsOlsListPanel extends UIWidget_i {
     private static final ClientLogger LOGGER = ClientLogger.getClientLogger();
     private static final String LOG_PREFIX = "["+className+"] ";
 
+	private String strOlsCssPrefix = "OLS_LIST_";
+    
     private String selectionMode = null;
-    private boolean colorMode = false;
     private boolean hasSCADAgenPager = false;
     
     private LinkedList<String> attributes = new LinkedList<String>();
@@ -101,6 +102,18 @@ public class ScsOlsListPanel extends UIWidget_i {
     public boolean isTerminated() {
         return isTerminated_;
     }
+    
+    private ISelectionModel getSelectionModel(String key) {
+    	ISelectionModel iSelectionModel = null;
+        if ( null != key ) {
+        	if ( ParameterValue.Multiple.toString().equalsIgnoreCase(key) ) {
+        		iSelectionModel = new MultipleSelectionModel();
+        	} else if ( ParameterValue.Single.toString().equalsIgnoreCase(key) ) {
+        		iSelectionModel = new SingleSelectionModel();
+        	}
+        }
+        return iSelectionModel;
+    }
 
     /**
      * Create and initialize the presenter with its view, selectionModel,
@@ -111,31 +124,22 @@ public class ScsOlsListPanel extends UIWidget_i {
             gridPresenter_ = new ScsAlarmDataGridPresenterClient(listConfigId_, gridView_, eventBus);
             
             ISelectionModel iSelectionModel = null;
-            if ( null != selectionMode ) {
-            	if ( selectionMode.equalsIgnoreCase(ParameterValue.Multiple.toString()) ) {
-            		iSelectionModel = new MultipleSelectionModel();
-            	} else if ( selectionMode.equalsIgnoreCase(ParameterValue.Single.toString()) ) {
-            		iSelectionModel = new SingleSelectionModel();
-            	}
-            }
+            iSelectionModel = getSelectionModel(selectionMode);
             if ( null != iSelectionModel ) {
             	gridPresenter_.setSelectionModel(iSelectionModel);
             } else {
-            	LOGGER.error(LOG_PREFIX
-                        + " initPresenter : iSelectionModel IS null");
+            	LOGGER.debug(LOG_PREFIX + " initPresenter : iSelectionModel IS null");
             }
             
             if ( null != contextMenu_) {
             	gridPresenter_.setMenu(contextMenu_);
             } else {
-            	LOGGER.error(LOG_PREFIX
-                        + " initPresenter : contextMenu_ IS null");
+            	LOGGER.debug(LOG_PREFIX + " initPresenter : contextMenu_ IS null");
             }
 
             initHandler();
         } else {
-            LOGGER.error(LOG_PREFIX
-                    + " initPresenter : listConfigId_,gridView_,eventBus_,contextMenu_ should not be null");
+            LOGGER.warn(LOG_PREFIX + " initPresenter : listConfigId_ gridView_ eventBus_ should not be null");
         }
     }
 
@@ -144,6 +148,8 @@ public class ScsOlsListPanel extends UIWidget_i {
             handlerRegistrations_ = new ArrayList<HandlerRegistration>();
             handlerRegistrations_.add(eventBus.addHandler(AlarmSelectionChangeEvent.TYPE, gridPresenter_));
             handlerRegistrations_.add(eventBus.addHandler(FilterChangeEventAbstract.TYPE, gridPresenter_));
+        } else {
+            LOGGER.warn(LOG_PREFIX + " eventBus IS null");
         }
     }
     
@@ -181,12 +187,7 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Create the datagrid view and customize the CSS rules
      */
     private void initDataGridView() {
-    	
-    	final String strCssPrefix = "OLS_LIST_";
-    	
-    	final String strCssResultInValid	= strCssPrefix+listConfigId_+"_INVALID";
-    	final String strCssResultNormal		= strCssPrefix+listConfigId_+"_NORMAL";
-    	
+
         gridView_ = new ScsGenericDataGridView();
         
         gridView_.setHasSCADAgenPager(hasSCADAgenPager);
@@ -196,47 +197,29 @@ public class ScsOlsListPanel extends UIWidget_i {
 
             @Override
             public String getStyleNames(EntityClient row, int rowIndex) {
-            	
-            	if ( colorMode ) {
 
-            		String strCssResult = strCssPrefix + listConfigId_;
-            		
-            		java.util.Iterator<String> it = attributes.iterator();
-            		while ( it.hasNext() ) {
-            			
-            			String strGDGAttribute = it.next();
-            			
-                    	LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"]");
-                    	
-                    	String gdgValue = null;
-                    	AttributeClientAbstract<String> gdgAttribute	= row.getAttribute(strGDGAttribute);
-                    	 if (!gdgAttribute.isValid()) return strCssResultInValid;
-                         if ( null != gdgAttribute && gdgAttribute.isValid() ) {
-                         	gdgValue = gdgAttribute.getValue();	
-                         }
-                         
-                         LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"] gdgValue["+gdgValue+"]");
-                         
-                         strCssResult += " " + strCssPrefix + strGDGAttribute + "_"+ gdgValue;
-            		}
+        		String strCssResult = strOlsCssPrefix + listConfigId_;
+        		
+        		java.util.Iterator<String> it = attributes.iterator();
+        		while ( it.hasNext() ) {
+        			
+        			String strGDGAttribute = it.next();
+        			
+                	LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strGDGAttribute["+strGDGAttribute+"]");
+                	
+                	strCssResult += " " + strOlsCssPrefix + strGDGAttribute;
+                			
+					AttributeClientAbstract<?> gdgAttribute = row.getAttribute(strGDGAttribute);
+					if ( null != gdgAttribute && gdgAttribute.isValid() ) {
+						strCssResult += "_" + gdgAttribute.getValue();
+					}
 
-                    LOGGER.debug(LOG_PREFIX + "getStyleNames rowIndex["+rowIndex+"] strCssResult["+strCssResult+"]");
-                    
-                    return strCssResult;
-            		
-            	}
-            		
-                if (row != null) {
-                    for (String attname : row.attributeNames()) {
-                        AttributeClientAbstract<Object> att = row.getAttribute(attname);
-                        if (!att.isValid()) {
-                            return strCssResultInValid;
-                        }
-                    }
-                }
+        		}
 
-                return strCssResultNormal;
-
+                LOGGER.debug(LOG_PREFIX + "getStyleNames strCssResult["+strCssResult+"]");
+                
+                return strCssResult;
+ 
             }
         });
     }
@@ -269,10 +252,8 @@ public class ScsOlsListPanel extends UIWidget_i {
 			
 			eventBus = MwtEventBuses.getInstance().getEventBus(mwtEventBusName);
 
-			String colorMode	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ColorMode.toString(), strHeader);
-			if ( null != colorMode && ParameterValue.ColorMode.toString().equals(colorMode) ) {
-				this.colorMode = true;
-			}
+			String tmpStrOlsCssPrefix = dictionariesCache.getStringValue(optsXMLFile, ParameterName.OlsCssPrefix.toString(), strHeader);
+			if ( null != tmpStrOlsCssPrefix ) strOlsCssPrefix = tmpStrOlsCssPrefix;
 			
 			String pagerName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.PagerName.toString(), strHeader);
 			if ( null != pagerName && ParameterValue.SCADAgenPager.toString().equals(pagerName) ) {

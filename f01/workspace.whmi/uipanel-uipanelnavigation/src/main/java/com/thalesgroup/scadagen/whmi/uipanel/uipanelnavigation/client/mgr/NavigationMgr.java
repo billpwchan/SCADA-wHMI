@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
+package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class NavigationMgr implements TaskMgrEvent {
 		this.uiNameCard = new UINameCard(uiNameCard);
 		this.uiNameCard.appendMgr(this);
 		
-		logger.info(className, function, "this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiPath());
+		logger.debug(className, function, "this.uiNameCard.getUiPath()[{}]", this.uiNameCard.getUiPath());
 		
 		this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
 			@Override
@@ -67,13 +67,13 @@ public class NavigationMgr implements TaskMgrEvent {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "level[{}] header[{}]", level, header);
+		logger.debug(className, function, "level[{}] header[{}]", level, header);
 		
 		ArrayList<UITaskLaunch> menu = null;
 		
 		if ( null != this.taskLaunchs ) {
 		
-			logger.info(className, function, "this.taskLaunchs[{}]", this.taskLaunchs.size());
+			logger.debug(className, function, "this.taskLaunchs[{}]", this.taskLaunchs.size());
 			
 			menu = new ArrayList<UITaskLaunch>();
 			
@@ -130,22 +130,22 @@ public class NavigationMgr implements TaskMgrEvent {
 				this.taskLaunchsParentLevel = tasks.getParentLevel();
 				this.taskLaunchsParentHeader = tasks.getParentHeader();
 				
-				logger.info(className, function, "this.taskLaunchsParentLevel[{}]", this.taskLaunchsParentLevel);
-				logger.info(className, function, "this.taskLaunchsParentHeader[{}]", this.taskLaunchsParentHeader);
+				logger.debug(className, function, "this.taskLaunchsParentLevel[{}]", this.taskLaunchsParentLevel);
+				logger.debug(className, function, "this.taskLaunchsParentHeader[{}]", this.taskLaunchsParentHeader);
 				
 				for ( Task task: tasks){
 					UITaskLaunch taskLaunch = new UITaskLaunch(task);
 					this.taskLaunchs.add(taskLaunch);
 				}
-				logger.info(className, function, "tasks.size[{}]", this.taskLaunchs.size());
+				logger.debug(className, function, "tasks.size[{}]", this.taskLaunchs.size());
 			} else {
-				logger.info(className, function, "tasks is zero size");
+				logger.debug(className, function, "tasks is zero size");
 			}
 		} else {
-			logger.info(className, function, "tasks is null");
+			logger.debug(className, function, "tasks is null");
 		}
 		
-		logger.info(className, function, "calling navigationMgrEvent.isReady...");
+		logger.debug(className, function, "calling navigationMgrEvent.isReady...");
 		
 		navigationMgrEvent.isReady(this.taskLaunchsParentLevel, this.taskLaunchsParentHeader);
 		
@@ -161,7 +161,6 @@ public class NavigationMgr implements TaskMgrEvent {
 	
 	private void onUIEvent(UIEvent uiEvent) {
 		final String function = "onUIEvent";
-		
 		logger.begin(className, function);
 		
 		if (null != uiEvent) {
@@ -170,29 +169,122 @@ public class NavigationMgr implements TaskMgrEvent {
 			
 			if (null != taskProvide) {
 				
-				logger.info(className, function, "uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
-				logger.info(className, function, "uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", uiNameCard.getUiPath(), taskProvide.getUiPath());
+				logger.debug(className, function, "uiNameCard.getUiScreen()[{}] == taskProvide.getTaskUiScreen()[{}]", uiNameCard.getUiScreen(), taskProvide.getTaskUiScreen());
+				logger.debug(className, function, "uiNameCard.getUiPath()[{}] == taskProvide.getUiPath()[{}]", uiNameCard.getUiPath(), taskProvide.getUiPath());
 				
 				if (uiNameCard.getUiScreen() == taskProvide.getTaskUiScreen()
 						&& 0 == uiNameCard.getUiPath().compareToIgnoreCase(taskProvide.getUiPath())) {
 
 					if ( taskProvide instanceof UITaskLaunch ) {
 
-						logger.info(className, function, "taskProvide is TaskLaunch");
+						logger.debug(className, function, "taskProvide is TaskLaunch");
 						
-						UITaskLaunch tasklaunch = (UITaskLaunch)taskProvide;
+						UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
+						
+						
+						{
+							String target = replace(getCurrentHeader(), taskLaunch.getHeader());
+							if ( null != target ) {
+								taskLaunch.setHeader(target);
+							}
+						}
 
-						boolean execute = false;
-						String strExecute = tasklaunch.getExecute();
-						if ( null != strExecute ) execute = strExecute.equals("true");
 						
-						this.navigationMgrEvent.setMenu(0, "", tasklaunch.getHeader(), execute);
+						
+						String header = taskLaunch.getHeader();
+						boolean execute = Boolean.parseBoolean(taskLaunch.getExecute());
+						this.navigationMgrEvent.setMenu(0, "", header, execute);
 					}
 				}
 			}
 		}
 
 		logger.end(className, function);
+	}
+	
+	private String currentHeader = null;
+	public void setCurrentHeader(String header) { currentHeader = header; }
+	public String getCurrentHeader() { return currentHeader; }
+	
+	public void launchTask(UITaskLaunch taskLaunch) {
+		final String function = "launchTask";
+		logger.begin(className, function);
+		setCurrentHeader(taskLaunch.getHeader());
+		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
+		logger.end(className, function);
+	}
+	
+	private String replace(String currentHeader, String targetHeader) {
+		final String function = "replace";
+		logger.begin(className, function);
+		String result = targetHeader;
+		
+		logger.debug(className, function, "currentHeader[{}] targetHeader[{}]", currentHeader, targetHeader);
+		
+		String targetKey = "{}";
+		String [] targetHeaders = null;
+		String [] currentHeaders = null;
+
+		if ( null != targetHeader ) {
+			logger.debug(className, function, "targetHeader[{}]", targetHeader);
+			targetHeaders = targetHeader.split("\\|");
+			if ( null != targetHeaders ) {
+				if ( logger.isDebugEnabled() ) {
+					for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
+						logger.debug(className, function, "targetHeaders({})[{}]", i, targetHeaders[i]);
+					}
+				} else {
+					logger.warn(className, function, "targetHeaders IS NULL");
+				}
+			}
+		} else {
+			logger.warn(className, function, "targetHeader IS NULL");
+		}
+
+		logger.debug(className, function, "currentHeader[{}]", currentHeader);
+		if ( null != currentHeader ) {
+			currentHeaders = currentHeader.split("\\|");
+			if ( null != currentHeaders ) {
+				for ( int i = 0 ; i < currentHeaders.length ; i++ ) {
+					logger.debug(className, function, "currentHeaders({})[{}]", i, currentHeaders[i]);
+				}
+			} else {
+				logger.warn(className, function, "currentHeaders IS NULL");
+			}
+		} else {
+			logger.warn(className, function, "currentHeader IS NULL");
+		}
+		
+		if ( null != currentHeaders && null != targetHeaders ) {
+			for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
+				if ( null != targetHeaders[i] ) {
+					if ( 0 == targetKey.compareTo(targetHeaders[i]) ) {
+						if ( i < currentHeaders.length ) {
+							logger.debug(className, function, "targetHeaders[i] = currentHeaders[i]", targetHeaders[i], currentHeaders[i]);
+							targetHeaders[i] = currentHeaders[i];
+						}
+					}
+				} else {
+					logger.debug(className, function, "targetHeaders({}) IS NULL", i);
+				}
+			}
+			
+			result = "";
+			for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
+				if ( result.length() > 0 ) {
+					result += "|";
+				}
+				result += targetHeaders[i];
+			}
+			logger.debug(className, function, "after join result[{}]", result);
+			
+		} else {
+			logger.debug(className, function, "currentHeaders IS NULL OR targetHeaders IS NULL");
+		}
+		
+		logger.debug(className, function, "result[{}]", result);
+		logger.end(className, function);
+		return result;
 	}
 
 }

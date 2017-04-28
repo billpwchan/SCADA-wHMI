@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
+package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr;
 
 public interface NavigationMgrEvent {
 	

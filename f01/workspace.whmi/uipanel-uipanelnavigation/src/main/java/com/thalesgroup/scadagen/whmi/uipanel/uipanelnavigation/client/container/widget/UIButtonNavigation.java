@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
+package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.widget;
 
 import com.google.gwt.user.client.ui.Button;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;

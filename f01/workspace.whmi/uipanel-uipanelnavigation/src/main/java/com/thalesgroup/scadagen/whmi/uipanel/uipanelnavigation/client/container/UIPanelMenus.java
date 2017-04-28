@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client;
+package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +11,9 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.widget.UIButtonNavigation;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.NavigationMgr;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.NavigationMgrEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -35,7 +38,7 @@ public class UIPanelMenus extends UIWidget_i {
 		logger.begin(className, function);
 		
 		Integer iIndex = Integer.valueOf(index);
-		logger.info(className, function, "addMenuBar index[{}] ==> iIndex[{}]", index, iIndex);
+		logger.debug(className, function, "addMenuBar index[{}] ==> iIndex[{}]", index, iIndex);
 		
 		menus.put(iIndex, menu);
 		
@@ -81,7 +84,7 @@ public class UIPanelMenus extends UIWidget_i {
 				
 				logger.begin(className, function);
 				
-				logger.info(className, function, "setMenu level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
+				logger.debug(className, function, "setMenu level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
 
 				updateMenu(level, header, launchHeader, executeTask);
 
@@ -102,7 +105,7 @@ public class UIPanelMenus extends UIWidget_i {
 		final String function = "getMenu";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "level[{}] menuType[{}]", menuLevel, menuType);
+		logger.debug(className, function, "level[{}] menuType[{}]", menuLevel, menuType);
 		int level = -1;
 		try {
 			level = Integer.parseInt(menuLevel);
@@ -138,7 +141,7 @@ public class UIPanelMenus extends UIWidget_i {
 		final String function = "getHorizontalMenu";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "getHorizontalMenu level[{}]", level);
+		logger.debug(className, function, "getHorizontalMenu level[{}]", level);
 		
 		HorizontalPanel menuBar = new HorizontalPanel();
 		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
@@ -153,7 +156,7 @@ public class UIPanelMenus extends UIWidget_i {
 		final String function = "getVerticalMenu";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "getVerticalMenu level[{}]", level);
+		logger.debug(className, function, "getVerticalMenu level[{}]", level);
 		
 		VerticalPanel menuBar = new VerticalPanel();
 		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
@@ -169,7 +172,7 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "getFlowMenu level[{}]", level);
+		logger.debug(className, function, "getFlowMenu level[{}]", level);
 		
 		FlowPanel menuBar = new FlowPanel();
 		menuBar.addStyleName("project-gwt-panel-navigation-"+level);
@@ -185,7 +188,7 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
+		logger.debug(className, function, "level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
 
 		cascadeClearMenu(level);
 		
@@ -193,7 +196,7 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		if ( null != taskLaunchs ) {
 			
-			logger.info(className, function, "taskLaunchs.size[{}]", taskLaunchs.size());
+			logger.debug(className, function, "taskLaunchs.size[{}]", taskLaunchs.size());
 			
 			addTaskToMenu(level, header, taskLaunchs, launchHeader, executeTask);
 		} else {
@@ -214,7 +217,7 @@ public class UIPanelMenus extends UIWidget_i {
 			panelToClear.clear();
 			++panelLevelToClear;
 
-			logger.info(className, function, "Level of Menu Bar to clear: [{}]", panelLevelToClear);
+			logger.debug(className, function, "Level of Menu Bar to clear: [{}]", panelLevelToClear);
 		}
 		
 		logger.end(className, function);
@@ -225,9 +228,9 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
+		logger.debug(className, function, "level[{}] header[{}] launchHeader[{}] executeTask[{}]", new Object[]{level, header, launchHeader, executeTask});
 		
-		logger.info(className, function, "taskLaunchs.size()[{}]", taskLaunchs.size());
+		logger.debug(className, function, "taskLaunchs.size()[{}]", taskLaunchs.size());
 		
 		ComplexPanel menuBar = (ComplexPanel) this.getMenuBar(level);
 		
@@ -239,7 +242,7 @@ public class UIPanelMenus extends UIWidget_i {
 				String css = taskLaunchs.get(i).getCss();
 				String tooltips = taskLaunchs.get(i).getTooltip();
 				
-				logger.info(className, function, "name[{}] css[{}] tooltips[{}]", new Object[]{name, css, tooltips});
+				logger.debug(className, function, "name[{}] css[{}] tooltips[{}]", new Object[]{name, css, tooltips});
 				
 				UIButtonNavigation btnNew = new UIButtonNavigation(name);
 				btnNew.setTitle(tooltips);
@@ -269,17 +272,17 @@ public class UIPanelMenus extends UIWidget_i {
 			// Auto select menu item by first expand
 			if (menuBar.getWidgetCount() > 0) {
 				
-				logger.info(className, function, "menuBar.getWidgetCount() > 0 Begin");
+				logger.debug(className, function, "menuBar.getWidgetCount() > 0 Begin");
 				UIButtonNavigation navigationMenuButton = null;
 				if ( null != launchHeader ) {
 					String headers[] = launchHeader.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 					
-					logger.info(className, function, "headers[{}]", headers);
+					logger.debug(className, function, "headers[{}]", headers);
 					
 	//				int headersCounter = headers.length;
 					String headerCur = headers[level];
 					
-					logger.info(className, function, "level[{}] headerCur[{}]", level, headerCur);
+					logger.debug(className, function, "level[{}] headerCur[{}]", level, headerCur);
 					
 					UIButtonNavigation btn = null;
 					for ( int i = 0 ; i < menuBar.getWidgetCount(); ++i ) {
@@ -288,12 +291,12 @@ public class UIPanelMenus extends UIWidget_i {
 						String headerComma = taskLaunch.getHeader();
 						String headerCommas[] = headerComma.split("\\"+String.valueOf(UITaskLaunch.getSplite()));
 						
-						logger.info(className, function, "headerComma[{}] headerCommas[{}]", headerComma, headerCommas);
-						logger.info(className, function, "headerCommas[{}][{}] headerCommas[{}]", new Object[]{level, headerCommas[level], headerCommas});
+						logger.debug(className, function, "headerComma[{}] headerCommas[{}]", headerComma, headerCommas);
+						logger.debug(className, function, "headerCommas[{}][{}] headerCommas[{}]", new Object[]{level, headerCommas[level], headerCommas});
 						
 						String btnHeaderElement = headerCommas[level]; 
 						
-						logger.info(className, function, "level[{}] btnHeaderElement[{}] == headerCur[{}]", new Object[]{level, btnHeaderElement, headerCur});
+						logger.debug(className, function, "level[{}] btnHeaderElement[{}] == headerCur[{}]", new Object[]{level, btnHeaderElement, headerCur});
 						
 						if ( 0 == btnHeaderElement.compareToIgnoreCase(headerCur) ) {
 							navigationMenuButton = btn;
@@ -310,7 +313,7 @@ public class UIPanelMenus extends UIWidget_i {
 					logger.warn(className, function, "menuBar.getWidgetCount() > 0 navigationMenuButton is null");
 				}
 				
-				logger.info(className, function, "menuBar.getWidgetCount() > 0 End");
+				logger.debug(className, function, "menuBar.getWidgetCount() > 0 End");
 			} else {
 				logger.warn(className, function, "menuBar.getWidgetCount()[{}] <= 0", menuBar.getWidgetCount());
 			}
@@ -327,11 +330,11 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "btnSel.getText()[{}] launchHeader[{}] executeTask[{}]", new Object[]{btnSel.getText(), launchHeader, executeTask});
+		logger.debug(className, function, "btnSel.getText()[{}] launchHeader[{}] executeTask[{}]", new Object[]{btnSel.getText(), launchHeader, executeTask});
 
 		ComplexPanel parent = (ComplexPanel) btnSel.getParent();
 		
-		UITaskLaunch task = btnSel.getTaskLaunch();
+		UITaskLaunch taskLaunch = btnSel.getTaskLaunch();
 		int level = btnSel.getTaskLaunch().getTaskLevel();
 		int levelNext = level + 1;
 		
@@ -346,25 +349,25 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		btnSel.setHightLight(true);
 		
-		logger.info(className, function, "Selected Button Header[{}]", task.getHeader());
+		logger.debug(className, function, "Selected Button Header[{}]", taskLaunch.getHeader());
 
-		if ( TaskLaunchType.MENU == task.getTaskLaunchType()) {
+		if ( TaskLaunchType.MENU == taskLaunch.getTaskLaunchType()) {
 			
-			logger.info(className, function, "is TaskType.MENU");
+			logger.debug(className, function, "is TaskType.MENU");
 			
-			updateMenu(levelNext, task.getHeader(), launchHeader, executeTask);
+			updateMenu(levelNext, taskLaunch.getHeader(), launchHeader, executeTask);
 			
 		} else {
 			
-			logger.info(className, function, "executeTask[{}]", executeTask);
+			logger.debug(className, function, "executeTask[{}]", executeTask);
 			
 			if ( executeTask ) {
 			
-				task.setTaskUiScreen(this.uiNameCard.getUiScreen());
+				taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
 				
-				logger.info(className, function, "Execute Task[{}] on Screen[{}]", task.getHeader(), task.getTaskUiScreen());
+				logger.debug(className, function, "Execute taskLaunch.getHeader()[{}] on taskLaunch.getTaskUiScreen()[{}]", taskLaunch.getHeader(), taskLaunch.getTaskUiScreen());
 				
-				this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(task));
+				navigationMgr.launchTask(taskLaunch);
 			}
 		}
 		
@@ -376,7 +379,7 @@ public class UIPanelMenus extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "profile[{}] location[{}] level[{}] header[{}]", new Object[]{profile, location, level, header});
+		logger.debug(className, function, "profile[{}] location[{}] level[{}] header[{}]", new Object[]{profile, location, level, header});
 		
 		navigationMgr.initCache(level, header);
 		

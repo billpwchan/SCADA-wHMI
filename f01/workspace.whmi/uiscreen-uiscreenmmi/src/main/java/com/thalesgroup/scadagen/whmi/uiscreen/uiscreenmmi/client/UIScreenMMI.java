@@ -3,7 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
-import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.UIPanelNavigation;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitDatabaseSingleton;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitTranslationEngine;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIDialogMgrFactorys;

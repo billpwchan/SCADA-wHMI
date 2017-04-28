@@ -102,9 +102,12 @@ public class NeedAck extends SCSStatusComputer implements SGSymbol_i {
 	@Override
     public AttributeClientAbstract<?> compute(OperatorOpmInfo operatorOpmInfo, String entityId,
             Map<String, AttributeClientAbstract<?>> inputStatusByName, Map<String, Object> inputPropertiesByName)
-
     {
+		logger.debug("compute Begin");
 		logger.debug("compute field1[{}] field2[{}]", field1, field2);
+		
+		// Reset Log
+		util.setPrefix(m_name);
 		
     	// Load eqpType value
     	String inValue1 = util.loadStringValue(inputStatusByName, field1);
@@ -190,13 +193,8 @@ public class NeedAck extends SCSStatusComputer implements SGSymbol_i {
 //    	}
     	
     	// Return value
-    	logger.debug("compute outValue1[{}]", outValue1);
     	AttributeClientAbstract<?> ret = util.getIntAttribute(outValue1, true, new Date());
-
-        logger.debug("compute ret.getValue()[{}]", ret.getValue());
-		
+    	logger.debug("compute End");
 		return ret;
-
 	}
-
 }

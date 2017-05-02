@@ -1,8 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -16,7 +13,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIW
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.shared.opm.SCADAgenTaskOpm_i;
 
 public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 	
@@ -148,6 +144,27 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 			}
 		});
+		logger.end(className, function);
+	}
+	
+	private void checkHom() {
+		final String function = "checkHom";
+		logger.begin(className, function);
+		
+		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+		
+		String hdvvaluevalue	= uiGeneric.getWidgetValue("hdvvaluevalue");
+		
+		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
+		
+		int hdvvalue = Integer.parseInt(hdvvaluevalue);
+
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
+		
+		boolean result = uiOpm_i.checkHom(hdvvalue, keyvalue);
+		
+		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
+		
 		logger.end(className, function);
 	}
 	
@@ -296,6 +313,8 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 			checkAccessWithHom();
 		} else if ( "checkaccesswithhomvalue".equals(element) ) {
 			checkAccessWithHomValue();
+		} else if ( "checkhom".equals(element) ) {
+			checkHom();
 		}
 //		else if ( "checkaccessmap".equals(element) ) {
 //			checkAccessMap();

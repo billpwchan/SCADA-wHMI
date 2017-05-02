@@ -561,6 +561,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			
 			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
 			String fileName = UIOpmSCADAgen_i.fileName;
+
+			int defaultValue = getHOMLevelDefaultValue();
+			logger.debug(className, function, "defaultValue[{}]", defaultValue);
+			
 			String arraykey = UIOpmSCADAgen_i.homLevelsArrayKey;
 			JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arraykey);
 			
@@ -568,7 +572,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			JSONObject jsonObject = ReadJson.readObject(jsonArray, objectkey, key);
 			
 			String valueKey = "Value";
-			int confighommask = ReadJson.readInt(jsonObject, valueKey, -1);
+			int confighommask = ReadJson.readInt(jsonObject, valueKey, defaultValue);
 			
 			confighommasks.put(key, confighommask);
 		}
@@ -703,7 +707,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
 			String fileName = UIOpmSCADAgen_i.fileName;
 			String key = UIOpmSCADAgen_i.byPassValuekey;
-			int defaultValue = -1;
+			int defaultValue = 0;
 			byPassValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
 			
 			byPassValueReady = true;
@@ -712,6 +716,26 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 		return byPassValue;
 	}
+	
+	private int homLevelDefaultValue = 0;
+	boolean homLevelDefaultValueReady = false;
+	private int getHOMLevelDefaultValue() {
+		String function = "getByPassValue";
+		logger.begin(className, function);
+		
+		if ( ! homLevelDefaultValueReady ) {
+			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
+			String fileName = UIOpmSCADAgen_i.fileName;
+			String key = UIOpmSCADAgen_i.homLevelDefaultValueKey;
+			int defaultValue = 0;
+			homLevelDefaultValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
+			
+			homLevelDefaultValueReady = true;
+		}
+		logger.debug(className, function, "homLevelDefaultValue[{}]", homLevelDefaultValue);
+		logger.end(className, function);
+		return homLevelDefaultValue;
+	}	
 	
 	@Override
 	public boolean isByPassValue(int value) {

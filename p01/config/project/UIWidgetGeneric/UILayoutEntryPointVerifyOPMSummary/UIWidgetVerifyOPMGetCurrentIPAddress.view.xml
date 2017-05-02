@@ -42,10 +42,10 @@
 	<option key="0|3">
 		<widget>Button</widget>
 		<label>getcurrentipaddress</label>
-		<css>project-UIWidgetDpcTagControl-button-getcurrentipaddress</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentIPAddress-button-getcurrentipaddress</css>
 		<element>getcurrentipaddress</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-getcurrentipaddress</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMGetCurrentIPAddress-container-getcurrentipaddress</cssContainer>
 		
 		<tooltip>getcurrentipaddress</tooltip>
 		

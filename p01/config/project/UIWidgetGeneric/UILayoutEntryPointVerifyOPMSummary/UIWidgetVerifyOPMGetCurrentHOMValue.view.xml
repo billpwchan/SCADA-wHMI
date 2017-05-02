@@ -82,10 +82,10 @@
 	<option key="0|7">
 		<widget>Button</widget>
 		<label>getcurrenthomvalue</label>
-		<css>project-UIWidgetDpcTagControl-button-getcurrenthomvalue</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentHOMValue-button-getcurrenthomvalue</css>
 		<element>getcurrenthomvalue</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-getcurrenthomvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHOMValue-container-getcurrenthomvalue</cssContainer>
 		
 		<tooltip>getcurrenthomvalue</tooltip>
 		

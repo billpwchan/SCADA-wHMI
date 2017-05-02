@@ -121,6 +121,28 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
+//	private void getHOMLevelDefaultValue() {
+//		final String function = "getHOMLevelDefaultValue";
+//		logger.begin(className, function);
+//		
+//		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
+//		
+//		logger.debug(className, function, "uiopmapivalue[{}]",uiopmapivalue);
+//		
+//		OpmMgr opmMgr = OpmMgr.getInstance();
+//		UIOpm_i uiOpm_i = opmMgr.getOpm(uiopmapivalue);
+//		
+//		int result = -1;
+//		if ( null != uiOpm_i ) {
+//			result = uiOpm_i.getHOMLevelDefaultValue();
+//		} else {
+//			logger.warn(className, function, "uiopmapivalue[{}] uiOpm_i IS NULL", uiopmapivalue);
+//		}
+//		
+//		uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
+//		logger.end(className, function);
+//	}
+	
 	private void launch(String element) {
 		if ( "getcurrenthostname".equals(element) ) {
 			getCurrentHostName();
@@ -131,6 +153,9 @@ public class UIWidgetVerifyOPMGetInfo extends UIWidgetRealize {
 		} else if ( "getconfighommask".equals(element) ) {
 			getConfigHOMMask();
 		}
+//		else if ( "gethomleveldefaultvalue".equals(element) ) {
+//			getHOMLevelDefaultValue();
+//		}
 	}
 	
 	@Override

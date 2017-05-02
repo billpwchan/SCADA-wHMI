@@ -11,7 +11,7 @@
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>Check Access:</label>
+		<label>Check Access With Profile Name:</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithProfileName-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>

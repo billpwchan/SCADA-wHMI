@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>9</cols>
+		<cols>10</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
@@ -40,37 +40,43 @@
 	
 	<option key="0|5">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckHom.view.xml</uiView>
+		<element>UIWidgetVerifyOPMCheckHom</element>
+	</option>
+	
+	<option key="0|6">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHomValue.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHomValue</element>
 	</option>
 	
-	<option key="0|6">
+	<option key="0|7">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHom.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHom</element>
 	</option>
 	
-	<option key="0|7">
+	<option key="0|8">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithHostName.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithHostName</element>
 	</option>
 	
-	<option key="0|8">
+	<option key="0|9">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessWithProfileName.view.xml</uiView>
 		<element>UIWidgetVerifyOPMCheckAccessWithProfileName</element>
 	</option>
 	
-	<option key="0|9">
-		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessMap.view.xml</uiView>
-		<element>UIWidgetVerifyOPMCheckAccessWithProfileName</element>
-	</option>
-	
 	<option key="0|10">
 		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessMap.view.xml</uiView>
+		<element>UIWidgetVerifyOPMCheckAccessMap</element>
+	</option>
+	
+	<option key="0|11">
+		<uiCtrl>UIWidgetVerifyOPMCheckAccess</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyOPMSummary/UIWidgetVerifyOPMCheckAccessMaps.view.xml</uiView>
-		<element>UIWidgetVerifyOPMCheckAccessWithProfileName</element>
+		<element>UIWidgetVerifyOPMCheckAccessMaps</element>
 	</option>
 </data-set>

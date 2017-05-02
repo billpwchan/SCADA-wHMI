@@ -62,10 +62,10 @@
 	<option key="0|5">
 		<widget>Button</widget>
 		<label>getconfighommask</label>
-		<css>project-UIWidgetDpcTagControl-button-getconfighommask</css>
+		<css>project-UIWidgetVerifyOPMGetConfigHOMMask-button-getconfighommask</css>
 		<element>getconfighommask</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-getconfighommask</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMGetConfigHOMMask-container-getconfighommask</cssContainer>
 		
 		<tooltip>getconfighommask</tooltip>
 		

@@ -42,10 +42,10 @@
 	<option key="0|3">
 		<widget>Button</widget>
 		<label>getcurrenthostname</label>
-		<css>project-UIWidgetDpcTagControl-button-getcurrenthostname</css>
+		<css>project-UIWidgetVerifyOPMGetCurrentHostName-button-getcurrenthostname</css>
 		<element>getcurrenthostname</element>
 		
-		<cssContainer>project-UIWidgetDpcTagControl-container-getcurrenthostname</cssContainer>
+		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHostName-container-getcurrenthostname</cssContainer>
 		
 		<tooltip>getcurrenthostname</tooltip>
 		

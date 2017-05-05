@@ -9,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.config.confignav.shared.Tasks;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.util.HeaderKeyMapping;
 import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -24,6 +25,9 @@ public class NavigationMgr implements TaskMgrEvent {
 	private ArrayList<UITaskLaunch> taskLaunchs = null;
 	private int taskLaunchsParentLevel = 0;
 	private String taskLaunchsParentHeader = "";
+	
+	private final String targetKey = "{}";
+	private final String spliter = "\\|";
 	
 	private TaskMgr taskMgr = null;
 	
@@ -49,7 +53,6 @@ public class NavigationMgr implements TaskMgrEvent {
 		
 		logger.end(className, function);
 	}
-
 
 	public void setNavigationMgrEvent (NavigationMgrEvent navigationMgrEvent) {
 		final String function = "setNavigationMgrEvent";
@@ -181,15 +184,10 @@ public class NavigationMgr implements TaskMgrEvent {
 						
 						UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 						
-						
-						{
-							String target = replace(getCurrentHeader(), taskLaunch.getHeader());
-							if ( null != target ) {
-								taskLaunch.setHeader(target);
-							}
+						String newTarget = HeaderKeyMapping.replace(getCurrentHeader(), taskLaunch.getHeader(), spliter, targetKey);
+						if ( null != newTarget ) {
+							taskLaunch.setHeader(newTarget);
 						}
-
-						
 						
 						String header = taskLaunch.getHeader();
 						boolean execute = Boolean.parseBoolean(taskLaunch.getExecute());
@@ -212,79 +210,6 @@ public class NavigationMgr implements TaskMgrEvent {
 		setCurrentHeader(taskLaunch.getHeader());
 		this.uiNameCard.getUiEventBus().fireEvent(new UIEvent(taskLaunch));
 		logger.end(className, function);
-	}
-	
-	private String replace(String currentHeader, String targetHeader) {
-		final String function = "replace";
-		logger.begin(className, function);
-		String result = targetHeader;
-		
-		logger.debug(className, function, "currentHeader[{}] targetHeader[{}]", currentHeader, targetHeader);
-		
-		String targetKey = "{}";
-		String [] targetHeaders = null;
-		String [] currentHeaders = null;
-
-		if ( null != targetHeader ) {
-			logger.debug(className, function, "targetHeader[{}]", targetHeader);
-			targetHeaders = targetHeader.split("\\|");
-			if ( null != targetHeaders ) {
-				if ( logger.isDebugEnabled() ) {
-					for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
-						logger.debug(className, function, "targetHeaders({})[{}]", i, targetHeaders[i]);
-					}
-				} else {
-					logger.warn(className, function, "targetHeaders IS NULL");
-				}
-			}
-		} else {
-			logger.warn(className, function, "targetHeader IS NULL");
-		}
-
-		logger.debug(className, function, "currentHeader[{}]", currentHeader);
-		if ( null != currentHeader ) {
-			currentHeaders = currentHeader.split("\\|");
-			if ( null != currentHeaders ) {
-				for ( int i = 0 ; i < currentHeaders.length ; i++ ) {
-					logger.debug(className, function, "currentHeaders({})[{}]", i, currentHeaders[i]);
-				}
-			} else {
-				logger.warn(className, function, "currentHeaders IS NULL");
-			}
-		} else {
-			logger.warn(className, function, "currentHeader IS NULL");
-		}
-		
-		if ( null != currentHeaders && null != targetHeaders ) {
-			for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
-				if ( null != targetHeaders[i] ) {
-					if ( 0 == targetKey.compareTo(targetHeaders[i]) ) {
-						if ( i < currentHeaders.length ) {
-							logger.debug(className, function, "targetHeaders[i] = currentHeaders[i]", targetHeaders[i], currentHeaders[i]);
-							targetHeaders[i] = currentHeaders[i];
-						}
-					}
-				} else {
-					logger.debug(className, function, "targetHeaders({}) IS NULL", i);
-				}
-			}
-			
-			result = "";
-			for ( int i = 0 ; i < targetHeaders.length ; i++ ) {
-				if ( result.length() > 0 ) {
-					result += "|";
-				}
-				result += targetHeaders[i];
-			}
-			logger.debug(className, function, "after join result[{}]", result);
-			
-		} else {
-			logger.debug(className, function, "currentHeaders IS NULL OR targetHeaders IS NULL");
-		}
-		
-		logger.debug(className, function, "result[{}]", result);
-		logger.end(className, function);
-		return result;
 	}
 
 }

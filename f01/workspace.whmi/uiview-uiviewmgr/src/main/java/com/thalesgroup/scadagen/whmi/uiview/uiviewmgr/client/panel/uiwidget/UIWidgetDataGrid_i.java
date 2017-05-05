@@ -6,6 +6,8 @@ public interface UIWidgetDataGrid_i {
 		, DataGrid("DataGrid")
 		
 		, DataGridColumnsType("DataGridColumnsType")
+		, DataGridColumnsHeaderString("DataGridColumnsHeaderString")
+		, DataGridColumnsHeaderTranslation("DataGridColumnsHeaderTranslation")
 		, DataGridColumnsLabel("DataGridColumnsLabel")
 		, DataGridColumnsWidth("DataGridColumnsWidth")
 		, DataGridColumnsTranslation("DataGridColumnsTranslation")

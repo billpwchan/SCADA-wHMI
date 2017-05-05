@@ -19,11 +19,11 @@ public class UIDataGridDatabaseMgr {
 		return instance;
 	}
 
-	public UIDataGridFormatter_i getDataGrid(String strDataGrid, String[] columnTypes, String[] columnLabels, int[] columnWidth, int[] columnSort) {
+	public UIDataGridFormatter_i getDataGrid(String strDataGrid, String[] columnTypes, String[] columnHeaderStrings, String[] columnLabels, int[] columnWidth, int[] columnSort) {
 		String function = "getDataGrid";
 		logger.begin(className, function);
 		UIDataGridFormatter_i dataGrid_i = null;
-		dataGrid_i = new UIDataGridFormatter(strDataGrid, columnTypes, columnLabels, columnWidth, columnSort);
+		dataGrid_i = new UIDataGridFormatter(strDataGrid, columnTypes, columnHeaderStrings, columnLabels, columnWidth, columnSort);
 		logger.end(className, function);
 		return dataGrid_i;
 	}

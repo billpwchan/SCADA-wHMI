@@ -5,5 +5,6 @@
 	<header key="header">
 		<ColumnValueFilters>,,,</ColumnValueFilters>
 		<GrcPointAttributes>label</GrcPointAttributes>
+		<ColLblVals>SOCCard,ScsEnvID,Alias</ColLblVals>
 	</header>
 </data-set>

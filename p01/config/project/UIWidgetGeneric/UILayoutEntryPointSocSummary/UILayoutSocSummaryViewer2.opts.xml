@@ -7,6 +7,8 @@
 		<EventBusScope>local</EventBusScope>
 		<DataGrid>UIDataGridFormatterSOCDetails</DataGrid>
 		<DataGridColumnsType>Number,String,String,String,Number,Number,Number,Boolean</DataGridColumnsType>
+		<DataGridColumnsHeaderString>&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_STEP,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_EQUIPMENTLABEL,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_STATUS,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_EQUIPMENT,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_SUCCESSDELAY,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_RESERVED,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_TAGSTATUS,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_DISABLE</DataGridColumnsHeaderString>
+		<DataGridColumnsHeaderTranslation>1,1,1,1,1,1,1,1</DataGridColumnsHeaderTranslation>
 		<DataGridColumnsLabel>Step,EquipmentLabel,Status,Equipment,SuccessDelay,Reserved,TagStatus,Disable</DataGridColumnsLabel>
 		<DataGridColumnsWidth>50,200,150,200,80,80,80,80</DataGridColumnsWidth>
 		<DataGridColumnsTranslation>0,0,1,0,0,0,0,0</DataGridColumnsTranslation>

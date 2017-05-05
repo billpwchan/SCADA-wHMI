@@ -22,9 +22,7 @@ echo Building %sp_uiwidget%...
 REM call mvn clean war:exploded install >> %LOG_FILE%
 call mvn clean gwt:clean install >> %LOG_FILE%
 
-cd ..
-
-cd tools
+cd %TOOLS_PATH%
  
 echo End of build %sp_uiwidget%
 

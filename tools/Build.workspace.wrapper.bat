@@ -21,9 +21,7 @@ call mvn clean -V > %LOG_FILE%
 echo Building wrapper...
 call mvn clean install >> %LOG_FILE%
 
-cd ..
-
-cd tools
+cd %TOOLS_PATH%
  
 echo End of build %sp_wrapper%
 

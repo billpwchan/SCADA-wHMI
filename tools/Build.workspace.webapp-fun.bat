@@ -28,9 +28,7 @@ echo Building %sp_webapp_func%
 REM call mvn clean war:exploded install >> %LOG_FILE%
 call mvn clean install >> %LOG_FILE%
 
-cd ..
-
-cd tools
+cd %TOOLS_PATH%
  
 echo End of build %sp_webapp_func_name%
 

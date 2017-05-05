@@ -10,6 +10,10 @@
   <!-- any one of the following lines.                            -->
   <inherits name='com.google.gwt.user.theme.standard.Standard' />
   <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  
+  <!-- For Arba translation and Right to Left layout-->
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.ChromeRTL'/> -->
+  
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
   <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/>   -->
   

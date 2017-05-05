@@ -6,6 +6,7 @@ public interface UIDataGridFormatter_i {
 	
 	int getNumberOfColumn();
 	String getColumnType(int column);
+	String getColumnHeaderString(int column);
 	String getColumnLabel(int column);
 	String getEmptyLabel();
 	int getColumnWidth(int column);

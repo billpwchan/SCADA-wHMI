@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>Label</widget>
-		<label>GRC Current Status</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocGrcPointCurrentStatus</label>
 		<css>project-UIWidgetSocGrcPoint-label-grccurstatus</css>
 		<element>grccurstatuslabel</element>
 		
@@ -31,7 +31,7 @@
 	
 	<option key="0|2">
 		<widget>Label</widget>
-		<label>GRC Current Step</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocGrcPointCurrentStep</label>
 		<css>project-UIWidgetSocGrcPoint-label-grccurstep</css>
 		<element>grccursteplabel</element>
 		

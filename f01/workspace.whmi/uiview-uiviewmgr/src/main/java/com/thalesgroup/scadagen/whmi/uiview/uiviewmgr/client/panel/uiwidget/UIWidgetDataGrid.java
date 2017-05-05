@@ -46,6 +46,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIWidgetGen
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIWidgetDataGrid extends UIWidget_i {
 	
@@ -62,6 +63,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	
 	private String strDataGrid = null;
 	private String strDataGridColumnsType = null;
+	private String strDataGridColumnsHeaderString = null;
+	private String strDataGridColumnsHeaderTranslation = null;
 	private String strDataGridColumnsLabel = null;
 	private String strDataGridColumnsWidth = null;
 	private String strDataGridColumnsTranslation = null;
@@ -74,6 +77,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String targetDataGridColumn2 = "";
 	private String targetDataGridColumn3 = "";
 	
+	private String [] strDataGridColumnsHeaderStrings = null;
+	private int [] intDataGridColumnsHeaderTranslations = null;
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
 	private int [] intDataGridColumnsWidths = null;
@@ -135,14 +140,14 @@ public class UIWidgetDataGrid extends UIWidget_i {
 //				String os3 = (String) uiEventAction.getParameter(ActionAttribute.OperationString3.toString());
 //				String os4 = (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 				
-				logger.info(className, function, "os1[{}]", os1);
-//				logger.info(className, function, "os2[{}]", os2);
-//				logger.info(className, function, "os3[{}]", os3);
-//				logger.info(className, function, "os4[{}]", os4);
+				logger.debug(className, function, "os1[{}]", os1);
+//				logger.debug(className, function, "os2[{}]", os2);
+//				logger.debug(className, function, "os3[{}]", os3);
+//				logger.debug(className, function, "os4[{}]", os4);
 				
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 				
-				logger.info(className, function, "oe[{}] element[{}]", oe, element);
+				logger.debug(className, function, "oe[{}] element[{}]", oe, element);
 				
 				if ( null != os1 ) {
 					if ( os1.equals(DataGridEvent.RowSelected.toString() ) ) {
@@ -150,17 +155,17 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						
-						logger.info(className, function, "Store Selected Row");
+						logger.debug(className, function, "Store Selected Row");
 						
 						if ( null != targetDataGrid ) {
 							
-							logger.info(className, function, "targetDataGrid[{}]", targetDataGrid);
+							logger.debug(className, function, "targetDataGrid[{}]", targetDataGrid);
 							
 							if ( null != obj1 ) {
 								if ( obj1 instanceof String ) {
 									datagridSelected	= (String) obj1;
 									
-									logger.info(className, function, "datagridSelected[{}]", datagridSelected);
+									logger.debug(className, function, "datagridSelected[{}]", datagridSelected);
 
 									if ( datagridSelected.equals(targetDataGrid) ) {
 										if ( null != obj2 ) {
@@ -198,17 +203,17 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
 						
-						logger.info(className, function, "Reload from DataSource");
+						logger.debug(className, function, "Reload from DataSource");
 						
 						if ( null != strDataGrid ) {
 							
-							logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 ) {
 								if ( obj1 instanceof String ) {
 									datagridSelected	= (String) obj1;
 									
-									logger.info(className, function, "datagridSelected[{}]", datagridSelected);
+									logger.debug(className, function, "datagridSelected[{}]", datagridSelected);
 
 									if ( datagridSelected.equals(strDataGrid) ) {
 										if ( obj2 instanceof String && obj3 instanceof String ) {
@@ -239,11 +244,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						
-						logger.info(className, function, "Reset Column Data");
+						logger.debug(className, function, "Reset Column Data");
 						
 						if ( null != strDataGrid ) {
 							
-							logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 && null != obj2 ) {
 								if ( obj1 instanceof String && obj2 instanceof String ) {
@@ -271,11 +276,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 						
-						logger.info(className, function, "Reload Column Data");
+						logger.debug(className, function, "Reload Column Data");
 						
 						if ( null != strDataGrid ) {
 							
-							logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
 							
 							if ( null != obj1 && null != obj2) {
 								if ( obj1 instanceof String && obj2 instanceof String) {
@@ -348,8 +353,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					
 					} else {
 						// General Case
-						logger.info(className, function, "oe ["+oe+"]");
-						logger.info(className, function, "os1["+os1+"]");
+						logger.debug(className, function, "oe ["+oe+"]");
+						logger.debug(className, function, "os1["+os1+"]");
 						
 						if ( null != oe ) {
 							if ( oe.equals(element) ) {
@@ -376,7 +381,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.debug(className, function, "strEventBusName[{}]", strEventBusName);
 		
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -385,6 +390,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGrid.toString(), strHeader);
 			
 			strDataGridColumnsType			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsType.toString(), strHeader);
+			strDataGridColumnsHeaderString	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsHeaderString.toString(), strHeader);
+			strDataGridColumnsHeaderTranslation	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsHeaderTranslation.toString(), strHeader);
 			strDataGridColumnsLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsLabel.toString(), strHeader);
 			strDataGridColumnsWidth			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsWidth.toString(), strHeader);
 			strDataGridColumnsTranslation	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridColumnsTranslation.toString(), strHeader);
@@ -400,11 +407,13 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			targetDataGridColumn3	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A3.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "strDataGrid[{}]", strDataGrid);
+		logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
 		
 		scsEnvIdsStr = getStringParameter(WidgetParameterName.ScsEnvIds.toString());
 		logger.debug(className, function, "scsEnvIdsStr [{}]", scsEnvIdsStr);
 		logger.debug(className, function, "strDataGridColumnsType [{}]", strDataGridColumnsType);
+		logger.debug(className, function, "strDataGridColumnHeaderString [{}]", strDataGridColumnsHeaderString);
+		logger.debug(className, function, "strDataGridColumnsHeaderTranslation [{}]", strDataGridColumnsHeaderTranslation);
 		logger.debug(className, function, "strDataGridColumnsLabel [{}]", strDataGridColumnsLabel);
 		logger.debug(className, function, "strDataGridColumnsWidth [{}]", strDataGridColumnsWidth);
 		logger.debug(className, function, "strDataGridColumnsTranslation [{}]", strDataGridColumnsTranslation);
@@ -467,20 +476,20 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		);
 		
 				
-				logger.info(className, function, "Init uiEventActionProcessorContextMenu");
+		logger.debug(className, function, "Init uiEventActionProcessorContextMenu");
 
-				uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
-				
-				uiEventActionProcessorContextMenu_i.setUINameCard(uiNameCard);
-				uiEventActionProcessorContextMenu_i.setPrefix(className);
-				uiEventActionProcessorContextMenu_i.setElement(element);
-				uiEventActionProcessorContextMenu_i.setDictionariesCacheName("UIWidgetGeneric");
-//				uiEventActionProcessorContextMenu.setEventBus(eventBus);
-				uiEventActionProcessorContextMenu_i.setOptsXMLFile(optsXMLFile);
-//				uiEventActionProcessorContextMenu.setUIGeneric(uiWidgetGeneric);
-				uiEventActionProcessorContextMenu_i.setActionSetTagName(UIActionEventType.actionset.toString());
-				uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
-				uiEventActionProcessorContextMenu_i.init();
+		uiEventActionProcessorContextMenu_i = uiEventActionProcessorMgr.getUIEventActionProcessor("UIEventActionProcessor");
+		
+		uiEventActionProcessorContextMenu_i.setUINameCard(uiNameCard);
+		uiEventActionProcessorContextMenu_i.setPrefix(className);
+		uiEventActionProcessorContextMenu_i.setElement(element);
+		uiEventActionProcessorContextMenu_i.setDictionariesCacheName("UIWidgetGeneric");
+//		uiEventActionProcessorContextMenu.setEventBus(eventBus);
+		uiEventActionProcessorContextMenu_i.setOptsXMLFile(optsXMLFile);
+//		uiEventActionProcessorContextMenu.setUIGeneric(uiWidgetGeneric);
+		uiEventActionProcessorContextMenu_i.setActionSetTagName(UIActionEventType.actionset.toString());
+		uiEventActionProcessorContextMenu_i.setActionTagName(UIActionEventType.action.toString());
+		uiEventActionProcessorContextMenu_i.init();
 
 		
 		uiEventActionProcessor_i.executeActionSetInit();
@@ -508,21 +517,35 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
-		logger.info(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
-		logger.info(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
-		logger.info(className, function, "strDataGridColumnsTranslation[{}]", strDataGridColumnsTranslation);
-		logger.info(className, function, "strDataGridColumnsSort[{}]", strDataGridColumnsSort);
-		logger.info(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
-		logger.info(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
-		logger.info(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
-		logger.info(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
+		logger.debug(className, function, "strDataGridColumnsType[{}]", strDataGridColumnsType);
+		logger.debug(className, function, "strDataGridColumnsHeaderString[{}]", strDataGridColumnsHeaderString);
+		logger.debug(className, function, "strDataGridColumnsHeaderTranslation[{}]", strDataGridColumnsHeaderTranslation);
+		logger.debug(className, function, "strDataGridColumnsLabel[{}]", strDataGridColumnsLabel);
+		logger.debug(className, function, "strDataGridColumnsWidth[{}]", strDataGridColumnsWidth);
+		logger.debug(className, function, "strDataGridColumnsTranslation[{}]", strDataGridColumnsTranslation);
+		logger.debug(className, function, "strDataGridColumnsSort[{}]", strDataGridColumnsSort);
+		logger.debug(className, function, "strDataGridOptsXMLFile [{}]", strDataGridOptsXMLFile);
+		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
+		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
+		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
 		
 		strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
+		strDataGridColumnsHeaderStrings = UIWidgetUtil.getStringArray(strDataGridColumnsHeaderString, split);
+		intDataGridColumnsHeaderTranslations = UIWidgetUtil.getIntArray(strDataGridColumnsHeaderTranslation, split);
 		strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
 		intDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
 		intDataGridColumnsTranslations = UIWidgetUtil.getIntArray(strDataGridColumnsTranslation, split);
 		intDataGridColumnsSort = UIWidgetUtil.getIntArray(strDataGridColumnsSort, split);
+		
+		for ( int i = 0 ; i < intDataGridColumnsHeaderTranslations.length ; ++i ) {
+			if ( intDataGridColumnsHeaderTranslations[i] == 1 ) {
+				strDataGridColumnsHeaderStrings[i] = Translation.getWording(strDataGridColumnsHeaderStrings[i]);
+			}
+
+			logger.debug(className, function, " intDataGridColumnsHeaderTranslations({})[{}] strDataGridColumnHeaderStrings(i)[{}]"
+					, new Object[]{i, intDataGridColumnsHeaderTranslations[i], i, strDataGridColumnsHeaderStrings[i]});
+		}
+		
 		if (strDataGridPageSize != null) {
 			try {
 				int size = Integer.parseInt(strDataGridPageSize);
@@ -546,7 +569,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		createColumnLabelTranslationMap(strDataGridColumnsLabels, intDataGridColumnsTranslations);
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
-	    dataGridFormatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsLabels, intDataGridColumnsWidths, intDataGridColumnsSort);
+	    dataGridFormatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsHeaderStrings, strDataGridColumnsLabels, intDataGridColumnsWidths, intDataGridColumnsSort);
 	    
 	    /*
 	     * Set a key provider that provides a unique key for each contact. If key is

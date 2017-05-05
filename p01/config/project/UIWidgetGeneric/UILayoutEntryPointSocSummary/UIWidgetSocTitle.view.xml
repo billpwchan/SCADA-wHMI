@@ -20,7 +20,7 @@
 	
 	<option key="0|1">
 		<widget>Label</widget>
-		<label>Selected SOC Card</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocTitle_SelectedSOCCard</label>
 		<css>project-UIWidgetSocTitle-label-selectedsoccardlabel</css>
 		<element>selectedsoccardlabel</element>
 		

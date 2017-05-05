@@ -3,7 +3,8 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc
 public interface SocCardList_i {
 	public enum SocCardListParameter {
 		ColumnValueFilters("ColumnValueFilters")
-		, GrcPointAttributes("GrcPointAttributes");
+		, GrcPointAttributes("GrcPointAttributes")
+		, ColLblVals("ColLblVals");
 
 		private final String text;
 		private SocCardListParameter(final String text) { this.text = text; }

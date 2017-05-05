@@ -7,6 +7,8 @@
 		<EventBusScope>local</EventBusScope>
 		<DataGrid>UIDataGridFormatterSOC</DataGrid>
 		<DataGridColumnsType>String,String,String,String</DataGridColumnsType>
+		<DataGridColumnsHeaderString>&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer1_SOCCARD,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer1_SCSENVID,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer1_ALIAS,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer1_DESCRIPTION</DataGridColumnsHeaderString>
+		<DataGridColumnsHeaderTranslation>1,1,1,1</DataGridColumnsHeaderTranslation>
 		<DataGridColumnsLabel>SOCCard,ScsEnvID,Alias,Description</DataGridColumnsLabel>
 		<DataGridColumnsWidth>70,70,0,200</DataGridColumnsWidth>
 		<DataGridColumnsSort>1,1,0,0</DataGridColumnsSort>

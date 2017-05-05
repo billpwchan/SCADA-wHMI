@@ -12,11 +12,15 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.
 import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class SocCardList implements IDataGridDataSource {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(SocCardList.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private final String grcPathRoot = "ScadaSoft";
+	private final String grcPathAlias = ":ScadaSoft:ScsCtlGrc";
 	
 	private String strDataGrid_ = "";
 	private String [] scsEnvIds_ = null;
@@ -25,11 +29,16 @@ public class SocCardList implements IDataGridDataSource {
 	private String separater = ",";
 	private String [] strDataGridColumnsFilters = null;
 	private String [] strGrcPointAttributes = null;
-	private final String grcPathRoot = "ScadaSoft";
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
 	private Map<String, String> scsEnvIdMap = new HashMap<String, String>();
 	private Map<String, Integer> clientKeyToRowMap = new HashMap<String, Integer>();
+	
+	private String [] colLblVals = null;
+	
+	private String colLblSOCCard = null;
+	private String colLblScsEnvID = null;
+	private String colLblAlias = null;
 	
 	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
 
@@ -56,6 +65,7 @@ public class SocCardList implements IDataGridDataSource {
 		String strHeader = "header";
 		String strColumnValueFilters = null;
 		String strGrcPointAttribute = null;
+		String strColLblVals = null;
 		
 		if (dataGridDb_ != null) {
 			strDataGridColumnsLabels = dataGridDb_.getColumnLabels();
@@ -66,11 +76,36 @@ public class SocCardList implements IDataGridDataSource {
 		if ( null != dictionariesCache ) {
 			strColumnValueFilters = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.ColumnValueFilters.toString(), strHeader);
 			strGrcPointAttribute = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.GrcPointAttributes.toString(), strHeader);
+			
+			strColLblVals = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.ColLblVals.toString(), strHeader);
+			
 			if (strColumnValueFilters != null) {
 				strDataGridColumnsFilters = UIWidgetUtil.getStringArray(strColumnValueFilters, separater);
 			}
 			if (strGrcPointAttribute != null) {
 				strGrcPointAttributes = UIWidgetUtil.getStringArray(strGrcPointAttribute, separater);
+			}
+			
+			if (strColLblVals != null) { colLblVals = UIWidgetUtil.getStringArray(strColLblVals, separater); }
+			
+			final int colLblsCountLimit = 3;
+			int colLblsIdx = 0;
+			if ( null != colLblVals) {
+				if ( colLblVals.length > colLblsIdx ) colLblSOCCard = colLblVals[colLblsIdx++];
+				if ( colLblVals.length > colLblsIdx ) colLblScsEnvID = colLblVals[colLblsIdx++];
+				if ( colLblVals.length > colLblsIdx ) colLblAlias = colLblVals[colLblsIdx++];
+				if ( colLblsCountLimit != colLblsIdx ) { logger.warn(className, function, "colLblsCountLimit[{}] AND colLblsIdx[{}] IS NOT EQUAL IS NULL", colLblsCountLimit, colLblsIdx); }
+			} else {
+				logger.warn(className, function, "colLblVals IS NULL");
+			}
+			if ( null != colLblSOCCard && null != colLblScsEnvID && null != colLblAlias ) {
+				colLblSOCCard = Translation.getWording(colLblSOCCard);
+				colLblScsEnvID = Translation.getWording(colLblScsEnvID);
+				colLblAlias = Translation.getWording(colLblAlias);
+				
+				logger.debug(className, function, "colLblSOCCard[{}] colLblScsEnvID[{}] colLblAlias[{}]", new Object[]{colLblSOCCard,colLblScsEnvID,colLblAlias});
+			} else {
+				logger.warn(className, function, "colLblSOCCard OR colLblScsEnvID OR colLblAlias IS NULL");
 			}
 		}
 		logger.end(className, function);
@@ -92,7 +127,7 @@ public class SocCardList implements IDataGridDataSource {
 		logger.begin(className, function);
 		
 		for (String scsEnvId: scsEnvIds_) {
-			final String grcAddress = ":ScadaSoft:ScsCtlGrc";
+			final String grcAddress = grcPathAlias;
 			final String clientKey = genClientKey(scsEnvId);
 
 			rtdb.getChildren(clientKey, scsEnvId, grcAddress, new GetChildrenResult() {
@@ -119,11 +154,11 @@ public class SocCardList implements IDataGridDataSource {
 	    	String [] columnValues = new String [strDataGridColumnsLabels.length];
 	    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
 	    		// Set column values according to pre-defined labels (SOCCard, ScsEnvID, Alias)
-	    		if (strDataGridColumnsLabels[col].compareToIgnoreCase("SOCCard") == 0) {
+	    		if (strDataGridColumnsLabels[col].compareToIgnoreCase(colLblSOCCard) == 0) {
 	    			columnValues[col] = instances[i].substring(instances[i].lastIndexOf(":")+1);
-	    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase("ScsEnvID") == 0) {
+	    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase(colLblScsEnvID) == 0) {
 	    			columnValues[col] = scsEnvId;
-	    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase("Alias") == 0) {
+	    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase(colLblAlias) == 0) {
 	    			// Temporary handling. Remove all ":" and leading "ScadaSoft"
 	    			String alias = instances[i].replace(":", "");
 	    			if (alias.startsWith(grcPathRoot)) {
@@ -169,9 +204,9 @@ public class SocCardList implements IDataGridDataSource {
 									for (int col=0; col<strDataGridColumnsLabels.length && index < values.length; col++) {
 										logger.debug(className, function, "col[{}] label[{}]", col, strDataGridColumnsLabels[col]);
 									
-										if (!strDataGridColumnsLabels[col].equalsIgnoreCase("SOCCard") &&
-											!strDataGridColumnsLabels[col].equalsIgnoreCase("ScsEnvID") &&
-											!strDataGridColumnsLabels[col].equalsIgnoreCase("Alias")) {
+										if (!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblSOCCard) &&
+											!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblScsEnvID) &&
+											!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblAlias)) {
 											
 											logger.debug(className, function, "set value for label[{}]", strDataGridColumnsLabels[col]);
 											

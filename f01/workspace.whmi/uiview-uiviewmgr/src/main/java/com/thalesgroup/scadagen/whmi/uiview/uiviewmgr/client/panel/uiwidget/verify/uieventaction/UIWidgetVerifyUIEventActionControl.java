@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.dbm;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction;
 
 import java.util.HashMap;
 
@@ -9,12 +9,10 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 
 public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
@@ -22,7 +20,53 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private UIEventActionExecute_i uiEventActionExecute = null;
+	private void executeAction(String element) {
+		final String function = "executeAction";
+		logger.begin(className, function);
+		
+		logger.debug(className, function, "element[{}]", element);
+		
+		if ( null != element ) {
+			
+			final String execute = "execute";
+
+			if ( 0 == execute.compareTo(element) ) {
+
+				UIEventAction uiEventAction = new UIEventAction();
+				HashMap<String, HashMap<String, Object>> override = null;
+				
+				for ( String strActionEventAttribute : UIActionEventAttribute.toStrings() ) {
+					String actionEventAttribute		= uiGeneric.getWidgetValue(strActionEventAttribute);
+					logger.debug(className, function, "strActionEventAttribute[{}] actionEventAttribute[{}]", strActionEventAttribute, actionEventAttribute);
+					
+					if ( null != actionEventAttribute ) {
+						uiEventAction.setParameter(strActionEventAttribute, actionEventAttribute);
+					}
+					
+				}
+				
+				for ( String strActionAttribute : ActionAttribute.toStrings() ) {
+					String actionAttribute		= uiGeneric.getWidgetValue(strActionAttribute);
+					logger.debug(className, function, "actionAttribute[{}]", actionAttribute);
+					
+					if ( null != actionAttribute ) {
+						uiEventAction.setParameter(strActionAttribute, actionAttribute);
+					}
+				}
+				
+				if ( null != uiEventActionProcessor_i ) {
+					uiEventActionProcessor_i.executeAction(uiEventAction, override);
+				} else {
+					logger.warn(className, function, "uiEventActionExecute IS NULL");
+				}
+				
+			} else {
+				logger.warn(className, function, "element[{}] for operation IS INVALID ");
+			}
+		}
+		logger.end(className, function);
+	}
+	
 	@Override
 	public void init() {
 		super.init();
@@ -55,49 +99,9 @@ public class UIWidgetVerifyUIEventActionControl extends UIWidgetRealize {
 					if ( null != widget ) {
 						String element = uiGeneric.getWidgetElement(widget);
 						
-						logger.info(className, function, "element[{}]", element);
+						logger.debug(className, function, "element[{}]", element);
 
-						if ( null != element ) {
-							
-							final String create = "create";
-							final String execute = "execute";
-							
-							if ( 0 == create.compareTo(element) ) {
-
-								String strOperationType = uiGeneric.getWidgetValue(UIActionEventAttribute.OperationType.toString());
-								logger.info(className, function, "strOperationType[{}]", strOperationType);
-								
-								UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
-								uiEventActionExecute = uiEventActionExecuteMgr.getUIEventActionExecute(strOperationType);
-								if ( null == uiEventActionExecute ) {
-									logger.warn(className, function, "uiEventActionExecute IS NULL");
-								}
-							} 
-							else
-							if ( 0 == execute.compareTo(element) ) {
-								
-								if ( null != uiEventActionExecute ) {
-									
-									UIEventAction uiEventAction = new UIEventAction();
-									HashMap<String, HashMap<String, Object>> override = null;
-									
-									for ( String strActionAttribute : ActionAttribute.toStrings() ) {
-										String strOperationString		= uiGeneric.getWidgetValue(strActionAttribute);
-										logger.info(className, function, "strActionAttribute[{}]", strActionAttribute);
-										
-										uiEventAction.setParameter(strActionAttribute, strOperationString);
-									}
-									
-									uiEventActionExecute.executeAction(uiEventAction, override);
-									
-								} else {
-									logger.warn(className, function, "uiEventActionExecute IS NULL");
-								}
-								
-							} else {
-								logger.warn(className, function, "element[{}] for operation IS INVALID ");
-							}
-						}
+						executeAction(element);
 					}
 				}
 				logger.end(className, function);

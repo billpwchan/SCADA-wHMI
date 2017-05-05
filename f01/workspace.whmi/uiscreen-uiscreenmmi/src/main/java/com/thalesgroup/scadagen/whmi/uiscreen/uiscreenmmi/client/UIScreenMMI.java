@@ -5,6 +5,7 @@ import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.UIPanelNavigation;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitDatabaseSingleton;
+import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitJSNI;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitTranslationEngine;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIDialogMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEventActionExecuteMgrFactorys;
@@ -150,6 +151,8 @@ public class UIScreenMMI extends UIWidget_i {
 		InitUIGenericMgrFactorys.init();
 		InitUIEventActionProcessorMgrFactorys.init();
 		InitUIEventActionExecuteMgrFactorys.init();
+		
+		InitJSNI.init();
 
 		logger.end(className, function);
 	}

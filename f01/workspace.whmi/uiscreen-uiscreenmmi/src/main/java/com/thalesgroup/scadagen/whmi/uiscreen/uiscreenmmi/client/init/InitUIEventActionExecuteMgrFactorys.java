@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIActionEventType_i;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionAlm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionBusFire;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionCtrl;
@@ -10,12 +11,12 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDialogMsg;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDpc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionJS;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
 
 public class InitUIEventActionExecuteMgrFactorys {
@@ -38,35 +39,38 @@ public class InitUIEventActionExecuteMgrFactorys {
 				
 				UIEventActionExecute_i uiEventActionExecute_i = null;
 				
-				if ( key.equals(UIActionEventType.alm.toString()) ) {
+				if ( key.equals(UIActionEventType_i.UIActionEventType.alm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionAlm();
 				}
-				else if ( key.equals(UIActionEventType.ctl.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.ctl.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionCtrl();
 				}
-				else if ( key.equals(UIActionEventType.dbm.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.dbm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionDbm();
 				}
-				else if ( key.equals(UIActionEventType.dialogmsg.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.dialogmsg.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionDialogMsg();
 				}
-				else if ( key.equals(UIActionEventType.dpc.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.dpc.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionDpc();
 				}
-				else if ( key.equals(UIActionEventType.grc.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.grc.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionGrc();
 				}
-				else if ( key.equals(UIActionEventType.opm.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.opm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionOpm();
 				}
-				else if ( key.equals(UIActionEventType.uitask.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.uitask.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionTaskLaunch();
 				}
-				else if ( key.equals(UIActionEventType.widget.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.widget.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionWidget();
 				}
-				else if ( key.equals(UIActionEventType.event.toString()) ) {
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.event.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionBusFire();
+				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.js.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionJS();
 				}
 				
 				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);

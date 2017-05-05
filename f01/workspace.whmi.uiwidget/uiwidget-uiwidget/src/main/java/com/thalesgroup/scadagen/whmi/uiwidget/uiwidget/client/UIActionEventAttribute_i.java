@@ -6,17 +6,7 @@ public interface UIActionEventAttribute_i {
 		
 		  event("event")
 		, logic("logic")
-		
-		, alm("alm")
-		, ctl("ctl")
-		, dbm("dbm")
-		, dialogmsg("dialogmsg")
-		, dpc("dpc")
-		, grc("grc")
-		, opm("opm")
-		, uitask("uitask")
-		, widget("widget")
-		
+
 		, actionsetkey("actionsetkey")
 		, actionkey("actionkey")
 		, actionsetinit("actionsetinit")

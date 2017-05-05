@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import java.util.HashMap;
-import java.util.Map.Entry;
-
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 
 public class UIEventActionJS extends UIEventActionExecute_i {
 	
@@ -18,7 +19,7 @@ public class UIEventActionJS extends UIEventActionExecute_i {
 	
 	public UIEventActionJS ( ) {
 		supportedActions = new String[] {
-				UIEventActionJSAction.CallJS.toString()
+				UIEventActionJSAction.CallJSByGWT.toString()
 		};
 	}
 	@Override
@@ -29,28 +30,50 @@ public class UIEventActionJS extends UIEventActionExecute_i {
 		boolean bContinue = true;
 		
 		String os1			= (String) action.getParameter(ActionAttribute.OperationString1.toString());
-		
-		if ( logger.isInfoEnabled() ) {
-			for ( Entry<String, Object> entry : action.getParameters() ) {
-				String key = entry.getKey();
-				Object obj = entry.getValue();
-				logger.info(className, function, "key[{}] obj[{}]", key, obj);
+
+		if ( os1.equalsIgnoreCase(UIEventActionJSAction.CallJSByGWT.toString()) ) {
+			
+			JSONObject request = new JSONObject();
+			
+			for ( String osname : UIActionEventAttribute.toStrings() ) {
+				String osdata	= (String) action.getParameter(osname);
+				logger.debug(className, function, "osname[{}] osdata[{}]", osname, osdata);
+				if ( null != osdata ) {
+					request.put(osname, new JSONString(osdata));
+				} else {
+					logger.warn(className, function, "osdata IS NULL");
+				}
 			}
-		}
-		
-		if ( os1.equalsIgnoreCase(UIEventActionJSAction.CallJS.toString()) ) {
-			String os2			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
-			String os3			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
-			String os4			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
-			callJS(os2, os3, os4);
+			
+			for ( String osname : ActionAttribute.toStrings() ) {
+				String osdata	= (String) action.getParameter(osname);
+				logger.debug(className, function, "osname[{}] osdata[{}]", osname, osdata);
+				if ( null != osdata ) {
+					request.put(osname, new JSONString(osdata));
+				} else {
+					logger.warn(className, function, "osdata IS NULL");
+				}
+			}
+			
+			String jsondata = request.toString();
+			
+			logger.debug(className, function, "jsondata[{}]", jsondata);
+			
+			logger.debug(className, function, "Calling Begin callJsByGwt...");
+			try {
+				callJSByGWT(jsondata);
+			} catch ( Exception ex ) {
+				logger.warn(className, function, "execute Exception["+ex.toString()+"]");
+			}
+			logger.debug(className, function, "Calling End callJsByGwt.");
 		}
 		
 		logger.end(className, function);
 		return bContinue;
 	}
 	
-	public native void callJS (String os2, String os3, String os4) /*-{
-		$wnd.uiactionevent.callJS(os2, {os3:os4});
+	public native void callJSByGWT (String jsonstring) /*-{
+		$wnd.uieventaction.callJSByGWT(jsonstring);
 	}-*/;
 
 }

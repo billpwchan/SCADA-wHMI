@@ -1,5 +1,28 @@
 "use strict";
 
+window.uieventaction = {
+	callJSByGWT : function(jsdata) {
+		var json = JSON.parse(jsdata);
+		if ( json.OperationString1 == "CallJSByGWT" ) {
+			var json2 = JSON.parse(json.OperationString2);
+			js2gwt(json2);
+		}
+	}
+}
+
+function js2gwt(json) {
+
+	var dumpmsg = "OperationAction: " + json.OperationAction
+	+ " OperationType: " + json.OperationType
+	+ " OperationString1: " + json.OperationString1
+	+ " OperationString2: " + json.OperationString2;
+	alert(dumpmsg);
+	
+	var jsonstring = JSON.stringify(json);
+
+	window.callGWTByJS(jsonstring);
+}
+
 function getFunctionName() {
 	const caller = (new Error().stack).split('\n')[2].split(' ')[5];
 	return caller;

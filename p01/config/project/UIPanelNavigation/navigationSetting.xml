@@ -1186,28 +1186,7 @@
 		<uiView>UILayoutEntryPointHDVSummaryStn/UILayoutEntryPointHDVSummaryStn.view.xml</uiView>
 		<tooltips>Handover Panel (Station)</tooltips>
 	</option>
-	<option key="123">
-		<type>M</type>
-		<name>Verify UIEventAction</name>
-		<title>Verify UIEventAction</title>
-		<!--
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionSummary/UILayoutEntryPointVerifyUIEventActionSummary.view.xml</uiView>
-		-->
-		<tooltips>UIEventAction Verify Summary</tooltips>
-	</option>
-	<option key="124">
-		<type>P</type>
-		<name>UIEventAction Dbm Panel</name>
-		<title>UIEventAction Dbm Panel</title>
-		<uiPanel>UILayoutEntryPoint</uiPanel>
-		<uiScreen>0</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
-		<tooltips>UIEventAction Dbm Panel</tooltips>
-	</option>
+	
 	<option key="125">
 		<type>P</type>
 		<name>Verify HILC API</name>
@@ -1276,6 +1255,33 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointHDVMatrixSummary/UILayoutEntryPointHDVMatrixSummary.view.xml</uiView>
 		<tooltips>Handover Matrix Panel</tooltips>
+	</option>
+	
+	<option key="150">
+		<type>M</type>
+		<name>Verify UIEventAction</name>
+		<title>Verify UIEventAction</title>
+		<tooltips>UIEventAction Verify Summary</tooltips>
+	</option>
+	<option key="151">
+		<type>P</type>
+		<name>UIEventAction Dbm Panel</name>
+		<title>UIEventAction Dbm Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
+		<tooltips>UIEventAction Dbm Panel</tooltips>
+	</option>
+	<option key="152">
+		<type>P</type>
+		<name>UIEventAction JS Panel</name>
+		<title>UIEventAction JS Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionJSSummary/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
+		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
 	
 </data-set>

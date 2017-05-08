@@ -1,0 +1,58 @@
+# library generated Makefile by mkmf
+# <%DATE%> %ID%
+# ----------------------------------------------------------
+#
+
+# Retrive Plateform dependent configuration
+# -----------------------------------------
+include $(ROOTDIR)/config.mak
+
+# Define library to build
+# -----------------------
+ifndef TARGET
+    TARGET = %TARGET%
+endif
+
+# Search folder paths for source files
+# ------------------------------------
+VPATH = $(SRCDIR):%VPATH%
+
+# Define objects to compile
+# -------------------------
+OBJECTS = %OBJECTS% $(LOCALEXTRAOBJS)
+
+# Define objects to remove
+# ------------------------
+REMOVEOBJS = %OBJECTS% $(LOCALREMOVEOBJS)
+
+# Library building rule
+# ---------------------
+$(basename $(TARGET)).a: $(OBJECTS)
+	$(AR) $(ARFLAGS) $(basename $(TARGET)).a $(OBJECTS)
+
+$(basename $(TARGET)).$(SHARED_EXTENSION): $(OBJECTS)
+	$(CXX) $(SHARED_FLAGS) -o $(basename $(TARGET)).$(SHARED_EXTENSION) $(OBJECTS) $(LOADLIBES) $(LDLIBS)
+	@if [ ! "$(SCSLIBCMD)" = "" ]; then \
+	echo "$(SCSLIBCMD) $(TARGET)";\
+	$(SCSLIBCMD) $(TARGET);\
+	fi		
+
+# Generic rules
+# -------------
+.PHONY: all objects purge clean clobber
+
+all: $(TARGET)
+
+objects: $(OBJECTS)
+
+purge:
+	$(RM) $(REMOVEOBJS)
+
+clean:
+	$(RM) $(REMOVEOBJS) $(basename $(TARGET)).a $(basename $(TARGET)).$(SHARED_EXTENSION)
+
+clobber:
+	$(RM) $(REMOVEOBJS) $(basename $(TARGET)).a $(basename $(TARGET)).$(SHARED_EXTENSION) $(basename $(TARGET)).mak $(basename $(TARGET)).a.mak $(basename $(TARGET)).$(SHARED_EXTENSION).mak
+
+# Dependencies
+# ------------

@@ -1,0 +1,16 @@
+binaries
+kit
+Debug
+*.bak
+*.*_old
+*_old
+*.*_notUsed
+*.sdf
+*.sln
+*.suo
+*.vcxproj*
+*.log
+*.out
+
+
+

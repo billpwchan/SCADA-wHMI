@@ -1,0 +1,637 @@
+COMPONENT=SIG, Sig
+
+####################################
+# General functions
+####################################
+Init ()
+{
+    english="Initialisation failure"
+    french="Echec d'initialisation"
+    spanish="Error initializando"
+}
+
+Parameters (const char *)
+{
+    english="Bad Parameters: %s"
+    french="Parametres incorrect: %s"
+    spanish="Parametros incorrectos: %s"
+}
+
+Loc ()
+{
+    english="Unknown location"
+    french="Location inconnue"
+    spanish="Lugar desconocido"
+}
+
+Scadasoft (int, const char *)
+{
+    english="Error number %d returned by SCADAsoft function: %s"
+    french="Erreur numero %d retournee par fonction SCADAsoft: %s"
+    spanish="Error %d provocado por la funcion SCADAsoft %s"
+}
+
+Memory ()
+{
+    english="Memory allocation error"
+    french="Erreur d'allocation memoire"
+    spanish="Error reservando memoria"
+}
+
+ORB (const char *)
+{
+    english="ORB error: %s"
+    french="Erreur ORB: %s"
+    spanish="Error ORB: %s"
+}
+
+EnvironVar (const char *)
+{
+    english="Failure in reading %s environment variable"
+    french="Impossible de lire la variable d'environnement %s"
+    spanish="No se puede leer la variable de entorno %s"
+}
+
+SnapshotFormat(const char*)
+{
+    english="Unknown file format for snapshot in dir %s ."
+    french="Format de fichier inconnu pour le snapshot dans le repertoire %s ."
+    spanish="Formato de fichero desconocido en la carpeta %s"
+}
+
+PointerNull(const char *)
+{
+    english="Null pointer %s !!"
+    french="Pointer null %s !!"
+    spanish="Puntero %s null"
+}
+
+InstanceUnknown(const char *)
+{
+    english="Instance %s is unknown !!"
+    french="Instance %s est inconnu !!"
+    spanish="Instancia %s desconocida"
+}
+
+MethodReturn(const char *, int, int )
+{
+    english="Method %s : return major %d and minor %d"
+    french="Méthode %s: retourne major %d et minor %d"
+    spanish="Metoda %s: valor de retorno mayor %d minor %d"
+}
+
+InstanceNotCreated(const char *)
+{
+     english="Cannot create instance %s !!"
+     french="Création instance %s impossible !!"
+     spanish="Creacion imposible de la instancia %s"
+}
+
+EventTypeIncorrect (int)
+{
+    english="Event type %d unknown"
+    french="Type d'événement %d incorrect"
+    spanish="Typo de evento desconocido %d"
+}
+
+CodeTypeIncorrectInDbm (const char *, int)
+{
+    english="type for %s attribute is incorrect in database, the type must be %d"
+    french="Type incorrect dans la base de données pour l'attribut %s, le type doit être %d"
+    spanish="El attributo %s debe ser del tipo %d"
+}
+
+####################################
+# Container functions
+####################################
+ListFull ()
+{
+    english="List is full. Unable to insert a new element!"
+    french="La liste est pleine. Impossible d'inserer un nouvel element!"
+    spanish="Lista llena. No se puede insertar un nuevo elemento"
+}
+
+OutOfRange (int, int)
+{
+    english="Cannot retrieve %dth element in list with only %d elements"
+    french="Impossible de retrouver le %deme element dans la liste avec %d elements"
+    spanish="No se puede leer el %d elemento en la lista con un tamano de %d"
+}
+
+OutOfMaxRange (int, int)
+{
+    english="Cannot access %dth element in list with max %d elements"
+    french="Impossible d'acceder au %deme element dans la liste de %d elements maximum"
+    spanish="No se puede leer el %d elemento un una lista de %d elementos maximo"
+}
+
+####################################
+# SigCtl functions
+####################################
+Ctl (const char *)
+{
+    english="Error number %d received from CtlCmd server"
+    french="Erreur numero %d recue du serveur CtlCmd"
+    spanish="Recibiendo error %d envio por el proceso CtlCmd"
+}
+
+ExecStatus (const char *, int)
+{
+    english="Execution status for '%s' command (%d)"
+    french="Status d'execution pour la commande '%s' (%d)"
+    spanish="Estado de ejecucion %d por el mando (%s)"
+}
+
+OperationMode (const char *, const char *)
+{
+    english="Operation '%s' is not allowed: %s"
+    french="L'operation '%s' n'est pas autorisee: %s"
+    spanish="Operacion %s no autorizada %s"
+}
+
+CvtTopology (int, const char *)
+{
+    english="Error number %d returned by SIGCVT function: %s"
+    french="Erreur numero %d retournee par fonction SIGCVT: %s"
+    spanish="Recibiendo error %d envio por la funcion de SIGCVT %s"
+}
+
+RouteNoSet (const char *)
+{
+    english="Route '%s' neither set nor registered"
+    french="Itineraire ni forme ni enregistre '%s'"
+    spanish="Itinerario %s no formado y no registrado"
+}
+
+RouteSetNotExist (const char *)
+{
+    english="No route set or registered accessible from '%s'"
+    french="Aucun itineraire forme ou enregistre accessible depuis '%s'"
+    spanish="Ningun ruta formado o registrada desde %s"
+}
+
+####################################
+# SigCvt and SigLoc functions
+####################################
+InitList (const char *, int)
+{
+    english="Initialisation failure : %s (max %d in the list)"
+    french="Echec d'initialisation : %s (max %d dans la liste)"
+    spanish="Error initializando la lista %s (max %d elementos)"
+}
+
+InitDataSet (const char *, int)
+{
+    english="Initialisation failure : %s (max %d in the data set)"
+    french="Echec d'initialisation : %s (max %d dans le data set)"
+    spanish="Error initializando el dataset %s (max %d elementos)"
+}
+
+InitGroup (const char *)
+{
+    english="Initialisation failure : %s"
+    french="Echec d'initialisation : %s"
+    spanish="Error initializando el grupo %s"
+}
+
+InsertList (int, const char *, const char *)
+{
+    english="Unable to insert %dth item (%s) into %s!"
+    french="Impossible d'inserer le %deme item (%s) dans la %s!"
+    spanish="No se puede insertar el %d elemento %s en la lista %s"
+}
+
+InsertDataSet (int, const char *, const char *)
+{
+    english="Unable to insert %dth item (%s) into %s!"
+    french="Impossible d'inserer le %deme item (%s) dans le %s!"
+    spanish="No se puede insertar el %d elemento %s en el dataset %s"
+}
+
+ReplaceAtPosList (int, const char *)
+{
+    english="Unable to replace an item at position %d in %s!"
+    french="Impossible de retrouver un item à la position %d dans la %s!"
+    spanish="No se puede encontrar el elemento en la posicion %d de la lista %s"
+}
+
+ReplaceAtPosDataSet (int, const char *)
+{
+    english="Unable to replace a train (train id %d) at its respective position in %s!"
+    french="Impossible de remplacer un train (train id %d) à sa position dans la %s!"
+    spanish="Imposible reemplazar el tren con el id %d en su posicion de la lista %s"
+}
+
+RetrieveList (int, const char *)
+{
+    english="Unable to retrieve %dth item from %s!"
+    french="Impossible de retrouver le %deme item dans la %s!"
+    spanish="Elemento %d no encontrado en la lista %s"
+}
+
+RetrieveEventList (int, const char *)
+{
+    english="Unable to retrieve %dth event from %s!"
+    french="Impossible de retrouver le %deme event dans la %s!"
+    spanish="Evento %d no encontrado en la lista %s"
+}
+	
+RetrieveDataSet (int, const char *)
+{
+    english="Unable to retrieve %dth item from %s!"
+    french="Impossible de retrouver le %deme item dans le %s!"
+    spanish="Elemento %d no encontrado en el dataset %s"
+}
+	
+ProcessTrainLoc (const char *, const char *, int, const char *, int)
+{
+    english="Unable to %s train loc for %s (trainId=%d, FBAlias=%s, absc=%d)!"
+    french="Impossible de %s train loc de %s (trainId=%d, FBAlias=%s, absc=%d)!"
+    spanish="No se puede %s tren loc de %s (trainId=%d, FBAlias=%s, absc=%d)"
+}
+
+FlushUpdate (const char *)
+{
+    english="Unable to flush the update for %s!"
+    french="Impossible de flush la mise à jour pour %s!"
+    spanish="No se puede actualizar %s"
+}
+
+InitIter (const char *)
+{
+    english="Unable to init iterator for %s!"
+    french="Impossible de initialiser iterateur pour %s!"
+    spanish="No se puede initializar el iterador asociado a %s"
+}
+
+SpreadApiStation (const char *)
+{
+    english="Unable to spread to API Station the update for %s!"
+    french="Impossible de diffuser la mise a jour API Station  pour %s!"
+    spanish="No se puede difundir la actualizacion API Station por %s"
+}
+
+Subscribe (const char *)
+{
+    english="Unable to subscribe to data on %s!"
+    french="Impossible de souscrire une donnée sur %s!"
+    spanish="No se puede abonarse a una data en %s"
+}
+
+StrNotFound (const char *, const char *)
+{
+    english="%s [%s] used for conversion is not found!"
+    french="Impossible de trouver %s [%s] utilise pour conversion!"
+    spanish="Error encontrada %s [%s] utilizado por defecto"
+}
+
+NumNotFound (const char *, int)
+{
+    english="%s [%d] used for conversion is not found!"
+    french="Impossible de trouver %s [%d] utilise pour conversion!"
+    spanish="Error encontrada %s [%d] utilizado por defecto"
+}
+
+BadAbscissaOnFB(int, const char*, int)
+{
+    english="BAD modified absc = %d (beyond FB (%s) length) - All modif for this train (id %d) are not taken into account"
+    french="Mauvaise abscisse = %d (superieure à taille FB (%s)) - Modifications ignorées pour ce train (id %d)"
+    spanish="Absesa incorrecta %d superior a FB %s - Actualizacion del tren id %d no efectuada"
+}
+
+DataBaseMaxAreaExceeded (int, int, const char *, int)
+{
+    english="Number of interstation areas (%d) exceeds max (%d) for station %s in direction %d"
+    french="Nombre de voies interstation (%d) depasse valeur max (%d) pour station %s dans sens %d"
+    spanish="Cantida de vias en interstacion %d supera el valor max % por la estacion %s sentifo %d"
+}
+
+####################################
+# SigDpc functions
+####################################
+InputMsg (int, int)
+{
+    english="Unknown input message code %d received from C752 for sector %d"
+    french="Code message %d recu de C752 inconnu, du secteur %d"
+    spanish="Codigo %d desconocido recibiendo de C752, sector %d"
+}
+
+InputLocMsgUnknownFB_APst_CAB (int, int)
+{
+    english="Unknown fixed block code (%d) in localisation message (AP status: front CAB) received from C752 for sector %d"
+    french="Code fixed block (%d) inconnu dans le message de localisation (etat AP: CAB de tete) recu de C752 pour le secteur %d"
+    spanish="Codigo fixed block %d desconocido en el mensaje de localisacion recibiendo de C752, sector %d"
+}
+
+InputLocMsgUnknownTrainId (int, int)
+{
+    english="Unknown ATC car number (%d) in localisation message received (AP status: front AP) from C752 for sector %d"
+    french="ATC car number (%d) inconnu dans le message de localisation (etat AP: AP de tete) recu de C752 pour le secteur %d"
+    spanish = "ATC tren %d desconocido en el mensaje de localisacion (estado AP: AP de cabecera) recibido de C752 por el sector %d"
+}
+
+InputBufferMsgUnknownTrainId (int, int, int)
+{
+    english="Unknown ATC car number (%d) in ATC message (code %d) received from C752 for sector %d"
+    french="ATC car number (%d) inconnu dans le message ATC (code %d) recu de C752 pour le secteur %d"
+    spanish = "ATC tren %d desconocido en el mensaje de ATC (codigo %d) recibido de C752 por el sector %d"
+}
+
+InputTrainId (int, int)
+{
+    english="Incorrect input train id %d for input buffer received from C752 or C751A, of length %d, via C760"
+    french="Identification du train incorrecte %d pour un buffer recu de C752 ou C751A, de longueur %d, via C760"
+    spanish = "Tren %d desconocido en el buffer recibido de C752 C751A, lng %d, via C760"
+}
+
+RetrieveStrList (const char *, const char *)
+{
+    english="Unable to retrieve %s from %s!"
+    french="Impossible de retrouver l'item %s dans la %s!"
+    spanish = "Item %s no encontrado en la lista %s"
+}
+
+######
+
+BadMsgType (int)
+{
+    english="Received Ouragan message type unknown : %d"
+    french="Type message %d recu d'Ouragan inconnu"
+    spanish = "Tipo de mensaje %d desconocido recibido de Ouragan"
+}
+
+ReceiveOurBufferLengthTooShort (int ,int )
+{
+    english="Received Ouragan buffer too short (size %d) : size must be bigger than or equal to %d !"
+    french="Buffer Ouragan recu trop court (taille %d) : taille min %d !"
+    spanish = "Buffer demasiado corto %d. Tamano min %d"
+}
+
+ReceiveOurBufferLengthTooBig (int ,int)
+{
+    english="Received Ouragan buffer too big : size must be smaller than or equal to %d, remain %d bytes!"
+    french="Buffer Ouragan recu trop grand : taille doit être plus petit ou égale à %d, reste %d bytes !"
+    spanish = "Buffer demasiado grande %d. Queda %d octets"
+}
+
+ReceiveOurHeaderLengthTooShort (int )
+{
+    english="Received Ouragan header message too short : size must be bigger than d !"
+    french="En Tete message Ouragan recu trop court : taille min %d!"
+    spanish = "Cabecera del mensaje Ouragan demasiado corta. Tamano min %d"
+}
+
+ReceiveOurBufferDiffOsTimeAcqTime (int, long)
+{
+    english="Received Ouragan message (type %d) with diffTime : diff OsTime/AcqTime %d ms"
+    french="Message Ouragan (type : %d) avec decalage temps :  diff OsTime/AcqTime %d ms"
+    spanish="Mensaje Ouragan (tipo : %d) timeshift :  diff OsTime/AcqTime %d ms"
+}
+
+ReceiveOurBufferDiffAcqTimeMsgTime (int, long)
+{
+    english="Received Ouragan message (type %d) with diffTime : diff AcqTime/MsgTime %d ms"
+    french="Message Ouragan (type : %d) avec decalage temps :  diff AcqTime/MsgTime %d ms"
+    spanish="Mensaje Ouragan (tipo : %d) timeshift :  diff AcqTime/MsgTime %d ms"
+}
+
+ReceiveOurBufferDiffTimeListCDV (int, const char *)
+{
+    english="Received Ouragan message (%d CDV) with diffTime : %s"
+    french="Message Ouragan (%d CDV) avec decalage temps : %s"
+    spanish="Mensaje Ouragan (%d CDV) timeshift : %s"
+}
+
+ReceiveOurMsgLengthTooShort (int, int, int)
+{
+    english="Received Ouragan message (type : %d) too short : message length %d and remaining buffer length %d !"
+    french="Message Ouragan (type : %d) recu trop court : taille message %d et taille restante dans le buffer %d!"
+    spanish="Mensaje Ouragan (tipo : %d) demasiado corto : tamano %d queda %d octet!"
+}
+
+ReceiveOurMsgIncorrectLength (int, int, int, int)
+{
+    english="Received Ouragan message (type : %d) incorrect : message length in header %d instead of %d (computing length with %d equipments) !"
+    french="Message Ouragan (type : %d) recu incorrect : champs taille message dans entete %d au lieu de %d (taille calculée à partir de %d equipements)!"
+    spanish="Mensaje Ouragan recibido (tipo : %d) incorrecto : campo tamano de cabecera %d en lugar de %d (tamano calculado con %d equipos)!"
+}
+
+ReceiveOurMsgLengthMin (int, int, int)
+{
+    english="Received Ouragan message (type : %d) too short : minimum message length must be %d (message length read in header: %d) !"
+    french="Message Ouragan (type : %d) recu trop court : taille message %d et taille restante dans le buffer %d!"
+    spanish="Mensaje Ouragan recibido (tipo : %d) demasiado corto : tamano %d queda %d octet!"
+}
+
+ReceiveOurMsgNbEqtNegatif (int, int)
+{
+    english="Received Ouragan message (type : %d) number equipment negatid %d!"
+    french="Message Ouragan (type : %d) nombre d'équipement négatif %d!"
+    spanish="Mensaje Ouragan (tipo : %d) cuento de equipos negativo %d!"
+}
+
+ReceiveOurMsgIncorrectEqtType (int, int)
+{
+    english="Received Ouragan message (type : %d) equipment type %d is incorrect!"
+    french="Message Ouragan (type : %d) type équipement %d est incorrect!"
+    spanish="Mensaje Ouragan (tipo : %d) tipo equipo %d incorrecto!"
+}
+
+ReceiveOurIncorrectDate ()
+{
+    english="Received Ouragan time transmission incorrect : get local time !"
+    french="Heure de transmission Ouragan incorrecte : utilisation heure locale!"
+    spanish="Hora de transmision Ouragan incorrecta : utilisacion hora locale!"
+}
+
+EquipmentIDUnknown (int, int)
+{
+    english="Unknown equipment ID : %d in OURAGAN message (type %d)"
+    french="Identifiant equipement inconnu : %d dans le message OURAGAN (type %d)"
+    spanish="Identificador de equipo desconocido : %d mensaje OURAGAN (tipo %d)"
+}
+
+EqtTypEqtIDUnknown (int, int, int)
+{
+    english="Unknown equipment ID : %d (EqtType : %d) in OURAGAN message (type %d)"
+    french="Identifiant equipement inconnu : %d (TypeEqt : %d) dans le message OURAGAN (type %d)"
+    spanish="Identificador de equipo desconocido : %d (tipo equipo: %d) mensaje OURAGAN (tipo %d)"
+}
+
+AreaTypEqtIDUnknown (int, int, int, int)
+{
+    english="Unknown equipment ID : %d - %d (AreaType : %d) in OURAGAN message (type %d)"
+    french="Identifiant equipement inconnu : %d - %d (TypeZone : %d) dans le message OURAGAN (type %d)"
+    spanish="Identificador de equipo desconocido : %d - %d (typo zona : %d) mensaje OURAGAN (tipo %d)"
+}
+
+StationIDUnknown (int, int, int)
+{
+    english="Unknown station ID : %d (range : %d) in OURAGAN message (type %d)"
+    french="Identifiant station inconnu : %d (rang : %d) dans le message OURAGAN (type %d)"
+    spanish="Identificador de estacion desconocido : %d (rango : %d) mensaje OURAGAN (tipo %d)"
+}
+
+InvalidDacEIV (int , int)
+{
+    english="Invalid status (%d) for DacEIV (type %d)"
+    french="Status invalid (%d) pour DacEIV (type %d)"
+    spanish="Estado de DacEIV invalido(%d) (tipo %d)"
+}
+
+UnknownCondifDacEIV (int)
+{
+    english="Unknown ID (%d) for DacEIV of CONDIF messages"
+    french="ID inconnu (%d) pour DacEIV des messages CONDIF"
+    spanish="ID de dacEIV desconocido (%d) mensajes CONDIF"
+}
+
+UnknownSubscriptionId (int)
+{
+    english="Unknown subscription ID (%d) notified by Dac"
+    french="ID subscription inconnu (%d) notifié par Dac"
+    spanish="Identificador de Dac abono desconocido (%d)"
+}
+
+ReceiveCondifMsgTooShort (long, int, int)
+{
+    english="Received Condif message too short (type %d, size %d) : size must be bigger than %d !"
+    french="Message Condif recu trop court (type %d, taille %d) : taille min %d !"
+    spanish="Mensaje Condif recibido demasiado corto (tipo %d, tamano %d) : tamano min %d !"
+}
+
+ReceiveCondifMsgNbEqtNegatif (long, int)
+{
+    english="Received Condif message (type : %d) negative number of equipments %d !"
+    french="Message Condif (type : %d) nombre d'équipements négatif %d !"
+    spanish="Mensaje Condif (tipo : %d) cuento de equipamientos negativo %d !"
+}
+
+ReceiveCondifMsgNbEqtTooBig (long, int, int)
+{
+    english="Received Condif message (type : %d) number of equipments (%d) must not exceed %d !"
+    french="Message Condif (type : %d) nombre d'équipements (%d) ne doit pas dépasser %d !"
+    spanish="Mensaje Condif (tipo : %d) equipamientos (%d) ne doit pas dépasser %d !"
+}
+
+ReceiveCondifMsgIncorrectLength (long, long, long, long)
+{
+    english="Received Condif message (type : %d) incorrect : message length %d instead of %d (computing length with %d equipments) !"
+    french="Message Condif (type : %d) recu incorrect : taille message %d au lieu de %d (taille calculée à partir de %d equipements)!"
+    spanish="Mensaje Condif (tipo : %d) recibido incorrecto : tamano mensaje %d en lugar de %d (tamano calculado con %d equipemientos)!"
+}
+
+CondifEquipmentIDUnknown (long, long)
+{
+    english="Unknown equipment ID : %d in CONDIF message (type %d)"
+    french="Identifiant equipement inconnu : %d dans le message CONDIF (type %d)"
+    spanish="Identificacion de equipement desconocida : %d mensaje CONDIF (tipo %d)"
+}
+
+CondifMsgIncorrectData (long, const char *, long, long, long)
+{
+    english="Received Condif message (type : %d) incorrect : %s data = %d (not inside boundary limits [%d, %d] ) !"
+    french="Message Condif (type : %d) recu incorrect : champ %s = %d (non compris dans intervalle [%d, %d] ) !"
+    spanish="Mensaje Condif (tipo : %d) recibido incorrecto : campo %s = %d (desconocido en el intervalo [%d, %d] ) !"
+}
+
+InvalidOurLoc (const char *, long)
+{
+    english="Invalid OURAGAN localisation : way = %s,  pko = %d"
+    french="Localisation OURAGAN invalide : voie = %s, pko = %d"
+    spanish="Lugar OURAGAN invalido : via = %s, pko = %d"
+}
+
+NotIndicatorManoeuvre()
+{
+    english="It isn't an indicator manoeuvre"
+    french="Il ne s'agit pas d'un signal de manoeuvre"
+    spanish="No es un senal de maniobra"
+}
+
+IncorrectAcknowledge(long)
+{
+    english="Acknowledge impossible for message type %d !!"
+    french="Acquittement impossible pour le message de type %d !!"
+    spanish="No se puede reconocer el mensaje de tipo %d !!"
+}
+
+InvalidLtvData (const char *, long)
+{
+    english="Invalid LTV data : way = %s,  pko = %d"
+    french="Description de LTV invalide : voie = %s, pko = %d"
+    spanish="Descripcion de LTV invalida : via = %s, pko = %d"
+}
+
+#########################
+# SigExt errors
+#########################
+Connection(const char*)
+{
+    english="Connection error : %s"
+    french="Echec de connexion : %s"
+    spanish="Error de connecion: %s"
+}
+
+ReadFd(int, int)
+{
+    english="Failed to read fd %d, error system %d"
+    french="Echec de lecture sur le fd %d, erreur system %d"
+    spanish="No se puede leer en el fd %d, error system %d"
+}
+
+WriteFd(int, int)
+{
+    english="Failed to write on fd %d, error system %d"
+    french="Echec d'ecriture sur le fd %d, erreur system %d"
+    spanish="No se puede escribir en el fd %d, error system %d"
+}
+
+InvalidTarget(char)
+{
+    english="Invalid target address 0x%02x"
+    french="Addresse cible invalide 0x%02x"
+    spanish="Direccion cible desconocida 0x%02x"
+}
+
+InvalidFunction(char)
+{
+    english="Invalid function code 0x%02x"
+    french="Code fonction invalide 0x%02x"
+    spanish="codigo funcion invalido 0x%02x"
+}
+
+AckNotSent(const char*, int, int)
+{
+    english="Line %s (%d) failed to send ack on fd %d"
+    french="Lien %s (%d) ne peut envoyer acquittement sur le fd %d"
+    spanish="Enlace %s (%d): no se puede enviar el reconocimiento en el fd %d"	
+}
+
+InconsistantTimeStamp(const char*, int)
+{
+    english="Line %s (%d) : status message reception time inconsistant"
+    french="Lien %s (%d) : horodate de récéption du message de vie incohérent"	
+    spanish = "Enlace %s (%d): fecha de recepcion incorrecta"
+}
+
+StatusMsgTooLate(const char*, int, long, long, long)
+{
+    english="Line %s (%d) : last status msg received %d.%03ds ago (max delay %ds). Disconnect"
+    french="Lien %s (%d) : dernier msg d'état recu il y a %d.%03d (délai max %ds). Deconnexion"	
+    spanish = "Enlace %s (%d): ultimo mensaje de estado recibido %d.%03d (max %ds). Desconneccion"
+}
+
+NoMsgToSend(const char*, int)
+{
+    english="Line %s (%d) : no msg to send to the SFR"
+    french="Lien %s (%d) : aucun msg a envoyer au SFR"
+    spanish = "Enlace %s (%d): no mensaje a enviar a SFR"
+}
+
+ResetCom()
+{
+    english="Communication with SFR reset"
+    french="Communication avec le SFR reset"
+    spanish = "Comunicacion con SFR reset"
+}

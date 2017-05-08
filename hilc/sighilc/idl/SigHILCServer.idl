@@ -1,0 +1,69 @@
+//+-----------------------------------------------------------------------
+//|Company       : TCS
+//|CSCI          : SigHILC
+//|
+//| Purpose           : 
+//|
+//| Filename          : SigHILCServer.idl
+//|
+//| Creation Date     : 27/04/2015
+//|
+//| Author            : 	
+//|
+//| History           : date, name, action
+//|
+//+-----------------------------------------------------------------------
+
+// SCADAsoft types 
+#include "scstype.idl"
+#include "scsprocess.idl"
+
+interface SigHILCServerIdl   : ScsProcessIdl
+{
+  //////////////////////////////////////////////////////HILC//////////////////////////////////////////////////////
+  
+  // ---------------------------------------------
+  // Preparation request 
+  // ---------------------------------------------								
+  
+  ScsStatusIdl CmdPreparationRequest ( 
+                                           in string ai_sOperatorName,
+                                           in string ai_sWorkStationName,
+                                           in unsigned short  ai_sCmdType,
+                                           in short  ai_sCmdValue,
+										   in unsigned short ai_sCmdValueDiv,
+                                           in string ai_sEquipmentAlias,
+                                           in string ai_sEquipmentType,
+                                           in string ai_sCommandName );									
+									
+  // ---------------------------------------------
+  // Confirmation request
+  // ---------------------------------------------	
+	
+  ScsStatusIdl CmdConfirmRequest (  
+                                           in string ai_sOperatorName,
+                                           in string ai_sWorkStationName,
+                                           in unsigned short  ai_sCmdType,
+                                           in short  ai_sCmdValue,
+										   in unsigned short ai_sCmdValueDiv,
+                                           in string ai_sEquipmentAlias,
+                                           in string ai_sEquipmentType,
+                                           in string ai_sCommandName );
+                                           
+  // ---------------------------------------------
+  // Cancel request
+  // ---------------------------------------------	
+	
+  // BHE: besoin pas encore exprime sur Lusail Doha
+  //ScsStatusIdl CmdCancelRequest (  
+  //                                         in string ai_sOperatorName,
+  //                                         in string ai_sWorkStationName,
+  //                                         in short  ai_sCmdType,
+  //                                         in short  ai_sCmdValue,
+  //                                         in string ai_sEquipmentAlias,
+  //                                         in string ai_sEquipmentType,
+  //                                         in string ai_sCommandName );
+  
+}; // End interface SigHILCServerIdl
+
+

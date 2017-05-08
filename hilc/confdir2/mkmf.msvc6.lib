@@ -1,0 +1,104 @@
+# library generated Makefile by mkmf
+# <%DATE%> %ID%
+# ----------------------------------------------------------
+#
+
+# Retrive Plateform dependent configuration
+# -----------------------------------------
+include $(ROOTDIR)/config.mak
+
+# Define library to build
+# -----------------------
+ifndef TARGET
+ifeq ($(SCS_USE_CPATH), no)
+    TARGET = %TARGET%
+else
+    TARGET = `cpath "%TARGET%"`
+endif
+endif
+
+# Search folder paths for source files
+# ------------------------------------
+VPATH = $(SRCDIR):%VPATH%
+
+# Define objects to compile
+# -------------------------
+OBJECTS = %OBJECTS% $(LOCALEXTRAOBJS)
+
+# Define objects to remove
+# ------------------------
+REMOVEOBJS = %OBJECTS% $(LOCALREMOVEOBJS)
+
+# Library building rule
+# ---------------------
+
+# IDL Specific
+# ------------
+$(basename $(TARGET)).a: $(OBJECTS)
+	$(AR) $(ARFLAGS) $(OPT_MODE)out:$(basename $(TARGET)).$(LIB_EXTENSION) $(OBJECTS)
+	@if [ $(TARGET) = libidl.a ]; then \
+	touch $(TARGET); \
+	fi
+
+$(basename $(TARGET)).lib: $(OBJECTS)
+	$(AR) $(ARFLAGS) $(OPT_MODE)out:$(basename $(TARGET)).$(LIB_EXTENSION) $(OBJECTS) $(strip $(LDLIBS:%.$(LIB_EXTENSION)=))  $(LOCALEXTRALDLIBS)
+	@mv -f $(basename $(TARGET)).$(LIB_EXTENSION) $(BINDIR)/lib/
+	@touch $(basename $(TARGET)).$(LIB_EXTENSION)
+	@if [ ! "$(SCSLIBCMD)" = "" ]; then \
+	echo "$(SCSLIBCMD) $(TARGET)";\
+	$(SCSLIBCMD) $(TARGET);\
+	fi
+
+
+$(basename $(TARGET)).dll: $(OBJECTS) $(LOCALEXTRALDLIBS)
+	@if [ "$(LOCALMKROOT)" -eq "1" ]; then \
+	rm -f $(TARGET);\
+	fi
+	$(LINK.obj) $(OBJECTS) $(LOCALEXTRALDLIBS) $(LOADLIBES) $(LDLIBS)  $(OPT_MODE)dll $(OPT_MODE)PDB:$(basename $(TARGET)).pdb $(OPT_MODE)out:$@
+	@if [ -n "`echo $(SYSPACKAGES) | grep rtap`" ]; then \
+	  ${RTAPROOT}/bin/RtapUnlockExe $@; \
+	fi
+	@if [ "$(LOCALMKROOT)" -eq "1" ]; then \
+	$(MKROOT) $(TARGET);\
+	fi
+	@chmod a+x $@
+	@mv -f $@ $(BINDIR)/bin/
+	@if [ -e $(basename $(TARGET)).pdb ]; then \
+	 mv -f $(basename $(TARGET)).pdb $(BINDIR)/bin/; \
+	fi
+	@touch $@
+	@chmod a+x $@
+	@if [ -f $(basename $(TARGET)).$(LIB_EXTENSION) ]; then \
+	mv -f $(basename $(TARGET)).$(LIB_EXTENSION) $(BINDIR)/lib/ ; \
+	touch $(basename $(TARGET)).$(LIB_EXTENSION) ; \
+	fi
+	@if [ ! "$(SCSLIBCMD)" = "" ]; then \
+	echo "$(SCSLIBCMD) $(TARGET)";\
+	$(SCSLIBCMD) $(TARGET);\
+	fi
+
+# Generic rules
+# -------------
+.PHONY: all objects sbrfiles purge clean clobber
+
+all: $(TARGET)        ### for .bsc: sbrfiles
+
+objects: $(OBJECTS)
+
+sbrfiles:
+	@if [ ! $(TARGET) = libidl.lib ]; then \
+		$(BSC32) $(subst .exe,.bsc,$(TARGET)) $(subst .obj,.sbr,$(OBJECTS)) ; \
+	fi
+
+purge:
+	$(RM) $(REMOVEOBJS)
+
+clean:
+	$(RM) $(REMOVEOBJS) $(basename $(TARGET)).lib $(basename $(TARGET)).$(SHARED_EXTENSION) $(subst .exe,.pdb,$(TARGET)) $(subst .exe,.bsc,$(TARGET)) $(subst .exe,.ilk,$(TARGET)) $(subst .obj,.sbr,$(OBJECTS)) *.idb *.pdb libidl.a.mak
+
+clobber:
+	$(RM) $(REMOVEOBJS) $(basename $(TARGET)).lib $(basename $(TARGET)).$(SHARED_EXTENSION) $(subst .exe,.pdb,$(TARGET)) $(subst .exe,.bsc,$(TARGET)) $(subst .exe,.ilk,$(TARGET)) $(subst .obj,.sbr,$(OBJECTS)) *.idb *.pdb libidl.a.mak $(basename $(TARGET)).mak $(basename $(TARGET)).$(SHARED_EXTENSION).mak $(basename $(TARGET)).$(LIB_EXTENSION).mak 
+
+# Dependencies
+# ------------
+

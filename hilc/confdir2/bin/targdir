@@ -1,0 +1,14 @@
+#! /bin/sh
+
+# Mettre le script de nom du dir cible
+os=`/bin/uname -s`
+
+case $os in
+  AIX )  targ=`/bin/uname -v`.`/bin/uname -r` ;;
+  OSF1 | HP-UX )  targ=`/bin/uname -r`  ;;
+  SunOS )  targ=`/bin/uname -r | cut -d . -f1,2` ;;
+  * ) targ=`/bin/uname -r`  ;;
+esac
+
+echo $os$targ
+

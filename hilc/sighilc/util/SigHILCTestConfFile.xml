@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>   
+  <SCOPE name= "SIGHILCTEST_CONF">
+    <CONF key = "TEST_NUMBER">25</CONF>
+    <CONF key = "FIRST_TEST">1</CONF> 
+	<!-- After the tests, all Select Ack should be 0 (dacsimulator % extvar *AckSel*).
+	     Some Execute Ack could be greater then 0 : they will be reset by a next Select
+		 if necessary, first clean with dacsimulator % run ReacInitLusail -->
+	<!-- Command return status are tested (if ERROR is expected, use PREP_EXPECT_STATUS and CONF_EXPECT_STATUS)
+	     To test more exactly, offline use the pattern file generated via EXPECT_TRACE_PATTERN with tools :
+		 cat on log files, process with resumeLog.awk, and diff (kdiff3) with the pattern file -->
+	<!-- Nominal cases -->
+	<!-- Open command on ICB class -->
+    <SCOPE name= "TEST_1">
+      <SCOPE name= "CMD_ARG">      
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Open</CONF>
+        <CONF key = "CMD_TYPE">2</CONF><!-- 1 for SIO / 2 for DIO / 3 for AIO -->
+        <CONF key = "CMD_VALUE">1</CONF>
+      </SCOPE>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Open+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF> <!-- + is converted to end of line -->
+    </SCOPE>
+	<!-- Close command on ICB class (on another instance) -->
+    <SCOPE name= "TEST_2">
+      <SCOPE name= "CMD_ARG">   
+        <CONF key = "EQPT">PWRTPSTPS01ICB2_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB2_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF>
+    </SCOPE>
+	<!-- Reset command on ICB class -->
+    <SCOPE name= "TEST_3">
+      <SCOPE name= "CMD_ARG">      
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1</CONF>
+        <CONF key = "EQPT_TYPE">ICB</CONF>
+        <CONF key = "CMD_NAME">Reset</CONF>
+      </SCOPE>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1+equipmentType=ICB+commandName=Reset+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF>
+    </SCOPE>
+	<!-- Open command on TCB CB class -->
+    <SCOPE name= "TEST_4">
+      <SCOPE name= "CMD_ARG">      
+        <CONF key = "EQPT">PWRTPSTPS01TCB_1CB</CONF>
+        <CONF key = "EQPT_TYPE">TCBCB</CONF>
+        <CONF key = "CMD_NAME">Open</CONF>
+      </SCOPE>      
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01TCB_1CB+equipmentType=TCBCB+commandName=Open+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF>
+    </SCOPE>
+	<!-- Close command on TCB CB class (on another instance) -->
+    <SCOPE name= "TEST_5">
+      <SCOPE name= "CMD_ARG">      
+        <CONF key = "EQPT">PWRTPSTPS01TCB_2CB</CONF>
+        <CONF key = "EQPT_TYPE">TCBCB</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>      
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01TCB_2CB+equipmentType=TCBCB+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF>	  
+    </SCOPE>
+	<!-- Reset command on TCB class -->
+    <SCOPE name= "TEST_6">
+      <SCOPE name= "CMD_ARG">      
+        <CONF key = "EQPT">PWRTPSTPS01TCB_1</CONF>
+        <CONF key = "EQPT_TYPE">TCB</CONF>
+        <CONF key = "CMD_NAME">Reset</CONF>
+      </SCOPE>
+ 	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01TCB_1+equipmentType=TCB+commandName=Reset+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF>
+    </SCOPE>    
+	<!-- Prepare Ack "no command in progress" after Ack Ok (= should stay in waiting conf without error) -->
+    <SCOPE name= "TEST_7">
+      <SCOPE name= "CMD_ARG">      
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "PREP_ACK_VALUE2">0</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "TIMER_BEFORE_CONF">4</CONF>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+State_WaitingConf No Error+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF> <!-- State_WaitingConf No Error is linked to this ack change with PREP_ACK_VALUE2 while waiting -->
+    </SCOPE>
+	<!-- Error Cases -->
+    <!-- Timeout HILC before Execute (= from prep state to error_timeout state)-->
+    <SCOPE name= "TEST_8">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Open</CONF>
+      </SCOPE>
+	  <CONF key = "TIMER_BEFORE_CONF">17</CONF><!-- Wait 17 greater than 15 before conf -->
+	  <CONF key = "PREP_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset select ack -->
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Open+State_Prep Send Preparation Command OK+State_WaitingConf+State_WaitingConf No Error+State_Error_TimeOut+SessionManager::deleteSession OK+HILC_UpdateData::timerCallback deleteSession OK+---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF> <!-- State_WaitingConf No Error is linked to this ack change with PREP_ACK_RESET while waiting -->
+    </SCOPE>
+	<!-- Prepare Ack Error (= from prep state to error state) -->
+    <SCOPE name= "TEST_9">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Open</CONF>
+      </SCOPE>      
+	  <CONF key = "PREP_ACK_VALUE">2</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "PREP_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset select ack -->
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Open+State_Prep Send Preparation Command OK+State_Error+SessionManager::deleteSession OK+---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF>
+    </SCOPE>
+	<!-- Prepare Ack Timeout (= from prep state to error state)-->
+    <SCOPE name= "TEST_10">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>      
+	  <CONF key = "PREP_ACK_VALUE">3</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "PREP_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset select ack -->
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_Error+SessionManager::deleteSession OK+---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF>
+    </SCOPE>
+	<!-- Prepare Ack Timeout after Ack Ok (= from waiting conf state to error state) -->
+    <SCOPE name= "TEST_11">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "PREP_ACK_VALUE2">3</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "PREP_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset select ack -->
+	  <CONF key = "TIMER_BEFORE_CONF">6</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+State_Error+SessionManager::deleteSession OK+---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF>
+    </SCOPE>
+	<!-- Prepare Ack Error after Ack Ok (= from waiting conf state to error state) -->
+    <SCOPE name= "TEST_12">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>      
+	  <CONF key = "PREP_ACK_VALUE2">2</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "PREP_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset select ack -->
+	  <CONF key = "TIMER_BEFORE_CONF">6</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+State_Error+SessionManager::deleteSession OK+---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF>
+    </SCOPE>
+	<!-- Execute Ack Error (= from conf state to error state) -->
+    <SCOPE name= "TEST_13">
+      <SCOPE name= "CMD_ARG">  
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "CONF_ACK_VALUE">2</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "CONF_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset execute ack -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Error+SessionManager::deleteSession OK</CONF>
+    </SCOPE>
+	<!-- Execute Ack Timeout (= from conf state to error state) -->
+    <SCOPE name= "TEST_14">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "CONF_ACK_VALUE">3</CONF><!-- 0 Nothing / 1 Ok (default) / 2 Error / 3 Timeout -->
+	  <CONF key = "CONF_ACK_RESET">2</CONF><!-- if > 0 , wait the amount of seconds then force reset execute ack -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Error+SessionManager::deleteSession OK</CONF>
+    </SCOPE>
+	<!-- Timeout HILC after Execute (= from conf state to error_timeout state) -->
+    <SCOPE name= "TEST_15">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "CONF_ACK_VALUE">0</CONF><!-- The value 0 (from 0) is as if no execute ack was done -->
+	  <CONF key = "TIMER_BEFORE_CONF">10</CONF>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Error_TimeOut+SessionManager::deleteSession OK+HILC_UpdateData::timerCallback deleteSession OK</CONF>
+    </SCOPE>
+	<!-- This test and the next one : test with different operators between select and execute -->
+    <SCOPE name= "TEST_16">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+		<CONF key = "OP">OPA</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDCONFACTIVE">0</CONF>
+	  <CONF key = "TIMER_BEFORE_CMD">7</CONF><!-- Wait previous timeout done (15s after prepare) -->
+	  <CONF key = "PREP_ACK_RESET">2</CONF> <!-- because no execute dio was sent -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf</CONF>
+    </SCOPE>
+    <SCOPE name= "TEST_17">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+		<CONF key = "OP">OPB</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDPREPACTIVE">0</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF>
+    </SCOPE>
+	<!-- Try a select command while equipment has already a session (see 2 steps before) -->
+    <SCOPE name= "TEST_18">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+		<CONF key = "OP">OPA</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDCONFACTIVE">0</CONF>
+	  <CONF key = "PREP_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "PREP_EXPECT_STATUS_MINOR">3</CONF> <!-- HILC_CREATE_COND_ERROR=3 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=CBR+commandName=Close+State_Error_TimeOut+SessionManager::deleteSession OK+HILC_UpdateData::timerCallback deleteSession OK</CONF>
+    </SCOPE>
+	<!-- After session has timed out, try an Execute command -->
+    <SCOPE name= "TEST_19">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+		<CONF key = "OP">OPA</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDPREPACTIVE">0</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "TIMER_BEFORE_CONF">16</CONF><!-- Wait previous timeout done (15s after prepare) -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+confirmCmd+confirmCmd  Error :Preparation Command not found</CONF>
+    </SCOPE>
+	<!-- This test and the next one : test with different workstations between select and execute -->
+    <SCOPE name= "TEST_20">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB2_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+		<CONF key = "WS">WS1</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDCONFACTIVE">0</CONF>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB2_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf</CONF>
+    </SCOPE>
+    <SCOPE name= "TEST_21">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB2_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+		<CONF key = "WS">WS2</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDPREPACTIVE">0</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+confirmCmd+confirmCmd  Error :Preparation Command not found+State_Error_TimeOut+SessionManager::deleteSession OK+HILC_UpdateData::timerCallback deleteSession OK</CONF>
+    </SCOPE>
+	<!-- This test and the next one : test with different command value between select and execute -->
+    <SCOPE name= "TEST_22">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB2_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "TIMER_BEFORE_CMD">13</CONF><!-- Wait previous timeout done (15s after prepare) -->
+	  <CONF key = "ISSENDCONFACTIVE">0</CONF>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB2_1CB+equipmentType=CBR+commandName=Close+State_Prep Send Preparation Command OK+State_WaitingConf</CONF>
+    </SCOPE>
+    <SCOPE name= "TEST_23">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB2_1CB</CONF>
+        <CONF key = "EQPT_TYPE">CBR</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+        <CONF key = "CMD_VALUE">2</CONF>
+      </SCOPE>
+	  <CONF key = "ISSENDPREPACTIVE">0</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">4</CONF> <!-- HILC_PREPNOTFOUND_ERROR=4 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+confirmCmd+confirmCmd  Error :Preparation Command not found+State_Error_TimeOut+SessionManager::deleteSession OK+HILC_UpdateData::timerCallback deleteSession OK</CONF>
+    </SCOPE>
+	<!-- Test command with a parameter not valid (EQPT_TYPE not defined = "" = not valid) -->
+    <SCOPE name= "TEST_24">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">PWRTPSTPS01ICB1_1CB</CONF>
+        <CONF key = "CMD_NAME">Close</CONF>
+      </SCOPE>
+	  <CONF key = "CONF_EXPECT_STATUS">ERROR</CONF>
+	  <CONF key = "CONF_EXPECT_STATUS_MINOR">1</CONF> <!-- HILC_ARG_ERROR = 1 -->
+	  <CONF key = "PREP_EXPECT_STATUS">ERROR</CONF>		
+	  <CONF key = "PREP_EXPECT_STATUS_MINOR">1</CONF> <!-- HILC_ARG_ERROR = 1 -->
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=PWRTPSTPS01ICB1_1CB+equipmentType=+commandName=Close+prepareCmd Error: Wrong Arg+prepareCmd: Minor Status 1+---+confirmCmd+confirmCmd Error: Wrong Arg+confirmCmd: Minor Status 1</CONF> <!-- + is converted to end of line -->
+    </SCOPE>	
+	<!-- Test Analogic Command -->
+	<!-- The Speed command on TUNMAR01TVSIOC_1VT1_TVF01 requires a float : CMD_VALUE_DIV must be > 1
+	     The float value will be CMD_VALUE/CMD_VALUE_DIV -->
+    <SCOPE name= "TEST_25">
+      <SCOPE name= "CMD_ARG">
+        <CONF key = "EQPT">TUNMAR01TVSIOC_1VT1_TVF01</CONF>
+        <CONF key = "EQPT_TYPE">TVF</CONF>
+        <CONF key = "CMD_NAME">SpeedSp</CONF>
+        <CONF key = "CMD_TYPE">3</CONF><!-- 1 for SIO / 2 for DIO / 3 for AIO -->
+        <CONF key = "CMD_VALUE">41</CONF>
+        <CONF key = "CMD_VALUE_DIV">10</CONF>
+      </SCOPE>
+	  <CONF key = "EXPECT_TRACE_PATTERN">---+prepareCmd+equipmentAlias=TUNMAR01TVSIOC_1VT1_TVF01+equipmentType=TVF+commandName=SpeedSp+State_Prep Send Preparation Command OK+State_WaitingConf+---+confirmCmd+State_Conf+State_Conf Send Confirmation Command OK+State_Final+SessionManager::deleteSession OK</CONF> <!-- + is converted to end of line -->
+    </SCOPE>
+</root>

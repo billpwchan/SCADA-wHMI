@@ -1,5 +1,8 @@
-* {
+body {
     font-family: Arial, "Liberation Sans", sans-serif;
+    margin: 1rem;
+    width: calc(100vw - /*margin*/1rem*2);
+    height: calc(100vh - /*margin*/1rem*2);
 }
 
 nav a:visited, a:link {
@@ -13,4 +16,9 @@ nav a:hover {
 
 nav a.active {
     color: #039be5;
+}
+
+.profile-management,
+.operator-management {
+    font-size: 1rem;
 }

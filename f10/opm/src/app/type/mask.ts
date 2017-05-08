@@ -26,6 +26,7 @@ export class Mask {
             this.function = new Function();
             this.location = new Location();
             this.profile = new Profile();
+            this.mask1 = this.mask2 = this.mask3 = this.mask4 = '';
         }
     }
 }

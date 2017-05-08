@@ -1,5 +1,5 @@
-/* Profile Management - Remove Panel */
-.profile-remove-page{
+/* Operator Management - Remove Panel */
+.operator-remove-page{
     cursor: default;
     user-select: none;
     display: flex;
@@ -8,7 +8,7 @@
     height: calc(100% - /*text*/1rem*2 - /*padding*/1rem*2);
 }
 
-.profile-remove-list-panel{
+.operator-remove-list-panel{
     display: flex;
     flex-flow: column nowrap;
     flex: 0 0 auto;
@@ -17,12 +17,12 @@
     height: calc(100% - /*container padding*/1rem*2);
 }
 
-.profile-remove-list-table{
+.operator-remove-list-table{
     text-align: left;
     height: calc(100% - /*container padding*/1rem*2);
 }
 
-.profile-remove-list-caption{
+.operator-remove-list-caption{
     border: thin solid black;
     background: darkgrey;
     padding: 0.5rem;
@@ -31,37 +31,37 @@
     text-align: left;
 }
 
-.profile-remove-list-headers{
+.operator-remove-list-headers{
     display: none;
 }
 
-.profile-remove-list-items{
+.operator-remove-list-items{
     border: thin solid black;
     height: calc(100% - /*caption padding*/0.5rem);
     overflow-y: auto;
 }
 
-.profile-remove-list-item-row{
+.operator-remove-list-item-row{
     border-top: thin solid black;
     cursor: pointer;
 }
 
-.profile-remove-list-item-row.selected{
+.operator-remove-list-item-row.selected{
     background-color: black;
     color: white;
 }
 
-.profile-remove-list-item-cell:not(.profile-remove-list-item-name){
+.operator-remove-list-item-cell:not(.operator-remove-list-item-name){
     display: none;
 }
 
-.profile-remove-list-item-cell{
+.operator-remove-list-item-cell{
     vertical-align: middle;
     padding: 0.5rem;
     font-size: 1rem;
 }
 
-.profile-remove-confirm-panel{
+.operator-remove-confirm-panel{
     border: thin solid black;
     margin-left: 1rem;
     padding: 1rem;
@@ -69,12 +69,12 @@
     width: 10%;
 }
 
-.profile-remove-confirm-message{
+.operator-remove-confirm-message{
     font-size: 2rem;
     white-space: nowrap;
 }
 
-.profile-remove-confirm-list-panel{
+.operator-remove-confirm-list-panel{
     display: flex;
     flex-flow: column wrap;
     height: calc(
@@ -85,21 +85,21 @@
     overflow: auto;
 }
 
-.profile-remove-confirm-list-item{
+.operator-remove-confirm-list-item{
     font-size: 1.5rem;
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
 
-.profile-remove-confirm-list-item::before{
+.operator-remove-confirm-list-item::before{
     content: "• ";
 }
 
-.profile-remove-confim-buttons{
+.operator-remove-confim-buttons{
     text-align: right;
 }
 
-.profile-remove-confim-buttons > button:not(disabled){
+.operator-remove-confim-buttons > button:not(disabled){
     font-size: 1rem;
     font-weight: bold;
     margin: 1rem 0rem 0rem 1rem;
@@ -107,15 +107,15 @@
     cursor: pointer;
 }
 
-.profile-remove-confim-buttons > button[disabled]{
+.operator-remove-confim-buttons > button[disabled]{
     cursor: default;
 }
 
-.profile-remove-progress{
+.operator-remove-progress{
     text-align: right;
 }
 
-.profile-remove-progress-button{
+.operator-remove-progress-button{
     font-size: 1rem;
     font-weight: bold;
     margin: 1rem;
@@ -123,12 +123,12 @@
     cursor: default;
 }
 
-.profile-remove-progress-label,
-.profile-remove-progress-current{
+.operator-remove-progress-label,
+.operator-remove-progress-current{
     display: inline;
 }
 
-.profile-remove-progress-label:after{
+.operator-remove-progress-label:after{
     content: ":";
     display: inline;
     padding-right: 1ch;

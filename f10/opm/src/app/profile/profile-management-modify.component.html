@@ -1,15 +1,17 @@
 <div class="profile-modify-page">
     <div class="profile-modify-list-panel">
-        <div class="profile-modify-list-label" i18n="Header for list of profile">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_LIST' | translate}}</div>
+        <div class="profile-modify-list-caption">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_LIST' | translate}}</div>
         <div class="profile-modify-list-table">
-            <div class="profile-modify-list-table-header">
-                <div class="profile-modify-list-header-id" i18n="Header for list of profile id column">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_ID' | translate}}</div>
-                <div class="profile-modify-list-header-name" i18n="Header for list of profile name column">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_NAME' | translate}}</div>
-                <div class="profile-modify-list-header-description" i18n="Header for list of profile description column">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_DESCRIPTION' | translate}}</div>
+            <div class="profile-modify-list-headers">
+                <div class="profile-modify-list-header-row">
+                    <div class="profile-modify-list-header-cell profile-modify-list-header-id">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_ID' | translate}}</div>
+                    <div class="profile-modify-list-header-cell profile-modify-list-header-name">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_NAME' | translate}}</div>
+                    <div class="profile-modify-list-header-cell profile-modify-list-header-description">{{'PROFILE_MANAGEMENT.MODIFY.PROFILE_DESCRIPTION' | translate}}</div>
+                </div>
             </div>
             <div class="profile-modify-list-items">
                 <div
-                    class="profile-modify-list-item"
+                    class="profile-modify-list-item-row"
                     *ngFor="let profile of profiles"
                     [class.selected]="selectedProfile === profile"
                     (click)="onSelect(profile)"
@@ -25,6 +27,7 @@
         <app-profile-management-detail
             [profileId]="selectedProfile ? selectedProfile.id:undefined"
             [createProfile]="false"
+            [readonly]="readonly"
         ></app-profile-management-detail>
     </div>
 </div>

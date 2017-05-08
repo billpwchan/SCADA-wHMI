@@ -88,8 +88,9 @@ public class HILCComponent extends AbstractJSComponent {
         	
             int operationResult = m_hilcService.hilcPreparationRequest(operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
             if (operationResult != 0) {
-                return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
-                        "HILCComponent:doHILCPreparationRequest FAILURE: error when calling SCS server");
+//                return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
+//                        "HILCComponent:doHILCPreparationRequest FAILURE: error when calling SCS server");
+                return buildErrorObject(operationResult, "HILCComponent:doHILCConfirmRequest FAILURE");
             }
             resp.put("operationResult", operationResult);
             return resp;
@@ -147,8 +148,9 @@ public class HILCComponent extends AbstractJSComponent {
         	}
             int operationResult = m_hilcService.hilcConfirmRequest(operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
             if (operationResult != 0) {
-                return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
-                        "HILCComponent:doHILCConfirmRequest FAILURE: error when calling SCS server");
+//                return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
+//                        "HILCComponent:doHILCConfirmRequest FAILURE: error when calling SCS server");
+            	return buildErrorObject(operationResult, "HILCComponent:doHILCConfirmRequest FAILURE");
             }
             resp.put("operationResult", operationResult);
             return resp;

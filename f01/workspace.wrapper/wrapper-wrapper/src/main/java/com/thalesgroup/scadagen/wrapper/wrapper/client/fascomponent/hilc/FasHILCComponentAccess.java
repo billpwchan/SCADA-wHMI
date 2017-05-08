@@ -117,6 +117,11 @@ public class FasHILCComponentAccess extends AScsComponentPresenterClient<IHILCCo
 	protected void handleJSONUpdate(String clientKey, String requestName, JSONObject response, int errorCode,
 			String errorMessage) {
 		
+		// Replace HV connector SDK error message with more meaningful message
+		if (errorMessage.startsWith("Error: Error when requesting operation request with correlation id")) {
+			errorMessage = "Connector connection issue or equipment not found";
+		}
+		
 		s_logger.debug("FasHILCComponentAccess handleJSONUpdate for: " + requestName);
         if ("HILCPreparationRequest".equals(requestName)) {
         	sendHILCPreparationResult(clientKey, response, errorCode, errorMessage);

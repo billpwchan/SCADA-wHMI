@@ -1,5 +1,5 @@
-/* Profile Management - Modify Panel */
-.profile-add-page{
+/* Operator Management - Add Panel */
+.operator-add-page{
     cursor: default;
     display: flex;
     flex-flow: row nowrap;
@@ -7,7 +7,7 @@
     height: calc(100% - /*text*/1rem*2 - /*padding*/1rem*2);
 }
 
-.profile-add-detail-panel{
+.operator-add-detail-panel{
     border: thin solid black;
     flex: 1 1 auto;
     width: 100%;

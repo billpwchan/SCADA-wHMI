@@ -1,41 +1,97 @@
 {
-    "OPERATOR_MANAGEMENT": {
-        "TITLE": "Operator Management"
-    },
-    "PROFILE_MANAGEMENT": {
-        "TITLE": "Profile Management",
-        "MODIFY": {
-            "TITLE": "Modify Profile",
-            "PROFILE_LIST": "Profile List",
-            "PROFILE_ID": "Id",
-            "PROFILE_NAME": "Name",
-            "PROFILE_DESCRIPTION": "Description"
-        },
-        "ADD": {
-            "TITLE": "Add Profile"
-        },
-        "REMOVE": {
-            "TITLE": "Remove Profile",
-            "PROFILE_LIST": "Profile List",
-            "PROFILE_ID": "Id",
-            "PROFILE_NAME": "Name",
-            "PROFILE_DESCRIPTION": "Description",
-            "CONFIRMATION_MSG": "Confirm to remove the following profile(s)?",
-            "NO_SELECTION_INDICATION_MSG": "No profile(s) selected",
-            "REMOVING_INDICATION_MSG": "Removing"
-        },
-        "DETAIL": {
-            "RETRIEVING_PROFILE_INDICATION_MSG": "Retrieving profile content...",
-            "NO_SELECTION_INDICATION_MSG": "No profile is currently selected",
-            "NEW_PROFILE_NAME_PLACEHOLDER": "<New Profile Name>",
-            "SAVING_INDICATION_MSG": "Saving"
-        }
-    },
-    "BUTTON": {
-        "CREATE": "Create",
-        "APPLY": "Apply",
-        "CONFIRM": "Confirm",
-        "CANCEL": "Cancel",
-        "RESET": "Reset"
-    }
+	"BUTTON": {
+		"APPLY": "Apply",
+		"ASSIGN": "Assign",
+		"CANCEL": "Cancel",
+		"CONFIRM": "Confirm",
+		"CREATE": "Create",
+		"REMOVE": "Remove",
+		"RESET": "Reset"
+	},
+	"OPERATOR_MANAGEMENT": {
+		"ADD": {
+			"TITLE": "Add Operator"
+		},
+		"CHANGE_PASSWORD": {
+			"TITLE": "Change Operator Password"
+		},
+		"DETAIL": {
+			"ASSIGNED_PROFILE_LIST": "Assigned Profiles",
+			"AVAILABLE_PROFILE_LIST": "Available Profiles",
+			"NEW_OPERATOR_NAME_CONFLICT": "Operator name is already in use",
+			"NEW_OPERATOR_NAME_EMPTY": "No operator name is set",
+			"NEW_OPERATOR_NAME_PLACEHOLDER": "<New Operator Name>",
+			"NEW_OPERATOR_PASSWORD_1ST_LABEL": "Password:",
+			"NEW_OPERATOR_PASSWORD_1ST_PLACEHOLDER": "<Password>",
+			"NEW_OPERATOR_PASSWORD_2ND_LABEL": "Re-enter Password:",
+			"NEW_OPERATOR_PASSWORD_2ND_PLACEHOLDER": "<Re-enter Password>",
+			"NEW_OPERATOR_PASSWORD_EMPTY": "No password is set",
+			"NEW_OPERATOR_PASSWORD_MISMATCH": "Paswords do not match",
+			"NO_SELECTION_INDICATION_MSG": "No operator is currently selected",
+			"PROFILE_DESCRIPTION": "Description",
+			"PROFILE_ID": "Id",
+			"PROFILE_NAME": "Name",
+			"RETRIEVING_OPERATOR_INDICATION_MSG": "Retrieving operator content...",
+			"SAVING_INDICATION_MSG": "Saving"
+		},
+		"MODIFY": {
+			"OPERATOR_DESCRIPTION": "Description",
+			"OPERATOR_ID": "Id",
+			"OPERATOR_LIST": "Operator List",
+			"OPERATOR_NAME": "Name",
+			"TITLE": "Modify Operator"
+		},
+		"PASSWORD": {
+			"NEW_OPERATOR_PASSWORD_EMPTY": "No password is set",
+			"NEW_OPERATOR_PASSWORD_FAILED": "Failed to update password (incorrect existing password?)",
+			"NEW_OPERATOR_PASSWORD_MISMATCH": "Paswords do not match",
+			"NEW_OPERATOR_PASSWORD_UPDATED": "Password updated successfully",
+			"NEW_PASSWORD": "<New Password>",
+			"NEW_PASSWORD_2ND": "<Re-enter Password>",
+			"NO_SELECTION_INDICATION_MSG": "No operator is currently selected",
+			"OLD_PASSWORD": "<Existing Password>",
+			"RETRIEVING_OPERATOR_INDICATION_MSG": "Retrieving operator content...",
+			"SAVING_INDICATION_MSG": "Saving"
+		},
+		"REMOVE": {
+			"CONFIRMATION_MSG": "Confirm to remove the following operator(s)?",
+			"NO_SELECTION_INDICATION_MSG": "No operator(s) selected",
+			"OPERATOR_DESCRIPTION": "Description",
+			"OPERATOR_ID": "Id",
+			"OPERATOR_LIST": "Operator List",
+			"OPERATOR_NAME": "Name",
+			"REMOVING_INDICATION_MSG": "Removing",
+			"TITLE": "Remove Operator"
+		},
+		"TITLE": "Operator Management"
+	},
+	"PROFILE_MANAGEMENT": {
+		"ADD": {
+			"TITLE": "Add Profile"
+		},
+		"DETAIL": {
+			"NEW_PROFILE_NAME_PLACEHOLDER": "<New Profile Name>",
+			"NO_SELECTION_INDICATION_MSG": "No profile is currently selected",
+			"RETRIEVING_PROFILE_INDICATION_MSG": "Retrieving profile content...",
+			"SAVING_INDICATION_MSG": "Saving"
+		},
+		"MODIFY": {
+			"PROFILE_DESCRIPTION": "Description",
+			"PROFILE_ID": "Id",
+			"PROFILE_LIST": "Profile List",
+			"PROFILE_NAME": "Name",
+			"TITLE": "Modify Profile"
+		},
+		"REMOVE": {
+			"CONFIRMATION_MSG": "Confirm to remove the following profile(s)?",
+			"NO_SELECTION_INDICATION_MSG": "No profile(s) selected",
+			"PROFILE_DESCRIPTION": "Description",
+			"PROFILE_ID": "Id",
+			"PROFILE_LIST": "Profile List",
+			"PROFILE_NAME": "Name",
+			"REMOVING_INDICATION_MSG": "Removing",
+			"TITLE": "Remove Profile"
+		},
+		"TITLE": "Profile Management"
+	}
 }

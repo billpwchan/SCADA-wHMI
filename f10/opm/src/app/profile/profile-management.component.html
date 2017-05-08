@@ -1,6 +1,6 @@
 <nav>
-    <a routerLink="modify" routerLinkActive="active" i18n="Link to modify profile page">{{'PROFILE_MANAGEMENT.MODIFY.TITLE' | translate}}</a>
-    <a routerLink="add" routerLinkActive="active" i18n="Link to add profile page">{{'PROFILE_MANAGEMENT.ADD.TITLE' | translate}}</a>
-    <a routerLink="remove" routerLinkActive="active" i18n="Link to remove profile page">{{'PROFILE_MANAGEMENT.REMOVE.TITLE' | translate}}</a>
+    <a class="profile-management-modify" routerLink="modify" routerLinkActive="active" queryParamsHandling="merge">{{'PROFILE_MANAGEMENT.MODIFY.TITLE' | translate}}</a>
+    <a class="profile-management-add" routerLink="add" routerLinkActive="active" *ngIf="!readonly" queryParamsHandling="merge">{{'PROFILE_MANAGEMENT.ADD.TITLE' | translate}}</a>
+    <a class="profile-management-remove" routerLink="remove" routerLinkActive="active" *ngIf="!readonly" queryParamsHandling="merge">{{'PROFILE_MANAGEMENT.REMOVE.TITLE' | translate}}</a>
 </nav>
 <router-outlet></router-outlet>

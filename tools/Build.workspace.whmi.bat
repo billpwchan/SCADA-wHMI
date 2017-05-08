@@ -22,9 +22,7 @@ call mvn clean -V > %LOG_FILE%
 echo Building common module(s)
 call mvn war:exploded install >> %LOG_FILE%
 
-cd ..
-
-cd tools
+cd %TOOLS_PATH%
  
 echo End of build %sp_whmi%
 

@@ -64,17 +64,37 @@
         </filter>
     </appender>
 
+	<!--
     <appender name="FILE_APPENDER" class="org.apache.log4j.RollingFileAppender">
         <param name="File" value="./log/bps.log"/>
         <param name="Append" value="false" />
         <param name="MaxFileSize" value="10MB"/>
+	-->
         <!-- Keep 'x' backup file -->
+	<!--
         <param name="MaxBackupIndex" value="5"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[%p] %d{dd/MM/yy HH:mm:ss.SSS} &lt;%X{PID}/%t&gt; (%c{1})%n&lt;&lt;%m&gt;&gt;%n"/>
         </layout>
     </appender>
-
+	-->
+	<appender name="FILE_APPENDER" class="org.apache.log4j.rolling.RollingFileAppender">
+	<rollingPolicy name="file" class="org.apache.log4j.rolling.FixedWindowRollingPolicy">
+		<param name="FileNamePattern" value="./log/bps.%i.log" />
+		<param name="minIndex" value="1"/>
+		<param name="maxIndex" value="5"/>
+	</rollingPolicy>
+	<triggeringPolicy name="file" class="org.apache.log4j.rolling.SizeBasedTriggeringPolicy">
+		<param name="maxFileSize" value="10485760"/>
+		<!-- The unit of maxFileSize must be Byte, hense 10485760 equals 10MB. -->
+	</triggeringPolicy>
+	<!-- org.apache.log4j.xml.XMLLayout -->
+	<layout class="org.apache.log4j.EnhancedPatternLayout">
+      <!-- 		<param name="locationInfo" value="true" /> -->
+      <param name="ConversionPattern" value="[%p] %d{dd/MM/yy HH:mm:ss.SSS} &lt;%X{PID}/%t&gt; (%c{1})%n&lt;&lt;%m&gt;&gt;%n" />
+    </layout>
+  </appender>
+  
     <!-- List of loggers -->
     <logger name="com.thalesgroup" additivity="false" >
         <level value="INFO"/>

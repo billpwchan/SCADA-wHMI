@@ -23,7 +23,7 @@ call mvn clean -V > %LOG_FILE%
 echo Building %sp_webapp_fas_name%...
 call mvn clean gwt:clean install >> %LOG_FILE%
 
-cd ..
+cd ..\..
 
 cd tools
  

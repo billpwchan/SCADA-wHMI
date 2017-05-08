@@ -556,11 +556,11 @@ export class ProfileManagementDetailComponent implements OnChanges, OnInit {
     public isActionSelectedConsistent(maskId: number, action: string): boolean {
         if (0 >= this.selectedMasks.length) { return true; }
         const maskValue = this.maskService.getMaskValueById(this.selectedMasks[0], maskId);
-        const checked = !maskValue ? undefined : (0 <= maskValue.indexOf(action));
+        const checked = !maskValue ? false : (0 <= maskValue.indexOf(action));
         for (let i = 1; i < this.selectedMasks.length; ++i) {
             const mask = this.selectedMasks[i];
             const testMaskValue = this.maskService.getMaskValueById(mask, maskId);
-            const testChecked = !testMaskValue ? undefined : (0 <= testMaskValue.indexOf(action));
+            const testChecked = !testMaskValue ? false : (0 <= testMaskValue.indexOf(action));
             if (checked !== testChecked) {
                 return false;
             }

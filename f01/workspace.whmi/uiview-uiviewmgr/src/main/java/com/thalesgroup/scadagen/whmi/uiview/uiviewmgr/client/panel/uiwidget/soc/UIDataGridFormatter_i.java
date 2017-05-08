@@ -9,6 +9,7 @@ public interface UIDataGridFormatter_i {
 	String getColumnHeaderString(int column);
 	String getColumnLabel(int column);
 	String getEmptyLabel();
+	void setEmptyLabel(String label);
 	int getColumnWidth(int column);
 	int getColumnSort(int column);
 	String getColumnType(String columnLabel);

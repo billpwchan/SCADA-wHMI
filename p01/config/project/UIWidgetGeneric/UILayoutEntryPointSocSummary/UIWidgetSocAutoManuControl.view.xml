@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>Label</widget>
-		<label>Skip Failed Step</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocAutoManuControl_SkipFailedStepLabel</label>
 		<css>project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel</css>
 		<element>skipfailedsteplabel</element>
 		
@@ -20,7 +20,7 @@
 	
 	<option key="0|1">
 		<widget>RadioButton</widget>
-		<label>Automatic</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocAutoManuControl_Automatic</label>
 		<groupName>setautomanu</groupName>
 		<css>project-UIWidgetSocAutoManuControl-button-auto</css>
 		
@@ -38,7 +38,7 @@
 	
 	<option key="0|2">
 		<widget>RadioButton</widget>
-		<label>Manual</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocAutoManuControl_Manual</label>
 		<groupName>setautomanu</groupName>
 		<css>project-UIWidgetSocAutoManuControl-button-manu</css>
 		

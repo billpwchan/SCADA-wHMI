@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>Label</widget>
-		<label>Delay after success and next step</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocDelayControl_DelayAfterSuccessAndNextStep</label>
 		<css>project-UIWidgetSocDelayControl-label-delayafter</css>
 		<element>delayafter</element>
 		
@@ -31,7 +31,7 @@
 
 	<option key="0|2">
 		<widget>Button</widget>
-		<label>Apply</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocDelayControl_Apply</label>
 		<css>project-UIWidgetSocDelayControl-button-apply</css>
 		<element>apply</element>
 		

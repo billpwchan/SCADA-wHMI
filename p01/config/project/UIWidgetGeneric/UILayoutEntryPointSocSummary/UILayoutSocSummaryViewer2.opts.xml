@@ -16,6 +16,7 @@
 		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
 		<DataGridPageSize>10</DataGridPageSize>
 		<DataGridFastForwardRows>30</DataGridFastForwardRows>
+		<DataGridEmptyLabel>&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer1_EmptyLabel</DataGridEmptyLabel>
 
 		<TargetDataGrid_A>UIDataGridFormatterSOC</TargetDataGrid_A>
 		<TargetDataGridColumn_A>ScsEnvID</TargetDataGridColumn_A>

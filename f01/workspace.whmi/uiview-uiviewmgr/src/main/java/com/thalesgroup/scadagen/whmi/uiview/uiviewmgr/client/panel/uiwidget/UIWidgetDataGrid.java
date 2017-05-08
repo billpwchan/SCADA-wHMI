@@ -71,6 +71,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridColumnsSort = null;
 	private String strDataGridOptsXMLFile = null;
 	private String strDataGridPageSize = null;
+	private String strDataGridEmptyLabel = null;
 
 	private String targetDataGrid		= "";
 	private String targetDataGridColumn1 = "";
@@ -400,6 +401,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridPagerName		 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPagerName.toString(), strHeader);
 			strDataGridPageSize			 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPageSize.toString(), strHeader);
 			strDataGridFastForwardRows		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridFastForwardRows.toString(), strHeader);
+			strDataGridEmptyLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridEmptyLabel.toString(), strHeader);
 
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 			targetDataGridColumn1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
@@ -422,6 +424,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
 		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
 		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
+		logger.debug(className, function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
 		
 		logger.debug(className, function, "targetDataGrid [{}]", targetDataGrid);
 		logger.debug(className, function, "targetDataGridColumn1 [{}]", targetDataGridColumn1);
@@ -528,6 +531,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridPagerName [{}]", strDataGridPagerName);
 		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
 		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
+		logger.debug(className, function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
 		
 		strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
 		strDataGridColumnsHeaderStrings = UIWidgetUtil.getStringArray(strDataGridColumnsHeaderString, split);
@@ -545,6 +549,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			logger.debug(className, function, " intDataGridColumnsHeaderTranslations({})[{}] strDataGridColumnHeaderStrings(i)[{}]"
 					, new Object[]{i, intDataGridColumnsHeaderTranslations[i], i, strDataGridColumnsHeaderStrings[i]});
 		}
+		
+		strDataGridEmptyLabel = Translation.getWording(strDataGridEmptyLabel);
 		
 		if (strDataGridPageSize != null) {
 			try {
@@ -570,7 +576,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		
 	    UIDataGridDatabaseMgr databaseMgr = UIDataGridDatabaseMgr.getInstance();
 	    dataGridFormatter = databaseMgr.getDataGrid(strDataGrid, strDataGridColumnsTypes, strDataGridColumnsHeaderStrings, strDataGridColumnsLabels, intDataGridColumnsWidths, intDataGridColumnsSort);
-	    
+	    dataGridFormatter.setEmptyLabel(strDataGridEmptyLabel);
 	    /*
 	     * Set a key provider that provides a unique key for each contact. If key is
 	     * used to identify contacts when fields (such as the name and address)

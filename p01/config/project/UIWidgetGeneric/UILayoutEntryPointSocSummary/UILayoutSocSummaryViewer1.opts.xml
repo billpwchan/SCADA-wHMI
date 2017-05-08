@@ -16,6 +16,7 @@
 		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
 		<DataGridPageSize>10</DataGridPageSize>
 		<DataGridFastForwardRows>30</DataGridFastForwardRows>
+		<DataGridEmptyLabel>&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer1_EmptyLabel</DataGridEmptyLabel>
 	</header>
 	
 	<actionset key="set_default_action">

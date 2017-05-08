@@ -16,6 +16,7 @@ public interface UIWidgetDataGrid_i {
 		, DataGridPagerName("DataGridPagerName")
 		, DataGridPageSize("DataGridPageSize")
 		, DataGridFastForwardRows("DataGridFastForwardRows")
+		, DataGridEmptyLabel("DataGridEmptyLabel")
 		
 		, TargetDataGrid_A("TargetDataGrid_A")
 		, TargetDataGridColumn_A("TargetDataGridColumn_A")

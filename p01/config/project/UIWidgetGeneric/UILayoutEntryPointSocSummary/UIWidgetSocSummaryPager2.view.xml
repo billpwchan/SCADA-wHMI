@@ -10,63 +10,64 @@
 
 	<option key="0|0">
 		<widget>Button</widget>
-		<label>FirstPage</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_FirstPage</label>
 		<css>project-UIWidgetSocSummaryPager-button-FirstPage</css>
 		<element>FirstPage</element>
 	</option>
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>PreviousPage</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_PreviousPage</label>
 		<css>project-UIWidgetSocSummaryPager-button-PreviousPage</css>
 		<element>PreviousPage</element>
 	</option>
 	
 	<option key="0|2">
 		<widget>InlineLabel</widget>
-		<label>X</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_PageStart</label>
 		<css>project-UIWidgetSocSummaryPager-inlinelabel-PageStart</css>
 		<element>PageStart</element>
 	</option>
 	<option key="0|3">
 		<widget>InlineLabel</widget>
-		<label> - </label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_Spliter</label>
 		<css>project-UIWidgetSocSummaryPager-inlinelabel-spliter</css>
+		<element>Spliter</element>
 	</option>
 	<option key="0|4">
 		<widget>InlineLabel</widget>
-		<label>X</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_EndIndex</label>
 		<css>project-UIWidgetSocSummaryPager-inlinelabel-EndIndex</css>
 		<element>EndIndex</element>
 	</option>
 	
 	<option key="0|5">
 		<widget>InlineLabel</widget>
-		<label> of </label>
-		<css>project-UIWidgetSocSummaryPager-inlinelabel-spliter</css>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_Of</label>
+		<css>project-UIWidgetSocSummaryPager-inlinelabel-of</css>
 		<element>of</element>
 	</option>
 	<option key="0|6">
 		<widget>InlineLabel</widget>
-		<label>X</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_Exact</label>
 		<css>project-UIWidgetSocSummaryPager-inlinelabel-Exact</css>
 		<element>Exact</element>
 	</option>
 	
 	<option key="0|7">
 		<widget>Button</widget>
-		<label>NextPage</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_NextPage</label>
 		<css>project-UIWidgetSocSummaryPager-button-NextPage</css>
 		<element>NextPage</element>
 	</option>
 	<option key="0|8">
 		<widget>Button</widget>
-		<label>FastForwardPage</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_FastForwardPage</label>
 		<css>project-UIWidgetSocSummaryPager-button-FastForwardPage</css>
 		<element>FastForwardPage</element>
 	</option>	
 	<option key="0|9">
 		<widget>Button</widget>
-		<label>LastPage</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocSummaryPager2_LastPage</label>
 		<css>project-UIWidgetSocSummaryPager-button-LastPage</css>
 		<element>LastPage</element>
 	</option>

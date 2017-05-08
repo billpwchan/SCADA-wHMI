@@ -69,10 +69,11 @@ public class UIDataGridFormatter implements UIDataGridFormatter_i {
 		return columnSort[column];
 	}
 
+	private String emptyLabel = null;
 	@Override
-	public String getEmptyLabel() {
-		return "Empty Label";
-	}
+	public String getEmptyLabel() { return emptyLabel; }
+	@Override
+	public void setEmptyLabel(String emptyLabel) { this.emptyLabel = emptyLabel; }
 	
 	@Override
 	public String getColumnType(String columnLabel) {

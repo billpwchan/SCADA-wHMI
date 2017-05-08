@@ -11,7 +11,7 @@
 	
 	<option key="0|0">
 		<widget>Button</widget>
-		<label>Start</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocControl_Start</label>
 		<css>project-UIWidgetSocControl-button-start</css>
 		<element>start</element>
 		
@@ -27,7 +27,7 @@
 	
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>Stop</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocControl_Stop</label>
 		<css>project-UIWidgetSocControl-button-stop</css>
 		<element>stop</element>
 		
@@ -43,7 +43,7 @@
 	
 	<option key="0|2">
 		<widget>Button</widget>
-		<label>Retry</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocControl_Retry</label>
 		<css>project-UIWidgetSocControl-button-retry</css>
 		<element>retry</element>
 		
@@ -58,7 +58,7 @@
 	
 	<option key="0|3">
 		<widget>Button</widget>
-		<label>Skip Failed Step</label>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocControl_Skip</label>
 		<css>project-UIWidgetSocControl-button-skip</css>
 		<element>skip</element>
 		

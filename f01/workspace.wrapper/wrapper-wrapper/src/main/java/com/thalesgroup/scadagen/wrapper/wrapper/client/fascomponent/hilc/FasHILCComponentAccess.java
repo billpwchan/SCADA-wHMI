@@ -5,10 +5,10 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogger;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.context.PresenterInitContext;
-import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.presenter.AScsComponentPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.fascomponent.presenter.FasComponentPresenterClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.update.ScsComponentUpdate;
 
-public class FasHILCComponentAccess extends AScsComponentPresenterClient<IHILCComponentClient> {
+public class FasHILCComponentAccess extends FasComponentPresenterClient<IHILCComponentClient> {
 
 	private final ClientLogger s_logger = ClientLogger.getClientLogger();
 
@@ -119,7 +119,7 @@ public class FasHILCComponentAccess extends AScsComponentPresenterClient<IHILCCo
 		
 		// Replace HV connector SDK error message with more meaningful message
 		if (errorMessage.startsWith("Error: Error when requesting operation request with correlation id")) {
-			errorMessage = "Connector connection issue or equipment not found";
+			errorMessage = "&FasHILCComponentAccess_handleJSONUpdate_UnableToReachConnector";
 		}
 		
 		s_logger.debug("FasHILCComponentAccess handleJSONUpdate for: " + requestName);

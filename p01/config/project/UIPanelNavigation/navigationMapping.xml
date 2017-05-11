@@ -205,4 +205,5 @@
 	<option key="LMC|MCS|UIEventAction Verify Summary"><setting>150</setting></option>
 	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionDbm"><setting>151</setting></option>
 	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionJS"><setting>152</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionTsc"><setting>153</setting></option>
 </data-set>

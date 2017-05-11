@@ -1283,5 +1283,15 @@
 		<uiView>UILayoutEntryPointVerifyUIEventActionJSSummary/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
 		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
+	<option key="153">
+		<type>P</type>
+		<name>UIEventAction Tsc Panel</name>
+		<title>UIEventAction Tsc Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary.view.xml</uiView>
+		<tooltips>UIEventAction Tsc Panel</tooltips>
+	</option>
 	
 </data-set>

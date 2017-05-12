@@ -1283,15 +1283,52 @@
 		<uiView>UILayoutEntryPointVerifyUIEventActionJSSummary/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
 		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
-	<option key="153">
+
+	<option key="160">
+		<type>M</type>
+		<name>Verify UIEventAction Tsc</name>
+		<title>Verify UIEventAction Tsc</title>
+		<tooltips>UIEventAction Verify Tsc Summary</tooltips>
+	</option>
+	<option key="161">
 		<type>P</type>
-		<name>UIEventAction Tsc Panel</name>
-		<title>UIEventAction Tsc Panel</title>
+		<name>GetTaskNamesAddTaskRemoveTask</name>
+		<title>GetTaskNamesAddTaskRemoveTask</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary.view.xml</uiView>
-		<tooltips>UIEventAction Tsc Panel</tooltips>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskNamesAddTaskRemoveTask.view.xml</uiView>
+		<tooltips>GetTaskNamesAddTaskRemoveTask</tooltips>
+	</option>
+	<option key="162">
+		<type>P</type>
+		<name>EnableTaskDisableTaskIsEnabledTask</name>
+		<title>EnableTaskDisableTaskIsEnabledTask</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_EnableTaskDisableTaskIsEnabledTask.view.xml</uiView>
+		<tooltips>EnableTaskDisableTaskIsEnabledTask</tooltips>
+	</option>
+	<option key="163">
+		<type>P</type>
+		<name>GetStartTimeSetStartTime</name>
+		<title>GetStartTimeSetStartTime</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetStartTimeSetStartTime.view.xml</uiView>
+		<tooltips>GetStartTimeSetStartTime</tooltips>
+	</option>
+	<option key="164">
+		<type>P</type>
+		<name>GetEndTimeSetEndTime</name>
+		<title>GetEndTimeSetEndTime</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetEndTimeSetEndTime.view.xml</uiView>
+		<tooltips>GetEndTimeSetEndTime</tooltips>
 	</option>
 	
 </data-set>

@@ -1,0 +1,31 @@
+### Scheduled tasks automatically saved at 07/08/2000 11:02
+
+daygroup=1;Holidays
+15/12/2001
+28/12/2001
+14/12/2001
+29/01/2015
+
+daygroup=11;Bank days
+01/01/2001
+01/05/2001
+08/05/2001
+14/07/2001
+28/02/2001
+
+daygroup=14;Bad id
+01/01/2001
+02/01/2001
+
+daygroup=12;Sample
+
+daygroup=5;Sample
+12/01/2001
+01/01/2001
+01/02/2001
+01/03/2001
+01/04/2001
+
+daygroup=5;Sample2
+12/12/2002
+

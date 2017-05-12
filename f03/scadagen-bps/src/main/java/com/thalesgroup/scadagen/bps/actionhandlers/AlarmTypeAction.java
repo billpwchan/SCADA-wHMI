@@ -79,6 +79,7 @@ public class AlarmTypeAction implements IAction {
 	    		}
 	    		
 	    		try {
+					@SuppressWarnings("unchecked")
 					Class<? extends AbstractConfiguredEntityType> clazz = (Class<? extends AbstractConfiguredEntityType>) Class.forName(equipmentType);
 
 					Map<String, ? extends AbstractConfiguredEntityType> entitiesAsMap = opConnector.getTools().getSystemConfiguration().getEntitiesAsMap(clazz);

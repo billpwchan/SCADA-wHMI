@@ -32,6 +32,7 @@ import com.thalesgroup.scadagen.bps.conf.actions.ActionsManager;
 import com.thalesgroup.scadagen.bps.conf.actions.IAction;
 import com.thalesgroup.scadagen.bps.conf.bps.ActionType;
 import com.thalesgroup.scadagen.bps.conf.bps.CriteriaType;
+import com.thalesgroup.scadagen.bps.conf.bps.NotificationHandlingMode;
 import com.thalesgroup.scadagen.bps.conf.bps.TriggerType;
 import com.thalesgroup.scadagen.bps.conf.common.And;
 import com.thalesgroup.scadagen.bps.conf.common.ComputeEquals;
@@ -74,6 +75,8 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 	protected List<FilterType> filters_ = null;
 	
 	protected Set<EntityDataDescriptionAbstract> desc_ = null;
+	
+	protected NotificationHandlingMode notificationHandlingMode_ = NotificationHandlingMode.FULL_SET;
 
 	public EntityManagerAbstract(IGenericSubscriptionConnector subscriptionConnector, IGenericOperationConnector operationConnector) {
 		if (subscriptionConnector == null) {
@@ -176,8 +179,14 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 	protected void onNotificationElement( EntityNotificationElementType notifElem) {
 		AbstractEntityStatusesType entity = notifElem.getEntity();
 		
-		if (notifElem.getModificationType() == ElementModificationType.INSERT ||
-				notifElem.getModificationType() == ElementModificationType.UPDATE) {
+		if (notifElem.getModificationType() == ElementModificationType.INSERT) {
+			if (notificationHandlingMode_ == NotificationHandlingMode.FULL_SET) {
+				entityMap_.put(entity.getId(), entity);
+				triggerAction(entity);
+			} else {
+				LOGGER.debug("notification ignored - notificationHandlingMode not FULL_SET");
+			}
+		} else if (notifElem.getModificationType() == ElementModificationType.UPDATE) {
 			entityMap_.put(entity.getId(), entity);
 			triggerAction(entity);
 		} else if (notifElem.getModificationType() == ElementModificationType.DELETE) {
@@ -261,6 +270,10 @@ public abstract class EntityManagerAbstract<T extends EntityDataDescriptionAbstr
 		if (trigger != null) {
 			triggerList_ = trigger;
 		}
+	}
+	
+	public void setNotificationHandlingMode(NotificationHandlingMode mode) {
+		notificationHandlingMode_ = mode;
 	}
 	
 	public IGenericOperationConnector getOperationConnector() {

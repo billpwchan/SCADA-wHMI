@@ -173,7 +173,7 @@
 	
 	<option key="0|24">
 		<widget>Label</widget>
-		<label>taskname:</label>
+		<label>starttime:</label>
 		<css>project-UIWidgetVerifyUIEventActionTscControl_SetStartTime-label-OperationString5_label</css>
 		<element>OperationString5_label</element>
 	</option>

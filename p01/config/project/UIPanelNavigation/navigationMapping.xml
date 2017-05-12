@@ -205,4 +205,14 @@
 	<option key="LMC|MCS|UIEventAction Verify Summary"><setting>150</setting></option>
 	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionDbm"><setting>151</setting></option>
 	<option key="LMC|MCS|UIEventAction Verify Summary|UIEventActionJS"><setting>152</setting></option>
+
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary"><setting>160</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetTaskNamesAddTaskRemoveTask"><setting>161</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|EnableTaskDisableTaskIsEnabledTask"><setting>162</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetStartTimeSetStartTime"><setting>163</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetEndTimeSetEndTime"><setting>164</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetDescriptionSetDescription"><setting>165</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetFilterSetFilter"><setting>166</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetLogGetInterval"><setting>167</setting></option>
+	<option key="LMC|MCS|UIEventAction Verify Tsc Summary|GetCommandGetArguments"><setting>168</setting></option>
 </data-set>

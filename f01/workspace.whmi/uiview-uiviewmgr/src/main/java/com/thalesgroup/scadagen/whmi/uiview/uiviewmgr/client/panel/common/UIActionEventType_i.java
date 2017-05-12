@@ -16,6 +16,7 @@ public interface UIActionEventType_i {
 		, uitask("uitask")
 		, widget("widget")
 		, js("js")
+		, tsc("tsc")
 		
 		;
 		private final String text;

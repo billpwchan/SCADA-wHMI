@@ -1283,5 +1283,93 @@
 		<uiView>UILayoutEntryPointVerifyUIEventActionJSSummary/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
 		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
+
+	<option key="160">
+		<type>M</type>
+		<name>Verify UIEventAction Tsc</name>
+		<title>Verify UIEventAction Tsc</title>
+		<tooltips>UIEventAction Verify Tsc Summary</tooltips>
+	</option>
+	<option key="161">
+		<type>P</type>
+		<name>GetTaskNamesAddTaskRemoveTask</name>
+		<title>GetTaskNamesAddTaskRemoveTask</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskNamesAddTaskRemoveTask.view.xml</uiView>
+		<tooltips>GetTaskNamesAddTaskRemoveTask</tooltips>
+	</option>
+	<option key="162">
+		<type>P</type>
+		<name>EnableTaskDisableTaskIsEnabledTask</name>
+		<title>EnableTaskDisableTaskIsEnabledTask</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_EnableTaskDisableTaskIsEnabledTask.view.xml</uiView>
+		<tooltips>EnableTaskDisableTaskIsEnabledTask</tooltips>
+	</option>
+	<option key="163">
+		<type>P</type>
+		<name>GetStartTimeSetStartTime</name>
+		<title>GetStartTimeSetStartTime</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetStartTimeSetStartTime.view.xml</uiView>
+		<tooltips>GetStartTimeSetStartTime</tooltips>
+	</option>
+	<option key="164">
+		<type>P</type>
+		<name>GetEndTimeSetEndTime</name>
+		<title>GetEndTimeSetEndTime</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetEndTimeSetEndTime.view.xml</uiView>
+		<tooltips>GetEndTimeSetEndTime</tooltips>
+	</option>
+	<option key="165">
+		<type>P</type>
+		<name>GetDescriptionSetDescription</name>
+		<title>GetDescriptionSetDescription</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDescriptionSetDescription.view.xml</uiView>
+		<tooltips>GetDescriptionSetDescription</tooltips>
+	</option>
+	<option key="166">
+		<type>P</type>
+		<name>GetFilterSetFilter</name>
+		<title>GetFilterSetFilter</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetFilterSetFilter.view.xml</uiView>
+		<tooltips>GetFilterSetFilter</tooltips>
+	</option>
+	
+	<option key="167">
+		<type>P</type>
+		<name>GetLogGetInterval</name>
+		<title>GetLogGetInterval</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLogGetInterval.view.xml</uiView>
+		<tooltips>GetLogGetInterval</tooltips>
+	</option>
+	<option key="168">
+		<type>P</type>
+		<name>GetCommandGetArguments</name>
+		<title>GetCommandGetArguments</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandGetArguments.view.xml</uiView>
+		<tooltips>GetCommandGetArguments</tooltips>
+	</option>
 	
 </data-set>

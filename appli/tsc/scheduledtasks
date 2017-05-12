@@ -1,0 +1,6 @@
+### Scheduled tasks automatically saved at 15/04/2016 17:21
+
+Task=T1;myDescription;*;31/12/2011 23:59;527040;;0;1;dir c:;
+Task=T2;Test T2;11/08/2000 16:30;31/12/2036 23:59;15;12 6-7 * * * 30;0;1;banner T2;totor
+Task=T3;Test T3;01/08/2000 23:00;*;0;* 2-3 * * * 0-5;1;1;banner T3;
+Task=T4;test t4;01/08/2004 23:00;18/11/2004 18:12;2;;0;1;/bin/ksh;ls

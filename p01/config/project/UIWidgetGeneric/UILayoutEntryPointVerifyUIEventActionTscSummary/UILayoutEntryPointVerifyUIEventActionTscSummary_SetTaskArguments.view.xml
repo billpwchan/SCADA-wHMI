@@ -5,11 +5,11 @@
 		<rows>1</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
-		<rootCSS>project-UILayoutEntryPointVerifyUIEventActionTscSummary_GetLogGetInterval-panel-root</rootCSS>
+		<rootCSS>project-UILayoutEntryPointVerifyUIEventActionTscSummary_SetTaskArguments-panel-root</rootCSS>
 	</header>
 	<option key="0|0">
 		<uiCtrl>UILayoutSummary</uiCtrl>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutVerifyUIEventActionTscControl_GetLogGetInterval.view.xml</uiView>
-		<element>UILayoutVerifyUIEventActionTscControl_GetLogGetInterval</element>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutVerifyUIEventActionTscControl_SetTaskArguments.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_SetTaskArguments</element>
 	</option>
 </data-set>

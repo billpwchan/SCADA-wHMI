@@ -71,6 +71,28 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		logger.end(className, function);
 	}
+	
+	private void setInterval() {
+		final String function = "setInterval";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
+		String strInterval		= uiGeneric.getWidgetValue("intervalvalue");
+		String strClientName	= uiGeneric.getWidgetValue("clientnamevalue");
+		
+		int interval = Integer.parseInt(strInterval);
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.setIntervalRequest(strClientKey, strScsEnvId, strTaskName, interval, strClientName);
+		
+		logger.end(className, function);
+	}
 
 
 	private void setFilter() {
@@ -136,7 +158,115 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		logger.end(className, function);
 	}
+	
+	private void setDates() {
+		final String function = "setCommand";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strDgid			= uiGeneric.getWidgetValue("dgidvalue");
+		String strDates			= uiGeneric.getWidgetValue("datesvalue");
+		String strClientName	= uiGeneric.getWidgetValue("clientname");
+		
+		int dgid = Integer.parseInt(strDgid);
+		
+		String [] datesarr = strDates.split(",");
+		
+		int [] dates = new int[datesarr.length];
+		for ( int i = 0 ; i < dates.length ; ++i ) {
+			dates[i] = Integer.parseInt(datesarr[i]);
+		}
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.setDatesRequest(strClientKey, strScsEnvId, dgid, dates, strClientName);
+		
+		logger.end(className, function);
+	}
 
+	private void setCommand() {
+		final String function = "setCommand";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
+		String strCommand		= uiGeneric.getWidgetValue("commandvalue");
+		String strClientName	= uiGeneric.getWidgetValue("clientname");
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.setCommandRequest(strClientKey, strScsEnvId, strTaskName, strCommand, strClientName);
+		
+		logger.end(className, function);
+	}
+	
+	private void setTaskArguments() {
+		final String function = "setTaskArguments";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
+		String strArguments		= uiGeneric.getWidgetValue("argumentsvalue");
+		String strClientName	= uiGeneric.getWidgetValue("clientname");
+		
+		int arguments = Integer.parseInt(strArguments);
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.setTaskArgumentsRequest(strClientKey, strScsEnvId, strTaskName, arguments, strClientName);
+		
+		logger.end(className, function);
+	}
+	
+	private void setArguments() {
+		final String function = "setArguments";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
+		String strArguments		= uiGeneric.getWidgetValue("argumentsvalue");
+		String strClientName	= uiGeneric.getWidgetValue("clientname");
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.setArgumentsRequest(strClientKey, strScsEnvId, strTaskName, strArguments, strClientName);
+		
+		logger.end(className, function);
+	}
+	
+	private void getTaskType() {
+		final String function = "getTaskType";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.getTaskTypeRequest(strClientKey, strScsEnvId, strTaskName);
+		
+		logger.end(className, function);
+	}
 
 	private void getTaskNames() {
 		final String function = "getTaskNames";
@@ -287,6 +417,44 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		logger.end(className, function);
 	}
+	
+	
+	private void getDayGroupNamesAndIds() {
+		final String function = "getDayGroupNamesAndIds";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.getDayGroupNamesAndIdsRequest(strClientKey, strScsEnvId);
+		
+		logger.end(className, function);
+	}
+	
+	private void getDates() {
+		final String function = "getDates";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strId			= uiGeneric.getWidgetValue("idvalue");
+		
+		int id = Integer.parseInt(strId);
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.getDatesRequest(strClientKey, strScsEnvId, id);
+		
+		logger.end(className, function);
+	}
 
 
 	private void getCommand() {
@@ -404,6 +572,47 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		logger.end(className, function);
 	}
+	
+	
+	private void addCompleteTask() {
+		final String function = "addCompleteTask";
+		logger.begin(className, function);
+		
+		String strTsckey		= uiGeneric.getWidgetValue("tsckeyvalue");
+		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
+		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
+		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
+		String strClientName	= uiGeneric.getWidgetValue("clientname");
+		
+		String strDescription	= uiGeneric.getWidgetValue("descriptionvalue");
+		String strCommand		= uiGeneric.getWidgetValue("commandvalue");
+		String strArguments		= uiGeneric.getWidgetValue("argumentsvalue");
+		String strStartTime		= uiGeneric.getWidgetValue("starttimevalue");
+		String strEndTime		= uiGeneric.getWidgetValue("endtimevalue");
+		String strInterval		= uiGeneric.getWidgetValue("intervalvalue");
+		String strFilter		= uiGeneric.getWidgetValue("filtervalue");
+		String strInhibited		= uiGeneric.getWidgetValue("inhibitedvalue");
+		String strLog			= uiGeneric.getWidgetValue("logvalue");
+		String strRemoveAtEnd	= uiGeneric.getWidgetValue("removeatendvalue");
+		
+		int arguments = Integer.parseInt(strArguments);
+		int interval = Integer.parseInt(strInterval);
+		int inhibited = Integer.parseInt(strInhibited);
+		int log = Integer.parseInt(strLog);
+		int removeAtEnd = Integer.parseInt(strRemoveAtEnd);
+		
+		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		
+		tscMgr.setSubject(className + function, getSubject());
+		
+		tscMgr.addCompleteTaskRequest(strClientKey, strScsEnvId, strTaskName
+				, strDescription
+				, strCommand, arguments
+				, strStartTime, strEndTime
+				, interval, strFilter, inhibited, log, removeAtEnd, strClientName);
+		
+		logger.end(className, function);
+	}
 
 
 	private void addTask() {
@@ -429,41 +638,86 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 
 		if ( Request.SetStartTime.toString().toLowerCase().equals(element) ) {
 			setStartTime();
-		} else if ( Request.SetFilter.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.SetInterval.toString().toLowerCase().equals(element) ) {
+			setInterval();
+		}
+		else if ( Request.SetFilter.toString().toLowerCase().equals(element) ) {
 			setFilter();
-		} else if ( Request.SetEndTime.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.SetEndTime.toString().toLowerCase().equals(element) ) {
 			setEndTime();
-		} else if ( Request.SetDescription.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.SetDescription.toString().toLowerCase().equals(element) ) {
 			setDescription();
-		} else if ( Request.GetTaskNames.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.SetDates.toString().toLowerCase().equals(element) ) {
+			setDates();
+		}
+		else if ( Request.SetCommand.toString().toLowerCase().equals(element) ) {
+			setCommand();
+		}
+		else if ( Request.SetTaskArguments.toString().toLowerCase().equals(element) ) {
+			setTaskArguments();
+		}
+		else if ( Request.SetArguments.toString().toLowerCase().equals(element) ) {
+			setArguments();
+		}
+		else if ( Request.GetTaskType.toString().toLowerCase().equals(element) ) {
+			getTaskType();
+		}
+		else if ( Request.GetTaskNames.toString().toLowerCase().equals(element) ) {
 			getTaskNames();
-		} else if ( Request.GetStartTime.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetStartTime.toString().toLowerCase().equals(element) ) {
 			getStartTime();
-		} else if ( Request.GetRemoveAtEnd.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetRemoveAtEnd.toString().toLowerCase().equals(element) ) {
 			getRemoveAtEnd();
-		} else if ( Request.GetLog.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetLog.toString().toLowerCase().equals(element) ) {
 			getLog();
-		} else if ( Request.GetInterval.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetInterval.toString().toLowerCase().equals(element) ) {
 			getInterval();
-		} else if ( Request.GetFilter.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetFilter.toString().toLowerCase().equals(element) ) {
 			getFilter();
-		} else if ( Request.GetEndTime.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetEndTime.toString().toLowerCase().equals(element) ) {
 			getEndTime();
-		} else if ( Request.GetDescription.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetDescription.toString().toLowerCase().equals(element) ) {
 			getDescription();
-		} else if ( Request.GetCommand.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetDayGroupNamesAndIds.toString().toLowerCase().equals(element) ) {
+			getDayGroupNamesAndIds();
+		}
+		else if ( Request.GetDates.toString().toLowerCase().equals(element) ) {
+			getDates();
+		}
+		else if ( Request.GetCommand.toString().toLowerCase().equals(element) ) {
 			getCommand();
-		} else if ( Request.GetArguments.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.GetArguments.toString().toLowerCase().equals(element) ) {
 			getArguments();
-		} else if ( Request.RemoveTask.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.RemoveTask.toString().toLowerCase().equals(element) ) {
 			removeTask();
-		} else if ( Request.IsEnabled.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.IsEnabled.toString().toLowerCase().equals(element) ) {
 			isEnabled();
-		} else if ( Request.EnableTask.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.EnableTask.toString().toLowerCase().equals(element) ) {
 			enableTask();
-		} else if ( Request.DisableTask.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.DisableTask.toString().toLowerCase().equals(element) ) {
 			disableTask();
-		} else if ( Request.AddTask.toString().toLowerCase().equals(element) ) {
+		}
+		else if ( Request.AddCompleteTask.toString().toLowerCase().equals(element) ) {
+			addCompleteTask();
+		}
+		else if ( Request.AddTask.toString().toLowerCase().equals(element) ) {
 			addTask();
 		}
 	}

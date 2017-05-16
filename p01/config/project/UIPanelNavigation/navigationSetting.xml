@@ -1259,9 +1259,9 @@
 	
 	<option key="150">
 		<type>M</type>
-		<name>Verify UIEventAction</name>
-		<title>Verify UIEventAction</title>
-		<tooltips>UIEventAction Verify Summary</tooltips>
+		<name>UIEventAction</name>
+		<title>UIEventAction</title>
+		<tooltips>UIEventAction Summary</tooltips>
 	</option>
 	<option key="151">
 		<type>P</type>
@@ -1284,11 +1284,22 @@
 		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
 
+	<option key="154">
+		<type>P</type>
+		<name>UIEventAction Ols Panel</name>
+		<title>UIEventAction Ols Panel</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionOlsSummary/UILayoutEntryPointVerifyUIEventActionOlsSummary.view.xml</uiView>
+		<tooltips>UIEventAction Ols Panel</tooltips>
+	</option>
+	
 	<option key="160">
 		<type>M</type>
-		<name>Verify UIEventAction Tsc</name>
-		<title>Verify UIEventAction Tsc</title>
-		<tooltips>UIEventAction Verify Tsc Summary</tooltips>
+		<name>UIEventAction Tsc</name>
+		<title>UIEventAction Tsc</title>
+		<tooltips>UIEventAction Tsc Summary</tooltips>
 	</option>
 	<option key="161">
 		<type>P</type>
@@ -1353,23 +1364,93 @@
 	
 	<option key="167">
 		<type>P</type>
-		<name>GetLogGetInterval</name>
-		<title>GetLogGetInterval</title>
+		<name>AddCompleteTask</name>
+		<title>AddCompleteTask</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLogGetInterval.view.xml</uiView>
-		<tooltips>GetLogGetInterval</tooltips>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_AddCompleteTask.view.xml</uiView>
+		<tooltips>AddCompleteTask</tooltips>
 	</option>
 	<option key="168">
 		<type>P</type>
-		<name>GetCommandGetArguments</name>
-		<title>GetCommandGetArguments</title>
+		<name>GetCommandSetCommand</name>
+		<title>GetCommandSetCommand</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>
 		<uiScreen>0</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandGetArguments.view.xml</uiView>
-		<tooltips>GetCommandGetArguments</tooltips>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandSetCommand.view.xml</uiView>
+		<tooltips>GetCommandSetCommand</tooltips>
 	</option>
+	<option key="169">
+		<type>P</type>
+		<name>GetArgumentsSetArguments</name>
+		<title>GetArgumentsSetArguments</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetArgumentsSetArguments.view.xml</uiView>
+		<tooltips>GetArgumentsSetArguments</tooltips>
+	</option>
+	<option key="170">
+		<type>P</type>
+		<name>GetDatesSetDates</name>
+		<title>GetDatesSetDates</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDatesSetDates.view.xml</uiView>
+		<tooltips>GetDatesSetDates</tooltips>
+	</option>	
+	<option key="171">
+		<type>P</type>
+		<name>GetIntervalSetInterval</name>
+		<title>GetIntervalSetInterval</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetIntervalSetInterval.view.xml</uiView>
+		<tooltips>GetIntervalSetInterval</tooltips>
+	</option>	
+	<option key="172">
+		<type>P</type>
+		<name>GetLog</name>
+		<title>GetLog</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLog.view.xml</uiView>
+		<tooltips>GetLog</tooltips>
+	</option>	
+	<option key="173">
+		<type>P</type>
+		<name>GetTaskType</name>
+		<title>GetTaskType</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskType.view.xml</uiView>
+		<tooltips>GetTaskType</tooltips>
+	</option>	
+	<option key="174">
+		<type>P</type>
+		<name>SetTaskArguments</name>
+		<title>SetTaskArguments</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_SetTaskArguments.view.xml</uiView>
+		<tooltips>SetTaskArguments</tooltips>
+	</option>	
+	<option key="175">
+		<type>P</type>
+		<name>GetDayGroupNamesAndIds</name>
+		<title>GetDayGroupNamesAndIds</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDayGroupNamesAndIds.view.xml</uiView>
+		<tooltips>GetDayGroupNamesAndIds</tooltips>
+	</option>	
 	
 </data-set>

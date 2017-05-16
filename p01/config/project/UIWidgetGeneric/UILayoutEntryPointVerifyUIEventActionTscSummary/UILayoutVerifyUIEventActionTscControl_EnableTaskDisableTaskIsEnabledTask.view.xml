@@ -20,7 +20,7 @@
 		<element>UIWidgetVerifyUIEventActionTscControl_DisableTask</element>
 	</option>
 	
-	<option key="0|3">
+	<option key="0|2">
 		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UIWidgetVerifyUIEventActionTscControl_IsEnabled.view.xml</uiView>
 		<element>UIWidgetVerifyUIEventActionTscControl_IsEnabled</element>

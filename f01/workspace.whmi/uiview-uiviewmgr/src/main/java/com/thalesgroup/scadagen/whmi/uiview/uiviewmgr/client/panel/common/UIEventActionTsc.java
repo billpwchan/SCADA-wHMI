@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTsc_i.UIEventActionTscAction;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.tsc.TscMgr;
@@ -17,27 +17,7 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public UIEventActionTsc ( ) {
-		supportedActions = new String[] {
-				  UIEventActionTscAction.SetStartTime.toString()
-				, UIEventActionTscAction.SetFilter.toString()
-				, UIEventActionTscAction.SetEndTime.toString()
-				, UIEventActionTscAction.SetDescription.toString()
-				, UIEventActionTscAction.GetTaskNames.toString()
-				, UIEventActionTscAction.GetStartTime.toString()
-				, UIEventActionTscAction.GetRemoveAtEnd.toString()
-				, UIEventActionTscAction.GetLog.toString()
-				, UIEventActionTscAction.GetInterval.toString()
-				, UIEventActionTscAction.GetFilter.toString()
-				, UIEventActionTscAction.GetEndTime.toString()
-				, UIEventActionTscAction.GetDescription.toString()
-				, UIEventActionTscAction.GetCommand.toString()
-				, UIEventActionTscAction.GetArguments.toString()
-				, UIEventActionTscAction.RemoveTask.toString()
-				, UIEventActionTscAction.IsEnabled.toString()
-				, UIEventActionTscAction.EnableTask.toString()
-				, UIEventActionTscAction.DisableTask.toString()
-				, UIEventActionTscAction.AddTask.toString()
-		};
+		supportedActions = UIEventActionTscAction.toStrings();
 	}
 	
 	@Override
@@ -71,7 +51,21 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.setStartTimeRequest(strClientKey, strScsEnvId, strTaskName, startTime, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetFilter.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetInterval.toString()) ) {
+		
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strTaskName			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strInterval			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strClientName		= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			
+			int interval = Integer.parseInt(strInterval);
+			
+			tscMgr.setIntervalRequest(strClientKey, strScsEnvId, strTaskName, interval, strClientName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetFilter.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -81,7 +75,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.setFilterRequest(strClientKey, strScsEnvId, strTaskName, strFilter, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetEndTime.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetEndTime.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -93,7 +88,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.setEndTimeRequest(strClientKey, strScsEnvId, strTaskName, endTime, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetDescription.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetDescription.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -103,14 +99,80 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.setDescriptionRequest(strClientKey, strScsEnvId, strTaskName, strDescription, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetTaskNames.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetDates.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strDgid				= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strDates				= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strClientName		= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			
+			int dgid = Integer.parseInt(strDgid);
+			
+			String [] datesarr = strDates.split(",");
+			
+			int [] dates = new int[datesarr.length];
+			for ( int i = 0 ; i < dates.length ; ++i ) {
+				dates[i] = Integer.parseInt(datesarr[i]);
+			}
+			
+			tscMgr.setDatesRequest(strClientKey, strScsEnvId, dgid, dates, strClientName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetCommand.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strTaskName			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strCommand			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strClientName		= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			
+			tscMgr.setCommandRequest(strClientKey, strScsEnvId, strTaskName, strCommand, strClientName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetTaskArguments.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strTaskName			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strArguments			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strClientName		= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			
+			int arguments = Integer.parseInt(strArguments);
+			
+			tscMgr.setTaskArgumentsRequest(strClientKey, strScsEnvId, strTaskName, arguments, strClientName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.SetArguments.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strTaskName			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			String strArguments			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strClientName		= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			
+			tscMgr.setArgumentsRequest(strClientKey, strScsEnvId, strTaskName, strArguments, strClientName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetTaskType.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			String strTaskName			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			
+			tscMgr.getTaskTypeRequest(strClientKey, strScsEnvId, strTaskName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetTaskNames.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
 			
 			tscMgr.getTaskNamesRequest(strClientKey, strScsEnvId);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetStartTime.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetStartTime.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -118,7 +180,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getStartTimeRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetRemoveAtEnd.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetRemoveAtEnd.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -126,7 +189,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getRemoveAtEndRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetLog.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetLog.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -134,7 +198,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getLogRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetInterval.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetInterval.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -142,7 +207,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getIntervalRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetFilter.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetFilter.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -150,7 +216,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getFilterRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetEndTime.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetEndTime.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -158,7 +225,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getEndTimeRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetDescription.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetDescription.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -166,7 +234,28 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getDescriptionRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetCommand.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetDayGroupNamesAndIds.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+
+			tscMgr.getDayGroupNamesAndIdsRequest(strClientKey, strScsEnvId);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetDates.toString()) ) {
+			
+			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+			
+			String strId				= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+			
+			int id = Integer.parseInt(strId);
+			
+			tscMgr.getDatesRequest(strClientKey, strScsEnvId, id);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetCommand.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -174,7 +263,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getCommandRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetArguments.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.GetArguments.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -182,7 +272,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.getArgumentsRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.RemoveTask.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.RemoveTask.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -191,7 +282,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.removeTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.IsEnabled.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.IsEnabled.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -199,7 +291,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.isEnabledRequest(strClientKey, strScsEnvId, strTaskName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.EnableTask.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.EnableTask.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -208,7 +301,8 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.enableTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.DisableTask.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.DisableTask.toString()) ) {
 			
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
@@ -217,7 +311,45 @@ public class UIEventActionTsc extends UIEventActionExecute_i {
 			
 			tscMgr.disableTaskRequest(strClientKey, strScsEnvId, strTaskName, strClientName);
 			
-		} else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.AddTask.toString()) ) {
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.AddCompleteTask.toString()) ) {
+				
+				String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+				String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
+				String strTaskName			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
+				String strDesription		= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+				String strCommand			= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+				String strArguments			= (String) action.getParameter(ActionAttribute.OperationString7.toString());
+				String strStartTime			= (String) action.getParameter(ActionAttribute.OperationString8.toString());
+				String strEndTime			= (String) action.getParameter(ActionAttribute.OperationString9.toString());
+				String strInterval			= (String) action.getParameter(ActionAttribute.OperationString10.toString());
+				String strFilter			= (String) action.getParameter(ActionAttribute.OperationString11.toString());
+				String strInhibited			= (String) action.getParameter(ActionAttribute.OperationString12.toString());
+				String strLog				= (String) action.getParameter(ActionAttribute.OperationString13.toString());
+				String strRemoveAtEnd		= (String) action.getParameter(ActionAttribute.OperationString14.toString());
+				String strClientName		= (String) action.getParameter(ActionAttribute.OperationString15.toString());
+				
+				int arguments = Integer.parseInt(strArguments);
+				int interval = Integer.parseInt(strInterval);
+				int inhibited = Integer.parseInt(strInhibited);
+				int log = Integer.parseInt(strLog);
+				int removeAtEnd = Integer.parseInt(strRemoveAtEnd);
+				
+				tscMgr.addCompleteTaskRequest(strClientKey, strScsEnvId, strTaskName
+						, strDesription
+						, strCommand
+						, arguments
+						, strStartTime
+						, strEndTime
+						, interval
+						, strFilter
+						, inhibited
+						, log
+						, removeAtEnd						
+						, strClientName);
+			
+		}
+		else if ( strAction.equalsIgnoreCase(UIEventActionTscAction.AddTask.toString()) ) {
 		
 			String strClientKey			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString3.toString());

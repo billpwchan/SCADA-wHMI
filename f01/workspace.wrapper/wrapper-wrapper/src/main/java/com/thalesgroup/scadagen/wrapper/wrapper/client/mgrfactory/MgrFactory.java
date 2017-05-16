@@ -4,7 +4,6 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Mgr_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.ols.OlsMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.tsc.TscMgr;
 
 public class MgrFactory {
@@ -28,13 +27,9 @@ public class MgrFactory {
 		if ( null != name ) {
 			
 			String strTscMgr = UIWidgetUtil.getClassSimpleName(TscMgr.class.getName());
-			String strOlsMgr = UIWidgetUtil.getClassSimpleName(OlsMgr.class.getName());
 			
 			if ( name.equals(strTscMgr) ) {
 				mgr = TscMgr.getInstance(key);
-			}
-			else if ( name.equals(strOlsMgr) ) {
-				mgr = OlsMgr.getInstance(key);
 			}
 		}
 		logger.end(className, function);

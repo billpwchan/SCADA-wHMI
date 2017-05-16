@@ -1,60 +1,50 @@
-.project-UIWidgetSocAutoManuControl-root {
-    height: 55px;
+.project-UIWidgetSocAutoManuControl-root{
+    height: 4em;
 	float: left;
 }
-.project-UIWidgetSocAutoManuControl-container-skipfailedsteplabel {
+
+.project-UIWidgetSocAutoManuControl-container-skipfailedsteplabel{
+	padding-left: 29em;
+}
+.project-UIWidgetSocAutoManuControl-container-skipfailedsteplabel,
+.project-UIWidgetSocAutoManuControl-container-auto,
+.project-UIWidgetSocAutoManuControl-container-manu{
 	vertical-align: middle !important;
 }
-.project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel {
+
+.project-UIWidgetSocAutoManuControl-label-skipfailedsteplabel{
 	color: black;
 	font-weight: bold;
-	font-size: 16px;
-	margin-right: 10px;
+	font-size: larger;
+	cursor: default;
 }
 
-/* filter styles */
-.project-UIWidgetSocAutoManuControl-container-auto,
-.project-UIWidgetSocAutoManuControl-container-manu {
-    vertical-align: middle !important;
+.project-UIWidgetSocAutoManuControl-container-auto{
 }
-
-.project-UIWidgetSocAutoManuControl-container-auto {
-    text-align: right;
-}
-.project-UIWidgetSocAutoManuControl-container-manu {
-	text-align: left;
-	width: 180px;
+.project-UIWidgetSocAutoManuControl-container-manu{
 }
 
 .project-UIWidgetSocAutoManuControl-button-auto,
-.project-UIWidgetSocAutoManuControl-button-manu {
+.project-UIWidgetSocAutoManuControl-button-manu{
 	color: black;
 	font-weight: bold;
-    font-size: 16px;
-	margin-right: 10px;
+    font-size: large;
 }
 
-.project-UIWidgetSocAutoManuControl-button-auto-up {
+.project-UIWidgetSocAutoManuControl-button-auto-up,
+.project-UIWidgetSocAutoManuControl-button-manu-up{
 }
 
-.project-UIWidgetSocAutoManuControl-button-auto-down {
+.project-UIWidgetSocAutoManuControl-button-auto-down,
+.project-UIWidgetSocAutoManuControl-button-manu-down{
 }
 
-.project-UIWidgetSocAutoManuControl-button-auto-disable {
+.project-UIWidgetSocAutoManuControl-button-auto-disable,
+.project-UIWidgetSocAutoManuControl-button-manu-disable{
 }
-
-.project-UIWidgetSocAutoManuControl-button-manu-up {
-}
-
-.project-UIWidgetSocAutoManuControl-button-manu-down {
-}
-
-.project-UIWidgetSocAutoManuControl-button-manu-disable {
-}
-
 
 /* cursor styles */
 .project-UIWidgetSocAutoManuControl-button-auto label,
-.project-UIWidgetSocAutoManuControl-button-manu label {
+.project-UIWidgetSocAutoManuControl-button-manu label{
 	cursor: pointer;
 }

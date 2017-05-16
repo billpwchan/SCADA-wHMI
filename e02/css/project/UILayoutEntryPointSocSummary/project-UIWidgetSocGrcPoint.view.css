@@ -1,86 +1,44 @@
-.project-UIWidgetSocGrcPoint-container-grccursteplabel {
+.project-UIWidgetSocGrcPoint-container-grccurstatuslabel,
+.project-UIWidgetSocGrcPoint-container-grccurstatusvalue,
+.project-UIWidgetSocGrcPoint-container-grccursteplabel,
+.project-UIWidgetSocGrcPoint-container-grccurstepvalue,
+.project-UIWidgetSocGrcPoint-container-grcmessagelabel,
+.project-UIWidgetSocGrcPoint-container-grcmessagevalue{
 	vertical-align: middle !important;
+	cursor: default;
 }
-.project-UIWidgetSocGrcPoint-label-grccurstep {
+
+.project-UIWidgetSocGrcPoint-label-grccurstatus,
+.project-UIWidgetSocGrcPoint-label-grccurstep,
+.project-UIWidgetSocGrcPoint-label-grcmessage{
 	color: black;
 	font-weight: bold;
-	font-size: 16px;
-	margin-right: 10px;
+	font-size: larger;
 }
-.project-UIWidgetSocGrcPoint-container-grccurstepvalue {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-textbox-grccurstep {
-	font-size: 16px;
-	height: 39px;
-	width: 150px;
+
+.project-UIWidgetSocGrcPoint-textbox-grccurstatus,
+.project-UIWidgetSocGrcPoint-textbox-grccurstep,
+.project-UIWidgetSocGrcPoint-textbox-grcmessage{
+	font-size: large;
+	height: 2em;
 	color: black;
 	background-color: white;
-	border: thin solid black !important;
+	cursor: default;
+	text-align: center;
+	margin-left: 0.5em;
+	margin-right: 1em;
 }
 
-.project-UIWidgetSocGrcPoint-container-grccurstatuslabel {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-label-grccurstatus {
-	color: black;
-	font-weight: bold;
-	font-size: 16px;
-	margin-right: 10px;
-}
-.project-UIWidgetSocGrcPoint-container-grccurstatusvalue {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-textbox-grccurstatus {
-	font-size: 16px;
-	height: 39px;
-	width: 150px;
-	color: black;
-	background-color: white;
-	border: thin solid black !important;
+.project-UIWidgetSocGrcPoint-textbox-grccurstatus{
+	width: 10ch;
 }
 
-
-
-.project-UIWidgetSocGrcPoint-container-grcstepstatuslabel {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-label-grcstepstatus {
-	color: black;
-	font-weight: bold;
-	font-size: 16px;
-	margin-right: 10px;
-}
-.project-UIWidgetSocGrcPoint-container-grcstepstatusvalue {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-textbox-grcstepstatus {
-	font-size: 16px;
-	height: 39px;
-	width: 150px;
-	color: black;
-	background-color: white;
-	border: thin solid black !important;
+.project-UIWidgetSocGrcPoint-textbox-grccurstep{
+	width: 2ch
 }
 
-
-.project-UIWidgetSocGrcPoint-container-grcmessagelabel {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-label-grcmessage {
-	color: black;
-	font-weight: bold;
-	font-size: 16px;
-	margin-right: 10px;
-}
-.project-UIWidgetSocGrcPoint-container-grcmessagevalue {
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocGrcPoint-textbox-grcmessage {
-	font-size: 16px;
-	height: 39px;
-	width: 750px;
-	color: black;
-	background-color: white;
-	border: thin solid black !important;
+.project-UIWidgetSocGrcPoint-textbox-grcmessage{
+	width: 104ch;
+	margin-right: 0em;
+	text-align: left;
 }

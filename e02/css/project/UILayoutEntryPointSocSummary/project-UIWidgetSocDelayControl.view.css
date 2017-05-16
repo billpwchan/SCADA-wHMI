@@ -1,44 +1,42 @@
-.project-UIWidgetSocDelayControl-root {
-	height: 55px;
+.project-UIWidgetSocDelayControl-root{
+	height: 4em;
 	float: left;
 }
-.project-UIWidgetSocDelayControl-container-delayafter {
+
+.project-UIWidgetSocDelayControl-container-delayafter,
+.project-UIWidgetSocDelayControl-container-delayvalue,
+.project-UIWidgetSocDelayControl-container-apply{
 	vertical-align: middle !important;
 }
-.project-UIWidgetSocDelayControl-label-delayafter {
+.project-UIWidgetSocDelayControl-label-delayafter{
 	color: black;
 	font-weight: bold;
-	font-size: 16px;
-	margin-right: 10px;
+	font-size: larger;
+	cursor: default;
 }
 
-.project-UIWidgetSocDelayControl-container-delayvalue {
-	width: 150px;
-	vertical-align: middle !important;
-}
-.project-UIWidgetSocDelayControl-textbox-delayvalue {
-	font-size: 16px;
-	height: 39px;
-	width: 150px;
+.project-UIWidgetSocDelayControl-textbox-delayvalue{
+	font-size: large;
+	height: 2em;
+	width: 2ch;
 	color: black;
 	background-color: white;
-	border: thin solid black !important;
+	text-align: center;
+	margin-left: 0.5em;
+	margin-right: 1em;
+	cursor: default;
 }
 
-.project-UIWidgetSocDelayControl-container-apply {
-	vertical-align: middle !important;
+.gwt-Button.project-UIWidgetSocDelayControl-button-apply {
+	height: 90%;
+	font-weight: bold;
+    font-size: larger;
 }
-.project-UIWidgetSocDelayControl-button-apply {
-	width:115px;
-	height:45px;
-	font-weight: bold !important;
-    font-size: 16px !important;
-	margin-left: 5px !important;
-	margin-right: 5px !important;
-}
+
 .project-UIWidgetSocDelayControl-button-apply-up {
 	
 }
+
 .project-UIWidgetSocDelayControl-button-apply-down {
 	background-image: none !important;
 	background-color: rgb(246, 230, 139) !important;

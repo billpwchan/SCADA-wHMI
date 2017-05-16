@@ -274,8 +274,8 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					
 					}  else if ( os1.equals(DataGridEvent.ReloadColumnData.toString() ) ) {
 						
-						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
-						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
 						
 						logger.debug(className, function, "Reload Column Data");
 						

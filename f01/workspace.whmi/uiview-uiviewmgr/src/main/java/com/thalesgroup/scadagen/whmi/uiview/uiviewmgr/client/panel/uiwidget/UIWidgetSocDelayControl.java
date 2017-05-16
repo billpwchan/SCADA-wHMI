@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 import java.util.HashMap;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -263,6 +264,7 @@ public class UIWidgetSocDelayControl extends UIWidget_i {
 		
 		logger.info(className, function, "targetDataGridColumn2[{}]", targetDataGridColumn_A2);
 		logger.info(className, function, "targetDataGrid2[{}]", targetDataGrid_B);
+		
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

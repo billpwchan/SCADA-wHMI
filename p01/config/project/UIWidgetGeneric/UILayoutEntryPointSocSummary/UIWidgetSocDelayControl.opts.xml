@@ -8,6 +8,7 @@
 		
 		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
 		<TargetDataGridColumn_B>Step</TargetDataGridColumn_B>
+		<TargetDataGridColumn_B2>SuccessDelay</TargetDataGridColumn_B2>
 	</header>
 	
 	<actionset key="init">
@@ -35,7 +36,9 @@
 	<actionset key="write_delay_to_db">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>write_delay_to_db</OperationString1>
+		<OperationString2>reload_db_column_data</OperationString2>
 	</actionset>
+	
 	<action key="write_delay_to_db">
 		<OperationType>action</OperationType>
 		<OperationAction>dbm</OperationAction>
@@ -43,6 +46,15 @@
 		<OperationString2>ScsEnvID</OperationString2>
 		<OperationString3>dbalias</OperationString3>
 		<OperationString4>1</OperationString4>
+	</action>
+	
+	<action key="reload_db_column_data">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutSocSummaryViewer2</OperationElement>
+		<OperationString1>ReloadColumnData</OperationString1>
+		<OperationString2>UIDataGridFormatterSOCDetails</OperationString2>
+		<OperationString3>SuccessDelay</OperationString3>
 	</action>
 	
 </data-set>

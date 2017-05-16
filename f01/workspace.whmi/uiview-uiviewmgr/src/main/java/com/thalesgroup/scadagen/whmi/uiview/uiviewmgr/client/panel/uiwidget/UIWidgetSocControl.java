@@ -951,8 +951,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		UIEventAction reloadDataEvent = new UIEventAction();
 		if (reloadDataEvent != null) {
 			reloadDataEvent.setParameter(ViewAttribute.OperationString1.toString(), DataGridEvent.ReloadColumnData.toString());
-			reloadDataEvent.setParameter(ViewAttribute.OperationObject1.toString(), targetDataGridB);
-			reloadDataEvent.setParameter(ViewAttribute.OperationObject2.toString(), targetDataGridColumnB3);
+			reloadDataEvent.setParameter(ViewAttribute.OperationString2.toString(), targetDataGridB);
+			reloadDataEvent.setParameter(ViewAttribute.OperationString3.toString(), targetDataGridColumnB3);
 			getEventBus().fireEvent(reloadDataEvent);
 			logger.debug(className, function, "fire UIEventAction reloadDataEvent");
 		}

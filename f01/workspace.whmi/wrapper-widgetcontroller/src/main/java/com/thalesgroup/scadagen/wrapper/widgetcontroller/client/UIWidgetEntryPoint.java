@@ -177,7 +177,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		logger.begin(className, function);
 
 		Map<String, Object> params = null;
-		
+
 		init(params, InitProcessFAS.getInstance().get(), initReady);
 		
 		logger.end(className, function);
@@ -187,7 +187,11 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 		final String function = "init";
 		logger.begin(className, function);
 		if ( null != initProcess ) {
-			initProcess.process(params, initReady);
+			try {
+				initProcess.process(params, initReady);
+			} catch (Exception ex) {
+				logger.error(className, function, "init Exception:"+ex.toString());
+			}
 		} else {
 			logger.warn(className, function, "initProcess IS NULL");
 		}

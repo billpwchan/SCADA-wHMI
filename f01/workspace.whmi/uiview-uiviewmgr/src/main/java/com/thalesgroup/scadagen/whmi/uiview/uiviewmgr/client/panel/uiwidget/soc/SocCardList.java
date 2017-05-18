@@ -31,8 +31,7 @@ public class SocCardList implements IDataGridDataSource {
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
 	private Map<String, String> scsEnvIdMap = new HashMap<String, String>();
-	private Map<String, Integer> clientKeyToRowMap = new HashMap<String, Integer>();
-	private Map<Integer, Equipment_i> rowToDataMap = new HashMap<Integer, Equipment_i>();
+	private Map<String, Equipment_i> clientKeyToDataMap = new HashMap<String, Equipment_i>();
 	
 	private String [] colLblVals = null;
 	
@@ -185,21 +184,30 @@ public class SocCardList implements IDataGridDataSource {
 	    				// Add columns
 	    				for (String att: strGrcPointAttributes) {
 	    					String address = null;
-	    					if (!att.startsWith(":")) {
+	    					
+	    					// Search for '.' to determine if att contains node path
+	    					int idx = att.indexOf('.');
+	    					if (idx < 0) {
+	    						// att NOT contains node path
+	    						// append '.' and att to address
 	    						address = "<alias>" + alias + "." + att;
-	    					} else {
+	    					} else if (idx == 0) {
+	    						// att NOT contains node path
+	    						// append att to address
 	    						address = "<alias>" + alias + att;
+	    					} else {
+	    						// att contains node path
+	    						if (att.startsWith(":")) {
+	    							address = "<alias>" + alias + att;
+	    						} else {
+	    							address = "<alias>" + alias + ":" + att;
+	    						}
 	    					}
 
 	    					logger.debug(className, function, "Read Grc point attribute address [{}]", address);
 	    					addresses[cnt] = address;
 	    					cnt++;
 	    				}
-	    				
-//	    				String key = clientKey + "_" + Integer.toString(existingRows + i);
-	    				
-	    				logger.debug(className, function, "clientKeyToRowMap key[{}]  row[{}]", key, existingRows + i);
-	    				clientKeyToRowMap.put(key, existingRows + i);
 	    				
 	    				rtdb.multiReadValue(key, scsEnvId, addresses, new MultiReadResult() {
 
@@ -208,52 +216,44 @@ public class SocCardList implements IDataGridDataSource {
 								final String function = "updateSocCardList setReadResult";
 								
 								logger.begin(className, function);
-								// Get row number from map
-								Integer intObj = clientKeyToRowMap.get(key);
-								logger.debug(className, function, "clientKey [{}] row [{}]", key, intObj);
-								if (intObj != null) {
-									int row = intObj;
+								// Get row data from map								
+								Equipment_i contact = clientKeyToDataMap.get(key);
+								if (contact != null) {
+									int index = 0;
 									
-									Equipment_i contact = rowToDataMap.get(row);
-									if (contact != null) {
-										int index = 0;
-										
-										for (int col=0; col<strDataGridColumnsLabels.length && index < values.length; col++) {
-											logger.debug(className, function, "col[{}] label[{}]", col, strDataGridColumnsLabels[col]);
-										
-											if (!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblSOCCard) &&
-												!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblScsEnvID) &&
-												!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblAlias)) {
-												
-												logger.debug(className, function, "set value for label[{}]", strDataGridColumnsLabels[col]);
-												
-												// Remove quotes from value string
-												String unquotedStr = "";
-												if (values[index] != null) {
-													unquotedStr = values[index].replaceAll("\"", "");
-												}
-																														
-//												List<Equipment_i> list = dataGridDb_.getDataProvider().getList();
-//												Equipment_i contact = list.get(row);
-												if (strDataGridColumnsTypes[col].equalsIgnoreCase("String")) {
-													logger.debug(className, function, "set string value [{}]", unquotedStr);
-													contact.setStringValue(strDataGridColumnsLabels[col], unquotedStr);
-													index++;
-												} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Number")) {
-													logger.debug(className, function, "set number value [{}]", unquotedStr);
-													contact.setNumberValue(strDataGridColumnsLabels[col], Integer.parseInt(unquotedStr));
-													index++;
-												} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Boolean")) {
-													logger.debug(className, function, "set boolean value [{}]", unquotedStr);
-													contact.setBooleanValue(strDataGridColumnsLabels[col], Boolean.parseBoolean(unquotedStr));
-													index++;
-												} else {
-													logger.warn(className, function, "DataGrid [{}] column type [{}] not supported", strDataGrid_, strDataGridColumnsTypes[col]);
-												}
+									for (int col=0; col<strDataGridColumnsLabels.length && index < values.length; col++) {
+										logger.debug(className, function, "col[{}] label[{}]", col, strDataGridColumnsLabels[col]);
+									
+										if (!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblSOCCard) &&
+											!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblScsEnvID) &&
+											!strDataGridColumnsLabels[col].equalsIgnoreCase(colLblAlias)) {
+											
+											logger.debug(className, function, "set value for label[{}]", strDataGridColumnsLabels[col]);
+											
+											// Remove quotes from value string
+											String unquotedStr = "";
+											if (values[index] != null) {
+												unquotedStr = values[index].replaceAll("\"", "");
+											}
+																													
+											if (strDataGridColumnsTypes[col].equalsIgnoreCase("String")) {
+												logger.debug(className, function, "set string value [{}]", unquotedStr);
+												contact.setStringValue(strDataGridColumnsLabels[col], unquotedStr);
+												index++;
+											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Number")) {
+												logger.debug(className, function, "set number value [{}]", unquotedStr);
+												contact.setNumberValue(strDataGridColumnsLabels[col], Integer.parseInt(unquotedStr));
+												index++;
+											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Boolean")) {
+												logger.debug(className, function, "set boolean value [{}]", unquotedStr);
+												contact.setBooleanValue(strDataGridColumnsLabels[col], Boolean.parseBoolean(unquotedStr));
+												index++;
+											} else {
+												logger.warn(className, function, "DataGrid [{}] column type [{}] not supported", strDataGrid_, strDataGridColumnsTypes[col]);
 											}
 										}
 									}
-									
+								
 									// Handle column filter option
 							    	boolean skip = false;
 							    	
@@ -284,7 +284,7 @@ public class SocCardList implements IDataGridDataSource {
 	    		}	
 	    	}
 	    	equipment_i = builder.build();
-	    	rowToDataMap.put(existingRows + i, equipment_i);
+	    	clientKeyToDataMap.put(key, equipment_i);
 	    	
 	    	if (strGrcPointAttributes.length < 1) {
 
@@ -302,14 +302,6 @@ public class SocCardList implements IDataGridDataSource {
 		    	if (skip) {
 		    		continue;
 		    	}
-		    	
-		    	// Build row data
-//		    	EquipmentBuilder_i builder = new EquipmentBuilder();
-//		    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
-//		    		builder = builder.setValue(strDataGridColumnsLabels[col], columnValues[col]);
-//		    		logger.debug(className, function, "builder setValue [{}] [{}]", strDataGridColumnsLabels[col], columnValues[col]);
-//		    	}
-//		    	Equipment_i equipment_i = builder.build();
 	    	
 		    	// Add row data to data grid
 		    	dataGridDb_.addEquipment(equipment_i);

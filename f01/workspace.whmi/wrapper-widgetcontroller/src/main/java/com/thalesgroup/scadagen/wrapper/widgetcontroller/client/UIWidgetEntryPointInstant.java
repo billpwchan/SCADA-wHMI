@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.widgetcontroller.client;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
@@ -11,19 +12,16 @@ import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.view.IWidgetController;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
-import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmFactory;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXMLFile;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
 
 public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidgetController {
 	
@@ -67,11 +65,27 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		
 		initWidget(simplePanel);
 		
-		initOpmFactory();
+		InitOpm.getInstance().initOpmFactory();
 		
-		initCacheJsonsFile("UIJson", "*.json");
+		InitCacheJsonsFile.getInstance().initCacheJsonsFile("UIJson", "*.json");
 		
-		initCacheXMLFile("UIWidgetGeneric", "*.xml");
+		InitCacheXMLFile.getInstance().initCacheXMLFile("UIWidgetGeneric", "*.xml", new InitReady_i() {
+			
+			@Override
+			public void ready(final Map<String, Object> params) {
+				
+				int received = 0;
+				if ( null != params) {
+					Object obj = params.get("received");
+					if ( null != obj && obj instanceof Integer ) {
+						received = (Integer)obj;
+					}
+				}
+				
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
+				UIWidgetEntryPointInstant.this.ready("UIWidgetGeneric", received);
+			}
+		});
 		
 		logger.end(className, function);
 	}
@@ -107,78 +121,7 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 	public String getWidgetTitle() {
 		return uiElem;
 	}
-	
-	private void initOpmFactory() {
-		final String function = "initOpmFactory";
-		logger.begin(className, function);
-		
-		OpmMgr opmMgr = OpmMgr.getInstance();
-		opmMgr.addUIOpmFactory(className, new UIOpmFactory() {
-			
-			@Override
-			public UIOpm_i getOpm(String key) {
-				UIOpm_i uiOpm_i = null;
-				if ( null != key ) {
-					
-					String UIOpmSCADAgenClassName = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
-					
-					if ( key.equalsIgnoreCase(UIOpmSCADAgenClassName) ) {
-						uiOpm_i = UIOpmSCADAgen.getInstance();
-					}
-				}
-				return uiOpm_i;
-			}
-		});
-		
-		logger.end(className, function);
-	}
-	
-	public void initCacheJsonsFile (String folder, String extention) {
-		final String function = "initCacheJsonsFile";
-		logger.begin(className, function);
-		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
 
-		String mode = ConfigurationType.JsonFile.toString();
-		String module = null;
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
-		dictionariesCache.add(folder, extention, null);
-		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
-			@Override
-			public void dictionariesCacheEventReady(int received) {
-				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
-			}
-		});
-
-		logger.end(className, function);
-	}
-	
-	public void initCacheXMLFile(String folder, String extention) {
-		final String function = "initCacheXMLFile";
-		logger.begin(className, function);
-		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
-		
-		final String header			= "header";
-		final String option			= "option";
-		final String action			= "action";
-		final String actionset		= "actionset";
-		final String [] tags = {header, option, action, actionset};
-		String mode = ConfigurationType.XMLFile.toString();
-		String module = null;
-		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
-		for(String tag : tags ) {
-			dictionariesCache.add(folder, extention, tag);
-		}
-		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
-			@Override
-			public void dictionariesCacheEventReady(int received) {
-				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
-				ready("UIWidgetGeneric", received);
-			}
-		});
-		
-		logger.end(className, function);
-	}
-	
 	private UIWidget_i uiWidget_i = null;
 	private boolean isCreated = false;
 	private void ready(String folder, int received) {

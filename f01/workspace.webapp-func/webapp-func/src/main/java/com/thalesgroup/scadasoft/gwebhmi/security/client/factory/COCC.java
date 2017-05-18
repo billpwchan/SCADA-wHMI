@@ -10,7 +10,7 @@ import com.thalesgroup.prj_gz_cocc.gwebhmi.security.client.CoccLoginPanel;
 public class COCC implements IScsLoginEntryPoint {
 
 	@Override
-	public void launch(Map<String, String> map) {
+	public void launch(Map<String, Object> params) {
 		
     	UITools.disableDefaultContextMenu(RootPanel.getBodyElement());
 

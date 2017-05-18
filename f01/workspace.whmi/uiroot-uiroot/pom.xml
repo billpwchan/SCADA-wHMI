@@ -81,7 +81,13 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr</groupId>
 	  <artifactId>uidialog-uidialogmgr</artifactId>
-          <version>${commons.uiwidget.version}</version>
+	  <version>${commons.uiwidget.version}</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>com.thalesgroup.scadagen.wrapper.widgetcontroller</groupId>
+	  <artifactId>wrapper-widgetcontroller</artifactId>
+	  <version>${commons.uiwidget.version}</version>
 	</dependency>
 	
   </dependencies>

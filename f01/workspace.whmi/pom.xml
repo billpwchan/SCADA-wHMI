@@ -108,6 +108,7 @@
     <module>uipanel-uipanelroot</module>
     <module>uiroot-uiroot</module>
     <module>uiwidget-uiwidgetcontainer</module>
+    <module>wrapper-widgetcontroller</module>
   </modules>
   
 </project>

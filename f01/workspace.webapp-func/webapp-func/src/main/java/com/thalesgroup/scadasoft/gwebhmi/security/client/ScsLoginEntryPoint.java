@@ -1,5 +1,6 @@
 package com.thalesgroup.scadasoft.gwebhmi.security.client;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +49,15 @@ public class ScsLoginEntryPoint implements EntryPoint {
         
         web.getWebConfig(mode, module, folder, xml, tag, keys, new WebConfigMgrEvent() {
 			@Override
-			public void updated(Map<String, String> map) {
+			public void updated(Map<String, String> keyValues) {
 				LOGGER.debug(LOG_PREFIX+"onModuleLoad updated");
-				launch(map);
+				
+				Map<String, Object> params = new HashMap<String, Object>();
+				for ( String key : keyValues.keySet() ) {
+					params.put(key, keyValues.get(key));
+        		}
+				
+				launch(params);
 			}
 			@Override
 			public void failed() {
@@ -61,12 +68,27 @@ public class ScsLoginEntryPoint implements EntryPoint {
 
     }
     
-    private void launch(Map<String, String> map) {
+    private String getStringParameter(Map<String, Object> params, String key) {
+    	String value = null;
+		Object obj = params.get(PropertiesName.framework.toString());
+		if ( null != obj ) {
+			if ( obj instanceof String ) {
+				value = (String)obj;
+			} else {
+				LOGGER.warn(LOG_PREFIX+"getStringParameter key["+key+"] obj IS NOT A String");
+			}
+		} else {
+			LOGGER.warn(LOG_PREFIX+"getStringParameter key["+key+"] obj IS NULL");
+		}
+		return value;
+    }
+    
+    private void launch(Map<String, Object> params) {
     	
     	IScsLoginEntryPoint iScsLoginEntryPoint = null;
 
-    	if ( null != map ) {
-    		String framework = map.get(PropertiesName.framework.toString());
+    	if ( null != params ) {
+    		String framework = getStringParameter(params, PropertiesName.framework.toString());
     		LOGGER.debug(LOG_PREFIX+"launch framework["+framework+"]");
     		
     		iScsLoginEntryPoint = getEntryPoint(framework);
@@ -75,7 +97,7 @@ public class ScsLoginEntryPoint implements EntryPoint {
     	}
     	
 		if ( null != iScsLoginEntryPoint ) {
-			iScsLoginEntryPoint.launch(map);
+			iScsLoginEntryPoint.launch(params);
 		} else {
 			LOGGER.warn(LOG_PREFIX+"launch iAppEntryPoint IS NULL");
 		}

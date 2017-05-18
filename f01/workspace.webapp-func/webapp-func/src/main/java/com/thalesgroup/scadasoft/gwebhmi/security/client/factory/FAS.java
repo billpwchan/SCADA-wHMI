@@ -10,7 +10,7 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoi
 public class FAS implements IScsLoginEntryPoint {
 
 	@Override
-	public void launch(Map<String, String> map) {
+	public void launch(Map<String, Object> params) {
 		
         UITools.disableDefaultContextMenu(RootPanel.getBodyElement());
         

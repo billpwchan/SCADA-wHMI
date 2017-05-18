@@ -12,16 +12,18 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
-import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.init.InitCacheJsonsFile;
-import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.init.InitCachePropertiesFile;
-import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.init.InitCacheXMLFile;
-import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.init.InitOpm;
-import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.init.InitReady_i;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIScreenRootMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCachePropertiesFile;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXMLFile;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
 
 /**
  * @author syau
@@ -47,23 +49,94 @@ public class UIGws {
 		}
 	}
 	
+	private Map<String, Object> params = new HashMap<String, Object>();
+	public void setParameter(String key, Object value) {
+		params.put(key, value);
+	}
+	public void setParameters(Map<String, Object> params) {
+		this.params.clear();
+		for ( String key : params.keySet() ) {
+			this.params.put(key, params.get(key));
+		}
+	}
+	
+	private String uiDict = null, uiProp = null, uiJson = null, uiCtrl = null, uiView = null, uiOpts = null, uiElem = null;
+	private String getStringParameter(String key) {
+		String value = null;
+		if ( null != params) {
+			Object obj = params.get(key);
+			if ( null != obj ) {
+				if ( obj instanceof String ) {
+					value = (String)obj;
+    			} else {
+    				logger.warn(className, "getParameter", "key[{}] obj IS NOT A String", key);
+    			}
+    		} else {
+    			logger.warn(className, "getParameter", "key[{}] framework obj IS NULL", key);
+    		}
+		}
+		return value;
+	}
+	
 	public void init() {
 		final String function = "init";
 		logger.begin(className, function);
+
+		uiDict = getStringParameter(UIGws_i.DictionaryFolder);
+		uiProp = getStringParameter(UIGws_i.PropertyFolder);
+		uiJson = getStringParameter(UIGws_i.JsonFolder);
+		uiCtrl = getStringParameter(UIGws_i.UICtrl);
+		uiView = getStringParameter(UIGws_i.ViewXMLFile);
+		uiOpts = getStringParameter(UIGws_i.OptsXMLFile);
+		uiElem = getStringParameter(UIGws_i.Element);
 		
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
-		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);		
+		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);
 		
-		InitCacheXMLFile.initCacheXMLFile(uiDict, "*.xml", new InitReady_i() {
-			public void ready(int received) {
+		Map<String, Object> params = null;
+		
+		InitProcess_i initProcess = new InitProcess_i() {
+
+			@Override
+			public void process(final Map<String, Object> params,
+					final InitReady_i initReady) {
+
+				InitCacheXMLFile.getInstance().initCacheXMLFile(uiDict, "*.xml", new InitReady_i() {
+					
+					public void ready(final Map<String, Object> params) {
+
+						if ( null != initReady ) initReady.ready(params);
+					}
+				});
+				
+				InitCachePropertiesFile.getInstance().initCachePropertiesFile(uiProp, "*.properties");
+				
+				InitCacheJsonsFile.getInstance().initCacheJsonsFile(uiJson, "*.json");
+				
+				InitOpm.getInstance().initOpmFactory();
+
+			}
+		};
+		
+		InitReady_i initReady = new InitReady_i() {
+			
+			@Override
+			public void ready(final Map<String, Object> params) {
+				
+				int received = 0;
+				if ( null != params) {
+					Object obj = params.get("received");
+					if ( null != obj && obj instanceof Integer ) {
+						received = (Integer)obj;
+					}
+				}
+				
 				readyToLoad("UIWidgetGeneric", received);
 			}
-		});
-		InitCachePropertiesFile.initCachePropertiesFile(uiProp, "*.properties");
-		InitCacheJsonsFile.initCacheJsonsFile(uiJson, "*.json");
+		};
 		
-		InitOpm.initOpmFactory();
-		
+		UIWidgetEntryPoint.init(params, initProcess, initReady);
+
 		setUINameCard(new UINameCard(0, "", RESETABLE_EVENT_BUS));
 		
 		/**
@@ -120,42 +193,7 @@ public class UIGws {
 		logger.beginEnd(className, function);
 		return root;
 	}
-	
-	private String uiDict = null;
-	public void setDictionaryFolder ( String uiDict ) {
-		this.uiDict = uiDict;
-	}
-	
-	private String uiProp = null;
-	public void setPropertyFolder ( String uiProp ) {
-		this.uiProp = uiProp;
-	}
-	
-	private String uiJson = null;
-	public void setJsonFolder ( String uiJson ) {
-		this.uiJson = uiJson;
-	}
 
-	private String uiCtrl = null;
-	public void setUICtrl(String uiCtrl) {
-		this.uiCtrl = uiCtrl;
-	}	
-	
-	private String uiView = null;
-	public void setViewXMLFile(String uiView) {
-		this.uiView = uiView;
-	}
-	
-	private String uiOpts = null;
-	public void setOptsXMLFile(String uiOpts) {
-		this.uiOpts = uiOpts;
-	}
-	
-	private String uiElem = null;
-	public void setElement(String uiElem) {
-		this.uiElem = uiElem;
-	}
-	
 	private HashMap<String, Object> options = null;
 	public void setOptions(HashMap<String, Object> options) {
 		this.options = options;
@@ -164,7 +202,6 @@ public class UIGws {
 	private boolean isCreated = false;
 	private void readyToLoad(String folder, int received) {
 		final String function = "ready";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "folder[{}] received[{}]", folder, received);
@@ -186,7 +223,7 @@ public class UIGws {
 			isCreated = true;
 			
 			// Try to init the OPM
-			InitOpm.initOpm("UIOpmSCADAgen");
+			InitOpm.getInstance().initOpm("UIOpmSCADAgen");
 			
 		} else {
 			logger.warn(className, function, "ready folder[{}] received[{}] isCreated", folder, received);

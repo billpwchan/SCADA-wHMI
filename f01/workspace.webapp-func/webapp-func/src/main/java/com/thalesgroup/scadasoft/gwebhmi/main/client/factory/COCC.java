@@ -8,7 +8,7 @@ import com.thalesgroup.prj_gz_cocc.gwebhmi.main.client.layout.CoccAppPanel;
 public class COCC implements IAppEntryPoint {
 
 	@Override
-	public void launch(Map<String, String> map) {
+	public void launch(Map<String, Object> params) {
 		
     	final CoccAppPanel appPanel = new CoccAppPanel();
         RootLayoutPanel.get().add(appPanel);

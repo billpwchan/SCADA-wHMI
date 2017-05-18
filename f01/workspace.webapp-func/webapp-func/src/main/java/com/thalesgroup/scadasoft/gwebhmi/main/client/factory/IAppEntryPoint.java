@@ -4,5 +4,5 @@ import java.util.Map;
 
 public interface IAppEntryPoint {
 	
-	void launch(Map<String, String> map);
+	void launch(Map<String, Object> params);
 }

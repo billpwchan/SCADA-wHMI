@@ -46,6 +46,8 @@
   <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialog.UIDialog' />
   <inherits name='com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.UIDialogMgr' />
   
+  <inherits name='com.thalesgroup.scadagen.wrapper.widgetcontroller.WidgetController' />
+  
   <inherits name='com.thalesgroup.scadagen.whmi.common.Container' />
 
   <!-- Specify the paths for translatable code                    -->

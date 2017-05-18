@@ -4,30 +4,25 @@ import java.util.Map;
 
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws;
+import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws_i;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.AppEntryPoint_i.PropertiesName;
 
 public class WHMI implements IAppEntryPoint {
 
 	@Override
-	public void launch(Map<String, String> map) {
-    	if ( null != map ) {
+	public void launch(Map<String, Object> params) {
+    	if ( null != params ) {
 
-    		String dictionary	= map.get(PropertiesName.dictionary.toString());
-    		String property 	= map.get(PropertiesName.property.toString());
-    		String json		 	= map.get(PropertiesName.json.toString());
-    		String uiCtrl		= map.get(PropertiesName.uiCtrl.toString());
-    		String uiView		= map.get(PropertiesName.uiView.toString());
-    		String uiOpts		= map.get(PropertiesName.uiOpts.toString());
-    		String element 		= map.get(PropertiesName.element.toString());
-    		
     		final UIGws uiGws = new UIGws();
-    		uiGws.setDictionaryFolder(dictionary);
-    		uiGws.setPropertyFolder(property);
-    		uiGws.setJsonFolder(json);
-    		uiGws.setUICtrl(uiCtrl);
-    		uiGws.setViewXMLFile(uiView);
-    		uiGws.setOptsXMLFile(uiOpts);
-    		uiGws.setElement(element);
+    		
+    		uiGws.setParameter(UIGws_i.DictionaryFolder, 	params.get(PropertiesName.dictionary.toString()));
+    		uiGws.setParameter(UIGws_i.PropertyFolder, 		params.get(PropertiesName.property.toString()));
+    		uiGws.setParameter(UIGws_i.JsonFolder, 			params.get(PropertiesName.json.toString()));
+    		uiGws.setParameter(UIGws_i.UICtrl, 				params.get(PropertiesName.uiCtrl.toString()));
+    		uiGws.setParameter(UIGws_i.ViewXMLFile, 		params.get(PropertiesName.uiView.toString()));
+    		uiGws.setParameter(UIGws_i.OptsXMLFile, 		params.get(PropertiesName.uiOpts.toString()));
+    		uiGws.setParameter(UIGws_i.Element, 			params.get(PropertiesName.element.toString()));
+    		
     		uiGws.init();
     		RootLayoutPanel.get().add(uiGws.getMainPanel());
     		

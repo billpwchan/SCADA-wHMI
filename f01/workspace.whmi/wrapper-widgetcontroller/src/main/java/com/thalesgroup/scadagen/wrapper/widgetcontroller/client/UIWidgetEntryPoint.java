@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.widgetcontroller.client;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.core.client.GWT;
@@ -20,12 +21,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.UIViewMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCachePropertiesFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXMLFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitDatabase;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitTranslation;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.fas.InitProcessFAS;
 
 public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetController {
 	
@@ -139,80 +136,51 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 	public String getWidgetTitle() {
 		return uiElem;
 	}
+	
+	private static Map<String, Init_i> inits = new LinkedHashMap<String, Init_i>();
+	public static void setInit(String key, Init_i init) { inits.put(key, init); }
+	public static void cleanInit() { inits.clear(); }
+	
+	private static Map<String, InitReady_i> initReadys = new LinkedHashMap<String, InitReady_i>();
+	public static void setInitReady(String key, InitReady_i initReady) { initReadys.put(key, initReady); }
+	public static void cleanInitReady() { inits.clear(); }
+	
+	private static Map<String, Map<String, Object>> parameters = new LinkedHashMap<String, Map<String, Object>>();
+	public static void setParams(String key, Map<String, Object> params) { parameters.put(key, params); }
+	public static void cleanParams() { inits.clear(); }
+	
+	public static void inits() {
+		final String function = "inits";
+		logger.begin(className, function);
+		for ( String key : inits.keySet() ) {
+			Init_i init = inits.get(key);
+			if ( null != init ) { 
+				logger.debug(className, function, "Begin to call key["+key+"] init...");
 
+				try {
+					init.init(parameters.get(key), initReadys.get(key));
+				} catch (Exception ex) {
+					logger.error(className, function, "key["+key+"] init Exception:"+ex.toString());
+				}
+				
+				logger.debug(className, function, "End to call key["+key+"] init.");
+			} else {
+				logger.warn(className, function, "key["+key+"] init IS NULL");
+			}
+		}
+		logger.end(className, function);
+	}
+
+	// Default Init Process is FAS
 	public static void init(final InitReady_i initReady) {
 		final String function = "init";
 		logger.begin(className, function);
-		init(null, initReady);
-		 logger.end(className, function);
-	}
-	
-	public static void init(final Map<String, Object> params, final InitReady_i initReady) {
-		final String function = "init";
-		logger.begin(className, function);
-		
-//		String projectKey = "FAS";
-//		
-//		if ( null != params ) {
-//			Object obj = params.get("ProjectKey");
-//			if ( obj instanceof String ) {
-//				projectKey = (String)obj;
-//			}
-//		}
-		
-		InitProcess_i initProcess = new InitProcess_i() {
-			
-			@Override
-			public void process(final Map<String, Object> params, final InitReady_i initReady) {
-				final String function = "process";
-				logger.begin(className, function);
-					
-				// Loading the UIJson Data Dictionary
-				InitCacheJsonsFile.getInstance().initCacheJsonsFile("UIJson", "*.json");
-			    
-			    // Loading the UIInspector Data Dictionary
-			    InitCachePropertiesFile.getInstance().initCachePropertiesFile("UIInspectorPanel", "*.properties");
-			    
-			    // Loading the XML Data Dictionary
-			    InitCacheXMLFile.getInstance().initCacheXMLFile("UIWidgetGeneric", "*.xml", new InitReady_i() {
-					
-					@Override
-					public void ready(final Map<String, Object> params) {
-						
-						int received = 0;
-						if ( null != params) {
-							Object obj = params.get("received");
-							if ( null != obj && obj instanceof Integer ) {
-								received = (Integer)obj;
-							}
-						}
-						
-						logger.debug(className, function, " UIWidgetEntryPoint.init ready received["+received+"]");
-						
-						// Loading SCADAgen OPM Factory
-						InitOpm.getInstance().initOpmFactory();
-				        
-				        // Init the SCADAgen OPM API
-				        InitOpm.getInstance().initOpm("UIOpmSCADAgen");
-				        
-						// Init for the Database Singleton Usage		        
-				        InitDatabase.getInstance().initDatabaseReadingSingletonKey("DatabaseMultiReadingProxySingleton");
-				        InitDatabase.getInstance().initDatabaseSubscribeSingleton("DatabaseGroupPollingDiffSingleton", 500);
-				        InitDatabase.getInstance().initDatabaseWritingSingleton("DatabaseWritingSingleton");
-						
-						InitTranslation.getInstance().initTranslation("&\\w+", "g");
 
-						if ( null != initReady ) initReady.ready(params);
-					}
-				});
-			    
-			    logger.end(className, function);
-			}
-		};
+		Map<String, Object> params = null;
 		
-		init(params, initProcess, initReady);
+		init(params, InitProcessFAS.getInstance().get(), initReady);
 		
-	    logger.end(className, function);
+		logger.end(className, function);
 	}
 	
 	public static void init(final Map<String, Object> params, final InitProcess_i initProcess, final InitReady_i initReady) {

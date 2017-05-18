@@ -28,8 +28,6 @@ CALL %TOOLS_PATH%\Build.workspace.wrapper.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.workspace.whmi.bat %v_strdt%
 
-CALL %TOOLS_PATH%\Build.workspace.fas.bat %v_strdt%
-
 CALL %TOOLS_PATH%\Build.workspace.webapp-fun.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.workspace.webapp.bat %v_strdt%

@@ -18,8 +18,8 @@ SET sp_fas=workspace.fas%sp_ver%
 SET sp_fas_name=workspace.fas%sp_ver%
 echo Folder Path for sp_fas is [%sp_fas%]
 
-SET sp_webapp_fas=..\f02.fas\workspace.devweb.631%sp_ver%
-SET sp_webapp_fas_name=workspace.devweb.631%sp_ver%
+SET sp_webapp_fas=..\f02.fas\workspace.devweb%sp_ver%
+SET sp_webapp_fas_name=workspace.devweb%sp_ver%
 echo Folder Path for sp_webapp_fas is [%sp_webapp_fas%]
 
 SET sp_wrapper=workspace.wrapper%sp_ver%

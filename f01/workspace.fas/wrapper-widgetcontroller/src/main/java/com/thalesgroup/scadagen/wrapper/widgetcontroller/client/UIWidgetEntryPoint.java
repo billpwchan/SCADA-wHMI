@@ -14,6 +14,8 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.layout.view.IWi
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCacheEvent;
 import com.thalesgroup.scadagen.whmi.config.configenv.shared.DictionaryCacheInterface.ConfigurationType;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -31,6 +33,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetController {
 	
@@ -205,6 +208,31 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 
 		logger.end(className, function);
 	}
+	
+	public static void initCachePropertiesFile (final String folder, final String extention) {
+		initCachePropertiesFile(folder, extention, null);
+	}
+	
+	public static void initCachePropertiesFile (String folder, String extention, final InitReady_i initReady) {
+		final String function = "initCachePropertiesFile";
+		logger.begin(className, function);
+		logger.debug(className, function, "folder[{}] extention[{}]", folder, extention);
+
+		String mode = ConfigurationType.PropertiesFile.toString();
+		String module = null;
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(folder);
+		dictionariesCache.add(folder, extention, null);
+		dictionariesCache.init(mode, module, new DictionariesCacheEvent() {
+			@Override
+			public void dictionariesCacheEventReady(int received) {
+				logger.debug(className, function, "dictionaryCacheEventReady received[{}]", received);
+				if ( null != initReady ) initReady.ready(received);
+			}
+		});
+
+		logger.end(className, function);
+	}
+	
 	public static void initCacheXMLFile(final String folder, final String extention) {
 		initCacheXMLFile(folder, extention, null);
 	}
@@ -302,6 +330,61 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 			logger.debug(className, function, "databaseWriting_i IS NULL");
 		}
 		logger.end(className, function);
+	}
+	
+	public static void initTranslate(String translatePatten, String translateFlag) {
+		final String function = "initTranslate";
+		logger.begin(className, function);
+		
+		Translation.setTranslatePatten(translatePatten);
+		
+		Translation.setTranslateFlag(translateFlag);
+		
+		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
+			@Override
+			public String getMessage(String message) {
+				
+				return Translation.getDBMessage(message);
+			}
+		});
+		
+		logger.end(className, function);
+	}
+	
+	public static void init(final InitReady_i initReady) {
+		final String function = "init";
+		logger.begin(className, function);
+
+		// Loading the UIJson Data Dictionary
+	    UIWidgetEntryPoint.initCacheJsonsFile("UIJson", "*.json");
+	    
+	    // Loading the UIInspector Data Dictionary
+	    UIWidgetEntryPoint.initCachePropertiesFile("UIInspectorPanel", "*.properties");
+	    
+	    // Loading the XML Data Dictionary
+	    UIWidgetEntryPoint.initCacheXMLFile("UIWidgetGeneric", "*.xml", new InitReady_i() {
+			
+			@Override
+			public void ready(int received) {
+				logger.debug(className, function, " UIWidgetEntryPoint.init ready received["+received+"]");
+				
+				// Loading SCADAgen OPM Factory
+		        UIWidgetEntryPoint.initOpmFactory();
+		        
+		        // Init the SCADAgen OPM API
+		        UIWidgetEntryPoint.initOpm("UIOpmSCADAgen");
+		        
+				// Init for the Database Singleton Usage		        
+		        UIWidgetEntryPoint.initDatabaseReadingSingletonKey("DatabaseMultiReadingProxySingleton");
+				UIWidgetEntryPoint.initDatabaseSubscribeSingleton("DatabaseGroupPollingDiffSingleton", 500);
+				UIWidgetEntryPoint.initDatabaseWritingSingleton("DatabaseWritingSingleton");
+				
+				UIWidgetEntryPoint.initTranslate("&\\w+", "g");
+
+				if ( null != initReady ) initReady.ready(received);
+			}
+		});
+	    
 	}
 
 }

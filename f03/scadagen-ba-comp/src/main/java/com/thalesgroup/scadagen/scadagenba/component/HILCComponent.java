@@ -88,15 +88,16 @@ public class HILCComponent extends AbstractJSComponent {
         	
             int operationResult = m_hilcService.hilcPreparationRequest(operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
             if (operationResult != 0) {
-                return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
-                        "HILCComponent:doHILCPreparationRequest FAILURE: error when calling SCS server");
+            	s_logger.error("HILCComponent:doHILCPreparationRequest FAILURE: error when calling HILCServer");
+                return buildErrorObject(operationResult,
+                        "HILC PreparationRequest FAILURE: error when calling HILCServer");
             }
             resp.put("operationResult", operationResult);
             return resp;
         } catch (Throwable t) {
             s_logger.error(LOG_PREFIX + t.getMessage(), t);
             return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
-                    "HILCComponent:HILCComponent:doHILCPreparationRequest FAILURE: error when calling HILCServer: " + t.getMessage());
+                    "HILCComponent:doHILCPreparationRequest FAILURE: " + t.getMessage());
         }
     }
     
@@ -147,15 +148,16 @@ public class HILCComponent extends AbstractJSComponent {
         	}
             int operationResult = m_hilcService.hilcConfirmRequest(operatorName, workstationName, cmdType, cmdValue, cmdValueDiv, eqpAlias, eqpType, cmdName);
             if (operationResult != 0) {
-                return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
-                        "HILCComponent:doHILCConfirmRequest FAILURE: error when calling SCS server");
+            	s_logger.error("HILCComponent:doHILCConfirmRequest FAILURE: error when calling HILCServer");
+                return buildErrorObject(operationResult,
+                        "HILC ConfirmRequest FAILURE: error when calling HILCServer");
             }
             resp.put("operationResult", operationResult);
             return resp;
         } catch (Throwable t) {
             s_logger.error(LOG_PREFIX + t.getMessage(), t);
             return buildErrorObject(c_UNKNOWN_SERVER_ERROR,
-                    "HILCComponent:HILCComponent:doHILCConfirmRequest FAILURE: error when calling HILCServer: " + t.getMessage());
+                    "HILC ConfirmRequest FAILURE: " + t.getMessage());
         }
     }
 }

@@ -1,0 +1,93 @@
+.scsmx {
+  color: #DC143C;
+  fill: #DC143C;
+  stroke-width: 1px;
+  stroke: #DC143C;
+  cursor: pointer;
+}
+
+/* Matrix counter */
+.scsmx_counter_hdvState_0 {
+    color: orange;
+    fill: orange;
+    stroke-width: 1px;
+    stroke: orange;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_257 {
+    color: green;
+    fill: green;
+    stroke-width: 1px;
+    stroke: green;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_258 {
+    color: red;
+    fill: red;
+    stroke-width: 1px;
+    stroke: green;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_513 {
+    color: red;
+    fill: red;
+    stroke-width: 1px;
+    stroke: blue;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_514 {
+    color: blue;
+    fill: blue;
+    stroke-width: 1px;
+    stroke: blue;
+    cursor: pointer;
+}
+
+.mwt-gm-square-selected {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #FFCD12;
+  cursor: pointer;
+}
+
+.mwt-gm-frame-selected {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #FFCD12;
+  cursor: pointer;
+}
+
+.mwt-gm-square-outer-selected {
+  fill: none;
+  stroke-width: 1px;
+  stroke: #FFCD12;
+  cursor: pointer;
+}
+
+.mwt-gm-label-text-selected {
+  fill: cyan;
+}
+
+.mwt-gm-coefficient-hdv-0 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-257 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-258 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-513 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-514 {
+  fill: lightgray;
+}

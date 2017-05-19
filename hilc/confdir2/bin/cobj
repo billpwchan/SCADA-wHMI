@@ -1,7 +1,0 @@
-if [ "$SYSTEMFAMILY" = "win32" ]
-then
-	echo "`cygpath -w "$1"`"
-else
-	echo "$1"
-fi
-	

@@ -1,7 +1,0 @@
-if [ "$SYSTEMFAMILY" = "win32" -a x"$OSTYPE" != "xmsys" ]
-then
-	echo "`cygpath -w "$1"`" | sed -e 's/\\/\\\\/g' -e 's/\ /\\\ /g'
-else
-	echo "$1"
-fi
-	

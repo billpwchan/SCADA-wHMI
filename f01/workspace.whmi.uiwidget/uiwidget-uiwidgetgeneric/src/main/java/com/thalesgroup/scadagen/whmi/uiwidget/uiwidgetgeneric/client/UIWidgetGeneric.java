@@ -49,6 +49,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetType;
 
+
 public class UIWidgetGeneric extends UIGeneric {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetGeneric.class.getName());
@@ -273,8 +274,13 @@ public class UIWidgetGeneric extends UIGeneric {
 								
 								if ( null != maxlength && maxlength.length() > 0 )
 									((TextBox)w).setMaxLength(Integer.parseInt(maxlength));
-								if ( null != placeholder && placeholder.length()>0)
+								if ( null != placeholder && placeholder.length()>0)	{
+									if (placeholder.startsWith("&")){
+										TranslationMgr translationMgr = TranslationMgr.getInstance();
+										placeholder = translationMgr.getTranslation(placeholder);
+									}
 									((TextBox)w).getElement().setPropertyString("placeholder", placeholder);
+								}
 								if ( null != readonly )
 									((TextBox)w).setReadOnly(true);
 

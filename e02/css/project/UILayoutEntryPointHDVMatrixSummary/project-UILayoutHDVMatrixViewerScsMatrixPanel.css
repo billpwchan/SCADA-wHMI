@@ -8,30 +8,14 @@
 
 /* Matrix counter */
 .scsmx_counter_hdvState_0 {
-    color: #C92F18;
-    fill: #C92F18;
+    color: orange;
+    fill: orange;
     stroke-width: 1px;
-    stroke: #C92F18;
+    stroke: orange;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_257 {
-    color: #F29D00;
-    fill: #F29D00;
-    stroke-width: 1px;
-    stroke: #F29D00;
-    cursor: pointer;
-}
-
-.scsmx_counter_hdvState_258 {
-    color: #F9F900;
-    fill: #F9F900;
-    stroke-width: 1px;
-    stroke: #F9F900;
-    cursor: pointer;
-}
-
-.scsmx_counter_hdvState_513 {
     color: green;
     fill: green;
     stroke-width: 1px;
@@ -39,11 +23,27 @@
     cursor: pointer;
 }
 
+.scsmx_counter_hdvState_258 {
+    color: red;
+    fill: red;
+    stroke-width: 1px;
+    stroke: green;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_513 {
+    color: red;
+    fill: red;
+    stroke-width: 1px;
+    stroke: blue;
+    cursor: pointer;
+}
+
 .scsmx_counter_hdvState_514 {
-    color: #C92F18;
-    fill: #C92F18;
-    stroke-width: 3px;
-    stroke: red;
+    color: blue;
+    fill: blue;
+    stroke-width: 1px;
+    stroke: blue;
     cursor: pointer;
 }
 

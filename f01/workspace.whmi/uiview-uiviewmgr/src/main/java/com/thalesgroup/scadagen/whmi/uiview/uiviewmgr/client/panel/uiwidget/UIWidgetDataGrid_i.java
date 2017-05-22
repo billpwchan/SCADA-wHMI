@@ -40,6 +40,7 @@ public interface UIWidgetDataGrid_i {
 		, ReloadFromDataSource("ReloadFromDataSource")
 		, ResetColumnData("ResetColumnData")
 		, ReloadColumnData("ReloadColumnData")
+		, ColumnFilterChange("ColumnFilterChange")
 		;
 		private final String text;
 		private DataGridEvent(final String text) { this.text = text; }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetSocFilterControl1-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocFilterControl1_FilterColumnSOCCard</label>
+		<css>project-UIWidgetSocFilterControl1-label-filterColumnSOCCard</css>
+		<element>labelSOCCard</element>
+		
+		<cssContainer>project-UIWidgetSocFilterControl1-container-filterColumnSOCCard</cssContainer>
+	
+	</option>
+	
+	<option key="0|1">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocFilterControl1-textbox-SOCCardValue</css>
+		<element>SOCCardValue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetSocFilterControl1-container-SOCCardValue</cssContainer>
+		
+	</option>
+
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocFilterControl1_updateSOCCardFilter</label>
+		<css>project-UIWidgetSocFilterControl1-button-updateSOCCardFilter</css>
+		<element>SOCCard</element>
+		
+		<cssContainer>project-UIWidgetSocFilterControl1-container-updateSOCCardFilter</cssContainer>
+		
+		<cssUp>project-UIWidgetSocFilterControl1-button-updateSOCCardFilter-up</cssUp>
+		<cssDown>project-UIWidgetSocFilterControl1-button-updateSOCCardFilter-down</cssDown>
+		<cssDisable>project-UIWidgetSocFilterControl1-updateSOCCardFilter-disable</cssDisable>
+		<tooltip>Update SOCCard Filter</tooltip>
+		<tooltipDown>Update SOCCard Filter Enabled</tooltipDown>
+		<tooltipDisable>Update SOCCard Filter Disabled</tooltipDisable>
+	</option>
+	
+	<option key="0|3">
+		<widget>Label</widget>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocFilterControl1_FilterColumnSOCCardStatus</label>
+		<css>project-UIWidgetSocFilterControl1-label-filterColumnSOCCardStatus</css>
+		<element>SOCCardStatus</element>
+		
+		<cssContainer>project-UIWidgetSocFilterControl1-container-filterColumnSOCCardStatus</cssContainer>
+	
+	</option>
+	
+</data-set>

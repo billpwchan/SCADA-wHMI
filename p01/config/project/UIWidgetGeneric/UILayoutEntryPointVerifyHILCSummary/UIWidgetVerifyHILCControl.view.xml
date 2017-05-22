@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>Label</widget>
-		<label>Verify HILC Control:</label>
+		<label>&amp;UIWidgetVerifyHILCControl_VerifyHILCControl</label>
 		<css>project-UIWidgetVerifyHILCControl-label-title</css>
 		<element>title</element>
 		<format></format>
@@ -19,7 +19,7 @@
 	
 	<option key="0|1">
 		<widget>Label</widget>
-		<label>scsEnvId:</label>
+		<label>&amp;UIWidgetVerifyHILCControl_scsEnvId</label>
 		<css>project-UIWidgetVerifyHILCControl-label-scsEnvId</css>
 		<element>scsEnvIdLabel</element>
 		<format></format>
@@ -36,7 +36,7 @@
 	
 	<option key="0|3">
 		<widget>Label</widget>
-		<label>workstationName:</label>
+		<label>&amp;UIWidgetVerifyHILCControl_workstationName</label>
 		<css>project-UIWidgetVerifyHILCControl-label-workstationName</css>
 		<element>workstationNameLabel</element>
 		<format></format>
@@ -53,7 +53,7 @@
 	
 	<option key="0|5">
 		<widget>Label</widget>
-		<label>cmdType (2=DIO, 3=AIO):</label>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdType (2=DIO, 3=AIO):</label>
 		<css>project-UIWidgetVerifyHILCControl-label-cmdType</css>
 		<element>cmdTypeLabel</element>
 		<format></format>
@@ -70,7 +70,7 @@
 	
 	<option key="0|7">
 		<widget>Label</widget>
-		<label>cmdValue:</label>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdValue</label>
 		<css>project-UIWidgetVerifyHILCControl-label-cmdValue</css>
 		<element>cmdValueLabel</element>
 		<format></format>
@@ -87,7 +87,7 @@
 	
 	<option key="0|9">
 		<widget>Label</widget>
-		<label>cmdValueDiv:</label>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdValueDiv</label>
 		<css>project-UIWidgetVerifyHILCControl-label-cmdValueDiv</css>
 		<element>cmdValueDivLabel</element>
 		<format></format>
@@ -104,7 +104,7 @@
 	
 	<option key="0|11">
 		<widget>Label</widget>
-		<label>eqpAlias:</label>
+		<label>&amp;UIWidgetVerifyHILCControl_eqpAlias</label>
 		<css>project-UIWidgetVerifyHILCControl-label-eqpAlias</css>
 		<element>eqpAliasLabel</element>
 		<format></format>
@@ -121,7 +121,7 @@
 
 	<option key="0|13">
 		<widget>Label</widget>
-		<label>eqpType (e.g. CBR, TCBCB):</label>
+		<label>&amp;UIWidgetVerifyHILCControl_eqpType (e.g. CBR, TCBCB):</label>
 		<css>project-UIWidgetVerifyHILCControl-label-eqpType</css>
 		<element>eqpTypeLabel</element>
 		<format></format>
@@ -138,7 +138,7 @@
 	
 	<option key="0|15">
 		<widget>Label</widget>
-		<label>cmdName (e.g. Open, Close, Reset):</label>
+		<label>&amp;UIWidgetVerifyHILCControl_cmdName (e.g. Open, Close, Reset):</label>
 		<css>project-UIWidgetVerifyHILCControl-label-cmdName</css>
 		<element>cmdNameLabel</element>
 		<format></format>
@@ -155,20 +155,20 @@
 
 	<option key="0|17">
 		<widget>Button</widget>
-		<label>Select</label>
+		<label>&amp;UIWidgetVerifyHILCControl_Select</label>
 		<css>project-UIWidgetVerifyHILCControl-button-select</css>
 		<element>HILCPreparationRequest</element>
 		<cssContainer>project-UIWidgetVerifyHILCControl-container-select</cssContainer>
-		<tooltip>Select</tooltip>
+		<tooltip>&amp;UIWidgetVerifyHILCControl_Select</tooltip>
 	</option>
 	
 	<option key="0|18">
 		<widget>Button</widget>
-		<label>Confirm</label>
+		<label>&amp;UIWidgetVerifyHILCControl_Confirm</label>
 		<css>project-UIWidgetVerifyHILCControl-button-confirm</css>
 		<element>HILCConfirmRequest</element>
 		<cssContainer>project-UIWidgetVerifyHILCControl-container-confirm</cssContainer>
-		<tooltip>Confirm</tooltip>
+		<tooltip>&amp;UIWidgetVerifyHILCControl_Confirm</tooltip>
 	</option>
 	
 	<option key="0|19">

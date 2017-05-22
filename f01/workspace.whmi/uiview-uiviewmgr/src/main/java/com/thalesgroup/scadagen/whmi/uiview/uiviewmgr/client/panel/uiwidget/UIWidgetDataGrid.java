@@ -10,6 +10,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.client.ui.Label;
@@ -310,6 +311,20 @@ public class UIWidgetDataGrid extends UIWidget_i {
 						} else {
 							logger.warn(className, function, "strDataGrid IS NULL");
 						}
+					} else if ( os1.equals(DataGridEvent.ColumnFilterChange.toString() ) ) {
+						String dataGridSelected = (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
+						
+						if (dataGridSelected.equals(strDataGrid) && obj1 != null && obj1 instanceof HashMap<?,?>) {
+							logger.debug(className, function, "process ColumnFilterChange event");
+							
+							HashMap<String, String> filterMap = (HashMap<String,String>)obj1;
+							uiDataGridDatabase.changeColumnFilter(filterMap);
+							
+							// Recover datagrid sort after refresh
+							ColumnSortEvent.fire(dataGrid, dataGrid.getColumnSortList());
+						}
+						
 					} else if ( oe.equals(element) ) {
 					
 						if ( null != pager ) {

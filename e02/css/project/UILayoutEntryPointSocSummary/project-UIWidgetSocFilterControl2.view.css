@@ -1,0 +1,59 @@
+.project-UIWidgetSocFilterControl2-root {
+	height: 55px;
+	float: left;
+}
+
+.project-UIWidgetSocFilterControl2-container-filterColumnLocation {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl2-label-filterColumnLocation {
+	color: black;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}
+
+.project-UIWidgetSocFilterControl2-container-locationValue {
+	width: 150px;
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl2-textbox-locationValue {
+	font-size: 16px;
+	height: 39px;
+	width: 150px;
+	color: black;
+	background: white;
+	border: thin solid black !important;
+}
+
+.project-UIWidgetSocFilterControl2-container-updateLocationFilter {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl2-button-updateLocationFilter {
+	width:115px;
+	height:45px;
+	font-weight: bold !important;
+    font-size: 16px !important;
+	margin-left: 5px !important;
+	margin-right: 5px !important;
+}
+.project-UIWidgetSocFilterControl2-button-updateLocationFilter-up {
+	
+}
+.project-UIWidgetSocFilterControl2-button-updateLocationFilter-down {
+	background-image: none !important;
+	background-color: rgb(246, 230, 139) !important;
+}
+.project-UIWidgetSocFilterControl2-button-updateLocationFilter-disable {
+
+}
+
+.project-UIWidgetSocFilterControl2-container-filterColumnLocationStatus {
+	vertical-align: middle !important;
+}
+.project-UIWidgetSocFilterControl2-label-filterColumnLocationStatus {
+	color: red;
+	font-weight: bold;
+	font-size: 16px;
+	margin-right: 10px;
+}

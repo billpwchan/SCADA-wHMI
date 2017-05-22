@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
+import java.util.Map;
+
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
 
@@ -13,4 +15,5 @@ public interface UIDataGridDatabase_i {
 	String [] getColumnLabels();
 	String [] getColumnTypes();
 	int [] getColumnTranslation();
+	void changeColumnFilter(Map<String,String> filterMap);
 }

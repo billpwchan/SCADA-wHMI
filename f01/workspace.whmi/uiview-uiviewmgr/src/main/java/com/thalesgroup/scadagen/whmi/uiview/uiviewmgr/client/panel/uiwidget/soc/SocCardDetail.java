@@ -580,6 +580,9 @@ public class SocCardDetail implements IDataGridDataSource {
 		logger.end(className, function);
 	}
 	
-	
+	@Override
+	public void changeColumnFilter(Map<String, String> filterMap) {
+		// Filter not supported in SocCardDetail
+	}
 
 }

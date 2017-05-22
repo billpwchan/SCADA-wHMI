@@ -1,6 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
@@ -32,6 +34,8 @@ public class SocCardList implements IDataGridDataSource {
 	private String [] strDataGridColumnsTypes = null;
 	private Map<String, String> scsEnvIdMap = new HashMap<String, String>();
 	private Map<String, Equipment_i> clientKeyToDataMap = new HashMap<String, Equipment_i>();
+	private List<String> clientKeyList = new ArrayList<String>();
+	private Map<String, String> runTimeFilters = new HashMap<String, String>();
 	
 	private String [] colLblVals = null;
 	
@@ -285,6 +289,7 @@ public class SocCardList implements IDataGridDataSource {
 	    	}
 	    	equipment_i = builder.build();
 	    	clientKeyToDataMap.put(key, equipment_i);
+	    	clientKeyList.add(key);
 	    	
 	    	if (strGrcPointAttributes.length < 1) {
 
@@ -329,6 +334,71 @@ public class SocCardList implements IDataGridDataSource {
 	@Override
 	public void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation) {
 		
+	}
+
+	@Override
+	public void changeColumnFilter(Map<String, String> filterMap) {
+		final String function = "changeColumnFilter";
+	
+		// Clear datagrid
+		dataGridDb_.getDataProvider().getList().clear();
+		
+		if (!filterMap.isEmpty()) {
+			for (String filterKey: filterMap.keySet()) {
+				String filterValue = filterMap.get(filterKey);
+				if (filterValue != null && !filterValue.isEmpty()) {
+					runTimeFilters.put(filterKey, filterValue);
+					logger.debug(className, function, "runtime filter key[{}]  value[{}]", filterKey, filterMap.get(filterValue));
+				} else {
+					runTimeFilters.remove(filterKey);
+				}
+			}
+		} else {
+			logger.debug(className, function, "runtime filter clear all");
+			runTimeFilters.clear();
+		}
+		
+		for (String key: clientKeyList) {
+			Equipment_i contact = clientKeyToDataMap.get(key);
+	
+			// Handle column filter option
+	    	boolean skip = false;
+		    	
+	    	if (strDataGridColumnsFilters != null) {	
+	    		logger.debug(className, function, "Check static column filter");
+	    		for (int col=0; col<strDataGridColumnsFilters.length; col++) {
+	    			String colValue = contact.getValue(strDataGridColumnsLabels[col]);	    			
+	    			if (!strDataGridColumnsFilters[col].isEmpty() && !colValue.matches(strDataGridColumnsFilters[col])) {
+	    				logger.debug(className, function, "filter[{}]  value[{}] skipped", strDataGridColumnsFilters[col], colValue);
+	    				skip = true;
+	    				break;
+	    			}
+	    		}
+	    	}
+	    	
+	    	if (!skip) {
+	    		logger.debug(className, function, "Check runtime column filter size[{}]", runTimeFilters.size());
+	    		for (String filterColumn: runTimeFilters.keySet()) {    			
+	    			String colValue = contact.getValue(filterColumn);	 
+	    			logger.debug(className, function, "filter column [{}] data [{}]", filterColumn, colValue);
+	    			if (!runTimeFilters.get(filterColumn).isEmpty() && colValue != null && !colValue.matches(runTimeFilters.get(filterColumn))) {
+	    				logger.debug(className, function, "filter[{}]  value[{}] skipped", runTimeFilters.get(filterColumn), colValue);
+	    				skip = true;
+	    				break;
+	    			} else {
+	    				logger.debug(className, function, "filter[{}]  value[{}] not skipped", runTimeFilters.get(filterColumn), colValue);
+	    			}
+	    		}
+	    		
+	    		if (!skip) {
+		    		// Add row data to data grid
+			    	dataGridDb_.addEquipment(contact);
+			    	logger.debug(className, function, "addEquipment");
+	    		}
+	    	}
+		}
+		
+		dataGridDb_.refreshDisplays();
 	}
 
 }

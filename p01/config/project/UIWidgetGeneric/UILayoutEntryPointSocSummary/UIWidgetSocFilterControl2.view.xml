@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetSocFilterControl2-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocFilterControl2_FilterColumnLocation</label>
+		<css>project-UIWidgetSocFilterControl2-label-filterColumnLocation</css>
+		<element>labelLocation</element>
+		
+		<cssContainer>project-UIWidgetSocFilterControl2-container-filterColumnLocation</cssContainer>
+		
+	</option>
+	
+	<option key="0|1">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIWidgetSocFilterControl2-textbox-locationValue</css>
+		<element>locationValue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIWidgetSocFilterControl2-container-locationValue</cssContainer>
+		
+	</option>
+
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocFilterControl2_updateLocationFilter</label>
+		<css>project-UIWidgetSocFilterControl2-button-updateLocationFilter</css>
+		<element>location</element>
+		
+		<cssContainer>project-UIWidgetSocFilterControl2-container-updateLocationFilter</cssContainer>
+		
+		<cssUp>project-UIWidgetSocFilterControl2-button-updateLocationFilter-up</cssUp>
+		<cssDown>project-UIWidgetSocFilterControl2-button-updateLocationFilter-down</cssDown>
+		<cssDisable>project-UIWidgetSocFilterControl2-updateLocationFilter-disable</cssDisable>
+		<tooltip>Update Location Filter</tooltip>
+		<tooltipDown>Update Location Filter Enabled</tooltipDown>
+		<tooltipDisable>Update Location Filter Disabled</tooltipDisable>
+	</option>
+	
+	<option key="0|3">
+		<widget>Label</widget>
+		<label>&amp;SCADAGEN_SOC_UIWidgetSocFilterControl2_FilterColumnLocationStatus</label>
+		<css>project-UIWidgetSocFilterControl2-label-filterColumnLocationStatus</css>
+		<element>locationStatus</element>
+		
+		<cssContainer>project-UIWidgetSocFilterControl2-container-filterColumnLocationStatus</cssContainer>
+		
+	</option>
+	
+</data-set>

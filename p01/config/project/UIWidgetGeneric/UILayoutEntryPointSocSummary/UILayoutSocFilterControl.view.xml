@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCss>project-UILayoutSocFilterControl-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetSocFilterControl</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocFilterControl1.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocFilterControl1.opts.xml</uiOpts>
+		<element>UIWidgetSocFilterControl1</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetSocFilterControl</uiCtrl>
+		<uiView>UILayoutEntryPointSocSummary/UIWidgetSocFilterControl2.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointSocSummary/UIWidgetSocFilterControl2.opts.xml</uiOpts>
+		<element>UIWidgetSocFilterControl2</element>
+	</option>
+	
+</data-set>

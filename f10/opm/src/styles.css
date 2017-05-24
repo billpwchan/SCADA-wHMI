@@ -1,6 +1,18 @@
+/* common */
+@import "./app/css/app.component.css";
+
 /* Profile Management */
 @import "./app/css/profile-management.component.css";
 @import "./app/css/profile-management-detail.component.css";
 @import "./app/css/profile-management-add.component.css";
 @import "./app/css/profile-management-modify.component.css";
 @import "./app/css/profile-management-remove.component.css";
+
+/* Operator Management */
+@import "./app/css/operator-management.component.css";
+@import "./app/css/operator-management-remove.component.css";
+@import "./app/css/operator-management-detail.component.css";
+@import "./app/css/operator-management-add.component.css";
+@import "./app/css/operator-management-modify.component.css";
+@import "./app/css/operator-management-change-password.component.css";
+@import "./app/css/operator-management-password.component.css";

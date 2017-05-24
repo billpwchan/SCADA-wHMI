@@ -1,29 +1,44 @@
-import { Component, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { TranslateService } from '@ngx-translate/core';
 
 import { Profile } from '../type/profile';
 import { ProfileService } from '../service/profile.service';
 
-import { UtilService } from '../service/util.service';
-
 @Component({
     selector: 'app-profile-management-modify',
     templateUrl: './profile-management-modify.component.html'
 })
-export class ProfileManagementModifyComponent implements AfterContentInit {
+export class ProfileManagementModifyComponent implements OnInit, OnDestroy, AfterContentInit {
     public profiles: Profile[];
     public selectedProfile: Profile;
+    public readonly: boolean;
+    private queryParamsSub: Subscription;
 
     constructor(
+        private route: ActivatedRoute,
         private translateService: TranslateService,
-        private profileService: ProfileService,
-        private utilService: UtilService
+        private profileService: ProfileService
     ) { }
 
     public getProfiles(): void {
-        this.profileService.getProfiles().then(
+        this.profileService.getAll().then(
             profiles => {
-                this.profiles = profiles.sort(this.utilService.compareProfile);
+                this.profiles = profiles ? profiles.sort(this.profileService.compareProfile) : [];
+                console.log(
+                    '{ProfileManagementModifyComponent}',
+                    '[getProfiles]',
+                    'Profiles#:',
+                    this.profiles ? this.profiles.length : 0
+                );
+            },
+            failure => {
+                console.error(
+                    '{ProfileManagementModifyComponent}',
+                    '[getProfiles]',
+                    'Failed:', failure
+                );
             }
         );
     }
@@ -31,6 +46,7 @@ export class ProfileManagementModifyComponent implements AfterContentInit {
     public onSelect(profile: Profile): void {
         this.selectedProfile = profile;
         console.log(
+            '{ProfileManagementModifyComponent}',
             '[onSelect]',
             'ProfileId:', this.selectedProfile.id,
             'ProfileName:', this.selectedProfile.name,
@@ -38,24 +54,27 @@ export class ProfileManagementModifyComponent implements AfterContentInit {
         );
     }
 
-    public onApply(): void {
+    public ngOnInit(): void {
+        this.queryParamsSub = this.route.queryParams.subscribe(
+            params => {
+                this.readonly = (1 === +params['readonly']) || false;
+                console.log(
+                    '{ProfileManagementModifyComponent}',
+                    '[ngOnInit]',
+                    'readonly:', this.readonly
+                );
+            }
+        )
     }
 
-    public onReset(): void {
-    }
-
-    public onInit(): void {
-        this.profiles = undefined;
-        this.selectedProfile = undefined;
-        this.getProfiles();
-        console.log(
-            '[onInit]',
-            'Profiles#:',
-            this.profiles ? this.profiles.length : 0
-        );
+    public ngOnDestroy(): void {
+        this.queryParamsSub.unsubscribe();
+        this.queryParamsSub = undefined;
     }
 
     public ngAfterContentInit(): void {
-        this.onInit();
+        this.profiles = undefined;
+        this.selectedProfile = undefined;
+        this.getProfiles();
     }
 }

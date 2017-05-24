@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.thalesgroup.hv.mwt</groupId>
+        <artifactId>mwt</artifactId>
+        <version>3.7.0</version>
+    </parent>
+
+  <!--
+  <parent>
+    <artifactId>myproject-webapp-reactor</artifactId>
+    <groupId>com.thalesgroup.hv.myproject</groupId>
+    <version>1.4.3</version>
+  </parent>
+  -->
+  <groupId>com.thalesgroup.scadagen.whmi.webapp.entrypointswitch</groupId>
+  <artifactId>webapp-entrypointswitch</artifactId>
+  <packaging>jar</packaging>
+  <version>1.4.3</version>
+  <name>GWT Maven Archetype</name>
+
+  <properties>
+  
+        <commons.uiwidget.version>1.4.3</commons.uiwidget.version>
+        <commons.whmi.version>1.4.3</commons.whmi.version>
+        <commons.uiwrapper.version>1.4.3</commons.uiwrapper.version>
+        <commons.whmi.fun.version>1.4.3</commons.whmi.fun.version>
+  
+    <!-- Convenience property to set the GWT version -->
+    <gwtVersion>2.7.0</gwtVersion>
+
+    <!-- GWT needs at least java 1.6 -->
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.gwt</groupId>
+        <artifactId>gwt</artifactId>
+        <version>${gwtVersion}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-dev</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+        <dependency>
+            <groupId>com.thalesgroup.hvpp</groupId>
+            <artifactId>opmaddon</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+		
+        <!--  Logging implementation  -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+		<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+    
+    
+        <!-- Scadagen WHMI dependencies -->
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.uiroot.uiroot</groupId>
+          <artifactId>uiroot-uiroot</artifactId>
+          <version>${commons.whmi.version}</version>
+          <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
+          <artifactId>config-config</artifactId>
+          <version>${commons.uiwidget.version}</version>
+          <scope>provided</scope>
+        </dependency>
+		
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
+          <artifactId>config-configenv</artifactId>
+          <version>${commons.uiwidget.version}</version>
+          <scope>provided</scope>
+        </dependency>
+		
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.whmi.config.confignav</groupId>
+          <artifactId>config-confignav</artifactId>
+          <version>${commons.whmi.version}</version>
+          <scope>provided</scope>
+        </dependency>
+        
+        <!-- Loader for FAS/ISCS -->
+        <dependency>
+          <groupId>com.thalesgroup.scadagen.wrapper.widgetcontroller</groupId>
+          <artifactId>wrapper-widgetcontroller</artifactId>
+          <version>${commons.uiwrapper.version}</version>
+        </dependency>
+        
+        <!-- Loader for COCC -->
+        <dependency>
+          <groupId>com.thalesgroup.hv.myproject</groupId>
+          <artifactId>myproject-webapp-func</artifactId>
+          <version>${commons.whmi.fun.version}</version>
+        </dependency>
+    
+    
+  </dependencies>
+
+  <build>
+    <!-- Output classes directly into the webapp, so that IDEs and "mvn process-classes" update them in DevMode -->
+    <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
+    <plugins>
+
+      <!-- GWT Maven Plugin -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <version>2.7.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <!-- <goal>test</goal> -->
+              <!-- <goal>generateAsync</goal> -->
+            </goals>
+          </execution>
+        </executions>
+        <!-- Plugin configuration. There are many available options, see 
+          gwt-maven-plugin documentation at codehaus.org -->
+        <configuration>
+          <runTarget>EntryPointSwitch.html</runTarget>
+          <modules>
+            <module>com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.EntryPointSwitch</module>
+          </modules>
+        </configuration>
+      </plugin>
+    </plugins>
+    
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/java</directory>
+      </resource>
+    </resources>
+    
+  </build>
+
+</project>

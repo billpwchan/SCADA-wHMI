@@ -82,13 +82,13 @@ public class UIGws {
 		final String function = "init";
 		logger.begin(className, function);
 
-		uiDict = getStringParameter(UIGws_i.DictionaryFolder);
-		uiProp = getStringParameter(UIGws_i.PropertyFolder);
-		uiJson = getStringParameter(UIGws_i.JsonFolder);
-		uiCtrl = getStringParameter(UIGws_i.UICtrl);
-		uiView = getStringParameter(UIGws_i.ViewXMLFile);
-		uiOpts = getStringParameter(UIGws_i.OptsXMLFile);
-		uiElem = getStringParameter(UIGws_i.Element);
+		uiDict = getStringParameter(UIGws_i.Parameters.uiDict.toString());
+		uiProp = getStringParameter(UIGws_i.Parameters.uiProp.toString());
+		uiJson = getStringParameter(UIGws_i.Parameters.uiJson.toString());
+		uiCtrl = getStringParameter(UIGws_i.Parameters.uiCtrl.toString());
+		uiView = getStringParameter(UIGws_i.Parameters.uiView.toString());
+		uiOpts = getStringParameter(UIGws_i.Parameters.uiOpts.toString());
+		uiElem = getStringParameter(UIGws_i.Parameters.uiElem.toString());
 		
 		this.EVENT_BUS = GWT.create(SimpleEventBus.class);
 		this.RESETABLE_EVENT_BUS = new ResettableEventBus(EVENT_BUS);

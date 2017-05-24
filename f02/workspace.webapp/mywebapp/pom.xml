@@ -242,8 +242,15 @@
 			<artifactId>myproject-webapp-func</artifactId>
 			<version>${commons.whmi.fun.version}</version>
 			<scope>provided</scope>
-		</dependency>		
+		</dependency>
 		
+		<dependency>
+			<groupId>com.thalesgroup.scadagen.whmi.webapp.entrypointswitch</groupId>
+			<artifactId>webapp-entrypointswitch</artifactId>
+			<version>${commons.whmi.fun.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		
 	<!-- End of merge -->
 	

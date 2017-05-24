@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmgr.client;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenempty.client.UIScreenEmpty;
@@ -29,7 +29,7 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 	@Override
 	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElem
 			, String uiDict
-			, HashMap<String, Object> options) {
+			, Map<String, Object> options) {
 		final String function = "getUIWidget";
 		
 		logger.begin(className, function);

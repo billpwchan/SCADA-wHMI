@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -20,7 +21,7 @@ public class UIGenericMgr {
 		return instance; }
 	private UIGenericMgr() {}
 	
-	public HashMap<String, UIGenericMgrFactory> hashMap = new HashMap<String, UIGenericMgrFactory>();
+	public Map<String, UIGenericMgrFactory> hashMap = new HashMap<String, UIGenericMgrFactory>();
 	public void addUIGenericMgrFactory(String key, UIGenericMgrFactory uiGenericMgrFactory) {
 		hashMap.put(key, uiGenericMgrFactory);	
 	}

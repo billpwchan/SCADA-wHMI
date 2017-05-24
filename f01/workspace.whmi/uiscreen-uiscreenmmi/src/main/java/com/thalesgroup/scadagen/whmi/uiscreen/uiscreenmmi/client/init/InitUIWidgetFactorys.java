@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.UIPanelNavigation;
@@ -34,7 +34,7 @@ public class InitUIWidgetFactorys {
 			@Override
 			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement
 					, String uiDict
-					, HashMap<String, Object> options) {
+					, Map<String, Object> options) {
 				final String function = "getUIWidget";
 				
 				logger.info(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}] uiDict[{}]", new Object[]{uiCtrl, uiView, uiOpts, uiDict});

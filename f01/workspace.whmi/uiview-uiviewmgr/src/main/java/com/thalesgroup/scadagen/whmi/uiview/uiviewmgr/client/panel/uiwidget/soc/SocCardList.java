@@ -32,6 +32,7 @@ public class SocCardList implements IDataGridDataSource {
 	private String [] strGrcPointAttributes = null;
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
+	private int [] intDataGridColumnsTranslations = null;
 	private Map<String, String> scsEnvIdMap = new HashMap<String, String>();
 	private Map<String, Equipment_i> clientKeyToDataMap = new HashMap<String, Equipment_i>();
 	private List<String> clientKeyList = new ArrayList<String>();
@@ -73,6 +74,7 @@ public class SocCardList implements IDataGridDataSource {
 		if (dataGridDb_ != null) {
 			strDataGridColumnsLabels = dataGridDb_.getColumnLabels();
 			strDataGridColumnsTypes = dataGridDb_.getColumnTypes();
+			intDataGridColumnsTranslations = dataGridDb_.getColumnTranslation();
 		}
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
@@ -164,12 +166,15 @@ public class SocCardList implements IDataGridDataSource {
 	    	for (int col=0; col<strDataGridColumnsLabels.length; col++) {
 	    		// Set column values according to pre-defined labels (SOCCard, ScsEnvID, Alias)
 	    		if (strDataGridColumnsLabels[col].compareToIgnoreCase(colLblSOCCard) == 0) {
+	    			// NO translation supported for SOCCard name
 	    			columnValues[col] = instances[i].substring(instances[i].lastIndexOf(":")+1);
 	    			builder.setValue(strDataGridColumnsLabels[col], instances[i].substring(instances[i].lastIndexOf(":")+1));
 	    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase(colLblScsEnvID) == 0) {
+	    			// NO translation supported for ScsEnvID name
 	    			columnValues[col] = scsEnvId;
 	    			builder.setValue(strDataGridColumnsLabels[col], scsEnvId);
 	    		} else if (strDataGridColumnsLabels[col].compareToIgnoreCase(colLblAlias) == 0) {
+	    			// NO translation supported for Alias
 	    			// Temporary handling. Remove all ":" and leading "ScadaSoft"
 	    			String alias = instances[i].replace(":", "");
 	    			if (alias.startsWith(grcPathRoot)) {
@@ -241,15 +246,28 @@ public class SocCardList implements IDataGridDataSource {
 											}
 																													
 											if (strDataGridColumnsTypes[col].equalsIgnoreCase("String")) {
-												logger.debug(className, function, "set string value [{}]", unquotedStr);
-												contact.setStringValue(strDataGridColumnsLabels[col], unquotedStr);
+												
+												
+												if (intDataGridColumnsTranslations != null && intDataGridColumnsTranslations.length > col && intDataGridColumnsTranslations[col] == 1) {
+													String translateKey = "&" + className + strDataGridColumnsLabels[col].replace(' ', '_') + "_" + unquotedStr;
+													String translatedString = Translation.getWording(translateKey);
+													logger.debug(className, function, "set translated string value [{}]", translatedString);
+													contact.setStringValue(strDataGridColumnsLabels[col], translatedString);
+												} else {
+													logger.debug(className, function, "set string value [{}]", unquotedStr);
+													contact.setStringValue(strDataGridColumnsLabels[col], unquotedStr);
+												}
 												index++;
 											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Number")) {
 												logger.debug(className, function, "set number value [{}]", unquotedStr);
+
+												// No translation supported for column showing number value
 												contact.setNumberValue(strDataGridColumnsLabels[col], Integer.parseInt(unquotedStr));
 												index++;
 											} else if (strDataGridColumnsTypes[col].equalsIgnoreCase("Boolean")) {
 												logger.debug(className, function, "set boolean value [{}]", unquotedStr);
+												
+												// No translation supported for column showing boolean value
 												contact.setBooleanValue(strDataGridColumnsLabels[col], Boolean.parseBoolean(unquotedStr));
 												index++;
 											} else {

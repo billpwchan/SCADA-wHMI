@@ -75,7 +75,7 @@ public class InitProcessFAS {
 				        InitDatabase.getInstance().initDatabaseSubscribeSingleton("DatabaseGroupPollingDiffSingleton", 500);
 				        InitDatabase.getInstance().initDatabaseWritingSingleton("DatabaseWritingSingleton");
 						
-						InitTranslation.getInstance().initTranslation("&\\w+", "g");
+						InitTranslation.getInstance().initTranslation("&[0-9a-zA-Z/$_-]+", "g");
 	
 						if ( null != initReady ) {
 							initReady.ready(params);

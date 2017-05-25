@@ -108,10 +108,13 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 							
 							if (strColumnFilter1Status != null && !strColumnFilter1Status.isEmpty()) {
 								if (strColumnFilter1.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter1Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter1Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
+								
 							}
 						} else if (element.equals(targetDataGridColumn2)) {
 							strColumnFilter2 = uiWidgetGeneric.getWidgetValue(strColumnFilter2Value);
@@ -120,9 +123,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 							
 							if (strColumnFilter2Status != null && !strColumnFilter2Status.isEmpty()) {
 								if (strColumnFilter2.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter2Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter2Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						} else if (element.equals(targetDataGridColumn3)) {
@@ -132,9 +137,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 						
 							if (strColumnFilter3Status != null && !strColumnFilter3Status.isEmpty()) {
 								if (strColumnFilter3.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter3Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter3Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						} else if (element.equals(targetDataGridColumn4)) {
@@ -144,9 +151,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 							
 							if (strColumnFilter4Status != null && !strColumnFilter4Status.isEmpty()) {
 								if (strColumnFilter4.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter4Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter4Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						} else if (element.equals(targetDataGridColumn5)) {
@@ -156,9 +165,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 							
 							if (strColumnFilter5Status != null && !strColumnFilter5Status.isEmpty()) {
 								if (strColumnFilter5.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter5Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter5Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						} else if (element.equals(targetDataGridColumn6)) {
@@ -168,9 +179,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 							
 							if (strColumnFilter6Status != null && !strColumnFilter6Status.isEmpty()) {
 								if (strColumnFilter6.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter6Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter6Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						} else if (element.equals(targetDataGridColumn7)) {
@@ -180,9 +193,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 							
 							if (strColumnFilter7Status != null && !strColumnFilter7Status.isEmpty()) {
 								if (strColumnFilter7.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter7Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter7Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						} else if (element.equals(targetDataGridColumn8)) {
@@ -192,9 +207,11 @@ public class UIWidgetSocFilterControl extends UIWidget_i {
 						
 							if (strColumnFilter8Status != null && !strColumnFilter8Status.isEmpty()) {
 								if (strColumnFilter8.isEmpty()) {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter8Status, WidgetStatus.Invisible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Up);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonUpLabel");
 								} else {
-									uiWidgetGeneric.setWidgetStatus(strColumnFilter8Status, WidgetStatus.Visible);
+									uiWidgetGeneric.setWidgetStatus(element, WidgetStatus.Down);
+									uiWidgetGeneric.setWidgetValue(element, "&"+className+"_"+element+"_"+"ButtonDownLabel");
 								}
 							}
 						}

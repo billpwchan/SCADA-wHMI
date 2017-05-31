@@ -29,14 +29,30 @@ public class InitTranslation implements Init_i {
 		
 	}
 	
-	public void initTranslation(String translatePatten, String translateFlag) {
+	public final static String strTranslatePatten = "Translation_TranslatePatten";
+	public void setTranslationPattern(String translatePatten) {
 		final String function = "initTranslation";
 		logger.begin(className, function);
 		
-		Translation.setTranslatePatten(translatePatten);
+		if ( null != translatePatten ) Translation.setTranslatePatten(translatePatten);
+
+		logger.end(className, function);
+	}
+	
+	public final static String strTranslateFlag = "Translation_TranslateFlag";
+	public void setTranslationFlag(String translateFlag) {
+		final String function = "initTranslation";
+		logger.begin(className, function);
 		
-		Translation.setTranslateFlag(translateFlag);
-		
+		if ( null != translateFlag ) Translation.setTranslateFlag(translateFlag);
+	
+		logger.end(className, function);
+	}
+	
+	public void initTranslationEngine() {
+		final String function = "initTranslationEngine";
+		logger.begin(className, function);
+
 		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
 			@Override
 			public String getMessage(String message) {

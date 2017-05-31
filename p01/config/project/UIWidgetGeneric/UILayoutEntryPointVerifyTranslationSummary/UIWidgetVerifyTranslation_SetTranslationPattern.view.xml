@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyTranslation_SetTranslationPattern-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>SetTranslationPattern:</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationPattern-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>inputStr:</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationPattern-inlinelabel-inputstrlabel</css>
+		<element>inputstrlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextArea</widget>
+		<label>&amp;[0-9a-zA-Z/$_-]+</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationPattern-textbox-inputstrvalue</css>
+		<element>inputstrvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_SetTranslationPattern-container-inputstrvalue</cssContainer>
+		
+		<disableTranslation>true</disableTranslation>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>SetTranslationPattern</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationPattern-button-SetTranslationPattern</css>
+		<element>SetTranslationPattern</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_SetTranslationPattern-container-SetTranslationPattern</cssContainer>
+		
+		<tooltip>SetTranslationPattern</tooltip>
+		
+	</option>
+
+	
+</data-set>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyTranslation_SetTranslationFlag-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>SetTranslationFlag:</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationFlag-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>InlineLabel</widget>
+		<label>inputStr:</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationFlag-inlinelabel-inputstrlabel</css>
+		<element>inputstrlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|2">
+		<widget>TextArea</widget>
+		<label>g</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationFlag-textbox-inputstrvalue</css>
+		<element>inputstrvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_SetTranslationFlag-container-inputstrvalue</cssContainer>
+		
+		<disableTranslation>true</disableTranslation>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>SetTranslationFlag</label>
+		<css>project-UIWidgetVerifyTranslation_SetTranslationFlag-button-SetTranslationFlag</css>
+		<element>SetTranslationFlag</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_SetTranslationFlag-container-SetTranslationFlag</cssContainer>
+		
+		<tooltip>SetTranslationFlag</tooltip>
+		
+	</option>
+	
+</data-set>

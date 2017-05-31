@@ -226,4 +226,6 @@
 	<option key="LMC|UIEventAction Verify Tsc Summary|SetTaskArguments"><setting>174</setting></option>
 	<option key="LMC|UIEventAction Verify Tsc Summary|GetDayGroupNamesAndIds"><setting>175</setting></option>
 	
+	<option key="LMC|MCS|Verify Translation Summary"><setting>176</setting></option>
+	
 </data-set>

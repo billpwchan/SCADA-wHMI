@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyTranslation_GetTranslationEngine-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>GetTranslationEngine:</label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationEngine-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>GetTranslationEngine</label>
+		<css>project-UIWidgetVerifyTranslation_UIWidgetVerifyTranslation_GetTranslationFlag-button-GetTranslationEngine</css>
+		<element>GetTranslationEngine</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_GetTranslationEngine-container-GetTranslationEngine</cssContainer>
+		
+		<tooltip>GetTranslationEngine</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationEngine-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationEngine-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_GetTranslationEngine-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

@@ -101,16 +101,18 @@ public class UIGws {
 		logger.debug(className, function, "uiJson[{}]", uiJson);
 		
 
-		PhaseALoader firstLoader = PhaseALoader.getInstance();
-		firstLoader.setParameter(PhaseALoader.strUIDict, uiDict);
-		firstLoader.setParameter(PhaseALoader.strUIProp, uiProp);
-		firstLoader.setParameter(PhaseALoader.strUIJson, uiJson);
-		UIWidgetEntryPoint.init(params, firstLoader.getLoader(), new InitReady_i() {
+		PhaseALoader phaseALoader = PhaseALoader.getInstance();
+		
+		phaseALoader.setParameter(PhaseALoader.strUIDict, uiDict);
+		phaseALoader.setParameter(PhaseALoader.strUIProp, uiProp);
+		phaseALoader.setParameter(PhaseALoader.strUIJson, uiJson);
+		
+		UIWidgetEntryPoint.init(params, phaseALoader.getLoader(), new InitReady_i() {
 			
 			@Override
 			public void ready(Map<String, Object> params) {
 				
-				PhaseBLoader secondLoader = PhaseBLoader.getInstance();
+				PhaseBLoader phaseBLoader = PhaseBLoader.getInstance();
 			
 				DictionariesCache dictionariesCache = DictionariesCache.getInstance(uiDict);
 				if ( null != dictionariesCache ) {
@@ -138,15 +140,15 @@ public class UIGws {
 					logger.debug(className, function, "strDatabaseSubscribePeriodMillisValue[{}]", strDatabaseSubscribePeriodMillisValue);
 					logger.debug(className, function, "strDatabaseWritingSingletonValue[{}]", strDatabaseWritingSingletonValue);
 				
-					secondLoader.setParameter(PhaseBLoader.strUIOpmSCADAgenKey, strUIOpmSCADAgenValue);
+					phaseBLoader.setParameter(PhaseBLoader.strUIOpmSCADAgenKey, strUIOpmSCADAgenValue);
 					
-					secondLoader.setParameter(PhaseBLoader.strDatabaseReadingSingletonKey, strDatabaseReadingSingletonValue);
-					secondLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonKey, strDatabaseSubscribeSingletonValue);
-					secondLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillisValue);
-					secondLoader.setParameter(PhaseBLoader.strDatabaseWritingSingletonKey, strDatabaseWritingSingletonValue);
+					phaseBLoader.setParameter(PhaseBLoader.strDatabaseReadingSingletonKey, strDatabaseReadingSingletonValue);
+					phaseBLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonKey, strDatabaseSubscribeSingletonValue);
+					phaseBLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillisValue);
+					phaseBLoader.setParameter(PhaseBLoader.strDatabaseWritingSingletonKey, strDatabaseWritingSingletonValue);
 				}
 				
-				UIWidgetEntryPoint.init(params, secondLoader.getLoader(), new InitReady_i() {
+				UIWidgetEntryPoint.init(params, phaseBLoader.getLoader(), new InitReady_i() {
 					
 					@Override
 					public void ready(final Map<String, Object> params) {

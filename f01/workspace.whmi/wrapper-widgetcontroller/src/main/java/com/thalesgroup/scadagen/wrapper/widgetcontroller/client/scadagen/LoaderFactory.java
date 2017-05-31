@@ -9,17 +9,13 @@ public class LoaderFactory {
 		
 		InitProcess_i loader = null;
 		
-		String strPhaseALoaderclassName = UIWidgetUtil.getClassSimpleName(PhaseBLoader.class.getName());
-		String strPhaseBLoaderclassName = UIWidgetUtil.getClassSimpleName(PhaseALoader.class.getName());
-		String strSingleLoaderclassName = UIWidgetUtil.getClassSimpleName(SingleLoader.class.getName());
-		
-		if ( strPhaseALoaderclassName.equals(key) ) {
-			loader = PhaseBLoader.getInstance().getLoader();
-		}
-		else if ( strPhaseBLoaderclassName.equals(key) ) {
+		if ( UIWidgetUtil.getClassSimpleName(PhaseALoader.class.getName()).equals(key) ) {
 			loader = PhaseALoader.getInstance().getLoader();
 		}
-		else if ( strSingleLoaderclassName.equals(key) ) {
+		else if ( UIWidgetUtil.getClassSimpleName(PhaseBLoader.class.getName()).equals(key) ) {
+			loader = PhaseBLoader.getInstance().getLoader();
+		}
+		else if ( UIWidgetUtil.getClassSimpleName(SingleLoader.class.getName()).equals(key) ) {
 			loader = SingleLoader.getInstance().getLoader();
 		}
 		return loader;

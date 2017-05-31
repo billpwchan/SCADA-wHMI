@@ -62,6 +62,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMCheckAccess;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMGetInfo;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.translaction.UIWidgetVerifyTranslationControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.tsc.UIIWidgetVerifyTSCControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.UIWidgetVerifyUIEventActionControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.uieventaction.UIWidgetVerifyUIEventActionGenericControl;
@@ -517,6 +518,13 @@ public class UILayoutSummaryFactoryDepot {
 						) {
 		
 					uiWidget_i = new UIIWidgetVerifyTSCControl();
+		
+				} else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyTranslationControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyTranslationControl();
 		
 				}
 				

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyTranslation_GetTranslationPattern-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>GetTranslationPattern:</label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationPattern-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>GetTranslationPattern</label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationPattern-button-GetTranslationPattern</css>
+		<element>GetTranslationPattern</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_GetTranslationPattern-container-GetTranslationPattern</cssContainer>
+		
+		<tooltip>GetTranslationPattern</tooltip>
+		
+	</option>
+	
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationPattern-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|3">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyTranslation_GetTranslationPattern-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyTranslation_GetTranslationPattern-container-resultvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

@@ -1451,6 +1451,17 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDayGroupNamesAndIds.view.xml</uiView>
 		<tooltips>GetDayGroupNamesAndIds</tooltips>
-	</option>	
+	</option>
+	
+	<option key="176">
+		<type>P</type>
+		<name>Verify Translation Summary</name>
+		<title>Verify Translation Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
+		<tooltips>Verify Translation Summary</tooltips>
+	</option>
 	
 </data-set>

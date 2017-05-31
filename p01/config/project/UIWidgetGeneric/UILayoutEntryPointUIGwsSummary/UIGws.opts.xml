@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<UIOpmSCADAgenKey>UIOpmSCADAgen</UIOpmSCADAgenKey>
+		<DatabaseReadingSingletonKey>DatabaseMultiReadingProxySingleton</DatabaseReadingSingletonKey>
+		<DatabaseSubscribeSingletonKey>DatabaseGroupPollingDiffSingleton</DatabaseSubscribeSingletonKey>
+		<DatabaseSubscribeSingletonPeriodMillisKey>250</DatabaseSubscribeSingletonPeriodMillisKey>
+		<DatabaseWritingSingletonKey>DatabaseWritingSingleton</DatabaseWritingSingletonKey>
+	</header>
+	
+</data-set>

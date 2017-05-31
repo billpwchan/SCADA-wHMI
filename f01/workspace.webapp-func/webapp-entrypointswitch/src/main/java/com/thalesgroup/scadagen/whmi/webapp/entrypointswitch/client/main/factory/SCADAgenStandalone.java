@@ -20,7 +20,7 @@ public class SCADAgenStandalone implements IAppEntryPoint {
 	public void launch(final Map<String, Object> params) {
     	LOGGER.debug(LOG_PREFIX+" launch...");
     	
-    	UIWidgetEntryPoint.init(params, InitProcess.getInstance().get(), new InitReady_i() {
+    	UIWidgetEntryPoint.init(params, LoaderFactory.getInitProcess("SingleLoader"), new InitReady_i() {
 			
 			@Override
 			public void ready(Map<String, Object> params) {

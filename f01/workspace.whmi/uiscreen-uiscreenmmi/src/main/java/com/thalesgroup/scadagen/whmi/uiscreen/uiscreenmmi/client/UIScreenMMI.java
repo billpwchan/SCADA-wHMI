@@ -4,9 +4,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.UIPanelNavigation;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitDatabaseSingleton;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitJSNI;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitTranslationEngine;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIDialogMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEventActionExecuteMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEventActionProcessorMgrFactorys;
@@ -41,50 +39,16 @@ public class UIScreenMMI extends UIWidget_i {
 	
 	@Override
 	public void init() {
-		
 		final String function = "init";
-		
 		logger.begin(className, function);
 		
 		String strInitdelayms = null;
 		
-		String strDatabaseReadingSingletonKey = null;
-		String strDatabaseSubscribeSingletonKey = null;
-		String strDatabaseSubscribePeriodMillis = null;
-		String strDatabaseWritingSingleton = null;
-		
-		int intDatabaseSubscribePeriodMillis = 1000;
-		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			strInitdelayms = dictionariesCache.getStringValue(optsXMLFile, ParameterName.InitDelayMS.toString(), strHeader);
-			
-			strDatabaseReadingSingletonKey		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseReadingSingletonKey.toString(), strHeader);
-			strDatabaseSubscribeSingletonKey	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseSubscribeSingletonKey.toString(), strHeader);
-			strDatabaseSubscribePeriodMillis	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseSubscribeSingletonPeriodMillis.toString(), strHeader);
-			strDatabaseWritingSingleton			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DatabaseWritingSingleton.toString(), strHeader);
-			
-			logger.debug(className, function, "strDatabaseReadingSingletonKey[{}]", strDatabaseReadingSingletonKey);
-			logger.debug(className, function, "strDatabaseSubscribeSingletonKey[{}]", strDatabaseSubscribeSingletonKey);
-			logger.debug(className, function, "strDatabaseSubscribePeriodMillis[{}]", strDatabaseSubscribePeriodMillis);
-			logger.debug(className, function, "strDatabaseWritingSingleton[{}]", strDatabaseWritingSingleton);
-			
-			if ( null != strDatabaseSubscribePeriodMillis ) {
-				try {
-					intDatabaseSubscribePeriodMillis = Integer.parseInt(strDatabaseSubscribePeriodMillis);
-				} catch ( NumberFormatException ex ) {
-					logger.warn(className, function, "Value of strDatabaseSubscribePeriodMillis[{}] IS INVALID", strDatabaseSubscribePeriodMillis);
-				}
-			}
-			
-			logger.debug(className, function, "intDatabaseSubscribePeriodMillis[{}]", intDatabaseSubscribePeriodMillis);
+			logger.debug(className, function, "strInitdelayms[{}]", strInitdelayms);
 		}
-		
-		InitDatabaseSingleton.initDatabaseReadingSingletonKey(strDatabaseReadingSingletonKey);
-
-		InitDatabaseSingleton.initDatabaseSubscribeSingleton(strDatabaseSubscribeSingletonKey, intDatabaseSubscribePeriodMillis);
-
-		InitDatabaseSingleton.initDatabaseWritingSingleton(strDatabaseWritingSingleton);
 
 		handlerRegistrations.add(		
 			this.uiNameCard.getUiEventBus().addHandler(UIEvent.TYPE, new UIEventHandler() {
@@ -94,10 +58,16 @@ public class UIScreenMMI extends UIWidget_i {
 			})
 		);
 		
-		
 		UIPanelNavigation.getInstance().resetInstance();
 		
-		initFactorys();
+		// Init Factorys
+		InitUIDialogMgrFactorys.init();
+		InitUIWidgetFactorys.init();
+		InitUIGenericMgrFactorys.init();
+		InitUIEventActionProcessorMgrFactorys.init();
+		InitUIEventActionExecuteMgrFactorys.init();
+		
+		InitJSNI.init();
 
 		uiLayoutGeneric = new UILayoutGeneric();
 		uiLayoutGeneric.setUINameCard(this.uiNameCard);
@@ -140,20 +110,5 @@ public class UIScreenMMI extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
-	
-	private void initFactorys() {
-		final String function = "initFactory";
-		logger.begin(className, function);
 
-		InitTranslationEngine.init();
-		InitUIDialogMgrFactorys.init();
-		InitUIWidgetFactorys.init();
-		InitUIGenericMgrFactorys.init();
-		InitUIEventActionProcessorMgrFactorys.init();
-		InitUIEventActionExecuteMgrFactorys.init();
-		
-		InitJSNI.init();
-
-		logger.end(className, function);
-	}
 }

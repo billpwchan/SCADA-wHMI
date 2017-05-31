@@ -8,8 +8,8 @@
 
 		<DatabaseReadingSingletonKey>DatabaseMultiReadingProxySingleton</DatabaseReadingSingletonKey>
 		<DatabaseSubscribeSingletonKey>DatabaseGroupPollingDiffSingleton</DatabaseSubscribeSingletonKey>
-		<DatabaseSubscribeSingletonPeriodMillis>500</DatabaseSubscribeSingletonPeriodMillis>
-		<DatabaseWritingSingleton>DatabaseWritingSingleton</DatabaseWritingSingleton>
+		<DatabaseSubscribeSingletonPeriodMillisKey>250</DatabaseSubscribeSingletonPeriodMillisKey>
+		<DatabaseWritingSingletonKey>DatabaseWritingSingleton</DatabaseWritingSingletonKey>
 	</header>
 	
 	<actionset key="init">

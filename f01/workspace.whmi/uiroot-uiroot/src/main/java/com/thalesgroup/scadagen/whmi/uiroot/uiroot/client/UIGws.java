@@ -10,20 +10,19 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
+import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIScreenRootMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCachePropertiesFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXMLFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.PhaseALoader;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.PhaseBLoader;
 
 /**
  * @author syau
@@ -36,6 +35,8 @@ public class UIGws {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIGws.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private final String opts = "UILayoutEntryPointUIGwsSummary/"+className+".opts.xml";
 
 	private Panel root = null;
 
@@ -95,47 +96,67 @@ public class UIGws {
 		
 		Map<String, Object> params = null;
 		
-		InitProcess_i initProcess = new InitProcess_i() {
-
-			@Override
-			public void process(final Map<String, Object> params,
-					final InitReady_i initReady) {
-
-				InitCacheXMLFile.getInstance().initCacheXMLFile(uiDict, "*.xml", new InitReady_i() {
-					
-					public void ready(final Map<String, Object> params) {
-
-						if ( null != initReady ) initReady.ready(params);
-					}
-				});
-				
-				InitCachePropertiesFile.getInstance().initCachePropertiesFile(uiProp, "*.properties");
-				
-				InitCacheJsonsFile.getInstance().initCacheJsonsFile(uiJson, "*.json");
-				
-				InitOpm.getInstance().initOpmFactory();
-
-			}
-		};
+		logger.debug(className, function, "uiDict[{}]", uiDict);
+		logger.debug(className, function, "uiProp[{}]", uiProp);
+		logger.debug(className, function, "uiJson[{}]", uiJson);
 		
-		InitReady_i initReady = new InitReady_i() {
+
+		PhaseALoader firstLoader = PhaseALoader.getInstance();
+		firstLoader.setParameter(PhaseALoader.strUIDict, uiDict);
+		firstLoader.setParameter(PhaseALoader.strUIProp, uiProp);
+		firstLoader.setParameter(PhaseALoader.strUIJson, uiJson);
+		UIWidgetEntryPoint.init(params, firstLoader.getLoader(), new InitReady_i() {
 			
 			@Override
-			public void ready(final Map<String, Object> params) {
+			public void ready(Map<String, Object> params) {
 				
-				int received = 0;
-				if ( null != params) {
-					Object obj = params.get("received");
-					if ( null != obj && obj instanceof Integer ) {
-						received = (Integer)obj;
-					}
+				PhaseBLoader secondLoader = PhaseBLoader.getInstance();
+			
+				DictionariesCache dictionariesCache = DictionariesCache.getInstance(uiDict);
+				if ( null != dictionariesCache ) {
+					
+					final String strHeader = "header";
+					
+					String strUIOpmSCADAgenValue = null;
+
+					String strDatabaseReadingSingletonValue = null;
+					String strDatabaseSubscribeSingletonValue = null;
+					String strDatabaseSubscribePeriodMillisValue = null;
+					String strDatabaseWritingSingletonValue = null;
+					
+					strUIOpmSCADAgenValue					= dictionariesCache.getStringValue(opts, ParameterName.UIOpmSCADAgenKey.toString(), strHeader);
+					
+					strDatabaseReadingSingletonValue		= dictionariesCache.getStringValue(opts, ParameterName.DatabaseReadingSingletonKey.toString(), strHeader);
+					strDatabaseSubscribeSingletonValue		= dictionariesCache.getStringValue(opts, ParameterName.DatabaseSubscribeSingletonKey.toString(), strHeader);
+					strDatabaseSubscribePeriodMillisValue	= dictionariesCache.getStringValue(opts, ParameterName.DatabaseSubscribeSingletonPeriodMillisKey.toString(), strHeader);
+					strDatabaseWritingSingletonValue		= dictionariesCache.getStringValue(opts, ParameterName.DatabaseWritingSingletonKey.toString(), strHeader);
+							
+					logger.debug(className, function, "strUIOpmSCADAgenValue[{}]", strDatabaseReadingSingletonValue);
+					
+					logger.debug(className, function, "strDatabaseReadingSingletonValue[{}]", strDatabaseReadingSingletonValue);
+					logger.debug(className, function, "strDatabaseSubscribeSingletonValue[{}]", strDatabaseSubscribeSingletonValue);
+					logger.debug(className, function, "strDatabaseSubscribePeriodMillisValue[{}]", strDatabaseSubscribePeriodMillisValue);
+					logger.debug(className, function, "strDatabaseWritingSingletonValue[{}]", strDatabaseWritingSingletonValue);
+				
+					secondLoader.setParameter(PhaseBLoader.strUIOpmSCADAgenKey, strUIOpmSCADAgenValue);
+					
+					secondLoader.setParameter(PhaseBLoader.strDatabaseReadingSingletonKey, strDatabaseReadingSingletonValue);
+					secondLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonKey, strDatabaseSubscribeSingletonValue);
+					secondLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillisValue);
+					secondLoader.setParameter(PhaseBLoader.strDatabaseWritingSingletonKey, strDatabaseWritingSingletonValue);
 				}
 				
-				readyToLoad("UIWidgetGeneric", received);
+				UIWidgetEntryPoint.init(params, secondLoader.getLoader(), new InitReady_i() {
+					
+					@Override
+					public void ready(final Map<String, Object> params) {
+						
+						loadPage();
+
+					}
+				});
 			}
-		};
-		
-		UIWidgetEntryPoint.init(params, initProcess, initReady);
+		});
 
 		setUINameCard(new UINameCard(0, "", RESETABLE_EVENT_BUS));
 		
@@ -200,11 +221,9 @@ public class UIGws {
 	}
 
 	private boolean isCreated = false;
-	private void readyToLoad(String folder, int received) {
-		final String function = "ready";
+	private void loadPage() {
+		final String function = "loadPage";
 		logger.begin(className, function);
-		
-		logger.debug(className, function, "folder[{}] received[{}]", folder, received);
 
 		if ( ! isCreated ) {
 			
@@ -222,11 +241,8 @@ public class UIGws {
 
 			isCreated = true;
 			
-			// Try to init the OPM
-			InitOpm.getInstance().initOpm("UIOpmSCADAgen");
-			
 		} else {
-			logger.warn(className, function, "ready folder[{}] received[{}] isCreated", folder, received);
+			logger.warn(className, function, "ready isCreated");
 		}
 
 		

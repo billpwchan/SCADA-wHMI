@@ -9,7 +9,7 @@
 	</header>
 	<option key="0|0">
 		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
-		<uiView>UILayoutEntryPointVerifyUIEventActionOlsSummary/UIWidgetVerifyUIEventActionOlsControl.view.xml</uiView>
-		<element>UIWidgetVerifyUIEventActionOlsControl</element>
+		<uiView>UILayoutEntryPointVerifyUIEventActionOlsSummary/UIWidgetVerifyUIEventActionOlsControl_ReadData.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionOlsControl_ReadData</element>
 	</option>
 </data-set>

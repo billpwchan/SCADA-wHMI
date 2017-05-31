@@ -12,6 +12,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionDpc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionJS;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOls;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTsc;
@@ -75,6 +76,9 @@ public class InitUIEventActionExecuteMgrFactorys {
 				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.tsc.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionTsc();
+				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.ols.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionOls();
 				}
 				
 				if ( null == uiEventActionExecute_i ) logger.warn(className, function, "key[{}] uiEventActionExecute_i IS NULL", key);

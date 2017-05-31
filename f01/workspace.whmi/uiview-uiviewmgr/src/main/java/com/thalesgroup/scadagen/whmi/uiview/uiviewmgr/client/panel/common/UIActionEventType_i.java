@@ -17,7 +17,7 @@ public interface UIActionEventType_i {
 		, widget("widget")
 		, js("js")
 		, tsc("tsc")
-		
+		, ols("ols")
 		;
 		private final String text;
 		private UIActionEventType(final String text) { this.text = text; }

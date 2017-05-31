@@ -22,7 +22,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.InitProcess;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.LoaderFactory;
 
 public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetController {
 	
@@ -178,7 +178,7 @@ public class UIWidgetEntryPoint extends ResizeComposite implements IWidgetContro
 
 		Map<String, Object> params = null;
 
-		init(params, InitProcess.getInstance().get(), initReady);
+		init(params, LoaderFactory.getInitProcess("SingleLoader"), initReady);
 		
 		logger.end(className, function);
 	}

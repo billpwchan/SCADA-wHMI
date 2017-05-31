@@ -49,11 +49,15 @@ public class InitDatabase implements Init_i {
 		
 		DatabaseMultiRead_i databaseReading_i = DatabaseMultiReadFactory.get(strDatabaseReadingSingletonKey);
 		if ( null != databaseReading_i ) {
-			if ( databaseReading_i instanceof DatabaseSingleton_i ) {
-				logger.debug(className, function, "strDatabaseReadingSingletonKey instanceof DatabaseSingleton_i");
-				((DatabaseSingleton_i) databaseReading_i).connectOnce();
-			} else {
-				databaseReading_i.connect();
+			try {
+				if ( databaseReading_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "strDatabaseReadingSingletonKey instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseReading_i).connectOnce();
+				} else {
+					databaseReading_i.connect();
+				}
+			} catch (Exception ex) {
+				logger.warn(className, function, "databaseReading_i init Exception:"+ex.toString());
 			}
 		} else {
 			logger.debug(className, function, "databaseReading_i IS NULL");
@@ -70,13 +74,16 @@ public class InitDatabase implements Init_i {
 		DatabaseSubscribe_i databaseSubscribe_i = DatabaseSubscribeFactory.get(strDatabaseSubscribeSingletonKey);
 		if ( null != databaseSubscribe_i ) {
 			databaseSubscribe_i.setPeriodMillis(intDatabaseSubscribePeriodMillis);
-			if ( databaseSubscribe_i instanceof DatabaseSingleton_i ) {
-				logger.debug(className, function, "databaseSubscribe_i instanceof DatabaseSingleton_i");
-				((DatabaseSingleton_i) databaseSubscribe_i).connectOnce();
-			} else {
-				databaseSubscribe_i.connect();
+			try {
+				if ( databaseSubscribe_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "databaseSubscribe_i instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseSubscribe_i).connectOnce();
+				} else {
+					databaseSubscribe_i.connect();
+				}
+			} catch (Exception ex) {
+				logger.warn(className, function, "DatabaseSingleton_i init Exception:"+ex.toString());
 			}
-			
 		} else {
 			logger.debug(className, function, "databaseSubscribe_i IS NULL");
 		}
@@ -90,11 +97,15 @@ public class InitDatabase implements Init_i {
 		
 		DatabaseWrite_i databaseWriting_i = DatabaseWriteFactory.get(strDatabaseWritingSingleton);
 		if ( null != databaseWriting_i ) {
-			if ( databaseWriting_i instanceof DatabaseSingleton_i ) {
-				logger.debug(className, function, "databaseWriting_i instanceof DatabaseSingleton_i");
-				((DatabaseSingleton_i) databaseWriting_i).connectOnce();
-			} else {
-				databaseWriting_i.connect();
+			try {
+				if ( databaseWriting_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "databaseWriting_i instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseWriting_i).connectOnce();
+				} else {
+					databaseWriting_i.connect();
+				}
+			} catch (Exception ex) {
+				logger.warn(className, function, "databaseWriting_i init Exception:"+ex.toString());
 			}
 		} else {
 			logger.debug(className, function, "databaseWriting_i IS NULL");

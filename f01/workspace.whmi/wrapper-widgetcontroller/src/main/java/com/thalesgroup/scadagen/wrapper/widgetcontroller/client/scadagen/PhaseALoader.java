@@ -1,5 +1,6 @@
 package com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -10,29 +11,42 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheJsonsFile;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCachePropertiesFile;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitCacheXMLFile;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitDatabase;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitTranslation;
 
-public class InitProcess {
+public class PhaseALoader implements Loader_i {
 	
-	private static final String className = UIWidgetUtil.getClassSimpleName(InitProcess.class.getName());
+	private static final String className = UIWidgetUtil.getClassSimpleName(PhaseALoader.class.getName());
 	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private static InitProcess instance = null; 
-	public static InitProcess getInstance() {
+	private static PhaseALoader instance = null; 
+	public static PhaseALoader getInstance() {
 		if ( null == instance ) {
-			instance = new InitProcess();
+			instance = new PhaseALoader();
+			instance.iniDefaultParameterName();
 		}
 		return instance;
 	}
 	
-	public InitProcess_i get() { return initProcess; };
-
-	private InitProcess_i initProcess = null;
+	public Map<String, String> parameters = new HashMap<String, String>();
+	@Override
+	public void setParameter(String key, String value) { parameters.put(key, value); }
 	
-	private InitProcess() {
-		final String function = "Init";
+	private InitProcess_i initProcess = null;
+	@Override
+	public InitProcess_i getLoader() { return initProcess; };
+	
+	public final static String strUIDict = "uiDict";
+	public final static String strUIProp = "uiProp";
+	public final static String strUIJson = "uiJson";
+	
+	@Override
+	public void iniDefaultParameterName() {
+		parameters.put(strUIDict, "UIJson");
+		parameters.put(strUIProp, "UIInspectorPanel");
+		parameters.put(strUIJson, "UIWidgetGeneric");
+	}
+	
+	private PhaseALoader() {
+		final String function = "PhaseALoader";
 		logger.begin(className, function);
 		
 		initProcess = new InitProcess_i() {
@@ -42,14 +56,17 @@ public class InitProcess {
 				final String function = "process";
 				logger.begin(className, function);
 					
+				String uiJson = parameters.get(strUIJson);
 				// Loading the UIJson Data Dictionary
-				InitCacheJsonsFile.getInstance().initCacheJsonsFile("UIJson", "*.json");
+				InitCacheJsonsFile.getInstance().initCacheJsonsFile(uiJson, "*.json");
 			    
+				String uiProp = parameters.get(strUIProp);
 			    // Loading the UIInspector Data Dictionary
-			    InitCachePropertiesFile.getInstance().initCachePropertiesFile("UIInspectorPanel", "*.properties");
+			    InitCachePropertiesFile.getInstance().initCachePropertiesFile(uiProp, "*.properties");
 			    
+			    String uiDict = parameters.get(strUIDict);
 			    // Loading the XML Data Dictionary
-			    InitCacheXMLFile.getInstance().initCacheXMLFile("UIWidgetGeneric", "*.xml", new InitReady_i() {
+			    InitCacheXMLFile.getInstance().initCacheXMLFile(uiDict, "*.xml", new InitReady_i() {
 					
 					@Override
 					public void ready(final Map<String, Object> keyValues) {
@@ -64,19 +81,6 @@ public class InitProcess {
 						
 						logger.debug(className, function, " UIWidgetEntryPoint.init ready received["+received+"]");
 						
-						// Loading SCADAgen OPM Factory
-						InitOpm.getInstance().initOpmFactory();
-				        
-				        // Init the SCADAgen OPM API
-				        InitOpm.getInstance().initOpm("UIOpmSCADAgen");
-				        
-						// Init for the Database Singleton Usage		        
-				        InitDatabase.getInstance().initDatabaseReadingSingletonKey("DatabaseMultiReadingProxySingleton");
-				        InitDatabase.getInstance().initDatabaseSubscribeSingleton("DatabaseGroupPollingDiffSingleton", 500);
-				        InitDatabase.getInstance().initDatabaseWritingSingleton("DatabaseWritingSingleton");
-						
-						InitTranslation.getInstance().initTranslation("&[0-9a-zA-Z/$_-]+", "g");
-	
 						if ( null != initReady ) {
 							initReady.ready(params);
 						} else {

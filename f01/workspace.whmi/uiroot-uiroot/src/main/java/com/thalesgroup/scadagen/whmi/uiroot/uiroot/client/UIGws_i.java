@@ -29,4 +29,17 @@ public class UIGws_i {
 		}
 	}
 	
+	public enum ParameterName {
+		  UIOpmSCADAgenKey("UIOpmSCADAgenKey")
+		, DatabaseReadingSingletonKey("DatabaseReadingSingletonKey")
+		, DatabaseSubscribeSingletonKey("DatabaseSubscribeSingletonKey")
+		, DatabaseSubscribeSingletonPeriodMillisKey("DatabaseSubscribeSingletonPeriodMillisKey")
+		, DatabaseWritingSingletonKey("DatabaseWritingSingletonKey")
+
+		;
+		private final String text;
+		private ParameterName(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
 }

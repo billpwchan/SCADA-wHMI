@@ -14,6 +14,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.mgrfactory.MgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.ols.OlsMgr;
@@ -22,6 +23,8 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOLSControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private String strOlsMgr = "OlsMgr";
 	
 	private Subject getSubject() {
 		final String function = "getSubject";
@@ -65,7 +68,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		String [] keyLists = keyList.split(",");
 
-		OlsMgr olsMgr = (OlsMgr) OlsMgr.getInstance(olskey);
+		OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, olskey);
 		
 		olsMgr.setSubject(className + function, getSubject());
 		
@@ -88,7 +91,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		String [] fieldLists = fieldList.split(",");
 		
-		OlsMgr olsMgr = (OlsMgr) OlsMgr.getInstance(olskey);
+		OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, olskey);
 		
 		olsMgr.setSubject(className + function, getSubject());
 		
@@ -107,7 +110,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		String listServer	= uiGeneric.getWidgetValue("listservervalue");
 		String subUUID		= uiGeneric.getWidgetValue("subuuidvalue");
 		
-		OlsMgr olsMgr = (OlsMgr) OlsMgr.getInstance(olskey);
+		OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, olskey);
 		
 		olsMgr.setSubject(className + function, getSubject());
 		
@@ -130,7 +133,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 		
 		String [] fieldLists = fieldList.split("|");
 		
-		OlsMgr olsMgr = (OlsMgr) OlsMgr.getInstance(olskey);
+		OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, olskey);
 		
 		olsMgr.setSubject(className + function, getSubject());
 		
@@ -157,7 +160,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 			olsEntry.put(keyValue[0], keyValue[1]);
 		}
 		
-		OlsMgr olsMgr = (OlsMgr) OlsMgr.getInstance(olskey);
+		OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, olskey);
 		
 		olsMgr.setSubject(className + function, getSubject());
 		
@@ -185,7 +188,7 @@ public class UIWidgetVerifyOLSControl extends UIWidgetRealize {
 			olsEntry.put(keyValue[0], keyValue[1]);
 		}
 		
-		OlsMgr olsMgr = (OlsMgr) OlsMgr.getInstance(olskey);
+		OlsMgr olsMgr = (OlsMgr) MgrFactory.getInstance().getMgr(strOlsMgr, olskey);
 		
 		olsMgr.setSubject(className + function, getSubject());
 		

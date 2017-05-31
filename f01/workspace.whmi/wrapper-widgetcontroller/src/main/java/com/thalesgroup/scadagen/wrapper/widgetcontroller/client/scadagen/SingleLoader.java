@@ -47,12 +47,12 @@ public class SingleLoader implements Loader_i {
 				final String function = "process";
 				logger.begin(className, function);
 		
-				UIWidgetEntryPoint.init(params, LoaderFactory.getInitProcess("PhaseBLoader"), new InitReady_i() {
+				UIWidgetEntryPoint.init(params, LoaderFactory.getInitProcess("PhaseALoader"), new InitReady_i() {
 					
 					@Override
 					public void ready(Map<String, Object> params) {
 						
-						UIWidgetEntryPoint.init(params, LoaderFactory.getInitProcess("PhaseALoader"), new InitReady_i() {
+						UIWidgetEntryPoint.init(params, LoaderFactory.getInitProcess("PhaseBLoader"), new InitReady_i() {
 							
 							@Override
 							public void ready(final Map<String, Object> params) {

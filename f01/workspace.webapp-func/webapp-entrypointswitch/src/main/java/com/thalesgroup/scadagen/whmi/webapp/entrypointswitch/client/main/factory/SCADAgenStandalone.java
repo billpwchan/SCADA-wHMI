@@ -9,7 +9,7 @@ import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws_i;
 import com.thalesgroup.scadagen.whmi.webapp.entrypointswitch.client.main.Util;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
-import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.InitProcess;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.LoaderFactory;
 
 public class SCADAgenStandalone implements IAppEntryPoint {
 	

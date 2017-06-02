@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>8</cols>
+		<cols>9</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
@@ -54,6 +54,12 @@
 		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
 		<uiView>UILayoutEntryPointVerifyTranslationSummary/UIWidgetVerifyTranslation_Concat.view.xml</uiView>
 		<element>UIWidgetVerifyTranslation_Concat</element>
+	</option>
+	
+	<option key="0|8">
+		<uiCtrl>UIWidgetVerifyTranslationControl</uiCtrl>
+		<uiView>UILayoutEntryPointVerifyTranslationSummary/UIWidgetVerifyTranslation_MissingTranslation.view.xml</uiView>
+		<element>UIWidgetVerifyTranslation_MissingTranslation</element>
 	</option>
 
 </data-set>

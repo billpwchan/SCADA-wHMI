@@ -5,13 +5,13 @@
 		<rows>1</rows>
 		<cols>6</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-UIWidgetVerifyTranslation-panel-inner</rootCss>
+		<rootCss>project-UIWidgetVerifyTranslation_Third-panel-inner</rootCss>
 	</header>
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>translaction:</label>
-		<css>project-UIWidgetVerifyTranslation-inlinelabel-firstlabel</css>
+		<label>translaction multi line:</label>
+		<css>project-UIWidgetVerifyTranslation_Third-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>
 		<media></media>
@@ -20,7 +20,7 @@
 	<option key="0|1">
 		<widget>InlineLabel</widget>
 		<label>inputStr:</label>
-		<css>project-UIWidgetVerifyTranslation-inlinelabel-inputstrlabel</css>
+		<css>project-UIWidgetVerifyTranslation_Third-inlinelabel-inputstrlabel</css>
 		<element>inputstrlabel</element>
 		<format></format>
 		<media></media>
@@ -29,10 +29,10 @@
 	<option key="0|2">
 		<widget>TextArea</widget>
 		<label>&amp;abc &amp;def &amp;ghi &amp;z</label>
-		<css>project-UIWidgetVerifyTranslation-textbox-inputstrvalue</css>
+		<css>project-UIWidgetVerifyTranslation_Third-textbox-inputstrvalue</css>
 		<element>inputstrvalue</element>
 		
-		<cssContainer>project-UIWidgetVerifyTranslation-container-inputstrvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyTranslation_Third-container-inputstrvalue</cssContainer>
 		
 		<disableTranslation>true</disableTranslation>
 		
@@ -41,10 +41,10 @@
 	<option key="0|3">
 		<widget>Button</widget>
 		<label>translation</label>
-		<css>project-UIWidgetVerifyTranslation-button-translation</css>
+		<css>project-UIWidgetVerifyTranslation_Third-button-translation</css>
 		<element>translation</element>
 		
-		<cssContainer>project-UIWidgetVerifyTranslation-container-translation</cssContainer>
+		<cssContainer>project-UIWidgetVerifyTranslation_Third-container-translation</cssContainer>
 		
 		<tooltip>translation</tooltip>
 		
@@ -54,7 +54,7 @@
 	<option key="0|4">
 		<widget>InlineLabel</widget>
 		<label>Result:</label>
-		<css>project-UIWidgetVerifyTranslation-inlinelabel-resultlabel</css>
+		<css>project-UIWidgetVerifyTranslation_Third-inlinelabel-resultlabel</css>
 		<element>resultlabel</element>
 		<format></format>
 		<media></media>
@@ -63,10 +63,11 @@
 	<option key="0|5">
 		<widget>TextArea</widget>
 		<label></label>
-		<css>project-UIWidgetVerifyTranslation-textbox-resultvalue</css>
+		<css>project-UIWidgetVerifyTranslation_Third-textbox-resultvalue</css>
 		<element>resultvalue</element>
+		<disableTranslation>true</disableTranslation>
 		
-		<cssContainer>project-UIWidgetVerifyTranslation-container-resultvalue</cssContainer>
+		<cssContainer>project-UIWidgetVerifyTranslation_Third-container-resultvalue</cssContainer>
 		
 	</option>
 	

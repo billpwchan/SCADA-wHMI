@@ -68,7 +68,7 @@ public class SCADAgenBA extends SCADAsoftBA {
 
 	@Override
 	public DBMSubscription getDbmSubscription(ScsPollerServicesProxy dbpoller, UUID subscriptionID) {
-		return new MyDBMSubscription(dbpoller, subscriptionID, this);
+        return new MyDBMSubscription(dbpoller, subscriptionID, this, 100);
 	}
 
 }

@@ -5,20 +5,23 @@
     <parent>
         <groupId>com.thalesgroup.scadasoft</groupId>
         <artifactId>scadasoft</artifactId>
-        <version>6.3.1</version>
+        <version>6.3.1_P02</version>
     </parent>
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
     <packaging>jar</packaging>
     <name>SCADAgen HV Connector supporting generic BPS</name>
     <description>SCADAgen connector for Hypervisor VS9</description>
 
-    <properties>
+   <properties>
+        <scadasoft.version>6.3.1_P02</scadasoft.version>
+		<scadasoft.hv.version>6.3.1_P02-HV951</scadasoft.hv.version>
+        <hv.connector.sdk.version>2.11.1</hv.connector.sdk.version>
+		<hv.common.integ.version>1.10.1</hv.common.integ.version>
         <jcloverslf4j.version>1.7.21</jcloverslf4j.version>
         <jersey.version>2.23.2</jersey.version>
-        <springboot.version>1.4.0.RELEASE</springboot.version>
     </properties>
 
     <dependencyManagement>
@@ -34,26 +37,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${springboot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>logback-classic</artifactId>
-                    <groupId>ch.qos.logback</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>log4j-over-slf4j</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <dependency>                                    
             <groupId>org.slf4j</groupId>                
             <artifactId>jcl-over-slf4j</artifactId>     
@@ -86,34 +69,28 @@
         <dependency>
             <groupId>com.thalesgroup.scadasoft</groupId>
             <artifactId>scsba</artifactId>
-            <version>${scadasoft.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.thalesgroup.scadasoft</groupId>
-                    <artifactId>scs-data-model</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>${scadasoft.hv.version}</version>
         </dependency>
 
 		<!-- SCADAgenBA fasapi -->
 		<dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>fasapi</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.4</version>
         </dependency>
         
         <!-- SCADAgenBA Comp -->
 		<dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>scadagen-ba-comp</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.4</version>
         </dependency>
 
         <!-- SCADAgen BPS -->       
         <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>scadagen-bps</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.4</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.thalesgroup.scadasoft</groupId>
@@ -127,49 +104,6 @@
             <groupId>com.thalesgroup.hv.sdk.connector</groupId>
             <artifactId>connector-sdk-impl</artifactId>
             <version>${hv.connector.sdk.version}</version>
-            <exclusions>
-                <exclusion>
-                    <!-- declare the exclusion here -->
-                    <groupId>javax.ws.rs</groupId>
-                    <artifactId>jsr311-api</artifactId>
-                </exclusion> 
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-expression</artifactId>       
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-asm</artifactId> 
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jms</artifactId> 
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context-support</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-tx</artifactId>
-                </exclusion>
-            </exclusions> 
         </dependency>
 
         <!-- 3rd party -->
@@ -190,7 +124,13 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.16</version>
+            <version>1.2.17</version>
+        </dependency>
+		
+		<dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.2.17</version>
         </dependency>
 
     </dependencies>
@@ -201,6 +141,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
@@ -256,19 +197,6 @@
 
                     <buildOutputDirectory>target/classes</buildOutputDirectory>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${springboot.version}</version>
-                <!--executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions-->
             </plugin>
 
         </plugins>

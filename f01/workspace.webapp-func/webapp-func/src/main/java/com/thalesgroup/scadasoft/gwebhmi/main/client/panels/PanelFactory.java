@@ -1,7 +1,6 @@
 package com.thalesgroup.scadasoft.gwebhmi.main.client.panels;
 
 import com.google.gwt.user.client.ui.Widget;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.chart.timeseries.panel.TimeSeriesGraphFactoryPanel;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.panel.MwtHistorizationPanel;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.AppUtils;
 import com.thalesgroup.scadasoft.gwebhmi.main.client.layout.ActionPanel;
@@ -50,11 +49,11 @@ public class PanelFactory {
         // external resource
         else if (navId.startsWith("_frame_")) {
             String resName = navId.substring(7);
-            panel = new ScsJSPanelWrapper(resName);
+            panel = new ScsJSPanelWrapper(resName, resName);
         }
-        else if (ConfigurationConstantUtil.SpecialNavPlaces.GRAPH_FACTORY.getValue().equals(navId)) {
-            panel = new TimeSeriesGraphFactoryPanel(AppUtils.EVENT_BUS);
-        }
+//        else if (ConfigurationConstantUtil.SpecialNavPlaces.GRAPH_FACTORY.getValue().equals(navId)) {
+//            panel = new TimeSeriesGraphFactoryPanel(AppUtils.EVENT_BUS);
+//        }
         // Action panel for a given image
         else {
             panel = new ActionPanel(navId, AppUtils.EVENT_BUS);

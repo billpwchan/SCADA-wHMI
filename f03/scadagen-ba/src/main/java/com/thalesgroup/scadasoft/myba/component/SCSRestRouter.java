@@ -1,6 +1,7 @@
 package com.thalesgroup.scadasoft.myba.component;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -40,36 +41,10 @@ public class SCSRestRouter {
 	@Path("/hello")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String sayHello() {
+		s_logger.debug("Calling SCSRestRouter.sayHello method");
 		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
-
-		resp.put("name", "Agamemnon");
-		resp.put("age", 32);
-		return resp.toString();
-
-	} 
-	
-	@GET
-	@Path("/update/dbm/{notifid}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getDbmUpdates(@PathParam("notifid") String notifid) {
-		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
-
-		ArrayNode n = m_compMgr.getUpdate(notifid);
-		resp.put("dbm", notifid);
-		resp.set("update", n);
-		return resp.toString();
-
-	} 
-
-	@GET
-	@Path("/update/ols/{notifid}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getOlsUpdates(@PathParam("notifid") String notifid) {
-		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
-
-		ArrayNode n = m_compMgr.getUpdate(notifid);
-		resp.put("ols", notifid);
-		resp.set("update", n);
+		Date now = new Date();
+		resp.put("hello", now.toString());
 		return resp.toString();
 
 	} 
@@ -78,6 +53,7 @@ public class SCSRestRouter {
 	@Path("/request")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String managePost(String jsonAction) {
+		s_logger.debug("Calling SCSRestRouter.managePost method");
 		JsonNode result = null;
 		try {
 			result = m_compMgr.executeRequest(jsonAction);
@@ -96,34 +72,11 @@ public class SCSRestRouter {
 		return res;
 	}   	
 
-	@GET
-	@Path("/request")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String manageGet() {
-		JsonNode result = null;
-		String jsonAction = "{}";
-		try {
-			result = m_compMgr.executeRequest(jsonAction);
-		} catch (Throwable e) {
-			s_logger.error("SCADAExecutor unexpected error while parsing JSON: {} exc {}", jsonAction, e.getMessage());
-			s_logger.trace(e.getMessage(), e);
-			result = m_compMgr.buildErrorObject(4, e.getMessage());
-		}
-
-		String res = "";
-		try {
-			res = JSComponentMgr.GetObjectMapper().writeValueAsString(result);
-		} catch (JsonProcessingException e) {
-			res = e.getMessage();
-		}
-		return res;
-	}   	
-
-	// Debug API
 	@GET
 	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAllUpdates() {
+		s_logger.debug("Calling SCSRestRouter.getAllUpdates method");
 		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
 		ObjectNode n = m_compMgr.getAllUpdates();
 		resp.set("update", n);
@@ -134,6 +87,7 @@ public class SCSRestRouter {
 	@Path("/update/{notifid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getUpdates(@PathParam("notifid") String notifid) {
+		s_logger.debug("Calling SCSRestRouter.getUpdates method");
 		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
 
 		ArrayNode n = m_compMgr.getUpdate(notifid);
@@ -142,10 +96,13 @@ public class SCSRestRouter {
 
 	} 
 	
+	// GET based API
+	// use managePost for POST API
 	@GET
 	@Path("/service")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getComponentList() {
+		s_logger.debug("Calling SCSRestRouter.getComponentList method");
 		JsonNode result = null;
 		String jsonAction = "{}";
 		try {
@@ -169,6 +126,7 @@ public class SCSRestRouter {
 	@Path("/service/{serviceid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getComponentDesc(@PathParam("serviceid") String serviceid) {
+		s_logger.debug("Calling SCSRestRouter.getComponentDesc method");
 		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
 		IJSComponent comp = JSComponentMgr.getComponents().get(serviceid);
 		
@@ -187,6 +145,7 @@ public class SCSRestRouter {
 	@Path("/service/{serviceid}/{requestid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getComponentReqDesc(@PathParam("serviceid") String serviceid, @PathParam("requestid") String requestid, @Context UriInfo info) {
+		s_logger.debug("Calling SCSRestRouter.getComponentReqDesc method");
 		ObjectNode resp = JSComponentMgr.s_json_factory.objectNode();
 		IJSComponent comp = JSComponentMgr.getComponents().get(serviceid);
 		

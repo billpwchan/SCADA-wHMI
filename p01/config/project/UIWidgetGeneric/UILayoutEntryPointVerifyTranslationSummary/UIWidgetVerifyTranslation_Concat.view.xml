@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>InlineLabel</widget>
-		<label>translaction:</label>
+		<label>translaction concat:</label>
 		<css>project-UIWidgetVerifyTranslation_Concat_Third-inlinelabel-firstlabel</css>
 		<element>firstlabel</element>
 		<format></format>
@@ -65,6 +65,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyTranslation_Concat_Third-textbox-resultvalue</css>
 		<element>resultvalue</element>
+		<disableTranslation>true</disableTranslation>
 		
 		<cssContainer>project-UIWidgetVerifyTranslation_Concat_Third-container-resultvalue</cssContainer>
 		

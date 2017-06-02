@@ -40,9 +40,9 @@ public class PhaseALoader implements Loader_i {
 	
 	@Override
 	public void iniDefaultParameterName() {
-		parameters.put(strUIDict, "UIJson");
+		parameters.put(strUIDict, "UIWidgetGeneric");
 		parameters.put(strUIProp, "UIInspectorPanel");
-		parameters.put(strUIJson, "UIWidgetGeneric");
+		parameters.put(strUIJson, "UIJson");
 	}
 	
 	private PhaseALoader() {
@@ -55,18 +55,15 @@ public class PhaseALoader implements Loader_i {
 			public void process(final Map<String, Object> params, final InitReady_i initReady) {
 				final String function = "process";
 				logger.begin(className, function);
-					
-				String uiJson = parameters.get(strUIJson);
+
 				// Loading the UIJson Data Dictionary
-				InitCacheJsonsFile.getInstance().initCacheJsonsFile(uiJson, "*.json");
+				InitCacheJsonsFile.getInstance().initCacheJsonsFile(parameters.get(strUIJson), "*.json");
 			    
-				String uiProp = parameters.get(strUIProp);
 			    // Loading the UIInspector Data Dictionary
-			    InitCachePropertiesFile.getInstance().initCachePropertiesFile(uiProp, "*.properties");
+			    InitCachePropertiesFile.getInstance().initCachePropertiesFile(parameters.get(strUIProp), "*.properties");
 			    
-			    String uiDict = parameters.get(strUIDict);
 			    // Loading the XML Data Dictionary
-			    InitCacheXMLFile.getInstance().initCacheXMLFile(uiDict, "*.xml", new InitReady_i() {
+			    InitCacheXMLFile.getInstance().initCacheXMLFile(parameters.get(strUIDict), "*.xml", new InitReady_i() {
 					
 					@Override
 					public void ready(final Map<String, Object> keyValues) {

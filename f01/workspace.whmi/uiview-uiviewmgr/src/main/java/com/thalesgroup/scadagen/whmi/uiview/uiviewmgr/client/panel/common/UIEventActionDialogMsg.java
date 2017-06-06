@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import java.util.HashMap;
 
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -15,7 +16,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.UIDialogMsg.UIConfimDlgType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionDialogMsg.class.getName());
@@ -86,14 +86,14 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 				uiConfimDlgType = UIConfimDlgType.DLG_CONFIRMCANCEL;
 			}
 			
-			String title	= Translation.getDBMessage(strTitle);
-			String message	= Translation.getDBMessage(strMessage);
+			strTitle	= TranslationMgr.getInstance().getTranslation(strTitle);
+			strMessage	= TranslationMgr.getInstance().getTranslation(strMessage);
 			
 			UIDialogMgr uiDialogMsgMgr = UIDialogMgr.getInstance();
 			UIDialogMsg uiDialgogMsg = (UIDialogMsg) uiDialogMsgMgr.getDialog(UIEventActionDialogMsgAction.UIDialogMsg.toString());
 			if ( null != uiDialgogMsg ) {
 				uiDialgogMsg.setUINameCard(uiNameCard);
-				uiDialgogMsg.setDialogMsg(uiConfimDlgType, title, message);
+				uiDialgogMsg.setDialogMsg(uiConfimDlgType, strTitle, strMessage);
 				
 				if ( strMsgOpt1ActionSetKey != null && ! strMsgOpt1ActionSetKey.trim().isEmpty() ) {
 					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessorCore_i, strMsgOpt1ActionSetKey, override);

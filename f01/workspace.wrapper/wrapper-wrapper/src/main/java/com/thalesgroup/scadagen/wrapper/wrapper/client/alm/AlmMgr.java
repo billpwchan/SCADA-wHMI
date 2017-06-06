@@ -5,11 +5,11 @@ import java.util.HashMap;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.HypervisorPresenterClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.view.HypervisorView;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.IALMComponentClient;
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.alm.ScsALMComponentAccess;
 
@@ -238,7 +238,7 @@ public class AlmMgr {
 		logger.info(className, function, "message[{}]", message);
 		logger.info(className, function, "translation[{}]", translation);
 		
-		if ( translation ) { message = Translation.getDBMessage(message); }
+		if ( translation ) { message = TranslationMgr.getInstance().getTranslation(message); }
 		
     	almComponent_.notifyExternalAlarm(key, scsEnvId
     			, configFileName, classId, pointAlias
@@ -285,7 +285,7 @@ public class AlmMgr {
 		logger.info(className, function, "message[{}]", message);
 		logger.info(className, function, "translation[{}]", translation);
 		
-		if ( translation ) { message = Translation.getDBMessage(message); }
+		if ( translation ) { message = TranslationMgr.getInstance().getTranslation(message); }
 		
     	almComponent_.notifyExternalEvent(key, scsEnvId
     			, configFileName, classId, pointAlias

@@ -17,7 +17,7 @@
 
    <properties>
         <scadasoft.version>6.3.1_P02</scadasoft.version>
-		<scadasoft.hv.version>6.3.1_P02-HV951</scadasoft.hv.version>
+		<scadasoft.hv.version>6.3.1_P02-HV951P01</scadasoft.hv.version>
         <hv.connector.sdk.version>2.11.1</hv.connector.sdk.version>
 		<hv.common.integ.version>1.10.1</hv.common.integ.version>
         <jcloverslf4j.version>1.7.21</jcloverslf4j.version>

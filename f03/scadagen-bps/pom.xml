@@ -14,7 +14,7 @@
 		<maven.compiler.target>1.6</maven.compiler.target>
         <hv.connector.sdk.version>2.11.1</hv.connector.sdk.version>
         <slf4j.version>1.6.1</slf4j.version>
-        <log4j.version>1.2.16</log4j.version>
+        <log4j.version>1.2.17</log4j.version>
         <scadasoft.version>6.3.1_P02</scadasoft.version>
 		<scadasoft.model.version>6.3.1</scadasoft.model.version>
 	</properties>
@@ -50,6 +50,12 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+        
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+            <version>1.2.17</version>
+        </dependency>
 		
         <dependency>
 			<groupId>com.thalesgroup.hv.common</groupId>

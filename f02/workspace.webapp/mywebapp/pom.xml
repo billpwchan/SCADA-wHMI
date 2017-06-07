@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.thalesgroup.hv.mwt</groupId>
         <artifactId>mwt</artifactId>
-        <version>3.7.1_QF01</version>
+        <version>3.7.2</version>
     </parent>
 
     <properties>
@@ -15,10 +15,10 @@
         <commons.whmi.fun.version>1.4.4</commons.whmi.fun.version>
 	
         <myproject.version>1.2.5</myproject.version>
-        <scadasoft.mwt.version>6.3.1_P02-HV951</scadasoft.mwt.version>
+        <scadasoft.mwt.version>6.3.1_P02-HV951P01</scadasoft.mwt.version>
         <jackson.version>2.8.4</jackson.version>
         <hv.common.integ.version>1.10.1</hv.common.integ.version>
-		<mwt.version>3.7.1_QF01</mwt.version>
+		<mwt.version>3.7.2</mwt.version>
 
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<selenium.version>2.53.1</selenium.version> 

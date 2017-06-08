@@ -12,21 +12,21 @@
   <parent>
     <artifactId>myproject-webapp-reactor</artifactId>
     <groupId>com.thalesgroup.hv.myproject</groupId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
   </parent>
   -->
   <groupId>com.thalesgroup.scadagen.whmi.webapp.entrypointswitch</groupId>
   <artifactId>webapp-entrypointswitch</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.3</version>
+  <version>1.4.4</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
   
-        <commons.uiwidget.version>1.4.3</commons.uiwidget.version>
-        <commons.whmi.version>1.4.3</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.3</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.3</commons.whmi.fun.version>
+        <commons.uiwidget.version>1.4.4</commons.uiwidget.version>
+        <commons.whmi.version>1.4.4</commons.whmi.version>
+        <commons.uiwrapper.version>1.4.4</commons.uiwrapper.version>
+        <commons.whmi.fun.version>1.4.4</commons.whmi.fun.version>
   
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>

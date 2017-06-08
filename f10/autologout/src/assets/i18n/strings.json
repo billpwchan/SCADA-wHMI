@@ -1,0 +1,20 @@
+{
+	"AUTOLOGOUT": {
+		"BUTTON": {
+			"RESET": "Reset",
+			"SAVE": "Save"
+		},
+		"ENABLED": "Enabled:",
+		"IDLE_THRESHOLD": {
+			"INPUT_PLACEHOLDER": "<Idling Time, in minutes>",
+			"LABEL": "Idling time, in minutes, for automatical logout:",
+			"VALUE_ERROR": "Idling threshold must be an integer >= 1"
+		},
+		"TITLE": "Auto Logout Parameters Configuration",
+		"WARN_THRESHOLD": {
+			"INPUT_PLACEHOLDER": "<Warning Time, in minutes>",
+			"LABEL": "Warning time, in minutes, for showing a warning message about idling:",
+			"VALUE_ERROR": "Warning threshold must be an integer >= 1, and <= idling time"
+		}
+	}
+}

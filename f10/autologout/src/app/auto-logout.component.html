@@ -1,0 +1,64 @@
+<div class="auto-logout">
+  <div class="auto-logout-title">{{'AUTOLOGOUT.TITLE' | translate}}</div>
+  <div class="auto-logout-enable">
+    <div class="auto-logout-enable-label">{{'AUTOLOGOUT.ENABLED' | translate}}</div>
+    <div class="auto-logout-enable-input">
+      <input
+        class="auto-logout-enable-input-checkbox"
+        type="checkbox"
+        [checked]="enabled"
+        (click)="onClick()"
+      >
+    </div>
+  </div>
+  <div class="auto-logout-idle-threshold">
+    <div class="auto-logout-idle-threshold-label">{{'AUTOLOGOUT.IDLE_THRESHOLD.LABEL' | translate}}</div>
+    <div class="auto-logout-idle-threshold-input">
+      <input
+        class="auto-logout-idle-threshold-input-textbox"
+        type="textbox"
+        placeholder="{{'AUTOLOGOUT.IDLE_THRESHOLD.INPUT_PLACEHOLDER' | translate}}"
+        [disabled]="!enabled"
+        (keyup)="onKeyup()"
+        [(ngModel)]="idleThresholdMinute"
+      >
+    </div>
+    <div
+      class="auto-logout-idle-threshold-error"
+      *ngIf="!isIdleThresholdValid()"
+    >{{'AUTOLOGOUT.IDLE_THRESHOLD.VALUE_ERROR' | translate}}</div>
+  </div>
+  <div class="auto-logout-warn-threshold">
+    <div class="auto-logout-warn-threshold-label">{{'AUTOLOGOUT.WARN_THRESHOLD.LABEL' | translate}}</div>
+    <div class="auto-logout-warn-threshold-input">
+      <input
+        class="auto-logout-warn-threshold-input-textbox"
+        type="textbox"
+        placeholder="{{'AUTOLOGOUT.WARN_THRESHOLD.INPUT_PLACEHOLDER' | translate}}"
+        [disabled]="!enabled"
+        (keyup)="onKeyup()"
+        [(ngModel)]="warnThresholdMinute"
+      >
+    </div>
+    <div
+      class="auto-logout-warn-threshold-error"
+      *ngIf="!isWarnThresholdValid()"
+    >{{'AUTOLOGOUT.WARN_THRESHOLD.VALUE_ERROR' | translate}}</div>
+  </div>
+  <div class="auto-logout-modify">
+    <div class="auto-logout-modify-save">
+      <button
+        class="auto-logout-modify-save-button"
+        [disabled]="!isModified() || !isIdleThresholdValid() || !isWarnThresholdValid()"
+        (click)="onSave()"
+      >{{'AUTOLOGOUT.BUTTON.SAVE' | translate}}</button>
+    </div>
+    <div class="auto-logout-modify-reset">
+      <button
+        class="auto-logout-modify-reset-button"
+        [disabled]="!isModified()"
+        (click)="onReset()"
+      >{{'AUTOLOGOUT.BUTTON.RESET' | translate}}</button>
+    </div>
+  </div>
+</div>

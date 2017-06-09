@@ -29,6 +29,8 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Databas
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgrEntryPoint;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -634,7 +636,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		if (isValLabelFromComputedMessage(address, PointType.dci)) {
 			value = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
 			if (value != null) {
-				label = Translation.getDBMessage(value);
+				label = TranslationMgr.getInstance().getTranslation(value);
 				logger.trace(className, function, "computedMessage[{}] translated to label[{}]", value, label);
 			}
 		} else {
@@ -697,7 +699,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		if (isValLabelFromComputedMessage(address, PointType.aci)) {
 			String compMsg = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
 			if (compMsg != null) {
-				value = Translation.getDBMessage(compMsg);
+				value = TranslationMgr.getInstance().getTranslation(compMsg);
 				logger.debug(className, function, "computedMessage[{}] translated to value label[{}]", compMsg, value);
 			}
 		} else {
@@ -734,7 +736,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		if (isValLabelFromComputedMessage(address, PointType.sci)) {
 			String compMsg = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
 			if (compMsg != null) {
-				value = Translation.getDBMessage(compMsg);
+				value = TranslationMgr.getInstance().getTranslation(compMsg);
 				logger.debug(className, function, "computedMessage[{}] translated to value label[{}]", compMsg, value);
 			}
 		} else {

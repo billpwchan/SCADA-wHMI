@@ -2,8 +2,6 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary;
 
 import java.util.Map;
 
-import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationEngine;
-import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgrFactory;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr.client.UIDialogMgr;
@@ -85,7 +83,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.matrix.ScsMatrixPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UILayoutSummaryFactoryDepot {
 	
@@ -105,14 +102,6 @@ public class UILayoutSummaryFactoryDepot {
 	public void init() {
 		final String function = "init";
 		logger.begin(className, function);
-		
-		TranslationMgr.getInstance().setTranslationEngine(new TranslationEngine() {
-			@Override
-			public String getMessage(String message) {
-				
-				return Translation.getDBMessage(message);
-			}
-		});
 		
 		UIDialogMgr uiDialogMgr = UIDialogMgr.getInstance();
 		uiDialogMgr.addUIDialogMgrFactory(className, new UIDialogMgrFactory() {

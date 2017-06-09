@@ -2,7 +2,6 @@ package com.thalesgroup.scadagen.wrapper.wrapper.server.translation;
 
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.ISessionListContainer;
 import com.thalesgroup.hypervisor.mwt.core.util.common.session.SessionContainer;
-import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.Dictionary;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.server.i18n.DictionaryManager;
@@ -19,52 +18,69 @@ public class Translation {
 	
 	private final static Logger logger			= LoggerFactory.getLogger(Translation.class.getName());
 	
-	private static String translatePatten = "&[0-9a-zA-Z/$_-]+";
-	public void setTranslatePatten(String translatePatten) { Translation.translatePatten = translatePatten; }
-	public String getTranslatePatten() { return Translation.translatePatten;}
+	private final static String strTranslatePattern	= "Translation_TranslatePatten_Server";
+	private final static String strTranslateFlag	= "Translation_TranslateFlag_Server";
+	
+	private static String translatePattern = "(^&\\S+)|\\s+(&\\S+)";
+	public void setTranslatePatten(String translatePatten) { Translation.translatePattern = translatePatten; }
+	public String getTranslatePatten() { return Translation.translatePattern;}
+	
+	private static int translateFlag = 0;
+	public void setTranslateFlag(int translateFlag) { Translation.translateFlag = translateFlag; }
+	public int getTranslateFlag() { return Translation.translateFlag;}
+	
+	private static void loadTranslationConfiguration(String sessionId) {
+		String tmpTranslatePattern = getWording(sessionId, strTranslatePattern);
+		if ( null != tmpTranslatePattern) {
+			translatePattern = tmpTranslatePattern; 
+		} else {
+			logger.warn("sessionId[{}] strTranslatePattern[{}] tmpTranslatePattern[{}] IS NULL", new Object[]{sessionId, strTranslatePattern, tmpTranslatePattern});
+		}
+		logger.debug("sessionId[{}] translatePattern[{}]", sessionId, translatePattern);
+		
+		String tmpTranslateFlag = getWording(sessionId, strTranslateFlag);
+		if ( null != tmpTranslateFlag) {
+			try {
+				translateFlag = Integer.parseInt(tmpTranslateFlag); 
+			} catch ( NumberFormatException ex ) {
+				logger.warn("sessionId[{}] strTranslateFlag[{}]", sessionId, strTranslateFlag);
+			}
+			
+		} else {
+			logger.warn("sessionId[{}] strTranslateFlag[{}] tmpTranslateFlag[{}] IS NULL", new Object[]{sessionId, strTranslateFlag, tmpTranslateFlag});
+		}
+		logger.debug("sessionId[{}] translateFlag[{}]", sessionId, translateFlag);
+	}
 
-	public static String getWording(String key) {
+	public static String getWording(String sessionId, String key) {
 		logger.debug("getWording[{}]", key);
 		String value = key;
         try {
-
-        	Dictionary dico = null;
-        	String currentLang = "en";
         	
-        	logger.debug("currentLang[{}] BF", currentLang);
-        	try {
-	        	String sessionId = SessionManager.getRequestCxtSessionId();
-	        	if ( null != sessionId ) {
-	            	if (ServicesImplFactory.getInstance() != null) {
-	            		ISessionListContainer sessionListContainer = (ISessionListContainer)ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
-	            		SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
-	    	        	if (sessionContainer != null) {
-	    	        		String string = sessionContainer.getAttributeTyped(String.class, "currentLang");
-	    	        		if ( null != string ) {
-	    	        			currentLang = string;
-	    	        		} else {
-	    	        			logger.warn("getWording string IS NULL!");
-	    	        		}
-	    	        	} else {
-	    	        		logger.warn("getWording sessionContainer IS NULL!");
-	    	        	}
-	            	} else {
-	            		logger.warn("getWording ServicesImplFactory.getInstance() IS NULL!");
-	            	}
-	        	} else {
-	        		logger.warn("getWording sessionId IS NULL!");
-	        	}
-        	} catch ( Exception e) {
-        		logger.warn("getWording currentLang e[{}]", e.toString());
-	    	}
-        	logger.debug("currentLang[{}] AF", currentLang);
+    		ISessionListContainer sessionListContainer = ServicesImplFactory.getInstance().getService(ISessionListContainer.class);
+//    		String sessionId = operatorOpmInfo.getSessionId();
+    		SessionContainer sessionContainer = sessionListContainer.getSessionContainer(sessionId);
         	
-        	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
-        	if ( null != dico ) {
-        		value = dico.getWording(key);
-        	} else {
-        		logger.error("dico IS NULL");
-        	}
+    		// Retrieve HV dictionary depending current language
+    		Dictionary dico = null;
+    		if (sessionContainer != null) {
+    			String currentLang = sessionContainer.getAttributeTyped(String.class, "currentLang");
+    			if (currentLang != null) {
+    	        	dico = DictionaryManager.getInstance().getDictionary(currentLang);     
+    	        	if ( null != dico ) {
+    	        		value = dico.getWording(key);
+    	        	} else {
+    	        		logger.error("dico IS NULL");
+    	        	}
+    			}
+    			else {
+    				logger.error("Current lang is null for session id {}", sessionId);
+    			}
+    		}
+    		else {
+    			logger.error("Cannot find container for session id {}", sessionId);
+    		}
+ 
         }
         catch (final MissingResourceException e) {
         	logger.warn("Can't find key [{}] in dictionary MissingResourceException[{}]", key, e.toString());
@@ -72,20 +88,21 @@ public class Translation {
         return value;
 	}
 	
-	public static String getDBMessage(String input) {
-		return Translation.getDBMessage(translatePatten, input);
+	public static String getDBMessage(String sessionId, String input) {
+		loadTranslationConfiguration(sessionId);
+		return Translation.getDBMessage(sessionId, translatePattern, translateFlag, input);
 	}
 	
-	public static String getDBMessage(String regex, String input) {
-		logger.trace("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, input});
-		String ret = input;
+	public static String getDBMessage(String sessionId, String regex, int flag, String inputStr) {
+		logger.trace("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, inputStr});
+		String ret = inputStr;
 		try {
-			Pattern p = Pattern.compile(regex);
-			Matcher m = p.matcher(input);
+			Pattern p = Pattern.compile(regex, flag);
+			Matcher m = p.matcher(inputStr);
 			while(m.find()) {
 				String key = m.group();
 				logger.trace("{} m.group()[{}]", "getDBMessage", key);
-				String translation = Translation.getWording(key);
+				String translation = Translation.getWording(sessionId, key);
 				
 				logger.trace("{} key[{}] translation[{}]", new Object[]{"getDBMessage", key, translation});
 				if ( null != translation ) {

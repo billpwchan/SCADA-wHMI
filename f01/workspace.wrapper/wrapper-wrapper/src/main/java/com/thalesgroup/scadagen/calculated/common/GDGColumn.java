@@ -100,7 +100,7 @@ public abstract class GDGColumn extends OlsDecoder {
 				
 				logger.debug("[{}] dataValue[{}]", new Object[]{logPrefix, dataValue});
 				
-				dataValue = Translation.getDBMessage(dataValue);
+				dataValue = Translation.getDBMessage(operatorOpmInfo.getSessionId(), dataValue);
 
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block

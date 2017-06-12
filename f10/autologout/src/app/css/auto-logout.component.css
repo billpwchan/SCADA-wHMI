@@ -1,0 +1,73 @@
+/* body styles */
+body {
+    font-family: Arial, "Liberation Sans", sans-serif;
+    margin: 1rem;
+    width: calc(100vw - /*margin*/1rem*2);
+    height: calc(100vh - /*margin*/1rem*2);
+    background: #c0c0c0;
+}
+
+/* common styles */
+input[type=checkbox],
+button {
+    cursor: pointer;
+}
+
+button[disabled] {
+    cursor: default;
+}
+
+/* title styles */
+.auto-logout-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* parameters styles */
+.auto-logout-enable {
+    display: flex;
+    flex: 1 1 column;
+}
+
+.auto-logout-enable,
+.auto-logout-idle-threshold,
+.auto-logout-warn-threshold {
+    clear: both;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.auto-logout-enable-input-checkbox {
+    margin: 0rem 0rem 0rem 1rem;
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.auto-logout-idle-threshold-input > input,
+.auto-logout-warn-threshold-input > input {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: 1.5rem;
+    float: left;
+}
+
+/* action styles */
+.auto-logout-modify {
+    clear: both;
+    display: flex;
+    flex: 1 1 column;
+}
+
+.auto-logout-modify button {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    font-size: 1.5rem;
+}
+
+/* warning message styles */
+.auto-logout-idle-threshold-error,
+.auto-logout-warn-threshold-error {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    color: red;
+    height: 100%;
+    vertical-align: middle;
+}

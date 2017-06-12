@@ -176,7 +176,7 @@ window.SCADAGEN.AUTOLOGOUT = (function(){
     const monitorSettings = () => {
         const rawSettings = localStorage[localStorageId];
         if (undefined === rawSettings) {
-            if (verbosity >= LOG_INFO) { console.log('[SCADAGEN_AUTOLOGOUT]', '[monitorSettings]', 'No Auto Logout Configured'); }
+            if (verbosity >= LOG_DEBUG) { console.log('[SCADAGEN_AUTOLOGOUT]', '[monitorSettings]', 'No Auto Logout Configured'); }
         } else {
             const currentSettings = JSON.parse(rawSettings);
             let invalidSettings = false;
@@ -223,7 +223,7 @@ window.SCADAGEN.AUTOLOGOUT = (function(){
                     }
                     activityMonitor.start(settings);
                 } else {
-                    if (verbosity >= LOG_INFO) {
+                    if (verbosity >= LOG_DEBUG) {
                         console.log(
                             '[SCADAGEN_AUTOLOGOUT]',
                             '[monitorSettings]',

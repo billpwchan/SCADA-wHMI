@@ -56,16 +56,17 @@ public class UIEventActionJS extends UIEventActionExecute_i {
 			}
 			
 			String jsondata = request.toString();
-			
 			logger.debug(className, function, "jsondata[{}]", jsondata);
-			
-			logger.debug(className, function, "Calling Begin callJsByGwt...");
+
+			logger.debug(className, function, "Entry callJsByGwt Try Black...");
 			try {
+				logger.debug(className, function, "Calling Begin callJsByGwt...");
 				callJSByGWT(jsondata);
+				logger.debug(className, function, "Calling End callJsByGwt.");
 			} catch ( Exception ex ) {
 				logger.warn(className, function, "execute Exception["+ex.toString()+"]");
 			}
-			logger.debug(className, function, "Calling End callJsByGwt.");
+			logger.debug(className, function, "Exit callJsByGwt Try Black.");
 		}
 		
 		logger.end(className, function);
@@ -73,7 +74,7 @@ public class UIEventActionJS extends UIEventActionExecute_i {
 	}
 	
 	public native void callJSByGWT (String jsonstring) /*-{
-		$wnd.uieventaction.callJSByGWT(jsonstring);
+		$wnd.SCADAGEN.UIEVENTACTION.callJSByGWT(jsonstring);
 	}-*/;
 
 }

@@ -89,8 +89,7 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 			strTitle	= TranslationMgr.getInstance().getTranslation(strTitle);
 			strMessage	= TranslationMgr.getInstance().getTranslation(strMessage);
 			
-			UIDialogMgr uiDialogMsgMgr = UIDialogMgr.getInstance();
-			UIDialogMsg uiDialgogMsg = (UIDialogMsg) uiDialogMsgMgr.getDialog(UIEventActionDialogMsgAction.UIDialogMsg.toString());
+			UIDialogMsg uiDialgogMsg = (UIDialogMsg) UIDialogMgr.getInstance().getDialog(UIEventActionDialogMsgAction.UIDialogMsg.toString());
 			if ( null != uiDialgogMsg ) {
 				uiDialgogMsg.setUINameCard(uiNameCard);
 				uiDialgogMsg.setDialogMsg(uiConfimDlgType, strTitle, strMessage);
@@ -99,14 +98,14 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessorCore_i, strMsgOpt1ActionSetKey, override);
 					uiDialgogMsg.setResponse(UIDialogMsgEventType.MSG_OPT_1.toString(), action1);
 				} else {
-					 logger.warn(className, function, logPrefix+"strMsgOpt1ActionSetKey[{}] IS INVALID", strMsgOpt1ActionSetKey);
+					logger.warn(className, function, logPrefix+"strMsgOpt1ActionSetKey[{}] IS INVALID", strMsgOpt1ActionSetKey);
 				}
 
 				if ( strMsgOpt2ActionSetKey != null && ! strMsgOpt2ActionSetKey.trim().isEmpty() ) {
 					UIDialogMsgCtrl_i action2 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessorCore_i, strMsgOpt2ActionSetKey, override);
 					uiDialgogMsg.setResponse(UIDialogMsgEventType.MSG_OPT_2.toString(), action2);
 				} else {
-					 logger.warn(className, function, logPrefix+"strMsgOpt2ActionSetKey[{}] IS INVALID", strMsgOpt2ActionSetKey);
+					logger.warn(className, function, logPrefix+"strMsgOpt2ActionSetKey[{}] IS INVALID", strMsgOpt2ActionSetKey);
 				}
 
 				uiDialgogMsg.popUp();

@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container
 import java.util.HashMap;
 
 import com.google.gwt.user.client.ui.Panel;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -87,7 +88,29 @@ public class UIPanelNavigation extends UIWidget_i {
 	
 	@Override
 	public Panel getMainPanel() {
-		return getMenu(this.uiNameCard, (String)parameters.get("menuLevel"), (String)parameters.get("menuType"));
+		final String function = "getMainPanel";
+		logger.begin(className, function);
+		
+		String menuLevel = null;
+		String menuType = null;
+		
+		logger.info(className, function, "getMenu optsXMLFile[{}]", optsXMLFile);
+		
+		String strUIWidgetGeneric = "UIWidgetGeneric";
+		String strHeader = "header";
+		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
+		if ( null != dictionariesCache ) {
+			menuLevel	= dictionariesCache.getStringValue(optsXMLFile, UIPanelNavigation_i.ParameterName.MenuLevel.toString(), strHeader);
+			menuType	= dictionariesCache.getStringValue(optsXMLFile, UIPanelNavigation_i.ParameterName.MenuType.toString(), strHeader);
+		}
+		
+		logger.info(className, function, "getMenu menuLevel[{}] menuType[{}]", menuLevel, menuType);
+		
+		logger.end(className, function);
+		
+		return getMenu(this.uiNameCard, menuLevel, menuType);
+		
+//		return getMenu(this.uiNameCard, (String)parameters.get("menuLevel"), (String)parameters.get("menuType"));
 	}
 
 }

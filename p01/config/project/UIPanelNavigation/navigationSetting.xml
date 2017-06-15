@@ -1464,4 +1464,30 @@
 		<tooltips>Verify Translation Summary</tooltips>
 	</option>
 	
+	<option key="180">
+		<type>M</type>
+		<name>Verify ScsRTDBComponent Summary</name>
+		<title>Verify ScsRTDBComponent Summary</title>
+		<!--
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
+		<tooltips>Verify ScsRTDBComponent Summary</tooltips>
+		-->
+	</option>
+	
+	<option key="185">
+		<type>P</type>
+		<name>Simultaneous Login Summary</name>
+		<title>Simultaneous Login Summary</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointSimultaneousLoginSummary/UILayoutEntryPointPTWSummary.view.xml</uiView>
+		<tooltips>Login Summary</tooltips>
+	</option>
+	
+
+	
 </data-set>

@@ -13,10 +13,17 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.ClientLogge
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.client.event.AlarmSelectionChangeEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.entity.EntityClient;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.AlarmDataGridPresenterClient;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.update.GDGData;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.update.GDGPage;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterChangeEventAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterRemoveEvent;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.view.header.event.FilterSetEvent;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.mvp.presenter.update.IPresenterUpdate;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.situation.presenter.SituationViewPresenterClient;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.CounterEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.FilterEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.UpdateEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
 
 
@@ -32,7 +39,7 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 	private SelectionEvent selectionEvent = null;
 	public SelectionEvent getSelectionEvent() { return selectionEvent; }
 	public void setSelectionEvent(SelectionEvent selectionEvent) { this.selectionEvent = selectionEvent; }
-	
+
 	private FilterEvent filterEvent = null;
 	public FilterEvent getFilterEvent() { return filterEvent; }
 	public void setFilterEvent(FilterEvent filterEvent) { this.filterEvent = filterEvent; }
@@ -40,6 +47,10 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
 	private CounterEvent counterEvent = null;
 	public CounterEvent getCounterEvent() { return counterEvent; }
 	public void setCounterEvent(CounterEvent counterEvent) { this.counterEvent = counterEvent; }
+
+	private UpdateEvent updateEvent = null;
+	public UpdateEvent getUpdateEvent() { return updateEvent; }
+	public void setUpdateEvent(UpdateEvent updateEvent) { this.updateEvent = updateEvent; }
 
     /**
      * Used to know which entities are selected in the view
@@ -212,6 +223,56 @@ public class ScsAlarmDataGridPresenterClient extends AlarmDataGridPresenterClien
     		 LOGGER.warn(LOG_PREFIX+"updateCounter counterEvent IS NULL");
     	 }
     	 LOGGER.trace(LOG_PREFIX+"updateCounter End");
+    }
+    
+    @Override
+    public void update(final IPresenterUpdate presUpdate) {
+    	super.update(presUpdate);
+
+    	if ( null != updateEvent ) {
+    		
+    		Set<Map<String, String>> set = null;
+    		
+	        if (presUpdate instanceof GDGData) {
+	        	
+	            final GDGData update = (GDGData) presUpdate;
+	
+	            GDGPage page = update.getPage();
+	            if ( null != page ) {
+	            	int start = page.getStart();
+	
+	            	LOGGER.debug(LOG_PREFIX+"update page.start["+start+"]");
+	            	
+	            	List<EntityClient> entitys = page.getDisplayedEntities();
+	            	
+	            	if ( null != entitys ) {
+	            		
+	            		int size = entitys.size();
+	            		
+	            		LOGGER.debug(LOG_PREFIX+"update entitys.size["+size+"]");
+	            		
+	            		set = new HashSet<Map<String, String>>();
+	            		
+	                	for ( EntityClient entity : entitys ) {
+	    	            	Map<String, String> details = new HashMap<String, String>();
+	    	            	for ( String attributeName : entity.attributeNames() ) {
+//	    	            		LOGGER.debug(LOG_PREFIX+"update entity.getAttribute("+attributeName+")["+entity.getAttribute(attributeName).getValue().toString()+"]");
+	    	             		details.put(attributeName, entity.getAttribute(attributeName).getValue().toString());
+	    	            	}
+	    	            	set.add(details);
+	                	}
+	            	} else {
+	            		LOGGER.warn(LOG_PREFIX+"update entitys IS NULL");
+	            	}
+	            } else {
+	            	LOGGER.warn(LOG_PREFIX+"update page IS NULL");
+	            }
+	            
+	            if ( null != set ) {
+	            	updateEvent.onUpdate(set);
+	            }
+	        }
+		}
     }
 
 }

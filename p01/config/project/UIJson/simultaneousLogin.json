@@ -1,0 +1,18 @@
+{
+	"OpmApi": "UIOpmSCADAgen"
+	, "OpmIdentityType": "HostName"
+	, "DbAttrResrvReserveReqID": ".resrvReserveReqID"
+	, "DbAttrResrvUnreserveReqID": ".resrvUnreserveReqID"
+	, "GWS":[
+	{
+	"Key":"127.0.0.1"
+	, "Alias":"<alias>CTVECTMFD_0001"
+	, "ScsEnvId":"OCCENVCONN"
+	}
+	,{
+	"Key":"PC16011"
+	, "Alias":"<alias>CTVECTMFD_0001"
+	, "ScsEnvId":"OCCENVCONN"
+	}
+	]
+}

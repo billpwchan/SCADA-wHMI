@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.mgrfactory.MgrFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Observer;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.observer.Subject;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.tsc.TscMgr;
@@ -20,6 +21,8 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIIWidgetVerifyTSCControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private String strTscMgr = "TscMgr";
 	
 	private Subject getSubject() {
 		final String function = "getSubject";
@@ -63,7 +66,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		long startTime = Long.parseLong(strStartTime);
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -85,7 +88,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		int interval = Integer.parseInt(strInterval);
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -106,7 +109,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strFilter		= uiGeneric.getWidgetValue("filtervalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientnamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -129,7 +132,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		long endTime = Long.parseLong(strEndTime);
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -150,7 +153,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strDescription	= uiGeneric.getWidgetValue("descriptionvalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientnamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -179,7 +182,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 			dates[i] = Integer.parseInt(datesarr[i]);
 		}
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -199,7 +202,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strCommand		= uiGeneric.getWidgetValue("commandvalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientname");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -221,7 +224,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		int arguments = Integer.parseInt(strArguments);
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -241,7 +244,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strArguments		= uiGeneric.getWidgetValue("argumentsvalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientname");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -259,7 +262,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -276,7 +279,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -295,7 +298,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -314,7 +317,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -333,7 +336,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -352,7 +355,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -371,7 +374,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -390,7 +393,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -409,7 +412,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -427,7 +430,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strClientKey		= uiGeneric.getWidgetValue("clientkeyvalue");
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -447,7 +450,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		
 		int id = Integer.parseInt(strId);
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -466,7 +469,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -485,7 +488,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -505,7 +508,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientname");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -524,7 +527,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strScsEnvId		= uiGeneric.getWidgetValue("scsenvidvalue");
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -544,7 +547,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientname");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -564,7 +567,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientname");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -601,7 +604,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		int log = Integer.parseInt(strLog);
 		int removeAtEnd = Integer.parseInt(strRemoveAtEnd);
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		
@@ -625,7 +628,7 @@ public class UIIWidgetVerifyTSCControl extends UIWidgetRealize {
 		String strTaskName		= uiGeneric.getWidgetValue("tasknamevalue");
 		String strClientName	= uiGeneric.getWidgetValue("clientname");
 		
-		TscMgr tscMgr = (TscMgr) TscMgr.getInstance(strTsckey);
+		TscMgr tscMgr = (TscMgr) MgrFactory.getInstance().getMgr(strTscMgr, strTsckey);
 		
 		tscMgr.setSubject(className + function, getSubject());
 		

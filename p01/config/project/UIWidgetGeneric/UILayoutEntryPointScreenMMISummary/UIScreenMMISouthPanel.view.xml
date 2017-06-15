@@ -26,7 +26,7 @@
 	
 	<option key="0|2">
 		<type>widgetconfiguration</type>
-		<uiCtrl>UIPanelNavigation_1</uiCtrl>
+		<uiCtrl>UIPanelNavigation</uiCtrl>
 		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_1.view.xml</uiView>
 		<direction>Center</direction>
 		<width>160</width>

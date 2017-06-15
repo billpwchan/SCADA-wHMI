@@ -91,6 +91,10 @@ public interface UIWidgetGeneric_i {
 		, debugId("debugId")
 		
 		, widgetStatus("widgetStatus")
+		
+		, uiCtrl("uiCtrl")
+		, uiView("uiView")
+		, uiOpts("uiOpts")
 		;
 		
 		private final String text;

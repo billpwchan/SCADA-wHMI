@@ -104,8 +104,8 @@ public class UIScreenMMI extends UIWidget_i {
 		uiEventActionProcessor_i.executeActionSet("init_delay", delay, null);
 		
 		//Start the Navigation Menu
-		logger.info(className, function, "Start the Navigation Menu Begin");
-		
+		logger.debug(className, function, "Start the Navigation Menu Begin");
+
 		UIPanelNavigation.getInstance().getMenus(this.uiNameCard).readyToGetMenu("", "", 0, "");
 		
 		logger.end(className, function);

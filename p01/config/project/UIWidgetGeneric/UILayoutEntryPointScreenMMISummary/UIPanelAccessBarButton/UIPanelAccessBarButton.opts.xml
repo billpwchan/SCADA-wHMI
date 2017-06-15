@@ -49,9 +49,36 @@
 	
 	<actionset key="logout_process">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>logout_event</OperationString1>
-		<OperationString2>logout_opm</OperationString2>
+		<OperationString1>simultaneous_logout_request</OperationString1>
+		<OperationString2>logout_event</OperationString2>
+		<OperationString3>logout_opm</OperationString3>
 	</actionset>
+	
+	<actionset key="simultaneous_logout_request">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>simultaneous_logout_request</OperationString1>
+	</actionset>
+	
+	<action key="simultaneous_logout_request">
+		<OperationType>action</OperationType>
+		<OperationAction>simlogin</OperationAction>
+		<OperationString1>SimultaneousLogout</OperationString1>
+		<OperationString2>UIOpmSCADAgen</OperationString2>
+	</action>
+	
+	<actionset key="logout_request_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>logout_request_procedure</OperationString1>
+	</actionset>
+	
+	<action key="logout_request_procedure">
+		<OperationType>action</OperationType>
+		<OperationAction>dbm</OperationAction>
+		<OperationString1>WriteStringValue</OperationString1>
+		<OperationString2>ScsEnvID</OperationString2>
+		<OperationString3>dbalias</OperationString3>
+		<OperationString4>1</OperationString4>
+	</action>
 	
 	<actionset key="logout_event">
 		<OperationType>actionsetkey</OperationType>

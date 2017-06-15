@@ -1,6 +1,13 @@
 @import url("project-standand.css");
 @import url("project-list.css");
 @import url("project-panel.css");
+
+@import url("UILayoutEntryPointUIGws/import-folder.css");
+@import url("UILayoutEntryPointSpringLogin/import-folder.css");
+@import url("UILayoutEntryPointUIGwsLogin/import-folder.css");
+@import url("UILayoutEntryPointUIGwsCache/import-folder.css");
+@import url("UILayoutEntryPointUIPanelScreen/import-folder.css");
+
 @import url("UIDialogMsg/import-folder.css");
 @import url("UILayoutEntryPointDpcTagSummary/import-folder.css");
 @import url("UILayoutEntryPointLoginSummary/import-folder.css");
@@ -13,3 +20,5 @@
 @import url("UILayoutEntryPointSocSummary/import-folder.css");
 @import url("UILayoutEntryPointAlarmSummary/import-folder.css");
 @import url("UILayoutEntryPointVerifyHILCSummary/import-folder.css");
+@import url("UILayoutEntryPointPTWSummary/import-folder.css");
+@import url("UILayoutEntryPointSimultaneousLoginSummary/import-folder.css");

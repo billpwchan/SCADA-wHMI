@@ -349,10 +349,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		if ( null == profileNames ) {
 			getCurrentProfiles();
 		}
-		if ( null != profileNames ) {
-			if ( profileNames.length > 0 ) {
-				profile = profileNames[0];
-			}
+		if ( null != profileNames && profileNames.length > 0 ) {
+			profile = profileNames[0];
 		}
 		logger.debug(className, function, "profile[{}]", profile);
 		logger.end(className, function);

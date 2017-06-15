@@ -1,0 +1,16 @@
+.project-UIGwsLogin-from {
+	width: 100%;
+	height: 100%;
+}
+.project-UIGwsLogin-panel {
+	width: 100vw;
+	height: 100vh;
+	background-color: #BEBEBE;
+}
+.project-UIGwsLogin-label-connect {
+	width: 100vw;
+	height: 100vh;
+	text-align: center;
+	margin-top: calc(50vh - 2rem / 2);
+	font-size: 2rem;
+}

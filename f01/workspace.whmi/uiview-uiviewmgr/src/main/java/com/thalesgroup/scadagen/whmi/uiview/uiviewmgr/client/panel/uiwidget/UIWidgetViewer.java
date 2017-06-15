@@ -36,10 +36,11 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.event.ScsOlsListP
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanelMenu;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.panel.ScsOlsListPanel_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.CounterEvent;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.FilterEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.CounterEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.FilterEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.ScsAlarmDataGridPresenterClient;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.SelectionEvent;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.presenter.event.UpdateEvent;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperation_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
@@ -60,6 +61,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 	private ScsAlarmDataGridPresenterClient gridPresenter	= null;
 	private ScsGenericDataGridView gridView					= null;
 	private ScsOlsListPanelMenu contextMenu					= null;
+	
+	private boolean enableRowUpdated = false;
 	
 	public void removeFilter() {
 		final String function = "removeFilter";
@@ -119,8 +122,14 @@ public class UIWidgetViewer extends UILayoutRealize {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			scsOlsListElement			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.ScsOlsListElement.toString(), strHeader);
+		
+			String strEnableRowUpdated	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.EnableRowUpdated.toString(), strHeader);
+			if ( null != strEnableRowUpdated && ! strEnableRowUpdated.isEmpty() ) {
+				enableRowUpdated = Boolean.parseBoolean(strEnableRowUpdated);
+			}
 		}
 		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
+		logger.debug(className, function, "enableRowUpdated[{}]", enableRowUpdated);
 		
 		if ( null == scsOlsListElement ) {
 			
@@ -150,12 +159,34 @@ public class UIWidgetViewer extends UILayoutRealize {
 			
 			if ( null != gridPresenter ) {
 				
+				gridPresenter.setUpdateEvent(new UpdateEvent() {
+
+					@Override
+					public void onUpdate(Set<Map<String, String>> entities) {
+						final String function = "onUpdate fireUpdateEvent";
+						logger.begin(className, function);
+						
+						if ( enableRowUpdated ) {
+							
+							String actionsetkey = "RowUpdated";
+							HashMap<String, Object> parameter = new HashMap<String, Object>();
+							parameter.put(ViewAttribute.OperationObject1.toString(), entities);
+							
+							HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+							override.put("RowUpdated", parameter);
+							
+							uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+						}
+						
+						logger.end(className, function);
+					}
+				});
+				
 				gridPresenter.setSelectionEvent(new SelectionEvent() {
 
 					@Override
 					public void onSelection(Set<HashMap<String, String>> entities) {
 						final String function = "onSelection fireFilterEvent";
-						
 						logger.begin(className, function);
 						
 						String actionsetkey = "RowSelected";
@@ -176,7 +207,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onFilterChange(ArrayList<String> columns) {
 						final String function = "onFilterChange fireFilterEvent";
-
 						logger.begin(className, function);
 						
 						// Dump
@@ -202,7 +232,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void onCounterChange(Map<String, Integer> countersValue) {
 						final String function = "onCounterChange fire onCounterChange";
-						
 						logger.begin(className, function);
 						
 						if ( null != countersValue ) {
@@ -237,7 +266,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void buttonOperation(String operation, boolean status) {
 						final String function = "setButtonOperation buttonOperation";
-						
 						logger.begin(className, function);
 						
 						logger.debug(className, function, "operation[{}] status[{}]", operation, status);
@@ -268,7 +296,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void pageStart(int pageStart) {
 						final String function = "setCreateText pageStart";
-						
 						logger.begin(className, function);
 						
 						String strType = "PageStart";
@@ -293,7 +320,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void endIndex(int endIndex) {
 						final String function = "setCreateText endIndex";
-						
 						logger.begin(className, function);
 						
 						String strType = "EndIndex";
@@ -318,7 +344,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 					@Override
 					public void exact(boolean exact, int dataSize) {
 						final String function = "setCreateText exact";
-						
 						logger.begin(className, function);
 						
 						String strType = "Exact";

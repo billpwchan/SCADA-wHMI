@@ -4,7 +4,11 @@ public interface UIEventActionOpm_i {
 	public enum UIEventActionOpmAction {
 		  OpmLogin("OpmLogin")
 		, OpmLogout("OpmLogout")
-		, OpmChangePassword("OpmChangePassword") 
+		, OpmChangePassword("OpmChangePassword")
+		, SimultaneousLogin("SimultaneousLogin")
+		, SimultaneousLogout("SimultaneousLogout")
+		, JSSessionStart("JSSessionStart")
+		, JSSessionEnd("JSSessionEnd")
 		;
 		private final String text;
 		private UIEventActionOpmAction(final String text) { this.text = text; }

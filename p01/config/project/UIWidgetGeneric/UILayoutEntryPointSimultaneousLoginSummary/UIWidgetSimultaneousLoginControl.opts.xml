@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+
+		<!-- Column Name to retrive the Workstation Identity ID -->
+		<ColumnNameIdentity>gdg_column_identity</ColumnNameIdentity>
+		
+		<!-- Column Name to retrive the Current Workstation Reserved ID -->
+		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
+		
+		<!-- DB Attribute to write the Workstation Reserve Request -->
+		<DbAttrNameResrvReserveReqID>.resrvReserveReqID</DbAttrNameResrvReserveReqID>
+		
+		<!-- DB Attribute to write the Workstation Unreserve Request -->
+		<DbAttrNameResrvUnreserveReqID>.resrvUnreserveReqID</DbAttrNameResrvUnreserveReqID>
+		
+		<!-- Record Threshold for the invalid action -->
+		<RecordThreshold>1</RecordThreshold>
+		
+		<!-- Checking delay Time in MS-->
+		<CheckingDelayTime>15000</CheckingDelayTime>
+	</header>
+	
+	<!-- Begin of life -->
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_init">
+		<OperationType>actionsetkey</OperationType>
+		<!--
+		<OperationString1>set_set_disable</OperationString1>
+		<OperationString2>set_unset_disable</OperationString2>
+		<OperationString3>set_apply_disable</OperationString3>
+		-->
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
+	
+	<!-- Write Identity to DB to reserve the Gws-->
+	<actionset key="simultaneous_login_request">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>simultaneous_login_request</OperationString1>
+	</actionset>
+	
+	<action key="simultaneous_login_request">
+		<OperationType>action</OperationType>
+		<OperationAction>simlogin</OperationAction>
+		<OperationString1>SimultaneousLogin</OperationString1>
+	</action>
+	
+	<!-- Write Identity to DB to unreserve the Gws-->
+	<actionset key="simultaneous_logout_request">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>simultaneous_logout_request</OperationString1>
+	</actionset>
+	
+	<action key="simultaneous_logout_request">
+		<OperationType>action</OperationType>
+		<OperationAction>simlogin</OperationAction>
+		<OperationString1>SimultaneousLogout</OperationString1>
+	</action>
+	
+	<actionset key="login_request_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_request_procedure</OperationString1>
+	</actionset>
+	
+	<action key="login_request_procedure">
+		<OperationType>action</OperationType>
+		<OperationAction>dbm</OperationAction>
+		<OperationString1>WriteStringValue</OperationString1>
+		<OperationString2>ScsEnvID</OperationString2>
+		<OperationString3>dbalias</OperationString3>
+		<OperationString4>1</OperationString4>
+	</action>
+	
+	<actionset key="logout_request_procedure">
+		<OperationType>actionsetkey</OperationType>
+		
+	</actionset>
+	
+	<action key="logout_request_procedure">
+		<OperationType>action</OperationType>
+		<OperationAction>dbm</OperationAction>
+		<OperationString1>WriteStringValue</OperationString1>
+		<OperationString2>ScsEnvID</OperationString2>
+		<OperationString3>dbalias</OperationString3>
+		<OperationString4>1</OperationString4>
+	</action>
+	
+	<actionset key="login_valid_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_session_start_request</OperationString1>
+		<OperationString2>login_valid_procedure</OperationString2>
+	</actionset>
+	
+	<action key="login_session_start_request">
+		<OperationType>action</OperationType>
+		<OperationAction>simlogin</OperationAction>
+		<OperationString1>JSSessionStart</OperationString1>
+	</action>
+	
+	<actionset key="login_session_start">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_session_start</OperationString1>
+	</actionset>	
+
+	<action key="login_session_start">
+		<OperationType>action</OperationType>
+		<OperationAction>js</OperationAction>
+		<OperationString1>CallJSByGWT</OperationString1>
+		<OperationString2>SessionStart</OperationString2>
+		<OperationString3>user</OperationString3>
+		<OperationString4>profile</OperationString4>
+		<OperationString5>scsenvid</OperationString5>
+		<OperationString6>alias</OperationString6>
+		<OperationString7>value</OperationString7>
+		<OperationString8>5</OperationString8>
+	</action>
+	
+	<action key="login_valid_procedure">
+		<OperationType>action</OperationType>
+		<OperationAction>uitask</OperationAction>
+		<OperationString1>UITaskLaunch_UIWidgetMgrFactory</OperationString1>
+		<OperationString2>:UIGws:UIPanelScreen</OperationString2>
+		<OperationString3>0</OperationString3>
+		<OperationString4>UIScreenMMI</OperationString4>
+		<OperationString5>UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml</OperationString5>
+		<OperationString6>UILayoutEntryPointScreenMMISummary/UIScreenMMI.opts.xml</OperationString6>
+		<OperationString7>UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml</OperationString7>
+	</action>
+	
+	<actionset key="login_invalid_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirm_msg</OperationString1>
+	</actionset>
+	
+	<action key="confirm_msg">
+		<OperationType>confirm_msg</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_WAR</OperationString2>
+		<OperationString3>Operator with the same profile was logged-in in other areas.</OperationString3>
+		<OperationString4>Operator with the same profile was logged-in in other areas.</OperationString4>
+		<OperationString5>forward_invalid_procedure</OperationString5>
+	</action>
+
+	<actionset key="forward_invalid_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_session_end</OperationString1>
+		<OperationString2>logout_event</OperationString2>
+		<OperationString3>logout_opm</OperationString3>
+	</actionset>
+
+	<action key="login_session_end">
+		<OperationType>action</OperationType>
+		<OperationAction>js</OperationAction>
+		<OperationString1>CallJSByGWT</OperationString1>
+		<OperationString2>SessionEnd</OperationString2>
+	</action>
+
+	<action key="logout_event">
+		<OperationType>action</OperationType>
+		<OperationAction>alm</OperationAction>
+		<OperationString1>NotifyExternalEvent</OperationString1>
+		<OperationString2>Key</OperationString2>
+		<OperationString3>OCCENVCONN</OperationString3>
+		<OperationString4>ConfigFileName</OperationString4>
+		<OperationString5>1</OperationString5>
+		<OperationString6>PointAlias</OperationString6>
+		<OperationString7>1</OperationString7>
+		<OperationString8>1</OperationString8>
+		<OperationString9>GETOPERATOR : Logout on GETWORKSTATION</OperationString9>
+		<OperationString10>UIOpmSCADAgen</OperationString10>
+	</action>
+	
+	<action key="logout_opm">
+		<OperationType>action</OperationType>
+		<OperationAction>opm</OperationAction>
+		<OperationString1>OpmLogout</OperationString1>
+	</action>
+
+</data-set>

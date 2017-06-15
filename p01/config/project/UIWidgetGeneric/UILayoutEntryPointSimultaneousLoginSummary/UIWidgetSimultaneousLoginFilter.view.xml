@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>4</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-gwt-simplepanel-filterview</rootCss>
+		<cssFlexTable>project-gwt-verticalpanel-filterview</cssFlexTable>
+	</header>
+	
+	<option key="0|0">
+		<widget>RadioButton</widget>
+		<label>Un-Tagged</label>
+		<groupName>simultaneousloginsetunset</groupName>
+		<css>project-gwt-button-filterview-button-0-0</css>
+		
+		<cssContainer>project-gwt-button-filterview-container-0-0</cssContainer>
+		
+		<cssUp>project-gwt-button-filterview-button-0-0-up</cssUp>
+		<cssDown>project-gwt-button-filterview-button-0-0-down</cssDown>
+		<cssDisable>project-gwt-button-filterview-button-0-0-disable</cssDisable>
+		
+		<tooltipUp>SimultaneousLogin Unset List</tooltipUp>
+		<tooltipDown>SimultaneousLogin Unset List Avaiable</tooltipDown>
+		<tooltipDisable>SimultaneousLogin Unset List Disabled</tooltipDisable>
+		<element>set0</element>
+	</option>
+	
+	<option key="0|1">
+		<widget>RadioButton</widget>
+		<label>Tagged</label>
+		<groupName>simultaneousloginsetunset</groupName>
+		<css>project-gwt-button-filterview-button-0-1</css>
+		
+		<cssContainer>project-gwt-button-filterview-container-0-1</cssContainer>
+		
+		<cssUp>project-gwt-button-filterview-button-0-1-up</cssUp>
+		<cssDown>project-gwt-button-filterview-button-0-1-down</cssDown>
+		<cssDisable>project-gwt-button-filterview-button-0-1-disable</cssDisable>
+		
+		<tooltipUp>SimultaneousLogin Set List</tooltipUp>
+		<tooltipDown>SimultaneousLogin Set List Avaiable</tooltipDown>
+		<tooltipDisable>SimultaneousLogin Set List Disabled</tooltipDisable>
+		<element>set1</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>Filter Reset</label>
+		<css>project-gwt-button-filterview-button-0-2</css>
+		
+		<cssContainer>project-gwt-button-filterview-container-0-2</cssContainer>
+		
+		<cssUp>project-gwt-button-filterview-button-0-2-up</cssUp>
+		<cssDown>project-gwt-button-filterview-button-0-2-down</cssDown>
+		<cssDisable>project-gwt-button-filterview-button-0-2-disable</cssDisable>
+		
+		<tooltipUp>Filter Reset</tooltipUp>
+		<tooltipDown>Filter Reset Avaiable</tooltipDown>
+		<tooltipDisable>Filter Reset Disabled</tooltipDisable>
+		
+		<element>clear</element>
+	</option>
+	
+	<option key="0|3">
+		<widget>Button</widget>
+		<label>Filter Applied</label>
+		<css>project-gwt-button-filterview-button-0-3</css>
+		
+		<cssContainer>project-gwt-button-filterview-container-0-3</cssContainer>
+		
+		<cssUp>project-gwt-button-filterview-button-0-3-up</cssUp>
+		<cssDown>project-gwt-button-filterview-button-0-3-down</cssDown>
+		<cssDisable>project-gwt-button-filterview-button-0-3-disable</cssDisable>
+		
+		<tooltipUp>Filter Applied</tooltipUp>
+		<tooltipDown>Filter Applied Avaiable</tooltipDown>
+		<tooltipDisable>Filter Applied Disabled</tooltipDisable>
+		
+		<element>applied</element>
+	</option>
+	
+</data-set>

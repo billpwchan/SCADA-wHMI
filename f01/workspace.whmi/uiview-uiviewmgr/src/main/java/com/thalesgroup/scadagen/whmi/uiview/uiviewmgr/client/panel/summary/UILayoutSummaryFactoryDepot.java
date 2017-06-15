@@ -19,6 +19,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionGrc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionJS;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionSimultaneousLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
@@ -40,6 +41,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWi
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetMatrixViewer;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetOPMChangePasswordControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSimultaneousLoginControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocDelayControl;
@@ -55,6 +57,8 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabasePollingControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseSubscriptionControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.db.UIWidgetVerifyDatabaseWritingControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dbm.UIWidgetVerifyDatabaseControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dbm.UIWidgetVerifyScsRTDBComponentControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dictionaries.UIWidgetVerifyReadJSON;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.hilc.UIWidgetVerifyHILCControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMChangePassword;
@@ -152,132 +156,151 @@ public class UILayoutSummaryFactoryDepot {
 
 					uiWidget_i = new UIWidgetConfiguration();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UILayoutConfiguration.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UILayoutConfiguration();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetViewer.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetViewer();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetViewerPager.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetViewerPager();
 					
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetMatrixViewer.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetMatrixViewer();
 
-				} else if ( 
+				}
+				else if ( 
 						UIWidgetUtil.getClassSimpleName(UIWidgetCtlControl.class.getName())
 						.equals(uiCtrl) ) {
 					
 					uiWidget_i = new UIWidgetCtlControl();
 						
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new UIWidgetDpcControl();
 
-				}  else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDioBtnsControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new UIWidgetDioBtnsControl();
 
-				}  else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcTagControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new UIWidgetDpcTagControl();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcScanSuspendControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new UIWidgetDpcScanSuspendControl();
 
-				} else  if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDpcManualOverrideControl.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new UIWidgetDpcManualOverrideControl();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetFilter.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetFilter();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetPrint.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetPrint();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(ScsOlsListPanel.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new ScsOlsListPanel();
 					
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(ScsMatrixPanel.class.getName())
 						.equals(uiCtrl)
 						) {
 					
 					uiWidget_i = new ScsMatrixPanel();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSelection.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetCSSSelection();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetCSSSwitch.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetCSSSwitch();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetBlackboard.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetBlackboard();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetBox.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetBox();
 					
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetOPMChangePasswordControl.class.getName())
 						.equals(uiCtrl)
 						) {
@@ -285,70 +308,88 @@ public class UILayoutSummaryFactoryDepot {
 					uiWidget_i = new UIWidgetOPMChangePasswordControl();
 					
 					
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UILayoutLogin.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UILayoutLogin();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UILayoutSoc.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UILayoutSoc();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetDataGrid.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetDataGrid();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetSocControl.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetSocControl();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetSocDelayControl.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetSocDelayControl();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetSocAutoManuControl.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetSocAutoManuControl();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetSocTitle.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetSocTitle();
 
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetSocGrcPoint.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetSocGrcPoint();
 					
-				} else if (
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetSocFilterControl.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetSocFilterControl();
 
-				} else {
+				}
+				else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetSimultaneousLoginControl.class.getName())
+						.equals(uiCtrl)
+						) {
+
+					uiWidget_i = new UIWidgetSimultaneousLoginControl();
+
+				}
+				else {
 					logger.warn(className, function, "uiCtrl[{}] type for UIWidget IS UNKNOW", uiCtrl);
 				}
 				
@@ -396,104 +437,104 @@ public class UILayoutSummaryFactoryDepot {
 
 					uiWidget_i = new UIWidgetVerifyOPMChangePassword();
 				
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMCheckAccess.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetVerifyOPMCheckAccess();
 
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMGetInfo.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetVerifyOPMGetInfo();
 
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyReadJSON.class.getName())
 						.equals(uiCtrl)
 						) {
 
 					uiWidget_i = new UIWidgetVerifyReadJSON();
 
-				} else 
-				if (
+				} 
+				else if (
 					UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseWritingControl.class.getName())
 					.equals(uiCtrl)
 					) {
 
 					uiWidget_i = new UIWidgetVerifyDatabaseWritingControl();
 
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseMultiReadingControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyDatabaseMultiReadingControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabasePollingControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyDatabasePollingControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseSubscriptionControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyDatabaseSubscriptionControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyDatabaseGroupPollingControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGroupPollingDiffControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyDatabaseGroupPollingDiffControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseGetChildrenControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyDatabaseGetChildrenControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyUIEventActionControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyUIEventActionGenericControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyUIEventActionGenericControl();
 		
-				} else 
-				if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyHILCControl.class.getName())
 						.equals(uiCtrl)
 						) {
@@ -508,12 +549,29 @@ public class UILayoutSummaryFactoryDepot {
 		
 					uiWidget_i = new UIIWidgetVerifyTSCControl();
 		
-				} else if (
+				} 
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyTranslationControl.class.getName())
 						.equals(uiCtrl)
 						) {
 		
 					uiWidget_i = new UIWidgetVerifyTranslationControl();
+		
+				} 
+				else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyScsRTDBComponentControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyScsRTDBComponentControl();
+		
+				} 
+				else if (
+						UIWidgetUtil.getClassSimpleName(UIWidgetVerifyDatabaseControl.class.getName())
+						.equals(uiCtrl)
+						) {
+		
+					uiWidget_i = new UIWidgetVerifyDatabaseControl();
 		
 				}
 				
@@ -611,6 +669,9 @@ public class UILayoutSummaryFactoryDepot {
 				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.opm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionOpm();
+				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.simlogin.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionSimultaneousLogin();
 				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.uitask.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionTaskLaunch();

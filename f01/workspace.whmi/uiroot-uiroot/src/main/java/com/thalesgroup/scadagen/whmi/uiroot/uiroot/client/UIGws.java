@@ -17,6 +17,7 @@ import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIScreenRootMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
@@ -38,6 +39,10 @@ public class UIGws {
 	
 	private final String opts = "UILayoutEntryPointUIGwsSummary/"+className+".opts.xml";
 
+	private final String strNumOfScreen = "numofscreen";
+	
+	private final String strCssPanel	= "project-UIGws-panel";
+	
 	private Panel root = null;
 
 	protected UINameCard uiNameCard = null;
@@ -77,6 +82,94 @@ public class UIGws {
     		}
 		}
 		return value;
+	}
+	
+	private void storeURLSetting() {
+		final String function = "storeURLSetting";
+		logger.begin(className, function);
+		
+		Settings setting = Settings.getInstance();
+		Map<String, List<String>> paramsMap = Window.Location.getParameterMap();
+		for ( String key: paramsMap.keySet() ) {
+			List<String> values = paramsMap.get(key);
+			if ( values.size() > 0 ) {
+				String value = values.get(0);
+				String keyLowerCase = key.toLowerCase();
+				setting.set(keyLowerCase, value);
+				
+				logger.debug(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
+			}
+		}
+		logger.end(className, function);
+	}
+	
+	private void setNumOfScreen() {
+		final String function = "setNumOfScreen";
+		logger.begin(className, function);
+		
+		Settings setting = Settings.getInstance();
+		
+		if ( null != setting.get(strNumOfScreen) ) {
+			// Find value from URL and Valid
+			String strNumOfScreenValue = setting.get(strNumOfScreen);
+			int numOfScreen = 1;
+			try {
+				numOfScreen = Integer.parseInt(strNumOfScreenValue);
+				if ( numOfScreen <= 0 ) numOfScreen = 1;
+			} catch ( NumberFormatException e) {
+				logger.warn(className, function, "NumberFormatException e[{}]", e.toString());
+			}
+			
+			logger.debug(className, function, "URL numOfScreen[{}]", numOfScreen);
+			
+			setting.set(strNumOfScreen, Integer.toString(numOfScreen));
+		} else {
+			// Find value from Cookies and Valid
+			String strNumOfScreenValue = UICookies.getCookies(strNumOfScreen);
+			if ( null != strNumOfScreenValue ) {
+				int numOfScreen = 1;
+				try {
+					numOfScreen = Integer.parseInt(strNumOfScreenValue);
+					if ( numOfScreen <= 0 ) numOfScreen = 1;
+				} catch ( NumberFormatException e) {
+					logger.warn(className, function, "NumberFormatException e[{}]", e.toString());
+				}
+				
+				logger.debug(className, function, "Cookies numOfScreen[{}]", numOfScreen);
+				
+				setting.set(strNumOfScreen, Integer.toString(numOfScreen));
+			}
+		}
+		
+		logger.debug(className, function, "setting.get([{}])[{}]", strNumOfScreen, setting.get(strNumOfScreen));
+		
+		// Store the default value to 1 if not found on URL and Cookies
+		if ( null == setting.get(strNumOfScreen) ) setting.set(strNumOfScreen, Integer.toString(1));
+		
+		logger.debug(className, function, "setting.get([{}])[{}]", strNumOfScreen, setting.get(strNumOfScreen));
+
+		// Store the NumOfScreen to Cookies
+		UICookies.setCookies(strNumOfScreen, setting.get(strNumOfScreen));
+		
+		logger.end(className, function);
+	}
+	
+	public void dumpSetting() {
+		final String function = "dumpSetting";
+		logger.begin(className, function);
+		// Debug
+		if ( logger.isDebugEnabled() ) {
+			HashMap<String, String> hashMap = Settings.getInstance().getMaps();
+			if ( null != hashMap ) {
+				for ( Map.Entry<String, String> entry : hashMap.entrySet() ) {
+					logger.debug(className, function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
+				}
+			} else {
+				logger.debug(className, function, "hashMap IS NULL");
+			}
+		}
+		// End of Debug
+		logger.end(className, function);
 	}
 	
 	public void init() {
@@ -153,7 +246,7 @@ public class UIGws {
 					@Override
 					public void ready(final Map<String, Object> params) {
 						
-						loadPage();
+						loadUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 
 					}
 				});
@@ -162,51 +255,17 @@ public class UIGws {
 
 		setUINameCard(new UINameCard(0, "", RESETABLE_EVENT_BUS));
 		
-		/**
-		 * Configuration.
-		 */
-		// start of parameter override
-		Settings setting = Settings.getInstance();
-		Map<String, List<String>> paramsMap = Window.Location.getParameterMap();
-		for ( String key: paramsMap.keySet() ) {
-			List<String> values = paramsMap.get(key);
-			if ( values.size() > 0 ) {
-				String value = values.get(0);
-				String keyLowerCase = key.toLowerCase();
-				setting.set(keyLowerCase, value);
-				
-				logger.debug(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
-			}
-		}
-		// end of parameter override
+		// Configuration
+		storeURLSetting();
 
-		// Num Of Screen
-		String strNumOfScreen = setting.get("numofscreen");
-		if ( null == strNumOfScreen ) {
-			setting.set("numofscreen", Integer.toString(1));
-		} else {
-			boolean valid = false;
-			try {
-				int numOfScreen = Integer.parseInt(strNumOfScreen);
-				if ( numOfScreen > 0 ) valid = true;
-			} catch ( NumberFormatException e) {
-				logger.warn(className, function, "getMainPanel NumberFormatException e[{}]", e.toString());
-			}
-			if ( ! valid ) {
-				setting.set("numofscreen", Integer.toString(1));
-			}
-		}
+		// Store Number Of Screens to Cookies
+		setNumOfScreen();
 
 		this.root = new SimplePanel();
-		this.root.addStyleName("project-gwt-panel-gws-main");
+		this.root.addStyleName(strCssPanel);
 		this.root.add(new UIGwsCache().getMainPanel(this.uiNameCard));
 
-		// Debug
-		HashMap<String, String> hashMap = setting.getMaps();
-		for ( Map.Entry<String, String> entry : hashMap.entrySet() ) {
-			logger.debug(className, function, "Debug key[{}] value[{}]", entry.getKey(), entry.getValue());
-		}
-		// End of Debug
+		dumpSetting();
 
 		logger.end(className, function);
 	}
@@ -223,19 +282,20 @@ public class UIGws {
 	}
 
 	private boolean isCreated = false;
-	private void loadPage() {
-		final String function = "loadPage";
+	private void loadUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElem, String uiDict, HashMap<String, Object> options) {
+		final String function = "loadUIWidget";
 		logger.begin(className, function);
 
 		if ( ! isCreated ) {
 			
 			UIScreenRootMgr uiPanelFactoryMgr = UIScreenRootMgr.getInstance();
-			UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
+			UIWidget_i uiWidget_i = 
+					uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);
 			
 			if ( null != uiWidget_i ) {
 				Panel panel = uiWidget_i.getMainPanel();
 				
-				this.root.clear();	
+				this.root.clear();
 				this.root.add(panel);
 			} else {
 				logger.warn(className, function, "uiWidget_i IS NULL");

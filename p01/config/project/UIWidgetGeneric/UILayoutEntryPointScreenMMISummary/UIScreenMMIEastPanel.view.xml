@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<type>widgetconfiguration</type>
-		<uiCtrl>UIPanelNavigation_0</uiCtrl>
+		<uiCtrl>UIPanelNavigation</uiCtrl>
 		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_0.view.xml</uiView>
 		<direction>North</direction>
 		<width>200</width>

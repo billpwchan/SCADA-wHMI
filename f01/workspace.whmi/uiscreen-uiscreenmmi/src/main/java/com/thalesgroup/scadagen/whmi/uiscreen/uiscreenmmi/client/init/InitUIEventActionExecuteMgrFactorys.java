@@ -14,6 +14,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionJS;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOls;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionSimultaneousLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTsc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
@@ -61,6 +62,9 @@ public class InitUIEventActionExecuteMgrFactorys {
 				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.opm.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionOpm();
+				}
+				else if ( key.equals(UIActionEventType_i.UIActionEventType.simlogin.toString()) ) {
+					uiEventActionExecute_i = new UIEventActionSimultaneousLogin();
 				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.uitask.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionTaskLaunch();

@@ -1,4 +1,3 @@
-@import url('project-panel-uigwslogin.css');
 @import url('project-panel-dialogmsg.css');
 
 /* inspector panel */
@@ -8,9 +7,6 @@
 @import url('project-panel-inspector-control.css');
 @import url('project-panel-inspector-advance.css');
 
-@import url('project-panel-uigws.css');
-@import url('project-panel-uigwscache.css');
-@import url('project-panel-uigwslogin.css');
 @import url('project-panel-uipanelaccessbar.css');
 @import url('project-panel-uipanelalarmbanner.css');
 @import url('project-panel-uipanelmenu.css');
@@ -23,11 +19,6 @@
 @import url('project-panel-uiviewalarm.css');
 @import url('project-panel-uiviewevent.css');
 @import url('project-panel-wrapperscslarmlistpanel.css');
-@import url("project-panel-ptw-summary.css");
-@import url("project-panel-ptw-viewer.css");
-@import url("project-panel-ptw-control.css");
-@import url("project-panel-ptw-filter.css");
-@import url("project-panel-ptw-action.css");
 @import url("project-panel-almgn-swap.css");
 @import url("project-panel-input-control.css");
 @import url("project-panel-inputtable-filter.css");
@@ -37,24 +28,6 @@
 @import url("project-panel-event-summary.css");
 @import url("project-symbol.css");
 @import url("project-uiwidget-datagrid.css");
-
-.project-gwt-panel-root {
-	width: 100%;
-	height: 100%;
-	background-image:url('../../img/project/background/ERL_system_map.png');
-}
-
-.project-gwt-panel-root-container-0 {
-	vertical-align: middle !important;
-}
-
-.project-gwt-panel-root-container-1 {
-	vertical-align: middle !important;
-}
-
-.project-gwt-panel-root-container-2 {
-	vertical-align: middle !important;
-}
 
 .project-gwt-button {
 	color: black;

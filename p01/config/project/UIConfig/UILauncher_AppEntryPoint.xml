@@ -18,13 +18,23 @@
 		<!-- Json Folder -->
 		<json>UIJson</json>
 		
-		<!-- UIWidget Option uiCtrl -->
+		
+		<!-- 
+		UIWidget Option uiCtrl 
+		UIWidget Option uiView
+		UIWidget Option uiOpts
+		UIWidget Option element
+		-->
+		
+		<!--
 		<uiCtrl>UIPanelScreen</uiCtrl>
-		<!-- UIWidget Option uiView -->
 		<uiView>UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml</uiView>
-		<!-- UIWidget Option uiOpts -->
 		<uiOpts>UILayoutEntryPointScreenMMISummary/UIScreenMMI.opts.xml</uiOpts>
-		<!-- UIWidget Option element -->
+		<element>UIPanelScreen</element>
+		-->
+		
+		<uiCtrl>UIPanelScreen</uiCtrl>
+		<uiView>UILayoutEntryPointSimultaneousLoginSummary/UILayoutEntryPointSimultaneousLoginSummary.view.xml</uiView>
 		<element>UIPanelScreen</element>
 	</header>
 </data-set>

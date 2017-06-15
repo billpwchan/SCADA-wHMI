@@ -22,7 +22,7 @@
 	</actionset>
 	
 	<action key="login_event">
-		<OperationType>actionsetkey</OperationType>
+		<OperationType>action</OperationType>
 		<OperationAction>alm</OperationAction>
 		<OperationString1>NotifyExternalEvent</OperationString1>
 		<OperationString2>Key</OperationString2>
@@ -34,6 +34,22 @@
 		<OperationString8>1</OperationString8>
 		<OperationString9>GETOPERATOR : Login on GETWORKSTATION</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
+	</action>
+	
+	<actionset key="UIPanelNavigation_resetInstance">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>UIPanelNavigation_resetInstance</OperationString1>
+	</actionset>
+	<action key="UIPanelNavigation_resetInstance">
+		<OperationType>action</OperationType>
+	</action>
+	
+	<actionset key="UIPanelNavigation_readyToGetMenu">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>UIPanelNavigation_readyToGetMenu</OperationString1>
+	</actionset>
+	<action key="UIPanelNavigation_readyToGetMenu">
+		<OperationType>action</OperationType>
 	</action>
 	
 </data-set>

@@ -222,6 +222,10 @@ public class UIWidgetGeneric extends UIGeneric {
 							
 							String disableTranslation			= valueMap.get(WidgetAttribute.disableTranslation.toString());
 							
+							String uiCtrl			= valueMap.get(WidgetAttribute.uiCtrl.toString());
+							String uiView			= valueMap.get(WidgetAttribute.uiView.toString());
+							String uiOpts			= valueMap.get(WidgetAttribute.uiOpts.toString());
+							
 							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
 							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
 							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
@@ -421,23 +425,29 @@ public class UIWidgetGeneric extends UIGeneric {
 								});
 
 								this.widgets.put(index, w);
-							} else if ( widget.startsWith(WidgetType.WidgetFactory.toString()) ) {
+							}
+							else if ( WidgetType.WidgetFactory.toString().equals(widget) ) {
 								
 								UIWidgetMgr uiPredefinePanelMgr = UIWidgetMgr.getInstance();
 								
-								String view = null;
-								String opt = null;
+								String ctrl	= uiCtrl;
+								String view	= uiView;
+								String opt	= uiOpts;
 								String dict = null;
 								String elem = null;
 								HashMap<String, Object> options = new HashMap<String, Object>();
 								
-								UIWidget_i uiWIdget = uiPredefinePanelMgr.getUIWidget(widget, view, uiNameCard, opt, elem, dict, options);
+								logger.debug(className, function, "getMainPanel ctrl["+ctrl+"]");
+								logger.debug(className, function, "getMainPanel view["+view+"]");
+								logger.debug(className, function, "getMainPanel opt["+opt+"]");
+								
+								UIWidget_i uiWidget = uiPredefinePanelMgr.getUIWidget(ctrl, view, uiNameCard, opt, elem, dict, options);
 	
-								if ( null != uiWIdget ) {
-									uiWIdget.setUINameCard(this.uiNameCard);
-									w = uiWIdget.getMainPanel();
+								if ( null != uiWidget ) {
+									uiWidget.setUINameCard(this.uiNameCard);
+									w = uiWidget.getMainPanel();
 								} else {
-									logger.warn(className, function, "getMainPanel created UIPredefinePanelMgr widget["+widget+"] IS NULL");
+									logger.warn(className, function, "getMainPanel created UIPredefinePanelMgr widget["+ctrl+"] IS NULL");
 								}
 	
 								this.widgets.put(index, w);

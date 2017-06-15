@@ -13,6 +13,7 @@ public interface UIActionEventType_i {
 		, dpc("dpc")
 		, grc("grc")
 		, opm("opm")
+		, simlogin("simlogin")
 		, uitask("uitask")
 		, widget("widget")
 		, js("js")

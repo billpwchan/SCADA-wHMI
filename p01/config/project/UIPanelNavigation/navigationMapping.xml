@@ -228,4 +228,15 @@
 	
 	<option key="LMC|MCS|Verify Translation Summary"><setting>176</setting></option>
 	
+	<option key="LMC|Verify ScsRTDBComponent Summary"><setting>180</setting></option>
+	<option key="LMC|Verify ScsRTDBComponent Summary|writeValueRequest"><setting>181</setting></option>
+	<!--
+	<option key="LMC|Verify ScsRTDBComponent Summary|writeStringValueRequest"><setting>182</setting></option>
+	<option key="LMC|Verify ScsRTDBComponent Summary|writeFloatValueRequest"><setting>183</setting></option>
+	<option key="LMC|Verify ScsRTDBComponent Summary|writeIntValueRequest"><setting>184</setting></option>
+	<option key="LMC|Verify ScsRTDBComponent Summary|writeDateValueRequest"><setting>185</setting></option>
+	-->
+	
+	<option key="LMC|MCS|Simultaneous Login Summary"><setting>185</setting></option>
+	
 </data-set>

@@ -1,0 +1,15 @@
+.project-UIPanelScreen-root {
+	width: 100%;
+	height: 100%;
+	background-image:url('../../../img/project/background/ERL_system_map.png');
+}
+
+.project-UIPanelScreen-root-container-0
+, .project-UIPanelScreen-root-container-1
+, .project-UIPanelScreen-root-container-2
+, .project-UIPanelScreen-root-container-3
+, .project-UIPanelScreen-root-container-4
+, .project-UIPanelScreen-root-container-5
+, .project-UIPanelScreen-root-container-6 {
+	vertical-align: middle !important;
+}

@@ -9,12 +9,9 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionExecuteMgr;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
 
 public class CallGWTByJS {
 	
@@ -97,6 +94,6 @@ public class CallGWTByJS {
 	}
 	
 	public static native void exportCallGWTByJS() /*-{
-		$wnd.callGWTByJS = $entry(@com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.jnsi.CallGWTByJS::callGWTByJS(Ljava/lang/String;));
+		$wnd.SCADAGEN.UIEVENTACTION.callGWTByJS = $entry(@com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.jnsi.CallGWTByJS::callGWTByJS(Ljava/lang/String;));
 	}-*/;
 }

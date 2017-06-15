@@ -14,10 +14,9 @@ public class SpringLogout {
 	
 	public SpringLogout(String actionUrl) {
 		String function = className;
-		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "actionUrl[{}]", actionUrl);
+		logger.debug(className, function, "actionUrl[{}]", actionUrl);
 		
 		this.actionUrl = actionUrl;
 		
@@ -26,7 +25,6 @@ public class SpringLogout {
 
 	public void logout() {
 		String function = "logout";
-		
 		logger.begin(className, function);
 		
 		Window.Location.replace(actionUrl);

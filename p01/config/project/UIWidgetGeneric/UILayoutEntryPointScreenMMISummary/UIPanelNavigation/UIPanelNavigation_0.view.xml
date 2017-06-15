@@ -9,9 +9,13 @@
 	</header>
 	
 	<option key="0|0">
-		<widget>WidgetFactory_UINavigationMenu_0_0</widget>
+		<widget>WidgetFactory</widget>
 		<css>project-gwt-panel-navigationmenu-0-0-0</css>
 		<element>navigationmenu0</element>
+		
+		<uiCtrl>UIPanelNavigation</uiCtrl>
+		<uiView>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_0.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointScreenMMISummary/UIPanelNavigation/UIPanelNavigation_0.opts.xml</uiOpts>
 	</option>
 
 </data-set>

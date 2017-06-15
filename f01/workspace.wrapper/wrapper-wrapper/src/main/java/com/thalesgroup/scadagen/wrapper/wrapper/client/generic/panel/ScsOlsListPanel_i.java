@@ -41,6 +41,7 @@ public interface ScsOlsListPanel_i {
 		, OlsCssPrefix("OlsCssPrefix")
 		, EventBus("EventBus")
 		, PagerName("PagerName")
+		, EnableRowExport("EnableRowExport")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }
@@ -62,6 +63,7 @@ public interface ScsOlsListPanel_i {
 		, Global("Global")
 		, True("True")
 		, SCADAgenPager("SCADAgenPager")
+		
 		;
 		private final String text;
 		private ParameterValue(final String text) { this.text = text; }

@@ -1,0 +1,12 @@
+.project-UIGwsCache-panel {
+	width: 100vw;
+	height: 100vh;
+	background-color: #BEBEBE;
+}
+.project-UIGwsCache-label-receiving {
+	width: 100vw;
+	height: 100vh;
+	text-align: center;
+	margin-top: calc(50vh - 2rem / 2);
+	font-size: 2rem;
+}

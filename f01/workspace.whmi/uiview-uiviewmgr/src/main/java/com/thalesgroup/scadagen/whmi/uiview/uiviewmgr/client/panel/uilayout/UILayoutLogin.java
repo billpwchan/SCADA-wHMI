@@ -3,8 +3,12 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout;
 import java.util.HashMap;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -45,6 +49,52 @@ public class UILayoutLogin extends UIWidget_i {
 	private final String strname			= "name";
 	private final String strpassword		= "password";
 	
+	private final String strlogin			= "login";
+	
+	private final String strUrlFaultCodeKey	= "autherr";
+	
+	private final String strResultInvalidPrefix	= "set_result_value_invalid_";
+	
+	private void login() {
+		String function = "login";
+		logger.begin(className, function);
+		
+		String actionsetkey = strlogin;
+		
+		HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
+
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		
+		String operator = uiWidgetGenericInfo.getWidgetValue(strname);
+		String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
+		
+		if ( null != upperCaseName && Boolean.TRUE.toString().equals(upperCaseName) ) {
+			operator = operator.toUpperCase();
+		}
+		
+		if ( null != lowerCaseName && Boolean.TRUE.toString().equals(lowerCaseName) ) {
+			operator = operator.toLowerCase();
+		}
+			
+		logger.debug(className, function, "opmApi[{}]", opmApi);
+		logger.debug(className, function, "operator[{}]", operator);
+		logger.debug(className, function, "password[{}]", password);
+			
+		if ( null != opmApi && null != operator && null != password ) {
+			parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
+			parameters.put(ActionAttribute.OperationString3.toString(), operator);
+			parameters.put(ActionAttribute.OperationString4.toString(), password);
+		} else {
+			logger.warn(className, function, "opmApi[{}] OR operator[{}] OR password[{}] IS INVALID", new Object[]{opmApi, operator, password});
+		}
+		
+		override.put("OpmLogin", parameters);
+			
+		uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
+		
+		logger.end(className, function);
+	}
+	
 	// External
 	private SimpleEventBus eventBus = null;
 
@@ -59,7 +109,6 @@ public class UILayoutLogin extends UIWidget_i {
 			String function = "onUIEvent";
 			logger.begin(className, function);
 			logger.end(className, function);
-			
 		}
 		
 		@Override
@@ -67,50 +116,21 @@ public class UILayoutLogin extends UIWidget_i {
 			String function = "onClick";
 			logger.begin(className, function);
 			
-			logger.info(className, function, "event[{}]", event);
+			logger.debug(className, function, "event[{}]", event);
 			
 			Widget widget = (Widget) event.getSource();
 			
-			logger.info(className, function, "widget[{}]", widget);
+			logger.debug(className, function, "widget[{}]", widget);
 			
 			String element = uiWidgetGenericButton.getWidgetElement(widget);
 			
-			logger.info(className, function, "element[{}]", element);
+			logger.debug(className, function, "element[{}]", element);
 			
 			if ( null != element ) {
 				
-				String actionsetkey = element;
-				
-				HashMap<String, HashMap<String, Object>> override = new HashMap<String, HashMap<String, Object>>();
-
-				HashMap<String, Object> parameters = new HashMap<String, Object>();
-				
-				String operator = uiWidgetGenericInfo.getWidgetValue(strname);
-				String password = uiWidgetGenericInfo.getWidgetValue(strpassword);
-				
-				if ( null != upperCaseName && Boolean.TRUE.toString().equals(upperCaseName) ) {
-					operator = operator.toUpperCase();
+				if ( element.equals(strlogin) ) {
+					login();
 				}
-				
-				if ( null != lowerCaseName && Boolean.TRUE.toString().equals(lowerCaseName) ) {
-					operator = operator.toLowerCase();
-				}
-					
-				logger.info(className, function, "opmApi[{}]", opmApi);
-				logger.info(className, function, "operator[{}]", operator);
-				logger.info(className, function, "password[{}]", password);
-					
-				if ( null != opmApi && null != operator && null != password ) {
-					parameters.put(ActionAttribute.OperationString2.toString(), opmApi);
-					parameters.put(ActionAttribute.OperationString3.toString(), operator);
-					parameters.put(ActionAttribute.OperationString4.toString(), password);
-				} else {
-					logger.warn(className, function, "opmApi[{}] OR operator[{}] OR password[{}] IS INVALID", new Object[]{opmApi, operator, password});
-				}
-				
-				override.put("OpmLogin", parameters);
-					
-				uiEventActionProcessor_i.executeActionSet(actionsetkey, override);
 				
 			} else {
 				logger.warn(className, function, "element IS NULL");
@@ -135,7 +155,7 @@ public class UILayoutLogin extends UIWidget_i {
 		
 		String strEventBusName = getStringParameter(UIRealize_i.ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
-		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
+		logger.debug(className, function, "strEventBusName[{}]", strEventBusName);
 		
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
@@ -177,6 +197,22 @@ public class UILayoutLogin extends UIWidget_i {
 		// Which come from the Spring framework
 		handleErrorCode();
 		
+		// Handle the Entry Key in the Password Box
+		Widget password = uiWidgetGenericInfo.getWidget(strpassword);
+		if ( null != password ) {
+			if ( password instanceof TextBox ) {
+				TextBox txtpassword = (TextBox) password;
+				txtpassword.addKeyUpHandler(new KeyUpHandler() {
+					@Override
+					public void onKeyUp(KeyUpEvent event) {
+						if ( event.getNativeKeyCode() == KeyCodes.KEY_ENTER ) {
+							login();
+						}
+					}
+				});
+			}
+		}
+		
 		logger.end(className, function);
 	}
 
@@ -187,9 +223,9 @@ public class UILayoutLogin extends UIWidget_i {
 		
 		int code = 0;
 		
-		String authErrCode = Window.Location.getParameter("autherr");
+		String authErrCode = Window.Location.getParameter(strUrlFaultCodeKey);
 		if ((authErrCode != null) && (!authErrCode.isEmpty())) {
-			uiEventActionProcessor_i.executeActionSet("set_result_value_invalid"+"_"+authErrCode);
+			uiEventActionProcessor_i.executeActionSet(strResultInvalidPrefix+authErrCode);
 		}
 		
 		logger.begin(className, function);

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<EventBusName>simultaneouseloginsummary</EventBusName>
+		<EventBusScope>local</EventBusScope>
+		<InitDelayMS>1000</InitDelayMS>
+	</header>
+	
+	<actionset key="init">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_init_ctl_simultaneouslogin_control</OperationString1>
+	</actionset>
+	
+		<action key="set_init_ctl_simultaneouslogin_control">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetSimultaneousLoginControl</OperationElement>
+			<OperationString1>from_uilayoutsummary_init</OperationString1>
+		</action>
+	
+	<actionset key="init_delay">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_init_filter</OperationString1>
+	</actionset>
+	
+		<action key="set_init_filter">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetSimultaneousLoginFilter</OperationElement>
+			<OperationString1>set_default_action</OperationString1>
+		</action>
+
+	<actionset key="terminate">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>set_terminate_control</OperationString1>
+	</actionset>
+	
+		<action key="set_terminate_control">
+			<SenderOperation>event</SenderOperation>
+			<OperationType>actionsetkey</OperationType>
+			<OperationElement>UIWidgetSimultaneousLoginFilter</OperationElement>
+			<OperationString1>from_uilayoutsummary_terminate</OperationString1>
+		</action>
+
+</data-set>

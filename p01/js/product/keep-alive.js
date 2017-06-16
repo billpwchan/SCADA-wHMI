@@ -15,6 +15,7 @@ window.SCADAGEN.KEEPALIVE = (function(){
 				console.log('window.SCADAGEN.KEEPALIVE json.OperationString5', json.OperationString5);
 				console.log('window.SCADAGEN.KEEPALIVE json.OperationString6', json.OperationString6);
 				console.log('window.SCADAGEN.KEEPALIVE json.OperationString7', json.OperationString7);
+				console.log('window.SCADAGEN.KEEPALIVE json.OperationString8', json.OperationString8);
 			
 				var myObject = {};
 				myObject.OperationType = 'action';
@@ -30,7 +31,7 @@ window.SCADAGEN.KEEPALIVE = (function(){
 
 				window.SCADAGEN.UIEVENTACTION.callGWTByJS(jsonstring);
 
-			}, 5000);
+			}, json.OperationString8);
 
 		}
 

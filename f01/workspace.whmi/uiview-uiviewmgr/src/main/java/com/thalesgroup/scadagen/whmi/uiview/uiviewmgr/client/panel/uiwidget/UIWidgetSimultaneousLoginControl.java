@@ -112,7 +112,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		
 		logger.debug(className, function, "record[{}] > recordThreshold[{}]", record, recordThreshold);
 		
-		if ( record < recordThreshold ) {
+		if ( record <= recordThreshold ) {
 			// Login Valid, forword to Main
 			
 			logger.debug(className, function, "Login Valid, forword to Main");
@@ -229,6 +229,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		if ( null != strWritingDelayTime && ! strWritingDelayTime.isEmpty() ) {
 			try {
 				writingDelayTime = Integer.parseInt(strWritingDelayTime);
+				if ( writingDelayTime < 0 ) writingDelayTime = 0;
 			} catch (NumberFormatException ex) {
 				logger.warn(className, function, "strWritingDelayTime[{}] NumberFormatException:"+ex.toString(), strWritingDelayTime);
 			}
@@ -239,6 +240,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		if ( null != strCheckingDelayTime && ! strCheckingDelayTime.isEmpty() ) {
 			try {
 				checkingDelayTime = Integer.parseInt(strCheckingDelayTime);
+				if ( checkingDelayTime < 0 ) checkingDelayTime = 0;
 			} catch (NumberFormatException ex) {
 				logger.warn(className, function, "strCheckingDelayTime[{}] NumberFormatException:"+ex.toString(), strCheckingDelayTime);
 			}

@@ -18,8 +18,11 @@
 		<!-- Record Threshold for the invalid action -->
 		<RecordThreshold>1</RecordThreshold>
 		
+		<!-- Writing delay Time in MS-->
+		<WritingDelayTime>5000</WritingDelayTime>
+		
 		<!-- Checking delay Time in MS-->
-		<CheckingDelayTime>15000</CheckingDelayTime>
+		<CheckingDelayTime>10000</CheckingDelayTime>
 	</header>
 	
 	<!-- Begin of life -->
@@ -28,11 +31,6 @@
 	
 	<actionset key="from_uilayoutsummary_init">
 		<OperationType>actionsetkey</OperationType>
-		<!--
-		<OperationString1>set_set_disable</OperationString1>
-		<OperationString2>set_unset_disable</OperationString2>
-		<OperationString3>set_apply_disable</OperationString3>
-		-->
 	</actionset>
 	
 	<actionset key="from_uilayoutsummary_envup">
@@ -112,12 +110,12 @@
 		<OperationString1>JSSessionStart</OperationString1>
 	</action>
 	
-	<actionset key="login_session_start">
+	<actionset key="login_js_session">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>login_session_start</OperationString1>
+		<OperationString1>login_js_session</OperationString1>
 	</actionset>	
 
-	<action key="login_session_start">
+	<action key="login_js_session">
 		<OperationType>action</OperationType>
 		<OperationAction>js</OperationAction>
 		<OperationString1>CallJSByGWT</OperationString1>
@@ -190,6 +188,7 @@
 		<OperationType>action</OperationType>
 		<OperationAction>opm</OperationAction>
 		<OperationString1>OpmLogout</OperationString1>
+		<OperationString2>UIOpmSCADAgen</OperationString2>
 	</action>
 
 </data-set>

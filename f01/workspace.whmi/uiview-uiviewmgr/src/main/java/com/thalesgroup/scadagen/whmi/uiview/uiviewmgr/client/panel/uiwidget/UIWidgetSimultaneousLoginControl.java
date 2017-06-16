@@ -43,6 +43,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	
 	private int recordThreshold		= 1;
 
+	private int writingDelayTime	= 10000;
 	private int checkingDelayTime	= 10000;
 	
 	private void loginRequest() {
@@ -133,17 +134,25 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		final String function = "login";
 		logger.begin(className, function);
 		
-		loginRequest();
-		
-		// CheckingDelayTime
-		logger.debug(className, function, "Checking delay checkingDelayTime[{}] start...", checkingDelayTime);
-		Timer timer = new Timer() {
+		// WritingDelayTime
+		logger.debug(className, function, "Writing delay writingDelayTime[{}] start...", writingDelayTime);
+		new Timer() {
 			public void run() {
-				validiteLogin();
+
+				loginRequest();
+
+				new Timer() {
+					public void run() {
+					
+					// CheckingDelayTime
+					logger.debug(className, function, "Checking delay checkingDelayTime[{}] start...", checkingDelayTime);
+					validiteLogin();
+					
+					}
+				}.schedule(checkingDelayTime);
 			}
-		};
-		
-		timer.schedule(checkingDelayTime);
+			
+		}.schedule(writingDelayTime);
 		
 		logger.end(className, function);
 	}
@@ -178,6 +187,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		logger.begin(className, function);
 
 		String strRecordThreshold 			= null;
+		String strWritingDelayTime 		= null;
 		String strCheckingDelayTime 		= null;
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
@@ -190,6 +200,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 			strRecordThreshold			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.RecordThreshold.toString(), strHeader);
 			
+			strWritingDelayTime			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.WritingDelayTime.toString(), strHeader);
+			
 			strCheckingDelayTime		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.CheckingDelayTime.toString(), strHeader);
 			
 			if ( logger.isDebugEnabled() ) {
@@ -197,6 +209,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				logger.debug(className, function, "columnNameResrReservedID[{}]", columnNameResrReservedID);
 				
 				logger.debug(className, function, "strRecordThreshold[{}]", strRecordThreshold);
+				
+				logger.debug(className, function, "strWritingDelayTime[{}]", strWritingDelayTime);
 				
 				logger.debug(className, function, "strCheckingDelayTime[{}]", strCheckingDelayTime);
 			}
@@ -211,6 +225,16 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		} else {
 			logger.warn(className, function, "strRecordThreshold[{}] IS INVALID", strRecordThreshold);
 		}
+		
+		if ( null != strWritingDelayTime && ! strWritingDelayTime.isEmpty() ) {
+			try {
+				writingDelayTime = Integer.parseInt(strWritingDelayTime);
+			} catch (NumberFormatException ex) {
+				logger.warn(className, function, "strWritingDelayTime[{}] NumberFormatException:"+ex.toString(), strWritingDelayTime);
+			}
+		} else {
+			logger.warn(className, function, "strWritingDelayTime[{}] IS INVALID", strWritingDelayTime);
+		}		
 		
 		if ( null != strCheckingDelayTime && ! strCheckingDelayTime.isEmpty() ) {
 			try {

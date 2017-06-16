@@ -10,7 +10,8 @@
 		<OperationString1>set_set0_down</OperationString1>
 		<OperationString2>set_clean_disable</OperationString2>
 		<OperationString3>set_applied_disable</OperationString3>
-		<OperationString4>event_applyfilter0</OperationString4>
+		<OperationString4>event_applyfilter_opm</OperationString4>
+		<OperationString5>event_applyfilter0</OperationString5>	
 	</actionset>
 
 	<actionset key="clear">
@@ -135,4 +136,14 @@
 		<OperationString1>set_reset_control</OperationString1>
 	</action>
 
+	<action key="event_applyfilter_opm">
+		<SenderOperation>event</SenderOperation>
+		<OperationType>action</OperationType>
+		<OperationElement>UILayoutDpcTagViewer</OperationElement>
+		<OperationString1>AddIntRangeFilter</OperationString1>
+		<OperationString2>dpctagset</OperationString2>
+		<OperationString3>gdg_column_checkopm</OperationString3>
+		<OperationString4>1</OperationString4>
+		<OperationString5>2</OperationString5>
+	</action>
 </data-set>

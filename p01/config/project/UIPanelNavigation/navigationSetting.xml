@@ -1489,5 +1489,16 @@
 	</option>
 	
 
+	<option key="186">
+		<type>P</type>
+		<name>Auto Logout</name>
+		<title>Auto Logout</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIAutoLogoutConfigPanel/EntryPoint.view.xml</uiView>
+		<tooltips>Login Summary</tooltips>
+	</option>
+	
 	
 </data-set>

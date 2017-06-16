@@ -40,7 +40,7 @@ window.EAL_PROJECT = window.EAL_PROJECT || (function(){
 				};
 				const j2gString = JSON.stringify(j2gData);
 				console.log('[EAL_PROJECT]', '[logout]', j2gString);
-				window.callGWTByJS(j2gString);
+				window.SCADAGEN.UIEVENTACTION.callGWTByJS(j2gString);
 			}
 		}
 	};

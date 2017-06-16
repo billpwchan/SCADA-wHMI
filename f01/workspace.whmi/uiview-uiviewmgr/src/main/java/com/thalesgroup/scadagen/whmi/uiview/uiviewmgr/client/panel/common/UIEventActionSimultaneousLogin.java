@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common;
 
 import java.util.HashMap;
 
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -104,7 +105,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
 
 		String dbAttrResrvReserveReqID = 
-				simultaneousLogin.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
+				ReadJson.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
 		
 		logger.debug(className, function, "dbAttrResrvReserveReqID[{}]", dbAttrResrvReserveReqID);
 
@@ -163,7 +164,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		
 		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
 
-		String dbAttrResrvUnreserveReqID = simultaneousLogin.getStringFromJson(dictionariesCacheName, fileName,
+		String dbAttrResrvUnreserveReqID = ReadJson.getStringFromJson(dictionariesCacheName, fileName,
 				strDbAttrResrvUnreserveReqID);
 		
 		logger.debug(className, function, "dbAttrResrvUnreserveReqID[{}]", dbAttrResrvUnreserveReqID);
@@ -222,7 +223,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
 
 		String dbAttrResrvReserveReqID = 
-				simultaneousLogin.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
+				ReadJson.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
 		
 		logger.debug(className, function, "dbAttrResrvReserveReqID[{}]", dbAttrResrvReserveReqID);
 		

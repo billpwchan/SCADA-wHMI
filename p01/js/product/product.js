@@ -40,6 +40,19 @@ window.SCADAGEN_LOADER = window.SCADAGEN_LOADER || (function(){
 						}
 					);
 					
+					// initialize thalesex_scrcap_ui.js
+					const strJsScreenCapture = 'resources/js/product/thalesex_scrcap_ui.js';
+					console.log('Loading ', strJsScreenCapture);
+					$.getScript(
+						strJsScreenCapture,
+						() => {
+							console.log(strJsScreenCapture, 'Loaded');
+						}
+						,
+						() => {
+							console.log(strJsScreenCapture, 'Load Failed');
+						}
+					);
 				}
 				,
 				() => {

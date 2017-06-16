@@ -134,4 +134,11 @@
 		<OperationString5>true</OperationString5>
 	</action>
 
+	<!-- Screen Capture Functions -->
+	<action key="print">
+		<OperationType>action</OperationType>
+		<OperationAction>js</OperationAction>
+		<OperationString1>callJSByGWT</OperationString1>
+		<OperationString2>ScreenCapture</OperationString2>
+	</action>
 </data-set>

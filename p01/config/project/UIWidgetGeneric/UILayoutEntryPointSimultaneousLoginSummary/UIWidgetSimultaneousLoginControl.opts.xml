@@ -125,7 +125,7 @@
 		<OperationString5>scsenvid</OperationString5>
 		<OperationString6>alias</OperationString6>
 		<OperationString7>value</OperationString7>
-		<OperationString8>5</OperationString8>
+		<OperationString8>10000</OperationString8>
 	</action>
 	
 	<action key="login_valid_procedure">

@@ -1,7 +1,5 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control;
 
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -27,39 +25,11 @@ public class SimultaneousLogin {
 	private final String strOpmApi = "OpmApi";
 	private final String strOpmIdentityType = "OpmIdentityType";
 	
-	public String getStringFromJsonArray(String dictionariesCacheName, String fileName, String arrayKey, String arrayIndexKeyValue, String arrayIndexKey, String valueKey) {
-		final String function = "getStringFromJsonArray";
-		logger.begin(className, function);
-		
-		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] arrayKey[{}] arrayIndexKeyValue[{}] arrayIndexKey[{}] arrayIndexKey[{}] valueKey"
-				, new Object[]{dictionariesCacheNameValue, fileNameValue, arrayKey, arrayIndexKeyValue, arrayIndexKey, arrayIndexKey, valueKey});
-		
-		JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arrayKey);
-		
-		JSONObject jsonObject = ReadJson.readObject(jsonArray, arrayIndexKeyValue, arrayIndexKey);
-		
-		String value = ReadJson.readString(jsonObject, valueKey);
-		logger.end(className, function);
-		return value;
-	}
-	
-	public String getStringFromJson(String dictionariesCacheNameValue, String fileNameValue, String key) {
-		final String function = "getStringFromJson";
-		logger.begin(className, function);
-		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] key[{}]", new Object[]{dictionariesCacheNameValue, fileNameValue, key});
-		
-		String value = ReadJson.readString(dictionariesCacheNameValue, fileNameValue, key, null);
-		
-		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] key[{}] value[{}]", new Object[]{dictionariesCacheNameValue, fileNameValue, key, value});
-		logger.end(className, function);
-		return value;
-	}
-	
 	public String getAlias(String key) {
 		final String function = "getAlias";
 		logger.begin(className, function);
 		
-		String alias = getStringFromJsonArray(dictionariesCacheNameValue, fileNameValue, arrayKey, arrayIndexKeyValue, key, strAlias);
+		String alias = ReadJson.getStringFromJsonArray(dictionariesCacheNameValue, fileNameValue, arrayKey, arrayIndexKeyValue, key, strAlias);
 		
 		logger.debug(className, function, "alias[{}]", alias);
 		logger.end(className, function);
@@ -70,7 +40,7 @@ public class SimultaneousLogin {
 		final String function = "getScsEnvId";
 		logger.begin(className, function);
 		
-		String scsEnvId = getStringFromJsonArray(dictionariesCacheNameValue, fileNameValue, arrayKey, arrayIndexKeyValue, key, strScsEnvId);
+		String scsEnvId = ReadJson.getStringFromJsonArray(dictionariesCacheNameValue, fileNameValue, arrayKey, arrayIndexKeyValue, key, strScsEnvId);
 		
 		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.end(className, function);
@@ -81,7 +51,7 @@ public class SimultaneousLogin {
 		final String function = "getOpmApi";
 		logger.begin(className, function);
 		
-		String opmApi = getStringFromJson(dictionariesCacheNameValue, fileNameValue, strOpmApi);
+		String opmApi = ReadJson.getStringFromJson(dictionariesCacheNameValue, fileNameValue, strOpmApi);
 		
 		logger.debug(className, function, "opmApi[{}]", opmApi);
 		logger.end(className, function);
@@ -92,7 +62,7 @@ public class SimultaneousLogin {
 		final String function = "getOpmIdentityType";
 		logger.begin(className, function);
 		
-		String opmIdentityType = getStringFromJson(dictionariesCacheNameValue, fileNameValue, strOpmIdentityType);
+		String opmIdentityType = ReadJson.getStringFromJson(dictionariesCacheNameValue, fileNameValue, strOpmIdentityType);
 		
 		logger.debug(className, function, "opmIdentityType[{}]", opmIdentityType);
 		logger.end(className, function);

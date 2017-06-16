@@ -46,6 +46,10 @@
   <!-- Uncomment if station connector -->
   <ols scsservername="LstServer" scslistname="hdvsetstn" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
+		 
+  <!-- Simultaneouse Login -->
+  <ols scsservername="LstServer" scslistname="simultaneouselogin" scsfilter=""
+         hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 
   <classdesc hv="com.thalesgroup.myproject.data.config.equipment.common.SGEQPT8StatusesType">
     <statusdesc hv="eqpName"        scsvalue=".type"/>

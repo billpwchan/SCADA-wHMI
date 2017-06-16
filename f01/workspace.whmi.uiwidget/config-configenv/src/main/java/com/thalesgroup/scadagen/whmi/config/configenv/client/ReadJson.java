@@ -82,7 +82,7 @@ public class ReadJson {
 			JSONValue jsonValue = jsonObject.get(key);
 			string = readString(jsonValue);
 		} else {
-			logger.warn(className, function, "jsonObject[{}] IS NULL", jsonObject);
+			logger.debug(className, function, "jsonObject[{}] IS NULL", jsonObject);
 		}
 		logger.end(className, function);
 		return string;
@@ -100,6 +100,34 @@ public class ReadJson {
 
 		logger.end(className, function);
 		return string;
+	}
+	
+	public static String getStringFromJsonArray(String dictionariesCacheName, String fileName, String arrayKey, String arrayIndexKeyValue, String arrayIndexKey, String valueKey) {
+		final String function = "getStringFromJsonArray";
+		logger.begin(className, function);
+		
+		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}] arrayKey[{}] arrayIndexKeyValue[{}] arrayIndexKey[{}] arrayIndexKey[{}] valueKey"
+				, new Object[]{dictionariesCacheName, fileName, arrayKey, arrayIndexKeyValue, arrayIndexKey, arrayIndexKey, valueKey});
+		
+		JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arrayKey);
+		
+		JSONObject jsonObject = ReadJson.readObject(jsonArray, arrayIndexKeyValue, arrayIndexKey);
+		
+		String value = ReadJson.readString(jsonObject, valueKey);
+		logger.end(className, function);
+		return value;
+	}
+	
+	public static String getStringFromJson(String dictionariesCacheNameValue, String fileNameValue, String key) {
+		final String function = "getStringFromJson";
+		logger.begin(className, function);
+		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] key[{}]", new Object[]{dictionariesCacheNameValue, fileNameValue, key});
+		
+		String value = ReadJson.readString(dictionariesCacheNameValue, fileNameValue, key, null);
+		
+		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] key[{}] value[{}]", new Object[]{dictionariesCacheNameValue, fileNameValue, key, value});
+		logger.end(className, function);
+		return value;
 	}
 
 	public static int readInt(JSONValue jsonValue, int defaultValue) {

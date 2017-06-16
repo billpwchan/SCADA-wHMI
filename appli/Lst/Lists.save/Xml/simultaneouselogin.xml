@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
+<!-- StateList HDVRequestDataList XML save file -->
+<StateList multi="YES" mode="MANDATORY" name="simultaneouselogin" creatorId="0" description="simultaneouselogin" comment="" activate="YES">
+	<Column>
+	
+		<Name value="alias"></Name>
+		<Name value="eqplabel"></Name>
+		<Name value="geographicalcategory"></Name>
+		<Name value="functionalcategory"></Name>
+		<Name value="identity"></Name>
+		<Name value="resrvreservedid"></Name>
+		<Name value="reservreservedtime"></Name>
+		
+	</Column>
+	<List>
+	
+		<Attribute name="basicEquipment!$ALIAS"></Attribute>
+		<Attribute name="basicEquipment!label"></Attribute>
+		<Attribute name="basicEquipment!geographicalCat"></Attribute>
+		<Attribute name="basicEquipment!functionalCat"></Attribute>
+		<Attribute name="basicEquipment!mmiSchematic"></Attribute>
+		<Attribute name="basicEquipment!resrvReservedID"></Attribute>
+		<Attribute name="basicEquipment!resrvReservedTime"></Attribute>
+		
+		<Condition value='(basicEquipment!identity == "") STATIC (basicEquipment!nom_instance LIKE "MFD_")'></Condition>
+	</List>
+</StateList>

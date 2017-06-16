@@ -238,5 +238,6 @@
 	-->
 	
 	<option key="LMC|MCS|Simultaneous Login Summary"><setting>185</setting></option>
+	<option key="LMC|MCS|Auto Logout"><setting>186</setting></option>
 	
 </data-set>

@@ -17,6 +17,7 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		
 		, RecordThreshold("RecordThreshold")
 		
+		, WritingDelayTime("WritingDelayTime")
 		, CheckingDelayTime("CheckingDelayTime")
 		
 		;

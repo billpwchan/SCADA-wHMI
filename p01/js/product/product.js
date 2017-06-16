@@ -4,47 +4,48 @@ window.SCADAGEN_LOADER = window.SCADAGEN_LOADER || (function(){
 	return {
 		start: function(){
 			
-			// initialize 
-			
-			
-			const strJsSCADAgenUIWidgetVerifyUIEventActionJSControl = 'resources/js/product/scadagen-UIWidgetVerifyUIEventActionJSControl.js';
-			console.log('Loading ', strJsSCADAgenUIWidgetVerifyUIEventActionJSControl);
+			// initialize uieventaction.js
+			const strJsUIEventAction = 'resources/js/product/uieventaction.js';
+			console.log('Loading ', strJsUIEventAction);
 			$.getScript(
-				strJsSCADAgenUIWidgetVerifyUIEventActionJSControl,
+				strJsUIEventAction,
 				() => {
-					console.log(strJsSCADAgenUIWidgetVerifyUIEventActionJSControl, 'Loaded');
+					console.log(strJsUIEventAction, 'Loaded');
+					
+					// initialize UIWidgetVerifyUIEventActionJSControl.js
+					const strJsUIWidgetVerifyUIEventActionJSControl = 'resources/js/product/UIWidgetVerifyUIEventActionJSControl.js';
+					console.log('Loading ', strJsUIWidgetVerifyUIEventActionJSControl);
+					$.getScript(
+						strJsUIWidgetVerifyUIEventActionJSControl,
+						() => {
+							console.log(strJsUIWidgetVerifyUIEventActionJSControl, 'Loaded');
+						}
+						,
+						() => {
+							console.log(strJsUIWidgetVerifyUIEventActionJSControl, 'Load Failed');
+						}
+					);	
+					
+					// initialize keep-alive.js
+					const strJsKeepAlive = 'resources/js/product/keep-alive.js';
+					console.log('Loading ', strJsKeepAlive);
+					$.getScript(
+						strJsKeepAlive,
+						() => {
+							console.log(strJsKeepAlive, 'Loaded');
+						}
+						,
+						() => {
+							console.log(strJsKeepAlive, 'Load Failed');
+						}
+					);
+					
 				}
 				,
 				() => {
-					console.log(strJsSCADAgenUIWidgetVerifyUIEventActionJSControl, 'Load Failed');
+					console.log(strJsUIEventAction, 'Load Failed');
 				}
-			);	
-			
-			const strJsSCADAgenUIEventAction = 'resources/js/product/scadagen-uieventaction.js';
-			console.log('Loading ', strJsSCADAgenUIEventAction);
-			$.getScript(
-				strJsSCADAgenUIEventAction,
-				() => {
-					$(document).ready(() => {
-						console.log(strJsSCADAgenUIEventAction, 'Loaded');
-						/*
-						window.SCADAGEN.SYNCBLINKING.start(
-							gdgBlinkProperties,
-							syncblinking_verbosity
-						);
-						window.SCADAGEN.SYNCBLINKING.start(
-							symbolBlinkProperties,
-							syncblinking_verbosity
-						);
-						*/
-					});
-				}
-
 			);
-			
-		
-			
-
 		}
 	}
 }());

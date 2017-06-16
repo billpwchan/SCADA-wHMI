@@ -146,7 +146,7 @@
          <p:source name="GDGColumn06" statusComputerName="GDGColumn06" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 	
-	<p:column filterable="true" sortable="false" name="gdg_column_checkopm" type="INTEGER" format="" width="200" widthUnit="PX" xsi:type="p:numberColumnType">
+	<p:column filterable="true" sortable="false" name="gdg_column_checkopm" type="INTEGER" format="" width="0" widthUnit="PX" xsi:type="p:numberColumnType">
         <p:source name="GDGColumnCheckAccess01" statusComputerName="GDGColumnCheckAccess01" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 

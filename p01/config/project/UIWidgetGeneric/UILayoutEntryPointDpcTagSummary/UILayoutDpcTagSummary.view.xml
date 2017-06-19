@@ -2,7 +2,7 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>2</rows>
+		<rows>3</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-UILayoutDpcTagSummary-panel-inner</rootCSS>
@@ -18,5 +18,12 @@
 		<uiView>UILayoutEntryPointDpcTagSummary/UILayoutDpcTagViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointDpcTagSummary/UILayoutDpcTagViewer.opts.xml</uiOpts>
 		<element>UILayoutDpcTagViewer</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetViewerPager</uiCtrl>
+		<uiView>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagPager.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointDpcTagSummary/UIWidgetDpcTagPager.opts.xml</uiOpts>
+		<element>UIWidgetDpcTagPager</element>
+		<csscontainer>project-UIWidgetDpcTagPager-panel-Pager</csscontainer>
 	</option>
 </data-set>

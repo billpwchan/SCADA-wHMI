@@ -33,4 +33,77 @@
 		<OperationString1>RowSelected</OperationString1>
 	</action>
 	
+	<!-- Update Pager Value -->
+	<actionset key="PagerValueChanged_PageStart">
+		<OperationString1>PagerValueChanged_PageStart</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_PageStart">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_EndIndex">
+		<OperationString1>PagerValueChanged_EndIndex</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_EndIndex">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+	</action>
+	
+	<actionset key="PagerValueChanged_Exact">
+		<OperationString1>PagerValueChanged_Exact</OperationString1>
+	</actionset>
+	
+	<action key="PagerValueChanged_Exact">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+	</action>
+	
+	<!-- Update Pager Button -->
+	<actionset key="PagerButtonChanged_HasPreviousPage">
+		<OperationString1>PagerButtonChanged_HasPreviousPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasPreviousPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasPreviousPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasNextPage">
+		<OperationString1>PagerButtonChanged_HasNextPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasNextPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasNextPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasFastForwardPage">
+		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasFastForwardPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasFastForwardPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
+	<actionset key="PagerButtonChanged_HasFastBackwardPage">
+		<OperationString1>PagerButtonChanged_HasFastBackwardPage</OperationString1>
+	</actionset>
+	
+	<action key="PagerButtonChanged_HasFastBackwardPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UIWidgetDpcTagPager</OperationElement>
+		<OperationString1>PagerButtonChanged_HasFastBackwardPage</OperationString1>
+		<OperationString2>false</OperationString2>
+	</action>
+	
 </data-set>

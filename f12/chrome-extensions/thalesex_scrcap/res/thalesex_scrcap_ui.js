@@ -4,51 +4,6 @@ function thalesex_scrcap_on_captured(dataURI) {
 	const divScrCap = document.createElement('div');
 	divScrCap.id = 'thalesex_scrcap-popup';
 	divScrCap.innerHTML =
-		'<style>' + 
-		'#thalesex_scrcap-popup .ctrl-container {' +
-			'position:absolute;' +
-			'margin:auto;' +
-			'top:0;' +
-			'right:0;' +
-			'bottom:0;' +
-			'left:0;' +
-			'width: 50%;' +
-			'height: 50%;' +
-			'background-color: #ccc;' +
-			'border-radius: 3px;' +
-		'}' +
-		'#thalesex_scrcap-popup .img-container {' +
-			'top:0;' +
-			'width:100%;' +
-			'height:80%;' +
-			'background-color: #aaa;' +
-			'position:absolute;' +
-			'text-align:center;' +
-			'vertical-align:middle;' +
-			'margin:auto;' +
-		'}' +
-		'#thalesex_scrcap-img {' +
-			'position:absolute;' +
-			'margin:auto;' +
-			'top:0;' +
-			'right:0;' +
-			'bottom:0;' +
-			'left:0;' +
-		'}' +
-		'#thalesex_scrcap-popup .btn-container {' +
-			'bottom:0;' +
-			'right:0;' +
-			'position:absolute;' +
-		'}' +
-		'#thalesex_scrcap-popup .bottom-right {' +
-			'float: right;' +
-			'margin:10px;' +
-		'}' +
-		'#thalesex_scrcap-img {' +
-			'width: 80%;' +
-			'height: 80%;' +
-		'}' +
-	'</style>' +
 	'<div class="ctrl-container">' +
 		'<div class="img-container">' +
 			'<img id="thalesex_scrcap-img" src=""/>' +

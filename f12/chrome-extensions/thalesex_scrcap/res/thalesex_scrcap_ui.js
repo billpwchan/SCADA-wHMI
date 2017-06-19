@@ -9,9 +9,9 @@ function thalesex_scrcap_on_captured(dataURI) {
 			'<img id="thalesex_scrcap-img" src=""/>' +
 		'</div>' +
 		'<div class="btn-container">' +
-			'<input type="button" class="bottom-right" value="print" onclick="thalesex_scrcap_print()" />' +
-			'<input type="button" class="bottom-right" value="save" onclick="thalesex_scrcap_save()" />' +
-			'<input type="button" class="bottom-right" value="close" onclick="thalesex_scrcap_close()" />' +
+			'<input type="button" class="btn" value="print" onclick="thalesex_scrcap_print()" />' +
+			'<input type="button" class="btn" value="save" onclick="thalesex_scrcap_save()" />' +
+			'<input type="button" class="btn" value="close" onclick="thalesex_scrcap_close()" />' +
 		'</div>' +
 	'</div>'
 	document.body.appendChild(divScrCap);

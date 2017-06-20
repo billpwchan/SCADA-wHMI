@@ -8,13 +8,7 @@
 		
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
-		
-		<!-- DB Attribute to write the Workstation Reserve Request -->
-		<DbAttrNameResrvReserveReqID>.resrvReserveReqID</DbAttrNameResrvReserveReqID>
-		
-		<!-- DB Attribute to write the Workstation Unreserve Request -->
-		<DbAttrNameResrvUnreserveReqID>.resrvUnreserveReqID</DbAttrNameResrvUnreserveReqID>
-		
+
 		<!-- Record Threshold for the invalid action -->
 		<RecordThreshold>1</RecordThreshold>
 		
@@ -22,7 +16,7 @@
 		<WritingDelayTime>5000</WritingDelayTime>
 		
 		<!-- Checking delay Time in MS-->
-		<CheckingDelayTime>10000</CheckingDelayTime>
+		<CheckingDelayTime>15000</CheckingDelayTime>
 	</header>
 	
 	<!-- Begin of life -->

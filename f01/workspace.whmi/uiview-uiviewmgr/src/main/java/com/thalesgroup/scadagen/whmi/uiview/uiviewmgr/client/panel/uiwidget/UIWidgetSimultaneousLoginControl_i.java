@@ -39,13 +39,12 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		}
 	}
 	
-	public enum OpmIdendifyType {
-		  HostName("HostName")
-		, IpAddress("IpAddress")
-		, Profile("Profile")
+	public enum UserIdendifyType {
+		 Profile("Profile")
+		, Operator("Operator")
 		;
 		private final String text;
-		private OpmIdendifyType(final String text) { this.text = text; }
+		private UserIdendifyType(final String text) { this.text = text; }
 		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
 		/* (non-Javadoc)
 		 * @see java.lang.Enum#toString()
@@ -53,14 +52,36 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		@Override
 		public String toString() { return this.text; }
 		public static String[] toStrings() {
-			OpmIdendifyType[] enums = values();
+			UserIdendifyType[] enums = values();
 		    String[] strings = new String[enums.length];
 		    for (int i = 0; i < enums.length; i++) {
 		    	strings[i] = enums[i].toString();
 		    }
 		    return strings;
 		}
-	}	
+	}
+	
+	public enum GwsIdendifyType {
+		  HostName("HostName")
+		, IpAddress("IpAddress")
+		;
+		private final String text;
+		private GwsIdendifyType(final String text) { this.text = text; }
+		public boolean equalsName(String otherName) { return ( otherName == null ) ? false : text.equals(otherName); }
+		/* (non-Javadoc)
+		 * @see java.lang.Enum#toString()
+		 */
+		@Override
+		public String toString() { return this.text; }
+		public static String[] toStrings() {
+			GwsIdendifyType[] enums = values();
+		    String[] strings = new String[enums.length];
+		    for (int i = 0; i < enums.length; i++) {
+		    	strings[i] = enums[i].toString();
+		    }
+		    return strings;
+		}
+	}
 	
 	public enum SimultaneousLoginEvent {
 		  RowUpdated("RowUpdated")

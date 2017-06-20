@@ -86,9 +86,9 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		final String function = "validiteLogin";
 		logger.begin(className, function);
 
-		String selfIdentity = new SimultaneousLogin().getSelfIdentity();
+		String usrIdentity = new SimultaneousLogin().getUsrIdentity();
 	
-		logger.debug(className, function, "columnNameResrReservedID[{}] selfIdentity[{}]", columnNameResrReservedID, selfIdentity);
+		logger.debug(className, function, "columnNameResrReservedID[{}] usrIdentity[{}]", columnNameResrReservedID, usrIdentity);
 				
 		int record = 0;
 		
@@ -99,7 +99,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			for ( HashMap<String, String> columns : rowStorage ) {
 				String identity = columns.get(columnNameResrReservedID);
 				if ( null != identity ) {
-					if ( identity.equals(selfIdentity) ) {
+					if ( identity.equals(usrIdentity) ) {
 						record++;
 					}
 				} else {

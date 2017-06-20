@@ -17,9 +17,6 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 	private final String className = UIWidgetUtil.getClassSimpleName(UIEventActionSimultaneousLogin.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	private final String dictionariesCacheName = "UIJson";
-	private final String fileName = "simultaneousLogin.json";
 
 	public UIEventActionSimultaneousLogin() {
 		supportedActions = new String[] { 
@@ -83,35 +80,24 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		
 		logger.debug(className, function, logPrefix + UIEventActionOpmAction.SimultaneousLogin.toString());
 
-		final String strDbAttrResrvReserveReqID = "DbAttrResrvReserveReqID";
-
 		final String loginRequestProcedure = "login_request_procedure";
 
 		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
+		
+		String scsEnvId = simultaneousLogin.getScsEnvId();
+		
+		String alias = simultaneousLogin.getAlias();
+		
+		String usrIdentity = simultaneousLogin.getUsrIdentity();
 
-		String opmApi = simultaneousLogin.getOpmApi();
-		String opmIdendifyType = simultaneousLogin.getOpmIdentityType();
-		
-		logger.debug(className, function, "opmApi[{}] opmIdendifyType[{}]", opmApi, opmIdendifyType);
-		
-		String selfIdentity = simultaneousLogin.getSelfIdentity(opmApi, opmIdendifyType);
-		
-		logger.debug(className, function, "selfIdentity[{}]", selfIdentity);
-		
-		String scsEnvId = simultaneousLogin.getScsEnvId(selfIdentity);
-		String alias = simultaneousLogin.getAlias(selfIdentity);
-		
-		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
-
-		String dbAttrResrvReserveReqID = 
-				simultaneousLogin.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
+		String dbAttrResrvReserveReqID = simultaneousLogin.getDbAttriuteReserveReqID();
 		
 		logger.debug(className, function, "dbAttrResrvReserveReqID[{}]", dbAttrResrvReserveReqID);
 
-		if (null != alias && null != scsEnvId && null != dbAttrResrvReserveReqID) {
+		if (null != usrIdentity && null != alias && null != scsEnvId && null != dbAttrResrvReserveReqID) {
 
 			String address = alias + dbAttrResrvReserveReqID;
-			String value = selfIdentity;
+			String value = usrIdentity;
 
 			logger.debug(className, function, "scsEnvId[{}] address[{}] value[{}]",
 					new Object[] { scsEnvId, address, value });
@@ -133,7 +119,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 			uiEventActionProcessorCore_i.executeActionSet(actionsetkey2, override2);
 		} else {
-			logger.warn(className, function, "alias[{}] scsEnvId[{}] dbAttrResrvReserveReqID[{}]", new Object[]{alias, scsEnvId, dbAttrResrvReserveReqID});
+			logger.warn(className, function, "usrIdentity[{}] alias[{}] scsEnvId[{}] dbAttrResrvReserveReqID[{}]", new Object[]{usrIdentity, alias, scsEnvId, dbAttrResrvReserveReqID});
 		}
 		
 		logger.end(className, function);
@@ -148,30 +134,21 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		final String logoutRequestProcedure = "logout_request_procedure";
 
 		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
-
-		String opmApi = simultaneousLogin.getOpmApi();
-		String opmIdendifyType = simultaneousLogin.getOpmIdentityType();
 		
-		logger.debug(className, function, "opmApi[{}] opmIdendifyType[{}]", opmApi, opmIdendifyType);
-
-		String selfIdentity = simultaneousLogin.getSelfIdentity(opmApi, opmIdendifyType);
+		String scsEnvId = simultaneousLogin.getScsEnvId();
 		
-		logger.debug(className, function, "selfIdentity[{}]", selfIdentity);
-
-		String scsEnvId = simultaneousLogin.getScsEnvId(selfIdentity);
-		String alias = simultaneousLogin.getAlias(selfIdentity);
+		String alias = simultaneousLogin.getAlias();
 		
-		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
+		String usrIdentity = simultaneousLogin.getUsrIdentity();
 
-		String dbAttrResrvUnreserveReqID = simultaneousLogin.getStringFromJson(dictionariesCacheName, fileName,
-				strDbAttrResrvUnreserveReqID);
+		String dbAttrResrvUnreserveReqID = simultaneousLogin.getDbAttriuteUnreserveReqID();
 		
 		logger.debug(className, function, "dbAttrResrvUnreserveReqID[{}]", dbAttrResrvUnreserveReqID);
 
-		if (null != alias && null != scsEnvId && null != dbAttrResrvUnreserveReqID) {
+		if (null != usrIdentity && null != alias && null != scsEnvId && null != dbAttrResrvUnreserveReqID) {
 
 			String address = alias + dbAttrResrvUnreserveReqID;
-			String value = selfIdentity;
+			String value = usrIdentity;
 
 			logger.debug(className, function, "scsEnvId[{}] address[{}] value[{}]",
 					new Object[] { scsEnvId, address, value });
@@ -191,7 +168,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 			uiEventActionProcessorCore_i.executeActionSet(actionsetkey2, override2);
 		} else {
-			logger.warn(className, function, "alias[{}] scsEnvId[{}] strDbAttrResrvUnreserveReqID[{}]", new Object[]{alias, scsEnvId, strDbAttrResrvUnreserveReqID});
+			logger.warn(className, function, "usrIdentity[{}] alias[{}] scsEnvId[{}] strDbAttrResrvUnreserveReqID[{}]", new Object[]{usrIdentity, alias, scsEnvId, strDbAttrResrvUnreserveReqID});
 		}
 		
 		logger.end(className, function);
@@ -201,28 +178,19 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		final String function = logPrefix + " jsSessionStart";
 		logger.begin(className, function);
 		
-		final String strDbAttrResrvReserveReqID = "DbAttrResrvReserveReqID";
-
 		final String loginJSSession = "login_js_session";
 
 		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
 		
+		String scsEnvId = simultaneousLogin.getScsEnvId();
+		
+		String alias = simultaneousLogin.getAlias();
+		
+		String usrIdentity = simultaneousLogin.getUsrIdentity();
+
 		String opmApi = simultaneousLogin.getOpmApi();
-		String opmIdendifyType = simultaneousLogin.getOpmIdentityType();
 		
-		logger.debug(className, function, "opmApi[{}] opmIdendifyType[{}]", opmApi, opmIdendifyType);
-
-		String selfIdentity = simultaneousLogin.getSelfIdentity(opmApi, opmIdendifyType);
-		
-		logger.debug(className, function, "selfIdentity[{}]", selfIdentity);
-
-		String scsEnvId = simultaneousLogin.getScsEnvId(selfIdentity);
-		String alias = simultaneousLogin.getAlias(selfIdentity);
-		
-		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
-
-		String dbAttrResrvReserveReqID = 
-				simultaneousLogin.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
+		String dbAttrResrvReserveReqID = simultaneousLogin.getDbAttriuteReserveReqID();
 		
 		logger.debug(className, function, "dbAttrResrvReserveReqID[{}]", dbAttrResrvReserveReqID);
 		
@@ -234,14 +202,16 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 			logger.debug(className, function, "call opm_i login");
 			currentOperator = uiOpm_i.getCurrentOperator();
 			currentProfile = uiOpm_i.getCurrentProfile();
+			
+			logger.debug(className, function, "currentOperator[{}] currentProfile[{}]", currentOperator, currentProfile);
 		} else {
 			logger.warn(className, function, logPrefix + "opmapi[{}] instance IS NULL", opmApi);
 		}
 
-		if (null != alias && null != scsEnvId && null != dbAttrResrvReserveReqID) {
+		if (null != usrIdentity && null != alias && null != scsEnvId && null != dbAttrResrvReserveReqID) {
 
 			String address = alias + dbAttrResrvReserveReqID;
-			String value = selfIdentity;
+			String value = usrIdentity;
 
 			logger.debug(className, function, "scsEnvId[{}] address[{}] value[{}]",
 					new Object[] { scsEnvId, address, value });
@@ -268,7 +238,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 			uiEventActionProcessorCore_i.executeActionSet(actionsetkey2, override2);
 		} else {
-			logger.warn(className, function, "alias[{}] scsEnvId[{}] dbAttrResrvReserveReqID[{}]", new Object[]{alias, scsEnvId, dbAttrResrvReserveReqID});
+			logger.warn(className, function, "usrIdentity[{}] alias[{}] scsEnvId[{}] dbAttrResrvReserveReqID[{}]", new Object[]{usrIdentity, alias, scsEnvId, dbAttrResrvReserveReqID});
 		}
 		
 		logger.end(className, function);

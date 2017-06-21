@@ -21,11 +21,13 @@ public class SimultaneousLogin {
 	private final String strDbAttrResrvReserveReqID = "DbAttrResrvReserveReqID";
 	private final String strDbAttrResrvUnreserveReqID = "DbAttrResrvUnreserveReqID";
 	
-	private final String arrayKey = "GWS";
-	private final String arrayIndexKeyValue = "Key";
+	private final String strGwsKey = "Gws";
 	
-	private final String strAlias = "Alias";
-	private final String strScsEnvId = "ScsEnvId";
+	private final String strGwsIndexKeyValue = "Key";
+	
+	private final String strArea		= "Area";
+	private final String strScsEnvId	= "ScsEnvId";
+	private final String strAlias		= "Alias";
 	
 	private final String strOpmApi = "OpmApi";
 	
@@ -35,6 +37,10 @@ public class SimultaneousLogin {
 	private String opmApi = null;
 	public String getOpmApi() { return this.opmApi; }
 	
+	private String gwsIdentity = null;
+	public String getGwsIdentity() { return this.gwsIdentity; }
+	private String area = null;
+	public String getArea() { return this.area; }
 	private String alias = null;
 	public String getAlias() { return this.alias; }
 	private String scsEnvId = null;
@@ -79,12 +85,13 @@ public class SimultaneousLogin {
 		String gwsIdendifyType = getGwsIdentityType();
 		logger.debug(className, function, "opmApi[{}] gwsIdendifyType[{}]", opmApi, gwsIdendifyType);
 		
-		String gwsIdentity = getGwsIdentity(opmApi, gwsIdendifyType);
+		gwsIdentity = getGwsIdentity(opmApi, gwsIdendifyType);
 		logger.debug(className, function, "gwsIdentity[{}]", gwsIdentity);
 		
+		area = getArea(gwsIdentity);
 		scsEnvId = getScsEnvId(gwsIdentity);
 		alias = getAlias(gwsIdentity);
-		logger.debug(className, function, "scsEnvId[{}] alias[{}]", scsEnvId, alias);
+		logger.debug(className, function, "gwsIdentity[{}] area[{}] scsEnvId[{}] alias[{}]", new Object[]{gwsIdentity, area, scsEnvId, alias});
 
 		String usrIdentityType = getUsrIdentityType();
 		logger.debug(className, function, "opmApi[{}] usrIdentityType[{}]", opmApi, usrIdentityType);
@@ -95,11 +102,22 @@ public class SimultaneousLogin {
 		logger.end(className, function);
 	}
 	
+	public String getArea(String key) {
+		final String function = "getArea";
+		logger.begin(className, function);
+		
+		String area = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strArea);
+		
+		logger.debug(className, function, "area[{}]", area);
+		logger.end(className, function);
+		return area;
+	}
+	
 	public String getAlias(String key) {
 		final String function = "getAlias";
 		logger.begin(className, function);
 		
-		String alias = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, arrayKey, arrayIndexKeyValue, key, strAlias);
+		String alias = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strAlias);
 		
 		logger.debug(className, function, "alias[{}]", alias);
 		logger.end(className, function);
@@ -110,7 +128,7 @@ public class SimultaneousLogin {
 		final String function = "getScsEnvId";
 		logger.begin(className, function);
 		
-		String scsEnvId = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, arrayKey, arrayIndexKeyValue, key, strScsEnvId);
+		String scsEnvId = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strScsEnvId);
 		
 		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
 		logger.end(className, function);

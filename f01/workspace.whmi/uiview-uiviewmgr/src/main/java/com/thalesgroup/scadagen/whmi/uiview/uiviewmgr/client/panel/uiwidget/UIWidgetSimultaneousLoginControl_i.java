@@ -9,7 +9,7 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		, ColumnNameAlias("ColumnNameAlias")
 		, ColumnNameServiceOwnerID("ColumnNameServiceOwnerID")
 		
-		, ColumnNameIdentity("ColumnNameIdentity")
+		, ColumnNameGwsIdentity("ColumnNameGwsIdentity")
 		, ColumnNameResrReservedID("ColumnNameResrReservedID")
 		
 		, DbAttrNameResrvReserveReqID("DbAttrNameResrvReserveReqID")

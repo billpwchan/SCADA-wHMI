@@ -4,7 +4,7 @@
 	<header key="header">
 
 		<!-- Column Name to retrive the Workstation Identity ID -->
-		<ColumnNameIdentity>gdg_column_identity</ColumnNameIdentity>
+		<ColumnNameGwsIdentity>gdg_column_gws_identity</ColumnNameGwsIdentity>
 		
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>

@@ -2,6 +2,7 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	
 	private Set<HashMap<String, String>> rowStorage = null;
 
-	private String columnNameIdentity		= "gdg_column_identity";
+	private String columnNameGwsIdentity	= "gdg_column_gws_identity";
 	private String columnNameResrReservedID	= "gdg_column_resrvreservedid";
 
 	private final String loginValidProcedure	= "login_valid_procedure";
@@ -81,36 +82,53 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		
 		logger.end(className, function);
 	}
-	
+
 	private void validiteLogin() {
 		final String function = "validiteLogin";
 		logger.begin(className, function);
-
-		String usrIdentity = new SimultaneousLogin().getUsrIdentity();
+		
+		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
+		String area = simultaneousLogin.getArea();
+		String usrIdentity = simultaneousLogin.getUsrIdentity();
 	
+		logger.debug(className, function, "columnNameGwsIdentity[{}] area[{}]", columnNameGwsIdentity, area);
 		logger.debug(className, function, "columnNameResrReservedID[{}] usrIdentity[{}]", columnNameResrReservedID, usrIdentity);
-				
-		int record = 0;
+
+		Map<String, Integer> records = new HashMap<String, Integer>();
 		
 		if ( null != rowStorage ) {
 			
 			logger.debug(className, function, "rowStorage.size[{}]", rowStorage.size());
 			
 			for ( HashMap<String, String> columns : rowStorage ) {
-				String identity = columns.get(columnNameResrReservedID);
-				if ( null != identity ) {
-					if ( identity.equals(usrIdentity) ) {
-						record++;
+				
+				String gwsUsrIdentity = columns.get(columnNameResrReservedID);
+				if ( null != gwsUsrIdentity ) {
+					if ( gwsUsrIdentity.equals(usrIdentity) ) {
+						
+						String gwsIdentity = columns.get(columnNameGwsIdentity);
+						String gwsArea = simultaneousLogin.getArea(gwsIdentity);
+						
+						logger.debug(className, function, "gwsIdentity[{}] gwsArea[{}]", gwsIdentity, gwsArea);
+						
+						if ( null == records.get(gwsArea) ) records.put(gwsArea, 0);
+
+						records.put(gwsArea, records.get(gwsArea) + 1);
+						
+						logger.debug(className, function, "records.get({})[{}]", gwsArea, records.get(gwsArea));
 					}
 				} else {
-					logger.warn(className, function, "identity IS NULL");
+					logger.warn(className, function, "gwsUsrIdentity IS NULL");
 				}
 			}
 		} else {
 			logger.warn(className, function, "rowStorage IS NULL");
 		}
 		
-		logger.debug(className, function, "record[{}] > recordThreshold[{}]", record, recordThreshold);
+		if ( null == records.get(area) ) records.put(area, 0);
+		
+		int record = records.get(area);
+		logger.debug(className, function, "area[{}] record[{}] > recordThreshold[{}]", new Object[]{area, record, recordThreshold});
 		
 		if ( record <= recordThreshold ) {
 			// Login Valid, forword to Main
@@ -128,32 +146,34 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		}
 
 		logger.end(className, function);
-	}
+	}	
 
+	private Timer t1 = null;
+	private Timer t2 = null;
 	private void login() {
 		final String function = "login";
 		logger.begin(className, function);
 		
 		// WritingDelayTime
 		logger.debug(className, function, "Writing delay writingDelayTime[{}] start...", writingDelayTime);
-		new Timer() {
+		t1 = new Timer() {
 			public void run() {
 
 				loginRequest();
 
-				new Timer() {
+				t2 = new Timer() {
 					public void run() {
 					
-					// CheckingDelayTime
-					logger.debug(className, function, "Checking delay checkingDelayTime[{}] start...", checkingDelayTime);
-					validiteLogin();
+						// CheckingDelayTime
+						logger.debug(className, function, "Checking delay checkingDelayTime[{}] start...", checkingDelayTime);
+						validiteLogin();
 					
 					}
-				}.schedule(checkingDelayTime);
+				};
+				t2.schedule(checkingDelayTime);
 			}
-			
-		}.schedule(writingDelayTime);
-		
+		};
+		t1.schedule(writingDelayTime);
 		logger.end(className, function);
 	}
 	
@@ -195,7 +215,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 
-			columnNameIdentity			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ColumnNameIdentity.toString(), strHeader);
+			columnNameGwsIdentity		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ColumnNameGwsIdentity.toString(), strHeader);
+			
 			columnNameResrReservedID	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.ColumnNameResrReservedID.toString(), strHeader);
 
 			strRecordThreshold			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.RecordThreshold.toString(), strHeader);
@@ -205,7 +226,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			strCheckingDelayTime		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.CheckingDelayTime.toString(), strHeader);
 			
 			if ( logger.isDebugEnabled() ) {
-				logger.debug(className, function, "columnNameIdentity[{}]", columnNameIdentity);
+				logger.debug(className, function, "columnNameGwsIdentity[{}]", columnNameGwsIdentity);
+				
 				logger.debug(className, function, "columnNameResrReservedID[{}]", columnNameResrReservedID);
 				
 				logger.debug(className, function, "strRecordThreshold[{}]", strRecordThreshold);

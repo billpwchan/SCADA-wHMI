@@ -5,7 +5,8 @@ public interface UIWidgetSimultaneousLoginControl_i {
 	public enum ParameterName {
 		  OpmApi("OpmApi")
 		, OpmIdentityType("OpmIdentityType")
-		  
+		
+		, ColumnNameArea("ColumnNameArea")  
 		, ColumnNameAlias("ColumnNameAlias")
 		, ColumnNameServiceOwnerID("ColumnNameServiceOwnerID")
 		
@@ -17,6 +18,7 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		
 		, RecordThreshold("RecordThreshold")
 		
+		, DataDelayTime("DataDelayTime")
 		, WritingDelayTime("WritingDelayTime")
 		, CheckingDelayTime("CheckingDelayTime")
 		

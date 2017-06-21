@@ -6,13 +6,4 @@
 	
 	, "DbAttrResrvReserveReqID": ".resrvReserveReqID"
 	, "DbAttrResrvUnreserveReqID": ".resrvUnreserveReqID"
-	
-	, "Gws":[
-	{
-	"Key":"127.0.0.1"
-	, "Alias":"<alias>CTVECTMFD_0001"
-	, "ScsEnvId":"OCCENVCONN"
-	, "Area":"1"
-	}
-	]
 }

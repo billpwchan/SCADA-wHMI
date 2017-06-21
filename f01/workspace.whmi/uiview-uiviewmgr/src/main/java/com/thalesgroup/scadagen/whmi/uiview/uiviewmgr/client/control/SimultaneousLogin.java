@@ -1,5 +1,8 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -15,20 +18,19 @@ public class SimultaneousLogin {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSimultaneousLoginControl.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private static SimultaneousLogin instance = null;
+	private SimultaneousLogin() {}
+	public static SimultaneousLogin getInstance() { 
+		if ( null == instance ) instance = new SimultaneousLogin();
+		return instance;
+	}
+	
 	private final String dictionariesCacheName = "UIJson";
 	private final String fileName = "simultaneousLogin.json";
 	
 	private final String strDbAttrResrvReserveReqID = "DbAttrResrvReserveReqID";
 	private final String strDbAttrResrvUnreserveReqID = "DbAttrResrvUnreserveReqID";
-	
-	private final String strGwsKey = "Gws";
-	
-	private final String strGwsIndexKeyValue = "Key";
-	
-	private final String strArea		= "Area";
-	private final String strScsEnvId	= "ScsEnvId";
-	private final String strAlias		= "Alias";
-	
+
 	private final String strOpmApi = "OpmApi";
 	
 	private final String strUsrIdentityType = "UsrIdentityType";
@@ -61,8 +63,13 @@ public class SimultaneousLogin {
 	private String dbAttrResrvUnreserveReqID = null;
 	public String getDbAttriuteUnreserveReqID() { return this.dbAttrResrvUnreserveReqID; }
 	
-	public SimultaneousLogin() {
-		final String function = "SimultaneousLogin";
+	private Map<String, Gws> gwses = new HashMap<String, Gws>();
+	public Gws getGws(String key) { return this.gwses.get(key); }
+	public Gws[] getGwses() { return gwses.keySet().toArray(new Gws[0]); }
+	public Gws setGws(String key, Gws gws) { return gwses.put(key, gws); }
+	
+	public void init() {
+		final String function = "init";
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}]", dictionariesCacheName, fileName);
@@ -103,37 +110,73 @@ public class SimultaneousLogin {
 	}
 	
 	public String getArea(String key) {
-		final String function = "getArea";
-		logger.begin(className, function);
-		
-		String area = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strArea);
-		
-		logger.debug(className, function, "area[{}]", area);
-		logger.end(className, function);
-		return area;
-	}
+	final String function = "getArea";
+	logger.begin(className, function);
 	
-	public String getAlias(String key) {
-		final String function = "getAlias";
-		logger.begin(className, function);
-		
-		String alias = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strAlias);
-		
-		logger.debug(className, function, "alias[{}]", alias);
-		logger.end(className, function);
-		return alias;
-	}
+	String area = null;
+	if ( null != gwses.get(key) ) area = gwses.get(key).area;
 	
-	public String getScsEnvId(String key) {
-		final String function = "getScsEnvId";
-		logger.begin(className, function);
-		
-		String scsEnvId = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strScsEnvId);
-		
-		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
-		logger.end(className, function);
-		return scsEnvId;
-	}
+	logger.debug(className, function, "area[{}]", area);
+	logger.end(className, function);
+	return area;
+}
+
+public String getAlias(String key) {
+	final String function = "getAlias";
+	logger.begin(className, function);
+	
+	String alias = null;
+	if ( null != gwses.get(key) ) alias = gwses.get(key).alias;
+	
+	logger.debug(className, function, "alias[{}]", alias);
+	logger.end(className, function);
+	return alias;
+}
+
+public String getScsEnvId(String key) {
+	final String function = "getScsEnvId";
+	logger.begin(className, function);
+	
+	String scsEnvId = null;
+	if ( null != gwses.get(key) ) scsEnvId = gwses.get(key).scsEnvId;
+	
+	logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
+	logger.end(className, function);
+	return scsEnvId;
+}
+	
+//	public String getArea(String key) {
+//		final String function = "getArea";
+//		logger.begin(className, function);
+//		
+//		String area = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strArea);
+//		
+//		logger.debug(className, function, "area[{}]", area);
+//		logger.end(className, function);
+//		return area;
+//	}
+//	
+//	public String getAlias(String key) {
+//		final String function = "getAlias";
+//		logger.begin(className, function);
+//		
+//		String alias = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strAlias);
+//		
+//		logger.debug(className, function, "alias[{}]", alias);
+//		logger.end(className, function);
+//		return alias;
+//	}
+//	
+//	public String getScsEnvId(String key) {
+//		final String function = "getScsEnvId";
+//		logger.begin(className, function);
+//		
+//		String scsEnvId = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strScsEnvId);
+//		
+//		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
+//		logger.end(className, function);
+//		return scsEnvId;
+//	}
 	
 	private String getUsrIdentity(String opmApi, String usrIdentityType) {
 		final String function = "getUsrIdentity";

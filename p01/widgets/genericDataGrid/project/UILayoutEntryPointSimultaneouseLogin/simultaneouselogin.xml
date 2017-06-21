@@ -115,11 +115,11 @@
     </p:column>
 	
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_gws_identity" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn06" statusComputerName="GDGColumn05" xsi:type="cmn:computedStatusDataSourceType"/>
+         <p:source name="GDGColumn05" statusComputerName="GDGColumn05" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_resrvreservedid" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn05" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
+         <p:source name="GDGColumn04" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 <!--
     <p:column filterable="true" sortable="true" i18n="true" name="gdg_column_resrvreservedtime" format="scsalarmList_DateFormat" width="195" widthUnit="PX" xsi:type="p:dateColumnType">
@@ -127,11 +127,19 @@
     </p:column>
 -->
 	<p:column filterable="true" sortable="true" i18n="false" name="gdg_column_alias" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn04" statusComputerName="GDGColumn07" xsi:type="cmn:computedStatusDataSourceType"/>
+         <p:source name="GDGColumn07" statusComputerName="GDGColumn07" xsi:type="cmn:computedStatusDataSourceType"/>
+    </p:column>
+	
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_serviceownerid" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+		<p:source name="sourceID" xsi:type="cmn:statusDataSourceType"/>
+    </p:column>
+	
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_area" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+         <p:source name="GDGColumn09" statusComputerName="GDGColumn09" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 	
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_SL_Cond_Res" width="50" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
-         <p:source name="GDGColumn07" statusComputerName="GDGColumn06" xsi:type="cmn:computedStatusDataSourceType"/>
+         <p:source name="GDGColumn06" statusComputerName="GDGColumn06" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 
     <!-- default sorting of the GDG -->

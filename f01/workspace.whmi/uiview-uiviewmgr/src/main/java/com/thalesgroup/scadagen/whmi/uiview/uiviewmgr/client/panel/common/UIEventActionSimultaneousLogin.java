@@ -82,7 +82,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 		final String loginRequestProcedure = "login_request_procedure";
 
-		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
+		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
 		
 		String scsEnvId = simultaneousLogin.getScsEnvId();
 		
@@ -133,7 +133,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 		final String logoutRequestProcedure = "logout_request_procedure";
 
-		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
+		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
 		
 		String scsEnvId = simultaneousLogin.getScsEnvId();
 		
@@ -180,7 +180,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		
 		final String loginJSSession = "login_js_session";
 
-		SimultaneousLogin simultaneousLogin = new SimultaneousLogin();
+		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
 		
 		String scsEnvId = simultaneousLogin.getScsEnvId();
 		

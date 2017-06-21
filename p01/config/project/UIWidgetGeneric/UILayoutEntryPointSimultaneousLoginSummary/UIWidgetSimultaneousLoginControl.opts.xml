@@ -2,15 +2,27 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-
-		<!-- Column Name to retrive the Workstation Identity ID -->
+	
+		<!-- Column Name to retrive the Grahpic Workstation Identity ID -->
 		<ColumnNameGwsIdentity>gdg_column_gws_identity</ColumnNameGwsIdentity>
+		
+		<!-- Column Name to retrive the Area ID -->
+		<ColumnNameArea>gdg_column_area</ColumnNameArea>
+		
+		<!-- Column Name to retrive the CONNECROR -->
+		<ColumnNameServiceOwnerID>gdg_column_serviceownerid</ColumnNameServiceOwnerID>
+		
+		<!-- Column Name to retrive the Alias -->
+		<ColumnNameAlias>gdg_column_alias</ColumnNameAlias>
 		
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 
 		<!-- Record Threshold for the invalid action -->
 		<RecordThreshold>1</RecordThreshold>
+		
+		<!-- Writing delay Time in MS-->
+		<DataDelayTime>10000</DataDelayTime>
 		
 		<!-- Writing delay Time in MS-->
 		<WritingDelayTime>5000</WritingDelayTime>

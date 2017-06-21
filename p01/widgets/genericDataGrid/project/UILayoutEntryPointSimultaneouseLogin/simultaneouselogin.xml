@@ -114,7 +114,7 @@
          <p:source name="GDGColumn03" statusComputerName="GDGColumn03" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 	
-    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_identity" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
+    <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_gws_identity" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
          <p:source name="GDGColumn06" statusComputerName="GDGColumn05" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
 

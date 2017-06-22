@@ -53,13 +53,21 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		public String toString() { return this.text; }
 	}
 	
-	private String title;
+	private String title = null;
 	public void setTitle(String title) { this.title = title; }
 	public String setTitle() { return this.title; }
 	
-	private String msg;
+	private String msg = null;
 	public void setMsg(String msg) { this.msg = msg; }
 	public String getMsg() { return this.msg; }
+	
+	private String opt1Label = null;
+	public void setOpt1Label(String label) { this.opt1Label = label; }
+	public String getOpt1Label() { return this.opt1Label; }
+	
+	private String opt2Label = null;
+	public void setOpt2Label(String label) { this.opt2Label = label; }
+	public String getOpt2Label() { return this.opt2Label; }
 	
 	private UIConfimDlgType confimDlgType = null;
 	public void setConfimDlgType(UIConfimDlgType confimDlgType) { this.confimDlgType = confimDlgType; }
@@ -128,46 +136,54 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		btnBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		
 		btnBar.add(btnOk);
-		btnBar.add(btnCancel);	
+		btnBar.add(btnCancel);
+		
+		final String strOK = "OK";
+		final String strCancel = "Cancel";
+		final String strExecute = "Execute";
+		final String strYes = "Yes";
+		final String strNo = "No";
+		final String strConfirm = "Confirm";
+		final String strEmpty = "";
 		
 		switch ( confimDlgType ) {
 			case DLG_ERR:
 				image.setUrl(basePath + folder+"/error.png");
-				btnOk.setText("OK");
-				btnCancel.setText("");
+				btnOk.setText(null==opt1Label?strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?strEmpty:opt2Label);
 				btnCancel.setVisible(false);
 				break;
 			case DLG_WAR:
 				image.setUrl(basePath + folder+"/warning.png");
-				btnOk.setText("OK");
-				btnCancel.setText("");
+				btnOk.setText(null==opt1Label?strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?strEmpty:opt2Label);
 				btnCancel.setVisible(false);
 				break;
 			case DLG_OK:
 				image.setUrl(basePath + folder+"/info.png");
-				btnOk.setText("OK");
-				btnCancel.setText("");
+				btnOk.setText(null==opt1Label?strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?strEmpty:opt2Label);
 				btnCancel.setVisible(false);
 				break;
 			case DLG_YESNO:
 				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText("Yes");
-				btnCancel.setText("No");
+				btnOk.setText(null==opt1Label?strYes:opt1Label);
+				btnCancel.setText(null==opt2Label?strNo:opt2Label);
 				break;
 			case DLG_OKCANCEL:
 				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText("OK");
-				btnCancel.setText("Cancel");
+				btnOk.setText(null==opt1Label?strOK:opt1Label);
+				btnCancel.setText(null==opt2Label?strCancel:opt2Label);
 				break;
 			case DLG_EXECANCEL:
 				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText("Execute");
-				btnCancel.setText("Cancel");
+				btnOk.setText(null==opt1Label?strExecute:opt1Label);
+				btnCancel.setText(null==opt2Label?strCancel:opt2Label);
 				break;
 			case DLG_CONFIRMCANCEL:
 				image.setUrl(basePath + folder+"/question.png");
-				btnOk.setText("Confirm");
-				btnCancel.setText("Cancel");
+				btnOk.setText(null==opt1Label?strConfirm:opt1Label);
+				btnCancel.setText(null==opt2Label?strCancel:opt2Label);
 				break;				
 				
 			default:

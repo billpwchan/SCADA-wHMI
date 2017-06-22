@@ -16,8 +16,8 @@
 
     </p:subject>
 
-	<p:column filterable="true" i18n="true" name="gdg_column_geographicalcategory" sortable="true" width="120" widthUnit="PX" xsi:type="p:textEnumColumnType">
-         <p:source name="GDGColumn01" statusComputerName="GDGColumn01" xsi:type="cmn:computedStatusDataSourceType"/>
+    <p:column filterable="true" i18n="true" name="gdg_column_geographicalcategory" sortable="true" width="120" widthUnit="PX" xsi:type="p:textEnumColumnType">
+        <p:source name="GDGColumn01" statusComputerName="GDGColumn01" xsi:type="cmn:computedStatusDataSourceType"/>
         <p:textItem sourceValue="1" value="scsalarmList_area_location1"/>
         <p:textItem sourceValue="2" value="scsalarmList_area_location2"/>
         <p:textItem sourceValue="3" value="scsalarmList_area_location3"/>
@@ -121,11 +121,7 @@
     <p:column filterable="true" sortable="true" i18n="false" name="gdg_column_resrvreservedid" width="100" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
          <p:source name="GDGColumn04" statusComputerName="GDGColumn04" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>
-<!--
-    <p:column filterable="true" sortable="true" i18n="true" name="gdg_column_resrvreservedtime" format="scsalarmList_DateFormat" width="195" widthUnit="PX" xsi:type="p:dateColumnType">
-        <p:source name="GDGColumnSimpleDateFormat01" statusComputerName="GDGColumnSimpleDateFormat01" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
--->
+
 	<p:column filterable="true" sortable="true" i18n="false" name="gdg_column_alias" width="150" widthUnit="PX" template="{}" templateMarker="{}" xsi:type="p:textTemplateColumnType">
          <p:source name="GDGColumn07" statusComputerName="GDGColumn07" xsi:type="cmn:computedStatusDataSourceType"/>
     </p:column>

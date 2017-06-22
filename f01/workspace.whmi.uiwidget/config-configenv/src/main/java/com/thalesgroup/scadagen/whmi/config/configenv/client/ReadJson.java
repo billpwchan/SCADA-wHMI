@@ -117,18 +117,6 @@ public class ReadJson {
 		logger.end(className, function);
 		return value;
 	}
-	
-	public static String getStringFromJson(String dictionariesCacheNameValue, String fileNameValue, String key) {
-		final String function = "getStringFromJson";
-		logger.begin(className, function);
-		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] key[{}]", new Object[]{dictionariesCacheNameValue, fileNameValue, key});
-		
-		String value = ReadJson.readString(dictionariesCacheNameValue, fileNameValue, key, null);
-		
-		logger.debug(className, function, "dictionariesCacheNameValue[{}] fileNameValue[{}] key[{}] value[{}]", new Object[]{dictionariesCacheNameValue, fileNameValue, key, value});
-		logger.end(className, function);
-		return value;
-	}
 
 	public static int readInt(JSONValue jsonValue, int defaultValue) {
 		final String function = "readInt";

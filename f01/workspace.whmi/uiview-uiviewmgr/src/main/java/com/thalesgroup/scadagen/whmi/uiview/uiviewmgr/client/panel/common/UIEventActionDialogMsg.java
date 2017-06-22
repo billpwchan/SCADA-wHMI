@@ -46,6 +46,8 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 		String strMessage				= (String) uiEventAction.getParameter(ActionAttribute.OperationString4.toString());
 		String strMsgOpt1ActionSetKey	= (String) uiEventAction.getParameter(ActionAttribute.OperationString5.toString());
 		String strMsgOpt2ActionSetKey	= (String) uiEventAction.getParameter(ActionAttribute.OperationString6.toString());
+		String strMsgOpt1Label			= (String) uiEventAction.getParameter(ActionAttribute.OperationString7.toString());
+		String strMsgOpt2Label			= (String) uiEventAction.getParameter(ActionAttribute.OperationString8.toString());
 		
 		if ( strUIDialogBoxAction == null ) {
 			logger.warn(className, function, logPrefix+"strUIDialogBoxAction IS NULL");
@@ -86,13 +88,29 @@ public class UIEventActionDialogMsg extends UIEventActionExecute_i {
 				uiConfimDlgType = UIConfimDlgType.DLG_CONFIRMCANCEL;
 			}
 			
+			logger.debug(className, function, logPrefix+"BF strTitle[{}]", strTitle);
+			logger.debug(className, function, logPrefix+"BF strMessage[{}]", strMessage);
+			logger.debug(className, function, logPrefix+"BF strMsgOpt1Label[{}]", strMsgOpt1Label);
+			logger.debug(className, function, logPrefix+"BF strMsgOpt2Label[{}]", strMsgOpt2Label);
+			
 			strTitle	= TranslationMgr.getInstance().getTranslation(strTitle);
 			strMessage	= TranslationMgr.getInstance().getTranslation(strMessage);
+			
+			if ( null != strMsgOpt1Label ) strMsgOpt1Label = TranslationMgr.getInstance().getTranslation(strMsgOpt1Label);
+			if ( null != strMsgOpt2Label ) strMsgOpt2Label = TranslationMgr.getInstance().getTranslation(strMsgOpt2Label);
+			
+			logger.debug(className, function, logPrefix+"AF strTitle[{}]", strTitle);
+			logger.debug(className, function, logPrefix+"AF strMessage[{}]", strMessage);
+			logger.debug(className, function, logPrefix+"AF strMsgOpt1Label[{}]", strMsgOpt1Label);
+			logger.debug(className, function, logPrefix+"AF strMsgOpt2Label[{}]", strMsgOpt2Label);
 			
 			UIDialogMsg uiDialgogMsg = (UIDialogMsg) UIDialogMgr.getInstance().getDialog(UIEventActionDialogMsgAction.UIDialogMsg.toString());
 			if ( null != uiDialgogMsg ) {
 				uiDialgogMsg.setUINameCard(uiNameCard);
 				uiDialgogMsg.setDialogMsg(uiConfimDlgType, strTitle, strMessage);
+				
+				if ( null != strMsgOpt1Label ) uiDialgogMsg.setOpt1Label(strMsgOpt1Label);
+				if ( null != strMsgOpt2Label ) uiDialgogMsg.setOpt2Label(strMsgOpt2Label);
 				
 				if ( strMsgOpt1ActionSetKey != null && ! strMsgOpt1ActionSetKey.trim().isEmpty() ) {
 					UIDialogMsgCtrl_i action1 = new UIDialogMsgCtrlUIEventActionSet(uiEventActionProcessorCore_i, strMsgOpt1ActionSetKey, override);

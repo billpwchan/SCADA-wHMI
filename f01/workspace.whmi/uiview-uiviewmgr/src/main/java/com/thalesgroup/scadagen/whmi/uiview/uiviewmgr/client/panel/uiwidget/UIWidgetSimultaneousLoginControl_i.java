@@ -2,6 +2,17 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 public interface UIWidgetSimultaneousLoginControl_i {
 	
+	public static final String loginValidProcedure					= "login_valid_procedure";
+	public static final String loginInvalidThresHoldReachProcedure	= "login_invalid_thresthold_reach_procedure";
+	public static final String loginInvalidSelfIdentityProcedure	= "login_invalid_self_identity_procedure";
+	
+	public static final String strSimultaneousLoginRequest	= "simultaneous_login_request";
+	public static final String strSimultaneousLogoutRequest	= "simultaneous_logout_request";
+	
+	public static final String strLoginRequest	= "loginrequest";
+	public static final String strLogoutRequest	= "logoutrequest";
+	public static final String strValidateLogin	= "validatelogin";
+	
 	public enum ParameterName {
 		  OpmApi("OpmApi")
 		, OpmIdentityType("OpmIdentityType")
@@ -15,9 +26,7 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		
 		, DbAttrNameResrvReserveReqID("DbAttrNameResrvReserveReqID")
 		, DbAttrNameResrvUnreserveReqID("DbAttrNameResrvUnreserveReqID")
-		
-		, RecordThreshold("RecordThreshold")
-		
+
 		, DataDelayTime("DataDelayTime")
 		, WritingDelayTime("WritingDelayTime")
 		, CheckingDelayTime("CheckingDelayTime")

@@ -6,4 +6,6 @@
 	
 	, "DbAttrResrvReserveReqID": ".resrvReserveReqID"
 	, "DbAttrResrvUnreserveReqID": ".resrvUnreserveReqID"
+	
+	, "RecordThreshold": 1
 }

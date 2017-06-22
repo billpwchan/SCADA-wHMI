@@ -17,18 +17,15 @@
 		
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
-
-		<!-- Record Threshold for the invalid action -->
-		<RecordThreshold>1</RecordThreshold>
 		
-		<!-- Writing delay Time in MS-->
-		<DataDelayTime>10000</DataDelayTime>
+		<!-- Data delay Time in MS-->
+		<DataDelayTime>15000</DataDelayTime>
 		
 		<!-- Writing delay Time in MS-->
 		<WritingDelayTime>5000</WritingDelayTime>
 		
 		<!-- Checking delay Time in MS-->
-		<CheckingDelayTime>15000</CheckingDelayTime>
+		<CheckingDelayTime>5000</CheckingDelayTime>
 	</header>
 	
 	<!-- Begin of life -->
@@ -146,19 +143,36 @@
 		<OperationString7>UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml</OperationString7>
 	</action>
 	
-	<actionset key="login_invalid_procedure">
+	<actionset key="login_invalid_thresthold_reach_procedure">
 		<OperationType>actionsetkey</OperationType>
-		<OperationString1>confirm_msg</OperationString1>
+		<OperationString1>confirm_msg_thresthold_reach</OperationString1>
 	</actionset>
 	
-	<action key="confirm_msg">
+	<action key="confirm_msg_thresthold_reach">
 		<OperationType>confirm_msg</OperationType>
 		<OperationAction>dialogmsg</OperationAction>
 		<OperationString1>UIDialogMsg</OperationString1>
 		<OperationString2>DLG_WAR</OperationString2>
-		<OperationString3>Operator with the same profile was logged-in in other areas.</OperationString3>
-		<OperationString4>Operator with the same profile was logged-in in other areas.</OperationString4>
+		<OperationString3>&amp;UILayoutEntryPointSimultaneousLogin_invalid_max_reach_title</OperationString3>
+		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_invalid_max_reach_msg</OperationString4>
 		<OperationString5>forward_invalid_procedure</OperationString5>
+		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_invalid_max_reach_opt1_lbl</OperationString7>
+	</action>
+	
+	<actionset key="login_invalid_self_identity_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirm_msg_self_identity</OperationString1>
+	</actionset>
+	
+	<action key="confirm_msg_self_identity">
+		<OperationType>confirm_msg</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_WAR</OperationString2>
+		<OperationString3>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_title</OperationString3>
+		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_msg</OperationString4>
+		<OperationString5>forward_invalid_procedure</OperationString5>
+		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_opt1_lbl</OperationString7>
 	</action>
 
 	<actionset key="forward_invalid_procedure">

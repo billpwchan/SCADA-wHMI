@@ -2,12 +2,14 @@ package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSimultaneousLoginControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.ParameterAttribute;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.StorageAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSimultaneousLoginControl_i.GwsIdendifyType;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSimultaneousLoginControl_i.UserIdendifyType;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
@@ -15,12 +17,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 
 public class SimultaneousLogin {
 	
-	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetSimultaneousLoginControl.class.getName());
+	private final String className = UIWidgetUtil.getClassSimpleName(SimultaneousLogin.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	private static SimultaneousLogin instance = null;
 	private SimultaneousLogin() {}
-	public static SimultaneousLogin getInstance() { 
+	public static SimultaneousLogin getInstance() {
 		if ( null == instance ) instance = new SimultaneousLogin();
 		return instance;
 	}
@@ -28,13 +30,13 @@ public class SimultaneousLogin {
 	private final String dictionariesCacheName = "UIJson";
 	private final String fileName = "simultaneousLogin.json";
 	
-	private final String strDbAttrResrvReserveReqID = "DbAttrResrvReserveReqID";
-	private final String strDbAttrResrvUnreserveReqID = "DbAttrResrvUnreserveReqID";
+	private final String defaultDbAttrResrvReserveReqID = null;
+	private final String defaultDbAttrResrvUnreserveReqID = null;
 
-	private final String strOpmApi = "OpmApi";
+	private final String defaultOpmApi = null;
 	
-	private final String strUsrIdentityType = "UsrIdentityType";
-	private final String strGwsIdentityType = "GwsIdentityType";
+	private final String defaultUsrIdentityType = null;
+	private final String defaultGwsIdentityType = null;
 
 	private String opmApi = null;
 	public String getOpmApi() { return this.opmApi; }
@@ -63,10 +65,37 @@ public class SimultaneousLogin {
 	private String dbAttrResrvUnreserveReqID = null;
 	public String getDbAttriuteUnreserveReqID() { return this.dbAttrResrvUnreserveReqID; }
 	
-	private Map<String, Gws> gwses = new HashMap<String, Gws>();
-	public Gws getGws(String key) { return this.gwses.get(key); }
-	public Gws[] getGwses() { return gwses.keySet().toArray(new Gws[0]); }
-	public Gws setGws(String key, Gws gws) { return gwses.put(key, gws); }
+	private int recordThreshold = 1;
+	public void setRecordThreshold(int recordThreshold) { this.recordThreshold = recordThreshold; }
+
+	private Map<String, Map<String, String>> storage = new HashMap<String, Map<String, String>>();
+	public Map<String, Map<String, String>> getStorage(String key) { return storage; }
+	public void setStorage(String key, Map<String, String> entities) {
+		storage.put(key, entities); 
+		if ( logger.isDebugEnabled() ) dumpStorage();
+	}
+	
+	public void dumpStorage() {
+		final String function = "dumpStorage";
+		logger.begin(className, function);
+		for ( Entry<String, Map<String, String>> entities : storage.entrySet() ) {
+			String entitiesKey = entities.getKey();
+			logger.debug(className, function, "entitiesKey[{}]", entitiesKey);
+			Map<String, String> entity = entities.getValue();
+			if ( null != entity ) {
+				for ( Entry<String, String> values : entity.entrySet() ) {
+					if ( null != values ) {
+						logger.debug(className, function, "values key[{}] value[{}]", values.getKey(), values.getValue());
+					} else {
+						logger.warn(className, function, "values IS NULL");
+					}
+				}
+			} else {
+				logger.warn(className, function, "entity IS NULL");
+			}
+		}
+		logger.end(className, function);
+	}
 	
 	public void init() {
 		final String function = "init";
@@ -74,20 +103,23 @@ public class SimultaneousLogin {
 		
 		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}]", dictionariesCacheName, fileName);
 		
-		opmApi = ReadJson.getStringFromJson(dictionariesCacheName, fileName, strOpmApi);
-		logger.debug(className, function, "strOpmApi[{}] opmApi[{}]", strOpmApi, opmApi);
+		recordThreshold = ReadJson.readInt(dictionariesCacheName, fileName, SimultaneousLogin_i.ParameterAttribute.RecordThreshold.toString(), 1);
+		logger.debug(className, function, "RecordThreshold[{}]  usrIdentityType[{}]", ParameterAttribute.RecordThreshold.toString(), usrIdentityType);
 		
-		dbAttrResrvReserveReqID = ReadJson.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvReserveReqID);
-		logger.debug(className, function, "strDbAttrResrvReserveReqID[{}]  dbAttrResrvReserveReqID[{}]", strDbAttrResrvReserveReqID, dbAttrResrvReserveReqID);
+		opmApi = ReadJson.readString(dictionariesCacheName, fileName, ParameterAttribute.OpmApi.toString(), defaultOpmApi);
+		logger.debug(className, function, "OpmApi[{}] opmApi[{}]", ParameterAttribute.OpmApi.toString(), opmApi);
 		
-		dbAttrResrvUnreserveReqID = ReadJson.getStringFromJson(dictionariesCacheName, fileName, strDbAttrResrvUnreserveReqID);
-		logger.debug(className, function, "strDbAttrResrvUnreserveReqID[{}]  dbAttrResrvUnreserveReqID[{}]", strDbAttrResrvUnreserveReqID, dbAttrResrvUnreserveReqID);
+		dbAttrResrvReserveReqID = ReadJson.readString(dictionariesCacheName, fileName, ParameterAttribute.DbAttrResrvReserveReqID.toString(), defaultDbAttrResrvReserveReqID);
+		logger.debug(className, function, "DbAttrResrvReserveReqID[{}]  dbAttrResrvReserveReqID[{}]", ParameterAttribute.DbAttrResrvReserveReqID.toString(), dbAttrResrvReserveReqID);
 		
-		usrIdentityType = ReadJson.getStringFromJson(dictionariesCacheName, fileName, strUsrIdentityType);
-		logger.debug(className, function, "strUsrIdentityType[{}]  usrIdentityType[{}]", strUsrIdentityType, usrIdentityType);
+		dbAttrResrvUnreserveReqID = ReadJson.readString(dictionariesCacheName, fileName, ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), defaultDbAttrResrvUnreserveReqID);
+		logger.debug(className, function, "DbAttrResrvUnreserveReqID[{}]  dbAttrResrvUnreserveReqID[{}]", ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), dbAttrResrvUnreserveReqID);
 		
-		gwsIdentityType = ReadJson.getStringFromJson(dictionariesCacheName, fileName, strGwsIdentityType);
-		logger.debug(className, function, "strGwsIdentityType[{}]  gwsIdentityType[{}]", strGwsIdentityType, gwsIdentityType);
+		usrIdentityType = ReadJson.readString(dictionariesCacheName, fileName, ParameterAttribute.UsrIdentityType.toString(), defaultUsrIdentityType);
+		logger.debug(className, function, "UsrIdentityType[{}]  usrIdentityType[{}]", ParameterAttribute.UsrIdentityType.toString(), usrIdentityType);
+		
+		gwsIdentityType = ReadJson.readString(dictionariesCacheName, fileName, ParameterAttribute.GwsIdentityType.toString(), defaultGwsIdentityType);
+		logger.debug(className, function, "GwsIdentityType[{}]  gwsIdentityType[{}]", ParameterAttribute.GwsIdentityType.toString(), gwsIdentityType);
 		
 		String gwsIdendifyType = getGwsIdentityType();
 		logger.debug(className, function, "opmApi[{}] gwsIdendifyType[{}]", opmApi, gwsIdendifyType);
@@ -110,74 +142,41 @@ public class SimultaneousLogin {
 	}
 	
 	public String getArea(String key) {
-	final String function = "getArea";
-	logger.begin(className, function);
+		final String function = "getArea";
+		logger.begin(className, function);
+		
+		String area = null;
+		if ( null != storage.get(key) ) area = storage.get(key).get(StorageAttribute.Area.toString());
+		
+		logger.debug(className, function, "area[{}]", area);
+		logger.end(className, function);
+		return area;
+	}
 	
-	String area = null;
-	if ( null != gwses.get(key) ) area = gwses.get(key).area;
+	public String getAlias(String key) {
+		final String function = "getAlias";
+		logger.begin(className, function);
+		
+		String alias = null;
+		if ( null != storage.get(key) ) alias = storage.get(key).get(StorageAttribute.Alias.toString());
+		
+		logger.debug(className, function, "alias[{}]", alias);
+		logger.end(className, function);
+		return alias;
+	}
 	
-	logger.debug(className, function, "area[{}]", area);
-	logger.end(className, function);
-	return area;
-}
+	public String getScsEnvId(String key) {
+		final String function = "getScsEnvId";
+		logger.begin(className, function);
+		
+		String scsEnvId = null;
+		if ( null != storage.get(key) ) scsEnvId = storage.get(key).get(StorageAttribute.ScsEnvId.toString());
+		
+		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
+		logger.end(className, function);
+		return scsEnvId;
+	}
 
-public String getAlias(String key) {
-	final String function = "getAlias";
-	logger.begin(className, function);
-	
-	String alias = null;
-	if ( null != gwses.get(key) ) alias = gwses.get(key).alias;
-	
-	logger.debug(className, function, "alias[{}]", alias);
-	logger.end(className, function);
-	return alias;
-}
-
-public String getScsEnvId(String key) {
-	final String function = "getScsEnvId";
-	logger.begin(className, function);
-	
-	String scsEnvId = null;
-	if ( null != gwses.get(key) ) scsEnvId = gwses.get(key).scsEnvId;
-	
-	logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
-	logger.end(className, function);
-	return scsEnvId;
-}
-	
-//	public String getArea(String key) {
-//		final String function = "getArea";
-//		logger.begin(className, function);
-//		
-//		String area = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strArea);
-//		
-//		logger.debug(className, function, "area[{}]", area);
-//		logger.end(className, function);
-//		return area;
-//	}
-//	
-//	public String getAlias(String key) {
-//		final String function = "getAlias";
-//		logger.begin(className, function);
-//		
-//		String alias = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strAlias);
-//		
-//		logger.debug(className, function, "alias[{}]", alias);
-//		logger.end(className, function);
-//		return alias;
-//	}
-//	
-//	public String getScsEnvId(String key) {
-//		final String function = "getScsEnvId";
-//		logger.begin(className, function);
-//		
-//		String scsEnvId = ReadJson.getStringFromJsonArray(dictionariesCacheName, fileName, strGwsKey, strGwsIndexKeyValue, key, strScsEnvId);
-//		
-//		logger.debug(className, function, "scsEnvId[{}]", scsEnvId);
-//		logger.end(className, function);
-//		return scsEnvId;
-//	}
-	
 	private String getUsrIdentity(String opmApi, String usrIdentityType) {
 		final String function = "getUsrIdentity";
 		logger.begin(className, function);
@@ -243,5 +242,67 @@ public String getScsEnvId(String key) {
 		logger.debug(className, function, "gwsIdentityType[{}]", gwsIdentityType);
 		logger.end(className, function);
 		return selfIdentity;
+	}
+	
+	public int validiteLogin() {
+		final String function = "validiteLogin";
+		logger.begin(className, function);
+		
+		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
+		String area = simultaneousLogin.getArea();
+
+		String usrIdentity = simultaneousLogin.getUsrIdentity();
+	
+		logger.debug(className, function, "gwsIdentity, usrIdentity[{}] area[{}] ", new Object[]{gwsIdentity, usrIdentity, area});
+
+		Map<String, Integer> records = new HashMap<String, Integer>();
+		
+		if ( null != storage ) {
+			
+			logger.debug(className, function, "storage size[{}]", storage.size());
+			
+			for ( Entry<String, Map<String, String>> entities : storage.entrySet() ) {
+				
+				Map<String, String> entite = entities.getValue();
+				
+				String gwsUsrIdentity = entite.get(StorageAttribute.ResrReservedID.toString());
+				logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
+				
+				if ( null != gwsUsrIdentity ) {
+					
+					if ( gwsUsrIdentity.equals(usrIdentity) ) {
+
+						String gwsArea = simultaneousLogin.getArea(gwsIdentity);
+						
+						logger.debug(className, function, "gwsIdentity[{}] gwsArea[{}]", gwsIdentity, gwsArea);
+						
+						if ( null == records.get(gwsArea) ) records.put(gwsArea, 0);
+
+						records.put(gwsArea, records.get(gwsArea) + 1);
+						
+						logger.debug(className, function, "records.get({})[{}]", gwsArea, records.get(gwsArea));
+					}
+				} else {
+					logger.warn(className, function, "gwsUsrIdentity IS NULL");
+				}
+			}
+		} else {
+			logger.warn(className, function, "rowStorage IS NULL");
+		}
+		
+		int iValid = -1;
+		if ( null != area && null != records.get(area) ) {
+			iValid = 0;
+			
+			int record = records.get(area);
+			logger.debug(className, function, "area[{}] record[{}] <= recordThreshold[{}]", new Object[]{area, record, recordThreshold});
+
+			if ( record <= recordThreshold ) iValid = 1;
+		}
+
+		logger.debug(className, function, "iValid[{}]", iValid);
+		logger.end(className, function);
+		
+		return iValid;
 	}
 }

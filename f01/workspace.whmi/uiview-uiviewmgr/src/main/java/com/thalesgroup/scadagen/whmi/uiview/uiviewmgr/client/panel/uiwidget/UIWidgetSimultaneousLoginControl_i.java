@@ -29,7 +29,6 @@ public interface UIWidgetSimultaneousLoginControl_i {
 
 		, InitDelayTime("InitDelayTime")
 		, DataDelayTime("DataDelayTime")
-		, CheckingDelayTime("CheckingDelayTime")
 		
 		;
 		private final String text;

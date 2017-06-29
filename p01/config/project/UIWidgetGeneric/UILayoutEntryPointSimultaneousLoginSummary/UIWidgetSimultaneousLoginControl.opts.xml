@@ -18,14 +18,12 @@
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
-		<!-- Data delay Time in MS-->
-		<InitDelayTime>15000</InitDelayTime>
+		<!-- Gws Self Information delay Time in MS-->
+		<InitDelayTime>5000</InitDelayTime>
 		
-		<!-- Writing delay Time in MS-->
-		<DataDelayTime>5000</DataDelayTime>
+		<!-- Global Gws Information delay Time in MS-->
+		<DataDelayTime>10000</DataDelayTime>
 		
-		<!-- Checking delay Time in MS-->
-		<CheckingDelayTime>1</CheckingDelayTime>
 	</header>
 	
 	<!-- Begin of life -->

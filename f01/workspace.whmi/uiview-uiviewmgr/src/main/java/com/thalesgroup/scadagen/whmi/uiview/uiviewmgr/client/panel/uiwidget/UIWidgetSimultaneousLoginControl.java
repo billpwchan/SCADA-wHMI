@@ -1,4 +1,4 @@
-rpackage com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +37,6 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 	private int initDelayTime		= 10000;
 	private int dataDelayTime		= 10000;
-	private int checkingDelayTime	= 10000;
 	
 	private void loginRequest() {
 		final String function = "loginRequest";
@@ -57,19 +56,21 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
-//	private boolean loggedin = false;
-	private void validateLogin() {
+	private boolean validateLogin(boolean requestLogin) {
 		final String function = "validateLogin";
 		logger.begin(className, function);
+		boolean result = false;
+		
+		logger.debug(className, function, "requestLogin[{}]", requestLogin);
 
-		int result = SimultaneousLogin.getInstance().validateLogin();
+		int validateLoginResult = SimultaneousLogin.getInstance().validateLogin();
 		
-		logger.debug(className, function, "result[{}]", result);
+		logger.debug(className, function, "validateLoginResult[{}]", validateLoginResult);
 		
-		if (       0 != (result & SimultaneousLogin_i.Bit_Pos_SelfGwsIdentity_IsInvalid)
-				|| 0 != (result & SimultaneousLogin_i.Bit_Pos_SelfGwsArea_IsInvalid)
-				|| 0 != (result & SimultaneousLogin_i.Bit_Pos_SelfUsrIdentity_IsInvalid)
-				|| 0 != (result & SimultaneousLogin_i.Bit_Pos_Storage_IsEmpty)
+		if (       0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_SelfGwsIdentity_IsInvalid)
+				|| 0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_SelfGwsArea_IsInvalid)
+				|| 0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_SelfUsrIdentity_IsInvalid)
+				|| 0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_Storage_IsEmpty)
 			) {
 			
 			// Login Invalid, forword to Logout
@@ -78,17 +79,17 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			
 			uiEventActionProcessor_i.executeActionSet(UIWidgetSimultaneousLoginControl_i.loginInvalidSelfIdentityProcedure);
 		}
-		else if ( 0 != (result & SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity) ) {
+		else if ( 0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity) ) {
 			
 			// Login Valid, forword to Main
 			
-			logger.debug(className, function, "Login Valid, forword to Main");
+			result = true;
 			
-//			loggedin = true;
+			logger.debug(className, function, "Login Valid, forword to Main");
 			
 			uiEventActionProcessor_i.executeActionSet(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
 		}
-		else if ( 0 != (result & SimultaneousLogin_i.Bit_Pos_ReservedInOtherArea) ) {
+		else if ( 0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_ReservedInOtherArea) ) {
 			
 			// Login Invalid, forword to Logout
 			
@@ -96,26 +97,31 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 			uiEventActionProcessor_i.executeActionSet(UIWidgetSimultaneousLoginControl_i.loginInvalidThresHoldReachProcedure);
 		}
-		else if ( 0 != (result & SimultaneousLogin_i.Bit_Pos_ReservedSelfGws) ) {
+		else if ( 0 != (validateLoginResult & SimultaneousLogin_i.Bit_Pos_ReservedSelfGws) ) {
 			
 			// Login Valid, forword to Main
 			
-			logger.debug(className, function, "Login Valid, forword to Main");
+			result = true;
 			
-//			loggedin = true;
+			logger.debug(className, function, "Login Valid, forword to Main");
 			
 			uiEventActionProcessor_i.executeActionSet(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
 
+		} else {
+			if ( requestLogin ) {
+				loginRequest();
+			}
 		}
 		
 		logger.end(className, function);
+		
+		return result;
 	}
 
 	private Timer t1 = null;
 	private Timer t2 = null;
-	private Timer t3 = null;
-	
-//	boolean loginRequested = false;
+
+	private boolean readyToValidateLogin = false;
 	private void login() {
 		final String function = "login";
 		logger.begin(className, function);
@@ -133,24 +139,12 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				t2 = new Timer() {
 					public void run() {
 						
-						logger.debug(className, function, "p2 run...");	
+						logger.debug(className, function, "p2 run...");
 						
-						// Verify target GWS is not reserved by other user
-						validateLogin();
-					
-						logger.debug(className, function, "checkingDelayTime[{}] start...", checkingDelayTime);
-						t3 = new Timer() {
-							public void run() {
-							
-								logger.debug(className, function, "p3 run...");
-								
-								// Request login in the GWS
-//								loginRequested = true;
-								loginRequest();
-							}
-						};
-						t3.schedule(checkingDelayTime);
-					
+						readyToValidateLogin = true;
+						
+						validateLogin(true);
+
 					}
 				};
 				t2.schedule(dataDelayTime);
@@ -177,7 +171,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		}
 		else if ( UIWidgetSimultaneousLoginControl_i.strValidateLogin.equals(element) ) {
 
-			validateLogin();
+			validateLogin(true);
 		}
 		
 		logger.end(className, function);
@@ -219,13 +213,9 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				logger.warn(className, function, "entities IS NULL");
 			}
 		}
-		
-//		logger.debug(className, function, "loginRequested[{}] loggedin[{}]", loginRequested, loggedin);
-//		if ( loginRequested ) {
-//			if ( ! loggedin ) {
-				validateLogin();
-//			}
-//		}
+
+		logger.debug(className, function, "readyToValidateLogin[{}]", readyToValidateLogin);
+		if ( readyToValidateLogin ) validateLogin(false);
 		
 		logger.end(className, function);
 	}
@@ -236,7 +226,6 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	
 		String strInitDelayTime 		= null;
 		String strDataDelayTime 		= null;
-		String strCheckingDelayTime 	= null;
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -251,7 +240,6 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 
 			strInitDelayTime			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.InitDelayTime.toString(), strHeader);
 			strDataDelayTime			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.DataDelayTime.toString(), strHeader);
-			strCheckingDelayTime		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.CheckingDelayTime.toString(), strHeader);
 			
 			if ( logger.isDebugEnabled() ) {
 				
@@ -261,9 +249,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				logger.debug(className, function, "columnNameGwsIdentity[{}]", columnNameGwsIdentity);
 				logger.debug(className, function, "columnNameResrReservedID[{}]", columnNameResrReservedID);
 				
-				logger.debug(className, function, "onActionReceived[{}]", strInitDelayTime);
-				logger.debug(className, function, "strWritingDelayTime[{}]", strDataDelayTime);
-				logger.debug(className, function, "strCheckingDelayTime[{}]", strCheckingDelayTime);
+				logger.debug(className, function, "strInitDelayTime[{}]", strInitDelayTime);
+				logger.debug(className, function, "strDataDelayTime[{}]", strDataDelayTime);
 			}
 		}
 		
@@ -287,17 +274,6 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			}
 		} else {
 			logger.warn(className, function, "strDataDelayTime[{}] IS INVALID", strDataDelayTime);
-		}		
-		
-		if ( null != strCheckingDelayTime && ! strCheckingDelayTime.isEmpty() ) {
-			try {
-				checkingDelayTime = Integer.parseInt(strCheckingDelayTime);
-				if ( checkingDelayTime < 0 ) checkingDelayTime = 0;
-			} catch (NumberFormatException ex) {
-				logger.warn(className, function, "strCheckingDelayTime[{}] NumberFormatException:"+ex.toString(), strCheckingDelayTime);
-			}
-		} else {
-			logger.warn(className, function, "strCheckingDelayTime[{}] IS INVALID", strCheckingDelayTime);
 		}
 		
 		logger.end(className, function);
@@ -329,22 +305,6 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 				}
 
 			}
-//			else if ( os1.startsWith(UIWidgetSimultaneousControl_i.SimultaneousLoginEvent.PagerValueChanged_EndIndex.toString() ) ) {
-//				// Activate Selection
-//				
-//				String os2 = (String) uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-//				
-//				logger.debug(className, function, "os2[{}]", os2);
-//				
-//				try {
-//					endIndex = Integer.parseInt(os2);
-//				} catch ( NumberFormatException ex ) {
-//					logger.warn(className, function, "os2["+os2+"] ex:"+ex.toString());
-//				}
-//				
-//				logger.debug(className, function, "endIndex[{}]", endIndex);
-//
-//			}
 			else {
 				// General Case
 				String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());

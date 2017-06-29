@@ -7,5 +7,5 @@
 	, "RecordThreshold": 0
 	
 	, "ByPassUsrIdentity": ["ADMIN"]
-	, "ByPassUsrIdentityIgnoreCase": "false"
+	, "ByPassUsrIdentityIgnoreCase": false
 }

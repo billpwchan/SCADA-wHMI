@@ -11,6 +11,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.Data
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 
+/**
+ * Implementation the Database Multi Reading Operation with Proxy (Caches)
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPairResponsible_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseMultiReadingProxy.class.getName());
@@ -18,8 +24,11 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 
 	protected HashMap<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
 	
+	/**
+	 * Instance for the database
+	 */
 	private DatabaseMultiRead_i databaseReading = new DatabaseMultiReading();
-	
+
 	class ReadingRequest {
 		public String key = null;
 		public String scsEnvId = null;
@@ -34,6 +43,9 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -42,6 +54,9 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -51,6 +66,9 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i#addMultiReadValueRequest(java.lang.String, java.lang.String, java.lang.String[], com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i)
+	 */
 	@Override
 	public void addMultiReadValueRequest(String clientKey, String scsEnvId, String[] dbAddresses,
 			DatabasePairEvent_i databaseEvent) {
@@ -117,6 +135,9 @@ public class DatabaseMultiReadingProxy implements DatabaseMultiRead_i, MultiPair
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.MultiPairResponsible_i#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])
+	 */
 	@Override
 	public void buildRespond(String clientKey, String[] dbAddresses, String[] values) {
 		final String function = "buildReponse";

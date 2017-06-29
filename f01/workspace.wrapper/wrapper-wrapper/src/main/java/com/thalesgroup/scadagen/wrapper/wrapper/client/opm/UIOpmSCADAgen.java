@@ -17,6 +17,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOp
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.RoleDto;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -28,6 +29,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.uigeneric.UIGenericMgrEve
 import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.uiaction.UIActionOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 
+/**
+ * SCADAgen is the subclass of UIOpm_i, it implement the OPM functionality for SCADAgen WHMI.
+ * 
+ * @author syau
+ *
+ */
 public class UIOpmSCADAgen implements UIOpm_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIOpmSCADAgen.class.getName());
@@ -43,6 +50,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	
 	private String [] profileNames	= null;
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#init()
+	 */
 	@Override
 	public void init() {
 		String function = "init";
@@ -68,6 +79,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.util.Map)
+	 */
 	@Override
 	public boolean checkAccess(Map<String, String> parameter) {
 		String function = "checkAccess";
@@ -101,6 +115,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean checkAccess(
 			  String opmName1, String opmValue1
@@ -154,6 +171,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccess(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
 		final String function = "function";
@@ -173,6 +193,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkHom(int, java.lang.String)
+	 */
 	@Override
 	public boolean checkHom(final int hdvValue, final String key) {
 		boolean homResult = false;
@@ -186,6 +209,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return homResult;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccessWithHom(java.lang.String, java.lang.String, java.lang.String, java.lang.String, int, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i)
+	 */
 	@Override
 	public void checkAccessWithHom(final String functionValue
 			, final String locationValue
@@ -225,6 +251,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccessWithHom(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i)
+	 */
 	@Override
 	public void checkAccessWithHom(final String functionValue
 			, final String locationValue
@@ -274,6 +303,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccessWithHostName(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i)
+	 */
 	@Override
 	public void checkAccessWithHostName(
 			String functionValue
@@ -301,6 +333,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#checkAccessWithProfileName(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i)
+	 */
 	@Override
 	public void checkAccessWithProfileName(String functionValue, String locationValue, String actionValue, String modeValue, String scsEnvId, String alias, CheckAccessWithHOMEvent_i resultEvent) {
 		final String function = "checkAccessWithProfileName";
@@ -321,6 +356,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#changePassword(java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIWrapperRpcEvent_i)
+	 */
 	@Override
 	public void changePassword(String operator, String oldPass, String newPass, UIWrapperRpcEvent_i uiWrapperRpcEvent_i) {
 		String function = "changePassword";
@@ -332,6 +370,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentOperator()
+	 */
 	@Override
 	public String getCurrentOperator() {
 		String function = "getCurrentOperator";
@@ -341,6 +383,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.debug(className, function, "operatorId[{}]", operatorId);
 		return operatorId;
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentProfile()
+	 */
 	@Override
 	public String getCurrentProfile() {
 		String function = "getCurrentProfile";
@@ -357,6 +403,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return profile;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentProfiles()
+	 */
 	@Override
 	public String[] getCurrentProfiles() {
 		String function = "getCurrentProfiles";
@@ -389,6 +438,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return profileNames;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#setCurrentProfile()
+	 */
 	@Override
 	public void setCurrentProfile() {
 		// TODO Auto-generated method stub
@@ -396,6 +448,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	private String currentHostName = null;
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHostName()
+	 */
 	@Override
 	public String getCurrentHostName() {
 		final String function = "getCurrentHostName";
@@ -451,6 +506,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	private String currentIPAddress = null;
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentIPAddress()
+	 */
 	@Override
 	public String getCurrentIPAddress() {
 		final String function = "getIPAddress";
@@ -505,6 +564,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return currentIPAddress;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getCurrentHOMValue(java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.GetCurrentHOMValueEvent_i)
+	 */
 	@Override
 	public void getCurrentHOMValue(final String scsEnvId, final String alias, final GetCurrentHOMValueEvent_i getCurrentHOMValueEvent_i) {
 		final String function = "getCurrentHOMValue";
@@ -550,6 +612,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	private HashMap<String, Integer> confighommasks	= new HashMap<String, Integer>();
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#getConfigHOMMask(java.lang.String)
+	 */
 	@Override
 	public int getConfigHOMMask(String key) {
 		String function = "getConfigHOMMask";
@@ -564,7 +629,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			logger.debug(className, function, "defaultValue[{}]", defaultValue);
 			
 			String arraykey = UIOpmSCADAgen_i.homLevelsArrayKey;
-			JSONArray jsonArray = ReadJson.readArray(dictionariesCacheName, fileName, arraykey);
+			JSONArray jsonArray = ReadJsonFile.readArray(dictionariesCacheName, fileName, arraykey);
 			
 			String objectkey = "Key";
 			JSONObject jsonObject = ReadJson.readObject(jsonArray, objectkey, key);
@@ -579,27 +644,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.end(className, function);
 		return confighommask;
 	}
-	
-//	@Override
-//	public void createOperator(String operator) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//	@Override
-//	public void removeOperator(String operator) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//	@Override
-//	public void addProfileToOperator(String operator, String profile) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//	@Override
-//	public void removeProfileFromOperatior(String operator, String profile) {
-//		// TODO Auto-generated method stub
-//
-//	}
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#login(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void login(String operator, String password) {
 		String function = "login";
@@ -613,6 +661,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		
 		logger.end(className, function);
 	}
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#logout()
+	 */
 	@Override
 	public void logout() {
 		String function = "logout";
@@ -626,6 +677,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 
 	private String dbAttribute = null;
+	/**
+	 * @return
+	 */
 	private String getDbAttribute() {
 		String function = "getDbAttribute";
 		logger.begin(className, function);
@@ -635,7 +689,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			String fileName = UIOpmSCADAgen_i.fileName;
 			String key = UIOpmSCADAgen_i.dbAttributekey;
 			String defaultValue = "Can't not read db attribute";
-			dbAttribute = ReadJson.readString(dictionariesCacheName, fileName, key, defaultValue);
+			dbAttribute = ReadJsonFile.readString(dictionariesCacheName, fileName, key, defaultValue);
 		}
 		logger.debug(className, function, "dbAttribute[{}]", dbAttribute);
 		logger.end(className, function);
@@ -643,6 +697,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	
 	private String homActions[] = null;
+	/**
+	 * @return
+	 */
 	private String[] getHomActions() {
 		final String function = "getHomActions";
 		logger.begin(className, function);
@@ -651,7 +708,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			String dictionariesCacheName = UIOpmSCADAgen_i.dictionariesCacheName;
 			String fileName = UIOpmSCADAgen_i.fileName;
 			String key = UIOpmSCADAgen_i.homActionsArrayKey;
-			JSONArray array = ReadJson.readArray(dictionariesCacheName, fileName, key);
+			JSONArray array = ReadJsonFile.readArray(dictionariesCacheName, fileName, key);
 			if ( null != array ) {
 				homActions = new String[array.size()];
 				for ( int i = 0 ; i < array.size() ; ++i ) {
@@ -669,6 +726,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return homActions;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#isHOMAction(java.lang.String)
+	 */
 	@Override
 	public boolean isHOMAction(String action) {
 		final String function = "isHOMAction";
@@ -697,6 +757,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 
 	private int byPassValue				= -1;
 	boolean byPassValueReady 			= false;
+	/**
+	 * @return
+	 */
 	private int getByPassValue() {
 		String function = "getByPassValue";
 		logger.begin(className, function);
@@ -706,7 +769,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			String fileName = UIOpmSCADAgen_i.fileName;
 			String key = UIOpmSCADAgen_i.byPassValuekey;
 			int defaultValue = 0;
-			byPassValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
+			byPassValue = ReadJsonFile.readInt(dictionariesCacheName, fileName, key, defaultValue);
 			
 			byPassValueReady = true;
 		}
@@ -717,6 +780,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	
 	private int homLevelDefaultValue = 0;
 	boolean homLevelDefaultValueReady = false;
+	
+	/**
+	 * @return default value in configuration
+	 */
 	private int getHOMLevelDefaultValue() {
 		String function = "getByPassValue";
 		logger.begin(className, function);
@@ -726,7 +793,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			String fileName = UIOpmSCADAgen_i.fileName;
 			String key = UIOpmSCADAgen_i.homLevelDefaultValueKey;
 			int defaultValue = 0;
-			homLevelDefaultValue = ReadJson.readInt(dictionariesCacheName, fileName, key, defaultValue);
+			homLevelDefaultValue = ReadJsonFile.readInt(dictionariesCacheName, fileName, key, defaultValue);
 			
 			homLevelDefaultValueReady = true;
 		}
@@ -735,6 +802,9 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return homLevelDefaultValue;
 	}	
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i#isByPassValue(int)
+	 */
 	@Override
 	public boolean isByPassValue(int value) {
 		String function = "isByPassValue";

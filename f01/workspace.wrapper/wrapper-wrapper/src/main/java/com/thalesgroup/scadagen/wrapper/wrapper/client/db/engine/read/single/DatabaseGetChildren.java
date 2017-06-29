@@ -10,6 +10,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleR
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database.ScsRTDBComponentAccessGetChildrenResult;
 
+/**
+ * Implementation the Database Get Children Operation
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseGetChildren implements DatabaseSingleRead_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildren.class.getName());
@@ -17,8 +23,14 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 	
 	private HashMap<String, DatabaseReadEvent_i> databaseReadEvents = new HashMap<String, DatabaseReadEvent_i>();
 	
+	/**
+	 * Instance for the database
+	 */
 	private Database database = new Database();
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -48,6 +60,9 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -56,12 +71,8 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 		logger.end(className, function);
 	}
 
-	/**
-	 * @param api : Database API to call
-	 * @param clientKey : Key for the Reading and Result
-	 * @param scsEnvId : scsEnvId to connect
-	 * @param dbaddresses : database address to read
-	 * @param databaseEvent : Callback for result
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleRead_i#addGetChildrenRequest(java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i)
 	 */
 	@Override
 	public void addGetChildrenRequest(String clientKey, String scsEnvId, String dbaddress, DatabaseReadEvent_i databaseEvent) {

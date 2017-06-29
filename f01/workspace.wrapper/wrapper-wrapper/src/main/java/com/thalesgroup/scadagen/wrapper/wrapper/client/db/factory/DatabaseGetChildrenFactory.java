@@ -9,10 +9,23 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.Dat
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.cache.DatabaseGetChildrenProxy;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.cache.DatabaseGetChildrenProxySingleton;
 
+/**
+ * Database Get Children Class Factory
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseGetChildrenFactory {
+	
 	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildrenFactory.class.getName());
 	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	/**
+	 * Factory Method to return the instance of the Database Writing Object
+	 * 
+	 * @param key Name of the Database Get Children Class Request
+	 * @return    Instance of the Database Get Children Object 
+	 */
 	public static DatabaseSingleRead_i get(String key) {
 		final String function = "get";
 		logger.begin(className, function);

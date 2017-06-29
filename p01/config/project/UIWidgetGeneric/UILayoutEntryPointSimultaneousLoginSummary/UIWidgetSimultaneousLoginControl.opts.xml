@@ -19,13 +19,13 @@
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
 		<!-- Data delay Time in MS-->
-		<DataDelayTime>15000</DataDelayTime>
+		<InitDelayTime>15000</InitDelayTime>
 		
 		<!-- Writing delay Time in MS-->
-		<WritingDelayTime>5000</WritingDelayTime>
+		<DataDelayTime>5000</DataDelayTime>
 		
 		<!-- Checking delay Time in MS-->
-		<CheckingDelayTime>5000</CheckingDelayTime>
+		<CheckingDelayTime>1</CheckingDelayTime>
 	</header>
 	
 	<!-- Begin of life -->

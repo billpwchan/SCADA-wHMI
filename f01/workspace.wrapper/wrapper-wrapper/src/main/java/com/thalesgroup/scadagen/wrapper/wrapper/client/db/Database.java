@@ -19,6 +19,12 @@ import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBCompo
 import com.thalesgroup.scadasoft.gwebhmi.ui.client.scscomponent.dbm.ScsRTDBComponentAccess.ScsClassAttInfo;
 
 /**
+ * Database Wrapper for the Inspector Panel
+ * <p>
+ * Single connector only
+ * <p>
+ * Recommend to using namespace com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper instead of this class.
+ *  
  * @author syau
  *
  */
@@ -30,17 +36,31 @@ public class Database implements Connectable_i {
 	private String scsEnvId;
 	private String parent;
 	
+	/**
+	 * Setter to set the database connection scsEnvId and Parent
+	 * @param scsEnvId ScsEnvId to connect
+	 * @param parent   parent to connect
+	 */
 	public void setDynamic(String scsEnvId, String parent) {
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
 	}
 	
 	private String dynamicClientKey = null;
+	/**
+	 * Setter to set the Dynamic Client Key
+	 * @param dynamicClientKey Dynamic Client Key to set
+	 */
 	public void setDynamicClientKey(String dynamicClientKey) {
 		this.dynamicClientKey = dynamicClientKey;
 	}
 	
 	private DatabaseEvent dynaimcDatabaseEvent = null;
+	/**
+	 * Setter for the async call reading operation result
+	 * 
+	 * @param dynaimcDatabaseEvent Callback method for the DatabaseEvent
+	 */
 	public void setDynamicEvent(DatabaseEvent dynaimcDatabaseEvent) {
 		this.dynaimcDatabaseEvent = dynaimcDatabaseEvent;
 	}
@@ -49,16 +69,28 @@ public class Database implements Connectable_i {
 	 * Store the Request: key and address
 	 */
 	private Map<String, String[]> KeyAndAddress			= new HashMap<String, String[]>();
+	/**
+	 * Getter to get the Value by Key
+	 * 
+	 * @param key Key to mapping the address
+	 * @return Values linked to key in parameter
+	 */
 	public String[] getKeyAndAddress(String key) { return this.KeyAndAddress.get(key); }
 	
 	/**
 	 * Store the Request: key and address
 	 */
 	private Map<String, String[]> KeyAndValues			= new HashMap<String, String[]>();
+	/**
+	 * Getter to get the Value by Key
+	 * 
+	 * @param key Key to mapping the value
+	 * @return Values linked to key in parameter
+	 */
 	public String[] getKeyAndValues(String key) { return this.KeyAndValues.get(key); }
 	
 	/**
-	 * SCSDatabase handle
+	 * ScsRTDBComponentAccess handle
 	 */
 	private ScsRTDBComponentAccess rtdb = null;
 	
@@ -66,11 +98,25 @@ public class Database implements Connectable_i {
 	private Map<String, String[]> requestDynamics		= new HashMap<String, String[]>();
 	private Map<String, DatabaseEvent> databaseEvents	= new HashMap<String, DatabaseEvent>();
 	
+	/**
+	 * Helper function to print the Caches
+	 * 
+	 * @param logPrefix Log Prefix
+	 */
 	private void printCachesStatic(String logPrefix) {
 		final String function = "printCachesStatic";
 		logger.debug(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
 	}
 	
+	/**
+	 * Write Date Value Request 
+	 * 
+	 * @param key      Client Key for the writing operation
+	 * @param scsEnvId ScsEnvId for the target connector
+	 * @param address  DBAddress for the target RTDB Address
+	 * @param second   Second value to write to target RTDB Address
+	 * @param usecond  USecond alue to write to target RTDB Address
+	 */
 	public void addWriteDateValueRequest(String key, String scsEnvId, String address, long second, long usecond) {
 		final String function = "addWriteDateValueRequest";
 		logger.begin(className, function);
@@ -84,6 +130,14 @@ public class Database implements Connectable_i {
 		logger.end(className, function);
 	}
 	
+	/**
+	 * Write Int Value Request
+	 *  
+	 * @param key      Client Key for the writing operation
+	 * @param scsEnvId ScsEnvId for the target connector
+	 * @param address  DBAddress for the target RTDB Address
+	 * @param value    Value to write to target RTDB Address 
+	 */
 	public void addWriteIntValueRequest(String key, String scsEnvId, String address, int value) {
 		final String function = "addWriteIntValueRequest";
 		logger.begin(className, function);
@@ -97,6 +151,14 @@ public class Database implements Connectable_i {
 		logger.end(className, function);
 	}
 	
+	/**
+	 * Write Float Value Request 
+	 * 
+	 * @param key      Client Key for the writing operation
+	 * @param scsEnvId ScsEnvId for the target connector
+	 * @param address  DBAddress for the target RTDB Address
+	 * @param value    Value to write to target RTDB Address 
+	 */
 	public void addWriteFloatValueRequest(String key, String scsEnvId, String address, float value) {
 		final String function = "addWriteFloatValueRequest";
 		logger.begin(className, function);
@@ -110,6 +172,14 @@ public class Database implements Connectable_i {
 		logger.end(className, function);
 	}
 	
+	/**
+	 * Write String Value Request
+	 * 
+	 * @param key      Client Key for the writing operation
+	 * @param scsEnvId ScsEnvId for the target connector
+	 * @param address  DBAddress for the target RTDB Address
+	 * @param value    Value to write to target RTDB Address
+	 */
 	public void addWriteStringValueRequest(String key, String scsEnvId, String address, String value) {
 		final String function = "addWriteStringValueRequest";
 		logger.begin(className, function);
@@ -123,6 +193,14 @@ public class Database implements Connectable_i {
 		logger.end(className, function);
 	}
 	
+	/**
+	 * Write Value Result 
+	 * 
+	 * @param key      Client Key for the writing operation
+	 * @param scsEnvId ScsEnvId for the target connector
+	 * @param address  DBAddress for the target RTDB Address
+	 * @param value    Value to write to target RTDB Address
+	 */
 	public void addWriteValueRequest(String key, String scsEnvId, String address, String value) {
 		final String function = "addWriteValueRequest";
 		logger.begin(className, function);
@@ -137,11 +215,13 @@ public class Database implements Connectable_i {
 	}	
 	
 	/**
-	 * @param api : Database API to call
-	 * @param clientKey : Key for the Reading and Result
-	 * @param scsEnvId : scsEnvId to connect
-	 * @param dbaddresses : database address to read
-	 * @param databaseEvent : Callback for result
+	 * Add Static Reading Request
+	 * 
+	 * @param api           Database API to call
+	 * @param clientKey     Key for the Reading and Result
+	 * @param scsEnvId      ScsEnvId to connect
+	 * @param dbaddresses   Database address to read
+	 * @param databaseEvent Callback for result
 	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String [] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addStaticRequest";
@@ -172,11 +252,13 @@ public class Database implements Connectable_i {
 	}
 	
 	/**
-	 * @param api : Database API to call
-	 * @param clientKey : Key for the Reading and Result
-	 * @param scsEnvId : scsEnvId to connect
-	 * @param dbaddresses : database address to read
-	 * @param databaseEvent : Callback for result
+	 * Add Static Reading Request
+	 * 
+	 * @param api           Database API to call
+	 * @param clientKey     Key for the Reading and Result
+	 * @param scsEnvId      ScsEnvId to connect
+	 * @param dbaddresses   Database address to read
+	 * @param databaseEvent Callback for result
 	 */
 	public void addStaticRequest(String api, String clientKey, String scsEnvId, String dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addStaticRequest";
@@ -202,9 +284,11 @@ public class Database implements Connectable_i {
 	}
 	
 	/**
-	 * @param clientKey : Key for the Reading and Result
-	 * @param dbaddresses : dbaddress to read
-	 * @param databaseEvent : Callback for result
+	 * Add Dynamic Reading Request
+	 * 
+	 * @param clientKey     Key for the Reading and Result
+	 * @param dbaddresses   DBAddress to read
+	 * @param databaseEvent Callback for result
 	 */
 	public void addDynamicRequest(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "addDynamicRequest";
@@ -222,9 +306,11 @@ public class Database implements Connectable_i {
 	}
 	
 	/**
-	 * @param clientKey : Key for the Reading and Result
-	 * @param dbaddresses : dbaddress to read
-	 * @param databaseEvent : Callback for result
+	 * Add Subscription Request
+	 * 
+	 * @param clientKey     Key for the Reading and Result
+	 * @param dbaddresses   DBAddress to read
+	 * @param databaseEvent Callback for result
 	 */
 	public void subscribe(String clientKey, String[] dbaddresses, DatabaseEvent databaseEvent) {
 		final String function = "subscribe";
@@ -242,9 +328,11 @@ public class Database implements Connectable_i {
 	}
 	
 	/**
-	 * @param clientKey : Key for the Reading and Result
-	 * @param dbaddresses : dbaddress to read
-	 * @param databaseEvent : Callback for result
+	 * Add UnSubscription Request
+	 * 
+	 * @param clientKey     Key for the Reading and Result
+	 * @param dbaddresses   dbaddress to read
+	 * @param databaseEvent Callback for result
 	 */
 	public void unSubscribe(String clientKey) {
 		final String function = "unSubscribe";
@@ -510,6 +598,7 @@ public class Database implements Connectable_i {
 	
 	/**
 	 * Timer to execute the request
+	 * 
 	 * @param periodMillis
 	 */
 	public void connectTimer(int periodMillis) {
@@ -579,7 +668,7 @@ public class Database implements Connectable_i {
 	}
 	
 	/**
-	 * Connect to database
+	 * Disconnect the timer
 	 */
 	public void disconnectTimer() {
 		final String function = "disconnectTimer";
@@ -592,8 +681,9 @@ public class Database implements Connectable_i {
 		logger.end(className, function);
 	}
 	
-	/**
-	 * Disconnect to database
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
 	 */
 	@Override
 	public void disconnect() {

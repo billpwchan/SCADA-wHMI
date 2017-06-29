@@ -3,9 +3,9 @@
 	
 	, "GwsIdentityType": "IpAddress"
 	, "UsrIdentityType": "Operator"
+
+	, "RecordThreshold": 0
 	
-	, "DbAttrResrvReserveReqID": ".resrvReserveReqID"
-	, "DbAttrResrvUnreserveReqID": ".resrvUnreserveReqID"
-	
-	, "RecordThreshold": 1
+	, "ByPassUsrIdentity": ["ADMIN"]
+	, "ByPassUsrIdentityIgnoreCase": "false"
 }

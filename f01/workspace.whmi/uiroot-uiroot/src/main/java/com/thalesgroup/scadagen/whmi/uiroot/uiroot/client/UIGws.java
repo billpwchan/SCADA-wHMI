@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
+rpackage com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,12 +12,12 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.Settings;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.UICookiesForward;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiroot.uiroot.client.UIGws_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot.client.UIScreenRootMgr;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
-import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UICookies;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.UIWidgetEntryPoint;
@@ -31,17 +31,17 @@ import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.scadagen.PhaseBL
  */
 public class UIGws {
 
-	private EventBus EVENT_BUS = null;
-	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
-	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIGws.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private EventBus EVENT_BUS = null;
+	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
+	
 	private final String opts = "UILayoutEntryPointUIGwsSummary/"+className+".opts.xml";
 
-	private final String strNumOfScreen = "numofscreen";
+	private final String strCssPanel	= "project-"+className+"-panel";
 	
-	private final String strCssPanel	= "project-UIGws-panel";
+	private final String strNumOfScreen = "numofscreen";
 	
 	private Panel root = null;
 
@@ -100,57 +100,6 @@ public class UIGws {
 				logger.debug(className, function, "keyLowerCase[{}] value[{}]", keyLowerCase, value);
 			}
 		}
-		logger.end(className, function);
-	}
-	
-	private void setNumOfScreen() {
-		final String function = "setNumOfScreen";
-		logger.begin(className, function);
-		
-		Settings setting = Settings.getInstance();
-		
-		if ( null != setting.get(strNumOfScreen) ) {
-			// Find value from URL and Valid
-			String strNumOfScreenValue = setting.get(strNumOfScreen);
-			int numOfScreen = 1;
-			try {
-				numOfScreen = Integer.parseInt(strNumOfScreenValue);
-				if ( numOfScreen <= 0 ) numOfScreen = 1;
-			} catch ( NumberFormatException e) {
-				logger.warn(className, function, "NumberFormatException e[{}]", e.toString());
-			}
-			
-			logger.debug(className, function, "URL numOfScreen[{}]", numOfScreen);
-			
-			setting.set(strNumOfScreen, Integer.toString(numOfScreen));
-		} else {
-			// Find value from Cookies and Valid
-			String strNumOfScreenValue = UICookies.getCookies(strNumOfScreen);
-			if ( null != strNumOfScreenValue ) {
-				int numOfScreen = 1;
-				try {
-					numOfScreen = Integer.parseInt(strNumOfScreenValue);
-					if ( numOfScreen <= 0 ) numOfScreen = 1;
-				} catch ( NumberFormatException e) {
-					logger.warn(className, function, "NumberFormatException e[{}]", e.toString());
-				}
-				
-				logger.debug(className, function, "Cookies numOfScreen[{}]", numOfScreen);
-				
-				setting.set(strNumOfScreen, Integer.toString(numOfScreen));
-			}
-		}
-		
-		logger.debug(className, function, "setting.get([{}])[{}]", strNumOfScreen, setting.get(strNumOfScreen));
-		
-		// Store the default value to 1 if not found on URL and Cookies
-		if ( null == setting.get(strNumOfScreen) ) setting.set(strNumOfScreen, Integer.toString(1));
-		
-		logger.debug(className, function, "setting.get([{}])[{}]", strNumOfScreen, setting.get(strNumOfScreen));
-
-		// Store the NumOfScreen to Cookies
-		UICookies.setCookies(strNumOfScreen, setting.get(strNumOfScreen));
-		
 		logger.end(className, function);
 	}
 	
@@ -259,7 +208,7 @@ public class UIGws {
 		storeURLSetting();
 
 		// Store Number Of Screens to Cookies
-		setNumOfScreen();
+		UICookiesForward.forwardInt(strNumOfScreen, 1);
 
 		this.root = new SimplePanel();
 		this.root.addStyleName(strCssPanel);

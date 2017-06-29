@@ -43,7 +43,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 				JSONObject json = ReadJson.readJson(jsdata);
 				
 				for ( String strActionEventAttribute : UIActionEventAttribute.toStrings() ) {
-					String actionEventAttribute = ReadJson.readString(json, strActionEventAttribute);
+					String actionEventAttribute = ReadJson.readString(json, strActionEventAttribute, null);
 					logger.debug(className, function, "strActionEventAttribute[{}] actionEventAttribute[{}]", strActionEventAttribute, actionEventAttribute);
 					
 					if ( null != actionEventAttribute ) {
@@ -52,7 +52,7 @@ public class UIWidgetVerifyUIEventActionGenericControl extends UIWidgetRealize {
 				}
 				
 				for ( String strActionAttribute : ActionAttribute.toStrings() ) {
-					String actionAttribute = ReadJson.readString(json, strActionAttribute);
+					String actionAttribute = ReadJson.readString(json, strActionAttribute, null);
 					logger.debug(className, function, "strActionAttribute[{}] actionAttribute[{}]", strActionAttribute, actionAttribute);
 					
 					if ( null != actionAttribute ) {

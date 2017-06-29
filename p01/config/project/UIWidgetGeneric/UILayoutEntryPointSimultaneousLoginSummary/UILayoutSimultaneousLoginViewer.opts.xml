@@ -6,6 +6,27 @@
 		<ScsOlsListElement>UILayoutSimultaneousLoginViewerScsOlsListPanel</ScsOlsListElement>
 		<EnableRowUpdated>true</EnableRowUpdated>
 	</header>
+	
+	<!-- Begin of life -->
+	<actionset key="init">
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_init">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_envup">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+		
+	<actionset key="from_uilayoutsummary_envdown">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	
+	<actionset key="from_uilayoutsummary_terminate">
+		<OperationType>actionsetkey</OperationType>
+	</actionset>
+	<!-- End of life -->
 
 	<actionset key="FilterAdded">
 		<OperationString1>FilterAdded</OperationString1>

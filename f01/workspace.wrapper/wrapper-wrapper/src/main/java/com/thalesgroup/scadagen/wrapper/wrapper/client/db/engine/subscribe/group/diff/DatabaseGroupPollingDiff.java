@@ -7,11 +7,20 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling;
 
+/**
+ * Implementation the Database Group Polling Operation with difference result
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseGroupPollingDiff extends DatabaseGroupPolling {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGroupPollingDiff.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.DatabaseGroupPolling#buildRespond(java.lang.String, java.lang.String[], java.lang.String[])
+	 */
 	@Override
 	public void buildRespond(String key, String[] dbaddresses, String[] values) {
 		final String function = "buildReponse";

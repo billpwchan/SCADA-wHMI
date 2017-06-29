@@ -6,13 +6,25 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
 
+/**
+ * Implementation the Database Writing Operation
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseWriting implements DatabaseWrite_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseWriting.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
+	/**
+	 * Instance for the database
+	 */
 	private Database database = new Database();
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -21,6 +33,9 @@ public class DatabaseWriting implements DatabaseWrite_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -29,6 +44,10 @@ public class DatabaseWriting implements DatabaseWrite_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i#addWriteDateValueRequest(java.lang.String, java.lang.String, java.lang.String, long, long)
+	 */
+	@Override
 	public void addWriteDateValueRequest(String key, String scsEnvId, String address, long second, long usecond) {
 		final String function = "addWriteDateValueRequest";
 		logger.begin(className, function);
@@ -41,6 +60,10 @@ public class DatabaseWriting implements DatabaseWrite_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i#addWriteIntValueRequest(java.lang.String, java.lang.String, java.lang.String, int)
+	 */
+	@Override
 	public void addWriteIntValueRequest(String key, String scsEnvId, String address, int value) {
 		final String function = "addWriteIntValueRequest";
 		logger.begin(className, function);
@@ -53,6 +76,10 @@ public class DatabaseWriting implements DatabaseWrite_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i#addWriteFloatValueRequest(java.lang.String, java.lang.String, java.lang.String, float)
+	 */
+	@Override
 	public void addWriteFloatValueRequest(String key, String scsEnvId, String address, float value) {
 		final String function = "addWriteFloatValueRequest";
 		logger.begin(className, function);
@@ -66,6 +93,10 @@ public class DatabaseWriting implements DatabaseWrite_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i#addWriteStringValueRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public void addWriteStringValueRequest(String key, String scsEnvId, String address, String value) {
 		final String function = "addWriteStringValueRequest";
 		logger.begin(className, function);
@@ -79,6 +110,10 @@ public class DatabaseWriting implements DatabaseWrite_i {
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i#addWriteValueRequest(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public void addWriteValueRequest(String key, String scsEnvId, String address, String value) {
 		final String function = "addWriteValueRequest";
 		logger.begin(className, function);

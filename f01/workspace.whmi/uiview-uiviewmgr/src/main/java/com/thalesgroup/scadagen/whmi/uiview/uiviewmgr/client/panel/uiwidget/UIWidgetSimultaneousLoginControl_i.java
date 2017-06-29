@@ -27,8 +27,8 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		, DbAttrNameResrvReserveReqID("DbAttrNameResrvReserveReqID")
 		, DbAttrNameResrvUnreserveReqID("DbAttrNameResrvUnreserveReqID")
 
+		, InitDelayTime("InitDelayTime")
 		, DataDelayTime("DataDelayTime")
-		, WritingDelayTime("WritingDelayTime")
 		, CheckingDelayTime("CheckingDelayTime")
 		
 		;

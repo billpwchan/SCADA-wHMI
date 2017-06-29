@@ -2,6 +2,12 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.cac
 
 import java.util.HashMap;
 
+/**
+ * Caches for the Multi Reading
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseMultiReadingCache {
 	
 	private HashMap<String, HashMap<String, String>> caches = null;
@@ -10,6 +16,11 @@ public class DatabaseMultiReadingCache {
 	private DatabaseMultiReadingCache () {
 		caches = new HashMap<String, HashMap<String, String>>();
 	}
+	/**
+	 * Get the Singleton instance
+	 * 
+	 * @return Singleton instance
+	 */
 	public static DatabaseMultiReadingCache getInstance() {
 		if ( null == instance ) instance = new DatabaseMultiReadingCache();
 		return instance;

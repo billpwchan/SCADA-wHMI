@@ -84,9 +84,9 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
 		
-		String scsEnvId = simultaneousLogin.getScsEnvId();
+		String scsEnvId = simultaneousLogin.getSelfScsEnvId();
 		
-		String alias = simultaneousLogin.getAlias();
+		String alias = simultaneousLogin.getSelfAlias();
 		
 		String usrIdentity = simultaneousLogin.getUsrIdentity();
 
@@ -135,9 +135,9 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
 		
-		String scsEnvId = simultaneousLogin.getScsEnvId();
+		String scsEnvId = simultaneousLogin.getSelfScsEnvId();
 		
-		String alias = simultaneousLogin.getAlias();
+		String alias = simultaneousLogin.getSelfAlias();
 		
 		String usrIdentity = simultaneousLogin.getUsrIdentity();
 
@@ -182,9 +182,9 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 		SimultaneousLogin simultaneousLogin = SimultaneousLogin.getInstance();
 		
-		String scsEnvId = simultaneousLogin.getScsEnvId();
+		String scsEnvId = simultaneousLogin.getSelfScsEnvId();
 		
-		String alias = simultaneousLogin.getAlias();
+		String alias = simultaneousLogin.getSelfAlias();
 		
 		String usrIdentity = simultaneousLogin.getUsrIdentity();
 

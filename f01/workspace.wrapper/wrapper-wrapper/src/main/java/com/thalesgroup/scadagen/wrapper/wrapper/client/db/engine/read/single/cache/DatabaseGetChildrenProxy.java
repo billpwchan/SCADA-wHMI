@@ -9,6 +9,12 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleR
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.SinglePairResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetChildren;
 
+/**
+ * Implementation the Database Get Children Operation with Proxy (Caches)
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseGetChildrenProxy implements DatabaseSingleRead_i, SinglePairResponsible_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildrenProxy.class.getName());
@@ -16,6 +22,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingleRead_i, SinglePai
 	
 	protected HashMap<String, ReadingRequest> requests = new HashMap<String, ReadingRequest>();
 	
+	/**
+	 * Instance for the database
+	 */
 	private DatabaseSingleRead_i databaseReading = new DatabaseGetChildren();
 	
 	class ReadingRequest {
@@ -32,6 +41,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingleRead_i, SinglePai
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -40,6 +52,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingleRead_i, SinglePai
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "connect";
@@ -49,6 +64,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingleRead_i, SinglePai
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleRead_i#addGetChildrenRequest(java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i)
+	 */
 	@Override
 	public void addGetChildrenRequest(String clientKey, String scsEnvId, String dbAddress,
 			DatabaseReadEvent_i databaseEvent) {
@@ -96,6 +114,9 @@ public class DatabaseGetChildrenProxy implements DatabaseSingleRead_i, SinglePai
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.SinglePairResponsible_i#buildRespond(java.lang.String, java.lang.String, java.lang.String[])
+	 */
 	@Override
 	public void buildRespond(String clientKey, String dbAddress, String[] values) {
 		final String function = "buildReponse";

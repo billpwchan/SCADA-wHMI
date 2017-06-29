@@ -13,11 +13,23 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.diff.DatabaseGroupPollingDiff;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.subscribe.group.diff.DatabaseGroupPollingDiffSingleton;
 
+/**
+ * Database Subscribe Class Factory
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseSubscribeFactory {
 	
 	private static final String className = UIWidgetUtil.getClassSimpleName(DatabaseSubscribeFactory.class.getName());
 	private static final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	/**
+	 * Factory Method to return the instance of the Database Subscribe Object
+	 * 
+	 * @param key Name of the Database Subscribe Class Request
+	 * @return    Instance of the Database Subscribe Object 
+	 */
 	public static DatabaseSubscribe_i get(String key) {
 		final String function = "get";
 		logger.begin(className, function);

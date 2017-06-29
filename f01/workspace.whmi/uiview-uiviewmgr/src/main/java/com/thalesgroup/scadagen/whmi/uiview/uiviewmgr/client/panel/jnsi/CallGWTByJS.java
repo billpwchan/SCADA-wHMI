@@ -25,8 +25,8 @@ public class CallGWTByJS {
 		logger.debug(className, function, "jsdata[{}]", jsdata);
 		
 		JSONObject json = ReadJson.readJson(jsdata);
-		String oa = ReadJson.readString(json, UIActionEventAttribute.OperationAction.toString());
-		String ot = ReadJson.readString(json, UIActionEventAttribute.OperationType.toString());
+		String oa = ReadJson.readString(json, UIActionEventAttribute.OperationAction.toString(), null);
+		String ot = ReadJson.readString(json, UIActionEventAttribute.OperationType.toString(), null);
 		
 		logger.debug(className, function, "oa[{}]", oa);
 		logger.debug(className, function, "ot[{}]", ot);
@@ -38,14 +38,14 @@ public class CallGWTByJS {
 		uiEventAction.setParameter(UIActionEventAttribute.OperationAction.toString(), oa);
 		
 		for ( String osname : UIActionEventAttribute.toStrings() ) {
-			String osstring = ReadJson.readString(json, osname);
+			String osstring = ReadJson.readString(json, osname, null);
 			
 			logger.debug(className, function, "osname[{}] osstring[{}]", osname, osstring);
 			uiEventAction.setParameter(osname, osstring);
 		}
 		
 		for ( String osname : ActionAttribute.toStrings() ) {
-			String osstring = ReadJson.readString(json, osname);
+			String osstring = ReadJson.readString(json, osname, null);
 			
 			logger.debug(className, function, "osname[{}] osstring[{}]", osname, osstring);
 			uiEventAction.setParameter(osname, osstring);

@@ -107,12 +107,31 @@ public class UIPanelScreen extends UIWidget_i {
 		logger.end(className, function);
 	}
 
+	private UIWidget_i uiWidgets [] = null;
 	private void loadTask(UITaskLaunch taskProvide) {
 		final String function = "loadTask";
 		logger.begin(className, function);
 		
+		// Clean-up
+		logger.debug(className, function, "Clean-up...");
+		
+		if ( null != uiWidgets ) {
+			logger.debug(className, function, "Clean-up uiWidgets uiWidgets.length[{}]...", uiWidgets.length);
+			for ( int i = 0 ; i < uiWidgets.length ; ++i ) {
+				logger.debug(className, function, "Clean-up uiWidgets[{}] terminate...", i);
+				UIWidget_i uiWidget = uiWidgets[i];
+				if ( null != uiWidget ) {
+					uiWidget.terminate();
+					uiWidgets[i] = null;
+				}
+			}
+		}
+		uiWidgets = null;
+		
+		logger.debug(className, function, "Clean-up root Panel...");
 		rootPanel.clear();
 		
+		logger.debug(className, function, "Clean-up event bus...");
 		resetEventBus();
 		
 		// Apply Number of Screen from cookies
@@ -124,6 +143,7 @@ public class UIPanelScreen extends UIWidget_i {
 		
 		logger.debug(className, function, "switchPanel taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
 		
+		uiWidgets = new UIWidget_i[intNumOfScreen];
 		for ( int screen = 0 ; screen < intNumOfScreen ; ++screen ) {
 			
 			logger.debug(className, function, "Prepare screen[{}]", screen);
@@ -155,6 +175,7 @@ public class UIPanelScreen extends UIWidget_i {
 
 			UIScreenMgr uiPanelFactoryMgr = UIScreenMgr.getInstance();
 			UIWidget_i uiWidget_i = uiPanelFactoryMgr.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, uiElem, uiDict, options);						
+			uiWidgets[screen] = uiWidget_i;
 			
 			if ( uiWidget_i != null ) {
 				

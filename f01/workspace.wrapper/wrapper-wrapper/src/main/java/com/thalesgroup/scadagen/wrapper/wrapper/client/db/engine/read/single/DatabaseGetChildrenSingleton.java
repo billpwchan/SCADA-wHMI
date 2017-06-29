@@ -5,6 +5,12 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
 
+/**
+ * Implementation the Database Get Children Operation in Singleton
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseGetChildrenSingleton extends DatabaseGetChildren implements DatabaseSingleton_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildrenSingleton.class.getName());
@@ -12,21 +18,35 @@ public class DatabaseGetChildrenSingleton extends DatabaseGetChildren implements
 	
 	private static DatabaseGetChildrenSingleton instance = null;
 	private DatabaseGetChildrenSingleton() {}
+	/**
+	 * Get the Singleton instance
+	 * 
+	 * @return Singleton instance
+	 */
 	public static DatabaseGetChildrenSingleton getInstance() {
 		if ( null == instance ) instance = new DatabaseGetChildrenSingleton();
 		return instance;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetChildren#connect()
+	 */
 	@Override
 	public void connect() {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single.DatabaseGetChildren#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i#connectOnce()
+	 */
 	@Override
 	public void connectOnce() {
 		final String function = "connectOnce";
@@ -35,6 +55,9 @@ public class DatabaseGetChildrenSingleton extends DatabaseGetChildren implements
 		logger.end(className, function);
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i#disconnectOnce()
+	 */
 	@Override
 	public void disconnectOnce() {
 		final String function = "disconnectOnce";

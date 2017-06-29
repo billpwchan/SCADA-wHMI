@@ -13,13 +13,26 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscri
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.wrapper.Database.ScsPollerComponentAccessResult;
 
+/**
+ * Implementation the Database Subscription Operation
+ * 
+ * @author syau
+ *
+ */
 public class DatabaseSubscription implements DatabaseSubscribe_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseSubscription.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	/**
+	 * Instance for the database
+	 */
 	private Database database = new Database();
 	
+	/**
+	 * @author syau
+	 *
+	 */
 	public class SubscriptionRequest {
 		String key = null;
 		String subUUID = null;
@@ -37,9 +50,15 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	}
 	
 	private int periodMillis = 250;
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#setPeriodMillis(int)
+	 */
 	@Override
 	public void setPeriodMillis(int periodMillis) { this.periodMillis = periodMillis; }
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#connect()
+	 */
 	@Override
 	public void connect() {
 		final String function = "connect";
@@ -86,6 +105,9 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i#disconnect()
+	 */
 	@Override
 	public void disconnect() {
 		final String function = "disconnect";
@@ -106,6 +128,9 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 	
 	private HashMap<String, SubscriptionRequest> subscriptionRequests = new HashMap<String, SubscriptionRequest>();
 	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#addSubscribeRequest(java.lang.String, java.lang.String, java.lang.String[], com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i)
+	 */
 	@Override
 	public void addSubscribeRequest(String clientKey, String scsEnvId, String[] dbaddresses, DatabasePairEvent_i databaseEvent) {
 		final String function = "addSubscribeRequest";
@@ -126,6 +151,9 @@ public class DatabaseSubscription implements DatabaseSubscribe_i {
 		logger.end(className, function);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i#addUnSubscribeRequest(java.lang.String)
+	 */
 	@Override
 	public void addUnSubscribeRequest(String clientKey) {
 		final String function = "addUnSubscribeRequest";

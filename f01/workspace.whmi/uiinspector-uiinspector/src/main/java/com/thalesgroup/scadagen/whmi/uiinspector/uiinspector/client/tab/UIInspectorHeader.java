@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
@@ -293,6 +294,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	}
 	
 	private TextBox txtAttributeStatus[] = null;
+	private InlineLabel lblAttributeStatus[] = null;
 	void buildWidgets(int numOfWidgets, int numOfPointForEachPage) {
 
 	}
@@ -382,13 +384,48 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			}
 		}
 		
-		logger.begin(className, function);
+		logger.end(className, function);
 	}
 	
 	private int eqtReserved = 0;
 	public int getEqtReservedValue() {
 		logger.beginEnd(className, "getEqtReservedValue", "eqtReserved[{}]", eqtReserved);
 		return eqtReserved;
+	}
+	
+	private boolean widgetHasCSS(Widget widget, String css ) {
+		final String function = "widgetHasCSS";
+		logger.begin(className, function);
+		boolean result = false;
+		String cssExist = widget.getStyleName();
+		String cssExists [] = cssExist.split("\\s+");
+		for ( int i = 0 ; i < cssExists.length ; ++i ) {
+			if ( cssExists[i].equals(css) ) {
+				result=true;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	private void widgetRemoveCSS(Widget widget, String css) {
+		final String function = "widgetRemoveCSS";
+		logger.begin(className, function);
+		logger.debug(className, function, "widget[{}] css[{}]", widget, css);
+		if ( widgetHasCSS(widget, css) ) {
+			widget.removeStyleName(css);
+		}
+		logger.end(className, function);
+	}
+	
+	private void widgetAddCSS(Widget widget, String css) {
+		final String function = "widgetAddCSS";
+		logger.begin(className, function);
+		logger.debug(className, function, "widget[{}] css[{}]", widget, css);
+		if ( ! widgetHasCSS(widget, css) ) {
+			widget.addStyleName(css);
+		}
+		logger.end(className, function);
 	}
 	
 	private String resrvReservedPreviewValue = null;
@@ -444,10 +481,54 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 					if ( null != homEvent ) homEvent.isAvaiable(eqtHom);
 					hdvFlagPreviewValue = hdvFlagValue;
 				}
+				
+				if ( null == handoverRightLabels ) handoverRightLabels = new HashMap<String, String>();
+				
+				if ( ! handoverRightLabels.containsKey(hdvFlagValue) ) {
+					logger.debug(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					String attribite = dictionariesCacheName_prefix + "HdvFlag"+UIPanelInspector_i.strDot+hdvFlagValue;
+					
+					logger.debug(className, function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
+					handoverRightLabels.put(hdvFlagValue, ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, attribite, ""));
+				}
+				logger.debug(className, function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
+				
 				String hdvFlagDisplayValue = handoverRightLabels.get(hdvFlagValue);
 				logger.debug(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
 				hdvFlagDisplayValue = Translation.getWording(hdvFlagDisplayValue);
 				txtAttributeStatus[4].setText(hdvFlagDisplayValue);
+				
+				logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightByPassValue[{}]", new Object[]{hdvFlagValue, strHandoverRightByPassValue});
+				
+				logger.debug(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
+						, new Object[]{strHandoverRightLabelCSSShow, strHandoverRightLabelCSSHidden, strHandoverRightValueCSSShow, strHandoverRightValueCSSHidden});
+				
+				if ( hdvFlagValue.equals(strHandoverRightByPassValue) ) {
+					
+					// Hidden
+					if ( ! widgetHasCSS(lblAttributeStatus[4], strHandoverRightLabelCSSHidden) ) {
+						widgetAddCSS(lblAttributeStatus[4], strHandoverRightLabelCSSHidden);
+						widgetRemoveCSS(lblAttributeStatus[4], strHandoverRightLabelCSSShow);
+					}
+					
+					if ( ! widgetHasCSS(txtAttributeStatus[4], strHandoverRightValueCSSHidden) ) {
+						widgetAddCSS(txtAttributeStatus[4], strHandoverRightValueCSSHidden);
+						widgetRemoveCSS(txtAttributeStatus[4], strHandoverRightValueCSSShow);
+					}
+					
+				} else {
+					// Visible
+					
+					if ( ! widgetHasCSS(lblAttributeStatus[4], strHandoverRightLabelCSSShow) ) {
+						widgetAddCSS(lblAttributeStatus[4], strHandoverRightLabelCSSShow);
+						widgetRemoveCSS(lblAttributeStatus[4], strHandoverRightLabelCSSHidden);
+					}
+					
+					if ( ! widgetHasCSS(txtAttributeStatus[4], strHandoverRightValueCSSShow) ) {
+						widgetAddCSS(txtAttributeStatus[4], strHandoverRightValueCSSShow);
+						widgetRemoveCSS(txtAttributeStatus[4], strHandoverRightValueCSSHidden);
+					}
+				}
 			}
 		}
 		
@@ -571,6 +652,13 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private String strHandoverRightLabel = "";
 	private String strHandoverRightInitValue = "";
 	
+	private String strHandoverRightByPassValue = "";
+	
+	private String strHandoverRightLabelCSSShow = null;
+	private String strHandoverRightLabelCSSHidden = null;
+	private String strHandoverRightValueCSSShow = null;
+	private String strHandoverRightValueCSSHidden = null;
+	
 	private Map<String, String> handoverRightLabels = null;
 	private void loadConfigurationHdvFlag(String dictionariesCacheName, String fileName, String prefix) {
 		final String function = "loadConfigurationHdvFlag";
@@ -587,18 +675,22 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		
 		strHandoverRightInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"Init", "");
 		logger.debug(className, function, "strHandoverRightInitValue[{}]", strHandoverRightInitValue);
-
-		int numOfLabel = ReadProp.readInt(dictionariesCacheName, fileName, prefix2+"NumOfLabel", 0);
-		logger.debug(className, function, "numOfLabel[{}]", numOfLabel);
-
-		handoverRightLabels = new HashMap<String, String>();
-		for ( int i = 0 ; i < numOfLabel ; i++ ) {
-			String handoverRightValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+i, "");
-			logger.debug(className, function, "handoverRightValue[{}]", handoverRightValue);
-			
-			handoverRightLabels.put(String.valueOf(i), handoverRightValue);
-		}
 		
+		strHandoverRightByPassValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightByPassValue", "");
+		logger.debug(className, function, "strHandoverRightByPassValue[{}]", strHandoverRightByPassValue);
+
+		strHandoverRightLabelCSSShow = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightLabelCSSShow", "");
+		logger.debug(className, function, "strHandoverRightLabelCSSShow[{}]", strHandoverRightLabelCSSShow);
+		
+		strHandoverRightLabelCSSHidden = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightLabelCSSHidden", "");
+		logger.debug(className, function, "strHandoverRightLabelCSSHidden[{}]", strHandoverRightLabelCSSHidden);
+		
+		strHandoverRightValueCSSShow = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightValueCSSShow", "");
+		logger.debug(className, function, "strHandoverRightValueCSSShow[{}]", strHandoverRightValueCSSShow);
+		
+		strHandoverRightValueCSSHidden = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightValueCSSHidden", "");
+		logger.debug(className, function, "strHandoverRightValueCSSHidden[{}]", strHandoverRightValueCSSHidden);
+
 		logger.end(className, function);
 	}
 	
@@ -633,12 +725,13 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		FlexTable flexTableHeader = new FlexTable();
 		flexTableHeader.addStyleName("project-gwt-flextable-header");
 		txtAttributeStatus = new TextBox[strHeadersStatus.length];
+		lblAttributeStatus = new InlineLabel[strHeadersStatus.length];
 		for ( int i = 0 ; i < strHeadersLabel.length ; i++ ) {
 			String strHeadersLabelDisplay = Translation.getWording(strHeadersLabel[i]);
-			InlineLabel inlineLabel = new InlineLabel(strHeadersLabelDisplay);
-			inlineLabel.getElement().getStyle().setPadding(10, Unit.PX);
-			inlineLabel.addStyleName("project-gwt-inlinelabel-headerlabel");
-			flexTableHeader.setWidget(i, 0, inlineLabel);
+			lblAttributeStatus[i] = new InlineLabel(strHeadersLabelDisplay);
+			lblAttributeStatus[i].getElement().getStyle().setPadding(10, Unit.PX);
+			lblAttributeStatus[i].addStyleName("project-gwt-inlinelabel-headerlabel");
+			flexTableHeader.setWidget(i, 0, lblAttributeStatus[i]);
 			txtAttributeStatus[i] = new TextBox();
 			String strHeadersStatusDisplay = Translation.getWording(strHeadersStatus[i]);
 			txtAttributeStatus[i].setText(strHeadersStatusDisplay);

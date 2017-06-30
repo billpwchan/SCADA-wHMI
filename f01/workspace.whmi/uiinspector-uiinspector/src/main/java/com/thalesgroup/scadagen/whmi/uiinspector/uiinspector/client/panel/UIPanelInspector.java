@@ -73,7 +73,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private boolean equipmentReserveUseHostName = false;
 	private int equipmentReserveDefaultIndex = 0;
 	
-	private boolean homUseHostName = false;
+	private String homIdentity = null;
 	
 	final private String INSPECTOR		= "inspector";
 	
@@ -690,9 +690,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		mode = ReadProp.readString(dictionariesCacheName, fileName, keymode, "");
 		logger.debug(className, function, "mode[{}]", mode);
 		
-		String keyStrHOMUseHostName = prefix+UIPanelInspector_i.strHOMUseHostName;
-		homUseHostName = ReadProp.readBoolean(dictionariesCacheName, fileName, keyStrHOMUseHostName, false);
-		logger.debug(className, function, "homUseHostName[{}]", homUseHostName);
+		String keyStrHOMIdentity = prefix+UIPanelInspector_i.strHOMIdentity;
+		homIdentity = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMIdentity, "IpAddress");
+		logger.debug(className, function, "homIdentity[{}]", homIdentity);
 		
 		String keyNumOfAction = prefix+UIPanelInspector_i.strNumOfAction;
 		int numOfAction = ReadProp.readInt(dictionariesCacheName, fileName, keyNumOfAction, 0);
@@ -904,11 +904,17 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				if ( null != panelTab ) {
 					
 					String key = null;
-					if ( homUseHostName ) {
+					if ( homIdentity.equals("HostName") ) {
 						key = uiOpm_i.getCurrentHostName();
+					} else if ( homIdentity.equals("Profile") ) {
+						key = uiOpm_i.getCurrentProfile();
+					} else if ( homIdentity.equals("Operator") ) {
+						key = uiOpm_i.getCurrentOperator();
 					} else {
 						key = uiOpm_i.getCurrentIPAddress();
 					}
+					
+					logger.debug(className, function, "homIdentity[{}] key[{}]", homIdentity, key);
 					
 					int tabCount = panelTab.getTabBar().getTabCount();
 					if ( tabCount > 0 ) {

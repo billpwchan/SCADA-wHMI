@@ -43,6 +43,7 @@ public interface UIPanelInspector_i {
 	public final static String strHmiOrderFilterThreshold = "HmiOrderFilterThreshold";
 	
 	public final static String strHOMIdentity = "HOMIdentity";
+	public final static String strHOMByPassValues = "HOMByPassValues";
 	
 	public final static String strStaticAttibutes = "StaticAttibutes";
 	public final static String strDynamicAttibutes = "DynamicAttibutes";

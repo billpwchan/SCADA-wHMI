@@ -74,6 +74,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private int equipmentReserveDefaultIndex = 0;
 	
 	private String homIdentity = null;
+	private String homByPassValues [] = null;
 	
 	final private String INSPECTOR		= "inspector";
 	
@@ -694,6 +695,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		homIdentity = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMIdentity, "IpAddress");
 		logger.debug(className, function, "homIdentity[{}]", homIdentity);
 		
+		String keyStrHOMByPassValues = prefix+UIPanelInspector_i.strHOMByPassValues;
+		String homByPassValue = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMIdentity, "");
+		logger.debug(className, function, "homByPassValue[{}]", homByPassValue);
+		
+		homByPassValues = UIWidgetUtil.getStringArray(homByPassValue, ",");
+		
 		String keyNumOfAction = prefix+UIPanelInspector_i.strNumOfAction;
 		int numOfAction = ReadProp.readInt(dictionariesCacheName, fileName, keyNumOfAction, 0);
 		logger.debug(className, function, "numOfAction[{}]", numOfAction);
@@ -901,41 +908,67 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				final String function = "isAvaiable";
 				
 				logger.debug(className, function, "eqtHom[{}]", eqtHom);
-				if ( null != panelTab ) {
-					
-					String key = null;
-					if ( homIdentity.equals("HostName") ) {
-						key = uiOpm_i.getCurrentHostName();
-					} else if ( homIdentity.equals("Profile") ) {
-						key = uiOpm_i.getCurrentProfile();
-					} else if ( homIdentity.equals("Operator") ) {
-						key = uiOpm_i.getCurrentOperator();
-					} else {
-						key = uiOpm_i.getCurrentIPAddress();
+				
+				boolean isByPassValue = false;
+				if ( null != homByPassValues ) {
+					for ( int i = 0 ; i < homByPassValues.length ; ++i ) {
+						logger.debug(className, function, "eqtHom[{}] homByPassValues({})[{}]", new Object[]{eqtHom, i, homByPassValues[i]});
+						if ( null != homByPassValues[i] && homByPassValues.equals(String.valueOf(eqtHom)) ) {
+							isByPassValue = true;
+							break;
+						}
 					}
+				} else {
+					logger.warn(className, function, "homByPassValues IS NULL");
+				}
+				
+				logger.debug(className, function, "isByPassValue[{}]", isByPassValue);
+				
+				if ( isByPassValue ) {
 					
-					logger.debug(className, function, "homIdentity[{}] key[{}]", homIdentity, key);
+					logger.debug(className, function, "isByPassValue[{}], Skip the HOM Checking", isByPassValue);
 					
-					int tabCount = panelTab.getTabBar().getTabCount();
-					if ( tabCount > 0 ) {
-						for ( int i = 0 ; i < tabCount ; ++i ) {
-							
-							String tabHtml = panelTab.getTabBar().getTabHTML(i);
-							logger.debug(className, function, "i[{}] title[{}]", i, tabHtml);
-							
-							for ( String k : tabDatas.keySet() ) {
-								TabData d = tabDatas.get(k);
-								logger.debug(className, function, "d.tabName[{}] == tabHtml[{}]", d.tabName, tabHtml);
-								if ( d.tabName.equals(tabHtml) ) {
-									String tabConfigName = d.tabConfigName;
-									String action = rightNames.get(tabConfigName);
-									logger.debug(className, function, "tabConfigName[{}] action[{}]", tabConfigName, action);
-									checkAccessWithHomAndApplyTab(action, eqtHom, key, i, tabHtml);
+				} else {
+					
+					logger.debug(className, function, "isByPassValue[{}], Start HOM Checking...", isByPassValue);
+					
+					if ( null != panelTab ) {
+						
+						String key = null;
+						if ( homIdentity.equals("HostName") ) {
+							key = uiOpm_i.getCurrentHostName();
+						} else if ( homIdentity.equals("Profile") ) {
+							key = uiOpm_i.getCurrentProfile();
+						} else if ( homIdentity.equals("Operator") ) {
+							key = uiOpm_i.getCurrentOperator();
+						} else {
+							key = uiOpm_i.getCurrentIPAddress();
+						}
+						
+						logger.debug(className, function, "homIdentity[{}] key[{}]", homIdentity, key);
+						
+						int tabCount = panelTab.getTabBar().getTabCount();
+						if ( tabCount > 0 ) {
+							for ( int i = 0 ; i < tabCount ; ++i ) {
+								
+								String tabHtml = panelTab.getTabBar().getTabHTML(i);
+								logger.debug(className, function, "i[{}] title[{}]", i, tabHtml);
+								
+								for ( String k : tabDatas.keySet() ) {
+									TabData d = tabDatas.get(k);
+									logger.debug(className, function, "d.tabName[{}] == tabHtml[{}]", d.tabName, tabHtml);
+									if ( d.tabName.equals(tabHtml) ) {
+										String tabConfigName = d.tabConfigName;
+										String action = rightNames.get(tabConfigName);
+										logger.debug(className, function, "tabConfigName[{}] action[{}]", tabConfigName, action);
+										checkAccessWithHomAndApplyTab(action, eqtHom, key, i, tabHtml);
+									}
 								}
 							}
 						}
 					}
 				}
+
 				logger.end(className, function);
 			}
 		});

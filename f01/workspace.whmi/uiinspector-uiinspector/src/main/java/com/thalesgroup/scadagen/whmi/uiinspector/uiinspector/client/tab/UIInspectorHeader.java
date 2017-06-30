@@ -498,12 +498,28 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				hdvFlagDisplayValue = Translation.getWording(hdvFlagDisplayValue);
 				txtAttributeStatus[4].setText(hdvFlagDisplayValue);
 				
-				logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightByPassValue[{}]", new Object[]{hdvFlagValue, strHandoverRightByPassValue});
+				logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
 				
 				logger.debug(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
 						, new Object[]{strHandoverRightLabelCSSShow, strHandoverRightLabelCSSHidden, strHandoverRightValueCSSShow, strHandoverRightValueCSSHidden});
 				
-				if ( hdvFlagValue.equals(strHandoverRightByPassValue) ) {
+				boolean isHOMHiddenValue = false;
+				if ( null != strHandoverRightHiddenHOMValues ) {
+					for ( int i = 0 ; i < strHandoverRightHiddenHOMValues.length ; ++i ) {
+						logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
+						if ( null != strHandoverRightHiddenHOMValues[i] && hdvFlagValue.equals(strHandoverRightHiddenHOMValues[i]) ) {
+							isHOMHiddenValue = true;
+							break;
+						}
+					}
+				} else {
+					logger.warn(className, function, "strHandoverRightByPassValues IS NULL");
+				}
+				
+				
+				logger.debug(className, function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
+				
+				if ( isHOMHiddenValue ) {
 					
 					// Hidden
 					if ( ! widgetHasCSS(lblAttributeStatus[4], strHandoverRightLabelCSSHidden) ) {
@@ -652,7 +668,9 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private String strHandoverRightLabel = "";
 	private String strHandoverRightInitValue = "";
 	
-	private String strHandoverRightByPassValue = "";
+	private String strHandoverRightHiddenHOMValue = "";
+	
+	private String strHandoverRightHiddenHOMValues [] = null;
 	
 	private String strHandoverRightLabelCSSShow = null;
 	private String strHandoverRightLabelCSSHidden = null;
@@ -676,8 +694,10 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		strHandoverRightInitValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"Init", "");
 		logger.debug(className, function, "strHandoverRightInitValue[{}]", strHandoverRightInitValue);
 		
-		strHandoverRightByPassValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightByPassValue", "");
-		logger.debug(className, function, "strHandoverRightByPassValue[{}]", strHandoverRightByPassValue);
+		strHandoverRightHiddenHOMValue = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightHiddenHOMValues", "");
+		logger.debug(className, function, "strHandoverRightHiddenHOMValue[{}]", strHandoverRightHiddenHOMValue);
+		
+		strHandoverRightHiddenHOMValues = UIWidgetUtil.getStringArray(strHandoverRightHiddenHOMValue, ",");
 
 		strHandoverRightLabelCSSShow = ReadProp.readString(dictionariesCacheName, fileName, prefix2+"HandoverRightLabelCSSShow", "");
 		logger.debug(className, function, "strHandoverRightLabelCSSShow[{}]", strHandoverRightLabelCSSShow);

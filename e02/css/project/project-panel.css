@@ -1,12 +1,5 @@
 @import url('project-panel-dialogmsg.css');
 
-/* inspector panel */
-@import url('project-panel-inspector.css');
-@import url('project-panel-inspector-info.css');
-@import url('project-panel-inspector-tag.css');
-@import url('project-panel-inspector-control.css');
-@import url('project-panel-inspector-advance.css');
-
 @import url('project-panel-uipanelaccessbar.css');
 @import url('project-panel-uipanelalarmbanner.css');
 @import url('project-panel-uipanelmenu.css');

@@ -1,0 +1,27 @@
+{
+	"Time Schedule": "zh-TW:Time Schedule",
+	"Schedule Table": "zh-TW:Schedule Table",
+	"Schedule Planning": "zh-TW:Schedule Planning",
+	"OneShot": "zh-TW:One Shot",
+	"Predefined": "zh-TW:Predefined",
+	"Userdefined": "zh-TW:Userdefined",
+	"Select a schedule": "zh-TW:Select a schedule",
+	"Selection": "zh-TW:Selection",
+	"No Selections": "zh-TW:No Selections",
+	"selected": "zh-TW:selected",
+	"total": "zh-TW:total",
+	"No item to display":"zh-TW:No item to display",
+	"Change title": "zh-TW:Change title",
+
+	"Location": "zh-TW:Location",
+	"System": "zh-TW:System",
+	"Equipment Label": "zh-TW:Equipment Label",
+	"Equipment Description": "zh-TW:Equipment Description",
+	"On Time": "zh-TW:On Time",
+	"Off Time": "zh-TW:Off Time",
+
+	"Equipment":"zh-TW:Equipment",
+	"Enable": "zh-TW:Enable",
+	"Disable": "zh-TW:Disable",
+	"Save": "zh-TW:Save"
+}

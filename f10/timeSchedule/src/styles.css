@@ -1,0 +1,7 @@
+/* common */
+@import "./app/app.component.css";
+
+@import "./app/schedule-table/schedule-table.component.css";
+@import "./app/schedule-planning/schedule-planning.component.css";
+
+@import "../node_modules/bootstrap/dist/css/bootstrap.css"

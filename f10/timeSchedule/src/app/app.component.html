@@ -1,0 +1,11 @@
+<h1>{{title | translate}}</h1>
+<nav>
+  <a routerLink="/schedule-table" routerLinkActive="active">{{'Schedule Table' | translate}}</a>
+  <a routerLink="/schedule-planning" routerLinkActive="active">{{'Schedule Planning' | translate}}</a>
+</nav>
+<nav>
+  <a [routerLink]="['/schedule-table','Oneshot']" routerLinkActive="active">{{'OneShot' | translate}}</a>
+  <a [routerLink]="['/schedule-table','Predefined']" routerLinkActive="active">{{'Predefined' | translate}}</a>
+  <a [routerLink]="['/schedule-table','Userdefined']" routerLinkActive="active">{{'Userdefined' | translate}}</a>
+</nav>
+<router-outlet></router-outlet>

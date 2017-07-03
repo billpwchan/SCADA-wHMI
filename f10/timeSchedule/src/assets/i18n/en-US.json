@@ -1,0 +1,27 @@
+{
+	"Time Schedule": "en-US:Time Schedule",
+	"Schedule Table": "en-US:Schedule Table",
+	"Schedule Planning": "en-US:Schedule Planning",
+	"OneShot": "en-US:One Shot",
+	"Predefined": "en-US:Predefined",
+	"Userdefined": "en-US:Userdefined",
+	"Select a schedule": "en-US:Select a schedule",
+	"Selection": "en-US:Selection",
+	"No Selections": "en-US:No Selections",
+	"selected": "en-US:selected",
+	"total": "en-US:total",
+	"No item to display":"en-US:No item to display",
+	"Change title": "en-US:Change title",
+
+	"Location": "en-US:Location",
+	"System": "en-US:System",
+	"Equipment Label": "en-US:Equipment Label",
+	"Equipment Description": "en-US:Equipment Description",
+	"On Time": "en-US:On Time",
+	"Off Time": "en-US:Off Time",
+
+	"Equipment":"en-US:Equipment",
+	"Enable": "en-US:Enable",
+	"Disable": "en-US:Disable",
+	"Save": "en-US:Save"
+}

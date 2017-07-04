@@ -1,0 +1,15 @@
+{
+  "scs_tsc_url": "http://localhost:8899/scs/service/TscComponent/",
+  "i18n": {
+    "default_lang": "en"
+    , "resolve_by_browser_lang": true
+    , "use_culture_lang": true
+    , "resolve_by_browser_cookie": false
+    , "use_cookie_name": "iscs.webapp.Lang"
+  },
+  "schedule_table": {
+    "cutoff_time": "02:00",
+    "show_cutoff_offset": true,
+    "unavailable_on_off_time": "N/A"
+  }
+}

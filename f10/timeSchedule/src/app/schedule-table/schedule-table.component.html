@@ -1,0 +1,121 @@
+<div style="width: 1400px; margin-bottom: 20px">
+  <h4>{{'Select a schedule' | translate}}</h4>
+  <ng-select [allowClear]="false"
+              [items]="schedules"
+              [disabled]="disabled"
+              [active]="activeItem"
+              (data)="refreshValue($event)"
+              (selected)="selected($event)"
+              (removed)="removed($event)"
+              (typed)="typed($event)"
+              placeholder="No schedule selected">
+  </ng-select>
+  <p></p>
+
+  <div *ngIf="titleChangeEnabled">
+    <button (click)="setScheduleTitle()">{{'Change title' | translate}}</button>
+  </div>
+
+  <div>
+    <ngx-datatable
+        class="material striped"
+        [rows]="rows"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [limit]="5"
+        [selected]="selectedRow"
+        [selectionType]="'single'"
+        [messages]="messages"
+        (activate)="onActivate($event)"
+        (select)='onSelect($event)'>
+        <ngx-datatable-column prop="geoCat" name="Location" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ 'Location' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ 'Location_' + value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="funcCat" name="System" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ 'System' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ 'System_' + value | translate }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="eqtLabel" name="Equipment Label" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ 'Equipment Label' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="eqtDescription" name="Equipment Description" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ 'Equipment Description' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="onTime" name="On Time" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ 'On Time' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column prop="offTime" name="Off Time" [sortable]='true'>
+          <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+            <span (click)="sort()">{{ 'Off Time' | translate }}</span>
+          </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <strong>{{ value }}</strong>
+          </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+
+  <div class='selected-column'>
+    <h4>{{'Equipment' | translate}}</h4>
+
+      <div class="selected-row" *ngFor='let sel of selectedRow'>
+        {{'Location_' + sel.geoCat | translate}} - {{'System_' + sel.funcCat | translate}} - {{sel.eqtLabel | translate}} - {{sel.eqtDescription | translate}}
+
+        <div class="on-off-time-group">
+          <div class="on-time-group">
+            <label>{{'On Time' | translate}}</label>
+            <input #newOnTime [(ngModel)]="sel.onTime" type="text" [disabled]="displayEnableOnTime || (!displayEnableOnTime && !displayDisableOnTime)">
+            <div class="enable-onTime" *ngIf="displayEnableOnTime">
+              <button (click)="setOnTimeEnable()">{{'Enable'|translate}}</button>
+            </div>
+            <div class="disable-onTime" *ngIf="displayDisableOnTime">
+              <button (click)="setOnTimeDisable()">{{'Disable'|translate}}</button>
+            </div>
+          </div>
+
+          <div class="off-time-group">
+            <label>{{'Off Time' | translate}}</label>
+            <input #newOffTime [(ngModel)]="sel.offTime" type="text" [disabled]="displayEnableOffTime || (!displayEnableOffTime && !displayDisableOffTime)">
+            <div class="enable-offTime" *ngIf="displayEnableOffTime">
+              <button (click)="setOffTimeEnable()">{{'Enable'|translate}}</button>
+            </div>
+            <div class="disable-offTime"*ngIf="displayDisableOffTime">
+              <button (click)="setOffTimeDisable()">{{'Disable'|translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="save-on-off-time" *ngIf="displayDisableOnTime || displayDisableOffTime">
+          <button (click)="updateOnOffTime(newOnTime.value, newOffTime.value)">{{'Save'|translate}}</button>
+        </div>
+        <!--<button (click)="clearOnOffTime()">Clear</button>-->
+      </div>
+      <div class="empty-selected-row" *ngIf="!selectedRow.length">{{'No Selections' | translate}}</div>
+
+  </div>
+</div>

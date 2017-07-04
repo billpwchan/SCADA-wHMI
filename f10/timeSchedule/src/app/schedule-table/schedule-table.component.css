@@ -1,0 +1,32 @@
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+.on-off-time-group {
+    padding: 5px;
+}
+
+.on-time-group {
+    display: block;
+    padding: 2px;
+}
+
+.off-time-group {
+    display: block;
+    padding: 2px;
+}
+
+.save-on-off-time {
+    display: block;
+    padding: 2px;
+}
+
+.selected-row {
+    display: block;
+    padding: 2px;
+}
+
+.empty-selected-row {
+    display: block;
+    padding: 2px;
+}

@@ -1,4 +1,4 @@
-rpackage com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
+package com.thalesgroup.scadagen.whmi.uiroot.uiroot.client;
 
 import java.util.HashMap;
 import java.util.List;

@@ -17,6 +17,7 @@ public interface UIWidgetDataGrid_i {
 		, DataGridPageSize("DataGridPageSize")
 		, DataGridFastForwardRows("DataGridFastForwardRows")
 		, DataGridEmptyLabel("DataGridEmptyLabel")
+		, DataGridCssFlagColumn("DataGridCssFlagColumn")
 		
 		, TargetDataGrid_A("TargetDataGrid_A")
 		, TargetDataGridColumn_A("TargetDataGridColumn_A")

@@ -13,7 +13,7 @@ public interface IDataGridDataSource {
 
 	void resetColumnData(String columnLabel, String columnType);
 	
-	void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation);
+	void reloadColumnData(String[] columnLabels, String[] columnTypes, boolean[] enableTranslations);
 	
 	void changeColumnFilter(Map<String,String>filterMap);
 }

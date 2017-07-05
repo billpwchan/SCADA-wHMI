@@ -73,6 +73,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private String strDataGridOptsXMLFile = null;
 	private String strDataGridPageSize = null;
 	private String strDataGridEmptyLabel = null;
+	private String strDataGridCssFlagColumn = null; 
 
 	private String targetDataGrid		= "";
 	private String targetDataGridColumn1 = "";
@@ -83,6 +84,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	private int [] intDataGridColumnsHeaderTranslations = null;
 	private String [] strDataGridColumnsLabels = null;
 	private String [] strDataGridColumnsTypes = null;
+	private String [] strDataGridCssFlagColumns = null;
 	private int [] intDataGridColumnsWidths = null;
 	private int [] intDataGridColumnsTranslations = null;
 	private int [] intDataGridColumnsSort = null;
@@ -275,11 +277,11 @@ public class UIWidgetDataGrid extends UIWidget_i {
 					
 					}  else if ( os1.equals(DataGridEvent.ReloadColumnData.toString() ) ) {
 						
-						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
-						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
-						
 						logger.debug(className, function, "Reload Column Data");
 						
+						Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationString2.toString());
+						Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationString3.toString());
+												
 						if ( null != strDataGrid ) {
 							
 							logger.debug(className, function, "strDataGrid[{}]", strDataGrid);
@@ -289,18 +291,36 @@ public class UIWidgetDataGrid extends UIWidget_i {
 	
 									String dataGridSelected = (String) obj1;
 									
+									String columnLabel = (String) obj2;
+									
+									String [] columnLabels = UIWidgetUtil.getStringArray(columnLabel, split); 
+									String [] columnTypes = new String[columnLabels.length];
+									boolean []  enableTranslations = new boolean[columnLabels.length];
+											
+									logger.debug(className, function, "columnLabels from obj2:[{}][{}]", columnLabels[0], columnLabels[1]);
+									logger.debug(className, function, "columnLabels length is:[{}]", columnLabels.length);
+									logger.debug(className, function, "dataGridSelected is:[{}]", dataGridSelected);
+									logger.debug(className, function, "strDataGrid is:[{}]", strDataGrid);
+									logger.debug(className, function, "Are they equal?[{}]", dataGridSelected.equals(strDataGrid));
+									
 									if (dataGridSelected.equals(strDataGrid)) {
-										String columnLabel = (String) obj2;
-										String columnType = dataGridFormatter.getColumnType(columnLabel);
-										boolean enableTranslation = false;
-										if (columnType.equals("String")) {
-											Boolean enable = columnLabelTranslationMap.get(columnLabel);
-											if (enable != null) {
-												enableTranslation = enable;
+										logger.debug(className, function, "For loop will be started");
+										for (int i=0; i<columnLabels.length; i++){
+											logger.debug(className, function, "For loop started with i = [{}], and length =[{}]", i, columnLabels.length);
+											columnTypes[i] = dataGridFormatter.getColumnType(columnLabels[i]);
+											enableTranslations[i] = false;
+											if (columnTypes[i].equals("String")) {
+												Boolean enable = columnLabelTranslationMap.get(columnLabels[i]);
+												if (enable != null) {
+													enableTranslations[i] = enable;
+												}
 											}
+											logger.debug(className, function, "columnLabels just before sending:[{}][{}]", i, columnLabels[i]);
+											logger.debug(className, function, "columnTypes jsut before sending:[{}][{}]", i, columnTypes[i]);
+											logger.debug(className, function, "enableTranslations just before sending:[{}][{}]", i, enableTranslations[i]);
+											
 										}
-										
-										uiDataGridDatabase.reloadColumnData(columnLabel, columnType, enableTranslation);
+										uiDataGridDatabase.reloadColumnData(columnLabels, columnTypes, enableTranslations);
 									}
 								} else {
 									logger.warn(className, function, "obj1 or obj2 IS NOT TYPE OF String");
@@ -417,6 +437,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			strDataGridPageSize			 	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridPageSize.toString(), strHeader);
 			strDataGridFastForwardRows		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridFastForwardRows.toString(), strHeader);
 			strDataGridEmptyLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridEmptyLabel.toString(), strHeader);
+			strDataGridCssFlagColumn		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DataGridCssFlagColumn.toString(), strHeader);
 
 			targetDataGrid			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGrid_A.toString(), strHeader);
 			targetDataGridColumn1	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.TargetDataGridColumn_A.toString(), strHeader);
@@ -440,6 +461,7 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);
 		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
 		logger.debug(className, function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
+		logger.debug(className, function, "strDataGridCssFlagColumn[{}]", strDataGridCssFlagColumn);
 		
 		logger.debug(className, function, "targetDataGrid [{}]", targetDataGrid);
 		logger.debug(className, function, "targetDataGridColumn1 [{}]", targetDataGridColumn1);
@@ -547,14 +569,19 @@ public class UIWidgetDataGrid extends UIWidget_i {
 		logger.debug(className, function, "strDataGridPageSize [{}]", strDataGridPageSize);	
 		logger.debug(className, function, "strDataGridFastForwardRows [{}]", strDataGridFastForwardRows);
 		logger.debug(className, function, "strDataGridEmptyLabel [{}]", strDataGridEmptyLabel);
+		logger.debug(className, function, "strDataGridCssFlagColumn[{}]", strDataGridCssFlagColumn);
 		
 		strDataGridColumnsTypes = UIWidgetUtil.getStringArray(strDataGridColumnsType, split);
-		strDataGridColumnsHeaderStrings = UIWidgetUtil.getStringArray(strDataGridColumnsHeaderString, split);
+		strDataGridColumnsHeaderStrings = UIWidgetUtil.getStringArray(strDataGridColumnsHeaderString, split); 
 		intDataGridColumnsHeaderTranslations = UIWidgetUtil.getIntArray(strDataGridColumnsHeaderTranslation, split);
 		strDataGridColumnsLabels = UIWidgetUtil.getStringArray(strDataGridColumnsLabel, split);
 		intDataGridColumnsWidths = UIWidgetUtil.getIntArray(strDataGridColumnsWidth, split);
 		intDataGridColumnsTranslations = UIWidgetUtil.getIntArray(strDataGridColumnsTranslation, split);
 		intDataGridColumnsSort = UIWidgetUtil.getIntArray(strDataGridColumnsSort, split);
+		
+		if((strDataGridCssFlagColumn) != null && (strDataGridCssFlagColumn.length()>0 )){
+			strDataGridCssFlagColumns = UIWidgetUtil.getStringArray(strDataGridCssFlagColumn, split);
+		}
 		
 		for ( int i = 0 ; i < intDataGridColumnsHeaderTranslations.length ; ++i ) {
 			if ( intDataGridColumnsHeaderTranslations[i] == 1 ) {
@@ -618,24 +645,53 @@ public class UIWidgetDataGrid extends UIWidget_i {
 			public String getStyleNames(Equipment_i row, int rowIndex) {
 				String strCssResult = strCssPrefix;
 				
+				if ( (strDataGridCssFlagColumns != null) && (strDataGridCssFlagColumns.length > 0) ){
+					for (int i=0; i<strDataGridCssFlagColumns.length; i++){
+						int colNum = Integer.parseInt(strDataGridCssFlagColumns[i]);
+						String label = strDataGridColumnsLabels[colNum];
+						if (strDataGridColumnsTypes[colNum].compareToIgnoreCase("Number") == 0) {
+							Number value = row.getNumberValue(label);
+							strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
+							logger.info(className, function, "strCssResult (Number) is:[{}]", strCssResult);
+						} else if (strDataGridColumnsTypes[colNum].compareToIgnoreCase("Boolean") == 0) {
+							Boolean value = row.getBooleanValue(label);
+							strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
+							logger.info(className, function, "strCssResult (Boolean) is:[{}]", strCssResult);
+						} else {
+							String value = row.getStringValue(label);
+							if (value != null && !value.isEmpty()) {
+								// Replace space with '_'
+								value.replace(' ','_');
+								strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
+								logger.info(className, function, "strCssResult (Other) is:[{}]", strCssResult);
+							}
+						}
+					}
+				}
+				/*	
 				for (int i=0; i<strDataGridColumnsLabels.length; i++) {
 					String label = strDataGridColumnsLabels[i];
 					
 					if (strDataGridColumnsTypes[i].compareToIgnoreCase("Number") == 0) {
 						Number value = row.getNumberValue(label);
 						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
+						logger.info(className, function, "strCssResult (Number) is:[{}]", strCssResult);
 					} else if (strDataGridColumnsTypes[i].compareToIgnoreCase("Boolean") == 0) {
 						Boolean value = row.getBooleanValue(label);
 						strCssResult += " " + strCssPrefix + "_" + label + "_" + value.toString();
+						logger.info(className, function, "strCssResult (Boolean) is:[{}]", strCssResult);
 					} else {
 						String value = row.getStringValue(label);
 						if (value != null && !value.isEmpty()) {
 							// Replace space with '_'
 							value.replace(' ','_');
 							strCssResult += " " + strCssPrefix + "_" + label + "_" + value;
+							logger.info(className, function, "strCssResult (Other) is:[{}]", strCssResult);
 						}
 					}
 				}
+				*/
+				
                 return strCssResult;
 			}
 	    	

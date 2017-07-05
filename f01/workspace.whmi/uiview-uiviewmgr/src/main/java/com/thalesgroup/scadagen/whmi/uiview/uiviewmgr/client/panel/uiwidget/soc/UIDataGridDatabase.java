@@ -181,8 +181,8 @@ public class UIDataGridDatabase implements UIDataGridDatabase_i {
 	}
 	
 	
-	public void reloadColumnData(String columnLabel, String columnType, boolean enableTranslation) {
-		dataSource.reloadColumnData(columnLabel, columnType, enableTranslation);
+	public void reloadColumnData(String[] columnLabels, String[] columnTypes, boolean[] enableTranslations) {
+		dataSource.reloadColumnData(columnLabels, columnTypes, enableTranslations);
 	}
 	
 	public void resetColumnData(String columnLabel, String columnType) {

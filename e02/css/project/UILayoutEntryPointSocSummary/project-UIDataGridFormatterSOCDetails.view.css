@@ -6,7 +6,6 @@
 	width: 100%;
 	height: 100%;
 	background: #373737;
-	color: #373737;
 }
 
 .project-UIDataGridFormatterSOCDetails-table tr > th,
@@ -60,31 +59,15 @@
 	width: 0px;
 }
 
-tr.dataGridEvenRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Completed {
-	color: black !important;
-	background: green!important;
-	background-color: green !important;
+/* Style for SOC execution completed*/
+.UIDataGridFormatterSOCDetails_Status_flag_2 {  
+	background-color: green;
 	background-image: none !important;
 }
 
-tr.dataGridEvenRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Failed  {
-	color: white !important;
-	background: red!important;
-	background-color: red !important;
-	background-image: none !important;
-}
-
-tr.dataGridOddRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Completed {
-	color: black !important;
-	background: green!important;
-	background-color: green !important;
-	background-image: none !important;
-}
-
-tr.dataGridOddRow.UIDataGridFormatterSOCDetails.UIDataGridFormatterSOCDetails_Status_Failed {
-	color: white !important;
-	background: red!important;
-	background-color: red !important;
+/* Style for SOC execution failed*/
+.UIDataGridFormatterSOCDetails_Status_flag_3  {
+	background-color: red;
 	background-image: none !important;
 }
 

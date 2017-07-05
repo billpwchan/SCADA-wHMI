@@ -6,12 +6,14 @@
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
 		<DataGrid>UIDataGridFormatterSOCDetails</DataGrid>
-		<DataGridColumnsType>Number,String,String,String,Number,Number,Number,Boolean</DataGridColumnsType>
-		<DataGridColumnsHeaderString>&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_STEP,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_EQUIPMENTLABEL,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_STATUS,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_EQUIPMENT,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_SUCCESSDELAY,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_RESERVED,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_TAGSTATUS,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_DISABLE</DataGridColumnsHeaderString>
-		<DataGridColumnsHeaderTranslation>1,1,1,1,1,1,1,1</DataGridColumnsHeaderTranslation>
-		<DataGridColumnsLabel>Step,EquipmentLabel,Status,Equipment,SuccessDelay,Reserved,TagStatus,Disable</DataGridColumnsLabel>
-		<DataGridColumnsWidth>50,200,150,200,80,80,80,80</DataGridColumnsWidth>
-		<DataGridColumnsTranslation>0,0,1,0,0,0,0,0</DataGridColumnsTranslation>
+		<DataGridColumnsType>Number,String,String,String,String,Number,Number,Number,Boolean</DataGridColumnsType>
+		<DataGridColumnsHeaderString>&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_STEP,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_EQUIPMENTLABEL,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_STATUS,Status_flag,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_EQUIPMENT,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_SUCCESSDELAY,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_RESERVED,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_TAGSTATUS,&amp;SCADAGEN_SOC_UILayoutSocSummaryViewer2_DISABLE</DataGridColumnsHeaderString>
+		<DataGridColumnsHeaderTranslation>1,1,1,0,1,1,1,1,1</DataGridColumnsHeaderTranslation>
+		<DataGridColumnsLabel>Step,EquipmentLabel,Status,Status_flag,Equipment,SuccessDelay,Reserved,TagStatus,Disable</DataGridColumnsLabel>
+		<DataGridColumnsWidth>50,200,150,50,200,80,80,80,80</DataGridColumnsWidth>
+		<DataGridColumnsTranslation>0,0,1,0,0,0,0,0,0</DataGridColumnsTranslation>
+		<DataGridCssFlagColumn>3</DataGridCssFlagColumn>
+		<!-- Column number starts from 0. E.g. if the flag column is "Status_Flag", which is the forth column, then it should be 3 in the config-->
 		<DataGridOptsXMLFile>UILayoutEntryPointSocSummary/SocCardDetail.xml</DataGridOptsXMLFile>
 		<DataGridPagerName>SCADAgenPager</DataGridPagerName>
 		<DataGridPageSize>10</DataGridPageSize>

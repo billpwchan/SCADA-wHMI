@@ -9,7 +9,7 @@
 		<TargetDataGrid_B>UIDataGridFormatterSOCDetails</TargetDataGrid_B>
 		<TargetDataGridColumn_B>Disable</TargetDataGridColumn_B>
 		<TargetDataGridColumn_B2>Step</TargetDataGridColumn_B2>
-		<TargetDataGridColumn_B3>Status</TargetDataGridColumn_B3>
+		<TargetDataGridColumn_B3>Status,Status_flag</TargetDataGridColumn_B3>
 		
 		<StartElement>start</StartElement>
 		<StopElement>stop</StopElement>

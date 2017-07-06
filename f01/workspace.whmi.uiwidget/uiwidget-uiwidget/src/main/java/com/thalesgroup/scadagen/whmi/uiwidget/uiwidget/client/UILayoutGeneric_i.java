@@ -65,6 +65,7 @@ public interface UILayoutGeneric_i {
 		, eventbusname("eventbusname")
 		, eventbusscope("eventbusscope")
 		
+		, debugId("debugId")
 		;
 		private final String text;
 		private WidgetAttribute(final String text) { this.text = text; }

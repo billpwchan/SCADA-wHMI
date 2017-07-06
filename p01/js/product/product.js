@@ -53,6 +53,20 @@ window.SCADAGEN_LOADER = window.SCADAGEN_LOADER || (function(){
 							console.log(strJsScreenCapture, 'Load Failed');
 						}
 					);
+					
+					// initialize download_csv.js
+					const strJsDownload = 'resources/js/product/download_csv.js';
+					console.log('Loading ', strJsDownload);
+					$.getScript(
+						strJsDownload,
+						() => {
+							console.log(strJsDownload, 'Loaded');
+						}
+						,
+						() => {
+							console.log(strJsDownload, 'Load Failed');
+						}
+					);
 				}
 				,
 				() => {

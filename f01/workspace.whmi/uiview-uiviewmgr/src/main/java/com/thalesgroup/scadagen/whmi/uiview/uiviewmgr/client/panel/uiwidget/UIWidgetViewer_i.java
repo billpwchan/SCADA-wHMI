@@ -34,6 +34,11 @@ public interface UIWidgetViewer_i {
 	public enum ParameterName {
 		  ScsOlsListElement("ScsOlsListElement")
 		, EnableRowUpdated("EnableRowUpdated")
+		
+		, PrintDataDebugId("PrintDataDebugId")
+		, PrintDataColumns("PrintDataColumns")
+		, PrintDataIndexs("PrintDataIndexs")
+		, PrintDataAttachement("PrintDataAttachement")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

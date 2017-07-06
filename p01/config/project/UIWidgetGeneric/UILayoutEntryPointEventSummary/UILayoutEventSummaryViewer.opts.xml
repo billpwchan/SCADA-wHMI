@@ -4,6 +4,15 @@
 
 	<header key="header">
 		<ScsOlsListElement>UILayoutEventSummaryViewerScsOlsListPanel</ScsOlsListElement>
+		
+		<!--  DebugID to the Target Generic Data Grid, Printer will using it to walkthough the GDD in the DOM -->
+		<PrintDataDebugId>gwt-debug-UILayoutEventSummaryViewerScsOlsListPanel</PrintDataDebugId>
+		<!-- Columns Header Display in the CSS, it support the translation; More a column should be split by ','-->
+		<PrintDataColumns>&amp;scsalarmList_datetime_name,&amp;scsalarmList_area_name,&amp;scsalarmList_funccat_name,&amp;scsalarmList_sourceID_name,&amp;scsalarmList_alarmText_name,&amp;scsalarmList_priority_name</PrintDataColumns>
+		<!-- Columns index will be export to the CSV; More a column should be split by ','-->
+		<PrintDataIndexs>0,1,2,3,4,5</PrintDataIndexs>
+		<!-- CSV File name will be export to -->
+		<PrintDataAttachement>EventList.csv</PrintDataAttachement>
 	</header>
 	
 	<!-- Begin of life -->

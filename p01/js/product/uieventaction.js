@@ -28,6 +28,9 @@ window.SCADAGEN.UIEVENTACTION = (function(){
 				} else if ( json.OperationString2 === "ScreenCapture" ) {
 					// trigger the screen capture API call (assumed the browser extension was installed)
 					thalesex_scrcap_capture();
+				} else if ( json.OperationString2 === "PrintCurPageCsv" ) {
+					
+					window.SCADAGEN.DOWNLOAD.Csv(jsdata);
 				}
 			//}
 		}

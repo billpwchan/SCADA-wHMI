@@ -12,6 +12,7 @@
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
 		<element>UILayoutEventSummaryViewerScsOlsListPanel</element>
+		<debugId>UILayoutEventSummaryViewerScsOlsListPanel</debugId>
 	</option>
 
 </data-set>

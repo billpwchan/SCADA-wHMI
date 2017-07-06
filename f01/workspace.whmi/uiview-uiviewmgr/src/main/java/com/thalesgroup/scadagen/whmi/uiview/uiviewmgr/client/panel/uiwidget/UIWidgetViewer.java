@@ -8,17 +8,23 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONNumber;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.IntFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
+import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
@@ -45,6 +51,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperat
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIWidgetViewer extends UILayoutRealize {
 	
@@ -63,6 +70,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 	private ScsOlsListPanelMenu contextMenu					= null;
 	
 	private boolean enableRowUpdated = false;
+	
+	private String printDataDebugId	= null;
+	private String printDataColumns	= null;
+	private String printDataIndexs	= null;
+	private String printDataAttachement = null;
 	
 	public void removeFilter() {
 		final String function = "removeFilter";
@@ -110,6 +122,30 @@ public class UIWidgetViewer extends UILayoutRealize {
 		logger.end(className, function);
 	}
 
+	public JSONArray convertStringsToJSONArray(String string[]) {
+		JSONArray jsonArray = new JSONArray();
+		for ( int i = 0 ; i < string.length ; ++i ) {
+			jsonArray.set(i, new JSONString(string[i]));
+		}
+		return jsonArray;
+	}
+	
+	public int[] convertStringToInts(String strings[]) {
+		int ints [] = new int[strings.length];
+		for ( int i = 0 ; i < strings.length ; ++i ) {
+			ints[i] = Integer.parseInt(strings[i]);
+		}
+		return ints;
+	}
+	
+	public JSONArray convertIntsToJSONArray(int integer[]) {
+		JSONArray jsonArray = new JSONArray();
+		for ( int i = 0 ; i < integer.length ; ++i ) {
+			jsonArray.set(i, new JSONNumber(integer[i]));
+		}
+		return jsonArray;
+	}
+
 	@Override
 	public void init() {
 		super.init();
@@ -127,9 +163,19 @@ public class UIWidgetViewer extends UILayoutRealize {
 			if ( null != strEnableRowUpdated && ! strEnableRowUpdated.isEmpty() ) {
 				enableRowUpdated = Boolean.parseBoolean(strEnableRowUpdated);
 			}
+			
+			printDataDebugId			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataDebugId.toString(), strHeader);
+			printDataColumns			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataColumns.toString(), strHeader);
+			printDataIndexs				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataIndexs.toString(), strHeader);
+			printDataAttachement		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataAttachement.toString(), strHeader);
 		}
 		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
 		logger.debug(className, function, "enableRowUpdated[{}]", enableRowUpdated);
+		
+		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
+		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
+		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
+		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
 		
 		if ( null == scsOlsListElement ) {
 			
@@ -586,9 +632,11 @@ public class UIWidgetViewer extends UILayoutRealize {
 							} else if ( null == os3 ) {
 								logger.warn(className, function, "od2 IS NULL");
 							}
-						} else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
+						} 
+						else if ( os1.equals(FilterViewEvent.RemoveFilter.toString()) ) {
 							removeFilter();
-						} else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
+						} 
+						else if ( os1.equals(ViewerViewEvent.AckVisible.toString()) ) {
 							if ( null != gridView ) {
 								boolean validRequested = false, isValid = false;
 								String attributeName = null;
@@ -615,7 +663,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 							} else {
 								logger.warn(className, function, "gridView IS NULL");
 							}
-						} else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
+						} 
+						else if ( os1.equals(ViewerViewEvent.AckVisibleSelected.toString()) ) {
 							if ( null != gridView ) {
 								boolean validRequested = false, isValid = false;
 								String attributeName = null;
@@ -640,9 +689,45 @@ public class UIWidgetViewer extends UILayoutRealize {
 							} else {
 								logger.warn(className, function, "gridView IS NULL");
 							}
-						} else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
+						} 
+						else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
 							Window.alert("Print Event");
 						}
+						 else if ( os1.equals(PrintViewEvent.PrintCurPage.toString()) ) {
+							 
+							String strPrintDataColumns [] = printDataColumns.split(",");
+							for ( int i = 0 ; i < strPrintDataColumns.length ; ++i ) {
+								strPrintDataColumns[i] = TranslationMgr.getInstance().getTranslation(strPrintDataColumns[i]);
+							}
+							JSONArray jsonPrintDataColumns = convertStringsToJSONArray(strPrintDataColumns);
+							 
+							String strPrintDataIndexs [] = printDataIndexs.split(",");
+							int intPrintDataIndexs [] = convertStringToInts(strPrintDataIndexs);
+							JSONArray jsonPrintDataIndexs = convertIntsToJSONArray(intPrintDataIndexs);
+						 
+						    JSONObject jsonObject = new JSONObject();
+						    jsonObject.put("PrintDataDebugId", new JSONString(printDataDebugId));
+						    jsonObject.put("PrintDataAttachement", new JSONString(printDataAttachement));
+						    jsonObject.put("PrintDataColumns", jsonPrintDataColumns);
+						    jsonObject.put("PrintDataIndexs", jsonPrintDataIndexs);
+
+						    String jsonstring = jsonObject.toString();
+						    
+					    	logger.warn(className, function, "jsonstring[{}]", jsonstring);
+					    	
+					    	{
+					    		UIEventAction uiEventAction2 = new UIEventAction();
+								uiEventAction2.setParameter(UIActionEventAttribute.OperationType.toString(), "action");
+								uiEventAction2.setParameter(UIActionEventAttribute.OperationAction.toString(), "js");
+								uiEventAction2.setParameter(ActionAttribute.OperationString1.toString(), "CallJSByGWT");
+								uiEventAction2.setParameter(ActionAttribute.OperationString2.toString(), "PrintCurPageCsv");
+								uiEventAction2.setParameter(ActionAttribute.OperationString3.toString(), jsonstring);
+								uiEventActionProcessor_i.executeAction(uiEventAction2, null);
+								logger.debug(className, function, "executeAction uiEventAction");
+					    	}
+
+						 }
+
 					} else {
 						logger.warn(className, function, "os1 IS NULL");
 					}

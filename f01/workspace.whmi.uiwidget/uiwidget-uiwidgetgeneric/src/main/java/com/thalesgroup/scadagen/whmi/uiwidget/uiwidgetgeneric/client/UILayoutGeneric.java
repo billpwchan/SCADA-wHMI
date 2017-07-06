@@ -154,6 +154,8 @@ public class UILayoutGeneric extends UIGeneric {
 						String left					= valueMap.get(WidgetAttribute.left.toString());
 						String top					= valueMap.get(WidgetAttribute.top.toString());
 						String csscontainer			= valueMap.get(WidgetAttribute.csscontainer.toString());
+						
+						String debugId				= valueMap.get(WidgetAttribute.debugId.toString());
 
 						HashMap<String, Object> options = new HashMap<String, Object>();
 						
@@ -278,13 +280,21 @@ public class UILayoutGeneric extends UIGeneric {
 								}
 								
 								logger.debug(className, function, "csscontainer["+csscontainer+"]");
-								
 								if ( null != panel ) {
 									if ( null != csscontainer ) {
 										DOM.getParent(panel.getElement()).setClassName(csscontainer);
 									}
 								}
 								
+								logger.debug(className, function, "debugId["+debugId+"]");
+								if ( null != panel ) {
+									if ( null == debugId ) {
+										panel.ensureDebugId(this.uiNameCard.getUiPath()+this.uiNameCard.getUiScreen());
+									} else {
+										panel.ensureDebugId(debugId);
+									}
+								}
+															
 							} else {
 								logger.warn(className, function, "complexPanel IS NULL");
 							}

@@ -16,7 +16,8 @@
 	<option key="0|1">
 		<uiCtrl>UIWidgetPrint</uiCtrl>
 		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryPrint.view.xml</uiView>
-		<csscontainer>project-gwt-panel-action-filter</csscontainer>
+		<uiOpts>UILayoutEntryPointEventSummary/UIWidgetEventSummaryPrint.opts.xml</uiOpts>
+		<element>UIWidgetEventSummaryViewer</element>
 	</option>
 	<option key="0|2">
 		<uiCtrl>UIWidgetFilter</uiCtrl>

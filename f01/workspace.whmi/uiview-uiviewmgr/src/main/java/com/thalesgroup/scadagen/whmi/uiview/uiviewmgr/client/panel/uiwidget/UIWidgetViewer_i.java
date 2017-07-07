@@ -39,6 +39,13 @@ public interface UIWidgetViewer_i {
 		, PrintDataColumns("PrintDataColumns")
 		, PrintDataIndexs("PrintDataIndexs")
 		, PrintDataAttachement("PrintDataAttachement")
+		
+		, PrintDataStart("PrintDataStart")
+		, PrintDataLength("PrintDataLength")
+		
+		, PrintDataReceviedWait("PrintDataReceviedWait")
+		, PrintDataWalkthoughWait("PrintDataWalkthoughWait")
+		
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

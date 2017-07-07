@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Update Page Value -->
+	<actionset key="PagerValueChanged_PageStart">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>PagerValueChanged_PageStart</OperationString1>
+	</actionset>
+
+	<action key="PagerValueChanged_PageStart">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>PageStart</OperationString2>
+		<OperationString3>X</OperationString3>
+	</action>
+
+	<actionset key="PagerValueChanged_EndIndex">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>PagerValueChanged_EndIndex</OperationString1>
+	</actionset>
+
+	<action key="PagerValueChanged_EndIndex">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>EndIndex</OperationString2>
+		<OperationString3>X</OperationString3>
+	</action>
+
+	<actionset key="PagerValueChanged_Exact">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>PagerValueChanged_Exact</OperationString1>
+	</actionset>
+
+	<action key="PagerValueChanged_Exact">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetValue</OperationString1>
+		<OperationString2>Exact</OperationString2>
+		<OperationString3>X</OperationString3>
+	</action>
+
+	<!-- Update Button -->
+	
+	<!-- HasPreviousPage TRUE-->
+	<actionset key="HasPreviousPage_true">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFirstPage_true</OperationString1>
+		<OperationString2>HasPreviousPage_true</OperationString2>
+	</actionset>
+
+	<action key="HasFirstPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FirstPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+
+	<action key="HasPreviousPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>PreviousPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	
+	<!-- HasPreviousPage FALSE-->
+	<actionset key="HasPreviousPage_false">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFirstPage_false</OperationString1>
+		<OperationString2>HasPreviousPage_false</OperationString2>
+	</actionset>
+
+	<action key="HasFirstPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FirstPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+
+	<action key="HasPreviousPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>PreviousPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	
+	<!-- HasNextPage TRUE-->
+	<actionset key="HasNextPage_true">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasNextPage_true</OperationString1>
+		<OperationString2>HasLastPage_true</OperationString2>
+	</actionset>
+
+	<action key="HasNextPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>NextPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	<action key="HasLastPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>LastPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>
+	
+	<!-- HasNextPage FALSE-->
+	<actionset key="HasNextPage_false">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasNextPage_false</OperationString1>
+		<OperationString2>HasLastPage_false</OperationString2>
+	</actionset>
+
+	<action key="HasNextPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>NextPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	<action key="HasLastPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>LastPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+
+	<!-- HasFastBackwardPage TRUE-->
+	<actionset key="HasFastBackwardPage_true">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFastBackwardPage_true</OperationString1>
+	</actionset>
+
+	<action key="HasFastBackwardPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FastBackwardPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>	
+	
+	<!-- HasFastBackwardPage FALSE-->
+	<actionset key="HasFastBackwardPage_false">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFastBackwardPage_false</OperationString1>
+	</actionset>
+
+	<action key="HasFastBackwardPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FastBackwardPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	
+	<!-- HasFastForwardPage TRUE-->
+	<actionset key="HasFastForwardPage_true">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFastForwardPage_true</OperationString1>
+	</actionset>
+
+	<action key="HasFastForwardPage_true">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FastForwardPage</OperationString2>
+		<OperationString3>Up</OperationString3>
+	</action>	
+	
+	<!-- HasFastForwardPage FALSE-->
+	<actionset key="HasFastForwardPage_false">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>HasFastForwardPage_false</OperationString1>
+	</actionset>
+
+	<action key="HasFastForwardPage_false">
+		<OperationType>action</OperationType>
+		<OperationAction>widget</OperationAction>
+		<OperationString1>SetWidgetStatus</OperationString1>
+		<OperationString2>FastForwardPage</OperationString2>
+		<OperationString3>Disable</OperationString3>
+	</action>
+	
+	
+	<!-- Button Operation -->
+	<actionset key="FirstPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>FirstPageSelected</OperationString1>
+	</actionset>
+	
+	<action key="FirstPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
+		<OperationString1>FirstPageSelected</OperationString1>
+	</action>
+	
+	<actionset key="PreviousPage">
+		<SenderOperation>event</SenderOperation>
+		<OperationString1>PreviousPageSelected</OperationString1>
+	</actionset>
+	
+	<action key="PreviousPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
+		<OperationString1>PreviousPageSelected</OperationString1>
+	</action>
+	
+	<actionset key="NextPage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>NextPageSelected</OperationString1>
+	</actionset>
+	
+	<action key="NextPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
+		<OperationString1>NextPageSelected</OperationString1>
+	</action>
+	
+	<actionset key="FastBackwardPage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>FastBackwardPageSelected</OperationString1>
+	</actionset>
+
+	<action key="FastBackwardPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
+		<OperationString1>FastBackwardPageSelected</OperationString1>
+	</action>
+
+	<actionset key="FastForwardPage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>FastForwardPageSelected</OperationString1>
+	</actionset>
+	
+	<action key="FastForwardPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
+		<OperationString1>FastForwardPageSelected</OperationString1>
+	</action>	
+	
+	<actionset key="LastPage">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>LastPageSelected</OperationString1>
+	</actionset>
+	
+	<action key="LastPageSelected">
+		<SenderOperation>event</SenderOperation>
+		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
+		<OperationString1>LastPageSelected</OperationString1>
+	</action>
+	
+</data-set>

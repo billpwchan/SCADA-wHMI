@@ -5,7 +5,7 @@
                                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                                 xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
 
-    <p:gridConfiguration fastForwardPages="2" name="scseventList" pageSize="32"/>
+    <p:gridConfiguration fastForwardPages="2" name="scseventList" pageSize="32" displayPager="false"/>
 
     <p:subject>
         <p:dataSource xsi:type="sds:subscriptionDataSource">

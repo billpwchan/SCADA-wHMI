@@ -18,7 +18,8 @@
 		<SenderOperation>event</SenderOperation>
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
-		<OperationString1>PrintCurPage</OperationString1>
+		<!-- <OperationString1>PrintCurPage</OperationString1> -->
+		<OperationString1>Print</OperationString1>
 	</action>
 
 </data-set>

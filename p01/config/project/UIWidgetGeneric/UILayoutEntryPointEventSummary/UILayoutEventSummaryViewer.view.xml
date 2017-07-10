@@ -5,14 +5,13 @@
 		<rows>1</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
-		<rootCSS>project-gwt-panel-viewerview-inner</rootCSS>
+		<rootCSS>project-UILayoutEventSummaryViewer-root</rootCSS>
 	</header>
 
 	<option key="0|0">
 		<uiCtrl>ScsOlsListPanel</uiCtrl>
 		<uiOpts>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewerScsOlsListPanel.opts.xml</uiOpts>
 		<element>UILayoutEventSummaryViewerScsOlsListPanel</element>
-		<debugId>UILayoutEventSummaryViewer</debugId>
 	</option>
 
 </data-set>

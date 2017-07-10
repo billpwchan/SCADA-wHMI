@@ -1,0 +1,50 @@
+.project-UIWidgetEventSummaryFilter-root {
+    height: 100%;
+	width: 100%;
+}
+
+.project-UIWidgetEventSummaryFilter-button-reset {
+    width: 115px;
+    height: 45px;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.project-UIWidgetEventSummaryFilter-button-reset-container {
+    vertical-align: middle !important;
+    text-align: right;
+    width: 1%;
+}
+
+.project-UIWidgetEventSummaryFilter-button-reset-up 
+, .project-UIWidgetEventSummaryFilter-button-reset-down 
+, .project-UIWidgetEventSummaryFilter-button-reset-disable {
+	
+}
+
+.project-UIWidgetEventSummaryFilter-button-applied {
+    width: 115px;
+    height: 45px;
+    font-weight: bold !important;
+    font-size: 16px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.project-UIWidgetEventSummaryFilter-button-applied-container {
+    vertical-align: middle !important;
+    text-align: right;
+    width: 1%;
+}
+
+.project-UIWidgetEventSummaryFilter-button-applied-up 
+, .project-UIWidgetEventSummaryFilter-button-applied-disable {
+}
+
+.project-UIWidgetEventSummaryFilter-button-applied-down {
+	color: white !important;
+	background-color: red !important;
+	background-image: none !important;
+}

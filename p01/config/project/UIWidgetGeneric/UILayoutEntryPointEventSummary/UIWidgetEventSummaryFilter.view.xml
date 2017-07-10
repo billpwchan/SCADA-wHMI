@@ -5,42 +5,41 @@
 		<rows>1</rows>
 		<cols>2</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-gwt-simplepanel-filterview</rootCss>
-		<cssFlexTable>project-gwt-verticalpanel-filterview</cssFlexTable>
+		<rootCss>project-UIWidgetEventSummaryFilter-root</rootCss>
 	</header>
 
 	<option key="0|0">
 		<widget>Button</widget>
-		<label>Filter Reset</label>
-		<css>project-gwt-button-eventsummary-filterview-button-0-1</css>
+		<label>&amp;UIWidgetEventSummaryPrint_FilterReset</label>
+		<css>project-UIWidgetEventSummaryFilter-button-reset</css>
 		
-		<cssContainer>project-gwt-button-filterview-container-0-2</cssContainer>
+		<cssContainer>project-UIWidgetEventSummaryFilter-button-reset-container</cssContainer>
 		
-		<cssUp>project-gwt-button-filterview-button-0-2-up</cssUp>
-		<cssDown>project-gwt-button-filterview-button-0-2-down</cssDown>
-		<cssDisable>project-gwt-button-filterview-button-0-2-disable</cssDisable>
+		<cssUp>project-UIWidgetEventSummaryFilter-button-reset-up</cssUp>
+		<cssDown>project-UIWidgetEventSummaryFilter-button-reset-down</cssDown>
+		<cssDisable>project-UIWidgetEventSummaryFilter-button-reset-disable</cssDisable>
 		
-		<tooltipUp>Filter Reset</tooltipUp>
-		<tooltipDown>Filter Reset Avaiable</tooltipDown>
-		<tooltipDisable>Filter Reset Disabled</tooltipDisable>
+		<tooltipUp>&amp;UIWidgetEventSummaryPrint_FilterReset</tooltipUp>
+		<tooltipDown>&amp;UIWidgetEventSummaryPrint_FilterResetAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetEventSummaryPrint_FilterResetDisabled</tooltipDisable>
 		
 		<element>clear</element>
 	</option>
 	
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>Filter Applied</label>
-		<css>project-gwt-button-eventsummary-filterview-button-0-2</css>
+		<label>&amp;UIWidgetEventSummaryPrint_FilterApplied</label>
+		<css>project-UIWidgetEventSummaryFilter-button-applied</css>
 		
-		<cssContainer>project-gwt-button-filterview-container-0-3</cssContainer>
+		<cssContainer>project-UIWidgetEventSummaryFilter-button-applied-container</cssContainer>
 		
-		<cssUp>project-gwt-button-filterview-button-0-3-up</cssUp>
-		<cssDown>project-gwt-button-filterview-button-0-3-down</cssDown>
-		<cssDisable>project-gwt-button-filterview-button-0-3-disable</cssDisable>
+		<cssUp>project-UIWidgetEventSummaryFilter-button-applied-up</cssUp>
+		<cssDown>project-UIWidgetEventSummaryFilter-button-applied-down</cssDown>
+		<cssDisable>project-UIWidgetEventSummaryFilter-button-applied-disable</cssDisable>
 		
-		<tooltipUp>Filter Applied</tooltipUp>
-		<tooltipDown>Filter Applied Avaiable</tooltipDown>
-		<tooltipDisable>Filter Applied Disabled</tooltipDisable>
+		<tooltipUp>&amp;UIWidgetEventSummaryPrint_FilterApplied</tooltipUp>
+		<tooltipDown>&amp;UIWidgetEventSummaryPrint_FilterAppliedAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetEventSummaryPrint_FilterAppliedDisabled</tooltipDisable>
 		
 		<element>applied</element>
 	</option>

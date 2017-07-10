@@ -5,13 +5,13 @@
 		<rows>1</rows>
 		<cols>3</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
+		<rootCSS>project-UILayoutEventSummaryAction-root</rootCSS>
 	</header>
 	<option key="0|0">
 		<type>widgetconfiguration</type>
 		<uiCtrl>UIWidgetEmpty</uiCtrl>
 		<uiView>UILayoutEntryPointEventSummary/UIWidgetEmpty.view.xml</uiView>
-		<csscontainer>project-gwt-panel-eventsummary-action-empty</csscontainer>
+		<csscontainer>project-UILayoutEventSummaryAction-empty-container</csscontainer>
 	</option>
 	<option key="0|1">
 		<uiCtrl>UIWidgetPrint</uiCtrl>
@@ -24,7 +24,7 @@
 		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryFilter.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointEventSummary/UIWidgetEventSummaryFilter.opts.xml</uiOpts>
 		<element>UIWidgetEventSummaryFilter</element>
-		<csscontainer>project-gwt-panel-action-filter</csscontainer>
+		<csscontainer>project-UILayoutEventSummaryAction-filter-container</csscontainer>
 	</option>
 
 </data-set>

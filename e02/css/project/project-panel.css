@@ -10,7 +10,6 @@
 @import url('project-panel-uiscreenmmi.css');
 @import url('project-panel-uiscreenopm.css');
 @import url('project-panel-uiviewalarm.css');
-@import url('project-panel-uiviewevent.css');
 @import url('project-panel-wrapperscslarmlistpanel.css');
 @import url("project-panel-almgn-swap.css");
 @import url("project-panel-input-control.css");
@@ -18,7 +17,6 @@
 @import url("project-panel-navigation-button.css");
 @import url("project-panel-help-url.css");
 @import url("project-panel-alarm-summary.css");
-@import url("project-panel-event-summary.css");
 @import url("project-symbol.css");
 @import url("project-uiwidget-datagrid.css");
 

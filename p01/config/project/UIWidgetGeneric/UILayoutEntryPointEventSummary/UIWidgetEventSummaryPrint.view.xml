@@ -19,7 +19,7 @@
 		<cssDown>project-UIWidgetEventSummaryPrint-button-print-down</cssDown>
 		<cssDisable>project-UIWidgetEventSummaryPrint-button-print-disable</cssDisable>
 		<tooltipUp>&amp;UIWidgetEventSummaryPrint_Export</tooltipUp>
-		<element>export</element>
+		<element>print</element>
 	</option>
 	
 </data-set>

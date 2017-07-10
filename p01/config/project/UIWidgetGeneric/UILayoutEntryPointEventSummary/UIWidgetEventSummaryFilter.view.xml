@@ -10,7 +10,7 @@
 
 	<option key="0|0">
 		<widget>Button</widget>
-		<label>&amp;UIWidgetEventSummaryPrint_FilterReset</label>
+		<label>&amp;UIWidgetEventSummaryFilter_FilterReset</label>
 		<css>project-UIWidgetEventSummaryFilter-button-reset</css>
 		
 		<cssContainer>project-UIWidgetEventSummaryFilter-button-reset-container</cssContainer>
@@ -19,16 +19,16 @@
 		<cssDown>project-UIWidgetEventSummaryFilter-button-reset-down</cssDown>
 		<cssDisable>project-UIWidgetEventSummaryFilter-button-reset-disable</cssDisable>
 		
-		<tooltipUp>&amp;UIWidgetEventSummaryPrint_FilterReset</tooltipUp>
-		<tooltipDown>&amp;UIWidgetEventSummaryPrint_FilterResetAvaiable</tooltipDown>
-		<tooltipDisable>&amp;UIWidgetEventSummaryPrint_FilterResetDisabled</tooltipDisable>
+		<tooltipUp>&amp;UIWidgetEventSummaryFilter_FilterReset</tooltipUp>
+		<tooltipDown>&amp;UIWidgetEventSummaryFilter_FilterResetAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetEventSummaryFilter_FilterResetDisabled</tooltipDisable>
 		
 		<element>clear</element>
 	</option>
 	
 	<option key="0|1">
 		<widget>Button</widget>
-		<label>&amp;UIWidgetEventSummaryPrint_FilterApplied</label>
+		<label>&amp;UIWidgetEventSummaryFilter_FilterApplied</label>
 		<css>project-UIWidgetEventSummaryFilter-button-applied</css>
 		
 		<cssContainer>project-UIWidgetEventSummaryFilter-button-applied-container</cssContainer>
@@ -37,9 +37,9 @@
 		<cssDown>project-UIWidgetEventSummaryFilter-button-applied-down</cssDown>
 		<cssDisable>project-UIWidgetEventSummaryFilter-button-applied-disable</cssDisable>
 		
-		<tooltipUp>&amp;UIWidgetEventSummaryPrint_FilterApplied</tooltipUp>
-		<tooltipDown>&amp;UIWidgetEventSummaryPrint_FilterAppliedAvaiable</tooltipDown>
-		<tooltipDisable>&amp;UIWidgetEventSummaryPrint_FilterAppliedDisabled</tooltipDisable>
+		<tooltipUp>&amp;UIWidgetEventSummaryFilter_FilterApplied</tooltipUp>
+		<tooltipDown>&amp;UIWidgetEventSummaryFilter_FilterAppliedAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetEventSummaryFilter_FilterAppliedDisabled</tooltipDisable>
 		
 		<element>applied</element>
 	</option>

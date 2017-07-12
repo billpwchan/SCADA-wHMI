@@ -14,7 +14,6 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
@@ -43,6 +42,9 @@ public class SocCardList implements IDataGridDataSource {
 	
 	private String [] colLblVals = null;
 	private String CheckCardOPM = null;
+	private String CheckOPMAPI = null;
+	private String CheckOPMFunction = null;
+	private String CheckOPMLocation = null;
 	private String CheckOPMScope = null;
 	private String CheckOPMMode = null;
 	
@@ -91,7 +93,11 @@ public class SocCardList implements IDataGridDataSource {
 			strGrcPointAttribute = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.GrcPointAttributes.toString(), strHeader);
 			
 			strColLblVals = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.ColLblVals.toString(), strHeader);
+			
 			CheckCardOPM = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckCardOPM.toString(), strHeader);
+			CheckOPMAPI = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMAPI.toString(), strHeader);
+			CheckOPMFunction = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMFunction.toString(), strHeader);
+			CheckOPMLocation = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMLocation.toString(), strHeader);
 			CheckOPMScope = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMScope.toString(), strHeader);
 			CheckOPMMode = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMMode.toString(), strHeader);
 			
@@ -262,11 +268,11 @@ public class SocCardList implements IDataGridDataSource {
 												logger.debug(className, function, "column value before translation: [{}]", unquotedStr);
 											}
 											
-											if(strDataGridColumnsLabels[col].equalsIgnoreCase("function")){
+											if(strDataGridColumnsLabels[col].equalsIgnoreCase(CheckOPMFunction)){
 												EqpFunctionValue = unquotedStr;
 												logger.debug(className, function, "Eqp Function Value is:[{}]", EqpFunctionValue);
 											}
-											if(strDataGridColumnsLabels[col].equalsIgnoreCase("location")){
+											if(strDataGridColumnsLabels[col].equalsIgnoreCase(CheckOPMLocation)){
 												EqpLocationValue = unquotedStr;
 												logger.debug(className, function, "Eqp Location Value is:[{}]", EqpLocationValue);
 											}
@@ -308,7 +314,7 @@ public class SocCardList implements IDataGridDataSource {
 							    	
 							    	// Check OPM before checking filters
 							    	if (CheckCardOPM != null && CheckCardOPM == "true"){
-							    		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm("UIOpmSCADAgen");
+							    		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(CheckOPMAPI);
 							    		boolean socCardOpm = uiOpm_i.checkAccess(EqpFunctionValue, EqpLocationValue, CheckOPMScope, CheckOPMMode);
 							    		logger.debug(className, function, "SOC card OPM check result: [{}]", socCardOpm);
 							    	

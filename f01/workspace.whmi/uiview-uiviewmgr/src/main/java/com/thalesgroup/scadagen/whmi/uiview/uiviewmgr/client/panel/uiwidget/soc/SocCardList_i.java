@@ -6,6 +6,9 @@ public interface SocCardList_i {
 		, GrcPointAttributes("GrcPointAttributes")
 		, ColLblVals("ColLblVals")
 		, CheckCardOPM("CheckCardOPM")
+		, CheckOPMAPI("CheckOPMAPI")
+		, CheckOPMFunction("CheckOPMFunction")
+		, CheckOPMLocation("CheckOPMLocation")
 		, CheckOPMScope("CheckOPMScope")
 		, CheckOPMMode("CheckOPMMode");
 

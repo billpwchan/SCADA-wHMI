@@ -7,6 +7,9 @@
 		<GrcPointAttributes>label</GrcPointAttributes>
 		<ColLblVals>SOCCard,ScsEnvID,Alias</ColLblVals>
 		<CheckCardOPM>false</CheckCardOPM>
+		<CheckOPMAPI>UIOpmSCADAgen</CheckOPMAPI>
+		<CheckOPMFunction>function</CheckOPMFunction>
+		<CheckOPMLocation>location</CheckOPMLocation>
 		<CheckOPMScope>M</CheckOPMScope>
 		<CheckOPMMode>1</CheckOPMMode>
 	</header>

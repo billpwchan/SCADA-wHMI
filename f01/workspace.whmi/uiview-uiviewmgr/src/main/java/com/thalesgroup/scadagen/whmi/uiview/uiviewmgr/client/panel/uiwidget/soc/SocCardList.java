@@ -13,6 +13,9 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.soc.
 import com.thalesgroup.scadagen.wrapper.wrapper.client.GetChildrenResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.MultiReadResult;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.WrapperScsRTDBAccess;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpmSCADAgen;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class SocCardList implements IDataGridDataSource {
@@ -39,10 +42,15 @@ public class SocCardList implements IDataGridDataSource {
 	private Map<String, String> runTimeFilters = new HashMap<String, String>();
 	
 	private String [] colLblVals = null;
+	private String CheckCardOPM = null;
+	private String CheckOPMScope = null;
+	private String CheckOPMMode = null;
 	
 	private String colLblSOCCard = null;
 	private String colLblScsEnvID = null;
 	private String colLblAlias = null;
+	
+	
 	
 	private WrapperScsRTDBAccess rtdb = WrapperScsRTDBAccess.getInstance();
 
@@ -83,6 +91,9 @@ public class SocCardList implements IDataGridDataSource {
 			strGrcPointAttribute = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.GrcPointAttributes.toString(), strHeader);
 			
 			strColLblVals = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.ColLblVals.toString(), strHeader);
+			CheckCardOPM = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckCardOPM.toString(), strHeader);
+			CheckOPMScope = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMScope.toString(), strHeader);
+			CheckOPMMode = dictionariesCache.getStringValue(optsXMLFile_, SocCardListParameter.CheckOPMMode.toString(), strHeader);
 			
 			if (strColumnValueFilters != null) {
 				strDataGridColumnsFilters = UIWidgetUtil.getStringArray(strColumnValueFilters, separater);
@@ -149,6 +160,7 @@ public class SocCardList implements IDataGridDataSource {
 	protected void updateSocCardList(String clientKey, String[] instances) {
 		final String function = "updateSocCardList";
 		logger.begin(className, function);
+		
 		
 		String scsEnvId = getScsEnvIdFromMap(clientKey);
 		
@@ -227,6 +239,10 @@ public class SocCardList implements IDataGridDataSource {
 								logger.begin(className, function);
 								// Get row data from map								
 								Equipment_i contact = clientKeyToDataMap.get(key);
+								
+								String EqpFunctionValue = null;
+								String EqpLocationValue = null;
+								
 								if (contact != null) {
 									int index = 0;
 									
@@ -243,7 +259,18 @@ public class SocCardList implements IDataGridDataSource {
 											String unquotedStr = "";
 											if (values[index] != null) {
 												unquotedStr = values[index].replaceAll("\"", "");
+												logger.debug(className, function, "column value before translation: [{}]", unquotedStr);
 											}
+											
+											if(strDataGridColumnsLabels[col].equalsIgnoreCase("function")){
+												EqpFunctionValue = unquotedStr;
+												logger.debug(className, function, "Eqp Function Value is:[{}]", EqpFunctionValue);
+											}
+											if(strDataGridColumnsLabels[col].equalsIgnoreCase("location")){
+												EqpLocationValue = unquotedStr;
+												logger.debug(className, function, "Eqp Location Value is:[{}]", EqpLocationValue);
+											}
+											
 																													
 											if (strDataGridColumnsTypes[col].equalsIgnoreCase("String")) {
 												
@@ -279,6 +306,17 @@ public class SocCardList implements IDataGridDataSource {
 									// Handle column filter option
 							    	boolean skip = false;
 							    	
+							    	// Check OPM before checking filters
+							    	if (CheckCardOPM != null && CheckCardOPM == "true"){
+							    		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm("UIOpmSCADAgen");
+							    		boolean socCardOpm = uiOpm_i.checkAccess(EqpFunctionValue, EqpLocationValue, CheckOPMScope, CheckOPMMode);
+							    		logger.debug(className, function, "SOC card OPM check result: [{}]", socCardOpm);
+							    	
+							    		if (!socCardOpm){
+							    			skip = true;
+							    		}
+							    	}
+							    	// Check filters
 							    	if (strDataGridColumnsFilters != null) {		
 							    		for (int col=0; col<strDataGridColumnsFilters.length; col++) {
 							    			String colValue = contact.getValue(strDataGridColumnsLabels[col]);	    			

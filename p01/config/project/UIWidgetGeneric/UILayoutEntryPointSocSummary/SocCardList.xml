@@ -6,5 +6,8 @@
 		<ColumnValueFilters>,,,</ColumnValueFilters>
 		<GrcPointAttributes>label</GrcPointAttributes>
 		<ColLblVals>SOCCard,ScsEnvID,Alias</ColLblVals>
+		<CheckCardOPM>false</CheckCardOPM>
+		<CheckOPMScope>M</CheckOPMScope>
+		<CheckOPMMode>1</CheckOPMMode>
 	</header>
 </data-set>

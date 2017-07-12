@@ -4,7 +4,10 @@ public interface SocCardList_i {
 	public enum SocCardListParameter {
 		ColumnValueFilters("ColumnValueFilters")
 		, GrcPointAttributes("GrcPointAttributes")
-		, ColLblVals("ColLblVals");
+		, ColLblVals("ColLblVals")
+		, CheckCardOPM("CheckCardOPM")
+		, CheckOPMScope("CheckOPMScope")
+		, CheckOPMMode("CheckOPMMode");
 
 		private final String text;
 		private SocCardListParameter(final String text) { this.text = text; }

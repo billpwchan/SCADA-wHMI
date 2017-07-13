@@ -43,6 +43,8 @@ public class ScsOlsListPanel extends UIWidget_i {
     private String selectionMode = null;
     private boolean hasSCADAgenPager = false;
     
+    private String debugId = null;
+    
     private LinkedList<String> attributes = new LinkedList<String>();
     
     /**
@@ -90,13 +92,9 @@ public class ScsOlsListPanel extends UIWidget_i {
      */
     private ScsGenericDataGridView gridView_;
     
-    public ScsGenericDataGridView getView() {
-    	return gridView_;
-    }
+    public ScsGenericDataGridView getView() { return gridView_; }
     
-    public ScsAlarmDataGridPresenterClient getPresenter() {
-    	return gridPresenter_;
-    }
+    public ScsAlarmDataGridPresenterClient getPresenter() { return gridPresenter_; }
 
     private boolean isTerminated_ = false;
     public boolean isTerminated() {
@@ -113,6 +111,16 @@ public class ScsOlsListPanel extends UIWidget_i {
         	}
         }
         return iSelectionModel;
+    }
+    
+    private void setDebugId(ScsGenericDataGridView gridView_) {
+        LOGGER.debug(LOG_PREFIX + "setDebugId debugId["+debugId+"]");
+        String strDebugId = uiNameCard.getUiPath()+uiNameCard.getUiScreen();
+        if ( null != debugId ) {
+        	strDebugId = debugId;
+        }
+        LOGGER.debug(LOG_PREFIX + "setDebugId strDebugId["+strDebugId+"]");
+        gridView_.ensureDebugId(strDebugId);
     }
 
     /**
@@ -190,6 +198,8 @@ public class ScsOlsListPanel extends UIWidget_i {
 
         gridView_ = new ScsGenericDataGridView();
         
+        setDebugId(gridView_);
+       
         gridView_.setHasSCADAgenPager(hasSCADAgenPager);
         
         // Customize CSS class according to the alarm state
@@ -234,9 +244,17 @@ public class ScsOlsListPanel extends UIWidget_i {
 			listConfigId_			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ListConfigId.toString(), strHeader);
 			menuEnableCallImage		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuEnableCallImage.toString(), strHeader);
 			selectionMode			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SelectionMode.toString(), strHeader);
+			
+			debugId					= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DebugId.toString(), strHeader);
 
 			String mwtEventBusName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusName.toString(), strHeader);
 			String mwtEventBusScope	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusScope.toString(), strHeader);
+			
+			LOGGER.debug(LOG_PREFIX + "init listConfigId_["+listConfigId_+"]");
+			LOGGER.debug(LOG_PREFIX + "init menuEnableCallImage["+menuEnableCallImage+"]");
+			LOGGER.debug(LOG_PREFIX + "init selectionMode["+selectionMode+"]");
+			
+			LOGGER.debug(LOG_PREFIX + "init debugId["+debugId+"]");
 			
 			LOGGER.debug(LOG_PREFIX + "init mwtEventBusName["+mwtEventBusName+"]");
 			LOGGER.debug(LOG_PREFIX + "init mwtEventBusScope["+mwtEventBusScope+"]");

@@ -8,23 +8,16 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONNumber;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
 import com.google.gwt.user.cellview.client.AbstractPager;
-import com.google.gwt.user.client.Window;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.FilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.IntFilterDescription;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.datagrid.presenter.filter.StringEnumFilterDescription;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
-import com.thalesgroup.scadagen.whmi.translation.translationmgr.client.TranslationMgr;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
-import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventTargetAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActionProcessorMgr;
@@ -33,8 +26,8 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProce
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UILayoutSummaryAction_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetFilter_i.FilterViewEvent;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetPrint_i.PrintViewEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetViewer_i.ViewerViewEvent;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.control.PrintGDGPage;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UILayoutRealize;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetCtrl_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
@@ -51,7 +44,6 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ButtonOperat
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.CreateText_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.SCADAgenPager;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.generic.view.ScsGenericDataGridView;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.util.Translation;
 
 public class UIWidgetViewer extends UILayoutRealize {
 	
@@ -75,6 +67,14 @@ public class UIWidgetViewer extends UILayoutRealize {
 	private String printDataColumns	= null;
 	private String printDataIndexs	= null;
 	private String printDataAttachement = null;
+	
+	private int printDataStart = 0;
+	private int printDataLength = 8000;
+	
+	private int printDataReceviedWait = 5000;
+	private int printDataWalkthoughWait = 5000;
+	
+	PrintGDGPage printGDGPage = null;
 	
 	public void removeFilter() {
 		final String function = "removeFilter";
@@ -122,30 +122,6 @@ public class UIWidgetViewer extends UILayoutRealize {
 		logger.end(className, function);
 	}
 
-	public JSONArray convertStringsToJSONArray(String string[]) {
-		JSONArray jsonArray = new JSONArray();
-		for ( int i = 0 ; i < string.length ; ++i ) {
-			jsonArray.set(i, new JSONString(string[i]));
-		}
-		return jsonArray;
-	}
-	
-	public int[] convertStringToInts(String strings[]) {
-		int ints [] = new int[strings.length];
-		for ( int i = 0 ; i < strings.length ; ++i ) {
-			ints[i] = Integer.parseInt(strings[i]);
-		}
-		return ints;
-	}
-	
-	public JSONArray convertIntsToJSONArray(int integer[]) {
-		JSONArray jsonArray = new JSONArray();
-		for ( int i = 0 ; i < integer.length ; ++i ) {
-			jsonArray.set(i, new JSONNumber(integer[i]));
-		}
-		return jsonArray;
-	}
-
 	@Override
 	public void init() {
 		super.init();
@@ -168,6 +144,35 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printDataColumns			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataColumns.toString(), strHeader);
 			printDataIndexs				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataIndexs.toString(), strHeader);
 			printDataAttachement		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataAttachement.toString(), strHeader);
+			
+			
+			String strPrintDataStart	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataStart.toString(), strHeader);
+			try {
+				printDataStart = Integer.parseInt(strPrintDataStart);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "sPrintDataStart[{}] IS INVALID", strPrintDataStart);
+			}
+			
+			String strPrintDataLength	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataLength.toString(), strHeader);
+			try {
+				printDataLength = Integer.parseInt(strPrintDataLength);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strPrintDataLength[{}] IS INVALID", strPrintDataLength);
+			}
+			
+			String strPrintDataReceviedWait	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataReceviedWait.toString(), strHeader);
+			try {
+				printDataReceviedWait = Integer.parseInt(strPrintDataReceviedWait);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strPrintDataReceviedWait[{}] IS INVALID", strPrintDataReceviedWait);
+			}			
+			
+			String strPrintDataWalkthoughWait	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataWalkthoughWait.toString(), strHeader);
+			try {
+				printDataWalkthoughWait = Integer.parseInt(strPrintDataWalkthoughWait);
+			} catch ( NumberFormatException ex ) {
+				logger.warn(className, function, "strPrintDataWalkthoughWait[{}] IS INVALID", strPrintDataWalkthoughWait);
+			}
 		}
 		logger.debug(className, function, "scsOlsListElement[{}]", scsOlsListElement);
 		logger.debug(className, function, "enableRowUpdated[{}]", enableRowUpdated);
@@ -176,6 +181,12 @@ public class UIWidgetViewer extends UILayoutRealize {
 		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
 		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
 		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
+		
+		logger.debug(className, function, "printDataStart[{}]", printDataStart);
+		logger.debug(className, function, "printDataLength[{}]", printDataLength);
+		
+		logger.debug(className, function, "printDataReceviedWait[{}]", printDataReceviedWait);
+		logger.debug(className, function, "printDataWalkthoughWait[{}]", printDataWalkthoughWait);
 		
 		if ( null == scsOlsListElement ) {
 			
@@ -467,6 +478,13 @@ public class UIWidgetViewer extends UILayoutRealize {
 				logger.warn(className, function, "contextMenu IS NULL");
 			}
 			
+			printGDGPage = new PrintGDGPage(gridView, uiEventActionProcessor_i);
+			printGDGPage.setGDGParameter(printDataDebugId);
+			printGDGPage.setPageContentParameter(printDataColumns, printDataIndexs);
+			printGDGPage.setPageRangeParameter(printDataStart, printDataLength);
+			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait, printDataIndexs, printDataAttachement);
+			printGDGPage.setDownloadParameter(printDataAttachement);
+			
 		} else {
 			logger.warn(className, function, "scsOlsListPanel IS NULL");
 		}
@@ -690,44 +708,23 @@ public class UIWidgetViewer extends UILayoutRealize {
 								logger.warn(className, function, "gridView IS NULL");
 							}
 						} 
-						else if ( os1.equals(PrintViewEvent.Print.toString()) ) {
-							Window.alert("Print Event");
+						else if ( os1.equals(ViewerViewEvent.SetPageSize.toString())) {
+							
+							int startIndex = Integer.parseInt(os2);
+							int pageSize = Integer.parseInt(os3);
+							
+							printGDGPage.setPageSize(startIndex, pageSize, false);
 						}
-						 else if ( os1.equals(PrintViewEvent.PrintCurPage.toString()) ) {
+						else if ( os1.equals(ViewerViewEvent.Print.toString()) ) {
+							
+							printGDGPage.setPageSizePrint();
+
+						}
+						else if ( os1.equals(ViewerViewEvent.PrintCurPage.toString()) ) {
 							 
-							String strPrintDataColumns [] = printDataColumns.split(",");
-							for ( int i = 0 ; i < strPrintDataColumns.length ; ++i ) {
-								strPrintDataColumns[i] = TranslationMgr.getInstance().getTranslation(strPrintDataColumns[i]);
-							}
-							JSONArray jsonPrintDataColumns = convertStringsToJSONArray(strPrintDataColumns);
+							printGDGPage.printCurPage();
 							 
-							String strPrintDataIndexs [] = printDataIndexs.split(",");
-							int intPrintDataIndexs [] = convertStringToInts(strPrintDataIndexs);
-							JSONArray jsonPrintDataIndexs = convertIntsToJSONArray(intPrintDataIndexs);
-						 
-						    JSONObject jsonObject = new JSONObject();
-						    jsonObject.put("PrintDataDebugId", new JSONString(printDataDebugId));
-						    jsonObject.put("PrintDataAttachement", new JSONString(printDataAttachement));
-						    jsonObject.put("PrintDataColumns", jsonPrintDataColumns);
-						    jsonObject.put("PrintDataIndexs", jsonPrintDataIndexs);
-
-						    String jsonstring = jsonObject.toString();
-						    
-					    	logger.warn(className, function, "jsonstring[{}]", jsonstring);
-					    	
-					    	{
-					    		UIEventAction uiEventAction2 = new UIEventAction();
-								uiEventAction2.setParameter(UIActionEventAttribute.OperationType.toString(), "action");
-								uiEventAction2.setParameter(UIActionEventAttribute.OperationAction.toString(), "js");
-								uiEventAction2.setParameter(ActionAttribute.OperationString1.toString(), "CallJSByGWT");
-								uiEventAction2.setParameter(ActionAttribute.OperationString2.toString(), "PrintCurPageCsv");
-								uiEventAction2.setParameter(ActionAttribute.OperationString3.toString(), jsonstring);
-								uiEventActionProcessor_i.executeAction(uiEventAction2, null);
-								logger.debug(className, function, "executeAction uiEventAction");
-					    	}
-
-						 }
-
+						}
 					} else {
 						logger.warn(className, function, "os1 IS NULL");
 					}

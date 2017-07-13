@@ -2,10 +2,10 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<rows>2</rows>
+		<rows>3</rows>
 		<cols>1</cols>
 		<rootPanel>VerticalPanel</rootPanel>
-		<rootCSS>project-gwt-panel-event-panel</rootCSS>
+		<rootCSS>project-UILayoutEventSummary-root</rootCSS>
 	</header>
 	
 	<option key="0|0">
@@ -18,6 +18,13 @@
 		<uiView>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewer.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointEventSummary/UILayoutEventSummaryViewer.opts.xml</uiOpts>
 		<element>UILayoutEventSummaryViewer</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetViewerPager</uiCtrl>
+		<uiView>UILayoutEntryPointEventSummary/UIWidgetEventSummaryPager.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointEventSummary/UIWidgetEventSummaryPager.opts.xml</uiOpts>
+		<element>UIWidgetEventSummaryPager</element>
+		<csscontainer>project-UIWidgetEventSummaryPager-panel-Pager</csscontainer>
 	</option>
 
 </data-set>

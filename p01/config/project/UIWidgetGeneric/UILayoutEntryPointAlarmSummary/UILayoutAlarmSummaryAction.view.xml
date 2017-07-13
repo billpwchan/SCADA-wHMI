@@ -22,8 +22,10 @@
 		<csscontainer>project-gwt-panel-action-control</csscontainer>
 	</option>
 	<option key="0|2">
-		<uiCtrl>UIWidgetPrint</uiCtrl>
+		<uiCtrl>UIWidgetBox</uiCtrl>
 		<uiView>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPrint.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointAlarmSummary/UIWidgetAlarmSummaryPrint.opts.xml</uiOpts>
+		<element>UIWidgetAlarmSummaryPrint</element>
 	</option>
 	<option key="0|3">
 		<uiCtrl>UIWidgetFilter</uiCtrl>

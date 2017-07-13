@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>11</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetEventSummaryPager-root</rootCss>
+	</header>
+
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>|&lt;</label>
+		<css>project-UIWidgetEventSummaryPager-button-FirstPage</css>
+		<element>FirstPage</element>
+	</option>
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>&lt;&lt;</label>
+		<css>project-UIWidgetEventSummaryPager-button-FastBackwardPage</css>
+		<element>FastBackwardPage</element>
+	</option>
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>&lt;</label>
+		<css>project-UIWidgetEventSummaryPager-button-PreviousPage</css>
+		<element>PreviousPage</element>
+	</option>
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>X</label>
+		<css>project-UIWidgetEventSummaryPager-inlinelabel-PageStart</css>
+		<element>PageStart</element>
+	</option>
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label> - </label>
+		<css>project-UIWidgetEventSummaryPager-inlinelabel-spliter</css>
+	</option>
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>X</label>
+		<css>project-UIWidgetEventSummaryPager-inlinelabel-EndIndex</css>
+		<element>EndIndex</element>
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label> of </label>
+		<css>project-UIWidgetEventSummaryPager-inlinelabel-spliter</css>
+		<element>of</element>
+	</option>
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>X</label>
+		<css>project-UIWidgetEventSummaryPager-inlinelabel-Exact</css>
+		<element>Exact</element>
+	</option>
+	
+	<option key="0|8">
+		<widget>Button</widget>
+		<label>&gt;</label>
+		<css>project-UIWidgetEventSummaryPager-button-NextPage</css>
+		<element>NextPage</element>
+	</option>
+	<option key="0|9">
+		<widget>Button</widget>
+		<label>&gt;&gt;</label>
+		<css>project-UIWidgetEventSummaryPager-button-FastForwardPage</css>
+		<element>FastForwardPage</element>
+	</option>	
+	<option key="0|10">
+		<widget>Button</widget>
+		<label>&gt;|</label>
+		<css>project-UIWidgetEventSummaryPager-button-LastPage</css>
+		<element>LastPage</element>
+	</option>
+</data-set>

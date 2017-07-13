@@ -5,6 +5,8 @@
 		<ListConfigId>scseventList</ListConfigId>
 		<MenuEnableCallImage>true</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
+		<DebugId>UILayoutEventSummaryViewerScsOlsListPanel</DebugId>
+		<PagerName>SCADAgenPager</PagerName>
 		<MwtEventBusName>scseventList</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 		

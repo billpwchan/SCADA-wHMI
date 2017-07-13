@@ -1,0 +1,52 @@
+/* style for the pager */
+.project-UIWidgetEventSummaryPager-root {
+	width: 100%;
+}
+
+.project-UIWidgetEventSummaryPager-panel-Pager{
+	position: relative;
+	top: -35px;
+	text-align:center;
+	color: white;
+}
+
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FirstPage,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastBackwardPage,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-PreviousPage,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-NextPage,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastForwardPage,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-LastPage{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	color: white;
+}
+
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FirstPage:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastBackwardPage:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-PreviousPage:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-NextPage:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastForwardPage:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-LastPage:hover{
+	color: black;
+}
+
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FirstPage[disabled],
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FirstPage[disabled]:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastBackwardPage[disabled],
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastBackwardPage[disabled]:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-PreviousPage[disabled],
+.gwt-Button.project-UIWidgetEventSummaryPager-button-PreviousPage[disabled]:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-NextPage[disabled],
+.gwt-Button.project-UIWidgetEventSummaryPager-button-NextPage[disabled]:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastForwardPage[disabled],
+.gwt-Button.project-UIWidgetEventSummaryPager-button-FastForwardPage[disabled]:hover,
+.gwt-Button.project-UIWidgetEventSummaryPager-button-LastPage[disabled],
+.gwt-Button.project-UIWidgetEventSummaryPager-button-LastPage[disabled]:hover{
+	background-image: none;
+	box-shadow: none;
+	border: none;
+	color: grey;
+}

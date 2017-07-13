@@ -42,6 +42,7 @@ public interface ScsOlsListPanel_i {
 		, EventBus("EventBus")
 		, PagerName("PagerName")
 		, EnableRowExport("EnableRowExport")
+		, DebugId("DebugId")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

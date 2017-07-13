@@ -17,9 +17,13 @@
 	<action key="print">
 		<SenderOperation>event</SenderOperation>
 		<OperationType>action</OperationType>
-		<OperationElement>UILayoutEventSummaryViewer</OperationElement>
-		<!-- <OperationString1>PrintCurPage</OperationString1> -->
+		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
 		<OperationString1>Print</OperationString1>
+		<!--
+		<OperationString2>ptwdciset</OperationString2>
+		<OperationString3>gdg_column_SL_Cond_Res</OperationString3>
+		<OperationString4>0</OperationString4>
+		-->
 	</action>
 
 </data-set>

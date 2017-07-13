@@ -5,21 +5,20 @@
 		<rows>1</rows>
 		<cols>1</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
-		<rootCss>project-gwt-simplepanel-filterview</rootCss>
-		<cssFlexTable>project-gwt-verticalpanel-filterview</cssFlexTable>
+		<rootCss>project-UIWidgetEventSummaryPrint-root</rootCss>
 	</header>
 	
 	<option key="0|0">
 		<widget>Button</widget>
-		<label>Print</label>
-		<css>project-gwt-button-eventsummary-filterview-button-0-0</css>
+		<label>&amp;UIWidgetEventSummaryPrint_Export</label>
+		<css>project-UIWidgetEventSummaryPrint-button-print</css>
 		
-		<cssContainer>project-gwt-button-filterview-container-0-2</cssContainer>
+		<cssContainer>project-UIWidgetEventSummaryPrint-container</cssContainer>
 		
-		<cssUp>project-gwt-button-filterview-button-0-2-up</cssUp>
-		<cssDown>project-gwt-button-filterview-button-0-2-down</cssDown>
-		<cssDisable>project-gwt-button-filterview-button-0-2-disable</cssDisable>
-		<tooltipUp>Print</tooltipUp>
+		<cssUp>project-UIWidgetEventSummaryPrint-button-print-up</cssUp>
+		<cssDown>project-UIWidgetEventSummaryPrint-button-print-down</cssDown>
+		<cssDisable>project-UIWidgetEventSummaryPrint-button-print-disable</cssDisable>
+		<tooltipUp>&amp;UIWidgetEventSummaryPrint_Export</tooltipUp>
 		<element>print</element>
 	</option>
 	

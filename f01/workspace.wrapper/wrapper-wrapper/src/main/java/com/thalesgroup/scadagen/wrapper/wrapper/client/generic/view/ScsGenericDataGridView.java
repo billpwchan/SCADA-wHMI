@@ -66,37 +66,47 @@ public class ScsGenericDataGridView extends GenericDataGridView {
 			
 			LOGGER.debug(LOG_PREFIX+ "isDisplayPager IS TRUE");
 			
-			pager = new SCADAgenPager();
-			
-			if ( null != createText ) pager.setCreateText(createText);
-			if ( null != buttonOperation ) pager.setButtonOperation(buttonOperation);
-			
-			LOGGER.debug(LOG_PREFIX + "pageSize[" + pageSize + "]");
-			pager.setPageSize(pageSize);
-			
-			LOGGER.debug(LOG_PREFIX + "fastForwardRows[" + fastForwardRows + "]");
-			pager.setFastForwardRows(fastForwardRows);
-			pager.setFastBackwardRows(fastForwardRows);	
-
-			DataGrid<EntityClient> dataGrid = getInnerDataGrid();
-			pager.setDisplay(dataGrid);
+			setPager(createSCADAgenPager(createText, buttonOperation, pageSize, fastForwardRows));
 		}
 		
 	}
+    
+    public AbstractPager createSCADAgenPager(CreateText_i createText, ButtonOperation_i buttonOperation, int pageSize, int fastForwardRows) {
+    	LOGGER.debug(LOG_PREFIX+ "createSCADAgenPager Begin");
+    	
+    	SCADAgenPager pager = new SCADAgenPager();
+		
+		if ( null != createText ) pager.setCreateText(createText);
+		if ( null != buttonOperation ) pager.setButtonOperation(buttonOperation);
+		
+		LOGGER.debug(LOG_PREFIX + "createSCADAgenPager pageSize[" + pageSize + "]");
+		pager.setPageSize(pageSize);
+		
+		LOGGER.debug(LOG_PREFIX + "createSCADAgenPager fastForwardRows[" + fastForwardRows + "]");
+		pager.setFastForwardRows(fastForwardRows);
+		pager.setFastBackwardRows(fastForwardRows);	
+		
+		LOGGER.debug(LOG_PREFIX+ "createSCADAgenPager End");
+		return pager;
+    }
 	
 	private CreateText_i createText = null;
 	public void setCreateText(CreateText_i createText) { this.createText = createText; }
+	public CreateText_i getCreateText() { return createText; }
 	
 	private ButtonOperation_i buttonOperation = null;
 	public void setButtonOperation(ButtonOperation_i buttonOperation) { this.buttonOperation = buttonOperation; }
+	public ButtonOperation_i getButtonOperation() { return buttonOperation; }
 	
 	private boolean hasSCADAgenPager = false;
 	public boolean hasSCADAgenPager() { return hasSCADAgenPager; }
 	public void setHasSCADAgenPager(boolean hasSCADAgenPager) { this.hasSCADAgenPager = hasSCADAgenPager; }
 	
-	private SCADAgenPager pager = null;
-	public AbstractPager getPager() {
-		return pager;
+	private AbstractPager pager = null;
+	public AbstractPager getPager() { return pager; }
+	public void setPager(AbstractPager pager) {
+		this.pager = pager;
+		this.pager.setDisplay(getInnerDataGrid());
 	}
 	
 	@Override

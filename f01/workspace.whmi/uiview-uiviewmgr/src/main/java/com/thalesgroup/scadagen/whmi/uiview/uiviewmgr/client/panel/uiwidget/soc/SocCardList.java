@@ -320,7 +320,10 @@ public class SocCardList implements IDataGridDataSource {
 							    	
 							    		if (!socCardOpm){
 							    			skip = true;
+							    		} else {
+							    	    	clientKeyList.add(key);
 							    		}
+							    		
 							    	}
 							    	// Check filters
 							    	if (strDataGridColumnsFilters != null) {		
@@ -351,7 +354,7 @@ public class SocCardList implements IDataGridDataSource {
 	    	}
 	    	equipment_i = builder.build();
 	    	clientKeyToDataMap.put(key, equipment_i);
-	    	clientKeyList.add(key);
+
 	    	
 	    	if (strGrcPointAttributes.length < 1) {
 

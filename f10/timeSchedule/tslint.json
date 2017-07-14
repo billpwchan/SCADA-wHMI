@@ -1,8 +1,12 @@
 {
+  "extends": [
+    "tslint-config-swimlane"
+  ],
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
   "rules": {
+	"align": false,
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
@@ -26,7 +30,7 @@
     "label-position": true,
     "max-line-length": [
       true,
-      140
+      160
     ],
     "member-access": false,
     "member-ordering": [
@@ -45,6 +49,7 @@
       "trace"
     ],
     "no-construct": true,
+	"no-consecutive-blank-lines": false,
     "no-debugger": true,
     "no-duplicate-super": true,
     "no-empty": false,

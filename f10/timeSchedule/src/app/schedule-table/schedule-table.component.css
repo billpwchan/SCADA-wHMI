@@ -2,31 +2,42 @@
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
-.on-off-time-group {
+#on-off-time-group {
     padding: 5px;
 }
 
-.on-time-group {
+#on-time-group {
     display: block;
     padding: 2px;
 }
 
-.off-time-group {
+#off-time-group {
     display: block;
     padding: 2px;
 }
 
-.save-on-off-time {
+#save-on-off-time {
     display: block;
     padding: 2px;
 }
 
-.selected-row {
+#selected-row {
     display: block;
     padding: 2px;
 }
 
-.empty-selected-row {
+#empty-selected-row {
     display: block;
     padding: 2px;
+}
+#periodicTitleBlock {
+    width: 30%;
+    padding-bottom: 5px;
+}
+#label-schedule-cutoff-time {
+    font-size: medium;
+}
+#cutoff-time-input {
+    font-size: medium;
+    margin-left: 10px;
 }

@@ -2,9 +2,10 @@
 	"Time Schedule": "en-US:Time Schedule",
 	"Schedule Table": "en-US:Schedule Table",
 	"Schedule Planning": "en-US:Schedule Planning",
-	"OneShot": "en-US:One Shot",
-	"Predefined": "en-US:Predefined",
-	"Userdefined": "en-US:Userdefined",
+    "Running Schedules": "en-US:Running Schedules",
+	"Oneshot Schedule": "en-US:Oneshot Schedule",
+	"Periodic Schedules": "en-US:Periodic Schedules",
+	"Schedule cutoff time:": "en-US:Schedule cutoff time:",
 	"Select a schedule": "en-US:Select a schedule",
 	"Selection": "en-US:Selection",
 	"No Selections": "en-US:No Selections",
@@ -20,8 +21,40 @@
 	"On Time": "en-US:On Time",
 	"Off Time": "en-US:Off Time",
 
-	"Equipment":"en-US:Equipment",
+    "Add": "en-US:Add",
+    "Delete": "en-US:Delete",
+    "Rename": "en-US:Rename",
+    "Cancel": "en-US:Cancel",
+
+	"Equipment": "en-US:Equipment",
 	"Enable": "en-US:Enable",
 	"Disable": "en-US:Disable",
-	"Save": "en-US:Save"
+	"Save": "en-US:Save",
+    "Clear": "en-US:Clear",
+
+    "Start": "en-US:Start",
+    "Stop": "en-US:Stop",
+
+    "Location_11": "en-US:Location_11",
+    "Location_12": "en-US:Location_12",
+    "Location_13": "en-US:Location_13",
+    "Location_14": "en-US:Location_14",
+    "Location_15": "en-US:Location_15",
+    "System_1": "en-US:System_1",
+    "System_2": "en-US:System_2",
+    "System_3": "en-US:System_3",
+    "System_4": "en-US:System_4",
+    "System_5": "en-US:System_5",
+
+    "Monday": "en-US:Monday",
+    "Tuesday": "en-US:Tuesday",
+    "Wednesday": "en-US:Wednesday",
+    "Thursday": "en-US:Thursday",
+    "Friday": "en-US:Friday",
+    "Saturday": "en-US:Saturday",
+    "Sunday": "en-US:Sunday",
+
+    "Apply": "en-US:Apply",
+    "Revert": "en-US:Revert",
+    "Defaults": "en-US:Defaults"
 }

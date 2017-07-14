@@ -24,9 +24,8 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 
 	private HashMap<String, UIWidgetMgrFactory> uiWidgetMgrFactorys = new HashMap<String, UIWidgetMgrFactory>();
 	public void clearUIWidgetFactorys() { this.uiWidgetMgrFactorys.clear(); }
-	public void addUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(className, uiWidgetMgrEvent); }
-	public void addUIWidgetFactory(String xmlName, UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(xmlName, uiWidgetMgrEvent); }
-	public void removeUIWidgetFactory(UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.remove(uiWidgetMgrEvent); }
+	public void addUIWidgetFactory(String key, UIWidgetMgrFactory uiWidgetMgrEvent) { this.uiWidgetMgrFactorys.put(key, uiWidgetMgrEvent); }
+	public void removeUIWidgetFactory(String key) { this.uiWidgetMgrFactorys.remove(key); }
 
 	@Override
 	public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String element

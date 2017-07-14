@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -11,7 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 public class InitUIEventActionProcessorMgrFactorys {
 	
 	private final static String name = InitUIEventActionProcessorMgrFactorys.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIEventActionProcessorMgrFactorys.class.getName());
+	private final static String className = UIWidgetUtil.getClassSimpleName(name);
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
 	public static void init() {
@@ -19,7 +19,7 @@ public class InitUIEventActionProcessorMgrFactorys {
 		logger.begin(className, function);
 		
 		UIEventActionProcessorMgr uiEventActionProcessorMgr = UIEventActionProcessorMgr.getInstance();
-		uiEventActionProcessorMgr.clearUIEventActionProcessorMgrFactorys();
+		uiEventActionProcessorMgr.removeUIEventActionProcessorMgrFactory(name);
 		uiEventActionProcessorMgr.addUIEventActionProcessorMgrFactory(name, new UIEventActionProcessorMgrFactory() {
 			
 			@Override

@@ -18,9 +18,10 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetcontainer.client.container
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgr;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
-public class InitUIWidgetFactorys {
+public class InitUIWidgetUIScreenMMIFactorys {
 	
-	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIWidgetFactorys.class.getName());
+	private final static String name = InitUIWidgetUIScreenMMIFactorys.class.getName();
+	private final static String className = UIWidgetUtil.getClassSimpleName(name);
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public static void init() {
@@ -29,7 +30,7 @@ public class InitUIWidgetFactorys {
 		
 		UIWidgetMgr uiWidgetMgr = UIWidgetMgr.getInstance();
 		uiWidgetMgr.clearUIWidgetFactorys();
-		uiWidgetMgr.addUIWidgetFactory(className, new UIWidgetMgrFactory() {
+		uiWidgetMgr.addUIWidgetFactory(name, new UIWidgetMgrFactory() {
 			
 			@Override
 			public UIWidget_i getUIWidget(String uiCtrl, String uiView, UINameCard uiNameCard, String uiOpts, String uiElement

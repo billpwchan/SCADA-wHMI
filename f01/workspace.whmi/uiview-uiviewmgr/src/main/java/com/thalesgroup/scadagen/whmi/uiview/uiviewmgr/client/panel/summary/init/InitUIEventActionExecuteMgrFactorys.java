@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -16,7 +16,6 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEven
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionSimultaneousLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTaskLaunch;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionTsc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionWidget;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecuteMgrFactory;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
@@ -25,15 +24,15 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 public class InitUIEventActionExecuteMgrFactorys {
 	
 	private final static String name = InitUIEventActionExecuteMgrFactorys.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIEventActionExecuteMgrFactorys.class.getName());
+	private final static String className = UIWidgetUtil.getClassSimpleName(name);
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-
+	
 	public static void init() {
 		String function = "init";
 		logger.begin(className, function);
-		
+	
 		UIEventActionExecuteMgr uiEventActionExecuteMgr = UIEventActionExecuteMgr.getInstance();
-		uiEventActionExecuteMgr.clearUIEventActionExecuteMgrFactorys();
+		uiEventActionExecuteMgr.removeUIEventActionExecuteMgrFactory(name);
 		uiEventActionExecuteMgr.addUIEventActionExecute(name, new UIEventActionExecuteMgrFactory() {
 			
 			@Override
@@ -79,9 +78,6 @@ public class InitUIEventActionExecuteMgrFactorys {
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.js.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionJS();
 				}
-				else if ( key.equals(UIActionEventType_i.UIActionEventType.tsc.toString()) ) {
-					uiEventActionExecute_i = new UIEventActionTsc();
-				}
 				else if ( key.equals(UIActionEventType_i.UIActionEventType.ols.toString()) ) {
 					uiEventActionExecute_i = new UIEventActionOls();
 				}
@@ -91,7 +87,6 @@ public class InitUIEventActionExecuteMgrFactorys {
 				return uiEventActionExecute_i;
 			}
 		});
-		
-		logger.end(className, function);
+	
 	}
 }

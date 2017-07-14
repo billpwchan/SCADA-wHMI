@@ -24,6 +24,10 @@ public interface UIWidgetViewer_i {
 		, FastForwardPageSelected("FastForwardPageSelected")
 		, FastBackwardPageSelected("FastBackwardPageSelected")
 		
+		, SetPageSize("SetPageSize")
+		, Print("Print")
+		, PrintCurPage("PrintCurPage")
+		
 		;
 		private final String text;
 		private ViewerViewEvent(final String text) { this.text = text; }

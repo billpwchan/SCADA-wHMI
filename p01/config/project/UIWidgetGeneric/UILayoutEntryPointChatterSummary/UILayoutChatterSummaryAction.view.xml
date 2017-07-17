@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>2</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-UILayoutChatterSummaryAction-root</rootCSS>
+	</header>
+	<option key="0|0">
+		<type>widgetconfiguration</type>
+		<uiCtrl>UIWidgetEmpty</uiCtrl>
+		<uiView>UILayoutEntryPointChatterSummary/UIWidgetEmpty.view.xml</uiView>
+		<csscontainer>project-UILayoutChatterSummaryAction-empty-container</csscontainer>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetPrint</uiCtrl>
+		<uiView>UILayoutEntryPointChatterSummary/UIWidgetChatterSummaryPrint.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointChatterSummary/UIWidgetChatterSummaryPrint.opts.xml</uiOpts>
+		<element>UIWidgetChatterSummaryPrint</element>
+	</option>
+	<!--
+	<option key="0|2">
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>UILayoutEntryPointChatterSummary/UIWidgetChatterSummaryFilter.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointChatterSummary/UIWidgetChatterSummaryFilter.opts.xml</uiOpts>
+		<element>UIWidgetChatterSummaryFilter</element>
+		<csscontainer>project-UILayoutChatterSummaryAction-filter-container</csscontainer>
+	</option>
+	-->
+</data-set>

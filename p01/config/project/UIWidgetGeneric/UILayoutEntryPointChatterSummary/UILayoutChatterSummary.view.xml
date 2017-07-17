@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>3</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutChatterSummary-root</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<type>layoutconfiguration</type>
+		<uiCtrl>UILayoutEntryPointChatterSummary/UILayoutChatterSummaryAction</uiCtrl>
+		<uiView>UILayoutEntryPointChatterSummary/UILayoutChatterSummaryAction.view.xml</uiView>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetViewer</uiCtrl>
+		<uiView>UILayoutEntryPointChatterSummary/UILayoutChatterSummaryViewer.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointChatterSummary/UILayoutChatterSummaryViewer.opts.xml</uiOpts>
+		<element>UILayoutChatterSummaryViewer</element>
+	</option>
+	<option key="0|2">
+		<uiCtrl>UIWidgetViewerPager</uiCtrl>
+		<uiView>UILayoutEntryPointChatterSummary/UIWidgetChatterSummaryPager.view.xml</uiView>
+		<uiOpts>UILayoutEntryPointChatterSummary/UIWidgetChatterSummaryPager.opts.xml</uiOpts>
+		<element>UIWidgetChatterSummaryPager</element>
+		<csscontainer>project-UIWidgetChatterSummaryPager-panel-Pager</csscontainer>
+	</option>
+
+</data-set>

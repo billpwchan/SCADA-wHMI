@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetChatterSummaryPrint-root</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetChatterSummaryPrint_Export</label>
+		<css>project-UIWidgetChatterSummaryPrint-button-print</css>
+		
+		<cssContainer>project-UIWidgetChatterSummaryPrint-container</cssContainer>
+		
+		<cssUp>project-UIWidgetChatterSummaryPrint-button-print-up</cssUp>
+		<cssDown>project-UIWidgetChatterSummaryPrint-button-print-down</cssDown>
+		<cssDisable>project-UIWidgetChatterSummaryPrint-button-print-disable</cssDisable>
+		<tooltipUp>&amp;UIWidgetChatterSummaryPrint_Export</tooltipUp>
+		<element>print</element>
+	</option>
+	
+</data-set>

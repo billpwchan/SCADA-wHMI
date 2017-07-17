@@ -11,6 +11,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.UIEventActi
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionProcessor_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.UIActionEventType;
+import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.WidgetParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.LastCompilation;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.LifeValue;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary_i.ParameterName;
@@ -36,7 +37,6 @@ public class UILayoutSummary extends UIWidget_i {
 	
 	private String scsEnvIds			= null;
 	
-	private String init					= null;
 	private String envUp				= null;
 	private String envDown				= null;
 	private String terminate			= null;
@@ -67,7 +67,6 @@ public class UILayoutSummary extends UIWidget_i {
 			
 			scsEnvIds			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ScsEnvIds.toString(), strHeader);
 			
-			init				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Init.toString(), strHeader);
 			envUp				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EnvUp.toString(), strHeader);
 			envDown				= dictionariesCache.getStringValue(optsXMLFile, ParameterName.EnvDown.toString(), strHeader);
 			terminate			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Terminate.toString(), strHeader);
@@ -240,8 +239,8 @@ public class UILayoutSummary extends UIWidget_i {
 		logger.begin(className, function);
 
 		UILayoutSummaryFactoryDepot factoryDepot = new UILayoutSummaryFactoryDepot();
-		factoryDepot.setEventBusName(eventBusName);
-		factoryDepot.setScsEnvIds(scsEnvIds);
+		factoryDepot.setParameter(WidgetParameterName.SimpleEventBus.toString(), eventBusName);
+		factoryDepot.setParameter(WidgetParameterName.ScsEnvIds.toString(), scsEnvIds);
 		factoryDepot.init();
 
 		logger.end(className, function);

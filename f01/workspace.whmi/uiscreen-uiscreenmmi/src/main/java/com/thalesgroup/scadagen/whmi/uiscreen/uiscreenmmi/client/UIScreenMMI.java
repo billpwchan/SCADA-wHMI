@@ -9,7 +9,7 @@ import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIDial
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEventActionExecuteMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIEventActionProcessorMgrFactorys;
 import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIGenericMgrFactorys;
-import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIWidgetFactorys;
+import com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init.InitUIWidgetUIScreenMMIFactorys;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
@@ -62,7 +62,7 @@ public class UIScreenMMI extends UIWidget_i {
 		
 		// Init Factorys
 		InitUIDialogMgrFactorys.init();
-		InitUIWidgetFactorys.init();
+		InitUIWidgetUIScreenMMIFactorys.init();
 		InitUIGenericMgrFactorys.init();
 		InitUIEventActionProcessorMgrFactorys.init();
 		InitUIEventActionExecuteMgrFactorys.init();

@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init;
 
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialogMgrFactory;
 import com.thalesgroup.scadagen.whmi.uidialog.uidialog.client.UIDialog_i;
@@ -11,21 +11,22 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.uidialog.container.
 public class InitUIDialogMgrFactorys {
 	
 	private final static String name = InitUIDialogMgrFactorys.class.getName();
-	private final static String className = UIWidgetUtil.getClassSimpleName(InitUIDialogMgrFactorys.class.getName());
+	private final static String className = UIWidgetUtil.getClassSimpleName(name);
 	private final static UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public static void init() {
 		String function = "init";
 		logger.begin(className, function);
-		
+	
 		UIDialogMgr uiDialogMgr = UIDialogMgr.getInstance();
-		uiDialogMgr.clearUIDialogMgrFactorys();
+		uiDialogMgr.removeUIDialogMgrFactory(name);
 		uiDialogMgr.addUIDialogMgrFactory(name, new UIDialogMgrFactory() {
 			
 			@Override
 			public UIDialog_i getUIDialog(String key) {
 				final String function = "getUIDialog";
 				logger.info(className, function, "key[{}]", key);
+				
 				UIDialog_i uiDialog_i = null;
 				if (
 						UIWidgetUtil.getClassSimpleName(UIDialogMsg.class.getName())
@@ -39,7 +40,6 @@ public class InitUIDialogMgrFactorys {
 				return uiDialog_i;
 			}
 		});
-		
-		logger.end(className, function);
+	
 	}
 }

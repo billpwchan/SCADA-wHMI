@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.whmi.uiscreen.uiscreenmmi.client.init;
+package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.init;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -20,7 +20,7 @@ public class InitUIGenericMgrFactorys {
 		logger.begin(className, function);
 		
 		UIGenericMgr uiGenericMgr = UIGenericMgr.getInstance();
-		uiGenericMgr.clearUIGenericMgrFactorys();
+		uiGenericMgr.removeUIGenericMgrFactory(name);
 		uiGenericMgr.addUIGenericMgrFactory(name, new UIGenericMgrFactory() {
 	
 			@Override

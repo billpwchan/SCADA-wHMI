@@ -101,10 +101,15 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String retryElement = "retry";
 	private String skipElement = "skip";
 	
+	private String resrvReserveReqID = null;
+	private String resrvUnreserveReqID = null;
+	private String resrvReservedID = null;
 	private String reserveAttributeName = null;
 	private String reserveAttributeType = null;
 	private String reservedValueStr = null;
 	private String unreservedValueStr = null;
+	
+	private String currentOperator =  UIOpmSCADAgen.getInstance().getCurrentOperator();
 	
 	private int notExecutedSteps = 0;
 	private int completedSteps = 0;
@@ -335,6 +340,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		final String function = "init";
 		logger.begin(className, function);
 		
+		
+		
 		String strEventBusName = getStringParameter(ParameterName.SimpleEventBus.toString());
 		if ( null != strEventBusName ) this.eventBus = UIEventActionBus.getInstance().getEventBus(strEventBusName);
 		logger.info(className, function, "strEventBusName[{}]", strEventBusName);
@@ -369,6 +376,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 				skipElement = element;
 			}
 			
+			resrvReserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Name_resrvReserveReqID.toString(), strHeader);
+			resrvUnreserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Name_resrvUnreserveReqID.toString(), strHeader);
+			resrvReservedID			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Name_resrvReservedID.toString(), strHeader);
 			reserveAttributeName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeName.toString(), strHeader);
 			reserveAttributeType	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeType.toString(), strHeader);
 			reservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReservedValueStr.toString(), strHeader);
@@ -389,6 +399,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "retryElement[{}]", retryElement);
 		logger.info(className, function, "skipElement[{}]", skipElement);
 		
+		logger.info(className, function, "resrvReserveReqID[{}]", resrvReserveReqID);
+		logger.info(className, function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
+		logger.info(className, function, "resrvReservedID[{}]", resrvReservedID);
 		logger.info(className, function, "reserveAttributeName[{}]", reserveAttributeName);
 		logger.info(className, function, "reserveAttributeType[{}]", reserveAttributeType);
 		logger.info(className, function, "reservedValueStr[{}]", reservedValueStr);
@@ -661,7 +674,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (grcStatus == GrcExecStatus.Terminated.getValue()) {
 							if (prevGrcStatus != grcStatus ) {
 								if (reserveNeeded()) {
-									String [] reserveAliases = getReserveAlias();
+									String [] reserveAliases = getReserveAlias(resrvUnreserveReqID);
 									unsetReserve(reserveAliases);
 								}
 								
@@ -687,7 +700,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 							
 							if (prevGrcStatus != grcStatus) {
 								if (reserveNeeded()) {
-									String [] reserveAliases = getReserveAlias();
+									String [] reserveAliases = getReserveAlias(resrvUnreserveReqID);
 									unsetReserve(reserveAliases);
 								}
 								
@@ -703,7 +716,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 						} else if (grcStatus == GrcExecStatus.Aborted.getValue()) {
 							if (prevGrcStatus != grcStatus) {
 								if (reserveNeeded()) {
-									String [] reserveAliases = getReserveAlias();
+									String [] reserveAliases = getReserveAlias(resrvUnreserveReqID);
 									unsetReserve(reserveAliases);
 								}
 								
@@ -1208,7 +1221,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		final String function = "reserveEquipment";
 		
 		logger.begin(className, function);
-		final String [] reserveAliases = getReserveAlias();
+		final String [] reserveAliases = getReserveAlias(reserveAttributeName);
 		
 		String clientKey = "readReserve1" + "_" + scsenvid + "_" + dbalias;
 
@@ -1222,7 +1235,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 				
 				logger.debug(className, function, "clientKey [{}]  values length [{}]", key, values.length);
 				boolean hasFailed = false;
-				String [] reserveAliases2 = new String [reserveAliases.length];
+				String [] reserveReqAliases = getReserveAlias(resrvReserveReqID);
+				String [] reservedIDAliases = getReserveAlias(resrvReservedID);
 				int reserveCnt = 0;
 				
 				for (int i=0; i<values.length; i++) {
@@ -1239,30 +1253,23 @@ public class UIWidgetSocControl extends UIWidget_i {
 					logger.debug(className, function, "unquotedStr [{}]", unquotedStr);
 					
 					// Check if reserve is set
-					if (isReserveSet(unquotedStr)) {
-						if (reserveAttributeType.equalsIgnoreCase("String") && reservedValueStr.equalsIgnoreCase("Operator")) {
-							if (checkOperatorRight(unquotedStr)) {
-								continue;
-							} else {
-								// Equipment is reserved by other. return failed
-								hasFailed = true;
-								break;
-							}
-						} else {
-							// Equipment is reserved by other. return failed
-							hasFailed = true;
-							break;
-						}
+					if ((unquotedStr == "1")) {
+						// Equipment is reserved, return failed
+						hasFailed = true;
+						break;
 					} else {
+						reserveCnt++;
+					}/* else {
 						// Reserve not set, save the alias for set reserve
 						logger.debug(className, function, "reserveAliases2 reserveCnt[{}]= reserveAliases[{}]", reserveCnt, reserveAliases[i]);
 						reserveAliases2[reserveCnt] = reserveAliases[i];
-						reserveCnt++;				
-					}
+										
+					}*/
+					
 				}
 				
 				if (hasFailed) {
-					// Found equipment reserved by other
+					// Found equipment is already reserved
 					String errorMsg = "Reserve equipment failed. Unable to launch GRC.";
 					sendDisplayMessageEvent(errorMsg);
 					
@@ -1273,18 +1280,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 					// Check any equipment need to set reserve
 					if (reserveCnt > 0) {
 						// Set equipment reserve
-						setReserve(reserveAliases2);
+						setReserve(reserveReqAliases);
 						
-						String clientKey = "readReserve2" + "_" + scsenvid + "_" + dbalias;
+						String clientKey = "reserveReqAliases" + "_" + scsenvid + "_" + dbalias;
 						
 						// Check reserve is set successfully
-						readReserve(clientKey, reserveAliases2, new MultiReadResult() {
+						readReserve(clientKey, reservedIDAliases, new MultiReadResult() {
 	
 							@Override
 							public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
-								final String function = "readReserve2 setReadResult";
+								final String function = "reservedIDAliases setReadResult";
 								logger.begin(className, function);
-								
+								logger.debug(className, function, "current Operator is:[{}]", currentOperator);
 								logger.debug(className, function, "clientKey [{}] check reserve are set", key);
 								boolean hasFailed = false;
 								for (int j=0; j<values.length; j++) {
@@ -1298,16 +1305,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 										}
 									}
 									// Check if reserve is set
-									if (isReserveSet(unquotedStr)) {
-										if (reserveAttributeType.equalsIgnoreCase("String") && reservedValueStr.equalsIgnoreCase("Operator")) {
-											if (checkOperatorRight(unquotedStr)) {
-												continue;
-											} else {
-												// equipment reserved by other
-												hasFailed = true;
-												break;
-											}
-										}
+									if (unquotedStr == currentOperator) {
+										continue;
 									} else {
 										// Unable to set equipment reserve
 										hasFailed = true;
@@ -1343,7 +1342,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	public String [] getReserveAlias() {
+	public String [] getReserveAlias(String targetAttribute) {
+		// "targetAttribute" means the column name of RTDB column. E.g.: "reserved", "resrvReservedID", "resrvReserveReqID"
 		final String function = "getReserveAlias";
 		logger.begin(className, function);
 		
@@ -1363,17 +1363,17 @@ public class UIWidgetSocControl extends UIWidget_i {
 			int index = 0;
 			for (String eqp: eqpList) {
 				if (eqp != null && !eqp.isEmpty()) {
-					aliases[index] = eqp + "." + reserveAttributeName;
+					aliases[index] = eqp + "." + targetAttribute;      
 					logger.debug(className, function, "alias[{}] = [{}]", index, aliases[index]);
 					index++;
 				}
 			}
 		}
-		
 		logger.end(className, function);
 		return aliases;
+		// "aliases[]" is used for referring to the target column values in the RTDB 
 	}
-	
+
 	protected void readReserve(String key, String [] reserveAliases, MultiReadResult multiReadResult) {
 		final String function = "readReserve";
 		
@@ -1383,8 +1383,9 @@ public class UIWidgetSocControl extends UIWidget_i {
 		
 		logger.end(className, function);
 	}
-	
+	/*
 	public boolean isReserveSet(String reserveResult) {
+		// "reserveResult" is the value read from RTDB "reserved" column.
 		final String function = "isReserveSet";
 		
 		logger.begin(className, function);
@@ -1401,8 +1402,14 @@ public class UIWidgetSocControl extends UIWidget_i {
 				ret = false;
 			} else {
 				logger.debug(className, function, "reserveResult is not empty");
+				if (reserveResult == ""){
+					
+				}
+				/*
 				if (reserveAttributeType.equalsIgnoreCase("Integer") ||
-					(reserveAttributeType.equalsIgnoreCase("String") && !reservedValueStr.equalsIgnoreCase("Operator"))) {
+					(reserveAttributeType.equalsIgnoreCase("String") && !reservedValueStr.equalsIgnoreCase(currentOperator))) 
+				// TODO: if condition of checking the reservation status is wrong, need to redesign.
+				{
 					if (reserveResult.equals(reservedValueStr)) {
 						logger.debug(className, function, "reserveResult equals to reservedValueStr[{}]. return true", reservedValueStr);
 						ret = true;
@@ -1413,69 +1420,55 @@ public class UIWidgetSocControl extends UIWidget_i {
 				} else if (reserveAttributeType.equalsIgnoreCase("String") && reservedValueStr.equalsIgnoreCase("Operator")) {
 					logger.debug(className, function, "reservedValueStr using operator to check right. return true");
 					ret = true;
-				}			
+				}
+							
 			}
 		}
 		
 		logger.end(className, function);
 		return ret;
 	}
-	
-	public void setReserve(String [] reserveAliases) {
+	*/
+	public void setReserve(String [] reserveReqAliases) {
 		final String function = "setReserve";
-		
 		logger.begin(className, function);
-
-		String operator = UIOpmSCADAgen.getInstance().getCurrentOperator();
+		logger.debug(className, function, "current Operator is:[{}]", currentOperator);
 		
-		for (String alias: reserveAliases) {
-			logger.debug(className, function, "check alias[{}]", alias);
+		for (String reqAlias: reserveReqAliases) {
+			logger.debug(className, function, "check reqAlias[{}]", reqAlias);
 			
-			if (alias != null && !alias.isEmpty()) {
-				String clientKey = function + "_" + scsenvid + "_" + alias;
+			if (reqAlias != null && !reqAlias.isEmpty()) {
+				String clientKey = function + "_" + scsenvid + "_" + reqAlias;
 				
-				logger.debug(className, function, "setReserve for alias[{}]", alias);
-				
-				if (reserveAttributeType.equalsIgnoreCase("String")) {
-					if (reservedValueStr.equalsIgnoreCase("Operator")) {
-						rtdb.writeStringValue(clientKey, scsenvid, alias, operator);
-					} else {
-						rtdb.writeStringValue(clientKey, scsenvid, alias, reservedValueStr);
-					}
-				} else if (reserveAttributeType.equalsIgnoreCase("Integer")) {
-					rtdb.writeIntValue(clientKey, scsenvid, alias, Integer.parseInt(reservedValueStr));
-				}
+				logger.debug(className, function, "setReserve for reqAlias[{}]", reqAlias);
+				rtdb.writeStringValue(clientKey, scsenvid, reqAlias, currentOperator);
 			}
 		}
 		
 		logger.end(className, function);
 	}
 	
-	public void unsetReserve(String [] reserveAliases) {
+	public void unsetReserve(String [] resrvUnreserveReqID) {
 		final String function = "unsetReserve";
-		
 		logger.begin(className, function);
+		logger.debug(className, function, "current Operator is:[{}]", currentOperator);
 		
-		for (String alias: reserveAliases) {
-			logger.debug(className, function, "reserveAlias alias[{}]", alias);
+		for (String unReqAlias: resrvUnreserveReqID) {
+			logger.debug(className, function, "check unReqAlias[{}]", unReqAlias);
 			
-			if (alias != null && !alias.isEmpty()) {
-				String clientKey = function + "_" + scsenvid + "_" + alias;
+			if (unReqAlias != null && !unReqAlias.isEmpty()) {
+				String clientKey = function + "_" + scsenvid + "_" + unReqAlias;
 				
-				logger.debug(className, function, "unsetReserve for alias[{}]", alias);
-		
-				if (reserveAttributeType.equalsIgnoreCase("String")) {
-					rtdb.writeStringValue(clientKey, scsenvid, alias, unreservedValueStr);
-				} else if (reserveAttributeType.equalsIgnoreCase("Integer")) {
-					rtdb.writeIntValue(clientKey, scsenvid, alias, Integer.parseInt(unreservedValueStr));
-				}
+				logger.debug(className, function, "unsetReserve for unReqAlias[{}]", unReqAlias);
+				rtdb.writeStringValue(clientKey, scsenvid, unReqAlias, currentOperator);
 			}
 		}
 		
 		logger.end(className, function);
 	}
-	
+	/*
 	public boolean checkOperatorRight(String reserveResult) {
+		// TODO: rewrite checkOperatorRight
 		final String function = "checkReserveRight";
 		
 		logger.begin(className, function);
@@ -1483,9 +1476,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		boolean ret = false;
 
 		// Operator is keyword for using runtime login operator name for reserve value		
-		String operator = UIOpmSCADAgen.getInstance().getCurrentOperator();
-		logger.debug(className, function, "compare reserveResult[{}] with operator[{}]", reserveResult, operator);
-		if (reserveResult.equals(operator)) {				
+		logger.debug(className, function, "compare reserveResult[{}] with operator[{}]", reserveResult, currentOperator);
+		if (reserveResult.equals(currentOperator)) {				
 			ret = true;
 		}
 
@@ -1494,7 +1486,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.end(className, function);
 		return ret;
 	}
-	
+	*/
 	protected void preparegrc() {
 		final String function="preparegrc";
 		

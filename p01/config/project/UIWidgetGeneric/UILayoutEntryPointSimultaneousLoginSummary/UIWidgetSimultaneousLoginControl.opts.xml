@@ -19,10 +19,10 @@
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
 		<!-- Gws Self Information delay Time in MS-->
-		<InitDelayTime>5000</InitDelayTime>
+		<InitDelayTime>15000</InitDelayTime>
 		
 		<!-- Global Gws Information delay Time in MS-->
-		<DataDelayTime>10000</DataDelayTime>
+		<DataDelayTime>20000</DataDelayTime>
 		
 	</header>
 	

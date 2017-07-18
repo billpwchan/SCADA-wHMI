@@ -26,8 +26,8 @@ window.SCADAGEN_LOADER = window.SCADAGEN_LOADER || (function(){
 						}
 					);	
 					
-					// initialize keep-alive.js
-					const strJsKeepAlive = 'resources/js/product/keep-alive.js';
+					// initialize keep_alive.js
+					const strJsKeepAlive = 'resources/js/product/keep_alive.js';
 					console.log('Loading ', strJsKeepAlive);
 					$.getScript(
 						strJsKeepAlive,

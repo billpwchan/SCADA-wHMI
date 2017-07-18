@@ -6,67 +6,85 @@ window.SCADAGEN.DOWNLOAD = (function(){
 		
 		'Csv' : function(jsdata) {
 
-		var json = JSON.parse(jsdata);
-	
-		var jsonstring = json.OperationString3;
+var logPrefix = 'window.SCADAGEN.DOWNLOAD.Csv';
 
-		var json = JSON.parse(jsonstring);
+var json = JSON.parse(jsdata);
 
-		var debugId = json.PrintDataDebugId;
-		var dataColumns = json.PrintDataColumns;
-		var dataIndexs = json.PrintDataIndexs;
-		var dataAttachement = json.PrintDataAttachement;
+var jsonstring = json.OperationString3;
 
-	console.log('window.SCADAGEN.DOWNLOAD.Csv Reading table Start debugId', debugId);
-	var divPanel = document.getElementById(debugId);
+var json = JSON.parse(jsonstring);
 
-	var div1 = divPanel.childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[2].childNodes[0].childNodes[1];
-//console.log('window.SCADAGEN.DOWNLOAD.Csv Reading table Start div1', div1);
+var debugId = json.PrintDataDebugId;
+var dataColumns = json.PrintDataColumns;
+var dataIndexs = json.PrintDataIndexs;
+var dataAttachement = json.PrintDataAttachement;
 
-	var div2 = div1.childNodes[0].childNodes[0];
-//console.log('window.SCADAGEN.DOWNLOAD.Csv Reading table Start div2', div2);
+console.log(logPrefix, ' Reading table Start debugId', debugId);
+var divPanel = document.getElementById(debugId);
 
-	var table = div2.childNodes[2];
-		var tbody = table.tBodies[0];
+var div1 = divPanel.childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[2].childNodes[0].childNodes[1];
+//console.log(logPrefix, ' Reading table Start div1', div1);
 
-		console.log('window.SCADAGEN.DOWNLOAD.Csv tbody.childNodes.length', tbody.childNodes.length);
-		var lines = [];
-		for ( var x = 0 ; x < tbody.childNodes.length ; ++x ) {
-			var tr = tbody.childNodes[x];
-//			console.log('window.SCADAGEN.DOWNLOAD.Csv tr.childNodes.length', tr.childNodes.length);
-			var line = [];
+var div2 = div1.childNodes[0].childNodes[0];
+//console.log(logPrefix, ' Reading table Start div2', div2);
 
-			var dataIndexsLength = dataIndexs.length;
-			for ( var y = 0 ; y < dataIndexsLength ; ++y ) {
-//				console.log('window.SCADAGEN.DOWNLOAD.Csv y dataIndexs[y]', y, dataIndexs[y]);
-				var td = tr.childNodes[dataIndexs[y]];
-				var tddiv1 = td.childNodes[0];
-				if ( tddiv1.childNodes.length == 1 ) {
-					var tddiv2 = tddiv1.childNodes[0];
-					var value = tddiv2.textContent;
-					line[y] = value;
-//					console.log('window.SCADAGEN.DOWNLOAD.Csv tddiv1 value', value);
+var table = div2.childNodes[2];
+var tbody = table.tBodies[0];
+
+console.log(logPrefix, ' tbody.childNodes.length', tbody.childNodes.length);
+var lines = [];
+for ( var x = 0 ; x < tbody.childNodes.length ; ++x ) {
+	var tr = tbody.childNodes[x];
+//			console.log(logPrefix, ' tr.childNodes.length', tr.childNodes.length);
+	var line = [];
+	if ( tr ) {
+		if ( tr.childNodes ) {
+			if ( tr.childNodes.length > 0 ) {
+				var dataIndexsLength = dataIndexs.length;
+				for ( var y = 0 ; y < dataIndexsLength ; ++y ) {
+//						console.log(logPrefix, ' y dataIndexs[y]', y, dataIndexs[y]);
+					var td = tr.childNodes[dataIndexs[y]];
+					if ( td ) {
+						var tddiv1 = td.childNodes[0];
+						if ( tddiv1.childNodes.length == 1 ) {
+							var tddiv2 = tddiv1.childNodes[0];
+							var value = tddiv2.textContent;
+							line[y] = value;
+//								console.log(logPrefix, ' tddiv1 value', value);
+						}
+					} else {
+						console.log(logPrefix, ' td IS INVALID');
+					}
 				}
+			} else {
+				console.log(logPrefix, ' tr.childNodes.length IS ZERO');
 			}
-			var data = line.join(',');
-			lines[x] = data;
+		} else {
+			console.log(logPrefix, ' tr.childNodes IS INVALID');
 		}
-		console.log('window.SCADAGEN.DOWNLOAD.Csv Reading table End');
+	} else {
+		console.log(logPrefix, ' td IS INVALID');
+	}
 
-		console.log('window.SCADAGEN.DOWNLOAD.Csv Create CSV Begin');
-		var header = dataColumns.join(',');
-		var dataString = header + "\n" + lines.join("\n");
-		console.log('window.SCADAGEN.DOWNLOAD.Csv Create CSV End');
-		
-		console.log('window.SCADAGEN.DOWNLOAD.Csv Create Download Begin');
-	//	var dataAttachement = 'data.csv';
-		var a = document.createElement('a');
-		a.href = 'data:attachment/csv;charset=utf-8,' + encodeURIComponent(dataString);
-		a.target = '_blank';
-		a.download = dataAttachement;
-		document.body.appendChild(a);
-		a.click();
-		console.log('window.SCADAGEN.DOWNLOAD.Csv Create Download End');	
+	var data = line.join(',');
+	lines[x] = data;
+}
+console.log(logPrefix, ' Reading table End');
+
+console.log(logPrefix, ' Create CSV Begin');
+var header = dataColumns.join(',');
+var dataString = header + "\n" + lines.join("\n");
+console.log(logPrefix, ' Create CSV End');
+
+console.log(logPrefix, ' Create Download Begin');
+//	var dataAttachement = 'data.csv';
+var a = document.createElement('a');
+a.href = 'data:attachment/csv;charset=utf-8,' + encodeURIComponent(dataString);
+a.target = '_blank';
+a.download = dataAttachement;
+document.body.appendChild(a);
+a.click();
+console.log(logPrefix, ' Create Download End');	
 
 		}
 	}

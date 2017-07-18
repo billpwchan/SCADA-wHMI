@@ -1500,5 +1500,15 @@
 		<tooltips>Login Summary</tooltips>
 	</option>
 	
+	<option key="187">
+		<type>P</type>
+		<name>Chatter Filter Table</name>
+		<title>Chatter Filter Table</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointChatterSummary/UILayoutEntryPointChatterSummary.view.xml</uiView>
+		<tooltips>Chatter Filter Table</tooltips>
+	</option>
 	
 </data-set>

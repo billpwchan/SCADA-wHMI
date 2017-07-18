@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>2</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIWidgetChatterSummaryFilter-root</rootCss>
+	</header>
+
+	<option key="0|0">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetChatterSummaryFilter_FilterReset</label>
+		<css>project-UIWidgetChatterSummaryFilter-button-reset</css>
+		
+		<cssContainer>project-UIWidgetChatterSummaryFilter-button-reset-container</cssContainer>
+		
+		<cssUp>project-UIWidgetChatterSummaryFilter-button-reset-up</cssUp>
+		<cssDown>project-UIWidgetChatterSummaryFilter-button-reset-down</cssDown>
+		<cssDisable>project-UIWidgetChatterSummaryFilter-button-reset-disable</cssDisable>
+		
+		<tooltipUp>&amp;UIWidgetChatterSummaryFilter_FilterReset</tooltipUp>
+		<tooltipDown>&amp;UIWidgetChatterSummaryFilter_FilterResetAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetChatterSummaryFilter_FilterResetDisabled</tooltipDisable>
+		
+		<element>clear</element>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>&amp;UIWidgetChatterSummaryFilter_FilterApplied</label>
+		<css>project-UIWidgetChatterSummaryFilter-button-applied</css>
+		
+		<cssContainer>project-UIWidgetChatterSummaryFilter-button-applied-container</cssContainer>
+		
+		<cssUp>project-UIWidgetChatterSummaryFilter-button-applied-up</cssUp>
+		<cssDown>project-UIWidgetChatterSummaryFilter-button-applied-down</cssDown>
+		<cssDisable>project-UIWidgetChatterSummaryFilter-button-applied-disable</cssDisable>
+		
+		<tooltipUp>&amp;UIWidgetChatterSummaryFilter_FilterApplied</tooltipUp>
+		<tooltipDown>&amp;UIWidgetChatterSummaryFilter_FilterAppliedAvaiable</tooltipDown>
+		<tooltipDisable>&amp;UIWidgetChatterSummaryFilter_FilterAppliedDisabled</tooltipDisable>
+		
+		<element>applied</element>
+	</option>
+	
+</data-set>

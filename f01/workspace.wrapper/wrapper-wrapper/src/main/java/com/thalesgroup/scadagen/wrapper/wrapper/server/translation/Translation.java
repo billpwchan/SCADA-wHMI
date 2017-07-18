@@ -29,14 +29,16 @@ public class Translation {
 	public void setTranslateFlag(int translateFlag) { Translation.translateFlag = translateFlag; }
 	public int getTranslateFlag() { return Translation.translateFlag;}
 	
-	private static void loadTranslationConfiguration(String sessionId) {
+	private static boolean reloaded = false;
+	private static void loadConfig(String sessionId) {
+		final String function = "loadConfig";
 		String tmpTranslatePattern = getWording(sessionId, strTranslatePattern);
 		if ( null != tmpTranslatePattern) {
 			translatePattern = tmpTranslatePattern; 
 		} else {
-			logger.warn("sessionId[{}] strTranslatePattern[{}] tmpTranslatePattern[{}] IS NULL", new Object[]{sessionId, strTranslatePattern, tmpTranslatePattern});
+			logger.warn("{} sessionId[{}] strTranslatePattern[{}] tmpTranslatePattern[{}] IS NULL", new Object[]{function, sessionId, strTranslatePattern, tmpTranslatePattern});
 		}
-		logger.debug("sessionId[{}] translatePattern[{}]", sessionId, translatePattern);
+		logger.trace("{} translatePattern[{}]", new Object[]{function, translatePattern});
 		
 		String tmpTranslateFlag = getWording(sessionId, strTranslateFlag);
 		if ( null != tmpTranslateFlag) {
@@ -47,13 +49,15 @@ public class Translation {
 			}
 			
 		} else {
-			logger.warn("sessionId[{}] strTranslateFlag[{}] tmpTranslateFlag[{}] IS NULL", new Object[]{sessionId, strTranslateFlag, tmpTranslateFlag});
+			logger.warn("{} strTranslateFlag[{}] tmpTranslateFlag[{}] IS NULL", new Object[]{function, strTranslateFlag, tmpTranslateFlag});
 		}
-		logger.debug("sessionId[{}] translateFlag[{}]", sessionId, translateFlag);
+		reloaded = true;
+		logger.trace("{} translateFlag[{}]", new Object[]{function, translateFlag});
 	}
 
 	public static String getWording(String sessionId, String key) {
-		logger.debug("getWording[{}]", key);
+		final String function = "getWording";
+		logger.trace("{} getWording[{}]", function, key);
 		String value = key;
         try {
         	
@@ -70,49 +74,50 @@ public class Translation {
     	        	if ( null != dico ) {
     	        		value = dico.getWording(key);
     	        	} else {
-    	        		logger.error("dico IS NULL");
+    	        		logger.error("{} dico IS NULL", function);
     	        	}
     			}
     			else {
-    				logger.error("Current lang is null for session id {}", sessionId);
+    				logger.error("{} Current lang is null for session id {}", function, sessionId);
     			}
     		}
     		else {
-    			logger.error("Cannot find container for session id {}", sessionId);
+    			logger.error("{} Cannot find container for session id {}", function, sessionId);
     		}
  
         }
         catch (final MissingResourceException e) {
-        	logger.warn("Can't find key [{}] in dictionary MissingResourceException[{}]", key, e.toString());
+        	logger.warn("{} Can't find key [{}] in dictionary MissingResourceException[{}]", new Object[]{key, e.toString()});
         }
         return value;
 	}
 	
 	public static String getDBMessage(String sessionId, String input) {
-		loadTranslationConfiguration(sessionId);
+		if ( ! reloaded ) loadConfig(sessionId);
 		return Translation.getDBMessage(sessionId, translatePattern, translateFlag, input);
 	}
 	
 	public static String getDBMessage(String sessionId, String regex, int flag, String inputStr) {
-		logger.trace("{} regex[{}] input[{}]", new Object[]{"getDBMessage", regex, inputStr});
+		final String function = "getDBMessage";
+		logger.trace("{} regex[{}] inputStr[{}]", new Object[]{function, regex, inputStr});
 		String ret = inputStr;
 		try {
 			Pattern p = Pattern.compile(regex, flag);
 			Matcher m = p.matcher(inputStr);
 			while(m.find()) {
 				String key = m.group();
-				logger.trace("{} m.group()[{}]", "getDBMessage", key);
+				logger.trace("{} m.group()[{}]", function, key);
 				String translation = Translation.getWording(sessionId, key);
 				
-				logger.trace("{} key[{}] translation[{}]", new Object[]{"getDBMessage", key, translation});
+				logger.trace("{} key[{}] translation[{}]", new Object[]{function, key, translation});
 				if ( null != translation ) {
 					ret = ret.replaceAll(key, translation);
 				}
 			}
 		} catch ( PatternSyntaxException e ) {
-			logger.warn("{} PatternSyntaxException[{}]", "getDBMessage", e.toString());
+			logger.warn("{} PatternSyntaxException[{}]", function, e.toString());
 		}
-
+		logger.trace("{} regex[{}] inputStr[{}] ret[{}]", new Object[]{function, regex, inputStr, ret});
 		return ret;
 	}
 }

@@ -19,11 +19,6 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutAlarmSummaryViewer</OperationElement>
 		<OperationString1>Print</OperationString1>
-		<!--
-		<OperationString2>ptwdciset</OperationString2>
-		<OperationString3>gdg_column_SL_Cond_Res</OperationString3>
-		<OperationString4>0</OperationString4>
-		-->
 	</action>
 
 </data-set>

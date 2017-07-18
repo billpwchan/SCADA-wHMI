@@ -5,6 +5,7 @@
 		<ListConfigId>scsalarmList</ListConfigId>
 		<MenuEnableCallImage>true</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
+		<DebugId>UILayoutAlarmSummaryViewerScsOlsListPanel</DebugId>
 		<PagerName>SCADAgenPager</PagerName>
 		<MwtEventBusName>scsalarmList</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>

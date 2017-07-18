@@ -197,7 +197,7 @@
 	</option>
 	<option key="0|28">
 		<widget>TextArea</widget>
-		<label>( (Message LIKE \\"LMC\\:\\*\\"\\) OR (Message LIKE \\"CTV\\:\\*\\"\\) ) AND (AcknowledgeRequired == 1) )</label>
+		<label>( ( Message LIKE "HV_:MOTI0001" ) AND  (AcknowledgeRequired == 1) )</label>
 		<css>project-UIWidgetVerifyUIEventActionOlsControl-label-OperationString7_value</css>
 		<element>OperationString7</element>
 	</option>

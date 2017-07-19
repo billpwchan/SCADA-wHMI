@@ -33,6 +33,7 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		, IntervalPhaseB("IntervalPhaseB")
 		, IntervalPhaseC("IntervalPhaseC")
 		, IntervalPhaseD("IntervalPhaseD")
+		, TimeoutPhaseB("TimeoutPhaseB")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

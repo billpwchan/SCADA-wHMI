@@ -30,6 +30,9 @@
 		<!-- Waiting reserve timeout in MS -->
 		<IntervalPhaseD>10000</IntervalPhaseD>
 		
+		<!-- Timeout on Phase B in time -->
+		<TimeoutPhaseB>20</TimeoutPhaseB>
+		
 	</header>
 	
 	<!-- Begin of life -->

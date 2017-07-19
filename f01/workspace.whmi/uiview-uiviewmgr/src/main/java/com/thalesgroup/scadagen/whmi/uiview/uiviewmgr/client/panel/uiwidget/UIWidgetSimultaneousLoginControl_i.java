@@ -5,6 +5,8 @@ public interface UIWidgetSimultaneousLoginControl_i {
 	public static final String loginValidProcedure					= "login_valid_procedure";
 	public static final String loginInvalidThresHoldReachProcedure	= "login_invalid_thresthold_reach_procedure";
 	public static final String loginInvalidSelfIdentityProcedure	= "login_invalid_self_identity_procedure";
+	public static final String loginInvalidReserveTimeoutProcedure	= "login_invalid_reserve_timeout_procedure";
+	public static final String loginInvalidReservedByOtherProcedure	= "login_invalid_reserved_by_other_procedure";
 	
 	public static final String strSimultaneousLoginRequest	= "simultaneous_login_request";
 	public static final String strSimultaneousLogoutRequest	= "simultaneous_logout_request";
@@ -27,9 +29,10 @@ public interface UIWidgetSimultaneousLoginControl_i {
 		, DbAttrNameResrvReserveReqID("DbAttrNameResrvReserveReqID")
 		, DbAttrNameResrvUnreserveReqID("DbAttrNameResrvUnreserveReqID")
 
-		, InitDelayTime("InitDelayTime")
-		, DataDelayTime("DataDelayTime")
-		
+		, IntervalPhaseA("IntervalPhaseA")
+		, IntervalPhaseB("IntervalPhaseB")
+		, IntervalPhaseC("IntervalPhaseC")
+		, IntervalPhaseD("IntervalPhaseD")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

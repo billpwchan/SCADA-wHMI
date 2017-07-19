@@ -39,6 +39,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 	private int intervalPhaseC	= 10000;
 	private int intervalPhaseD	= 5000;
 	
+	private int timeoutPhaseB	= 20;
+	
 	private void loginRequest() {
 		final String function = "loginRequest";
 		logger.begin(className, function);
@@ -239,6 +241,7 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 
+	private int phaseBCounter = 0;
 	private boolean isDuplicatePassed = false;
 	private void login() {
 		final String function = "login";
@@ -259,11 +262,22 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 					t1.cancel();
 					
 					if ( ! isByPassUsrIdentity() ) {
+						
 						// Receive Self Wkst from GDG
 						logger.debug(className, function, "Phase B intervalPhaseB[{}] start...", intervalPhaseB);
 						t2 = new Timer() {
 							public void run() {
 								logger.debug(className, function, "Phase B running...");
+								
+								// Receive SelfWkst Timeout
+								logger.debug(className, function, "Phase B phaseBCounter[{}] > timeoutPhaseB[{}]", phaseBCounter, timeoutPhaseB);
+								if ( phaseBCounter >= timeoutPhaseB ) {
+									logger.debug(className, function, "Phase B phaseBCounter[{}] > timeoutPhaseB[{}] Timeout reach", phaseBCounter, timeoutPhaseB);
+									t2.cancel();
+									exit(UIWidgetSimultaneousLoginControl_i.loginInvalidSelfIdentityProcedure);
+								}
+								phaseBCounter++;
+								
 								if ( SimultaneousLogin.getInstance().getWkstInfo() ) {
 									logger.debug(className, function, "Phase B stop...");
 									t2.cancel();
@@ -287,33 +301,23 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 																logger.debug(className, function, "Phase B running...");
 																
 																// Reserve Timeout
-																
 																exit(UIWidgetSimultaneousLoginControl_i.loginInvalidReserveTimeoutProcedure);
-															}	
+															} // t4 run
 														};
 														t4.schedule(intervalPhaseD);
-													} else {
-														// Reserved By Self
-													}
-
-												} else {
-													// Reserved In Other Area
-												}
-											} else {
-												// Reserved By Other 
-											}
-										}
+													} // Reserved By Self
+												} // Reserved In Other Area
+											} // Reserved By Other
+										}// t3 run
 									};
 									t3.schedule(intervalPhaseC);
-								}
-							}
+								} // if getWkstInfo
+							} // t2 run
 						};
 						t2.scheduleRepeating(intervalPhaseB);
-					} else {
-						// By pass user 
-					}
-				}
-			}
+					} // By pass user 
+				} // IF isSelfIdentityReady && isUsrIdentityReady
+			} // t1 run
 		};
 		t1.scheduleRepeating(intervalPhaseA);
 
@@ -385,14 +389,14 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
-	private int convertIntValue(String key) {
+	private int convertIntValue(String key, int defaultValue) {
 		final String function = "convertIntValue";
 		logger.begin(className, function);
 		int ret = 0;
 		if ( null != key && ! key.isEmpty() ) {
 			try {
 				ret = Integer.parseInt(key);
-				if ( ret < 0 ) ret = 0;
+				if ( ret < 0 ) ret = defaultValue;
 			} catch (NumberFormatException ex) {
 				logger.warn(className, function, "key[{}] NumberFormatException:"+ex.toString(), key);
 			}
@@ -412,6 +416,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		String strIntervalPhaseB 		= null;
 		String strIntervalPhaseC 		= null;
 		String strIntervalPhaseD 		= null;
+		
+		String strTimeoutPhaseB 		= null;
 
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -428,6 +434,8 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			strIntervalPhaseB			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.IntervalPhaseB.toString(), strHeader);
 			strIntervalPhaseC			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.IntervalPhaseC.toString(), strHeader);
 			strIntervalPhaseD			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.IntervalPhaseD.toString(), strHeader);
+			
+			strTimeoutPhaseB			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetSimultaneousLoginControl_i.ParameterName.TimeoutPhaseB.toString(), strHeader);
 
 			logger.debug(className, function, "columnNameArea[{}]", columnNameArea);
 			logger.debug(className, function, "columnNameServiceOwnerID[{}]", columnNameServiceOwnerID);
@@ -439,12 +447,16 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			logger.debug(className, function, "strIntervalPhaseB[{}]", strIntervalPhaseB);
 			logger.debug(className, function, "strIntervalPhaseC[{}]", strIntervalPhaseC);
 			logger.debug(className, function, "strIntervalPhaseD[{}]", strIntervalPhaseD);
+			
+			logger.debug(className, function, "strTimeoutPhaseB[{}]", strTimeoutPhaseB);
 		}
 		
-		intervalPhaseA = convertIntValue(strIntervalPhaseA);
-		intervalPhaseB = convertIntValue(strIntervalPhaseB);
-		intervalPhaseC = convertIntValue(strIntervalPhaseC);
-		intervalPhaseD = convertIntValue(strIntervalPhaseD);
+		intervalPhaseA = convertIntValue(strIntervalPhaseA, intervalPhaseA);
+		intervalPhaseB = convertIntValue(strIntervalPhaseB, intervalPhaseB);
+		intervalPhaseC = convertIntValue(strIntervalPhaseC, intervalPhaseC);
+		intervalPhaseD = convertIntValue(strIntervalPhaseD, intervalPhaseD);
+		
+		timeoutPhaseB = convertIntValue(strTimeoutPhaseB, timeoutPhaseB);
 		
 		logger.end(className, function);
 	}

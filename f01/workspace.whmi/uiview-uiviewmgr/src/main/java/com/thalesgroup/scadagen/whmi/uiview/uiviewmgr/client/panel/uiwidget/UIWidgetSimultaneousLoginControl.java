@@ -73,9 +73,9 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 			
 			ret = true;
 			
-			logger.debug(className, function, "Login Valid, forword to Main");
+			logger.debug(className, function, "Login Valid By Pass, forword to Main");
 			
-			exit(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
+			exit(UIWidgetSimultaneousLoginControl_i.loginValidByPassProcedure);
 		}
 		logger.debug(className, function, "ret[{}]", ret);
 		logger.end(className, function);
@@ -162,11 +162,11 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 		
 		if ( 0 != (bitPos & SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity) ) {
 			
-			// Login Valid, forward to Main
+			// Login Valid By Pass, forward to Main
 			
-			logger.debug(className, function, "Login Valid, forword to Main");
+			logger.debug(className, function, "Login Valid By Pass, forword to Main");
 			
-			exit(UIWidgetSimultaneousLoginControl_i.loginValidProcedure);
+			exit(UIWidgetSimultaneousLoginControl_i.loginValidByPassProcedure);
 		}
 		else if (
 				0 != (bitPos & SimultaneousLogin_i.Bit_Pos_SelfGwsIdentity_IsInvalid)

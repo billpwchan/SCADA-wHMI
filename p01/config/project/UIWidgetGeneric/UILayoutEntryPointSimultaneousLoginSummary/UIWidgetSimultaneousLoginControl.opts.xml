@@ -114,6 +114,11 @@
 		<OperationString2>login_valid_procedure</OperationString2>
 	</actionset>
 	
+	<actionset key="login_valid_by_pass_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>login_valid_procedure</OperationString1>
+	</actionset>	
+	
 	<action key="login_session_start_request">
 		<OperationType>action</OperationType>
 		<OperationAction>simlogin</OperationAction>

@@ -5,7 +5,7 @@ import { Config } from '../type/config';
 import { Map, fromJS } from 'immutable';
 @Injectable()
 export class ConfigService {
-    private static url = '../../assets/config/settings.json';
+    private static url = './assets/config/settings.json';
     private static defaultConfig = Map({
         scs_tsc_url: 'http://127.0.0.1:8899/scs/service/TscComponent/',
         default_client_name: 'ROOT',

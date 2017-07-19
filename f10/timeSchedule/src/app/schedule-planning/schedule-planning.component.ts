@@ -25,7 +25,7 @@ export class SchedulePlanningComponent implements OnInit {
     public periodicSchedules = Array<Schedule>();
     public weeklySchedules = Array<Schedule>();
     public runningSchedules = Array<Schedule>();
-    public runningSchedulesStr: string;
+    public runningSchedulesStr = '';
 
     public defaultWeeklyConfig: any;
     public periodicPlanningDuration: number;
@@ -110,7 +110,7 @@ export class SchedulePlanningComponent implements OnInit {
                 this.runningSchedulesStr = '';
                 if (schedules && schedules.length > 0) {
                     for (let s of schedules) {
-                        if (this.runningSchedulesStr.length > 0) {
+                        if (this.runningSchedulesStr && this.runningSchedulesStr.length > 0) {
                             this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
                         } else {
                             this.runningSchedulesStr = s.text;

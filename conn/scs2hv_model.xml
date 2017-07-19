@@ -32,7 +32,7 @@
   <ols scsservername="LstServer" scslistname="ptwdciset" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 
-  <ols scsservername="LstServer" scslistname="almmgnvalidated" scsfilter=""
+  <ols scsservername="LstServer" scslistname="SCADAgenDataPointMgn" scsfilter=""
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 		 
   <!-- PTW (dpctag) -->	

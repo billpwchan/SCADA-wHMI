@@ -11,18 +11,16 @@ export class Schedule {
     timeReadOnly: boolean;
     eqtListReadOnly: boolean;
     taskName: string;       // for writing to tsc
-
     public toString(): string {
-        let str = this.scheduleDescription + ',' +
-                this.text + ',' + 
+        const str = this.scheduleDescription + ',' +
+                this.text + ',' +
                 this.runningStatus + ',' +
                 this.visibility + ',' +
                 (this.periodic ? 'true' : 'false') + ',' +
                 (this.titleReadOnly ? 'true' : 'false') + ',' +
                 (this.timeReadOnly ? 'true' : 'false') + ',' +
                 (this.eqtListReadOnly ? 'true' : 'false');
-
-        console.debug('{Schedule}', 'toString', str);
+        //console.log('{Schedule}', 'toString', str);
         return str;
     }
 }

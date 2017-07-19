@@ -1511,4 +1511,37 @@
 		<tooltips>Chatter Filter Table</tooltips>
 	</option>
 	
+	<option key="188">
+		<type>P</type>
+		<name>Oneshot Time Schedule</name>
+		<title>Oneshot Time Schedule</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointOneshotTimeScheduleURLSummary/UILayoutEntryPointOneshotTimeScheduleURLSummary.view.xml</uiView>
+		<tooltips>Oneshot Time Schedule</tooltips>
+	</option>
+	
+	<option key="189">
+		<type>P</type>
+		<name>Periodic Time Schedule</name>
+		<title>Periodic Time Schedule</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointPeriodicTimeScheduleURLSummary/UILayoutEntryPointPeriodicTimeScheduleURLSummary.view.xml</uiView>
+		<tooltips>Periodic Time Schedule</tooltips>
+	</option>
+	
+	<option key="190">
+		<type>P</type>
+		<name>Weekly Schedule Planning</name>
+		<title>Weekly Schedule Planning</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointWeeklySchedulePlanningURLSummary/UILayoutEntryPointWeeklySchedulePlanningURLSummary.view.xml</uiView>
+		<tooltips>Weekly Schedule Planning</tooltips>
+	</option>
+	
 </data-set>

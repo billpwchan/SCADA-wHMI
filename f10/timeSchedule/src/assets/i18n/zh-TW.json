@@ -2,9 +2,10 @@
 	"Time Schedule": "zh-TW:Time Schedule",
 	"Schedule Table": "zh-TW:Schedule Table",
 	"Schedule Planning": "zh-TW:Schedule Planning",
-	"OneShot": "zh-TW:One Shot",
-	"Predefined": "zh-TW:Predefined",
-	"Userdefined": "zh-TW:Userdefined",
+    "Running Schedules": "zh-TW:Running Schedules",
+	"Oneshot Schedule": "zh-TW:Oneshot Schedule",
+	"Periodic Schedules": "zh-TW:Periodic Schedules",
+	"Schedule cutoff time:": "zh-TW:Schedule cutoff time:",
 	"Select a schedule": "zh-TW:Select a schedule",
 	"Selection": "zh-TW:Selection",
 	"No Selections": "zh-TW:No Selections",
@@ -20,8 +21,40 @@
 	"On Time": "zh-TW:On Time",
 	"Off Time": "zh-TW:Off Time",
 
+    "Add": "zh-TW:Add",
+    "Delete": "zh-TW:Delete",
+    "Rename": "zh-TW:Rename",
+    "Cancel": "zh-TW:Cancel",
+
 	"Equipment":"zh-TW:Equipment",
 	"Enable": "zh-TW:Enable",
 	"Disable": "zh-TW:Disable",
-	"Save": "zh-TW:Save"
+	"Save": "zh-TW:Save",
+    "Clear": "zh-TW:Clear",
+
+    "Start": "zh-TW:Start",
+    "Stop": "zh-TW:Stop",
+
+    "Location_11": "zh-TW:Location_11",
+    "Location_12": "zh-TW:Location_12",
+    "Location_13": "zh-TW:Location_13",
+    "Location_14": "zh-TW:Location_14",
+    "Location_15": "zh-TW:Location_15",
+    "System_1": "zh-TW:System_1",
+    "System_2": "zh-TW:System_2",
+    "System_3": "zh-TW:System_3",
+    "System_4": "zh-TW:System_4",
+    "System_5": "zh-TW:System_5",
+
+    "Monday": "zh-TW:Monday",
+    "Tuesday": "zh-TW:Tuesday",
+    "Wednesday": "zh-TW:Wednesday",
+    "Thursday": "zh-TW:Thursday",
+    "Friday": "zh-TW:Friday",
+    "Saturday": "zh-TW:Saturday",
+    "Sunday": "zh-TW:Sunday",
+
+    "Apply": "zh-TW:Apply",
+    "Revert": "zh-TW:Revert",
+    "Defaults": "zh-TW:Defaults"
 }

@@ -241,4 +241,8 @@
 	<option key="LMC|MCS|Auto Logout"><setting>186</setting></option>
 	<option key="LMC|MCS|Chatter Summary"><setting>187</setting></option>
 	
+	<option key="LMC|MCS|Oneshot Time Schedule"><setting>188</setting></option>
+	<option key="LMC|MCS|Periodic Time Schedule"><setting>189</setting></option>
+	<option key="LMC|MCS|Weekly Schedule Planning"><setting>190</setting></option>
+	
 </data-set>

@@ -1,5 +1,4 @@
 import { Schedule } from './schedule';
-
 export class ScheduleItem {
     key: string;            // primary key to search scheduleItem
     scheduleKey: string;    // primary key to search schedule
@@ -12,8 +11,10 @@ export class ScheduleItem {
     geoCat: number;         // from Name
     funcCat: number;        // from Name
     onTime: string;         // from Filter
+    onTimeDisplay: string;  // from Filter
     offTime: string;        // from Filter
-    daygroup: string;       // from Filter   
+    offTimeDisplay: string; // from Filter
+    daygroup: string;       // from Filter
     taskName1: string;      // for writing back to tsc
     taskName2: string;      // for writing back to tsc
     filter1: string;        // for writing back to tsc

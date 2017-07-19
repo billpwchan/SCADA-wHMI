@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -1235,8 +1236,54 @@ public class UIWidgetSocControl extends UIWidget_i {
 				
 				logger.debug(className, function, "clientKey [{}]  values length [{}]", key, values.length);
 				boolean hasFailed = false;
-				String [] reserveReqAliases = getReserveAlias(resrvReserveReqID);
-				String [] reservedIDAliases = getReserveAlias(resrvReservedID);
+				String [] reservedIDAliasesProto = getReserveAlias(resrvReservedID);
+				String [] reserveReqAliasesProto = getReserveAlias(resrvReserveReqID);
+				String [] reservedIDAliases = null;
+				String [] reserveReqAliases = null;
+				// Remove the skipped steps from "reservedIDAliasesProto" and "reserveReqAliasesProto" :
+				int [] skippedSteps = getSkips();
+				if (skippedSteps.length == 0 || !skippedSteps.equals(null)) {
+					for (int i = 0; i < skippedSteps.length; i++) {
+						logger.debug(className, function, "current i: [{}], skippedSteps-i: [{}]", i, skippedSteps[i]);
+						logger.debug(className, function, "reservedIDAliasesProto-skippedSteps-i before removal: [{}]", reservedIDAliasesProto[skippedSteps[i]-1]);
+						logger.debug(className, function, "reserveReqAliasesProto-skippedSteps-i before removal: [{}]", reserveReqAliasesProto[skippedSteps[i]-1]);
+						reservedIDAliasesProto[skippedSteps[i]-1] = "";
+						reserveReqAliasesProto[skippedSteps[i]-1] = "";
+						logger.debug(className, function, "reservedIDAliasesProto-skippedSteps-i after removal: [{}]", reservedIDAliasesProto[skippedSteps[i]-1]);
+						logger.debug(className, function, "reserveReqAliasesProto-skippedSteps-i after removal: [{}]", reserveReqAliasesProto[skippedSteps[i]-1]);
+					}
+					
+					// remove the null entries for reservedIDAliasesProto.
+					List<String> tempList = new ArrayList<String>();
+					for (int i = 0; i < reservedIDAliasesProto.length ; i++) {
+						logger.debug(className, function, "reservedIDAliasesProto[{}] before removeAll: [{}]", i, reservedIDAliasesProto[i]);
+						if (!reservedIDAliasesProto[i].equals("") ){
+							tempList.add(reservedIDAliasesProto[i]);
+						}
+					}
+					reservedIDAliases = new String[tempList.size()];
+					reservedIDAliases = tempList.toArray(reservedIDAliases);
+					// reservedIDAliases is the array for reservation reading
+					for (int i = 0; i < reservedIDAliases.length ; i++) {
+						logger.debug(className, function, "reservedIDAliases[{}] after convertion: [{}]", i, reservedIDAliases[i]);
+					}
+					
+					// remove the null entries for reserveReqAliasesProto.
+					List<String> tempList1 = new ArrayList<String>();
+					for (int i = 0; i < reserveReqAliasesProto.length ; i++) {
+						logger.debug(className, function, "reserveReqAliasesProto[{}] before removeAll: [{}]", i, reserveReqAliasesProto[i]);
+						if (!reserveReqAliasesProto[i].equals("") ){
+							tempList1.add(reserveReqAliasesProto[i]);
+						}
+					}
+					reserveReqAliases = new String[tempList1.size()];
+					reserveReqAliases = tempList1.toArray(reserveReqAliases);
+					// reserveReqAliases is the array for reservation requesting
+					for (int i = 0; i < reserveReqAliases.length ; i++) {
+						logger.debug(className, function, "reserveReqAliases[{}] after convertion: [{}]", i, reserveReqAliases[i]);
+					}
+				}
+				
 				int reserveCnt = 0;
 				
 				for (int i=0; i<values.length; i++) {

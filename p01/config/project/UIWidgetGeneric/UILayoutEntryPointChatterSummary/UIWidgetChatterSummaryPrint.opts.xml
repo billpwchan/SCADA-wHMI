@@ -18,7 +18,6 @@
 		<SenderOperation>event</SenderOperation>
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutChatterSummaryViewer</OperationElement>
-		<!-- <OperationString1>PrintCurPage</OperationString1> -->
 		<OperationString1>Print</OperationString1>
 	</action>
 

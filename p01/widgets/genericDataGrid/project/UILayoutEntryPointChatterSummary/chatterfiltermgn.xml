@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid" xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd                       http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
 
-    <p:gridConfiguration fastForwardPages="2" name="scsdpcList" pageSize="50" displayPager="false"/>
+    <p:gridConfiguration fastForwardPages="2" name="chatterfiltermgn" pageSize="50" displayPager="false"/>
 
     <p:subject>
         <p:dataSource xsi:type="sds:subscriptionDataSource">
@@ -12,7 +12,7 @@
     </p:subject>
 
     <!-- Building -->
-    <p:column filterable="true" sortable="true" i18n="true" name="scsalarmList_area_name" width="280" widthUnit="PX" xsi:type="p:textEnumColumnType">
+    <p:column filterable="true" sortable="true" i18n="true" name="chatterfiltermgn_area_name" width="280" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="1" value="scsalarmList_area_location1"/>
         <p:textItem sourceValue="2" value="scsalarmList_area_location2"/>
@@ -67,7 +67,7 @@
     </p:column>
 
     <!-- System -->
-    <p:column filterable="true" sortable="true" i18n="true" name="scsalarmList_funccat_name" width="280" widthUnit="PX" xsi:type="p:textEnumColumnType">
+    <p:column filterable="true" sortable="true" i18n="true" name="chatterfiltermgn_funccat_name" width="280" widthUnit="PX" xsi:type="p:textEnumColumnType">
         <p:source name="functionalcategory" xsi:type="cmn:statusDataSourceType"/>
         <p:textItem sourceValue="1" value="scsalarmList_funccat_function1"/>
         <p:textItem sourceValue="2" value="scsalarmList_funccat_function2"/>
@@ -130,28 +130,24 @@
         <p:textItem sourceValue="59" value="scsalarmList_funccat_function59"/>
     </p:column>
 	
-    <p:column filterable="true" i18n="false" name="scsdpcList_equipmentlabel_name" sortable="true" template="{}" templateMarker="{}" width="525" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+    <p:column filterable="true" i18n="false" name="chatterfiltermgn_equipmentlabel_name" sortable="true" template="{}" templateMarker="{}" width="525" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="equipmentlabel" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 	
-    <p:column filterable="true" i18n="false" name="scsdpcList_nominstance_name" sortable="true" template="{}" templateMarker="{}" width="525" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+    <p:column filterable="true" i18n="false" name="chatterfiltermgn_nominstance_name" sortable="true" template="{}" templateMarker="{}" width="525" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="nominstance" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
+
+    <p:column filterable="true" name="chatterfiltermgn_inhibitstatus_name" sortable="true" format="" type="INTEGER" width="0" widthUnit="PX" xsi:type="p:numberColumnType">
+        <p:source name="inhibitstatus" xsi:type="cmn:statusDataSourceType"/>
+    </p:column>
 	
-    <p:column filterable="true" format="alarmList_DateFormat" i18n="true" name="scsdpcList_operationdate_name" sortable="true" width="0" widthUnit="PX" xsi:type="p:dateColumnType">
+    <p:column filterable="true" format="alarmList_DateFormat" i18n="true" name="chatterfiltermgn_operationdate_name" sortable="true" width="0" widthUnit="PX" xsi:type="p:dateColumnType">
         <p:source name="operationdate" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
-	
-    <p:column filterable="true" i18n="false" name="scsdpcList_inhibitMsg_name" sortable="true" template="{}" templateMarker="{}" width="0" widthUnit="PX" xsi:type="p:textTemplateColumnType">
-        <p:source name="inhibitMsg" statusComputerName="overrideType" xsi:type="cmn:computedStatusDataSourceType"/>
-    </p:column>
-	
-    <p:column filterable="true" name="scsdpcList_inhibitstatus_name" sortable="true" format="" type="INTEGER" width="0" widthUnit="PX" xsi:type="p:numberColumnType">
-        <p:source name="inhibitstatus" xsi:type="cmn:statusDataSourceType"/>
-    </p:column>	
 
     <p:defaultSort>
-        <p:simpleSort ascending="false" columnName="scsdpcList_operationdate_name"/>
+        <p:simpleSort ascending="false" columnName="chatterfiltermgn_operationdate_name"/>
     </p:defaultSort>
     
 </p:genericDataGridConfiguration>

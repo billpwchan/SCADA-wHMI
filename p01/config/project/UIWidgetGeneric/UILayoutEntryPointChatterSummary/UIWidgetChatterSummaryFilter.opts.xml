@@ -104,7 +104,7 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutChatterSummaryViewer</OperationElement>
 		<OperationString1>AddFilter</OperationString1>
-		<OperationString2>ptwdciset</OperationString2>
+		<OperationString2>chatterfiltermgn</OperationString2>
 		<OperationString3>gdg_column_SL_Cond_Res</OperationString3>
 		<OperationString4>0</OperationString4>
 	</action>
@@ -114,7 +114,7 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutChatterSummaryViewer</OperationElement>
 		<OperationString1>AddFilter</OperationString1>
-		<OperationString2>ptwdciset</OperationString2>
+		<OperationString2>chatterfiltermgn</OperationString2>
 		<OperationString3>gdg_column_SL_Cond_Res</OperationString3>
 		<OperationString4>1</OperationString4>
 	</action>

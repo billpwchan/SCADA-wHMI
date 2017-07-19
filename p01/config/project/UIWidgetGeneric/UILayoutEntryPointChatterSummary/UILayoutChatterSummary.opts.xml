@@ -47,8 +47,8 @@
 		<OperationType>action</OperationType>
 		<OperationElement>UILayoutChatterSummaryViewer</OperationElement>
 		<OperationString1>AddIntRangeFilter</OperationString1>
-		<OperationString2>scsdpcList</OperationString2>
-		<OperationString3>scsdpcList_inhibitstatus_name</OperationString3>
+		<OperationString2>chatterfiltermgn</OperationString2>
+		<OperationString3>chatterfiltermgn_inhibitstatus_name</OperationString3>
 		<OperationString4>16384</OperationString4>
 		<OperationString5>16384</OperationString5>
 	</action>

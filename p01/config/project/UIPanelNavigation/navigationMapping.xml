@@ -240,4 +240,8 @@
 	<option key="LMC|MCS|Simultaneous Login Summary"><setting>185</setting></option>
 	<option key="LMC|MCS|Auto Logout"><setting>186</setting></option>
 	
+	<option key="LMC|MCS|Oneshot Time Schedule"><setting>187</setting></option>
+	<option key="LMC|MCS|Periodic Time Schedule"><setting>188</setting></option>
+	<option key="LMC|MCS|Weekly Schedule Planning"><setting>189</setting></option>
+	
 </data-set>

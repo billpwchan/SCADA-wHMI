@@ -12,6 +12,7 @@
     "show_cutoff_offset": true,
     "unavailable_on_off_time": "N/A",
     "inhibit_onoff_time": "",
+    "max_userdefined_schedule_count": 3,
 	"schedule_daygroup": {
 		"Oneshot": {
 			"1": { "run_day_group": 1, "run_next_day_group": 2 }
@@ -38,6 +39,7 @@
         "4": { "type": "Predefined", "id": "2"},
         "5": { "type": "Predefined", "id": "2"},
         "6": { "type": "Predefined", "id": "3"}
-    }
+    },
+    "periodic_planning_duration": 180
   }
 }

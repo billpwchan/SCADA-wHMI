@@ -21,7 +21,11 @@ export class ConfigService {
             show_cutoff_offset: true,
             unavailable_on_off_time: 'N/A',
             inhibited_on_off_time: '',
+            max_userdefined_schedule_count: 3,
             schedule_daygroup: {}
+        }),
+        schedule_planning: Map({
+            periodic_planning_duration: 180
         })
     });
     public config: any;

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-gwt-panel-summaryview-htmlurl</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>HTML</widget>
+		<label>&lt;iframe src=&quot;http://127.0.0.1:4200/#/schedule-table?periodic=false&quot; width=100% height=100% frameborder=0&gt;&lt;/iframe&gt;</label>
+		<css>project-gwt-html-htmlurl-html-0-0</css>
+		
+		<cssContainer>project-gwt-html-htmlurl-container-0-0</cssContainer>
+		
+		<tooltipUp>Print</tooltipUp>
+		<element>print</element>
+	</option>
+	
+</data-set>

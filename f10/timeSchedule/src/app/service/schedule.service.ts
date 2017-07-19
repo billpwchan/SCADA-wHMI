@@ -255,6 +255,7 @@ export class ScheduleService implements OnDestroy {
                 if (scheduleItem != null) {
                     scheduleItem.eqtDescription = data[3 * i];
                     const onOffTime = this.getOnOffTime(filter);
+                    //let onOffTimeDisplay = this.getOnOffTimeDisplay(filter);
                     let onOffTimeDisplay = onOffTime;
                     if (enableFlag === 0) {
                         console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag is 0');
@@ -298,22 +299,68 @@ export class ScheduleService implements OnDestroy {
         if (mm.length === 1) {
             mm = '0' + mm;
         }
+        hhmm = hh + ':' + mm;
+
+        console.log('{schedule-table}', '[getOnOffTime]', 'hhmm=', hhmm);
+        return hhmm;
+    }
+
+    private getPeriodicOnOffTimeDisplay(filter: string) {
+        let dg_time: string[];
+        dg_time = filter.split(' ');
+        let dg: string = dg_time[0];
+        let hh: string = dg_time[4];
+        let mm: string = dg_time[5];
+        const hr: number = +hh;
+        const min: number = +mm;
+        let hhmm: string;
+        if (hh.length === 1) {
+            hh = '0' + hh;
+        }
+        if (mm.length === 1) {
+            mm = '0' + mm;
+        }
         if (this.showNextDayOffset(hr, min)) {
             hhmm = (hr + 24) + ':' + mm;
         } else {
             hhmm = hh + ':' + mm;
         }
-        console.log('{schedule-table}', '[getOnOffTime]', 'hhmm=', hhmm);
+        console.log('{schedule-table}', '[getPeridoicOnOffTimeDisplay]', 'hhmm=', hhmm);
         return hhmm;
     }
-    public getSchedulesByPeriodic(isPeriodic: boolean): Observable<any> {
+    private updateOneshotOnOffTimeDisplay(scheduleItem: ScheduleItem) {
+        let scheduleRunDaygroup = this.getRunDayGroupId(scheduleItem.scheduleKey);
+        // Change onTimeDisplay to blank if time has passed
+        if (scheduleItem.onTime !== this.unavailableOnOffTime && scheduleItem.onTime.length > 0) {
+            let hh1 = +scheduleItem.onTime.split(':')[0];
+            let mm1 = +scheduleItem.onTime.split(':')[1];
+            let taskDaygroup = scheduleItem.filter1.split(' ')[0];
+            console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'onTime', scheduleItem.onTime, 'hour', hh1, 'minute', mm1, 'schedule daygroup', scheduleRunDaygroup, 'taskDaygroup', taskDaygroup);
+            if (+taskDaygroup === +scheduleRunDaygroup && UtilService.isTimeExpired(hh1, mm1)) {
+                scheduleItem.onTimeDisplay = '';
+                scheduleItem.onTime = '';
+            }
+        }
+        // Change offTimeDisplay to blank if time has passed
+        if (scheduleItem.offTime !== this.unavailableOnOffTime && scheduleItem.offTime.length > 0) {
+            let hh2 = +scheduleItem.offTime.split(':')[0];
+            let mm2 = +scheduleItem.offTime.split(':')[1];
+            let taskDaygroup = scheduleItem.filter2.split(' ')[0];
+            console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'offTime', scheduleItem.offTime, 'hour', hh2, 'minute', mm2, 'schedule daygroup', scheduleRunDaygroup, 'taskDaygroup', taskDaygroup);
+            if (+taskDaygroup === +scheduleRunDaygroup && UtilService.isTimeExpired(hh2, mm2)) {
+                scheduleItem.offTimeDisplay = '';
+                scheduleItem.offTime = '';
+            }
+        }
+    }
+    public getSchedulesByPeriodic(isPeriodic: boolean): Observable<Schedule[]> {
         console.log('{ScheduleService}', '[getSchedulesByPeriodic]', 'isPeriodic', isPeriodic);
         this.currentIsPeriodic = isPeriodic;
 
         this.updateSchedulesByPeriodic(isPeriodic);
         return this.subjSchedulesByPeriodic;
     }
-    public getScheduleItemsByPeriodic(isPeriodic: boolean): Observable<any> {
+    public getScheduleItemsByPeriodic(isPeriodic: boolean): Observable<ScheduleItem[]> {
         console.log('{ScheduleService}', '[getScheduleItemsByPeriodic]', 'isPeriodic', isPeriodic);
 
         this.updateScheduleItemsByPeriodic(isPeriodic);
@@ -330,7 +377,7 @@ export class ScheduleService implements OnDestroy {
         const schedulesByPeriodic = new Array<Schedule>();
         for (const s of this.schedules) {
             console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'compare periodic', isPeriodic, s.periodic, (isPeriodic && s.periodic),  (!isPeriodic && !s.periodic));
-            if (s.visibility === 'visible') {
+            if (s.visibility === ScheduleDef.VISIBLE) {
                 if ((isPeriodic && s.periodic) || (!isPeriodic && !s.periodic)) {
                     schedulesByPeriodic.push(s);
                     console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', '*** schedule is pushed to schedulesByPeriodic');
@@ -350,11 +397,41 @@ export class ScheduleService implements OnDestroy {
         const scheduleItemsByPeriodic = new Array<ScheduleItem>();
         for (const s of this.scheduleItems) {
             const speriodic: boolean = this.scheduleKeyMap.get(s.scheduleKey).periodic;
-            const svisible: boolean = this.scheduleKeyMap.get(s.scheduleKey).visibility === 'visible';
+            const svisible: boolean = this.scheduleKeyMap.get(s.scheduleKey).visibility === ScheduleDef.VISIBLE;
             console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'compare periodic', isPeriodic, speriodic);
 
             if (svisible) {
                 if ((isPeriodic && speriodic) || (!isPeriodic && !speriodic)) {
+                    if (isPeriodic) {
+                        s.onTimeDisplay = this.getPeriodicOnOffTimeDisplay(s.filter1);
+                        s.offTimeDisplay = this.getPeriodicOnOffTimeDisplay(s.filter2);
+                    } else {
+                        this.updateOneshotOnOffTimeDisplay(s);
+
+                        //let scheduleRunDaygroup = this.getRunDayGroupId(s.scheduleKey);
+                        // Change onTimeDisplay to blank if time has passed
+                        // if (s.onTime !== this.unavailableOnOffTime && s.onTime.length > 0) {
+                        //     let hh1 = +s.onTime.split(':')[0];
+                        //     let mm1 = +s.onTime.split(':')[1];
+                        //     let taskDaygroup = s.filter1.split(' ')[0];
+                        //     console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'onTime', s.onTime, 'hour', hh1, 'minute', mm1, 'schedule daygroup', scheduleRunDaygroup, 'taskDaygroup', taskDaygroup);
+                        //     if (+taskDaygroup === +scheduleRunDaygroup && UtilService.isTimeExpired(hh1, mm1)) {
+                        //         s.onTimeDisplay = '';
+                        //         s.onTime = '';
+                        //     }
+                        // }
+                        // // Change offTimeDisplay to blank if time has passed
+                        // if (s.offTime !== this.unavailableOnOffTime && s.offTime.length > 0) {
+                        //     let hh2 = +s.offTime.split(':')[0];
+                        //     let mm2 = +s.offTime.split(':')[1];
+                        //     let taskDaygroup = s.filter2.split(' ')[0];
+                        //     console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'offTime', s.offTime, 'hour', hh2, 'minute', mm2, 'schedule daygroup', scheduleRunDaygroup, 'taskDaygroup', taskDaygroup);
+                        //     if (+taskDaygroup === +scheduleRunDaygroup && UtilService.isTimeExpired(hh2, mm2)) {
+                        //         s.offTimeDisplay = '';
+                        //         s.offTime = '';
+                        //     }
+                        // }
+                    }
                     scheduleItemsByPeriodic.push(s);
                     console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', '*** scheduleItem is pushed to scheduleItemsByPeriodic');
                 }
@@ -369,8 +446,10 @@ export class ScheduleService implements OnDestroy {
         if (this.subSetFilter) {
             this.subSetFilter.unsubscribe();
         }
-        this.subSetFilter = this.scsTscService.setFilter(taskName, filter, this.clientName).subscribe(res =>
-            console.log('{ScheduleService}', '[setFilter]', res));
+        this.subSetFilter = this.scsTscService.setFilter(taskName, filter, this.clientName).subscribe(res => {
+            console.log('{ScheduleService}', '[setFilter]', res);
+            this.loadData();
+        });
     }
     private showNextDayOffset(hr, min) {
         console.log('{ScheduleService}', '[showNextDayOffset]', 'begin');
@@ -634,24 +713,57 @@ export class ScheduleService implements OnDestroy {
         this.runningSchedules = Array<Schedule>();
         // Get schedules running day group from config
         for (let s of this.schedules) {
-            let daygroupId = this.getRunDayGroupId(s.id);
-            console.log('{ScheduleService}', '[updateRunningSchedules]', 'schedules', s.id, 'daygroupId', daygroupId);
-            if (daygroupId) {
-                let daygroup = this.dayGroupIdMap.get(daygroupId);
-                console.log('{ScheduleService}', '[updateRunningSchedules]', 'daygroupId', daygroupId, 'daygroup', daygroup);
-                if (daygroup && daygroup.datesList) {
-                    for (let d of daygroup.datesList) {
-                        // Check if the day group dateslist contain current date
-                        if (UtilService.isCurrentDate(d)) {
-                            // Add schedule to running schedules
-                            this.runningSchedules.push(s);
-                            console.log('{ScheduleService}', '[updateRunningSchedules]', 'add to running schedules', s.id);
-                        }
-                    }
+            if (s.periodic) {
+                if (this.isPeriodicScheduleRunning(s)) {
+                    // Add schedule to running schedules
+                    this.runningSchedules.push(s);
+                    console.log('{ScheduleService}', '[updateRunningSchedules]', 'add to running schedules', s.id);
                 }
-            }           
+            } else {
+                if (this.isOneshotScheduleRunning(s)) {
+                    // Add schedule to running schedules
+                    this.runningSchedules.push(s);
+                    console.log('{ScheduleService}', '[updateRunningSchedules]', 'add to running schedules', s.id);
+                }
+            }
         }
         this.subjPeriodicSchedules.next(this.runningSchedules);
+    }
+
+    public isPeriodicScheduleRunning(schedule: Schedule): boolean {
+        let daygroupId = this.getRunDayGroupId(schedule.id);
+        console.log('{ScheduleService}', '[isPeriodicScheduleRunning]', 'schedules', schedule.id, 'daygroupId', daygroupId);
+        if (daygroupId) {
+            let daygroup = this.dayGroupIdMap.get(daygroupId);
+            console.log('{ScheduleService}', '[isPeriodicScheduleRunning]', 'daygroupId', daygroupId, 'daygroup', daygroup);
+            if (daygroup && daygroup.datesList) {
+                for (let d of daygroup.datesList) {
+                    // Check if the day group dateslist contain current date
+                    if (UtilService.isCurrentDate(d)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public isOneshotScheduleRunning(schedule: Schedule): boolean {
+        let daygroupId = this.getRunDayGroupId(schedule.id);
+        console.log('{ScheduleService}', '[isPeriodicScheduleRunning]', 'schedules', schedule.id, 'daygroupId', daygroupId);
+        if (daygroupId) {
+            let daygroup = this.dayGroupIdMap.get(daygroupId);
+            console.log('{ScheduleService}', '[isPeriodicScheduleRunning]', 'daygroupId', daygroupId, 'daygroup', daygroup);
+            if (daygroup && daygroup.datesList) {
+                for (let d of daygroup.datesList) {
+                    // Check if the day group dateslist contain current date or yesterday
+                    if (UtilService.isCurrentDate(d) || UtilService.isYesterday(d)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public updateWeeklySchedules() {
@@ -701,5 +813,47 @@ export class ScheduleService implements OnDestroy {
                 console.log('{ScheduleService}', '[setScheduleRunDates]', 'response', res);
             }
         )
+    }
+
+    public getUnusedSchedules(): Schedule[] {
+        let schedules = Array<Schedule>();
+        for (let s of this.schedules) {
+            if (s.periodic && !s.titleReadOnly && s.visibility===ScheduleDef.INVISIBLE) {
+                schedules.push(s);
+            }
+        }
+        return schedules;
+    }
+
+    public addSchedule(scheduleKey): Observable<any> {
+        console.log('{ScheduleService}', '[addSchedule]', scheduleKey);
+        let s = this.scheduleKeyMap.get(scheduleKey);
+        if (s) {
+            s.visibility = ScheduleDef.VISIBLE;
+            let desc = s.toString();
+            return this.scsTscService.setDescription(s.taskName, desc, this.clientName).map(
+                res => {
+                    console.log('{ScheduleService}', '[addSchedule]', 'return', res);
+                    this.updateSchedulesByPeriodic(this.currentIsPeriodic);
+                    this.updateScheduleItemsByPeriodic(this.currentIsPeriodic);
+                }
+            )    
+        }
+    }
+
+    public deleteSchedule(scheduleKey): Observable<any> {
+        console.log('{ScheduleService}', '[deleteSchedule]', scheduleKey);
+        let s = this.scheduleKeyMap.get(scheduleKey);
+        if (s) {
+            s.visibility = ScheduleDef.INVISIBLE;
+            let desc = s.toString();
+            return this.scsTscService.setDescription(s.taskName, desc, this.clientName).map(
+                res => {
+                    console.log('{ScheduleService}', '[deleteSchedule]', 'return', res);
+                    this.updateSchedulesByPeriodic(this.currentIsPeriodic);
+                    this.updateScheduleItemsByPeriodic(this.currentIsPeriodic);
+                }
+            )
+        }
     }
 }

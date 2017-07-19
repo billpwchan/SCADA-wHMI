@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
 import { SelectComponent } from 'ng2-select';
 import { DatatableComponent } from '../../../node_modules/@swimlane/ngx-datatable/src/components/datatable.component';
@@ -7,6 +8,7 @@ import { Schedule } from '../type/schedule';
 import { ScheduleItem } from '../type/schedule-item';
 import { ConfigService } from '../service/config.service';
 import { ScheduleService } from '../service/schedule.service';
+import { UtilService } from '../service/util.service';
 @Component({
     selector: 'app-sch-table',
     templateUrl: './schedule-table.component.html',
@@ -25,8 +27,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     private subScheduleItems: any;
     // scheduleType filter
     //private scheduleType: string;
-    // current schedule periodic
-    public scheduleIsPeriodic: boolean = false;
+    // display periodic
+    public displayPeriodicSchedules: boolean = false;
     // stores schedules returned from ScheduleService
     public schedules: Schedule[] = [];
     // stores scheduleItems filtered by type
@@ -38,12 +40,20 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public selectedSchedule: Schedule;
     // selected row in table
     public selectedRow = [];
+    public selectedItemDisplay = '';
     // flag to display 'Add' button
     public addScheduleEnabled = false;
     // flag to display 'Delete' button
     public deleteScheduleEnabled = false;
     // flag to display 'Rename' button
     public renameScheduleEnabled = false;
+    // userdefined schedules visible count
+    public visibleUserDefinedCnt = 0;
+    public maxUserDefinedScheduleCount = 0;
+
+    public unusedSchedules = [];
+    public newSchedule: Schedule;
+
     // place holder to store title typed by operator
     public newScheduleTitle: string;
     // flags to display button to enable/disable task
@@ -51,7 +61,21 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public displayDisableOnTime = false;
     public displayEnableOffTime = false;
     public displayDisableOffTime = false;
+    public addScheduleClicked = false;
     public renameScheduleClicked = false;
+
+    // public onTimeIsEnabled = false;
+    // public offTimeIsEnabled = false;
+    public pendingOnTimeIsEnabled = false;
+    public pendingOffTimeIsEnabled = false;
+
+    public onTimeNotAvailable = true;
+    public offTimeNotAvailable = true;
+
+    public newOnTime = '';
+    public newOffTime = '';
+
+    public inputIsModified = false;
 
     // string to represent unavailable task
     private unavailableOnOffTime = 'N/A';
@@ -88,35 +112,43 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.unavailableOnOffTime = this.configService.config.getIn(['schedule_table', 'unavailable_on_off_time']);
         console.log('{schedule-table}', '[loadConfig]', 'unavailable_on_off_time=', this.unavailableOnOffTime);
 
-        console.log('{schedule-table}', '[loadConfig]', 'inhibited_on_off_time=', this.inhibitedOnOffTime);
         this.inhibitedOnOffTime = this.configService.config.getIn(['schedule_table', 'inhibited_on_off_time']);
+        console.log('{schedule-table}', '[loadConfig]', 'inhibited_on_off_time=', this.inhibitedOnOffTime);
+
+        this.maxUserDefinedScheduleCount = this.configService.config.getIn(['schedule_table', 'max_userdefined_schedule_count']);
+        console.log('{schedule-table}', '[loadConfig]', 'max-userdefined-schedule-count=', this.maxUserDefinedScheduleCount);
     }
     loadData() {
         this.cleanupSubscriptions();
         this.subRoute = this.route.queryParams.subscribe(params => {
             let p = params['periodic'];
             if (p === 'true') {
-                this.scheduleIsPeriodic = true;
+                this.displayPeriodicSchedules = true;
             } else {
-                this.scheduleIsPeriodic = false;
+                this.displayPeriodicSchedules = false;
             }
-            console.log('{schedule-table}', '[loadData]', 'periodic =', this.scheduleIsPeriodic);
+            console.log('{schedule-table}', '[loadData]', 'periodic =', this.displayPeriodicSchedules);
 
             let clientName = params['clientName'] || this.configService.config.getIn(['default_client_name']);
             console.log('{schedule-table}', '[loadData]', 'clientName =', clientName);
 
             this.scheduleService.setClientName(clientName);
 
-            this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.scheduleIsPeriodic).subscribe(schedules => {
+            this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.displayPeriodicSchedules).subscribe(schedules => {
                 this.schedules = schedules;
-                if (this.schedules.length > 0) {
+                if (schedules && schedules.length > 0) {
                     console.log('{schedule-table}', '[loadData]', 'getSchedulesByPeriodic return schedule count=', schedules.length);
+                    // display first schedule as active and selected schedules 
                     this.activeItem = [this.schedules[0]];
                     this.selectedSchedule = schedules[0];
-                    // this.scheduleIsPeriodic = this.selectedSchedule.periodic;
-                    this.addScheduleEnabled = !this.selectedSchedule.titleReadOnly;
-                    this.deleteScheduleEnabled = !this.selectedSchedule.titleReadOnly;
-                    this.renameScheduleEnabled = !this.selectedSchedule.titleReadOnly;
+
+                    this.visibleUserDefinedCnt = 0;
+                    for (let s of schedules) {
+                        if (!s.titleReadOnly && s.visibility) {
+                            this.visibleUserDefinedCnt++;
+                        }
+                    }
+                    this.updateAddDeleteRenameScheduleButton();
                     this.cancelRenameSchedule();
 //                    this.clearSelectedRow();
 //                    this.filterSchItemsBySchedule();
@@ -127,7 +159,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
             console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
             console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
-            this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.scheduleIsPeriodic).subscribe(scheduleItems => {
+            this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
                 this.scheduleItems = scheduleItems;
                 this.cachedSchItems = [...this.scheduleItems];
                 this.clearSelectedRow();
@@ -165,9 +197,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         const val = event.id;
         console.log('{schedule-table}', '[ng2-select selected]', 'selectedSchedule', event.id);
         this.selectedSchedule = this.schedules.find(s => s.id === val);
-        this.addScheduleEnabled = !this.selectedSchedule.titleReadOnly;
-        this.deleteScheduleEnabled = !this.selectedSchedule.titleReadOnly;
-        this.renameScheduleEnabled = !this.selectedSchedule.titleReadOnly;
+        this.updateAddDeleteRenameScheduleButton();
         this.cancelRenameSchedule();
         console.log('{schedule-table}', '[ng2-select selected]', 'titleReadOnly', this.selectedSchedule.titleReadOnly);
         console.log('{schedule-table}', '[ng2-select selected]', 'renameScheduleEnabled', this.renameScheduleEnabled);
@@ -199,31 +229,34 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public onSelect(selectedRow) {
         console.log('{schedule-table}', '[ngx-datatable onSelect]', 'Select Event', selectedRow, this.selectedRow);
         const scheduleItem: ScheduleItem = this.selectedRow[0];
+        this.selectedItemDisplay = this.translate.instant('Location_' + scheduleItem.geoCat) + '-' +
+                                    this.translate.instant('System_' + scheduleItem.funcCat) + '-' +
+                                    this.translate.instant(scheduleItem.eqtLabel)  + '-' + 
+                                    this.translate.instant(scheduleItem.eqtDescription);
         if (scheduleItem.onTime !== this.unavailableOnOffTime) {
-            if (scheduleItem.enableFlag1) {
-                this.displayEnableOnTime = false;
-                this.displayDisableOnTime = true;
-            } else {
-                this.displayEnableOnTime = true;
-                this.displayDisableOnTime = false;
-            }
+            this.onTimeNotAvailable = false;
         } else {
-            this.displayEnableOnTime = false;
-            this.displayDisableOnTime = false;
+            this.onTimeNotAvailable = true;
         }
+        if (scheduleItem.enableFlag1) {
+            this.pendingOnTimeIsEnabled = true;
+        } else {
+            this.pendingOnTimeIsEnabled = false;
+        }
+        this.newOnTime = scheduleItem.onTime;
         if (scheduleItem.offTime !== this.unavailableOnOffTime) {
-            if (scheduleItem.enableFlag2) {
-                this.displayEnableOffTime = false;
-                this.displayDisableOffTime = true;
-            } else {
-                this.displayEnableOffTime = true;
-                this.displayDisableOffTime = false;
-            }
+            this.offTimeNotAvailable = false;
         } else {
-            this.displayEnableOffTime = false;
-            this.displayDisableOffTime = false;
+            this.offTimeNotAvailable = true;
         }
-      }
+        if (scheduleItem.enableFlag2) {
+            this.pendingOffTimeIsEnabled = true;
+        } else {
+            this.pendingOffTimeIsEnabled = false;
+        }
+        this.newOffTime = scheduleItem.offTime;
+        this.inputIsModified = false;
+    }
     // ngx-datatable callback
     public onActivate(event) {
         console.log('{schedule-table}', '[ngx-datatable onActivate]', 'Activate Event', event);
@@ -240,42 +273,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     getSelectedIx() {
         return this.selected[0]['$$index'];
     }
-    // click event handler for save button
-    updateOnOffTime(newOnTime: string, newOffTime: string) {
-        console.log('{schedule-table}', '[updateOnOffTime]', 'on/off time ', newOnTime, newOffTime);
-        const scheduleItem: ScheduleItem = this.selectedRow[0];
-        console.log('{schedule-table}', '[updateOnOffTime]', 'scheduleItem=', scheduleItem);
 
-        if (newOnTime && this.selectedRow.length === 1) {
-            if (scheduleItem && scheduleItem.taskName1) {
-                scheduleItem.onTime = newOnTime;
-                const hh = newOnTime.split(':')[0];
-                const mm = newOnTime.split(':')[1];
-                const dgtime = scheduleItem.filter1.split(' ');
-                dgtime[4] = hh;
-                dgtime[5] = mm;
-                const filter = dgtime.join(' ');
-                console.log('{schedule-table}', '[updateOnOffTime]', 'onTime=', hh, mm, 'filter=', filter);
-                this.scheduleService.setFilter(scheduleItem.taskName1, filter);
-            }
-        }
-        if (newOffTime && this.selectedRow.length === 1) {
-            if (scheduleItem && scheduleItem.taskName2) {
-                scheduleItem.offTime = newOffTime;
-                const hh = newOffTime.split(':')[0];
-                const mm = newOffTime.split(':')[1];
-                const dgtime = scheduleItem.filter2.split(' ');
-                dgtime[4] = hh;
-                dgtime[5] = mm;
-                const filter = dgtime.join(' ');
-                console.log('{schedule-table}', '[updateOnOffTime]', 'offTime=', hh, mm, 'filter=', filter);
-                this.scheduleService.setFilter(scheduleItem.taskName2, filter);
-            }
-        }
-    }
-    // click event handler for clear button
-    private clearOnOffTime() {
-    }
     private filterSchItemsBySchedule() {
         this.scheduleItems = [];
         for (const r of this.cachedSchItems) {
@@ -286,12 +284,49 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
     private clearSelectedRow() {
         this.selectedRow = [];
+        this.selectedItemDisplay = '';
     }
     public addSchedule() {
         console.log('{schedule-table}', '[addSchedule]');
+        this.addScheduleClicked = true;
+        this.unusedSchedules = this.scheduleService.getUnusedSchedules();
+        if (this.unusedSchedules && this.unusedSchedules.length > 0) {
+            this.newSchedule = this.unusedSchedules[0];
+        }
+    }
+    public applyAddSchedule() {
+        console.log('{schedule-table}', '[applyAddSchedule]');
+        this.addScheduleClicked = false;
+
+        if (this.newSchedule) {
+            this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
+                res => {
+                    //this.schedules.push(this.newSchedule);
+                    this.loadData();
+                }
+            )
+        }
+    }
+    public cancelAddSchedule() {
+        console.log('{schedule-table}', '[cancelRenameSchedule]');
+        this.addScheduleClicked = false;
     }
     public deleteSchedule() {
         console.log('{schedule-table}', '[deleteSchedule]');
+        if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
+            this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
+                res => {
+                    // let newSchedules = Array<Schedule>();
+                    // for (let s of this.schedules) {
+                    //     if (this.selectedSchedule.id !== s.id) {
+                    //         newSchedules.push(s);
+                    //     }
+                    // }
+                    // this.schedules = newSchedules;
+                    this.loadData();
+                }
+            )
+        }
     }
     public renameSchedule() {
         console.log('{schedule-table}', '[renameSchedule] clicked');
@@ -320,42 +355,16 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
         this.newScheduleTitle = '';
     }
+    public updateAddDeleteRenameScheduleButton() {
+        console.log('{schedule-table}', '[loadData]', 'updateAddDeleteRenameScheduleButton visibleUserDefinedCnt', this.visibleUserDefinedCnt);
+        this.addScheduleEnabled = this.visibleUserDefinedCnt < this.maxUserDefinedScheduleCount;
+        this.deleteScheduleEnabled = !this.selectedSchedule.titleReadOnly && (this.visibleUserDefinedCnt > 0);
+        this.renameScheduleEnabled = !this.selectedSchedule.titleReadOnly;
+    }
     public cancelRenameSchedule() {
         console.log('{schedule-table}', '[cancelRenameSchedule]', this.newScheduleTitle);
         this.renameScheduleClicked = false;
         this.newScheduleTitle = '';
-    }
-    private setOnTimeEnable() {
-        console.log('{schedule-table}', '[setOnTimeEnable]');
-        // if (this.selectedRow[0].taskName1) {
-        //     this.scheduleService.enableTask(this.selectedRow[0].taskName1);
-        // }
-        this.displayEnableOnTime = false;
-        this.displayDisableOnTime = true;
-    }
-    private setOnTimeDisable() {
-        console.log('{schedule-table}', '[setOnTimeDisable]');
-        // if (this.selectedRow[0].taskName1) {
-        //     this.scheduleService.disableTask(this.selectedRow[0].taskName1);
-        // }
-        this.displayEnableOnTime = true;
-        this.displayDisableOnTime = false;
-    }
-    private setOffTimeEnable() {
-        console.log('{schedule-table}', '[setOffTimeEnable]');
-        // if (this.selectedRow[0].taskName2) {
-        //     this.scheduleService.enableTask(this.selectedRow[0].taskName2);
-        // }
-        this.displayEnableOffTime = false;
-        this.displayDisableOffTime = true;
-    }
-    private setOffTimeDisable() {
-        console.log('{schedule-table}', '[setOffTimeDisable]');
-        // if (this.selectedRow[0].taskName2) {
-        //     this.scheduleService.disableTask(this.selectedRow[0].taskName2);
-        // }
-        this.displayEnableOffTime = true;
-        this.displayDisableOffTime = false;
     }
     public startOneShot() {
         console.log('{schedule-table}', '[startOneShot]');
@@ -364,5 +373,128 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public stopOneShot() {
          console.log('{schedule-table}', '[stopOneShot]');
         this.scheduleService.stopSchedule(this.selectedSchedule.id);
+    }
+
+    public updateOnTimeValue(newOnTimeValue) {
+        console.log('{schedule-table}', '[updateOnTimeValue]', newOnTimeValue);
+        this.newOnTime = newOnTimeValue;
+        this.checkInputModified();
+    }
+    public updateOffTimeValue(newOffTimeValue) {
+        console.log('{schedule-table}', '[updateOffTimeValue]', newOffTimeValue);
+        this.newOffTime = newOffTimeValue;
+        this.checkInputModified();
+    }
+
+    public updateOnTimeIsEnabled(onTimeIsEnabled) {
+        console.log('{schedule-table}', '[updateOnTimeIsEnabled]', onTimeIsEnabled);
+        this.pendingOnTimeIsEnabled = onTimeIsEnabled;
+        this.checkInputModified();
+    }
+    public updateOffTimeIsEnabled(offTimeIsEnabled) {
+        console.log('{schedule-table}', '[updateOffTimeIsEnabled]', offTimeIsEnabled);
+        this.pendingOffTimeIsEnabled = offTimeIsEnabled;
+        this.checkInputModified();
+    }
+    public checkInputModified() {
+        let selectedItem: ScheduleItem = this.selectedRow[0];
+
+        if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
+            this.inputIsModified = true;
+            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===0)', this.pendingOnTimeIsEnabled, selectedItem.enableFlag1);
+        } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
+            this.inputIsModified = true;
+            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===1)', this.pendingOnTimeIsEnabled, selectedItem.enableFlag1);
+        } else if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
+            this.inputIsModified = true;
+            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===0)', this.pendingOffTimeIsEnabled, selectedItem.enableFlag2);
+        } else if (!this.pendingOffTimeIsEnabled && selectedItem.enableFlag2) {
+            this.inputIsModified = true;
+            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===1)', this.pendingOffTimeIsEnabled, selectedItem.enableFlag2);
+        } else if (this.newOnTime !== selectedItem.onTime) {
+            this.inputIsModified = true;
+            console.log('{schedule-table}', '[checkInputModified]', 'this.newOnTime', this.newOnTime, ' !== selectedItem.onTime', selectedItem.onTime);
+        } else if (this.newOffTime !== selectedItem.offTime) {
+            this.inputIsModified = true;
+            console.log('{schedule-table}', '[checkInputModified]', 'this.newOffTime', this.newOffTime, ' !== selectedItem.offTime', selectedItem.offTime);
+        } else {
+            this.inputIsModified = false;
+        }
+        console.log('{schedule-table}', '[checkInputModified]', 'inputIsModified', this.inputIsModified);
+    }
+    // click event handler for save button
+    public saveModified() {
+        let selectedItem: ScheduleItem = this.selectedRow[0];
+        if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
+            this.scheduleService.enableTask(this.selectedRow[0].taskName1);
+        } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
+            this.scheduleService.disableTask(this.selectedRow[0].taskName1);
+        }
+
+        if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
+            this.scheduleService.enableTask(this.selectedRow[0].taskName2);
+        } else if (!this.pendingOffTimeIsEnabled && selectedItem.enableFlag2) {
+            this.scheduleService.disableTask(this.selectedRow[0].taskName2);
+        }
+
+        if (this.newOnTime !== selectedItem.onTime) {
+            if (this.newOnTime && this.selectedRow.length === 1 && this.newOnTime !== selectedItem.onTime) {
+                if (selectedItem && selectedItem.taskName1) {
+                    selectedItem.onTime = this.newOnTime;
+                    const hh = this.newOnTime.split(':')[0];
+                    const mm = this.newOnTime.split(':')[1];
+                    const dgtime = selectedItem.filter1.split(' ');
+                    dgtime[4] = hh;
+                    dgtime[5] = mm;
+
+                    if (this.displayPeriodicSchedules) {
+                        if (this.checkBeforeCutoffTime(+hh, +mm)) {
+                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
+                        } else {
+                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
+                        }
+                    } else {
+                        if (UtilService.isTimeExpired(+hh, +mm)) {
+                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
+                        } else {
+                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
+                        }
+                    }
+                    const filter = dgtime.join(' ');
+                    console.log('{schedule-table}', '[saveModified]', 'onTime=', hh, mm, 'filter=', filter);
+                    this.scheduleService.setFilter(selectedItem.taskName1, filter);
+                }
+            }
+        }
+
+        if (this.newOffTime !== selectedItem.offTime) {
+            if (this.newOffTime && this.selectedRow.length === 1 && this.newOffTime !== selectedItem.offTime) {
+                if (selectedItem && selectedItem.taskName2) {
+                    selectedItem.offTime = this.newOffTime;
+                    const hh = this.newOffTime.split(':')[0];
+                    const mm = this.newOffTime.split(':')[1];
+                    const dgtime = selectedItem.filter2.split(' ');
+                    dgtime[4] = hh;
+                    dgtime[5] = mm;
+                    if (this.checkBeforeCutoffTime(+hh, +mm)) {
+                        dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
+                    } else {
+                        dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
+                    }
+                    const filter = dgtime.join(' ');
+                    console.log('{schedule-table}', '[saveModified]', 'offTime=', hh, mm, 'filter=', filter);
+                    this.scheduleService.setFilter(selectedItem.taskName2, filter);
+                }
+            }
+        }
+    }
+
+    public checkBeforeCutoffTime(hour: number, minute: number): boolean {
+        let cutoffHr = +this.cutoffTime.split(':')[0];
+        let cutoffMin = +this.cutoffTime.split(':')[1];
+        if (hour < cutoffHr || (hour === cutoffHr && minute < cutoffMin)) {
+            return true;
+        }
+        return false;
     }
 }

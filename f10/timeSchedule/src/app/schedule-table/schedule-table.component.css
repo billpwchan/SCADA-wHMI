@@ -41,3 +41,56 @@
     font-size: medium;
     margin-left: 10px;
 }
+#schedule-item-detail {
+    width: 50%;
+}
+#label-on-time {
+    font-size: medium;
+    padding: 2px;
+}
+#label-off-time {
+    font-size: medium;
+    padding: 2px;
+}
+#add-schedule-select-apply-cancel {
+    font-size: medium;
+    padding: 4px;
+    padding-top: 10px;
+}
+#rename-schedule-input-apply-cancel {
+    font-size: medium;
+    padding: 4px;
+    padding-top: 10px;
+}
+#input-rename-schedule {
+    width: 25%;
+}
+#select-new-schedule {
+    width: 25%;
+}
+.label {
+    margin: 2px;
+}
+.input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: medium;
+    margin: 2px;
+}
+.input:hover {
+    border: 1px solid #adadad;
+    border-radius: 4px;
+    background-color: #e6e6e6;
+}
+.select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: medium;
+    padding: 2px;
+}
+#newOnTimeInvalid {
+    width: 25%;
+}
+#newOffTimeInvalid {
+    width: 25%;
+}

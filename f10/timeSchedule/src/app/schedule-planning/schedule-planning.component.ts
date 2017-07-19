@@ -28,6 +28,7 @@ export class SchedulePlanningComponent implements OnInit {
     public runningSchedulesStr: string;
 
     public defaultWeeklyConfig: any;
+    public periodicPlanningDuration: number;
 
     private subRoute: any;
     private subSchedules: any;
@@ -56,6 +57,9 @@ export class SchedulePlanningComponent implements OnInit {
     private loadConfig() {
         this.defaultWeeklyConfig = this.configService.config.getIn(['schedule_planning', 'weekly_planning']);
         console.log('{schedule-table}', '[loadConfig]', 'defaultWeeklyConfig=', this.defaultWeeklyConfig);
+
+        this.periodicPlanningDuration = this.configService.config.getIn(['schedule_planning', 'periodic_planning_duration']);
+        console.log('{schedule-table}', '[loadConfig]', 'periodicPlanningDuration=', this.periodicPlanningDuration);
     }
 
     private loadData() {
@@ -140,8 +144,8 @@ export class SchedulePlanningComponent implements OnInit {
                 console.log('{schedule-planning}', '[updateWeeklyPlan]', 'current date', currentDate.getFullYear(), currentDate.getMonth()+1, currentDate.getDate(),
                 'next date', nextDate.getFullYear(), nextDate.getMonth()+1, nextDate.getDate());
 
-                let datesList = UtilService.getWeekDatesList(wdayList, currentDate, 180);
-                let nextDatesList = UtilService.getWeekNextDatesList(wdayList, nextDate, 180);
+                let datesList = UtilService.getWeekDatesList(wdayList, currentDate, this.periodicPlanningDuration);
+                let nextDatesList = UtilService.getWeekNextDatesList(wdayList, nextDate, this.periodicPlanningDuration);
 
                 if (datesList && datesList.length > 0) {
                     this.scheduleService.setSchedulePlanDates(s.id, datesList, nextDatesList);
@@ -161,8 +165,8 @@ export class SchedulePlanningComponent implements OnInit {
             console.log('{schedule-planning}', '[updateWeeklyPlan]', 'current date', currentDate.getFullYear(), currentDate.getMonth()+1, currentDate.getDate(),
              'next date', nextDate.getFullYear(), nextDate.getMonth()+1, nextDate.getDate());
 
-            let datesList = UtilService.getWeekDatesList(value, currentDate, 180);
-            let nextDatesList = UtilService.getWeekNextDatesList(value, currentDate, 180);
+            let datesList = UtilService.getWeekDatesList(value, currentDate, this.periodicPlanningDuration);
+            let nextDatesList = UtilService.getWeekNextDatesList(value, currentDate, this.periodicPlanningDuration);
 
             if (datesList && datesList.length > 0) {
                 this.scheduleService.setSchedulePlanDates(key, datesList, nextDatesList);

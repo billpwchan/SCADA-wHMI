@@ -109,15 +109,16 @@ export class ScsTscService {
     //
     // setFilter
     //
-    public setFilter(taskName: string, filter: string, clientName: string): Observable<string[]> {
-        const url = this.urlScsTsc + ScsTscDef.SET_FILTER + taskName + ScsTscDef.SET_FILTER_PARAM + filter + ScsTscDef.CLIENT_PARAM + clientName;
+    public setFilter(taskName: string, filter: string, clientName: string): Observable<any> {
+        const quotedFilter = '"' + filter + '"';
+        const url = this.urlScsTsc + ScsTscDef.SET_FILTER + taskName + ScsTscDef.SET_FILTER_PARAM + quotedFilter + ScsTscDef.CLIENT_PARAM + clientName;
         console.log('{ScsTscService}', '[setFilter]', 'taskName=', taskName, ' filter=', filter, 'url=', url);
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }
     //
     // setEnableFlag
     //
-    public enableTask(taskName: string, enableFlag: number, clientName: string): Observable<string[]> {
+    public enableTask(taskName: string, enableFlag: number, clientName: string): Observable<any> {
         let url: string;
         console.log('{ScsTscService}', '[enableTask]', 'taskName=', taskName, ' enableFlag=', enableFlag);
         if (enableFlag) {

@@ -12,6 +12,20 @@ export class UtilService {
         return false;
     }
 
+    public static isYesterday(d: string): boolean {
+        let seconds = +d;
+        let testDate = new Date(seconds*1000);
+        let yesterday = new Date();
+        yesterday.setTime(yesterday.getTime() - 86400000);
+
+        if (testDate.getFullYear() === yesterday.getFullYear() &&
+            testDate.getMonth() === yesterday.getMonth() &&
+            testDate.getDate() === yesterday.getDate()) {
+            return true;
+        }
+        return false;
+    }
+
     public static includesComingDayOfWeek(d: string, dayofweek: number): boolean {
         let seconds = +d;
         let testDate = new Date(seconds*1000);
@@ -68,5 +82,14 @@ export class UtilService {
         }
 
         return datesList;
+    }
+
+    public static isTimeExpired(hour: number, minute: number): boolean {
+        console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute);
+        let currentDate = new Date();
+        if (hour < currentDate.getHours() || (hour === currentDate.getHours() && minute < currentDate.getMinutes())) {
+            return true;
+        }
+        return false;
     }
 }

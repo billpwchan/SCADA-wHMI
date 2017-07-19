@@ -4,21 +4,15 @@
 
 	<header key="header">
 		<ScsOlsListElement>UILayoutChatterSummaryViewerScsOlsListPanel</ScsOlsListElement>
-		
-		<EnableRowUpdated>false</EnableRowUpdated>
-		
-		<ExportDataColumns>scsalarmList_datetime_name,scsalarmList_area_name,scsalarmList_funccat_name,scsalarmList_sourceID_name,scsalarmList_alarmText_name,scsalarmList_priority_name</ExportDataColumns>
-		<ExportDataColumns>&amp;scsalarmList_datetime_name,&amp;scsalarmList_area_name,&amp;scsalarmList_funccat_name,&amp;scsalarmList_sourceID_name,&amp;scsalarmList_alarmText_name,&amp;scsalarmList_priority_name</ExportDataColumns>
-		<ExportDataSpliter>,</ExportDataSpliter>
-		
+
 		<!--  DebugID to the Target Generic Data Grid, Printer will using it to walkthough the GDD in the DOM -->
 		<PrintDataDebugId>gwt-debug-UILayoutChatterSummaryViewerScsOlsListPanel</PrintDataDebugId>
 		<!-- Columns Header Display in the CSS, it support the translation; More a column should be split by ','-->
-		<PrintDataColumns>&amp;scsalarmList_datetime_name,&amp;scsalarmList_area_name,&amp;scsalarmList_funccat_name,&amp;scsalarmList_sourceID_name,&amp;scsalarmList_alarmText_name,&amp;scsalarmList_priority_name</PrintDataColumns>
+		<PrintDataColumns>&amp;chatterfiltermgn_area_name,&amp;chatterfiltermgn_funccat_name,&amp;chatterfiltermgn_equipmentlabel_name,&amp;chatterfiltermgn_nominstance_name</PrintDataColumns>
 		<!-- Columns index will be export to the CSV; More a column should be split by ','-->
-		<PrintDataIndexs>0,1,2,3,4,5</PrintDataIndexs>
+		<PrintDataIndexs>0,1,2,3</PrintDataIndexs>
 		<!-- CSV File name will be export to -->
-		<PrintDataAttachement>EventList.csv</PrintDataAttachement>
+		<PrintDataAttachement>ChatterFilterTable.csv</PrintDataAttachement>
 		
 		<PrintDataStart>0</PrintDataStart>
 		<PrintDataLength>8000</PrintDataLength>

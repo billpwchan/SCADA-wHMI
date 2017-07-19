@@ -2,18 +2,12 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<ListConfigId>scsdpcList</ListConfigId>
+		<ListConfigId>chatterfiltermgn</ListConfigId>
 		<MenuEnableCallImage>true</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
 		<DebugId>UILayoutChatterSummaryViewerScsOlsListPanel</DebugId>
 		<PagerName>SCADAgenPager</PagerName>
-		<MwtEventBusName>scsdpcList</MwtEventBusName>
+		<MwtEventBusName>chatterfiltermgn</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
-		<!--
-		<OlsCssPrefix>OLS_LIST_</OlsCssPrefix>
-		<GDGAttributeString1>priority</GDGAttributeString1>
-		<GDGAttributeString2>state</GDGAttributeString2>
-		<GDGAttributeString3>GDGMessage03</GDGAttributeString3>
-		-->
 	</header>
 </data-set>

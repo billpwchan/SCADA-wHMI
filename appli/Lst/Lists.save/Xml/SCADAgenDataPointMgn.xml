@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
 <!-- StateList HDVRequestDataList XML save file -->
-<StateList multi="YES" mode="MANDATORY" name="almmgnvalidated" creatorId="0" description="almmgnvalidated" comment="" activate="YES">
+<StateList multi="YES" mode="MANDATORY" name="SCADAgenDataPointMgn" creatorId="0" description="SCADAgenDataPointMgn" comment="" activate="YES">
 	<Column>
 
 		<Name value="forceddate"></Name>

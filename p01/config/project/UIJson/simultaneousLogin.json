@@ -4,8 +4,6 @@
 	, "GwsIdentityType": "IpAddress"
 	, "UsrIdentityType": "Operator"
 
-	, "RecordThreshold": 0
-	
 	, "ByPassUsrIdentity": ["ADMIN"]
 	, "ByPassUsrIdentityIgnoreCase": false
 }

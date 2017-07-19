@@ -10,6 +10,7 @@ import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.BitPosDescription;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.ParameterAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin_i.StorageAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSimultaneousLoginControl_i.GwsIdendifyType;
@@ -109,8 +110,8 @@ public class SimultaneousLogin {
 		logger.end(className, function);
 	}
 	
-	public void init() {
-		final String function = "init";
+	public void loadConfig() {
+		final String function = "loadConfig";
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "dictionariesCacheName[{}] fileName[{}]", dictionariesCacheName, fileName);
@@ -132,21 +133,50 @@ public class SimultaneousLogin {
 		dbAttrResrvUnreserveReqID = ReadJson.readString(jsonObject, ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), defaultDbAttrResrvUnreserveReqID);
 		logger.debug(className, function, "DbAttrResrvUnreserveReqID[{}]  dbAttrResrvUnreserveReqID[{}]", ParameterAttribute.DbAttrResrvUnreserveReqID.toString(), dbAttrResrvUnreserveReqID);
 
-		recordThreshold = ReadJson.readInt(jsonObject, ParameterAttribute.RecordThreshold.toString(), defaultRecordThreshold);
-		logger.debug(className, function, "RecordThreshold[{}]  recordThreshold[{}]", ParameterAttribute.RecordThreshold.toString(), recordThreshold);
+		recordThreshold = defaultRecordThreshold;
+//		recordThreshold = ReadJson.readInt(jsonObject, ParameterAttribute.RecordThreshold.toString(), defaultRecordThreshold);
+//		logger.debug(className, function, "RecordThreshold[{}]  recordThreshold[{}]", ParameterAttribute.RecordThreshold.toString(), recordThreshold);
 		
 		byPassUsrIdentity = ReadJson.readStringArray(jsonObject, ParameterAttribute.ByPassUsrIdentity.toString());
 		logger.debug(className, function, "ByPassUsrIdentity[{}]  byPassUsrIdentity[{}]", ParameterAttribute.ByPassUsrIdentity.toString(), byPassUsrIdentity);
 		
 		byPassUsrIdentityIgnoreCase = ReadJson.readBoolean(jsonObject, ParameterAttribute.ByPassUsrIdentityIgnoreCase.toString(), defaultPassUsrIdentityIgnoreCase);
 		logger.debug(className, function, "ByPassUsrIdentityIgnoreCase[{}]  byPassUsrIdentityIgnoreCase[{}]", ParameterAttribute.ByPassUsrIdentityIgnoreCase.toString(), byPassUsrIdentityIgnoreCase);
+
+		logger.end(className, function);
+	}
+	
+	public boolean isSelfIdentityReady() {
+		final String function = "isSelfIdentityReady";
+		logger.begin(className, function);
 		
-		OpmMgr opmMgr = OpmMgr.getInstance();
-		UIOpm_i uiOpm_i = opmMgr.getOpm(opmApi);
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
 		if ( null == uiOpm_i ) logger.warn(className, function, "opmApi[{}] IS NULL", opmApi);
 		
 		selfGwsIdentity = getSelfGwsIdentity(uiOpm_i, getGwsIdentityType());
 		logger.debug(className, function, "selfGwsIdentity[{}]", selfGwsIdentity);
+
+		logger.end(className, function);
+		
+		return (null!=selfGwsIdentity);
+	}
+	
+	public boolean isUsrIdentityReady() {
+		final String function = "isUsrIdentityReady";
+		logger.begin(className, function);
+		
+		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(opmApi);
+		if ( null == uiOpm_i ) logger.warn(className, function, "opmApi[{}] IS NULL", opmApi);
+
+		usrIdentity = getUsrIdentity(uiOpm_i, getUsrIdentityType());
+		logger.end(className, function);
+
+		return (null!=usrIdentity);
+	}
+	
+	public boolean getWkstInfo() {
+		final String function = "getWkstInfo";
+		logger.begin(className, function);
 		
 		selfGwsArea = getArea(selfGwsIdentity);
 		selfGwsScsEnvId = getScsEnvId(selfGwsIdentity);
@@ -154,10 +184,9 @@ public class SimultaneousLogin {
 		logger.debug(className, function, "selfGwsIdentity[{}] selfGwsArea[{}] selfGwsScsEnvId[{}] selfGwsAlias[{}]"
 				, new Object[]{selfGwsIdentity, selfGwsArea, selfGwsScsEnvId, selfGwsAlias});
 
-		usrIdentity = getUsrIdentity(uiOpm_i, getUsrIdentityType());
-		logger.debug(className, function, "usrIdentity[{}]", usrIdentity);
-
 		logger.end(className, function);
+		
+		return (null!=selfGwsAlias);
 	}
 	
 	public String getArea(String key) {
@@ -284,6 +313,7 @@ public class SimultaneousLogin {
 				else {
 					if ( 0 == usrIdentity.compareTo(byPassUsrIdentity) ) valid = true;
 				}
+				if ( valid ) break;
 			}
 		}
 
@@ -310,6 +340,35 @@ public class SimultaneousLogin {
 					logger.debug(className, function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS EQUAL, Gws Reserved", gwsUsrIdentity, selfUsrIdentity);
 				 } else {
 					 logger.warn(className, function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS NOT EQUAL", gwsUsrIdentity, selfUsrIdentity);
+				 }
+			 } else {
+				 logger.warn(className, function, "gwsUsrIdentity IS NULL");
+			 }
+		 } else {
+			 logger.warn(className, function, "entity IS NULL");
+		 }
+		 logger.end(className, function);
+		 return result;
+	}
+	
+	public boolean reservedByOther(String selfGwsIdentity, String selfUsrIdentity) {
+		final String function = "reservedByOther";
+		logger.begin(className, function);
+		boolean result = false;
+		
+		logger.debug(className, function, "selfGwsIdentity[{}] selfUsrIdentity[{}]", selfGwsIdentity, selfUsrIdentity);
+		 Map<String, String> entity = storage.get(selfGwsIdentity);
+		 if ( null != entity ) {
+			 String gwsUsrIdentity = entity.get(StorageAttribute.ResrReservedID.toString());
+			 logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
+			 if ( null != gwsUsrIdentity ) {
+				 if ( gwsUsrIdentity.trim().length() > 0 && ! gwsUsrIdentity.equals(selfUsrIdentity) ) {
+					 
+					 result = true;
+
+					 logger.warn(className, function, "gwsUsrIdentity[{}] AND selfUsrIdentity[{}] IS EQUAL, Gws Reserved by other", gwsUsrIdentity, selfUsrIdentity);
+				 } else {
+					 logger.warn(className, function, "gwsUsrIdentity[{}] IS Empty OR gwsUsrIdentity selfUsrIdentity[{}] IS EQUAL, Gws Reserved by Self", gwsUsrIdentity, selfUsrIdentity);
 				 }
 			 } else {
 				 logger.warn(className, function, "gwsUsrIdentity IS NULL");
@@ -377,8 +436,37 @@ public class SimultaneousLogin {
 //	private int unSetBit(int b, int p) { return b = b & ~ ( 1 << p ); }
 //	private boolean isBitSet(int b, int p) { return ( (b & (1 << p)) != 0 ); }
 	
-	public int validateLogin() {
-		final String function = "validateLogin";
+	public String getBitPosString(final int input) {
+		String result= null;
+		if ( input == SimultaneousLogin_i.Bit_Pos_SelfGwsIdentity_IsInvalid ) {
+			result = BitPosDescription.SelfGwsIdentity_IsInvalid.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_SelfGwsArea_IsInvalid ) {
+			result = BitPosDescription.SelfGwsArea_IsInvalid.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_SelfUsrIdentity_IsInvalid ) {
+			result = BitPosDescription.SelfUsrIdentity_IsInvalid.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_Storage_IsEmpty ) {
+			result = BitPosDescription.Storage_IsEmpty.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_ReservedInOtherArea ) {
+			result = BitPosDescription.ReservedInOtherArea.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity ) {
+			result = BitPosDescription.IsByPassUsrIdentity.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_ReservedSelfGws ) {
+			result = BitPosDescription.ReservedSelfGws.toString();
+		}
+		else if ( input == SimultaneousLogin_i.Bit_Pos_ReservedByOther ) {
+			result = BitPosDescription.ReservedByOther.toString();
+		}
+		return result;
+	}
+	
+	public int validateCondition() {
+		final String function = "validateCondition";
 		logger.begin(className, function);
 		
 		String selfGwsIdentity	= getGwsIdentity();
@@ -391,8 +479,14 @@ public class SimultaneousLogin {
 				, new Object[]{selfGwsIdentity, selfGwsArea, selfUsrIdentity, recordThreshold});
 		
 		int result = 0;
-		
-		if ( null == selfGwsIdentity ) {
+
+		if ( isByPassUsrIdentity() ) {
+			
+			result = result | SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity;
+
+			logger.debug(className, function, "isByPassUsrIdentity IS TRUE result[{}]", result);
+		} 
+		else if ( null == selfGwsIdentity ) {
 			
 			result = result | SimultaneousLogin_i.Bit_Pos_SelfGwsIdentity_IsInvalid;
 
@@ -410,17 +504,18 @@ public class SimultaneousLogin {
 
 			logger.warn(className, function, "usrIdentity IS NULL");
 		}
-		else if ( isByPassUsrIdentity() ) {
-			
-			result = result | SimultaneousLogin_i.Bit_Pos_IsByPassUsrIdentity;
-
-			logger.debug(className, function, "isByPassUsrIdentity IS TRUE result[{}]", result);
-		}
 		else {
 			
 			if ( null != storage ) {
 				
 				logger.debug(className, function, "storage size[{}]", storage.size());
+				
+				if ( reservedByOther(selfGwsIdentity, selfUsrIdentity) ) {
+					
+					result = result | SimultaneousLogin_i.Bit_Pos_ReservedByOther;
+					
+					logger.debug(className, function, "reservedByOther IS TRUE result[{}]", result);
+				}
 				
 				if ( reservedBySelf(selfGwsIdentity, selfUsrIdentity) ) {
 					

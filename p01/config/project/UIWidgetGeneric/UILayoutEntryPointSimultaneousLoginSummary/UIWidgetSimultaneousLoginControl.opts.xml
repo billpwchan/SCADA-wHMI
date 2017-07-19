@@ -18,11 +18,17 @@
 		<!-- Column Name to retrive the Current Workstation Reserved ID -->
 		<ColumnNameResrReservedID>gdg_column_resrvreservedid</ColumnNameResrReservedID>
 		
-		<!-- Gws Self Information delay Time in MS-->
-		<InitDelayTime>15000</InitDelayTime>
+		<!-- Receive the Self Identity from Server Side in MS-->
+		<IntervalPhaseA>1000</IntervalPhaseA>
 		
-		<!-- Global Gws Information delay Time in MS-->
-		<DataDelayTime>20000</DataDelayTime>
+		<!-- Receive Self Wkst from GDG in MS-->
+		<IntervalPhaseB>1000</IntervalPhaseB>
+		
+		<!-- Receive Duplicate Area in MS -->
+		<IntervalPhaseC>5000</IntervalPhaseC>
+		
+		<!-- Waiting reserve timeout in MS -->
+		<IntervalPhaseD>10000</IntervalPhaseD>
 		
 	</header>
 	
@@ -171,6 +177,38 @@
 		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_msg</OperationString4>
 		<OperationString5>forward_invalid_procedure</OperationString5>
 		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_cannot_connect_server_opt1_lbl</OperationString7>
+	</action>
+	
+	<actionset key="login_invalid_reserve_timeout_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirm_msg_reserve_timeout</OperationString1>
+	</actionset>
+	
+	<action key="confirm_msg_reserve_timeout">
+		<OperationType>confirm_msg</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_WAR</OperationString2>
+		<OperationString3>&amp;UILayoutEntryPointSimultaneousLogin_reserve_timeout_title</OperationString3>
+		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_reserve_timeout_msg</OperationString4>
+		<OperationString5>forward_invalid_procedure</OperationString5>
+		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_reserve_timeout_opt1_lbl</OperationString7>
+	</action>
+	
+	<actionset key="login_invalid_reserved_by_other_procedure">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>confirm_msg_reserve_by_other</OperationString1>
+	</actionset>
+	
+	<action key="confirm_msg_reserve_by_other">
+		<OperationType>confirm_msg</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_WAR</OperationString2>
+		<OperationString3>&amp;UILayoutEntryPointSimultaneousLogin_reserve_by_other_title</OperationString3>
+		<OperationString4>&amp;UILayoutEntryPointSimultaneousLogin_reserve_by_other_msg</OperationString4>
+		<OperationString5>forward_invalid_procedure</OperationString5>
+		<OperationString7>&amp;UILayoutEntryPointSimultaneousLogin_reserve_by_other_opt1_lbl</OperationString7>
 	</action>
 
 	<actionset key="forward_invalid_procedure">

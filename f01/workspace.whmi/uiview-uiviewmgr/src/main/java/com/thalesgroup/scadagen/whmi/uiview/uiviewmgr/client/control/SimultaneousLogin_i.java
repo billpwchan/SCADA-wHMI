@@ -9,6 +9,23 @@ public interface SimultaneousLogin_i {
 	public static final int Bit_Pos_ReservedInOtherArea			= 1 << 4;
 	public static final int Bit_Pos_IsByPassUsrIdentity			= 1 << 5;
 	public static final int Bit_Pos_ReservedSelfGws				= 1 << 6;
+	public static final int Bit_Pos_ReservedByOther				= 1 << 7;
+	
+	public enum BitPosDescription {
+		  SelfGwsIdentity_IsInvalid("SelfGwsIdentity_IsInvalid")
+		, SelfGwsArea_IsInvalid("SelfGwsArea_IsInvalid")
+		, SelfUsrIdentity_IsInvalid("SelfUsrIdentity_IsInvalid")
+		, Storage_IsEmpty("Storage_IsEmpty")
+		, ReservedInOtherArea("ReservedInOtherArea")
+		, IsByPassUsrIdentity("IsByPassUsrIdentity")
+		, ReservedSelfGws("ReservedSelfGws")
+		, ReservedByOther("ReservedByOther")
+		;
+		private final String text;
+		private BitPosDescription(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
+	}
 	
 	public enum ParameterAttribute {
 		  OpmApi("OpmApi")

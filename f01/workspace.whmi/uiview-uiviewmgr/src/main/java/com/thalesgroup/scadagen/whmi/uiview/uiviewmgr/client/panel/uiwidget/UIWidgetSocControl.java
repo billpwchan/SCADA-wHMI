@@ -1,7 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -377,9 +376,10 @@ public class UIWidgetSocControl extends UIWidget_i {
 				skipElement = element;
 			}
 			
-			resrvReserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Name_resrvReserveReqID.toString(), strHeader);
-			resrvUnreserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Name_resrvUnreserveReqID.toString(), strHeader);
-			resrvReservedID			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.Name_resrvReservedID.toString(), strHeader);
+			resrvReserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeReserveReqID.toString(), strHeader);
+			resrvUnreserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeUnreserveReqID.toString(), strHeader);
+			resrvReservedID			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeReservedID.toString(), strHeader);
+			
 			reserveAttributeName	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeName.toString(), strHeader);
 			reserveAttributeType	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeType.toString(), strHeader);
 			reservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReservedValueStr.toString(), strHeader);

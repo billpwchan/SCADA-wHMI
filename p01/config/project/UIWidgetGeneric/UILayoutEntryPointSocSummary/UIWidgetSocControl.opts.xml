@@ -15,14 +15,11 @@
 		<StopElement>stop</StopElement>
 		<RetryElement>retry</RetryElement>
 		<SkipElement>skip</SkipElement>
+
+		<ReserveAttributeReserveReqID>resrvReserveReqID</ReserveAttributeReserveReqID>
+		<ReserveAttributeUnreserveReqID>resrvUnreserveReqID</ReserveAttributeUnreserveReqID>
+		<ReserveAttributeReservedID>resrvReservedID</ReserveAttributeReservedID>
 		
-		<!--<ReserveAttributeName>Reservation_Id</ReserveAttributeName>
-		<ReserveAttributeType>String</ReserveAttributeType>
-		<ReservedValueStr>Operator</ReservedValueStr>
-		<UnreservedValueStr></UnreservedValueStr>-->
-		<Name_resrvReserveReqID>resrvReserveReqID</Name_resrvReserveReqID>
-		<Name_resrvUnreserveReqID>resrvUnreserveReqID</Name_resrvUnreserveReqID>
-		<Name_resrvReservedID>resrvReservedID</Name_resrvReservedID>
 		<ReserveAttributeName>reserved</ReserveAttributeName>
 		<ReserveAttributeType>Integer</ReserveAttributeType>
 		<ReservedValueStr>1</ReservedValueStr>

@@ -130,11 +130,11 @@
         <p:textItem sourceValue="59" value="scsalarmList_funccat_function59"/>
     </p:column>
 	
-    <p:column filterable="true" i18n="false" name="chatterfiltermgn_equipmentlabel_name" sortable="true" template="{}" templateMarker="{}" width="525" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+    <p:column filterable="true" i18n="false" name="chatterfiltermgn_equipmentlabel_name" sortable="true" template="{}" templateMarker="{}" width="518" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="equipmentlabel" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 	
-    <p:column filterable="true" i18n="false" name="chatterfiltermgn_nominstance_name" sortable="true" template="{}" templateMarker="{}" width="525" widthUnit="PX" xsi:type="p:textTemplateColumnType">
+    <p:column filterable="true" i18n="false" name="chatterfiltermgn_nominstance_name" sortable="true" template="{}" templateMarker="{}" width="518" widthUnit="PX" xsi:type="p:textTemplateColumnType">
         <p:source name="nominstance" xsi:type="cmn:statusDataSourceType"/>
     </p:column>
 

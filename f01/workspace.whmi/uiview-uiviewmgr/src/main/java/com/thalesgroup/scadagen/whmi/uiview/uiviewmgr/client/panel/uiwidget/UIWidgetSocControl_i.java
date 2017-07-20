@@ -11,13 +11,16 @@ public interface UIWidgetSocControl_i {
 		, TargetDataGridColumn_B("TargetDataGridColumn_B")
 		, TargetDataGridColumn_B2("TargetDataGridColumn_B2")
 		, TargetDataGridColumn_B3("TargetDataGridColumn_B3")
+		
 		, StartElement("StartElement")
 		, StopElement("StopElement")
 		, RetryElement("RetryElement")
 		, SkipElement("SkipElement")
-		, Name_resrvReserveReqID("Name_resrvReserveReqID")
-		, Name_resrvUnreserveReqID("Name_resrvUnreserveReqID")
-		, Name_resrvReservedID("Name_resrvReservedID")
+		
+		, ReserveAttributeReserveReqID("ReserveAttributeReserveReqID")
+		, ReserveAttributeUnreserveReqID("ReserveAttributeUnreserveReqID")
+		, ReserveAttributeReservedID("ReserveAttributeReservedID")
+		
 		, ReserveAttributeName("ReserveAttributeName")
 		, ReserveAttributeType("ReserveAttributeType")
 		, ReservedValueStr("ReservedValueStr")

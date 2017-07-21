@@ -42,8 +42,6 @@ public class SimultaneousLogin {
 	private final String defaultGwsIdentityType = "Profile";
 	
 	private final int defaultRecordThreshold = 0;
-	
-	private final boolean defaultPassUsrIdentityIgnoreCase = true;
 
 	private String opmApi = null;
 	public String getOpmApi() { return this.opmApi; }
@@ -139,9 +137,6 @@ public class SimultaneousLogin {
 		
 		byPassUsrIdentity = ReadJson.readStringArray(jsonObject, ParameterAttribute.ByPassUsrIdentity.toString());
 		logger.debug(className, function, "ByPassUsrIdentity[{}]  byPassUsrIdentity[{}]", ParameterAttribute.ByPassUsrIdentity.toString(), byPassUsrIdentity);
-		
-		byPassUsrIdentityIgnoreCase = ReadJson.readBoolean(jsonObject, ParameterAttribute.ByPassUsrIdentityIgnoreCase.toString(), defaultPassUsrIdentityIgnoreCase);
-		logger.debug(className, function, "ByPassUsrIdentityIgnoreCase[{}]  byPassUsrIdentityIgnoreCase[{}]", ParameterAttribute.ByPassUsrIdentityIgnoreCase.toString(), byPassUsrIdentityIgnoreCase);
 
 		logger.end(className, function);
 	}
@@ -238,10 +233,10 @@ public class SimultaneousLogin {
 		else if ( null == usrIdentityType ) {
 			logger.warn(className, function, "usrIdentityType IS NULL");
 		} 
-		else if ( UserIdendifyType.Profile.toString().equals(usrIdentityType) ) {
+		else if ( 0 == UserIdendifyType.Profile.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentProfile();
 		} 
-		else if ( UserIdendifyType.Operator.toString().equals(usrIdentityType) ) {
+		else if ( 0 == UserIdendifyType.Operator.toString().compareTo(usrIdentityType) ) {
 			usrIdentity = uiOpm_i.getCurrentOperator();
 		}
 		else {
@@ -272,10 +267,10 @@ public class SimultaneousLogin {
 		else if ( null == gwsIdentityType ) {
 			logger.warn(className, function, "gwsIdentityType IS NULL");
 		} 
-		else if ( GwsIdendifyType.HostName.toString().equals(gwsIdentityType) ) {
+		else if ( 0 == GwsIdendifyType.HostName.toString().compareTo(gwsIdentityType) ) {
 			selfIdentity = uiOpm_i.getCurrentHostName();
 		}
-		else if ( GwsIdendifyType.IpAddress.toString().equals(gwsIdentityType) ) {
+		else if ( 0 == GwsIdendifyType.IpAddress.toString().compareTo(gwsIdentityType) ) {
 			selfIdentity = uiOpm_i.getCurrentIPAddress();
 		}
 		else {
@@ -307,13 +302,10 @@ public class SimultaneousLogin {
 			for ( int i = 0 ; i < byPassUsrIdentities.length ; ++i ) {
 				String byPassUsrIdentity = byPassUsrIdentities[i];
 				logger.debug(className, function, "byPassUsrIdentity[{}]", byPassUsrIdentity);
-				if ( byPassUsrIdentityIgnoreCase ) {
-					if ( 0 == usrIdentity.compareToIgnoreCase(byPassUsrIdentity) ) valid = true;
-				}
-				else {
-					if ( 0 == usrIdentity.compareTo(byPassUsrIdentity) ) valid = true;
-				}
-				if ( valid ) break;
+				if ( 0 == usrIdentity.compareTo(byPassUsrIdentity) ) {
+					valid = true;
+					break;
+				} 
 			}
 		}
 
@@ -333,7 +325,7 @@ public class SimultaneousLogin {
 			 String gwsUsrIdentity = entity.get(StorageAttribute.ResrReservedID.toString());
 			 logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
 			 if ( null != gwsUsrIdentity ) {
-				 if ( gwsUsrIdentity.equals(selfUsrIdentity) ) {
+				 if ( 0 == gwsUsrIdentity.compareTo(selfUsrIdentity) ) {
 					 
 					result = true;
 
@@ -362,7 +354,7 @@ public class SimultaneousLogin {
 			 String gwsUsrIdentity = entity.get(StorageAttribute.ResrReservedID.toString());
 			 logger.debug(className, function, "gwsUsrIdentity[{}]", gwsUsrIdentity);
 			 if ( null != gwsUsrIdentity ) {
-				 if ( gwsUsrIdentity.trim().length() > 0 && ! gwsUsrIdentity.equals(selfUsrIdentity) ) {
+				 if ( gwsUsrIdentity.trim().length() > 0 && 0 != gwsUsrIdentity.compareTo(selfUsrIdentity) ) {
 					 
 					 result = true;
 
@@ -399,7 +391,7 @@ public class SimultaneousLogin {
 				if ( null == gwsUsrIdentity ) {
 					logger.warn(className, function, "gwsUsrIdentity IS NULL");
 				}
-				else if ( gwsUsrIdentity.equals(selfUsrIdentity) ) {
+				else if ( 0 == gwsUsrIdentity.compareTo(selfUsrIdentity) ) {
 
 					String gwsArea = getArea(gwsIdentity);
 					logger.debug(className, function, "gwsIdentity[{}] selfGwsArea[{}]", gwsIdentity, selfGwsArea);
@@ -416,7 +408,7 @@ public class SimultaneousLogin {
 		
 		for ( Entry<String, Integer> entity : records.entrySet() ) {
 			String a = entity.getKey();
-			if ( null != a && ! a.equals(selfGwsArea) ) {
+			if ( null != a && 0 != a.compareTo(selfGwsArea) ) {
 				Integer record = entity.getValue();
 				if ( null != record ) {
 					if ( record > recordThreshold ) {

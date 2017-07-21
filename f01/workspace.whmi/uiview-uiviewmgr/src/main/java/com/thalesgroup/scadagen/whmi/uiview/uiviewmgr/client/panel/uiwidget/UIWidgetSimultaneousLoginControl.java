@@ -283,10 +283,10 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 									t2.cancel();
 									
 									// Receive Duplicate Area
-									logger.debug(className, function, "Phase B intervalPhaseC[{}] start...", intervalPhaseC);
+									logger.debug(className, function, "Phase C intervalPhaseC[{}] start...", intervalPhaseC);
 									t3 = new Timer() {
 										public void run() {
-											logger.debug(className, function, "Phase B running...");
+											logger.debug(className, function, "Phase C running...");
 
 											if ( ! isReservedByOther() ) {
 												if ( ! isReservedInOtherArea() ) {
@@ -294,13 +294,13 @@ public class UIWidgetSimultaneousLoginControl extends UIWidgetRealize {
 														isDuplicatePassed = true;
 														loginRequest();
 														
-														// Receive Duplicate Area
-														logger.debug(className, function, "Phase B intervalPhaseD[{}] start...", intervalPhaseD);
+														// Reserve Timeout
+														logger.debug(className, function, "Phase D intervalPhaseD[{}] start...", intervalPhaseD);
 														t4 = new Timer() {
 															public void run() {
-																logger.debug(className, function, "Phase B running...");
+																logger.debug(className, function, "Phase D running...");
 																
-																// Reserve Timeout
+																// Exit
 																exit(UIWidgetSimultaneousLoginControl_i.loginInvalidReserveTimeoutProcedure);
 															} // t4 run
 														};

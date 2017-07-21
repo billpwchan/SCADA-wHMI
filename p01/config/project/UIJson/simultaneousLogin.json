@@ -5,5 +5,4 @@
 	, "UsrIdentityType": "Operator"
 
 	, "ByPassUsrIdentity": ["ADMIN"]
-	, "ByPassUsrIdentityIgnoreCase": false
 }

@@ -650,52 +650,42 @@ export class ScheduleService implements OnDestroy {
         }
     }
 
-    public getPlanDayGroupId(scheduleKey): string {
+    public getDayGroupId(scheduleKey, dayGroupType) {
         let schedule = this.scheduleKeyMap.get(scheduleKey);
-        if (this.dayGroupConfig.get(schedule.scheduleType)) {
-            if (this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString())) {
-                if (this.dayGroupConfig.get(schedule.scheduleType)) {
-                    return this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString()).get(ScheduleDef.PLAN_DAY_GROUP);
+        if (schedule && this.dayGroupConfig) {
+            console.log('{ScheduleService}', '[getDayGroupId]', 'scheduleKey', scheduleKey, 'dayGroupType', dayGroupType, this.dayGroupConfig);
+
+            if (this.dayGroupConfig.get(schedule.scheduleType)) {
+                if (this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString())) {
+                    if (this.dayGroupConfig.get(schedule.scheduleType)) {
+                        return this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString()).get(dayGroupType);
+                    } else {
+                        console.log('{ScheduleService}', '[getDayGroupId]', 'this.dayGroupConfig.scheduleType.schedule.dayGroupType is null');
+                    }
+                } else {
+                    console.log('{ScheduleService}', '[getDayGroupId]', 'this.dayGroupConfig.scheduleType.schedule is null');
                 }
+            } else {
+                console.log('{ScheduleService}', '[getDayGroupId]', 'this.dayGroupConfig.scheduleType is null');
             }
         }
         return null;
+    }
+
+    public getPlanDayGroupId(scheduleKey): string {
+        return this.getDayGroupId(scheduleKey, ScheduleDef.PLAN_DAY_GROUP);
     }
 
     public getPlanNextDayGroupId(scheduleKey): string {
-        let schedule = this.scheduleKeyMap.get(scheduleKey);
-        if (this.dayGroupConfig.get(schedule.scheduleType)) {
-            if (this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString())) {
-                if (this.dayGroupConfig.get(schedule.scheduleType)) {
-                    return this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString()).get(ScheduleDef.PLAN_NEXT_DAY_GROUP);
-                }
-            }
-        }
-        return null;
+        return this.getDayGroupId(scheduleKey, ScheduleDef.PLAN_NEXT_DAY_GROUP);
     }
 
     public getRunDayGroupId(scheduleKey): string {
-        let schedule = this.scheduleKeyMap.get(scheduleKey);
-        if (this.dayGroupConfig.get(schedule.scheduleType)) {
-            if (this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString())) {
-                if (this.dayGroupConfig.get(schedule.scheduleType)) {
-                    return this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString()).get(ScheduleDef.RUN_DAY_GROUP);
-                }
-            }
-        }
-        return null;
+        return this.getDayGroupId(scheduleKey, ScheduleDef.RUN_DAY_GROUP);
     }
 
     public getRunNextDayGroupId(scheduleKey): string {
-        let schedule = this.scheduleKeyMap.get(scheduleKey);
-        if (this.dayGroupConfig.get(schedule.scheduleType)) {
-            if (this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString())) {
-                if (this.dayGroupConfig.get(schedule.scheduleType)) {
-                    return this.dayGroupConfig.get(schedule.scheduleType).get(schedule.scheduleId.toString()).get(ScheduleDef.RUN_NEXT_DAY_GROUP);
-                }
-            }
-        }
-        return null;
+        return this.getDayGroupId(scheduleKey, ScheduleDef.RUN_NEXT_DAY_GROUP);
     }
 
     public getRunningSchedules(): Observable<any> {

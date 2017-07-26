@@ -21,11 +21,19 @@ export interface Config {
         show_cutoff_offset: string;
         // 
         unavailable_on_off_time: string;
+        //
+        inhibited_on_off_time: string,
+        //
+        max_userdefined_schedule_count: number,
         // 
         schedule_daygroup: any;
+        //
+        filter: any,
+        //
+        sort: any
     };
     schedule_planning: {
         //
-        weekly_planning: any;
+        periodic_planning_duration: any;
     }
 }

@@ -22,3 +22,8 @@ export class ScheduleItem {
     enableFlag1: number;    // from Inhibition Flag
     enableFlag2: number;    // from Inhibition Flag
 }
+
+export class ScheduleItemFilter {
+    attributeName: string;
+    matchPattern: RegExp;
+}

@@ -22,7 +22,9 @@ export class ConfigService {
             unavailable_on_off_time: 'N/A',
             inhibited_on_off_time: '',
             max_userdefined_schedule_count: 3,
-            schedule_daygroup: {}
+            schedule_daygroup: {},
+            filter: {},
+            sort: {}
         }),
         schedule_planning: Map({
             periodic_planning_duration: 180

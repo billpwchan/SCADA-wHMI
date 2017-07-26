@@ -5,7 +5,7 @@ import { SelectComponent } from 'ng2-select';
 import { DatatableComponent } from '../../../node_modules/@swimlane/ngx-datatable/src/components/datatable.component';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Schedule } from '../type/schedule';
-import { ScheduleItem } from '../type/schedule-item';
+import { ScheduleItem, ScheduleItemFilter } from '../type/schedule-item';
 import { ConfigService } from '../service/config.service';
 import { ScheduleService } from '../service/schedule.service';
 import { UtilService } from '../service/util.service';
@@ -25,8 +25,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     private subRoute: any;
     private subSchedules: any;
     private subScheduleItems: any;
-    // scheduleType filter
-    //private scheduleType: string;
     // display periodic
     public displayPeriodicSchedules: boolean = false;
     // stores schedules returned from ScheduleService
@@ -64,8 +62,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public addScheduleClicked = false;
     public renameScheduleClicked = false;
 
-    // public onTimeIsEnabled = false;
-    // public offTimeIsEnabled = false;
     public pendingOnTimeIsEnabled = false;
     public pendingOffTimeIsEnabled = false;
 
@@ -83,6 +79,15 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     private inhibitedOnOffTime = '';
     // schedule task cut off time
     public cutoffTime: string;
+
+    // ScheduleItem filter list including online/offline filters
+    private schItemFilters: ScheduleItemFilter [];
+
+    // offline filter config
+    private offlineFilters: Map<string, string>;
+
+    // offline sort config
+    private offlineSort: any[];
 
     constructor(
         private configService: ConfigService,
@@ -117,6 +122,12 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.maxUserDefinedScheduleCount = this.configService.config.getIn(['schedule_table', 'max_userdefined_schedule_count']);
         console.log('{schedule-table}', '[loadConfig]', 'max-userdefined-schedule-count=', this.maxUserDefinedScheduleCount);
+
+        this.offlineFilters = this.configService.config.getIn(['schedule_table', 'filter']);
+        console.log('{schedule-table}', '[loadConfig]', 'filter=', this.offlineFilters);
+
+        this.offlineSort = this.configService.config.getIn(['schedule_table', 'sort']);
+        console.log('{schedule-table}', '[loadConfig]', 'sort=', this.offlineSort);
     }
     loadData() {
         this.cleanupSubscriptions();
@@ -134,6 +145,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
             this.scheduleService.setClientName(clientName);
 
+            let runtimeFilters = params['filter'];
+            console.log('{schedule-table}', '[loadData]', 'runtimeFilters =', runtimeFilters);
+
             this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.displayPeriodicSchedules).subscribe(schedules => {
                 this.schedules = schedules;
                 if (schedules && schedules.length > 0) {
@@ -150,20 +164,26 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     }
                     this.updateAddDeleteRenameScheduleButton();
                     this.cancelRenameSchedule();
-//                    this.clearSelectedRow();
-//                    this.filterSchItemsBySchedule();
                 } else {
                     console.log('{schedule-table}', '[loadData]', 'getSchedulesByPeriodic return 0 schedule');
                 }
             })
 
             console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
-            console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
             this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
                 this.scheduleItems = scheduleItems;
                 this.cachedSchItems = [...this.scheduleItems];
                 this.clearSelectedRow();
-                this.filterSchItemsBySchedule();
+                this.clearSchItemFilters();
+                if (this.selectedSchedule) {
+                    this.addSchItemsFilter('scheduleKey', this.selectedSchedule.id);
+                }
+
+                this.addOfflineFilters();
+
+                this.addRuntimeFilters(runtimeFilters);
+
+                this.filterSchItems();
             });
             console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);
         })
@@ -274,11 +294,77 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         return this.selected[0]['$$index'];
     }
 
-    private filterSchItemsBySchedule() {
-        this.scheduleItems = [];
-        for (const r of this.cachedSchItems) {
-            if (this.selectedSchedule && r.scheduleKey === this.selectedSchedule.id) {
-                this.scheduleItems.push(r);
+    private clearSchItemFilters() {
+        this.schItemFilters = [];
+    }
+    private addSchItemsFilter(attributeName: string, filterPattern: string) {
+        let scheduleFilter = new ScheduleItemFilter();
+        scheduleFilter.attributeName = attributeName;
+        scheduleFilter.matchPattern = new RegExp(filterPattern);   
+        this.schItemFilters.push(scheduleFilter);
+         console.log('{schedule-table}', '[addSchItemsFilter]', 'this.schItemFilters.length', this.schItemFilters.length);
+    }
+    private addOfflineFilters() {
+        console.log('{schedule-table}', '[addOfflineFilters]');
+        if (this.offlineFilters) {
+            console.log('{schedule-table}', '[addOfflineFilters]', 'this.offlineFilters', this.offlineFilters);
+            this.offlineFilters.forEach((value: string, key: string) => {
+                console.log('{schedule-table}', '[addOfflineFilters]', 'filter', key, value);
+                let filter = new ScheduleItemFilter();
+                filter.attributeName = key;
+                filter.matchPattern = new RegExp(value);
+                this.schItemFilters.push(filter);
+                console.log('{schedule-table}', '[addOfflineFilters]', 'this.schItemFilters.length', this.schItemFilters.length);
+            })
+        } else {
+            console.log('{schedule-table}', '[addOfflineFilters]', 'this.offlineFilters is null');
+        }
+    }
+    private addRuntimeFilters(runtimeFilters) {
+       console.log('{schedule-table}', '[addRuntimeFilters]');
+        if (runtimeFilters) {
+            console.log('{schedule-table}', '[addRuntimeFilters]', 'runtimeFilters', runtimeFilters);
+            let obj = JSON.parse(runtimeFilters)
+            Object.keys(obj).forEach(key => {
+                console.log('{schedule-table}', '[addRuntimeFilters]', 'key', key, 'value', obj[key]);
+                let filter = new ScheduleItemFilter();
+                filter.attributeName = key;
+                filter.matchPattern = new RegExp(obj[key]);
+                this.schItemFilters.push(filter);
+                console.log('{schedule-table}', '[addRuntimeFilters]', 'this.schItemFilters.length', this.schItemFilters.length);
+            })
+        } else {
+            console.log('{schedule-table}', '[addRuntimeFilters]', 'runtimeFilters is null');
+        }
+    }
+
+    private filterSchItems() {
+        if (this.schItemFilters) {
+            this.scheduleItems = [];
+            console.log('{schedule-table}', '[filterSchItems]', 'this.schItemFilters.length', this.schItemFilters.length);
+            for (const r of this.cachedSchItems) {
+                let matching = true;
+                let filterCnt = 0;
+                for (const f of this.schItemFilters) {
+                    console.log('{schedule-table}', '[filterSchItems]', 'filter', f.attributeName, f.matchPattern);
+                    const attribute: string = r[f.attributeName];
+                    if (attribute) {
+                        //console.log('{schedule-table}', '[filterSchItems]', 'attribute', attribute);
+                        if (!attribute.toString().match(f.matchPattern)) {
+                            matching = false;
+                            console.log('{schedule-table}', '[filterSchItems]', 'attribute', attribute, 'not matching', f.matchPattern);
+                            break;
+                        } else {
+                            console.log('{schedule-table}', '[filterSchItems]', 'attribute', attribute, 'matching', f.matchPattern);
+                        }
+                    } else {
+                        console.log('{schedule-table}', '[filterSchItems]', 'attribute not defined', f.attributeName);
+                        continue;
+                    }
+                }
+                if (matching) {
+                    this.scheduleItems.push(r);
+                }
             }
         }
     }

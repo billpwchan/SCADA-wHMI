@@ -40,7 +40,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public selectedSchedule: Schedule;
     // selected row in table
     public selectedRow = [];
+    public selectedScheduleItem: ScheduleItem;
     public selectedItemDisplay = '';
+    public selectedOnTime = '';
+    public selectedOffTime = '';
     // flag to display 'Add' button
     public addScheduleEnabled = false;
     // flag to display 'Delete' button
@@ -74,6 +77,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public newOffTime = '';
 
     public inputIsModified = false;
+    public newOnTimeValid = true;
+    public newOffTimeValid = true;
+    public inputTimeValid = true;
 
     // string to represent unavailable task
     private unavailableOnOffTime = 'N/A';
@@ -261,29 +267,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                                     this.translate.instant('System_' + scheduleItem.funcCat) + '-' +
                                     this.translate.instant(scheduleItem.eqtLabel)  + '-' + 
                                     this.translate.instant(scheduleItem.eqtDescription);
-        if (scheduleItem.onTime !== this.unavailableOnOffTime) {
-            this.onTimeNotAvailable = false;
-        } else {
-            this.onTimeNotAvailable = true;
-        }
-        if (scheduleItem.enableFlag1) {
-            this.pendingOnTimeIsEnabled = true;
-        } else {
-            this.pendingOnTimeIsEnabled = false;
-        }
-        this.newOnTime = scheduleItem.onTime;
-        if (scheduleItem.offTime !== this.unavailableOnOffTime) {
-            this.offTimeNotAvailable = false;
-        } else {
-            this.offTimeNotAvailable = true;
-        }
-        if (scheduleItem.enableFlag2) {
-            this.pendingOffTimeIsEnabled = true;
-        } else {
-            this.pendingOffTimeIsEnabled = false;
-        }
-        this.newOffTime = scheduleItem.offTime;
-        this.inputIsModified = false;
+        this.resetModified();
     }
     // ngx-datatable callback
     public onActivate(event) {
@@ -409,6 +393,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
     private clearSelectedRow() {
         this.selectedRow = [];
+        this.selectedScheduleItem = null;
         this.selectedItemDisplay = '';
     }
     public addSchedule() {
@@ -496,11 +481,13 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[updateOnTimeValue]', newOnTimeValue);
         this.newOnTime = newOnTimeValue;
         this.checkInputModified();
+        this.checkInputTimeIsValid();
     }
     public updateOffTimeValue(newOffTimeValue) {
         console.log('{schedule-table}', '[updateOffTimeValue]', newOffTimeValue);
         this.newOffTime = newOffTimeValue;
         this.checkInputModified();
+        this.checkInputTimeIsValid();
     }
 
     public updateOnTimeIsEnabled(onTimeIsEnabled) {
@@ -514,30 +501,49 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.checkInputModified();
     }
     public checkInputModified() {
-        let selectedItem: ScheduleItem = this.selectedRow[0];
+        //let selectedItem: ScheduleItem = this.selectedRow[0];
 
-        if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
+        if (this.pendingOnTimeIsEnabled && !this.selectedScheduleItem.enableFlag1) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===0)', this.pendingOnTimeIsEnabled, selectedItem.enableFlag1);
-        } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
+            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===0)', this.pendingOnTimeIsEnabled, this.selectedScheduleItem.enableFlag1);
+        } else if (!this.pendingOnTimeIsEnabled && this.selectedScheduleItem.enableFlag1) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===1)', this.pendingOnTimeIsEnabled, selectedItem.enableFlag1);
-        } else if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
+            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===1)', this.pendingOnTimeIsEnabled, this.selectedScheduleItem.enableFlag1);
+        } else if (this.pendingOffTimeIsEnabled && !this.selectedScheduleItem.enableFlag2) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===0)', this.pendingOffTimeIsEnabled, selectedItem.enableFlag2);
-        } else if (!this.pendingOffTimeIsEnabled && selectedItem.enableFlag2) {
+            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===0)', this.pendingOffTimeIsEnabled, this.selectedScheduleItem.enableFlag2);
+        } else if (!this.pendingOffTimeIsEnabled && this.selectedScheduleItem.enableFlag2) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===1)', this.pendingOffTimeIsEnabled, selectedItem.enableFlag2);
-        } else if (this.newOnTime !== selectedItem.onTime) {
+            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===1)', this.pendingOffTimeIsEnabled, this.selectedScheduleItem.enableFlag2);
+        } else if (this.newOnTime !== this.selectedScheduleItem.onTime) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.newOnTime', this.newOnTime, ' !== selectedItem.onTime', selectedItem.onTime);
-        } else if (this.newOffTime !== selectedItem.offTime) {
+            console.log('{schedule-table}', '[checkInputModified]', 'this.newOnTime', this.newOnTime, ' !== selectedItem.onTime', this.selectedScheduleItem.onTime);
+        } else if (this.newOffTime !== this.selectedScheduleItem.offTime) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.newOffTime', this.newOffTime, ' !== selectedItem.offTime', selectedItem.offTime);
+            console.log('{schedule-table}', '[checkInputModified]', 'this.newOffTime', this.newOffTime, ' !== selectedItem.offTime', this.selectedScheduleItem.offTime);
         } else {
             this.inputIsModified = false;
         }
         console.log('{schedule-table}', '[checkInputModified]', 'inputIsModified', this.inputIsModified);
+    }
+    public checkInputTimeIsValid() {
+        let regexp = /^\d\d:\d\d$/;
+        if (this.newOnTime.match(regexp)) {
+            this.newOnTimeValid = true;
+        } else {
+            this.newOnTimeValid = false;
+        }
+        if (this.newOffTime.match(regexp)) {
+            this.newOffTimeValid = true;
+        } else {
+            this.newOffTimeValid = false;
+        }
+        if (this.newOnTimeValid && this.newOffTimeValid) {
+            this.inputTimeValid = true;
+        } else {
+            this.inputTimeValid = false;
+        }
+        console.log('{schedule-table}', '[checkInputTimeIsValid]', 'inputTimeValid', this.inputTimeValid, 'newOnTime', this.newOnTime, 'newOffTime', this.newOffTime);
     }
     // click event handler for save button
     public saveModified() {
@@ -604,6 +610,40 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 }
             }
         }
+    }
+
+    public resetModified() {
+        let scheduleItem: ScheduleItem = this.selectedRow[0];
+        this.selectedScheduleItem = this.selectedRow[0];
+
+        if (scheduleItem.onTime !== this.unavailableOnOffTime) {
+            this.onTimeNotAvailable = false;
+        } else {
+            this.onTimeNotAvailable = true;
+        }
+        if (scheduleItem.enableFlag1) {
+            this.pendingOnTimeIsEnabled = true;
+        } else {
+            this.pendingOnTimeIsEnabled = false;
+        }
+        this.selectedOnTime = scheduleItem.onTime;
+        this.newOnTime = scheduleItem.onTime;
+        if (scheduleItem.offTime !== this.unavailableOnOffTime) {
+            this.offTimeNotAvailable = false;
+        } else {
+            this.offTimeNotAvailable = true;
+        }
+        if (scheduleItem.enableFlag2) {
+            this.pendingOffTimeIsEnabled = true;
+        } else {
+            this.pendingOffTimeIsEnabled = false;
+        }
+        this.selectedOffTime = scheduleItem.offTime;
+        this.newOffTime = scheduleItem.offTime;
+        this.inputIsModified = false;
+        this.newOnTimeValid = true;
+        this.newOffTimeValid = true;
+        this.inputTimeValid = true;
     }
 
     public checkBeforeCutoffTime(hour: number, minute: number): boolean {

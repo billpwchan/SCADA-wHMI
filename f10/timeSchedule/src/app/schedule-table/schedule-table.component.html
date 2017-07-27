@@ -131,34 +131,38 @@
                     <h4>{{'Equipment' | translate}}</h4>
                 </div>
             </div>
-            <div id="selected-row" *ngFor='let sel of selectedRow'>
+            <div id="selected-row" *ngIf="selectedScheduleItem">
                 <input readonly type="text" class="input" id="schedule-item-detail" [ngModel]="selectedItemDisplay">
                 <div id="on-off-time-group">
                     <div class="row form-group" id="on-time-group">
                         <label class="col-md-1 label label-default" id="label-on-time">{{'On Time' | translate}}</label>
-                        <input name="newOnTime" #newOnTime="ngModel" [ngModel]="sel.onTime" (ngModelChange)="updateOnTimeValue(newOnTime.value)" class="col-md-1 input" type="text" required pattern="^\d\d:\d\d$" [disabled]="onTimeNotAvailable || !pendingOnTimeIsEnabled">           
-                        <input #newEnableOnTime [ngModel]="pendingOnTimeIsEnabled" (ngModelChange)="updateOnTimeIsEnabled($event)" type="checkbox" [disabled]="onTimeNotAvailable">
+                        <input name="newOnTime" #newOnTime="ngModel" [(ngModel)]="selectedOnTime" (ngModelChange)="updateOnTimeValue($event)" class="col-md-1 input" type="text" [disabled]="onTimeNotAvailable || !pendingOnTimeIsEnabled">
+                        <input name="newEnableOTime" [ngModel]="pendingOnTimeIsEnabled" (ngModelChange)="updateOnTimeIsEnabled($event)" type="checkbox" [disabled]="onTimeNotAvailable">
                         <label class="label-md" id="label-on-time-enable">{{'Enable' | translate}}</label>
-                        <div [hidden]="newOnTime.valid || newOnTime.pristine" class="alert alert-danger" id="newOnTimeInvalid">
+                        <div [hidden]="newOnTimeValid" class="alert alert-danger" id="newOnTimeInvalid">
                             {{ 'Format HH:MM is required' | translate }}
                         </div>
                     </div>
 
                     <div class="row form-group" id="off-time-group">
                         <label class="col-md-1 label label-default" id="label-off-time">{{'Off Time' | translate}}</label>
-                        <input name="newOffTime" #newOffTime="ngModel" [ngModel]="sel.offTime" (ngModelChange)="updateOffTimeValue(newOffTime.value)" class="col-md-1 input" type="text" required pattern="^\d\d:\d\d$" [disabled]="offTimeNotAvailable || !pendingOffTimeIsEnabled">
-                        <input #newEnableOffTime [ngModel]="pendingOffTimeIsEnabled" (ngModelChange)="updateOffTimeIsEnabled($event)" type="checkbox" [disabled]="offTimeNotAvailable">
+                        <input name="newOffTime" #newOffTime="ngModel" [(ngModel)]="selectedOffTime" (ngModelChange)="updateOffTimeValue($event)" class="col-md-1 input" type="text" [disabled]="offTimeNotAvailable || !pendingOffTimeIsEnabled">
+                        <input name="newEnableOffTime" [ngModel]="pendingOffTimeIsEnabled" (ngModelChange)="updateOffTimeIsEnabled($event)" type="checkbox" [disabled]="offTimeNotAvailable">
                         <label class="label-md" id="label-off-time-enable">{{'Enable' | translate}}</label>
-                        <div [hidden]="newOffTime.valid || newOffTime.pristine" class="alert alert-danger" id="newOffTimeInvalid">
+                        <div [hidden]="newOffTimeValid" class="alert alert-danger" id="newOffTimeInvalid">
                             {{ 'Format HH:MM is required' | translate }}
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="save-changes" *ngIf="inputIsModified">
-                <button class="btn btn-primary" (click)="saveModified()">{{'Save'|translate}}</button>
-                <!--<button class="btn btn-primary" (click)="clearOnOffTime()">{{'Clear'|translate}}</button>-->
-            </div>         
+            <div class="row" *ngIf="inputIsModified">
+                <div id="reset-changes" class="col-md-1">
+                    <button class="btn btn-primary" (click)="resetModified()">{{'Reset'|translate}}</button>
+                </div>
+                <div id="save-changes" class="col-md-1" *ngIf="inputTimeValid">
+                    <button class="btn btn-primary" (click)="saveModified()">{{'Save'|translate}}</button>
+                </div>
+            </div>
             <div id="empty-selected-row" *ngIf="!selectedRow.length">{{'No Selections' | translate}}</div>
 
         </div>

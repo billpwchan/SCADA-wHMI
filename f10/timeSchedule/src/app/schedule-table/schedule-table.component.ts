@@ -81,6 +81,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public newOffTimeValid = true;
     public inputTimeValid = true;
 
+    public newScheduleTitleValid = false;
+
+    public maxTitleLength = 40;
+
     // string to represent unavailable task
     private unavailableOnOffTime = 'N/A';
     // string to represent inhibited time
@@ -136,6 +140,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.offlineSort = this.configService.config.getIn(['schedule_table', 'sort']);
         console.log('{schedule-table}', '[loadConfig]', 'sort=', this.offlineSort);
+
+        this.maxTitleLength = this.configService.config.getIn(['schedule_table', 'max_title_length']);
+        console.log('{schedule-table}', '[loadData]', 'maxTitleLength =', this.maxTitleLength);
 
     }
     loadData() {
@@ -654,4 +661,25 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
         return false;
     }
+
+    public updateNewScheduleTitle(newScheduleTitle) {
+        console.log('{schedule-table}', '[updateNewScheduleTitle]', newScheduleTitle);
+        if (newScheduleTitle && newScheduleTitle.length > 0) {
+            let found = false;
+            for (let s of this.schedules) {
+                if (s.text === newScheduleTitle) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                this.newScheduleTitleValid = false;
+            } else {
+                this.newScheduleTitleValid = true;
+            }
+        } else {
+            this.newScheduleTitleValid = false;
+        }
+    }
 }
+

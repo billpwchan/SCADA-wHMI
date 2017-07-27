@@ -24,7 +24,8 @@ export class ConfigService {
             max_userdefined_schedule_count: 3,
             schedule_daygroup: {},
             filter: {},
-            sort: {}
+            sort: {},
+            max_title_length: 40
         }),
         schedule_planning: Map({
             periodic_planning_duration: 180

@@ -31,7 +31,9 @@
     },
     "filter": {
     },
-    "sort": {}
+    "sort": {
+    },
+    "max_title_length": 40
 	},
   "schedule_planning": {
       "weekly_planning": {

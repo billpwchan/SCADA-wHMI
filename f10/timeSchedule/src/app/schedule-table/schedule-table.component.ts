@@ -21,6 +21,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public activeItem;
     // properties for ngx-datatable
     public messages = {};
+    public sortingColumn = [];
+
     // subscriptions
     private subRoute: any;
     private subSchedules: any;
@@ -87,7 +89,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     private offlineFilters: Map<string, string>;
 
     // offline sort config
-    private offlineSort: any[];
+    private offlineSort: any;
 
     constructor(
         private configService: ConfigService,
@@ -128,10 +130,14 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.offlineSort = this.configService.config.getIn(['schedule_table', 'sort']);
         console.log('{schedule-table}', '[loadConfig]', 'sort=', this.offlineSort);
+
     }
     loadData() {
-        this.cleanupSubscriptions();
+        if (this.subRoute) {
+            this.subRoute.unsubscribe();
+        }
         this.subRoute = this.route.queryParams.subscribe(params => {
+            this.cleanupScheduleSubscriptions();
             let p = params['periodic'];
             if (p === 'true') {
                 this.displayPeriodicSchedules = true;
@@ -147,6 +153,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
             let runtimeFilters = params['filter'];
             console.log('{schedule-table}', '[loadData]', 'runtimeFilters =', runtimeFilters);
+
+            let runtimeSort = params['sort'];
+            console.log('{schedule-table}', '[loadData]', 'runtimeSort =', runtimeSort);
 
             this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.displayPeriodicSchedules).subscribe(schedules => {
                 this.schedules = schedules;
@@ -171,10 +180,12 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
             console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
             this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
-                this.scheduleItems = scheduleItems;
-                this.cachedSchItems = [...this.scheduleItems];
+                this.cachedSchItems = [...scheduleItems];
                 this.clearSelectedRow();
                 this.clearSchItemFilters();
+
+                this.setDefaultSort(runtimeSort);
+
                 if (this.selectedSchedule) {
                     this.addSchItemsFilter('scheduleKey', this.selectedSchedule.id);
                 }
@@ -183,18 +194,15 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
                 this.addRuntimeFilters(runtimeFilters);
 
-                this.filterSchItems();
+                this.scheduleItems = this.filterSchItems(scheduleItems);
             });
             console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);
         })
     }
     ngOnDestroy() {
-        // this.cleanupSubscriptions()
+
     }
-    private cleanupSubscriptions() {
-        if (this.subRoute) {
-            this.subRoute.unsubscribe();
-        }
+    private cleanupScheduleSubscriptions() {        
         if (this.subSchedules) {
             this.subSchedules.unsubscribe();
         }
@@ -321,7 +329,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
     }
     private addRuntimeFilters(runtimeFilters) {
-       console.log('{schedule-table}', '[addRuntimeFilters]');
+        console.log('{schedule-table}', '[addRuntimeFilters]');
         if (runtimeFilters) {
             console.log('{schedule-table}', '[addRuntimeFilters]', 'runtimeFilters', runtimeFilters);
             let obj = JSON.parse(runtimeFilters)
@@ -338,11 +346,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
     }
 
-    private filterSchItems() {
+    private filterSchItems(scheduleItems): ScheduleItem[] {
+        let filteredScheduleItems = Array<ScheduleItem>();
         if (this.schItemFilters) {
-            this.scheduleItems = [];
             console.log('{schedule-table}', '[filterSchItems]', 'this.schItemFilters.length', this.schItemFilters.length);
-            for (const r of this.cachedSchItems) {
+            for (const r of scheduleItems) {
                 let matching = true;
                 let filterCnt = 0;
                 for (const f of this.schItemFilters) {
@@ -363,9 +371,40 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     }
                 }
                 if (matching) {
-                    this.scheduleItems.push(r);
+                    filteredScheduleItems.push(r);
                 }
             }
+        } else {
+            filteredScheduleItems = scheduleItems;
+        }
+        return filteredScheduleItems;
+    }
+
+    private setDefaultSort(runtimeSort) {
+        console.log('{schedule-table}', '[setDefaultSort]');
+        this.sortingColumn = [];
+        if (runtimeSort) {
+            console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort', runtimeSort);
+            let obj = JSON.parse(runtimeSort);
+            if (Array.isArray(obj)) {
+                this.sortingColumn = obj;
+            } else {
+                this.sortingColumn = [obj];
+            }
+            console.log('{schedule-table}', '[setDefaultSort]', 'sortingColumn', this.sortingColumn);
+        } else if (this.offlineSort) {
+            console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort is null. offlineSort', this.offlineSort);
+
+            if (this.offlineSort.get('prop') && this.offlineSort.get('dir')) {
+                let obj = new Object();
+                obj['prop'] = this.offlineSort.get('prop');
+                obj['dir'] = this.offlineSort.get('dir');
+                this.sortingColumn = [obj];
+            }
+
+            console.log('{schedule-table}', '[setDefaultSort]', 'sortingColumn', this.sortingColumn);
+        } else {
+            console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort and offlineSort are null. No default sort is applied');
         }
     }
     private clearSelectedRow() {
@@ -387,7 +426,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.newSchedule) {
             this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
                 res => {
-                    //this.schedules.push(this.newSchedule);
                     this.loadData();
                 }
             )
@@ -402,13 +440,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
             this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
-                    // let newSchedules = Array<Schedule>();
-                    // for (let s of this.schedules) {
-                    //     if (this.selectedSchedule.id !== s.id) {
-                    //         newSchedules.push(s);
-                    //     }
-                    // }
-                    // this.schedules = newSchedules;
                     this.loadData();
                 }
             )

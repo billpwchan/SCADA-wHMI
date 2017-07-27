@@ -66,6 +66,7 @@
                 [selected]="selectedRow"
                 [selectionType]="'single'"
                 [messages]="messages"
+                [sorts]="sortingColumn"
                 (activate)="onActivate($event)"
                 (select)='onSelect($event)'>
                 <ngx-datatable-column prop="geoCat" name="Location" [sortable]='true'>

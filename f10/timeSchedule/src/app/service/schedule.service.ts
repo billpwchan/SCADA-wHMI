@@ -689,6 +689,7 @@ export class ScheduleService implements OnDestroy {
     }
 
     public getRunningSchedules(): Observable<any> {
+        console.log('{ScheduleService}', '[getRunningSchedules]');
         this.subjPeriodicSchedules.next(this.runningSchedules);
 
         return this.subjPeriodicSchedules;
@@ -877,5 +878,27 @@ export class ScheduleService implements OnDestroy {
                 }
             )
         }
+    }
+
+    public isScheduleRunning(scheduleKey): boolean {
+        if (this.runningSchedules) {
+            for (let s of this.runningSchedules) {
+                if (s.id === scheduleKey) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public isScheduleAssigned(scheduleKey): boolean {
+        if (this.weeklySchedules) {
+            for (let s of this.weeklySchedules) {
+                if (s.id === scheduleKey) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

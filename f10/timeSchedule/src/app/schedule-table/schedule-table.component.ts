@@ -17,7 +17,7 @@ import { UtilService } from '../service/util.service';
 export class ScheduleTableComponent implements OnInit, OnDestroy {
     // properties for ng2-select
     public _disabledV = '0';
-    public disabled = false;
+    public selectScheduleDisabled = false;
     public activeItem;
     // properties for ngx-datatable
     public messages = {};
@@ -100,6 +100,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     // offline sort config
     private offlineSort: any;
+
+    public runningSchedules = Array<Schedule>();
+    public runningSchedulesStr = '';
+
+    private subGetRunningSchedules: any;
 
     constructor(
         private configService: ConfigService,
@@ -210,6 +215,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 this.scheduleItems = this.filterSchItems(scheduleItems);
             });
             console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);
+
+            this.getRunningSchedules();
         })
     }
     ngOnDestroy() {
@@ -222,6 +229,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.subScheduleItems) {
             this.subScheduleItems.unsubscribe();
         }
+        if (this.subGetRunningSchedules) {
+            this.subGetRunningSchedules.unsubscribe();
+        }
     }
     // ng2-select callback
     private get disabledV(): string {
@@ -230,7 +240,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     // ng2-select callback
     private set disabledV(value: string) {
         this._disabledV = value;
-        this.disabled = this._disabledV === '1';
+        this.selectScheduleDisabled = this._disabledV === '1';
     }
     // ng2-select callback
     public selected(event: any): void {
@@ -252,6 +262,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[ng2-select selected]', 'filtered rows', temp);
         // Whenever the filter changes, always go back to the first page
         // this.table.offset = 0;
+
+        // clear equipment selection
+        this.clearSelectedRow();
     }
     // ng2-select callback
     public removed(value: any): void {
@@ -402,6 +415,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.selectedRow = [];
         this.selectedScheduleItem = null;
         this.selectedItemDisplay = '';
+        this.resetModified();
     }
     public addSchedule() {
         console.log('{schedule-table}', '[addSchedule]');
@@ -410,6 +424,13 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.unusedSchedules && this.unusedSchedules.length > 0) {
             this.newSchedule = this.unusedSchedules[0];
         }
+        this.disableScheduleAction();
+    }
+    public disableScheduleAction() {
+        this.addScheduleEnabled = false;
+        this.deleteScheduleEnabled = false;
+        this.renameScheduleEnabled = false;
+        this.selectScheduleDisabled = true;
     }
     public applyAddSchedule() {
         console.log('{schedule-table}', '[applyAddSchedule]');
@@ -422,13 +443,16 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 }
             )
         }
+        this.updateAddDeleteRenameScheduleButton();
     }
     public cancelAddSchedule() {
         console.log('{schedule-table}', '[cancelRenameSchedule]');
         this.addScheduleClicked = false;
+        this.updateAddDeleteRenameScheduleButton();
     }
     public deleteSchedule() {
         console.log('{schedule-table}', '[deleteSchedule]');
+        this.disableScheduleAction();
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
             this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
@@ -440,6 +464,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public renameSchedule() {
         console.log('{schedule-table}', '[renameSchedule] clicked');
         this.renameScheduleClicked = true;
+        this.disableScheduleAction();
         this.newScheduleTitle = this.selectedSchedule.text;
     }
     public applyRenameSchedule() {
@@ -463,17 +488,25 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             this.schedules = tempSch;
         }
         this.newScheduleTitle = '';
+        this.updateAddDeleteRenameScheduleButton();
     }
     public updateAddDeleteRenameScheduleButton() {
-        console.log('{schedule-table}', '[loadData]', 'updateAddDeleteRenameScheduleButton visibleUserDefinedCnt', this.visibleUserDefinedCnt);
+        console.log('{schedule-table}', '[updateAddDeleteRenameScheduleButton]', ' visibleUserDefinedCnt', this.visibleUserDefinedCnt);
         this.addScheduleEnabled = this.visibleUserDefinedCnt < this.maxUserDefinedScheduleCount;
-        this.deleteScheduleEnabled = !this.selectedSchedule.titleReadOnly && (this.visibleUserDefinedCnt > 0);
+        let isAssigned = this.scheduleService.isScheduleAssigned(this.selectedSchedule.id);
+        let isRunning = this.scheduleService.isScheduleRunning(this.selectedSchedule.id);
+
+        console.log('{schedule-table}', '[updateAddDeleteRenameScheduleButton]', 'isAssigned', isAssigned);
+        console.log('{schedule-table}', '[updateAddDeleteRenameScheduleButton]', 'isRunning', isRunning);
+        this.deleteScheduleEnabled = !isRunning && !isAssigned && !this.selectedSchedule.titleReadOnly && (this.visibleUserDefinedCnt > 0);
         this.renameScheduleEnabled = !this.selectedSchedule.titleReadOnly;
+        this.selectScheduleDisabled = false;
     }
     public cancelRenameSchedule() {
         console.log('{schedule-table}', '[cancelRenameSchedule]', this.newScheduleTitle);
         this.renameScheduleClicked = false;
         this.newScheduleTitle = '';
+        this.updateAddDeleteRenameScheduleButton();
     }
     public startOneShot() {
         console.log('{schedule-table}', '[startOneShot]');
@@ -620,33 +653,36 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
 
     public resetModified() {
-        let scheduleItem: ScheduleItem = this.selectedRow[0];
-        this.selectedScheduleItem = this.selectedRow[0];
+        if (this.selectedRow && this.selectedRow[0]) {
+            let scheduleItem: ScheduleItem = this.selectedRow[0];
+            this.selectedScheduleItem = this.selectedRow[0];
 
-        if (scheduleItem.onTime !== this.unavailableOnOffTime) {
-            this.onTimeNotAvailable = false;
-        } else {
-            this.onTimeNotAvailable = true;
+            if (scheduleItem.onTime !== this.unavailableOnOffTime) {
+                this.onTimeNotAvailable = false;
+            } else {
+                this.onTimeNotAvailable = true;
+            }
+            if (scheduleItem.enableFlag1) {
+                this.pendingOnTimeIsEnabled = true;
+            } else {
+                this.pendingOnTimeIsEnabled = false;
+            }
+            this.selectedOnTime = scheduleItem.onTime;
+            this.newOnTime = scheduleItem.onTime;
+            if (scheduleItem.offTime !== this.unavailableOnOffTime) {
+                this.offTimeNotAvailable = false;
+            } else {
+                this.offTimeNotAvailable = true;
+            }
+            if (scheduleItem.enableFlag2) {
+                this.pendingOffTimeIsEnabled = true;
+            } else {
+                this.pendingOffTimeIsEnabled = false;
+            }
+
+            this.selectedOffTime = scheduleItem.offTime;
+            this.newOffTime = scheduleItem.offTime;
         }
-        if (scheduleItem.enableFlag1) {
-            this.pendingOnTimeIsEnabled = true;
-        } else {
-            this.pendingOnTimeIsEnabled = false;
-        }
-        this.selectedOnTime = scheduleItem.onTime;
-        this.newOnTime = scheduleItem.onTime;
-        if (scheduleItem.offTime !== this.unavailableOnOffTime) {
-            this.offTimeNotAvailable = false;
-        } else {
-            this.offTimeNotAvailable = true;
-        }
-        if (scheduleItem.enableFlag2) {
-            this.pendingOffTimeIsEnabled = true;
-        } else {
-            this.pendingOffTimeIsEnabled = false;
-        }
-        this.selectedOffTime = scheduleItem.offTime;
-        this.newOffTime = scheduleItem.offTime;
         this.inputIsModified = false;
         this.newOnTimeValid = true;
         this.newOffTimeValid = true;
@@ -680,6 +716,38 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         } else {
             this.newScheduleTitleValid = false;
         }
+    }
+
+    public getRunningSchedules() {
+        console.log('{schedule-table}', '[getRunningSchedules]');
+        this.subGetRunningSchedules = this.scheduleService.getRunningSchedules().subscribe(
+            schedules => {
+                console.log('{schedule-table}', '[getRunningSchedules] return', schedules);
+                if (schedules !== undefined) {
+                    this.runningSchedules = schedules;
+                    if (schedules && schedules.length > 0) {
+                        let cnt = 0;
+                        for (let s of schedules) {
+                            if (cnt > 0) {
+                                this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
+                            } else {
+                                this.runningSchedulesStr = s.text;
+                            }
+                            cnt++;
+                            console.log('{schedule-table}', '[getRunningSchedules] runningSchedulesStr', this.runningSchedulesStr);
+                        }
+                    } else {
+                        let str = 'No schedule is running';
+                        let translatedStr = this.translate.instant(str);
+                        if (translatedStr) {
+                            this.runningSchedulesStr = translatedStr;
+                        } else {
+                            this.runningSchedulesStr = str;
+                        }
+                    }
+                }
+            }
+        )
     }
 }
 

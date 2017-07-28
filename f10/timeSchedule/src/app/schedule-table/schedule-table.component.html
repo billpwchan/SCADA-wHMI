@@ -8,7 +8,10 @@
             <label class="col-md-2 label label-default" id="label-schedule-cutoff-time">{{'Schedule cutoff time:' | translate}}</label>
             <input class="col-md-1 input" id="cutoff-time-input" readonly [ngModel]="cutoffTime" type="text">
         </div>
-
+        <div class="row" id="running-schedules">
+            <label class="col-md-4 label label-warning" id="running-schedules-label">{{'Running Schedules' | translate}}</label>
+            <input class="col-md-6 input" id="running-schedules-input" readonly [ngModel]="runningSchedulesStr" type="text">
+        </div>
         <div class="panel panel-body" id="schedule-title-selection">
             <div id="schedule-title" *ngIf="displayPeriodicSchedules; then periodicTitleBlock; else nonPeriodicTitleBlock"></div>
             <ng-template #periodicTitleBlock>
@@ -16,7 +19,7 @@
                 <h4>{{'Periodic Schedules' | translate}}</h4>
                 <ng-select [allowClear]="false"
                         [items]="schedules"
-                        [disabled]="disabled"
+                        [disabled]="selectScheduleDisabled"
                         [active]="activeItem"
                         (data)="refreshValue($event)"
                         (selected)="selected($event)"

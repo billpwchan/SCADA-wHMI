@@ -34,7 +34,13 @@
     width: 30%;
     padding-bottom: 5px;
 }
+#schedule-cutoff-time {
+    width: 100%;
+    margin: 5px;
+}
 #label-schedule-cutoff-time {
+    width: 20%;
+    margin: 2px;
     font-size: medium;
 }
 #cutoff-time-input {

@@ -28,7 +28,9 @@ export class ConfigService {
             max_title_length: 40
         }),
         schedule_planning: Map({
-            periodic_planning_duration: 180
+            weekly_planning: {},
+            periodic_planning_duration: 180,
+            apply_plan_to_running_daygroup: false
         })
     });
     public config: any;

@@ -547,7 +547,7 @@ export class ScheduleService implements OnDestroy {
                     let taskDesc = schedule.toString();
                     let subSetScheduleStart = this.scsTscService.setDescription(schedule.taskName, taskDesc, this.clientName).subscribe(
                         res => {
-                            console.log('{ScheduleService}', '[startPeriodicSchedule]', 'setDates', res);
+                            console.log('{ScheduleService}', '[startOneshotSchedule]', 'setDates', res);
                             subSetScheduleStart.unsubscribe();
                         }
                     );
@@ -556,68 +556,80 @@ export class ScheduleService implements OnDestroy {
             }
         );
     }
-    public startPeriodicSchedule(scheduleKey) {
-        // Get planning daygroup id for this schedule from config
-        let planDayGroupId = this.getPlanDayGroupId(scheduleKey);
-        let planNextDayGroupId = this.getPlanNextDayGroupId(scheduleKey);
-        let runDayGroupId = this.getRunDayGroupId(scheduleKey);
-        let runNextDayGroupId = this.getRunNextDayGroupId(scheduleKey);
+    public startPeriodicSchedules() {
+        for (let s of this.schedules) {
+            if (s.periodic && this.isScheduleVisible(s.id)) {
+                // Get planning daygroup id for this schedule from config
+                let planDayGroupId = this.getPlanDayGroupId(s.id);
+                let planNextDayGroupId = this.getPlanNextDayGroupId(s.id);
+                let runDayGroupId = this.getRunDayGroupId(s.id);
+                let runNextDayGroupId = this.getRunNextDayGroupId(s.id);
 
-        // Get current dateList from planning daygroup
-        if (planDayGroupId && runDayGroupId) {
-            let subGetDates = this.scsTscService.getDates(planDayGroupId).subscribe(
-                datesList => {
-                    console.log('{ScheduleService}', '[startPeriodicSchedule]', 'getDates', datesList);
+                // Get current dateList from planning daygroup
+                if (planDayGroupId && runDayGroupId) {
+                    let subGetDates = this.scsTscService.getDates(planDayGroupId).subscribe(
+                        datesList => {
+                            console.log('{ScheduleService}', '[startPeriodicSchedules]', 'getDates', datesList);
 
-                    // Set dateList to running daygroup to implement start schedule
-                    let subSetDates = this.scsTscService.setDates(runDayGroupId, datesList, this.clientName).subscribe(
-                        res => {
-                            console.log('{ScheduleService}', '[startPeriodicSchedule]', 'setDates', res);
+                            // Set dateList to running daygroup to implement start schedule
+                            let subSetDates = this.scsTscService.setDates(runDayGroupId, datesList, this.clientName).subscribe(
+                                res => {
+                                    console.log('{ScheduleService}', '[startPeriodicSchedules]', 'setDates', res);
 
-                            // Reload day groups to update running schedules
-                            this.readDayGroups();
-                            //this.updateRunningSchedules();
-                            subSetDates.unsubscribe();
+                                    // Reload day groups to update running schedules
+                                    this.readDayGroups();
+                                    //this.updateRunningSchedules();
+                                    subSetDates.unsubscribe();
+                                }
+                            );
+                            subGetDates.unsubscribe();
                         }
                     );
-                    subGetDates.unsubscribe();
+                } else {
+                    console.error('{ScheduleService}', '[startPeriodicSchedules]', 'planDayGroupId/runDayGroupId not found in config')
                 }
-            );
-        } else {
-            console.error('{ScheduleService}', '[startPeriodicSchedule]', 'planDayGroupId/runDayGroupId not found in config')
-        }
 
-        // Get next dateList from planning daygroup
-        if (planNextDayGroupId && runNextDayGroupId) {
-            let subGetDates = this.scsTscService.getDates(planNextDayGroupId).subscribe(
-                datesList => {
-                    console.log('{ScheduleService}', '[startPeriodicSchedule]', 'getDates', datesList);
+                // Get next dateList from planning daygroup
+                if (planNextDayGroupId && runNextDayGroupId) {
+                    let subGetDates = this.scsTscService.getDates(planNextDayGroupId).subscribe(
+                        datesList => {
+                            console.log('{ScheduleService}', '[startPeriodicSchedules]', 'getDates', datesList);
 
-                    // Set dateList to running daygroup to implement start schedule
-                    let subSetDates = this.scsTscService.setDates(runNextDayGroupId, datesList, this.clientName).subscribe(
-                        res => {
-                            console.log('{ScheduleService}', '[startPeriodicSchedule]', 'setDates', res);
+                            // Set dateList to running daygroup to implement start schedule
+                            let subSetDates = this.scsTscService.setDates(runNextDayGroupId, datesList, this.clientName).subscribe(
+                                res => {
+                                    console.log('{ScheduleService}', '[startPeriodicSchedules]', 'setDates', res);
 
-                            // Update running status in schedule task description
-                            let schedule = this.scheduleKeyMap.get(scheduleKey);
-                            if (schedule) {
-                                schedule.runningStatus = ScheduleDef.STARTED;
-                                let taskDesc = schedule.toString();
-                                let subSetScheduleStart = this.scsTscService.setDescription(schedule.taskName, taskDesc, this.clientName).subscribe(
-                                    res => {
-                                        console.log('{ScheduleService}', '[startPeriodicSchedule]', 'setDates', res);
-                                        subSetScheduleStart.unsubscribe();
+                                    // Update running status in schedule task description
+                                    let schedule = this.scheduleKeyMap.get(s.id);
+                                    if (schedule) {
+                                        schedule.runningStatus = ScheduleDef.STARTED;
+                                        let taskDesc = schedule.toString();
+                                        let subSetScheduleStart = this.scsTscService.setDescription(schedule.taskName, taskDesc, this.clientName).subscribe(
+                                            res => {
+                                                console.log('{ScheduleService}', '[startPeriodicSchedules]', 'setDates', res);
+                                                subSetScheduleStart.unsubscribe();
+                                            }
+                                        );
                                     }
-                                );
-                            }
-                            subSetDates.unsubscribe();
+                                    subSetDates.unsubscribe();
+                                }
+                            );
+                            subGetDates.unsubscribe();  
                         }
                     );
-                    subGetDates.unsubscribe();  
+                } else {
+                    console.error('{ScheduleService}', '[startPeriodicSchedules]', 'planNextDayGroupId/runNextDayGroupId not found in config')
                 }
-            );
-        } else {
-            console.error('{ScheduleService}', '[startPeriodicSchedule]', 'planNextDayGroupId/runNextDayGroupId not found in config')
+            }
+        }
+    }
+
+    public stopPeriodicSchedules() {
+        for (let s of this.schedules) {
+            if (s.periodic) {
+                this.stopSchedule(s.id);
+            }
         }
     }
 
@@ -844,6 +856,24 @@ export class ScheduleService implements OnDestroy {
 
         let subdaygroup = this.scsTscService.setDates(daygroupId, datesList, this.clientName).subscribe(
             res => {
+                console.log('{ScheduleService}', '[setSchedulePlanDates]', 'response', res);
+                subdaygroup.unsubscribe();
+            }
+        )
+        let subdaygroup2 = this.scsTscService.setDates(nextDaygroupId, nextDatesList, this.clientName).subscribe(
+            res => {
+                console.log('{ScheduleService}', '[setSchedulePlanDates]', 'response', res);
+                subdaygroup2.unsubscribe();
+            }
+        )
+    }
+
+    public setScheduleRunDates(scheduleId, datesList, nextDatesList) {
+        let daygroupId = this.getRunDayGroupId(scheduleId);
+        let nextDaygroupId = this.getRunNextDayGroupId(scheduleId);
+
+        let subdaygroup = this.scsTscService.setDates(daygroupId, datesList, this.clientName).subscribe(
+            res => {
                 console.log('{ScheduleService}', '[setScheduleRunDates]', 'response', res);
                 subdaygroup.unsubscribe();
             }
@@ -855,6 +885,7 @@ export class ScheduleService implements OnDestroy {
             }
         )
     }
+
 
     public getUnusedSchedules(): Schedule[] {
         let schedules = Array<Schedule>();
@@ -921,6 +952,14 @@ export class ScheduleService implements OnDestroy {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    public isScheduleVisible(scheduleKey): boolean {
+        let schedule = this.scheduleKeyMap.get(scheduleKey);
+        if (schedule) {
+            return schedule.visibility === ScheduleDef.VISIBLE;
         }
         return false;
     }

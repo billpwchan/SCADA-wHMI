@@ -12,7 +12,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-monday-label">{{'Monday' | translate}}</label>
                 <select [(ngModel)]="monSchedule" (ngModelChange)="onChange()" name="Select Monday" class="col-md-4 select weekday-planning-select" id="weekday-planning-monday-select">
                     <option disabled hidden [value]="monSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
@@ -20,7 +20,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-tuesday-label">{{'Tuesday' | translate}}</label>
                 <select [(ngModel)]="tueSchedule" (ngModelChange)="onChange()" name="Select Tuesday" class="col-md-4 select weekday-planning-select" id="weekday-planning-tuesday-select">
                     <option disabled hidden [value]="tueSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
@@ -28,7 +28,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-wednesday-label">{{'Wednesday' | translate}}</label>
                 <select [(ngModel)]="wedSchedule" (ngModelChange)="onChange()" name="Select Wednesday" class="col-md-4 select weekday-planning-select" id="weekday-planning-wednesday-select">
                     <option disabled hidden [value]="wedSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
@@ -36,7 +36,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-thursday-label">{{'Thursday' | translate}}</label>
                 <select [(ngModel)]="thuSchedule" (ngModelChange)="onChange()" name="Select Thursday" class="col-md-4 select weekday-planning-select" id ="weekday-planning-thursday-select">
                     <option disabled hidden [value]="thuSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
@@ -44,7 +44,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-friday-label">{{'Friday' | translate}}</label>
                 <select [(ngModel)]="friSchedule" (ngModelChange)="onChange()" name="Select Friday" class="col-md-4 select weekday-planning-select" id="weekday-planning-friday-select">
                     <option disabled hidden [value]="friSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
@@ -52,7 +52,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-saturday-label">{{'Saturday' | translate}}</label>
                 <select [(ngModel)]="satSchedule" (ngModelChange)="onChange()" name="Select Saturday" class="col-md-4 select weekday-planning-select" id="weekday-planning-saturday-select">
                     <option disabled hidden [value]="satSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
@@ -60,7 +60,7 @@
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-sunday-label">{{'Sunday' | translate}}</label>
                 <select [(ngModel)]="sunSchedule" (ngModelChange)="onChange()" name="Select Sunday" class="col-md-4 select weekday-planning-select" id="weekday-planning-sunday-select">
                     <option disabled hidden [value]="sunSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
         </div>

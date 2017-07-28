@@ -23,12 +23,14 @@ export class SchedulePlanningComponent implements OnInit {
     public sunSchedule: Schedule;
 
     public periodicSchedules = Array<Schedule>();
+    public periodicScheduleOptions = Array<Schedule>();
     public weeklySchedules = Array<Schedule>();
     public runningSchedules = Array<Schedule>();
     public runningSchedulesStr = '';
 
     public defaultWeeklyConfig: any;
     public periodicPlanningDuration: number;
+    public applyPlanToRunningDayGroup: false;
 
     private subRoute: any;
     private subSchedules: any;
@@ -64,6 +66,9 @@ export class SchedulePlanningComponent implements OnInit {
 
         this.periodicPlanningDuration = this.configService.config.getIn(['schedule_planning', 'periodic_planning_duration']);
         console.log('{schedule-table}', '[loadConfig]', 'periodicPlanningDuration=', this.periodicPlanningDuration);
+
+        this.applyPlanToRunningDayGroup = this.configService.config.getIn(['schedule_planning', 'apply_plan_to_running_daygroup']);
+        console.log('{schedule-table}', '[loadConfig]', 'applyPlanToRunningDayGroup=', this.applyPlanToRunningDayGroup);
     }
 
     private loadData() {
@@ -86,6 +91,21 @@ export class SchedulePlanningComponent implements OnInit {
         this.subSchedules = this.scheduleService.getSchedulesByPeriodic(true).subscribe(
             periodicSchedules => {
                 this.periodicSchedules = periodicSchedules;
+                this.periodicScheduleOptions = [];
+                if (this.periodicSchedules) {
+                    let emptySchedule = new Schedule();
+                    let noSchedulePlannedStr = 'No schedule planned';
+                    let translatedStr = this.translate.instant(noSchedulePlannedStr);
+                    if (translatedStr) {
+                        emptySchedule.text = translatedStr;
+                    } else {
+                        emptySchedule.text = noSchedulePlannedStr;
+                    }
+                    this.periodicScheduleOptions.push(emptySchedule);
+                    for (let s of this.periodicSchedules) {
+                        this.periodicScheduleOptions.push(s);
+                    }
+                }
 
                 this.periodicStarted = this.scheduleService.isPeriodicScheduleStarted();
                 console.log('{schedule-planning}', '[getPeriodicSchedules]', 'periodicStarted', this.periodicStarted);
@@ -123,19 +143,27 @@ export class SchedulePlanningComponent implements OnInit {
                             this.runningSchedulesStr = s.text;
                         }
                     }
+                } else {
+                    let str = 'No schedule is running';
+                    let translatedStr = this.translate.instant(str);
+                    if (translatedStr) {
+                        this.runningSchedulesStr = translatedStr;
+                    } else {
+                        this.runningSchedulesStr = str;
+                    }
                 }
             }
         )
     }
 
     public updateWeeklyPlan() {
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'mon =', this.monSchedule.text);
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'tue =', this.tueSchedule.text);
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'wed =', this.wedSchedule.text);
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'thu =', this.thuSchedule.text);
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'fri =', this.friSchedule.text);
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'sat =', this.satSchedule.text);
-        console.log('{schedule-planning}', '[updateWeeklyPlan]', 'sun =', this.sunSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'mon =', this.monSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'tue =', this.tueSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'wed =', this.wedSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'thu =', this.thuSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'fri =', this.friSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'sat =', this.satSchedule.text);
+        // console.log('{schedule-planning}', '[updateWeeklyPlan]', 'sun =', this.sunSchedule.text);
 
         let assignedSchedulesMap = this.getAssignedSchedulesMap();
 
@@ -156,6 +184,9 @@ export class SchedulePlanningComponent implements OnInit {
 
                 if (datesList && datesList.length > 0) {
                     this.scheduleService.setSchedulePlanDates(s.id, datesList, nextDatesList);
+                    if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
+                        this.scheduleService.setScheduleRunDates(s.id, datesList, nextDatesList);
+                    }
                 } else {
                     console.error('{schedule-planning}', '[updateWeeklyPlan]', 'Error generating date list for schedule', s.scheduleType, s.id);
                 }
@@ -177,6 +208,9 @@ export class SchedulePlanningComponent implements OnInit {
 
             if (datesList && datesList.length > 0) {
                 this.scheduleService.setSchedulePlanDates(key, datesList, nextDatesList);
+                if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
+                    this.scheduleService.setScheduleRunDates(key, datesList, nextDatesList);
+                }
             }
         });
         this.planModified = false;
@@ -193,14 +227,15 @@ export class SchedulePlanningComponent implements OnInit {
         wSchedules[5] = this.friSchedule;
         wSchedules[6] = this.satSchedule;
 
-
         for (let i=0; i<7; i++) {
-            if (assignedSchedulesMap.has(wSchedules[i].id)) {
-                assignedSchedulesMap.get(wSchedules[i].id).push(i);
-                console.log('{schedule-planning}', '[getAssignedSchedulesMap]', 'assigning weekday', i, 'to', wSchedules[i].id);
-            } else {
-                assignedSchedulesMap.set(wSchedules[i].id, [i]);
-                console.log('{schedule-planning}', '[getAssignedSchedulesMap]', 'assigning weekday', i, 'to', wSchedules[i].id);
+            if (wSchedules[i] && wSchedules[i].id) {
+                if (assignedSchedulesMap.has(wSchedules[i].id)) {
+                    assignedSchedulesMap.get(wSchedules[i].id).push(i);
+                    console.log('{schedule-planning}', '[getAssignedSchedulesMap]', 'assigning weekday', i, 'to', wSchedules[i].id);
+                } else {
+                    assignedSchedulesMap.set(wSchedules[i].id, [i]);
+                    console.log('{schedule-planning}', '[getAssignedSchedulesMap]', 'assigning weekday', i, 'to', wSchedules[i].id);
+                }
             }
         }
         console.log('{schedule-planning}', '[getAssignedSchedulesMap]', 'assignedSchedulesMap', assignedSchedulesMap);
@@ -222,47 +257,73 @@ export class SchedulePlanningComponent implements OnInit {
 
     public onChange() {
         console.log('{schedule-planning}', '[onChange]');
-        let modified = false;
-        if (this.monSchedule.id !== this.weeklySchedules[1].id) {
-            modified = true;
+        console.log('{schedule-planning}', '[onChange]', 'monSchedule', this.monSchedule, 'weeklySchedules[1]', this.weeklySchedules[1]);
+        if ((this.monSchedule && !this.weeklySchedules[1]) || (!this.monSchedule && this.weeklySchedules[1])) {
+            this.planModified = true;
         }
-        if (this.tueSchedule.id !== this.weeklySchedules[2].id) {
-            modified = true;
+        else if (this.monSchedule && this.weeklySchedules[1] && this.monSchedule.id !== this.weeklySchedules[1].id) {
+            this.planModified = true;
         }
-        if (this.wedSchedule.id !== this.weeklySchedules[3].id) {
-            modified = true;
+        else if ((this.tueSchedule && !this.weeklySchedules[2]) || (!this.tueSchedule && this.weeklySchedules[2])) {
+            this.planModified = true;
         }
-        if (this.thuSchedule.id !== this.weeklySchedules[4].id) {
-            modified = true;
+        else if (this.tueSchedule && this.weeklySchedules[2] && this.tueSchedule.id !== this.weeklySchedules[2].id) {
+            this.planModified = true;
         }
-        if (this.friSchedule.id !== this.weeklySchedules[5].id) {
-            modified = true;
+        else if ((this.wedSchedule && !this.weeklySchedules[3]) || (!this.wedSchedule && this.weeklySchedules[3])) {
+            this.planModified = true;
         }
-        if (this.satSchedule.id !== this.weeklySchedules[6].id) {
-            modified = true;
+        else if (this.wedSchedule && this.weeklySchedules[3] && this.wedSchedule.id !== this.weeklySchedules[3].id) {
+            this.planModified = true;
         }
-        if (this.sunSchedule.id !== this.weeklySchedules[0].id) {
-            modified = true;
-            console.log('{schedule-planning}', '[onChange]', this.sunSchedule.id, this.weeklySchedules[0].id);
+        else if ((this.thuSchedule && !this.weeklySchedules[4]) || (!this.thuSchedule && this.weeklySchedules[4]))  {
+            this.planModified = true;
         }
-        if (modified) {
+        else if (this.thuSchedule && this.weeklySchedules[4] && this.thuSchedule.id !== this.weeklySchedules[4].id) {
+            this.planModified = true;
+        }
+        else if ((this.friSchedule && !this.weeklySchedules[5]) || (!this.friSchedule && this.weeklySchedules[5])) {
+            this.planModified = true;
+        }
+        else if (this.friSchedule && this.weeklySchedules[5] && this.friSchedule.id !== this.weeklySchedules[5].id) {
+            this.planModified = true;
+        }
+        else if ((this.satSchedule && !this.weeklySchedules[6]) || (!this.satSchedule && this.weeklySchedules[6])) {
+            this.planModified = true;
+        }
+        else if (this.satSchedule && this.weeklySchedules[6] && this.satSchedule.id !== this.weeklySchedules[6].id) {
+            this.planModified = true;
+        }
+        else if (this.sunSchedule && !this.weeklySchedules[0]) {
+            this.planModified = true;
+        }
+        else if (this.sunSchedule && this.weeklySchedules[0] && this.sunSchedule.id !== this.weeklySchedules[0].id) {
             this.planModified = true;
         } else {
             this.planModified = false;
         }
+
         console.log('{schedule-planning}', '[onChange]', 'planModified', this.planModified);
     }
 
     public getDefaultWeekdaySchedule(weekday: string): Schedule {
         if (this.defaultWeeklyConfig.get(weekday)) {
-            console.log('{schedule-planning}', '[defaultsWeeklyPlan]', weekday, this.defaultWeeklyConfig.get(weekday));
+            console.log('{schedule-planning}', '[getDefaultWeekdaySchedule]', weekday, this.defaultWeeklyConfig.get(weekday));
             if (this.defaultWeeklyConfig.get(weekday).get("type") && this.defaultWeeklyConfig.get(weekday).get("id")) {
-                console.log('{schedule-planning}', '[defaultsWeeklyPlan]', 'periodicSchedules count =', this.periodicSchedules.length);
+                console.log('{schedule-planning}', '[getDefaultWeekdaySchedule]', 'periodicSchedules count =', this.periodicSchedules.length);
                 let type = this.defaultWeeklyConfig.get(weekday).get("type");
                 let id = this.defaultWeeklyConfig.get(weekday).get("id");
-                for (let s of this.periodicSchedules) {
-                    if (s.scheduleType === type && s.scheduleId === +id) {
-                        return s;
+                if (type && id) {
+                    for (let s of this.periodicSchedules) {
+                        if (s.scheduleType === type && s.scheduleId === +id) {
+                            if (this.scheduleService.isScheduleVisible(s.id)) {
+                                console.log('{schedule-planning}', '[getDefaultWeekdaySchedule]', 'schedule is visible', s.id);
+                                return s;
+                            } else {
+                                console.log('{schedule-planning}', '[getDefaultWeekdaySchedule]', 'schedule is invisible', s.id);
+                                return null;
+                            }
+                        }
                     }
                 }
             }
@@ -285,18 +346,18 @@ export class SchedulePlanningComponent implements OnInit {
 
     public startPeriodic() {
         console.log('{schedule-table}', '[startPeriodic]', 'periodicSchedules count =', this.periodicSchedules.length);
-        for (let s of this.periodicSchedules) {
-            this.scheduleService.startPeriodicSchedule(s.id);
-        }
+
+        this.scheduleService.startPeriodicSchedules();
+
         this.periodicStarted = true;
         console.log('{schedule-planning}', '[startPeriodic]', 'periodicStarted', this.periodicStarted);
     }
 
     public stopPeriodic() {
         console.log('{schedule-table}', '[stopPeriodic]', 'periodicSchedules count =', this.periodicSchedules.length);
-        for (let s of this.periodicSchedules) {
-            this.scheduleService.stopSchedule(s.id);
-        }
+
+        this.scheduleService.stopPeriodicSchedules();
+
         this.periodicStarted = false;
         console.log('{schedule-planning}', '[stopPeriodic]', 'periodicStarted', this.periodicStarted);
     }

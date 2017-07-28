@@ -43,8 +43,9 @@
         "3": { "type": "Predefined", "id": "2"},
         "4": { "type": "Predefined", "id": "2"},
         "5": { "type": "Predefined", "id": "2"},
-        "6": { "type": "Predefined", "id": "3"}
+        "6": { "type": "Predefined", "id": "5"}
     },
-    "periodic_planning_duration": 180
+    "periodic_planning_duration": 180,
+    "apply_plan_to_running_daygroup": true
   }
 }

@@ -43,6 +43,9 @@ export class ScheduleService implements OnDestroy {
     private subjPeriodicSchedules = new BehaviorSubject(new Array<Schedule>());
     private subjWeeklySchedules = new BehaviorSubject(new Array<Schedule>());
 
+    private oneshotStarted = false;
+    private periodicStarted = false;
+
     constructor(
         private configService: ConfigService, private scsTscService: ScsTscService
     ) { }
@@ -378,6 +381,13 @@ export class ScheduleService implements OnDestroy {
             if (s.visibility === ScheduleDef.VISIBLE) {
                 if ((isPeriodic && s.periodic) || (!isPeriodic && !s.periodic)) {
                     schedulesByPeriodic.push(s);
+                    if (s.runningStatus === ScheduleDef.STARTED) {
+                        if (isPeriodic) {
+                            this.periodicStarted = true;
+                        } else {
+                            this.oneshotStarted = true;
+                        }
+                    }
                     console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', '*** schedule is pushed to schedulesByPeriodic');
                 }
             } 
@@ -787,6 +797,14 @@ export class ScheduleService implements OnDestroy {
         return false;
     }
 
+    public isOneshotScheduleStarted(): boolean {
+        return this.oneshotStarted;
+    }
+
+    public isPeriodicScheduleStarted(): boolean {
+        return this.periodicStarted;
+    }
+
     public updateWeeklySchedules() {
         this.weeklySchedules = Array<Schedule>(7);
         let tempWeekdaySchedules = Array<Schedule>(7);
@@ -853,6 +871,11 @@ export class ScheduleService implements OnDestroy {
         let s = this.scheduleKeyMap.get(scheduleKey);
         if (s) {
             s.visibility = ScheduleDef.VISIBLE;
+            if (s.periodic) {
+                s.runningStatus = this.periodicStarted ? ScheduleDef.STARTED : ScheduleDef.STOPPED;
+            } else {
+                s.runningStatus = this.oneshotStarted ? ScheduleDef.STARTED : ScheduleDef.STOPPED;
+            }
             let desc = s.toString();
             return this.scsTscService.setDescription(s.taskName, desc, this.clientName).map(
                 res => {

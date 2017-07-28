@@ -106,6 +106,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     private subGetRunningSchedules: any;
 
+    public oneshotStarted = false;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -189,6 +191,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                             this.visibleUserDefinedCnt++;
                         }
                     }
+                    this.oneshotStarted = this.scheduleService.isOneshotScheduleStarted();
                     this.updateAddDeleteRenameScheduleButton();
                     this.cancelRenameSchedule();
                 } else {
@@ -511,10 +514,12 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public startOneShot() {
         console.log('{schedule-table}', '[startOneShot]');
         this.scheduleService.startOneshotSchedule(this.selectedSchedule.id);
+        this.oneshotStarted = true;
     }
     public stopOneShot() {
          console.log('{schedule-table}', '[stopOneShot]');
         this.scheduleService.stopSchedule(this.selectedSchedule.id);
+        this.oneshotStarted = false;
     }
 
     public updateOnTimeValue(newOnTimeValue) {

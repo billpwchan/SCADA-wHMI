@@ -35,6 +35,10 @@ export class SchedulePlanningComponent implements OnInit {
     private subWeeklySchedules: any;
     private subGetRunningSchedules: any;
 
+    public periodicStarted = false;
+
+    public planModified = false;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -82,6 +86,9 @@ export class SchedulePlanningComponent implements OnInit {
         this.subSchedules = this.scheduleService.getSchedulesByPeriodic(true).subscribe(
             periodicSchedules => {
                 this.periodicSchedules = periodicSchedules;
+
+                this.periodicStarted = this.scheduleService.isPeriodicScheduleStarted();
+                console.log('{schedule-planning}', '[getPeriodicSchedules]', 'periodicStarted', this.periodicStarted);
             }
         )
     }
@@ -172,6 +179,7 @@ export class SchedulePlanningComponent implements OnInit {
                 this.scheduleService.setSchedulePlanDates(key, datesList, nextDatesList);
             }
         });
+        this.planModified = false;
     }
 
     public getAssignedSchedulesMap() {
@@ -209,9 +217,43 @@ export class SchedulePlanningComponent implements OnInit {
             this.satSchedule = this.weeklySchedules[6];
             this.sunSchedule = this.weeklySchedules[0];
         }
+        this.planModified = false;
     }
 
-    public getWeekdaySchedule(weekday: string): Schedule {
+    public onChange() {
+        console.log('{schedule-planning}', '[onChange]');
+        let modified = false;
+        if (this.monSchedule.id !== this.weeklySchedules[1].id) {
+            modified = true;
+        }
+        if (this.tueSchedule.id !== this.weeklySchedules[2].id) {
+            modified = true;
+        }
+        if (this.wedSchedule.id !== this.weeklySchedules[3].id) {
+            modified = true;
+        }
+        if (this.thuSchedule.id !== this.weeklySchedules[4].id) {
+            modified = true;
+        }
+        if (this.friSchedule.id !== this.weeklySchedules[5].id) {
+            modified = true;
+        }
+        if (this.satSchedule.id !== this.weeklySchedules[6].id) {
+            modified = true;
+        }
+        if (this.sunSchedule.id !== this.weeklySchedules[0].id) {
+            modified = true;
+            console.log('{schedule-planning}', '[onChange]', this.sunSchedule.id, this.weeklySchedules[0].id);
+        }
+        if (modified) {
+            this.planModified = true;
+        } else {
+            this.planModified = false;
+        }
+        console.log('{schedule-planning}', '[onChange]', 'planModified', this.planModified);
+    }
+
+    public getDefaultWeekdaySchedule(weekday: string): Schedule {
         if (this.defaultWeeklyConfig.get(weekday)) {
             console.log('{schedule-planning}', '[defaultsWeeklyPlan]', weekday, this.defaultWeeklyConfig.get(weekday));
             if (this.defaultWeeklyConfig.get(weekday).get("type") && this.defaultWeeklyConfig.get(weekday).get("id")) {
@@ -230,14 +272,15 @@ export class SchedulePlanningComponent implements OnInit {
 
     public defaultsWeeklyPlan() {
         if (this.defaultWeeklyConfig) {
-            this.monSchedule = this.getWeekdaySchedule("0");
-            this.tueSchedule = this.getWeekdaySchedule("1");
-            this.wedSchedule = this.getWeekdaySchedule("2");
-            this.thuSchedule = this.getWeekdaySchedule("3");
-            this.friSchedule = this.getWeekdaySchedule("4");
-            this.satSchedule = this.getWeekdaySchedule("5");
-            this.sunSchedule = this.getWeekdaySchedule("6");
+            this.monSchedule = this.getDefaultWeekdaySchedule("1");
+            this.tueSchedule = this.getDefaultWeekdaySchedule("2");
+            this.wedSchedule = this.getDefaultWeekdaySchedule("3");
+            this.thuSchedule = this.getDefaultWeekdaySchedule("4");
+            this.friSchedule = this.getDefaultWeekdaySchedule("5");
+            this.satSchedule = this.getDefaultWeekdaySchedule("6");
+            this.sunSchedule = this.getDefaultWeekdaySchedule("0");
         }
+        this.onChange();
     }
 
     public startPeriodic() {
@@ -245,6 +288,8 @@ export class SchedulePlanningComponent implements OnInit {
         for (let s of this.periodicSchedules) {
             this.scheduleService.startPeriodicSchedule(s.id);
         }
+        this.periodicStarted = true;
+        console.log('{schedule-planning}', '[startPeriodic]', 'periodicStarted', this.periodicStarted);
     }
 
     public stopPeriodic() {
@@ -252,5 +297,7 @@ export class SchedulePlanningComponent implements OnInit {
         for (let s of this.periodicSchedules) {
             this.scheduleService.stopSchedule(s.id);
         }
+        this.periodicStarted = false;
+        console.log('{schedule-planning}', '[stopPeriodic]', 'periodicStarted', this.periodicStarted);
     }
 }

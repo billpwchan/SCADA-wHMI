@@ -127,8 +127,8 @@
         </div>
 
         <div class="panel panel-body" id="oneshot-action" *ngIf="!displayPeriodicSchedules">
-            <button class="btn btn-primary" id="btn-oneshot-start" (click)="startOneShot()">{{'Start' | translate}}</button>
-            <button class="btn btn-primary" id="btn-oneshot-stop" (click)="stopOneShot()">{{'Stop' | translate}}</button>
+            <button class="btn btn-primary" id="btn-oneshot-start" [disabled]="oneshotStarted" (click)="startOneShot()">{{'Start' | translate}}</button>
+            <button class="btn btn-primary" id="btn-oneshot-stop" [disabled]="!oneshotStarted" (click)="stopOneShot()">{{'Stop' | translate}}</button>
         </div>
 
         <div class="panel panel-body" id='selected-column'>

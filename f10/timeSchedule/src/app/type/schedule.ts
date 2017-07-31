@@ -20,7 +20,7 @@ export class Schedule {
                 (this.titleReadOnly ? 'true' : 'false') + ',' +
                 (this.timeReadOnly ? 'true' : 'false') + ',' +
                 (this.eqtListReadOnly ? 'true' : 'false');
-        //console.log('{Schedule}', 'toString', str);
+//        console.log('{Schedule}', 'toString', str);
         return str;
     }
 }

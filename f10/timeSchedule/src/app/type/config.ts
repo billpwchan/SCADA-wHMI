@@ -15,21 +15,21 @@ export interface Config {
         use_cookie_name: string;
     };
     schedule_table: {
-        // 
+        // default cutoff time
         cutoff_time: string;
-        // 
+        // option to show equipment on/off time as original hour + 24hr (e.g. 01:00 -> 25:00)
         show_cutoff_offset: string;
-        // 
+        // string to show if on/off time is not configured
         unavailable_on_off_time: string;
-        //
+        // string to show if on/off time is inhibited
         inhibited_on_off_time: string,
-        //
+        // maximum userdefined schedule count (Oneshot + predefined + userdefined total cannot be over 8)
         max_userdefined_schedule_count: number,
-        // 
+        // define each schedule's planning and running daygroup
         schedule_daygroup: any;
-        //
+        // default filter for equipment task
         filter: any,
-        //
+        // default sort for equipment task
         sort: any
     };
     schedule_planning: {

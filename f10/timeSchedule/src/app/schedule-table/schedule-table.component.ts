@@ -28,7 +28,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     private subSchedules: any;
     private subScheduleItems: any;
     // display periodic
-    public displayPeriodicSchedules: boolean = false;
+    public displayPeriodicSchedules = false;
     // stores schedules returned from ScheduleService
     public schedules: Schedule[] = [];
     // stores scheduleItems filtered by type
@@ -129,7 +129,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
     loadConfig() {
         console.log('{schedule-table}', '[loadConfig]', 'translate current lang=', this.translate.currentLang);
-        
+
         this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);
         console.log('{schedule-table}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
 
@@ -158,7 +158,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
         this.subRoute = this.route.queryParams.subscribe(params => {
             this.cleanupScheduleSubscriptions();
-            let p = params['periodic'];
+            const p = params['periodic'];
             if (p === 'true') {
                 this.displayPeriodicSchedules = true;
             } else {
@@ -166,27 +166,27 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             }
             console.log('{schedule-table}', '[loadData]', 'periodic =', this.displayPeriodicSchedules);
 
-            let clientName = params['clientName'] || this.configService.config.getIn(['default_client_name']);
+            const clientName = params['clientName'] || this.configService.config.getIn(['default_client_name']);
             console.log('{schedule-table}', '[loadData]', 'clientName =', clientName);
 
             this.scheduleService.setClientName(clientName);
 
-            let runtimeFilters = params['filter'];
+            const runtimeFilters = params['filter'];
             console.log('{schedule-table}', '[loadData]', 'runtimeFilters =', runtimeFilters);
 
-            let runtimeSort = params['sort'];
+            const runtimeSort = params['sort'];
             console.log('{schedule-table}', '[loadData]', 'runtimeSort =', runtimeSort);
 
             this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.displayPeriodicSchedules).subscribe(schedules => {
                 this.schedules = schedules;
                 if (schedules && schedules.length > 0) {
                     console.log('{schedule-table}', '[loadData]', 'getSchedulesByPeriodic return schedule count=', schedules.length);
-                    // display first schedule as active and selected schedules 
+                    // display first schedule as active and selected schedules
                     this.activeItem = [this.schedules[0]];
                     this.selectedSchedule = schedules[0];
 
                     this.visibleUserDefinedCnt = 0;
-                    for (let s of schedules) {
+                    for (const s of schedules) {
                         if (!s.titleReadOnly && s.visibility) {
                             this.visibleUserDefinedCnt++;
                         }
@@ -225,7 +225,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 
     }
-    private cleanupScheduleSubscriptions() {        
+    private cleanupScheduleSubscriptions() {
         if (this.subSchedules) {
             this.subSchedules.unsubscribe();
         }
@@ -276,7 +276,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     // ng2-select callback
     public typed(value: any): void {
         console.log('{schedule-table}', '[ng2-select typed]', 'New search input: ', value);
-        //this.newScheduleTitle = value;
     }
     // ng2-select callback
     public refreshValue(value: any): void {
@@ -288,7 +287,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         const scheduleItem: ScheduleItem = this.selectedRow[0];
         this.selectedItemDisplay = this.translate.instant('Location_' + scheduleItem.geoCat) + '-' +
                                     this.translate.instant('System_' + scheduleItem.funcCat) + '-' +
-                                    this.translate.instant(scheduleItem.eqtLabel)  + '-' + 
+                                    this.translate.instant(scheduleItem.eqtLabel)  + '-' +
                                     this.translate.instant(scheduleItem.eqtDescription);
         this.resetModified();
     }
@@ -313,9 +312,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.schItemFilters = [];
     }
     private addSchItemsFilter(attributeName: string, filterPattern: string) {
-        let scheduleFilter = new ScheduleItemFilter();
+        const scheduleFilter = new ScheduleItemFilter();
         scheduleFilter.attributeName = attributeName;
-        scheduleFilter.matchPattern = new RegExp(filterPattern);   
+        scheduleFilter.matchPattern = new RegExp(filterPattern);
         this.schItemFilters.push(scheduleFilter);
          console.log('{schedule-table}', '[addSchItemsFilter]', 'this.schItemFilters.length', this.schItemFilters.length);
     }
@@ -325,7 +324,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             console.log('{schedule-table}', '[addOfflineFilters]', 'this.offlineFilters', this.offlineFilters);
             this.offlineFilters.forEach((value: string, key: string) => {
                 console.log('{schedule-table}', '[addOfflineFilters]', 'filter', key, value);
-                let filter = new ScheduleItemFilter();
+                const filter = new ScheduleItemFilter();
                 filter.attributeName = key;
                 filter.matchPattern = new RegExp(value);
                 this.schItemFilters.push(filter);
@@ -339,10 +338,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[addRuntimeFilters]');
         if (runtimeFilters) {
             console.log('{schedule-table}', '[addRuntimeFilters]', 'runtimeFilters', runtimeFilters);
-            let obj = JSON.parse(runtimeFilters)
+            const obj = JSON.parse(runtimeFilters)
             Object.keys(obj).forEach(key => {
                 console.log('{schedule-table}', '[addRuntimeFilters]', 'key', key, 'value', obj[key]);
-                let filter = new ScheduleItemFilter();
+                const filter = new ScheduleItemFilter();
                 filter.attributeName = key;
                 filter.matchPattern = new RegExp(obj[key]);
                 this.schItemFilters.push(filter);
@@ -359,12 +358,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             console.log('{schedule-table}', '[filterSchItems]', 'this.schItemFilters.length', this.schItemFilters.length);
             for (const r of scheduleItems) {
                 let matching = true;
-                let filterCnt = 0;
+                const filterCnt = 0;
                 for (const f of this.schItemFilters) {
                     console.log('{schedule-table}', '[filterSchItems]', 'filter', f.attributeName, f.matchPattern);
                     const attribute: string = r[f.attributeName];
                     if (attribute) {
-                        //console.log('{schedule-table}', '[filterSchItems]', 'attribute', attribute);
                         if (!attribute.toString().match(f.matchPattern)) {
                             matching = false;
                             console.log('{schedule-table}', '[filterSchItems]', 'attribute', attribute, 'not matching', f.matchPattern);
@@ -392,7 +390,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.sortingColumn = [];
         if (runtimeSort) {
             console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort', runtimeSort);
-            let obj = JSON.parse(runtimeSort);
+            const obj = JSON.parse(runtimeSort);
             if (Array.isArray(obj)) {
                 this.sortingColumn = obj;
             } else {
@@ -403,7 +401,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort is null. offlineSort', this.offlineSort);
 
             if (this.offlineSort.get('prop') && this.offlineSort.get('dir')) {
-                let obj = new Object();
+                const obj = new Object();
                 obj['prop'] = this.offlineSort.get('prop');
                 obj['dir'] = this.offlineSort.get('dir');
                 this.sortingColumn = [obj];
@@ -473,7 +471,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public applyRenameSchedule() {
         console.log('{schedule-table}', '[applyRenameSchedule]', this.newScheduleTitle);
         this.renameScheduleClicked = false;
-        
+
         if (this.newScheduleTitle && this.newScheduleTitle.length > 0) {
             this.selectedSchedule.text = this.newScheduleTitle;
             this.scheduleService.setScheduleTitle(this.selectedSchedule.id, this.newScheduleTitle);
@@ -496,8 +494,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public updateAddDeleteRenameScheduleButton() {
         console.log('{schedule-table}', '[updateAddDeleteRenameScheduleButton]', ' visibleUserDefinedCnt', this.visibleUserDefinedCnt);
         this.addScheduleEnabled = this.visibleUserDefinedCnt < this.maxUserDefinedScheduleCount;
-        let isAssigned = this.scheduleService.isScheduleAssigned(this.selectedSchedule.id);
-        let isRunning = this.scheduleService.isScheduleRunning(this.selectedSchedule.id);
+        const isAssigned = this.scheduleService.isScheduleAssigned(this.selectedSchedule.id);
+        const isRunning = this.scheduleService.isScheduleRunning(this.selectedSchedule.id);
 
         console.log('{schedule-table}', '[updateAddDeleteRenameScheduleButton]', 'isAssigned', isAssigned);
         console.log('{schedule-table}', '[updateAddDeleteRenameScheduleButton]', 'isRunning', isRunning);
@@ -546,33 +544,25 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.checkInputModified();
     }
     public checkInputModified() {
-        //let selectedItem: ScheduleItem = this.selectedRow[0];
-
         if (this.pendingOnTimeIsEnabled && !this.selectedScheduleItem.enableFlag1) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===0)', this.pendingOnTimeIsEnabled, this.selectedScheduleItem.enableFlag1);
         } else if (!this.pendingOnTimeIsEnabled && this.selectedScheduleItem.enableFlag1) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOnTimeIsEnabled && (selectedItem.enableFlag1===1)', this.pendingOnTimeIsEnabled, this.selectedScheduleItem.enableFlag1);
         } else if (this.pendingOffTimeIsEnabled && !this.selectedScheduleItem.enableFlag2) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===0)', this.pendingOffTimeIsEnabled, this.selectedScheduleItem.enableFlag2);
         } else if (!this.pendingOffTimeIsEnabled && this.selectedScheduleItem.enableFlag2) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', '!this.pendingOffTimeIsEnabled && (selectedItem.enableFlag2===1)', this.pendingOffTimeIsEnabled, this.selectedScheduleItem.enableFlag2);
         } else if (this.newOnTime !== this.selectedScheduleItem.onTime) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.newOnTime', this.newOnTime, ' !== selectedItem.onTime', this.selectedScheduleItem.onTime);
         } else if (this.newOffTime !== this.selectedScheduleItem.offTime) {
             this.inputIsModified = true;
-            console.log('{schedule-table}', '[checkInputModified]', 'this.newOffTime', this.newOffTime, ' !== selectedItem.offTime', this.selectedScheduleItem.offTime);
         } else {
             this.inputIsModified = false;
         }
         console.log('{schedule-table}', '[checkInputModified]', 'inputIsModified', this.inputIsModified);
     }
     public checkInputTimeIsValid() {
-        let regexp = /^\d\d:\d\d$/;
+        const regexp = /^\d\d:\d\d$/;
         if (this.newOnTime.match(regexp)) {
             this.newOnTimeValid = true;
         } else {
@@ -588,11 +578,12 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         } else {
             this.inputTimeValid = false;
         }
-        console.log('{schedule-table}', '[checkInputTimeIsValid]', 'inputTimeValid', this.inputTimeValid, 'newOnTime', this.newOnTime, 'newOffTime', this.newOffTime);
+        console.log('{schedule-table}', '[checkInputTimeIsValid]', 'inputTimeValid', this.inputTimeValid,
+            'newOnTime', this.newOnTime, 'newOffTime', this.newOffTime);
     }
     // click event handler for save button
     public saveModified() {
-        let selectedItem: ScheduleItem = this.selectedRow[0];
+        const selectedItem: ScheduleItem = this.selectedRow[0];
         if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
             this.scheduleService.enableTask(this.selectedRow[0].taskName1);
         } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
@@ -659,7 +650,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public resetModified() {
         if (this.selectedRow && this.selectedRow[0]) {
-            let scheduleItem: ScheduleItem = this.selectedRow[0];
+            const scheduleItem: ScheduleItem = this.selectedRow[0];
             this.selectedScheduleItem = this.selectedRow[0];
 
             if (scheduleItem.onTime !== this.unavailableOnOffTime) {
@@ -695,8 +686,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
 
     public checkBeforeCutoffTime(hour: number, minute: number): boolean {
-        let cutoffHr = +this.cutoffTime.split(':')[0];
-        let cutoffMin = +this.cutoffTime.split(':')[1];
+        const cutoffHr = +this.cutoffTime.split(':')[0];
+        const cutoffMin = +this.cutoffTime.split(':')[1];
         if (hour < cutoffHr || (hour === cutoffHr && minute < cutoffMin)) {
             return true;
         }
@@ -707,7 +698,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[updateNewScheduleTitle]', newScheduleTitle);
         if (newScheduleTitle && newScheduleTitle.length > 0) {
             let found = false;
-            for (let s of this.schedules) {
+            for (const s of this.schedules) {
                 if (s.text === newScheduleTitle) {
                     found = true;
                     break;
@@ -732,7 +723,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     this.runningSchedules = schedules;
                     if (schedules && schedules.length > 0) {
                         let cnt = 0;
-                        for (let s of schedules) {
+                        for (const s of schedules) {
                             if (cnt > 0) {
                                 this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
                             } else {
@@ -742,8 +733,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                             console.log('{schedule-table}', '[getRunningSchedules] runningSchedulesStr', this.runningSchedulesStr);
                         }
                     } else {
-                        let str = 'No schedule is running';
-                        let translatedStr = this.translate.instant(str);
+                        const str = 'No schedule is running';
+                        const translatedStr = this.translate.instant(str);
                         if (translatedStr) {
                             this.runningSchedulesStr = translatedStr;
                         } else {

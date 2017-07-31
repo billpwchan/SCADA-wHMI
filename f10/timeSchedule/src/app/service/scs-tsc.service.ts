@@ -177,7 +177,7 @@ export class ScsTscService {
         console.log('{ScsTscService}', '[setDates]', 'taskName=', dayGroupId, ' datesList=', datesList, 'url=', url);
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }
-    public getDayGroups(): Observable<Array<any>> {
+    public getDayGroups(): Observable<any[]> {
         const url = this.urlScsTsc + ScsTscDef.GET_DAYGROUPS;
         return this.http.get(url).map(this.extractDayGroup).catch(this.handleError);
     }

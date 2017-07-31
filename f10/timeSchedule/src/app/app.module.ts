@@ -6,7 +6,7 @@ import { SelectModule } from 'ng2-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable/src';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { PageNotFoundComponent }   from './not-found.component';
+import { PageNotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';

@@ -26,13 +26,15 @@ export class ConfigService {
             filter: {},
             sort: {},
             max_title_length: 40,
-            display_app_navigation: false
+            display_app_navigation: false,
+            manual_refresh_enabled: true
         }),
         schedule_planning: Map({
             weekly_planning: {},
             periodic_planning_duration: 180,
             apply_plan_to_running_daygroup: false,
-            display_app_navigation: false
+            display_app_navigation: false,
+            manual_refresh_enabled: true
         })
     });
     public config: any;

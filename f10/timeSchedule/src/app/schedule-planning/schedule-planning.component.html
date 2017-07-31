@@ -10,6 +10,11 @@
             <label class="col-md-4 label label-warning" id="running-schedules-label">{{'Running Schedules' | translate}}</label>
             <input class="col-md-6 input" id="running-schedules-input" readonly [ngModel]="runningSchedulesStr" type="text">
         </div>
+        <div *ngIf="manualRefreshEnabled">
+            <button class="btn pull-right" id="btn-refresh-page" type="button" (click)="onRefresh()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Refresh' | translate}}
+            </button>
+        </div>
         <div id="weekday-planning-container">
             <div class="row weekday-planning" id="weekday-planning-monday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-monday-label">{{'Monday' | translate}}</label>
@@ -68,13 +73,23 @@
             </div>
         </div>
         <div class="periodic-action" id="periodic-action">
-            <button class="btn btn-primary" id="apply-weekly-plan-button" [disabled]="!planModified" (click)="updateWeeklyPlan()">{{'Apply' | translate}}</button>
-            <button class="btn btn-primary" id="revert-weekly-plan-button" [disabled]="!planModified" (click)="revertWeeklyPlan()">{{'Revert' | translate}}</button>
-            <button class="btn btn-primary" id="defaults-weekly-plan-button" (click)="defaultsWeeklyPlan()">{{'Defaults' | translate}}</button>
+            <button class="btn btn-primary" id="apply-weekly-plan-button" [disabled]="!planModified" (click)="updateWeeklyPlan()">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>{{'Apply' | translate}}
+            </button>
+            <button class="btn btn-primary" id="revert-weekly-plan-button" [disabled]="!planModified" (click)="revertWeeklyPlan()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Revert' | translate}}
+            </button>
+            <button class="btn btn-primary" id="defaults-weekly-plan-button" (click)="defaultsWeeklyPlan()">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>{{'Defaults' | translate}}
+            </button>
         </div>
         <div class="periodic-action" id="periodic-start-stop">
-            <button class="btn btn-primary" id="start-periodic-button" [disabled]="periodicStarted" (click)="startPeriodic()">{{'Start' | translate}}</button>
-            <button class="btn btn-primary" id="stop-periodic-button" [disabled]="!periodicStarted" (click)="stopPeriodic()">{{'Stop' | translate}}</button>
+            <button class="btn btn-primary" id="start-periodic-button" [disabled]="periodicStarted" (click)="startPeriodic()">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>{{'Start' | translate}}
+            </button>
+            <button class="btn btn-primary" id="stop-periodic-button" [disabled]="!periodicStarted" (click)="stopPeriodic()">
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>{{'Stop' | translate}}
+            </button>
         </div>
     </div>
 <div>

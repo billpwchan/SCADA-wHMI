@@ -110,6 +110,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public displayAppNavigation = false;
 
+    public manualRefreshEnabled = false;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -155,6 +157,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.displayAppNavigation = this.configService.config.getIn(['schedule_table', 'display_app_navigation']);
         console.log('{schedule-table}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
+
+        this.manualRefreshEnabled = this.configService.config.getIn(['schedule_table', 'manual_refresh_enabled']);
+        console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
     }
     loadData() {
         if (this.subRoute) {
@@ -748,6 +753,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 }
             }
         )
+    }
+
+    public onRefresh() {
+        window.location.reload();
     }
 }
 

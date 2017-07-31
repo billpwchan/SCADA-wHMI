@@ -103,3 +103,6 @@
 #newScheduleTitleInvalid {
     width: 25%
 }
+.pull-right {
+    float: right !important;
+}

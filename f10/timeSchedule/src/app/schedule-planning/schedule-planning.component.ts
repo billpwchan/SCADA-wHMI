@@ -43,6 +43,8 @@ export class SchedulePlanningComponent implements OnInit {
 
     public displayAppNavigation = false;
 
+    public manualRefreshEnabled = false;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -74,6 +76,9 @@ export class SchedulePlanningComponent implements OnInit {
 
         this.displayAppNavigation = this.configService.config.getIn(['schedule_planning', 'display_app_navigation']);
         console.log('{schedule-table}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
+
+        this.manualRefreshEnabled = this.configService.config.getIn(['schedule_planning', 'manual_refresh_enabled']);
+        console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
     }
 
     private loadData() {
@@ -343,5 +348,9 @@ export class SchedulePlanningComponent implements OnInit {
 
         this.periodicStarted = false;
         console.log('{schedule-planning}', '[stopPeriodic]', 'periodicStarted', this.periodicStarted);
+    }
+
+    public onRefresh() {
+        window.location.reload();
     }
 }

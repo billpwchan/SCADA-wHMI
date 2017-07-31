@@ -25,12 +25,14 @@ export class ConfigService {
             schedule_daygroup: {},
             filter: {},
             sort: {},
-            max_title_length: 40
+            max_title_length: 40,
+            display_app_navigation: false
         }),
         schedule_planning: Map({
             weekly_planning: {},
             periodic_planning_duration: 180,
-            apply_plan_to_running_daygroup: false
+            apply_plan_to_running_daygroup: false,
+            display_app_navigation: false
         })
     });
     public config: any;

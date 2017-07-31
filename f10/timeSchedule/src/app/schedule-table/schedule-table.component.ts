@@ -108,6 +108,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public oneshotStarted = false;
 
+    public displayAppNavigation = false;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -151,6 +153,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.maxTitleLength = this.configService.config.getIn(['schedule_table', 'max_title_length']);
         console.log('{schedule-table}', '[loadData]', 'maxTitleLength =', this.maxTitleLength);
 
+        this.displayAppNavigation = this.configService.config.getIn(['schedule_table', 'display_app_navigation']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
     }
     loadData() {
         if (this.subRoute) {

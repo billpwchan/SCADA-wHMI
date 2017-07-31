@@ -33,7 +33,8 @@
     },
     "sort": {
     },
-    "max_title_length": 40
+    "max_title_length": 40,
+    "display_app_navigation": false
 	},
   "schedule_planning": {
       "weekly_planning": {
@@ -46,6 +47,7 @@
         "6": { "type": "Predefined", "id": "5"}
     },
     "periodic_planning_duration": 180,
-    "apply_plan_to_running_daygroup": true
+    "apply_plan_to_running_daygroup": true,
+    "display_app_navigation": false
   }
 }

@@ -41,6 +41,8 @@ export class SchedulePlanningComponent implements OnInit {
 
     public planModified = false;
 
+    public displayAppNavigation = false;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -69,6 +71,9 @@ export class SchedulePlanningComponent implements OnInit {
 
         this.applyPlanToRunningDayGroup = this.configService.config.getIn(['schedule_planning', 'apply_plan_to_running_daygroup']);
         console.log('{schedule-table}', '[loadConfig]', 'applyPlanToRunningDayGroup=', this.applyPlanToRunningDayGroup);
+
+        this.displayAppNavigation = this.configService.config.getIn(['schedule_planning', 'display_app_navigation']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
     }
 
     private loadData() {

@@ -1,4 +1,6 @@
-<!--<div id="schedule-table" style="width: 1400px; margin-bottom: 20px">-->
+<div *ngIf="displayAppNavigation">
+    <app-navigation></app-navigation>
+</div>
 <div class="panel panel-default" id="schedule-table">
     <div class="panel panel-heading" id="schedule-table-header">
         <h4>{{'Schedule Table' | translate}}</h4>

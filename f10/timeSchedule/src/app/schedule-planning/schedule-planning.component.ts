@@ -258,8 +258,6 @@ export class SchedulePlanningComponent implements OnInit {
     }
 
     public onChange() {
-        console.log('{schedule-planning}', '[onChange]');
-        console.log('{schedule-planning}', '[onChange]', 'monSchedule', this.monSchedule, 'weeklySchedules[1]', this.weeklySchedules[1]);
         if ((this.monSchedule && !this.weeklySchedules[1]) || (!this.monSchedule && this.weeklySchedules[1])) {
             this.planModified = true;
         } else if (this.monSchedule && this.weeklySchedules[1] && this.monSchedule.id !== this.weeklySchedules[1].id) {

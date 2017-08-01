@@ -913,7 +913,7 @@ export class ScheduleService implements OnDestroy {
     public isScheduleRunning(scheduleKey): boolean {
         if (this.runningSchedules) {
             for (const s of this.runningSchedules) {
-                if (s.id === scheduleKey) {
+                if (s && s.id && s.id === scheduleKey) {
                     return true;
                 }
             }
@@ -924,7 +924,7 @@ export class ScheduleService implements OnDestroy {
     public isScheduleAssigned(scheduleKey): boolean {
         if (this.weeklySchedules) {
             for (const s of this.weeklySchedules) {
-                if (s.id === scheduleKey) {
+                if (s && s.id && s.id === scheduleKey) {
                     return true;
                 }
             }

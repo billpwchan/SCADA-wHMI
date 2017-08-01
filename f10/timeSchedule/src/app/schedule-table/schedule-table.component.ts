@@ -571,16 +571,16 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[checkInputModified]', 'inputIsModified', this.inputIsModified);
     }
     public checkInputTimeIsValid() {
-        const regexp = /^\d\d:\d\d$/;
-        if (this.newOnTime.match(regexp)) {
-            this.newOnTimeValid = true;
-        } else {
+        const regexp = /^(\d\d:\d\d)$/;
+        if (this.newOnTime !== this.selectedScheduleItem.onTime && !this.newOnTime.match(regexp)) {
             this.newOnTimeValid = false;
-        }
-        if (this.newOffTime.match(regexp)) {
-            this.newOffTimeValid = true;
         } else {
+            this.newOnTimeValid = true;
+        }
+        if (this.newOffTime !== this.selectedScheduleItem.offTime && !this.newOffTime.match(regexp)) {
             this.newOffTimeValid = false;
+        } else {
+            this.newOffTimeValid = true;
         }
         if (this.newOnTimeValid && this.newOffTimeValid) {
             this.inputTimeValid = true;

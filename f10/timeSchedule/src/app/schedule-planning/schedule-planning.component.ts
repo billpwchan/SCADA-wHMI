@@ -194,27 +194,15 @@ export class SchedulePlanningComponent implements OnInit {
                 }
             } else {
                 this.scheduleService.setSchedulePlanDates(s.id, Array<string>(), Array<string>());
+                if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
+                    this.scheduleService.setScheduleRunDates(s.id, Array<string>(), Array<string>());
+                }
             }
         }
 
-        assignedSchedulesMap.forEach((value: number[], key: string) => {
-            const currentDate = new Date();
-            const nextDate = new Date();
-            currentDate.setHours(0, 0, 0, 0);
-
-            console.log('{schedule-planning}', '[updateWeeklyPlan]', 'current date', currentDate.getFullYear(), currentDate.getMonth() + 1,
-                currentDate.getDate(), 'next date', nextDate.getFullYear(), nextDate.getMonth() + 1, nextDate.getDate());
-
-            const datesList = UtilService.getWeekDatesList(value, currentDate, this.periodicPlanningDuration);
-            const nextDatesList = UtilService.getWeekNextDatesList(value, currentDate, this.periodicPlanningDuration);
-
-            if (datesList && datesList.length > 0) {
-                this.scheduleService.setSchedulePlanDates(key, datesList, nextDatesList);
-                if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
-                    this.scheduleService.setScheduleRunDates(key, datesList, nextDatesList);
-                }
-            }
-        });
+        if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
+            this.scheduleService.loadData();
+        }
         this.planModified = false;
     }
 

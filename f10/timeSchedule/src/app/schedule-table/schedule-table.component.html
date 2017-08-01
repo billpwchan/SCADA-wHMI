@@ -69,7 +69,7 @@
             <div *ngIf="renameScheduleClicked" id="rename-schedule-input-apply-cancel">
                 <label>{{ 'Rename Schedule' | translate }}</label>
                 <input [(ngModel)]="newScheduleTitle" (ngModelChange)="updateNewScheduleTitle($event)" type="text" class="input" maxlength="{{maxTitleLength}}" id="input-rename-schedule">
-                <button class="btn btn-primary" id="btn-apply-rename-schedule" [disabled]="!newScheduleTitleValid" (click)="applyRenameSchedule()">
+                <button class="btn btn-primary" id="btn-apply-rename-schedule" [disabled]="!newScheduleTitleModified || !newScheduleTitleValid" (click)="applyRenameSchedule()">
                     <span class="glyphicon glyphicon-save" aria-hidden="true"></span>{{'Apply' | translate}}
                 </button>
                 <button class="btn btn-primary" id="btn-cancel-rename-schedule" (click)="cancelRenameSchedule()">

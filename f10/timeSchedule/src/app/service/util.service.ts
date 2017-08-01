@@ -31,7 +31,7 @@ export class UtilService {
         const testDate = new Date(seconds * 1000);
         const weekDate = new Date();
 
-        weekDate.setDate(weekDate.getDate() + (weekDate.getDate() > dayofweek ? (7 - weekDate.getDay() + dayofweek) : (dayofweek - weekDate.getDay())));
+        weekDate.setDate(weekDate.getDate() + (weekDate.getDay() > dayofweek ? (7 - weekDate.getDay() + dayofweek) : (dayofweek - weekDate.getDay())));
         console.log('{UtilService}', '[includesComingDayOfWeek]', 'testDate', testDate, 'dayofweek', dayofweek, 'weekDate', weekDate);
 
         if (testDate.getFullYear() === weekDate.getFullYear() &&

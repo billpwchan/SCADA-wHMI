@@ -81,7 +81,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public newOffTimeValid = true;
     public inputTimeValid = true;
 
-    public newScheduleTitleValid = false;
+    public newScheduleTitleValid = true;
+    public newScheduleTitleModified = false;
 
     public maxTitleLength = 40;
 
@@ -511,6 +512,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.deleteScheduleEnabled = !isRunning && !isAssigned && !this.selectedSchedule.titleReadOnly && (this.visibleUserDefinedCnt > 0);
         this.renameScheduleEnabled = !this.selectedSchedule.titleReadOnly;
         this.selectScheduleDisabled = false;
+        this.newScheduleTitleModified = false;
     }
     public cancelRenameSchedule() {
         console.log('{schedule-table}', '[cancelRenameSchedule]', this.newScheduleTitle);
@@ -705,10 +707,16 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public updateNewScheduleTitle(newScheduleTitle) {
         console.log('{schedule-table}', '[updateNewScheduleTitle]', newScheduleTitle);
+
         if (newScheduleTitle && newScheduleTitle.length > 0) {
+            if (newScheduleTitle !== this.selectedSchedule.text) {
+                this.newScheduleTitleModified = true;
+            } else {
+                this.newScheduleTitleModified = false;
+            }
             let found = false;
             for (const s of this.schedules) {
-                if (s.text === newScheduleTitle) {
+                if (s.id != this.selectedSchedule.id && s.text === newScheduleTitle) {
                     found = true;
                     break;
                 }

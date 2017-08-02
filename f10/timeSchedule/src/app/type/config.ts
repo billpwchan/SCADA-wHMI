@@ -37,6 +37,12 @@ export interface Config {
         display_app_navigation: boolean;
         // option to show manual refresh button
         manual_refresh_enabled: boolean;
+        // string separator for concatenation of equipment task column values
+        equipment_task_string_separator: string;
+        // geocat translation prefix
+        geocat_translation_prefix: string;
+        // funcat translation prefix
+        funcat_translation_prefix: string;
     };
     schedule_planning: {
         // default schedule assignment for each weekday

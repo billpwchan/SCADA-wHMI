@@ -113,6 +113,12 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public manualRefreshEnabled = false;
 
+    public equipmentTaskSeparator = '-';
+
+    public geocatTranslationPrefix = 'geocat';
+
+    public funcatTranslationPrefix = 'funcat';
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -161,6 +167,15 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.manualRefreshEnabled = this.configService.config.getIn(['schedule_table', 'manual_refresh_enabled']);
         console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
+
+        this.equipmentTaskSeparator = this.configService.config.getIn(['schedule_table', 'equipment_task_string_separator']);
+        console.log('{schedule-table}', '[loadConfig]', 'equipment_task_string_separator=', this.equipmentTaskSeparator);
+
+        this.geocatTranslationPrefix = this.configService.config.getIn(['schedule_table', 'geocat_translation_prefix']);
+        console.log('{schedule-table}', '[loadConfig]', 'geocat_translation_prefix=', this.geocatTranslationPrefix);
+
+        this.funcatTranslationPrefix = this.configService.config.getIn(['schedule_table', 'funcat_translation_prefix']);
+        console.log('{schedule-table}', '[loadConfig]', 'funcat_translation_prefix=', this.funcatTranslationPrefix);
     }
     loadData() {
         if (this.subRoute) {
@@ -295,9 +310,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public onSelect(selectedRow) {
         console.log('{schedule-table}', '[ngx-datatable onSelect]', 'Select Event', selectedRow, this.selectedRow);
         const scheduleItem: ScheduleItem = this.selectedRow[0];
-        this.selectedItemDisplay = this.translate.instant('Location_' + scheduleItem.geoCat) + '-' +
-                                    this.translate.instant('System_' + scheduleItem.funcCat) + '-' +
-                                    this.translate.instant(scheduleItem.eqtLabel)  + '-' +
+        this.selectedItemDisplay = this.translate.instant(this.geocatTranslationPrefix + scheduleItem.geoCat) + this.equipmentTaskSeparator +
+                                    this.translate.instant(this.funcatTranslationPrefix + scheduleItem.funcCat) + this.equipmentTaskSeparator +
+                                    this.translate.instant(scheduleItem.eqtLabel)  + this.equipmentTaskSeparator +
                                     this.translate.instant(scheduleItem.eqtDescription);
         this.resetModified();
     }

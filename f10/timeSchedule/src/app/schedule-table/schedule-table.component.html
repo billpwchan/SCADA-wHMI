@@ -101,7 +101,7 @@
                     <span (click)="sort()">{{ 'Location' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ 'Location_' + value | translate }}</strong>
+                    <strong>{{ geocatTranslationPrefix + value | translate }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column prop="funcCat" name="System" [sortable]='true'>
@@ -109,7 +109,7 @@
                     <span (click)="sort()">{{ 'System' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ 'System_' + value | translate }}</strong>
+                    <strong>{{ funcatTranslationPrefix + value | translate }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column prop="eqtLabel" name="Equipment Label" [sortable]='true'>

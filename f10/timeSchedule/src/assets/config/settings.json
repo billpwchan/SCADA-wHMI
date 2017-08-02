@@ -35,7 +35,10 @@
     },
     "max_title_length": 40,
     "display_app_navigation": false,
-    "manual_refresh_enabled": true
+    "manual_refresh_enabled": true,
+    "equipment_task_string_separator": " - ",
+    "geocat_translation_prefix": "Location_",
+    "funcat_translation_prefix": "System_"
 	},
   "schedule_planning": {
       "weekly_planning": {

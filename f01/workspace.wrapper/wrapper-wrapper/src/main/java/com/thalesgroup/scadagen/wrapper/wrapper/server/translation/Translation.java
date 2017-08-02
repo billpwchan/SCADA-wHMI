@@ -21,7 +21,7 @@ public class Translation {
 	private final static String strTranslatePattern	= "Translation_TranslatePatten_Server";
 	private final static String strTranslateFlag	= "Translation_TranslateFlag_Server";
 	
-	private static String translatePattern = "(^&\\S+)|\\s+(&\\S+)";
+	private static String translatePattern = "&[0-9a-zA-Z/$_-]+";
 	public void setTranslatePatten(String translatePatten) { Translation.translatePattern = translatePatten; }
 	public String getTranslatePatten() { return Translation.translatePattern;}
 	
@@ -55,6 +55,7 @@ public class Translation {
 		logger.trace("{} translateFlag[{}]", new Object[]{function, translateFlag});
 	}
 
+	public static final String UNDEFINED_WORDING = "#Undefined#";
 	public static String getWording(String sessionId, String key) {
 		final String function = "getWording";
 		logger.trace("{} getWording[{}]", function, key);
@@ -89,6 +90,14 @@ public class Translation {
         catch (final MissingResourceException e) {
         	logger.warn("{} Can't find key [{}] in dictionary MissingResourceException[{}]", new Object[]{key, e.toString()});
         }
+        
+        // Try to remove the UNDEFINED_WORDING prefix when string not found
+        if ( value.length() == UNDEFINED_WORDING.length()+key.length() ) {
+        	if ( value.equals(UNDEFINED_WORDING+key)) {
+        		value = key;
+        	}
+        }
+        
         return value;
 	}
 	

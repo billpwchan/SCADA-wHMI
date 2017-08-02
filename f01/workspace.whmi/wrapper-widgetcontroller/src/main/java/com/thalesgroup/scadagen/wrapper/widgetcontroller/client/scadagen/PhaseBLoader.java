@@ -9,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitProcess_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
+import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitControlPriority;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitDatabase;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitOpm;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.init.InitTranslation;
@@ -30,6 +31,9 @@ public class PhaseBLoader implements Loader_i{
 	public final static String strUIOpmSCADAgenKey							= "UIOpmSCADAgenKey";
 	public final static String strUIOpmSCADAgen								= "UIOpmSCADAgen";
 	
+	public final static String strUIControlPrioritySCADAgenKey				= "UIControlPrioritySCADAgenKey";
+	public final static String strUIControlPrioritySCADAgen					= "UIControlPrioritySCADAgen";
+	
 	public final static String strDatabaseReadingSingletonKey				= "DatabaseReadingSingletonKey";
 	public final static String strDatabaseSubscribeSingletonKey				= "DatabaseSubscribeSingletonKey";
 	public final static String strDatabaseSubscribeSingletonPeriodMillisKey = "DatabaseSubscribeSingletonPeriodMillisKey";
@@ -44,6 +48,7 @@ public class PhaseBLoader implements Loader_i{
 	@Override
 	public void iniDefaultParameterName() {
 		parameters.put(strUIOpmSCADAgenKey, strUIOpmSCADAgen);
+		parameters.put(strUIControlPrioritySCADAgenKey, strUIControlPrioritySCADAgen);
 		parameters.put(strDatabaseReadingSingletonKey, strDatabaseMultiReadingProxySingleton);
 		parameters.put(strDatabaseSubscribeSingletonKey, strDatabaseGroupPollingDiffSingleton);
 		parameters.put(strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillis);
@@ -81,6 +86,16 @@ public class PhaseBLoader implements Loader_i{
 				} catch (Exception ex) {
 					opmInitInValid = true;
 					logger.warn(className, function, "uiOpm_i init Exception:"+ex.toString());
+				}
+				
+				// Loading SCADAgen Control Priority Factory
+				InitControlPriority.getInstance().initControlPriorityFactory();
+				
+				try {
+			        // Init the SCADAgen Control Priority API
+			        InitControlPriority.getInstance().initControlPriority(parameters.get(strUIControlPrioritySCADAgenKey));
+				} catch (Exception ex) {
+					logger.warn(className, function, "uiControlPriority_i init Exception:"+ex.toString());
 				}
 				
 		        // Init for the translation

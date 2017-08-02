@@ -1,0 +1,8 @@
+{
+"UIOpmName": "UIOpmSCADAgen"
+, "UsrIdentityType": "Profile"
+
+, "ResrvReserveReqID": ".resrvReserveReqID"
+, "ResrvUnreserveReqID": ".resrvUnreserveReqID"
+, "ResrvReserveID": ".resrvReservedID"
+}

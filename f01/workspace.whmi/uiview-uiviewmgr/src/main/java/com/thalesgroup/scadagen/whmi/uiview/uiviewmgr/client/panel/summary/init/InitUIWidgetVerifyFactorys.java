@@ -17,6 +17,7 @@ import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.veri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dbm.UIWidgetVerifyScsRTDBComponentControl;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.dictionaries.UIWidgetVerifyReadJSON;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.hilc.UIWidgetVerifyHILCControl;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyControlPriority;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMChangePassword;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMCheckAccess;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.verify.opm.UIWidgetVerifyOPMGetInfo;
@@ -62,6 +63,13 @@ public class InitUIWidgetVerifyFactorys {
 				UIWidget_i uiWidget_i = null;
 	
 				if (
+					UIWidgetUtil.getClassSimpleName(UIWidgetVerifyControlPriority.class.getName())
+					.equals(uiCtrl)
+					) {
+	
+					uiWidget_i = new UIWidgetVerifyControlPriority();
+				
+				} else if (
 					UIWidgetUtil.getClassSimpleName(UIWidgetVerifyOPMChangePassword.class.getName())
 					.equals(uiCtrl)
 					) {

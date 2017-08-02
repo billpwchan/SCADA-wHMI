@@ -1,7 +1,6 @@
 export class Schedule {
-    id: string;             // require field for object in ng2-select
+    id: string;             // require field for object in ng2-select, e.g. 01,..,08
     scheduleType: string;   // e.g. oneshot, predefined, userdefined
-    scheduleId: number;     // e.g. 1 - 8
     scheduleDescription: string;    // e.g. oneshot, predefined, userdefined
     text: string;           // required field for object in ng2-select, for title e.g. weekday
     runningStatus: string;  // e.g. started, stopped

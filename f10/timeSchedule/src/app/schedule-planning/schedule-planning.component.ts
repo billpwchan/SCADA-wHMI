@@ -200,9 +200,9 @@ export class SchedulePlanningComponent implements OnInit {
             }
         }
 
-        if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
+//        if (this.periodicStarted && this.applyPlanToRunningDayGroup) {
             this.scheduleService.loadData();
-        }
+//        }
         this.planModified = false;
     }
 
@@ -289,7 +289,7 @@ export class SchedulePlanningComponent implements OnInit {
                 const id = this.defaultWeeklyConfig.get(weekday).get('id');
                 if (type && id) {
                     for (const s of this.periodicSchedules) {
-                        if (s.scheduleType === type && s.scheduleId === +id) {
+                        if (s.scheduleType === type && s.id === id) {
                             if (this.scheduleService.isScheduleVisible(s.id)) {
                                 console.log('{schedule-planning}', '[getDefaultWeekdaySchedule]', 'schedule is visible', s.id);
                                 return s;

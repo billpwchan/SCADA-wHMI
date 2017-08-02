@@ -1,9 +1,8 @@
 import { Schedule } from './schedule';
 export class ScheduleItem {
     key: string;            // primary key to search scheduleItem
-    scheduleKey: string;    // primary key to search schedule
     scheduleType: string;   // from Name
-    scheduleId: number;     // from Name
+    scheduleId: string;     // from Name, primary key to search schedule
     eqtLabel: string;       // from Name
     eqtAlias: string;       // from Name
     eqtPointAtt: string;    // from Name

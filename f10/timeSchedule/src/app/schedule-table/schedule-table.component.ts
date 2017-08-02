@@ -154,7 +154,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[loadConfig]', 'sort=', this.offlineSort);
 
         this.maxTitleLength = this.configService.config.getIn(['schedule_table', 'max_title_length']);
-        console.log('{schedule-table}', '[loadData]', 'maxTitleLength =', this.maxTitleLength);
+        console.log('{schedule-table}', '[loadConfig]', 'maxTitleLength =', this.maxTitleLength);
 
         this.displayAppNavigation = this.configService.config.getIn(['schedule_table', 'display_app_navigation']);
         console.log('{schedule-table}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
@@ -218,7 +218,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 this.setDefaultSort(runtimeSort);
 
                 if (this.selectedSchedule) {
-                    this.addSchItemsFilter('scheduleKey', this.selectedSchedule.id);
+                    this.addSchItemsFilter('scheduleId', this.selectedSchedule.id);
                 }
 
                 this.addOfflineFilters();
@@ -267,8 +267,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[ng2-select selected]', 'renameScheduleEnabled', this.renameScheduleEnabled);
         // filter our data
         const temp = this.cachedSchItems.filter(function(d) {
-            console.log('{schedule-table}', '[ng2-select selected]', 'filtering', d.scheduleKey, val);
-            return d.scheduleKey.indexOf(val) !== -1 || !val;
+            console.log('{schedule-table}', '[ng2-select selected]', 'filtering', d.scheduleId, val);
+            return d.scheduleId.indexOf(val) !== -1 || !val;
         });
         // update the rows
         this.scheduleItems = temp;
@@ -450,7 +450,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.newSchedule) {
             this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
                 res => {
-                    this.loadData();
+                    this.scheduleService.loadData();
                 }
             )
         }
@@ -467,7 +467,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
             this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
-                    this.loadData();
+                    this.scheduleService.loadData();
                 }
             )
         }
@@ -487,7 +487,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             this.scheduleService.setScheduleTitle(this.selectedSchedule.id, this.newScheduleTitle);
             // rebuild schedules
             const tempSch: Schedule[] = [];
-            const selectedId = 0;
             for (const sch of this.schedules) {
                 if (sch.id === this.selectedSchedule.id) {
                     sch.text = this.newScheduleTitle;
@@ -657,6 +656,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 }
             }
         }
+
+        // Reload schedule data from server
+        this.scheduleService.loadData();
     }
 
     public resetModified() {
@@ -716,7 +718,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             }
             let found = false;
             for (const s of this.schedules) {
-                if (s.id != this.selectedSchedule.id && s.text === newScheduleTitle) {
+                if (s.id !== this.selectedSchedule.id && s.text === newScheduleTitle) {
                     found = true;
                     break;
                 }
@@ -736,9 +738,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.subGetRunningSchedules = this.scheduleService.getRunningSchedules().subscribe(
             schedules => {
                 console.log('{schedule-table}', '[getRunningSchedules] return', schedules);
-                if (schedules !== undefined) {
+                if (schedules) {
                     this.runningSchedules = schedules;
-                    if (schedules && schedules.length > 0) {
+                    if (schedules.length > 0) {
                         let cnt = 0;
                         for (const s of schedules) {
                             if (cnt > 0) {

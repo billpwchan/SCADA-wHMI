@@ -22,18 +22,32 @@ export interface Config {
         // string to show if on/off time is not configured
         unavailable_on_off_time: string;
         // string to show if on/off time is inhibited
-        inhibited_on_off_time: string,
+        inhibited_on_off_time: string;
         // maximum userdefined schedule count (Oneshot + predefined + userdefined total cannot be over 8)
-        max_userdefined_schedule_count: number,
+        max_userdefined_schedule_count: number;
         // define each schedule's planning and running daygroup
         schedule_daygroup: any;
         // default filter for equipment task
-        filter: any,
+        filter: any;
         // default sort for equipment task
-        sort: any
+        sort: any;
+        // default schedule title length limit
+        max_title_length: number;
+        // option to show app navigation bar
+        display_app_navigation: boolean;
+        // option to show manual refresh button
+        manual_refresh_enabled: boolean;
     };
     schedule_planning: {
-        //
+        // default schedule assignment for each weekday
+        weekly_planning: any;
+        // default number of calendar days to add to planning daygroups
         periodic_planning_duration: any;
+        // option to update running daygroups when weekly plan is updated
+        apply_plan_to_running_daygroup: boolean;
+        // option to display app navigation
+        display_app_navigation: boolean;
+        // option to display manual refresh button
+        manual_refresh_enabled: boolean;
     }
 }

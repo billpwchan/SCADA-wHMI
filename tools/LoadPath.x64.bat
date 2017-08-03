@@ -21,6 +21,7 @@ SET CATALINA_HOME=%SOFTS_BASE%/%SOFTS_DIR%/apache-tomcat-8.0.30-x86_64
 SET ECLIPSE_HOME=%SOFTS_BASE%/%SOFTS_DIR%/eclipse-jee-mars-R-win32-x86_64
 SET CHROME_HOME=D:\Users\syau\PortableApps\GoogleChromePortable\GoogleChromePortable.exe
 SET SEVEN_ZIP_HOME=%SOFTS_BASE%/%SOFTS_DIR%/PortableApps/7-ZipPortable/App/7-Zip64/7z.exe
+SET DOXYGEN_HOME=%SOFTS_BASE%/%SOFTS_DIR%/doxygen
 
 SET TAIL_EXE=%SOFTS_BASE%/%SOFTS_DIR%/Tail-4.2.12\Tail.exe
 

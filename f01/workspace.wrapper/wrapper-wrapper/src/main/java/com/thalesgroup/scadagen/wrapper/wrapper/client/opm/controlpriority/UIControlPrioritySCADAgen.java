@@ -1,0 +1,696 @@
+package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.TimeZone;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONNumber;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONString;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJson;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadJsonFile;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
+import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
+import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPrioritySCADAgen_i.AttributeLevel;
+
+public class UIControlPrioritySCADAgen implements UIControlPriority_i {
+
+	private final String className = UIWidgetUtil.getClassSimpleName(UIControlPrioritySCADAgen.class.getName());
+	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private static UIControlPriority_i instance = null;
+	public static UIControlPriority_i getInstance() { 
+		if ( null == instance ) instance = new UIControlPrioritySCADAgen();
+		return instance;
+	}
+	private UIControlPrioritySCADAgen () {}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void requestReservation(final String scsEnvId, final String dbAddress) {
+		String function = "requestReservation";
+		logger.begin(className, function);
+		
+		requestReservation(scsEnvId, dbAddress, getUsrIdentity(), null);
+
+		logger.end(className, function);
+	}
+	
+	/**
+	 * Make a Reservation Request on a Equipment
+	 * 1. Reservation if the equipment available
+	 * 2. 
+	 * @param scsEnvId		Target ScsEnvId
+	 * @param dbAddress		Target DbAddress
+	 * @param usrIdentity	Identity to request the reservation
+	 * @param callback		Return JSON String, JSONString Attribute "value" contain the requester (Who to request reservation)
+	 */
+	public void requestReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
+		String function1 = "requestReservation";
+		logger.begin(className, function1);
+		
+		checkReservationAvailability(scsEnvId, dbAddress, new UIControlPriorityCallback() {
+			
+			@Override
+			public void callBack(String strJson) {
+				String function2 = "requestReservation:checkReservationAvailability:callBack";
+				logger.begin(className, function2);
+
+				int ret = ReadJson.readInt(ReadJson.readJson(strJson), "value", UIControlPrioritySCADAgen_i.MAX_LEVEL);
+				logger.debug(className, function2, "ret[{}]", ret);
+				
+				if ( UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW_WITH_OVERRIDE == ret ) {
+					
+					logger.debug(className, function2, "AVAILABILITY_ALLOW_WITH_OVERRIDE getCodeString({})[{}]", new Object[]{ret, getCodeString(ret)});
+					
+					forceWithdrawReservation(scsEnvId, dbAddress, new UIControlPriorityCallback() {
+
+						@Override
+						public void callBack(String json) {
+							String function3 = "requestReservation:checkReservationAvailability:callBack:forceWithdrawReservation:callBack";
+							logger.begin(className, function3);
+							
+							String alias = dbAddress + getResrvReserveReqID();
+							String key = getKey(function3, scsEnvId, alias, usrIdentity);
+							
+							logger.debug(className, function3, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+							databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
+							
+							logger.end(className, function3);
+						}
+						
+					});
+
+				}
+				else if ( UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW == ret ) {
+					
+					logger.debug(className, function2, "AVAILABILITY_ALLOW getCodeString({})[{}]", new Object[]{ret, getCodeString(ret)});
+					
+					String alias = dbAddress + getResrvReserveReqID();
+					String key = getKey(function2, scsEnvId, alias, usrIdentity);
+					
+					logger.debug(className, function2, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+					databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
+					
+				} else {
+					logger.warn(className, function2, "not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
+				}
+				
+				logger.end(className, function2);
+			}
+		});
+		
+		if ( null != callBack ) {
+			JSONObject jsObject = new JSONObject();
+			jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(usrIdentity));
+			String strJson = jsObject.toString();
+			logger.debug(className, function1, "strJson[{}]", strJson);
+			callBack.callBack(strJson);
+		} else {
+			logger.debug(className, function1, "callBack IS NULL");
+		}
+
+		logger.end(className, function1);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#withdrawReservation(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void withdrawReservation(final String scsEnvId, final String dbAddress) {
+		String function = "withdrawReservation";
+		logger.begin(className, function);
+	
+		withdrawReservation(scsEnvId, dbAddress, getUsrIdentity(), null);
+		
+		logger.end(className, function);
+	}
+	
+	/**
+	 * @param scsEnvId		Target ScsEnvId
+	 * @param dbAddress		Target DbAddress
+	 * @param usrIdentity	Identity to request the reservation
+	 * @param callback		Return JSON String, JSONString Attribute "value" contain the withdrawer (Value to Withdraw the Reservation)
+	 */
+	private void withdrawReservation(final String scsEnvId, final String dbAddress, final String usrIdentity, final UIControlPriorityCallback callBack) {
+		String function = "withdrawReservation";
+		logger.begin(className, function);
+		
+		String alias = dbAddress + getResrvUnreserveReqID();
+		String key = getKey(function, scsEnvId, alias, usrIdentity);
+		
+		logger.debug(className, function, "scsEnvId[{}] alias[{}] value[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+		databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
+		
+		if ( null != callBack ) {
+			JSONObject jsObject = new JSONObject();
+			jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(usrIdentity));
+			String strJson = jsObject.toString();
+			logger.debug(className, function, "strJson[{}]", strJson);
+			callBack.callBack(strJson);
+		} else {
+			logger.debug(className, function, "callBack IS NULL");
+		}
+
+		logger.end(className, function);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#getCurrentReservationBy(java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i.UIControlPriorityCallback)
+	 */
+	@Override
+	public void getCurrentReservationBy(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
+		String function1 = "getCurrentReservationBy";
+		logger.begin(className, function1);
+		String alias = dbAddress + getResrvReserveID();
+		String dbAddresses [] = new String[]{alias};
+		String key = getDatabaseKey(function1, scsEnvId, dbAddress);
+		logger.debug(className, function1, "scsEnvId[{}] alias[{}] key[{}]", new Object[]{scsEnvId, alias, key});
+		databaseMultiRead_i.addMultiReadValueRequest(key, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
+			
+			@Override
+			public void update(final String key, final String[] dbAddresses, final String[] values) {
+				String function2 = "getCurrentReservationBy:update";
+				logger.begin(className, function2);
+				String value = values[0];
+				logger.debug(className, function2, "BF value[{}]", value);
+				if ( value.length() >= 2 ) {
+					if ( value.charAt(0) == '\"' && value.charAt(value.length()-1) == '\"' ) {
+						value = value.substring(1, value.length()-1);
+					}
+				}
+				logger.debug(className, function2, "AF value[{}]", value);
+				
+				if ( null != callBack ) {
+			    	JSONObject jsObject = new JSONObject();
+			    	jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(value));
+			    	String strJson = jsObject.toString();
+			    	logger.debug(className, function2, "strJson[{}]", strJson);
+					callBack.callBack(strJson);
+				} else {
+					logger.debug(className, function2, "callBack IS NULL");
+				}
+				
+				logger.end(className, function2);
+			}
+		});
+		logger.end(className, function1);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationAvailability(java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i.UIControlPriorityCallback)
+	 */
+	@Override
+	public void checkReservationAvailability(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
+		String function1 = "checkReservationAvailability";
+		logger.begin(className, function1);
+		
+		getCurrentReservationBy(scsEnvId, dbAddress, new UIControlPriorityCallback() {
+			
+			@Override
+			public void callBack(String strJson) {
+				String function2 = "checkReservationAvailability:callBack";
+				logger.begin(className, function2);
+				logger.debug(className, function2, "strJson[{}]", strJson);
+				String value = ReadJson.readString(ReadJson.readJson(strJson), "value", null);
+				logger.debug(className, function2, "value[{}]", value);
+				
+				int ret = 0;
+				if ( null == value ) {
+					ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ERROR;
+				} else if ( value.isEmpty() ) {
+					ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW;
+				} else {
+					int levelDiff = compareLevel(getUsrIdentity(), value);
+					logger.debug(className, function2, "levelDiff[{}]", levelDiff);
+					switch ( levelDiff) {
+					case -1:
+						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_DENIED;
+						break;
+					case 0:
+						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_EQUAL;
+						break;
+					case 1:
+						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
+						break;
+					default:
+						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ERROR;
+						break;
+					}
+				}
+				
+				logger.debug(className, function2, "ret[{}]", ret);
+				
+				if ( null != callBack ) {
+				   	JSONObject jsObject = new JSONObject();
+				   	jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONNumber(ret));
+				   	String jsonString = jsObject.toString();
+				   	logger.debug(className, function2, "jsonString[{}]", jsonString);
+			    	callBack.callBack(jsonString);	
+				} else {
+					logger.debug(className, function2, "callBack IS NULL");
+				}
+				
+				logger.end(className, function2);
+			}
+		});
+		logger.end(className, function1);
+	}
+
+	/**
+	 * @param scsEnvId	Target ScsEnvId
+	 * @param dbAddress	Target DbAddress
+	 * @param callBack	Return JSON String, JSONString Attribute "value" contain the withdrawer (Value to Withdraw the Reservation)
+	 */
+	public void forceWithdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
+		String function1 = "forceWithdrawReservation";
+		logger.begin(className, function1);
+		
+		getCurrentReservationBy(scsEnvId, dbAddress, new UIControlPriorityCallback() {
+			
+			@Override
+			public void callBack(String strJson1) {
+				final String function2 = "forceWithdrawReservation:getCurrentReservationBy:callBack";
+				logger.begin(className, function2);
+				
+				String value = ReadJson.readString(ReadJson.readJson(strJson1), "value", null);
+				
+				logger.debug(className, function2, "value[{}]", value);
+				
+				if ( null != value && ! value.isEmpty() ) {
+
+					withdrawReservation(scsEnvId, dbAddress, value, new UIControlPriorityCallback() {
+						
+						@Override
+						public void callBack(String strJson2) {
+							final String function3 = "forceWithdrawReservation:getCurrentReservationBy:callBack:withdrawReservation:callBack";
+							logger.begin(className, function3);
+							
+							String value = ReadJson.readString(ReadJson.readJson(strJson2), "value", null);
+							
+							logger.debug(className, function3, "value[{}]", value);
+							
+							if ( null != callBack) {
+								JSONObject jsObject = new JSONObject();
+								jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(value));
+								String strJson3 = jsObject.toString();
+								logger.debug(className, function3, "strJson3[{}]", strJson3);
+								callBack.callBack(strJson3);
+							} else {
+								logger.debug(className, function2, "callBack IS NULL");
+							}
+							
+							logger.end(className, function3);
+						}
+					});
+				}
+				
+				logger.end(className, function2);
+				
+			}
+			
+		});
+		
+		logger.end(className, function1);
+	}
+
+	/**
+	 * @param code
+	 * @return
+	 */
+	public String getCodeString(int code) {
+		String function = "getCodeString";
+		logger.begin(className, function);
+		logger.debug(className, function, "code[{}]", code);
+		String ret = null;
+		if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_ERROR ) {
+			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_ERROR;
+		}
+		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_DENIED ) {
+			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_DENIED;
+		}
+		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_EQUAL ) {
+			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_EQUAL;
+		}
+		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW ) {
+			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_ALLOW;
+		}
+		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW_WITH_OVERRIDE ) {
+			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_ALLOW_WITH_OVERRIDE;
+		}
+		logger.debug(className, function, "ret[{}]", ret);
+		logger.end(className, function);
+		return ret;
+	}
+	
+	/**
+	 * Compare the Profile Priority Level
+	 * Using Identity Name to retrieve the Priority Level
+	 * 
+	 * @param a Profile A to compare
+	 * @param b Profile B to compare
+	 * @return a > b = 1; a < b = -1; otherwise 0
+	 */
+	private int compareLevel(String a, String b) {
+		String function = "compareLevel";
+		logger.begin(className, function);
+		int ret = 0;
+		logger.debug(className, function, "a[{}] b[{}]", a, b);
+		int al = getPriorityLevel(a);
+		int bl = getPriorityLevel(b);
+		logger.debug(className, function, "a[{}]=>al[{}] b[{}]=>bl[{}]", new Object[]{a, al, b, bl});
+		if ( al > bl ) {
+			ret = 1;
+		} else if ( al < bl ) {
+			ret = -1;
+		}
+		logger.debug(className, function, "a[{}] b[{}] ret[{}]", new Object[]{a, b, ret});
+		logger.end(className, function);
+		return ret;
+	}
+	
+	public String getDateTimeString() {
+		String function = "getDateTimeString";
+		logger.begin(className, function);
+		Date date = new Date();
+		DateTimeFormat dtf = DateTimeFormat.getFormat("yyyyMMddHHmmssSSS");
+		String ret = dtf.format(date, TimeZone.createTimeZone(0));
+		logger.debug(className, function, "ret[{}]", ret);
+		logger.end(className, function);
+		return ret;
+	}
+	
+	final static String UNDER_SCORE = "_";
+	/**
+	 * Return the key with current datatime string as prefix, append and concat parameters with "_"
+	 * 
+	 * @param function Function calling from
+	 * @param scsEnvId ScsEnvId to request for database operation
+	 * @param dbAddress DbAddress to request for database operation
+	 * @return Return the key in String
+	 */
+	public String getDatabaseKey(final String function, final String scsEnvId, final String dbAddress) {
+		return getDateTimeString()+UNDER_SCORE+function+UNDER_SCORE+scsEnvId+UNDER_SCORE+dbAddress;
+	}
+	/**
+	 * Same as API getDatabaseKey(final String function, final String scsEnvId, final String dbAddress);
+	 * Append and concat "value" parameter with "_"
+	 * 
+	 * @param function Function calling from
+	 * @param scsEnvId ScsEnvId to request for database operation
+	 * @param dbAddress DbAddress to request for database operation
+	 * @param value Value to request for database operation
+	 * @return Return the key in String
+	 */
+	public String getKey(final String function, final String scsEnvId, final String dbAddress, final String value) {
+		return getDatabaseKey(function, scsEnvId, dbAddress)+UNDER_SCORE+value;
+	}
+	
+	private UIOpm_i uiOpm_i = null;
+	public UIOpm_i getUIOpm() {
+		String function = "getUIOpm";
+		logger.begin(className, function);
+		if ( null == uiOpm_i ) {
+			logger.debug(className, function, "uiOpmName[{}]", getUIOpmName());
+			uiOpm_i = OpmMgr.getInstance().getOpm(getUIOpmName());
+		}
+		logger.debug(className, function, "uiOpm_i[{}]", uiOpm_i);
+		logger.end(className, function);
+		return uiOpm_i;
+	}
+	
+	private String uiOpmName = null;
+	public void setUIOpmName(final String uiOpmName) { this.uiOpmName = uiOpmName; }
+	private String getUIOpmName() {
+		String function = "getUIOpmName";
+		logger.begin(className, function);
+		
+		if ( null == uiOpmName ) {
+			
+			uiOpmName = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.Attribute.UIOpmName.toString()
+					, UIControlPrioritySCADAgen_i.UIOPM_NAME);
+		}
+		logger.debug(className, function, "uiOpmName[{}]", uiOpmName);
+		logger.end(className, function);
+		return uiOpmName;
+	}
+	
+	private String usrIdentityType = null;
+	/**
+	 * Get UsrIdentityType DBAttribute in the configuration, 
+	 * otherwise return the UsrIdentity.Profile defined in Interface
+	 * 
+	 * @return DB Attribute in String
+	 */
+	public String getUsrIdentityType() {
+		final String function = "getUsrIdentityType";
+		logger.begin(className, function);
+		if ( null == usrIdentityType ) {
+			usrIdentityType = ReadJsonFile.readString(
+			UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+			, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+			, UIControlPrioritySCADAgen_i.Attribute.UsrIdentityType.toString()
+			, UIControlPrioritySCADAgen_i.UsrIdentity.Profile.toString());
+		}
+		logger.debug(className, function, "usrIdentityType[{}]", usrIdentityType);
+		logger.end(className, function);
+		return usrIdentityType;
+	}
+	
+	private String usrIdentity = null;
+	public void setUsrIdentity(final String usrIdentity) { this.usrIdentity = usrIdentity; }
+	public String getUsrIdentity() { return usrIdentity; }
+	
+	/**
+	 * Get the UsrIdentity from configuration file type and UIOpm API 
+	 * Available Type a defined in Interface: UsrIdentity.Profile and UsrIdentity.Operator
+	 * 
+	 * @param uiOpm_i UIOpm API to call
+	 * @param usrIdentityType UstIdentity Type
+	 * @return UsrIdentity in String
+	 */
+	private String getUsrIdentity(final UIOpm_i uiOpm_i, final String usrIdentityType) {
+		final String function = "getUsrIdentity";
+		logger.begin(className, function);
+		
+		logger.debug(className, function, "usrIdentityType[{}]", usrIdentityType);
+
+		String usrIdentity = null;
+		if ( null == uiOpm_i ) {
+			logger.warn(className, function, "uiOpm_i IS NULL");
+		} 
+		else if ( null == usrIdentityType ) {
+			logger.warn(className, function, "usrIdentityType IS NULL");
+		} 
+		else if ( 0 == UIControlPrioritySCADAgen_i.UsrIdentity.Profile.toString().compareTo(usrIdentityType) ) {
+			usrIdentity = uiOpm_i.getCurrentProfile();
+		} 
+		else if ( 0 == UIControlPrioritySCADAgen_i.UsrIdentity.Operator.toString().compareTo(usrIdentityType) ) {
+			usrIdentity = uiOpm_i.getCurrentOperator();
+		}
+		else {
+			logger.warn(className, function, "usrIdentityType[{}] IS UNKNOW", usrIdentityType);
+		}
+		
+		logger.debug(className, function, "usrIdentity[{}]", usrIdentity);
+		
+		// Default value of the UsrIdentity is Profile
+		if ( null == usrIdentity ) uiOpm_i.getCurrentProfile();
+		
+		logger.debug(className, function, "usrIdentity[{}]", usrIdentity);
+		logger.end(className, function);
+		return usrIdentity;
+	}
+	
+	private String resrvReserveReqID = null;
+	/**
+	 * Get ResrvReserveReqID DBAttribute in the configuration, 
+	 * otherwise return the RESRV_RESERVEREQID_DEFAULT_VALUE defined in Interface
+	 * 
+	 * @return DB Attribute in String
+	 */
+	public String getResrvReserveReqID() {
+		String function = "getResrvReserveReqID";
+		logger.begin(className, function);
+		if ( null == resrvReserveReqID ) {
+			resrvReserveReqID = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvReserveReqID.toString()
+					, UIControlPrioritySCADAgen_i.RESRV_RESERVEREQID_DEFAULT_VALUE);
+			logger.debug(className, function, "resrvReserveReqID[{}]", resrvReserveReqID);
+			logger.end(className, function);
+		}
+		logger.debug(className, function, "resrvReserveReqID[{}]", resrvReserveReqID);
+		logger.end(className, function);
+		return resrvReserveReqID;
+	}
+	
+	private String resrvUnreserveReqID = null;
+	/**
+	 * Get ResrvUnreserveReqID DBAttribute in the configuration, 
+	 * otherwise return the RESRV_UNRESERCEREQID_DEFAULT_VALUE defined in Interface
+	 * 
+	 * @return DB Attribute in String
+	 */
+	public String getResrvUnreserveReqID() {
+		String function = "getResrvUnreserveReqID";
+		logger.begin(className, function);
+		if ( null == resrvUnreserveReqID ) {
+			resrvUnreserveReqID = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvUnreserveReqID.toString()
+					, UIControlPrioritySCADAgen_i.RESRV_UNRESERCEREQID_DEFAULT_VALUE);
+			logger.debug(className, function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
+			logger.end(className, function);
+		}
+		logger.debug(className, function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
+		logger.end(className, function);
+		return resrvUnreserveReqID;
+	}
+	
+	private String resrvReserveID = null;
+	/**
+	 * Get ResrvReserveID DBAttribute in the configuration, 
+	 * otherwise return the RESRV_RESERVEID_DEFAULT_VALUE defined in Interface
+	 * 
+	 * @return DB Attribute in String
+	 */
+	public String getResrvReserveID() {
+		String function = "getResrvReserveID";
+		logger.begin(className, function);
+		if ( null == resrvReserveID) {
+			resrvReserveID = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.DbAttribute.ResrvReserveID.toString()
+					, UIControlPrioritySCADAgen_i.RESRV_RESERVEID_DEFAULT_VALUE);
+
+			logger.debug(className, function, "resrvReserveID[{}]", resrvReserveID);
+			logger.end(className, function);
+		}
+		logger.debug(className, function, "resrvReserveID[{}]", resrvReserveID);
+		logger.end(className, function);
+		return resrvReserveID;
+	}
+	
+	/**
+	 * Control Priority Identity and Control Priority Level Mapping
+	 */
+	private Map<String, Integer> priorityLevels = new HashMap<String, Integer>();
+	/**
+	 * Get the Control Priority Identity and Control Priority Level Mapping
+	 * 
+	 * @return Mapping in Map data type
+	 */
+	public Map<String, Integer> getPriorityLevels() { return priorityLevels; }
+	/**
+	 * Set the Control Priority Identity and Control Priority Level Mapping
+	 * 
+	 * @param levels Mapping in Map data type to set
+	 */
+	public void setPriorityLevels(Map<String, Integer> levels) { this.priorityLevels = levels; } 
+	
+	/**
+	 * Get the selected identity priority level from configuration file
+	 * 
+	 * @param usrIdentity Selected identity
+	 * @return Related priority level in configuration file
+	 */
+	private int getPriorityLevel(String usrIdentity) {
+		String function = "getPriorityLevel";
+		logger.begin(className, function);
+		logger.debug(className, function, "usrIdentity[{}]]", usrIdentity);
+		int ret = UIControlPrioritySCADAgen_i.MAX_LEVEL;
+		
+		if ( ! priorityLevels.containsKey(usrIdentity) ) {
+			logger.debug(className, function, "usrIdentity[{}] NOT FOUND, Loading from configuration", usrIdentity);
+			
+			JSONArray jsonArray = ReadJsonFile.readArray(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_LEVEL
+					, UIControlPrioritySCADAgen_i.AttributeLevel.Level.toString());
+			
+			JSONObject jsonObject = ReadJson.readObject(
+					jsonArray
+					, AttributeLevel.Key.toString()
+					, usrIdentity);
+			
+			int level = ReadJson.readInt(
+					jsonObject
+					, AttributeLevel.Value.toString()
+					, UIControlPrioritySCADAgen_i.MAX_LEVEL);
+			
+			logger.debug(className, function, "usrIdentity[{}] level[{}]!", usrIdentity, level);
+			
+			priorityLevels.put(usrIdentity, level);
+		}
+		
+		if ( null != priorityLevels.get(usrIdentity) ) { 
+			ret = priorityLevels.get(usrIdentity);
+		} else {
+			logger.warn(className, function, "usrIdentity[{}] NOT FOUND", usrIdentity);
+		}
+
+		logger.debug(className, function, "usrIdentity[{}] ret[{}]", usrIdentity, ret);
+		logger.end(className, function);
+		return ret;
+	}
+	
+	private DatabaseWrite_i databaseWrite_i = null;
+	private DatabaseMultiRead_i databaseMultiRead_i = null;
+	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#init()
+	 */
+	public void init() {
+		String function = "getResrvReserveID";
+		logger.begin(className, function);
+		
+		// Loading the DB Write API
+		String strDbWriteName = UIControlPrioritySCADAgen_i.DB_WRITE_NAME;
+		databaseWrite_i = DatabaseWriteFactory.get(strDbWriteName);
+		if ( null != databaseWrite_i ) { 
+			databaseWrite_i.connect();
+		} else {
+			logger.warn(className, function, "databaseWrite_i from name strDbWriteName[{}] NOT FOUND!", strDbWriteName); 
+		}
+		
+		// Loading the DB Reading API
+		String strDbReadName = UIControlPrioritySCADAgen_i.DB_READ_NAME;
+		databaseMultiRead_i = DatabaseMultiReadFactory.get(strDbReadName);
+		if ( null != databaseMultiRead_i ) {
+			databaseMultiRead_i.connect();
+		} else {
+			logger.warn(className, function, "databaseMultiRead_i from name strDbReadName[{}] NOT FOUND!", strDbReadName); 
+		}
+		
+		// Loading UIOpm Name and API
+		getUIOpmName();
+		getUIOpm();		
+		
+		// Loading the UsrIdentity
+		setUsrIdentity(getUsrIdentity(getUIOpm(), getUsrIdentityType()));
+		
+		logger.debug(className, function, "usrIdentity[{}]", getUsrIdentity()); 
+
+		logger.end(className, function);
+	}
+
+}

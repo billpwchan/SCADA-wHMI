@@ -1,6 +1,6 @@
 {
-  "name": "tsc",
-  "version": "0.0.1",
+  "name": "scadagen-timeSchedule",
+  "version": "1.5.1",
   "license": "Thales",
   "scripts": {
     "ng": "ng",

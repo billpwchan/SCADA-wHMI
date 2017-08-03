@@ -22,10 +22,22 @@ export class ConfigService {
             unavailable_on_off_time: 'N/A',
             inhibited_on_off_time: '',
             max_userdefined_schedule_count: 3,
-            schedule_daygroup: {}
+            schedule_daygroup: {},
+            filter: {},
+            sort: {},
+            max_title_length: 40,
+            display_app_navigation: false,
+            manual_refresh_enabled: true,
+            equipment_task_string_separator: ' - ',
+            geocat_translation_prefix: 'Location_',
+            funcat_translation_prefix: 'System_'
         }),
         schedule_planning: Map({
-            periodic_planning_duration: 180
+            weekly_planning: {},
+            periodic_planning_duration: 180,
+            apply_plan_to_running_daygroup: false,
+            display_app_navigation: false,
+            manual_refresh_enabled: true
         })
     });
     public config: any;

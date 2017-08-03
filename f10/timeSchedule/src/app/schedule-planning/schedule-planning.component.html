@@ -1,3 +1,6 @@
+<div *ngIf="displayAppNavigation">
+    <app-navigation></app-navigation>
+</div>
 <div class="panel panel-default" id="schedule-planning">
     <div class="panel panel-heading" id="schedule-planning-header">
         <h4>{{'Schedule Planning' | translate}}</h4>
@@ -7,71 +10,86 @@
             <label class="col-md-4 label label-warning" id="running-schedules-label">{{'Running Schedules' | translate}}</label>
             <input class="col-md-6 input" id="running-schedules-input" readonly [ngModel]="runningSchedulesStr" type="text">
         </div>
+        <div *ngIf="manualRefreshEnabled">
+            <button class="btn pull-right" id="btn-refresh-page" type="button" (click)="onRefresh()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Refresh' | translate}}
+            </button>
+        </div>
         <div id="weekday-planning-container">
             <div class="row weekday-planning" id="weekday-planning-monday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-monday-label">{{'Monday' | translate}}</label>
-                <select [(ngModel)]="monSchedule" name="Select Monday" class="col-md-4 select weekday-planning-select" id="weekday-planning-monday-select">
+                <select [(ngModel)]="monSchedule" (ngModelChange)="onChange()" name="Select Monday" class="col-md-4 select weekday-planning-select" id="weekday-planning-monday-select">
                     <option disabled hidden [value]="monSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
             <div class="row weekday-planning" id="weekday-planning-tuesday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-tuesday-label">{{'Tuesday' | translate}}</label>
-                <select [(ngModel)]="tueSchedule" name="Select Tuesday" class="col-md-4 select weekday-planning-select" id="weekday-planning-tuesday-select">
+                <select [(ngModel)]="tueSchedule" (ngModelChange)="onChange()" name="Select Tuesday" class="col-md-4 select weekday-planning-select" id="weekday-planning-tuesday-select">
                     <option disabled hidden [value]="tueSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
             <div class="row weekday-planning" id="weekday-planning-wednesday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-wednesday-label">{{'Wednesday' | translate}}</label>
-                <select [(ngModel)]="wedSchedule" name="Select Wednesday" class="col-md-4 select weekday-planning-select" id="weekday-planning-wednesday-select">
+                <select [(ngModel)]="wedSchedule" (ngModelChange)="onChange()" name="Select Wednesday" class="col-md-4 select weekday-planning-select" id="weekday-planning-wednesday-select">
                     <option disabled hidden [value]="wedSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
             <div class="row weekday-planning" id="weekday-planning-thursday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-thursday-label">{{'Thursday' | translate}}</label>
-                <select [(ngModel)]="thuSchedule" name="Select Thursday" class="col-md-4 select weekday-planning-select" id ="weekday-planning-thursday-select">
+                <select [(ngModel)]="thuSchedule" (ngModelChange)="onChange()" name="Select Thursday" class="col-md-4 select weekday-planning-select" id ="weekday-planning-thursday-select">
                     <option disabled hidden [value]="thuSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
             <div class="row weekday-planning" id="weekday-planning-friday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-friday-label">{{'Friday' | translate}}</label>
-                <select [(ngModel)]="friSchedule" name="Select Friday" class="col-md-4 select weekday-planning-select" id="weekday-planning-friday-select">
+                <select [(ngModel)]="friSchedule" (ngModelChange)="onChange()" name="Select Friday" class="col-md-4 select weekday-planning-select" id="weekday-planning-friday-select">
                     <option disabled hidden [value]="friSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
             <div class="row weekday-planning" id="weekday-planning-saturday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-saturday-label">{{'Saturday' | translate}}</label>
-                <select [(ngModel)]="satSchedule" name="Select Saturday" class="col-md-4 select weekday-planning-select" id="weekday-planning-saturday-select">
+                <select [(ngModel)]="satSchedule" (ngModelChange)="onChange()" name="Select Saturday" class="col-md-4 select weekday-planning-select" id="weekday-planning-saturday-select">
                     <option disabled hidden [value]="satSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
 
             <div class="row weekday-planning" id="weekday-planning-sunday">
                 <label class="col-md-4 label label-default weekday-planning-label" id="weekday-planning-sunday-label">{{'Sunday' | translate}}</label>
-                <select [(ngModel)]="sunSchedule" name="Select Sunday" class="col-md-4 select weekday-planning-select" id="weekday-planning-sunday-select">
+                <select [(ngModel)]="sunSchedule" (ngModelChange)="onChange()" name="Select Sunday" class="col-md-4 select weekday-planning-select" id="weekday-planning-sunday-select">
                     <option disabled hidden [value]="sunSchedule">{{'No schedule planned. Please select' | translate}}</option>
-                    <option *ngFor="let s of periodicSchedules" [ngValue]="s">{{s.text | translate}}</option>
+                    <option *ngFor="let s of periodicScheduleOptions" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
             </div>
         </div>
         <div class="periodic-action" id="periodic-action">
-            <button class="btn btn-primary" id="apply-weekly-plan-button" (click)="updateWeeklyPlan()">{{'Apply' | translate}}</button>
-            <button class="btn btn-primary" id="revert-weekly-plan-button" (click)="revertWeeklyPlan()">{{'Revert' | translate}}</button>
-            <button class="btn btn-primary" id="defaults-weekly-plan-button" (click)="defaultsWeeklyPlan()">{{'Defaults' | translate}}</button>
+            <button class="btn btn-primary" id="apply-weekly-plan-button" [disabled]="!planModified" (click)="updateWeeklyPlan()">
+                <span class="glyphicon glyphicon-save" aria-hidden="true"></span>{{'Apply' | translate}}
+            </button>
+            <button class="btn btn-primary" id="revert-weekly-plan-button" [disabled]="!planModified" (click)="revertWeeklyPlan()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Revert' | translate}}
+            </button>
+            <button class="btn btn-primary" id="defaults-weekly-plan-button" (click)="defaultsWeeklyPlan()">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>{{'Defaults' | translate}}
+            </button>
         </div>
         <div class="periodic-action" id="periodic-start-stop">
-            <button class="btn btn-primary" id="start-periodic-button" (click)="startPeriodic()">{{'Start' | translate}}</button>
-            <button class="btn btn-primary" id="stop-periodic-button" (click)="stopPeriodic()">{{'Stop' | translate}}</button>
+            <button class="btn btn-primary" id="start-periodic-button" [disabled]="periodicStarted" (click)="startPeriodic()">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>{{'Start' | translate}}
+            </button>
+            <button class="btn btn-primary" id="stop-periodic-button" [disabled]="!periodicStarted" (click)="stopPeriodic()">
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>{{'Stop' | translate}}
+            </button>
         </div>
     </div>
 <div>

@@ -11,35 +11,48 @@
     "cutoff_time": "02:00",
     "show_cutoff_offset": true,
     "unavailable_on_off_time": "N/A",
-    "inhibit_onoff_time": "",
+    "inhibited_onoff_time": "",
     "max_userdefined_schedule_count": 3,
-	"schedule_daygroup": {
-		"Oneshot": {
-			"1": { "run_day_group": 1, "run_next_day_group": 2 }
-		},
-		"Predefined": {
-			"1": { "plan_day_group": 19, "plan_next_day_group": 20, "run_day_group": 3, "run_next_day_group": 4 },
-			"2": { "plan_day_group": 21, "plan_next_day_group": 22, "run_day_group": 5, "run_next_day_group": 6 },
-			"3": { "plan_day_group": 23, "plan_next_day_group": 24, "run_day_group": 7, "run_next_day_group": 8 },
-			"4": { "plan_day_group": 25, "plan_next_day_group": 26, "run_day_group": 9, "run_next_day_group": 10 }
-		},
-		"Userdefined": {
-			"1": { "plan_day_group": 27, "plan_next_day_group": 28, "run_day_group": 11, "run_next_day_group": 12 },
-			"2": { "plan_day_group": 29, "plan_next_day_group": 30, "run_day_group": 13, "run_next_day_group": 14 },
-			"3": { "plan_day_group": 31, "plan_next_day_group": 32, "run_day_group": 15, "run_next_day_group": 16 }
-		}
-	}
-  },
+	  "schedule_daygroup": {
+      "Oneshot": {
+        "01": { "run_day_group": 1, "run_next_day_group": 2 }
+      },
+      "Predefined": {
+        "02": { "plan_day_group": 19, "plan_next_day_group": 20, "run_day_group": 3, "run_next_day_group": 4 },
+        "03": { "plan_day_group": 21, "plan_next_day_group": 22, "run_day_group": 5, "run_next_day_group": 6 },
+        "04": { "plan_day_group": 23, "plan_next_day_group": 24, "run_day_group": 7, "run_next_day_group": 8 },
+        "05": { "plan_day_group": 25, "plan_next_day_group": 26, "run_day_group": 9, "run_next_day_group": 10 }
+      },
+      "Userdefined": {
+        "06": { "plan_day_group": 27, "plan_next_day_group": 28, "run_day_group": 11, "run_next_day_group": 12 },
+        "07": { "plan_day_group": 29, "plan_next_day_group": 30, "run_day_group": 13, "run_next_day_group": 14 },
+        "08": { "plan_day_group": 31, "plan_next_day_group": 32, "run_day_group": 15, "run_next_day_group": 16 }
+      }
+    },
+    "filter": {
+    },
+    "sort": {
+    },
+    "max_title_length": 40,
+    "display_app_navigation": false,
+    "manual_refresh_enabled": true,
+    "equipment_task_string_separator": " - ",
+    "geocat_translation_prefix": "Location_",
+    "funcat_translation_prefix": "System_"
+	},
   "schedule_planning": {
       "weekly_planning": {
-        "0": { "type": "Predefined", "id": "1"},
-        "1": { "type": "Predefined", "id": "2"},
-        "2": { "type": "Predefined", "id": "2"},
-        "3": { "type": "Predefined", "id": "2"},
-        "4": { "type": "Predefined", "id": "2"},
-        "5": { "type": "Predefined", "id": "2"},
-        "6": { "type": "Predefined", "id": "3"}
+        "0": { "type": "Predefined", "id": "02"},
+        "1": { "type": "Predefined", "id": "03"},
+        "2": { "type": "Predefined", "id": "03"},
+        "3": { "type": "Predefined", "id": "03"},
+        "4": { "type": "Predefined", "id": "03"},
+        "5": { "type": "Predefined", "id": "04"},
+        "6": { "type": "Predefined", "id": "05"}
     },
-    "periodic_planning_duration": 180
+    "periodic_planning_duration": 180,
+    "apply_plan_to_running_daygroup": true,
+    "display_app_navigation": false,
+    "manual_refresh_enabled": true
   }
 }

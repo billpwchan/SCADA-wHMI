@@ -1,39 +1,57 @@
 {
 	"Time Schedule": "fr-FR:Time Schedule",
 	"Schedule Table": "fr-FR:Schedule Table",
-	"Schedule Planning": "fr-FR:Schedule Planning",
-    "Running Schedules": "fr-FR:Running Schedules",
-	"Oneshot Schedule": "fr-FR:Oneshot Schedule",
+    "Oneshot Schedule": "fr-FR:Oneshot Schedule",
 	"Periodic Schedules": "fr-FR:Periodic Schedules",
-	"Schedule cutoff time:": "fr-FR:Schedule cutoff time:",
-	"Select a schedule": "fr-FR:Select a schedule",
-	"Selection": "fr-FR:Selection",
-	"No Selections": "fr-FR:No Selections",
-	"selected": "fr-FR:selected",
-	"total": "fr-FR:total",
-	"No item to display":"fr-FR:No item to display",
-	"Change title": "fr-FR:Change title",
+	"Schedule Planning": "fr-FR:Schedule Planning",
 
-	"Location": "fr-FR:Location",
+    "Schedule cutoff time:": "fr-FR:Schedule cutoff time:",
+
+    "Refresh": "fr-FR:Refresh",
+
+    "Running Schedules": "fr-FR:Running Schedules",
+    "No schedule is running": "fr-FR:No schedule is running",
+	
+    "Add": "fr-FR:Add",
+    "Delete": "fr-FR:Delete",
+    "Rename": "fr-FR:Rename",
+    "Apply": "fr-FR:Apply",
+    "Cancel": "fr-FR:Cancel",
+    "Add Schedule": "fr-FR:Add Schedule",
+	"Rename Schedule": "fr-FR:Rename Schedule",
+	"Schedule title duplicates existing titles or is empty": "fr-FR:Schedule title duplicates existing titles or is empty",
+
+    "Location": "fr-FR:Location",
 	"System": "fr-FR:System",
 	"Equipment Label": "fr-FR:Equipment Label",
 	"Equipment Description": "fr-FR:Equipment Description",
 	"On Time": "fr-FR:On Time",
 	"Off Time": "fr-FR:Off Time",
+	"selected": "fr-FR:selected",
+	"total": "fr-FR:total",
+	"No item to display":"fr-FR:No item to display",
 
-    "Add": "fr-FR:Add",
-    "Delete": "fr-FR:Delete",
-    "Rename": "fr-FR:Rename",
-    "Cancel": "fr-FR:Cancel",
-
-	"Equipment": "fr-FR:Equipment",
+	"Equipment":"fr-FR:Equipment",
+    "No Selections": "fr-FR:No Selections",
 	"Enable": "fr-FR:Enable",
 	"Disable": "fr-FR:Disable",
 	"Save": "fr-FR:Save",
-    "Clear": "fr-FR:Clear",
+    "Reset": "fr-FR:Reset",
+    "Format HH:MM is required": "fr-FR:Format HH:MM is required",
 
     "Start": "fr-FR:Start",
     "Stop": "fr-FR:Stop",
+
+    "Monday": "fr-FR:Monday",
+    "Tuesday": "fr-FR:Tuesday",
+    "Wednesday": "fr-FR:Wednesday",
+    "Thursday": "fr-FR:Thursday",
+    "Friday": "fr-FR:Friday",
+    "Saturday": "fr-FR:Saturday",
+    "Sunday": "fr-FR:Sunday",
+
+    "Revert": "fr-FR:Revert",
+    "Defaults": "fr-FR:Defaults",
 
     "Location_11": "fr-FR:Location_11",
     "Location_12": "fr-FR:Location_12",
@@ -44,17 +62,5 @@
     "System_2": "fr-FR:System_2",
     "System_3": "fr-FR:System_3",
     "System_4": "fr-FR:System_4",
-    "System_5": "fr-FR:System_5",
-
-    "Monday": "fr-FR:Monday",
-    "Tuesday": "fr-FR:Tuesday",
-    "Wednesday": "fr-FR:Wednesday",
-    "Thursday": "fr-FR:Thursday",
-    "Friday": "fr-FR:Friday",
-    "Saturday": "fr-FR:Saturday",
-    "Sunday": "fr-FR:Sunday",
-
-    "Apply": "fr-FR:Apply",
-    "Revert": "fr-FR:Revert",
-    "Defaults": "fr-FR:Defaults"
+    "System_5": "fr-FR:System_5"
 }

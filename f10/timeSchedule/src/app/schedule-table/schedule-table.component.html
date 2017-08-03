@@ -1,14 +1,25 @@
-<!--<div id="schedule-table" style="width: 1400px; margin-bottom: 20px">-->
+<div *ngIf="displayAppNavigation">
+    <app-navigation></app-navigation>
+</div>
 <div class="panel panel-default" id="schedule-table">
     <div class="panel panel-heading" id="schedule-table-header">
         <h4>{{'Schedule Table' | translate}}</h4>
+        
     </div>
     <div id="schedule-table-body">
         <div class="row" id="schedule-cutoff-time">
             <label class="col-md-2 label label-default" id="label-schedule-cutoff-time">{{'Schedule cutoff time:' | translate}}</label>
             <input class="col-md-1 input" id="cutoff-time-input" readonly [ngModel]="cutoffTime" type="text">
         </div>
-
+        <div *ngIf="manualRefreshEnabled">
+            <button class="btn pull-right" id="btn-refresh-page" type="button" (click)="onRefresh()">
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Refresh' | translate}}
+            </button>
+        </div>
+        <div class="row" id="running-schedules">
+            <label class="col-md-4 label label-warning" id="running-schedules-label">{{'Running Schedules' | translate}}</label>
+            <input class="col-md-6 input" id="running-schedules-input" readonly [ngModel]="runningSchedulesStr" type="text">
+        </div>
         <div class="panel panel-body" id="schedule-title-selection">
             <div id="schedule-title" *ngIf="displayPeriodicSchedules; then periodicTitleBlock; else nonPeriodicTitleBlock"></div>
             <ng-template #periodicTitleBlock>
@@ -16,7 +27,7 @@
                 <h4>{{'Periodic Schedules' | translate}}</h4>
                 <ng-select [allowClear]="false"
                         [items]="schedules"
-                        [disabled]="disabled"
+                        [disabled]="selectScheduleDisabled"
                         [active]="activeItem"
                         (data)="refreshValue($event)"
                         (selected)="selected($event)"
@@ -33,25 +44,41 @@
             </ng-template>
 
             <span *ngIf="displayPeriodicSchedules">
-                <button class="btn btn-primary" id="btn-add-schedule" type="button" [disabled]="!addScheduleEnabled" (click)="addSchedule()">{{'Add' | translate}}</button>
-                <button class="btn btn-primary" id="btn-delete-schedule" type="button" [disabled]="!deleteScheduleEnabled" (click)="deleteSchedule()">{{'Delete' | translate}}</button>
-                <button class="btn btn-primary" id="btn-rename-schedule" type="button" [disabled]="!renameScheduleEnabled" (click)="renameSchedule()">{{'Rename' | translate}}</button>
+                <button class="btn btn-primary" id="btn-add-schedule" type="button" [disabled]="!addScheduleEnabled" (click)="addSchedule()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>{{'Add' | translate}}
+                </button>
+                <button class="btn btn-primary" id="btn-delete-schedule" type="button" [disabled]="!deleteScheduleEnabled" (click)="deleteSchedule()">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>{{'Delete' | translate}}
+                </button>
+                <button class="btn btn-primary" id="btn-rename-schedule" type="button" [disabled]="!renameScheduleEnabled" (click)="renameSchedule()">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>{{'Rename' | translate}}
+                </button>
             </span>
             <div *ngIf="addScheduleClicked" id="add-schedule-select-apply-cancel">
                 <label>{{ 'Add Schedule' | translate }}</label>
                 <select [(ngModel)]="newSchedule" name="Select new schedule" class="select" id="select-new-schedule">
                     <option *ngFor="let s of unusedSchedules" [ngValue]="s">{{s.text | translate}}</option>
                 </select>
-                <button class="btn btn-primary" id="btn-apply-add-schedule" (click)="applyAddSchedule()">{{'Apply' | translate}}</button>
-                <button class="btn btn-primary" id="btn-cancel-add-schedule" (click)="cancelAddSchedule()">{{'Cancel' | translate}}</button>
+                <button class="btn btn-primary" id="btn-apply-add-schedule" (click)="applyAddSchedule()">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>{{'Apply' | translate}}
+                </button>
+                <button class="btn btn-primary" id="btn-cancel-add-schedule" (click)="cancelAddSchedule()">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{'Cancel' | translate}}
+                </button>
             </div>
             <div *ngIf="renameScheduleClicked" id="rename-schedule-input-apply-cancel">
                 <label>{{ 'Rename Schedule' | translate }}</label>
-                <input [(ngModel)]="newScheduleTitle" type="text" class="input" id="input-rename-schedule">
-                <button class="btn btn-primary" id="btn-apply-rename-schedule" (click)="applyRenameSchedule()">{{'Apply' | translate}}</button>
-                <button class="btn btn-primary" id="btn-cancel-rename-schedule" (click)="cancelRenameSchedule()">{{'Cancel' | translate}}</button>
+                <input [(ngModel)]="newScheduleTitle" (ngModelChange)="updateNewScheduleTitle($event)" type="text" class="input" maxlength="{{maxTitleLength}}" id="input-rename-schedule">
+                <button class="btn btn-primary" id="btn-apply-rename-schedule" [disabled]="!newScheduleTitleModified || !newScheduleTitleValid" (click)="applyRenameSchedule()">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>{{'Apply' | translate}}
+                </button>
+                <button class="btn btn-primary" id="btn-cancel-rename-schedule" (click)="cancelRenameSchedule()">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{'Cancel' | translate}}
+                </button>
+                <div [hidden]="newScheduleTitleValid" class="alert alert-danger" id="newScheduleTitleInvalid">
+                    {{ 'Schedule title duplicates existing titles or is empty' | translate }}
+                </div>
             </div>
-
         </div>
 
         <div class="panel panel-body">
@@ -66,6 +93,7 @@
                 [selected]="selectedRow"
                 [selectionType]="'single'"
                 [messages]="messages"
+                [sorts]="sortingColumn"
                 (activate)="onActivate($event)"
                 (select)='onSelect($event)'>
                 <ngx-datatable-column prop="geoCat" name="Location" [sortable]='true'>
@@ -73,7 +101,7 @@
                     <span (click)="sort()">{{ 'Location' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ 'Location_' + value | translate }}</strong>
+                    <strong>{{ geocatTranslationPrefix + value | translate }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column prop="funcCat" name="System" [sortable]='true'>
@@ -81,7 +109,7 @@
                     <span (click)="sort()">{{ 'System' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
-                    <strong>{{ 'System_' + value | translate }}</strong>
+                    <strong>{{ funcatTranslationPrefix + value | translate }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column prop="eqtLabel" name="Equipment Label" [sortable]='true'>
@@ -120,8 +148,12 @@
         </div>
 
         <div class="panel panel-body" id="oneshot-action" *ngIf="!displayPeriodicSchedules">
-            <button class="btn btn-primary" id="btn-oneshot-start" (click)="startOneShot()">{{'Start' | translate}}</button>
-            <button class="btn btn-primary" id="btn-oneshot-stop" (click)="stopOneShot()">{{'Stop' | translate}}</button>
+            <button class="btn btn-primary" id="btn-oneshot-start" [disabled]="oneshotStarted" (click)="startOneShot()">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>{{'Start' | translate}}
+            </button>
+            <button class="btn btn-primary" id="btn-oneshot-stop" [disabled]="!oneshotStarted" (click)="stopOneShot()">
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>{{'Stop' | translate}}
+            </button>
         </div>
 
         <div class="panel panel-body" id='selected-column'>
@@ -130,34 +162,42 @@
                     <h4>{{'Equipment' | translate}}</h4>
                 </div>
             </div>
-            <div id="selected-row" *ngFor='let sel of selectedRow'>
+            <div id="selected-row" *ngIf="selectedScheduleItem">
                 <input readonly type="text" class="input" id="schedule-item-detail" [ngModel]="selectedItemDisplay">
                 <div id="on-off-time-group">
                     <div class="row form-group" id="on-time-group">
-                        <label class="col-md-1 label label-default" id="label-on-time">{{'On Time' | translate}}</label>
-                        <input name="newOnTime" #newOnTime="ngModel" [ngModel]="sel.onTime" (ngModelChange)="updateOnTimeValue(newOnTime.value)" class="col-md-1 input" type="text" required pattern="^\d\d:\d\d$" [disabled]="onTimeNotAvailable || !pendingOnTimeIsEnabled">           
-                        <input #newEnableOnTime [ngModel]="pendingOnTimeIsEnabled" (ngModelChange)="updateOnTimeIsEnabled($event)" type="checkbox" [disabled]="onTimeNotAvailable">
+                        <label class="col-md-2 label label-default" id="label-on-time">{{'On Time' | translate}}</label>
+                        <input name="newOnTime" #newOnTime="ngModel" [(ngModel)]="selectedOnTime" (ngModelChange)="updateOnTimeValue($event)" class="col-md-1 input" type="text" [disabled]="onTimeNotAvailable || !pendingOnTimeIsEnabled">
+                        <input name="newEnableOTime" [ngModel]="pendingOnTimeIsEnabled" (ngModelChange)="updateOnTimeIsEnabled($event)" type="checkbox" [disabled]="onTimeNotAvailable">
                         <label class="label-md" id="label-on-time-enable">{{'Enable' | translate}}</label>
-                        <div [hidden]="newOnTime.valid || newOnTime.pristine" class="alert alert-danger" id="newOnTimeInvalid">
+                        <div [hidden]="newOnTimeValid" class="alert alert-danger" id="newOnTimeInvalid">
                             {{ 'Format HH:MM is required' | translate }}
                         </div>
                     </div>
 
                     <div class="row form-group" id="off-time-group">
-                        <label class="col-md-1 label label-default" id="label-off-time">{{'Off Time' | translate}}</label>
-                        <input name="newOffTime" #newOffTime="ngModel" [ngModel]="sel.offTime" (ngModelChange)="updateOffTimeValue(newOffTime.value)" class="col-md-1 input" type="text" required pattern="^\d\d:\d\d$" [disabled]="offTimeNotAvailable || !pendingOffTimeIsEnabled">
-                        <input #newEnableOffTime [ngModel]="pendingOffTimeIsEnabled" (ngModelChange)="updateOffTimeIsEnabled($event)" type="checkbox" [disabled]="offTimeNotAvailable">
+                        <label class="col-md-2 label label-default" id="label-off-time">{{'Off Time' | translate}}</label>
+                        <input name="newOffTime" #newOffTime="ngModel" [(ngModel)]="selectedOffTime" (ngModelChange)="updateOffTimeValue($event)" class="col-md-1 input" type="text" [disabled]="offTimeNotAvailable || !pendingOffTimeIsEnabled">
+                        <input name="newEnableOffTime" [ngModel]="pendingOffTimeIsEnabled" (ngModelChange)="updateOffTimeIsEnabled($event)" type="checkbox" [disabled]="offTimeNotAvailable">
                         <label class="label-md" id="label-off-time-enable">{{'Enable' | translate}}</label>
-                        <div [hidden]="newOffTime.valid || newOffTime.pristine" class="alert alert-danger" id="newOffTimeInvalid">
+                        <div [hidden]="newOffTimeValid" class="alert alert-danger" id="newOffTimeInvalid">
                             {{ 'Format HH:MM is required' | translate }}
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="save-changes" *ngIf="inputIsModified">
-                <button class="btn btn-primary" (click)="saveModified()">{{'Save'|translate}}</button>
-                <!--<button class="btn btn-primary" (click)="clearOnOffTime()">{{'Clear'|translate}}</button>-->
-            </div>         
+            <div *ngIf="inputIsModified">
+                <span id="reset-changes">
+                    <button class="btn btn-primary" (click)="resetModified()">
+                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Reset'|translate}}
+                    </button>
+                </span>
+                <span id="save-changes" *ngIf="inputTimeValid">
+                    <button class="btn btn-primary" (click)="saveModified()">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>{{'Save'|translate}}
+                    </button>
+                </span>
+            </div>
             <div id="empty-selected-row" *ngIf="!selectedRow.length">{{'No Selections' | translate}}</div>
 
         </div>

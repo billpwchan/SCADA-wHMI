@@ -217,6 +217,11 @@
 	      <cmn:equalTo>258</cmn:equalTo>
 	    </criteria>
 	  </entry>
+	  <entry id="square_hdv_260" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-260">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>260</cmn:equalTo>
+	    </criteria>
+	  </entry>
 	  <entry id="square_hdv_513" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-513">
 	    <criteria columnName="column_hdvState">
 	      <cmn:equalTo>513</cmn:equalTo>
@@ -225,6 +230,26 @@
 	  <entry id="square_hdv_514" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-514">
 	    <criteria columnName="column_hdvState">
 	      <cmn:equalTo>514</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_516" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-516">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>516</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_1025" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-1025">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>1025</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_1026" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-1026">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>1026</cmn:equalTo>
+	    </criteria>
+	  </entry>
+	  <entry id="square_hdv_1028" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-1028">
+	    <criteria columnName="column_hdvState">
+	      <cmn:equalTo>1028</cmn:equalTo>
 	    </criteria>
 	  </entry>
     </matrixIntersection>
@@ -245,6 +270,11 @@
           <cmn:equalTo>258</cmn:equalTo>
         </cmn:columnCounterCriterion>
       </cmn:counter>
+	  <cmn:counter name="counter_hdvState_260" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>260</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
       <cmn:counter name="counter_hdvState_513" scope="GLOBAL">
         <cmn:columnCounterCriterion columnName="column_hdvState">
           <cmn:equalTo>513</cmn:equalTo>
@@ -253,6 +283,26 @@
 	  <cmn:counter name="counter_hdvState_514" scope="GLOBAL">
         <cmn:columnCounterCriterion columnName="column_hdvState">
           <cmn:equalTo>514</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+	  <cmn:counter name="counter_hdvState_516" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>516</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+      <cmn:counter name="counter_hdvState_1025" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>1025</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+      <cmn:counter name="counter_hdvState_1026" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>1026</cmn:equalTo>
+        </cmn:columnCounterCriterion>
+      </cmn:counter>
+	  <cmn:counter name="counter_hdvState_1028" scope="GLOBAL">
+        <cmn:columnCounterCriterion columnName="column_hdvState">
+          <cmn:equalTo>1028</cmn:equalTo>
         </cmn:columnCounterCriterion>
       </cmn:counter>
     </countersConfiguration>

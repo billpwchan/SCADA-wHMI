@@ -34,7 +34,7 @@ public class InitTranslation implements Init_i {
 		final String function = "initTranslation";
 		logger.begin(className, function);
 		
-		if ( null != translatePatten ) Translation.setTranslatePatten(translatePatten);
+		if ( null != translatePatten ) Translation.setTranslatePattern(translatePatten);
 
 		logger.end(className, function);
 	}

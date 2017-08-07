@@ -23,7 +23,7 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 		final String function = "getTranslationPattern";
 		logger.begin(className, function);
 		
-		String strOutput = Translation.getTranslatePatten();
+		String strOutput = Translation.getTranslatePattern();
 		logger.debug(className, function, " strOutput[{}]", strOutput);
 		
 		uiGeneric.setWidgetValue("resultvalue", strOutput);
@@ -38,7 +38,7 @@ public class UIWidgetVerifyTranslationControl extends UIWidgetRealize {
 		String strInputStr		= uiGeneric.getWidgetValue("inputstrvalue");
 		
 		logger.debug(className, function, " strInputStr[{}]", strInputStr);
-		Translation.setTranslatePatten(strInputStr);
+		Translation.setTranslatePattern(strInputStr);
 		
 		logger.end(className, function);
 	}

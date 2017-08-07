@@ -244,7 +244,7 @@
 		<OperationString6>PointAlias</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>GETOPERATOR : Logout on GETWORKSTATION</OperationString9>
+		<OperationString9>%GETOPERATOR% : Logout on %GETIPADDRESS%</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	

@@ -1,7 +1,7 @@
 .scsmx {
   color: #DC143C;
   fill: #DC143C;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #DC143C;
   cursor: pointer;
 }
@@ -10,7 +10,7 @@
 .scsmx_counter_hdvState_0 {
     color: orange;
     fill: orange;
-    stroke-width: 1px;
+    stroke-width: 2px;
     stroke: orange;
     cursor: pointer;
 }
@@ -18,7 +18,7 @@
 .scsmx_counter_hdvState_257 {
     color: green;
     fill: green;
-    stroke-width: 1px;
+    stroke-width: 2px;
     stroke: green;
     cursor: pointer;
 }
@@ -26,44 +26,84 @@
 .scsmx_counter_hdvState_258 {
     color: red;
     fill: red;
-    stroke-width: 1px;
-    stroke: green;
+    stroke-width: 2px;
+    stroke: aqua;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_260 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: violet;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_513 {
     color: red;
     fill: red;
-    stroke-width: 1px;
-    stroke: blue;
+    stroke-width: 2px;
+    stroke: green;
     cursor: pointer;
 }
 
 .scsmx_counter_hdvState_514 {
-    color: blue;
-    fill: blue;
-    stroke-width: 1px;
-    stroke: blue;
+    color: aqua;
+    fill: aqua;
+    stroke-width: 2px;
+    stroke: aqua;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_516 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: violet;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_1025 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: green;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_1026 {
+    color: red;
+    fill: red;
+    stroke-width: 2px;
+    stroke: aqua;
+    cursor: pointer;
+}
+
+.scsmx_counter_hdvState_1028 {
+    color: violet;
+    fill: violet;
+    stroke-width: 2px;
+    stroke: violet;
     cursor: pointer;
 }
 
 .mwt-gm-square-selected {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #FFCD12;
   cursor: pointer;
 }
 
 .mwt-gm-frame-selected {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #FFCD12;
   cursor: pointer;
 }
 
 .mwt-gm-square-outer-selected {
   fill: none;
-  stroke-width: 1px;
+  stroke-width: 2px;
   stroke: #FFCD12;
   cursor: pointer;
 }
@@ -84,10 +124,30 @@
   fill: lightgray;
 }
 
+.mwt-gm-coefficient-hdv-260 {
+  fill: lightgray;
+}
+
 .mwt-gm-coefficient-hdv-513 {
   fill: lightgray;
 }
 
 .mwt-gm-coefficient-hdv-514 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-516 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-1025 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-1026 {
+  fill: lightgray;
+}
+
+.mwt-gm-coefficient-hdv-1028 {
   fill: lightgray;
 }

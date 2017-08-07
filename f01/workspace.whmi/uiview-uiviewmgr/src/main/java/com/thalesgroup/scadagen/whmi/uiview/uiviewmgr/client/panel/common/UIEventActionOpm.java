@@ -26,10 +26,6 @@ public class UIEventActionOpm extends UIEventActionExecute_i {
 				UIEventActionOpmAction.OpmLogin.toString()
 				, UIEventActionOpmAction.OpmLogout.toString()
 				, UIEventActionOpmAction.OpmChangePassword.toString()
-				, UIEventActionOpmAction.SimultaneousLogin.toString()
-				, UIEventActionOpmAction.SimultaneousLogout.toString() 
-				, UIEventActionOpmAction.JSSessionStart.toString() 
-				, UIEventActionOpmAction.JSSessionEnd.toString()
 				};
 	}
 

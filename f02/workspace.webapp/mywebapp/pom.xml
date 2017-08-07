@@ -9,10 +9,8 @@
     </parent>
 
     <properties>
-        <commons.uiwidget.version>1.4.4</commons.uiwidget.version>
-        <commons.whmi.version>1.4.4</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.4</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.4</commons.whmi.fun.version>
+        <!-- Version of the SCADAgen WHMI -->
+        <scadagen.whmi.version>1.5.0</scadagen.whmi.version>
 	
         <myproject.version>1.2.5</myproject.version>
         <scadasoft.mwt.version>6.3.1_P02-HV951P01</scadasoft.mwt.version>
@@ -219,42 +217,42 @@
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.uiroot.uiroot</groupId>
           <artifactId>uiroot-uiroot</artifactId>
-          <version>${commons.uiwidget.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
           <artifactId>config-config</artifactId>
-          <version>${commons.uiwidget.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
           <artifactId>config-configenv</artifactId>
-          <version>${commons.uiwidget.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		
         <dependency>
           <groupId>com.thalesgroup.scadagen.whmi.config.confignav</groupId>
           <artifactId>config-confignav</artifactId>
-          <version>${commons.whmi.version}</version>
+          <version>${scadagen.whmi.version}</version>
           <scope>provided</scope>
         </dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.hv.myproject</groupId>
 			<artifactId>myproject-webapp-func</artifactId>
-			<version>${commons.whmi.fun.version}</version>
+			<version>${scadagen.whmi.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.webapp.entrypointswitch</groupId>
 			<artifactId>webapp-entrypointswitch</artifactId>
-			<version>${commons.whmi.fun.version}</version>
+			<version>${scadagen.whmi.version}</version>
 			<scope>provided</scope>
 		</dependency>
 

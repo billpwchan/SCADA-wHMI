@@ -6,12 +6,12 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-  <version>1.4.4</version>
+  <version>1.5.0</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uiroot.uiroot</groupId>
   <artifactId>uiroot-uiroot</artifactId>
   <packaging>jar</packaging>
-  <version>${commons.whmi.version}</version>
+  <version>${scadagen.whmi.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
@@ -63,31 +63,31 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 	  <artifactId>uinamecard</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
 	  <artifactId>config-configenv</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiscreen.uiscreenroot</groupId>
 	  <artifactId>uiscreen-uiscreenroot</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uidialog.uidialogmgr</groupId>
 	  <artifactId>uidialog-uidialogmgr</artifactId>
-	  <version>${commons.uiwidget.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.widgetcontroller</groupId>
 	  <artifactId>wrapper-widgetcontroller</artifactId>
-	  <version>${commons.uiwidget.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
   </dependencies>

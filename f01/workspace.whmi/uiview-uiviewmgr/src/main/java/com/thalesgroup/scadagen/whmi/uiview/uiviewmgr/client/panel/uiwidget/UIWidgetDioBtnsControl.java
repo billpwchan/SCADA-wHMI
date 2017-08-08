@@ -285,9 +285,9 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 										
 										if ( null != label && label.length() > 0 ) {
 											
-											logger.debug(className, function, "btnLabelPrefix[{}] nomInstance[{}] label[{}]", new Object[]{btnLabelPrefix, nomInstance, label});
+											logger.debug(className, function, "btnLabelPrefix[{}] nomInstance[{}] dovname[{}] label[{}]", new Object[]{btnLabelPrefix, nomInstance, dovname, label});
 											if ( null != btnLabelPrefix && ! btnLabelPrefix.trim().isEmpty() ) {
-												label = btnLabelPrefix + nomInstance + strUnderline + r;
+												label = btnLabelPrefix + nomInstance + strUnderline + dovname;
 											}
 											logger.debug(className, function, "label[{}]", label);
 											

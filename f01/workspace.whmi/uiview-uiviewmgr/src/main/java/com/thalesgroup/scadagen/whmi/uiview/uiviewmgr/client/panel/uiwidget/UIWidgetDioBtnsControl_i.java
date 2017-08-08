@@ -31,6 +31,8 @@ public interface UIWidgetDioBtnsControl_i {
 		
 		, InitCondValidity("InitCondValidity")
 		
+		, BtnLabelPrefix("BtnLabelPrefix")
+		
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

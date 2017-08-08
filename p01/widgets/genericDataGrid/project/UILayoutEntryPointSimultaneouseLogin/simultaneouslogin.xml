@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <p:genericDataGridConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid" xmlns:cmn="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/genericDataGrid mwt-gdg-config.xsd                       http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd">
 
-    <p:gridConfiguration fastForwardPages="2" name="simultaneouselogin" pageSize="32" displayPager="false"/>
+    <p:gridConfiguration fastForwardPages="2" name="simultaneouslogin" pageSize="32" displayPager="false"/>
 
     <p:subject>
         <p:dataSource xsi:type="sds:subscriptionDataSource">

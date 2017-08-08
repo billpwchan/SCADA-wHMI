@@ -12,7 +12,7 @@
 		<widget>Label</widget>
 		<label>&amp;UILayoutEntryPointSimultaneousLogin_checking_login</label>
 		<css>project-UIWidgetSimultaneousLoginCover-label</css>
-		<element>simultaneouseloginlabel</element>
+		<element>simultaneousloginlabel</element>
 		
 		<cssContainer>project-UIWidgetSimultaneousLoginCover-label-container</cssContainer>
 		

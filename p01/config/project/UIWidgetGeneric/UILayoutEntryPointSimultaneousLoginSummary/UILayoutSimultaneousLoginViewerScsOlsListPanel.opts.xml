@@ -2,11 +2,11 @@
 <!DOCTYPE xml>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
-		<ListConfigId>simultaneouselogin</ListConfigId>
+		<ListConfigId>simultaneouslogin</ListConfigId>
 		<MenuEnableCallImage>false</MenuEnableCallImage>
 		<SelectionMode>Multiple</SelectionMode>
 		<PagerName>SCADAgenPager</PagerName>
-		<MwtEventBusName>simultaneouselogin</MwtEventBusName>
+		<MwtEventBusName>simultaneouslogin</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 	</header>
 </data-set>

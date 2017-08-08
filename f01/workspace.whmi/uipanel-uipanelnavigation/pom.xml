@@ -6,12 +6,12 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-  <version>1.4.4</version>
+  <version>1.5.0</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation</groupId>
   <artifactId>uipanel-uipanelnavigation</artifactId>
   <packaging>jar</packaging>
-  <version>${commons.whmi.version}</version>
+  <version>${scadagen.whmi.version}</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
@@ -63,43 +63,43 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 	  <artifactId>uinamecard</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
 	  <artifactId>uievent</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uitask.uitaskmgr</groupId>
 	  <artifactId>uitask-uitaskmgr</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.config.config</groupId>
 	  <artifactId>config-config</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
 	  <artifactId>config-configenv</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.config.confignav</groupId>
 	  <artifactId>config-confignav</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
 	  <artifactId>uiwidget-uiwidget</artifactId>
-	  <version>${commons.whmi.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
     
   </dependencies>

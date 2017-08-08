@@ -1544,4 +1544,71 @@
 		<tooltips>Weekly Schedule Planning</tooltips>
 	</option>
 	
+	<option key="191">
+		<type>M</type>
+		<name>Verify Control Priority</name>
+		<title>Verify Control Priority</title>
+		<!--
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
+		<tooltips>Verify ScsRTDBComponent Summary</tooltips>
+		-->
+	</option>
+
+	<option key="192">
+		<type>P</type>
+		<name>Reservation</name>
+		<title>Reservation</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIVerifyControlPriority/UIEntryPoint.view.xml</uiView>
+		<tooltips>Verify Control Priority</tooltips>
+	</option>
+	
+	<option key="193">
+		<type>P</type>
+		<name>Request Reservation</name>
+		<title>Request Reservation</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_RequestReservation.view.xml</uiView>
+		<tooltips>Verify Control Priority</tooltips>
+	</option>
+	
+	<option key="194">
+		<type>P</type>
+		<name>Withdraw Reservation</name>
+		<title>Withdraw Reservation</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_WithdrawReservation.view.xml</uiView>
+		<tooltips>WithdrawReservation</tooltips>
+	</option>
+	
+	<option key="195">
+		<type>P</type>
+		<name>Get Current Reservation By</name>
+		<title>Get Current Reservation By</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_GetCurrentReservationBy.view.xml</uiView>
+		<tooltips>Get Current Reservation By</tooltips>
+	</option>
+	
+	<option key="196">
+		<type>P</type>
+		<name>Check Reservation Availability</name>
+		<title>Check Reservation Availability</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_CheckReservationAvailability.view.xml</uiView>
+		<tooltips>Check Reservation Availability</tooltips>
+	</option>
 </data-set>

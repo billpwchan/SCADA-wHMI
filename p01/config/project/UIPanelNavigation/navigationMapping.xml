@@ -245,4 +245,11 @@
 	<option key="LMC|MCS|Periodic Time Schedule"><setting>189</setting></option>
 	<option key="LMC|MCS|Weekly Schedule Planning"><setting>190</setting></option>
 	
+	<option key="LMC|Verify ControlPriority"><setting>191</setting></option>
+	<option key="LMC|Verify ControlPriority|Request Reservation"><setting>192</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation.view.xml"><setting>193</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation.view.xml"><setting>194</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy.view.xml"><setting>195</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability.view.xml"><setting>196</setting></option>
+	
 </data-set>

@@ -15,20 +15,18 @@
   <groupId>com.thalesgroup.scadagen.wrapper.wrapper</groupId>
   <artifactId>wrapper-wrapper</artifactId>
   <packaging>jar</packaging>
-  <version>1.4.4</version>
+  <version>1.5.0</version>
   <name>GWT Maven Archetype</name>
 
   <properties>
-        <commons.uiwidget.version>1.4.4</commons.uiwidget.version>
-        <commons.whmi.version>1.4.4</commons.whmi.version>
-        <commons.uiwrapper.version>1.4.4</commons.uiwrapper.version>
-        <commons.whmi.fun.version>1.4.4</commons.whmi.fun.version>
+    <!-- Version of the SCADAgen WHMI -->
+    <scadagen.whmi.version>1.5.0</scadagen.whmi.version>
 
-		<scadasoft.mwt.version>6.3.1_P02-HV951P01</scadasoft.mwt.version>
-        <jackson.version>2.8.4</jackson.version>
-		<hv.common.integ.version>1.10.1</hv.common.integ.version>
+    <scadasoft.mwt.version>6.3.1_P02-HV951P01</scadasoft.mwt.version>
+    <jackson.version>2.8.4</jackson.version>
+    <hv.common.integ.version>1.10.1</hv.common.integ.version>
 		
-		<webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
+    <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
   
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.7.0</gwtVersion>
@@ -138,7 +136,7 @@
 	<dependency>
 	  <groupId>com.thalesgroup.scadagen.wrapper.mwt</groupId>
 	  <artifactId>wrapper-mwt</artifactId>
-	  <version>${commons.uiwrapper.version}</version>
+	  <version>${scadagen.whmi.version}</version>
 	</dependency>
 	-->
 	
@@ -146,37 +144,37 @@
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uinamecard.uinamecard</groupId>
 			<artifactId>uinamecard</artifactId>
-			<version>${commons.uiwrapper.version}</version>
+			<version>${scadagen.whmi.version}</version>
 		</dependency>
 	
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uievent.uievent</groupId>
 			<artifactId>uievent</artifactId>
-			<version>${commons.uiwrapper.version}</version>
+			<version>${scadagen.whmi.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.config.configenv</groupId>
 			<artifactId>config-configenv</artifactId>
-			<version>${commons.uiwrapper.version}</version>
+			<version>${scadagen.whmi.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidget</groupId>
 			<artifactId>uiwidget-uiwidget</artifactId>
-			<version>${commons.uiwrapper.version}</version>
+			<version>${scadagen.whmi.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric</groupId>
 			<artifactId>uiwidget-uiwidgetgeneric</artifactId>
-			<version>${commons.uiwrapper.version}</version>
+			<version>${scadagen.whmi.version}</version>
 		</dependency>
 	
 		<dependency>
 			<groupId>com.thalesgroup.scadagen.whmi.translation.translationmgr</groupId>
 			<artifactId>translation-translationmgr</artifactId>
-			<version>${commons.uiwrapper.version}</version>
+			<version>${scadagen.whmi.version}</version>
 		</dependency>
 
   </dependencies>

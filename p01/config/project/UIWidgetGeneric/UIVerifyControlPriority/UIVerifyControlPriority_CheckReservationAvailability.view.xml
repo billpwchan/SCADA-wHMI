@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>10</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIVerifyControlPriority_CheckReservationAvailability-panel-inner</rootCss>
+	</header>
+	
+	<!-- Result -->
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Result:</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-label-title</css>
+		<element>title</element>
+	</option>
+
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>CheckReservationAvailability</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-button-CheckReservationAvailability</css>
+		<element>CheckReservationAvailability</element>
+		<cssContainer>project-UIVerifyControlPriority_CheckReservationAvailability-container-CheckReservationAvailability</cssContainer>
+		<tooltip>CheckReservationAvailability</tooltip>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_CheckReservationAvailability-container-resultvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>uicpapi Value:</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-inlinelabel-uicpapilabel</css>
+		<element>uicpapilabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIControlPrioritySCADAgen</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-textbox-uicpapivalue</css>
+		<element>uicpapivalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_CheckReservationAvailability-container-uicpapivalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>scsenvid Value:</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-inlinelabel-scsenvidlabel</css>
+		<element>scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>OCCENVCONN</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-textbox-scsenvidvalue</css>
+		<element>scsenvidvalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_CheckReservationAvailability-container-scsenvidvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|8">
+		<widget>InlineLabel</widget>
+		<label>dbaddress Value:</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-inlinelabel-dbaddresslabel</css>
+		<element>dbaddresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>&lt;alias&gt;CTVECTAIR_0001</label>
+		<css>project-UIVerifyControlPriority_CheckReservationAvailability-textbox-dbaddressvalue</css>
+		<element>dbaddressvalue</element>
+		<maxlength>100</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_CheckReservationAvailability-container-dbaddressvalue</cssContainer>
+		
+	</option>
+	
+</data-set>

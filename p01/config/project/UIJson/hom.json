@@ -1,14 +1,19 @@
 {
-  "HOMEnable": true,
-  "HOMActions": ["c","x"],
+  "HOMActions": ["c"],
   "DBAttribute": ".hdvFlag",
-  "ByPassValue": 0,
+  "ByPassValue": -1,
   "HOMLevelDefaultValue": 0,
   "HOMLevels":[{
-  "Key": "PC16011",
+  "Key": "DUMMY1",
   "Value": 2
   },{
   "Key": "127.0.0.1",
   "Value": 4
+  },{
+  "Key": "DUMMY3",
+  "Value": 8
+  },{
+  "Key": "DUMMY4",
+  "Value": 16
   }]
 }

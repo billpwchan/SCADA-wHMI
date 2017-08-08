@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -24,7 +25,7 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 	/**
 	 * Operation Request Storage
 	 */
-	private HashMap<String, ReadingRequest> readingRequests = new HashMap<String, ReadingRequest>();
+	private Map<String, ReadingRequest> readingRequests = new HashMap<String, ReadingRequest>();
 	
 	public class ReadingRequest {
 		public String key = null;
@@ -59,11 +60,14 @@ public class DatabaseMultiReading implements DatabaseMultiRead_i {
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
 				final String function = "setReadResult";
 				logger.begin(className, function);
+				logger.debug(className, function, "get({})", key);
 				ReadingRequest databaseReadEvent = readingRequests.get(key);
+				logger.debug(className, function, "remove({})", key);
+				readingRequests.remove(key);
 				if ( null != databaseReadEvent ) {
-					String [] addresses = databaseReadEvent.dbaddresses;
-					databaseReadEvent.databaseEvent.update(key, addresses, value);
-					readingRequests.remove(key);
+					databaseReadEvent.databaseEvent.update(key, databaseReadEvent.dbaddresses, value);
+				} else {
+					logger.warn(className, function, "databaseReadEvent IS NULL");
 				}
 				logger.end(className, function);
 			}

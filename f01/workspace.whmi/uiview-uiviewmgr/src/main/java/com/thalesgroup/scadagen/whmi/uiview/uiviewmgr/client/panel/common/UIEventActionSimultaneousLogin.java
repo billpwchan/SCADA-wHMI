@@ -7,7 +7,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIActionEventAttribute_i.ActionAttribute;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.control.SimultaneousLogin;
-import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionOpm_i.UIEventActionOpmAction;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.common.UIEventActionSimultaneousLogin_i.UIEventActionSimultaneousLoginAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventActionExecute_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
@@ -20,10 +20,10 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 
 	public UIEventActionSimultaneousLogin() {
 		supportedActions = new String[] { 
-				UIEventActionOpmAction.SimultaneousLogin.toString()
-				, UIEventActionOpmAction.SimultaneousLogout.toString() 
-				, UIEventActionOpmAction.JSSessionStart.toString() 
-				, UIEventActionOpmAction.JSSessionEnd.toString()
+				  UIEventActionSimultaneousLoginAction.SimultaneousLogin.toString()
+				, UIEventActionSimultaneousLoginAction.SimultaneousLogout.toString() 
+				, UIEventActionSimultaneousLoginAction.JSSessionStart.toString() 
+				, UIEventActionSimultaneousLoginAction.JSSessionEnd.toString()
 				};
 	}
 
@@ -46,21 +46,21 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 			return bContinue;
 		}
 		
-		if (action.equals(UIEventActionOpmAction.SimultaneousLogin.toString())) {
+		if (action.equals(UIEventActionSimultaneousLoginAction.SimultaneousLogin.toString())) {
 			
-			logger.debug(className, function, logPrefix + UIEventActionOpmAction.SimultaneousLogout.toString());
+			logger.debug(className, function, logPrefix + UIEventActionSimultaneousLoginAction.SimultaneousLogout.toString());
 			
 			simultaneousLogin();
 		}
-		else if (action.equals(UIEventActionOpmAction.SimultaneousLogout.toString())) {
+		else if (action.equals(UIEventActionSimultaneousLoginAction.SimultaneousLogout.toString())) {
 			
-			logger.debug(className, function, logPrefix + UIEventActionOpmAction.SimultaneousLogout.toString());
+			logger.debug(className, function, logPrefix + UIEventActionSimultaneousLoginAction.SimultaneousLogout.toString());
 
 			simultaneousLogout();
 		}
-		else if (action.equals(UIEventActionOpmAction.JSSessionStart.toString())) {
+		else if (action.equals(UIEventActionSimultaneousLoginAction.JSSessionStart.toString())) {
 			
-			logger.debug(className, function, logPrefix + UIEventActionOpmAction.JSSessionStart.toString());
+			logger.debug(className, function, logPrefix + UIEventActionSimultaneousLoginAction.JSSessionStart.toString());
 
 			jsSessionStart();
 		}
@@ -78,7 +78,7 @@ public class UIEventActionSimultaneousLogin extends UIEventActionExecute_i {
 		final String function = logPrefix + " simultaneousLogin";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, logPrefix + UIEventActionOpmAction.SimultaneousLogin.toString());
+		logger.debug(className, function, logPrefix + UIEventActionSimultaneousLoginAction.SimultaneousLogin.toString());
 
 		final String loginRequestProcedure = "login_request_procedure";
 

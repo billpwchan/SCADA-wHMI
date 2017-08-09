@@ -10,8 +10,9 @@ public interface UIControlPrioritySCADAgen_i {
 	/*
 	 * Min and Max Level Value
 	 */
-	public final static int MIN_LEVEL 	= 0;
-	public final static int MAX_LEVEL 	= 9999;
+	public final static int LEVEL_MIN 			= 0;
+	public final static int LEVEL_MAX 			= 999;
+	public final static int LEVEL_NOT_DEFINED 	= -1;
 	
 	/*
 	 * UIOpm and UIDatabase API Name
@@ -26,26 +27,6 @@ public interface UIControlPrioritySCADAgen_i {
 	public final static String CACHE_NAME_DICTIONARYIES = "UIJson";
 	public final static String FILE_NAME_ATTRIBUTE 		= "controlpriority.json";
 	public final static String FILE_NAME_LEVEL 			= "controlprioritylevel.json";
-	
-	/* 
-	 * Get Reservation By Return Code
-	 */
-	public final static int AVAILABILITY_ERROR					= 0;
-	public final static int AVAILABILITY_DENIED					= 1;
-	public final static int AVAILABILITY_EQUAL					= 2;
-	public final static int AVAILABILITY_ALLOW					= 3;
-	public final static int AVAILABILITY_ALLOW_WITH_OVERRIDE	= 4;
-	
-	/*
-	 * Get Reservation By Return Code Mapping in String Value
-	 */
-	public final static String STR_AVAILABILITY_ERROR					= "AVAILABILITY_ERROR";
-	public final static String STR_AVAILABILITY_DENIED					= "AVAILABILITY_DENIED";
-	public final static String STR_AVAILABILITY_EQUAL					= "AVAILABILITY_EQUAL";
-	public final static String STR_AVAILABILITY_ALLOW					= "AVAILABILITY_ALLOW";
-	public final static String STR_AVAILABILITY_ALLOW_WITH_OVERRIDE		= "AVAILABILITY_ALLOW_WITH_OVERRIDE";
-	
-	public final static String FIELD_VALUE = "value";
 	
 	/**
 	 * @author syau

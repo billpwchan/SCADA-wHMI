@@ -40,11 +40,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#requestReservation(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void requestReservation(final String scsEnvId, final String dbAddress) {
+	public void requestReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
 		String function = "requestReservation";
 		logger.begin(className, function);
 		
-		requestReservation(scsEnvId, dbAddress, getUsrIdentity(), null);
+		requestReservation(scsEnvId, dbAddress, getUsrIdentity(), callBack);
 
 		logger.end(className, function);
 	}
@@ -69,10 +69,37 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				String function2 = "requestReservation:checkReservationAvailability:callBack";
 				logger.begin(className, function2);
 
-				int ret = ReadJson.readInt(ReadJson.readJson(strJson), "value", UIControlPrioritySCADAgen_i.MAX_LEVEL);
+				int ret = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, UIControlPrioritySCADAgen_i.LEVEL_MIN);
 				logger.debug(className, function2, "ret[{}]", ret);
 				
-				if ( UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW_WITH_OVERRIDE == ret ) {
+				if ( UIControlPriority_i.AVAILABILITY_ERROR == ret ) {
+					
+					logger.warn(className, function2, "Eeserver equipment, scsEnvId[{}] dbAddress[{}] ERROR", new Object[]{scsEnvId, dbAddress});
+					
+				} else if ( 
+						UIControlPriority_i.AVAILABILITY_EMPTY == ret
+						|| UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF == ret 
+						) {
+					
+					logger.debug(className, function2, "AVAILABILITY_RESERVED_BYSELF getCodeString({})[{}]", new Object[]{ret, getCodeString(ret)});
+					
+					String alias = dbAddress + getResrvReserveReqID();
+					String key = getKey(function2, scsEnvId, alias, usrIdentity);
+					
+					logger.debug(className, function2, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
+					databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
+					
+					if ( null != callBack ) {
+						JSONObject jsObject = new JSONObject();
+						jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
+						String strJson2 = jsObject.toString();
+						logger.debug(className, function2, "strJson2[{}]", strJson2);
+						callBack.callBack(strJson2);
+					} else {
+						logger.debug(className, function2, "callBack IS NULL");
+					}
+				}
+				else if ( UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE == ret ) {
 					
 					logger.debug(className, function2, "AVAILABILITY_ALLOW_WITH_OVERRIDE getCodeString({})[{}]", new Object[]{ret, getCodeString(ret)});
 					
@@ -89,40 +116,39 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 							logger.debug(className, function3, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 							databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
 							
+							if ( null != callBack ) {
+								JSONObject jsObject = new JSONObject();
+								jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
+								String strJson3 = jsObject.toString();
+								logger.debug(className, function3, "strJson3[{}]", strJson3);
+								callBack.callBack(strJson3);
+							} else {
+								logger.debug(className, function3, "callBack IS NULL");
+							}
+							
 							logger.end(className, function3);
 						}
 						
 					});
 
+				} 
+				else if (
+						UIControlPriority_i.AVAILABILITY_DENIED == ret
+						|| UIControlPriority_i.AVAILABILITY_EQUAL == ret
+						) {
+					
+					logger.debug(className, function2, "not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
 				}
-				else if ( UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW == ret ) {
-					
-					logger.debug(className, function2, "AVAILABILITY_ALLOW getCodeString({})[{}]", new Object[]{ret, getCodeString(ret)});
-					
-					String alias = dbAddress + getResrvReserveReqID();
-					String key = getKey(function2, scsEnvId, alias, usrIdentity);
-					
-					logger.debug(className, function2, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
-					databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
-					
-				} else {
-					logger.warn(className, function2, "not enough right to reserver equipment, scsEnvId[{}] dbAddress[{}]", new Object[]{scsEnvId, dbAddress});
+				else {
+	
+					logger.warn(className, function2, "Reserver equipment, scsEnvId[{}] dbAddress[{}] UNKNOW ERROR", new Object[]{scsEnvId, dbAddress});
+	
 				}
-				
+
 				logger.end(className, function2);
 			}
 		});
 		
-		if ( null != callBack ) {
-			JSONObject jsObject = new JSONObject();
-			jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(usrIdentity));
-			String strJson = jsObject.toString();
-			logger.debug(className, function1, "strJson[{}]", strJson);
-			callBack.callBack(strJson);
-		} else {
-			logger.debug(className, function1, "callBack IS NULL");
-		}
-
 		logger.end(className, function1);
 	}
 
@@ -130,11 +156,11 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#withdrawReservation(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public void withdrawReservation(final String scsEnvId, final String dbAddress) {
+	public void withdrawReservation(final String scsEnvId, final String dbAddress, final UIControlPriorityCallback callBack) {
 		String function = "withdrawReservation";
 		logger.begin(className, function);
 	
-		withdrawReservation(scsEnvId, dbAddress, getUsrIdentity(), null);
+		withdrawReservation(scsEnvId, dbAddress, getUsrIdentity(), callBack);
 		
 		logger.end(className, function);
 	}
@@ -157,7 +183,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		
 		if ( null != callBack ) {
 			JSONObject jsObject = new JSONObject();
-			jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(usrIdentity));
+			jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(usrIdentity));
 			String strJson = jsObject.toString();
 			logger.debug(className, function, "strJson[{}]", strJson);
 			callBack.callBack(strJson);
@@ -196,7 +222,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				
 				if ( null != callBack ) {
 			    	JSONObject jsObject = new JSONObject();
-			    	jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(value));
+			    	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(value));
 			    	String strJson = jsObject.toString();
 			    	logger.debug(className, function2, "strJson[{}]", strJson);
 					callBack.callBack(strJson);
@@ -225,30 +251,35 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				String function2 = "checkReservationAvailability:callBack";
 				logger.begin(className, function2);
 				logger.debug(className, function2, "strJson[{}]", strJson);
-				String value = ReadJson.readString(ReadJson.readJson(strJson), "value", null);
+				String value = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
 				logger.debug(className, function2, "value[{}]", value);
 				
 				int ret = 0;
 				if ( null == value ) {
-					ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ERROR;
+					ret = UIControlPriority_i.AVAILABILITY_ERROR;
 				} else if ( value.isEmpty() ) {
-					ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW;
+					ret = UIControlPriority_i.AVAILABILITY_EMPTY;
 				} else {
-					int levelDiff = compareLevel(getUsrIdentity(), value);
-					logger.debug(className, function2, "levelDiff[{}]", levelDiff);
-					switch ( levelDiff) {
-					case -1:
-						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_DENIED;
-						break;
-					case 0:
-						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_EQUAL;
-						break;
-					case 1:
-						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
-						break;
-					default:
-						ret = UIControlPrioritySCADAgen_i.AVAILABILITY_ERROR;
-						break;
+					
+					if ( value.equals(getUsrIdentity()) ) {
+						ret = UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF;
+					} else {
+						int levelDiff = compareLevel(getUsrIdentity(), value);
+						logger.debug(className, function2, "levelDiff[{}]", levelDiff);
+						switch ( levelDiff ) {
+						case -1:
+							ret = UIControlPriority_i.AVAILABILITY_DENIED;
+							break;
+						case 0:
+							ret = UIControlPriority_i.AVAILABILITY_EQUAL;
+							break;
+						case 1:
+							ret = UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
+							break;
+						default:
+							ret = UIControlPriority_i.AVAILABILITY_ERROR;
+							break;
+						}
 					}
 				}
 				
@@ -256,7 +287,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				
 				if ( null != callBack ) {
 				   	JSONObject jsObject = new JSONObject();
-				   	jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONNumber(ret));
+				   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
 				   	String jsonString = jsObject.toString();
 				   	logger.debug(className, function2, "jsonString[{}]", jsonString);
 			    	callBack.callBack(jsonString);	
@@ -286,7 +317,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				final String function2 = "forceWithdrawReservation:getCurrentReservationBy:callBack";
 				logger.begin(className, function2);
 				
-				String value = ReadJson.readString(ReadJson.readJson(strJson1), "value", null);
+				String value = ReadJson.readString(ReadJson.readJson(strJson1), UIControlPriority_i.FIELD_VALUE, null);
 				
 				logger.debug(className, function2, "value[{}]", value);
 				
@@ -299,13 +330,13 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 							final String function3 = "forceWithdrawReservation:getCurrentReservationBy:callBack:withdrawReservation:callBack";
 							logger.begin(className, function3);
 							
-							String value = ReadJson.readString(ReadJson.readJson(strJson2), "value", null);
+							String value = ReadJson.readString(ReadJson.readJson(strJson2), UIControlPriority_i.FIELD_VALUE, null);
 							
 							logger.debug(className, function3, "value[{}]", value);
 							
 							if ( null != callBack) {
 								JSONObject jsObject = new JSONObject();
-								jsObject.put(UIControlPrioritySCADAgen_i.FIELD_VALUE, new JSONString(value));
+								jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONString(value));
 								String strJson3 = jsObject.toString();
 								logger.debug(className, function3, "strJson3[{}]", strJson3);
 								callBack.callBack(strJson3);
@@ -336,20 +367,23 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		logger.begin(className, function);
 		logger.debug(className, function, "code[{}]", code);
 		String ret = null;
-		if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_ERROR ) {
-			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_ERROR;
+		if ( code == UIControlPriority_i.AVAILABILITY_ERROR ) {
+			ret = UIControlPriority_i.STR_AVAILABILITY_ERROR;
 		}
-		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_DENIED ) {
-			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_DENIED;
+		else if ( code == UIControlPriority_i.AVAILABILITY_DENIED ) {
+			ret = UIControlPriority_i.STR_AVAILABILITY_DENIED;
 		}
-		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_EQUAL ) {
-			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_EQUAL;
+		else if ( code == UIControlPriority_i.AVAILABILITY_EQUAL ) {
+			ret = UIControlPriority_i.STR_AVAILABILITY_EQUAL;
 		}
-		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW ) {
-			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_ALLOW;
+		else if ( code == UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF ) {
+			ret = UIControlPriority_i.STR_AVAILABILITY_RESERVED_BYSELF;
 		}
-		else if ( code == UIControlPrioritySCADAgen_i.AVAILABILITY_ALLOW_WITH_OVERRIDE ) {
-			ret = UIControlPrioritySCADAgen_i.STR_AVAILABILITY_ALLOW_WITH_OVERRIDE;
+		else if ( code == UIControlPriority_i.AVAILABILITY_EMPTY ) {
+			ret = UIControlPriority_i.STR_AVAILABILITY_EMPTY;
+		}
+		else if ( code == UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE ) {
+			ret = UIControlPriority_i.STR_AVAILABILITY_ALLOW_WITH_OVERRIDE;
 		}
 		logger.debug(className, function, "ret[{}]", ret);
 		logger.end(className, function);
@@ -618,7 +652,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		String function = "getPriorityLevel";
 		logger.begin(className, function);
 		logger.debug(className, function, "usrIdentity[{}]]", usrIdentity);
-		int ret = UIControlPrioritySCADAgen_i.MAX_LEVEL;
+		int ret = UIControlPrioritySCADAgen_i.LEVEL_NOT_DEFINED;
 		
 		if ( ! priorityLevels.containsKey(usrIdentity) ) {
 			logger.debug(className, function, "usrIdentity[{}] NOT FOUND, Loading from configuration", usrIdentity);
@@ -636,10 +670,17 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 			int level = ReadJson.readInt(
 					jsonObject
 					, AttributeLevel.Value.toString()
-					, UIControlPrioritySCADAgen_i.MAX_LEVEL);
+					, ret);
 			
 			logger.debug(className, function, "usrIdentity[{}] level[{}]!", usrIdentity, level);
-			
+
+			if ( 
+					ret < UIControlPrioritySCADAgen_i.LEVEL_MIN
+				|| 	ret > UIControlPrioritySCADAgen_i.LEVEL_MAX ) {
+				ret = UIControlPrioritySCADAgen_i.LEVEL_NOT_DEFINED;
+				logger.debug(className, function, "usrIdentity[{}] NOT FOUND!, set to default level[{}]", usrIdentity, level);
+			}
+				
 			priorityLevels.put(usrIdentity, level);
 		}
 		

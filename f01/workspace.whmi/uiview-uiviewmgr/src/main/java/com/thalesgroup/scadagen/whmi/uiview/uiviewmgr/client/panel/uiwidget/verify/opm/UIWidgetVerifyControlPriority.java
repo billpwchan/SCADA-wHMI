@@ -30,7 +30,14 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		
 		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
 		
-		uiControlPriority_i.requestReservation(scsenvidvalue, dbaddressvalue);
+		uiControlPriority_i.requestReservation(scsenvidvalue, dbaddressvalue, new UIControlPriorityCallback() {
+			
+			@Override
+			public void callBack(String strJson) {
+				String result = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
+				uiGeneric.setWidgetValue("resultvalue", result);
+			}
+		});
 		
 		logger.end(className, function);
 	}
@@ -45,7 +52,14 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 		
 		UIControlPriority_i uiControlPriority_i = UIControlPriorityFactory.getInstance().get(uicpapivalue);
 		
-		uiControlPriority_i.withdrawReservation(scsenvidvalue, dbaddressvalue);
+		uiControlPriority_i.withdrawReservation(scsenvidvalue, dbaddressvalue, new UIControlPriorityCallback() {
+			
+			@Override
+			public void callBack(String strJson) {
+				String result = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
+				uiGeneric.setWidgetValue("resultvalue", result);
+			}
+		});
 
 		logger.end(className, function);
 	}
@@ -64,7 +78,7 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			
 			@Override
 			public void callBack(String strJson) {
-				String result = ReadJson.readString(ReadJson.readJson(strJson), "value", null);
+				String result = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
 				uiGeneric.setWidgetValue("resultvalue", result);
 			}
 		});
@@ -86,7 +100,7 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			
 			@Override
 			public void callBack(String strJson) {
-				int result = ReadJson.readInt(ReadJson.readJson(strJson), "value", 9999);
+				int result = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, -1);
 				uiGeneric.setWidgetValue("resultvalue", Integer.toString(result));
 			}
 		});

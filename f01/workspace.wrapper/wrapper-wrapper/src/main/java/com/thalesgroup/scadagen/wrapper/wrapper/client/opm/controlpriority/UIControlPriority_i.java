@@ -10,13 +10,12 @@ public interface UIControlPriority_i {
 	/* 
 	 * Check Reservation Availability Return Code
 	 */
-	public final static int AVAILABILITY_ERROR					= 0;
-	public final static int AVAILABILITY_DENIED					= 1;
-	public final static int AVAILABILITY_EQUAL					= 2;
-	public final static int AVAILABILITY_RESERVED_BYSELF		= 3;
-	public final static int AVAILABILITY_EMPTY					= 4;
-	public final static int AVAILABILITY_ALLOW_WITH_OVERRIDE	= 5;
-	
+	public final static int AVAILABILITY_ERROR					= 0; // Availability checking return error
+	public final static int AVAILABILITY_DENIED					= 1; // Reserved by other with higher level 
+	public final static int AVAILABILITY_EQUAL					= 2; // Reserved by other at same level
+	public final static int AVAILABILITY_RESERVED_BYSELF		= 3; // Reserved by self
+	public final static int AVAILABILITY_EMPTY					= 4; // Non-reserved status
+	public final static int AVAILABILITY_ALLOW_WITH_OVERRIDE	= 5; // Reserved by other
 	/*
 	 * Check Reservation Availability Return Code Mapping in String Value
 	 */
@@ -72,13 +71,7 @@ public interface UIControlPriority_i {
 	 * 
 	 * @param scsEnvId	Target Equipment ScsEnvId
 	 * @param dbAddress	Target Equipment DbAddress
-	 * @param callback	Return JSON String, JSONNumber Attribute "value" contain the current reserved status
-	 * 					0: AVAILABILITY_ERROR
-	 * 					1: AVAILABILITY_DENIED
-	 * 					2: AVAILABILITY_EQUAL
-	 * 					3: AVAILABILITY_RESERVED_BYSELF
-	 * 					4: AVAILABILITY_ALLOW
-	 * 					5: AVAILABILITY_ALLOW_WITH_OVERRIDE
+	 * @param callback	Return JSON String, JSONNumber Attribute "value" contain the current reserved status, ref to AVAILABILITY_* code.
 	 */
 	void checkReservationAvailability(String scsEnvId, String dbAddress, UIControlPriorityCallback callBack);
 	

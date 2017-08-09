@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>8</cols>
+		<cols>10</cols>
 		<rootPanel>HorizontalPanel</rootPanel>
 		<rootCss>project-UIVerifyControlPriority_RequestReservation-panel-inner</rootCss>
 	</header>
@@ -27,13 +27,32 @@
 	
 	<option key="0|2">
 		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIVerifyControlPriority_RequestReservation-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<label></label>
+		<css>project-UIVerifyControlPriority_RequestReservation-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+		
+		<cssContainer>project-UIVerifyControlPriority_RequestReservation-container-resultvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
 		<label>uicpapi Value:</label>
 		<css>project-UIVerifyControlPriority_RequestReservation-inlinelabel-uicpapilabel</css>
 		<element>uicpapilabel</element>
 		<format></format>
 		<media></media>
 	</option>
-	<option key="0|3">
+	<option key="0|5">
 		<widget>TextBox</widget>
 		<label>UIControlPrioritySCADAgen</label>
 		<css>project-UIVerifyControlPriority_RequestReservation-textbox-uicpapivalue</css>
@@ -44,7 +63,7 @@
 		
 	</option>
 	
-	<option key="0|4">
+	<option key="0|6">
 		<widget>InlineLabel</widget>
 		<label>scsenvid Value:</label>
 		<css>project-UIVerifyControlPriority_RequestReservation-inlinelabel-scsenvidlabel</css>
@@ -52,7 +71,7 @@
 		<format></format>
 		<media></media>
 	</option>
-	<option key="0|5">
+	<option key="0|7">
 		<widget>TextBox</widget>
 		<label>OCCENVCONN</label>
 		<css>project-UIVerifyControlPriority_RequestReservation-textbox-scsenvidvalue</css>
@@ -63,7 +82,7 @@
 		
 	</option>
 	
-	<option key="0|6">
+	<option key="0|8">
 		<widget>InlineLabel</widget>
 		<label>dbaddress Value:</label>
 		<css>project-UIVerifyControlPriority_RequestReservation-inlinelabel-dbaddresslabel</css>
@@ -71,7 +90,7 @@
 		<format></format>
 		<media></media>
 	</option>
-	<option key="0|7">
+	<option key="0|9">
 		<widget>TextBox</widget>
 		<label>&lt;alias&gt;CTVECTAIR_0001</label>
 		<css>project-UIVerifyControlPriority_RequestReservation-textbox-dbaddressvalue</css>

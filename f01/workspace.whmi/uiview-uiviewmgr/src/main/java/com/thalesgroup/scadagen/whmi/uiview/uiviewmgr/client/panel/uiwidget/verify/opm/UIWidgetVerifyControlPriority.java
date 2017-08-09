@@ -34,8 +34,9 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			
 			@Override
 			public void callBack(String strJson) {
-				String result = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
-				uiGeneric.setWidgetValue("resultvalue", result);
+				String value = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
+				int code = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_CODE, -1);
+				uiGeneric.setWidgetValue("resultvalue", code+"|"+value);
 			}
 		});
 		
@@ -56,8 +57,9 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			
 			@Override
 			public void callBack(String strJson) {
-				String result = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
-				uiGeneric.setWidgetValue("resultvalue", result);
+				String value = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
+				int code = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_CODE, -1);
+				uiGeneric.setWidgetValue("resultvalue", code+"|"+value);
 			}
 		});
 
@@ -78,8 +80,9 @@ public class UIWidgetVerifyControlPriority extends UIWidgetRealize {
 			
 			@Override
 			public void callBack(String strJson) {
-				String result = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
-				uiGeneric.setWidgetValue("resultvalue", result);
+				String value = ReadJson.readString(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, null);
+				int code = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_CODE, -1);
+				uiGeneric.setWidgetValue("resultvalue", code+"|"+value);
 			}
 		});
 		

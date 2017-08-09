@@ -7,6 +7,14 @@
 }
 
 /* Matrix counter */
+.scsmx_counter_hdvState_-1 {
+    color: gray;
+    fill: gray;
+    stroke-width: 2px;
+    stroke: gray;
+    cursor: pointer;
+}
+
 .scsmx_counter_hdvState_0 {
     color: orange;
     fill: orange;
@@ -70,6 +78,10 @@
 
 .mwt-gm-label-text-selected {
   fill: cyan;
+}
+
+.mwt-gm-coefficient-hdv--1 {
+  fill: lightgray;
 }
 
 .mwt-gm-coefficient-hdv-0 {

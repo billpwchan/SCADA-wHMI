@@ -5,7 +5,7 @@
                              xmlns:sds="http://www.thalesgroup.com/hv/mwt/conf/subscription-data-source"
                              xsi:schemaLocation="http://matrix.util.core.mwt.hypervisor.thalesgroup.com mwt-matrix-config.xsd http://www.thalesgroup.com/hv/mwt/conf/common mwt-common.xsd ">
 
-  <matrixPanel id="hdv-matrix">
+  <matrixPanel id="hdv-stn-matrix">
   	<subject>
 		<subscriptionDataSource>
             <sds:transientDataSource>
@@ -13,7 +13,7 @@
             </sds:transientDataSource>
         </subscriptionDataSource>
         <criteria xsi:type="cmn:equals" status="listname">
-            <cmn:value>hdvset</cmn:value>
+            <cmn:value>hdvsetstn</cmn:value>
         </criteria>
 	</subject>
 	
@@ -202,11 +202,6 @@
 	</matrixAxisList>
 
     <matrixIntersection>
-	  <entry id="square_hdv_-1" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv--1">
-	    <criteria columnName="column_hdvState">
-	      <cmn:equalTo>-1</cmn:equalTo>
-	    </criteria>
-	  </entry>
       <entry id="square_hdv_0" squareCssInner="mwt-gm-square-hdv-default" coefficientCss="mwt-gm-coefficient-hdv-0">
 	    <criteria columnName="column_hdvState">
 	      <cmn:equalTo>0</cmn:equalTo>

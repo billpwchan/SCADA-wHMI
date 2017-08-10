@@ -70,8 +70,10 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private final String strButtonSetInvisible = strButtonWUnderLine+strSet+strUnderline+strInvisible;
 	private final String strButtonSetValue = strButtonWUnderLine+strSet+strUnderline+strValue;
 	
-	private final String strSend = "send";
-	private final String strButtonSendControl = strButtonWUnderLine+strSend+strUnderline+strControl;
+	private final String strSend				= "send";
+	private final String strButtonSendControl	= strButtonWUnderLine+strSend+strUnderline+strControl;
+	
+	private String btnLabelPrefix				= null;
 	
 	private boolean isPolling = false;
 	
@@ -81,6 +83,7 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 	private String multiReadMethod3			= "DatabaseMultiReading";
 	private String DotValueTable			= ".valueTable";
 	private String DotInitCondGL			= ".initCondGL";
+	private String DotNomInstance			= ".nom_instance";
 
 	private String [] valueTableDovnames 	= null;
 	private String [] valueTableLabels 		= null;
@@ -215,9 +218,14 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		valueTableValues = new String[rowInValueTable];
 		
 		if ( null != databaseMultiRead_i ) {
-			String address = alias+DotValueTable;
 			
-			logger.debug(className, function, "address[{}]", address);
+			String address1 = alias+DotNomInstance;
+			
+			logger.debug(className, function, "address1[{}]", address1);
+			
+			String address2 = alias+DotValueTable;
+			
+			logger.debug(className, function, "address2[{}]", address2);
 			
 			DataBaseClientKey clientKey = new DataBaseClientKey();
 			clientKey.setAPI(API.multiReadValue);
@@ -225,11 +233,11 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			clientKey.setStability(Stability.STATIC);
 			clientKey.setScreen(uiNameCard.getUiScreen());
 			clientKey.setEnv(env);
-			clientKey.setAdress(address);
+			clientKey.setAdress(address2);
 			
 			String strClientKey = clientKey.getClientKey();
 			
-			String [] dbaddresses = new String[]{address};
+			String [] dbaddresses = new String[]{address1, address2};
 
 			databaseMultiRead_i.addMultiReadValueRequest(strClientKey, env, dbaddresses, new DatabasePairEvent_i() {
 				
@@ -246,8 +254,12 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 					
 					if ( null != selectedSet ) { 
 						if ( null != values ) {
-							if ( values.length > 0 ) {
-								String valueTable = values[0];
+							if ( values.length > 1 ) {
+								
+								String nomInstance = values[0];
+								nomInstance	= DatabaseHelper.removeDBStringWrapper(nomInstance);
+								
+								String valueTable = values[1];
 								logger.debug(className, function, "valueTable[{}]", valueTable);
 								
 								if ( null != valueTable ) {
@@ -272,6 +284,13 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 										logger.debug(className, function, "button[{}]", button);
 										
 										if ( null != label && label.length() > 0 ) {
+											
+											logger.debug(className, function, "btnLabelPrefix[{}] nomInstance[{}] dovname[{}] label[{}]", new Object[]{btnLabelPrefix, nomInstance, dovname, label});
+											if ( null != btnLabelPrefix && ! btnLabelPrefix.trim().isEmpty() ) {
+												label = btnLabelPrefix + nomInstance + strUnderline + dovname;
+											}
+											logger.debug(className, function, "label[{}]", label);
+											
 											valueTableLabels[r] = label;
 											
 											setButtonVisible(button);
@@ -718,6 +737,8 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 			strDelayMSBetweenCmds	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.DelayMSBetweenCmds.toString(), strHeader);
 			
 			strInitCondValidity		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.InitCondValidity.toString(), strHeader);
+		
+			btnLabelPrefix			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetDioBtnsControl_i.ParameterName.BtnLabelPrefix.toString(), strHeader);
 		}
 		
 		logger.debug(className, function, "columnAlias[{}]", columnAlias);
@@ -747,6 +768,8 @@ public class UIWidgetDioBtnsControl extends UIWidgetRealize {
 		logger.debug(className, function, "strDelayMSBetweenCmds[{}]", strDelayMSBetweenCmds);
 		
 		logger.debug(className, function, "strInitCondValidity[{}]", strInitCondValidity);
+		
+		logger.debug(className, function, "btnLabelPrefix[{}]", btnLabelPrefix);
 		
 		if ( null != strIsPolling && strIsPolling.equals(Boolean.TRUE.toString()) ) {
 			isPolling = true;

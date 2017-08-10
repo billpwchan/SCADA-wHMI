@@ -201,6 +201,7 @@
 	<option key="LMC|MCS|OPM Verify Summary|OPM Summary"><setting>133</setting></option>
 
 	<option key="LMC|MCS|Central Station|HDV Matrix Summary"><setting>134</setting></option>
+	<option key="LMC|MCS|Central Station|HDV Matrix Summary (Station)"><setting>135</setting></option>
 	
 	<option key="LMC|UIEventAction Verify Summary"><setting>150</setting></option>
 	<option key="LMC|UIEventAction Verify Summary|UIEventActionDbm"><setting>151</setting></option>

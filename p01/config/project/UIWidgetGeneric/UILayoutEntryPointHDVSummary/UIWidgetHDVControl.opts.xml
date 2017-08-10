@@ -58,6 +58,8 @@
 		<DelayMSBetweenCmds>100</DelayMSBetweenCmds>
 		<!-- Init cond checking before Execute on Mulit Cmds -->
 		<InitCondValidity>true</InitCondValidity>
+		
+		<BtnLabelPrefix>&amp;UILayoutEntryPointHDVSummary_</BtnLabelPrefix>
 	</header>
 	
 	<!-- Begin of life -->

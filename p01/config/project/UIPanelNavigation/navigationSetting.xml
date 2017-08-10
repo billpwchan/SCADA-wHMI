@@ -1257,6 +1257,17 @@
 		<tooltips>Handover Matrix Panel</tooltips>
 	</option>
 	
+	<option key="135">
+		<type>P</type>
+		<name>Handover Matrix Panel (Station)</name>
+		<title>Handover Matrix Panel (Station)</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointHDVMatrixSummaryStn/UILayoutEntryPointHDVMatrixSummaryStn.view.xml</uiView>
+		<tooltips>Handover Matrix Panel (Station)</tooltips>
+	</option>
+	
 	<option key="150">
 		<type>M</type>
 		<name>UIEventAction</name>

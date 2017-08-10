@@ -14,6 +14,8 @@ public interface UIControlPrioritySCADAgen_i {
 	public final static int LEVEL_MAX 			= 999;
 	public final static int LEVEL_NOT_DEFINED 	= -1;
 	
+	public final static String STR_EMPTY		= "";
+	
 	/*
 	 * UIOpm and UIDatabase API Name
 	 */

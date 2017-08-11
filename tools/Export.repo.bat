@@ -10,19 +10,15 @@ IF [%v_strdt%] == [] SET v_strdt=%1
 
 ECHO "v_strdt=%v_strdt%"
 
+ECHO Start of Export Repo
+
 SET _folder="%DEPOT_HOME%\%v_strdt%"
-
-SET _folderlogs=%_folder%\logs
-
 ECHO _folder=%_folder% 
-ECHO _folderlogs=%_folderlogs%
-
 MD %_folder%
-MD %_folder%\logs
+
 
 SET _PACKAGE_SCADAGEN="com\thalesgroup\scadagen"
 SET _REPO_SCADAGEN="%M2_REPO%\%_PACKAGE_SCADAGEN%"
-
 ECHO _REPO_SCADAGEN=%_REPO_SCADAGEN%
 
 REM Repo
@@ -35,15 +31,8 @@ REM Export Repo
 
 MD %_REPO_DEPO_SCADAGEN%
 
-XCOPY %_REPO_SCADAGEN% %_REPO_DEPO_SCADAGEN% /s/h/e/k/f/c
+REM Export Repo
 
-Export Export E01, P01
+%SEVEN_ZIP_HOME% a %_folder%\repo %_REPO_DEPO%
 
-SET _EXCLUDE=-mx0 "-xr!.metadata" "-xr!.settings" "-xr!.recommenders" "-xr!RemoteSystemsTempFiles"
-SET _EXCLUDE2="-xr!mywebapp\src\main\gwt-unitCache"
-SET _EXCLUDE3="-xr!workspace.webapp-func\webapp-func\myproject-webapp-func*.zip"
-ECHO _EXCLUDE=%_EXCLUDE%
-
-%SEVEN_ZIP_HOME% a %_folder%\repo %_REPO_DEPO% %_EXCLUDE%
-
-ECHO END OF BACKUP
+ECHO END OF Export Repo

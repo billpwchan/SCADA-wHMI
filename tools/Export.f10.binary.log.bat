@@ -10,6 +10,8 @@ IF [%v_strdt%] == [] SET v_strdt=%1
 
 ECHO "v_strdt=%v_strdt%"
 
+ECHO Start OF EXPORT F10
+
 SET _folder="%DEPOT_HOME%\%v_strdt%"
 
 SET _folderlogs=%_folder%\logs
@@ -39,6 +41,5 @@ COPY %_F10_TIMESCHEDULE%\%_F10_TIMESCHEDULE_ZIP% %_folder%\%_F10_TIMESCHEDULE_ZI
 REM Export Logs
 
 COPY "%TOOLS_BASE%\build.f10*.log" %_folder%\logs
-
 
 ECHO END OF EXPORT F10

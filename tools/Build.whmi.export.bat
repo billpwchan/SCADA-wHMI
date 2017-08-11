@@ -12,16 +12,21 @@ ECHO Start of Build.whmi.export...
 
 CALL "%TOOLS_PATH%\LoadFolder.bat"
 
-CALL %TOOLS_PATH%\Build.workspace.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.git.commit.bat %v_strdt%
 
-CALL %TOOLS_PATH%\Export.whmi.binary.config.log.bat %v_strdt%
+CALL %TOOLS_PATH%\Build.workspace.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.workspace.binary.log.bat %v_strdt%
+
+CALL %TOOLS_PATH%\Export.e02.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.p01.bat %v_strdt%
+
+CALL %TOOLS_PATH%\Build.e03.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.e03.binary.log.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.connectors.all.bat %v_strdt%
-
 CALL %TOOLS_PATH%\Export.connector.binary.log.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.f10.all.bat %v_strdt%
-
 CALL %TOOLS_PATH%\Export.f10.binary.log.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Export.repo.bat %v_strdt%

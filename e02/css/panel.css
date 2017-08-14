@@ -328,7 +328,7 @@ fill : #4caf50!important;
 	}
 	
 	.datePickerDayIsToday {
-		background: url("images/hborder.png") repeat-x scroll 0 -2607px
+		background: url("../../../gwt/standard/images/hborder.png") repeat-x scroll 0 -2607px
 			rgba(0, 0, 0, 0);
 		color: #FFFFFF;
 		padding: 3px;

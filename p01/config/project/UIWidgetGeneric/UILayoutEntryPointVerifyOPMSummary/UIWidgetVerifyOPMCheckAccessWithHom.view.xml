@@ -33,7 +33,7 @@
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-uiopmapivalue</cssContainer>
 		
@@ -54,7 +54,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-functionvalue</css>
 		<element>functionvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-functionvalue</cssContainer>
 		
@@ -75,7 +75,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-locationvalue</css>
 		<element>locationvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-locationvalue</cssContainer>
 		
@@ -96,7 +96,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-actionvalue</css>
 		<element>actionvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-actionvalue</cssContainer>
 		
@@ -117,7 +117,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-modevalue</css>
 		<element>modevalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-modevalue</cssContainer>
 		
@@ -214,7 +214,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHom-textbox-resultvalue</css>
 		<element>resultvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHom-container-resultvalue</cssContainer>
 		

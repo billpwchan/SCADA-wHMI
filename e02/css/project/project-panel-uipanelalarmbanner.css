@@ -50,7 +50,7 @@
 	margin-top: 5px !important;
 	margin-left: 5px !important;
 	
-	background-image: url('images/hborder.png');
+	background-image: url('../../../gwt/standard/images/hborder.png');
     background-position-x: 0px;
     background-position-y: -27px;
     background-size: initial;

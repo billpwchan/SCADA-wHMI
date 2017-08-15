@@ -2,7 +2,7 @@
     width: 100%;
 }
 #running-schedules {
-    width: 100%;
+    width: calc(100% - /* margin */ 2 * 5px);
     margin: 5px;
 }
 #running-schedules-label {

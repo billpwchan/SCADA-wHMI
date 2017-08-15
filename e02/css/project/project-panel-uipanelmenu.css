@@ -74,7 +74,7 @@
 	height: 30px;
 	font-size: 16px !important;
 	font-weight: bold;
-	background: url("images/hborder.png") repeat-x 0px -27px;
+	background: url("../../../gwt/standard/images/hborder.png") repeat-x 0px -27px;
 	margin-bottom: 4px !important;
 }
 .project-gwt-button-navigation-0-selected {
@@ -87,7 +87,7 @@
 	height: 30px;
 	font-size: 16px !important;
 	font-weight: bold;
-	background: url("images/hborder.png") repeat-x 0px -27px;
+	background: url("../../../gwt/standard/images/hborder.png") repeat-x 0px -27px;
 	margin-right: 4px !important;
 }
 .project-gwt-button-navigation-1-selected {
@@ -99,7 +99,7 @@
 	height: 30px;
 	font-size: 16px !important;
 	font-weight: bold;
-	background: url("images/hborder.png") repeat-x 0px -27px;
+	background: url("../../../gwt/standard/images/hborder.png") repeat-x 0px -27px;
 	margin-bottom: 4px !important;
 }
 .project-gwt-button-navigation-2-selected {
@@ -111,7 +111,7 @@
 	height: 30px;
 	font-size: 16px !important;
 	font-weight: bold;
-	background: url("images/hborder.png") repeat-x 0px -27px;
+	background: url("../../../gwt/standard/images/hborder.png") repeat-x 0px -27px;
 	margin-bottom: 4px !important;
 }
 .project-gwt-button-navigation-3-selected {

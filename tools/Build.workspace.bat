@@ -12,11 +12,9 @@ IF [%v_strdt%] == [] SET v_strdt=%1
 
 ECHO "v_strdt=%v_strdt%"
 
-REM start /B Launch.Tail.bat %LOG_FILE%
+ECHO starting to build workspace...
 
 CD %sp%
-
-ECHO starting to build...
 
 ECHO Build all...
 
@@ -32,8 +30,6 @@ CALL %TOOLS_PATH%\Build.workspace.webapp-fun.bat %v_strdt%
 
 CALL %TOOLS_PATH%\Build.workspace.webapp.bat %v_strdt%
  
-ECHO End of build
-
-REM CALL %TOOLS_BASE%/Log.Backup.bat
+ECHO End of build workspace
 
 REM PAUSE

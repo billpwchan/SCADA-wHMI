@@ -1,0 +1,1 @@
+<Context docBase="${catalina.base}/conf/e02-resources-current" path="/scadagen-f02-webapp-generic/scslogin/resources"/>

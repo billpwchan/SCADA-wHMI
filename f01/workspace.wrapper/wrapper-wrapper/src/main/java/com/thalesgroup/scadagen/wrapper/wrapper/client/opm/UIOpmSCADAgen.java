@@ -87,7 +87,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		String function = "checkAccess";
 		logger.begin(className, function);
 		
-		boolean result = false;
+		boolean ret = false;
 		
 		if ( null != parameter ) {
 			
@@ -106,13 +106,13 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			dto.setRequestParameters(parameter);
 			OperatorOpmInfo operatorOpmInfo = ConfigProvider.getInstance().getOperatorOpmInfo();
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
+			ret = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 
 		} else {
 			logger.warn(className, function,  "parameter IS NULL");
 		}
-		logger.debug(className, function, "result[{}]", result);
-		return result;
+		logger.debug(className, function, "ret[{}]", ret);
+		return ret;
 	}
 	
 	/* (non-Javadoc)
@@ -132,7 +132,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		logger.debug(className, function, "opmName3[{}] opmValue3[{}]", opmName3, opmValue3);
 		logger.debug(className, function, "opmName4[{}] opmValue4[{}]", opmName4, opmValue4);
 		
-		boolean result = false;
+		boolean ret = false;
 		
 		if ( 
 				   opmName1 != null && ! opmName1.isEmpty() 
@@ -158,7 +158,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			// TO: remove the non target role in here
 		
 			IAuthorizationCheckerC checker = new AuthorizationCheckerC();
-			result = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
+			ret = checker.checkOperationIsPermitted( operatorOpmInfo, dto );
 		} else {
 			logger.warn(className, function, "args null, or empty - " 
 				+ "  "+opmName1+"=" + opmValue1 
@@ -167,8 +167,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 				+ ", "+opmName4+"=" + opmValue4
 				+ " - checkAccess return 'false'" );
 		}
-		
-		return result;
+		logger.debug(className, function, "ret[{}]", ret);
+		return ret;
 	}
 	
 	/* (non-Javadoc)
@@ -176,21 +176,19 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public boolean checkAccess(String functionValue, String locationValue, String actionValue, String modeValue) {
-		final String function = "function";
+		final String function = "checkAccess";
 		logger.begin(className, function);
 		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}]  ", new Object[]{functionValue, locationValue, actionValue, modeValue});
-		
-		boolean result = false;
-		
-		result = checkAccess(
+
+		boolean ret = checkAccess(
 								  FUNCTION, functionValue
 								, LOCATION, locationValue
 								, ACTION, actionValue
 								, MODE, modeValue
-							);
-		
+								);
+		logger.debug(className, function, "function[{}] location[{}] action[{}] mode[{}] ret[{}] ", new Object[]{functionValue, locationValue, actionValue, modeValue, ret});
 		logger.end(className, function);
-		return result;
+		return ret;
 	}
 	
 	/* (non-Javadoc)
@@ -220,7 +218,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, final int hdvValue
 			, final String key
 			, final CheckAccessWithHOMEvent_i resultEvent) {
-		final String function = "checkAccess";
+		final String function = "checkAccessWithHom";
 		logger.begin(className, function);
 		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hdvValue[{}] key[{}]"
 				, new Object[]{functionValue, locationValue, actionValue, modeValue, hdvValue, key});
@@ -242,7 +240,10 @@ public class UIOpmSCADAgen implements UIOpm_i {
 					, modeValue
 					);
 			
-			resultEvent.result(isHOMRequested?(caResult && homResult):caResult);
+			boolean ret = isHOMRequested?(caResult && homResult):caResult;
+			logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] hdvValue[{}] key[{}] ret[{}]"
+					, new Object[]{functionValue, locationValue, actionValue, modeValue, hdvValue, key, ret});
+			resultEvent.result(ret);
 			
 		} else {
 			logger.warn(className, function, "resultEvent IS NULL");
@@ -263,7 +264,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 			, final String alias
 			, final String key
 			, final CheckAccessWithHOMEvent_i resultEvent) {
-		final String function = "checkAccess";
+		final String function = "checkAccessWithHom";
 		logger.begin(className, function);
 		logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] scsEnvId[{}] alias[{}] key[{}]"
 				, new Object[]{functionValue, locationValue, actionValue, modeValue, scsEnvId, alias, key});
@@ -285,16 +286,17 @@ public class UIOpmSCADAgen implements UIOpm_i {
 					}
 				});
 			} else {
-				boolean caResult = false;
+				boolean ret = false;
 				
-				caResult = checkAccess(
+				ret = checkAccess(
 						  functionValue
 						, locationValue
 						, actionValue
 						, modeValue
 						);
-				
-				resultEvent.result(caResult);
+				logger.debug(className, function, "functionValue[{}] locationValue[{}] actionValue[{}] modeValue[{}] scsEnvId[{}] alias[{}] key[{}] ret[{}]"
+						, new Object[]{functionValue, locationValue, actionValue, modeValue, scsEnvId, alias, key, ret});
+				resultEvent.result(ret);
 			}
 		} else {
 			logger.warn(className, function, "resultEvent IS NULL");
@@ -512,7 +514,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 */
 	@Override
 	public String getCurrentIPAddress() {
-		final String function = "getIPAddress";
+		final String function = "getCurrentIPAddress";
 		logger.begin(className, function);
 		
 		if ( null == currentIPAddress ) {
@@ -785,7 +787,7 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	 * @return default value in configuration
 	 */
 	private int getHOMLevelDefaultValue() {
-		String function = "getByPassValue";
+		String function = "getHOMLevelDefaultValue";
 		logger.begin(className, function);
 		
 		if ( ! homLevelDefaultValueReady ) {

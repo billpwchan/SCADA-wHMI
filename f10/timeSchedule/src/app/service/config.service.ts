@@ -9,6 +9,7 @@ export class ConfigService {
     private static defaultConfig = Map({
         scs_tsc_url: 'http://127.0.0.1:8899/scs/service/TscComponent/',
         default_client_name: 'ROOT',
+        tsc_time_offset: 0,
         i18n: Map({
             default_lang: 'en',
             resolve_by_browser_lang: true,

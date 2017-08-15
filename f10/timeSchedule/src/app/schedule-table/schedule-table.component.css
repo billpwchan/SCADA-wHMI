@@ -35,7 +35,7 @@
     padding-bottom: 5px;
 }
 #schedule-cutoff-time {
-    width: 100%;
+    width: calc(100% - /* margin */ 2 * 5px);
     margin: 5px;
 }
 #label-schedule-cutoff-time {

@@ -11,12 +11,12 @@
 		<Name value="value"></Name>
 	</Column>
 	<List>
-		<Attribute name="dci_cb_type!$ALIAS"></Attribute>
-		<Attribute name="dci_cb_type!valueDate"></Attribute>
-		<Attribute name="basicEquipment!^.geographicalCat"></Attribute>
-		<Attribute name="basicEquipment!^.functionalCat"></Attribute>
-		<Attribute name="basicEquipment!^.label"></Attribute>
-		<Attribute name="dci_cb_type!value"></Attribute>
-		<Condition value='(dci_cb_type!value==1) STATIC (dci_cb_type!nom_instance=="dciECT-PTW")'></Condition>
+		<Attribute name="DCI_TYPE!$ALIAS"></Attribute>
+		<Attribute name="DCI_TYPE!valueDate"></Attribute>
+		<Attribute name="BasicEquipment!^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^.functionalCat"></Attribute>
+		<Attribute name="BasicEquipment!^.label"></Attribute>
+		<Attribute name="DCI_TYPE!value"></Attribute>
+		<Condition value='(DCI_TYPE!value==1) STATIC (DCI_TYPE!nom_instance=="dciECT-PTW")'></Condition>
 	</List>
 </StateList>

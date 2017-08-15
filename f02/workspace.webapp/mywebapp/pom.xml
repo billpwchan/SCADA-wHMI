@@ -34,7 +34,7 @@
     <packaging>war</packaging>
     <name>SCADAsoft HMI Web Application</name>
 
-    <distributionManagement>  
+    <!--<distributionManagement>  
         <snapshotRepository>  
             <id>scadasoft-repo-deployment</id>  
             <name>scadasoft maven repository - SNAPSHOTS</name>  
@@ -45,7 +45,7 @@
             <name>scadasoft maven repository - RELEASES</name>  
             <url>http://thsnexapp01p.thales-security.com:9001/nexus/content/repositories/scadasoft_releases/</url>  
         </repository>  
-    </distributionManagement>  
+    </distributionManagement>-->
 
     <dependencies>
 	
@@ -409,7 +409,7 @@
                     <optimizationLevel>1</optimizationLevel>
                     <runTarget>http://localhost:8081/mywebapp/scsmain/initialize?page=/scsmain/ScsMain.html</runTarget>
                     <noServer>true</noServer>
-                    <logLevel>DEBUG</logLevel>
+                    <!--<logLevel>DEBUG</logLevel>-->
                     <debugPort>9045</debugPort>
                     <debugSuspend>false</debugSuspend>
 
@@ -452,14 +452,14 @@
                     <downloadJavadocs>true</downloadJavadocs>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.1</version>
                 <configuration>
                     <deployAtEnd>true</deployAtEnd>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
             <!-- failsafe plugin -->
 

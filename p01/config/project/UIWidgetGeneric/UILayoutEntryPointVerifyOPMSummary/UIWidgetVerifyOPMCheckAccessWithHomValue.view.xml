@@ -33,7 +33,7 @@
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-uiopmapivalue</cssContainer>
 		
@@ -54,7 +54,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-functionvalue</css>
 		<element>functionvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-functionvalue</cssContainer>
 		
@@ -75,7 +75,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-locationvalue</css>
 		<element>locationvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-locationvalue</cssContainer>
 		
@@ -96,7 +96,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-actionvalue</css>
 		<element>actionvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-actionvalue</cssContainer>
 		
@@ -117,7 +117,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-modevalue</css>
 		<element>modevalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-modevalue</cssContainer>
 		
@@ -159,7 +159,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-keyvalue</css>
 		<element>keyvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-v-container-keyvalue</cssContainer>
 		
@@ -193,7 +193,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccessWithHomValue-textbox-resultvalue</css>
 		<element>resultvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccessWithHomValue-container-resultvalue</cssContainer>
 		

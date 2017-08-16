@@ -14,15 +14,15 @@
 		<Name value="tagstatus"></Name>
 	</Column>
 	<List>
-		<Attribute name="basicEquipment!$ALIAS"></Attribute>
-		<Attribute name="basicEquipment!opDate"></Attribute>
-		<Attribute name="basicEquipment!opSource"></Attribute>
-		<Attribute name="basicEquipment!label"></Attribute>
-		<Attribute name="basicEquipment!geographicalCat"></Attribute>
-		<Attribute name="basicEquipment!functionalCat"></Attribute>
-		<Attribute name="basicEquipment!tag1Label"></Attribute>
-		<Attribute name="basicEquipment!tag2Label"></Attribute>
-		<Attribute name="basicEquipment!tagStatus"></Attribute>
-		<Condition value='((basicEquipment!tagStatus==256) OR (basicEquipment!tagStatus==512) OR (basicEquipment!tagStatus==768))'></Condition>
+		<Attribute name="BasicEquipment!$ALIAS"></Attribute>
+		<Attribute name="BasicEquipment!opDate"></Attribute>
+		<Attribute name="BasicEquipment!opSource"></Attribute>
+		<Attribute name="BasicEquipment!label"></Attribute>
+		<Attribute name="BasicEquipment!geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!functionalCat"></Attribute>
+		<Attribute name="BasicEquipment!tag1Label"></Attribute>
+		<Attribute name="BasicEquipment!tag2Label"></Attribute>
+		<Attribute name="BasicEquipment!tagStatus"></Attribute>
+		<Condition value='((BasicEquipment!tagStatus==256) OR (BasicEquipment!tagStatus==512) OR (BasicEquipment!tagStatus==768))'></Condition>
 	</List>
 </StateList>

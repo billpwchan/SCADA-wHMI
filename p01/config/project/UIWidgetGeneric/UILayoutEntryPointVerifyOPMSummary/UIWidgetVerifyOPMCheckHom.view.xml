@@ -33,7 +33,7 @@
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMCheckHom-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckHom-container-uiopmapivalue</cssContainer>
 		
@@ -54,7 +54,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckHom-textbox-hdvvaluevalue</css>
 		<element>hdvvaluevalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckHom-container-hdvvaluevalue</cssContainer>
 		
@@ -75,7 +75,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckHom-textbox-keyvalue</css>
 		<element>keyvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckHom-container-locationvalue</cssContainer>
 		
@@ -109,7 +109,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckHom-textbox-resultvalue</css>
 		<element>resultvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckHom-container-resultvalue</cssContainer>
 		

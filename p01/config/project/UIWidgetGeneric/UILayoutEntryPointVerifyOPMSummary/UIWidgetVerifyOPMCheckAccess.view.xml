@@ -33,7 +33,7 @@
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-uiopmapivalue</cssContainer>
 		
@@ -54,7 +54,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-functionvalue</css>
 		<element>functionvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-functionvalue</cssContainer>
 		
@@ -75,7 +75,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-locationvalue</css>
 		<element>locationvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-locationvalue</cssContainer>
 		
@@ -96,7 +96,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-actionvalue</css>
 		<element>actionvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-actionvalue</cssContainer>
 		
@@ -117,7 +117,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-modevalue</css>
 		<element>modevalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-modevalue</cssContainer>
 		
@@ -151,7 +151,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMCheckAccess-textbox-resultvalue</css>
 		<element>resultvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMCheckAccess-container-resultvalue</cssContainer>
 		

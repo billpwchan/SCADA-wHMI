@@ -1,5 +1,7 @@
 {
   "scs_tsc_url": "http://localhost:8899/scs/service/TscComponent/",
+  "default_client_name": "ROOT",
+  "tsc_time_offset": 0,
   "i18n": {
     "default_lang": "en"
     , "resolve_by_browser_lang": true

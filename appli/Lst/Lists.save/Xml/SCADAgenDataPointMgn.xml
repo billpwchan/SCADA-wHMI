@@ -32,9 +32,9 @@
 		<Attribute name="dci_cb_type!^.label"></Attribute>
 		
 
-		<Attribute name="basicEquipment!^:^.label"></Attribute>
-		<Attribute name="basicEquipment!^:^.geographicalCat"></Attribute>
-		<Attribute name="basicEquipment!^:^.functionalCat"></Attribute>
+		<Attribute name="BasicEquipment!^:^.label"></Attribute>
+		<Attribute name="BasicEquipment!^:^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^:^.functionalCat"></Attribute>
 
 		<Condition value='(dfo_type!forcedStatus==1)'></Condition>
 	</List>
@@ -51,9 +51,9 @@
 		<Attribute name="aci_cb_type!^.label"></Attribute>
 		
 
-		<Attribute name="basicEquipment!^:^.label"></Attribute>
-		<Attribute name="basicEquipment!^:^.geographicalCat"></Attribute>
-		<Attribute name="basicEquipment!^:^.functionalCat"></Attribute>
+		<Attribute name="BasicEquipment!^:^.label"></Attribute>
+		<Attribute name="BasicEquipment!^:^.geographicalCat"></Attribute>
+		<Attribute name="BasicEquipment!^:^.functionalCat"></Attribute>
 
 		<Condition value='(afo_type!forcedStatus==1)'></Condition>
 	</List>

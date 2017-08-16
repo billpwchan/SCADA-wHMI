@@ -696,7 +696,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.debug(className, function, "homIdentity[{}]", homIdentity);
 		
 		String keyStrHOMByPassValues = prefix+UIPanelInspector_i.strHOMByPassValues;
-		String homByPassValue = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMIdentity, "");
+		String homByPassValue = ReadProp.readString(dictionariesCacheName, fileName, keyStrHOMByPassValues, "");
 		logger.debug(className, function, "homByPassValue[{}]", homByPassValue);
 		
 		homByPassValues = UIWidgetUtil.getStringArray(homByPassValue, ",");

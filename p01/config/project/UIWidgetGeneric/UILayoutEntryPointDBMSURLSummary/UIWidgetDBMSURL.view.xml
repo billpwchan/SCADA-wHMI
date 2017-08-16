@@ -10,7 +10,7 @@
 	
 	<option key="0|0">
 		<widget>HTML</widget>
-		<label>&lt;iframe src=&quot;http://lxdv17.hk.thales:8081/report/index.jsp?language=Br_br&quot; width=100% height=100% frameborder=0&gt;&lt;/iframe&gt;</label>
+		<label>&lt;iframe src=&quot;http://127.0.0.1:8081/report/index.jsp?language=Br_br&quot; width=100% height=100% frameborder=0&gt;&lt;/iframe&gt;</label>
 		<css>project-gwt-html-htmlurl-html-0-0</css>
 		
 		<cssContainer>project-gwt-html-htmlurl-container-0-0</cssContainer>

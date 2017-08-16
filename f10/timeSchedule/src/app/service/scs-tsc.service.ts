@@ -23,9 +23,9 @@ export class ScsTscService {
         console.log('{ScsTscService}', '[getDescFilterEnableObservables]', taskNames);
         const obs: Array<Observable<string>> = new Array<Observable<string>>() ;
         for (const taskname of taskNames) {
-            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.GET_DESCRIPTION + taskname).map(this.extractDescription));
-            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.GET_FILTER + taskname).map(this.extractFilter));
-            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.IS_ENABLED + taskname).map(this.extractEnableFlag));
+            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.GET_DESCRIPTION + encodeURIComponent(taskname)).map(this.extractDescription));
+            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.GET_FILTER + encodeURIComponent(taskname)).map(this.extractFilter));
+            obs.push(this.http.get(this.urlScsTsc + ScsTscDef.IS_ENABLED + encodeURIComponent(taskname)).map(this.extractEnableFlag));
         }
         return obs;
     }
@@ -54,20 +54,20 @@ export class ScsTscService {
     //  getDescription
     //
     public getDescription(taskName: string): Observable<string> {
-        const url = this.urlScsTsc + ScsTscDef.GET_DESCRIPTION + taskName;
+        const url = this.urlScsTsc + ScsTscDef.GET_DESCRIPTION + encodeURIComponent(taskName);
         return this.http.get(url).map(this.extractDescription).catch(this.handleError);
     }
     private extractDescription(res: Response) {
     //    console.log('{ScsTscService}', '[extractTaskDescription]', res);
         const jsonObj = res.json();
-   //     console.log('{ScsTscService}', '[extractTaskDescription]', jsonObj.response.description);
+        console.log('{ScsTscService}', '[extractTaskDescription]', jsonObj.response.description);
         return jsonObj.response.description || {};
     }
     //
     //  getStartTime
     //
     public getStartTime(taskName: string): Observable<string> {
-        const url = this.urlScsTsc + ScsTscDef.GET_START_TIME + taskName;
+        const url = this.urlScsTsc + ScsTscDef.GET_START_TIME + encodeURIComponent(taskName);
         return this.http.get(url).map(this.extractStartTime).catch(this.handleError);
     }
     private extractStartTime(res: Response) {
@@ -80,7 +80,7 @@ export class ScsTscService {
     //  getEndTime
     //
     public getEndTime(taskName: string): Observable<string> {
-        const url = this.urlScsTsc + ScsTscDef.GET_END_TIME + taskName;
+        const url = this.urlScsTsc + ScsTscDef.GET_END_TIME + encodeURIComponent(taskName);
         return this.http.get(url).map(this.extractEndTime).catch(this.handleError);
     }
     private extractEndTime(res: Response) {
@@ -93,13 +93,13 @@ export class ScsTscService {
     //  getFilter
     //
     public getFilter(taskName: string): Observable<string> {
-        const url = this.urlScsTsc + ScsTscDef.GET_FILTER + taskName;
+        const url = this.urlScsTsc + ScsTscDef.GET_FILTER + encodeURIComponent(taskName);
         return this.http.get(url).map(this.extractFilter).catch(this.handleError);
     }
     private extractFilter(res: Response) {
     //    console.log('{ScsTscService}', '[extractFilter]', res);
         const jsonObj = res.json();
-    //    console.log('{ScsTscService}', '[extractFilter]', jsonObj.response.filter);
+        console.log('{ScsTscService}', '[extractFilter]', jsonObj.response.filter);
         return jsonObj.response.filter || {};
     }
     private handleError(error: Response | any) {
@@ -111,7 +111,9 @@ export class ScsTscService {
     //
     public setFilter(taskName: string, filter: string, clientName: string): Observable<any> {
         const quotedFilter = '"' + filter + '"';
-        const url = this.urlScsTsc + ScsTscDef.SET_FILTER + taskName + ScsTscDef.SET_FILTER_PARAM + quotedFilter + ScsTscDef.CLIENT_PARAM + clientName;
+        const quotedclientName = '"' + clientName + '"';
+        const url = this.urlScsTsc + ScsTscDef.SET_FILTER + encodeURIComponent(taskName) + ScsTscDef.SET_FILTER_PARAM + quotedFilter +
+                    ScsTscDef.CLIENT_PARAM + quotedclientName;
         console.log('{ScsTscService}', '[setFilter]', 'taskName=', taskName, ' filter=', filter, 'url=', url);
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }
@@ -120,11 +122,12 @@ export class ScsTscService {
     //
     public enableTask(taskName: string, enableFlag: number, clientName: string): Observable<any> {
         let url: string;
+        const quotedclientName = '"' + clientName + '"';
         console.log('{ScsTscService}', '[enableTask]', 'taskName=', taskName, ' enableFlag=', enableFlag);
         if (enableFlag) {
-            url = this.urlScsTsc + ScsTscDef.ENABLE_TASK + taskName + ScsTscDef.CLIENT_PARAM + clientName;
+            url = this.urlScsTsc + ScsTscDef.ENABLE_TASK + encodeURIComponent(taskName) + ScsTscDef.CLIENT_PARAM + quotedclientName;
         } else {
-            url = this.urlScsTsc + ScsTscDef.DISABLE_TASK + taskName  + ScsTscDef.CLIENT_PARAM + clientName;
+            url = this.urlScsTsc + ScsTscDef.DISABLE_TASK + encodeURIComponent(taskName)  + ScsTscDef.CLIENT_PARAM + quotedclientName;
         }
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }
@@ -132,7 +135,9 @@ export class ScsTscService {
     // setDescription
     //
     public setDescription(taskName: string, description: string, clientName: string): Observable<string[]> {
-        const url = this.urlScsTsc + ScsTscDef.SET_DESCRIPTION + taskName + ScsTscDef.SET_DESCRIPTION_PARAM + description + ScsTscDef.CLIENT_PARAM + clientName;
+        const quotedclientName = '"' + clientName + '"';
+        const url = this.urlScsTsc + ScsTscDef.SET_DESCRIPTION + encodeURIComponent(taskName) + ScsTscDef.SET_DESCRIPTION_PARAM +
+                    encodeURIComponent(description) + ScsTscDef.CLIENT_PARAM + quotedclientName;
         console.log('{ScsTscService}', '[setDescription]', 'taskName=', taskName, ' description=', description, 'url=', url);
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }
@@ -173,7 +178,8 @@ export class ScsTscService {
             }
             dates = dates + ']';
         }
-        const url = this.urlScsTsc + ScsTscDef.SET_DATES + dayGroupId + ScsTscDef.SET_DATES_PARAM + dates + ScsTscDef.CLIENT_PARAM + clientName;
+        const quotedclientName = '"' + clientName + '"';
+        const url = this.urlScsTsc + ScsTscDef.SET_DATES + dayGroupId + ScsTscDef.SET_DATES_PARAM + dates + ScsTscDef.CLIENT_PARAM + quotedclientName;
         console.log('{ScsTscService}', '[setDates]', 'taskName=', dayGroupId, ' datesList=', datesList, 'url=', url);
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }

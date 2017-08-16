@@ -46,6 +46,8 @@ export class ScheduleService implements OnDestroy {
     private oneshotStarted = false;
     private periodicStarted = false;
 
+    private tscTimeOffset = 0;
+
     constructor(
         private configService: ConfigService, private scsTscService: ScsTscService
     ) { }
@@ -70,6 +72,9 @@ export class ScheduleService implements OnDestroy {
 
         this.dayGroupConfig = this.configService.config.getIn(['schedule_table', 'schedule_daygroup']);
         console.log('{schedule-table}', '[loadConfig]', 'schedule_daygroup=', this.dayGroupConfig);
+
+        this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
+        console.log('{schedule-table}', '[loadConfig]', 'tsc_time_offset=', this.tscTimeOffset);
     }
     public loadData() {
         this.readTscTasks();
@@ -80,22 +85,26 @@ export class ScheduleService implements OnDestroy {
             (taskNames: any[]) => {
                 console.log('{ScheduleService}', '[readTscTasks]', taskNames);
                 this.extractScheduleTasks(taskNames);
-                const subGetDescFilterEnable = this.scsTscService.getDescFilterEnable(taskNames).subscribe(
-                    (data: any[]) => {
-                        this.extractDescFilterEnable(taskNames, data);
 
-                        console.log('{ScheduleService}', '[readTscTasks]', 'currentIsPeriodic', this.currentIsPeriodic);
-                        this.updateSchedulesByPeriodic(this.currentIsPeriodic);
-                        this.updateScheduleItemsByPeriodic(this.currentIsPeriodic);
-
-                        console.log('{ScheduleService}', '[readTscTasks]', 'end');
-                        subGetDescFilterEnable.unsubscribe();
-                    }
-                )
+                this.readTscTaskDescription(taskNames);
 
                 subGetTaskNames.unsubscribe();
 
                 this.readDayGroups();
+            }
+        )
+    }
+    private readTscTaskDescription(taskNames: string[]) {
+        const subGetDescFilterEnable = this.scsTscService.getDescFilterEnable(taskNames).subscribe(
+            (data: any[]) => {
+                this.extractDescFilterEnable(taskNames, data);
+
+                console.log('{ScheduleService}', '[readTscTasks]', 'currentIsPeriodic', this.currentIsPeriodic);
+                this.updateSchedulesByPeriodic(this.currentIsPeriodic);
+                this.updateScheduleItemsByPeriodic(this.currentIsPeriodic);
+
+                console.log('{ScheduleService}', '[readTscTasks]', 'end');
+                subGetDescFilterEnable.unsubscribe();
             }
         )
     }
@@ -503,6 +512,11 @@ export class ScheduleService implements OnDestroy {
         const nn = new Date(dd.getTime() + 86400000);
         nextDateList.push((nn.getTime() / 1000).toString());
 
+        if (this.tscTimeOffset > 0) {
+            this.addOffsetToDateList(curDateList);
+            this.addOffsetToDateList(nextDateList);
+        }
+
         // Set dateList to running daygroup to implement start schedule
         const subDates = this.scsTscService.setDates(runDayGroupId, curDateList, this.clientName).subscribe(
             res => {
@@ -524,6 +538,19 @@ export class ScheduleService implements OnDestroy {
                 subDates.unsubscribe();
             }
         );
+    }
+
+    public addOffsetToDateList(dateList: string[]) {
+        for (let i = 0; i < dateList.length; i++) {
+            const timevalue = +dateList[i] + this.tscTimeOffset;
+            dateList[i] = timevalue.toString();
+        }
+    }
+    public subtractOffsetFromDateList(dateList: string[]) {
+        for (let i = 0; i < dateList.length; i++) {
+            const timevalue = +dateList[i] - this.tscTimeOffset;
+            dateList[i] = timevalue.toString();
+        }
     }
     public startPeriodicSchedules() {
         for (const s of this.schedules) {
@@ -701,6 +728,9 @@ export class ScheduleService implements OnDestroy {
                  const subDates = this.scsTscService.getDates(dg.ids).subscribe(
                      datesList => {
                          daygroup.datesList = datesList;
+                         if (this.tscTimeOffset > 0) {
+                             this.subtractOffsetFromDateList(daygroup.datesList);
+                         }
                          dayGroupReadyCnt++;
 
                          console.log('{ScheduleService}', '[readDayGroups]', 'dayGroupCnt', this.dayGroupCnt, 'dayGroupReadyCnt:', dayGroupReadyCnt);
@@ -819,6 +849,11 @@ export class ScheduleService implements OnDestroy {
         const daygroupId = this.getPlanDayGroupId(scheduleId);
         const nextDaygroupId = this.getPlanNextDayGroupId(scheduleId);
 
+        if (this.tscTimeOffset > 0) {
+            this.addOffsetToDateList(datesList);
+            this.addOffsetToDateList(nextDatesList);
+        }
+
         const subdaygroup = this.scsTscService.setDates(daygroupId, datesList, this.clientName).subscribe(
             res => {
                 console.log('{ScheduleService}', '[setSchedulePlanDates]', 'response', res);
@@ -836,6 +871,11 @@ export class ScheduleService implements OnDestroy {
     public setScheduleRunDates(scheduleId, datesList, nextDatesList) {
         const daygroupId = this.getRunDayGroupId(scheduleId);
         const nextDaygroupId = this.getRunNextDayGroupId(scheduleId);
+
+        if (this.tscTimeOffset > 0) {
+            this.addOffsetToDateList(datesList);
+            this.addOffsetToDateList(nextDatesList);
+        }
 
         const subdaygroup = this.scsTscService.setDates(daygroupId, datesList, this.clientName).subscribe(
             res => {

@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client.view;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -65,7 +65,7 @@ public class UIPanelViewSchematic extends UIWidget_i implements UIPanelViewProvi
 				wrapperScsSituationViewPanel.setSize("100%", "100%");
 				wrapperScsSituationViewPanel.setWrapperScsSituationViewPanelEvent(new WrapperScsSituationViewPanelEvent() {
 					@Override
-					public void triggerSymbolWidget(HashMap<String, String> options) {
+					public void triggerSymbolWidget(Map<String, String> options) {
 						
 						final String function = "triggerSymbolWidget";
 						

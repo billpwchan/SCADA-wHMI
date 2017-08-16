@@ -87,14 +87,14 @@ public class ScsWidgetFactory extends WidgetFactory {
 					
 					String hv_type = symbolWidget.getEntityClassName();
 					
-					logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
+					logger.log(Level.FINE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
 					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						
 						int mouseX = event.getClientX();
 						int mouseY = event.getClientY();
 						
-						HashMap<String, String> options = new HashMap<String, String>();
+						Map<String, String> options = new HashMap<String, String>();
 						
 						options.put("hv_id", hv_id);
 						options.put("hv_type", hv_type);

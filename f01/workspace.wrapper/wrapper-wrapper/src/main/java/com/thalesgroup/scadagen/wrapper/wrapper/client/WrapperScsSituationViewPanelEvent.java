@@ -1,7 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface WrapperScsSituationViewPanelEvent {
-	public void triggerSymbolWidget(HashMap<String, String> options);
+	
+	public void triggerSymbolWidget(Map<String, String> options);
 }

@@ -15,6 +15,6 @@
 		<Attribute name="DCI_TYPE!UNIVNAME"></Attribute>
 		<Attribute name="BasicEquipment!^.geographicalCat"></Attribute>
 		<Attribute name="BasicEquipment!^.functionalCat"></Attribute>
-		<Condition value='STATIC (BasicEquipment!^.scstype LIKE "FASHDV")'></Condition>               
+		<Condition value='STATIC ((BasicEquipment!^.scstype LIKE "FASHDV*") AND (DCI_TYPE!nom_instance == "dciFAM-HDVSTATUS"))'></Condition>
 	</List>
 </StateList>

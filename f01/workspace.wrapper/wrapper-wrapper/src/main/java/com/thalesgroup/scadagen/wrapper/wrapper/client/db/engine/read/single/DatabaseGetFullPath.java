@@ -41,7 +41,7 @@ public class DatabaseGetFullPath implements DatabaseSingle2SingleRead_i {
 
 			@Override
 			public void setGetFullPathResult(String clientKey, String instances, int errorCode, String errorMessage) {
-				final String function = "setGetChildrenResult";
+				final String function = "setGetFullPathResult";
 				logger.begin(className, function);
 				if ( logger.isDebugEnabled() ) {
 					logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});

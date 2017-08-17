@@ -38,11 +38,13 @@ public class PhaseBLoader implements Loader_i{
 	public final static String strDatabaseSubscribeSingletonKey				= "DatabaseSubscribeSingletonKey";
 	public final static String strDatabaseSubscribeSingletonPeriodMillisKey = "DatabaseSubscribeSingletonPeriodMillisKey";
 	public final static String strDatabaseWritingSingletonKey				= "DatabaseWritingSingletonKey";
+	public final static String strDatabaseGetFullPathSingletonKey			= "DatabaseGetFullPathSingletonKey";
 	
 	public final static String strDatabaseMultiReadingProxySingleton		= "DatabaseMultiReadingProxySingleton";
 	public final static String strDatabaseGroupPollingDiffSingleton			= "DatabaseGroupPollingDiffSingleton";
 	public final static String strDatabaseSubscribePeriodMillis				= "500";
 	public final static String strDatabaseWritingSingleton					= "DatabaseWritingSingleton";
+	public final static String strDatabaseGetFullPathSingleton				= "DatabaseGetFullPathSingleton";
 	
 	
 	@Override
@@ -53,6 +55,7 @@ public class PhaseBLoader implements Loader_i{
 		parameters.put(strDatabaseSubscribeSingletonKey, strDatabaseGroupPollingDiffSingleton);
 		parameters.put(strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillis);
 		parameters.put(strDatabaseWritingSingletonKey, strDatabaseWritingSingleton);
+		parameters.put(strDatabaseGetFullPathSingletonKey, strDatabaseGetFullPathSingleton);
 	}
 	
 	public Map<String, String> parameters = new HashMap<String, String>();
@@ -116,6 +119,7 @@ public class PhaseBLoader implements Loader_i{
 			        InitDatabase.getInstance().initDatabaseReadingSingletonKey(parameters.get(strDatabaseReadingSingletonKey));
 			        InitDatabase.getInstance().initDatabaseSubscribeSingleton(parameters.get(strDatabaseSubscribeSingletonKey), intDatabaseSubscribePeriodMillis);
 			        InitDatabase.getInstance().initDatabaseWritingSingleton(parameters.get(strDatabaseWritingSingletonKey));
+			        InitDatabase.getInstance().initDatabaseGetFullPathSingleton(parameters.get(strDatabaseGetFullPathSingletonKey));
 										        
 			        logger.debug(className, function, " strTranslatePatten["+InitTranslation.strTranslatePatten+"]");
 			        

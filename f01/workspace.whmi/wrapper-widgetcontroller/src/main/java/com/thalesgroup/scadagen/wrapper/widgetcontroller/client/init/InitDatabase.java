@@ -8,9 +8,11 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.InitReady_i;
 import com.thalesgroup.scadagen.wrapper.widgetcontroller.client.common.Init_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingle2SingleRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleton_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseGetFullPathFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseSubscribeFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
@@ -109,6 +111,29 @@ public class InitDatabase implements Init_i {
 			}
 		} else {
 			logger.debug(className, function, "databaseWriting_i IS NULL");
+		}
+		logger.end(className, function);
+	}
+	
+	public void initDatabaseGetFullPathSingleton(String strDatabaseGetFullPathSingleton) {
+		final String function = "initDatabaseGetFullPathSingleton";
+		logger.begin(className, function);
+		logger.debug(className, function, "strDatabaseGetFullPathSingleton[{}]", strDatabaseGetFullPathSingleton);
+		
+		DatabaseSingle2SingleRead_i databaseSingle2SingleRead_i = DatabaseGetFullPathFactory.get(strDatabaseGetFullPathSingleton);
+		if ( null != databaseSingle2SingleRead_i ) {
+			try {
+				if ( databaseSingle2SingleRead_i instanceof DatabaseSingleton_i ) {
+					logger.debug(className, function, "databaseSingle2SingleRead_i instanceof DatabaseSingleton_i");
+					((DatabaseSingleton_i) databaseSingle2SingleRead_i).connectOnce();
+				} else {
+					databaseSingle2SingleRead_i.connect();
+				}
+			} catch (Exception ex) {
+				logger.warn(className, function, "databaseSingle2SingleRead_i init Exception:"+ex.toString());
+			}
+		} else {
+			logger.debug(className, function, "databaseSingle2SingleRead_i IS NULL");
 		}
 		logger.end(className, function);
 	}

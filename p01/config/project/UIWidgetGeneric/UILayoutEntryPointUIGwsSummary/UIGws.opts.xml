@@ -7,6 +7,7 @@
 		<DatabaseSubscribeSingletonKey>DatabaseGroupPollingDiffSingleton</DatabaseSubscribeSingletonKey>
 		<DatabaseSubscribeSingletonPeriodMillisKey>250</DatabaseSubscribeSingletonPeriodMillisKey>
 		<DatabaseWritingSingletonKey>DatabaseWritingSingleton</DatabaseWritingSingletonKey>
+		<DatabaseGetFullPathSingletonKey>DatabaseGetFullPathSingleton</DatabaseGetFullPathSingletonKey>
 	</header>
 	
 </data-set>

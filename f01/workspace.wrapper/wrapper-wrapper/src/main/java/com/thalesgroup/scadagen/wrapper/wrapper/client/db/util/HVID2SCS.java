@@ -22,7 +22,7 @@ public class HVID2SCS {
 	public String getDBAddress() {  return this.dbaddress; }
 	
 	public interface Handler {
-		void conver(String hvid);
+		void convert(String hvid);
 	}
 	private Map<String, Handler> map = new HashMap<String, Handler>();
 	public void addHandler(String key, Handler handler) { this.map.put(key, handler); }
@@ -39,27 +39,49 @@ public class HVID2SCS {
 		
 		Handler handler = map.get(pattern);
 		if ( null != handler ) {
-			handler.conver(hvid);
+			handler.convert(hvid);
 		}
 		else {
 			logger.warn(className, function, "pattern[{}] NOT FOUND!", pattern);
 		}
+		
+		logger.debug(className, function, "scsEnvId[{}] dbaddress[{}]", scsEnvId, dbaddress);
 		
 		logger.end(className, function);
 	}
 
 	public void init() {
 		
-		addHandler(Pattern.SCADAgen.toString(), new Handler() {
+		addHandler(Pattern.HVID_ALIAS.toString(), new Handler() {
 			
 			@Override
-			public void conver(String hvid) {
-				final String function = "HVID2SCS";
+			public void convert(String hvid) {
+				final String function = "conver "+Pattern.HVID_ALIAS.toString();
 				logger.begin(className, function);
 				logger.debug(className, function, "hvid[{}]", hvid);
 				if ( null != hvid ) {
 					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
 					if ( charAt > -1 ) {
+						dbaddress = hvid.substring(charAt+1);
+					}
+				} else {
+					logger.warn(className, function, "hvids IS NULL");
+				}
+				logger.end(className, function);
+			}
+		});
+		
+		addHandler(Pattern.ENV_ALIAS.toString(), new Handler() {
+			
+			@Override
+			public void convert(String hvid) {
+				final String function = "convert "+Pattern.ENV_ALIAS.toString();
+				logger.begin(className, function);
+				logger.debug(className, function, "hvid[{}]", hvid);
+				if ( null != hvid ) {
+					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
+					if ( charAt > -1 ) {
+						scsEnvId = hvid.substring(0, charAt);
 						dbaddress = hvid.substring(charAt+1);
 					}
 				} else {

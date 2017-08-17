@@ -167,6 +167,7 @@ public class UIGws {
 					String strDatabaseSubscribeSingletonValue = null;
 					String strDatabaseSubscribePeriodMillisValue = null;
 					String strDatabaseWritingSingletonValue = null;
+					String strDatabaseGetFullPathSingletonValue = null;
 					
 					strUIOpmSCADAgenValue					= dictionariesCache.getStringValue(opts, ParameterName.UIOpmSCADAgenKey.toString(), strHeader);
 					
@@ -174,6 +175,7 @@ public class UIGws {
 					strDatabaseSubscribeSingletonValue		= dictionariesCache.getStringValue(opts, ParameterName.DatabaseSubscribeSingletonKey.toString(), strHeader);
 					strDatabaseSubscribePeriodMillisValue	= dictionariesCache.getStringValue(opts, ParameterName.DatabaseSubscribeSingletonPeriodMillisKey.toString(), strHeader);
 					strDatabaseWritingSingletonValue		= dictionariesCache.getStringValue(opts, ParameterName.DatabaseWritingSingletonKey.toString(), strHeader);
+					strDatabaseGetFullPathSingletonValue	= dictionariesCache.getStringValue(opts, ParameterName.DatabaseGetFullPathSingletonKey.toString(), strHeader);
 							
 					logger.debug(className, function, "strUIOpmSCADAgenValue[{}]", strDatabaseReadingSingletonValue);
 					
@@ -181,6 +183,7 @@ public class UIGws {
 					logger.debug(className, function, "strDatabaseSubscribeSingletonValue[{}]", strDatabaseSubscribeSingletonValue);
 					logger.debug(className, function, "strDatabaseSubscribePeriodMillisValue[{}]", strDatabaseSubscribePeriodMillisValue);
 					logger.debug(className, function, "strDatabaseWritingSingletonValue[{}]", strDatabaseWritingSingletonValue);
+					logger.debug(className, function, "strDatabaseGetFullPathSingletonValue[{}]", strDatabaseGetFullPathSingletonValue);
 				
 					phaseBLoader.setParameter(PhaseBLoader.strUIOpmSCADAgenKey, strUIOpmSCADAgenValue);
 					
@@ -188,6 +191,7 @@ public class UIGws {
 					phaseBLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonKey, strDatabaseSubscribeSingletonValue);
 					phaseBLoader.setParameter(PhaseBLoader.strDatabaseSubscribeSingletonPeriodMillisKey, strDatabaseSubscribePeriodMillisValue);
 					phaseBLoader.setParameter(PhaseBLoader.strDatabaseWritingSingletonKey, strDatabaseWritingSingletonValue);
+					phaseBLoader.setParameter(PhaseBLoader.strDatabaseGetFullPathSingletonKey, strDatabaseGetFullPathSingletonValue);
 				}
 				
 				UIWidgetEntryPoint.init(params, phaseBLoader.getLoader(), new InitReady_i() {

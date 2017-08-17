@@ -35,7 +35,7 @@ public class UIGws_i {
 		, DatabaseSubscribeSingletonKey("DatabaseSubscribeSingletonKey")
 		, DatabaseSubscribeSingletonPeriodMillisKey("DatabaseSubscribeSingletonPeriodMillisKey")
 		, DatabaseWritingSingletonKey("DatabaseWritingSingletonKey")
-
+		, DatabaseGetFullPathSingletonKey("DatabaseGetFullPathSingletonKey")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

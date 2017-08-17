@@ -106,7 +106,7 @@ public class UIInspectorMgr {
 						if (values != null) {
 							final String unquotedStr = values.replaceAll("\"", "");
 							
-							logger.warn(className, function, "unquotedStr[{}]", unquotedStr);
+							logger.debug(className, function, "unquotedStr[{}]", unquotedStr);
 							
 							if ( null == databaseMultiRead_i ) {
 								
@@ -345,7 +345,7 @@ public class UIInspectorMgr {
 					if (values != null) {
 						final String unquotedStr = values.replaceAll("\"", "");
 						
-						logger.warn(className, function, "unquotedStr[{}]", unquotedStr);
+						logger.debug(className, function, "unquotedStr[{}]", unquotedStr);
 						
 						if ( null == uiInspectorDialogbox ) {
 							

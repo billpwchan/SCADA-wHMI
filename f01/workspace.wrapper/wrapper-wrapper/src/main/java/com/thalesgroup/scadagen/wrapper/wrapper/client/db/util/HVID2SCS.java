@@ -48,20 +48,7 @@ public class HVID2SCS {
 		logger.end(className, function);
 	}
 
-	public void init() {	
-		
-		addHandler(Pattern.Direct.toString(), new Handler() {
-			
-			@Override
-			public void conver(String hvid) {
-				final String function = "HVID2SCS";
-				logger.begin(className, function);
-				logger.debug(className, function, "hvid[{}]", hvid);
-
-				logger.end(className, function);
-			}
-		});
-		
+	public void init() {
 		
 		addHandler(Pattern.SCADAgen.toString(), new Handler() {
 			

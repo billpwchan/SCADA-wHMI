@@ -2,26 +2,25 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.thalesgroup.scadasoft</groupId>
-        <artifactId>scadasoft</artifactId>
-        <version>6.3.1_P02</version>
-    </parent>
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba</artifactId>
-    <version>1.4.4</version>
+    <version>1.5.0</version>
     <packaging>jar</packaging>
     <name>SCADAgen HV Connector supporting generic BPS</name>
     <description>SCADAgen connector for Hypervisor VS9</description>
 
    <properties>
-        <scadasoft.version>6.3.1_P02</scadasoft.version>
-		<scadasoft.hv.version>6.3.1_P02-HV951P01</scadasoft.hv.version>
-        <hv.connector.sdk.version>2.11.1</hv.connector.sdk.version>
-		<hv.common.integ.version>1.10.1</hv.common.integ.version>
+        <hv.connector.sdk.version>2.12.0</hv.connector.sdk.version>
+        <hv.common.integ.version>1.11.0</hv.common.integ.version>
+        
+        <scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
+        <scadasoft.hv.version>6.3.1_P05-HV960</scadasoft.hv.version>
+        <scadasoft.version>6.3.1_P05</scadasoft.version>
+        
         <jcloverslf4j.version>1.7.21</jcloverslf4j.version>
         <jersey.version>2.23.2</jersey.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <dependencyManagement>
@@ -72,25 +71,25 @@
             <version>${scadasoft.hv.version}</version>
         </dependency>
 
-		<!-- SCADAgenBA fasapi -->
-		<dependency>
+        <!-- SCADAgenBA fasapi -->
+        <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>fasapi</artifactId>
-            <version>1.4.4</version>
+            <version>1.5.0</version>
         </dependency>
         
         <!-- SCADAgenBA Comp -->
-		<dependency>
+        <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>scadagen-ba-comp</artifactId>
-            <version>1.4.4</version>
+            <version>1.5.0</version>
         </dependency>
 
         <!-- SCADAgen BPS -->       
         <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>scadagen-bps</artifactId>
-            <version>1.4.4</version>
+            <version>1.5.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.thalesgroup.scadasoft</groupId>
@@ -126,8 +125,8 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-		
-		<dependency>
+
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>apache-log4j-extras</artifactId>
             <version>1.2.17</version>
@@ -141,7 +140,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-				<version>2.10</version>
+                <version>2.10</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
@@ -193,8 +192,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.10</version>
                 <configuration>
-
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
                     <buildOutputDirectory>target/classes</buildOutputDirectory>
                 </configuration>
             </plugin>

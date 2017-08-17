@@ -1,6 +1,12 @@
 export interface Config {
     // URL to time schedule
     time_schedule_url: string;
+    // default client name to identify sender
+    default_client_name: 'ROOT',
+    // temp fix for time difference between windows and linux in SetDate and GetDate API.
+    // Windows client should set this value to 0
+    // Linux client should set this value to 2,177,452,800
+    tsc_time_offset: 0,
     // i18n related configuration
     i18n: {
         // detault language to use, if translation of the user's language is not available

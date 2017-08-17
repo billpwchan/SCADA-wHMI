@@ -17,12 +17,31 @@
   
     <title>SCADAsoft</title>
     
+    
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
     <script type="text/javascript" language="javascript" src="scsmain.nocache.js"></script>
+    
+    <!--  Load flot for TSS usage -->
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.resize.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.crosshair.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.symbol.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.canvas.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.axislabels.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.tooltip.min.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/flot/jquery.flot.pie.min.js"></script>
+    
+    <!-- Load Openlayers for Situation view usage -->
+    <script type="text/javascript" language="javascript" src="js/gwt-openlayers/util.js"></script>
+    <script type="text/javascript" language="javascript" src="lib/OpenLayers.js"></script>
+    
+    <!-- SCADAgen -->
 	<script type="text/javascript" language="javascript" src="resources/js/project/project.js"></script>
 	<script type="text/javascript" language="javascript" src="resources/js/product/product.js"></script>
     
@@ -41,7 +60,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-dialog-box.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-situation-view.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-combobox.css" />
-    <link rel="stylesheet" type="text/css" href="resources/css/mwt-datePicker.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="resources/css/mwt-datePicker.css" />-->
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-histoPanel.css" />
     
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-components.css" />
@@ -56,6 +75,7 @@
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-shelve-panel.css"/>
 
     <link rel="stylesheet" type="text/css" href="resources/css/mwt-changepass-panel.css" />
+    <link rel="stylesheet" type="text/css" href="gwt/standard/standard.css" />
     
     <link rel="stylesheet" type="text/css" href="resources/css/panel.css" />
     <link rel="stylesheet" type="text/css" href="resources/css/animation.css" />

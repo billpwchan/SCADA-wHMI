@@ -28,6 +28,7 @@ public interface DataBaseClientKey_i {
 		  multiReadValue("multiReadValue")
 		, GetChildren("GetChildren")
 		, WriteStringValue("WriteStringValue")
+		, GetFullPath("GetFullPath")
 		;
 		
 		private final String text;

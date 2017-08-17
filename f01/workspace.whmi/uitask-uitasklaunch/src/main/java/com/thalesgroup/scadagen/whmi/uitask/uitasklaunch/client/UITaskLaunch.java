@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import com.thalesgroup.scadagen.whmi.config.confignav.shared.Task;
@@ -107,7 +108,7 @@ public class UITaskLaunch extends UITaskDictionary {
 		}
 		return options; 
 	}
-	public void setOptions(HashMap<String, String> options) {
+	public void setOptions(Map<String, String> options) {
 		if ( null != options ) {
 			for ( Entry<String, String> option : options.entrySet() ) {
 				String key = option.getKey();

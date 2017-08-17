@@ -7,5 +7,6 @@
 		<MwtEventBusName>hdv-matrix</MwtEventBusName>
 		<MwtEventBusScope>Global</MwtEventBusScope>
 		<CoeffAttributeName>gdg_column_status</CoeffAttributeName>
+		<DisplayCounterTooltip>false</DisplayCounterTooltip>
 	</header>
 </data-set>

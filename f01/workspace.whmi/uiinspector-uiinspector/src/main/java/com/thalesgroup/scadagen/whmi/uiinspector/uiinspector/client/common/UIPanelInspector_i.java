@@ -36,6 +36,8 @@ public interface UIPanelInspector_i {
 	public final static String strName = "Name";
 	
 	public final static String strDatabaseMultiReadingKey = "DatabaseMultiReadingKey";
+	public final static String strDatabaseGetFullPathKey = "DatabaseGetFullPathKey";
+	public final static String strDatabasePathPatternKey = "DatabasePathPatternKey";
 	
 	// hmiOrder
 	public final static String strHmiOrderEnable = "HmiOrderEnable";

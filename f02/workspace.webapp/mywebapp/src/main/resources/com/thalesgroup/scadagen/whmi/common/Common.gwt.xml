@@ -60,8 +60,8 @@
   <set-property name="gwt.logging.enabled" value="TRUE"/>
   <!-- To disable a default Handler -->
   <set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
-  <!-- To disable a popup Handler -->
-  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
+  <!-- To disable a popup Handler (Property removed in GWT 2.7) -->
+  <!--<set-property name="gwt.logging.popupHandler" value="DISABLED" />-->
   <!-- Remote Logging Enable -->
   <set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED" />
 

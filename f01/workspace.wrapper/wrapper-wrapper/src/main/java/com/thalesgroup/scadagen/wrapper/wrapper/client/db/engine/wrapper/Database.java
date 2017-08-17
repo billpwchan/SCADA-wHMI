@@ -83,6 +83,34 @@ public class Database {
 	}
 	
 	/**
+	 * Interface for the Asynchronous callback of Get Children result
+	 * 
+	 * @author syau
+	 *
+	 */
+	public interface ScsRTDBComponentAccessGetFullPathResult {
+		
+		/**
+		 * @param clientKey    Client Key for the reading operation
+		 * @param fullPath    Result value from the reading operation
+		 * @param errorCode    Error Code return from the reading operation
+		 * @param errorMessage Error Message return from the reading operation
+		 */
+		void setGetFullPathResult(String clientKey, String fullPath, int errorCode, String errorMessage);
+	}
+	
+	private ScsRTDBComponentAccessGetFullPathResult scsRTDBComponentAccessGetFullPathResult = null;
+	
+	/**
+	 * Setter for the asynchronous callback for the Get Children result
+	 * 
+	 * @param scsRTDBComponentAccessGetChildrenResult
+	 */
+	public void setScsRTDBComponentAccessGetFullPathResult(ScsRTDBComponentAccessGetFullPathResult scsRTDBComponentAccessGetFullPathResult) {
+		this.scsRTDBComponentAccessGetFullPathResult = scsRTDBComponentAccessGetFullPathResult;
+	}
+	
+	/**
 	 * Interface for the Asynchronous callback of Poller result
 	 * 
 	 * @author syau
@@ -212,8 +240,9 @@ public class Database {
 			
 			@Override
 			public void setGetFullPathResult(String clientKey, String fullPath, int errorCode, String errorMessage) {
-				// TODO Auto-generated method stub
-				
+				if ( null != scsRTDBComponentAccessGetFullPathResult ) {
+					scsRTDBComponentAccessGetFullPathResult.setGetFullPathResult(clientKey, fullPath, errorCode, errorMessage);
+				}
 			}
 			
 			@Override
@@ -480,6 +509,20 @@ public class Database {
 //		String function = "getChildren";
 //		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
 		scsRTDBComponentAccess.getChildren(key, scsEnvId, dbaddress);
+	}
+	
+	/**
+	 * Get FullPath Request
+	 * Wrapper function base on the ScsRTDBComponentAccess
+	 *  
+	 * @param key       Client Key for the reading operation
+	 * @param scsEnvId  ScsEnvId for the target connector
+	 * @param dbaddress DBAddress for the target RTDB Address
+	 */
+	public void getFullPath(String key, String scsEnvId, String dbaddress) {
+//		String function = "getFullPath";
+//		HVLifeCycleState.ensureIsActivated(className, function, scsRTDBComponentAccess);
+		scsRTDBComponentAccess.getFullPath(key, scsEnvId, dbaddress);
 	}
 
 	/**

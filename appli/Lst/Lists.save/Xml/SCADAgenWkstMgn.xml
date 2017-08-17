@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE StateList SYSTEM "Dtd/lststatelist.dtd">
-<!-- StateList HDVRequestDataList XML save file -->
+<!-- StateList SCADAgenWkstMgn XML save file -->
 <StateList multi="YES" mode="MANDATORY" name="SCADAgenWkstMgn" creatorId="0" description="SCADAgenWkstMgn" comment="" activate="YES">
 	<Column>
 		<Name value="gwsIdentity"></Name>
@@ -9,11 +9,11 @@
 		<Name value="resrvreservedid"></Name>
 	</Column>
 	<List>
-		<Attribute name="basicEquipment!mmiSchematic"></Attribute>
-		<Attribute name="basicEquipment!$ALIAS"></Attribute>
-		<Attribute name="basicEquipment!EqtLocation"></Attribute>
-		<Attribute name="basicEquipment!resrvReservedID"></Attribute>
+		<Attribute name="GEN_POST!operatorIP"></Attribute>
+		<Attribute name="BasicEquipment!^.name"></Attribute>
+		<Attribute name="GEN_POST!operatorMessage"></Attribute>
+		<Attribute name="BasicEquipment!^.resrvReservedID"></Attribute>
 		
-		<Condition value='STATIC (basicEquipment!nom_instance LIKE "MFD_")'></Condition>
+		<Condition value='STATIC (GEN_POST!nom_instance == "WKST")'></Condition>
 	</List>
 </StateList>

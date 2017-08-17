@@ -33,7 +33,7 @@
 		<label>UIOpmSCADAgen</label>
 		<css>project-UIWidgetVerifyOPMGetCurrentHostName-textbox-uiopmapivalue</css>
 		<element>uiopmapivalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHostName-container-uiopmapivalue</cssContainer>
 		
@@ -66,7 +66,7 @@
 		<label></label>
 		<css>project-UIWidgetVerifyOPMGetCurrentHostName-textbox-resultvalue</css>
 		<element>resultvalue</element>
-		<maxlength>16</maxlength>
+		<maxlength>100</maxlength>
 		
 		<cssContainer>project-UIWidgetVerifyOPMGetCurrentHostName-container-resultvalue</cssContainer>
 		

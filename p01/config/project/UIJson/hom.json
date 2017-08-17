@@ -10,10 +10,13 @@
   "Key": "127.0.0.1",
   "Value": 4
   },{
-  "Key": "DUMMY3",
+  "Key": "ROOT",
   "Value": 8
   },{
-  "Key": "DUMMY4",
+  "Key": "CHIEF",
   "Value": 16
+  },{
+  "Key": "DUMMY4",
+  "Value": 32
   }]
 }

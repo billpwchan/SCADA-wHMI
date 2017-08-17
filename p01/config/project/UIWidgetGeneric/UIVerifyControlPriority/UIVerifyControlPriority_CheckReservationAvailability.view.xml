@@ -73,7 +73,7 @@
 	</option>
 	<option key="0|7">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIVerifyControlPriority_CheckReservationAvailability-textbox-scsenvidvalue</css>
 		<element>scsenvidvalue</element>
 		<maxlength>100</maxlength>
@@ -92,7 +92,7 @@
 	</option>
 	<option key="0|9">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001</label>
+		<label>:TUN:M100000:TVS:TAHU_1</label>
 		<css>project-UIVerifyControlPriority_CheckReservationAvailability-textbox-dbaddressvalue</css>
 		<element>dbaddressvalue</element>
 		<maxlength>100</maxlength>

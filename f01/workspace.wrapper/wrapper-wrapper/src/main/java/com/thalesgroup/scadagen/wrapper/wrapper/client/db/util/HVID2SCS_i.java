@@ -2,8 +2,8 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.util;
 
 public class HVID2SCS_i {
 	public enum Pattern {
-		Direct("Direct")
-		, SCADAgen("SCADAgen")
+		  HVID_ALIAS("HVID_ALIAS")
+		, ENV_ALIAS("ENV_ALIAS")
 		;
 		private final String text;
 		private Pattern(final String text) { this.text = text; }

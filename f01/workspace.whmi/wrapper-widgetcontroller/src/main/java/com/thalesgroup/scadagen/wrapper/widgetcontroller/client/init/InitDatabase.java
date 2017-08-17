@@ -41,6 +41,7 @@ public class InitDatabase implements Init_i {
 		initDatabaseReadingSingletonKey("DatabaseMultiReadingProxySingleton");
 		initDatabaseSubscribeSingleton("DatabaseGroupPollingDiffSingleton", 500);
 		initDatabaseWritingSingleton("DatabaseWritingSingleton");
+		initDatabaseGetFullPathSingleton("DatabaseGetFullPathSingleton");
 		logger.end(className, function);
 	}
 	

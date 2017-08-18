@@ -48,7 +48,7 @@ public class UIInspectorMgr {
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
 	public void getFunctionLocationAndLaunchInspectorDialog(final UINameCard uiNameCard, final HashMap<String, String> options) {
 		final String function = "getFunctionLocationAndLaunchInspectorDialog";
-				
+		logger.begin(className, function);
 		logger.debug(className, function, "Launch Inspector Panel OPM Checking...");
 		
 		final String dictionariesCacheName = UIInspector_i.strUIInspector;
@@ -72,10 +72,8 @@ public class UIInspectorMgr {
 			final String scsEnvId		= hvid2scs.getScsEnvID();
 			final String parent			= hvid2scs.getDBAddress();
 			
-			logger.debug(className, function+"parent[{}]", parent);
-			logger.debug(className, function+"scsEnvId[{}]", scsEnvId);
+			logger.debug(className, function, "scsEnvId[{}] parent[{}]", scsEnvId, parent);
 
-			//
 			String strDatabaseGetFullPathKey = inspDialogBoxPropPrefix+UIPanelInspector_i.strDatabaseGetFullPathKey;
 			logger.debug(className, function, "strDatabaseGetFullPathKey[{}]", strDatabaseGetFullPathKey);
 			String databaseGetFullPathKey = ReadProp.readString(dictionariesCacheName, inspDialogBoxProp, strDatabaseGetFullPathKey, "DatabaseGetFullPathProxy");
@@ -95,7 +93,7 @@ public class UIInspectorMgr {
 				
 				String clientKey = ck.getClientKey();
 				
-				logger.debug(className, function, "scsEnvId[{}] <alias>+parent[{}] clientKey[{}]", new Object[]{scsEnvId, "<alias>"+parent, clientKey});
+				logger.debug(className, function, "scsEnvId[{}] parent[{}] clientKey[{}]", new Object[]{scsEnvId, parent, clientKey});
 				
 				databaseSingle2SingleRead_i.addRequest(clientKey, scsEnvId, parent, new DatabaseReadSingle2SingleResult_i() {
 					
@@ -274,7 +272,6 @@ public class UIInspectorMgr {
 	}
 
 	public void openInspectorDialog(final UINameCard uiNameCard, final Map<String, String> options) {
-		
 		final String function = "openInspectorDialog";
 		logger.begin(className, function);
 		
@@ -330,13 +327,13 @@ public class UIInspectorMgr {
 			ck.setStability(Stability.STATIC);
 			ck.setScreen(uiNameCard.getUiScreen());
 			ck.setEnv(scsEnvId);
-			ck.setAdress("<alias>"+dbaddress);
+			ck.setAdress(dbaddress);
 			
 			String clientKey = ck.getClientKey();
 			
-			logger.debug(className, function, "scsEnvId[{}] <alias>+dbaddress[{}] clientKey[{}]", new Object[]{scsEnvId, "<alias>"+dbaddress, clientKey});
+			logger.debug(className, function, "scsEnvId[{}] <alias>+dbaddress[{}] clientKey[{}]", new Object[]{scsEnvId, dbaddress, clientKey});
 			
-			databaseSingle2SingleRead_i.addRequest(clientKey, scsEnvId, "<alias>"+dbaddress, new DatabaseReadSingle2SingleResult_i() {
+			databaseSingle2SingleRead_i.addRequest(clientKey, scsEnvId, dbaddress, new DatabaseReadSingle2SingleResult_i() {
 				
 				@Override
 				public void update(String key, String values) {

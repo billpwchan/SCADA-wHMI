@@ -52,6 +52,14 @@
          hvclass="com.thalesgroup.scadasoft.data.exchange.entity.alarm.ScsListType"/>
 
   <classdesc hv="com.thalesgroup.myproject.data.config.equipment.common.SGEQPT8StatusesType">
+  
+	<statusdesc hv="colorNumber7"   scsvalue=".EQPT_ACTION1"/>
+    <statusdesc hv="colorNumber8"   scsvalue=".EQPT_ACTION2"/>
+	<!--
+    <statusdesc hv="func"   scsvalue=".functionalCat"/>
+    <statusdesc hv="geoc"   scsvalue=".geographicalCat"/>
+	-->
+  
     <statusdesc hv="eqpName"        scsvalue=".type"/>
     <statusdesc hv="inhibsynthesis" scsvalue=".inhibSynthesis"/>
     <statusdesc hv="validity"       scsvalue=".validSynthesis"/>
@@ -76,8 +84,10 @@
     <statusdesc hv="colorNumber4"   scsvalue="HMI:Symbol4.color"/>
     <statusdesc hv="colorNumber5"   scsvalue="HMI:Symbol5.color"/>
     <statusdesc hv="colorNumber6"   scsvalue="HMI:Symbol6.color"/>
+	<!--
     <statusdesc hv="colorNumber7"   scsvalue="HMI:Symbol7.color"/>
     <statusdesc hv="colorNumber8"   scsvalue="HMI:Symbol8.color"/>
+	-->
     <statusdesc hv="floating1"      scsvalue="HMI:Float1.value"/>
     <statusdesc hv="floating2"      scsvalue="HMI:Float2.value"/>
     <statusdesc hv="floating3"      scsvalue="HMI:Float3.value"/>

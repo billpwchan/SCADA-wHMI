@@ -1,6 +1,6 @@
 {
   "HOMActions": ["c"],
-  "DBAttribute": ".hdvFlag",
+  "DBAttribute": ".hdvValue",
   "ByPassValue": -1,
   "HOMLevelDefaultValue": 0,
   "HOMLevels":[{
@@ -11,7 +11,7 @@
   "Value": 4
   },{
   "Key": "ROOT",
-  "Value": 8
+  "Value": 1
   },{
   "Key": "CHIEF",
   "Value": 16

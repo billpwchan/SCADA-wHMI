@@ -1,0 +1,194 @@
+################################################################
+# Processes
+################################################################
+# Phase = <phase number>
+# Termination = NONE | SHUTDOWN | RED_SHUTDOWN_OR_RETRY | RED_SHUTDOWN_OR_NONE | RETRY
+# Snapshot = NONE | BACKGROUND | FOREGROUND
+# Shutdown order = <number> | LAST | LAST - <number>
+# 
+## Definition de process
+#
+Define Environment {
+  Define Server "InputMgr" {
+    Phase = 0
+    Termination = SHUTDOWN
+    Shutdown order = LAST
+    Snapshot = FOREGROUND
+    Supervision = PUSH
+    Run string = "inputmgr -l12"
+    Init timeout = 3600
+    Shutdown timeout = 600
+  }
+  Define Server "RplRecordMgr" {
+     Phase = 1
+     Termination = SHUTDOWN
+     Snapshot = FOREGROUND
+     Shutdown order = 1
+     Supervision = PUSH
+     Run string = "scsrplrecordmgr -I -T 20000"
+     Init timeout = 999
+  }
+  Define Server "DbmServer" {
+    Phase = 30
+    Termination = SHUTDOWN
+    Snapshot = BACKGROUND 
+    Shutdown order = LAST - 1
+    Supervision = PUSH
+    Priority = NORMAL
+    Run string = "dbserver -f -k -R15"
+    Init timeout = 3600
+    Shutdown timeout = 600
+  }
+  Define Server "DbmPoller" {
+    Phase = 40
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND  
+    Shutdown order = LAST - 2
+    Supervision = PUSH
+    Run string = "dbpoller -l 20"
+    Init timeout = 3600
+  }
+  Define Server "DpcInitDb" {
+    Phase = 45
+    Termination = NONE
+    Snapshot = NONE
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Init timeout = 700
+    Run string = "scsdpckinitdb"
+  }
+  Define Server "AlmServer" {
+    Phase = 50
+    Termination = SHUTDOWN
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Run string = "scsalarmserver -l1000 -m30 -c10000 -k -T -r -j -R15"
+    Init timeout = 100
+  }
+  Define Server "EvtList" {
+    Phase = 0 # 52
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = NONE
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Init timeout = 600
+    Run string = "listtest -NAlmServer -lEventList -d evt"
+  }
+  Define Server "FtsServer" {
+    Phase = 55
+    Termination = SHUTDOWN
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Priority = NORMAL
+    Init timeout = 20
+    Run string = "ftsserver"
+  }
+  Define Server "OpmServer" {
+    Phase = 60
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Init timeout = 600
+    Run string = "opmserver"
+  }
+  Define Server "DacControl" {
+    Phase = 60
+    Termination = SHUTDOWN
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 4
+    Supervision = PUSH
+    Init timeout = 600
+    Run string = "daccontrol -r -o -v40000 -w40000"
+  }
+  Define Server "CtlCmdServer" {
+    Phase = 60
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Priority = NORMAL
+    Init timeout = 60
+    Run string = "ctlkcmdpro -c -d"
+  }
+  Define Server "DpcEqpServer" {
+    Phase = 61
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Priority = NORMAL
+    Init timeout = 180
+    Run string = "dpckeqpmgr -u"
+  }
+  Define Server "DpcVarServer" {
+    Phase = 62
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Init timeout = 600
+    Run string = "dpckvarmgr -u -w -s 2000"
+  }
+  Define Server "LstServer" {
+    Phase = 64
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 3
+    Supervision = PUSH
+    Init timeout = 600
+    Run string = "lstserver -a"
+  }
+  Define Server "CtlGrcServer" {
+    Phase = 65
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Notification = NO
+    Shutdown order = 0
+    Supervision = PUSH
+    Priority = NORMAL
+    Init timeout = 20
+    Run string = "scsctlgrcserver"
+  }
+#  Define Server "Simulator" {
+#    Phase = 64
+#    Termination = RETRY
+#    Snapshot = NONE
+#    Shutdown order = LAST - 3
+#    Supervision = UNIX
+#    Init timeout = 600
+#    Run string = "dacsimulator -s simLoad.tcl"
+#  }
+  Define Server "HisServer" {
+    Phase = 70
+    Termination = RED_SHUTDOWN_OR_NONE
+    Snapshot = FOREGROUND
+    Shutdown order = LAST - 7
+    Supervision = PUSH
+    Run string = "historyserver -c -a -L -z -qHIST -pHeartsServer"
+    Init timeout = 60
+    Shutdown timeout = 60
+  }
+  Define Server "TscServer" {
+    Phase = 80
+    Termination = NONE
+    Snapshot = NONE
+    Shutdown order = LAST
+    Supervision = PUSH
+    Priority = NORMAL
+    Run string = "scstscserver"
+  }
+  Define Server "DacComTrigger" {
+    Phase = 180
+    Termination = RED_SHUTDOWN_OR_RETRY
+    Snapshot = FOREGROUND
+    Notification = NO
+    Shutdown order = LAST - 7
+    Supervision = PUSH
+    Priority = NORMAL
+    Run string = "daccomtrigger"
+    Init timeout = 300
+  }
+}

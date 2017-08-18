@@ -17,24 +17,15 @@
 		<property>UIInspectorPanel</property>
 		<!-- Json Folder -->
 		<json>UIJson</json>
-		
-		
-		<!-- 
-		UIWidget Option uiCtrl 
-		UIWidget Option uiView
-		UIWidget Option uiOpts
-		UIWidget Option element
-		-->
-		
-		<!--
-		<uiCtrl>UIPanelScreen</uiCtrl>
+
+		<!--<uiCtrl>UIPanelScreen</uiCtrl>
 		<uiView>UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml</uiView>
 		<uiOpts>UILayoutEntryPointScreenMMISummary/UIScreenMMI.opts.xml</uiOpts>
-		<element>UIPanelScreen</element>
-		-->
+		<element>UIPanelScreen</element>-->
 		
 		<uiCtrl>UIPanelScreen</uiCtrl>
 		<uiView>UILayoutEntryPointSimultaneousLoginSummary/UILayoutEntryPointSimultaneousLoginSummary.view.xml</uiView>
 		<element>UIPanelScreen</element>
+		
 	</header>
 </data-set>

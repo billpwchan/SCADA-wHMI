@@ -1,6 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.single;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -21,7 +22,7 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabaseGetChildren.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	private HashMap<String, DatabaseReadEvent_i> databaseReadEvents = new HashMap<String, DatabaseReadEvent_i>();
+	private Map<String, DatabaseReadEvent_i> databaseReadEvents = new HashMap<String, DatabaseReadEvent_i>();
 	
 	/**
 	 * Instance for the database
@@ -49,9 +50,9 @@ public class DatabaseGetChildren implements DatabaseSingleRead_i {
 					}	
 				}
 				DatabaseReadEvent_i databaseReadEvent = databaseReadEvents.get(clientKey);
+				databaseReadEvents.remove(clientKey);
 				if ( null != databaseReadEvent ) {
 					databaseReadEvent.update(clientKey, instances);
-					databaseReadEvents.remove(clientKey);
 				}
 				logger.end(className, function);
 			}

@@ -48,9 +48,9 @@ public class DatabaseGetFullPath implements DatabaseSingle2SingleRead_i {
 					logger.debug(className, function, "instances[{}]", instances);
 				}
 				DatabaseReadSingle2SingleResult_i databaseReadEvent = databaseReadSingleEvents.get(clientKey);
+				databaseReadSingleEvents.remove(clientKey);
 				if ( null != databaseReadEvent ) {
 					databaseReadEvent.update(clientKey, instances);
-					databaseReadSingleEvents.remove(clientKey);
 				}
 				logger.end(className, function);
 			}

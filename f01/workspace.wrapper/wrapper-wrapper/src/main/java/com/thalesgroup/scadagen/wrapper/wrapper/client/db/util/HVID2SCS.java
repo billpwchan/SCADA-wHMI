@@ -14,12 +14,15 @@ public class HVID2SCS {
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
 	public final static String STR_SPLITER = "_";
+	public final static String STR_ALIAS = "<alias>";
 	
 	private String scsEnvId = null;
 	public String getScsEnvID() { return this.scsEnvId; }
+	public void setScsEnvID(String scsEnvId) { this.scsEnvId = scsEnvId; }
 	
 	private String dbaddress = null;
-	public String getDBAddress() {  return this.dbaddress; }
+	public String getDBAddress() { return this.dbaddress; }
+	public void setDBAddress(String dbaddress) { this.dbaddress = dbaddress; }
 	
 	public interface Handler {
 		void convert(String hvid);
@@ -62,6 +65,25 @@ public class HVID2SCS {
 				if ( null != hvid ) {
 					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
 					if ( charAt > -1 ) {
+						dbaddress = STR_ALIAS+hvid.substring(charAt+1);
+					}
+				} else {
+					logger.warn(className, function, "hvids IS NULL");
+				}
+				logger.end(className, function);
+			}
+		});
+		
+		addHandler(Pattern.HVID_PATH.toString(), new Handler() {
+			
+			@Override
+			public void convert(String hvid) {
+				final String function = "conver "+Pattern.HVID_ALIAS.toString();
+				logger.begin(className, function);
+				logger.debug(className, function, "hvid[{}]", hvid);
+				if ( null != hvid ) {
+					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
+					if ( charAt > -1 ) {
 						dbaddress = hvid.substring(charAt+1);
 					}
 				} else {
@@ -72,6 +94,26 @@ public class HVID2SCS {
 		});
 		
 		addHandler(Pattern.ENV_ALIAS.toString(), new Handler() {
+			
+			@Override
+			public void convert(String hvid) {
+				final String function = "convert "+Pattern.ENV_ALIAS.toString();
+				logger.begin(className, function);
+				logger.debug(className, function, "hvid[{}]", hvid);
+				if ( null != hvid ) {
+					int charAt = hvid.indexOf(String.valueOf(STR_SPLITER));
+					if ( charAt > -1 ) {
+						scsEnvId = hvid.substring(0, charAt);
+						dbaddress = STR_ALIAS+hvid.substring(charAt+1);
+					}
+				} else {
+					logger.warn(className, function, "hvids IS NULL");
+				}
+				logger.end(className, function);
+			}
+		});
+		
+		addHandler(Pattern.ENV_PATH.toString(), new Handler() {
 			
 			@Override
 			public void convert(String hvid) {

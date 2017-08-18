@@ -3,7 +3,9 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.util;
 public class HVID2SCS_i {
 	public enum Pattern {
 		  HVID_ALIAS("HVID_ALIAS")
+		, HVID_PATH("HVID_PATH")
 		, ENV_ALIAS("ENV_ALIAS")
+		, ENV_PATH("ENV_PATH")
 		;
 		private final String text;
 		private Pattern(final String text) { this.text = text; }

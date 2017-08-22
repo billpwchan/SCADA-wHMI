@@ -158,10 +158,9 @@ export class ScheduleService implements OnDestroy {
                 r.eqtPointAtt === eqtPointAtt);
             if (!rowFound) {
                 const key = this.scheduleItems.length;
-                const eqtLabel = columns[ScheduleDef.SCHEDULE_EQT_LABEL_COL];
                 const funcCat = +columns[ScheduleDef.SCHEDULE_FUNC_COL];
                 const geoCat = +columns[ScheduleDef.SCHEDULE_GEO_COL];
-                const row = this.createScheduleItem(key, scheduleType, scheduleId, eqtLabel, eqtAlias, eqtPointAtt,
+                const row = this.createScheduleItem(key, scheduleType, scheduleId, eqtAlias, eqtPointAtt,
                                                     funcCat, geoCat, targetState, taskName);
                 this.scheduleItems.push(row);
                 console.log('{ScheduleService}', '[extractScheduleTask]', 'new schedule item created.');
@@ -175,14 +174,12 @@ export class ScheduleService implements OnDestroy {
         }
         console.log('{ScheduleService}', '[extractScheduleTask]', 'end');
     }
-    private createScheduleItem(key: number, scheduleType: string, scheduleId: string, eqtLabel: string, eqtAlias: string,
+    private createScheduleItem(key: number, scheduleType: string, scheduleId: string, eqtAlias: string,
                                     eqtPointAtt: string, funcCat: number, geoCat: number, targetState: string, taskName: string): ScheduleItem {
         console.log('{ScheduleService}', '[createScheduleItem]', 'begin');
         const t = new ScheduleItem();
         t.scheduleType = scheduleType;
         t.scheduleId = scheduleId;
-//        t.scheduleKey = scheduleType + scheduleId;
-        t.eqtLabel = eqtLabel;
         t.eqtDescription = '';
         t.eqtAlias = eqtAlias;
         t.eqtPointAtt = eqtPointAtt;
@@ -246,6 +243,8 @@ export class ScheduleService implements OnDestroy {
                 }
             } else if (header != null && header === ScheduleDef.SCHEDULE_TASK_HEADER) {
 //                console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule task process ', taskNames[i]);
+                const schTaskData: string = data[3 * i];
+                const dataColumns = schTaskData.split(',');
                 const alias = taskColumns[ScheduleDef.SCHEDULE_EQT_ALIAS_COL];
                 const pointAtt = taskColumns[ScheduleDef.SCHEDULE_EQT_POINT_ATT_COL];
                 const targetState = taskColumns[ScheduleDef.SCHEDULE_EQT_TARGET_STATE];
@@ -257,7 +256,8 @@ export class ScheduleService implements OnDestroy {
                     r.eqtAlias === alias &&
                     r.eqtPointAtt === pointAtt);
                 if (scheduleItem != null) {
-                    scheduleItem.eqtDescription = data[3 * i];
+                    scheduleItem.eqtLabel = dataColumns[ScheduleDef.SCHEDULE_EQT_LABEL_COL];
+                    scheduleItem.eqtDescription = dataColumns[ScheduleDef.SCHEDULE_EQT_DESCRIPTION_COL];
                     const onOffTime = this.getOnOffTime(filter);
                     const onOffTimeDisplay = onOffTime;
 
@@ -272,8 +272,8 @@ export class ScheduleService implements OnDestroy {
                         scheduleItem.filter2 = filter;
                         scheduleItem.enableFlag2 = enableFlag;
                     }
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', 'update scheduleItem description, filter, enableFlag ',
-                                scheduleItem.eqtDescription, filter, enableFlag);
+                    console.log('{ScheduleService}', '[extractDescFilterEnable]', 'update scheduleItem label, description, filter, enableFlag ',
+                                scheduleItem.eqtLabel, scheduleItem.eqtDescription, filter, enableFlag);
                 } else {
                     console.warn('{ScheduleService}', '[extractDescFilterEnable]', 'scheduleItem not found ', scheduleType, scheduleId, alias, pointAtt);
                 }

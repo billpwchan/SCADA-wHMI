@@ -44,13 +44,13 @@
 	},
   "schedule_planning": {
       "weekly_planning": {
-        "0": { "type": "Predefined", "id": "02"},
-        "1": { "type": "Predefined", "id": "03"},
-        "2": { "type": "Predefined", "id": "03"},
-        "3": { "type": "Predefined", "id": "03"},
-        "4": { "type": "Predefined", "id": "03"},
-        "5": { "type": "Predefined", "id": "04"},
-        "6": { "type": "Predefined", "id": "05"}
+        "0": { "type": "PD", "id": "02"},
+        "1": { "type": "PD", "id": "02"},
+        "2": { "type": "PD", "id": "02"},
+        "3": { "type": "PD", "id": "02"},
+        "4": { "type": "PD", "id": "02"},
+        "5": { "type": "PD", "id": "02"},
+        "6": { "type": "PD", "id": "02"}
     },
     "periodic_planning_duration": 180,
     "apply_plan_to_running_daygroup": true,

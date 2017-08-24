@@ -1,7 +1,7 @@
 export class ScheduleDef {
     public static SCHEDULE_TABLE_HEADER = 'sch_s';
     public static SCHEDULE_TASK_HEADER = 'sch_t';
-    // sch_table/sch_task columns in tsc task name 
+    // sch_table/sch_task columns in tsc task name
     public static SCHEDULE_HEADER_COL = 0;
     public static SCHEDULE_TYPE_COL = 1;
     public static SCHEDULE_ID_COL = 2;

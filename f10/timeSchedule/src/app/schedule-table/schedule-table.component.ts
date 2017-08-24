@@ -34,7 +34,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     // stores scheduleItems filtered by type
     public scheduleItems: ScheduleItem[] = [];
     // cache copy of scheduleItems
-    private cachedSchItems = [];
+    private cachedSchItems: ScheduleItem[] = [];
     @ViewChild(DatatableComponent) table: DatatableComponent;
     // selected schedule
     public selectedSchedule: Schedule;
@@ -226,21 +226,32 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
             console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
             this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
-                this.cachedSchItems = [...scheduleItems];
+                
                 this.clearSelectedRow();
                 this.clearSchItemFilters();
 
                 this.setDefaultSort(runtimeSort);
 
-                if (this.selectedSchedule) {
-                    this.addSchItemsFilter('scheduleId', this.selectedSchedule.id);
-                }
-
                 this.addOfflineFilters();
 
                 this.addRuntimeFilters(runtimeFilters);
 
-                this.scheduleItems = this.filterSchItems(scheduleItems);
+                let filteredScheduleItems = this.filterSchItems(scheduleItems);
+
+                this.cachedSchItems = [...filteredScheduleItems];
+
+                if (this.selectedSchedule) {
+                    let schItems = new Array<ScheduleItem>();
+                    // filter selected Schedule 
+                    for (const schItem of this.cachedSchItems) {
+                        if (schItem.scheduleId === this.selectedSchedule.id) {
+                            schItems.push(schItem);
+                        }
+                    }
+                    this.scheduleItems = [...schItems];
+                } else {
+                    this.scheduleItems = [...filteredScheduleItems];
+                }
             });
             console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);
 

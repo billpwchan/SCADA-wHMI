@@ -55,7 +55,7 @@ export class UtilService {
                 d.getFullYear(), d.getMonth() + 1, d.getDate(), 'weekday', d.getDay());
 
             const weekday = d.getDay();
-            if (weekdays.includes(weekday)) {
+            if (weekdays.indexOf(weekday) > -1) {
                 const dateStr = (d.getTime() / 1000).toString();
                 datesList.push(dateStr);
                 console.log('{UtilService}', '[getWeekDatesList]', 'pushed date to datesList',
@@ -79,7 +79,7 @@ export class UtilService {
                 d.getFullYear(), d.getMonth() + 1, d.getDate(), 'weekday', d.getDay());
 
             const weekday = d.getDay();
-            if (weekdays.includes(weekday)) {
+            if (weekdays.indexOf(weekday) > -1) {
                 const dateStr = ((d.getTime() / 1000) + 86400).toString();    // find next day string
                 datesList.push(dateStr);
                 console.log('{UtilService}', '[getWeekNextDatesList]', 'pushed date to datesList',

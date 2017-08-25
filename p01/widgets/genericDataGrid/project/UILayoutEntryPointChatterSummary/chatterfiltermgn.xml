@@ -9,6 +9,9 @@
                 <sds:type>com.thalesgroup.scadasoft.data.exchange.entity.alarm.DpceqpEntryType</sds:type>
             </sds:transientDataSource>
         </p:dataSource>
+        <p:criteria xsi:type="cmn:equals" status="serviceOwnerID">
+            <cmn:value>M100CONN</cmn:value>
+        </p:criteria>
     </p:subject>
 
     <!-- Building -->

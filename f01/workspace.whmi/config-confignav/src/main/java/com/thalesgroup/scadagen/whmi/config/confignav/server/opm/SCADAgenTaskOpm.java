@@ -31,10 +31,10 @@ public class SCADAgenTaskOpm implements UIOpmTask_i {
 		int result = 0;
 		
 		if ( null != uiOpm_i ) {
-			String opm = task.getParameter(TaskAttribute.opm.toString());
+			String opm = task.getParameter(TaskAttribute.Opm.toString());
 			if ( null != opm && opm.length() > 0 ) {
-				String opmOperation = task.getParameter(TaskAttribute.opmOperation.toString());
-				String opmName = task.getParameter(TaskAttribute.opmName.toString());
+				String opmOperation = task.getParameter(TaskAttribute.OpmOperation.toString());
+				String opmName = task.getParameter(TaskAttribute.OpmName.toString());
 				
 				logger.warn("{} opm[{}] opmOperation[{}] opmName[{}]", new Object[]{function, opm, opmOperation, opmName});
 				

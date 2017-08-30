@@ -17,7 +17,8 @@ public interface UILayoutGeneric_i {
 	}
 	
 	public enum RootAttribute {
-		  rows("rows")
+		  type("type")
+		, rows("rows")
 		, cols("cols")
 		, rootPanel("rootPanel")
 		, rootCSS("rootCSS")

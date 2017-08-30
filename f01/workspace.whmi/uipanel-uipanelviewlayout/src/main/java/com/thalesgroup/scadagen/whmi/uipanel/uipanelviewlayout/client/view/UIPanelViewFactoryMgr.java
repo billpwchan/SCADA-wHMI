@@ -11,38 +11,37 @@ public class UIPanelViewFactoryMgr {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelViewFactoryMgr.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
-	public static String UIPanelViewPanel		= "UIPanelViewPanel";
-	public static String UIPanelViewSchematic	= "UIPanelViewSchematic";
-	public static String UIPanelViewEmpty		= "UIPanelViewEmpty";
+	public final static String UIPanelViewPanel		= "UIPanelViewPanel";
+	public final static String UIPanelViewSchematic	= "UIPanelViewSchematic";
+	public final static String UIPanelViewEmpty		= "UIPanelViewEmpty";
 	
-	public UIWidget_i getMainPanel(String uiPanel, UINameCard uiNameCard) {
+	public UIWidget_i getMainPanel(String uiCtrl, UINameCard uiNameCard) {
 		final String function = "getPanel";
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "getPanel uiPanel[{}]", uiPanel);
+		logger.debug(className, function, "getPanel uiCtrl[{}]", uiCtrl);
 		
 		UIWidget_i uiWidget_i = null;
 		
-		if ( 0 == uiPanel.compareTo(UIPanelViewPanel) ) {
+		if ( 0 == uiCtrl.compareTo(UIPanelViewPanel) ) {
 			
 			uiWidget_i = new UIPanelViewPanel();
-			
-		} else if ( 0 == uiPanel.compareTo(UIPanelViewSchematic) ) {
+		}
+		else if ( 0 == uiCtrl.compareTo(UIPanelViewSchematic) ) {
 			
 			uiWidget_i = new UIPanelViewSchematic();
-
-		} else if ( 0 == uiPanel.compareTo(UIPanelViewEmpty) ) {
+		}
+		else if ( 0 == uiCtrl.compareTo(UIPanelViewEmpty) ) {
 			
 			uiWidget_i = new UIPanelViewEmpty();
-			
 		}
 		
 		if ( null != uiWidget_i ) {
 			uiWidget_i.setUINameCard(uiNameCard);
 			uiWidget_i.init();
 		} else {
-			logger.warn(className, function, "uiPanel[{}] uiWidget_i IS NULL", uiPanel);
+			logger.warn(className, function, "uiCtrl[{}] uiWidget_i IS NULL", uiCtrl);
 		}
 
 		logger.end(className, function);

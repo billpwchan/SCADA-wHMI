@@ -14,7 +14,7 @@ import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container.
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.NavigationMgr;
 import com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.mgr.NavigationMgrEvent;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
+import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;

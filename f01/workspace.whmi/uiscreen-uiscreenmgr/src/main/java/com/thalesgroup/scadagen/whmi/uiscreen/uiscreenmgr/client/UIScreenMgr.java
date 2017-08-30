@@ -9,6 +9,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.summary.UILayoutSummary;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidget_i;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetmgr.client.UIWidgetMgrFactory;
 
@@ -54,6 +55,12 @@ public class UIScreenMgr implements UIWidgetMgrFactory {
 				UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
 			
 			uiWidget_i = new UILayoutEntryPoint();
+			
+		}
+		else if ( UIWidgetUtil.getClassSimpleName(
+				UILayoutSummary.class.getName()).equals(uiCtrl) ) {
+			
+			uiWidget_i = new UILayoutSummary();
 			
 		}
 

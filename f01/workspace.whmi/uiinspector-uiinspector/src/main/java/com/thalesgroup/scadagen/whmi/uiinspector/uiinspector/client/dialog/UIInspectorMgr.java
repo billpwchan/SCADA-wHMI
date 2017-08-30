@@ -46,7 +46,7 @@ public class UIInspectorMgr {
 
 	private DatabaseSingle2SingleRead_i databaseSingle2SingleRead_i = null;
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
-	public void getFunctionLocationAndLaunchInspectorDialog(final UINameCard uiNameCard, final HashMap<String, String> options) {
+	public void getFunctionLocationAndLaunchInspectorDialog(final UINameCard uiNameCard, final Map<String, String> options) {
 		final String function = "getFunctionLocationAndLaunchInspectorDialog";
 		logger.begin(className, function);
 		logger.debug(className, function, "Launch Inspector Panel OPM Checking...");

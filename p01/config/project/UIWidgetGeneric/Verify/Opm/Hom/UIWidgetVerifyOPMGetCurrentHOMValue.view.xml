@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>10</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Get Current HOM Value:</label>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>getCurrentHomValue</label>
+		<element>getCurrentHomValue</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<element>resultvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<element>uiopmapivalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>ScsEnvId</label>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>M100CONN</label>
+		<element>scsenvidvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|8">
+		<widget>InlineLabel</widget>
+		<label>DbAddress</label>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<label>:TUN:M100000:TVS:TVF_001</label>
+		<element>dbaddressvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+</data-set>

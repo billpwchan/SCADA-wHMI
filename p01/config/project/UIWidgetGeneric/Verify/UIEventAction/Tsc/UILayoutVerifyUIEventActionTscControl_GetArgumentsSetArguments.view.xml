@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>2</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyUIEventActionTscControl_GetArgumentsSetArguments-panel-root</rootCSS>
+	</header>
+
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_GetArguments.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_GetArguments</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyUIEventActionControl</uiCtrl>
+		<uiView>Verify/UIEventAction/Tsc/UIWidgetVerifyUIEventActionTscControl_SetArguments.view.xml</uiView>
+		<element>UIWidgetVerifyUIEventActionTscControl_SetArguments</element>
+	</option>
+
+</data-set>

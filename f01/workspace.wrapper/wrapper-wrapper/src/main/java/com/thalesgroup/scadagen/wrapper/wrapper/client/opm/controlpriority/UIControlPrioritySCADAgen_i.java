@@ -58,6 +58,8 @@ public interface UIControlPrioritySCADAgen_i {
 	 */
 	public enum Attribute {
 		  UIOpmName("UIOpmName")
+		, DatabaseMultiReadKey("DatabaseMultiReadKey")
+		, DatabaseWriteKey("DatabaseWriteKey")
 		, UsrIdentityType("UsrIdentityType")
 		;
 		

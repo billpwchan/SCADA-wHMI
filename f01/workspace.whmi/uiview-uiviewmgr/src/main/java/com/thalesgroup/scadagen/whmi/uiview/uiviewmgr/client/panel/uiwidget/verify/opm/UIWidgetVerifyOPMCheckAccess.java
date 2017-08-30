@@ -12,7 +12,6 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIEventAction;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client.realize.UIWidgetRealize;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i.CheckAccessWithHOMEvent_i;
 
 public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 	
@@ -38,289 +37,45 @@ public class UIWidgetVerifyOPMCheckAccess extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
-	private void checkAccessWithProfile() {
-		final String function = "checkAccessWithProfileName";
+	private void checkAccesses() {
+		final String function = "checkAccesses";
 		logger.begin(className, function);
 		
 		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
 		
-		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
-		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
-		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
-		String modevalue		= uiGeneric.getWidgetValue("modevalue");
+		String name1value	= uiGeneric.getWidgetValue("name1value");
+		String value1value	= uiGeneric.getWidgetValue("value1value");
 		
-		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
-		String aliasvalue		= uiGeneric.getWidgetValue("aliasvalue");
+		String name2value	= uiGeneric.getWidgetValue("name2value");
+		String value2value	= uiGeneric.getWidgetValue("value2value");
 		
-		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
+		String name3value	= uiGeneric.getWidgetValue("name3value");
+		String value3value	= uiGeneric.getWidgetValue("value3value");
 		
-		uiOpm_i.checkAccessWithProfileName(functionvalue, locationvalue, actionvalue, modevalue, scsenvidvalue, aliasvalue, new CheckAccessWithHOMEvent_i() {
-			
-			@Override
-			public void result(boolean result) {
-				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
-			}
-		});
-		logger.end(className, function);
-	}
-	
-	private void checkAccessWithHostName() {
-		final String function = "checkAccessWithHostName";
-		logger.begin(className, function);
-		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		
-		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
-		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
-		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
-		String modevalue		= uiGeneric.getWidgetValue("modevalue");
-		
-		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
-		String aliasvalue		= uiGeneric.getWidgetValue("aliasvalue");
+		String name4value	= uiGeneric.getWidgetValue("name4value");
+		String value4value	= uiGeneric.getWidgetValue("value4value");
 		
 		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
 		
-		uiOpm_i.checkAccessWithHostName(functionvalue, locationvalue, actionvalue, modevalue, scsenvidvalue, aliasvalue, new CheckAccessWithHOMEvent_i() {
-			
-			@Override
-			public void result(boolean result) {
-				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
-			}
-		});
-		logger.end(className, function);
-	}
-	
-	private void checkAccessWithHomValue() {
-		final String function = "checkAccessWithHomValue";
-		logger.begin(className, function);
-		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		
-		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
-		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
-		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
-		String modevalue		= uiGeneric.getWidgetValue("modevalue");
-		
-		String hdvvaluevalue	= uiGeneric.getWidgetValue("hdvvaluevalue");
-		
-		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
-		
-		int hdvvalue = Integer.parseInt(hdvvaluevalue);
-		
-		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
-		
-		uiOpm_i.checkAccessWithHom(functionvalue, locationvalue, actionvalue, modevalue, hdvvalue, keyvalue, new CheckAccessWithHOMEvent_i() {
-			
-			@Override
-			public void result(boolean result) {
-				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
-			}
-		});
-		logger.end(className, function);
-	}
-	
-	private void checkAccessWithHom() {
-		final String function = "checkAccessWithHom";
-		logger.begin(className, function);
-		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		
-		String functionvalue	= uiGeneric.getWidgetValue("functionvalue");
-		String locationvalue	= uiGeneric.getWidgetValue("locationvalue");
-		String actionvalue		= uiGeneric.getWidgetValue("actionvalue");
-		String modevalue		= uiGeneric.getWidgetValue("modevalue");
-		
-		String scsenvidvalue	= uiGeneric.getWidgetValue("scsenvidvalue");
-		String aliasvalue		= uiGeneric.getWidgetValue("aliasvalue");
-		
-		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
-		
-		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
-		
-		uiOpm_i.checkAccessWithHom(functionvalue, locationvalue, actionvalue, modevalue, scsenvidvalue, aliasvalue, keyvalue, new CheckAccessWithHOMEvent_i() {
-			
-			@Override
-			public void result(boolean result) {
-				uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
-			}
-		});
-		logger.end(className, function);
-	}
-	
-	private void checkHom() {
-		final String function = "checkHom";
-		logger.begin(className, function);
-		
-		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-		
-		String hdvvaluevalue	= uiGeneric.getWidgetValue("hdvvaluevalue");
-		
-		String keyvalue			= uiGeneric.getWidgetValue("keyvalue");
-		
-		int hdvvalue = Integer.parseInt(hdvvaluevalue);
-
-		UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
-		
-		boolean result = uiOpm_i.checkHom(hdvvalue, keyvalue);
+		boolean result = uiOpm_i.checkAccess(
+				name1value, value1value
+				, name2value, value2value
+				, name3value, value3value
+				, name4value, value4value
+				);
 		
 		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
 		
 		logger.end(className, function);
 	}
 	
-//	private boolean checkOpms(String uiopmapivalue, String opmValue, String opmName, String opmOperation) {
-//		final String function = "checkOpms";
-//		
-//		boolean result = false;
-//
-//		boolean isAndOperation = false;
-//		
-//		String [] opmValues = opmValue.split(SCADAgenTaskOpm_i.setSpliter);
-//		int opmValuesLength = opmValues.length;
-//		logger.debug(className, function, "opmValuesLength[{}]", opmValuesLength);
-//		
-//		if ( null != opmValues && opmValuesLength > 1 ) {
-//			if ( null != opmOperation ) {
-//				if ( 0 == opmOperation.compareToIgnoreCase(SCADAgenTaskOpm_i.AttributeValue.AND.toString()) ) {
-//					isAndOperation = true;
-//				}
-//			}
-//		}
-//		
-//		logger.debug(className, function, "opmOperation[{}] isAndOperation[{}]", opmOperation, isAndOperation);
-//		
-//		for ( int i = 0 ; i < opmValuesLength ; ++i ) {
-//			
-//			boolean bResult = checkOpm(uiopmapivalue, opmValues[i], opmName);
-//			
-//			if ( ! isAndOperation ) {
-//				// OR Operation
-//				if ( bResult ) {
-//					result = true;
-//					break;
-//				}
-//			} else {
-//				// AND Operation
-//				if ( bResult ) {
-//					result = true;
-//				} else {
-//					result = false;
-//					break;
-//				}
-//			}
-//		}
-//
-//		return result;
-//	}
-//	
-//	private boolean checkOpm(String uiopmapivalue, String opmValue, String opmName) {
-//		final String function = "checkOpm";
-//		logger.begin(className, function);
-//		
-//		boolean result = false;
-//		
-//		logger.debug(className, function, "opmValue[{}] opmName[{}]", opmValue, opmName);
-//		
-//		String [] opmValues = null;
-//		if ( null != opmValue && ! opmValue.isEmpty() ) {
-//			opmValues = opmValue.split(SCADAgenTaskOpm_i.valSpliter);
-//		} else {
-//			logger.debug(className, function, "opmValue[{}] IS INVALID", opmValue);
-//		}
-//		String [] opmNames = null;
-//		if ( null != opmName && ! opmName.isEmpty() ) {
-//			opmNames = opmName.split(SCADAgenTaskOpm_i.valSpliter);
-//		} else {
-//			logger.debug(className, function, "opmName[{}] IS INVALID", opmName);
-//		}
-//		
-//		if ( null != opmNames && null != opmValues ) {
-//			if ( logger.isTraceEnabled() ) {
-//				for ( int i = 0 ; i < opmNames.length ; i++ ) {
-//					logger.trace(className, function, "opmNames({})[{}] IS INVALID", i, opmNames[i]);
-//				}
-//				for ( int i = 0 ; i < opmValues.length ; i++ ) {
-//					logger.trace(className, function, "opmName({})[{}] IS INVALID", i, opmValues[i]);
-//				}
-//			}			
-//
-//			if ( opmNames.length > 0  ) {
-//				if ( opmNames.length == opmValues.length ) {
-//					UIOpm_i uiOpm_i = OpmMgr.getInstance().getOpm(uiopmapivalue);
-//					Map<String, String> parameter = new HashMap<String, String>();
-//					for ( int i = 0 ; i < opmName.length() ; i++ ) {
-//						String key = opmNames[i];
-//						String value = opmValues[i];
-//						parameter.put(key, value);
-//					}
-//					result = uiOpm_i.checkAccess(parameter);
-//				} else {
-//					logger.warn(className, function, "opmNames.length[{}] and opmValues.length[{}] IS NOT EQUAL", opmNames.length, opmValues.length);
-//				}
-//			} else {
-//				logger.warn(className, function, "opmName[{}] length <= 0");
-//			}
-//		} else{
-//			logger.warn(className, function, "opmNames OR opmValue IS NULL");
-//		}
-//
-//		logger.end(className, function);
-//		
-//		return result;
-//	}
-//	
-//	private void checkAccessMap() {
-//		final String function = "checkAccessMap";
-//		logger.begin(className, function);
-//		
-//		String uiopmapivalue	= uiGeneric.getWidgetValue("uiopmapivalue");
-//
-//		String opmnamevalue		= uiGeneric.getWidgetValue("opmnamevalue");
-//		String opmvaluevalue	= uiGeneric.getWidgetValue("opmvaluevalue");
-//
-//		boolean result = checkOpm(uiopmapivalue, opmvaluevalue, opmnamevalue);
-//		
-//		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
-//
-//		logger.end(className, function);
-//	}
-//	
-//	private void checkAccessMaps() {
-//		final String function = "checkAccessMaps";
-//		logger.begin(className, function);
-//		
-//		String uiopmapivalue		= uiGeneric.getWidgetValue("uiopmapivalue");
-//
-//		String opmnamevalue			= uiGeneric.getWidgetValue("opmnamevalue");
-//		String opmvaluevalue		= uiGeneric.getWidgetValue("opmvaluevalue");
-//		String opmoperationvalue	= uiGeneric.getWidgetValue("opmoperationvalue");
-//
-//		boolean result = checkOpms(uiopmapivalue, opmvaluevalue, opmnamevalue, opmoperationvalue);
-//		
-//		uiGeneric.setWidgetValue("resultvalue", Boolean.toString(result));
-//
-//		logger.end(className, function);
-//	}
-	
 	private void launch(String element) {
-		if ( "checkaccess".equals(element) ) {
+		if ( 0 == "checkAccess".compareToIgnoreCase(element) ) {
 			checkAccess();
-		} else if ( "checkaccesswithprofilename".equals(element) ) {
-			checkAccessWithProfile();
-		} else if ( "checkaccesswithhostname".equals(element) ) {
-			checkAccessWithHostName();
-		} else if ( "checkaccesswithhom".equals(element) ) {
-			checkAccessWithHom();
-		} else if ( "checkaccesswithhomvalue".equals(element) ) {
-			checkAccessWithHomValue();
-		} else if ( "checkhom".equals(element) ) {
-			checkHom();
 		}
-//		else if ( "checkaccessmap".equals(element) ) {
-//			checkAccessMap();
-//		} else if ( "checkaccessmaps".equals(element) ) {
-//			checkAccessMaps();
-//		}
+		else if ( 0 == "checkAccesses".compareToIgnoreCase(element) ) {
+			checkAccesses();
+		}
 	}
 
 	@Override

@@ -65,7 +65,7 @@ public class UIWidgetEntryPointInstant extends ResizeComposite implements IWidge
 		
 		initWidget(simplePanel);
 		
-		InitOpm.getInstance().initOpmFactory();
+		InitOpm.getInstance().initFactory();
 		
 		InitCacheJsonsFile.getInstance().initCacheJsonsFile("UIJson", "*.json");
 		

@@ -99,7 +99,7 @@
 	</option>
 	<option key="0|10">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_scsenvidvalue</css>
 		<element>getchilden_scsenvidvalue</element>
 		<format></format>
@@ -116,7 +116,7 @@
 	</option>
 	<option key="0|12">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001</label>
+		<label>:TUN:M000001:ECT:TES_0001</label>
 		<css>project-UIWidgetVerifyDatabaseGetChildrenControl-label-getchilden_addressvalue</css>
 		<element>getchilden_addressvalue</element>
 		<format></format>

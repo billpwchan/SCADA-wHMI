@@ -6,10 +6,10 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
  * @author syau
  *
  */
-public interface MultiPairResponsible_i {
+public interface Multi2MultiResponsible_i {
 	
 	/**
-	 * Implement the Build Respond in Single Pair value set
+	 * Implement the Build Respond
 	 * 
 	 * @param key         Client Key for the reading operation
 	 * @param dbAddresses Database addressed to read

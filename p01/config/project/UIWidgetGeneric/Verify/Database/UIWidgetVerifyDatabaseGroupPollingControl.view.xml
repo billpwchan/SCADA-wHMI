@@ -116,7 +116,7 @@
 	</option>
 	<option key="0|12">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetVerifyDatabaseGroupPollingControl-label-subscribe_g1_scsenvidvalue</css>
 		<element>subscribe_g1_scsenvidvalue</element>
 		<format></format>
@@ -133,7 +133,7 @@
 	</option>
 	<option key="0|14">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001dciECT-PRESSURE.value</label>
+		<label>:TUN:M000001:ECT:TES_0001:aciECT-TEMP.unit</label>
 		<css>project-UIWidgetVerifyDatabaseGroupPollingControl-label-subscribe_g1_addressvalue1</css>
 		<element>subscribe_g1_addressvalue1</element>
 		<format></format>
@@ -150,7 +150,7 @@
 	</option>
 	<option key="0|16">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001.label</label>
+		<label>:TUN:M000001:ECT:TES_0001.label</label>
 		<css>project-UIWidgetVerifyDatabaseGroupPollingControl-label-subscribe_g1_addressvalue2</css>
 		<element>subscribe_g1_addressvalue2</element>
 		<format></format>
@@ -249,7 +249,7 @@
 	</option>
 	<option key="0|27">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetVerifyDatabaseGroupPollingControl-label-subscribe_g2_scsenvidvalue</css>
 		<element>subscribe_g2_scsenvidvalue</element>
 		<format></format>
@@ -266,7 +266,7 @@
 	</option>
 	<option key="0|29">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;SSVECTAIR_0001dciECT-PRESSURE.value</label>
+		<label>:TUN:M000002:TVS:TVF_001:aciTVF-AirTemperature.value</label>
 		<css>project-UIWidgetVerifyDatabaseGroupPollingControl-label-subscribe_g2_addressvalue1</css>
 		<element>subscribe_g2_addressvalue1</element>
 		<format></format>
@@ -283,7 +283,7 @@
 	</option>
 	<option key="0|31">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;SSVECTAIR_0001.label</label>
+		<label>:TUN:M000002:TVS:TVF_001.label</label>
 		<css>project-UIWidgetVerifyDatabaseGroupPollingControl-label-subscribe_g2_addressvalue2</css>
 		<element>subscribe_g2_addressvalue2</element>
 		<format></format>

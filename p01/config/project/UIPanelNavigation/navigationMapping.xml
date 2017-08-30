@@ -175,18 +175,9 @@
 	<option key="OCC|Utilities|OPM"><setting>104</setting></option>
 	<option key="LMC|MCS|PTW Summary(DpcTag)"><setting>105</setting></option>
 
-
 	<option key="LMC|MCS|Login Summary"><setting>109</setting></option>
 	<option key="LMC|MCS|Soc Summary"><setting>110</setting></option>
-	<option key="LMC|MCS|Database Verify Summary"><setting>111</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>112</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>113</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>114</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>115</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>116</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>117</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>118</setting></option>
-	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>119</setting></option>
+	
 	<option key="LMC|MCS|Central Station"><setting>120</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Summary"><setting>121</setting></option>
 	<option key="LMC|MCS|Central Station|HDV Summary (Station)"><setting>122</setting></option>
@@ -255,6 +246,17 @@
 	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>201</setting></option>
 	<option key="LMC|MCS|OPM Verify|Change Password Summary"><setting>202</setting></option>
 	<option key="LMC|MCS|OPM Verify|Change Target User Password Summary"><setting>203</setting></option>
+	
+	<option key="LMC|MCS|Database Verify Summary"><setting>230</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>231</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetFullPath"><setting>232</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GetChilden"><setting>233</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Subscription"><setting>234</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Polling"><setting>235</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPolling"><setting>236</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiff"><setting>237</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>238</setting></option>
+	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>239</setting></option>
 	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>

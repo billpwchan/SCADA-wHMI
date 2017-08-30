@@ -6,7 +6,7 @@ package com.thalesgroup.scadagen.wrapper.wrapper.client.db.common;
  * @author syau
  *
  */
-public interface DatabaseReadEvent_i {
+public interface DatabaseReadSingle2MultiEvent_i {
 	
 	/**
 	 * Return the Reading result

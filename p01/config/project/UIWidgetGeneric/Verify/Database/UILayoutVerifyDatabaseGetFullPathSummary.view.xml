@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyDatabaseSummary-root</rootCSS>
+	</header>
+
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseGetFullPathControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGetFullPathControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGetFullPathControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGetFullPathControl</element>
+	</option>	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyDatabaseGetFullPathControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGetFullPathProxyControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGetFullPathProxyControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGetFullPathProxyControl</element>
+	</option>
+
+</data-set>

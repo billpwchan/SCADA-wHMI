@@ -87,7 +87,7 @@ public class ScsWidgetFactory extends WidgetFactory {
 					
 					String hv_type = symbolWidget.getEntityClassName();
 					
-					logger.log(Level.SEVERE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
+					logger.log(Level.FINE, "getSymbolWidget symbolWidget is hv_id["+hv_id+"]  hv_type["+hv_type+"]");
 					
 					if ( null != wrapperScsSituationViewPanelEvent ) {
 						

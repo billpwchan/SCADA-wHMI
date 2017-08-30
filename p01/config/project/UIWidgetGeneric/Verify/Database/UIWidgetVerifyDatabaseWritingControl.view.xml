@@ -99,7 +99,7 @@
 	</option>
 	<option key="0|10">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_scsenvidvalue</css>
 		<element>writedatevalue_scsenvidvalue</element>
 		<format></format>
@@ -116,7 +116,7 @@
 	</option>
 	<option key="0|12">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001.opDate</label>
+		<label>:TUN:M000001:ECT:TES_0001.opDate</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writedatevalue_addressvalue</css>
 		<element>writedatevalue_addressvalue</element>
 		<format></format>
@@ -204,7 +204,7 @@
 	</option>
 	<option key="0|22">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_scsenvidvalue</css>
 		<element>writeintvalue_scsenvidvalue</element>
 		<format></format>
@@ -221,7 +221,7 @@
 	</option>
 	<option key="0|24">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001.tagStatus</label>
+		<label>:TUN:M000001:ECT:TES_0001.tagStatus</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writeintvalue_addressvalue</css>
 		<element>writeintvalue_addressvalue</element>
 		<format></format>
@@ -291,7 +291,7 @@
 	</option>
 	<option key="0|32">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_scsenvidvalue</css>
 		<element>writefloatvalue_scsenvidvalue</element>
 		<format></format>
@@ -308,7 +308,7 @@
 	</option>
 	<option key="0|34">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTTES_0001aciECT-TEMP.value</label>
+		<label>:CTVECTTES_0001aciECT-TEMP.value</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writefloatvalue_addressvalue</css>
 		<element>writefloatvalue_addressvalue</element>
 		<format></format>
@@ -378,7 +378,7 @@
 	</option>
 	<option key="0|42">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_scsenvidvalue</css>
 		<element>writestringvalue_scsenvidvalue</element>
 		<format></format>
@@ -395,7 +395,7 @@
 	</option>
 	<option key="0|44">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;CTVECTAIR_0001dciECT-PRESSURE.unit</label>
+		<label>:TUN:M000001:ECT:TES_0001:aciECT-TEMP.unit</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writestringvalue_addressvalue</css>
 		<element>writestringvalue_addressvalue</element>
 		<format></format>
@@ -465,7 +465,7 @@
 	</option>
 	<option key="0|52">
 		<widget>TextBox</widget>
-		<label>OCCENVCONN</label>
+		<label>M100CONN</label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_scsenvidvalue</css>
 		<element>writevalue_scsenvidvalue</element>
 		<format></format>
@@ -482,7 +482,7 @@
 	</option>
 	<option key="0|54">
 		<widget>TextBox</widget>
-		<label>&lt;alias&gt;</label>
+		<label></label>
 		<css>project-UIWidgetDatabaseVerifyDatabaseWritingControl-label-writevalue_addressvalue</css>
 		<element>writevalue_addressvalue</element>
 		<format></format>

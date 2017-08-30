@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.common.Connectable_i;
  * @author syau
  *
  */
-public interface DatabaseSingleRead_i extends Connectable_i {
+public interface DatabaseSingle2MultiRead_i extends Connectable_i {
 
 	/**
 	 * @param key           Client Key for the reading operation
@@ -16,6 +16,6 @@ public interface DatabaseSingleRead_i extends Connectable_i {
 	 * @param dbAddress     DBAddress for the target RTDB Address
 	 * @param databaseEvent Callback for result
 	 */
-	void addGetChildrenRequest(String key, String scsEnvId, String dbAddress, DatabaseReadEvent_i databaseEvent);
+	void addSingle2MultiRequest(String key, String scsEnvId, String dbAddress, DatabaseReadSingle2MultiEvent_i databaseEvent);
 	
 }

@@ -251,6 +251,7 @@
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation.view.xml"><setting>193</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation.view.xml"><setting>194</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy.view.xml"><setting>195</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability.view.xml"><setting>196</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel.view.xml"><setting>196</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability.view.xml"><setting>197</setting></option>
 	
 </data-set>

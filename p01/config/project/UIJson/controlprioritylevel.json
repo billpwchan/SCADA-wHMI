@@ -1,8 +1,10 @@
 {
 "Level":[
-{"Key": "DUMMY1", "Value": 1}
-, {"Key": "ROOT", "Value": 3}
+{"Key": "DUMMY1", "Value": 5}
+, {"Key": "ROOT", "Value": 4}
+, {"Key": "DUMMY2", "Value": 3}
+, {"Key": "SA", "Value": 3}
 , {"Key": "CHIEF", "Value": 2}
-, {"Key": "DUMMY4", "Value": 5}
+, {"Key": "DUMMY4", "Value": 1}
 ]
 }

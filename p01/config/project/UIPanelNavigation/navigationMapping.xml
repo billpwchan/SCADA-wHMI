@@ -245,21 +245,16 @@
 	
 	<option key="LMC|Verify ControlPriority"><setting>191</setting></option>
 	<option key="LMC|Verify ControlPriority|Request Reservation"><setting>192</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation.view.xml"><setting>193</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation.view.xml"><setting>194</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy.view.xml"><setting>195</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel.view.xml"><setting>196</setting></option>
-	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability.view.xml"><setting>197</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_RequestReservation"><setting>193</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_WithdrawReservation"><setting>194</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_GetCurrentReservationBy"><setting>195</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel"><setting>196</setting></option>
+	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability"><setting>197</setting></option>
 	
 	<option key="LMC|MCS|OPM Verify"><setting>200</setting></option>
 	<option key="LMC|MCS|OPM Verify|OPM Summary"><setting>201</setting></option>
 	<option key="LMC|MCS|OPM Verify|Change Password Summary"><setting>202</setting></option>
 	<option key="LMC|MCS|OPM Verify|Change Target User Password Summary"><setting>203</setting></option>
-	
-	<option key="LMC|Verify Menu Append"><setting>220</setting></option>
-	<option key="LMC|Verify Menu Append - Second"><setting>221</setting></option>
-	<option key="LMC|Verify Menu Append|Item 1"><setting>222</setting></option>
-	<option key="LMC|Verify Menu Append - Second|Item 2"><setting>223</setting></option>
 	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>

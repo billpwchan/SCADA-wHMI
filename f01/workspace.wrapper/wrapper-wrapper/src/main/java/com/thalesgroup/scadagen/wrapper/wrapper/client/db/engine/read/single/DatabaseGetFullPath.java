@@ -74,8 +74,8 @@ public class DatabaseGetFullPath implements DatabaseSingle2SingleRead_i {
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSingleRead_i#addGetChildrenRequest(java.lang.String, java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseReadEvent_i)
 	 */
 	@Override
-	public void addRequest(String clientKey, String scsEnvId, String dbaddress, DatabaseReadSingle2SingleResult_i databaseEvent) {
-		final String function = "addGetChildrenRequest";
+	public void addSingle2SingleRequest(String clientKey, String scsEnvId, String dbaddress, DatabaseReadSingle2SingleResult_i databaseEvent) {
+		final String function = "addSingle2SingleRequest";
 		logger.begin(className, function);
 		logger.debug(className, function, "clientKey[{}] scsEnvId[{}]", new Object[]{clientKey, scsEnvId});
 		logger.debug(className, function, "dbaddress[{}]", dbaddress);

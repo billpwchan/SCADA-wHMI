@@ -8,7 +8,7 @@ import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseMultiRead_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEvent_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseSubscribe_i;
-import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.MultiPairResponsible_i;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.Multi2MultiResponsible_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.DatabaseMultiReading;
 
 /**
@@ -17,7 +17,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.engine.read.multi.Data
  * @author syau
  *
  */
-public class DatabasePolling implements DatabaseSubscribe_i, MultiPairResponsible_i {
+public class DatabasePolling implements DatabaseSubscribe_i, Multi2MultiResponsible_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(DatabasePolling.class.getName());
 	private final UILogger logger = UILoggerFactory.getInstance().getLogger(className);

@@ -1489,7 +1489,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
+		<uiView>Verify/Translation/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
 		<tooltips>Verify Translation Summary</tooltips>
 	</option>
 	

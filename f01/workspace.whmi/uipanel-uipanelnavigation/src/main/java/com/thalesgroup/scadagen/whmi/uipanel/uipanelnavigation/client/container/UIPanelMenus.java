@@ -2,6 +2,8 @@ package com.thalesgroup.scadagen.whmi.uipanel.uipanelnavigation.client.container
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.ComplexPanel;
@@ -24,12 +26,14 @@ public class UIPanelMenus extends UIWidget_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIPanelMenus.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	final static String STR_MENU_NOT_FOUND = "MenuNotFound";
 		
 	private NavigationMgr navigationMgr = null;
 
-	private HashMap<Integer, Panel> menus = new HashMap<Integer, Panel>();
+	private Map<Integer, Panel> menus = new HashMap<Integer, Panel>();
 
-	private HashMap<String, UIButtonNavigation> buttons = new HashMap<String, UIButtonNavigation>();
+	private Map<String, UIButtonNavigation> buttons = new HashMap<String, UIButtonNavigation>();
 	
 	public void addMenuBar(int index, Panel menu) {
 		final String function = "addMenuBar";
@@ -248,8 +252,6 @@ public class UIPanelMenus extends UIWidget_i {
 				buttons.put(taskLaunch.getHeader(), btnNew);
 				btnNew.setTaskLaunch(taskLaunch);
 				
-				
-				
 				btnNew.addStyleName("project-gwt-button-navigation-"+level);
 				
 				// If the addidition Css exists add on the widget.
@@ -315,6 +317,20 @@ public class UIPanelMenus extends UIWidget_i {
 				logger.debug(className, function, "menuBar.getWidgetCount() > 0 End");
 			} else {
 				logger.warn(className, function, "menuBar.getWidgetCount()[{}] <= 0", menuBar.getWidgetCount());
+				
+				// Call the debug action
+				UIButtonNavigation btn = buttons.get(STR_MENU_NOT_FOUND);
+				if ( null != btn ) {
+					UITaskLaunch taskLaunch = btn.getTaskLaunch();
+					if ( null != taskLaunch ) {
+						launchTask(taskLaunch);
+					} else {
+						logger.warn(className, function, "STR_MENU_NOT_FOUND[{}] taskLaunch is null", STR_MENU_NOT_FOUND);
+					}
+				} else {
+					logger.warn(className, function, "STR_MENU_NOT_FOUND[{}] btn is null", STR_MENU_NOT_FOUND);
+				}
+				
 			}
 		} else {
 			logger.warn(className, function, "menuBar IS NULL");
@@ -326,7 +342,6 @@ public class UIPanelMenus extends UIWidget_i {
 	
 	private void onClickAction(UIButtonNavigation btnSel, String launchHeader, boolean executeTask) {
 		final String function = "onClickAction";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "btnSel.getText()[{}] launchHeader[{}] executeTask[{}]", new Object[]{btnSel.getText(), launchHeader, executeTask});
@@ -362,20 +377,36 @@ public class UIPanelMenus extends UIWidget_i {
 			
 			if ( executeTask ) {
 			
-				taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
+				launchTask(taskLaunch);
 				
-				logger.debug(className, function, "Execute taskLaunch.getHeader()[{}] on taskLaunch.getTaskUiScreen()[{}]", taskLaunch.getHeader(), taskLaunch.getTaskUiScreen());
-				
-				navigationMgr.launchTask(taskLaunch);
 			}
 		}
+		
+		logger.end(className, function);
+	}
+	
+	private void launchTask(UITaskLaunch taskLaunch) {
+		final String function = "launchTask";
+		logger.begin(className, function);
+	
+		if ( taskLaunch.getTaskUiScreen() < 0 ) {
+			
+			logger.debug(className, function
+					, "Execute taskLaunch.getHeader()[{}] on taskLaunch.getTaskUiScreen()[{}] less then zero, set to current screen[{}]"
+					, new Object[]{taskLaunch.getHeader(), taskLaunch.getTaskUiScreen(), this.uiNameCard.getUiScreen()});
+			
+			taskLaunch.setTaskUiScreen(this.uiNameCard.getUiScreen());
+		}
+				
+		logger.debug(className, function, "Execute taskLaunch.getHeader()[{}] on taskLaunch.getTaskUiScreen()[{}]", taskLaunch.getHeader(), taskLaunch.getTaskUiScreen());
+		
+		navigationMgr.launchTask(taskLaunch);
 		
 		logger.end(className, function);
 	}
 
 	public void readyToGetMenu(String profile, String location, int level, String header) {
 		final String function = "readyToGetMenu";
-		
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "profile[{}] location[{}] level[{}] header[{}]", new Object[]{profile, location, level, header});

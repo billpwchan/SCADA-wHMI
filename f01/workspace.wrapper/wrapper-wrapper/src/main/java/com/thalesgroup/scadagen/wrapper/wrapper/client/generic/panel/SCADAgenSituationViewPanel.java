@@ -7,7 +7,7 @@ public class SCADAgenSituationViewPanel {
 	public SCADAgenSituationViewPanel(String configurationId) { setConfigurationId(configurationId); }
 	
 	private String configurationId = "";
-	public void setConfigurationId ( String configurationId ) { this.configurationId =configurationId; }
+	public void setConfigurationId ( String configurationId ) { this.configurationId = configurationId; }
 	public String getConfigurationId () { return this.configurationId; }
 	
 	private String width;
@@ -17,8 +17,8 @@ public class SCADAgenSituationViewPanel {
 		this.height = height;
 	}
 	private SCADAgenSituationViewPanelEvent scadagenSituationViewPanelEvent = null;
-	public void setSCADAgenSituationViewPanelEvent ( SCADAgenSituationViewPanelEvent wrapperScsSituationViewPanelEvent ) {
-		this.scadagenSituationViewPanelEvent = wrapperScsSituationViewPanelEvent;
+	public void setSCADAgenSituationViewPanelEvent ( SCADAgenSituationViewPanelEvent scadagenSituationViewPanelEvent ) {
+		this.scadagenSituationViewPanelEvent = scadagenSituationViewPanelEvent;
 	}
 	
 	private ScsSituationViewPanel scsSituationViewPanel = null;

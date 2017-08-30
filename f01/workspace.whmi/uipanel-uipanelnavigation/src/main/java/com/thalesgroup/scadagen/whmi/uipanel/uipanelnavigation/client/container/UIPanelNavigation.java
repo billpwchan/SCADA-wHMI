@@ -34,11 +34,11 @@ public class UIPanelNavigation extends UIWidget_i {
 		final String function = "getMenus";
 		
 		logger.begin(className, function);
-		logger.info(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiNameCard.getUiPath()[{}]", uiNameCard.getUiScreen(), uiNameCard.getUiPath());
+		logger.debug(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiNameCard.getUiPath()[{}]", uiNameCard.getUiScreen(), uiNameCard.getUiPath());
 		
 		Integer screen = Integer.valueOf(uiNameCard.getUiScreen());
 		
-		logger.info(className, function, "getMenu screen["+screen+"]");
+		logger.debug(className, function, "getMenu screen["+screen+"]");
 		
 		UIPanelMenus uiPanelMenus = this.hashMap.get(screen);
 		if ( null == uiPanelMenus ) {
@@ -46,7 +46,7 @@ public class UIPanelNavigation extends UIWidget_i {
 		}
 		uiPanelMenus = this.hashMap.get(screen);
 		
-		logger.info(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiPanelMenus[{}] hash code", uiNameCard.getUiScreen(), uiPanelMenus);
+		logger.debug(className, function, "getMenu uiNameCard.getUiScreen()[{}] uiPanelMenus[{}] hash code", uiNameCard.getUiScreen(), uiPanelMenus);
 			
 		if ( null == uiPanelMenus ) {
 			logger.warn(className, function, "getMenu uiPanelMenus[{}] IS NULL", uiPanelMenus);
@@ -63,7 +63,7 @@ public class UIPanelNavigation extends UIWidget_i {
 		
 		UIPanelMenus uiPanelMenus = getMenus(uiNameCard);
 		
-		logger.info(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
+		logger.debug(className, function, "uiNameCard.getUiScreen()[{}]", uiNameCard.getUiScreen());
 		
 		Panel panel = uiPanelMenus.getMenu(menuLevel, menuType);
 		
@@ -94,7 +94,7 @@ public class UIPanelNavigation extends UIWidget_i {
 		String menuLevel = null;
 		String menuType = null;
 		
-		logger.info(className, function, "getMenu optsXMLFile[{}]", optsXMLFile);
+		logger.debug(className, function, "getMenu optsXMLFile[{}]", optsXMLFile);
 		
 		String strUIWidgetGeneric = "UIWidgetGeneric";
 		String strHeader = "header";
@@ -104,7 +104,7 @@ public class UIPanelNavigation extends UIWidget_i {
 			menuType	= dictionariesCache.getStringValue(optsXMLFile, UIPanelNavigation_i.ParameterName.MenuType.toString(), strHeader);
 		}
 		
-		logger.info(className, function, "getMenu menuLevel[{}] menuType[{}]", menuLevel, menuType);
+		logger.debug(className, function, "getMenu menuLevel[{}] menuType[{}]", menuLevel, menuType);
 		
 		logger.end(className, function);
 		

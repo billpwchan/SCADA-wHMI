@@ -34,7 +34,7 @@ public class UIButtonNavigation extends Button {
 		
 		logger.begin(className, function);
 		
-		logger.info(className, function, "setHightLight Begin hightLight[{}]",hightLight);
+		logger.debug(className, function, "setHightLight Begin hightLight[{}]",hightLight);
 
 		int level = this.taskLaunch.getTaskLevel();
 	
@@ -42,7 +42,7 @@ public class UIButtonNavigation extends Button {
 		
 		String styleName = "project-gwt-button-navigation-"+level+"-selected";
 		
-		logger.info(className, function, "setHightLight addStyleName[{}] hightLight[{}]", styleName, hightLight);
+		logger.debug(className, function, "setHightLight addStyleName[{}] hightLight[{}]", styleName, hightLight);
 
 		if ( hightLight ) {
 			this.addStyleName(styleName);

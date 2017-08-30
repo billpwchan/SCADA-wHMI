@@ -226,7 +226,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
             console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
             this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
-                
+
                 this.clearSelectedRow();
                 this.clearSchItemFilters();
 
@@ -236,13 +236,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
                 this.addRuntimeFilters(runtimeFilters);
 
-                let filteredScheduleItems = this.filterSchItems(scheduleItems);
-
-                this.cachedSchItems = [...filteredScheduleItems];
+                this.cachedSchItems = this.filterSchItems(scheduleItems);
 
                 if (this.selectedSchedule) {
-                    let schItems = new Array<ScheduleItem>();
-                    // filter selected Schedule 
+                    const schItems = new Array<ScheduleItem>();
+                    // filter selected Schedule
                     for (const schItem of this.cachedSchItems) {
                         if (schItem.scheduleId === this.selectedSchedule.id) {
                             schItems.push(schItem);
@@ -250,7 +248,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     }
                     this.scheduleItems = [...schItems];
                 } else {
-                    this.scheduleItems = [...filteredScheduleItems];
+                    this.scheduleItems = [...this.cachedSchItems];
                 }
             });
             console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);

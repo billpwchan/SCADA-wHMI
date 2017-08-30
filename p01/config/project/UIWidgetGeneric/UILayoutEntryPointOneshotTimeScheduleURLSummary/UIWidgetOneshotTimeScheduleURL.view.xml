@@ -15,8 +15,7 @@
 		
 		<cssContainer>project-gwt-html-htmlurl-container-0-0</cssContainer>
 		
-		<tooltipUp>Print</tooltipUp>
-		<element>print</element>
+		<element>UIWidgetOneshotTimeScheduleURL</element>
 	</option>
 	
 </data-set>

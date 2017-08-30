@@ -309,6 +309,67 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	}
 	
 	/* (non-Javadoc)
+	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationLevel(java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i.UIControlPriorityCallback)
+	 */
+	@Override
+	public void checkReservationLevel(final String identity, final UIControlPriorityCallback callBack) {
+		String function1 = "checkReservationLevel";
+		logger.begin(className, function1);
+		
+		if ( null == identity ) {
+			if ( null != callBack ) {
+			   	JSONObject jsObject = new JSONObject();
+			   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(UIControlPriority_i.LEVEL_ERROR));
+			   	String jsonString = jsObject.toString();
+			   	logger.debug(className, function1, "jsonString[{}]", jsonString);
+		    	callBack.callBack(jsonString);	
+			} else {
+				logger.debug(className, function1, "callBack IS NULL");
+			}
+		} else {
+			int ret = 0;
+			if ( identity.isEmpty() ) {
+				ret = UIControlPriority_i.LEVEL_EMPTY;
+			} else {
+				
+				if ( identity.equals(getUsrIdentity()) ) {
+					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
+				} else {
+					int levelDiff = compareLevel(getUsrIdentity(), identity);
+					logger.debug(className, function1, "levelDiff[{}]", levelDiff);
+					switch ( levelDiff ) {
+					case -1:
+						ret = UIControlPriority_i.LEVEL_HIGHER;
+						break;
+					case 0:
+						ret = UIControlPriority_i.LEVEL_EQUAL;
+						break;
+					case 1:
+						ret = UIControlPriority_i.LEVEL_LOWER;
+						break;
+					default:
+						ret = UIControlPriority_i.LEVEL_ERROR;
+						break;
+					}
+				}
+			}
+			
+			logger.debug(className, function1, "ret[{}]", ret);
+			
+			if ( null != callBack ) {
+			   	JSONObject jsObject = new JSONObject();
+			   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
+			   	String jsonString = jsObject.toString();
+			   	logger.debug(className, function1, "jsonString[{}]", jsonString);
+		    	callBack.callBack(jsonString);	
+			} else {
+				logger.debug(className, function1, "callBack IS NULL");
+			}
+		}
+		logger.end(className, function1);
+	}
+	
+	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#checkReservationAvailability(java.lang.String, java.lang.String, com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i.UIControlPriorityCallback)
 	 */
 	@Override
@@ -328,7 +389,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 				logger.debug(className, function2, "value[{}]", value);
 				logger.debug(className, function2, "valid[{}]", valid);
 				
-				if ( null == value || UIControlPriority_i.GETCURRENT_READ_INVALID == valid ) {
+				if ( UIControlPriority_i.GETCURRENT_READ_INVALID == valid ) {
 					if ( null != callBack ) {
 					   	JSONObject jsObject = new JSONObject();
 					   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(UIControlPriority_i.AVAILABILITY_ERROR));
@@ -338,48 +399,51 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 					} else {
 						logger.debug(className, function2, "callBack IS NULL");
 					}
-				} else {
-					int ret = 0;
-					if ( value.isEmpty() ) {
-						ret = UIControlPriority_i.AVAILABILITY_EMPTY;
-					} else {
-						
-						if ( value.equals(getUsrIdentity()) ) {
-							ret = UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF;
-						} else {
-							int levelDiff = compareLevel(getUsrIdentity(), value);
-							logger.debug(className, function2, "levelDiff[{}]", levelDiff);
-							switch ( levelDiff ) {
-							case -1:
-								ret = UIControlPriority_i.AVAILABILITY_DENIED;
-								break;
-							case 0:
-								ret = UIControlPriority_i.AVAILABILITY_EQUAL;
-								break;
-							case 1:
-								ret = UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
-								break;
-							default:
-								ret = UIControlPriority_i.AVAILABILITY_ERROR;
-								break;
-							}
-						}
-					}
-					
-					logger.debug(className, function2, "ret[{}]", ret);
-					
-					if ( null != callBack ) {
-					   	JSONObject jsObject = new JSONObject();
-					   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
-					   	String jsonString = jsObject.toString();
-					   	logger.debug(className, function2, "jsonString[{}]", jsonString);
-				    	callBack.callBack(jsonString);	
-					} else {
-						logger.debug(className, function2, "callBack IS NULL");
-					}
 				}
 				
-
+				// Call the level checking
+				checkReservationLevel(value, new UIControlPriorityCallback() {
+					
+					@Override
+					public void callBack(String strJson) {
+						String function3 = "checkReservationAvailability:callBack:checkReservationLevel:callback";
+						logger.begin(className, function3);
+						logger.debug(className, function3, "strJson[{}]", strJson);
+						int value = ReadJson.readInt(ReadJson.readJson(strJson), UIControlPriority_i.FIELD_VALUE, UIControlPriority_i.LEVEL_ERROR);
+						int ret = UIControlPriority_i.AVAILABILITY_ERROR;
+						switch ( value ) {
+						case UIControlPriority_i.LEVEL_HIGHER:
+							ret = UIControlPriority_i.AVAILABILITY_DENIED;
+							break;
+						case UIControlPriority_i.LEVEL_EQUAL:
+							ret = UIControlPriority_i.AVAILABILITY_EQUAL;
+							break;
+						case UIControlPriority_i.LEVEL_IS_ITSELF:
+							ret = UIControlPriority_i.AVAILABILITY_RESERVED_BYSELF;
+							break;
+						case UIControlPriority_i.LEVEL_EMPTY:
+							ret = UIControlPriority_i.AVAILABILITY_EMPTY;
+							break;
+						case UIControlPriority_i.LEVEL_LOWER:
+							ret = UIControlPriority_i.AVAILABILITY_ALLOW_WITH_OVERRIDE;
+							break;
+						default:
+							ret = UIControlPriority_i.LEVEL_ERROR;
+							break;
+						}
+						
+						if ( null != callBack ) {
+						   	JSONObject jsObject = new JSONObject();
+						   	jsObject.put(UIControlPriority_i.FIELD_VALUE, new JSONNumber(ret));
+						   	String jsonString = jsObject.toString();
+						   	logger.debug(className, function3, "jsonString[{}]", jsonString);
+					    	callBack.callBack(jsonString);	
+						} else {
+							logger.debug(className, function3, "callBack IS NULL");
+						}
+						logger.end(className, function3);
+					}
+				});
 				
 				logger.end(className, function2);
 			}

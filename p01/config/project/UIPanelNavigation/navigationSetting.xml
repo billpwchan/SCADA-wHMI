@@ -1614,6 +1614,17 @@
 	
 	<option key="196">
 		<type>P</type>
+		<name>Check Reservation Level</name>
+		<title>Check Reservation Level</title>
+		<uiPanel>UILayoutEntryPoint</uiPanel>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UIVerifyControlPriority/UIEntryPointVerifyControlPriority_CheckReservationLevel.view.xml</uiView>
+		<tooltips>Check Reservation Level</tooltips>
+	</option>
+	
+	<option key="197">
+		<type>P</type>
 		<name>Check Reservation Availability</name>
 		<title>Check Reservation Availability</title>
 		<uiPanel>UILayoutEntryPoint</uiPanel>

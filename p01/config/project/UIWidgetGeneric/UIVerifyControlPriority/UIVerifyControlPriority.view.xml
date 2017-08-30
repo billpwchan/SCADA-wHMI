@@ -3,7 +3,7 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header">
 		<rows>1</rows>
-		<cols>4</cols>
+		<cols>5</cols>
 		<rootPanel>VerticalPanel</rootPanel>
 		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
 	</header>
@@ -11,25 +11,31 @@
 	<option key="0|0">
 		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
 		<uiView>UIVerifyControlPriority/UIVerifyControlPriority_RequestReservation.view.xml</uiView>
-		<element>UIWidgetVerifyControlPriority</element>
+		<element>RequestReservation</element>
 	</option>
 	
 	<option key="0|1">
 		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
 		<uiView>UIVerifyControlPriority/UIVerifyControlPriority_WithdrawReservation.view.xml</uiView>
-		<element>UIWidgetVerifyControlPriority</element>
+		<element>WithdrawReservation</element>
 	</option>
 	
 	<option key="0|2">
 		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
 		<uiView>UIVerifyControlPriority/UIVerifyControlPriority_GetCurrentReservationBy.view.xml</uiView>
-		<element>UIWidgetVerifyControlPriority</element>
+		<element>GetCurrentReservationBy</element>
 	</option>
 	
 	<option key="0|3">
 		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
+		<uiView>UIVerifyControlPriority/UIVerifyControlPriority_CheckReservationLevel.view.xml</uiView>
+		<element>CheckReservationLevel</element>
+	</option>
+	
+	<option key="0|4">
+		<uiCtrl>UIWidgetVerifyControlPriority</uiCtrl>
 		<uiView>UIVerifyControlPriority/UIVerifyControlPriority_CheckReservationAvailability.view.xml</uiView>
-		<element>UIWidgetVerifyControlPriority</element>
+		<element>CheckReservationAvailability</element>
 	</option>
 
 </data-set>

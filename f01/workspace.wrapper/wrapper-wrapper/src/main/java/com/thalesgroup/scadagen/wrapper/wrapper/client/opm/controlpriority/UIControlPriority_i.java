@@ -17,6 +17,16 @@ public interface UIControlPriority_i {
 	public final static String FIELD_CODE	= "code";
 	
 	/* 
+	 * Check Reservation LEVEL Return Code
+	 */
+	public final static int LEVEL_ERROR					= 0; // Availability checking return error
+	public final static int LEVEL_HIGHER				= 1; // Compare Level with higher level 
+	public final static int LEVEL_EQUAL					= 2; // Compare Level with same level
+	public final static int LEVEL_IS_ITSELF				= 3; // Compare Level with itself level
+	public final static int LEVEL_EMPTY					= 4; // Compare Level with empty level
+	public final static int LEVEL_LOWER					= 5; // Compare Level with lower level
+	
+	/* 
 	 * Check Reservation Availability Return Code
 	 */
 	public final static int AVAILABILITY_ERROR					= 0; // Availability checking return error
@@ -122,6 +132,14 @@ public interface UIControlPriority_i {
 	 * @param callback	Return JSON String, JSONString Attribute "value" contain the current reserved by, "code" contain the return code
 	 */
 	void getCurrentReservationBy(String scsEnvId, String dbAddress, UIControlPriorityCallback callBack);
+	
+	/**
+	 * Get the Current Reservation Level
+	 * 
+	 * @param identity	Target identity to compare
+	 * @param callback	Return JSON String, JSONNumber Attribute "value" contain the current reserved status, ref to AVAILABILITY_* code.
+	 */
+	void checkReservationLevel(final String identity, final UIControlPriorityCallback callBack);
 	
 	/**
 	 * Get the Current Reservation Status

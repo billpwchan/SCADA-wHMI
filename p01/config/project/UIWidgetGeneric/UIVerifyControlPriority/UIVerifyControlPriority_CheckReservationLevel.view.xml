@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>8</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCss>project-UIVerifyControlPriority_CheckReservationLevel-panel-inner</rootCss>
+	</header>
+	
+	<!-- Result -->
+	<option key="0|0">
+		<widget>Label</widget>
+		<label>Verify Result:</label>
+		<css>project-UIVerifyControlPriority_CheckReservationLevel-label-title</css>
+		<element>title</element>
+	</option>
+
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>CheckReservationLevel</label>
+		<css>project-UIVerifyControlPriority_CheckReservationLevel-button-CheckReservationLevel</css>
+		<element>checkReservationLevel</element>
+		<cssContainer>project-UIVerifyControlPriority_CheckReservationLevel-container-CheckReservationLevel</cssContainer>
+		<tooltip>CheckReservationLevel</tooltip>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<element>resultvalue</element>
+		<maxlength>16</maxlength>
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>uicpapi Value:</label>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIControlPrioritySCADAgen</label>
+		<element>uicpapivalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>identity Value:</label>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<element>identityvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+</data-set>

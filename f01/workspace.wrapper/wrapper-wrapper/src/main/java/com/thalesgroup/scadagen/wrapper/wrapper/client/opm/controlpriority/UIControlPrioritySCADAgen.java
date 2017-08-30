@@ -1,11 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.i18n.client.TimeZone;
 import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
@@ -20,6 +17,7 @@ import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabasePairEve
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.common.DatabaseWrite_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseMultiReadFactory;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.db.factory.DatabaseWriteFactory;
+import com.thalesgroup.scadagen.wrapper.wrapper.client.db.util.DatabaseKey;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.UIOpm_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPrioritySCADAgen_i.AttributeLevel;
@@ -95,7 +93,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 					logger.debug(className, function2, "AVAILABILITY_RESERVED_BYSELF getCodeString({})[{}]", new Object[]{ret, getCheckReservationAvailabilityCodeString(ret)});
 					
 					String alias = dbAddress + getResrvReserveReqID();
-					String key = getKey(function2, scsEnvId, alias, usrIdentity);
+					String key = databaseKey.getKey(className, function2, scsEnvId, alias, usrIdentity);
 					
 					logger.debug(className, function2, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 					databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
@@ -123,7 +121,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 							logger.begin(className, function3);
 							
 							String alias = dbAddress + getResrvReserveReqID();
-							String key = getKey(function3, scsEnvId, alias, usrIdentity);
+							String key = databaseKey.getKey(function3, scsEnvId, alias, usrIdentity);
 							
 							logger.debug(className, function3, "scsEnvId[{}] alias[{}] usrIdentity[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 							databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
@@ -224,7 +222,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		logger.begin(className, function);
 		
 		String alias = dbAddress + getResrvUnreserveReqID();
-		String key = getKey(function, scsEnvId, alias, usrIdentity);
+		String key = databaseKey.getKey(function, scsEnvId, alias, usrIdentity);
 		
 		logger.debug(className, function, "scsEnvId[{}] alias[{}] value[{}] key[{}]", new Object[]{scsEnvId, alias, usrIdentity, key});
 		databaseWrite_i.addWriteStringValueRequest(key, scsEnvId, alias, usrIdentity);
@@ -252,7 +250,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		logger.begin(className, function1);
 		String alias = dbAddress + getResrvReserveID();
 		String dbAddresses [] = new String[]{alias};
-		String key = getDatabaseKey(function1, scsEnvId, dbAddress);
+		String key = databaseKey.getKey(className, function1, scsEnvId, dbAddress);
 		logger.debug(className, function1, "scsEnvId[{}] alias[{}] key[{}]", new Object[]{scsEnvId, alias, key});
 		databaseMultiRead_i.addMultiReadValueRequest(key, scsEnvId, dbAddresses, new DatabasePairEvent_i() {
 			
@@ -315,7 +313,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 	public void checkReservationLevel(final String identity, final UIControlPriorityCallback callBack) {
 		String function1 = "checkReservationLevel";
 		logger.begin(className, function1);
-		
+		logger.debug(className, function1, "identity[{}]", identity);
 		if ( null == identity ) {
 			if ( null != callBack ) {
 			   	JSONObject jsObject = new JSONObject();
@@ -331,11 +329,12 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 			if ( identity.isEmpty() ) {
 				ret = UIControlPriority_i.LEVEL_EMPTY;
 			} else {
-				
-				if ( identity.equals(getUsrIdentity()) ) {
+				String usrIdentity = getUsrIdentity();
+				logger.debug(className, function1, "usrIdentity[{}] identity[{}]", usrIdentity, identity);
+				if ( identity.equals(usrIdentity) ) {
 					ret = UIControlPriority_i.LEVEL_IS_ITSELF;
 				} else {
-					int levelDiff = compareLevel(getUsrIdentity(), identity);
+					int levelDiff = compareLevel(usrIdentity, identity);
 					logger.debug(className, function1, "levelDiff[{}]", levelDiff);
 					switch ( levelDiff ) {
 					case -1:
@@ -631,76 +630,7 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		logger.end(className, function);
 		return ret;
 	}
-	
-	public String getDateTimeString() {
-		String function = "getDateTimeString";
-		logger.begin(className, function);
-		Date date = new Date();
-		DateTimeFormat dtf = DateTimeFormat.getFormat("yyyyMMddHHmmssSSS");
-		String ret = dtf.format(date, TimeZone.createTimeZone(0));
-		logger.debug(className, function, "ret[{}]", ret);
-		logger.end(className, function);
-		return ret;
-	}
-	
-	final static String UNDER_SCORE = "_";
-	/**
-	 * Return the key with current datatime string as prefix, append and concat parameters with "_"
-	 * 
-	 * @param function Function calling from
-	 * @param scsEnvId ScsEnvId to request for database operation
-	 * @param dbAddress DbAddress to request for database operation
-	 * @return Return the key in String
-	 */
-	public String getDatabaseKey(final String function, final String scsEnvId, final String dbAddress) {
-		return getDateTimeString()+UNDER_SCORE+function+UNDER_SCORE+scsEnvId+UNDER_SCORE+dbAddress;
-	}
-	/**
-	 * Same as API getDatabaseKey(final String function, final String scsEnvId, final String dbAddress);
-	 * Append and concat "value" parameter with "_"
-	 * 
-	 * @param function Function calling from
-	 * @param scsEnvId ScsEnvId to request for database operation
-	 * @param dbAddress DbAddress to request for database operation
-	 * @param value Value to request for database operation
-	 * @return Return the key in String
-	 */
-	public String getKey(final String function, final String scsEnvId, final String dbAddress, final String value) {
-		return getDatabaseKey(function, scsEnvId, dbAddress)+UNDER_SCORE+value;
-	}
-	
-	private UIOpm_i uiOpm_i = null;
-	public UIOpm_i getUIOpm() {
-		String function = "getUIOpm";
-		logger.begin(className, function);
-		if ( null == uiOpm_i ) {
-			logger.debug(className, function, "uiOpmName[{}]", getUIOpmName());
-			uiOpm_i = OpmMgr.getInstance().getOpm(getUIOpmName());
-		}
-		logger.debug(className, function, "uiOpm_i[{}]", uiOpm_i);
-		logger.end(className, function);
-		return uiOpm_i;
-	}
-	
-	private String uiOpmName = null;
-	public void setUIOpmName(final String uiOpmName) { this.uiOpmName = uiOpmName; }
-	private String getUIOpmName() {
-		String function = "getUIOpmName";
-		logger.begin(className, function);
-		
-		if ( null == uiOpmName ) {
-			
-			uiOpmName = ReadJsonFile.readString(
-					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
-					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
-					, UIControlPrioritySCADAgen_i.Attribute.UIOpmName.toString()
-					, UIControlPrioritySCADAgen_i.UIOPM_NAME);
-		}
-		logger.debug(className, function, "uiOpmName[{}]", uiOpmName);
-		logger.end(className, function);
-		return uiOpmName;
-	}
-	
+
 	private String usrIdentityType = null;
 	/**
 	 * Get UsrIdentityType DBAttribute in the configuration, 
@@ -911,8 +841,101 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		return ret;
 	}
 	
+	private UIOpm_i uiOpm_i = null;
+	public UIOpm_i getUIOpm(String uiOpmName) {
+		String function = "getUIOpm";
+		logger.begin(className, function);
+		if ( null == uiOpm_i ) {
+			logger.debug(className, function, "uiOpmName[{}]", getUIOpmName());
+			uiOpm_i = OpmMgr.getInstance().getOpm(getUIOpmName());
+		}
+		logger.debug(className, function, "uiOpm_i[{}]", uiOpm_i);
+		logger.end(className, function);
+		return uiOpm_i;
+	}
+	
+	private String uiOpmName = null;
+	public void setUIOpmName(final String uiOpmName) { this.uiOpmName = uiOpmName; }
+	private String getUIOpmName() {
+		String function = "getUIOpmName";
+		logger.begin(className, function);
+		if ( null == uiOpmName ) {
+			uiOpmName = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.Attribute.UIOpmName.toString()
+					, UIControlPrioritySCADAgen_i.UIOPM_NAME);
+		}
+		logger.debug(className, function, "uiOpmName[{}]", uiOpmName);
+		logger.end(className, function);
+		return uiOpmName;
+	}
+	
 	private DatabaseWrite_i databaseWrite_i = null;
+	public DatabaseWrite_i getDatabaseWrite(String databaseWriteName) {
+		String function = "getDatabaseWrite";
+		logger.begin(className, function);
+		// Loading the DB Reading API
+		databaseWrite_i = DatabaseWriteFactory.get(databaseWriteName);
+		if ( null != databaseWrite_i ) {
+			databaseWrite_i.connect();
+		} else {
+			logger.warn(className, function, "databaseWrite_i from name databaseWriteName[{}] NOT FOUND!", databaseWriteName); 
+		}
+		logger.end(className, function);
+		return databaseWrite_i;
+	}
+	
+	private String databaseWriteName = null;
+	public void setDatabaseWriteName(final String databaseWriteName) { this.databaseWriteName = databaseWriteName; }
+	private String getDatabaseWriteName() {
+		String function = "getDatabaseWriteName";
+		logger.begin(className, function);
+		if ( null == databaseWriteName ) {
+			databaseWriteName = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.Attribute.DatabaseWriteKey.toString()
+					, UIControlPrioritySCADAgen_i.DB_WRITE_NAME);
+		}
+		logger.debug(className, function, "databaseWriteName[{}]", databaseWriteName);
+		logger.end(className, function);
+		return databaseWriteName;
+	}
+	
 	private DatabaseMultiRead_i databaseMultiRead_i = null;
+	public DatabaseMultiRead_i getDatabaseMultiRead(String databaseMultiReadName) {
+		String function = "getDatabaseMultiRead";
+		logger.begin(className, function);
+		// Loading the DB Reading API
+		databaseMultiRead_i = DatabaseMultiReadFactory.get(databaseMultiReadName);
+		if ( null != databaseMultiRead_i ) {
+			databaseMultiRead_i.connect();
+		} else {
+			logger.warn(className, function, "databaseMultiRead_i from name strDbReadName[{}] NOT FOUND!", databaseMultiReadName); 
+		}
+		logger.end(className, function);
+		return databaseMultiRead_i;
+	}
+	
+	private String databaseMultiReadName = null;
+	public void setDatabaseMultiReadName(final String databaseMultiReadName) { this.databaseMultiReadName = databaseMultiReadName; }
+	private String getDatabaseMultiReadName() {
+		String function = "getDatabaseMultiReadName";
+		logger.begin(className, function);
+		if ( null == databaseMultiReadName ) {
+			databaseMultiReadName = ReadJsonFile.readString(
+					UIControlPrioritySCADAgen_i.CACHE_NAME_DICTIONARYIES
+					, UIControlPrioritySCADAgen_i.FILE_NAME_ATTRIBUTE
+					, UIControlPrioritySCADAgen_i.Attribute.DatabaseMultiReadKey.toString()
+					, UIControlPrioritySCADAgen_i.DB_READ_NAME);
+		}
+		logger.debug(className, function, "databaseMultiReadName[{}]", databaseMultiReadName);
+		logger.end(className, function);
+		return databaseMultiReadName;
+	}
+	
+	private DatabaseKey databaseKey = new DatabaseKey();
 	/* (non-Javadoc)
 	 * @see com.thalesgroup.scadagen.wrapper.wrapper.client.opm.controlpriority.UIControlPriority_i#init()
 	 */
@@ -920,30 +943,15 @@ public class UIControlPrioritySCADAgen implements UIControlPriority_i {
 		String function = "getResrvReserveID";
 		logger.begin(className, function);
 		
-		// Loading the DB Write API
-		String strDbWriteName = UIControlPrioritySCADAgen_i.DB_WRITE_NAME;
-		databaseWrite_i = DatabaseWriteFactory.get(strDbWriteName);
-		if ( null != databaseWrite_i ) { 
-			databaseWrite_i.connect();
-		} else {
-			logger.warn(className, function, "databaseWrite_i from name strDbWriteName[{}] NOT FOUND!", strDbWriteName); 
-		}
+		getDatabaseWrite(getDatabaseWriteName());
 		
-		// Loading the DB Reading API
-		String strDbReadName = UIControlPrioritySCADAgen_i.DB_READ_NAME;
-		databaseMultiRead_i = DatabaseMultiReadFactory.get(strDbReadName);
-		if ( null != databaseMultiRead_i ) {
-			databaseMultiRead_i.connect();
-		} else {
-			logger.warn(className, function, "databaseMultiRead_i from name strDbReadName[{}] NOT FOUND!", strDbReadName); 
-		}
+		getDatabaseMultiRead(getDatabaseMultiReadName());
 		
 		// Loading UIOpm Name and API
-		getUIOpmName();
-		getUIOpm();		
+		getUIOpm(getUIOpmName());		
 		
 		// Loading the UsrIdentity
-		setUsrIdentity(getUsrIdentity(getUIOpm(), getUsrIdentityType()));
+		setUsrIdentity(getUsrIdentity(getUIOpm(getUIOpmName()), getUsrIdentityType()));
 		
 		logger.debug(className, function, "usrIdentity[{}]", getUsrIdentity()); 
 

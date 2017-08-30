@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>22</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>Check Accesses:</label>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>checkAccesses</label>
+		<element>checkAccesses</element>
+	</option>
+	
+	<option key="0|2">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+	</option>
+	<option key="0|3">
+		<widget>TextBox</widget>
+		<element>resultvalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|4">
+		<widget>InlineLabel</widget>
+		<label>UIOPM API:</label>
+	</option>
+	<option key="0|5">
+		<widget>TextBox</widget>
+		<label>UIOpmSCADAgen</label>
+		<element>uiopmapivalue</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|6">
+		<widget>InlineLabel</widget>
+		<label>name1value:</label>
+	</option>
+	<option key="0|7">
+		<widget>TextBox</widget>
+		<label>function</label>
+		<element>name1value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|8">
+		<widget>InlineLabel</widget>
+		<label>value1value:</label>
+	</option>
+	<option key="0|9">
+		<widget>TextBox</widget>
+		<element>value1value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|10">
+		<widget>InlineLabel</widget>
+		<label>name2value:</label>
+	</option>
+	<option key="0|11">
+		<widget>TextBox</widget>
+		<label>location</label>
+		<element>name2value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|12">
+		<widget>InlineLabel</widget>
+		<label>value2value:</label>
+	</option>
+	<option key="0|13">
+		<widget>TextBox</widget>
+		<element>value2value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|14">
+		<widget>InlineLabel</widget>
+		<label>name3value:</label>
+	</option>
+	<option key="0|15">
+		<widget>TextBox</widget>
+		<label>action</label>
+		<element>name3value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|16">
+		<widget>InlineLabel</widget>
+		<label>value3value:</label>
+	</option>
+	<option key="0|17">
+		<widget>TextBox</widget>
+		<element>value3value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|18">
+		<widget>InlineLabel</widget>
+		<label>name4value:</label>
+	</option>
+	<option key="0|19">
+		<widget>TextBox</widget>
+		<label>mode</label>
+		<element>name4value</element>
+		<maxlength>100</maxlength>
+	</option>
+	
+	<option key="0|20">
+		<widget>InlineLabel</widget>
+		<label>value4value:</label>
+	</option>
+	<option key="0|21">
+		<widget>TextBox</widget>
+		<element>value4value</element>
+		<maxlength>100</maxlength>
+	</option>
+</data-set>

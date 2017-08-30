@@ -1091,27 +1091,6 @@
 		<uiView>UILayoutEntryPointDpcTagSummary/UILayoutEntryPointDpcTagSummary.view.xml</uiView>
 		<tooltips>PTW Summary(DpcTag)</tooltips>
 	</option>
-
-	<option key="107">
-		<type>P</type>
-		<name>Change Password Summary</name>
-		<title>Change Password Summary</title>
-		<uiCtrl>UILayoutEntryPoint</uiCtrl>
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMChangePasswordSummary/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
-		<tooltips>Change Password Summary</tooltips>
-	</option>
-	<option key="108">
-		<type>P</type>
-		<name>Change Target User Password Summary</name>
-		<title>Change Target User Password Summary</title>
-		<uiCtrl>UILayoutEntryPoint</uiCtrl>
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointOPMChangeTargetUserPasswordSummary/UILayoutEntryPointOPMChangeTargetUserPasswordSummary.view.xml</uiView>
-		<tooltips>Change User Password Summary</tooltips>
-	</option>	
 	
 	<option key="109">
 		<type>P</type>
@@ -1140,7 +1119,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
 		<tooltips>Database Verify Summary</tooltips>
 	</option>
 	<option key="112">
@@ -1150,7 +1129,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseMultiReadingSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseMultiReadingSummary.view.xml</uiView>
 		<tooltips>MultiReading</tooltips>
 	</option>
 	<option key="113">
@@ -1160,7 +1139,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGetChildrenSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGetChildrenSummary.view.xml</uiView>
 		<tooltips>GetChildren</tooltips>
 	</option>
 	<option key="114">
@@ -1170,7 +1149,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSubscriptionSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseSubscriptionSummary.view.xml</uiView>
 		<tooltips>Subscription</tooltips>
 	</option>
 	<option key="115">
@@ -1180,7 +1159,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabasePollingSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabasePollingSummary.view.xml</uiView>
 		<tooltips>Polling</tooltips>
 	</option>
 	<option key="116">
@@ -1190,7 +1169,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGroupPollingSummary.view.xml</uiView>
 		<tooltips>GroupPolling</tooltips>
 	</option>
 	<option key="117">
@@ -1200,7 +1179,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSummary.view.xml</uiView>
 		<tooltips>GroupPollingDiff</tooltips>
 	</option>
 	<option key="118">
@@ -1210,7 +1189,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSingletonSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseGroupPollingDiffSingletonSummary.view.xml</uiView>
 		<tooltips>GroupPollingDiff Singleton</tooltips>
 	</option>
 	<option key="119">
@@ -1220,7 +1199,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseWritingSummary.view.xml</uiView>
+		<uiView>Verify/Database/UILayoutEntryPointVerifyDatabaseWritingSummary.view.xml</uiView>
 		<tooltips>Writing</tooltips>
 	</option>
 	<option key="120">
@@ -1229,10 +1208,6 @@
 		<title>Central Station</title>
 		<uiCtrl>Central Station</uiCtrl>
 		<uiScreen>-1</uiScreen>
-		<!--
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyDatabaseSummary/UILayoutEntryPointVerifyDatabaseSummary.view.xml</uiView>
-		-->
 		<tooltips>Central Station</tooltips>
 	</option>
 	<option key="121">
@@ -1264,7 +1239,7 @@
 		<uiScreen>-1</uiScreen>
 
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyHILCSummary/UILayoutEntryPointVerifyHILCSummary.view.xml</uiView>
+		<uiView>Verify/HILC/UILayoutEntryPointVerifyHILCSummary.view.xml</uiView>
 
 		<tooltips>HILC Verify Summary</tooltips>
 	</option>
@@ -1275,10 +1250,6 @@
 		<type>M</type>
 		<name>Verify Read JSON Summary</name>
 		<title>Verify Read JSON Summary</title>
-		<uiCtrl>UILayoutEntryPoint</uiCtrl>
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
 		<tooltips>Verify Read JSON Summary</tooltips>
 	</option>
 	
@@ -1289,30 +1260,8 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyReadJSONSummary/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
+		<uiView>Verify/Json/UILayoutEntryPointVerifyReadJSONSummary.view.xml</uiView>
 		<tooltips>Verify Read JSON Summary</tooltips>
-	</option>
-	
-	<option key="132">
-		<type>M</type>
-		<name>Verify OPM Summary</name>
-		<title>Verify OPM Summary</title>
-		<uiCtrl>UILayoutEntryPoint</uiCtrl>
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
-		<tooltips>Verify OPM Summary</tooltips>
-	</option>
-	
-	<option key="133">
-		<type>P</type>
-		<name>Verify OPM Summary</name>
-		<title>Verify OPM Summary</title>
-		<uiCtrl>UILayoutEntryPoint</uiCtrl>
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyOPMSummary/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
-		<tooltips>Verify OPM Summary</tooltips>
 	</option>
 	
 	<option key="134">
@@ -1350,7 +1299,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionDbmSummary/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Dbm/UILayoutEntryPointVerifyUIEventActionDbmSummary.view.xml</uiView>
 		<tooltips>UIEventAction Dbm Panel</tooltips>
 	</option>
 	<option key="152">
@@ -1360,7 +1309,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionJSSummary/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
+		<uiView>Verify/UIEventAction/JS/UILayoutEntryPointVerifyUIEventActionJSSummary.view.xml</uiView>
 		<tooltips>UIEventAction JS Panel</tooltips>
 	</option>
 
@@ -1371,7 +1320,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionOlsSummary/UILayoutEntryPointVerifyUIEventActionOlsSummary.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Ols/UILayoutEntryPointVerifyUIEventActionOlsSummary.view.xml</uiView>
 		<tooltips>UIEventAction Ols Panel</tooltips>
 	</option>
 	
@@ -1388,7 +1337,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskNamesAddTaskRemoveTask.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskNamesAddTaskRemoveTask.view.xml</uiView>
 		<tooltips>GetTaskNamesAddTaskRemoveTask</tooltips>
 	</option>
 	<option key="162">
@@ -1398,7 +1347,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_EnableTaskDisableTaskIsEnabledTask.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_EnableTaskDisableTaskIsEnabledTask.view.xml</uiView>
 		<tooltips>EnableTaskDisableTaskIsEnabledTask</tooltips>
 	</option>
 	<option key="163">
@@ -1408,7 +1357,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetStartTimeSetStartTime.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetStartTimeSetStartTime.view.xml</uiView>
 		<tooltips>GetStartTimeSetStartTime</tooltips>
 	</option>
 	<option key="164">
@@ -1418,7 +1367,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetEndTimeSetEndTime.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetEndTimeSetEndTime.view.xml</uiView>
 		<tooltips>GetEndTimeSetEndTime</tooltips>
 	</option>
 	<option key="165">
@@ -1428,7 +1377,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDescriptionSetDescription.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDescriptionSetDescription.view.xml</uiView>
 		<tooltips>GetDescriptionSetDescription</tooltips>
 	</option>
 	<option key="166">
@@ -1438,7 +1387,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetFilterSetFilter.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetFilterSetFilter.view.xml</uiView>
 		<tooltips>GetFilterSetFilter</tooltips>
 	</option>
 	
@@ -1449,7 +1398,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_AddCompleteTask.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_AddCompleteTask.view.xml</uiView>
 		<tooltips>AddCompleteTask</tooltips>
 	</option>
 	<option key="168">
@@ -1459,7 +1408,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandSetCommand.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetCommandSetCommand.view.xml</uiView>
 		<tooltips>GetCommandSetCommand</tooltips>
 	</option>
 	<option key="169">
@@ -1469,7 +1418,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetArgumentsSetArguments.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetArgumentsSetArguments.view.xml</uiView>
 		<tooltips>GetArgumentsSetArguments</tooltips>
 	</option>
 	<option key="170">
@@ -1479,7 +1428,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDatesSetDates.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDatesSetDates.view.xml</uiView>
 		<tooltips>GetDatesSetDates</tooltips>
 	</option>	
 	<option key="171">
@@ -1489,7 +1438,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetIntervalSetInterval.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetIntervalSetInterval.view.xml</uiView>
 		<tooltips>GetIntervalSetInterval</tooltips>
 	</option>	
 	<option key="172">
@@ -1499,7 +1448,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLog.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetLog.view.xml</uiView>
 		<tooltips>GetLog</tooltips>
 	</option>	
 	<option key="173">
@@ -1509,7 +1458,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskType.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetTaskType.view.xml</uiView>
 		<tooltips>GetTaskType</tooltips>
 	</option>	
 	<option key="174">
@@ -1519,7 +1468,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_SetTaskArguments.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_SetTaskArguments.view.xml</uiView>
 		<tooltips>SetTaskArguments</tooltips>
 	</option>	
 	<option key="175">
@@ -1529,7 +1478,7 @@
 		<uiCtrl>UILayoutEntryPoint</uiCtrl>
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyUIEventActionTscSummary/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDayGroupNamesAndIds.view.xml</uiView>
+		<uiView>Verify/UIEventAction/Tsc/UILayoutEntryPointVerifyUIEventActionTscSummary_GetDayGroupNamesAndIds.view.xml</uiView>
 		<tooltips>GetDayGroupNamesAndIds</tooltips>
 	</option>
 	
@@ -1548,13 +1497,6 @@
 		<type>M</type>
 		<name>Verify ScsRTDBComponent Summary</name>
 		<title>Verify ScsRTDBComponent Summary</title>
-		<!--
-		<uiCtrl>UILayoutEntryPoint</uiCtrl>
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiView>UILayoutEntryPointVerifyTranslationSummary/UILayoutEntryPointVerifyTranslationSummary.view.xml</uiView>
-		<tooltips>Verify ScsRTDBComponent Summary</tooltips>
-		-->
 	</option>
 	
 	<option key="185">
@@ -1628,6 +1570,7 @@
 		<type>M</type>
 		<name>Verify Control Priority</name>
 		<title>Verify Control Priority</title>
+		<tooltips>Verify Control Priority</tooltips>
 	</option>
 
 	<option key="192">
@@ -1699,5 +1642,44 @@
 		<uiScreen>-1</uiScreen>
 
 		<uiConf>uiCtrl=UIWidgetVerifyControlPriority&amp;uiView=Verify/ControlPriority/CheckReservationAvailability.view.xml</uiConf>
+	</option>
+	
+	<option key="200">
+		<type>M</type>
+		<name>Verify OPM Summary</name>
+		<title>Verify OPM Summary</title>
+		<tooltips>Verify OPM Summary</tooltips>
+	</option>
+	
+	<option key="201">
+		<type>P</type>
+		<name>Change Password Summary</name>
+		<title>Change Password Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/ChangePassword/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
+		<tooltips>Change Password Summary</tooltips>
+	</option>
+	<option key="202">
+		<type>P</type>
+		<name>Change Target User Password Summary</name>
+		<title>Change Target User Password Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/ChangePassword/UILayoutEntryPointOPMChangeTargetUserPasswordSummary.view.xml</uiView>
+		<tooltips>Change User Password Summary</tooltips>
+	</option>
+	
+	<option key="203">
+		<type>P</type>
+		<name>Verify OPM Summary</name>
+		<title>Verify OPM Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/UILayoutEntryPointVerifyOPMSummary.view.xml</uiView>
+		<tooltips>Verify OPM Summary</tooltips>
 	</option>
 </data-set>

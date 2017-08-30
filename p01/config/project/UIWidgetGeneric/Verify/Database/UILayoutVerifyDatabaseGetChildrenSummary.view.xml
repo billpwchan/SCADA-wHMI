@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>VerticalPanel</rootPanel>
+		<rootCSS>project-UILayoutVerifyDatabaseSummary-root</rootCSS>
+	</header>
+
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyDatabaseGetChildrenControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGetChildrenControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGetChildrenControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGetChildrenControl</element>
+	</option>	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyDatabaseGetChildrenControl</uiCtrl>
+		<uiView>Verify/Database/UIWidgetVerifyDatabaseGetChildrenProxyControl.view.xml</uiView>
+		<uiOpts>Verify/Database/UIWidgetVerifyDatabaseGetChildrenProxyControl.opts.xml</uiOpts>
+		<element>UIWidgetVerifyDatabaseGetChildrenProxyControl</element>
+	</option>
+
+</data-set>

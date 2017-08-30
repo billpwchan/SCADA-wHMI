@@ -1,6 +1,6 @@
 package com.thalesgroup.scadagen.whmi.uipanel.uipanelviewlayout.client;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEventHandler;
@@ -13,7 +13,7 @@ import com.thalesgroup.scadagen.whmi.uitask.uitask.client.UITask_i;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory;
 import com.thalesgroup.scadagen.whmi.uitask.uitaskhistory.client.UITaskHistory.TaskType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch;
-import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch.TaskLaunchType;
+import com.thalesgroup.scadagen.whmi.uitask.uitasklaunch.client.UITaskLaunch_i.TaskLaunchType;
 import com.thalesgroup.scadagen.whmi.uitask.uitasksplit.client.UITaskSplit;
 import com.thalesgroup.scadagen.whmi.uitask.uitasktitle.client.UITaskTitle;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
@@ -236,9 +236,9 @@ public class ViewLayoutMgr {
 
 		logger.begin(className, function);
 
-		if (taskLaunch.getUiPanel().equals("ViewSchematicSymbolSelected")) {
+		if (taskLaunch.getUiCtrl().equals("ViewSchematicSymbolSelected")) {
 			
-			HashMap<String, String> options = taskLaunch.getOptions();
+			Map<String, String> options = taskLaunch.getOptions();
 			
 			String configurationId	= taskLaunch.getOption("configurationId");
 			String hv_id			= taskLaunch.getOption("hv_id");
@@ -308,34 +308,14 @@ public class ViewLayoutMgr {
 
 		} else {
 			
-			
 			// Check the current task is not equals to target task
-			
 			logger.debug(className, function, "this.viewIdActivate[{}]", this.viewIdActivate);
 			if ( isValidActivateId(this.viewIdActivate) ) {
 				
 				UITaskLaunch curTaskLaunch = this.taskLaunchs[this.viewIdActivate];
 				if ( null != curTaskLaunch ) {
-					int validCounter = 0;
-					int validCount = 3;
-					
-					logger.debug(className, function, "taskLaunch.getTaskLaunchType()[{}] == curTaskLaunch.getTaskLaunchType()[{}]", taskLaunch.getTaskLaunchType(), curTaskLaunch.getTaskLaunchType());
-					if ( taskLaunch.getTaskLaunchType() == curTaskLaunch.getTaskLaunchType() ) {
-						validCounter++;
-					}
-					
-					logger.debug(className, function, "taskLaunch.getUiPanel()[{}] == curTaskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel(), curTaskLaunch.getUiPanel());
-					if ( taskLaunch.getUiPanel().equals(curTaskLaunch.getUiPanel()) ) {
-						validCounter++;
-					}
-					
-					logger.debug(className, function, "taskLaunch.getUiView()[{}] == curTaskLaunch.getUiView()[{}]", taskLaunch.getUiView(), curTaskLaunch.getUiView());
-					if ( taskLaunch.getUiView().equals(curTaskLaunch.getUiView()) ) {
-						validCounter++;
-					}
-					
-					if ( validCounter >= validCount ) {
-						logger.debug(className, function, "validCounter[{}] validCount[{}]", validCounter, validCount);
+					if ( taskLaunch.isEquals(curTaskLaunch) ) {
+						logger.debug(className, function, "taskLaunch and curTaskLaunch IS EQUAL, skip the launch task..."); 
 						return;
 					}
 				} else {
@@ -344,7 +324,6 @@ public class ViewLayoutMgr {
 			} else {
 				logger.warn(className, function, "this.viewIdActivate is INVALUD[{}] taskLaunchs.length[{}]", this.viewIdActivate, this.taskLaunchs.length);
 			}
-			
 			
 			// Kill inspector before open it
 			UIInspectorMgr mgr = UIInspectorMgr.getInstance(Integer.toString(uiNameCard.getUiScreen()));

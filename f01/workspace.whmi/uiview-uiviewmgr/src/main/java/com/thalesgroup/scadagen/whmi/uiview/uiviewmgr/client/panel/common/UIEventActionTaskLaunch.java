@@ -76,7 +76,6 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 			String strUiCtrl			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
 			String strUiView			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
 			String strUiOpts			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
-			String strUiPanel			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
 			
 			boolean isValid = false;
 			
@@ -95,7 +94,6 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				uiTaskLaunch.setUiCtrl(strUiCtrl);
 				uiTaskLaunch.setUiView(strUiView);
 				uiTaskLaunch.setUiOpts(strUiOpts);
-				uiTaskLaunch.setUiPanel(strUiPanel);
 				
 				logger.debug(className, function, "fire event task strOperationString1[{}]", strOperationString1);
 				

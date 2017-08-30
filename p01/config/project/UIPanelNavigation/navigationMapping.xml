@@ -254,4 +254,7 @@
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationLevel.view.xml"><setting>196</setting></option>
 	<option key="LMC|Verify ControlPriority|UIVerifyControlPriority_CheckReservationAvailability.view.xml"><setting>197</setting></option>
 	
+	<!-- Keep it as Default Page for not found -->
+	<option key="MenuNotFound"><setting>-1</setting></option>
+	
 </data-set>

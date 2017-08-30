@@ -61,7 +61,6 @@ public class UIPanelScreen extends UIWidget_i {
 		uiTaskLaunch.setUiCtrl(uiCtrl);
 		uiTaskLaunch.setUiView(viewXMLFile);
 		uiTaskLaunch.setUiOpts(optsXMLFile);
-		uiTaskLaunch.setUiPanel(viewXMLFile);
 		uiNameCard.getUiEventBus().fireEvent(new UIEvent(uiTaskLaunch));		
 
     	logger.end(className, function);
@@ -141,7 +140,7 @@ public class UIPanelScreen extends UIWidget_i {
 		
 		UITaskLaunch taskLaunch = (UITaskLaunch)taskProvide;
 		
-		logger.debug(className, function, "switchPanel taskLaunch.getUiPanel()[{}]", taskLaunch.getUiPanel());
+		logger.debug(className, function, "switchPanel taskLaunch.getUiCtrl()[{}]", taskLaunch.getUiCtrl());
 		
 		uiWidgets = new UIWidget_i[intNumOfScreen];
 		for ( int screen = 0 ; screen < intNumOfScreen ; ++screen ) {

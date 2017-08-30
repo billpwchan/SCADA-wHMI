@@ -81,7 +81,7 @@ public class UIInspectorConnectionBox extends DialogBox {
 	
 	private void connect() {
 		UITaskLaunch taskLaunch = new UITaskLaunch();
-		taskLaunch.setUiPanel("UIPanelInspector");
+		taskLaunch.setUiCtrl("UIPanelInspector");
 		taskLaunch.setTaskUiScreen(uiNameCard.getUiScreen());
 		taskLaunch.setUiPath(UIPathUIScreenMMI);
 		taskLaunch.setOption("dbAddress", dbAddress);

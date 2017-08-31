@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>1</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCSS>project-UILayoutEntryPointVerifyScsRTDBComponentSummary-root</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UILayoutSummary</uiCtrl>
+		<uiView>Verify/Scs/ScsRTDBComponent/UILayoutVerifyScsRTDBComponent.view.xml</uiView>
+		<uiOpts>Verify/Scs/ScsRTDBComponent/UILayoutVerifyScsRTDBComponent.opts.xml</uiOpts>
+		<element>UILayoutEntryPointVerifyScsRTDBComponentSummary</element>
+	</option>
+</data-set>

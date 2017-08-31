@@ -1410,6 +1410,17 @@
 		<title>Verify ScsRTDBComponent Summary</title>
 	</option>
 	
+	<option key="181">
+		<type>P</type>
+		<name>Verify Write Summary</name>
+		<title>Verify Write Summary</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>0</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Scs/ScsRTDBComponent/UILayoutEntryPointVerifyScsRTDBComponentControlSummary.view.xml</uiView>
+		<tooltips>Verify Write Summary</tooltips>
+	</option>
+	
 	<option key="185">
 		<type>P</type>
 		<name>Simultaneous Login Summary</name>

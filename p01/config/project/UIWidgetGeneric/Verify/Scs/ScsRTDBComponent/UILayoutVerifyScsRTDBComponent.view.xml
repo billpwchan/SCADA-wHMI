@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>5</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCSS>project-gwt-panel-summaryview-inner</rootCSS>
+	</header>
+	
+	<option key="0|0">
+		<uiCtrl>UIWidgetVerifyScsRTDBComponentControl</uiCtrl>
+		<uiView>Verify/Scs/ScsRTDBComponent/UIWidgetVerifyScsRTDBComponent_writeStringValueRequest.view.xml</uiView>
+		<element>UIWidgetVerifyScsRTDBComponent_writeStringValueRequest</element>
+	</option>
+	
+	<option key="0|1">
+		<uiCtrl>UIWidgetVerifyScsRTDBComponentControl</uiCtrl>
+		<uiView>Verify/Scs/ScsRTDBComponent/UIWidgetVerifyScsRTDBComponent_writeIntValueRequest.view.xml</uiView>
+		<element>UIWidgetVerifyScsRTDBComponent_writeIntValueRequest</element>
+	</option>
+	
+	<option key="0|2">
+		<uiCtrl>UIWidgetVerifyScsRTDBComponentControl</uiCtrl>
+		<uiView>Verify/Scs/ScsRTDBComponent/UIWidgetVerifyScsRTDBComponent_writeFloatValueRequest.view.xml</uiView>
+		<element>UIWidgetVerifyScsRTDBComponent_writeFloatValueRequest</element>
+	</option>
+	
+	<option key="0|3">
+		<uiCtrl>UIWidgetVerifyScsRTDBComponentControl</uiCtrl>
+		<uiView>Verify/Scs/ScsRTDBComponent/UIWidgetVerifyScsRTDBComponent_writeDateValueRequest.view.xml</uiView>
+		<element>UIWidgetVerifyScsRTDBComponent_writeDateValueRequest</element>
+	</option>
+	
+	<option key="0|4">
+		<uiCtrl>UIWidgetVerifyScsRTDBComponentControl</uiCtrl>
+		<uiView>Verify/Scs/ScsRTDBComponent/UIWidgetVerifyScsRTDBComponent_writeValueRequest.view.xml</uiView>
+		<element>UIWidgetVerifyScsRTDBComponent_writeValueRequest</element>
+	</option>
+</data-set>

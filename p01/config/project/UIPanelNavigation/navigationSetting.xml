@@ -86,11 +86,12 @@
 		<type>S</type>
 		<name>Tunnel Overview</name>
 		<title>TECS Tunnel Overview</title>
-		<uiCtrl>SCADAgenSituationViewPanel</uiCtrl>
-		<uiSvId>C1166B_TECS_ALLOVRTECS</uiSvId>
+		<tooltips>TECS Tunnel Overview</tooltips>
+		
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<tooltips>TECS Tunnel Overview</tooltips>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=C1166B_TECS_ALLOVRTECS</uiConf>
 	</option>
 	<option key="3">
 		<type>S</type>

@@ -310,8 +310,8 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		logger.end(className, function);
 	}
 	
-	private void terminate() {
-		final String function = "terminate";
+	private void disconnect() {
+		final String function = "disconnect";
 		logger.begin(className, function);
 		
 		try {
@@ -332,8 +332,8 @@ public class UIWidgetVerifyScsRTDBComponentControl extends UIWidgetRealize {
 		if ( 0 == "connect".compareToIgnoreCase(element) ) {
 			connect();
 		}
-		else if ( 0 == "terminate".compareToIgnoreCase(element) ) {
-			terminate();
+		else if ( 0 == "disconnect".compareToIgnoreCase(element) ) {
+			disconnect();
 		}
 		else if ( 0 == "writeDateValueRequest".compareToIgnoreCase(element) ) {
 			writeDateValueRequest();

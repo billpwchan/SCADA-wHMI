@@ -160,13 +160,13 @@
 	
 	<option key="0|15">
 		<widget>Button</widget>
-		<label>terminate</label>
-		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-button-terminate</css>
-		<element>terminate</element>
+		<label>disconnect</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-button-disconnect</css>
+		<element>disconnect</element>
 		
-		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-terminate</cssContainer>
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-disconnect</cssContainer>
 		
-		<tooltip>terminate</tooltip>
+		<tooltip>disconnect</tooltip>
 		
 	</option>
 

@@ -241,6 +241,11 @@
 	<option key="LMC|MCS|OPM Verify|Change Password Summary"><setting>202</setting></option>
 	<option key="LMC|MCS|OPM Verify|Change Target User Password Summary"><setting>203</setting></option>
 	
+	<option key="LMC|Verify Menu Append"><setting>220</setting></option>
+	<option key="LMC|Verify Menu Append - Second"><setting>221</setting></option>
+	<option key="LMC|Verify Menu Append|Item 1"><setting>222</setting></option>
+	<option key="LMC|Verify Menu Append - Second|Item 2"><setting>223</setting></option>
+	
 	<option key="LMC|MCS|Database Verify Summary"><setting>230</setting></option>
 	<option key="LMC|MCS|Database Verify Summary|MultiReading"><setting>231</setting></option>
 	<option key="LMC|MCS|Database Verify Summary|GetFullPath"><setting>232</setting></option>

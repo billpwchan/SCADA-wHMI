@@ -141,13 +141,13 @@
 	
 	<option key="0|13">
 		<widget>Button</widget>
-		<label>terminate</label>
-		<css>project-UIWidgetVerifyScsRTDBComponent_writeFloatValueRequest-button-terminate</css>
-		<element>terminate</element>
+		<label>disconnect</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeFloatValueRequest-button-disconnect</css>
+		<element>disconnect</element>
 		
-		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeFloatValueRequest-container-terminate</cssContainer>
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeFloatValueRequest-container-disconnect</cssContainer>
 		
-		<tooltip>terminate</tooltip>
+		<tooltip>disconnect</tooltip>
 		
 	</option>
 

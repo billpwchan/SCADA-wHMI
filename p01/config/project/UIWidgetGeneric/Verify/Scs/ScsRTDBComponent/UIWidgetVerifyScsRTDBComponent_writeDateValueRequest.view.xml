@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>1</rows>
+		<cols>16</cols>
+		<rootPanel>AbsolutePanel</rootPanel>
+		<rootCss>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-panel-inner</rootCss>
+	</header>
+	
+	<option key="0|0">
+		<widget>InlineLabel</widget>
+		<label>ScsRTDBComponent writeDateValueRequest:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-firstlabel</css>
+		<element>firstlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|1">
+		<widget>Button</widget>
+		<label>connect</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-button-connect</css>
+		<element>connect</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-connect</cssContainer>
+		
+		<tooltip>connect</tooltip>
+		
+	</option>
+	
+	<option key="0|2">
+		<widget>Button</widget>
+		<label>writeDateValueRequest</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-button-writeDateValueRequest</css>
+		<element>writeDateValueRequest</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-writeDateValueRequest</cssContainer>
+		
+		<tooltip>writeDateValueRequest</tooltip>
+		
+	</option>
+	
+	<option key="0|3">
+		<widget>InlineLabel</widget>
+		<label>Result:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-resultlabel</css>
+		<element>resultlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|4">
+		<widget>TextArea</widget>
+		<label></label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-textbox-resultvalue</css>
+		<element>resultvalue</element>
+		<disableTranslation>true</disableTranslation>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-resultvalue</cssContainer>
+		
+	</option>
+	
+	<!-- Information Session -->
+	
+	<option key="0|5">
+		<widget>InlineLabel</widget>
+		<label>key:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-keylabel</css>
+		<element>keylabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|6">
+		<widget>TextArea</widget>
+		<label>writeDateValueRequest</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-textbox-keyvalue</css>
+		<element>keyvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-keyvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|7">
+		<widget>InlineLabel</widget>
+		<label>scsenvid:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-scsenvidlabel</css>
+		<element>scsenvidlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|8">
+		<widget>TextArea</widget>
+		<label>M100CONN</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-textbox-scsenvidvalue</css>
+		<element>scsenvidvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-scsenvidvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|9">
+		<widget>InlineLabel</widget>
+		<label>address:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-addresslabel</css>
+		<element>addresslabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|10">
+		<widget>TextArea</widget>
+		<label>:TUN:M000001:ECT:TES_0001.opDate</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-textbox-addressvalue</css>
+		<element>addressvalue</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-addressvalue</cssContainer>
+		
+	</option>
+	
+	<option key="0|11">
+		<widget>InlineLabel</widget>
+		<label>second:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-secondlabel</css>
+		<element>secondlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|12">
+		<widget>TextArea</widget>
+		<label>2</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-textbox-second</css>
+		<element>second</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-second</cssContainer>
+		
+	</option>
+	
+	<option key="0|13">
+		<widget>InlineLabel</widget>
+		<label>usecond:</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-inlinelabel-usecondlabel</css>
+		<element>usecondlabel</element>
+		<format></format>
+		<media></media>
+	</option>
+	
+	<option key="0|14">
+		<widget>TextArea</widget>
+		<label>3</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-textbox-usecond</css>
+		<element>usecond</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-usecond</cssContainer>
+		
+	</option>
+	
+	<option key="0|15">
+		<widget>Button</widget>
+		<label>terminate</label>
+		<css>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-button-terminate</css>
+		<element>terminate</element>
+		
+		<cssContainer>project-UIWidgetVerifyScsRTDBComponent_writeDateValueRequest-container-terminate</cssContainer>
+		
+		<tooltip>terminate</tooltip>
+		
+	</option>
+
+</data-set>

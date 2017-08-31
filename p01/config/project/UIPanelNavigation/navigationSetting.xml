@@ -1594,6 +1594,42 @@
 		<tooltips>Verify OPM Summary</tooltips>
 	</option>
 	
+	<option key="220">
+		<type>M</type>
+		<name>Verify Menu Append</name>
+		<title>Verify Menu Append</title>
+	</option>
+	
+	<option key="221">
+		<type>M</type>
+		<name>Verify Menu Append - Second</name>
+		<title>Verify Menu Append - Second</title>
+	</option>
+	
+	<option key="222">
+		<type>P</type>
+		<name>Item 1</name>
+		<title>Item 1</title>
+		<tooltips>Item 1</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf></uiConf>
+	</option>
+	
+	<option key="223">
+		<type>P</type>
+		<name>Item 2</name>
+		<title>Item 2</title>
+		<tooltips>Item 2</tooltips>
+
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+
+		<uiConf></uiConf>
+	</option>
+	
 	<option key="230">
 		<type>M</type>
 		<name>Verify Database Class Summary</name>

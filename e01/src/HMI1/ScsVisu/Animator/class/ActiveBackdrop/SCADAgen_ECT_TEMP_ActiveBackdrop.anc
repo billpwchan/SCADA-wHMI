@@ -1,0 +1,16 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 27/06/2016 14:41:28
+// Model: ECT/TEMP_Backdrop
+
+Version = "41000"
+
+ActiveBackdrop
+{
+  Colors =
+  {
+    "SCADAgen_undefined",
+    "normal",
+    "alarm"
+  }
+  Default Color = 1
+}

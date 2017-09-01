@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="COMM" label="FEP Comm" scstype="FASCOMM">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioFAM-HDVSTATUS_xPxcwf7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dioMCS-SET" label="SET">
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcwv7zEeaDWYc-j7jl3Q_1488423361676" dovname="dovMCS-CTLVAL0" label="Not Set"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcw_7zEeaDWYc-j7jl3Q_1488423361676" dovname="dovMCS-CTLVAL1" label="Set" value="1"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcxP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcxf7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcxv7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcx_7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcyP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcyf7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcyv7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxcy_7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxczP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_xPxczf7zEeaDWYc-j7jl3Q_1488423361676"/>
+    <DOV xmi:id="dov_type_dovFAM-LEVEL1_xPxczv7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dovMCS-CTLVAL0" ctlvalue="1">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxcz_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc0P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc0f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc0v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc0_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc1P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc1f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc1v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc1_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc2P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc2f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc2v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc2_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc3P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc3f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc3v7zEeaDWYc-j7jl3Q_1488423361676"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovFAM-LEVEL2_xPxc3_7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dovMCS-CTLVAL1" ctlvalue="1">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc4P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc4f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc4v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc4_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc5P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc5f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc5v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_xPxc5_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc6P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc6f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc6v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc6_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc7P7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc7f7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc7v7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_xPxc7_7zEeaDWYc-j7jl3Q_1488423361676"/>
+    </DOV>
+  </outputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_xPxdEv7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dciMCS-COM" label="COM">
+    <DAC xmi:id="dac_type_dac_xPxdE_7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_xPxdFP7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <veTable xmi:id="struct_veTable_dac_type_xPxdFf7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <veTable xmi:id="struct_veTable_dac_type_xPxdFv7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <veTable xmi:id="struct_veTable_dac_type_xPxdF_7zEeaDWYc-j7jl3Q_1488423361676"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_xPxdGP7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdGf7zEeaDWYc-j7jl3Q_1488423361676" label="Failure" severity="2" state="A"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdGv7zEeaDWYc-j7jl3Q_1488423361676" label="Normal" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdG_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdHP7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdHf7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdHv7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdH_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdIP7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdIf7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdIv7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdI_7zEeaDWYc-j7jl3Q_1488423361676"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xPxdJP7zEeaDWYc-j7jl3Q_1488423361676"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_xPxdJf7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciCOMM-COM_3rwzUP70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dciMCS-INF" label="INF">
+    <DAC xmi:id="dac_type_dac_3rwzUf70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_3rwzUv70EeaDWYc-j7jl3Q_1488423834373"/>
+      <veTable xmi:id="struct_veTable_dac_type_3rwzU_70EeaDWYc-j7jl3Q_1488423834373"/>
+      <veTable xmi:id="struct_veTable_dac_type_3rwzVP70EeaDWYc-j7jl3Q_1488423834373"/>
+      <veTable xmi:id="struct_veTable_dac_type_3rwzVf70EeaDWYc-j7jl3Q_1488423834373"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_3rwzVv70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzV_70EeaDWYc-j7jl3Q_1488423834373" label="Failure" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzWP70EeaDWYc-j7jl3Q_1488423834373" label="Normal" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzWf70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzWv70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzW_70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzXP70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzXf70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzXv70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzX_70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzYP70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzYf70EeaDWYc-j7jl3Q_1488423834373"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_3rwzYv70EeaDWYc-j7jl3Q_1488423834373"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_3rwzY_70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciCOMM-COM_4QqQIP70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dciMCS-LINK1" label="LINK1">
+    <DAC xmi:id="dac_type_dac_4QqQIf70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_4QqQIv70EeaDWYc-j7jl3Q_1488423838242"/>
+      <veTable xmi:id="struct_veTable_dac_type_4QqQI_70EeaDWYc-j7jl3Q_1488423838242"/>
+      <veTable xmi:id="struct_veTable_dac_type_4QqQJP70EeaDWYc-j7jl3Q_1488423838242"/>
+      <veTable xmi:id="struct_veTable_dac_type_4QqQJf70EeaDWYc-j7jl3Q_1488423838242"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_4QqQJv70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQJ_70EeaDWYc-j7jl3Q_1488423838242" label="Failure" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQKP70EeaDWYc-j7jl3Q_1488423838242" label="Normal" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQKf70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQKv70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQK_70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQLP70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQLf70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQLv70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQL_70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQMP70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQMf70EeaDWYc-j7jl3Q_1488423838242"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_4QqQMv70EeaDWYc-j7jl3Q_1488423838242"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_4QqQM_70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2EelEP73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dciMCS-LINK2" label="LINK2">
+    <DAC xmi:id="dac_type_dac_2EelEf73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_2EelEv73EeaDWYc-j7jl3Q_1488425112033"/>
+      <veTable xmi:id="struct_veTable_dac_type_2EelE_73EeaDWYc-j7jl3Q_1488425112033"/>
+      <veTable xmi:id="struct_veTable_dac_type_2EelFP73EeaDWYc-j7jl3Q_1488425112033"/>
+      <veTable xmi:id="struct_veTable_dac_type_2EelFf73EeaDWYc-j7jl3Q_1488425112033"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_2EelFv73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelF_73EeaDWYc-j7jl3Q_1488425112033" label="Failure" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelGP73EeaDWYc-j7jl3Q_1488425112033" label="Normal" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelGf73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelGv73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelG_73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelHP73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelHf73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelHv73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelH_73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelIP73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelIf73EeaDWYc-j7jl3Q_1488425112033"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2EelIv73EeaDWYc-j7jl3Q_1488425112033"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_2EelI_73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2TNkoP73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dciMCS-LINK3" label="LINK3">
+    <DAC xmi:id="dac_type_dac_2TNkof73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_2TNkov73EeaDWYc-j7jl3Q_1488425113578"/>
+      <veTable xmi:id="struct_veTable_dac_type_2TNko_73EeaDWYc-j7jl3Q_1488425113578"/>
+      <veTable xmi:id="struct_veTable_dac_type_2TNkpP73EeaDWYc-j7jl3Q_1488425113578"/>
+      <veTable xmi:id="struct_veTable_dac_type_2TNkpf73EeaDWYc-j7jl3Q_1488425113578"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_2TNkpv73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkp_73EeaDWYc-j7jl3Q_1488425113578" label="Failure" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkqP73EeaDWYc-j7jl3Q_1488425113578" label="Normal" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkqf73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkqv73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkq_73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkrP73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkrf73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkrv73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNkr_73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNksP73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNksf73EeaDWYc-j7jl3Q_1488425113578"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2TNksv73EeaDWYc-j7jl3Q_1488425113578"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_2TNks_73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dfo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2p0t0P73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dciMCS-LINK4" label="LINK4">
+    <DAC xmi:id="dac_type_dac_2p0t0f73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dac">
+      <veTable xmi:id="struct_veTable_dac_type_2p0t0v73EeaDWYc-j7jl3Q_1488425115949"/>
+      <veTable xmi:id="struct_veTable_dac_type_2p0t0_73EeaDWYc-j7jl3Q_1488425115949"/>
+      <veTable xmi:id="struct_veTable_dac_type_2p0t1P73EeaDWYc-j7jl3Q_1488425115949"/>
+      <veTable xmi:id="struct_veTable_dac_type_2p0t1f73EeaDWYc-j7jl3Q_1488425115949"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_2p0t1v73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t1_73EeaDWYc-j7jl3Q_1488425115949" label="Failure" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t2P73EeaDWYc-j7jl3Q_1488425115949" label="Normal" state="N" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t2f73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t2v73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t2_73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t3P73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t3f73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t3v73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t3_73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t4P73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t4f73EeaDWYc-j7jl3Q_1488425115949"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_2p0t4v73EeaDWYc-j7jl3Q_1488425115949"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_2p0t4_73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

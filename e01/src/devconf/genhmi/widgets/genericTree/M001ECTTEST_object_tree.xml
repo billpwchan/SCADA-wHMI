@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************
+ Generated with MetaConfigurator v3.1.0.10
+     Project: SCADAgen
+     Version: 2.0.4
+
+        User: syau
+    Computer: PC16011
+          OS: Windows 7 v6.1 (arch amd64)
+*******************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://navtree.util.core.mwt.hypervisor.thalesgroup.com">
+    <navigationTreeType id="M001ECTTEST_object_tree">
+        <rootNodeDef navId="M001ECTTEST_object_tree" isOpen="true">
+            <categoryNodeDef navId="andefaultlayer" isOpen="true" labelName="andefaultlayer_desc">
+                <entityNodeDef entityId="M001CONN_TUNM000001ECTTTVF0001" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT8_REP" navId="AnDefaultLayer_M001CONN_TUNM000001ECTTTVF0001"></entityNodeDef>
+                <entityNodeDef entityId="M001CONN_TUNM000001ECTTES_0001" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT8_REP" navId="AnDefaultLayer_M001CONN_TUNM000001ECTTES_0001"></entityNodeDef>
+            </categoryNodeDef>
+        </rootNodeDef>
+    </navigationTreeType>
+</ns2:maestroHMIConfiguration>

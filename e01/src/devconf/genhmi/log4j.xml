@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="all" debug="false">
+
+  <!-- List of appenders -->
+
+  <!-- log into console -->
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} - %p %t %C{1} - %X{OPERATOR_ID} - %X{HOST_IP} - %m%n" />
+    </layout>
+  </appender>
+
+  <!-- log in a rolling file -->
+  <appender name="rollingXMLFileAppender" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="${catalina.home}/logs/HypShowcase.log" />
+    <param name="MaxFileSize" value="10MB" />
+    <param name="MaxBackupIndex" value="10" />
+    <!-- org.apache.log4j.xml.XMLLayout -->
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- 		<param name="locationInfo" value="true" /> -->
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} - %p %t %c - %X{OPERATOR_ID} - %X{HOST_IP} - %m%n" />
+    </layout>
+  </appender>
+
+  <!-- async appender to use a separate thread for the rolling file appender -->
+  <appender name="rollingXMLFile" class="org.apache.log4j.AsyncAppender">
+    <param name="bufferSize" value="128" />
+    <appender-ref ref="rollingXMLFileAppender" />
+  </appender>
+
+  <!-- List of Loggers -->
+
+  <!-- log for HV -->
+  <logger name="com.thalesgroup" additivity="false">
+    <level value="INFO" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- log for EhCache -->
+  <logger name="net.sf.ehcache" additivity="false">
+    <level value="INFO" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- log for Apache -->
+  <logger name="org.apache" additivity="false">
+    <level value="ERROR" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- log for Eclipse -->
+  <logger name="org.eclipse" additivity="false">
+    <level value="ERROR" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- log for Hibernate -->
+  <logger name="org.hibernate" additivity="false">
+    <level value="WARN" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- log for Quartz -->
+  <logger name="org.quartz" additivity="false">
+    <level value="ERROR" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- log for Spring -->
+  <logger name="org.springframework" additivity="false">
+    <level value="ERROR" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </logger>
+
+  <!-- Anything else -->
+  <root>
+    <level value="WARN" />
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingXMLFile" />
+  </root>
+
+</log4j:configuration>
+
+<!--
+
+Log4J Configuration Quick Reference:
+====================================
+
+Priority order is DEBUG < INFO < WARN < ERROR < FATAL
+
+PatternLayout conversion characters:
+
+%c   Category of the logging event
+%C   Fully qualified class name of the caller
+%d   Date of the logging event  (example: %d{HH:mm:ss,SSS} )
+%F   File name where the logging request was issued (caution: extremely slow)
+%l   Location information of the caller (caution: extremely slow)
+%L   Line number from where the logging request was issued (caution: extremely slow)
+%m   Application-supplied message
+%M   Method name from where the logging request was issued (caution: extremely slow)
+%n   Line separator
+%p   Priority of the logging event
+%r   Number of milliseconds since the start of the application
+%t   Name of the thread that generated the logging event
+%x   Nested diagnotic context associated with the thread
+%%   A single percent sign
+
+Format modifiers examples:
+
+%20c     Left pad with spaces if category is less than 20 characters long
+%-20c    Right pad with spaces if category is less than 20 characters long
+%.30c    Truncate from the beginning if category is more than 30 chars long
+%20.30c  Left pad 20 chars + truncate from beginning if more than 30 chars
+%-20.30c Right pad 20 chars + truncate from beginning if more than 30 chars
+
+Examples:  "%r [%t] %-5p %c %x - %m\n"
+"%-6r [%15.15t] %-5p %30.30c %x - %m\n"
+
+-->

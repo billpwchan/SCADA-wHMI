@@ -1,0 +1,3 @@
+path,filePattern,srcString,destString
+symbols\,*_animation.xml,com.thalesgroup.scadagen.calculated.,
+symbols\,*_animation.xml,symbol1TEST,symbol1

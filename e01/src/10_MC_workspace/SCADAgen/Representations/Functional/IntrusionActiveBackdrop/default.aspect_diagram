@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_Dqp4uqbXEeS4oZbV95syLg" type="Aspect" name="default.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_F_zyMabXEeS4oZbV95syLg" type="2001" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_F_zyM6bXEeS4oZbV95syLg" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_F_zyNKbXEeS4oZbV95syLg" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_nwzKgv_6EeSBoqxq0Xgi-w" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="IntrusionActiveBackdrop.scsrepresentation#_nwzKgP_6EeSBoqxq0Xgi-w"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nwzKg__6EeSBoqxq0Xgi-w" x="10" y="10" width="170" height="170"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_pOq2sv_6EeSBoqxq0Xgi-w" type="3001" fontName="Microsoft Sans Serif">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="IntrusionActiveBackdrop.scsrepresentation#_pOq2sP_6EeSBoqxq0Xgi-w"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pOq2s__6EeSBoqxq0Xgi-w" x="25" y="25" width="132" height="132"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_F_zyNabXEeS4oZbV95syLg" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_F_zyNqbXEeS4oZbV95syLg" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_F_zyN6bXEeS4oZbV95syLg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F_zyOKbXEeS4oZbV95syLg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F_zyOabXEeS4oZbV95syLg"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="IntrusionActiveBackdrop.scsrepresentation#_F_zyMKbXEeS4oZbV95syLg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F_zyMqbXEeS4oZbV95syLg" x="310" y="40"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_m0t5EKvBEeS6qv5U3vs7Bw" type="2002" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_m0t5EqvBEeS6qv5U3vs7Bw" type="5003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_m0t5E6vBEeS6qv5U3vs7Bw" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:CalculatedAttribute" href="IntrusionActiveBackdrop.scsrepresentation#_m0HcIavBEeS6qv5U3vs7Bw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_m0t5EavBEeS6qv5U3vs7Bw" x="355" y="395"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_ozX-IavBEeS6qv5U3vs7Bw" type="2003" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_ozX-I6vBEeS6qv5U3vs7Bw" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_ozX-JKvBEeS6qv5U3vs7Bw" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="IntrusionActiveBackdrop.scsrepresentation#_ozX-IKvBEeS6qv5U3vs7Bw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ozX-IqvBEeS6qv5U3vs7Bw" x="230" y="515"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_qKilYavBEeS6qv5U3vs7Bw" type="2003" fontName="Microsoft Sans Serif">
+    <children xmi:type="notation:DecorationNode" xmi:id="_qKilY6vBEeS6qv5U3vs7Bw" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qKilZKvBEeS6qv5U3vs7Bw" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="IntrusionActiveBackdrop.scsrepresentation#_qKilYKvBEeS6qv5U3vs7Bw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qKilYqvBEeS6qv5U3vs7Bw" x="515" y="520"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_Dqp4u6bXEeS4oZbV95syLg"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="IntrusionActiveBackdrop.scsrepresentation#_Dqp4sabXEeS4oZbV95syLg"/>
+  <edges xmi:type="notation:Connector" xmi:id="_qrLNQKvBEeS6qv5U3vs7Bw" type="4002" source="_m0t5EKvBEeS6qv5U3vs7Bw" target="_ozX-IavBEeS6qv5U3vs7Bw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_qrLNQavBEeS6qv5U3vs7Bw" fontName="Microsoft Sans Serif"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qrLNQqvBEeS6qv5U3vs7Bw" points="[-28, 7, 202, -61]$[-231, 51, -1, -17]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qrLNQ6vBEeS6qv5U3vs7Bw" id="(0.36363636363636365,0.7532467532467533)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_rEzOMKvBEeS6qv5U3vs7Bw" type="4002" source="_m0t5EKvBEeS6qv5U3vs7Bw" target="_qKilYavBEeS6qv5U3vs7Bw">
+    <styles xmi:type="notation:FontStyle" xmi:id="_rEzOMavBEeS6qv5U3vs7Bw" fontName="Microsoft Sans Serif"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_rEzOMqvBEeS6qv5U3vs7Bw" points="[17, 39, -36, -84]$[53, 124, 0, 1]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rEzOM6vBEeS6qv5U3vs7Bw" id="(0.8571428571428571,0.9714285714285714)"/>
+  </edges>
+</notation:Diagram>

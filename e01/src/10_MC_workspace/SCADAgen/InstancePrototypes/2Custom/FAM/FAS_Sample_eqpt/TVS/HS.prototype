@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="BasicEquipment_HS_xfeB8FWgEee4QdkqvzimmQ_1497953466255" hvqname="myproject.data.config.equipment.common.SGEQPT8" nom_instance="HS" scstype="HSType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:ACI_TYPE" xmi:id="ACI_TYPE_aciTS-TempZone_xfeB8VWgEee4QdkqvzimmQ_1497953466255" nom_instance="aciHS-HumZone" label="&amp;aciHS-HumZone">
+    <AAC xmi:id="aac_type_aac_xfeB8lWgEee4QdkqvzimmQ_1497953466255" nom_instance="aac">
+      <veTable xmi:id="struct_veTable_aac_type_xfeB81WgEee4QdkqvzimmQ_1497953466255"/>
+      <veTable xmi:id="struct_veTable_aac_type_xfeB9FWgEee4QdkqvzimmQ_1497953466255"/>
+      <veTable xmi:id="struct_veTable_aac_type_xfeB9VWgEee4QdkqvzimmQ_1497953466255"/>
+      <veTable xmi:id="struct_veTable_aac_type_xfeB9lWgEee4QdkqvzimmQ_1497953466255"/>
+    </AAC>
+    <AFO xmi:id="afo_type_afo_xfeB91WgEee4QdkqvzimmQ_1497953466255" nom_instance="afo"/>
+  </inputs>
+  <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTS-FaultSensZone_xfeB-FWgEee4QdkqvzimmQ_1497953466255" nom_instance="dciHS-FaulHumZone" label="&amp;dciHS-FaulHumZone" initValue="1">
+    <DAC xmi:id="dac_type_dac_xfeB-VWgEee4QdkqvzimmQ_1497953466255" nom_instance="dac" nature="1">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <veTable xmi:id="struct_veTable_dac_type_xfeB-lWgEee4QdkqvzimmQ_1497953466255"/>
+      <veTable xmi:id="struct_veTable_dac_type_xfeB-1WgEee4QdkqvzimmQ_1497953466255"/>
+      <veTable xmi:id="struct_veTable_dac_type_xfeB_FWgEee4QdkqvzimmQ_1497953466255"/>
+      <veTable xmi:id="struct_veTable_dac_type_xfeB_VWgEee4QdkqvzimmQ_1497953466255"/>
+    </DAC>
+    <DAL xmi:id="dal_type_dal_xfeB_lWgEee4QdkqvzimmQ_1497953466255" nom_instance="dal">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeB_1WgEee4QdkqvzimmQ_1497953466255" label="Normal" state="N"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCAFWgEee4QdkqvzimmQ_1497953466255" label="Fault" severity="2" state="A" value="1"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCAVWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCAlWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCA1WgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCBFWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCBVWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCBlWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCB1WgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCCFWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCCVWgEee4QdkqvzimmQ_1497953466255"/>
+      <valueTable xmi:id="struct_valueTable_dal_type_xfeCClWgEee4QdkqvzimmQ_1497953466255"/>
+    </DAL>
+    <DFO xmi:id="dfo_type_dfo_xfeCC1WgEee4QdkqvzimmQ_1497953466255" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

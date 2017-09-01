@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_FAMHDV_GRP_CNT_uy4_UHOOEeewuatvcs1m1g_1501244252101" nom_instance="FAMHDV_GRPSTN" label="fas sample" shortname="Handover Management Grp Stations" scstype="FASHDVGRP">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <outputs xsi:type="OUTPUT_VAR:dio_type" xmi:id="dio_type_dioFAM-HDVSTATUS_uy4_UXOOEeewuatvcs1m1g_1501244252101" nom_instance="dioFAM-HDVSTATUS" label="&amp;dioFAM-HDVSTATUS" opSource="">
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_UnOOEeewuatvcs1m1g_1501244252101" dovname="dovFAM-ZCSET1" label="&amp;dovFAM-CNT"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_U3OOEeewuatvcs1m1g_1501244252101" dovname="dovFAM-ZCSET2" label="&amp;dovFAM-MAS" value="1"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_VHOOEeewuatvcs1m1g_1501244252101" dovname="dovFAM-ZCSET3" label="&amp;dovFAM-SAT" value="2"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_VXOOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_VnOOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_V3OOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_WHOOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_WXOOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_WnOOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_W3OOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_XHOOEeewuatvcs1m1g_1501244252101"/>
+    <valueTable xmi:id="struct_valueTable_dio_type_uy4_XXOOEeewuatvcs1m1g_1501244252101"/>
+    <DOV xmi:id="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101" returnCondTO="300" nom_instance="dovFAM-ZCSET1" ctlvalue="257">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_X3OOEeewuatvcs1m1g_1501244252101" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_YHOOEeewuatvcs1m1g_1501244252101" condInfo="traget value not reached"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_YXOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_YnOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_Y3OOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_ZHOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_ZXOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_ZnOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_Z3OOEeewuatvcs1m1g_1501244252101" condInfo="target value reached"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_aHOOEeewuatvcs1m1g_1501244252101" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_aXOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_anOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_a3OOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_bHOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_bXOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_bnOOEeewuatvcs1m1g_1501244252101"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101" returnCondTO="300" nom_instance="dovFAM-ZCSET2" ctlvalue="514">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_cHOOEeewuatvcs1m1g_1501244252101" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_cXOOEeewuatvcs1m1g_1501244252101" condInfo="target value not reached"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_cnOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_c3OOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_dHOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_dXOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_dnOOEeewuatvcs1m1g_1501244252101"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_uy4_d3OOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_eHOOEeewuatvcs1m1g_1501244252101" condInfo="target value reached"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_eXOOEeewuatvcs1m1g_1501244252101" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_enOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_e3OOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_fHOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_fXOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_fnOOEeewuatvcs1m1g_1501244252101"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_uy4_f3OOEeewuatvcs1m1g_1501244252101"/>
+    </DOV>
+    <DOV xmi:id="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030" returnCondTO="300" nom_instance="dovFAM-ZCSET3" ctlvalue="1028">
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt4nWSEeerLMPndjyolw_1501465860030" condInfo="valid intf"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt43WSEeerLMPndjyolw_1501465860030" condInfo="traget value not reached"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt5HWSEeerLMPndjyolw_1501465860030"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt5XWSEeerLMPndjyolw_1501465860030"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt5nWSEeerLMPndjyolw_1501465860030"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt53WSEeerLMPndjyolw_1501465860030"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt6HWSEeerLMPndjyolw_1501465860030"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_s8yt6XWSEeerLMPndjyolw_1501465860030"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt6nWSEeerLMPndjyolw_1501465860030" condInfo="target value reached"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt63WSEeerLMPndjyolw_1501465860030" condInfo="valid intf"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt7HWSEeerLMPndjyolw_1501465860030"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt7XWSEeerLMPndjyolw_1501465860030"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt7nWSEeerLMPndjyolw_1501465860030"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt73WSEeerLMPndjyolw_1501465860030"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt8HWSEeerLMPndjyolw_1501465860030"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_s8yt8XWSEeerLMPndjyolw_1501465860030"/>
+    </DOV>
+  </outputs>
+</Class:BasicEquipment>

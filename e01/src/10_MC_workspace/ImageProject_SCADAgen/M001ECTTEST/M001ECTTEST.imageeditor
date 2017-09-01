@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="M001ECTTEST" kind="Functional" businessId="SCADAgen">
+  <canvas viewBoxWidth="1758" viewBoxHeight="1126" mode="SVG" name="SVG" maxExtent_right="1758.0" maxExtent_top="1126.0">
+    <ownedItem name="M001CONN_TUNM000001ECTTTVF0001" height="200" width="200" x="1196" y="952" scale="1.0" generated="true" uri=":TUN:M000001:ECT:TTVF0001" referenceId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" representationId="_4bxC4FMcEea_NKeGEwfl3Q" layer="AnDefaultLayer"/>
+    <ownedItem name="M001CONN_TUNM000001ECTTES_0001" height="200" width="200" x="533" y="270" scale="1.0" generated="true" uri=":TUN:M000001:ECT:TES_0001" referenceId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" representationId="_CatDwUGvEeaUUdHcNoLc3A" layer="AnDefaultLayer"/>
+    <ownedItem name="M001CONN_TUNM000001ECTTTVF0001" height="200" width="200" x="1570" y="322" scale="1.0" generated="true" uri=":TUN:M000001:ECT:TTVF0001" referenceId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" representationId="_sAtJ8D3fEeaLVJtXtrlHzg" layer="AnDefaultLayer"/>
+    <svglayers name="M001ECTTEST_shapes.svg"/>
+  </canvas>
+  <preferences/>
+</imageeditor:GraphicalViewer>

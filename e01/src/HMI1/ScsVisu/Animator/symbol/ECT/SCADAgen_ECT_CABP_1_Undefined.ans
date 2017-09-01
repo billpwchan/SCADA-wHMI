@@ -1,0 +1,21 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 26/04/2016 15:04:59
+// Model: ECT/SCADAgen_ECT_CABP_1_Undefined
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Rectangle {
+      Size = ((-50, -50), 100, 100)
+      Filled = True
+      Palette = { "SCADAgen_background","SCADAgen_undefined","default","solid","solid",1 }
+    }
+    Rectangle {
+      Size = ((-50, -50), 100, 100)
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_CatDy0GvEeaUUdHcNoLc3A" type="Aspect" name="default.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_TxuZ8EGvEeaUUdHcNoLc3A" type="2001" fontName="Segoe UI" bold="true" lineColor="0">
+    <children xmi:type="notation:DecorationNode" xmi:id="_TxuZ8kGvEeaUUdHcNoLc3A" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_TxuZ80GvEeaUUdHcNoLc3A" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_tgxyEEGvEeaUUdHcNoLc3A" type="3014" fontName="Segoe UI" fontHeight="72" lineColor="0">
+        <element xmi:type="scsRepresentation:DecoratedNumber" href="SCADAgen_ECT_TES__ActiveNumber.scsrepresentation#_tgoBEEGvEeaUUdHcNoLc3A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tgxyEUGvEeaUUdHcNoLc3A" x="62" y="82" width="81" height="48"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_TxuZ9EGvEeaUUdHcNoLc3A" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_TxuZ9UGvEeaUUdHcNoLc3A" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_TxuZ9kGvEeaUUdHcNoLc3A" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_TxuZ90GvEeaUUdHcNoLc3A"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_TxuZ-EGvEeaUUdHcNoLc3A"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SCADAgen_ECT_TES__ActiveNumber.scsrepresentation#_TxbfAEGvEeaUUdHcNoLc3A"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TxuZ8UGvEeaUUdHcNoLc3A" x="105" y="40"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_QD6CYFe-EeaL4-wldEFfJA" type="2003" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QD6CYle-EeaL4-wldEFfJA" type="5004">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QD6CY1e-EeaL4-wldEFfJA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:SourceObjectAttribute" href="SCADAgen_ECT_TES__ActiveNumber.scsrepresentation#_QDmgYVe-EeaL4-wldEFfJA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QD6CYVe-EeaL4-wldEFfJA" x="175" y="425"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_CatDzEGvEeaUUdHcNoLc3A"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="SCADAgen_ECT_TES__ActiveNumber.scsrepresentation#_CatDwkGvEeaUUdHcNoLc3A"/>
+</notation:Diagram>

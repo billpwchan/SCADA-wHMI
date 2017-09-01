@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+  <animationRules id="SCADAgen_ECT_TES__ActiveNumber_animation">
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="floating1"></source>
+      <sourceType>FLOAT</sourceType>
+      <numberAnimation i18n="false" template="{}" numberFormat="0.0" defaultValue="" nodeId="SCADAgen_ECT_TES__ActiveNumber_TES__ActiveNumber_UNNAMED"></numberAnimation>
+    </animationRule>
+  </animationRules>
+</animationConfiguration>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="asym1_graphic">
+    <root>
+      <svgGroup id="asym1_asym1_hexa_asym1_square">
+        <svgRef brickId="asym1_square" id="state.value_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

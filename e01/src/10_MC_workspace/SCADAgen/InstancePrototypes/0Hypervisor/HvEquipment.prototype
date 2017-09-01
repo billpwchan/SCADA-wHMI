@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A" xmi:id="BasicEquipment_Copy_of_HvEquipment_k41VcDIEEeantp1Jjt3Gdw_1465890591815" hvqname="myproject.data.config.equipment.BasicEquipment" nom_instance="HvEquipment" scstype="BasicEquipment">
+  <status xsi:type="HV:HvStatusBoolean" xmi:id="HvStatusBoolean_online_k41VcTIEEeantp1Jjt3Gdw_1465890591815" nom_instance="online" hvdatatype="Boolean" hvqname="hypervisor.data.common.configuration.SupervisedObject.online"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</Class:BasicEquipment>

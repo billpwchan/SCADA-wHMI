@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="10">
+  <ownedPrototype id="BasicEquipment_BTBP_bVa6QFWjEee4QdkqvzimmQ_1497954606052">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_BTBP_bVa6QFWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes name="label" partialUri="BasicEquipment_BTBP_bVa6QFWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciAS-AirZone_bVa6QVWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="ACI_TYPE_aciAS-AirZone_bVa6QVWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="ACI_TYPE_aciAS-AirZone_bVa6QVWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_bVa6TlWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciAS-FaulAirZone_bVa6SFWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciAS-FaulAirZone_bVa6SFWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_BTBP_bVa6QFWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_BTBP_bVa6QFWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_HYnC5lcqEee9rZFG5ogX9w_1498122405390"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciAS-FaulAirZone_HYnC4FcqEee9rZFG5ogX9w_1498122405390"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciAS-FaulAirZone_HYnC4FcqEee9rZFG5ogX9w_1498122405390"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_HqfdFlcqEee9rZFG5ogX9w_1498122407265"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciAS-FaulAirZone_HqfdEFcqEee9rZFG5ogX9w_1498122407265"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciAS-FaulAirZone_HqfdEFcqEee9rZFG5ogX9w_1498122407265"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_IrhcRlcqEee9rZFG5ogX9w_1498122414084"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciAS-FaulAirZone_IrhcQFcqEee9rZFG5ogX9w_1498122414084"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciAS-FaulAirZone_IrhcQFcqEee9rZFG5ogX9w_1498122414084"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_IyEwNlcqEee9rZFG5ogX9w_1498122414771"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciAS-FaulAirZone_IyEwMFcqEee9rZFG5ogX9w_1498122414771"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciAS-FaulAirZone_IyEwMFcqEee9rZFG5ogX9w_1498122414771"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_bVa6SVWjEee4QdkqvzimmQ_1497954606052"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_HYnC4VcqEee9rZFG5ogX9w_1498122405390"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_HqfdEVcqEee9rZFG5ogX9w_1498122407265"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_IrhcQVcqEee9rZFG5ogX9w_1498122414084"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_IyEwMVcqEee9rZFG5ogX9w_1498122414771"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,SWITCH([^:^:dciBTBP-BbGPFSt1.value]=1,1,[^:^:dciBTBP-BbGPFSt1.value]=0,2,3))+IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(2)]=1,100,0))" name="value" partialUri="Symbol_Symbol1_uQaGUYHREeediJf1kzsT0Q_1502812341045"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

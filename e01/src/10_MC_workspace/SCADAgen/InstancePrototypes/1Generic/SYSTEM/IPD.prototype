@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="_O6LWYPd0EeGgZfhlMBw5DQ_1346861438662" hvqname="myproject.data.config.equipment.BasicEquipment" nom_instance="IPD" functionalCat="4" scstype="IPDeviceType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <inputs xsi:type="INPUT_VAR:dci_cb_type" xmi:id="_fNDH8Pd0EeGgZfhlMBw5DQ_1346861548015" nom_instance="dciPingState" label="network link" Archive="TS_ARCHIVE">
+    <DAC xmi:id="_lZYuYPd0EeGgZfhlMBw5DQ_1346861589574" nom_instance="dac">
+      <veTable xmi:id="_lZYuYfd0EeGgZfhlMBw5DQ_1346861589574"/>
+      <veTable xmi:id="_lZYuYvd0EeGgZfhlMBw5DQ_1346861589574"/>
+      <veTable xmi:id="_lZYuY_d0EeGgZfhlMBw5DQ_1346861589574"/>
+      <veTable xmi:id="_lZYuZPd0EeGgZfhlMBw5DQ_1346861589574"/>
+    </DAC>
+    <DAL xmi:id="_mP7U0Pd0EeGgZfhlMBw5DQ_1346861595293" nom_instance="dal" theme="2" ackAutomaton="Ack2HVLog" valueAutomaton="DIBasic2StateLog">
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueAlarmVector xsi:nil="true"/>
+      <valueTable xmi:id="_mP7U0fd0EeGgZfhlMBw5DQ_1346861595293" format="1" label="reachable" severity="1" state="N" value="1"/>
+      <valueTable xmi:id="_mP7U0vd0EeGgZfhlMBw5DQ_1346861595293" format="1" label="not reachable" severity="3" state="A"/>
+      <valueTable xmi:id="_atp6VfzsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6VvzsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6V_zsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6WPzsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6WfzsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6WvzsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6W_zsEeGaAYrIkUIKjQ_1347462813301"/>
+      <valueTable xmi:id="_atp6XPzsEeGaAYrIkUIKjQ_1347462813301"/>
+    </DAL>
+    <DFO xmi:id="_lzURUPd0EeGgZfhlMBw5DQ_1346861592293" nom_instance="dfo"/>
+  </inputs>
+</Class:BasicEquipment>

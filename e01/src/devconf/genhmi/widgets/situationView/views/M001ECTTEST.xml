@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<viewConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/view">
+  <view srs="EPSG:23030" units="m" id="M001ECTTEST" resolution="1.38159509202454 1.15132919760407 0.959440998003393 0.799534176034297 0.666278480028581 0.555232056050563 0.46269338743097 0.385577822859142 0.321314852382618 0.267762376985515" maxExtent="0.0 0.0 1758.0 1126.0" resolutionReference="1.0">
+    <controls displayLayerSwitcher="false" displayScaleLine="false" displayScale="false" displayMousePosition="false" displayPanZoomBar="false"></controls>
+    <imageLayer path="images/M001ECTTEST.svg" width="1758.0" height="1126.0" bounds="0.0 0.0 1758.0 1126.0" name="M001ECTTEST" type="BASE_LAYER"></imageLayer>
+    <symbolLayer name="M001ECTTEST_shapes" type="OVERLAY">
+      <entitiesShapesEntry shapesResourcePath="views/images/M001ECTTEST_shapes.svg">
+        <entityShapeEntry entityId="M001CONN_TUNM000001ECTTES_0001" animationId="ActiveBackdropInstance:SCADAgen_ECT_TES__ActiveBackdrop_animation" elementId=":TUN:M000001:ECT:TES_0001_2"></entityShapeEntry>
+      </entitiesShapesEntry>
+    </symbolLayer>
+    <symbolLayer name="AnDefaultLayer" type="OVERLAY">
+      <entityEntry x="1196.0" y="174.0" symbolId="SCADAgen_ECT_TTVF_ActiveText" entityId="M001CONN_TUNM000001ECTTTVF0001" tx="0.0" ty="0.0" rotate="0.0" hFlip="false" vFlip="false" scale="1.0"></entityEntry>
+      <entityEntry x="533.0" y="856.0" symbolId="SCADAgen_ECT_TES__ActiveNumber" entityId="M001CONN_TUNM000001ECTTES_0001" tx="0.0" ty="0.0" rotate="0.0" hFlip="false" vFlip="false" scale="1.0"></entityEntry>
+      <entityEntry x="1570.0" y="804.0" symbolId="SCADAgen_ECT_TTVF_Down" entityId="M001CONN_TUNM000001ECTTTVF0001" tx="0.0" ty="0.0" rotate="0.0" hFlip="false" vFlip="false" scale="1.0"></entityEntry>
+    </symbolLayer>
+  </view>
+</viewConfiguration>

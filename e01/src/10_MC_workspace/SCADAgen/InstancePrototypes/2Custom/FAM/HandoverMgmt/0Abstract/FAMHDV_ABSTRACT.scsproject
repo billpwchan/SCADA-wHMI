@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="20">
+  <ownedPrototype id="BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610"/>
+    <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-RPY1_MB8jXQQZEee6u6rZKL4cCw_1488989188613"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-RPY2_MB9KbQQZEee6u6rZKL4cCw_1488989188614"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=1, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-RPY2_MB9KbQQZEee6u6rZKL4cCw_1488989188614"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( (MOD([^:^:dciFAM-HDVSTATUS.value],256) &lt;> INT({^:^:dciFAM-HDVSTATUS.value}/256) ), 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=257, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( (MOD([^:^:dciFAM-HDVSTATUS.value],256) &lt;> INT({^:^:dciFAM-HDVSTATUS.value}/256) ), 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]&lt;>2, 1, 0) , {.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-RPY1_MB8jXQQZEee6u6rZKL4cCw_1488989188613"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=2, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-RPY1_MB8jXQQZEee6u6rZKL4cCw_1488989188613"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]&lt;>1, 1, 0) , {.initCondTable(0,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-RPY2_MB9KbQQZEee6u6rZKL4cCw_1488989188614"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( ( [^:^:dciFAM-HDVSTATUS.value]&lt;>514), 1, 0) , {.initCondTable(2,condVal)} )" name="initCond3" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( ( [^:^:dciFAM-HDVSTATUS.value]&lt;>257), 1, 0) , {.initCondTable(2,condVal)} )" name="initCond3" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-REQ1_MB7VNgQZEee6u6rZKL4cCw_1488989188611"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-REQ2_MB78SgQZEee6u6rZKL4cCw_1488989188612"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-RPY1_MB8jXQQZEee6u6rZKL4cCw_1488989188613"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-RPY2_MB9KbQQZEee6u6rZKL4cCw_1488989188614"/>
+    <ownedAttributes formula="IF( [dciFAM-HDVSTATUS.value], PUT(  {dciFAM-HDVSTATUS.value}, {^.hdvFlag} ), 1 )" name="computedValue" partialUri="ufe_int_QFHigHWTEeerLMPndjyolw_1501466095784"/>
+    <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_vrBZQHWTEeerLMPndjyolw_1501466307796"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_MB9xgAQZEee6u6rZKL4cCw_1488989188616"/>
+    <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_A-7AcHzbEee9mNLYQho_BA_1502266576375"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************
+ Generated with MetaConfigurator v3.1.0.10
+     Project: SCADAgen
+     Version: 2.0.4
+
+        User: syau
+    Computer: PC16011
+          OS: Windows 7 v6.1 (arch amd64)
+*******************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://cmdpanel.util.core.mwt.hypervisor.thalesgroup.com">
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT2" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT2_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdACIV" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.ACIV_REP"></commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT3" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT3_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT5" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT5_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSCIV" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SCIV_REP"></commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT1" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT1_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT8" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT8_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdDCIV" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.DCIV_REP"></commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT7" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT7_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT4" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT4_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+    <commandPanel commandPanelTypeIdentifier="cmdSGEQPT6" entityTypeRepId="com.thalesgroup.scadagen.data.config.equipment.common.SGEQPT6_REP">
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newWorkingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newWorkingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpStatusRequest">
+                    <commandParam paramName="newWorkingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValidityStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValidityStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="newValidityStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarStatusRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newTaggingStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newTaggingStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="newTaggingStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel1">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel1_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel1" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_taggingLabel2">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_taggingLabel2_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeEqpTagRequest">
+                    <commandParam paramName="taggingLabel2" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceIntRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_eqpId">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_eqpId_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="eqpId" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newForceStatus">
+            <textBoxIntegerWidget minValue="-2147483648" maxValue="2147483647" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newForceStatus_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newForceStatus" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxIntegerWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_variableName">
+            <textBoxStringWidget textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_variableName_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="variableName" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxStringWidget>
+        </operationEntry>
+        <operationEntry labelName="cmdPanel_SCSEquipment_newValue">
+            <textBoxFloatWidget minValue="1.4E-45" maxValue="3.4028235E38" textRegularExpression="^(.)*$" tooltipLabelName="cmdPanel_SCSEquipment_newValue_tooltip">
+                <commandContent operationJavaClassName="com.thalesgroup.scadasoft.data.config.equipment.operation.OpEqpChangeVarForceFloatRequest">
+                    <commandParam paramName="newValue" paramValue="$$(WIDGET.VALUE)$$"></commandParam>
+                </commandContent>
+            </textBoxFloatWidget>
+        </operationEntry>
+    </commandPanel>
+</ns2:maestroHMIConfiguration>

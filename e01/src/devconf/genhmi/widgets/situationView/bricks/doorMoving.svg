@@ -1,0 +1,16 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <g id="doorMoving">
+    <g style="stroke:#000000;stroke-opacity:1" id="doorOpened" transform="translate(-99.50249 -99.50249)scale(0.99502486 0.99502486)">
+      <rect x="0" y="0" fill="red" width="200" id="dummy_box" height="200" opacity="0" />
+      <g transform="matrix(1.5,0,0,1.5,26,30)">
+        <line y2="0" id="line5" x1="0" style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" x2="96" y1="0" />
+        <line y2="80" id="line7" x1="36" style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" x2="60" y1="80" />
+        <path style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" d="M 0,80 36,96 36,16 0,0 z" id="polygon9" />
+        <path style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" d="M 60,96 96,80 96,0 60,16 z" id="polygon11" />
+        <line y2="58" id="line13" x1="24" style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" x2="30" y1="56" />
+        <line y2="58" id="line15" x1="72" style="fill:none;stroke:#216ca8;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3" x2="66" y1="56" />
+      </g>
+      <animate dur="1.0" attributeName="visibility" from="hidden" repeatCount="indefinite" to="visible" />
+    </g>
+  </g>
+</svg>

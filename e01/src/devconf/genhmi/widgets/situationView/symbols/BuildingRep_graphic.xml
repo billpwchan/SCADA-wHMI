@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="BuildingRep_graphic">
+    <root>
+      <svgRef brickId="bld_symbol" id="bld_symbol_node"></svgRef>
+      <svgText initValue="eqpNameDT" horizontalAlignment="middle" verticalAlignment="bottom" id="BuildingRep_bld_symbol_eqpNameDT" cssClass="eqpNameDT" tx="0.0" ty="80.0"></svgText>
+      <svgGroup id="BuildingRep_bld_OK_bld_Invalid_bld_NOK_bld_OK_NotAck_bld_NotConnected_bld_NOK_NotAck">
+        <svgRef brickId="bld_NotConnected" id="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

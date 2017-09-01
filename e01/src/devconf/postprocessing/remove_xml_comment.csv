@@ -1,0 +1,3 @@
+path,filePattern,excludeFilePattern,omitXmlDeclaration
+.\,*.xml,,
+.\,*.svg,,TRUE

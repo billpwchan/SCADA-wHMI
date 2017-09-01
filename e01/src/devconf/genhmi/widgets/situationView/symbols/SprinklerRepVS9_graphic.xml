@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SprinklerRepVS9_graphic">
+    <root>
+      <svgGroup id="SprinklerRepVS9_spk_OK_spk_Invalid_spk_NotConnected_spk_OK_NotAck_spk_NOK_spk_NOK_NotAck">
+        <svgRef brickId="spk_NotConnected" id="WidgetGlobalState_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SprinklerRepVS9_spk_locked_empty_spk_workOrder_spk_lockeAndwork">
+        <svgRef brickId="empty" id="tagstatus.value_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SprinklerRepVS9_spk_overriden_empty2">
+        <svgRef brickId="empty2" id="WidgetInhibSynthesis_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SprinklerRepVS9_sp_ON_sp_OFF">
+        <svgRef brickId="sp_OFF" id="state.value_node"></svgRef>
+      </svgGroup>
+      <svgText initValue="eqpNameDT" horizontalAlignment="middle" verticalAlignment="bottom" id="SprinklerRepVS9_eqp_name_eqpNameDT" cssClass="eqpNameDT" tx="0.0" ty="80.0"></svgText>
+    </root>
+  </graphic>
+</graphicConfiguration>

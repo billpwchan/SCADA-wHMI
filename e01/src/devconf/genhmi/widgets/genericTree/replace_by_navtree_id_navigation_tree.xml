@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*******************************************
+ Generated with MetaConfigurator v3.1.0.10
+     Project: SCADAgen
+     Version: 2.0.4
+
+        User: syau
+    Computer: PC16011
+          OS: Windows 7 v6.1 (arch amd64)
+*******************************************
+-->
+<ns2:maestroHMIConfiguration xmlns:ns2="http://navtree.util.core.mwt.hypervisor.thalesgroup.com">
+    <navigationTreeType id="replace_by_navtree_id_navigation_tree" scrollIntoViewOnSelection="true">
+        <navigationNodeDef navId="nav_tree_root" isOpen="true" labelName="navigation_Node_root">
+            <categoryNodeDef navId="example_nav_tree" isOpen="true" labelName="navigation_Node_example">
+                <categoryNodeDef navId="M001ECTTEST" isOpen="true" labelName="navigation_Node_M001ECTTEST" navigable="true"></categoryNodeDef>
+            </categoryNodeDef>
+        </navigationNodeDef>
+    </navigationTreeType>
+</ns2:maestroHMIConfiguration>

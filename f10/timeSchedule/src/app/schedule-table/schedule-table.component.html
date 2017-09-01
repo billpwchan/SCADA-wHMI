@@ -120,25 +120,25 @@
                     <strong>{{ value | translate }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="eqtDescription" name="Equipment Description" [sortable]='true'>
+                <ngx-datatable-column prop="eqtDescription" name="Equipment Description" [sortable]='false'>
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'Equipment Description' | translate }}</span>
+                    <span>{{ 'Equipment Description' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <strong>{{ value | translate }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="onTimeDisplay" name="On Time" [sortable]='true'>
+                <ngx-datatable-column prop="onTimeDisplay" name="On Time" [sortable]='false'>
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'On Time' | translate }}</span>
+                    <span>{{ 'On Time' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <strong>{{ value }}</strong>
                 </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column prop="offTimeDisplay" name="Off Time" [sortable]='true'>
+                <ngx-datatable-column prop="offTimeDisplay" name="Off Time" [sortable]='false'>
                 <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
-                    <span (click)="sort()">{{ 'Off Time' | translate }}</span>
+                    <span>{{ 'Off Time' | translate }}</span>
                 </ng-template>
                 <ng-template let-value="value" ngx-datatable-cell-template>
                     <strong>{{ value }}</strong>

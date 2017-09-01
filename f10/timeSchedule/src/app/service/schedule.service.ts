@@ -77,44 +77,110 @@ export class ScheduleService implements OnDestroy {
         console.log('{schedule-table}', '[loadConfig]', 'tsc_time_offset=', this.tscTimeOffset);
     }
     public loadData() {
-        this.readTscTasks();
+        this.readTscTaskNames();
     }
-    private readTscTasks() {
-        console.log('{ScheduleService}', '[readTscTasks]', 'begin');
+
+    private readTscTaskNames() {
         const subGetTaskNames = this.scsTscService.getTaskNames().subscribe(
             (taskNames: any[]) => {
-                console.log('{ScheduleService}', '[readTscTasks]', taskNames);
+                console.log('{ScheduleService}', '[readTscTaskNames]', taskNames);
                 this.extractScheduleTasks(taskNames);
 
-                this.readTscTaskDescription(taskNames);
+                const schTableTaskNames = new Array<string>();
+
+                for (const s of this.schedules) {
+                    schTableTaskNames.push(s.taskName);
+                    console.log('{ScheduleService}', '[readTscTaskNames]', 'schTableTaskName', s.taskName);
+                }
+
+                if (schTableTaskNames && schTableTaskNames.length > 0) {
+                    this.readSchTableDescription(schTableTaskNames);
+                }
 
                 subGetTaskNames.unsubscribe();
-
-                this.readDayGroups();
             }
         )
     }
-    private readTscTaskDescription(taskNames: string[]) {
-        const subGetDescFilterEnable = this.scsTscService.getDescFilterEnable(taskNames).subscribe(
-            (data: any[]) => {
-                this.extractDescFilterEnable(taskNames, data);
 
-                console.log('{ScheduleService}', '[readTscTasks]', 'currentIsPeriodic', this.currentIsPeriodic);
+    private readSchTableDescription(taskNames: string[]) {
+        const subGetSchTableDesc = Observable.forkJoin(
+            taskNames.map((taskName: any) => {
+                return this.scsTscService.getDescription(taskName)
+                    .map((desc: any) => {
+                        return desc;
+                    })
+            }))
+            .subscribe((data: any[]) => {
+                this.extractSchTableDesc(taskNames, data);
+
+                console.log('{ScheduleService}', '[readSchTableDescription]', 'currentIsPeriodic', this.currentIsPeriodic);
                 this.updateSchedulesByPeriodic(this.currentIsPeriodic);
+
                 this.updateScheduleItemsByPeriodic(this.currentIsPeriodic);
 
-                console.log('{ScheduleService}', '[readTscTasks]', 'end');
-                subGetDescFilterEnable.unsubscribe();
-            }
-        )
+                this.readDayGroups();
+
+                subGetSchTableDesc.unsubscribe();
+                console.log('{ScheduleService}', '[readSchTableDescription]', 'end');
+            })
     }
+
+    private extractSchTableDesc(taskNames, data) {
+        console.log('{ScheduleService}', '[extractSchTableDesc]', 'begin');
+        for (let i = 0; i < taskNames.length; i++) {
+            const taskColumns: string[] = taskNames[i].split(',');
+            const header = taskColumns[ScheduleDef.SCHEDULE_HEADER_COL];
+            const scheduleType = taskColumns[ScheduleDef.SCHEDULE_TYPE_COL];
+            const scheduleId = taskColumns[ScheduleDef.SCHEDULE_ID_COL];
+            if (header != null && header === ScheduleDef.SCHEDULE_TABLE_HEADER) {
+                const schedule = this.schedules.find(s =>
+                    s.scheduleType === scheduleType &&
+                    s.id === scheduleId);
+                if (schedule != null) {
+                    const schTableData: string = data[i];
+                    const dataColumns = schTableData.split(',');
+                    const scheduleDescription = dataColumns[ScheduleDef.SCHEDULE_TABLE_TYPE_DESC_COL];
+                    const scheduleTitle = dataColumns[ScheduleDef.SCHEDULE_TABLE_TITLE_COL];
+                    const runningStatus = dataColumns[ScheduleDef.SCHEDULE_RUNNING_STATUE_COL];
+                    const visibility = dataColumns[ScheduleDef.SCHEDULE_VISIBILITY_COL];
+                    const periodic = dataColumns[ScheduleDef.SCHEDULE_PERIODIC_COL];
+                    const titleReadOnly = dataColumns[ScheduleDef.SCHEDULE_TITLE_READ_ONLY_COL];
+                    const timeReadOnly = dataColumns[ScheduleDef.SCHEDULE_TIME_READ_ONLY_COL];
+                    const eqtListReadOnly = dataColumns[ScheduleDef.SCHEDULE_EQT_LIST_READ_ONLY_COL];
+                    schedule.scheduleDescription = scheduleDescription;
+                    schedule.text = scheduleTitle;
+                    schedule.runningStatus = runningStatus;
+                    schedule.visibility = visibility;
+                    schedule.periodic = (periodic === 'true');
+                    schedule.titleReadOnly = (titleReadOnly === 'true');
+                    schedule.timeReadOnly = (timeReadOnly === 'true');
+                    schedule.eqtListReadOnly = (eqtListReadOnly === 'true');
+                    schedule.taskName = taskNames[i];
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule description updated',  schedule.scheduleDescription);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule title updated ',  schedule.text);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule runningStatus updated ',  schedule.runningStatus);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule periodic updated ', schedule.periodic);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule titleReadOnly updated ', schedule.titleReadOnly);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule timeReadOnly updated ', schedule.timeReadOnly);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule eqtListReadOnly updated ', schedule.eqtListReadOnly);
+                    console.log('{ScheduleService}', '[extractSchTableDesc]', ' schedule table updated ');
+                } else {
+                    console.warn('{ScheduleService}', '[extractSchTableDesc]', ' schedule table not found ');
+                }
+            } else {
+                console.error('{ScheduleService}', '[extractSchTableDesc]', 'unrecognized header in taskname', taskNames[i]);
+            }
+        }
+        console.log('{ScheduleService}', '[extractSchTableDesc]', 'end');
+    }
+
     private extractScheduleTasks(taskNames: string[]) {
         console.log('{ScheduleService}', '[extractScheduleTasks]', 'begin', 'taskName count=', taskNames.length);
         for (let i = 0; i < taskNames.length; i++) {
             const columns: string[] = taskNames[i].split(',');
             const header = columns[ScheduleDef.SCHEDULE_HEADER_COL];
             if (header != null && header === ScheduleDef.SCHEDULE_TABLE_HEADER) {
-                this.extractScheduleTable(columns);
+                this.extractScheduleTable(taskNames[i], columns);
             } else if (header != null && header === ScheduleDef.SCHEDULE_TASK_HEADER) {
                 this.extractScheduleTask(taskNames[i], columns);
             } else {
@@ -123,7 +189,7 @@ export class ScheduleService implements OnDestroy {
         }
         console.log('{ScheduleService}', '[extractScheduleTasks]', 'end');
     }
-    private extractScheduleTable(columns: string[]) {
+    private extractScheduleTable(taskName: string, columns: string[]) {
         console.log('{ScheduleService}', '[extractScheduleTable]', 'begin');
         const scheduleType = columns[ScheduleDef.SCHEDULE_TYPE_COL];
         const scheduleId = columns[ScheduleDef.SCHEDULE_ID_COL];
@@ -134,6 +200,7 @@ export class ScheduleService implements OnDestroy {
             sch = new Schedule();
             sch.scheduleType = scheduleType;
             sch.id = scheduleId;
+            sch.taskName = taskName;
             this.schedules.push(sch);
             this.scheduleIdMap.set(sch.id, sch);
             console.log('{ScheduleService}', '[extractScheduleTable]', 'new schedule table created.');
@@ -380,7 +447,7 @@ export class ScheduleService implements OnDestroy {
     public updateSchedulesByPeriodic(isPeriodic: boolean) {
         console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'isPeriodic', isPeriodic);
         if (this.schedules) {
-            console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'schedules count=', this.schedules.length, );
+            console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'schedules count=', this.schedules.length);
         } else {
             console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'schedules not defined');
         }

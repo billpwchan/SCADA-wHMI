@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_CatDwUGvEeaUUdHcNoLc3A" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAgen_ECT_TES__ActiveNumber" defaultAspect="_TxbfAEGvEeaUUdHcNoLc3A" category="_CatDxUGvEeaUUdHcNoLc3A">
+    <aspectPackage xmi:id="_CatDwkGvEeaUUdHcNoLc3A" name="Aspect Container">
+      <ownedAspect xmi:id="_TxbfAEGvEeaUUdHcNoLc3A" name="TES__ActiveNumber">
+        <ownedElement xsi:type="scsRepresentation:DecoratedNumber" xmi:id="_tgoBEEGvEeaUUdHcNoLc3A" x="62.0" y="82.0" width="81.0" height="48.0" fontSize="48" textAlign="CENTER" font="&quot;Arial&quot;, &quot;Liberation Sans&quot;, sans-serif" value="12.3" defaultValue="" runtimeX="3.0" runtimeY="30.0" prefix="" suffix="" format="0.0">
+          <displayProperties xsi:type="scsRepresentation:ColorProperty" xmi:id="_69zF8EGxEeaUUdHcNoLc3A" Id="a" value="#000000"/>
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_P28fEEGyEeaUUdHcNoLc3A" Id="a" attribute="_QDmgYVe-EeaL4-wldEFfJA" MWTBindings=""/>
+        </ownedElement>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_QDmgYVe-EeaL4-wldEFfJA" id="floating1.value" relativePath="floating1.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_CatDw0GvEeaUUdHcNoLc3A"/>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_CatDxEGvEeaUUdHcNoLc3A">
+    <ownedCategories xmi:id="_CatDxUGvEeaUUdHcNoLc3A" name="Functional"/>
+    <ownedCategories xmi:id="_CatDxkGvEeaUUdHcNoLc3A" name="Geographical"/>
+    <ownedCategories xmi:id="_CatDx0GvEeaUUdHcNoLc3A" name="Outline"/>
+    <ownedCategories xmi:id="_CatDyEGvEeaUUdHcNoLc3A" name="Synthesis"/>
+    <ownedCategories xmi:id="_CatDyUGvEeaUUdHcNoLc3A" name="System"/>
+    <ownedCategories xmi:id="_CatDykGvEeaUUdHcNoLc3A" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

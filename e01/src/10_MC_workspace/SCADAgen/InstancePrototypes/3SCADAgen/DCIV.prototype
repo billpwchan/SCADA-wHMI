@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<nonRTDB_HvOnly:DCIV xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xmlns:nonRTDB_HvOnly="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/nonRTDB_HvOnly" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/nonRTDB_HvOnly ../../Generated/config.ecore#_lG2FUxKoEea7gOG8GF6d-w" xmi:id="DCIV_DCIV_ynazkFXDEee4As-TYSGT9g_1497968506185" hvqname="scadagen.data.config.equipment.common.DCIV" nom_instance="DCIV" scstype="DCIV">
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_scsValue_ywUQ4FXDEee4As-TYSGT9g_1497968507118" nom_instance="scsValue" hvdatatype="Integer" hvqname="scadagen.data.config.equipment.common.DCIV.scsValue"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_scsValuePrev_ywbloFXDEee4As-TYSGT9g_1497968507130" nom_instance="scsValuePrev" hvdatatype="Integer" hvqname="scadagen.data.config.equipment.common.DCIV.scsValuePrev"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_scsValueInit_ywiTUFXDEee4As-TYSGT9g_1497968507141" nom_instance="scsValueInit" hvdatatype="Integer" hvqname="scadagen.data.config.equipment.common.DCIV.scsValueInit"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</nonRTDB_HvOnly:DCIV>

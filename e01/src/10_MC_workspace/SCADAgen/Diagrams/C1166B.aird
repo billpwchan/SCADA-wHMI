@@ -1,0 +1,1360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.obeo.fr/dsl/viewpoint/description/1.1.0" xmlns:filter="http://www.obeo.fr/dsl/viewpoint/description/filter/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsmodel="http://www.thalesgroup.com/mde/scsmodel" xmlns:style="http://www.obeo.fr/dsl/viewpoint/description/style/1.1.0" xmlns:viewpoint="http://www.obeo.fr/dsl/viewpoint/1.1.0" xsi:schemaLocation="http://www.obeo.fr/dsl/viewpoint/description/1.1.0 http://www.obeo.fr/dsl/viewpoint/1.1.0#//description http://www.obeo.fr/dsl/viewpoint/description/filter/1.1.0 http://www.obeo.fr/dsl/viewpoint/1.1.0#//description/filter http://www.obeo.fr/dsl/viewpoint/description/style/1.1.0 http://www.obeo.fr/dsl/viewpoint/1.1.0#//description/style" xmi:id="_Cb7-sfzzEeG-tZymFZDWmw" selectedViews="_Cq1WUPzzEeG-tZymFZDWmw" version="6.5.0.201210011230">
+  <models xmi:type="scsmodel:ScsRootPackage" href="../Model/config.scsmodel#:R"/>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_Cq1WUPzzEeG-tZymFZDWmw" initialized="true">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_fd0q8S9cEeOcsN8bROUs4w">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_GnZjcKg7EeOW79l_VMvVow">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_EhR6cLENEeOBYN9pymmkRA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_GOYyoLJkEeOhobwRVfSFWQ">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_PN33scZQEeOEHbok1_Lk5g">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_Hrx4Uc-dEeOI-9XqcqdRhw">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_GQM_Yd85EeOdMdBGo7pucA">
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+  <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_-KINoeVuEeOqIsAr2gFoqA">
+    <ownedRepresentations xmi:type="viewpoint:DSemanticDiagram" xmi:id="_-KINouVuEeOqIsAr2gFoqA" name="ovar">
+      <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_-NtGEOVuEeOqIsAr2gFoqA" source="GMF_DIAGRAMS">
+        <data xmi:type="notation:Diagram" xmi:id="_-NtGEeVuEeOqIsAr2gFoqA" type="Viewpoint" element="_-KINouVuEeOqIsAr2gFoqA" measurementUnit="Pixel">
+          <children xmi:type="notation:Node" xmi:id="_-Po_wOVuEeOqIsAr2gFoqA" type="2002" element="_-KINo-VuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-P76sOVuEeOqIsAr2gFoqA" type="5006"/>
+            <children xmi:type="notation:Node" xmi:id="_-QFrsOVuEeOqIsAr2gFoqA" type="7001">
+              <children xmi:type="notation:Node" xmi:id="_-RINgOVuEeOqIsAr2gFoqA" type="3009" element="_-KINqeVuEeOqIsAr2gFoqA">
+                <children xmi:type="notation:Node" xmi:id="_-RINg-VuEeOqIsAr2gFoqA" type="5004"/>
+                <children xmi:type="notation:Node" xmi:id="_-RINhOVuEeOqIsAr2gFoqA" type="7003">
+                  <children xmi:type="notation:Node" xmi:id="_-RINh-VuEeOqIsAr2gFoqA" type="3010" element="_-KINr-VuEeOqIsAr2gFoqA">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINiOVuEeOqIsAr2gFoqA"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_-RINieVuEeOqIsAr2gFoqA" type="3010" element="_-KINtOVuEeOqIsAr2gFoqA">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINiuVuEeOqIsAr2gFoqA"/>
+                  </children>
+                  <styles xmi:type="notation:SortingStyle" xmi:id="_-RINheVuEeOqIsAr2gFoqA"/>
+                  <styles xmi:type="notation:FilteringStyle" xmi:id="_-RINhuVuEeOqIsAr2gFoqA"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_-RINgeVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-RINguVuEeOqIsAr2gFoqA" x="20" y="69"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-QFrseVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-QFrsuVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Po_weVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Po_wuVuEeOqIsAr2gFoqA" x="50" y="160" width="193" height="158"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cgOVuEeOqIsAr2gFoqA" type="2003" element="_-KINueVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-cg-VuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-chOVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RINi-VuEeOqIsAr2gFoqA" type="3010" element="_-KINv-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINjOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINjeVuEeOqIsAr2gFoqA" type="3010" element="_-KINxOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINjuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINj-VuEeOqIsAr2gFoqA" type="3010" element="_-KINyeVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINkOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINkeVuEeOqIsAr2gFoqA" type="3010" element="_-KINzuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINkuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINk-VuEeOqIsAr2gFoqA" type="3010" element="_-KIN0-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINlOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-cheVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-chuVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cgeVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cguVuEeOqIsAr2gFoqA" x="820" y="30"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-ch-VuEeOqIsAr2gFoqA" type="2003" element="_-KIN2OVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-ciuVuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-ci-VuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RINleVuEeOqIsAr2gFoqA" type="3010" element="_-KIN3uVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINluVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINl-VuEeOqIsAr2gFoqA" type="3010" element="_-KIN4-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINmOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINmeVuEeOqIsAr2gFoqA" type="3010" element="_-KIN6OVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINmuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-cjOVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-cjeVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-ciOVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cieVuEeOqIsAr2gFoqA" x="240" y="30"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cjuVuEeOqIsAr2gFoqA" type="2003" element="_-KIN7eVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-ckeVuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-ckuVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RINm-VuEeOqIsAr2gFoqA" type="3010" element="_-KIN8-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINnOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINneVuEeOqIsAr2gFoqA" type="3010" element="_-KIN-OVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINnuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINn-VuEeOqIsAr2gFoqA" type="3010" element="_-KIN_eVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINoOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINoeVuEeOqIsAr2gFoqA" type="3010" element="_-KIOAuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINouVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINo-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOB-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINpOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINpeVuEeOqIsAr2gFoqA" type="3010" element="_-KIODOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINpuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINp-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOEeVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINqOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINqeVuEeOqIsAr2gFoqA" type="3010" element="_-KIOFuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINquVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINq-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOG-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINrOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINreVuEeOqIsAr2gFoqA" type="3010" element="_-KIOIOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINruVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINr-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOJeVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINsOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINseVuEeOqIsAr2gFoqA" type="3010" element="_-KIOKuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINsuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINs-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOL-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINtOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINteVuEeOqIsAr2gFoqA" type="3010" element="_-KIONOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINtuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINt-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOOeVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINuOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINueVuEeOqIsAr2gFoqA" type="3010" element="_-KIOPuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINuuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINu-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOQ-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINvOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINveVuEeOqIsAr2gFoqA" type="3010" element="_-KIOSOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINvuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINv-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOTeVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINwOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINweVuEeOqIsAr2gFoqA" type="3010" element="_-KIOUuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINwuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINw-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOV-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINxOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-ck-VuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-clOVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cj-VuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-ckOVuEeOqIsAr2gFoqA" x="55" y="-440"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cleVuEeOqIsAr2gFoqA" type="2003" element="_-KIOXOVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-cmOVuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-cmeVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RINxeVuEeOqIsAr2gFoqA" type="3010" element="_-KIOYuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINxuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINx-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOZ-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINyOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINyeVuEeOqIsAr2gFoqA" type="3010" element="_-KIObOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINyuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINy-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOceVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINzOVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINzeVuEeOqIsAr2gFoqA" type="3010" element="_-KIOduVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RINzuVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RINz-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOe-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN0OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN0eVuEeOqIsAr2gFoqA" type="3010" element="_-KIOgOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN0uVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN0-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOheVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN1OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-cmuVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-cm-VuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cluVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cl-VuEeOqIsAr2gFoqA" x="490" y="-335"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cnOVuEeOqIsAr2gFoqA" type="2003" element="_-KIOiuVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-cn-VuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-coOVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RIN1eVuEeOqIsAr2gFoqA" type="3010" element="_-KIOkOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN1uVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN1-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOleVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN2OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN2eVuEeOqIsAr2gFoqA" type="3010" element="_-KIOmuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN2uVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN2-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOn-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN3OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN3eVuEeOqIsAr2gFoqA" type="3010" element="_-KIOpOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN3uVuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-coeVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-couVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cneVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cnuVuEeOqIsAr2gFoqA" x="620" y="30"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-co-VuEeOqIsAr2gFoqA" type="2003" element="_-KIOqeVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-cpuVuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-cp-VuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RIN3-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOr-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN4OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN4eVuEeOqIsAr2gFoqA" type="3010" element="_-KIOtOVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN4uVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN4-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOueVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN5OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RIN5eVuEeOqIsAr2gFoqA" type="3010" element="_-KIOvuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN5uVuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-cqOVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-cqeVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cpOVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cpeVuEeOqIsAr2gFoqA" x="420" y="30"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cquVuEeOqIsAr2gFoqA" type="2003" element="_-KIOw-VuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-creVuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-cruVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RIN5-VuEeOqIsAr2gFoqA" type="3010" element="_-KIOyeVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RIN6OVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RR-gOVuEeOqIsAr2gFoqA" type="3010" element="_-KIOzuVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RR-geVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RR-guVuEeOqIsAr2gFoqA" type="3010" element="_-KIO0-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RR-g-VuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-cr-VuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-csOVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cq-VuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-crOVuEeOqIsAr2gFoqA" x="275" y="190"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cseVuEeOqIsAr2gFoqA" type="2003" element="_-KIO2OVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-ctOVuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-cteVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RR-hOVuEeOqIsAr2gFoqA" type="3010" element="_-KIO3uVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RR-heVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RR-huVuEeOqIsAr2gFoqA" type="3010" element="_-KIO4-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RR-h-VuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-ctuVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-ct-VuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-csuVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cs-VuEeOqIsAr2gFoqA" x="255" y="-310"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_-Q-cuOVuEeOqIsAr2gFoqA" type="2003" element="_-KIO6OVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-Q-cu-VuEeOqIsAr2gFoqA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_-Q-cvOVuEeOqIsAr2gFoqA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_-RR-iOVuEeOqIsAr2gFoqA" type="3010" element="_-KIO7uVuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RR-ieVuEeOqIsAr2gFoqA"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_-RR-iuVuEeOqIsAr2gFoqA" type="3010" element="_-KIO8-VuEeOqIsAr2gFoqA">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_-RR-i-VuEeOqIsAr2gFoqA"/>
+              </children>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_-Q-cveVuEeOqIsAr2gFoqA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_-Q-cvuVuEeOqIsAr2gFoqA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_-Q-cueVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-Q-cuuVuEeOqIsAr2gFoqA" x="250" y="-225"/>
+          </children>
+          <styles xmi:type="notation:DiagramStyle" xmi:id="_-NtGEuVuEeOqIsAr2gFoqA"/>
+          <edges xmi:type="notation:Edge" xmi:id="_-TEHMOVuEeOqIsAr2gFoqA" type="4001" element="_-KIO-OVuEeOqIsAr2gFoqA" source="_-RINgOVuEeOqIsAr2gFoqA" target="_-Q-cjuVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-TEHNOVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-TEHNeVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-TXCIOVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-TXCIeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-TXCIuVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-TXCI-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-TEHMeVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-TEHMuVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-TEHM-VuEeOqIsAr2gFoqA" points="[0, -30, 10, 473]$[0, -145, 10, 358]$[-7, -145, 3, 358]$[-7, -320, 3, 183]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VAA4OVuEeOqIsAr2gFoqA" id="(0.5,0.5)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VAA4eVuEeOqIsAr2gFoqA" id="(0.5,0.5)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VJx4OVuEeOqIsAr2gFoqA" type="4001" element="_-KIO--VuEeOqIsAr2gFoqA" source="_-Q-cgOVuEeOqIsAr2gFoqA" target="_-Q-cleVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VJx5OVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx5eVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJx5uVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx5-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJx6OVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx6eVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VJx4eVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VJx4uVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VJx4-VuEeOqIsAr2gFoqA" points="[0, -109, 268, 365]$[0, -234, 268, 240]$[-322, -234, -54, 240]$[-322, -317, -54, 157]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJx6uVuEeOqIsAr2gFoqA" id="(0.3282442748091603,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJx6-VuEeOqIsAr2gFoqA" id="(0.828125,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VJx7OVuEeOqIsAr2gFoqA" type="4001" element="_-KIO_uVuEeOqIsAr2gFoqA" source="_-Q-cgOVuEeOqIsAr2gFoqA" target="_-Q-cjuVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VJx8OVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx8eVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJx8uVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx8-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJx9OVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx9eVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VJx7eVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VJx7uVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VJx7-VuEeOqIsAr2gFoqA" points="[0, -109, 743, 470]$[0, -169, 743, 410]$[-775, -169, -32, 410]$[-775, -214, -32, 365]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJx9uVuEeOqIsAr2gFoqA" id="(0.6641221374045801,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJx9-VuEeOqIsAr2gFoqA" id="(0.7465753424657534,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VJx-OVuEeOqIsAr2gFoqA" type="4001" element="_-KIPAeVuEeOqIsAr2gFoqA" source="_-Q-ch-VuEeOqIsAr2gFoqA" target="_-Q-cleVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VJx_OVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx_eVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJx_uVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJx_-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyAOVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyAeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VJx-eVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VJx-uVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VJx--VuEeOqIsAr2gFoqA" points="[0, -77, -193, 365]$[0, -202, -193, 240]$[212, -202, 19, 240]$[212, -285, 19, 157]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJyAuVuEeOqIsAr2gFoqA" id="(0.743801652892562,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJyA-VuEeOqIsAr2gFoqA" id="(0.25,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VJyBOVuEeOqIsAr2gFoqA" type="4001" element="_-KIPBOVuEeOqIsAr2gFoqA" source="_-Q-cnOVuEeOqIsAr2gFoqA" target="_-Q-cleVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VJyCOVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyCeVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyCuVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyC-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyDOVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyDeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VJyBeVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VJyBuVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VJyB-VuEeOqIsAr2gFoqA" points="[0, -109, 81, 365]$[0, -234, 81, 240]$[-114, -234, -33, 240]$[-114, -317, -33, 157]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJyDuVuEeOqIsAr2gFoqA" id="(0.24822695035460993,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJyD-VuEeOqIsAr2gFoqA" id="(0.6640625,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VJyEOVuEeOqIsAr2gFoqA" type="4001" element="_-KIPB-VuEeOqIsAr2gFoqA" source="_-Q-cnOVuEeOqIsAr2gFoqA" target="_-Q-cjuVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VJyFOVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyFeVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyFuVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyF-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyGOVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyGeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VJyEeVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VJyEuVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VJyE-VuEeOqIsAr2gFoqA" points="[0, -109, 562, 470]$[0, -169, 562, 410]$[-559, -169, 3, 410]$[-559, -214, 3, 365]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJyGuVuEeOqIsAr2gFoqA" id="(0.49645390070921985,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VJyG-VuEeOqIsAr2gFoqA" id="(0.5,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VJyHOVuEeOqIsAr2gFoqA" type="4001" element="_-KIPCuVuEeOqIsAr2gFoqA" source="_-Q-co-VuEeOqIsAr2gFoqA" target="_-Q-cleVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VJyIOVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyIeVuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyIuVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyI-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VJyJOVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VJyJeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VJyHeVuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VJyHuVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VJyH-VuEeOqIsAr2gFoqA" points="[0, -93, -65, 365]$[0, -218, -65, 240]$[52, -218, -13, 240]$[52, -301, -13, 157]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTi4OVuEeOqIsAr2gFoqA" id="(0.5109489051094891,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTi4eVuEeOqIsAr2gFoqA" id="(0.5,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VTi4uVuEeOqIsAr2gFoqA" type="4001" element="_-KIPDeVuEeOqIsAr2gFoqA" source="_-Q-co-VuEeOqIsAr2gFoqA" target="_-Q-cjuVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VTi5uVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi5-VuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTi6OVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi6eVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTi6uVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi6-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VTi4-VuEeOqIsAr2gFoqA" routing="Tree"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VTi5OVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VTi5eVuEeOqIsAr2gFoqA" points="[0, -93, 431, 470]$[0, -153, 431, 410]$[-391, -153, 40, 410]$[-391, -198, 40, 365]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTi7OVuEeOqIsAr2gFoqA" id="(0.7518248175182481,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTi7eVuEeOqIsAr2gFoqA" id="(0.2465753424657534,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VTi7uVuEeOqIsAr2gFoqA" type="4001" element="_-KIPEOVuEeOqIsAr2gFoqA" source="_-Q-ch-VuEeOqIsAr2gFoqA" target="_-Q-cquVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VTi8uVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi8-VuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTi9OVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi9eVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTi9uVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi9-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VTi7-VuEeOqIsAr2gFoqA" routing="Rectilinear" jumpLinkStatus="Above"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VTi8OVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VTi8eVuEeOqIsAr2gFoqA" points="[0, 0, 0, -92]$[0, 92, 0, 0]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTi-OVuEeOqIsAr2gFoqA" id="(0.49586776859504134,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTi-eVuEeOqIsAr2gFoqA" id="(0.4954954954954955,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VTi-uVuEeOqIsAr2gFoqA" type="4001" element="_-KIPE-VuEeOqIsAr2gFoqA" source="_-Q-cjuVuEeOqIsAr2gFoqA" target="_-Q-cseVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VTi_uVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTi_-VuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTjAOVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjAeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTjAuVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjA-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VTi--VuEeOqIsAr2gFoqA" routing="Rectilinear" jumpLinkStatus="Above"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VTi_OVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VTi_eVuEeOqIsAr2gFoqA" points="[97, -200, -134, 25]$[132, -200, -99, 25]$[132, -188, -99, 37]$[173, -188, -58, 37]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTjBOVuEeOqIsAr2gFoqA" id="(0.3287671232876712,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTjBeVuEeOqIsAr2gFoqA" id="(0.5,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VTjBuVuEeOqIsAr2gFoqA" type="4001" element="_-KIPFuVuEeOqIsAr2gFoqA" source="_-Q-cjuVuEeOqIsAr2gFoqA" target="_-Q-cuOVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VTjCuVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjC-VuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTjDOVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjDeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTjDuVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjD-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VTjB-VuEeOqIsAr2gFoqA" routing="Rectilinear" jumpLinkStatus="Above"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VTjCOVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VTjCeVuEeOqIsAr2gFoqA" points="[0, 0, -65, -60]$[0, 30, -65, -30]$[65, 30, 0, -30]$[65, 60, 0, 0]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTjEOVuEeOqIsAr2gFoqA" id="(0.6643835616438356,1.0)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTjEeVuEeOqIsAr2gFoqA" id="(0.5,0.0)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_-VTjEuVuEeOqIsAr2gFoqA" type="4001" element="_-KIPGeVuEeOqIsAr2gFoqA" source="_-Q-ch-VuEeOqIsAr2gFoqA" target="_-RINgOVuEeOqIsAr2gFoqA">
+            <children xmi:type="notation:Node" xmi:id="_-VTjFuVuEeOqIsAr2gFoqA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjF-VuEeOqIsAr2gFoqA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTjGOVuEeOqIsAr2gFoqA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjGeVuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_-VTjGuVuEeOqIsAr2gFoqA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-VTjG-VuEeOqIsAr2gFoqA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_-VTjE-VuEeOqIsAr2gFoqA"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_-VTjFOVuEeOqIsAr2gFoqA" fontName="Microsoft Sans Serif"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-VTjFeVuEeOqIsAr2gFoqA" points="[-1, -1, -1, -1]$[-1, -1, -1, -1]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTjHOVuEeOqIsAr2gFoqA" id="(0.5,0.5)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-VTjHeVuEeOqIsAr2gFoqA" id="(0.5,0.5)"/>
+          </edges>
+        </data>
+      </ownedAnnotationEntries>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeContainer" xmi:id="_-KINo-VuEeOqIsAr2gFoqA" name="SOURCE">
+        <target xmi:type="scsmodel:ScsClassPackage" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE"/>
+        <semanticElements xmi:type="scsmodel:ScsClassPackage" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KINpOVuEeOqIsAr2gFoqA">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINpeVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsClassPackage']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINpuVuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINp-VuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINqOVuEeOqIsAr2gFoqA" red="255" green="245" blue="181"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsClassPackage']"/>
+        <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KINqeVuEeOqIsAr2gFoqA" name="dov_type" tooltipText="Discrete Output Value. For each possible value defined in the .valueTable attribute, a DOV point must be defined under the DIOV point. The DOV point is used to store the behaviour (initial conditions, return conditions..) specific to the corresponding value." outgoingEdges="_-KIO-OVuEeOqIsAr2gFoqA" incomingEdges="_-KIPGeVuEeOqIsAr2gFoqA">
+          <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV"/>
+          <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KINquVuEeOqIsAr2gFoqA" labelAlignment="LEFT" backgroundStyle="GradientTopToBottom">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINq-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINrOVuEeOqIsAr2gFoqA"/>
+            <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINreVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+            <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINruVuEeOqIsAr2gFoqA" red="194" green="239" blue="255"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+          <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KINr-VuEeOqIsAr2gFoqA" name="class_id : string">
+            <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV:CLASS_ID"/>
+            <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV:CLASS_ID"/>
+            <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KINsOVuEeOqIsAr2gFoqA">
+              <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINseVuEeOqIsAr2gFoqA"/>
+              <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+              <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINsuVuEeOqIsAr2gFoqA"/>
+              <color xmi:type="viewpoint:RGBValues" xmi:id="_-KINs-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+          </ownedElements>
+          <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KINtOVuEeOqIsAr2gFoqA" name="ctlvalue : int">
+            <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV:ctlvalue"/>
+            <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV:ctlvalue"/>
+            <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KINteVuEeOqIsAr2gFoqA">
+              <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINtuVuEeOqIsAr2gFoqA"/>
+              <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+              <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINt-VuEeOqIsAr2gFoqA"/>
+              <color xmi:type="viewpoint:RGBValues" xmi:id="_-KINuOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+          </ownedElements>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KINueVuEeOqIsAr2gFoqA" name="aio_type" tooltipText="An Analogue Internal Output is used to store data needed to send command to an equipment. An AIO (Analogue Internal Output) is configured on one level of a database hierarchy." outgoingEdges="_-KIO--VuEeOqIsAr2gFoqA _-KIO_uVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO"/>
+        <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO"/>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KINuuVuEeOqIsAr2gFoqA" labelAlignment="LEFT" backgroundStyle="GradientTopToBottom">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINu-VuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINvOVuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINveVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINvuVuEeOqIsAr2gFoqA" red="194" green="239" blue="255"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KINv-VuEeOqIsAr2gFoqA" name="class_id : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:CLASS_ID"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:CLASS_ID"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KINwOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINweVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINwuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KINw-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KINxOVuEeOqIsAr2gFoqA" name="previousValue : float">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:PREVIOUSVALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:PREVIOUSVALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KINxeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINxuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINx-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KINyOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KINyeVuEeOqIsAr2gFoqA" name="value : float">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:VALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:VALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KINyuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINy-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KINzOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KINzeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KINzuVuEeOqIsAr2gFoqA" name="ctlvalue : float">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:ctlvalue"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:ctlvalue"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KINz-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN0OVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN0eVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN0uVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN0-VuEeOqIsAr2gFoqA" name="valueLimits : float">
+          <target xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:VALUELIMITS"/>
+          <semanticElements xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO:VALUELIMITS"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN1OVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN1eVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN1uVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN1-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIN2OVuEeOqIsAr2gFoqA" name="dio_type" tooltipText="A Discrete Internal Output is used to store data needed to send command to an equipment with discrete values. A DIO (Discrete Internal Output) must be configured through a 2 levels hierarchy of database points: - At level 1, the DIO point contains all the attributes needed to define the command from a high level view. - At level 2, one DOV (Discrete Output Value) point for each DIO value. The DOV point contains the attributes needed to configure the DOV behaviour and to send data to the remote RTU." outgoingEdges="_-KIPAeVuEeOqIsAr2gFoqA _-KIPEOVuEeOqIsAr2gFoqA _-KIPGeVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO"/>
+        <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO"/>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIN2eVuEeOqIsAr2gFoqA" labelAlignment="LEFT" backgroundStyle="GradientTopToBottom">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN2uVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN2-VuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN3OVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN3eVuEeOqIsAr2gFoqA" red="194" green="239" blue="255"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN3uVuEeOqIsAr2gFoqA" name="class_id : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:CLASS_ID"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:CLASS_ID"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN3-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN4OVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN4eVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN4uVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN4-VuEeOqIsAr2gFoqA" name="previousValue : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:PREVIOUSVALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:PREVIOUSVALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN5OVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN5eVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN5uVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN5-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN6OVuEeOqIsAr2gFoqA" name="value : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN6eVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN6uVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN6-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN7OVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIN7eVuEeOqIsAr2gFoqA" name="dpc_com&lt;&lt;abstract>>" tooltipText="Abstract class containing attributes common to a simple command." outgoingEdges="_-KIPE-VuEeOqIsAr2gFoqA _-KIPFuVuEeOqIsAr2gFoqA" incomingEdges="_-KIO-OVuEeOqIsAr2gFoqA _-KIO_uVuEeOqIsAr2gFoqA _-KIPB-VuEeOqIsAr2gFoqA _-KIPDeVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM"/>
+        <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIN7uVuEeOqIsAr2gFoqA">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN7-VuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@conditionnalStyles.0/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN8OVuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN8eVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN8uVuEeOqIsAr2gFoqA" red="246" green="139" blue="139"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN8-VuEeOqIsAr2gFoqA" name="initCond1 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND1"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND1"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN9OVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN9eVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN9uVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN9-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN-OVuEeOqIsAr2gFoqA" name="initCond2 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND2"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND2"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN-eVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN-uVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN--VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIN_OVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIN_eVuEeOqIsAr2gFoqA" name="initCond3 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND3"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND3"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIN_uVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIN_-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOAOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOAeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOAuVuEeOqIsAr2gFoqA" name="initCond4 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND4"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND4"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOA-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOBOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOBeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOBuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOB-VuEeOqIsAr2gFoqA" name="initCond5 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND5"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND5"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOCOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOCeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOCuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOC-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIODOVuEeOqIsAr2gFoqA" name="initCond6 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND6"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND6"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIODeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIODuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOD-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOEOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOEeVuEeOqIsAr2gFoqA" name="initCond7 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND7"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND7"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOEuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOE-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOFOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOFeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOFuVuEeOqIsAr2gFoqA" name="initCond8 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND8"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCOND8"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOF-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOGOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOGeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOGuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOG-VuEeOqIsAr2gFoqA" name="initCondGL : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDGL"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDGL"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOHOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOHeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOHuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOH-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOIOVuEeOqIsAr2gFoqA" name="initCondTO : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTO"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTO"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOIeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOIuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOI-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOJOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOJeVuEeOqIsAr2gFoqA" name="returnCond1 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND1"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND1"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOJuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOJ-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOKOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOKeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOKuVuEeOqIsAr2gFoqA" name="returnCond2 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND2"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND2"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOK-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOLOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOLeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOLuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOL-VuEeOqIsAr2gFoqA" name="returnCond3 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND3"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND3"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOMOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOMeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOMuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOM-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIONOVuEeOqIsAr2gFoqA" name="returnCond4 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND4"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND4"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIONeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIONuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KION-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOOOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOOeVuEeOqIsAr2gFoqA" name="returnCond5 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND5"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND5"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOOuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOO-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOPOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOPeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOPuVuEeOqIsAr2gFoqA" name="returnCond6 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND6"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND6"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOP-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOQOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOQeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOQuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOQ-VuEeOqIsAr2gFoqA" name="returnCond7 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND7"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND7"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOROVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOReVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIORuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOR-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOSOVuEeOqIsAr2gFoqA" name="returnCond8 : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND8"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCOND8"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOSeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOSuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOS-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOTOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOTeVuEeOqIsAr2gFoqA" name="returnCondGL : boolean">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCONDGL"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCONDGL"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOTuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOT-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOUOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOUeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOUuVuEeOqIsAr2gFoqA" name="returnCondTO : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCONDTO"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETURNCONDTO"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOU-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOVOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOVeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOVuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOV-VuEeOqIsAr2gFoqA" name="veCoord : string">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:VECOORD"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:VECOORD"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOWOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOWeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOWuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOW-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIOXOVuEeOqIsAr2gFoqA" name="dpc_ovar&lt;&lt;abstract>>" tooltipText="Abstract class containing attributes common to all output variables." incomingEdges="_-KIO--VuEeOqIsAr2gFoqA _-KIPAeVuEeOqIsAr2gFoqA _-KIPBOVuEeOqIsAr2gFoqA _-KIPCuVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR"/>
+        <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIOXeVuEeOqIsAr2gFoqA">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOXuVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@conditionnalStyles.0/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOX-VuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOYOVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOYeVuEeOqIsAr2gFoqA" red="246" green="139" blue="139"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOYuVuEeOqIsAr2gFoqA" name="hmiOrder : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:HMIORDER"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:HMIORDER"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOY-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOZOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOZeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOZuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOZ-VuEeOqIsAr2gFoqA" name="label : string">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:LABEL"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:LABEL"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOaOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOaeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOauVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOa-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIObOVuEeOqIsAr2gFoqA" name="opDate : date">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:OPDATE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:OPDATE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIObeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIObuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOb-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOcOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOceVuEeOqIsAr2gFoqA" name="opSource : string">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:OPSOURCE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:OPSOURCE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOcuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOc-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOdOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOdeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOduVuEeOqIsAr2gFoqA" name="previousStatus : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:PREVIOUSSTATUS"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:PREVIOUSSTATUS"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOd-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOeOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOeeVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOeuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOe-VuEeOqIsAr2gFoqA" name="source : string">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:SOURCE"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:SOURCE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOfOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOfeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOfuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOf-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOgOVuEeOqIsAr2gFoqA" name="status : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:STATUS"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_OVAR:STATUS"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOgeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOguVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOg-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOhOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOheVuEeOqIsAr2gFoqA" name="execStatus : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:EXECSTATUS"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:EXECSTATUS"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOhuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOh-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOiOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOieVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIOiuVuEeOqIsAr2gFoqA" name="sio_type" tooltipText="A Structured Internal Output is used to store data needed to send command to an equipment with strcutured values. A SIO (Structured Internal Output) is configured on one level of a database hierarchy." outgoingEdges="_-KIPBOVuEeOqIsAr2gFoqA _-KIPB-VuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO"/>
+        <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO"/>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIOi-VuEeOqIsAr2gFoqA" labelAlignment="LEFT" backgroundStyle="GradientTopToBottom">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOjOVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOjeVuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOjuVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOj-VuEeOqIsAr2gFoqA" red="194" green="239" blue="255"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOkOVuEeOqIsAr2gFoqA" name="class_id : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:CLASS_ID"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:CLASS_ID"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOkeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOkuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOk-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOlOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOleVuEeOqIsAr2gFoqA" name="valueLength : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:VALUELENGTH"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:VALUELENGTH"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOluVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOl-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOmOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOmeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOmuVuEeOqIsAr2gFoqA" name="ctlvalue : string">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:ctlvalue"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:ctlvalue"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOm-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOnOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOneVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOnuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOn-VuEeOqIsAr2gFoqA" name="previousValue : bitfield">
+          <target xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:PREVIOUSVALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:PREVIOUSVALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOoOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOoeVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOouVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOo-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOpOVuEeOqIsAr2gFoqA" name="value : bitfield">
+          <target xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:VALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO:VALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOpeVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOpuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOp-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOqOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIOqeVuEeOqIsAr2gFoqA" name="sio_string_type" tooltipText="A Structured Internal Output is used to store data needed to send command to an equipment with structured values. A SIO (Structured Internal Output) is configured on one level of a database hierarchy." outgoingEdges="_-KIPCuVuEeOqIsAr2gFoqA _-KIPDeVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#_lb2EMNnLEeKS_JX1AXta-g"/>
+        <semanticElements xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#_lb2EMNnLEeKS_JX1AXta-g"/>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIOquVuEeOqIsAr2gFoqA" labelAlignment="LEFT" backgroundStyle="GradientTopToBottom">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOq-VuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOrOVuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOreVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOruVuEeOqIsAr2gFoqA" red="194" green="239" blue="255"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOr-VuEeOqIsAr2gFoqA" name="class_id : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#_lb2EOtnLEeKS_JX1AXta-g"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#_lb2EOtnLEeKS_JX1AXta-g"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOsOVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOseVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOsuVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOs-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOtOVuEeOqIsAr2gFoqA" name="valueLength : int">
+          <target xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#_lb2EQNnLEeKS_JX1AXta-g"/>
+          <semanticElements xmi:type="scsmodel:ScsAttribute" href="../Model/config.scsmodel#_lb2EQNnLEeKS_JX1AXta-g"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOteVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOtuVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOt-VuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOuOVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsAttribute']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOueVuEeOqIsAr2gFoqA" name="value : string">
+          <target xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#_lb2ENtnLEeKS_JX1AXta-g"/>
+          <semanticElements xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#_lb2ENtnLEeKS_JX1AXta-g"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOuuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOu-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOvOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOveVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOvuVuEeOqIsAr2gFoqA" name="previousValue : string">
+          <target xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#_Tqj-cNnMEeKS_JX1AXta-g"/>
+          <semanticElements xmi:type="scsmodel:ScsVector" href="../Model/config.scsmodel#_Tqj-cNnMEeKS_JX1AXta-g"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOv-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOwOVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOweVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOwuVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Detailed%20ScsClass']/@subNodeMappings[name='Blank%20ScsVector']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIOw-VuEeOqIsAr2gFoqA" name="valueTable" incomingEdges="_-KIPEOVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsStruct" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:ELEMENT"/>
+        <semanticElements xmi:type="scsmodel:ScsStruct" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:ELEMENT"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIOxOVuEeOqIsAr2gFoqA" labelAlignment="LEFT">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOxeVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOxuVuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOx-VuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOyOVuEeOqIsAr2gFoqA" red="209" green="209" blue="209"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOyeVuEeOqIsAr2gFoqA" name="dovname : string">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:DOVNAME"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:DOVNAME"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOyuVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOy-VuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIOzOVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIOzeVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIOzuVuEeOqIsAr2gFoqA" name="label : string">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:LABEL"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:LABEL"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIOz-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO0OVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO0eVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIO0uVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIO0-VuEeOqIsAr2gFoqA" name="value : int">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:VALUE"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:VALUETABLE:VALUE"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIO1OVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO1eVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO1uVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIO1-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIO2OVuEeOqIsAr2gFoqA" name="initCondTable" incomingEdges="_-KIPE-VuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsStruct" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTABLE:ELEMENT"/>
+        <semanticElements xmi:type="scsmodel:ScsStruct" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTABLE:ELEMENT"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIO2eVuEeOqIsAr2gFoqA" labelAlignment="LEFT">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO2uVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO2-VuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO3OVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO3eVuEeOqIsAr2gFoqA" red="209" green="209" blue="209"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIO3uVuEeOqIsAr2gFoqA" name="condInfo : string">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTABLE:CONDINFO"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTABLE:CONDINFO"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIO3-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO4OVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO4eVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIO4uVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIO4-VuEeOqIsAr2gFoqA" name="condVal : boolean">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTABLE:CONDVAL"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:INITCONDTABLE:CONDVAL"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIO5OVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO5eVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO5uVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIO5-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DNodeList" xmi:id="_-KIO6OVuEeOqIsAr2gFoqA" name="retCondTable" incomingEdges="_-KIPFuVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsStruct" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETCONDTABLE:ELEMENT"/>
+        <semanticElements xmi:type="scsmodel:ScsStruct" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETCONDTABLE:ELEMENT"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="viewpoint:FlatContainerStyle" xmi:id="_-KIO6eVuEeOqIsAr2gFoqA" labelAlignment="LEFT">
+          <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO6uVuEeOqIsAr2gFoqA"/>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@style"/>
+          <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO6-VuEeOqIsAr2gFoqA"/>
+          <backgroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO7OVuEeOqIsAr2gFoqA" red="255" green="255" blue="255"/>
+          <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO7eVuEeOqIsAr2gFoqA" red="209" green="209" blue="209"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:ContainerMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']"/>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIO7uVuEeOqIsAr2gFoqA" name="condInfo : string">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETCONDTABLE:CONDINFO"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETCONDTABLE:CONDINFO"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIO7-VuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO8OVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO8eVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIO8uVuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+        <ownedElements xmi:type="viewpoint:DNodeListElement" xmi:id="_-KIO8-VuEeOqIsAr2gFoqA" name="condVal : boolean">
+          <target xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETCONDTABLE:CONDVAL"/>
+          <semanticElements xmi:type="scsmodel:ScsVectorElement" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM:RETCONDTABLE:CONDVAL"/>
+          <ownedStyle xmi:type="viewpoint:Square" xmi:id="_-KIO9OVuEeOqIsAr2gFoqA">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO9eVuEeOqIsAr2gFoqA"/>
+            <description xmi:type="style:SquareDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']/@style"/>
+            <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO9uVuEeOqIsAr2gFoqA"/>
+            <color xmi:type="viewpoint:RGBValues" xmi:id="_-KIO9-VuEeOqIsAr2gFoqA" red="136" green="136" blue="136"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description:NodeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Blank%20ScsStruct']/@subNodeMappings[name='Blank%20ScsVectorElement']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIO-OVuEeOqIsAr2gFoqA" sourceNode="_-KINqeVuEeOqIsAr2gFoqA" targetNode="_-KIN7eVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SOURCE:DOV"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIO-eVuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO-uVuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIO--VuEeOqIsAr2gFoqA" sourceNode="_-KINueVuEeOqIsAr2gFoqA" targetNode="_-KIOXOVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIO_OVuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIO_eVuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIO_uVuEeOqIsAr2gFoqA" sourceNode="_-KINueVuEeOqIsAr2gFoqA" targetNode="_-KIN7eVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:AIO"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIO_-VuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPAOVuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPAeVuEeOqIsAr2gFoqA" sourceNode="_-KIN2OVuEeOqIsAr2gFoqA" targetNode="_-KIOXOVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPAuVuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPA-VuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPBOVuEeOqIsAr2gFoqA" sourceNode="_-KIOiuVuEeOqIsAr2gFoqA" targetNode="_-KIOXOVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPBeVuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPBuVuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPB-VuEeOqIsAr2gFoqA" sourceNode="_-KIOiuVuEeOqIsAr2gFoqA" targetNode="_-KIN7eVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:SIO"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPCOVuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPCeVuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPCuVuEeOqIsAr2gFoqA" sourceNode="_-KIOqeVuEeOqIsAr2gFoqA" targetNode="_-KIOXOVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#_lb2EMNnLEeKS_JX1AXta-g"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPC-VuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPDOVuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPDeVuEeOqIsAr2gFoqA" sourceNode="_-KIOqeVuEeOqIsAr2gFoqA" targetNode="_-KIN7eVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#_lb2EMNnLEeKS_JX1AXta-g"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPDuVuEeOqIsAr2gFoqA" targetArrow="InputFillClosedArrow" foldingStyle="SOURCE" routingStyle="tree">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPD-VuEeOqIsAr2gFoqA" red="239" green="41" blue="41"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20ScsSupertypes']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPEOVuEeOqIsAr2gFoqA" sourceNode="_-KIN2OVuEeOqIsAr2gFoqA" targetNode="_-KIOw-VuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPEeVuEeOqIsAr2gFoqA" routingStyle="manhattan">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20VectorStructEdge']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPEuVuEeOqIsAr2gFoqA" red="77" green="137" blue="20"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20VectorStructEdge']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPE-VuEeOqIsAr2gFoqA" sourceNode="_-KIN7eVuEeOqIsAr2gFoqA" targetNode="_-KIO2OVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPFOVuEeOqIsAr2gFoqA" routingStyle="manhattan">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20VectorStructEdge']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPFeVuEeOqIsAr2gFoqA" red="77" green="137" blue="20"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20VectorStructEdge']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPFuVuEeOqIsAr2gFoqA" sourceNode="_-KIN7eVuEeOqIsAr2gFoqA" targetNode="_-KIO6OVuEeOqIsAr2gFoqA">
+        <target xmi:type="scsmodel:ScsClass" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DPC_COM"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPF-VuEeOqIsAr2gFoqA" routingStyle="manhattan">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20VectorStructEdge']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPGOVuEeOqIsAr2gFoqA" red="77" green="137" blue="20"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Blank%20VectorStructEdge']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="viewpoint:DEdge" xmi:id="_-KIPGeVuEeOqIsAr2gFoqA" name="DOV" sourceNode="_-KIN2OVuEeOqIsAr2gFoqA" targetNode="_-KINqeVuEeOqIsAr2gFoqA" endLabel="[1..12]">
+        <target xmi:type="scsmodel:ScsComposition" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:DOV"/>
+        <semanticElements xmi:type="scsmodel:ScsComposition" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR:DIO:DOV"/>
+        <ownedStyle xmi:type="viewpoint:EdgeStyle" xmi:id="_-KIPGuVuEeOqIsAr2gFoqA" sourceArrow="FillDiamond" size="2">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Composition%20Edge']/@style"/>
+          <strokeColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPG-VuEeOqIsAr2gFoqA" red="39" green="76" blue="114"/>
+          <centerLabelStyle xmi:type="viewpoint:CenterLabelStyle" xmi:id="_-KIPHOVuEeOqIsAr2gFoqA" showIcon="false">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPHeVuEeOqIsAr2gFoqA"/>
+          </centerLabelStyle>
+          <endLabelStyle xmi:type="viewpoint:EndLabelStyle" xmi:id="_-KIPHuVuEeOqIsAr2gFoqA" showIcon="false">
+            <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_-KIPH-VuEeOqIsAr2gFoqA"/>
+          </endLabelStyle>
+        </ownedStyle>
+        <actualMapping xmi:type="description:EdgeMapping" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='Composition%20Edge']"/>
+      </ownedDiagramElements>
+      <description xmi:type="description:DiagramDescription" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']"/>
+      <activatedFilters xmi:type="filter:CompositeFilterDescription" href="platform:/plugin/com.thalesgroup.mde.af.doremi.integration/description/af.odesign#//@ownedViewpoints[name='Architecture%20Framework']/@ownedRepresentations[name='AF%20diagram']/@filters[name='ModelExtensionFilter']"/>
+      <filterVariableHistory xmi:type="viewpoint:FilterVariableHistory" xmi:id="_-KIPIOVuEeOqIsAr2gFoqA"/>
+      <activatedLayers xmi:type="description:Layer" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']/@ownedRepresentations[name='Detailed%20Class%20Diagram']/@defaultLayer"/>
+      <target xmi:type="scsmodel:ScsClassPackage" href="../Model/config.scsmodel#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR"/>
+    </ownedRepresentations>
+    <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/com.thalesgroup.scadasoft.designer/description/ScsModel.odesign#//@ownedViewpoints[name='ScsModelViewPoint']"/>
+  </ownedViews>
+</viewpoint:DAnalysis>

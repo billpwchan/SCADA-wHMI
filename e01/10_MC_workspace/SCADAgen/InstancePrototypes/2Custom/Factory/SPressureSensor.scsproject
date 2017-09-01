@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="3055">
-  <ownedPrototype id="_ns0OQPTJEeSVQNc0eVK6Kw_1431010751780">
-    <parentPrototypes>BasicEquipment_PressureSensor_F9BhQCJxEeadBLsIIQVFSA_1464177980756</parentPrototypes>
-    <parentPrototypes>BasicEquipment_SBaseEqp_kAunkSNEEeacmJFPQQ8tfg_1464268806281</parentPrototypes>
-  </ownedPrototype>
-</scsproject:Project>

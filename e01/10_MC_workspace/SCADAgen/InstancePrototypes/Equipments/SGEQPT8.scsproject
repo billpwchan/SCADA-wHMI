@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="4">
-  <ownedPrototype>
-    <ownedAttributes name="EQPT_ACTION4" partialUri="SGEQPT8_SGEQPT8_obNTMEpyEeaL86LnHtw4ig_1468576688099"/>
-    <parentPrototypes>SGEQPT7_SGEQPT7_o-UnUEpyEeaL86LnHtw4ig_1468576691781</parentPrototypes>
-  </ownedPrototype>
-</scsproject:Project>

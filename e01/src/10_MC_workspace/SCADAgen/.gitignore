@@ -1,0 +1,8 @@
+bin/
+/icdGenerated/
+/TmpGeneratedModels/
+/MWTConf/
+/Generated/config.ecore
+/.tempExport/
+/Export/
+InstancePrototypes.tmp/

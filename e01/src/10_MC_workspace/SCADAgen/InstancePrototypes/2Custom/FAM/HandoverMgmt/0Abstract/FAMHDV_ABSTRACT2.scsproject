@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="17">
+  <ownedPrototype id="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592"/>
+    <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dco_type_lxGgkHRQEeewuatvcs1m1g_1501327513881"/>
+    <ownedAttributes frozen="true" formula="[^:^:dciFAM-HDVSTATUSACQ.status]" name="computedStatus" partialUri="dco_type_lxGgkHRQEeewuatvcs1m1g_1501327513881"/>
+    <ownedAttributes frozen="true" formula="[^:^:dciFAM-HDVSTATUSACQ.valueDate]" name="computedDate" partialUri="dco_type_lxGgkHRQEeewuatvcs1m1g_1501327513881"/>
+    <ownedAttributes frozen="true" formula="IF(([^:^:dciFAM-HDVSTATUSACQ.value]=257) OR ([^:^:dciFAM-HDVSTATUSACQ.value]=514) OR ([^:^:dciFAM-HDVSTATUSACQ.value]=1028) OR ([^:^:dciFAM-HDVSTATUSACQ.value]=0), [^:^:dciFAM-HDVSTATUSACQ.value], -1)&#xD;&#xA;" name="computedValue" partialUri="dco_type_lxGgkHRQEeewuatvcs1m1g_1501327513881"/>
+    <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_setValue_4ItgAXXPEeecZaoeVCkJVg_1501492134400"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_fhXA0XRQEeewuatvcs1m1g_1501327471965"/>
+    <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_OFiRYHzbEee9mNLYQho_BA_1502266664310"/>
+    <ownedAttributes frozen="true" name="hmiOrder" partialUri="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965"/>
+    <ownedAttributes name="label" partialUri="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

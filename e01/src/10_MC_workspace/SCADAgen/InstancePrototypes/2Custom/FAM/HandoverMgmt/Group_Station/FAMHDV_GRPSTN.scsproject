@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="18">
+  <ownedPrototype>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal)})" name="returnCond2" partialUri="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal)})" name="returnCond2" partialUri="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal)})" name="returnCond2" partialUri="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=257, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( NOT([.returnCond1]), {.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( NOT([.returnCond1]), {.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( NOT([.returnCond1]), {.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030"/>
+    <ownedAttributes formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=1028, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_dioFAM-HDVSTATUS_uy4_UXOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,{.hdvValue})" name="hdvValue" partialUri="BasicEquipment_FAMHDV_GRP_CNT_uy4_UHOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" name="returnCondTO" partialUri="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dio_type_dioFAM-HDVSTATUS_uy4_UXOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-REQ1_uy4_XnOOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-REQ2_uy4_b3OOEeewuatvcs1m1g_1501244252101"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-CTRL1_s8yt4XWSEeerLMPndjyolw_1501465860030"/>
+    <parentPrototypes>BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

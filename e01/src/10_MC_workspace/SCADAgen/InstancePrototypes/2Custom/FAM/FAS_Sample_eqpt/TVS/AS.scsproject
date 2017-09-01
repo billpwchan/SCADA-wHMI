@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="8">
+  <ownedPrototype id="BasicEquipment_AS_zGwI0FWgEee4QdkqvzimmQ_1497953477085">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_AS_zGwI0FWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes name="label" partialUri="BasicEquipment_AS_zGwI0FWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciTS-TempZone_zGwI0VWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="ACI_TYPE_aciTS-TempZone_zGwI0VWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="ACI_TYPE_aciTS-TempZone_zGwI0VWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zGwI3lWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciTS-FaultSensZone_zGwI2FWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciTS-FaultSensZone_zGwI2FWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_AS_zGwI0FWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_zGwI2VWgEee4QdkqvzimmQ_1497953477085"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_AS_zGwI0FWgEee4QdkqvzimmQ_1497953477085"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="DoorRepVS9_graphic">
+    <root>
+      <svgGroup id="DoorRepVS9_door_NOK_NotAck_door_NotConnected_door_Invalid_door_NOK_door_OK_NotAck_door_OK">
+        <svgRef brickId="door_NotConnected" id="widgetglobalstate_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="DoorRepVS9_doorUnknown_doorClosed_doorMoving_doorOpen">
+        <svgRef brickId="doorMoving" id="openstatus.value_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="DoorRepVS9_doorCard_doorCard_empty">
+        <svgRef brickId="doorCard_empty" id="locked.value_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="DoorRepVS9_door_overriden_empty2">
+        <svgRef brickId="empty2" id="widgetinhibsynthesis_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="DoorRepVS9_door_lockeAndwork_door_locked_door_workOrder_empty">
+        <svgRef brickId="empty" id="tagstatus.value_node"></svgRef>
+      </svgGroup>
+      <svgText initValue="eqpName" horizontalAlignment="middle" verticalAlignment="bottom" id="DoorRepVS9_eqp_name_eqpNameDT" cssClass="eqpNameDT" tx="0.0" ty="80.0"></svgText>
+    </root>
+  </graphic>
+</graphicConfiguration>

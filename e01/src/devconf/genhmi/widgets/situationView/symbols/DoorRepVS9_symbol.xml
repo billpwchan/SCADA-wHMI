@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
+  <entitySymbol animationId="DoorRepVS9_animation" cssBaseClass="mwt-sv-cfg-entity" id="DoorRepVS9" graphicId="DoorRepVS9_graphic" zoomStrategyId="ID" width="199.0" height="199.0"></entitySymbol>
+</symbolConfiguration>

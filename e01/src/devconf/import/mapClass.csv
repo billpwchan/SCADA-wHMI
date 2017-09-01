@@ -1,0 +1,24 @@
+AnClassType, MC_GraphicRep
+eqp_state, DoorActiveBackdrop
+ActiveSymbolInstance:valve, ValveRep
+ActiveTextInstance:floorName, FloorRep
+ActiveSymbolInstance:lock,
+ActiveSymbolInstance:workorder,
+ActiveSymbolInstance:awareness,
+ActiveSymbolInstance:cameraRecSta,
+ActiveSymbolInstance:doorSvg,DoorRepVS9
+ActiveSymbolInstance:idcard, 
+ActiveSymbolInstance:FireDetector, FireRepVS9
+ActiveSymbolInstance:MotionDetector,MotionDetRepVS9
+ActiveSymbolInstance:Sprinkler,SprinklerRepVS9
+FillingSymbolInstance:tankFill, 
+ActiveNumberInstance:pressureValue, PressSensorRep
+ActiveTextInstance:buildingName,BuildingRep
+ActiveSymbolInstance:RTU,RTURep
+smokeAB, FireZoneActiveBackdrop
+intrusionAB, IntrusionActiveBackdrop
+MobileSymbolInstance:camera, CameraRepVS9
+ActiveSymbolInstance:asym1, asym1
+ActiveBackdropInstance:eqp_state, DoorActiveBackdrop
+ActiveBackdropInstance:smokeAB, FireZoneActiveBackdrop
+ActiveBackdropInstance:intrusionAB, IntrusionActiveBackdrop

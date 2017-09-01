@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="24">
+  <ownedPrototype id="BasicEquipment_FAMHDV_DIR_CENT_O2XKUAPaEeehb9yqxWEC3A_1488962149237">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_FAMHDV_DIR_CENT_O2XKUAPaEeehb9yqxWEC3A_1488962149237"/>
+    <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_FAMHDV_DIR_CENT_O2XKUAPaEeehb9yqxWEC3A_1488962149237"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-FLGLV1_O2Y_jQPaEeehb9yqxWEC3A_1488962149240"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-FLGLV2_O2ZmngPaEeehb9yqxWEC3A_1488962149241"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=1, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-FLGLV2_O2ZmngPaEeehb9yqxWEC3A_1488962149241"/>
+    <ownedAttributes frozen="true" name="initCond2" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" name="initCond2" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]&lt;>2, 1, 0) , {.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-FLGLV1_O2Y_jQPaEeehb9yqxWEC3A_1488962149240"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=2, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-FLGLV1_O2Y_jQPaEeehb9yqxWEC3A_1488962149240"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]&lt;>1, 1, 0) , {.initCondTable(0,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-FLGLV2_O2ZmngPaEeehb9yqxWEC3A_1488962149241"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( ( [^:^:dciFAM-HDVSTATUS.value]&lt;>514), 1, 0) , {.initCondTable(2,condVal)} )" name="initCond3" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( ( [^:^:dciFAM-HDVSTATUS.value]&lt;>257), 1, 0) , {.initCondTable(2,condVal)} )" name="initCond3" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-LEVEL1_O2XxagPaEeehb9yqxWEC3A_1488962149238"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-LEVEL2_O2YYfAPaEeehb9yqxWEC3A_1488962149239"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-FLGLV1_O2Y_jQPaEeehb9yqxWEC3A_1488962149240"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-FLGLV2_O2ZmngPaEeehb9yqxWEC3A_1488962149241"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" name="initCond2" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=257, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" name="initCond2" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( ( [^:^:dciFAM-HDVSTATUS.value]&lt;>514), 1, 0) , {.initCondTable(2,condVal)} )" name="initCond3" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( ( [^:^:dciFAM-HDVSTATUS.value]&lt;>257), 1, 0) , {.initCondTable(2,condVal)} )" name="initCond3" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal)})" name="returnCond2" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal)})" name="returnCond2" partialUri="dov_type_dovFAM-LEVEL2_9NS0iwQeEee6u6rZKL4cCw_1488991666120"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-LEVEL1_9NSNfAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,{.hdvValue})" name="hdvValue" partialUri="BasicEquipment_FAMHDV_DIR_CENT_O2XKUAPaEeehb9yqxWEC3A_1488962149237"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_dioFAM-HDVSTATUS_9NRmYAQeEee6u6rZKL4cCw_1488991666119"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dio_type_dioFAM-HDVSTATUS_9NRmYAQeEee6u6rZKL4cCw_1488991666119"/>
+    <parentPrototypes>BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

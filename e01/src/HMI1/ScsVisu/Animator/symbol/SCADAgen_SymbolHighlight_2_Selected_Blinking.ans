@@ -1,0 +1,54 @@
+// Animator Version: ANIMATOR2007 4.10.0
+// File generated: 02/06/2016 17:04:49
+// Model: SCADAgen_SymbolHighlight_2_Selected_Blinking.ans
+
+Version = "41000"
+
+Symbol
+{
+  PrimitiveSet
+  {
+    Polygon {
+      Points = { (-100, -100), (-91, -100), (-91, -61), (-100, -61)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (-100, -100), (-61, -100), (-61, -91), (-100, -91)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (99, -61), (99, -100), (90, -100), (90, -61)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (-61, 99), (-100, 99), (-100, 90), (-61, 90)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (99, 99), (60, 99), (60, 90), (99, 90)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (-100, 60), (-91, 60), (-91, 99), (-100, 99)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (60, -100), (99, -100), (99, -91), (60, -91)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+    Polygon {
+      Points = { (90, 60), (99, 60), (99, 99), (90, 99)      }
+      Filled = True
+      Palette = { "SCADAgen_background","Jaune Pastel1","default","","",0 }
+    }
+  }
+  Property "AnV8SelectionProperty" { AnV8SelectionProperty 0"" }
+  Property "AnV8CommentProperty" { AnV8CommentProperty "" }
+}

@@ -1,0 +1,8 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <g id="fid_NotTripped">
+    <g id="symbol_firedet" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
+      <rect fill="red" x="0" width="200" y="0" height="200" opacity="0" />
+      <path fill="#216ca8" d="m98,158.42857c-30.71429,-61.42857 73.71428,-61.42857 0,-122.85714c30.71429,61.42857 -73.71428,61.42857 0,122.85714z" stroke-miterlimit="3" stroke="#216ca8" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+</svg>

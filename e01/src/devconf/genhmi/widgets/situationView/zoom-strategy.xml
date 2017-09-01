@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<p:zoomStrategyConfiguration xmlns:p="http://www.thalesgroup.com/hv/mwt/conf/situationview/zoom" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thalesgroup.com/hv/mwt/conf/situationview/zoom mwt-situationview-zoom-config.xsd ">
+  <p:zoomStrategyId id="DEFAULT_ZOOM" />
+  <p:zoomStrategyId id="ID" />
+</p:zoomStrategyConfiguration>

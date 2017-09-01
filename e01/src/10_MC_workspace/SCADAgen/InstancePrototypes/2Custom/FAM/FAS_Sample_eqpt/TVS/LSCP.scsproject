@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="8">
+  <ownedPrototype id="BasicEquipment_LSCP_Qezq8FWAEee4QdkqvzimmQ_1497939500831">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_LSCP_Qezq8FWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes name="label" partialUri="BasicEquipment_LSCP_Qezq8FWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_Qezq91WAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciLPCP-Mode_Qezq8VWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciLPCP-Mode_Qezq8VWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciLPCP-ModeSelection_QezrBVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciLPCP-ModeSelection_QezrBVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciLPCP-OperTube_QezrGVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciLPCP-OperTube_QezrGVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_QezrC1WAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_QezrH1WAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciLPCP-OperLocation_QezrLVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciLPCP-OperLocation_QezrLVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_QezrM1WAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciLPCP-OperModeNumber_QezrQVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="ACI_TYPE_aciLPCP-OperModeNumber_QezrQVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="ACI_TYPE_aciLPCP-OperModeNumber_QezrQVWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_LSCP_Qezq8FWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_Qezq8lWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_QezrGlWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_QezrLlWAEee4QdkqvzimmQ_1497939500831"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_LSCP_Qezq8FWAEee4QdkqvzimmQ_1497939500831"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

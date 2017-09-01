@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	******************************************
+	Manually configured
+	History:
+		20170412: Creation
+	******************************************
+-->
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+	<animationRules id="SCADAgen_POW_Line_ActiveBackdrop_animation">
+		<animationRule>
+			<source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="symbol1"></source>
+			<sourceType>INT</sourceType>
+			<strokeColorAnimation defaultValue="#C0C0C0" invalidValue="#C0C0C0">
+				<enumerationBinding>
+					<item inputValue="0" value="#C0C0C0"></item> <!-- undefined -->
+					<item inputValue="1" value="#008000"></item> <!-- de-energised -->
+					<item inputValue="2" value="#FF0000"></item> <!-- energised by Tai Wai Feeding Section -->
+					<item inputValue="3" value="#FF0000"></item> <!-- energised by Ho Man Tin Feeding Section -->
+					<item inputValue="4" value="#FF0000"></item> <!-- energised by Fanling Feeding Section -->
+					<item inputValue="5" value="#FF0000"></item> <!-- energised by SOV Feeding Section -->
+					<item inputValue="6" value="#FF0000"></item> <!-- energised by Unknown Section -->
+				</enumerationBinding>
+			</strokeColorAnimation>
+			<strokeWidthAnimation defaultValue="10.0" invalidValue="10.0">
+				<enumerationBinding>
+					<item inputValue="0" value="10.0"></item>
+				</enumerationBinding>
+			</strokeWidthAnimation>
+		</animationRule>
+	</animationRules>
+</animationConfiguration>

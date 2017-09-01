@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_PnicwTAiEeO8B7CBO7jMYg" prototypeRefId="_WxAs0fHvEeGt4fUAjcK1dQ_1346254612509" name="DoorRepVS9" defaultAspect="_agu8tTHBEeOtreA_t79w-A" category="_PnicxTAiEeO8B7CBO7jMYg">
+    <aspectPackage xmi:id="_PnicwjAiEeO8B7CBO7jMYg" name="Aspect Container">
+      <ownedAspect xmi:id="_OmgBzzAjEeO8B7CBO7jMYg" name="door_NotConnected">
+        <ownedDecoratedSymbol xmi:id="_OmgB0DAjEeO8B7CBO7jMYg" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_OmgBzjAjEeO8B7CBO7jMYg">
+          <displayModule href="../../../DisplayModules/NotConnected_Color/NotConnected_Color.scsrepresentation#_5wXQ8TSxEeKRsMR2qRENfw"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_OmgB0TAjEeO8B7CBO7jMYg" value="5" attribute="_OmgB1DAjEeO8B7CBO7jMYg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_OmgB1TAjEeO8B7CBO7jMYg" name="door_OK">
+        <ownedDecoratedSymbol xmi:id="_OmgB1jAjEeO8B7CBO7jMYg" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_OmgBzjAjEeO8B7CBO7jMYg">
+          <displayModule href="../../../DisplayModules/OK_Color/OK_Color.scsrepresentation#_uaspcf2sEeGHEeSpO4ABcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_OmgB1zAjEeO8B7CBO7jMYg" value="0" attribute="_OmgB1DAjEeO8B7CBO7jMYg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_OmgB2DAjEeO8B7CBO7jMYg" name="door_NOK">
+        <ownedDecoratedSymbol xmi:id="_OmgB2TAjEeO8B7CBO7jMYg" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_OmgBzjAjEeO8B7CBO7jMYg">
+          <displayModule href="../../../DisplayModules/NOK_Color/NOK_Color.scsrepresentation#_QYKNcf2tEeGHEeSpO4ABcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_OmgB2jAjEeO8B7CBO7jMYg" value="1" attribute="_OmgB1DAjEeO8B7CBO7jMYg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_OmgB2zAjEeO8B7CBO7jMYg" name="door_NOK_NotAck">
+        <ownedDecoratedSymbol xmi:id="_OmgB3DAjEeO8B7CBO7jMYg" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_OmgBzjAjEeO8B7CBO7jMYg">
+          <displayModule href="../../../DisplayModules/NOk_NotAck_Color/NOk_NotAck_Color.scsrepresentation#_t_eVcQPgEeK5GNCQx86A1A"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_OmgB3TAjEeO8B7CBO7jMYg" value="2" attribute="_OmgB1DAjEeO8B7CBO7jMYg" MWTBindings=""/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_OmgB3jAjEeO8B7CBO7jMYg" name="door_Invalid">
+        <ownedDecoratedSymbol xmi:id="_OmgB3zAjEeO8B7CBO7jMYg" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_OmgBzjAjEeO8B7CBO7jMYg">
+          <displayModule href="../../../DisplayModules/Invalid_Color/Invalid_Color.scsrepresentation#_Z0Ij4QPoEeKc87xBBBABUw"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_OmgB4DAjEeO8B7CBO7jMYg" value="3" attribute="_OmgB1DAjEeO8B7CBO7jMYg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_OmgB4TAjEeO8B7CBO7jMYg" name="door_OK_NotAck">
+        <ownedDecoratedSymbol xmi:id="_OmgB4jAjEeO8B7CBO7jMYg" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_OmgBzjAjEeO8B7CBO7jMYg">
+          <displayModule href="../../../DisplayModules/OK_NotAck_Color/OK_NotAck_Color.scsrepresentation#_TSo00SmPEeKsld7zxDrFcg"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_OmgB4zAjEeO8B7CBO7jMYg" value="4" attribute="_OmgB1DAjEeO8B7CBO7jMYg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_agu8tTHBEeOtreA_t79w-A" name="doorOpen">
+        <ownedDecoratedSymbol xmi:id="_agu8tjHBEeOtreA_t79w-A" width="200.0" height="200.0" ratio_width="0.99502486" ratio_height="0.99502486" symbol="_agu8tDHBEeOtreA_t79w-A"/>
+        <condition xmi:id="_agu8tzHBEeOtreA_t79w-A" value="2" attribute="_ctsjIDHBEeOtreA_t79w-A"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_agu8uTHBEeOtreA_t79w-A" name="doorClosed">
+        <ownedDecoratedSymbol xmi:id="_agu8ujHBEeOtreA_t79w-A" name="" width="200.0" height="200.0" ratio_width="0.99502486" ratio_height="0.99502486" symbol="_agu8uDHBEeOtreA_t79w-A"/>
+        <condition xmi:id="_agu8uzHBEeOtreA_t79w-A" value="1" attribute="_ctsjIDHBEeOtreA_t79w-A"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_agu8vTHBEeOtreA_t79w-A" name="doorUnknown">
+        <ownedDecoratedSymbol xmi:id="_agu8vjHBEeOtreA_t79w-A" width="200.0" height="200.0" ratio_width="0.99502486" ratio_height="0.99502486" symbol="_agu8uDHBEeOtreA_t79w-A">
+          <displayProperties xsi:type="scsRepresentation:StrokeColor" xmi:id="_agu8vzHBEeOtreA_t79w-A" value="#c0c0c0" width="1.0"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_agu8wDHBEeOtreA_t79w-A" value="3" attribute="_ctsjIDHBEeOtreA_t79w-A"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_ag4tUDHBEeOtreA_t79w-A" name="doorCard">
+        <ownedDecoratedSymbol xmi:id="_ag4tUTHBEeOtreA_t79w-A" x="3.0" y="117.0" width="82.0" height="54.0" ratio_width="0.6638813" ratio_height="0.6615771" symbol="_agu8wTHBEeOtreA_t79w-A" cx="-55.0" cy="44.0"/>
+        <condition xmi:id="_ag4tUjHBEeOtreA_t79w-A" value="1" attribute="_gUN94DHBEeOtreA_t79w-A"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_ag4tUzHBEeOtreA_t79w-A" name="doorMoving">
+        <ownedDecoratedSymbol xmi:id="_ag4tVDHBEeOtreA_t79w-A" name="" width="200.0" height="200.0" ratio_width="0.99502486" ratio_height="0.99502486" symbol="_agu8tDHBEeOtreA_t79w-A"/>
+        <condition xmi:id="_ag4tVTHBEeOtreA_t79w-A" value="0" attribute="_ctsjIDHBEeOtreA_t79w-A"/>
+        <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_ag4tVjHBEeOtreA_t79w-A" MWTBindings="" value="true"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_JRZxT6hOEeOn0d32U9AjFQ" name="door_overriden">
+        <ownedDecoratedSymbol xmi:id="_JRZxUKhOEeOn0d32U9AjFQ" x="14.0" y="128.0" width="40.0" height="55.0" ratio_width="0.45442292" ratio_height="0.4503613" symbol="_JRZxTqhOEeOn0d32U9AjFQ" cx="-65.0" cy="56.0"/>
+        <condition xmi:id="_JRZxUahOEeOn0d32U9AjFQ" value="1" attribute="_JRZxTahOEeOn0d32U9AjFQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_JRZxVKhOEeOn0d32U9AjFQ" name="door_lockeAndwork">
+        <ownedDecoratedSymbol xmi:id="_JRZxVahOEeOn0d32U9AjFQ" x="127.0" y="128.0" width="64.0" height="55.0" ratio_width="0.66318697" ratio_height="0.6628919" symbol="_JRZxUqhOEeOn0d32U9AjFQ" cx="59.0" cy="56.0"/>
+        <ownedDecoratedSymbol xmi:id="_JRZxVqhOEeOn0d32U9AjFQ" name="" x="12.0" y="12.0" width="65.0" height="58.0" ratio_width="0.6891863" ratio_height="0.6918198" symbol="_JRZxU6hOEeOn0d32U9AjFQ" cx="-55.0" cy="-58.0"/>
+        <condition xmi:id="_JRZxV6hOEeOn0d32U9AjFQ" value="768" attribute="_JRZxTKhOEeOn0d32U9AjFQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_JRZxWahOEeOn0d32U9AjFQ" name="door_locked">
+        <ownedDecoratedSymbol xmi:id="_JRZxWqhOEeOn0d32U9AjFQ" x="127.0" y="128.0" width="64.0" height="55.0" ratio_width="0.66318697" ratio_height="0.6628919" symbol="_JRZxUqhOEeOn0d32U9AjFQ" cx="59.0" cy="56.0"/>
+        <condition xmi:id="_JRZxW6hOEeOn0d32U9AjFQ" value="256" attribute="_JRZxTKhOEeOn0d32U9AjFQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_JRZxXKhOEeOn0d32U9AjFQ" name="door_workOrder">
+        <ownedDecoratedSymbol xmi:id="_JRZxXahOEeOn0d32U9AjFQ" x="12.0" y="12.0" width="65.0" height="58.0" ratio_width="0.6891863" ratio_height="0.6918198" symbol="_JRZxU6hOEeOn0d32U9AjFQ" cx="-55.0" cy="-58.0"/>
+        <condition xmi:id="_JRZxXqhOEeOn0d32U9AjFQ" value="512" attribute="_JRZxTKhOEeOn0d32U9AjFQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_YMNcsK6LEeOn4p88u7MSdQ" name="empty2">
+        <condition xmi:id="_atJIYK6LEeOn4p88u7MSdQ" value="0" attribute="_JRZxTahOEeOn0d32U9AjFQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_nE6IkK6GEeOn4p88u7MSdQ" name="empty">
+        <condition xmi:id="_pEdlgK6GEeOn4p88u7MSdQ" value="0" attribute="_JRZxTKhOEeOn0d32U9AjFQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_6n3dsOTzEeOUcsnEOtqRFg" name="doorCard_empty">
+        <condition xmi:id="_8bCrgOTzEeOUcsnEOtqRFg" value="0" attribute="_gUN94DHBEeOtreA_t79w-A"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_b2C1gLEmEeSo2-TeYY0KuQ" name="eqp_name">
+        <ownedElement xsi:type="scsRepresentation:DecoratedText" xmi:id="_gggZgLEmEeSo2-TeYY0KuQ" name="eqpNameDT" x="60.0" y="159.0" width="80.0" height="21.0" ratio_width="1.0666667" ratio_height="1.0666667" fontSize="18" textAlign="CENTER" value="eqpName" runtimeY="80.0" MWTCSSClass="eqpNameDT" bold="true">
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_ipv98LEmEeSo2-TeYY0KuQ" attribute="_kc7y0LEmEeSo2-TeYY0KuQ"/>
+        </ownedElement>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_OmgB0jAjEeO8B7CBO7jMYg" id="validity.value" relativePath="validity.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_OmgB0zAjEeO8B7CBO7jMYg" id="needack.value" relativePath="needack.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_OmgB1DAjEeO8B7CBO7jMYg" id="widgetglobalstate" defaultValue="5" condition="_OmgB3TAjEeO8B7CBO7jMYg _OmgB0TAjEeO8B7CBO7jMYg _OmgB4DAjEeO8B7CBO7jMYg _OmgB2jAjEeO8B7CBO7jMYg _OmgB4zAjEeO8B7CBO7jMYg _OmgB1zAjEeO8B7CBO7jMYg" refAttributes="_OmgB0zAjEeO8B7CBO7jMYg _OmgB0jAjEeO8B7CBO7jMYg _OmgB5DAjEeO8B7CBO7jMYg _5V1qYDAjEeO8B7CBO7jMYg" qualifiedName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetGlobalState"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_OmgB5DAjEeO8B7CBO7jMYg" id="alarm.value" relativePath="alarm.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_5V1qYDAjEeO8B7CBO7jMYg" id="online.value" relativePath="online.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_ctsjIDHBEeOtreA_t79w-A" id="openstatus.value" defaultValue="0" condition="_agu8wDHBEeOtreA_t79w-A _agu8uzHBEeOtreA_t79w-A _ag4tVTHBEeOtreA_t79w-A _agu8tzHBEeOtreA_t79w-A" relativePath="openstatus.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_gUN94DHBEeOtreA_t79w-A" id="locked.value" defaultValue="0" condition="_ag4tUjHBEeOtreA_t79w-A _8bCrgOTzEeOUcsnEOtqRFg" relativePath="locked.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_JRZxTKhOEeOn0d32U9AjFQ" id="tagstatus.value" defaultValue="0" condition="_JRZxV6hOEeOn0d32U9AjFQ _JRZxW6hOEeOn0d32U9AjFQ _JRZxXqhOEeOn0d32U9AjFQ _pEdlgK6GEeOn4p88u7MSdQ" relativePath="tagstatus.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_JRZxTahOEeOn0d32U9AjFQ" id="widgetinhibsynthesis" defaultValue="0" condition="_JRZxUahOEeOn0d32U9AjFQ _atJIYK6LEeOn4p88u7MSdQ" refAttributes="_JRZxWKhOEeOn0d32U9AjFQ" qualifiedName="com.thalesgroup.scadasoft.stresstest.calculated.widget.WidgetInhibSynthesis"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_JRZxWKhOEeOn0d32U9AjFQ" id="inhibsynthesis.value" relativePath="inhibsynthesis.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_kc7y0LEmEeSo2-TeYY0KuQ" id="eqpName.value" relativePath="eqpName.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_PnicwzAiEeO8B7CBO7jMYg">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_OmgBzjAjEeO8B7CBO7jMYg" filePath="Symbols/symbol_frame.svg" id="symbol_frame" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_agu8tDHBEeOtreA_t79w-A" filePath="Symbols/symbol_doorOpened.svg" id="doorOpened" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_agu8uDHBEeOtreA_t79w-A" filePath="Symbols/symbol_doorClosed.svg" id="symbol_doorClosed" width="201.0" height="201.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_agu8wTHBEeOtreA_t79w-A" filePath="Symbols/StressTest/osa/osa_id_card.svg" id="_STRESSTEST_SYMBOLS_STRESSTEST_OSA_OSA_ID_CARD_SVG" width="123.51605" height="81.62314"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_JRZxTqhOEeOn0d32U9AjFQ" filePath="Symbols/osa_awareness.svg" id="_STRESSTEST_SYMBOLS_OSA_AWARENESS_SVG" width="88.02373" height="122.12417"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_JRZxUqhOEeOn0d32U9AjFQ" filePath="Symbols/osa_padlock.svg" id="_STRESSTEST_SYMBOLS_OSA_PADLOCK_SVG" width="96.50371" height="82.96979"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_JRZxU6hOEeOn0d32U9AjFQ" filePath="Symbols/osa_lifecycle.svg" id="_STRESSTEST_SYMBOLS_OSA_LIFECYCLE_SVG" width="94.314125" height="83.83686"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_vIxRgDKBEeSzz6R-HX6lfQ" filePath="Symbols/Security/SYMBOL_FENCE.svg" id="_STRESSTEST_SYMBOLS_SECURITY_SYMBOL_FENCE_SVG" width="30.0" height="30.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_1g6fUDKBEeSzz6R-HX6lfQ" filePath="Symbols/Misc/SYMBOL_CROSS.svg" id="_STRESSTEST_SYMBOLS_MISC_SYMBOL_CROSS_SVG" width="14.0" height="14.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_yFE6QX7jEeSOuccylxlnhA" filePath="Symbols/symbol_firedet.svg" id="symbol_firedet" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_J5w1waI2EeSnnJBTwR4AXQ" filePath="Symbols/StressTest/osa/osa_firewall.svg" id="_STRESSTEST_SYMBOLS_STRESSTEST_OSA_OSA_FIREWALL_SVG" width="127.99437" height="91.47163"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_e8g20aI2EeSnnJBTwR4AXQ" filePath="Symbols/StressTest/osa/osa_ics_drive.svg" id="_STRESSTEST_SYMBOLS_STRESSTEST_OSA_OSA_ICS_DRIVE_SVG" width="114.56411" height="119.60407"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_PnicxDAiEeO8B7CBO7jMYg">
+    <ownedCategories xmi:id="_PnicxTAiEeO8B7CBO7jMYg" name="Functional"/>
+    <ownedCategories xmi:id="_PnicxjAiEeO8B7CBO7jMYg" name="Geographical"/>
+    <ownedCategories xmi:id="_PnicxzAiEeO8B7CBO7jMYg" name="Synthesis"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

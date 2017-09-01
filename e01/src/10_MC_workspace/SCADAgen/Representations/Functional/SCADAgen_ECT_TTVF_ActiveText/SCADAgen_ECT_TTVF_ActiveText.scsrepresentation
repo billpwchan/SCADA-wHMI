@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_4bxC4FMcEea_NKeGEwfl3Q" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAgen_ECT_TTVF_ActiveText" defaultAspect="_5WlsYFMcEea_NKeGEwfl3Q" category="_4bxC5FMcEea_NKeGEwfl3Q">
+    <aspectPackage xmi:id="_4bxC4VMcEea_NKeGEwfl3Q" name="Aspect Container">
+      <ownedAspect xmi:id="_5WlsYFMcEea_NKeGEwfl3Q" name="ECT_TTVF_ActiveText">
+        <ownedElement xsi:type="scsRepresentation:DecoratedText" xmi:id="_5WlsYVMcEea_NKeGEwfl3Q" name="Current Value" x="-3.0" y="79.0" width="208.0" height="39.0" fontSize="39" textAlign="CENTER" maxCharacters="10" font="&quot;Arial&quot;, &quot;Liberation Sans&quot;, sans-serif" value="XXXXXXXX" defaultValue="" runtimeX="1.0" runtimeY="18.0" MWTTemplate="" MWTCSSClass="">
+          <displayProperties xsi:type="scsRepresentation:ColorProperty" xmi:id="_5WlsYlMcEea_NKeGEwfl3Q" value="#000000"/>
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_5WlsY1McEea_NKeGEwfl3Q" Id="" attribute="_C8Cd0FkqEeageps3pfhmFw" MWTBindings=""/>
+        </ownedElement>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_C8Cd0FkqEeageps3pfhmFw" id="string1.value" defaultValue="0" relativePath="string1.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_4bxC4lMcEea_NKeGEwfl3Q"/>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_4bxC41McEea_NKeGEwfl3Q">
+    <ownedCategories xmi:id="_4bxC5FMcEea_NKeGEwfl3Q" name="Functional"/>
+    <ownedCategories xmi:id="_4bxC5VMcEea_NKeGEwfl3Q" name="Geographical"/>
+    <ownedCategories xmi:id="_4bxC5lMcEea_NKeGEwfl3Q" name="Outline"/>
+    <ownedCategories xmi:id="_4bxC51McEea_NKeGEwfl3Q" name="Synthesis"/>
+    <ownedCategories xmi:id="_4bxC6FMcEea_NKeGEwfl3Q" name="System"/>
+    <ownedCategories xmi:id="_4bxC6VMcEea_NKeGEwfl3Q" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

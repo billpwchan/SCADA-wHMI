@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<nonRTDB_HvOnly:SGEQPT4 xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:HV="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV" xmlns:nonRTDB_HvOnly="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/nonRTDB_HvOnly" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class/CoreModel/HV ../../Generated/config.ecore#_ZB56QCayEeOr-rLLLmg18A http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/nonRTDB_HvOnly ../../Generated/config.ecore#_lG2FUxKoEea7gOG8GF6d-w" xmi:id="SGEQPT4_SGEQPT4_zonK0FXDEee4As-TYSGT9g_1497968513021" hvqname="scadagen.data.config.equipment.common.SGEQPT4" nom_instance="SGEQPT4" scstype="SGEQPT4">
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_symbol4_zxahgFXDEee4As-TYSGT9g_1497968513944" nom_instance="symbol4" hvdatatype="Integer" hvqname="scadagen.data.config.equipment.common.SGEQPT4.symbol4"/>
+  <status xsi:type="HV:HvStatusInteger" xmi:id="HvStatusInteger_colorNumber4_zxxt4FXDEee4As-TYSGT9g_1497968513982" nom_instance="colorNumber4" hvdatatype="Integer" hvqname="scadagen.data.config.equipment.common.SGEQPT4.colorNumber4"/>
+  <status xsi:type="HV:HvStatusFloat" xmi:id="HvStatusFloat_floating4_zx_JQFXDEee4As-TYSGT9g_1497968514004" nom_instance="floating4" hvqname="scadagen.data.config.equipment.common.SGEQPT4.floating4"/>
+  <status xsi:type="HV:HvStatusString" xmi:id="HvStatusString_string4_zyPn8FXDEee4As-TYSGT9g_1497968514031" nom_instance="string4" hvdatatype="String" hvqname="scadagen.data.config.equipment.common.SGEQPT4.string4"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+  <prevAlarmSynthesis xsi:nil="true"/>
+</nonRTDB_HvOnly:SGEQPT4>

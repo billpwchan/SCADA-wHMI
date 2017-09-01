@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_BhmNQEJ6EeaI-7AH0La_uw" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAgen_ECT_TES__ActiveBackdrop" defaultAspect="_NPkQQUJ6EeaI-7AH0La_uw" category="_BhmNREJ6EeaI-7AH0La_uw">
+    <aspectPackage xmi:id="_BhmNQUJ6EeaI-7AH0La_uw" name="Aspect Container">
+      <ownedAspect xmi:id="_NPkQQUJ6EeaI-7AH0La_uw" name="TES__ActiveBackdrop">
+        <ownedDecoratedSymbol xmi:id="_an3-EEKOEea4O59qXznH3Q" x="50.0" y="50.0" width="100.0" height="100.0" ratio_width="1.0" ratio_height="1.0" symbol="_aoFZcEKOEea4O59qXznH3Q"/>
+        <displayProperties xsi:type="scsRepresentation:StrokeColor" xmi:id="_yqzl0ENCEea2AJvwgtqQ0A" attribute="_wZO1ME5NEealzPlrmBQ9pw" value="black" width="3.0"/>
+        <displayProperties xsi:type="scsRepresentation:ColorProperty" xmi:id="_7mWdIENFEea2AJvwgtqQ0A" attribute="_X915EEjWEeaTOrm2Q7XRbA" value="#999999"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_X915EEjWEeaTOrm2Q7XRbA" id="IntMapping" defaultValue="0" qualifiedName="IntMapping"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_wZO1ME5NEealzPlrmBQ9pw" id="validity.value" relativePath="validity.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_BhmNQkJ6EeaI-7AH0La_uw">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_NPkQQEJ6EeaI-7AH0La_uw" filePath="Symbols/ECT/SCADAgen_ECT_CMO1_1_Undefined.svg" id="_SCADAgen_SYMBOLS_ECT_SCADAgen_ECT_CMO1_1_UNDEFINED_SVG" width="100.0" height="100.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_8rQ-MEJ-EeacgcCxx80bpA" filePath="Symbols/SCADAgen_ActiveBackdrop.svg" id="_SCADAgen_SYMBOLS_SCADAgen_ACTIVEBACKDROP_SVG" width="82.0" height="82.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_k6-cAEKCEeacgcCxx80bpA" filePath="Symbols/SCADAgen_SymbolHighlight100_3_MO.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT100_3_MO_SVG" width="200.0" height="100.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_tI778EKCEeacgcCxx80bpA" filePath="Symbols/POW/SCADAgen_POW_ACB__1_Open.svg" id="_SCADAgen_SYMBOLS_POW_SCADAgen_POW_ACB__1_OPEN_SVG" width="82.0" height="82.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_z73BQEKCEeacgcCxx80bpA" filePath="Symbols/POW/SCADAgen_POW_CLP__3_Close.svg" id="_SCADAgen_SYMBOLS_POW_SCADAgen_POW_CLP__3_CLOSE_SVG" width="82.0" height="82.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_aoFZcEKOEea4O59qXznH3Q" filePath="Symbols/ECT/SCADAgen_ECT_CABP_1_Undefined.svg" id="_SCADAgen_SYMBOLS_ECT_SCADAgen_ECT_CABP_1_UNDEFINED_SVG" width="100.0" height="100.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_BhmNQ0J6EeaI-7AH0La_uw">
+    <ownedCategories xmi:id="_BhmNREJ6EeaI-7AH0La_uw" name="Functional"/>
+    <ownedCategories xmi:id="_BhmNRUJ6EeaI-7AH0La_uw" name="Geographical"/>
+    <ownedCategories xmi:id="_BhmNRkJ6EeaI-7AH0La_uw" name="Outline"/>
+    <ownedCategories xmi:id="_BhmNR0J6EeaI-7AH0La_uw" name="Synthesis"/>
+    <ownedCategories xmi:id="_BhmNSEJ6EeaI-7AH0La_uw" name="System"/>
+    <ownedCategories xmi:id="_BhmNSUJ6EeaI-7AH0La_uw" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

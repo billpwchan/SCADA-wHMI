@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE request SYSTEM "request.dtd">
-<request name="G:\SCSTraining\devconf\SCSConfigurator\StressTest_1_2_2\client\requetes\TVS_Subsystem.xml" type="paramtype"><expression value="//SCADASubsystem[TVSService/@nom_instance !=&quot;&quot;]"/><parameter name="id" value=":R:A"/></request>

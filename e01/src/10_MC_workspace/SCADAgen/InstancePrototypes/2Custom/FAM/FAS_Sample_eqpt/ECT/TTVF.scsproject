@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="ASCII"?>
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="49">
+  <ownedPrototype id="BasicEquipment_TTVF_UgDIMYI1EeeDru6gupombA_1502855117875">
+    <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TTVF_UgDIMYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciBTBP-BusVolt_UgDIMoI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="ACI_TYPE_aciBTBP-BusVolt_UgDIMoI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="Unit" partialUri="ACI_TYPE_aciBTBP-BusVolt_UgDIMoI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_UgDIP4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciBTBP-BbUvolt_UgDIOYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciBTBP-BbUvolt_UgDIOYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_TTVF_UgDIMYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="hvqname" partialUri="BasicEquipment_TTVF_UgDIMYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_UgDIU4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciBTBP-BbOvolt_UgDITYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciBTBP-BbOvolt_UgDITYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_UgDIZ4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciBTBP-BbGPFSt1_UgDIYYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciBTBP-BbGPFSt1_UgDIYYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_UgDIe4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciBTBP-BbGPFSt2_UgDIdYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciBTBP-BbGPFSt2_UgDIdYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_UgM5NoI1EeeDru6gupombA_1502855117891"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciBTBP-BbUvoltRF_UgM5MII1EeeDru6gupombA_1502855117891"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciBTBP-BbUvoltRF_UgM5MII1EeeDru6gupombA_1502855117891"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_UgDIOoI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_UgDIToI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_UgDIYoI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_UgDIdoI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_UgM5MYI1EeeDru6gupombA_1502855117891"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(0)]=1,3,SWITCH([^:^:dciECT-STATUS.value]=0,3,[^:^:dciECT-STATUS.value]=1,2,[^:^:dciECT-STATUS.value]=2,1,0)))+IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(2)]=1,100,0))" name="value" partialUri="Symbol_Symbol1_UgM5RYI1EeeDru6gupombA_1502855117891"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_UgDIP4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_UgDIP4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_UgDIP4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_UgDIP4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_UgDIU4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_UgDIU4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_UgDIU4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_UgDIZ4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_UgDIZ4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_UgDIZ4I1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,[^:^:dciECT-LRSTA.value]+1)" name="value" partialUri="Symbol_Symbol1_szWekII2EeeDru6gupombA_1502855710457"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_0hf2BoI2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS_0hf2AII2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS_0hf2AII2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_0hf2AYI2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_0hf2BoI2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_0hf2BoI2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_0hf2BoI2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_0hf2BoI2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciBTBP-BbUvolt_UgDIOYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciBTBP-BbOvolt_UgDITYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciBTBP-BbGPFSt1_UgDIYYI1EeeDru6gupombA_1502855117875"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]&amp;gt;0,&quot;N/A&quot;,SWITCH([^:^:dciECT-STATUS.value]=0,[^:^:dciECT-STATUS:dal.valueTable(0,label)],[^:^:dciECT-STATUS.value]=1,[^:^:dciECT-STATUS:dal.valueTable(1,label)],[^:^:dciECT-STATUS.value]=2,[^:^:dciECT-STATUS:dal.valueTable(2,label)],[^:^:dciECT-STATUS.value]=3,[^:^:dciECT-STATUS:dal.valueTable(3,label)],&quot;UNDEFINED&quot;))" name="value" partialUri="Text_aXf8YII4EeeDru6gupombA_1502856445734"/>
+    <ownedAttributes frozen="true" formula="IF([^:^:dciECT-PTW.value]=1,2,IF([^:^:dciECT-NISERV.value]=1,4,0))" name="value" partialUri="Tag_KgFiUII5EeeDru6gupombA_1502856768757"/>
+    <ownedAttributes frozen="true" formula="[^:^:dciECT-LRSTA.value]" name="value" partialUri="Tag_TAG2_Mhk48II5EeeDru6gupombA_1502856782335"/>
+    <ownedAttributes frozen="true" formula="[^:^:dciECT-TRIPALM.value]" name="value" partialUri="Tag_TAG2_NKG4kII5EeeDru6gupombA_1502856786585"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_qz95ZoI5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-LRSTA_qz95YII5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-LRSTA_qz95YII5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_qz95YYI5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_qz95ZoI5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_qz95ZoI5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_qz95ZoI5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_qz95ZoI5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-LRSTA_qz95YII5EeeDru6gupombA_1502856985590"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS_0hf2AII2EeeDru6gupombA_1502855762272"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dio_type_zL_z8II8EeeDru6gupombA_1502858330287"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dio_type_zL_z8II8EeeDru6gupombA_1502858330287"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_zL_z8II8EeeDru6gupombA_1502858330287"/>
+    <ownedAttributes name="initCond1" partialUri="dov_type_-YBAcII8EeeDru6gupombA_1502858405367"/>
+    <ownedAttributes frozen="true" formula="IF([^.value]=1, PUT( 1 ,{^:^:dciECT-NISERV:dco.computedValue}),1)" name="initCond1" partialUri="dov_type_dovECT-CTL0_CoQtoII9EeeDru6gupombA_1502858433914"/>
+    <ownedAttributes name="initCond2" partialUri="dov_type_dovECT-CTL0_CoQtoII9EeeDru6gupombA_1502858433914"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_Tjv-YII9EeeDru6gupombA_1502858547526"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_Tjv-YII9EeeDru6gupombA_1502858547526"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_Tjv-YII9EeeDru6gupombA_1502858547526"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_jRd0cII9EeeDru6gupombA_1502858652983"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_jRd0cII9EeeDru6gupombA_1502858652983"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_jRd0cII9EeeDru6gupombA_1502858652983"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_-YBAcII8EeeDru6gupombA_1502858405367"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovECT-CTL0_CoQtoII9EeeDru6gupombA_1502858433914"/>
+    <ownedAttributes frozen="true" formula="IF([^.value]=0, PUT( 0 ,{^:^:dciECT-NISERV:dco.computedValue}),1)" name="returnCond1" partialUri="dov_type_-YBAcII8EeeDru6gupombA_1502858405367"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dio_type_dioECT-NISERV_QXA1QIJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" name="label" partialUri="dio_type_dioECT-NISERV_QXA1QIJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_dioECT-NISERV_QXA1QIJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes name="initCond1" partialUri="dov_type_dovECT-CTL0_QXA1TYJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" formula="IF([^.value]=1, PUT( 1 ,{^:^:dciECT-PTW:dco.computedValue}),1)" name="initCond1" partialUri="dov_type_dovECT-CTL1_QXA1XoJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes name="initCond2" partialUri="dov_type_dovECT-CTL1_QXA1XoJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovECT-CTL0_QXA1TYJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovECT-CTL1_QXA1XoJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" formula="IF([^.value]=0, PUT( 0 ,{^:^:dciECT-PTW:dco.computedValue}),1)" name="returnCond1" partialUri="dov_type_dovECT-CTL0_QXA1TYJAEeeDru6gupombA_1502859814548"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_xYqRQYJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_xYqRQIJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_xYqRQIJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_xYqRQYJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_xYqRQYJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_xYqRQYJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_xYqRQIJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_xYqRToJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_xYqRToJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_xYqRToJAEeeDru6gupombA_1502860036180"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_x7_AwYJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_x7_AwIJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_x7_AwIJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_x7_AwYJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_x7_AwYJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_x7_AwYJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_x7_AwIJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_x7_AzoJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_x7_AzoJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_x7_AzoJAEeeDru6gupombA_1502860039884"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_yNH0EYJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_yNH0EIJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_yNH0EIJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_yNH0EYJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_yNH0EYJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_yNH0EYJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_yNH0EIJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_yNH0HoJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_yNH0HoJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_yNH0HoJAEeeDru6gupombA_1502860041681"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_yVK80YJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_yVK80IJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_yVK80IJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_yVK80YJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_yVK80YJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_yVK80YJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_yVK80IJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_yVK83oJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_yVK83oJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_yVK83oJAEeeDru6gupombA_1502860042525"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_yibVsYJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_yibVsIJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_yibVsIJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_yibVsYJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_yibVsYJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_yibVsYJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_yibVsIJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_yibVvoJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_yibVvoJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_yibVvoJAEeeDru6gupombA_1502860043915"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_yqBygYJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_yqBygIJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_yqBygIJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_yqBygYJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_yqBygYJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_yqBygYJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_yqBygIJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_yqByjoJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_yqByjoJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_yqByjoJAEeeDru6gupombA_1502860044712"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zAOsAYJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_zAOsAIJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_zAOsAIJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_zAOsAYJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_zAOsAYJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_zAOsAYJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_zAOsAIJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_zAOsDoJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_zAOsDoJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_zAOsDoJAEeeDru6gupombA_1502860047040"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zHPS8YJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_zHPS8IJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_zHPS8IJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_zHPS8YJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_zHPS8YJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_zHPS8YJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_zHPS8IJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_zHPS_oJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_zHPS_oJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_zHPS_oJAEeeDru6gupombA_1502860047775"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zWcMkYJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_zWcMkIJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_zWcMkIJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_zWcMkYJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_zWcMkYJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_zWcMkYJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_zWcMkIJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_zWcMnoJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_zWcMnoJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_zWcMnoJAEeeDru6gupombA_1502860049369"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zeCCUYJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_zeCCUIJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_zeCCUIJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_zeCCUYJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_zeCCUYJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_zeCCUYJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_zeCCUIJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_zeCCXoJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_zeCCXoJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_zeCCXoJAEeeDru6gupombA_1502860050165"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zjjbgYJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_zjjbgIJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_zjjbgIJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_zjjbgYJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_zjjbgYJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_zjjbgYJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_zjjbgIJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_zjjbjoJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_zjjbjoJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_zjjbjoJAEeeDru6gupombA_1502860050744"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_zwN-gYJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_zwN-gIJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_zwN-gIJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_zwN-gYJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_zwN-gYJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_zwN-gYJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_zwN-gIJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_zwN-joJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_zwN-joJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_zwN-joJAEeeDru6gupombA_1502860052072"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_z2oIgYJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_z2oIgIJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_z2oIgIJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_z2oIgYJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_z2oIgYJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_z2oIgYJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_z2oIgIJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_z2oIjoJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_z2oIjoJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_z2oIjoJAEeeDru6gupombA_1502860052744"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_z8lmkYJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_z8lmkIJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_z8lmkIJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_z8lmkYJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_z8lmkYJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_z8lmkYJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_z8lmkIJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_z8lmnoJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_z8lmnoJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_z8lmnoJAEeeDru6gupombA_1502860053369"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_0C1_kYJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_0C1_kIJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_0C1_kIJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_0C1_kYJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_0C1_kYJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_0C1_kYJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_0C1_kIJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_0C1_noJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_0C1_noJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_0C1_noJAEeeDru6gupombA_1502860054025"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_0SV0IYJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW_0SV0IIJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW_0SV0IIJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_0SV0IYJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_0SV0IYJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_0SV0IYJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW_0SV0IIJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_0SV0LoJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_0SV0LoJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_0SV0LoJAEeeDru6gupombA_1502860055650"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_9HP_UYJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_9HP_UIJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_9HP_UIJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_9HP_UYJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_9HP_UYJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_9HP_UYJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_9HP_UIJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_9HP_XoJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_9HP_XoJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_9HP_XoJAEeeDru6gupombA_1502860114885"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_9QMf8YJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_9QMf8IJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_9QMf8IJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_9QMf8YJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_9QMf8YJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_9QMf8YJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_9QMf8IJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_9QMf_oJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_9QMf_oJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_9QMf_oJAEeeDru6gupombA_1502860115823"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_9Y1ekYJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_9Y1ekIJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_9Y1ekIJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_9Y1ekYJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_9Y1ekYJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_9Y1ekYJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_9Y1ekIJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_9Y1enoJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_9Y1enoJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_9Y1enoJAEeeDru6gupombA_1502860116729"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_9glsYYJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_9glsYIJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_9glsYIJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_9glsYYJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_9glsYYJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_9glsYYJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_9glsYIJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_9glsboJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_9glsboJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_9glsboJAEeeDru6gupombA_1502860117542"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_9xkusYJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_9xkusIJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_9xkusIJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_9xkusYJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_9xkusYJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_9xkusYJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_9xkusIJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_9xkuvoJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_9xkuvoJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_9xkuvoJAEeeDru6gupombA_1502860119323"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_969UMYJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_969UMIJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_969UMIJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_969UMYJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_969UMYJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_969UMYJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_969UMIJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_969UPoJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_969UPoJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_969UPoJAEeeDru6gupombA_1502860120307"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_-DwD0YJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_-DwD0IJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_-DwD0IJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_-DwD0YJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_-DwD0YJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_-DwD0YJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_-DwD0IJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_-DwD3oJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_-DwD3oJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_-DwD3oJAEeeDru6gupombA_1502860121229"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_-USaMYJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_-USaMIJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_-USaMIJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_-USaMYJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_-USaMYJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_-USaMYJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_-USaMIJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_-USaPoJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_-USaPoJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_-USaPoJAEeeDru6gupombA_1502860122963"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_-cCoAYJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_-cCoAIJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_-cCoAIJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_-cCoAYJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_-cCoAYJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_-cCoAYJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_-cCoAIJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_-cCoDoJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_-cCoDoJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_-cCoDoJAEeeDru6gupombA_1502860123776"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_-5_vUYJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-PTW01_-5_vUIJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-PTW01_-5_vUIJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_-5_vUYJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_-5_vUYJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_-5_vUYJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-PTW01_-5_vUIJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_-5_vXoJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_-5_vXoJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_-5_vXoJAEeeDru6gupombA_1502860126917"/>
+    <ownedAttributes frozen="true" name="label" partialUri="soe_only_type_I_eDIIJEEeeDru6gupombA_1502861483090"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="soe_only_type_I_eDIIJEEeeDru6gupombA_1502861483090"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="dac_type_Otof0IJEEeeDru6gupombA_1502861521485"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_ZZEu0IJEEeeDru6gupombA_1502861593149"/>
+    <ownedAttributes name="computedMessage" partialUri="soe_only_type_I_eDIIJEEeeDru6gupombA_1502861483090"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_ZZEu0IJEEeeDru6gupombA_1502861593149"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_aqD5EYNWEeevN_isMe_qRg_1502979283745"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_aqD5EYNWEeevN_isMe_qRg_1502979283745"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_aqD5EYNWEeevN_isMe_qRg_1502979283745"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(0)]=1,3,SWITCH([^:^:dciECT-STATUS.value]=0,3,[^:^:dciECT-STATUS.value]=1,2,[^:^:dciECT-STATUS.value]=2,1,0)))+IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(2)]=1,100,0))" name="value" partialUri="Symbol_Symbol1_xke8EYPHEeevN_isMe_qRg_1503027970641"/>
+    <ownedAttributes frozen="true" formula="[^:^:aciECT-TEMP.value]" name="value" partialUri="Number_Float1_xke8EoPHEeevN_isMe_qRg_1503027970641"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,[^:^:dciECT-LRSTA.value]+1)" name="value" partialUri="Symbol_Symbol1_4gKUwIPHEeevN_isMe_qRg_1503028017164"/>
+    <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,&quot;N/A&quot;,SWITCH([^:^:dciECT-STATUS.value]=0,[^:^:dciECT-STATUS:dal.valueTable(0,label)],[^:^:dciECT-STATUS.value]=1,[^:^:dciECT-STATUS:dal.valueTable(1,label)],[^:^:dciECT-STATUS.value]=2,[^:^:dciECT-STATUS:dal.valueTable(2,label)],[^:^:dciECT-STATUS.value]=3,[^:^:dciECT-STATUS:dal.valueTable(3,label)],&quot;UNDEFINED&quot;))" name="value" partialUri="Text_17VnkIPHEeevN_isMe_qRg_1503027999881"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_i2rfVoPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS_i2rfUIPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS_i2rfUIPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_i2rfUYPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_i2rfVoPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_i2rfVoPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_i2rfVoPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_i2rfVoPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS_i2rfUIPREeevN_isMe_qRg_1503032166853"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_LI0GZoPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS_LI0GYIPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS_LI0GYIPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_LI0GYYPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_LI0GZoPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_LI0GZoPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_LI0GZoPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_LI0GZoPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS_LI0GYIPSEeevN_isMe_qRg_1503032437190"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_Mi10ZoPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS_Mi10YIPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS_Mi10YIPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_Mi10YYPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_Mi10ZoPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_Mi10ZoPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_Mi10ZoPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_Mi10ZoPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS_Mi10YIPSEeevN_isMe_qRg_1503032446630"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_NZOp1oPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS_NZOp0IPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS_NZOp0IPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_NZOp0YPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_NZOp1oPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_NZOp1oPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_NZOp1oPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_NZOp1oPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS_NZOp0IPSEeevN_isMe_qRg_1503032452333"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_QqPHkIPSEeevN_isMe_qRg_1503032474249"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_QqPHkIPSEeevN_isMe_qRg_1503032474249"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_QqPHkIPSEeevN_isMe_qRg_1503032474249"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_Q2v5kIPSEeevN_isMe_qRg_1503032475561"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_Q2v5kIPSEeevN_isMe_qRg_1503032475561"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_Q2v5kIPSEeevN_isMe_qRg_1503032475561"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_RDt-kIPSEeevN_isMe_qRg_1503032476921"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_RDt-kIPSEeevN_isMe_qRg_1503032476921"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_RDt-kIPSEeevN_isMe_qRg_1503032476921"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_RpmS0YPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_RpmS0IPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_RpmS0IPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_RpmS0YPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_RpmS0YPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_RpmS0YPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_RpmS0YPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_RpmS0IPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_RpmS3oPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_RpmS3oPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_RpmS3oPSEeevN_isMe_qRg_1503032480893"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_S0GXEYPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_S0GXEIPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_S0GXEIPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_S0GXEYPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_S0GXEYPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_S0GXEYPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_S0GXEYPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_S0GXEIPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_S0GXHoPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_S0GXHoPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_S0GXHoPSEeevN_isMe_qRg_1503032488705"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_S5w6MYPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_S5w6MIPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_S5w6MIPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_S5w6MYPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_S5w6MYPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_S5w6MYPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_S5w6MYPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_S5w6MIPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_S5w6PoPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_S5w6PoPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_S5w6PoPSEeevN_isMe_qRg_1503032489299"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_TM1nMYPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_TM1nMIPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_TM1nMIPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_TM1nMYPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_TM1nMYPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_TM1nMYPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_TM1nMYPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_TM1nMIPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_TM1nPoPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_TM1nPoPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_TM1nPoPSEeevN_isMe_qRg_1503032491299"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_TWhusYPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_TWhusIPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_TWhusIPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_TWhusYPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_TWhusYPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_TWhusYPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_TWhusYPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_TWhusIPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_TWhuvoPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_TWhuvoPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_TWhuvoPSEeevN_isMe_qRg_1503032492315"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_Tb4v0YPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_Tb4v0IPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_Tb4v0IPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_Tb4v0YPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_Tb4v0YPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_Tb4v0YPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_Tb4v0YPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_Tb4v0IPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_Tb4v3oPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_Tb4v3oPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_Tb4v3oPSEeevN_isMe_qRg_1503032492877"/>
+    <ownedAttributes frozen="true" name="valueTable" partialUri="dal_type_dal_Thsc4YPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" name="label" partialUri="DCI_TYPE_dciECT-STATUS03_Thsc4IPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" name="nom_instance" partialUri="DCI_TYPE_dciECT-STATUS03_Thsc4IPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" name="ackAutomaton" partialUri="dal_type_dal_Thsc4YPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" name="DIAlmCEBehaviour" partialUri="dal_type_dal_Thsc4YPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" name="valueAutomaton" partialUri="dal_type_dal_Thsc4YPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" name="theme" partialUri="dal_type_dal_Thsc4YPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" formula="uTable_Read_StrByIdx([.name],&quot;:dal.valueTable&quot;,[.value],&quot;label&quot;)" name="computedMessage" partialUri="DCI_TYPE_dciECT-STATUS03_Thsc4IPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" formula="IF([.computedValue],NOW(),NOW())" name="computedDate" partialUri="dco_type_dco_Thsc7oPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,1,1)" name="computedStatus" partialUri="dco_type_dco_Thsc7oPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes name="computedValue" partialUri="dco_type_dco_Thsc7oPSEeevN_isMe_qRg_1503032493486"/>
+    <ownedAttributes frozen="true" formula="IF([^:^:dciECT-PTW.value]=1,2,IF([^:^:dciECT-NISERV.value]=1,4,0 ) )" name="value" partialUri="Tag_dDRkAIPWEeevN_isMe_qRg_1503034275392"/>
+    <ownedAttributes frozen="true" formula="[^:^:dciECT-LRSTA.value]" name="value" partialUri="Tag_TAG2_e50O4IPWEeevN_isMe_qRg_1503034287822"/>
+    <ownedAttributes frozen="true" formula="[^:^:dciECT-TRIPALM.value]" name="value" partialUri="Tag_TAG2_fqZ-UIPWEeevN_isMe_qRg_1503034292917"/>
+    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+  </ownedPrototype>
+</scsproject:Project>

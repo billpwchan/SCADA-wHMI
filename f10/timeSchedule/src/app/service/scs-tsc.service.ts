@@ -115,6 +115,13 @@ export class ScsTscService {
         return this.http.get(url).map(res => res.json()).catch(this.handleError);
     }
     //
+    // getEnableFlag
+    //
+    public getEnableFlag(taskName: string): Observable<string> {
+        const url = this.urlScsTsc + ScsTscDef.IS_ENABLED + this.getEncodedURIComponent(taskName);
+        return this.http.get(url).map(this.extractEnableFlag).catch(this.handleError);
+    }
+    //
     // setEnableFlag
     //
     public enableTask(taskName: string, enableFlag: number, clientName: string): Observable<any> {

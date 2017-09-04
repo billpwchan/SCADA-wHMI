@@ -31,7 +31,8 @@ export class ConfigService {
             manual_refresh_enabled: true,
             equipment_task_string_separator: ' - ',
             geocat_translation_prefix: 'Location_',
-            funcat_translation_prefix: 'System_'
+            funcat_translation_prefix: 'System_',
+            page_size: 5
         }),
         schedule_planning: Map({
             weekly_planning: {},

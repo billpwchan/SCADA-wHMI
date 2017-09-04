@@ -49,6 +49,8 @@ export interface Config {
         geocat_translation_prefix: string;
         // funcat translation prefix
         funcat_translation_prefix: string;
+        // table page size
+        page_size: number;
     };
     schedule_planning: {
         // default schedule assignment for each weekday

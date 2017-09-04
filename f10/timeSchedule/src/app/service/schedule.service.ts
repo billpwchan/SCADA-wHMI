@@ -350,6 +350,50 @@ export class ScheduleService implements OnDestroy {
         }
         console.log('{ScheduleService}', '[extractDescFilterEnable]', 'end');
     }
+    public getScheduleDescFilterEnable(taskName: string) {
+        console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'taskName=', taskName);
+        const taskColumns: string[] = taskName.split(',');
+        const header = taskColumns[ScheduleDef.SCHEDULE_HEADER_COL];
+        const scheduleType = taskColumns[ScheduleDef.SCHEDULE_TYPE_COL];
+        const scheduleId = taskColumns[ScheduleDef.SCHEDULE_ID_COL];
+        const alias = taskColumns[ScheduleDef.SCHEDULE_EQT_ALIAS_COL];
+        const pointAtt = taskColumns[ScheduleDef.SCHEDULE_EQT_POINT_ATT_COL];
+        const targetState = taskColumns[ScheduleDef.SCHEDULE_EQT_TARGET_STATE];
+        const scheduleItem = this.scheduleItems.find( r =>
+                    r.scheduleType === scheduleType &&
+                    r.scheduleId === scheduleId &&
+                    r.eqtAlias === alias &&
+                    r.eqtPointAtt === pointAtt);
+        if (scheduleItem) {
+            this.scsTscService.getDescription(taskName).subscribe((desc) => {
+                console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'desc=', desc);
+                scheduleItem.eqtLabel = desc.split(',')[0];
+                scheduleItem.eqtDescription = desc.split(',')[1];
+            });
+            this.scsTscService.getFilter(taskName).subscribe((filter) => {
+                console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'filter=', filter);
+                const onOffTime = this.getOnOffTime(filter);
+                const onOffTimeDisplay = onOffTime;
+                if (targetState === 'ON') {
+                    scheduleItem.onTime = onOffTime;
+                    scheduleItem.onTimeDisplay = onOffTimeDisplay;
+                    scheduleItem.filter1 = filter;
+                } else if (targetState === 'OFF') {
+                    scheduleItem.offTime = onOffTime;
+                    scheduleItem.offTimeDisplay = onOffTimeDisplay;
+                    scheduleItem.filter2 = filter;
+                }
+            });
+            this.scsTscService.getEnableFlag(taskName).subscribe((enableFlag) => {
+                console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'enableFlag=', enableFlag);
+                if (targetState === 'ON') {
+                    scheduleItem.enableFlag1 = +enableFlag;
+                } else {
+                    scheduleItem.enableFlag2 = +enableFlag;
+                }
+            });
+        }
+    }
     private getOnOffTime(filter: string) {
         let dg_time: string[];
         dg_time = filter.split(' ');

@@ -1,0 +1,18 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <g id="TTVF_D_State_Selected">
+    <g id="_SCADAGEN_SYMBOLS_SCADAGEN_SYMBOLHIGHLIGHT_2_SELECTED_BLINKING_SVG" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
+      <rect x="0.0" fill="red" width="200.0" height="200.0" y="0.0" opacity="0" />
+      <g id="SCADAgen_SymbolHighlight_2_Selected_Blinking" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="-100,-100 -91,-100 -91,-61 -100,-61 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="-100,-100 -61,-100 -61,-91 -100,-91 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="99,-61 99,-100 90,-100 90,-61 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="-61,99 -100,99 -100,90 -61,90 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="99,99 60,99 60,90 99,90 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="-100,60 -91,60 -91,99 -100,99 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="60,-100 99,-100 99,-91 60,-91 " />
+        <polygon fill="#FFFFCF" class="AnPolygon" fill-rule="evenodd" points="90,60 99,60 99,99 90,99 " />
+      </g>
+      <animate dur="1.0" attributeName="visibility" from="hidden" repeatCount="indefinite" to="visible" />
+    </g>
+  </g>
+</svg>

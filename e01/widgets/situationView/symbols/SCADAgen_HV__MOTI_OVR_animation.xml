@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+  <animationRules id="SCADAgen_HV__MOTI_OVR_animation">
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="Int2IntMapping" name="Int2IntMapping"></source>
+      <sourceType>INT</sourceType>
+      <svgRefAnimation defaultValue="HV__MOTI_OVR_0_Undefined" nodeId="Int2IntMapping_node">
+        <enumerationBinding>
+          <item inputValue="0" value="HV__MOTI_OVR_0_Undefined"></item>
+          <item inputValue="1" value="HV__MOTI_OVR_1_Open"></item>
+          <item inputValue="2" value="HV__MOTI_OVR_2_Open_Alarm"></item>
+          <item inputValue="3" value="HV__MOTI_OVR_3_Closed"></item>
+          <item inputValue="4" value="HV__MOTI_OVR_4_Closed_Alarm"></item>
+          <item inputValue="5" value="HV__MOTI_OVR_5_Transit"></item>
+          <item inputValue="103" value="HV__MOTI_OVR_103_Closed"></item>
+          <item inputValue="104" value="HV__MOTI_OVR_104_Closed_Alarm"></item>
+          <item inputValue="203" value="HV__MOTI_OVR_203_Closed"></item>
+          <item inputValue="204" value="HV__MOTI_OVR_204_Closed_Alarm"></item>
+          <item inputValue="303" value="HV__MOTI_OVR_303_Closed"></item>
+          <item inputValue="304" value="HV__MOTI_OVR_304_Closed_Alarm"></item>
+          <item inputValue="403" value="HV__MOTI_OVR_403_Closed"></item>
+          <item inputValue="404" value="HV__MOTI_OVR_404_Closed_Alarm"></item>
+          <item inputValue="503" value="HV__MOTI_OVR_503_Closed"></item>
+          <item inputValue="504" value="HV__MOTI_OVR_504_Closed_Alarm"></item>
+          <item inputValue="603" value="HV__MOTI_OVR_603_Closed"></item>
+          <item inputValue="604" value="HV__MOTI_OVR_604_Closed_Alarm"></item>
+        </enumerationBinding>
+      </svgRefAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="tag2"></source>
+      <sourceType>INT</sourceType>
+      <svgRefAnimation defaultValue="HV__MOTI_OVR_Decor_Empty" nodeId="tag2.value_node">
+        <enumerationBinding>
+          <item inputValue="0" value="HV__MOTI_OVR_Decor_Empty"></item>
+          <item inputValue="3" value="HV__MOTI_OVR_Decor_MO"></item>
+          <item inputValue="4" value="HV__MOTI_OVR_Decor_NotInService"></item>
+          <item inputValue="2" value="HV__MOTI_OVR_Decor_PTW"></item>
+        </enumerationBinding>
+      </svgRefAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="tag3"></source>
+      <sourceType>INT</sourceType>
+      <svgRefAnimation defaultValue="HV__MOTI_OVR_Decor_Empty_L" nodeId="tag3.value_node">
+        <enumerationBinding>
+          <item inputValue="0" value="HV__MOTI_OVR_Decor_Empty_L"></item>
+          <item inputValue="1" value="HV__MOTI_OVR_Decor_Local"></item>
+        </enumerationBinding>
+      </svgRefAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.SCADAgen_ECS_State" name="SCADAgen_ECS_State"></source>
+      <sourceType>STRING</sourceType>
+      <svgRefAnimation defaultValue="HV__MOTI_OVR_State_Empty" nodeId="SCADAgen_ECS_State_node">
+        <enumerationBinding>
+          <item inputValue="0" value="HV__MOTI_OVR_State_Empty"></item>
+          <item inputValue="3" value="HV__MOTI_OVR_State_MO"></item>
+        </enumerationBinding>
+      </svgRefAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="needack" />
+      <sourceType>INT</sourceType>
+      <blinkAnimation defaultValue="false">
+        <rangeBinding>
+          <range from="1" to="2147483647" value="true" />
+        </rangeBinding>
+      </blinkAnimation>
+    </animationRule>
+  </animationRules>
+</animationConfiguration>

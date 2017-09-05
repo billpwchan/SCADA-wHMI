@@ -1,9 +1,0 @@
-log/
-ScsEnvList
-ScsEnvtable
-*.pyc
-*.pyo
-ui_simctrl.py
-scadasoft.cfg
-HMI*.pid
-/evt/

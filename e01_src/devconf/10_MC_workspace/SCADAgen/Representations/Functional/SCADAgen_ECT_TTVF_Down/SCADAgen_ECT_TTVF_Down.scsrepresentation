@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_sAtJ8D3fEeaLVJtXtrlHzg" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAgen_ECT_TTVF_Down" defaultAspect="_wrlk5j3fEeaLVJtXtrlHzg" category="_sAtJ9D3fEeaLVJtXtrlHzg">
+    <aspectPackage xmi:id="_sAtJ8T3fEeaLVJtXtrlHzg" name="Aspect Container" description="">
+      <ownedAspect xmi:id="_wrlksT3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Exhaust_Blink">
+        <ownedDecoratedSymbol xmi:id="_y81QAI5EEeeIfJOvvM8MdQ" x="22.0" y="43.0" width="154.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlksD3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlksz3fEeaLVJtXtrlHzg" value="101" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+        <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_Fj7G8I5FEeeIfJOvvM8MdQ"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlktj3fEeaLVJtXtrlHzg" name="TTVF_D_State_MO">
+        <ownedDecoratedSymbol xmi:id="_ScJLAI5PEeeIfJOvvM8MdQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlktT3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlkuD3fEeaLVJtXtrlHzg" value="3" attribute="_wrlkwT3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlkuj3fEeaLVJtXtrlHzg" name="TTVF_D_State_Invalid">
+        <ownedDecoratedSymbol xmi:id="_J4fH4I5PEeeIfJOvvM8MdQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkuT3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlkvD3fEeaLVJtXtrlHzg" value="1" attribute="_wrlkwT3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlkvj3fEeaLVJtXtrlHzg" name="TTVF_D_Decor_PTW">
+        <ownedDecoratedSymbol xmi:id="_ZnhCAI5OEeeIfJOvvM8MdQ" x="143.0" y="18.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkvT3fEeaLVJtXtrlHzg" cx="63.0" cy="-60.0"/>
+        <condition xmi:id="_wrlkwD3fEeaLVJtXtrlHzg" value="2" attribute="_wrlk7z3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlkwz3fEeaLVJtXtrlHzg" name="TTVF_D_Decor_Local">
+        <ownedDecoratedSymbol xmi:id="_kW7yEI5OEeeIfJOvvM8MdQ" x="143.0" y="137.0" width="40.0" height="44.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkwj3fEeaLVJtXtrlHzg" cx="63.0" cy="59.0"/>
+        <condition xmi:id="_wrlkxT3fEeaLVJtXtrlHzg" value="1" attribute="_wrlk6T3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlkxz3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Alarm">
+        <ownedDecoratedSymbol xmi:id="_assQcI5FEeeIfJOvvM8MdQ" x="22.0" y="43.0" width="154.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkxj3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlkyT3fEeaLVJtXtrlHzg" value="3" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlkzz3fEeaLVJtXtrlHzg" name="TTVF_D_State_Selected_MO">
+        <ownedDecoratedSymbol xmi:id="_S1I50I5PEeeIfJOvvM8MdQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkzj3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlk0T3fEeaLVJtXtrlHzg" value="4" attribute="_wrlkwT3fEeaLVJtXtrlHzg"/>
+        <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_wrlk0j3fEeaLVJtXtrlHzg" value="true"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk0z3fEeaLVJtXtrlHzg" name="TTVF_D_Decor_Empty">
+        <condition xmi:id="_wrlk1D3fEeaLVJtXtrlHzg" value="0" attribute="_wrlk7z3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk1j3fEeaLVJtXtrlHzg" name="TTVF_D_State_Selected">
+        <ownedDecoratedSymbol xmi:id="_SKSmAI5PEeeIfJOvvM8MdQ" width="200.0" height="200.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlk1T3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlk2D3fEeaLVJtXtrlHzg" value="2" attribute="_wrlkwT3fEeaLVJtXtrlHzg"/>
+        <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_wrlk2T3fEeaLVJtXtrlHzg" value="true"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk2z3fEeaLVJtXtrlHzg" name="TTVF_D_Decor_Empty_L">
+        <condition xmi:id="_wrlk3D3fEeaLVJtXtrlHzg" value="0" attribute="_wrlk6T3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk3j3fEeaLVJtXtrlHzg" name="TTVF_D_Decor_MO">
+        <ownedDecoratedSymbol xmi:id="_buUWcI5OEeeIfJOvvM8MdQ" x="143.0" y="18.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlk3T3fEeaLVJtXtrlHzg" cx="63.0" cy="-60.0"/>
+        <condition xmi:id="_wrlk4D3fEeaLVJtXtrlHzg" value="3" attribute="_wrlk7z3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk4T3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Alarm_Blink">
+        <ownedDecoratedSymbol xmi:id="_bIXf0I5FEeeIfJOvvM8MdQ" x="22.0" y="43.0" width="154.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkxj3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlk4z3fEeaLVJtXtrlHzg" value="103" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+        <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_wrlk5D3fEeaLVJtXtrlHzg" value="true"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk5j3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Undefined">
+        <ownedDecoratedSymbol xmi:id="_EjpLII5EEeeIfJOvvM8MdQ" x="59.0" y="43.0" width="80.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlk5T3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlk6D3fEeaLVJtXtrlHzg" value="0" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk6z3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Intake_Blink">
+        <ownedDecoratedSymbol xmi:id="_C537gI5FEeeIfJOvvM8MdQ" x="22.0" y="43.0" width="154.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlk6j3fEeaLVJtXtrlHzg">
+          <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_FHXGwI5FEeeIfJOvvM8MdQ"/>
+        </ownedDecoratedSymbol>
+        <condition xmi:id="_wrlk7T3fEeaLVJtXtrlHzg" value="102" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+        <displayProperties xsi:type="scsRepresentation:BlinkingProperty" xmi:id="_wrlk7j3fEeaLVJtXtrlHzg" value="true"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk8D3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Exhaust">
+        <ownedDecoratedSymbol xmi:id="_sMGjEI5EEeeIfJOvvM8MdQ" x="22.0" y="43.0" width="154.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlksD3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlk8j3fEeaLVJtXtrlHzg" value="1" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk9D3fEeaLVJtXtrlHzg" name="TTVF_D_Decor_NotInService">
+        <ownedDecoratedSymbol xmi:id="_eD_NUI5OEeeIfJOvvM8MdQ" x="143.0" y="137.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlk8z3fEeaLVJtXtrlHzg" cx="63.0" cy="58.0"/>
+        <condition xmi:id="_wrlk9j3fEeaLVJtXtrlHzg" value="4" attribute="_wrlk7z3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk9z3fEeaLVJtXtrlHzg" name="TTVF_D_State_Empty">
+        <condition xmi:id="_wrlk-D3fEeaLVJtXtrlHzg" value="0" attribute="_wrlkwT3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_wrlk-T3fEeaLVJtXtrlHzg" name="TTVF_D_Symbol_Intake">
+        <ownedDecoratedSymbol xmi:id="_-NV68I5EEeeIfJOvvM8MdQ" x="22.0" y="43.0" width="154.0" height="112.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlk6j3fEeaLVJtXtrlHzg"/>
+        <condition xmi:id="_wrlk-z3fEeaLVJtXtrlHzg" value="2" attribute="_wrlk2j3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_9siM-czJEeaXfP01pAPs0w" name="TTVF_D_Decor_Trip">
+        <ownedDecoratedSymbol xmi:id="_tbQ5UI5OEeeIfJOvvM8MdQ" x="14.0" y="18.0" width="40.0" height="42.0" ratio_width="1.0" ratio_height="1.0" symbol="_wrlkyj3fEeaLVJtXtrlHzg" cx="-65.0" cy="-60.0"/>
+        <condition xmi:id="_9siM-8zJEeaXfP01pAPs0w" value="1" attribute="_9siM_MzJEeaXfP01pAPs0w"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_9siM_czJEeaXfP01pAPs0w" name="TTVF_D_Decor_Empty_Tr">
+        <condition xmi:id="_9siM_szJEeaXfP01pAPs0w" value="0" attribute="_9siM_MzJEeaXfP01pAPs0w"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_2-mc4JEkEeeoPZi7WgzkmA" name="TTVF_D_Decor_Chatter">
+        <ownedDecoratedSymbol xmi:id="_7aLdEJE0EeemaqCOSlwpqw" x="140.0" y="17.0" width="44.0" height="44.0" ratio_width="1.0" ratio_height="1.0" symbol="_cZ49MJEmEeeoPZi7WgzkmA" cx="62.0" cy="-60.0"/>
+        <condition xmi:id="_gDwT8JEzEeeoPZi7WgzkmA" value="1" attribute="_wrlk7z3fEeaLVJtXtrlHzg"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_wrlkwT3fEeaLVJtXtrlHzg" id="SCADAgenSymbolHighlight" defaultValue="0" condition="_wrlkuD3fEeaLVJtXtrlHzg _wrlkvD3fEeaLVJtXtrlHzg _wrlk0T3fEeaLVJtXtrlHzg _wrlk2D3fEeaLVJtXtrlHzg _wrlk-D3fEeaLVJtXtrlHzg" qualifiedName="SCADAgenSymbolHighlight"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_wrlk2j3fEeaLVJtXtrlHzg" id="symbol1.value" defaultValue="0" condition="_wrlkyT3fEeaLVJtXtrlHzg _wrlk4z3fEeaLVJtXtrlHzg _wrlk8j3fEeaLVJtXtrlHzg _wrlksz3fEeaLVJtXtrlHzg _wrlk7T3fEeaLVJtXtrlHzg _wrlk6D3fEeaLVJtXtrlHzg _wrlk-z3fEeaLVJtXtrlHzg" relativePath="symbol1.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_wrlk6T3fEeaLVJtXtrlHzg" id="tag3.value" defaultValue="0" condition="_wrlk3D3fEeaLVJtXtrlHzg _wrlkxT3fEeaLVJtXtrlHzg" relativePath="tag3.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_wrlk7z3fEeaLVJtXtrlHzg" id="tag2.value" defaultValue="0" condition="_wrlk1D3fEeaLVJtXtrlHzg _wrlkwD3fEeaLVJtXtrlHzg _wrlk4D3fEeaLVJtXtrlHzg _wrlk9j3fEeaLVJtXtrlHzg _gDwT8JEzEeeoPZi7WgzkmA" relativePath="tag1.value"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_9siM_MzJEeaXfP01pAPs0w" id="tag4.value" defaultValue="0" condition="_9siM-8zJEeaXfP01pAPs0w _9siM_szJEeaXfP01pAPs0w" relativePath="tag4.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_sAtJ8j3fEeaLVJtXtrlHzg">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlksD3fEeaLVJtXtrlHzg" filePath="Symbols/ECT/SCADAgen_ECT_TTVF_2_Exhaust_Down.svg" id="_SCADAGEN_SYMBOLS_ECT_SCADAGEN_ECT_TTVF_2_EXHAUST_DOWN_SVG" width="154.0" height="112.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlktT3fEeaLVJtXtrlHzg" filePath="Symbols/SCADAgen_SymbolHighlight_3_MO.svg" id="_SCADAGEN_SYMBOLS_SCADAGEN_SYMBOLHIGHLIGHT_3_MO_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlkuT3fEeaLVJtXtrlHzg" filePath="Symbols/SCADAgen_SymbolHighlight_1_Invalid.svg" id="_SCADAGEN_SYMBOLS_SCADAGEN_SYMBOLHIGHLIGHT_1_INVALID_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlkvT3fEeaLVJtXtrlHzg" filePath="Symbols/Tag/SCADAgen_ECT_TAG_2_Permit_To_Work.svg" id="_SCADAGEN_SYMBOLS_TAG_SCADAGEN_ECT_TAG_2_PERMIT_TO_WORK_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlkwj3fEeaLVJtXtrlHzg" filePath="Symbols/Tag/SCADAgen_ECT_TAG_Local.svg" id="_SCADAGEN_SYMBOLS_TAG_SCADAGEN_ECT_TAG_LOCAL_SVG" width="40.0" height="44.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlkxj3fEeaLVJtXtrlHzg" filePath="Symbols/ECT/SCADAgen_ECT_TTVF_5_Alarm_Down.svg" id="_SCADAGEN_SYMBOLS_ECT_SCADAGEN_ECT_TTVF_5_ALARM_DOWN_SVG" width="154.0" height="112.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlkyj3fEeaLVJtXtrlHzg" filePath="Symbols/Tag/SCADAgen_ECT_TAG_1_Trip.svg" id="_SCADAGEN_SYMBOLS_TAG_SCADAGEN_ECT_TAG_1_TRIP_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlkzj3fEeaLVJtXtrlHzg" filePath="Symbols/SCADAgen_SymbolHighlight_4_Selected_MO_Blinking.svg" id="_SCADAGEN_SYMBOLS_SCADAGEN_SYMBOLHIGHLIGHT_4_SELECTED_MO_BLINKING_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlk1T3fEeaLVJtXtrlHzg" filePath="Symbols/SCADAgen_SymbolHighlight_2_Selected_Blinking.svg" id="_SCADAGEN_SYMBOLS_SCADAGEN_SYMBOLHIGHLIGHT_2_SELECTED_BLINKING_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlk3T3fEeaLVJtXtrlHzg" filePath="Symbols/Tag/SCADAgen_ECT_TAG_3_Manual_Override.svg" id="_SCADAGEN_SYMBOLS_TAG_SCADAGEN_ECT_TAG_3_MANUAL_OVERRIDE_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlk5T3fEeaLVJtXtrlHzg" filePath="Symbols/ECT/SCADAgen_ECT_TTVF_1_Undefined_Vertical.svg" id="_SCADAGEN_SYMBOLS_ECT_SCADAGEN_ECT_TTVF_1_UNDEFINED_VERTICAL_SVG" width="80.0" height="112.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlk6j3fEeaLVJtXtrlHzg" filePath="Symbols/ECT/SCADAgen_ECT_TTVF_3_Intake_Down.svg" id="_SCADAGEN_SYMBOLS_ECT_SCADAGEN_ECT_TTVF_3_INTAKE_DOWN_SVG" width="154.0" height="112.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_wrlk8z3fEeaLVJtXtrlHzg" filePath="Symbols/Tag/SCADAgen_ECT_TAG_4_Not_In_Service.svg" id="_SCADAGEN_SYMBOLS_TAG_SCADAGEN_ECT_TAG_4_NOT_IN_SERVICE_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_MXBcUI5OEeeIfJOvvM8MdQ" filePath="Symbols/Tag/C1166B_ECT_TAG_1_Trip.svg" id="_C1166B_SYMBOLS_TAG_C1166B_ECT_TAG_1_TRIP_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_cZ49MJEmEeeoPZi7WgzkmA" filePath="Symbols/Tag/SCADAgen_ECT_TAG_Chatter.svg" id="_SCADAGEN_SYMBOLS_TAG_SCADAGEN_ECT_TAG_CHATTER_SVG" width="44.0" height="44.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_sAtJ8z3fEeaLVJtXtrlHzg">
+    <ownedCategories xmi:id="_sAtJ9D3fEeaLVJtXtrlHzg" name="Functional"/>
+    <ownedCategories xmi:id="_sAtJ9T3fEeaLVJtXtrlHzg" name="Geographical"/>
+    <ownedCategories xmi:id="_sAtJ9j3fEeaLVJtXtrlHzg" name="Outline"/>
+    <ownedCategories xmi:id="_sAtJ9z3fEeaLVJtXtrlHzg" name="Synthesis"/>
+    <ownedCategories xmi:id="_sAtJ-D3fEeaLVJtXtrlHzg" name="System"/>
+    <ownedCategories xmi:id="_sAtJ-T3fEeaLVJtXtrlHzg" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

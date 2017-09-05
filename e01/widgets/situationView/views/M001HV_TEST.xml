@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<viewConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/view">
+  <view srs="EPSG:23030" units="m" id="M001HV_TEST" resolution="1.24907975460123 1.04089975413938 0.867416461782819 0.722847061459071 0.602372551215893 0.501977116393849 0.418314270341676 0.34859522528473 0.290496021070608 0.24208001755884" maxExtent="0.0 0.0 928.0 1018.0" resolutionReference="1.0">
+    <controls displayLayerSwitcher="false" displayScaleLine="false" displayScale="false" displayMousePosition="false" displayPanZoomBar="false"></controls>
+    <imageLayer path="images/M001HV_TEST.svg" width="928.0" height="1018.0" bounds="0.0 0.0 928.0 1018.0" name="M001HV_TEST" type="BASE_LAYER"></imageLayer>
+    <symbolLayer name="SGEQPT8_layer" type="OVERLAY">
+      <entityEntry x="436.0" y="594.0" symbolId="SCADAgen_HV__MOTI" entityId="ENRM000001TPSMOTI0001" tx="0.0" ty="0.0" rotate="0.0" hFlip="false" vFlip="false" scale="1.0"></entityEntry>
+      <entityEntry x="574.0" y="342.0" symbolId="SCADAgen_HV__MOTI_DR" entityId="ENRM000001TPSMOTI0001" tx="0.0" ty="0.0" rotate="0.0" hFlip="false" vFlip="false" scale="1.0"></entityEntry>
+      <entityEntry x="574.0" y="198.0" symbolId="SCADAgen_HV__MOTI_PF" entityId="ENRM000001TPSMOTI0001" tx="0.0" ty="0.0" rotate="0.0" hFlip="false" vFlip="false" scale="1.0"></entityEntry>
+    </symbolLayer>
+  </view>
+</viewConfiguration>

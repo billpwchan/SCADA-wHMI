@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_V4bW8Q-jEee4zYgCDjPyfA" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAgen_HV__MOTI_DR" defaultAspect="_V4bW8w-jEee4zYgCDjPyfA" category="_V4bXFw-jEee4zYgCDjPyfA">
+    <aspectPackage xmi:id="_V4bW8g-jEee4zYgCDjPyfA" name="Aspect Container">
+      <ownedAspect xmi:id="_V4bW8w-jEee4zYgCDjPyfA" name="HV__MOTI_DR_0_Undefined">
+        <ownedDecoratedSymbol xmi:id="_PnwDYZIWEeeSL5y2eYm5_w" x="27.0" y="52.0" width="144.0" height="94.0" ratio_width="1.0" ratio_height="1.0" symbol="_V4bXEA-jEee4zYgCDjPyfA"/>
+        <condition xmi:id="_V4bW9Q-jEee4zYgCDjPyfA" value="0" attribute="_V4bXAg-jEee4zYgCDjPyfA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_V4bW9g-jEee4zYgCDjPyfA" name="HV__MOTI_DR_1_Not_Running">
+        <ownedDecoratedSymbol xmi:id="_QIvQkJIWEeeSL5y2eYm5_w" x="27.0" y="52.0" width="144.0" height="94.0" ratio_width="1.0" ratio_height="1.0" symbol="_aJRhEA-jEee4zYgCDjPyfA"/>
+        <condition xmi:id="_V4bW-A-jEee4zYgCDjPyfA" value="1" attribute="_V4bXAg-jEee4zYgCDjPyfA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_V4bW-Q-jEee4zYgCDjPyfA" name="HV__MOTI_DR_2_Running">
+        <ownedDecoratedSymbol xmi:id="_QZ21wJIWEeeSL5y2eYm5_w" x="27.0" y="52.0" width="144.0" height="94.0" ratio_width="1.0" ratio_height="1.0" symbol="_eJAtEA-jEee4zYgCDjPyfA"/>
+        <condition xmi:id="_V4bW-w-jEee4zYgCDjPyfA" value="2" attribute="_V4bXAg-jEee4zYgCDjPyfA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_V4bW_A-jEee4zYgCDjPyfA" name="HV__MOTI_DR_State_Empty">
+        <condition xmi:id="_V4bW_Q-jEee4zYgCDjPyfA" value="0" attribute="_V4bXAQ-jEee4zYgCDjPyfA"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_V4bW_g-jEee4zYgCDjPyfA" name="HV__MOTI_DR_State_MO">
+        <ownedDecoratedSymbol xmi:id="_V4bW_w-jEee4zYgCDjPyfA" x="6.0" y="39.0" width="188.0" height="122.0" ratio_width="0.94" ratio_height="0.93846154" symbol="_V4bXEw-jEee4zYgCDjPyfA"/>
+        <condition xmi:id="_V4bXAA-jEee4zYgCDjPyfA" value="3" attribute="_V4bXAQ-jEee4zYgCDjPyfA"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_V4bXAQ-jEee4zYgCDjPyfA" id="SymbolHighlight" defaultValue="0" condition="_V4bW_Q-jEee4zYgCDjPyfA _V4bXAA-jEee4zYgCDjPyfA" qualifiedName="SymbolHighlight"/>
+      <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_V4bXAg-jEee4zYgCDjPyfA" id="symbol2.value" defaultValue="0" condition="_V4bW9Q-jEee4zYgCDjPyfA _V4bW-A-jEee4zYgCDjPyfA _V4bW-w-jEee4zYgCDjPyfA" relativePath="symbol2.value"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_V4bXAw-jEee4zYgCDjPyfA">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXBA-jEee4zYgCDjPyfA" filePath="Symbols/Tag/SCADAgen_ECT_TAG_1_Trip.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_1_TRIP_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXBQ-jEee4zYgCDjPyfA" filePath="Symbols/Tag/SCADAgen_ECT_TAG_Local.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_LOCAL_SVG" width="40.0" height="44.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXBg-jEee4zYgCDjPyfA" filePath="Symbols/Tag/SCADAgen_ECT_TAG_2_Permit_To_Work.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_2_PERMIT_TO_WORK_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXBw-jEee4zYgCDjPyfA" filePath="Symbols/Tag/SCADAgen_ECT_TAG_3_Manual_Override.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_3_MANUAL_OVERRIDE_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXCA-jEee4zYgCDjPyfA" filePath="Symbols/Tag/SCADAgen_ECT_TAG_4_Not_In_Service.svg" id="_SCADAgen_SYMBOLS_TAG_SCADAgen_ECT_TAG_4_NOT_IN_SERVICE_SVG" width="40.0" height="42.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXCQ-jEee4zYgCDjPyfA" filePath="Symbols/SCADAgen_SymbolHighlight_1_Invalid.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_1_INVALID_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXCg-jEee4zYgCDjPyfA" filePath="Symbols/SCADAgen_SymbolHighlight_2_Selected_Blinking.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_2_SELECTED_BLINKING_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXCw-jEee4zYgCDjPyfA" filePath="Symbols/SCADAgen_SymbolHighlight_3_MO.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_3_MO_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXDA-jEee4zYgCDjPyfA" filePath="Symbols/SCADAgen_SymbolHighlight_4_Selected_MO_Blinking.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT_4_SELECTED_MO_BLINKING_SVG" width="200.0" height="200.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXDQ-jEee4zYgCDjPyfA" filePath="Symbols/HV_/SCADAgen_HV__BATO_0_Undefined.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BATO_0_UNDEFINED_SVG" width="100.0" height="100.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXDg-jEee4zYgCDjPyfA" filePath="Symbols/HV_/SCADAgen_HV__BATO_1_Normal.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BATO_1_NORMAL_SVG" width="100.0" height="100.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXDw-jEee4zYgCDjPyfA" filePath="Symbols/HV_/SCADAgen_HV__BATO_2_Alarm.svg" id="_SCADAgen_SYMBOLS_HV__SCADAgen_HV__BATO_2_ALARM_SVG" width="100.0" height="100.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXEA-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_Undefined_0.svg" id="_SCADAGEN_SYMBOLS_HV__BUTTON_UNDEFINED_0_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXEQ-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_CO_1.svg" id="_SCADAgen_SYMBOLS_HV__BUTTON_CO_1_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXEg-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_CO_2.svg" id="_SCADAgen_SYMBOLS_HV__BUTTON_CO_2_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXEw-jEee4zYgCDjPyfA" filePath="Symbols/SCADAgen_SymbolHighlight130_3_MO.svg" id="_SCADAgen_SYMBOLS_SCADAgen_SYMBOLHIGHLIGHT130_3_MO_SVG" width="200.0" height="130.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXFA-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_OC_1.svg" id="_SCADAgen_SYMBOLS_HV__BUTTON_OC_1_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXFQ-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_OC_2.svg" id="_SCADAgen_SYMBOLS_HV__BUTTON_OC_2_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_aJRhEA-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_DR_1.svg" id="_SCADAGEN_SYMBOLS_HV__BUTTON_DR_1_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_eJAtEA-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_DR_2.svg" id="_SCADAGEN_SYMBOLS_HV__BUTTON_DR_2_SVG" width="144.0" height="94.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_V4bXFg-jEee4zYgCDjPyfA">
+    <ownedCategories xmi:id="_V4bXFw-jEee4zYgCDjPyfA" name="Functional"/>
+    <ownedCategories xmi:id="_V4bXGA-jEee4zYgCDjPyfA" name="Geographical"/>
+    <ownedCategories xmi:id="_V4bXGQ-jEee4zYgCDjPyfA" name="Outline"/>
+    <ownedCategories xmi:id="_V4bXGg-jEee4zYgCDjPyfA" name="Synthesis"/>
+    <ownedCategories xmi:id="_V4bXGw-jEee4zYgCDjPyfA" name="System"/>
+    <ownedCategories xmi:id="_V4bXHA-jEee4zYgCDjPyfA" name="Technical"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

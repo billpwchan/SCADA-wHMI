@@ -1,0 +1,10 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+  <g id="TTVF_D_State_Invalid">
+    <g id="_SCADAGEN_SYMBOLS_SCADAGEN_SYMBOLHIGHLIGHT_1_INVALID_SVG" transform="translate(-100.0 -100.0)scale(1.0 1.0)">
+      <rect x="0.0" fill="red" width="200.0" height="200.0" y="0.0" opacity="0" />
+      <g id="SCADAgen_SymbolHighlight_1_Invalid" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+        <rect x="-100px" y="-100px" fill="#FFFFFF" width="200px" fill-rule="evenodd" class="AnRectangle" height="200px" />
+      </g>
+    </g>
+  </g>
+</svg>

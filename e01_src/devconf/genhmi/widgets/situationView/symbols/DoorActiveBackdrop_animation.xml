@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+  <animationRules id="DoorActiveBackdrop_animation">
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.DoorStrokeColorChooser" name="DoorStrokeColorChooser"></source>
+      <sourceType>STRING</sourceType>
+      <strokeColorAnimation defaultValue="yellow"></strokeColorAnimation>
+      <strokeWidthAnimation defaultValue="5.0" invalidValue="5.0">
+        <enumerationBinding>
+          <item inputValue="0" value="5.0"></item>
+        </enumerationBinding>
+      </strokeWidthAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="com.thalesgroup.scadasoft.stresstest.calculated.widget.DoorColorChooser" name="DoorColorChooser"></source>
+      <sourceType>STRING</sourceType>
+      <fillColorAnimation defaultValue="#000000"></fillColorAnimation>
+      <fillOpacityAnimation defaultValue="0.800000011920929" invalidValue="0.800000011920929">
+        <enumerationBinding>
+          <item inputValue="0" value="0.8"></item>
+        </enumerationBinding>
+      </fillOpacityAnimation>
+    </animationRule>
+  </animationRules>
+</animationConfiguration>

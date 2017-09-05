@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'
 import { SelectComponent } from 'ng2-select';
 import { DatatableComponent } from '../../../node_modules/@swimlane/ngx-datatable/src/components/datatable.component';
+import { sortRows } from '../../../node_modules/@swimlane/ngx-datatable/src/utils';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Schedule } from '../type/schedule';
 import { ScheduleItem, ScheduleItemFilter } from '../type/schedule-item';
@@ -37,7 +38,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public scheduleItems: ScheduleItem[] = [];
     // cache copy of scheduleItems
     private cachedSchItems: ScheduleItem[] = [];
-    @ViewChild(DatatableComponent) table: DatatableComponent;
+    private tempSchItems: ScheduleItem[] = [];
+    @ViewChild('scheduleTable') dataTable: DatatableComponent;
     // selected schedule
     public selectedSchedule: Schedule;
     // selected row in table
@@ -103,6 +105,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     // offline sort config
     private offlineSort: any;
+
+    private sortEvent: any;
+    private sortColumns = [ {prop: 'geoCat'}, {prop: 'funcCat'}];
 
     public runningSchedules = Array<Schedule>();
     public runningSchedulesStr = '';
@@ -255,6 +260,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                 } else {
                     this.scheduleItems = [...this.cachedSchItems];
                 }
+                this.sortEvent = null;
+                this.tempSchItems = [...this.scheduleItems];
                 this.getScheduleContentPage();
             });
             console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);
@@ -302,12 +309,26 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         });
         // update the rows
         this.scheduleItems = temp;
+
         console.log('{schedule-table}', '[ng2-select selected]', 'filtered rows', temp);
         // Whenever the filter changes, always go back to the first page
-        // this.table.offset = 0;
+        this.dataTable.offset = 0;
 
         // clear equipment selection
         this.clearSelectedRow();
+
+        if (this.sortEvent) {
+            let val = sortRows(temp, this.sortColumns, this.sortEvent);
+
+            this.tempSchItems = [...val];
+
+            this.pageOffset = 0;
+        } else {
+            this.tempSchItems = temp;
+        }
+
+        // Read content from tsc server
+        this.getScheduleContentPage();
     }
     // ng2-select callback
     public removed(value: any): void {
@@ -336,17 +357,17 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[ngx-datatable onActivate]', 'Activate Event', event);
     }
     // ngx-datatable callback
-    public updateRowPosition() {
-        const ix = this.getSelectedIx();
-        const arr = [ ...this.scheduleItems ];
-        arr[ix - 1] = this.scheduleItems[ix];
-        arr[ix] = this.scheduleItems[ix - 1];
-        this.scheduleItems = arr;
-    }
+    // public updateRowPosition() {
+    //     const ix = this.getSelectedIx();
+    //     const arr = [ ...this.scheduleItems ];
+    //     arr[ix - 1] = this.scheduleItems[ix];
+    //     arr[ix] = this.scheduleItems[ix - 1];
+    //     this.scheduleItems = arr;
+    // }
     // ngx-datatable callback
-    public getSelectedIx() {
-        return this.selected[0]['$$index'];
-    }
+    // public getSelectedIx() {
+    //     return this.selected[0]['$$index'];
+    // }
     // ngx-datatable callback
     public onPage(event: any) {
         console.log('{schedule-table}', '[ngx-datatable onPage]', 'Page Event', event);
@@ -357,22 +378,39 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             this.getScheduleContentPage();
         }
     }
+    // ngx-datatable callback
+    public onSort(event: any) {
+        console.log('{schedule-table}', '[ngx-datatable onSort]', 'Sort Event', event);
+
+        this.sortEvent = event.sorts;
+
+        let val = sortRows(this.tempSchItems, this.sortColumns, this.sortEvent);
+
+        this.tempSchItems = [...val];
+
+        this.pageOffset = 0;
+
+        this.getScheduleContentPage();
+    }
 
     public getScheduleContentPage() {
-        console.log('{schedule-table}', '[getScheduleContentPage]', 'page=', this.pageOffset, 'size=', this.pageSize, 'scheduleItems.length=', this.scheduleItems.length);
-        const rowStartIdx = this.pageOffset * this.pageSize;
-        for (let rowIdx=rowStartIdx; rowIdx < rowStartIdx+this.pageSize && rowIdx < this.scheduleItems.length; rowIdx++) {
-            this.getScheduleContent(rowIdx);
+        console.log('{schedule-table}', '[getScheduleContentPage]', 'page=', this.pageOffset, 'size=', this.pageSize);
+        let startIdx = this.pageOffset * this.pageSize;
+        for (let rowIdx = startIdx; rowIdx < (startIdx + this.pageSize) && rowIdx < this.tempSchItems.length; rowIdx++) {
+            this.getScheduleItemContent(rowIdx);
         }
     }
 
-    public getScheduleContent(row: number) {
-        console.log('{schedule-table}', '[getScheduleContent]', 'row', row);
-        if (this.scheduleItems[row].taskName1) {
-            this.scheduleService.getScheduleDescFilterEnable(this.scheduleItems[row].taskName1);
-        }
-        if (this.scheduleItems[row].taskName2) {
-            this.scheduleService.getScheduleDescFilterEnable(this.scheduleItems[row].taskName2);
+    public getScheduleItemContent(row: number) {
+        console.log('{schedule-table}', '[getScheduleItemContent]', 'row=', row, 'index=', this.scheduleItems.indexOf(this.tempSchItems[row]));
+
+        if (this.tempSchItems && this.tempSchItems[row]) {
+            if (this.tempSchItems[row].taskName1) {
+                this.scheduleService.getScheduleDescFilterEnable(this.tempSchItems[row].taskName1);
+            }
+            if (this.tempSchItems[row].taskName2) {
+                this.scheduleService.getScheduleDescFilterEnable(this.tempSchItems[row].taskName2);
+            }
         }
     }
 
@@ -508,6 +546,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.newSchedule) {
             this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
                 res => {
+                    this.sortEvent = null;
                     this.scheduleService.loadData();
                 }
             )
@@ -525,6 +564,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
             this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
+                    this.sortEvent = null;
                     this.scheduleService.loadData();
                 }
             )
@@ -716,7 +756,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
 
         // Reload schedule data from server
-        this.scheduleService.loadData();
+        //this.scheduleService.loadData();
+        this.getScheduleContentPage();
     }
 
     public resetModified() {

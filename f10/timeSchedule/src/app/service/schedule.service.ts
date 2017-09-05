@@ -248,6 +248,7 @@ export class ScheduleService implements OnDestroy {
         t.scheduleType = scheduleType;
         t.scheduleId = scheduleId;
         t.eqtDescription = '';
+        t.eqtLabel = '';
         t.eqtAlias = eqtAlias;
         t.eqtPointAtt = eqtPointAtt;
         t.funcCat = funcCat;

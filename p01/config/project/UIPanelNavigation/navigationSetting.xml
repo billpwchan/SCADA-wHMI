@@ -1743,4 +1743,86 @@
 		<tooltips>Writing</tooltips>
 	</option>
 	
+	
+	<option key="300">
+		<type>M</type>
+		<name>M100</name>
+		<title>M100</title>
+		<tooltips>M100</tooltips>
+	</option>
+	<option key="301">
+		<type>M</type>
+		<name>ECT</name>
+		<title>ECT</title>
+		<tooltips>ECT</tooltips>
+	</option>
+	<option key="302">
+		<type>S</type>
+		<name>Central Overview</name>
+		<title>Central Overview</title>
+		<tooltips>Central Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001ECTTEST</uiConf>
+	</option>
+	<option key="303">
+		<type>M</type>
+		<name>HV_</name>
+		<title>HV_</title>
+		<tooltips>HV_</tooltips>
+	</option>
+	<option key="304">
+		<type>S</type>
+		<name>Central Overview</name>
+		<title>Central Overview</title>
+		<tooltips>Central Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001HV_TEST</uiConf>
+	</option>
+	
+	<option key="320">
+		<type>M</type>
+		<name>M001</name>
+		<title>M001</title>
+		<tooltips>M001</tooltips>
+	</option>
+	<option key="321">
+		<type>M</type>
+		<name>ECT</name>
+		<title>ECT</title>
+		<tooltips>ECT</tooltips>
+	</option>
+	<option key="322">
+		<type>S</type>
+		<name>Station Overview</name>
+		<title>Station Overview</title>
+		<tooltips>Station Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001ECTTEST</uiConf>
+	</option>
+	<option key="323">
+		<type>M</type>
+		<name>HV_</name>
+		<title>HV_</title>
+		<tooltips>HV_</tooltips>
+	</option>
+	<option key="324">
+		<type>S</type>
+		<name>Station Overview</name>
+		<title>Station Overview</title>
+		<tooltips>Station Overview</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001HV_TEST</uiConf>
+	</option>
 </data-set>

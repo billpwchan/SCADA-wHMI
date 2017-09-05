@@ -257,6 +257,18 @@
 	<option key="LMC|MCS|Database Verify Summary|GroupPollingDiffSingleton"><setting>238</setting></option>
 	<option key="LMC|MCS|Database Verify Summary|Writing"><setting>239</setting></option>
 	
+	<option key="M100"><setting>300</setting></option>
+	<option key="M100|ECT"><setting>301</setting></option>
+	<option key="M100|ECT|Central Overview"><setting>302</setting></option>
+	<option key="M100|HV_"><setting>303</setting></option>
+	<option key="M100|HV_|Central Overview"><setting>304</setting></option>	
+	
+	<option key="M001"><setting>320</setting></option>
+	<option key="M001|ECT"><setting>321</setting></option>
+	<option key="M001|ECT|Station Overview"><setting>322</setting></option>
+	<option key="M001|HV_"><setting>323</setting></option>
+	<option key="M001|HV_|Station Overview"><setting>324</setting></option>
+	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>
 	

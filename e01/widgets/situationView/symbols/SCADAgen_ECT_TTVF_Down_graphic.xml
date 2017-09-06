@@ -17,6 +17,9 @@
       <svgGroup id="SCADAgen_ECT_TTVF_Down_TTVF_D_Decor_Trip_TTVF_D_Decor_Empty_Tr">
         <svgRef brickId="TTVF_D_Decor_Empty_Tr" id="tag4.value_node"></svgRef>
       </svgGroup>
+      <svgGroup id="SCADAgen_ECT_TTVF_Down_symbol_TTVF_D_State_Empty">
+        <svgRef brickId="TTVF_D_State_Empty" id="inhibsynthesis.value_node"></svgRef>
+      </svgGroup>
     </root>
   </graphic>
 </graphicConfiguration>

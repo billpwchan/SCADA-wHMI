@@ -14,6 +14,9 @@
       <svgGroup id="SCADAgen_HV__MOTI_OVR_HV__MOTI_OVR_State_Empty_HV__MOTI_OVR_State_MO">
         <svgRef brickId="HV__MOTI_OVR_State_Empty" id="SCADAgen_ECS_State_node"></svgRef>
       </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_OVR_symbol_HV__MOTI_OVR_State_Empty">
+        <svgRef brickId="HV__MOTI_OVR_State_Empty" id="inhibsynthesis.value_node"></svgRef>
+      </svgGroup>
     </root>
   </graphic>
 </graphicConfiguration>

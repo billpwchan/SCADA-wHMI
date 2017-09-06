@@ -21,7 +21,7 @@
         <ownedDecoratedSymbol xmi:id="_V4bW_w-jEee4zYgCDjPyfA" x="6.0" y="39.0" width="188.0" height="122.0" ratio_width="0.94" ratio_height="0.93846154" symbol="_V4bXEw-jEee4zYgCDjPyfA"/>
         <condition xmi:id="_V4bXAA-jEee4zYgCDjPyfA" value="3" attribute="_V4bXAQ-jEee4zYgCDjPyfA"/>
       </ownedAspect>
-      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_V4bXAQ-jEee4zYgCDjPyfA" id="SymbolHighlight" defaultValue="0" condition="_V4bW_Q-jEee4zYgCDjPyfA _V4bXAA-jEee4zYgCDjPyfA" qualifiedName="SymbolHighlight"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_V4bXAQ-jEee4zYgCDjPyfA" id="SymbolHighlight" defaultValue="0" condition="_V4bW_Q-jEee4zYgCDjPyfA _V4bXAA-jEee4zYgCDjPyfA" qualifiedName="SCADAgenSymbolHighlight"/>
       <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_V4bXAg-jEee4zYgCDjPyfA" id="symbol2.value" defaultValue="0" condition="_V4bW9Q-jEee4zYgCDjPyfA _V4bW-A-jEee4zYgCDjPyfA _V4bW-w-jEee4zYgCDjPyfA" relativePath="symbol2.value"/>
     </aspectPackage>
     <symbolLibrary xmi:id="_V4bXAw-jEee4zYgCDjPyfA">

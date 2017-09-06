@@ -11,6 +11,9 @@
       <svgGroup id="SCADAgen_HV__MOTI_HV__MOTI_Decor_Empty_L_HV__MOTI_Decor_Local">
         <svgRef brickId="HV__MOTI_Decor_Empty_L" id="tag3.value_node"></svgRef>
       </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_symbol_HV__MOTI_State_Empty">
+        <svgRef brickId="HV__MOTI_State_Empty" id="inhibsynthesis.value_node"></svgRef>
+      </svgGroup>
     </root>
   </graphic>
 </graphicConfiguration>

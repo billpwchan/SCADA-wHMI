@@ -205,4 +205,10 @@
   <brick id="sp_ON" filename="bricks/sp_ON.svg"></brick>
   <brick id="asym1_square" filename="bricks/asym1_square.svg"></brick>
   <brick id="asym1_hexa" filename="bricks/asym1_hexa.svg"></brick>
+  <brick id="Decor_MO_40x40_60.000000_-100.000000" filename="bricks/Decor_MO_40x40_60.000000_-100.000000.svg"></brick>
+  <brick id="Decor_MO_40x40_60.000000_-100.000000_R270" filename="bricks/Decor_MO_40x40_60.000000_-100.000000_R270.svg"></brick>
+  <brick id="Decor_MO_40x40_-40.000000_-0.000000" filename="bricks/Decor_MO_40x40_-40.000000_-0.000000.svg"></brick>
+  <brick id="Decor_MO_40x40_-40.000000_-0.000000_R270" filename="bricks/Decor_MO_40x40_-40.000000_-0.000000_R270.svg"></brick>
+  <brick id="Decor_MO_40x40_60.000000_-65.000000" filename="bricks/Decor_MO_40x40_60.000000_-65.000000.svg"></brick>
+  <brick id="Decor_MO_40x40_60.000000_-65.000000_R270" filename="bricks/Decor_MO_40x40_60.000000_-65.000000_R270.svg"></brick>
 </bricks>

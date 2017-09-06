@@ -5,6 +5,9 @@
       <svgGroup id="SCADAgen_HV__MOTI_DR_HV__MOTI_DR_0_Undefined_HV__MOTI_DR_1_Not_Running_HV__MOTI_DR_2_Running">
         <svgRef brickId="HV__MOTI_DR_0_Undefined" id="symbol2.value_node"></svgRef>
       </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_DR_symbol_HV__MOTI_DR_State_Empty">
+        <svgRef brickId="HV__MOTI_DR_State_Empty" id="inhibsynthesis.value_node"></svgRef>
+      </svgGroup>
     </root>
   </graphic>
 </graphicConfiguration>

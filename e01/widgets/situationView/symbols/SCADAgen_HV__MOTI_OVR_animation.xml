@@ -68,5 +68,14 @@
         </rangeBinding>
       </blinkAnimation>
     </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="inhibsynthesis"></source>
+      <sourceType>INT</sourceType>
+      <svgRefAnimation defaultValue="HV__MOTI_OVR_State_Empty" nodeId="inhibsynthesis.value_node">
+        <rangeBinding>
+          <range from="1" to="2147483647" value="Decor_MO_40x40_-40.000000_-0.000000"></range>
+        </rangeBinding>
+      </svgRefAnimation>
+    </animationRule>
   </animationRules>
 </animationConfiguration>

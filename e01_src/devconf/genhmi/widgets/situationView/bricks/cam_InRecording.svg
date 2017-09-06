@@ -1,9 +1,0 @@
-<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
-  <g id="cam_InRecording">
-    <g id="symbol_recording" transform="translate(-91.0 -87.0)scale(0.905 0.905)">
-      <rect fill="red" x="0" width="200" y="0" height="200" opacity="0" />
-      <circle fill="#ff0000" r="20" cx="150" cy="150" stroke="#ff0000" />
-      <animate dur="1.0" attributeName="visibility" from="hidden" repeatCount="indefinite" to="visible" />
-    </g>
-  </g>
-</svg>

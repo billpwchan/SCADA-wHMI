@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
-  <entitySymbol animationId="RTURep_animation" cssBaseClass="mwt-sv-cfg-entity" id="RTURep" graphicId="RTURep_graphic" zoomStrategyId="ID" width="128.0" height="117.0"></entitySymbol>
-</symbolConfiguration>

@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
-  <entitySymbol animationId="BasementRep_animation" cssBaseClass="mwt-sv-cfg-entity" id="BasementRep" graphicId="BasementRep_graphic" zoomStrategyId="ID" width="127.0" height="123.0"></entitySymbol>
-</symbolConfiguration>

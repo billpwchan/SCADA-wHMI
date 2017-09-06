@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<gisConfigurations xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/gis">
-  <wmsServerConfiguration urls="http://127.0.0.1:8180/geoserver/wms http://127.0.0.1:8180/geoserver/wms" id="defaultwms"></wmsServerConfiguration>
-  <wmsServerConfiguration urls="http://127.0.0.1:8180/geoserver/gwc/service/wms http://127.0.0.1:8180/geoserver/gwc/service/wms" id="cachedwms"></wmsServerConfiguration>
-  <wfsServerConfiguration url="http://127.0.0.1:8180/geoserver/wfs" id="defaultwfs"></wfsServerConfiguration>
-</gisConfigurations>

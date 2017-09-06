@@ -7,7 +7,7 @@
         
     </div>
     <div id="schedule-table-body">
-        <div class="row" id="schedule-cutoff-time">
+        <div *ngIf="displayCutoffTime" class="row" id="schedule-cutoff-time">
             <label class="col-md-2 label label-default" id="label-schedule-cutoff-time">{{'Schedule cutoff time:' | translate}}</label>
             <input class="col-md-1 input" id="cutoff-time-input" readonly [ngModel]="cutoffTime" type="text">
         </div>
@@ -16,7 +16,7 @@
                 <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>{{'Refresh' | translate}}
             </button>
         </div>
-        <div class="row" id="running-schedules">
+        <div *ngIf="displayRunningSchedules" class="row" id="running-schedules">
             <label class="col-md-4 label label-warning" id="running-schedules-label">{{'Running Schedules' | translate}}</label>
             <input class="col-md-6 input" id="running-schedules-input" readonly [ngModel]="runningSchedulesStr" type="text">
         </div>

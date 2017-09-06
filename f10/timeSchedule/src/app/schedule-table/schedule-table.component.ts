@@ -120,6 +120,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public manualRefreshEnabled = false;
 
+    public displayCutoffTime = true;
+
+    public displayRunningSchedules = true;
+
     public equipmentTaskSeparator = '-';
 
     public geocatTranslationPrefix = 'geocat';
@@ -174,6 +178,12 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.manualRefreshEnabled = this.configService.config.getIn(['schedule_table', 'manual_refresh_enabled']);
         console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
+
+        this.displayCutoffTime = this.configService.config.getIn(['schedule_table', 'display_cutoff_time']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time=', this.displayCutoffTime);
+
+        this.displayRunningSchedules = this.configService.config.getIn(['schedule_table', 'display_running_schedules']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_running_schedules=', this.displayRunningSchedules);
 
         this.equipmentTaskSeparator = this.configService.config.getIn(['schedule_table', 'equipment_task_string_separator']);
         console.log('{schedule-table}', '[loadConfig]', 'equipment_task_string_separator=', this.equipmentTaskSeparator);
@@ -313,16 +323,15 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[ng2-select selected]', 'filtered rows', temp);
         // Whenever the filter changes, always go back to the first page
         this.dataTable.offset = 0;
+        this.pageOffset = 0;
 
         // clear equipment selection
         this.clearSelectedRow();
 
         if (this.sortEvent) {
-            let val = sortRows(temp, this.sortColumns, this.sortEvent);
+            const sorted = sortRows(temp, this.sortColumns, this.sortEvent);
 
-            this.tempSchItems = [...val];
-
-            this.pageOffset = 0;
+            this.tempSchItems = [...sorted];
         } else {
             this.tempSchItems = temp;
         }
@@ -384,7 +393,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.sortEvent = event.sorts;
 
-        let val = sortRows(this.tempSchItems, this.sortColumns, this.sortEvent);
+        const val = sortRows(this.tempSchItems, this.sortColumns, this.sortEvent);
 
         this.tempSchItems = [...val];
 
@@ -395,7 +404,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public getScheduleContentPage() {
         console.log('{schedule-table}', '[getScheduleContentPage]', 'page=', this.pageOffset, 'size=', this.pageSize);
-        let startIdx = this.pageOffset * this.pageSize;
+        const startIdx = this.pageOffset * this.pageSize;
         for (let rowIdx = startIdx; rowIdx < (startIdx + this.pageSize) && rowIdx < this.tempSchItems.length; rowIdx++) {
             this.getScheduleItemContent(rowIdx);
         }
@@ -544,10 +553,19 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.addScheduleClicked = false;
 
         if (this.newSchedule) {
-            this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
+            const subAddSch = this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
                 res => {
+                    // clear sorting
                     this.sortEvent = null;
-                    this.scheduleService.loadData();
+                    // set new schedule as selected schedule
+                    this.activeItem = [this.newSchedule];
+                    // send selected event to data table to update schedule items
+                    const selectEvent: any = {};
+                    selectEvent.id = this.newSchedule.id;
+                    selectEvent.text = this.newSchedule.text;
+                    this.selected(selectEvent);
+
+                    subAddSch.unsubscribe();
                 }
             )
         }
@@ -562,10 +580,28 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         console.log('{schedule-table}', '[deleteSchedule]');
         this.disableScheduleAction();
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
-            this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
+            const subDelSch = this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
+                    // clear sorting
                     this.sortEvent = null;
-                    this.scheduleService.loadData();
+                    if (this.schedules[0]) {
+                        // set first schedule as selected schedule
+                        this.activeItem = [this.schedules[0]];
+                        // send selected event to data table to update schedule items
+                        const selectEvent: any = {};
+                        selectEvent.id = this.schedules[0].id;
+                        selectEvent.text = this.schedules[0].text;
+                        this.selected(selectEvent);
+                    } else {
+                        // clear selected schedule;
+                        this.activeItem = null;
+                        // send null event to data table to clear schedule items
+                        const selectEvent: any = {};
+                        selectEvent.id = null;
+                        selectEvent.text = null;
+                        this.selected(selectEvent);
+                    }
+                    subDelSch.unsubscribe();
                 }
             )
         }
@@ -623,7 +659,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.oneshotStarted = true;
     }
     public stopOneShot() {
-         console.log('{schedule-table}', '[stopOneShot]');
+        console.log('{schedule-table}', '[stopOneShot]');
         this.scheduleService.stopSchedule(this.selectedSchedule.id);
         this.oneshotStarted = false;
     }
@@ -693,15 +729,35 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public saveModified() {
         const selectedItem: ScheduleItem = this.selectedRow[0];
         if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
-            this.scheduleService.enableTask(this.selectedRow[0].taskName1);
+            const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName1).subscribe(
+                res => {
+                    console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
+                    subEnableTask.unsubscribe();
+                }
+            );
         } else if (!this.pendingOnTimeIsEnabled && selectedItem.enableFlag1) {
-            this.scheduleService.disableTask(this.selectedRow[0].taskName1);
+            const subDisableTask = this.scheduleService.disableTask(this.selectedRow[0].taskName1).subscribe(
+                res => {
+                    console.log('{schedule-table}', '[saveModified]', 'disableTask returned', res);
+                    subDisableTask.unsubscribe();
+                }
+            );
         }
 
         if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
-            this.scheduleService.enableTask(this.selectedRow[0].taskName2);
+            const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName2).subscribe(
+                res => {
+                    console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
+                    subEnableTask.unsubscribe();
+                }
+            );
         } else if (!this.pendingOffTimeIsEnabled && selectedItem.enableFlag2) {
-            this.scheduleService.disableTask(this.selectedRow[0].taskName2);
+            const subDisableTask = this.scheduleService.disableTask(this.selectedRow[0].taskName2).subscribe(
+                res => {
+                    console.log('{schedule-table}', '[saveModified]', 'disableTask returned', res);
+                    subDisableTask.unsubscribe();
+                }
+            );
         }
 
         if (this.newOnTime !== selectedItem.onTime) {
@@ -729,7 +785,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     }
                     const filter = dgtime.join(' ');
                     console.log('{schedule-table}', '[saveModified]', 'onTime=', hh, mm, 'filter=', filter);
-                    this.scheduleService.setFilter(selectedItem.taskName1, filter);
+                    this.scheduleService.setFilter(selectedItem.taskName1, filter).subscribe(
+                        res => {
+                            console.log('{schedule-table}', '[saveModified]', 'setFilter returned', res);
+                        }
+                    );
                 }
             }
         }
@@ -750,14 +810,14 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     }
                     const filter = dgtime.join(' ');
                     console.log('{schedule-table}', '[saveModified]', 'offTime=', hh, mm, 'filter=', filter);
-                    this.scheduleService.setFilter(selectedItem.taskName2, filter);
+                    this.scheduleService.setFilter(selectedItem.taskName2, filter).subscribe(
+                        res => {
+                            console.log('{schedule-table}', '[saveModified]', 'setFilter returned', res);
+                        }
+                    );
                 }
             }
         }
-
-        // Reload schedule data from server
-        //this.scheduleService.loadData();
-        this.getScheduleContentPage();
     }
 
     public resetModified() {

@@ -43,6 +43,10 @@ export interface Config {
         display_app_navigation: boolean;
         // option to show manual refresh button
         manual_refresh_enabled: boolean;
+        // option to show cut-off time
+        display_cutoff_time: boolean;
+        // option to show running schedules
+        display_running_schedules: boolean;
         // string separator for concatenation of equipment task column values
         equipment_task_string_separator: string;
         // geocat translation prefix
@@ -63,5 +67,9 @@ export interface Config {
         display_app_navigation: boolean;
         // option to display manual refresh button
         manual_refresh_enabled: boolean;
+        // option to show cut-off time
+        display_cutoff_time: boolean;
+        // option to show running schedules
+        display_running_schedules: boolean;
     }
 }

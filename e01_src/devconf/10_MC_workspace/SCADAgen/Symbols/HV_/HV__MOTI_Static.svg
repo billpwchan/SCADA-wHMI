@@ -1,0 +1,21 @@
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0"><g id="_SCADAGEN_SYMBOLS_HV__HV__MOTI_STATIC_SVG"><rect x="-3.0" fill="red" width="206.0" height="210.0" y="-5.0" opacity="0"/><g id="HV_/HV__MOTI_Static" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+
+  
+  <polygon fill="#218A21" class="AnPolygon" fill-rule="evenodd" points="-55,-55 54,-55 54,54 -55,54 "/>
+
+  
+  <rect x="-100px" y="-100px" stroke-dashoffset="0" fill="none" width="200px" class="AnRectangle" stroke-dasharray=" 1 3" height="200px" stroke="#989898" stroke-width="1px"/>
+
+  
+  <rect x="59px" y="59px" fill="#989898" width="40px" fill-rule="evenodd" class="AnRectangle" height="40px"/>
+
+  
+  <text x="0px" font-size="12" y="13px" transform="matrix(4.000000,0.000000,0.000000,4.000000,66.599998,41.400002)" text-decoration="none" fill="#FFFF00" class="AnText" font-style="normal" font-weight="normal">P</text>
+
+  
+  <rect x="-99px" y="59px" fill="#989898" width="40px" fill-rule="evenodd" class="AnRectangle" height="40px"/>
+
+  
+  <text x="0px" font-size="12" y="13px" transform="matrix(4.000000,0.000000,0.000000,4.000000,-89.400002,41.400002)" text-decoration="none" fill="#0000FF" class="AnText" font-style="normal" font-weight="normal">L</text>
+
+</g></g></svg>

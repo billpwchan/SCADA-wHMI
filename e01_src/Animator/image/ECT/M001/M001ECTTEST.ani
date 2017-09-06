@@ -1,0 +1,163 @@
+// Animator Version: ANIMATOR 2015 5.3.1
+// File generated: 24/08/2017 17:54:15 PM
+// Image: ECT/M001/M001ECTTEST
+
+Version = "50301"
+Image
+{
+Header
+{
+}
+
+
+Layer "AnDefaultLayer"
+{
+  Polygon {
+    Points = { (335, 715), (1834, 715), (1834, 993), (335, 993), (335, 715)    }
+    Filled = True
+    Palette = { "SCADAgen_background","foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  ActiveText "ECT/SCADAgen_ECT_TTVF_ActiveText" {
+    Name = "ECT_SCADAgen_ECT_TTVF_ActiveText_2"
+    Transformer = ( 1, 0, 0, 1, 1306, 820 )
+    Property "ObjectPath" { AnStringProperty ":TUN:M000001:ECT:TTVF0001" }
+    Property "Environment" { AnStringProperty "M001" }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Equipment"
+    Transformer = ( 3.2, 0, 0, 3.2, 625.82, 723.07 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "CTV - Tunnel Ventilation Fan (TVF-001)"
+    Transformer = ( 3.2, 0, 0, 3.2, 363.044, 793.07 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Current Value"
+    Transformer = ( 3.2, 0, 0, 3.2, 1186.49, 723.07 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Target Value"
+    Transformer = ( 3.2, 0, 0, 3.2, 1549.82, 723.07 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Stopped"
+    Transformer = ( 3.2, 0, 0, 3.2, 1586.82, 793.07 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Equipment"
+    Transformer = ( 3.84, 0, 0, 3.84, 335.586, 635.684 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Emergency Mode Details"
+    Transformer = ( 4.8, 0, 0, 4.8, 722.48, 518.605 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Polygon {
+    Points = { (1478, 74), (1869, 74), (1869, 373), (1478, 373), (1478, 74)    }
+    Filled = True
+    Palette = { "SCADAgen_background","SVG_COL024","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Polygon {
+    Points = { (1478, 74), (1869, 74), (1869, 373), (1478, 373), (1478, 74)    }
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",3 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "TVF-003"
+    Transformer = ( 4, 0, 0, 4, 1583, 301 )
+    Palette = { "SCADAgen_background","mwtfg","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Tunnel Ventilation Overview"
+    Transformer = ( 8, 0, 0, 8, 455, -132 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  ActiveBackdrop "SCADAgen_ECT_TES__ActiveBackdrop" {
+    Name = "SCADAgen_ECT_TES__ActiveBackdrop_6"
+    Transformer = ( 1, 0, 0, 0.416667, -3145, -670.75 )
+    Polygon {
+      Points = { (3633, 2046), (3942, 2046), (3942, 2244), (3633, 2244), (3633, 2046)      }
+      Filled = True
+      Palette = { "SCADAgen_background","SCADAgen_normal","default","solid","solid",1 }
+    }
+    Property "ObjectPath" { AnStringProperty ":TUN:M000001:ECT:TES_0001" }
+    Property "Environment" { AnStringProperty "M001" }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Temperature"
+    Transformer = ( 4, 0, 0, 4, 112, 121 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Monitoring"
+    Transformer = ( 4, 0, 0, 4, 127, 166 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "Zones"
+    Transformer = ( 4, 0, 0, 4, 167, 211 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Label {
+    Point = (0, 16)
+    Label = "S1"
+    Transformer = ( 4, 0, 0, 4, 613, 278 )
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  ActiveNumber "ECT/SCADAgen_ECT_TES__ActiveNumber" {
+    Name = "ECT_SCADAgen_ECT_TES__ActiveNumber_16"
+    Transformer = ( 1, 0, 0, 1, 643, 138 )
+    Property "ObjectPath" { AnStringProperty ":TUN:M000001:ECT:TES_0001" }
+    Property "Environment" { AnStringProperty "M001" }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  Polygon {
+    Points = { (488, 182), (797, 182), (797, 265), (488, 265), (488, 182)    }
+    Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
+    Level = "AnAlwaysVisibleLevel"
+  }
+  ActiveSymbol "ECT/SCADAgen_ECT_TTVF_Down" {
+    Name = "ECT_SCADAgen_ECT_TTVF_Down_1"
+    Transformer = ( 1, 0, 0, 1, 1680, 190 )
+    Property "ObjectPath" { AnStringProperty ":TUN:M000001:ECT:TTVF0001" }
+    Property "Environment" { AnStringProperty "M001" }
+    Level = "AnAlwaysVisibleLevel"
+  }
+}
+
+}

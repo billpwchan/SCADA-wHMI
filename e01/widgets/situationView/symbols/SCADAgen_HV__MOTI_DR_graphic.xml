@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAgen_HV__MOTI_DR_graphic">
+    <root>
+      <svgGroup id="SCADAgen_HV__MOTI_DR_HV__MOTI_DR_0_Undefined_HV__MOTI_DR_1_Not_Running_HV__MOTI_DR_2_Running">
+        <svgRef brickId="HV__MOTI_DR_0_Undefined" id="symbol2.value_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_DR_symbol_HV__MOTI_DR_State_Empty">
+        <svgRef brickId="HV__MOTI_DR_State_Empty" id="inhibsynthesis.value_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

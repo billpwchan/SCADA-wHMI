@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
+  <entitySymbol animationId="SCADAgen_HV__MOTI_animation" cssBaseClass="mwt-sv-cfg-entity" id="SCADAgen_HV__MOTI" graphicId="SCADAgen_HV__MOTI_graphic" zoomStrategyId="ID" width="200" height="200"></entitySymbol>
+</symbolConfiguration>

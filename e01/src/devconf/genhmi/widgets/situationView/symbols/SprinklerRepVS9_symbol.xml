@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
-  <entitySymbol animationId="SprinklerRepVS9_animation" cssBaseClass="mwt-sv-cfg-entity" id="SprinklerRepVS9" graphicId="SprinklerRepVS9_graphic" zoomStrategyId="ID" width="200.0" height="200.0"></entitySymbol>
-</symbolConfiguration>

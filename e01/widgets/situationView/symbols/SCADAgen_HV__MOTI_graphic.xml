@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAgen_HV__MOTI_graphic">
+    <root>
+      <svgGroup id="SCADAgen_HV__MOTI_HV__MOTI_0_Undefined_HV__MOTI_1_Open_HV__MOTI_2_Open_Alarm_HV__MOTI_3_Closed_HV__MOTI_4_Closed_Alarm_HV__MOTI_5_Transit_HV__MOTI_103_Closed_HV__MOTI_104_Closed_Alarm_HV__MOTI_203_Closed_HV__MOTI_204_Closed_Alarm_HV__MOTI_303_Closed_HV__MOTI_304_Closed_Alarm_HV__MOTI_403_Closed_HV__MOTI_404_Closed_Alarm_HV__MOTI_503_Closed_HV__MOTI_504_Closed_Alarm_HV__MOTI_603_Closed_HV__MOTI_604_Closed_Alarm">
+        <svgRef brickId="HV__MOTI_0_Undefined" id="Int2IntMapping_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_HV__MOTI_Decor_Empty_HV__MOTI_Decor_MO_HV__MOTI_Decor_NotInService_HV__MOTI_Decor_PTW">
+        <svgRef brickId="HV__MOTI_Decor_Empty" id="tag2.value_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_HV__MOTI_Decor_Empty_L_HV__MOTI_Decor_Local">
+        <svgRef brickId="HV__MOTI_Decor_Empty_L" id="tag3.value_node"></svgRef>
+      </svgGroup>
+      <svgGroup id="SCADAgen_HV__MOTI_symbol_HV__MOTI_State_Empty">
+        <svgRef brickId="HV__MOTI_State_Empty" id="inhibsynthesis.value_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

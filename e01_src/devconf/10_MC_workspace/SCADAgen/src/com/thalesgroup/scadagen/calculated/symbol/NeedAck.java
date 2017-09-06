@@ -1,4 +1,4 @@
-package com.thalesgroup.scadagen.calculated;
+package com.thalesgroup.scadagen.calculated.symbol;
 
 import java.util.Map;
 import java.util.Set;
@@ -7,7 +7,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.computers.StatusComputer;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 
-public class IntFormatting implements StatusComputer {
+public class NeedAck implements StatusComputer {
 
 	@Override
 	public AttributeClientAbstract<?> compute(OperatorOpmInfo operatorOpmInfo,

@@ -1,3 +1,13 @@
 <svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
-  <g id="HV__MOTI_DR_State_MO" />
+  <g id="HV__MOTI_DR_State_MO">
+    <g id="_SCADAGEN_SYMBOLS_C1166B_SYMBOLHIGHLIGHT130_3_MO_SVG" transform="translate(-100.0 -101.0)scale(1.0 1.0)">
+      <rect x="0.0" fill="red" width="200.0" height="130.0" y="35.0" opacity="0" />
+      <g id="C1166B_SymbolHighlight130_3_MO" transform="matrix(1.000000, 0, 0, 1.000000, 100.000000, 100.000000)">
+        <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="-100,-65 -91,-65 -91,64 -100,64 " />
+        <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="-100,-65 99,-65 99,-56 -100,-56 " />
+        <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="99,64 99,-65 90,-65 90,64 " />
+        <polygon fill="#0000FF" class="AnPolygon" fill-rule="evenodd" points="99,64 -100,64 -100,55 99,55 " />
+      </g>
+    </g>
+  </g>
 </svg>

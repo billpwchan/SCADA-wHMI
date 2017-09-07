@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="14">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="16">
   <ownedPrototype id="BasicEquipment_MSFD_KAz2IVVnEee4QdkqvzimmQ_1497928720002">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_MSFD_KAz2IVVnEee4QdkqvzimmQ_1497928720002"/>
     <ownedAttributes name="label" partialUri="BasicEquipment_MSFD_KAz2IVVnEee4QdkqvzimmQ_1497928720002"/>
@@ -71,6 +71,6 @@
     <ownedAttributes name="initCond2" partialUri="dov_type_dovMSFD-OpMsfdOpen-NotOpen_4BHEfVVoEee4QdkqvzimmQ_1497929458231"/>
     <ownedAttributes name="initCond3" partialUri="dov_type_dovMSFD-OpMsfdOpen-NotOpen_4BHEfVVoEee4QdkqvzimmQ_1497929458231"/>
     <ownedAttributes name="initCond8" partialUri="dov_type_dovMSFD-OpMsfdOpen-Open_4BHEjlVoEee4QdkqvzimmQ_1497929458231"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

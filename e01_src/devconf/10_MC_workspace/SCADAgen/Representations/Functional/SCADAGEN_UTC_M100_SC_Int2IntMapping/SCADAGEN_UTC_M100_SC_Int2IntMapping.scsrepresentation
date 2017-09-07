@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_A4IasJN-EeeBsejFH_1odg" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAGEN_UTC_M100_SC_Int2IntMapping" defaultAspect="_rmrZ0JN-EeeBsejFH_1odg" category="_A4IatJN-EeeBsejFH_1odg">
+    <aspectPackage xmi:id="_A4IasZN-EeeBsejFH_1odg" name="Aspect Container">
+      <ownedAspect xmi:id="_rmrZ0JN-EeeBsejFH_1odg" name="Int2IntMapping_0">
+        <ownedDecoratedSymbol xmi:id="_70I_kJOBEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_70I_kZOBEeeBsejFH_1odg"/>
+        <condition xmi:id="_9bzoUJN-EeeBsejFH_1odg" value="0" attribute="_BaWhgJN_EeeBsejFH_1odg" MWTBindings=""/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_yG0GAJN-EeeBsejFH_1odg" name="Int2IntMapping_1">
+        <ownedDecoratedSymbol xmi:id="_7ocs8JOBEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_zFTAIJOBEeeBsejFH_1odg"/>
+        <condition xmi:id="_9tmi8JN-EeeBsejFH_1odg" value="1" attribute="_BaWhgJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_2kH-0JN-EeeBsejFH_1odg" name="Int2IntMapping_2">
+        <ownedDecoratedSymbol xmi:id="_IEIKgJOCEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_IEIKgZOCEeeBsejFH_1odg"/>
+        <condition xmi:id="_-ArP8JN-EeeBsejFH_1odg" value="2" attribute="_BaWhgJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAspect xmi:id="_6MjeEJN-EeeBsejFH_1odg" name="Int2IntMapping_3">
+        <ownedDecoratedSymbol xmi:id="_HzftgJOCEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_HziJwJOCEeeBsejFH_1odg"/>
+        <condition xmi:id="_-NRhgJN-EeeBsejFH_1odg" value="3" attribute="_BaWhgJN_EeeBsejFH_1odg"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_BaWhgJN_EeeBsejFH_1odg" id="Int2IntMapping" condition="_9bzoUJN-EeeBsejFH_1odg _9tmi8JN-EeeBsejFH_1odg _-ArP8JN-EeeBsejFH_1odg _-NRhgJN-EeeBsejFH_1odg" qualifiedName="Int2IntMapping" outputType="INT"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_A4IaspN-EeeBsejFH_1odg">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_zFTAIJOBEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ONE.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ONE_SVG" width="76.0" height="208.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_70I_kZOBEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ZERO.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ZERO_SVG" width="76.0" height="208.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_HziJwJOCEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_THREE.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_THREE_SVG" width="76.0" height="208.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_IEIKgZOCEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_TWO.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_TWO_SVG" width="76.0" height="208.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_A4Ias5N-EeeBsejFH_1odg">
+    <ownedCategories xmi:id="_A4IatJN-EeeBsejFH_1odg" name="Functional"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

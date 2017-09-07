@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="20">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="21">
   <ownedPrototype id="BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610"/>
     <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_FAMHDV_ABT_STATUS_MB6uIAQZEee6u6rZKL4cCw_1488989188610"/>
@@ -30,6 +30,6 @@
     <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_vrBZQHWTEeerLMPndjyolw_1501466307796"/>
     <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_MB9xgAQZEee6u6rZKL4cCw_1488989188616"/>
     <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_A-7AcHzbEee9mNLYQho_BA_1502266576375"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

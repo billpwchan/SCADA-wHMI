@@ -26,7 +26,7 @@
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJcQQBEee6u6rZKL4cCw_1488979076999" condInfo="valid intf"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJcgQBEee6u6rZKL4cCw_1488979076999" condInfo="unstable and Right on Central"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJcwQBEee6u6rZKL4cCw_1488979076999" condInfo="target not reached"/>
-      <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJdAQBEee6u6rZKL4cCw_1488979076999" condInfo="not Control PIC"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJdAQBEee6u6rZKL4cCw_1488979076999" condInfo="req initiated from other side"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJdQQBEee6u6rZKL4cCw_1488979076999"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJdgQBEee6u6rZKL4cCw_1488979076999"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFJdwQBEee6u6rZKL4cCw_1488979076999"/>
@@ -44,7 +44,7 @@
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwhwQBEee6u6rZKL4cCw_1488979077000" condInfo="valid intf"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwiAQBEee6u6rZKL4cCw_1488979077000" condInfo="unstable and Right on Central"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwiQQBEee6u6rZKL4cCw_1488979077000" condInfo="target not reached"/>
-      <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwigQBEee6u6rZKL4cCw_1488979077000" condInfo="not Control PIC"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwigQBEee6u6rZKL4cCw_1488979077000" condInfo="req initiated from other side"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwiwQBEee6u6rZKL4cCw_1488979077000"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSFwjAQBEee6u6rZKL4cCw_1488979077000"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pSGXkAQBEee6u6rZKL4cCw_1488979077001"/>
@@ -67,7 +67,7 @@
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pIP5MAQbEee6u6rZKL4cCw_1488990242883"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pIP5MQQbEee6u6rZKL4cCw_1488990242883"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_pIP5MgQbEee6u6rZKL4cCw_1488990242883"/>
-      <retCondTable xmi:id="struct_retCondTable_dpc_com_pIP5MwQbEee6u6rZKL4cCw_1488990242883" condInfo="Reply Received"/>
+      <retCondTable xmi:id="struct_retCondTable_dpc_com_pIP5MwQbEee6u6rZKL4cCw_1488990242883" condInfo="reply from other side received "/>
       <retCondTable xmi:id="struct_retCondTable_dpc_com_pIP5NAQbEee6u6rZKL4cCw_1488990242883" condInfo="valid intf"/>
       <retCondTable xmi:id="struct_retCondTable_dpc_com_pIP5NQQbEee6u6rZKL4cCw_1488990242883"/>
       <retCondTable xmi:id="struct_retCondTable_dpc_com_pIP5NgQbEee6u6rZKL4cCw_1488990242883"/>
@@ -80,7 +80,7 @@
       <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewQnzQEee9mNLYQho_BA_1502262219076" condInfo="valid intf"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewQ3zQEee9mNLYQho_BA_1502262219076" condInfo="unstable and Right on Station"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewRHzQEee9mNLYQho_BA_1502262219076" condInfo="target not reached"/>
-      <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewRXzQEee9mNLYQho_BA_1502262219076" condInfo="not Control PIC"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewRXzQEee9mNLYQho_BA_1502262219076" condInfo="req initiated from other side"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewRnzQEee9mNLYQho_BA_1502262219076"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewR3zQEee9mNLYQho_BA_1502262219076"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_3sewSHzQEee9mNLYQho_BA_1502262219076"/>
@@ -98,7 +98,7 @@
       <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXYXzQEee9mNLYQho_BA_1502262248406" condInfo="valid intf"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXYnzQEee9mNLYQho_BA_1502262248406" condInfo="unstable"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXY3zQEee9mNLYQho_BA_1502262248406" condInfo="target not reached"/>
-      <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXZHzQEee9mNLYQho_BA_1502262248406" condInfo="not control PIC"/>
+      <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXZHzQEee9mNLYQho_BA_1502262248406" condInfo="req initiated from other side"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXZXzQEee9mNLYQho_BA_1502262248406"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXZnzQEee9mNLYQho_BA_1502262248406"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_8EMXZ3zQEee9mNLYQho_BA_1502262248406"/>

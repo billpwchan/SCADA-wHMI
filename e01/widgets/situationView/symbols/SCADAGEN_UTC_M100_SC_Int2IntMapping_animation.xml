@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+  <animationRules id="SCADAGEN_UTC_M100_SC_Int2IntMapping_animation">
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="Int2IntMapping" name="Int2IntMapping"></source>
+      <sourceType>INT</sourceType>
+      <svgRefAnimation nodeId="Int2IntMapping_node">
+        <enumerationBinding>
+          <item inputValue="0" value="Int2IntMapping_0"></item>
+          <item inputValue="1" value="Int2IntMapping_1"></item>
+          <item inputValue="2" value="Int2IntMapping_2"></item>
+          <item inputValue="3" value="Int2IntMapping_3"></item>
+        </enumerationBinding>
+      </svgRefAnimation>
+    </animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="needack" />
+      <sourceType>INT</sourceType>
+      <blinkAnimation defaultValue="false">
+        <rangeBinding>
+          <range from="1" to="2147483647" value="true" />
+        </rangeBinding>
+      </blinkAnimation>
+    </animationRule>
+  </animationRules>
+</animationConfiguration>

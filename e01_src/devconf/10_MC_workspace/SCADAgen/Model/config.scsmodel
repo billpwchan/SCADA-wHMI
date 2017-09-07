@@ -690,6 +690,8 @@
           dataType="CHARN">
         <composeScsValue xmi:id="_eMuFIGhHEee_rpboo9p0rg" name="EQPT_CODE" id="_eMuFIGhHEee_rpboo9p0rg"
             value="EQPT_CODE"/>
+        <composeScsValue xmi:id="_cS3qIZIhEeemJoY9olQZ0w" name="MOTI" id="_cS3qIZIhEeemJoY9olQZ0w"
+            value="MOTI"/>
       </composeScsDomain>
       <composeScsDomain xmi:type="scsmodel:ScsEnumDomain" xmi:id="_qfNMoWrHEeefbstfMoPwAA"
           name="AIALMCE_BEHAVIOUR" id="_qfNMoWrHEeefbstfMoPwAA" label="AIALMCE_BEHAVIOUR"

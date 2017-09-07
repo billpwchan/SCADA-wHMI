@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="66">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="71">
   <ownedPrototype id="BasicEquipment_FAMHDV_CFM_STATION_pSD7UAQBEee6u6rZKL4cCw_1488979076997">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_FAMHDV_CFM_STATION_pSD7UAQBEee6u6rZKL4cCw_1488979076997"/>
     <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_FAMHDV_CFM_STATION_pSD7UAQBEee6u6rZKL4cCw_1488979076997"/>
@@ -8,10 +8,10 @@
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-FLGLV1_pSGXmgQBEee6u6rZKL4cCw_1488979077001"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal}" name="initCond1" partialUri="dov_type_dovFAM-FLGLV2_pSGXqwQBEee6u6rZKL4cCw_1488979077001"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=1, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-FLGLV2_pSGXqwQBEee6u6rZKL4cCw_1488979077001"/>
-    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR ([^:^:dciFAM-HDVSTATUS.value]=513) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-LEVEL1_pSFJcAQBEee6u6rZKL4cCw_1488979076999"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR ([^:^:dciFAM-HDVSTATUS.value]=1028) OR ([^:^:dciFAM-HDVSTATUS.value]=513) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-LEVEL1_pSFJcAQBEee6u6rZKL4cCw_1488979076999"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-LEVEL1_pSFJcAQBEee6u6rZKL4cCw_1488979076999"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=257, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-LEVEL2_pSFwhgQBEee6u6rZKL4cCw_1488979077000"/>
-    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR ([^:^:dciFAM-HDVSTATUS.value]=513) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-LEVEL2_pSFwhgQBEee6u6rZKL4cCw_1488979077000"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR  ([^:^:dciFAM-HDVSTATUS.value]=1028)  OR ([^:^:dciFAM-HDVSTATUS.value]=513) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-LEVEL2_pSFwhgQBEee6u6rZKL4cCw_1488979077000"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]&lt;>2, 1, 0) , {.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-FLGLV1_pSGXmgQBEee6u6rZKL4cCw_1488979077001"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=2, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-FLGLV1_pSGXmgQBEee6u6rZKL4cCw_1488979077001"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]&lt;>1, 1, 0) , {.initCondTable(0,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-FLGLV2_pSGXqwQBEee6u6rZKL4cCw_1488979077001"/>
@@ -27,8 +27,8 @@
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-FLGLV1_pSGXmgQBEee6u6rZKL4cCw_1488979077001"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal}" name="returnCond2" partialUri="dov_type_dovFAM-FLGLV2_pSGXqwQBEee6u6rZKL4cCw_1488979077001"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
-    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR ([^:^:dciFAM-HDVSTATUS.value]=257) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
-    <ownedAttributes frozen="true" formula="PUT( IF( ([^.execStatus]=2) AND (([^:^:dciFAM-HDVSTATUS.value]=257) OR ([^:^:dciFAM-HDVSTATUS.value]=514)), 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=257) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
+    <ownedAttributes frozen="true" formula="PUT( IF(  ([^.execStatus]=2) AND  (( [^:^:dciFAM-HDVSTATUS.value]=257)  OR ( [^:^:dciFAM-HDVSTATUS.value]=514 )) 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
     <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
     <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 0, 1) , {.initCondTable(2,condVal)})" name="initCond3" partialUri="dov_type_dovFAM-RPY1_pIPSIAQbEee6u6rZKL4cCw_1488990242882"/>
@@ -40,7 +40,7 @@
     <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_dioFAM-HDVSTATUS_pSD7UQQBEee6u6rZKL4cCw_1488979076997"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=257, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
-    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR ([^:^:dciFAM-HDVSTATUS.value]=258) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR  ([^:^:dciFAM-HDVSTATUS.value]=1028)  OR ([^:^:dciFAM-HDVSTATUS.value]=258) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
     <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
     <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
     <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
@@ -48,7 +48,7 @@
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.retCondTable(1,condVal)})" name="returnCond2" partialUri="dov_type_dovFAM-SRPY2_3sewQXzQEee9mNLYQho_BA_1502262219076"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.validity]=1, 1, 0) , {.initCondTable(0,condVal)})" name="initCond1" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>
     <ownedAttributes frozen="true" formula="PUT( IF( [^:^:dciFAM-HDVSTATUS.value]=514, 1, 0) , {.retCondTable(0,condVal)} )" name="returnCond1" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>
-    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR ([^:^:dciFAM-HDVSTATUS.value]=258) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>
+    <ownedAttributes frozen="true" formula="PUT(IF( ([^:^:dciFAM-HDVSTATUS.value]=0) OR  ([^:^:dciFAM-HDVSTATUS.value]=1028)  OR ([^:^:dciFAM-HDVSTATUS.value]=258) , 1, 0),{.initCondTable(1,condVal)} )" name="initCond2" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>
     <ownedAttributes frozen="true" name="ctlvalue" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>
     <ownedAttributes frozen="true" name="initCondTable" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>
     <ownedAttributes frozen="true" name="retCondTable" partialUri="dov_type_dovFAM-SRPY2_8EMXYHzQEee9mNLYQho_BA_1502262248406"/>

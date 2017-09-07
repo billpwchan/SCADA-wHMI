@@ -269,6 +269,14 @@
 	<option key="M001|HV_"><setting>323</setting></option>
 	<option key="M001|HV_|Station Overview"><setting>324</setting></option>
 	
+	<option key="Verify"><setting>400</setting></option>
+	<option key="Verify|Status Computer"><setting>401</setting></option>
+	<option key="Verify|Status Computer|Int2IntCompare"><setting>411</setting></option>
+	<option key="Verify|Status Computer|Int2IntMapping"><setting>412</setting></option>
+	<option key="Verify|Status Computer|IntFormatting"><setting>413</setting></option>
+	<option key="Verify|Status Computer|IntMapping"><setting>414</setting></option>
+	<option key="Verify|Status Computer|NeedAck"><setting>415</setting></option>
+	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>
 	

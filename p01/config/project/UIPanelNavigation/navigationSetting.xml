@@ -1825,4 +1825,72 @@
 		
 		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M001HV_TEST</uiConf>
 	</option>
+	
+	<option key="400">
+		<type>M</type>
+		<name>Verify</name>
+		<title>Verify</title>
+		<tooltips>Verify</tooltips>
+	</option>
+	<option key="401">
+		<type>M</type>
+		<name>Status Computer</name>
+		<title>Status Computer</title>
+		<tooltips>Status Computer</tooltips>
+	</option>
+	<option key="411">
+		<type>S</type>
+		<name>Int2IntCompare</name>
+		<title>Int2IntCompare</title>
+		<tooltips>Int2IntCompare</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_Int2IntCompare</uiConf>
+	</option>
+	<option key="412">
+		<type>S</type>
+		<name>Int2IntMapping</name>
+		<title>Int2IntMapping</title>
+		<tooltips>Int2IntMapping</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_Int2IntMapping</uiConf>
+	</option>	
+	<option key="413">
+		<type>S</type>
+		<name>IntFormatting</name>
+		<title>IntFormatting</title>
+		<tooltips>IntFormatting</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_IntFormatting</uiConf>
+	</option>
+	<option key="414">
+		<type>S</type>
+		<name>IntMapping</name>
+		<title>IntMapping</title>
+		<tooltips>IntMapping</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_IntMapping</uiConf>
+	</option>
+	<option key="415">
+		<type>S</type>
+		<name>NeedAck</name>
+		<title>NeedAck</title>
+		<tooltips>NeedAck</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_NeedAck</uiConf>
+	</option>
 </data-set>

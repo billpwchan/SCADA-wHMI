@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="BasicEquipment_INF_Cg5QsFWjEee4QdkqvzimmQ_1497954439483" hvqname="myproject.data.config.equipment.common.SGEQPT8" nom_instance="INF" scstype="INFType">
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR" xmi:id="BasicEquipment_INF_Cg5QsFWjEee4QdkqvzimmQ_1497954439483" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="INF" scstype="INFType">
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
@@ -129,7 +129,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_KYc4M1cqEee9rZFG5ogX9w_1498122425506" nom_instance="dfo"/>
   </inputs>
-  <HMI xmi:id="HMITags_HMITags_A7Qb4IHSEeediJf1kzsT0Q_1502812466334" nom_instance="HMITags">
+  <HMI xmi:id="HMITags_HMITags_A7Qb4IHSEeediJf1kzsT0Q_1502812466334" nom_instance="HMI">
     <HMIObjects xsi:type="HMI:Symbol" xmi:id="Symbol_Symbol1_A7Qb4YHSEeediJf1kzsT0Q_1502812466334" nom_instance="Symbol1"/>
   </HMI>
 </Class:BasicEquipment>

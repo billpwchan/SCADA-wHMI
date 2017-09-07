@@ -105,6 +105,15 @@
   <brick id="rtu_Invalid" filename="bricks/rtu_Invalid.svg"></brick>
   <brick id="rtu_OK_NotAck" filename="bricks/rtu_OK_NotAck.svg"></brick>
   <brick id="rtu_NotConnected" filename="bricks/rtu_NotConnected.svg"></brick>
+  <brick id="Int2IntCompare_0" filename="bricks/Int2IntCompare_0.svg"></brick>
+  <brick id="Int2IntCompare_1" filename="bricks/Int2IntCompare_1.svg"></brick>
+  <brick id="Int2IntMapping_0" filename="bricks/Int2IntMapping_0.svg"></brick>
+  <brick id="Int2IntMapping_1" filename="bricks/Int2IntMapping_1.svg"></brick>
+  <brick id="Int2IntMapping_2" filename="bricks/Int2IntMapping_2.svg"></brick>
+  <brick id="Int2IntMapping_3" filename="bricks/Int2IntMapping_3.svg"></brick>
+  <brick id="NeedAck_Negative" filename="bricks/NeedAck_Negative.svg"></brick>
+  <brick id="NeedAck_Zero" filename="bricks/NeedAck_Zero.svg"></brick>
+  <brick id="NeedAck_Positive" filename="bricks/NeedAck_Positive.svg"></brick>
   <brick id="TES__ActiveBackdrop" filename="bricks/TES__ActiveBackdrop.svg"></brick>
   <brick id="TTVF_D_Symbol_Exhaust_Blink" filename="bricks/TTVF_D_Symbol_Exhaust_Blink.svg"></brick>
   <brick id="TTVF_D_State_MO" filename="bricks/TTVF_D_State_MO.svg"></brick>
@@ -207,8 +216,8 @@
   <brick id="asym1_hexa" filename="bricks/asym1_hexa.svg"></brick>
   <brick id="Decor_MO_40x40_60.000000_-100.000000" filename="bricks/Decor_MO_40x40_60.000000_-100.000000.svg"></brick>
   <brick id="Decor_MO_40x40_60.000000_-100.000000_R270" filename="bricks/Decor_MO_40x40_60.000000_-100.000000_R270.svg"></brick>
-  <brick id="Decor_MO_40x40_-40.000000_-0.000000" filename="bricks/Decor_MO_40x40_-40.000000_-0.000000.svg"></brick>
-  <brick id="Decor_MO_40x40_-40.000000_-0.000000_R270" filename="bricks/Decor_MO_40x40_-40.000000_-0.000000_R270.svg"></brick>
   <brick id="Decor_MO_40x40_60.000000_-65.000000" filename="bricks/Decor_MO_40x40_60.000000_-65.000000.svg"></brick>
   <brick id="Decor_MO_40x40_60.000000_-65.000000_R270" filename="bricks/Decor_MO_40x40_60.000000_-65.000000_R270.svg"></brick>
+  <brick id="Decor_MO_40x40_-40.000000_-0.000000" filename="bricks/Decor_MO_40x40_-40.000000_-0.000000.svg"></brick>
+  <brick id="Decor_MO_40x40_-40.000000_-0.000000_R270" filename="bricks/Decor_MO_40x40_-40.000000_-0.000000_R270.svg"></brick>
 </bricks>

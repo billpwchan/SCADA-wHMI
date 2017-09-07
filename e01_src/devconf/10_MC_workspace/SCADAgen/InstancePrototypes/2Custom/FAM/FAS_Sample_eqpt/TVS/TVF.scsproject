@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="19">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="24">
   <ownedPrototype id="BasicEquipment_TVF_uJEEcFVsEee4QdkqvzimmQ_1497931109943">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TVF_uJEEcFVsEee4QdkqvzimmQ_1497931109943"/>
     <ownedAttributes name="label" partialUri="BasicEquipment_TVF_uJEEcFVsEee4QdkqvzimmQ_1497931109943"/>
@@ -54,7 +54,7 @@
     <ownedAttributes frozen="true" name="valueTable" partialUri="dio_type_dioMSFD-OpMsfdOpen_36rIcFVsEee4QdkqvzimmQ_1497931175543"/>
     <ownedAttributes frozen="true" name="nom_instance" partialUri="dov_type_dovMSFD-OpMsfdOpen-NotOpen_36rIfVVsEee4QdkqvzimmQ_1497931175543"/>
     <ownedAttributes frozen="true" name="nom_instance" partialUri="dov_type_dovMSFD-OpMsfdOpen-Open_36rIjlVsEee4QdkqvzimmQ_1497931175543"/>
-    <ownedAttributes frozen="true" formula="IF([^:^.tagStatus]=1,1,0)" name="initCond1" partialUri="aio_type_aioTVF-SpeedCmd_Tur5kFV7Eee4QdkqvzimmQ_1497937375145"/>
+    <ownedAttributes frozen="true" formula="IF([^.tagStatus]=1,1,0)" name="initCond1" partialUri="aio_type_aioTVF-SpeedCmd_Tur5kFV7Eee4QdkqvzimmQ_1497937375145"/>
     <ownedAttributes frozen="true" name="label" partialUri="aio_type_aioTVF-SpeedCmd_Tur5kFV7Eee4QdkqvzimmQ_1497937375145"/>
     <ownedAttributes frozen="true" name="nom_instance" partialUri="aio_type_aioTVF-SpeedCmd_Tur5kFV7Eee4QdkqvzimmQ_1497937375145"/>
     <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciMSFD-OperCount_iLx1QFV7Eee4QdkqvzimmQ_1497937472148"/>
@@ -148,6 +148,6 @@
     <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_K61zcVV9Eee4QdkqvzimmQ_1497938175015"/>
     <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_TVF_uJEEcFVsEee4QdkqvzimmQ_1497931109943"/>
     <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,SWITCH([^:^:dciTVF-RunningStatus.value]=2,1,[^:^:dciTVF-RunningStatus.value]=3,2,3))+IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(2)]=1,100,0))" name="value" partialUri="Symbol_Symbol1_aCwlcYHKEeediJf1kzsT0Q_1502809198919"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

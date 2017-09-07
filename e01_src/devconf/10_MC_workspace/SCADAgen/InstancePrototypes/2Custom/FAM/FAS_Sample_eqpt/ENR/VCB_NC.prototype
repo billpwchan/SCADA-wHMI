@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565" hvqname="myproject.data.config.equipment.common.SGEQPT8" nom_instance="VCB_NC" scstype="VCB_NCType">
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_VCB_NC_NGyRUFWjEee4QdkqvzimmQ_1497954510565" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="VCB_NC" scstype="VCB_NCType">
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
@@ -17,7 +17,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_O1edGlcqEee9rZFG5ogX9w_1498122455393"/>
     <valueTable xmi:id="struct_valueTable_dio_type_O1edG1cqEee9rZFG5ogX9w_1498122455393"/>
     <valueTable xmi:id="struct_valueTable_dio_type_O1edHFcqEee9rZFG5ogX9w_1498122455393"/>
-    <DOV xmi:id="dov_type_dovJZR-OpJzrStartFw-ForwardCmd_O1edHVcqEee9rZFG5ogX9w_1498122455393" nom_instance="dovVCB_NC-Open" ctlvalue="1">
+    <DOV xmi:id="dov_type_dovJZR-OpJzrStartFw-ForwardCmd_O1edHVcqEee9rZFG5ogX9w_1498122455393" nom_instance="dovVCB_NC-Open" ctlvalue="8193">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_O1edHlcqEee9rZFG5ogX9w_1498122455393"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_O1edH1cqEee9rZFG5ogX9w_1498122455393"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_O1edIFcqEee9rZFG5ogX9w_1498122455393"/>
@@ -49,7 +49,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb6lcqEee9rZFG5ogX9w_1498122719390"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb61cqEee9rZFG5ogX9w_1498122719390"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2LJb7FcqEee9rZFG5ogX9w_1498122719390"/>
-    <DOV xmi:id="dov_type_dovVCB_NC-CmdExeClose-Close_y6ewAINWEeevN_isMe_qRg_1502979446528" nom_instance="dovVCB_NC-Close" ctlvalue="1">
+    <DOV xmi:id="dov_type_dovVCB_NC-CmdExeClose-Close_y6ewAINWEeevN_isMe_qRg_1502979446528" nom_instance="dovVCB_NC-Close" ctlvalue="8193">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_y6ewAYNWEeevN_isMe_qRg_1502979446528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_y6ewAoNWEeevN_isMe_qRg_1502979446528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_y6ewA4NWEeevN_isMe_qRg_1502979446528"/>
@@ -81,7 +81,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m6lcqEee9rZFG5ogX9w_1498122721358"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m61cqEee9rZFG5ogX9w_1498122721358"/>
     <valueTable xmi:id="struct_valueTable_dio_type_2d6m7FcqEee9rZFG5ogX9w_1498122721358"/>
-    <DOV xmi:id="dov_type_dovJZR-OpJzrStartFw-ForwardCmd_2d6m7VcqEee9rZFG5ogX9w_1498122721358" nom_instance="dovVCB_NC-CloseCfm" ctlvalue="1">
+    <DOV xmi:id="dov_type_dovJZR-OpJzrStartFw-ForwardCmd_2d6m7VcqEee9rZFG5ogX9w_1498122721358" nom_instance="dovVCB_NC-CloseCfm" ctlvalue="16385">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_2d6m7lcqEee9rZFG5ogX9w_1498122721358"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_2d6m71cqEee9rZFG5ogX9w_1498122721358"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_2d6m8FcqEee9rZFG5ogX9w_1498122721358"/>
@@ -245,7 +245,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_MY-lglcqEee9rZFG5ogX9w_1498122438983" nom_instance="dfo"/>
   </inputs>
-  <HMI xmi:id="HMITags_HMITags_OaAZoIHKEeediJf1kzsT0Q_1502809120826" nom_instance="HMITags">
+  <HMI xmi:id="HMITags_HMITags_OaAZoIHKEeediJf1kzsT0Q_1502809120826" nom_instance="HMI">
     <HMIObjects xsi:type="HMI:Symbol" xmi:id="Symbol_Symbol1_OaAZoYHKEeediJf1kzsT0Q_1502809120826" nom_instance="Symbol1"/>
   </HMI>
 </Class:BasicEquipment>

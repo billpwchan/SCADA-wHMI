@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="10">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="12">
   <ownedPrototype id="BasicEquipment_TES__TOUL0II7EeeDru6gupombA_1502857686285">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TES__TOUL0II7EeeDru6gupombA_1502857686285"/>
     <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciINF-IncCur_TOUL0YI7EeeDru6gupombA_1502857686285"/>
@@ -31,6 +31,6 @@
     <ownedAttributes frozen="true" name="ackAutomaton" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
     <ownedAttributes frozen="true" name="AIAlmCEBehaviour" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
     <ownedAttributes frozen="true" name="valueTable" partialUri="aal_type_rEG8QII7EeeDru6gupombA_1502857846276"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

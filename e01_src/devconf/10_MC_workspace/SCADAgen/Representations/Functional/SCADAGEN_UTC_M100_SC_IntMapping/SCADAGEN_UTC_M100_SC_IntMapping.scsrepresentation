@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_8Sr5kJN9EeeBsejFH_1odg" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAGEN_UTC_M100_SC_IntMapping" category="_8SsgoJN9EeeBsejFH_1odg">
+    <aspectPackage xmi:id="_8Sr5kZN9EeeBsejFH_1odg" name="Aspect Container">
+      <ownedAspect xmi:id="_-h9k0ZOOEeel88tZnw2BtA" name="IntMapping_ActiveText">
+        <ownedElement xsi:type="scsRepresentation:DecoratedText" xmi:id="_-h9k0pOOEeel88tZnw2BtA" name="Current Value" x="-3.0" y="79.0" width="208.0" height="39.0" fontSize="39" textAlign="CENTER" maxCharacters="10" font="&quot;Arial&quot;, &quot;Liberation Sans&quot;, sans-serif" value="XXXXXXXX" defaultValue="" runtimeX="1.0" runtimeY="18.0" MWTTemplate="" MWTCSSClass="">
+          <displayProperties xsi:type="scsRepresentation:ColorProperty" xmi:id="_-h9k05OOEeel88tZnw2BtA" value="#000000"/>
+          <displayProperties xsi:type="scsRepresentation:ActiveText" xmi:id="_-h9k1JOOEeel88tZnw2BtA" Id="" attribute="_Qnx6sJOPEeel88tZnw2BtA" MWTBindings=""/>
+        </ownedElement>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_Qnx6sJOPEeel88tZnw2BtA" id="IntMapping" qualifiedName="IntMapping"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_8Sr5kpN9EeeBsejFH_1odg"/>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_8Sr5k5N9EeeBsejFH_1odg">
+    <ownedCategories xmi:id="_8SsgoJN9EeeBsejFH_1odg" name="Functional"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

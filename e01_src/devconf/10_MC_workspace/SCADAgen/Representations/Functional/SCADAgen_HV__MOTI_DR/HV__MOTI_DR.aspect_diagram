@@ -95,9 +95,9 @@
   <children xmi:type="notation:Shape" xmi:id="_V5d4-w-jEee4zYgCDjPyfA" type="2001" fontName="Segoe UI">
     <children xmi:type="notation:DecorationNode" xmi:id="_V5d4_A-jEee4zYgCDjPyfA" type="5002"/>
     <children xmi:type="notation:DecorationNode" xmi:id="_V5d4_Q-jEee4zYgCDjPyfA" type="7001">
-      <children xmi:type="notation:Shape" xmi:id="_V5d4_g-jEee4zYgCDjPyfA" type="3001" fontName="Segoe UI">
-        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAgen_HV__MOTI_DR.scsrepresentation#_V4bW_w-jEee4zYgCDjPyfA"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_V5d4_w-jEee4zYgCDjPyfA" x="6" y="39" width="188" height="122"/>
+      <children xmi:type="notation:Shape" xmi:id="_cv78UJOwEee5BY-WNrkELg" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAgen_HV__MOTI_DR.scsrepresentation#_cvrdoZOwEee5BY-WNrkELg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cv78UZOwEee5BY-WNrkELg" y="34"/>
       </children>
       <styles xmi:type="notation:TitleStyle" xmi:id="_V5d5AA-jEee4zYgCDjPyfA" showTitle="true"/>
     </children>

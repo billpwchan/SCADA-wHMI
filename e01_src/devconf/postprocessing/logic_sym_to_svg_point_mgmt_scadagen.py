@@ -21,7 +21,8 @@ def genericMapping(symbol, postfix):
 	for k in transforms.keys():
 		revisedSymbol = revisedSymbol.replace(k, transforms[k])
 
-	removePrefix=[7,11]
+	# Offset of the project name (E.g. SCADAgen, C1166B)
+	removePrefix=[9,13]
 	for rf in removePrefix:
 		newSymbol = revisedSymbol 
 		newSymbol = newSymbol[rf:-len('_symbol.xml')]

@@ -560,7 +560,7 @@ export class ScheduleService implements OnDestroy {
 
         const schedulesByPeriodic = new Array<Schedule>();
         for (const s of this.schedules) {
-            //console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'compare periodic', isPeriodic, s.periodic);
+            // console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', 'compare periodic', isPeriodic, s.periodic);
             if (s.visibility === ScheduleDef.VISIBLE) {
                 if ((isPeriodic && s.periodic) || (!isPeriodic && !s.periodic)) {
                     schedulesByPeriodic.push(s);
@@ -571,7 +571,7 @@ export class ScheduleService implements OnDestroy {
                             this.oneshotStarted = true;
                         }
                     }
-                    //console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', '*** schedule is pushed to schedulesByPeriodic');
+                    // console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', '*** schedule is pushed to schedulesByPeriodic');
                 }
             }
         }
@@ -590,30 +590,30 @@ export class ScheduleService implements OnDestroy {
         for (const s of this.scheduleItems) {
             const speriodic: boolean = this.scheduleIdMap.get(s.scheduleId).periodic;
             const svisible: boolean = this.scheduleIdMap.get(s.scheduleId).visibility === ScheduleDef.VISIBLE;
-            //console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'compare periodic', isPeriodic, speriodic);
+            // console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', 'compare periodic', isPeriodic, speriodic);
 
             if (svisible) {
                 if ((isPeriodic && speriodic) || (!isPeriodic && !speriodic)) {
                     if (isPeriodic) {
                         if (s.enableFlag1 === 0) {
-                            //console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag1 is 0');
+                            // console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag1 is 0');
                             s.onTimeDisplay = this.inhibitedOnOffTime;
                         } else {
-                            //console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag1 is 1');
+                            // console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag1 is 1');
                             s.onTimeDisplay = this.getPeriodicOnOffTimeDisplay(s.filter1);
                         }
                         if (s.enableFlag2 === 0) {
-                            //console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag2 is 0');
+                            // console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag2 is 0');
                             s.offTimeDisplay = this.inhibitedOnOffTime;
                         } else {
-                            //console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag2 is 1');
+                            // console.log('{ScheduleService}', '[extractDescFilterEnable]', 'enableFlag2 is 1');
                             s.offTimeDisplay = this.getPeriodicOnOffTimeDisplay(s.filter2);
                         }
                     } else {
                         this.updateOneshotOnOffTimeDisplay(s);
                     }
                     scheduleItemsByPeriodic.push(s);
-                    //console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', '*** scheduleItem is pushed to scheduleItemsByPeriodic');
+                    // console.log('{ScheduleService}', '[updateScheduleItemsByPeriodic]', '*** scheduleItem is pushed to scheduleItemsByPeriodic');
                 }
             }
         }

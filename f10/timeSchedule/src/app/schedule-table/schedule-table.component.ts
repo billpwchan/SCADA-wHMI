@@ -202,7 +202,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             this.subRoute.unsubscribe();
         }
         this.subRoute = this.route.queryParams.subscribe(params => {
-            //this.cleanupScheduleSubscriptions();
+            // this.cleanupScheduleSubscriptions();
             const p = params['periodic'];
             if (p === 'true') {
                 this.displayPeriodicSchedules = true;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="13">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="16">
   <ownedPrototype id="BasicEquipment_TAHU_We34gFWXEee4QdkqvzimmQ_1497949419528">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TAHU_We34gFWXEee4QdkqvzimmQ_1497949419528"/>
     <ownedAttributes name="label" partialUri="BasicEquipment_TAHU_We34gFWXEee4QdkqvzimmQ_1497949419528"/>
@@ -107,6 +107,6 @@
     <ownedAttributes frozen="true" formula="IF([^:^.validSynthesis]>0,0,SWITCH([^:^:dciTAHU-Running.value]=1,1,[^:^:dciTAHU-Running.value]=0,2,3))+IF([^:^.validSynthesis]>0,0,IF([^:^.alarmSynthesis(2)]=1,100,0))" name="value" partialUri="Symbol_c3UCoIHIEeediJf1kzsT0Q_1502808358858"/>
     <ownedAttributes name="initCond4" partialUri="dov_type_dovTVF-OpCmdStartFw-StartForwardCmd_We34jlWXEee4QdkqvzimmQ_1497949419528"/>
     <ownedAttributes name="initCond8" partialUri="dov_type_dovTVF-OpCmdStartFw-StartForwardCmd_We34jlWXEee4QdkqvzimmQ_1497949419528"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

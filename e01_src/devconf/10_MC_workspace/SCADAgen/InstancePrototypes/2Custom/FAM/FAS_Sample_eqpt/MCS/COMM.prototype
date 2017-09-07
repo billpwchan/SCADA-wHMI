@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="COMM" label="FEP Comm" scstype="FASCOMM">
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_COMM_xPxcwP7zEeaDWYc-j7jl3Q_1488423361676" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="COMM" label="FEP Comm" scstype="FASCOMM">
   <alarmSynthesis xsi:nil="true"/>
   <alarmSynthesis xsi:nil="true"/>
   <alarmSynthesis xsi:nil="true"/>
@@ -60,6 +60,10 @@
   </outputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciFAM-HDVSTATUS_xPxdEv7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dciMCS-COM" label="COM">
     <DAC xmi:id="dac_type_dac_xPxdE_7zEeaDWYc-j7jl3Q_1488423361676" nom_instance="dac">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_xPxdFP7zEeaDWYc-j7jl3Q_1488423361676"/>
       <veTable xmi:id="struct_veTable_dac_type_xPxdFf7zEeaDWYc-j7jl3Q_1488423361676"/>
       <veTable xmi:id="struct_veTable_dac_type_xPxdFv7zEeaDWYc-j7jl3Q_1488423361676"/>
@@ -89,6 +93,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciCOMM-COM_3rwzUP70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dciMCS-INF" label="INF">
     <DAC xmi:id="dac_type_dac_3rwzUf70EeaDWYc-j7jl3Q_1488423834373" nom_instance="dac">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_3rwzUv70EeaDWYc-j7jl3Q_1488423834373"/>
       <veTable xmi:id="struct_veTable_dac_type_3rwzU_70EeaDWYc-j7jl3Q_1488423834373"/>
       <veTable xmi:id="struct_veTable_dac_type_3rwzVP70EeaDWYc-j7jl3Q_1488423834373"/>
@@ -118,6 +126,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciCOMM-COM_4QqQIP70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dciMCS-LINK1" label="LINK1">
     <DAC xmi:id="dac_type_dac_4QqQIf70EeaDWYc-j7jl3Q_1488423838242" nom_instance="dac">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_4QqQIv70EeaDWYc-j7jl3Q_1488423838242"/>
       <veTable xmi:id="struct_veTable_dac_type_4QqQI_70EeaDWYc-j7jl3Q_1488423838242"/>
       <veTable xmi:id="struct_veTable_dac_type_4QqQJP70EeaDWYc-j7jl3Q_1488423838242"/>
@@ -147,6 +159,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2EelEP73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dciMCS-LINK2" label="LINK2">
     <DAC xmi:id="dac_type_dac_2EelEf73EeaDWYc-j7jl3Q_1488425112033" nom_instance="dac">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_2EelEv73EeaDWYc-j7jl3Q_1488425112033"/>
       <veTable xmi:id="struct_veTable_dac_type_2EelE_73EeaDWYc-j7jl3Q_1488425112033"/>
       <veTable xmi:id="struct_veTable_dac_type_2EelFP73EeaDWYc-j7jl3Q_1488425112033"/>
@@ -176,6 +192,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2TNkoP73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dciMCS-LINK3" label="LINK3">
     <DAC xmi:id="dac_type_dac_2TNkof73EeaDWYc-j7jl3Q_1488425113578" nom_instance="dac">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_2TNkov73EeaDWYc-j7jl3Q_1488425113578"/>
       <veTable xmi:id="struct_veTable_dac_type_2TNko_73EeaDWYc-j7jl3Q_1488425113578"/>
       <veTable xmi:id="struct_veTable_dac_type_2TNkpP73EeaDWYc-j7jl3Q_1488425113578"/>
@@ -205,6 +225,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciMCS-LINK1_2p0t0P73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dciMCS-LINK4" label="LINK4">
     <DAC xmi:id="dac_type_dac_2p0t0f73EeaDWYc-j7jl3Q_1488425115949" nom_instance="dac">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_2p0t0v73EeaDWYc-j7jl3Q_1488425115949"/>
       <veTable xmi:id="struct_veTable_dac_type_2p0t0_73EeaDWYc-j7jl3Q_1488425115949"/>
       <veTable xmi:id="struct_veTable_dac_type_2p0t1P73EeaDWYc-j7jl3Q_1488425115949"/>

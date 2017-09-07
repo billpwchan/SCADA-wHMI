@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="11">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="12">
   <ownedPrototype id="BasicEquipment_DPLC_2Rzy0FJvEeee9omJKKZbfw_1497602599549">
     <ownedAttributes frozen="true" formula="IF([^:^.tagStatus]=1,1,0)" name="initCond1" partialUri="dov_type_dovTVF-DirStartCmd-Supply_2Rzy3lJvEeee9omJKKZbfw_1497602599549"/>
     <ownedAttributes frozen="true" formula="IF([^:^.tagStatus]=1,1,0)" name="initCond1" partialUri="dov_type_dovTVF-DirStartCmd-Exhaust_2Rzy71JvEeee9omJKKZbfw_1497602599549"/>
@@ -25,6 +25,6 @@
     <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_2R88xVJvEeee9omJKKZbfw_1497602599564"/>
     <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_2R882VJvEeee9omJKKZbfw_1497602599564"/>
     <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_DPLC_2Rzy0FJvEeee9omJKKZbfw_1497602599549"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

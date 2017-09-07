@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
-<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_TAHU_We34gFWXEee4QdkqvzimmQ_1497949419528" hvqname="myproject.data.config.equipment.common.SGEQPT8" nom_instance="TAHU" scstype="TAHUType">
+<Class:BasicEquipment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Class="http://www.thalesgroup.com/prototypeLibraryModel/Class" xmlns:HMI="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI" xmlns:INPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR" xmlns:OUTPUT_VAR="http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR" xsi:schemaLocation="http://www.thalesgroup.com/prototypeLibraryModel/Class ../../../../../Generated/config.ecore#:R:A:CLASSES http://www.thalesgroup.com/prototypeLibraryModel/Class/SCADAgen/SCSDB/HMI ../../../../../Generated/config.ecore#:R:A:CLASSES:SCADAGEN:HMI http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/INPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:INPUT_VAR http://www.thalesgroup.com/prototypeLibraryModel/Class/SCDM/OUTPUT_VAR ../../../../../Generated/config.ecore#:R:A:CLASSES:SCS_UMCD:OUTPUT_VAR" xmi:id="BasicEquipment_TAHU_We34gFWXEee4QdkqvzimmQ_1497949419528" hvqname="scadagen.data.config.equipment.common.SGEQPT8" nom_instance="TAHU" scstype="TAHUType">
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
+  <alarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
   <prevAlarmSynthesis xsi:nil="true"/>
@@ -17,7 +21,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_We34i1WXEee4QdkqvzimmQ_1497949419528"/>
     <valueTable xmi:id="struct_valueTable_dio_type_We34jFWXEee4QdkqvzimmQ_1497949419528"/>
     <valueTable xmi:id="struct_valueTable_dio_type_We34jVWXEee4QdkqvzimmQ_1497949419528"/>
-    <DOV xmi:id="dov_type_dovTVF-OpCmdStartFw-StartForwardCmd_We34jlWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-Start" ctlvalue="1">
+    <DOV xmi:id="dov_type_dovTVF-OpCmdStartFw-StartForwardCmd_We34jlWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-Start" ctlvalue="8193">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We34j1WXEee4QdkqvzimmQ_1497949419528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We34kFWXEee4QdkqvzimmQ_1497949419528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We34kVWXEee4QdkqvzimmQ_1497949419528"/>
@@ -49,7 +53,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_We34qVWXEee4QdkqvzimmQ_1497949419528"/>
     <valueTable xmi:id="struct_valueTable_dio_type_We34qlWXEee4QdkqvzimmQ_1497949419528"/>
     <valueTable xmi:id="struct_valueTable_dio_type_We34q1WXEee4QdkqvzimmQ_1497949419528"/>
-    <DOV xmi:id="dov_type_dovTVF-OpCmdStartRev-StartReverseCmd_We34rFWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-Stop" ctlvalue="1">
+    <DOV xmi:id="dov_type_dovTVF-OpCmdStartRev-StartReverseCmd_We34rFWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-Stop" ctlvalue="8193">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We34rVWXEee4QdkqvzimmQ_1497949419528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We34rlWXEee4QdkqvzimmQ_1497949419528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We34r1WXEee4QdkqvzimmQ_1497949419528"/>
@@ -81,7 +85,7 @@
     <valueTable xmi:id="struct_valueTable_dio_type_We345VWXEee4QdkqvzimmQ_1497949419528"/>
     <valueTable xmi:id="struct_valueTable_dio_type_We345lWXEee4QdkqvzimmQ_1497949419528"/>
     <valueTable xmi:id="struct_valueTable_dio_type_We3451WXEee4QdkqvzimmQ_1497949419528"/>
-    <DOV xmi:id="dov_type_dovTVF-OpReset-NotReset_We346FWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-NotReset">
+    <DOV xmi:id="dov_type_dovTVF-OpReset-NotReset_We346FWXEee4QdkqvzimmQ_1497949419528" nom_instance="dovTAHU-NotReset" ctlvalue="8192">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We346VWXEee4QdkqvzimmQ_1497949419528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We346lWXEee4QdkqvzimmQ_1497949419528"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_We3461WXEee4QdkqvzimmQ_1497949419528"/>
@@ -99,7 +103,7 @@
       <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpiFWXEee4QdkqvzimmQ_1497949419544"/>
       <retCondTable xmi:id="struct_retCondTable_dpc_com_WfBpiVWXEee4QdkqvzimmQ_1497949419544"/>
     </DOV>
-    <DOV xmi:id="dov_type_dovTVF-OpReset-Reset_WfBpilWXEee4QdkqvzimmQ_1497949419544" nom_instance="dovTAHU-Reset" ctlvalue="1">
+    <DOV xmi:id="dov_type_dovTVF-OpReset-Reset_WfBpilWXEee4QdkqvzimmQ_1497949419544" nom_instance="dovTAHU-Reset" ctlvalue="8193">
       <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpi1WXEee4QdkqvzimmQ_1497949419544"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpjFWXEee4QdkqvzimmQ_1497949419544"/>
       <initCondTable xmi:id="struct_initCondTable_dpc_com_WfBpjVWXEee4QdkqvzimmQ_1497949419544"/>
@@ -176,6 +180,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaGeneral_WfBp5FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Running" label="&amp;dciTAHU-Running">
     <DAC xmi:id="dac_type_dac_WfBp5VWXEee4QdkqvzimmQ_1497949419544" nom_instance="dac" nature="1">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_WfBp5lWXEee4QdkqvzimmQ_1497949419544"/>
       <veTable xmi:id="struct_veTable_dac_type_WfBp51WXEee4QdkqvzimmQ_1497949419544"/>
       <veTable xmi:id="struct_veTable_dac_type_WfBp6FWXEee4QdkqvzimmQ_1497949419544"/>
@@ -205,6 +213,10 @@
   </inputs>
   <inputs xsi:type="INPUT_VAR:DCI_TYPE" xmi:id="DCI_TYPE_dciTVF-AlaTempDeBear_WfBp-FWXEee4QdkqvzimmQ_1497949419544" nom_instance="dciTAHU-Fault" label="&amp;dciTAHU-Fault" initValue="1">
     <DAC xmi:id="dac_type_dac_WfBp-VWXEee4QdkqvzimmQ_1497949419544" nom_instance="dac" nature="1">
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
+      <combineList xsi:nil="true"/>
       <veTable xmi:id="struct_veTable_dac_type_WfBp-lWXEee4QdkqvzimmQ_1497949419544"/>
       <veTable xmi:id="struct_veTable_dac_type_WfBp-1WXEee4QdkqvzimmQ_1497949419544"/>
       <veTable xmi:id="struct_veTable_dac_type_WfBp_FWXEee4QdkqvzimmQ_1497949419544"/>
@@ -232,7 +244,7 @@
     </DAL>
     <DFO xmi:id="dfo_type_dfo_WfBqC1WXEee4QdkqvzimmQ_1497949419544" nom_instance="dfo"/>
   </inputs>
-  <HMI xmi:id="HMITags_Zgq28YHIEeediJf1kzsT0Q_1502808336351" nom_instance="HMITags">
+  <HMI xmi:id="HMITags_Zgq28YHIEeediJf1kzsT0Q_1502808336351" nom_instance="HMI">
     <HMIObjects xsi:type="HMI:Symbol" xmi:id="Symbol_c3UCoIHIEeediJf1kzsT0Q_1502808358858" nom_instance="Symbol1"/>
   </HMI>
 </Class:BasicEquipment>

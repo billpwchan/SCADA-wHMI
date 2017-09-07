@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="49">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="50">
   <ownedPrototype id="BasicEquipment_TTVF_UgDIMYI1EeeDru6gupombA_1502855117875">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TTVF_UgDIMYI1EeeDru6gupombA_1502855117875"/>
     <ownedAttributes frozen="true" name="label" partialUri="ACI_TYPE_aciBTBP-BusVolt_UgDIMoI1EeeDru6gupombA_1502855117875"/>
@@ -486,6 +486,6 @@
     <ownedAttributes frozen="true" formula="IF([^:^:dciECT-PTW.value]=1,2,IF([^:^:dciECT-NISERV.value]=1,4,0 ) )" name="value" partialUri="Tag_dDRkAIPWEeevN_isMe_qRg_1503034275392"/>
     <ownedAttributes frozen="true" formula="[^:^:dciECT-LRSTA.value]" name="value" partialUri="Tag_TAG2_e50O4IPWEeevN_isMe_qRg_1503034287822"/>
     <ownedAttributes frozen="true" formula="[^:^:dciECT-TRIPALM.value]" name="value" partialUri="Tag_TAG2_fqZ-UIPWEeevN_isMe_qRg_1503034292917"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

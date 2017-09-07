@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="17">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="18">
   <ownedPrototype id="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592"/>
     <ownedAttributes frozen="true" name="user_class" partialUri="BasicEquipment_FAMHDV_ABT_STATUS2_NRAZgXONEeewuatvcs1m1g_1501243597592"/>
@@ -12,6 +12,6 @@
     <ownedAttributes frozen="true" formula="IF( [^:^:dciFAM-HDVSTATUS.value], PUT(  {^:^:dciFAM-HDVSTATUS.value}, {^:^:^.hdvValue} ), -1 )" name="computedValue" partialUri="ufe_int_OFiRYHzbEee9mNLYQho_BA_1502266664310"/>
     <ownedAttributes frozen="true" name="hmiOrder" partialUri="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965"/>
     <ownedAttributes name="label" partialUri="DCI_TYPE_dciFAM-HDVSTATUS_fhXA0HRQEeewuatvcs1m1g_1501327471965"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

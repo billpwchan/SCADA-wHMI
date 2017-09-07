@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="7">
+<scsproject:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:scsproject="http://www.thalesgroup.com/metaconfigurator/scsproject" version="8">
   <ownedPrototype id="BasicEquipment_TCI_F_XbnT8FWfEee4QdkqvzimmQ_1497952861871">
     <ownedAttributes frozen="true" name="scstype" partialUri="BasicEquipment_TCI_F_XbnT8FWfEee4QdkqvzimmQ_1497952861871"/>
     <ownedAttributes name="label" partialUri="BasicEquipment_TCI_F_XbnT8FWfEee4QdkqvzimmQ_1497952861871"/>
@@ -115,6 +115,6 @@
     <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_2QhLkVWfEee4QdkqvzimmQ_1497953068745"/>
     <ownedAttributes frozen="true" name="nature" partialUri="dac_type_dac_2j4zgVWfEee4QdkqvzimmQ_1497953070776"/>
     <ownedAttributes frozen="true" formula="IF([:ScadaSoft.dpcTrigger]=1,-1,[^.hdvValue])" name="hdvValue" partialUri="BasicEquipment_TCI_F_XbnT8FWfEee4QdkqvzimmQ_1497952861871"/>
-    <parentPrototypes>BasicEquipment_Copy_of_BasicEquipment_4-pEMS8yEeazT9sokybR1A_1465580630003</parentPrototypes>
+    <parentPrototypes>BasicEquipment_FasBasicEquipment_amMc8Y3vEeeCWf0xiOvNtA_1504144507967</parentPrototypes>
   </ownedPrototype>
 </scsproject:Project>

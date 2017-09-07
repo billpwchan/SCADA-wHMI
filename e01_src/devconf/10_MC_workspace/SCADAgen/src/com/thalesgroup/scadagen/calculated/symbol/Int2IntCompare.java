@@ -7,7 +7,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.computers.StatusComputer;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 
-public class SCADAgenSymbolHighlight implements StatusComputer {
+public class Int2IntCompare implements StatusComputer {
 
 	@Override
 	public AttributeClientAbstract<?> compute(OperatorOpmInfo operatorOpmInfo,
@@ -35,5 +35,6 @@ public class SCADAgenSymbolHighlight implements StatusComputer {
 		// TODO Auto-generated method stub
 		return null;
 	}
+    
 
 }

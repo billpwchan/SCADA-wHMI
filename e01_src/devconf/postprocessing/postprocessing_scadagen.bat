@@ -3,6 +3,8 @@
 
 SET NOT_INTERACTIVE=1
 
+SET PYTHON_BIN=C:\softs\Python27\python.exe
+
 SET SITUATIONVIEW_DIR=C:\SCSTraining\devconf\genhmi\widgets\situationView
 
 @REM Symbol Blinking

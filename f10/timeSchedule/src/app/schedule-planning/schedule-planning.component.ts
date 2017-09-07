@@ -6,6 +6,7 @@ import { ScheduleItem } from '../type/schedule-item';
 import { ConfigService } from '../service/config.service';
 import { ScheduleService } from '../service/schedule.service';
 import { UtilService } from '../service/util.service';
+import { WeekdayDef } from './weekday-def';
 
 @Component({
     selector: 'app-sch-planning',
@@ -45,6 +46,10 @@ export class SchedulePlanningComponent implements OnInit {
 
     public manualRefreshEnabled = false;
 
+    public displayCutoffTime = false;
+
+    public displayRunningSchedules = true;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -66,19 +71,25 @@ export class SchedulePlanningComponent implements OnInit {
 
     private loadConfig() {
         this.defaultWeeklyConfig = this.configService.config.getIn(['schedule_planning', 'weekly_planning']);
-        console.log('{schedule-table}', '[loadConfig]', 'defaultWeeklyConfig=', this.defaultWeeklyConfig);
+        console.log('{schedule-planning}', '[loadConfig]', 'defaultWeeklyConfig=', this.defaultWeeklyConfig);
 
         this.periodicPlanningDuration = this.configService.config.getIn(['schedule_planning', 'periodic_planning_duration']);
-        console.log('{schedule-table}', '[loadConfig]', 'periodicPlanningDuration=', this.periodicPlanningDuration);
+        console.log('{schedule-planning}', '[loadConfig]', 'periodicPlanningDuration=', this.periodicPlanningDuration);
 
         this.applyPlanToRunningDayGroup = this.configService.config.getIn(['schedule_planning', 'apply_plan_to_running_daygroup']);
-        console.log('{schedule-table}', '[loadConfig]', 'applyPlanToRunningDayGroup=', this.applyPlanToRunningDayGroup);
+        console.log('{schedule-planning}', '[loadConfig]', 'applyPlanToRunningDayGroup=', this.applyPlanToRunningDayGroup);
 
         this.displayAppNavigation = this.configService.config.getIn(['schedule_planning', 'display_app_navigation']);
-        console.log('{schedule-table}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
+        console.log('{schedule-planning}', '[loadConfig]', 'display_app_navigation=', this.displayAppNavigation);
 
         this.manualRefreshEnabled = this.configService.config.getIn(['schedule_planning', 'manual_refresh_enabled']);
-        console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
+        console.log('{schedule-planning}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
+
+        this.displayCutoffTime = this.configService.config.getIn(['schedule_planning', 'display_cutoff_time']);
+        console.log('{schedule-planning}', '[loadConfig]', 'display_cutoff_time=', this.displayCutoffTime);
+
+        this.displayRunningSchedules = this.configService.config.getIn(['schedule_planning', 'display_running_schedules']);
+        console.log('{schedule-planning}', '[loadConfig]', 'display_running_schedules=', this.displayRunningSchedules);
     }
 
     private loadData() {
@@ -128,13 +139,13 @@ export class SchedulePlanningComponent implements OnInit {
             weeklySchedules => {
                 this.weeklySchedules = weeklySchedules;
                 if (weeklySchedules && weeklySchedules.length > 0) {
-                    this.sunSchedule = weeklySchedules[0];
-                    this.monSchedule = weeklySchedules[1];
-                    this.tueSchedule = weeklySchedules[2];
-                    this.wedSchedule = weeklySchedules[3];
-                    this.thuSchedule = weeklySchedules[4];
-                    this.friSchedule = weeklySchedules[5];
-                    this.satSchedule = weeklySchedules[6];
+                    this.sunSchedule = weeklySchedules[WeekdayDef.SUNDAY];
+                    this.monSchedule = weeklySchedules[WeekdayDef.MONDAY];
+                    this.tueSchedule = weeklySchedules[WeekdayDef.TUESDAY];
+                    this.wedSchedule = weeklySchedules[WeekdayDef.WEDNESDAY];
+                    this.thuSchedule = weeklySchedules[WeekdayDef.THURSDAY];
+                    this.friSchedule = weeklySchedules[WeekdayDef.FRIDAY];
+                    this.satSchedule = weeklySchedules[WeekdayDef.SATURDAY];
                 }
             }
         )
@@ -209,13 +220,13 @@ export class SchedulePlanningComponent implements OnInit {
     public getAssignedSchedulesMap() {
         const assignedSchedulesMap = new Map<string, number[]>();
         const wSchedules = Array<Schedule>(7);
-        wSchedules[0] = this.sunSchedule;
-        wSchedules[1] = this.monSchedule;
-        wSchedules[2] = this.tueSchedule;
-        wSchedules[3] = this.wedSchedule;
-        wSchedules[4] = this.thuSchedule;
-        wSchedules[5] = this.friSchedule;
-        wSchedules[6] = this.satSchedule;
+        wSchedules[WeekdayDef.SUNDAY] = this.sunSchedule;
+        wSchedules[WeekdayDef.MONDAY] = this.monSchedule;
+        wSchedules[WeekdayDef.TUESDAY] = this.tueSchedule;
+        wSchedules[WeekdayDef.WEDNESDAY] = this.wedSchedule;
+        wSchedules[WeekdayDef.THURSDAY] = this.thuSchedule;
+        wSchedules[WeekdayDef.FRIDAY] = this.friSchedule;
+        wSchedules[WeekdayDef.SATURDAY] = this.satSchedule;
 
         for (let i = 0; i < 7; i++) {
             if (wSchedules[i] && wSchedules[i].id) {
@@ -234,45 +245,45 @@ export class SchedulePlanningComponent implements OnInit {
 
     public revertWeeklyPlan() {
         if (this.weeklySchedules && this.weeklySchedules.length > 0) {
-            this.monSchedule = this.weeklySchedules[1];
-            this.tueSchedule = this.weeklySchedules[2];
-            this.wedSchedule = this.weeklySchedules[3];
-            this.thuSchedule = this.weeklySchedules[4];
-            this.friSchedule = this.weeklySchedules[5];
-            this.satSchedule = this.weeklySchedules[6];
-            this.sunSchedule = this.weeklySchedules[0];
+            this.monSchedule = this.weeklySchedules[WeekdayDef.MONDAY];
+            this.tueSchedule = this.weeklySchedules[WeekdayDef.TUESDAY];
+            this.wedSchedule = this.weeklySchedules[WeekdayDef.WEDNESDAY];
+            this.thuSchedule = this.weeklySchedules[WeekdayDef.THURSDAY];
+            this.friSchedule = this.weeklySchedules[WeekdayDef.FRIDAY];
+            this.satSchedule = this.weeklySchedules[WeekdayDef.SATURDAY];
+            this.sunSchedule = this.weeklySchedules[WeekdayDef.SUNDAY];
         }
         this.planModified = false;
     }
 
     public onChange() {
-        if ((this.monSchedule && !this.weeklySchedules[1]) || (!this.monSchedule && this.weeklySchedules[1])) {
+        if ((this.monSchedule && !this.weeklySchedules[WeekdayDef.MONDAY]) || (!this.monSchedule && this.weeklySchedules[WeekdayDef.MONDAY])) {
             this.planModified = true;
-        } else if (this.monSchedule && this.weeklySchedules[1] && this.monSchedule.id !== this.weeklySchedules[1].id) {
+        } else if (this.monSchedule && this.weeklySchedules[WeekdayDef.MONDAY] && this.monSchedule.id !== this.weeklySchedules[WeekdayDef.MONDAY].id) {
             this.planModified = true;
-        } else if ((this.tueSchedule && !this.weeklySchedules[2]) || (!this.tueSchedule && this.weeklySchedules[2])) {
+        } else if ((this.tueSchedule && !this.weeklySchedules[WeekdayDef.TUESDAY]) || (!this.tueSchedule && this.weeklySchedules[WeekdayDef.TUESDAY])) {
             this.planModified = true;
-        } else if (this.tueSchedule && this.weeklySchedules[2] && this.tueSchedule.id !== this.weeklySchedules[2].id) {
+        } else if (this.tueSchedule && this.weeklySchedules[WeekdayDef.TUESDAY] && this.tueSchedule.id !== this.weeklySchedules[WeekdayDef.TUESDAY].id) {
             this.planModified = true;
-        } else if ((this.wedSchedule && !this.weeklySchedules[3]) || (!this.wedSchedule && this.weeklySchedules[3])) {
+        } else if ((this.wedSchedule && !this.weeklySchedules[WeekdayDef.WEDNESDAY]) || (!this.wedSchedule && this.weeklySchedules[WeekdayDef.WEDNESDAY])) {
             this.planModified = true;
-        } else if (this.wedSchedule && this.weeklySchedules[3] && this.wedSchedule.id !== this.weeklySchedules[3].id) {
+        } else if (this.wedSchedule && this.weeklySchedules[WeekdayDef.WEDNESDAY] && this.wedSchedule.id !== this.weeklySchedules[WeekdayDef.WEDNESDAY].id) {
             this.planModified = true;
-        } else if ((this.thuSchedule && !this.weeklySchedules[4]) || (!this.thuSchedule && this.weeklySchedules[4]))  {
+        } else if ((this.thuSchedule && !this.weeklySchedules[WeekdayDef.THURSDAY]) || (!this.thuSchedule && this.weeklySchedules[WeekdayDef.THURSDAY]))  {
             this.planModified = true;
-        } else if (this.thuSchedule && this.weeklySchedules[4] && this.thuSchedule.id !== this.weeklySchedules[4].id) {
+        } else if (this.thuSchedule && this.weeklySchedules[WeekdayDef.THURSDAY] && this.thuSchedule.id !== this.weeklySchedules[WeekdayDef.THURSDAY].id) {
             this.planModified = true;
-        } else if ((this.friSchedule && !this.weeklySchedules[5]) || (!this.friSchedule && this.weeklySchedules[5])) {
+        } else if ((this.friSchedule && !this.weeklySchedules[WeekdayDef.FRIDAY]) || (!this.friSchedule && this.weeklySchedules[WeekdayDef.FRIDAY])) {
             this.planModified = true;
-        } else if (this.friSchedule && this.weeklySchedules[5] && this.friSchedule.id !== this.weeklySchedules[5].id) {
+        } else if (this.friSchedule && this.weeklySchedules[WeekdayDef.FRIDAY] && this.friSchedule.id !== this.weeklySchedules[WeekdayDef.FRIDAY].id) {
             this.planModified = true;
-        } else if ((this.satSchedule && !this.weeklySchedules[6]) || (!this.satSchedule && this.weeklySchedules[6])) {
+        } else if ((this.satSchedule && !this.weeklySchedules[WeekdayDef.SATURDAY]) || (!this.satSchedule && this.weeklySchedules[WeekdayDef.SATURDAY])) {
             this.planModified = true;
-        } else if (this.satSchedule && this.weeklySchedules[6] && this.satSchedule.id !== this.weeklySchedules[6].id) {
+        } else if (this.satSchedule && this.weeklySchedules[WeekdayDef.SATURDAY] && this.satSchedule.id !== this.weeklySchedules[WeekdayDef.SATURDAY].id) {
             this.planModified = true;
-        } else if (this.sunSchedule && !this.weeklySchedules[0]) {
+        } else if ((this.sunSchedule && !this.weeklySchedules[WeekdayDef.SUNDAY]) || (!this.sunSchedule && this.weeklySchedules[WeekdayDef.SUNDAY])) {
             this.planModified = true;
-        } else if (this.sunSchedule && this.weeklySchedules[0] && this.sunSchedule.id !== this.weeklySchedules[0].id) {
+        } else if (this.sunSchedule && this.weeklySchedules[WeekdayDef.SUNDAY] && this.sunSchedule.id !== this.weeklySchedules[WeekdayDef.SUNDAY].id) {
             this.planModified = true;
         } else {
             this.planModified = false;
@@ -307,19 +318,19 @@ export class SchedulePlanningComponent implements OnInit {
 
     public defaultsWeeklyPlan() {
         if (this.defaultWeeklyConfig) {
-            this.monSchedule = this.getDefaultWeekdaySchedule('1');
-            this.tueSchedule = this.getDefaultWeekdaySchedule('2');
-            this.wedSchedule = this.getDefaultWeekdaySchedule('3');
-            this.thuSchedule = this.getDefaultWeekdaySchedule('4');
-            this.friSchedule = this.getDefaultWeekdaySchedule('5');
-            this.satSchedule = this.getDefaultWeekdaySchedule('6');
-            this.sunSchedule = this.getDefaultWeekdaySchedule('0');
+            this.monSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.MONDAY.toString());
+            this.tueSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.TUESDAY.toString());
+            this.wedSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.WEDNESDAY.toString());
+            this.thuSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.THURSDAY.toString());
+            this.friSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.FRIDAY.toString());
+            this.satSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.SATURDAY.toString());
+            this.sunSchedule = this.getDefaultWeekdaySchedule(WeekdayDef.SUNDAY.toString());
         }
         this.onChange();
     }
 
     public startPeriodic() {
-        console.log('{schedule-table}', '[startPeriodic]', 'periodicSchedules count =', this.periodicSchedules.length);
+        console.log('{schedule-planning}', '[startPeriodic]', 'periodicSchedules count =', this.periodicSchedules.length);
 
         this.scheduleService.startPeriodicSchedules();
 
@@ -328,7 +339,7 @@ export class SchedulePlanningComponent implements OnInit {
     }
 
     public stopPeriodic() {
-        console.log('{schedule-table}', '[stopPeriodic]', 'periodicSchedules count =', this.periodicSchedules.length);
+        console.log('{schedule-planning}', '[stopPeriodic]', 'periodicSchedules count =', this.periodicSchedules.length);
 
         this.scheduleService.stopPeriodicSchedules();
 

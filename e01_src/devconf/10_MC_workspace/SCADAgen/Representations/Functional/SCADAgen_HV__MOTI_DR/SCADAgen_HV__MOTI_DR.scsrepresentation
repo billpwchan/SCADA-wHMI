@@ -18,10 +18,10 @@
         <condition xmi:id="_V4bW_Q-jEee4zYgCDjPyfA" value="0" attribute="_V4bXAQ-jEee4zYgCDjPyfA"/>
       </ownedAspect>
       <ownedAspect xmi:id="_V4bW_g-jEee4zYgCDjPyfA" name="HV__MOTI_DR_State_MO">
-        <ownedDecoratedSymbol xmi:id="_V4bW_w-jEee4zYgCDjPyfA" x="6.0" y="39.0" width="188.0" height="122.0" ratio_width="0.94" ratio_height="0.93846154" symbol="_V4bXEw-jEee4zYgCDjPyfA"/>
+        <ownedDecoratedSymbol xmi:id="_cvrdoZOwEee5BY-WNrkELg" y="34.0" width="200.0" height="130.0" ratio_width="1.0" ratio_height="1.0" symbol="_cvvIAJOwEee5BY-WNrkELg"/>
         <condition xmi:id="_V4bXAA-jEee4zYgCDjPyfA" value="3" attribute="_V4bXAQ-jEee4zYgCDjPyfA"/>
       </ownedAspect>
-      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_V4bXAQ-jEee4zYgCDjPyfA" id="SymbolHighlight" defaultValue="0" condition="_V4bW_Q-jEee4zYgCDjPyfA _V4bXAA-jEee4zYgCDjPyfA" qualifiedName="SCADAgenSymbolHighlight"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_V4bXAQ-jEee4zYgCDjPyfA" id="SymbolHighlight" defaultValue="0" condition="_V4bW_Q-jEee4zYgCDjPyfA _V4bXAA-jEee4zYgCDjPyfA" qualifiedName="SymbolHighlight"/>
       <ownedAttribute xsi:type="scsRepresentation:SourceObjectAttribute" xmi:id="_V4bXAg-jEee4zYgCDjPyfA" id="symbol2.value" defaultValue="0" condition="_V4bW9Q-jEee4zYgCDjPyfA _V4bW-A-jEee4zYgCDjPyfA _V4bW-w-jEee4zYgCDjPyfA" relativePath="symbol2.value"/>
     </aspectPackage>
     <symbolLibrary xmi:id="_V4bXAw-jEee4zYgCDjPyfA">
@@ -45,6 +45,7 @@
       <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_V4bXFQ-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_OC_2.svg" id="_SCADAgen_SYMBOLS_HV__BUTTON_OC_2_SVG" width="144.0" height="94.0"/>
       <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_aJRhEA-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_DR_1.svg" id="_SCADAGEN_SYMBOLS_HV__BUTTON_DR_1_SVG" width="144.0" height="94.0"/>
       <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_eJAtEA-jEee4zYgCDjPyfA" filePath="Symbols/HV_/Button_DR_2.svg" id="_SCADAGEN_SYMBOLS_HV__BUTTON_DR_2_SVG" width="144.0" height="94.0"/>
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_cvvIAJOwEee5BY-WNrkELg" filePath="Symbols/C1166B_SymbolHighlight130_3_MO.svg" id="_SCADAGEN_SYMBOLS_C1166B_SYMBOLHIGHLIGHT130_3_MO_SVG" width="200.0" height="130.0"/>
     </symbolLibrary>
   </scsRepresentation:GraphicalRepresentation>
   <scsRepresentation:CategoryPackage xmi:id="_V4bXFg-jEee4zYgCDjPyfA">

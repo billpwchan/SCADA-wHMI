@@ -29,16 +29,21 @@ export class ConfigService {
             max_title_length: 40,
             display_app_navigation: false,
             manual_refresh_enabled: true,
+            display_cutoff_time: true,
+            display_running_schedules: true,
             equipment_task_string_separator: ' - ',
             geocat_translation_prefix: 'Location_',
-            funcat_translation_prefix: 'System_'
+            funcat_translation_prefix: 'System_',
+            page_size: 5
         }),
         schedule_planning: Map({
             weekly_planning: {},
             periodic_planning_duration: 180,
             apply_plan_to_running_daygroup: false,
             display_app_navigation: false,
-            manual_refresh_enabled: true
+            manual_refresh_enabled: true,
+            display_cutoff_time: false,
+            display_running_schedules: true
         })
     });
     public config: any;

@@ -22,7 +22,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public activeItem;
     // properties for ngx-datatable
     public messages = {};
-    public sortingColumn = [];
+    public defaultSorts = [];
     public pageSize = 5;
     public pageOffset = 0;
 
@@ -202,7 +202,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             this.subRoute.unsubscribe();
         }
         this.subRoute = this.route.queryParams.subscribe(params => {
-            this.cleanupScheduleSubscriptions();
+            //this.cleanupScheduleSubscriptions();
             const p = params['periodic'];
             if (p === 'true') {
                 this.displayPeriodicSchedules = true;
@@ -222,59 +222,75 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             const runtimeSort = params['sort'];
             console.log('{schedule-table}', '[loadData]', 'runtimeSort =', runtimeSort);
 
-            this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.displayPeriodicSchedules).subscribe(schedules => {
-                this.schedules = schedules;
-                if (schedules && schedules.length > 0) {
-                    console.log('{schedule-table}', '[loadData]', 'getSchedulesByPeriodic return schedule count=', schedules.length);
-                    // display first schedule as active and selected schedules
-                    this.activeItem = [this.schedules[0]];
-                    this.selectedSchedule = schedules[0];
+            if (!this.subSchedules) {
+                this.subSchedules = this.scheduleService.getSchedulesByPeriodic(this.displayPeriodicSchedules).subscribe(schedules => {
+                    console.log('{schedule-table}', '[loadData]', 'scheduleService return', schedules.length, 'schedules');
+                    this.schedules = schedules;
+                    if (schedules && schedules.length > 0) {
+                        // display first schedule as active and selected schedules
+                        this.activeItem = [this.schedules[0]];
+                        this.selectedSchedule = schedules[0];
 
-                    this.visibleUserDefinedCnt = 0;
-                    for (const s of schedules) {
-                        if (!s.titleReadOnly && s.visibility) {
-                            this.visibleUserDefinedCnt++;
+                        this.visibleUserDefinedCnt = 0;
+                        for (const s of schedules) {
+                            if (!s.titleReadOnly && s.visibility) {
+                                this.visibleUserDefinedCnt++;
+                            }
                         }
+                        this.oneshotStarted = this.scheduleService.isOneshotScheduleStarted();
+                        this.updateAddDeleteRenameScheduleButton();
+                        this.cancelRenameSchedule();
+                    } else {
+                        console.log('{schedule-table}', '[loadData]', 'getSchedulesByPeriodic return 0 schedule');
                     }
-                    this.oneshotStarted = this.scheduleService.isOneshotScheduleStarted();
-                    this.updateAddDeleteRenameScheduleButton();
-                    this.cancelRenameSchedule();
-                } else {
-                    console.log('{schedule-table}', '[loadData]', 'getSchedulesByPeriodic return 0 schedule');
-                }
-            })
+                })
+            } else {
+                this.scheduleService.updateSchedulesByPeriodic(this.displayPeriodicSchedules);
+            }
 
-            console.log('{schedule-table}', '[loadData]', 'schedules', this.schedules);
-            this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
+            if (!this.subScheduleItems) {
+                this.subScheduleItems = this.scheduleService.getScheduleItemsByPeriodic(this.displayPeriodicSchedules).subscribe(scheduleItems => {
+                    console.log('{schedule-table}', '[loadData]', 'scheduleService return', scheduleItems.length, 'scheduleItems');
+                    this.clearSelectedRow();
+                    this.clearSchItemFilters();
 
-                this.clearSelectedRow();
-                this.clearSchItemFilters();
+                    this.setDefaultSort(runtimeSort);
 
-                this.setDefaultSort(runtimeSort);
+                    this.addOfflineFilters();
 
-                this.addOfflineFilters();
+                    this.addRuntimeFilters(runtimeFilters);
 
-                this.addRuntimeFilters(runtimeFilters);
+                    this.cachedSchItems = this.filterSchItems(scheduleItems);
 
-                this.cachedSchItems = this.filterSchItems(scheduleItems);
-
-                if (this.selectedSchedule) {
-                    const schItems = new Array<ScheduleItem>();
-                    // filter selected Schedule
-                    for (const schItem of this.cachedSchItems) {
-                        if (schItem.scheduleId === this.selectedSchedule.id) {
-                            schItems.push(schItem);
+                    if (this.selectedSchedule) {
+                        const schItems = new Array<ScheduleItem>();
+                        // filter selected Schedule
+                        for (const schItem of this.cachedSchItems) {
+                            if (schItem.scheduleId === this.selectedSchedule.id) {
+                                schItems.push(schItem);
+                            }
                         }
+                        this.scheduleItems = [...schItems];
+                    } else {
+                        this.scheduleItems = [...this.cachedSchItems];
                     }
-                    this.scheduleItems = [...schItems];
-                } else {
-                    this.scheduleItems = [...this.cachedSchItems];
-                }
-                this.sortEvent = null;
-                this.tempSchItems = [...this.scheduleItems];
-                this.getScheduleContentPage();
-            });
-            console.log('{schedule-table}', '[loadData]', 'scheduleItems', this.scheduleItems);
+
+                    this.dataTable.offset = 0;
+                    this.pageOffset = 0;
+
+                    if (this.sortEvent) {
+                        const sorted = sortRows(this.scheduleItems, this.sortColumns, this.sortEvent);
+
+                        this.tempSchItems = [...sorted];
+                    } else {
+                        this.tempSchItems = this.scheduleItems;
+                    }
+
+                    this.getScheduleContentPage();
+                });
+            } else {
+                this.scheduleService.updateScheduleItemsByPeriodic(this.displayPeriodicSchedules);
+            }
 
             this.getRunningSchedules();
         })
@@ -282,17 +298,17 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 
     }
-    private cleanupScheduleSubscriptions() {
-        if (this.subSchedules) {
-            this.subSchedules.unsubscribe();
-        }
-        if (this.subScheduleItems) {
-            this.subScheduleItems.unsubscribe();
-        }
-        if (this.subGetRunningSchedules) {
-            this.subGetRunningSchedules.unsubscribe();
-        }
-    }
+    // private cleanupScheduleSubscriptions() {
+    //     if (this.subSchedules) {
+    //         this.subSchedules.unsubscribe();
+    //     }
+    //     if (this.subScheduleItems) {
+    //         this.subScheduleItems.unsubscribe();
+    //     }
+    //     if (this.subGetRunningSchedules) {
+    //         this.subGetRunningSchedules.unsubscribe();
+    //     }
+    // }
     // ng2-select callback
     private get disabledV(): string {
         return this._disabledV;
@@ -380,7 +396,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     // ngx-datatable callback
     public onPage(event: any) {
         console.log('{schedule-table}', '[ngx-datatable onPage]', 'Page Event', event);
-        if (event && event.offset) {
+        if (event) {
             this.pageSize = event.pageSize;
             this.pageOffset = event.offset;
 
@@ -502,29 +518,41 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     private setDefaultSort(runtimeSort) {
         console.log('{schedule-table}', '[setDefaultSort]');
-        this.sortingColumn = [];
-        if (runtimeSort) {
-            console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort', runtimeSort);
-            const obj = JSON.parse(runtimeSort);
-            if (Array.isArray(obj)) {
-                this.sortingColumn = obj;
-            } else {
-                this.sortingColumn = [obj];
-            }
-            console.log('{schedule-table}', '[setDefaultSort]', 'sortingColumn', this.sortingColumn);
-        } else if (this.offlineSort) {
-            console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort is null. offlineSort', this.offlineSort);
+        if (!this.defaultSorts || this.defaultSorts.length === 0) {
+            if (runtimeSort) {
+                console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort', runtimeSort);
+                const obj = JSON.parse(runtimeSort);
+                if (Array.isArray(obj)) {
+                    this.defaultSorts = obj;
+                    this.sortEvent = obj;
+                } else {
+                    this.defaultSorts = [obj];
+                    this.sortEvent = [obj];
+                }
+                console.log('{schedule-table}', '[setDefaultSort]', 'defaultSorts', this.defaultSorts);
+            } else if (this.offlineSort.get('prop') && this.offlineSort.get('dir')) {
+                console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort is null. offlineSort', this.offlineSort);
 
-            if (this.offlineSort.get('prop') && this.offlineSort.get('dir')) {
                 const obj = new Object();
                 obj['prop'] = this.offlineSort.get('prop');
                 obj['dir'] = this.offlineSort.get('dir');
-                this.sortingColumn = [obj];
-            }
+                this.defaultSorts = [obj];
+                this.sortEvent = [obj];
 
-            console.log('{schedule-table}', '[setDefaultSort]', 'sortingColumn', this.sortingColumn);
+                console.log('{schedule-table}', '[setDefaultSort]', 'defaultSorts', this.defaultSorts);
+            } else {
+                console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort and offlineSort are not set. No default sort is applied');
+                console.log('{schedule-table}', '[setDefaultSort]', 'this.dataTable.sorts', this.dataTable.sorts);
+                console.log('{schedule-table}', '[setDefaultSort]', 'this.sortEvent', this.sortEvent);
+            }
         } else {
-            console.log('{schedule-table}', '[setDefaultSort]', 'runtimeSort and offlineSort are null. No default sort is applied');
+            console.log('{schedule-table}', '[setDefaultSort]', 'defaultSorts already set.', this.defaultSorts[0]);
+            if (this.dataTable.sorts && this.dataTable.sorts.length > 0) {
+                console.log('{schedule-table}', '[setDefaultSort]', 'this.dataTable.sorts', this.dataTable.sorts[0]);
+                this.sortEvent = this.dataTable.sorts;
+            } else {
+                this.sortEvent = this.defaultSorts;
+            }
         }
     }
     private clearSelectedRow() {
@@ -555,8 +583,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.newSchedule) {
             const subAddSch = this.scheduleService.addSchedule(this.newSchedule.id).subscribe(
                 res => {
-                    // clear sorting
-                    this.sortEvent = null;
                     // set new schedule as selected schedule
                     this.activeItem = [this.newSchedule];
                     // send selected event to data table to update schedule items
@@ -582,8 +608,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         if (this.selectedSchedule.periodic && !this.selectedSchedule.titleReadOnly) {
             const subDelSch = this.scheduleService.deleteSchedule(this.selectedSchedule.id).subscribe(
                 res => {
-                    // clear sorting
-                    this.sortEvent = null;
                     if (this.schedules[0]) {
                         // set first schedule as selected schedule
                         this.activeItem = [this.schedules[0]];
@@ -894,34 +918,38 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public getRunningSchedules() {
         console.log('{schedule-table}', '[getRunningSchedules]');
-        this.subGetRunningSchedules = this.scheduleService.getRunningSchedules().subscribe(
-            schedules => {
-                console.log('{schedule-table}', '[getRunningSchedules] return', schedules);
-                if (schedules) {
-                    this.runningSchedules = schedules;
-                    if (schedules.length > 0) {
-                        let cnt = 0;
-                        for (const s of schedules) {
-                            if (cnt > 0) {
-                                this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
-                            } else {
-                                this.runningSchedulesStr = s.text;
+        if (!this.subGetRunningSchedules) {
+            this.subGetRunningSchedules = this.scheduleService.getRunningSchedules().subscribe(
+                schedules => {
+                    console.log('{schedule-table}', '[getRunningSchedules] return', schedules);
+                    if (schedules) {
+                        this.runningSchedules = schedules;
+                        if (schedules.length > 0) {
+                            let cnt = 0;
+                            for (const s of schedules) {
+                                if (cnt > 0) {
+                                    this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
+                                } else {
+                                    this.runningSchedulesStr = s.text;
+                                }
+                                cnt++;
+                                console.log('{schedule-table}', '[getRunningSchedules] runningSchedulesStr', this.runningSchedulesStr);
                             }
-                            cnt++;
-                            console.log('{schedule-table}', '[getRunningSchedules] runningSchedulesStr', this.runningSchedulesStr);
-                        }
-                    } else {
-                        const str = 'No schedule is running';
-                        const translatedStr = this.translate.instant(str);
-                        if (translatedStr) {
-                            this.runningSchedulesStr = translatedStr;
                         } else {
-                            this.runningSchedulesStr = str;
+                            const str = 'No schedule is running';
+                            const translatedStr = this.translate.instant(str);
+                            if (translatedStr) {
+                                this.runningSchedulesStr = translatedStr;
+                            } else {
+                                this.runningSchedulesStr = str;
+                            }
                         }
                     }
                 }
-            }
-        )
+            )
+        } else {
+            this.scheduleService.updateRunningSchedules();
+        }
     }
 
     public onRefresh() {

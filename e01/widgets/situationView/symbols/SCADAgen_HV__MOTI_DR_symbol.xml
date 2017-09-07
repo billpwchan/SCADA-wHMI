@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
-  <entitySymbol animationId="SCADAgen_HV__MOTI_DR_animation" cssBaseClass="mwt-sv-cfg-entity" id="SCADAgen_HV__MOTI_DR" graphicId="SCADAgen_HV__MOTI_DR_graphic" zoomStrategyId="ID" width="0" height="0"></entitySymbol>
+  <entitySymbol animationId="SCADAgen_HV__MOTI_DR_animation" cssBaseClass="mwt-sv-cfg-entity" id="SCADAgen_HV__MOTI_DR" graphicId="SCADAgen_HV__MOTI_DR_graphic" zoomStrategyId="ID" width="200" height="130"></entitySymbol>
 </symbolConfiguration>

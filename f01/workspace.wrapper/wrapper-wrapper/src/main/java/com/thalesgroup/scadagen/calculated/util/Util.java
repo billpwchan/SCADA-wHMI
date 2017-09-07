@@ -24,6 +24,8 @@ public class Util {
 	
 	private final Logger logger = LoggerFactory.getLogger(Util.class.getName());
 	
+	private final String STR_DOT = ".";
+	
 	private String prefix = "";
 	public void setPrefix(String prefix) { this.prefix = prefix; }
 
@@ -102,12 +104,16 @@ public class Util {
 	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
 	    return ret;
 	}
+	
+	public String getConfigAttribute(String attributeName) {
+		return STR_DOT+attributeName;
+	}
 
-	public String getConfitPrefix(Map<String, String> mappings, String m_name, String perConfigName) {
-		final String function = "getConfitPrefix";
+	public String getConfigPrefix(Map<String, String> mappings, String attributeName) {
+		final String function = "getConfigPrefix";
     	String configPrefix = "";
-    	if ( null != perConfigName ) {
-    		String keyToFind = configPrefix+"."+perConfigName;
+    	if ( null != attributeName ) {
+    		String keyToFind = configPrefix+getConfigAttribute(attributeName);
     		for ( String key : mappings.keySet() ) {
     			if ( key.startsWith(keyToFind)) {
     				configPrefix = keyToFind;

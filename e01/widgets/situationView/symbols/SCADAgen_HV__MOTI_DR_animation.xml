@@ -26,7 +26,7 @@
       <sourceType>INT</sourceType>
       <svgRefAnimation defaultValue="HV__MOTI_DR_State_Empty" nodeId="inhibsynthesis.value_node">
         <rangeBinding>
-          <range from="1" to="2147483647" value="Decor_MO_40x40_-40.000000_-0.000000"></range>
+          <range from="1" to="2147483647" value="Decor_MO_40x40_60.000000_-65.000000"></range>
         </rangeBinding>
       </svgRefAnimation>
     </animationRule>

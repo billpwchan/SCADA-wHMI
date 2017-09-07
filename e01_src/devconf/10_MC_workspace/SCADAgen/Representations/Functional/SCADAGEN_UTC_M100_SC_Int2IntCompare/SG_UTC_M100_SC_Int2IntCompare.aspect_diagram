@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_iFhMpZN-EeeBsejFH_1odg" type="Aspect" name="default.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_RtrmEJN_EeeBsejFH_1odg" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_RtsNIJN_EeeBsejFH_1odg" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_RtsNIZN_EeeBsejFH_1odg" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_os63EJOBEeeBsejFH_1odg" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_ostbsJOBEeeBsejFH_1odg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_os63EZOBEeeBsejFH_1odg" x="61" y="-4" width="76" height="208"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_RtsNIpN_EeeBsejFH_1odg" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_Rts0MJN_EeeBsejFH_1odg" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_Rts0MZN_EeeBsejFH_1odg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_Rts0MpN_EeeBsejFH_1odg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_Rts0M5N_EeeBsejFH_1odg"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_WWtmsJN_EeeBsejFH_1odg" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_WWuNwJN_EeeBsejFH_1odg" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WWuNwZN_EeeBsejFH_1odg" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_WWrxgJN_EeeBsejFH_1odg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WWtmsZN_EeeBsejFH_1odg" x="84" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_RtmtkJN_EeeBsejFH_1odg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RtrmEZN_EeeBsejFH_1odg" x="246" y="136"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_T_lXQJN_EeeBsejFH_1odg" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_T_l-UJN_EeeBsejFH_1odg" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_T_mlYJN_EeeBsejFH_1odg" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_u4ir0JOBEeeBsejFH_1odg" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_u4awAJOBEeeBsejFH_1odg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_u4ir0ZOBEeeBsejFH_1odg" x="61" y="-4"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_T_mlYZN_EeeBsejFH_1odg" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_T_mlYpN_EeeBsejFH_1odg" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_T_mlY5N_EeeBsejFH_1odg" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_T_mlZJN_EeeBsejFH_1odg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_T_mlZZN_EeeBsejFH_1odg"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_WjsSwJN_EeeBsejFH_1odg" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Wjs50JN_EeeBsejFH_1odg" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Wjtg4JN_EeeBsejFH_1odg" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_WjrEoJN_EeeBsejFH_1odg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WjsSwZN_EeeBsejFH_1odg" x="85" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_T_kJIJN_EeeBsejFH_1odg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_T_lXQZN_EeeBsejFH_1odg" x="557" y="136"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_doB4MJN_EeeBsejFH_1odg" type="2002" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_doDGUJN_EeeBsejFH_1odg" type="5003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_doDGUZN_EeeBsejFH_1odg" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:CalculatedAttribute" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_doAqEJN_EeeBsejFH_1odg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_doB4MZN_EeeBsejFH_1odg" x="480" y="558"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_iFhzsJN-EeeBsejFH_1odg"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="SCADAGEN_UTC_M100_SC_Int2IntCompare.scsrepresentation#_iFhMoZN-EeeBsejFH_1odg"/>
+  <edges xmi:type="notation:Connector" xmi:id="_gh_H4JN_EeeBsejFH_1odg" type="4001" source="_WWtmsJN_EeeBsejFH_1odg" target="_doB4MJN_EeeBsejFH_1odg">
+    <styles xmi:type="notation:FontStyle" xmi:id="_gh_H4ZN_EeeBsejFH_1odg" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gh_H4pN_EeeBsejFH_1odg" points="[20, 12, -148, -109]$[173, 83, 5, -38]"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_g_Su8JN_EeeBsejFH_1odg" type="4001" source="_WjsSwJN_EeeBsejFH_1odg" target="_doB4MJN_EeeBsejFH_1odg">
+    <styles xmi:type="notation:FontStyle" xmi:id="_g_Su8ZN_EeeBsejFH_1odg" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_g_Su8pN_EeeBsejFH_1odg" points="[-20, 15, 124, -106]$[-153, 83, -9, -38]"/>
+  </edges>
+</notation:Diagram>

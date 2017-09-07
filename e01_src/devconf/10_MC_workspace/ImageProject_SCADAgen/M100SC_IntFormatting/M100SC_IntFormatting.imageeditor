@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imageeditor:GraphicalViewer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" name="M100SC_IntFormatting" kind="Functional" businessId="SCADAgen">
+  <canvas viewBoxWidth="1939" viewBoxHeight="1551" mode="SVG" name="SVG" maxExtent_right="1939.0" maxExtent_top="1551.0">
+    <ownedItem name="M100CONN_ENRM000001TPSMOTI0001" height="50" width="50" x="990" y="514" scale="0.35460994" uri="M100CONN_ENRM000001TPSMOTI0001" referenceId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" representationId="__JPP8JN9EeeBsejFH_1odg"/>
+  </canvas>
+  <preferences/>
+</imageeditor:GraphicalViewer>

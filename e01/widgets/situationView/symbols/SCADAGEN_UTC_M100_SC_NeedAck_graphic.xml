@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAGEN_UTC_M100_SC_NeedAck_graphic">
+    <root>
+      <svgGroup id="SCADAGEN_UTC_M100_SC_NeedAck_NeedAck_Negative_NeedAck_Zero_NeedAck_Positive">
+        <svgRef brickId="NeedAck_Positive" id="NeedAck_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

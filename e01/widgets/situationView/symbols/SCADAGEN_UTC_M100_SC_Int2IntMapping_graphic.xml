@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAGEN_UTC_M100_SC_Int2IntMapping_graphic">
+    <root>
+      <svgGroup id="SCADAGEN_UTC_M100_SC_Int2IntMapping_Int2IntMapping_0_Int2IntMapping_1_Int2IntMapping_2_Int2IntMapping_3">
+        <svgRef brickId="Int2IntMapping_3" id="Int2IntMapping_node"></svgRef>
+      </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

@@ -3,9 +3,9 @@
   <children xmi:type="notation:Shape" xmi:id="_NPibEUJ6EeaI-7AH0La_uw" type="2001" fontName="Segoe UI">
     <children xmi:type="notation:DecorationNode" xmi:id="_NPibEkJ6EeaI-7AH0La_uw" type="5002"/>
     <children xmi:type="notation:DecorationNode" xmi:id="_NPibE0J6EeaI-7AH0La_uw" type="7001">
-      <children xmi:type="notation:Shape" xmi:id="_aoJq4EKOEea4O59qXznH3Q" type="3001" fontName="Segoe UI">
-        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAgen_ECT_TES__ActiveBackdrop.scsrepresentation#_an3-EEKOEea4O59qXznH3Q"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aoJq4UKOEea4O59qXznH3Q" x="50" y="50" width="100" height="100"/>
+      <children xmi:type="notation:Shape" xmi:id="_tZyHwJSSEeeOu9C0OEB-MQ" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAgen_ECT_TES__ActiveBackdrop.scsrepresentation#_tZga8JSSEeeOu9C0OEB-MQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tZyHwZSSEeeOu9C0OEB-MQ" x="49" y="49"/>
       </children>
       <styles xmi:type="notation:TitleStyle" xmi:id="_NPibFkJ6EeaI-7AH0La_uw" showTitle="true"/>
     </children>

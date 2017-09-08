@@ -2,11 +2,6 @@
 <animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
   <animationRules id="SCADAgen_ECT_TES__ActiveBackdrop_animation">
     <animationRule>
-      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="IntMapping" name="IntMapping"></source>
-      <sourceType>STRING</sourceType>
-      <fillColorAnimation defaultValue="#999999"></fillColorAnimation>
-    </animationRule>
-    <animationRule>
       <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="validity"></source>
       <sourceType>INT</sourceType>
       <strokeColorAnimation defaultValue="black"></strokeColorAnimation>
@@ -16,6 +11,10 @@
         </enumerationBinding>
       </strokeWidthAnimation>
     </animationRule>
-
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="IntMapping" name="IntMapping"></source>
+      <sourceType>STRING</sourceType>
+      <fillColorAnimation defaultValue="#999999"></fillColorAnimation>
+    </animationRule>
   </animationRules>
 </animationConfiguration>

@@ -28,17 +28,17 @@ public class Int2IntCompare extends SCSStatusComputer implements SGSymbol_i {
 	private final String STR_OPERATOR					= "operator";
 	private final String STR_VALUE						= "value";								
 	
-	// Equality
-	private final String STR_EQUAL_TO 					= "EQUAL_TO";
+	// Equality Operator
+	private final String STR_EQUAL_TO 					= "==";
 	
-	// Relational
-	private final String STR_NOT_EQUAL_TO				= "NOT_EQUAL_TO";
-	private final String STR_GREATER					= "GREATER_THAN";
-	private final String STR_GREATER_THAN_OR_EQUAL_TO	= "GREATER_THAN_OR_EQUAL_TO";
-	private final String STR_LESS_THAN					= "LESS_THAN";
-	private final String STR_LESS_THAN_OR_EQUAL_TO		= "LESS_THAN_OR_EQUAL_TO";
+	// Relational Operator
+	private final String STR_NOT_EQUAL_TO				= "!=";
+	private final String STR_GREATER					= ">";
+	private final String STR_GREATER_THAN_OR_EQUAL_TO	= ">=";
+	private final String STR_LESS_THAN					= "<";
+	private final String STR_LESS_THAN_OR_EQUAL_TO		= "<=";
 	
-	// Conditional
+	// Conditional Operator
 	//private final String strAnd					= "AND";
 	//private final String strOr					= "OR";
 	

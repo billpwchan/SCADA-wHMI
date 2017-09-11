@@ -1,5 +1,5 @@
 // Animator Version: ANIMATOR 2015 5.3.1
-// File generated: 8/09/2017 16:22:08 PM
+// File generated: 11/09/2017 17:03:36 PM
 // Model: Tag/SCADAgen_ECT_TAG_Chatter
 
 Version = "50301"
@@ -8,60 +8,65 @@ Symbol
 {
   PrimitiveSet
   {
+    Rectangle {
+      Size = ((-20, -20), 40, 40)
+      Filled = True
+      Palette = { "SCADAgen_background","foreground","default","solid","solid",1,-1,-1,-1 }
+    }
     Line {
       Point = (15, 8)
       Point = (15, -7)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (15, -7)
       Point = (20, -7)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (7, 8)
       Point = (15, 8)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (7, -7)
       Point = (7, 8)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (-6, -7)
       Point = (7, -7)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (-6, -7)
       Point = (-6, 8)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (-13, 8)
       Point = (-6, 8)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (-20, -7)
       Point = (-13, -7)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (-13, -7)
       Point = (-13, 8)
-      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","SCADAgen_foreground","default","solid","solid",2 }
     }
     Line {
       Point = (-20, -20)
       Point = (20, 20)
-      Palette = { "SCADAgen_background","alarm","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","alarm","default","solid","solid",2 }
     }
     Line {
       Point = (20, -20)
       Point = (-20, 20)
-      Palette = { "SCADAgen_background","alarm","default","solid","solid",1 }
+      Palette = { "SCADAgen_background","alarm","default","solid","solid",2 }
     }
   }
   Property "AnV8SelectionProperty" { AnV8SelectionProperty 0"" }

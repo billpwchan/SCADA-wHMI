@@ -37,17 +37,17 @@ public class UIWidgetMgr implements UIWidgetMgrFactory {
 		
 		UIWidget_i uiWidget = null;
 		
-		for ( String xmlName : uiWidgetMgrFactorys.keySet() ) {
+		for ( String factoryName : uiWidgetMgrFactorys.keySet() ) {
 			
-			UIWidgetMgrFactory uiWidgetMgrFactory = uiWidgetMgrFactorys.get(xmlName);
+			logger.debug(className, function, "factoryName[{}]", factoryName);
 			
-			if ( null != uiWidgetMgrFactory ) {
+			UIWidgetMgrFactory factory = uiWidgetMgrFactorys.get(factoryName);
 			
-				logger.debug(className, function, "uiCtrl[{}]", uiCtrl);
-				logger.debug(className, function, "uiView[{}]", uiView);
-				logger.debug(className, function, "uiOpts[{}]", uiOpts);
+			if ( null != factory ) {
 			
-				uiWidget = uiWidgetMgrFactory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, element, uiDict, options);
+				logger.debug(className, function, "uiCtrl[{}] uiView[{}] uiOpts[{}]", new Object[]{uiCtrl, uiView, uiOpts});
+				
+				uiWidget = factory.getUIWidget(uiCtrl, uiView, uiNameCard, uiOpts, element, uiDict, options);
 				
 				if ( null != uiWidget ) break;
 			

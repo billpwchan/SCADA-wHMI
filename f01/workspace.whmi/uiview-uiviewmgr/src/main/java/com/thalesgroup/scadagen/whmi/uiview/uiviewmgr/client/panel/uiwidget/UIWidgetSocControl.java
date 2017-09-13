@@ -8,6 +8,7 @@ import java.util.List;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.SimpleEventBus;
+import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
@@ -27,6 +28,7 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIView_i.ViewAttri
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetDataGrid_i.DataGridEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocAutoManuControl_i.AutoManuEvent;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.CtlBrcStatus;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.MessageTranslationID;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocControl_i.ParameterName;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcExecStatus;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UIWidgetSocGrcPoint_i.GrcPointEvent;
@@ -108,6 +110,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String reserveAttributeType = null;
 	private String reservedValueStr = null;
 	private String unreservedValueStr = null;
+	
+	private String messageDatetimefmt = null;
 	
 	private String currentOperator =  UIOpmSCADAgen.getInstance().getCurrentOperator();
 	
@@ -197,7 +201,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 			
 			String os1	= (String) uiEventAction.getParameter(ViewAttribute.OperationString1.toString());
 			
-			logger.info(className, function, "os1["+os1+"]");
+			logger.info(className, function, "os1[{}]", os1);
 			
 			if ( null != os1 ) {
 				if ( os1.equals(AutoManuEvent.RadioBoxSelected.toString() ) ) {
@@ -321,8 +325,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 					// General Case
 					String oe	= (String) uiEventAction.getParameter(UIActionEventTargetAttribute.OperationElement.toString());
 					
-					logger.info(className, function, "oe ["+oe+"]");
-					logger.info(className, function, "os1["+os1+"]");
+					logger.info(className, function, "oe [{}]", oe);
+					logger.info(className, function, "os1[{}]", os1);
 					
 					if ( null != oe ) {
 						if ( oe.equals(element) ) {
@@ -384,6 +388,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 			reserveAttributeType	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeType.toString(), strHeader);
 			reservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReservedValueStr.toString(), strHeader);
 			unreservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.UnreservedValueStr.toString(), strHeader);
+			
+			messageDatetimefmt		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MessageDatetimeFormat.toString(), strHeader);
 		}
 
 		logger.info(className, function, "targetDataGridA[{}]", targetDataGridA);
@@ -407,6 +413,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "reserveAttributeType[{}]", reserveAttributeType);
 		logger.info(className, function, "reservedValueStr[{}]", reservedValueStr);
 		logger.info(className, function, "unreservedValueStr[{}]", unreservedValueStr);
+		
+		logger.info(className, function, "messageDatetimefmt[{}]", messageDatetimefmt);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);
@@ -563,11 +571,12 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
 							logger.error(className, function, errorMsg);
-							
-							sendDisplayMessageEvent(errorMsg);
+							String msg = MessageTranslationID.E_grc_prepare_result_error.toString();
+							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
 					} else {
 						logger.info(className, function, "prepareGrc done. launchgrc");
+						sendDisplayMessageEvent("");
 						launchgrc();
 					}
 				}
@@ -610,8 +619,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
 							logger.error(className, function, errorMsg);
-							
-							sendDisplayMessageEvent(errorMsg);
+							String msg = MessageTranslationID.E_grc_launch_result_error.toString();
+							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
 					}
 				}
@@ -655,8 +664,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
 							logger.error(className, function, errorMsg);
-							
-							sendDisplayMessageEvent(errorMsg);
+							String msg = MessageTranslationID.E_grc_result_update_error.toString();
+							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
 					}
 				}
@@ -779,8 +788,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
 							logger.error(className, function, errorMsg);
-							
-							sendDisplayMessageEvent(errorMsg);
+							String msg = MessageTranslationID.E_grc_step_result_error.toString();
+							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
 					}
 				}
@@ -843,8 +852,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 						if (errorMsgObj != null) {
 							String errorMsg = errorMsgObj.stringValue();
 							logger.error(className, function, errorMsg);
-							
-							sendDisplayMessageEvent(errorMsg);
+							String msg = MessageTranslationID.E_grc_abort_update_error.toString();
+							sendDisplayMessageEvent(msg, new Object[]{errorMsg});
 						}
 					}
 				}
@@ -947,13 +956,17 @@ public class UIWidgetSocControl extends UIWidget_i {
 	}
 
 	private void sendDisplayMessageEvent(String msg) {
+		sendDisplayMessageEvent(msg, null);
+	}
+	private void sendDisplayMessageEvent(String msgWithPlaceHolder, Object[] msgParam) {
 		final String function = "sendDisplayMessageEvent";
 		UIEventAction displayMessageEvent = new UIEventAction();
 		if (displayMessageEvent != null) {
 			displayMessageEvent.setParameter(ViewAttribute.OperationString1.toString(), GrcPointEvent.DisplayMessage.toString());
 			displayMessageEvent.setParameter(ViewAttribute.OperationObject1.toString(), scsenvid);
 			displayMessageEvent.setParameter(ViewAttribute.OperationObject2.toString(), dbalias);
-			displayMessageEvent.setParameter(ViewAttribute.OperationObject3.toString(), msg);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject3.toString(), msgWithPlaceHolder);
+			displayMessageEvent.setParameter(ViewAttribute.OperationObject4.toString(), msgParam);
 			getEventBus().fireEvent(displayMessageEvent);
 			logger.debug(className, function, "fire UIEventAction displayMessageEvent");
 		}
@@ -1006,7 +1019,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 				if (errorCode != 0) {
 					logger.debug(className, function, "readResult errorCode=[{}]");
-					sendDisplayMessageEvent(errorMessage);
+					String msg = MessageTranslationID.E_rtdb_read_error.toString();
+					sendDisplayMessageEvent(msg);
 				} else {
 					if (values != null) {
 						String curStatusStr = values[0];
@@ -1077,7 +1091,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 
 				if (errorCode != 0) {
 					logger.debug(className, function, "readResult errorCode=[{}]");
-					sendDisplayMessageEvent(errorMessage);
+					String msg = MessageTranslationID.E_rtdb_read_error.toString();
+					sendDisplayMessageEvent(msg);
 				} else {
 					if (values != null) {					
 						logger.debug(className, function, "step Statuses=[{}]", values[0]);
@@ -1106,24 +1121,42 @@ public class UIWidgetSocControl extends UIWidget_i {
 						
 						// Send display message event
 						Date d = new Date();
-						String msg = d.toString() + ": SOC [" + grcName + "] ";
-
+						String msg = "";
+						if(!messageDatetimefmt.isEmpty())
+						{
+							DateTimeFormat fmt = DateTimeFormat.getFormat(messageDatetimefmt);
+							String formattedStr = "";
+							try
+							{
+								formattedStr += fmt.format(d);
+							}
+							catch(Exception e) {
+								logger.error(className, function, e.toString());
+								formattedStr += d;
+							}
+							msg += formattedStr;
+						}
+						else
+						{
+							msg += d.toString();
+						}
+						
 						if (failedSteps > 0) {
 							if (lastExecutedStep < numSteps-1) {
-								msg = msg + "incomplete with " + Integer.toString(failedSteps) + " failed step(s)";
+								msg = msg + MessageTranslationID.E_SOC_incompleted_failed_steps.toString();
 							} else {
-								msg = msg + "complete with " + Integer.toString(failedSteps) + " failed step(s)";
+								msg = msg + MessageTranslationID.E_SOC_completed_failed_steps.toString();
 							}
 						} else {
 							if (lastExecutedStep < numSteps-1) {
-								msg = msg + "incomplete without any failed step";
+								msg = msg + MessageTranslationID.E_SOC_incompleted_no_failed_steps.toString();
 							} else {
-								msg = msg + "complete without any failed step";
+								msg = msg + MessageTranslationID.E_SOC_completed_no_failed_steps.toString();
 							}
 						}
 
 						if (lastExecutedStep > 0) {
-							sendDisplayMessageEvent(msg);
+							sendDisplayMessageEvent(msg, new Object[]{grcName, failedSteps});
 						}
 
 						String actionsetkey = "GrcStatus_";
@@ -1267,7 +1300,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 				
 				if (hasFailed) {
 					// Found any equipment was already reserved
-					String errorMsg = "Reserve equipment failed. Unable to launch GRC.";
+					String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
 					sendDisplayMessageEvent(errorMsg);
 					
 					logger.warn(className, function, errorMsg);			
@@ -1315,7 +1348,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 								
 								if (hasFailed) {
 									// Unable to set one of the equipment's reservation
-									String errorMsg = "Reserve equipment failed. Unable to launch GRC.";
+									String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
 									sendDisplayMessageEvent(errorMsg);
 									
 									logger.warn(className, function, errorMsg);

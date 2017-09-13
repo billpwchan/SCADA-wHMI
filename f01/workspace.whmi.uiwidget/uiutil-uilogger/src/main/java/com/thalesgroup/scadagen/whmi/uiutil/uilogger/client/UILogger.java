@@ -204,8 +204,8 @@ public class UILogger {
 						buffer.append("null");
 					}
 				}
-				message = buffer.toString();
 			}
+			message = buffer.toString();
 		}
 		addLog(level, message);
 	}

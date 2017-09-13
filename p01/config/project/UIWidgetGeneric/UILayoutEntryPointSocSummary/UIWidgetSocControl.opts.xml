@@ -24,6 +24,8 @@
 		<ReserveAttributeType>Integer</ReserveAttributeType>
 		<ReservedValueStr>1</ReservedValueStr>
 		<UnreservedValueStr></UnreservedValueStr>
+
+		<MessageDatetimeFormat></MessageDatetimeFormat>
 	</header>
 	
 	<actionset key="init">

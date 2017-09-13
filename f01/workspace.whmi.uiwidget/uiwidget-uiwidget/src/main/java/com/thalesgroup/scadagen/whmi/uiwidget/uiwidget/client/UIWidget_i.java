@@ -232,6 +232,12 @@ public abstract class UIWidget_i implements UIWidgetConfigurable_i  {
 		return null;
 	}
 	
+	
+	@Override
+	public void setWidgetValue(String element, String value, Object[] msgParam) {
+		// TODO Auto-generated method stub
+	}
+
 	@Override
 	public void setWidgetValue(String element, String value) {
 		// TODO Auto-generated method stub

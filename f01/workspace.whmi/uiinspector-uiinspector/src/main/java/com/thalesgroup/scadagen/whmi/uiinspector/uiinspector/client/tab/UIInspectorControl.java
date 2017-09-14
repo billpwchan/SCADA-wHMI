@@ -1045,7 +1045,11 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		return rootPanel;
 	}
 	
-
+	private void untoggleButtonGroup (UIButtonToggle[] btnGroup ) {
+		for ( UIButtonToggle btn : btnGroup ) {
+			btn.setHightLight(false);
+		}
+	}
 	private void toggleButtonGroup ( UIButtonToggle btnSource, UIButtonToggle[] btnGroup ) {
 		boolean toggled = btnSource.isHightLight();
 		if ( !toggled ) {
@@ -1062,6 +1066,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		toggleButtonGroup((UIButtonToggle)btnSource, (UIButtonToggle[])btnGroup);
 	}
 	
+	private Map<String, Widget[]> getGroups() { return widgetGroups; }
 	private Widget[] getSelectedGroup(Widget btn) {
 		Widget[] targetGroups = null;
 		for ( String address : widgetGroups.keySet() ) {
@@ -1128,6 +1133,24 @@ public class UIInspectorControl implements UIInspectorTab_i {
 			Widget[] targetGroups = getSelectedGroup(btn);
 			if ( null != targetGroups ) {
 				toggleButtonGroup(btn, targetGroups);
+				
+				logger.debug(className, function, "Un-toggle Buttons");
+				Map<String, Widget[]> groups = getGroups();
+				if ( null != groups ) {
+					for ( Entry<String, Widget[]> keyValue : groups.entrySet() ) {
+						if ( null != keyValue ) {
+							String key = keyValue.getKey();
+							logger.debug(className, function, "Un-toggle Buttons group[{}]", key);
+							Widget[] value = keyValue.getValue();
+							if ( value != targetGroups ) {
+								untoggleButtonGroup((UIButtonToggle[])value);
+							}
+							else {
+								logger.warn(className, function, "Un-toggle Buttons group[{}] group IS NULL", key);
+							}
+						}
+					}
+				}
 			}
 			
 		} else if ( btn instanceof Button ) {

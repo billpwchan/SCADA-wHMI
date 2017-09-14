@@ -45,7 +45,7 @@ public class ScsOlsListPanel extends UIWidget_i {
     
     private String debugId = null;
     
-    private LinkedList<String> attributes = new LinkedList<String>();
+    private List<String> attributes = new LinkedList<String>();
     
     /**
      * Main panel wrapping this widget and passed to its {@link ResizeComposite}
@@ -81,7 +81,9 @@ public class ScsOlsListPanel extends UIWidget_i {
     	return contextMenu_;
     }
     
-    private String menuEnableCallImage = null;
+    private String menuCallImageEnable = null;
+    private String menuCallImageLabel = null;
+    private String menuCallImageGdgAttribute = null;
 
     /**
      * The configuration id of the datagrid
@@ -165,8 +167,8 @@ public class ScsOlsListPanel extends UIWidget_i {
      * Initialize and create all needed components
      */
     private void initComponents() {
-    	if ( null != menuEnableCallImage && menuEnableCallImage.equalsIgnoreCase(ParameterValue.True.toString())) {
-    		contextMenu_ = new ScsOlsListPanelMenu(eventBus);
+    	if ( null != menuCallImageEnable && menuCallImageEnable.equalsIgnoreCase(ParameterValue.True.toString())) {
+    		contextMenu_ = new ScsOlsListPanelMenu(menuCallImageLabel, menuCallImageGdgAttribute);
     	}
         initDataGridView();
         initMainPanel();
@@ -242,7 +244,11 @@ public class ScsOlsListPanel extends UIWidget_i {
 		DictionariesCache dictionariesCache = DictionariesCache.getInstance(strUIWidgetGeneric);
 		if ( null != dictionariesCache ) {
 			listConfigId_			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ListConfigId.toString(), strHeader);
-			menuEnableCallImage		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuEnableCallImage.toString(), strHeader);
+			
+			menuCallImageEnable			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuCallImageEnable.toString(), strHeader);
+			menuCallImageLabel			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuCallImageLabel.toString(), strHeader);
+			menuCallImageGdgAttribute	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MenuCallImageGdgAttribute.toString(), strHeader);
+			
 			selectionMode			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.SelectionMode.toString(), strHeader);
 			
 			debugId					= dictionariesCache.getStringValue(optsXMLFile, ParameterName.DebugId.toString(), strHeader);
@@ -251,7 +257,11 @@ public class ScsOlsListPanel extends UIWidget_i {
 			String mwtEventBusScope	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MwtEventBusScope.toString(), strHeader);
 			
 			LOGGER.debug(LOG_PREFIX + "init listConfigId_["+listConfigId_+"]");
-			LOGGER.debug(LOG_PREFIX + "init menuEnableCallImage["+menuEnableCallImage+"]");
+			
+			LOGGER.debug(LOG_PREFIX + "init menuCallImageLabel["+menuCallImageLabel+"]");
+			LOGGER.debug(LOG_PREFIX + "init menuCallImageEnable["+menuCallImageEnable+"]");
+			LOGGER.debug(LOG_PREFIX + "init menuCallImageGdgAttribute["+menuCallImageGdgAttribute+"]");
+			
 			LOGGER.debug(LOG_PREFIX + "init selectionMode["+selectionMode+"]");
 			
 			LOGGER.debug(LOG_PREFIX + "init debugId["+debugId+"]");
@@ -294,7 +304,11 @@ public class ScsOlsListPanel extends UIWidget_i {
             }
 			
 			setParameter(ParameterName.ListConfigId.toString(), listConfigId_);
-			setParameter(ParameterName.MenuEnableCallImage.toString(), menuEnableCallImage);
+			
+			setParameter(ParameterName.MenuCallImageEnable.toString(), menuCallImageEnable);
+			setParameter(ParameterName.MenuCallImageLabel.toString(), menuCallImageLabel);
+			setParameter(ParameterName.MenuCallImageGdgAttribute.toString(), menuCallImageGdgAttribute);
+			
 			setParameter(ParameterName.SelectionMode.toString(), selectionMode);
 			setParameter(ParameterName.EventBus.toString(), eventBus);
 		}

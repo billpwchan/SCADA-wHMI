@@ -24,7 +24,7 @@
 		<element>UIPanelScreen</element>-->
 		
 		<uiCtrl>UIPanelScreen</uiCtrl>
-		<uiView>UILayoutEntryPointSimultaneousLoginSummary/UILayoutEntryPointSimultaneousLoginSummary.view.xml</uiView>
+		<uiView>SimultaneousLogin/EntryPoint.view.xml</uiView>
 		<element>UIPanelScreen</element>
 		
 	</header>

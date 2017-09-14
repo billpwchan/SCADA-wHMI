@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<ListConfigId>scsalarmList</ListConfigId>
+		
+		<MenuCallImageEnable>true</MenuCallImageEnable>
+		<MenuCallImageLabel>alarmList_menu_call_image</MenuCallImageLabel>
+		<MenuCallImageGdgAttribute>sourceID</MenuCallImageGdgAttribute>
+		
+		<SelectionMode>Multiple</SelectionMode>
+		<DebugId>UILayoutAlarmSummaryViewerScsOlsListPanel</DebugId>
+		<PagerName>SCADAgenPager</PagerName>
+		<MwtEventBusName>scsalarmList</MwtEventBusName>
+		<MwtEventBusScope>Global</MwtEventBusScope>
+		
+		<OlsCssPrefix>OLS_LIST_</OlsCssPrefix>
+		<GDGAttributeString1>priority</GDGAttributeString1>
+		<GDGAttributeString2>state</GDGAttributeString2>
+		<GDGAttributeString3>GDGMessage03</GDGAttributeString3>
+		<GDGAttributeString4>GDGMessageCheckAccess</GDGAttributeString4>
+	</header>
+</data-set>

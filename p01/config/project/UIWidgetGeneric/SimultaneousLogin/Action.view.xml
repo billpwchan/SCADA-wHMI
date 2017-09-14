@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE xml>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header key="header">
+		<rows>2</rows>
+		<cols>1</cols>
+		<rootPanel>HorizontalPanel</rootPanel>
+		<rootCSS>project-gwt-panel-actionview-inner</rootCSS>
+	</header>
+	<option key="0|0">
+		<uiCtrl>UIWidgetSimultaneousLoginControl</uiCtrl>
+		<uiView>SimultaneousLogin/Control.view.xml</uiView>
+		<uiOpts>SimultaneousLogin/Control.opts.xml</uiOpts>
+		<element>UIWidgetSimultaneousLoginControl</element>
+		<csscontainer>project-gwt-panel-action-control</csscontainer>
+	</option>
+	<option key="0|1">
+		<uiCtrl>UIWidgetFilter</uiCtrl>
+		<uiView>SimultaneousLogin/Filter.view.xml</uiView>
+		<uiOpts>SimultaneousLogin/Filter.opts.xml</uiOpts>
+		<element>UIWidgetSimultaneousLoginFilter</element>
+		<csscontainer>project-gwt-panel-action-filter</csscontainer>
+	</option>
+</data-set>

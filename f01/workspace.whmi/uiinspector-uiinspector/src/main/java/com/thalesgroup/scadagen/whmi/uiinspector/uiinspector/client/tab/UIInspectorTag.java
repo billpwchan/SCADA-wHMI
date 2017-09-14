@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -22,14 +23,17 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.MessageBoxEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.UIButtonToggle;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTag_i.Attribute;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointType;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTabClickEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
@@ -48,6 +52,24 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorTag.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private int dioValueTableLength = 12;
+	
+	private int dioValueTableLabelColIndex = 4;
+	private int dioValueTableDovnameColIndex = 1;
+	private int dioValueTableValueColIndex = 1;
+	
+	private int aioValueTableLength = 12;
+	
+	private int aioValueTableLabelColIndex = 4;
+	private int aioValueTableDovnameColIndex = 1;
+	private int aioValueTableValueColIndex = 1;
+	
+	private int sioValueTableLength = 12;
+	
+	private int sioValueTableLabelColIndex = 4;
+	private int sioValueTableDovnameColIndex = 1;
+	private int sioValueTableValueColIndex = 1;
+	
 	// Static Attribute List
 	private final String aioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
 	private final String dioStaticAttibutes[]	= new String[] {PointName.label.toString(), PointName.valueTable.toString()};
@@ -58,7 +80,11 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	private String[] addresses	= null;
 	private Database database	= null;
 	
-	private final String INSPECTOR = "inspector";
+	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
+	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.tag.properties";
+	private static final String CONFIG_PREFIX = "inspectorpanel.tag.";
+	
+	private final String INSPECTOR = UIInspectorTag_i.INSPECTOR;
 	
 	private String tabName = null;
 	@Override
@@ -375,8 +401,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		
 		logger.debug(className, function, "address[{}] row[{}]", address, row);
 		
-		int dovnameCol = 0, labelCol = 1, valueCol = 2;
-
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 
@@ -392,19 +416,18 @@ public class UIInspectorTag implements UIInspectorTab_i {
 
 		if ( null !=  valueTable ) {
 			
-			int numOfRow = 12;
-			String points[] = new String[numOfRow];
-			String labels[] = new String[numOfRow];
-			String values[] = new String[numOfRow];
-			for( int r = 0 ; r < numOfRow ; ++r ) {
+			String points[] = new String[dioValueTableLength];
+			String labels[] = new String[dioValueTableLength];
+			String values[] = new String[dioValueTableLength];
+			for( int r = 0 ; r < dioValueTableLength ; ++r ) {
 					
-				points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableDovnameColIndex, r );
 				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 					
-				labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableLabelColIndex, r );
 				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 					
-				values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+				values[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableValueColIndex, r );
 				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 			}
 			
@@ -456,8 +479,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "address[{}] row[{}]", address, row);
-		
-		int dovnameCol = 0, labelCol = 1, valueCol = 2;
 
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
@@ -474,26 +495,25 @@ public class UIInspectorTag implements UIInspectorTab_i {
 
 		if ( null !=  valueTable ) {
 			
-			int numOfRow = 12;
-			String points[] = new String[numOfRow];
-			String labels[] = new String[numOfRow];
-			String values[] = new String[numOfRow];
-			for( int r = 0 ; r < numOfRow ; ++r ) {
+			String points[] = new String[aioValueTableLength];
+			String labels[] = new String[aioValueTableLength];
+			String values[] = new String[aioValueTableLength];
+			for( int r = 0 ; r < aioValueTableLength ; ++r ) {
 					
-				points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = DatabaseHelper.getArrayValues(valueTable, aioValueTableDovnameColIndex, r );
 				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 					
-				labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = DatabaseHelper.getArrayValues(valueTable, aioValueTableLabelColIndex, r );
 				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 					
-				values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+				values[r] = DatabaseHelper.getArrayValues(valueTable, aioValueTableValueColIndex, r );
 				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 			}
 			
 //			LinkedList<String> initCondGLList = new LinkedList<String>();
 			
 			// Loop Control Point
-			LinkedList<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
+			List<UIButtonToggle> btnOptions = new LinkedList<UIButtonToggle>();
 			for ( int i = 0 ; i < points.length ; ++i ) {
 				
 				if ( labels[i].length() == 0  ) break;
@@ -541,8 +561,6 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		
 		logger.debug(className, function, "address[{}] row[{}]", address, row);
 		
-		int dovnameCol = 0, labelCol = 1, valueCol = 2;
-
 		inlineLabels[row] = new InlineLabel();
 		inlineLabels[row].addStyleName("project-gwt-label-inspector-"+tabName+"-control");
 
@@ -558,19 +576,18 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		
 		if ( null !=  valueTable ) {
 			
-			int numOfRow = 12;
-			String points[] = new String[numOfRow];
-			String labels[] = new String[numOfRow];
-			String values[] = new String[numOfRow];
-			for( int r = 0 ; r < numOfRow ; ++r ) {
+			String points[] = new String[sioValueTableLength];
+			String labels[] = new String[sioValueTableLength];
+			String values[] = new String[sioValueTableLength];
+			for( int r = 0 ; r < sioValueTableLength ; ++r ) {
 					
-				points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+				points[r] = DatabaseHelper.getArrayValues(valueTable, sioValueTableDovnameColIndex, r );
 				points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 					
-				labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+				labels[r] = DatabaseHelper.getArrayValues(valueTable, sioValueTableLabelColIndex, r );
 				labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 					
-				values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+				values[r] = DatabaseHelper.getArrayValues(valueTable, sioValueTableValueColIndex, r );
 				values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 			}
 			
@@ -672,7 +689,9 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	public void connect() {
 		final String function = "connect";
 		logger.begin(className, function);
-			
+		
+		readProperties();
+		
 		String[] dbaddresses = null;
 		
 		logger.debug(className, function, "this.addresses.length[{}]", this.addresses.length);
@@ -789,9 +808,7 @@ public class UIInspectorTag implements UIInspectorTab_i {
 		final String function = "createDioInitConds";
 		logger.begin(className, function);
 		
-		int dovnameCol = 0, labelCol = 1, valueCol = 2;
-		
-		LinkedList<String> initCondGLList = new LinkedList<String>();
+		List<String> initCondGLList = new LinkedList<String>();
 		for ( int x = 0 ; x < this.addresses.length ; ++x ) {
 			String address = this.addresses[x];
 
@@ -799,20 +816,19 @@ public class UIInspectorTag implements UIInspectorTab_i {
 			logger.debug(className, function, "valueTable[{}]", valueTable);
 			
 			if ( null !=  valueTable ) {
-				int numOfRow = 12;
 
-				String points[] = new String[numOfRow];
-				String labels[] = new String[numOfRow];
-				String values[] = new String[numOfRow];
-				for( int r = 0 ; r < numOfRow ; ++r ) {
+				String points[] = new String[dioValueTableLength];
+				String labels[] = new String[dioValueTableLength];
+				String values[] = new String[dioValueTableLength];
+				for( int r = 0 ; r < dioValueTableLength ; ++r ) {
 						
-					points[r] = DatabaseHelper.getArrayValues(valueTable, dovnameCol, r );
+					points[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableDovnameColIndex, r );
 					points[r] = DatabaseHelper.removeDBStringWrapper(points[r]);
 						
-					labels[r] = DatabaseHelper.getArrayValues(valueTable, labelCol, r );
+					labels[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableLabelColIndex, r );
 					labels[r] = DatabaseHelper.removeDBStringWrapper(labels[r]);
 						
-					values[r] = DatabaseHelper.getArrayValues(valueTable, valueCol, r );
+					values[r] = DatabaseHelper.getArrayValues(valueTable, dioValueTableValueColIndex, r );
 					values[r] = DatabaseHelper.removeDBStringWrapper(values[r]);					
 				}
 				
@@ -1291,5 +1307,60 @@ public class UIInspectorTag implements UIInspectorTab_i {
 	@Override
 	public void setDatabase(Database db) {
 		database = db;
+	}
+	
+	private void readProperties() {
+		final String function = "readProperties";
+		logger.begin(className, function);
+		
+		dioValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dioValueTableLength.toString(), 12);
+		
+		dioValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dioValueTableLabelColIndex.toString(), 1);
+		dioValueTableDovnameColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dioValueTableDovnameColIndex.toString(), 1);
+		dioValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.dioValueTableValueColIndex.toString(), 4);
+		
+		logger.debug(className, function, "dioValueTableLength[{}]", dioValueTableLength);
+		
+		logger.debug(className, function, "dioValueTableLabelColIndex[{}]", dioValueTableLabelColIndex);
+		logger.debug(className, function, "dioValueTableDovnameColIndex[{}]", dioValueTableDovnameColIndex);
+		logger.debug(className, function, "dioValueTableValueColIndex[{}]", dioValueTableValueColIndex);
+		
+		aioValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.aioValueTableLength.toString(), 12);
+		
+		aioValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.aioValueTableLabelColIndex.toString(), 1);
+		aioValueTableDovnameColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.aioValueTableDovnameColIndex.toString(), 1);
+		aioValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.aioValueTableValueColIndex.toString(), 4);
+		
+		logger.debug(className, function, "aioValueTableLength[{}]", aioValueTableLength);
+		
+		logger.debug(className, function, "aioValueTableLabelColIndex[{}]", aioValueTableLabelColIndex);
+		logger.debug(className, function, "aioValueTableDovnameColIndex[{}]", aioValueTableDovnameColIndex);
+		logger.debug(className, function, "aioValueTableValueColIndex[{}]", aioValueTableValueColIndex);
+
+		sioValueTableLength = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.sioValueTableLength.toString(), 12);
+		
+		sioValueTableLabelColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.sioValueTableLabelColIndex.toString(), 1);
+		sioValueTableDovnameColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.sioValueTableDovnameColIndex.toString(), 1);
+		sioValueTableValueColIndex = ReadProp.readInt(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME
+				, CONFIG_PREFIX+Attribute.sioValueTableValueColIndex.toString(), 4);
+		
+		logger.debug(className, function, "sioValueTableLength[{}]", sioValueTableLength);
+		
+		logger.debug(className, function, "sioValueTableLabelColIndex[{}]", sioValueTableLabelColIndex);
+		logger.debug(className, function, "sioValueTableDovnameColIndex[{}]", sioValueTableDovnameColIndex);
+		logger.debug(className, function, "sioValueTableValueColIndex[{}]", sioValueTableValueColIndex);
+		
+		logger.end(className, function);
 	}
 }

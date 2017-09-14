@@ -60,6 +60,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	// Static Attribute List
 	private final String staticAttibutes[]	= new String[] {PointName.label.toString()};
 	
+	private String ignoreEmptyRemoveTab = null;
+	
 	// hmiOrder
 	private boolean hmiOrderEnable		= false; 
 	private String hmiOrderAttribute	= null;
@@ -116,6 +118,28 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	public String getFunction() { return this.function; }
 	public void setFunction(String function) { this.function = function; }
 	
+	private boolean isIgnoreEmptyRemoveTab(String key) {
+		final String function = "isIgnoreEmptyRemoveTab";
+		logger.begin(className, function);
+		logger.debug(className, function, "key[{}] ignoreEmptyRemoveTab[{}]", key, ignoreEmptyRemoveTab);
+		boolean ret = false;
+		String [] ignoreEmptyRemoveTabs = null;
+		if ( null != ignoreEmptyRemoveTab && ! ignoreEmptyRemoveTab.trim().isEmpty() ) {
+			ignoreEmptyRemoveTabs = ignoreEmptyRemoveTab.split(",");
+		}
+		if ( null != ignoreEmptyRemoveTabs ) {
+			for ( String tab : ignoreEmptyRemoveTabs ) {
+				if ( 0 == tab.compareTo(key) ) {
+					ret = true;
+					break;
+				}
+			}
+		}
+		logger.debug(className, function, "key[{}] ret[{}]", key, ret);
+		logger.end(className, function);
+		return ret;
+	}
+	
 	private void connectTabs(String[] dbaddress) {
 		final String function = "connectTabs";
 		logger.begin(className, function);
@@ -126,12 +150,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		makeTabsConnect();
 		
 		uiInspectorHeader.connect();
-		
+
 		for ( String k : tabDatas.keySet() ) {
 			TabData d = tabDatas.get(k);
 			if ( d.points.isEmpty() ) {
-				logger.debug(className, function, "k[{}] d.points.isEmpty() Remove it", k);
-				panelTab.remove(d.panel);
+				
+				if ( isIgnoreEmptyRemoveTab(k) ) {
+					logger.debug(className, function, "k[{}] d.points.isEmpty() but in ignore list, ignore it", k);
+				}
+				else {
+					logger.debug(className, function, "k[{}] d.points.isEmpty() Remove it", k);
+					panelTab.remove(d.panel);
+				}
+				
 			}
 		}
 
@@ -668,6 +699,11 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			
 			tabDatas.put(tabConfigName, getTabData(tabName, tabConfigName, uiInspectorTabName, isReserveEquipment, hasSetMessageBoxEvent));
 		}
+		
+		String keyTabsIgnore = prefix+UIPanelInspector_i.strIgnoreEmptyRemoveTabs;
+		ignoreEmptyRemoveTab = ReadProp.readString(dictionariesCacheName, fileName, keyTabsIgnore, "");
+		logger.debug(className, function, "ignoreEmptyRemoveTab[{}]", ignoreEmptyRemoveTab);
+		
 		logger.end(className, function);
 	}
 	

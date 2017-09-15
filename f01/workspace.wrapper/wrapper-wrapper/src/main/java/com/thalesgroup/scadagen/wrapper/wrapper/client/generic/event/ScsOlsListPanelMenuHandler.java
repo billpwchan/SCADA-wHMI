@@ -1,8 +1,8 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.client.generic.event;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public interface ScsOlsListPanelMenuHandler {
-	void onSelection(Set<HashMap<String, String>> entity);
+	void onSelection(Set<Map<String, String>> entity);
 }

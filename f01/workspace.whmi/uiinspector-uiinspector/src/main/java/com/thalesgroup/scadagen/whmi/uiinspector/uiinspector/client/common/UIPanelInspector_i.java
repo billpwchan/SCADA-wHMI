@@ -12,6 +12,8 @@ public interface UIPanelInspector_i {
 	public final static String strConfigNameSize = strDot+"size";
 	public final static String strConfigNumberOfPointPerPage = "numOfPointPerPage";
 	
+	public final static String strIgnoreEmptyRemoveTabs = "IgnoreEmptyRemoveTabs";
+	
 	public final static String strNumOfTab = "NumOfTab";
 	public final static String strTab = "Tab";
 	public final static String strTabConfigName = "TabConfigName";

@@ -50,6 +50,8 @@ public interface UIWidgetViewer_i {
 		, PrintDataReceviedWait("PrintDataReceviedWait")
 		, PrintDataWalkthoughWait("PrintDataWalkthoughWait")
 		
+		, MenuHandlerUIOpts("MenuHandlerUIOpts")
+		
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

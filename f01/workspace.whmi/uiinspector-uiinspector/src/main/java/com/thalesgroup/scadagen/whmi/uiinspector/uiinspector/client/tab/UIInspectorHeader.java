@@ -45,7 +45,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private String[] addresses	= null;
 	private Database database	= null;
 	
-	final private String INSPECTOR = "inspector";
+	final private String INSPECTOR = UIInspectorHeader_i.INSPECTOR;
 	
 	private String tabName = null;
 	@Override

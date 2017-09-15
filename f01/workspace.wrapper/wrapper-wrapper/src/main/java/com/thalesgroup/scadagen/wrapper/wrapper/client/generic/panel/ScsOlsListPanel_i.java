@@ -36,13 +36,17 @@ public interface ScsOlsListPanel_i {
 		  MwtEventBusName("MwtEventBusName")
 		, MwtEventBusScope("MwtEventBusScope")
 		, ListConfigId("ListConfigId")
-		, MenuEnableCallImage("MenuEnableCallImage")
+
 		, SelectionMode("SelectionMode")
 		, OlsCssPrefix("OlsCssPrefix")
 		, EventBus("EventBus")
 		, PagerName("PagerName")
 		, EnableRowExport("EnableRowExport")
 		, DebugId("DebugId")
+		
+		, MenuCallImageEnable("MenuCallImageEnable")
+		, MenuCallImageLabel("MenuCallImageLabel")
+		, MenuCallImageGdgAttribute("MenuCallImageGdgAttribute")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

@@ -2,6 +2,8 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 
 public interface UIInspectorHeader_i {
 	
+	public final static String INSPECTOR = "inspector";
+	
 	public enum AttributeName {
 		
 		  ShortLabelAttribute("ShortLabelAttribute")

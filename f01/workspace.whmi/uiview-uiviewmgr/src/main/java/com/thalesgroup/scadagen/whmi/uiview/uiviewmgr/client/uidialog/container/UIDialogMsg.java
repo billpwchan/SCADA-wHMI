@@ -193,6 +193,7 @@ public class UIDialogMsg extends DialogBox implements UIDialog_i {
 		this.setText(title);
 
 		txtMsg.setText(msg);
+		txtMsg.setReadOnly(true);
 		
 		DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
 		dockLayoutPanel.getElement().getStyle().setWidth(baseWidth, Unit.PX);

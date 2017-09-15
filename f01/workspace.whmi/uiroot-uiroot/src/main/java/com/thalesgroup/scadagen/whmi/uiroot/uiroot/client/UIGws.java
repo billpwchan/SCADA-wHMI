@@ -37,7 +37,7 @@ public class UIGws {
 	private EventBus EVENT_BUS = null;
 	private ResettableEventBus RESETABLE_EVENT_BUS  = null;
 	
-	private final String opts = "UILayoutEntryPointUIGwsSummary/"+className+".opts.xml";
+	private final String opts = className+"/"+className+".opts.xml";
 
 	private final String strCssPanel	= "project-"+className+"-panel";
 	

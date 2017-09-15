@@ -143,6 +143,8 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printDataDebugId			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataDebugId.toString(), strHeader);
 			printDataColumns			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataColumns.toString(), strHeader);
 			printDataIndexs				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataIndexs.toString(), strHeader);
+			printDataAttachement		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataAttachement.toString(), strHeader);
+			
 			
 			String strPrintDataStart	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataStart.toString(), strHeader);
 			try {
@@ -484,7 +486,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printGDGPage.setGDGParameter(printDataDebugId);
 			printGDGPage.setPageContentParameter(printDataColumns, printDataIndexs);
 			printGDGPage.setPageRangeParameter(printDataStart, printDataLength);
-			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait, printDataIndexs, printDataAttachement);
+			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait);
 			printGDGPage.setDownloadParameter(printDataAttachement);
 			
 		} else {

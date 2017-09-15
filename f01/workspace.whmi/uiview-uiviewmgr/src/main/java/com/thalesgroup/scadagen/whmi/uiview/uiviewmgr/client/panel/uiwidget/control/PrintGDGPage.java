@@ -20,6 +20,8 @@ public class PrintGDGPage {
 	private final String className = UIWidgetUtil.getClassSimpleName(PrintGDGPage.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 	
+	private final static String STR_SPILTER = ",";
+	
 	ScsGenericDataGridView gridView = null;
 	UIEventActionProcessor_i uiEventActionProcessor_i = null;
 	
@@ -50,7 +52,7 @@ public class PrintGDGPage {
 		this.printDataStart=printDataStart;
 		this.printDataLength=printDataLength;
 	}
-	public void setTimerParameter(int printDataReceviedWait, int printDataWalkthoughWait, String printDataIndexs, String printDataAttachement) {
+	public void setTimerParameter(int printDataReceviedWait, int printDataWalkthoughWait) {
 		this.printDataReceviedWait=printDataReceviedWait;
 		this.printDataWalkthoughWait=printDataWalkthoughWait;
 	}
@@ -83,16 +85,26 @@ public class PrintGDGPage {
 	public void printCurPage() {
 		final String function = "printCurPage";
 		logger.begin(className, function);
-		String strPrintDataColumns [] = printDataColumns.split(",");
+		
+		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
+		String strPrintDataColumns [] = printDataColumns.split(STR_SPILTER);
+		
+		logger.debug(className, function, "strPrintDataColumns.length[{}]", strPrintDataColumns.length);
 		for ( int i = 0 ; i < strPrintDataColumns.length ; ++i ) {
 			strPrintDataColumns[i] = TranslationMgr.getInstance().getTranslation(strPrintDataColumns[i]);
 		}
 		JSONArray jsonPrintDataColumns = JSONUtil.convertStringsToJSONArray(strPrintDataColumns);
 		 
-		String strPrintDataIndexs [] = printDataIndexs.split(",");
+		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
+		String strPrintDataIndexs [] = printDataIndexs.split(STR_SPILTER);
+		
+		logger.debug(className, function, "strPrintDataIndexs.length[{}]", strPrintDataIndexs.length);
 		int intPrintDataIndexs [] = JSONUtil.convertStringToInts(strPrintDataIndexs);
 		JSONArray jsonPrintDataIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataIndexs);
 	 
+		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
+		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
+		
 	    JSONObject jsonObject = new JSONObject();
 	    jsonObject.put("PrintDataDebugId", new JSONString(printDataDebugId));
 	    jsonObject.put("PrintDataAttachement", new JSONString(printDataAttachement));
@@ -101,7 +113,7 @@ public class PrintGDGPage {
 
 	    String jsonstring = jsonObject.toString();
 	    
-    	logger.warn(className, function, "jsonstring[{}]", jsonstring);
+    	logger.debug(className, function, "jsonstring[{}]", jsonstring);
 
     	UIEventAction uiEventAction2 = new UIEventAction();
 		uiEventAction2.setParameter(UIActionEventAttribute.OperationType.toString(), "action");

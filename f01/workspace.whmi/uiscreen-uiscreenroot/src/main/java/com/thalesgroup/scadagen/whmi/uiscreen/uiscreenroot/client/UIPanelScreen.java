@@ -46,7 +46,7 @@ public class UIPanelScreen extends UIWidget_i {
 		
 		String uiCtrl = "UILayoutEntryPoint";
 		
-		if ( viewXMLFile.equals("UILayoutEntryPointScreenMMISummary/UIScreenMMI.view.xml") ) {
+		if ( viewXMLFile.equals("UIScreenMMI/UIScreenMMI.view.xml") ) {
 			uiCtrl = "UIScreenMMI";
 		}
 		

@@ -3,6 +3,21 @@
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<header key="header"></header>
 	<actionset key="init"></actionset>
+	
+	<actionset key="M100CONN_ENRM000001TPSMOTI0001">
+		<OperationType>actionsetkey</OperationType>
+		<OperationString1>pop_message_box_for_test</OperationString1>
+	</actionset>
+	<action key="pop_message_box_for_test">
+		<OperationType>action</OperationType>
+		<OperationAction>dialogmsg</OperationAction>
+		<OperationString1>UIDialogMsg</OperationString1>
+		<OperationString2>DLG_OK</OperationString2>
+		<OperationString3>Message for the selection: M100CONN_ENRM000001TPSMOTI0001</OperationString3>
+		<OperationString4>Message for the selection: M100CONN_ENRM000001TPSMOTI0001</OperationString4>
+	</action>
+	
+	
 	<actionset key="GATE0001">
 		<OperationType>actionsetkey</OperationType>
 		<OperationString1>UITaskLaunch_GATE0001</OperationString1>

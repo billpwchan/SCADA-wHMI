@@ -18,6 +18,7 @@ public interface UIWidgetAccessable_i extends UIWidgetEventable_i {
 	
 	String [] getUIWidgetElements();
 	
+	void setWidgetValue(String element, String value, Object[] msgParam);
 	void setWidgetValue(String element, String value);
 	String getWidgetValue(String element);
 	

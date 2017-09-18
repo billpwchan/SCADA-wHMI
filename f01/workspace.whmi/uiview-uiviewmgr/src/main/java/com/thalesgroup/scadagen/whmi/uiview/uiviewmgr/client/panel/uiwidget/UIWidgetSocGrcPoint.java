@@ -119,6 +119,7 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 					Object obj1 = uiEventAction.getParameter(ViewAttribute.OperationObject1.toString());
 					Object obj2 = uiEventAction.getParameter(ViewAttribute.OperationObject2.toString());
 					Object obj3 = uiEventAction.getParameter(ViewAttribute.OperationObject3.toString());
+					Object obj4 = uiEventAction.getParameter(ViewAttribute.OperationObject4.toString());
 					
 					logger.info(className, function, "Display Message");
 										
@@ -127,8 +128,8 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 							String scsenvid = (String)obj1;
 							String dbalias = (String)obj2;
 							String message = (String)obj3;
-							
-							displayMessage(message);
+							Object[] msgParam = (Object[]) obj4;
+							displayMessage(message, msgParam);
 						} else {
 							logger.warn(className, function, "obj1 or obj2 or obj3 IS NOT TYPE OF String");
 						}
@@ -228,8 +229,8 @@ public class UIWidgetSocGrcPoint extends UIWidget_i {
 		logger.end(className, function);
 	}
 	
-	void displayMessage(String message) {
-		uiWidgetGeneric.setWidgetValue("grcmessagevalue", message);
+	void displayMessage(String message, Object[] msgParam) {
+		uiWidgetGeneric.setWidgetValue("grcmessagevalue",message, msgParam);
 	}
 
 	void displayCurStep(String stepStr) {

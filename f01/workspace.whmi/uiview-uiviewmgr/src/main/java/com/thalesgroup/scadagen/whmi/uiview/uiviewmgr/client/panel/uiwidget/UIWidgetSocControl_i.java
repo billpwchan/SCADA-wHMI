@@ -25,6 +25,8 @@ public interface UIWidgetSocControl_i {
 		, ReserveAttributeType("ReserveAttributeType")
 		, ReservedValueStr("ReservedValueStr")
 		, UnreservedValueStr("UnreservedValueStr")
+		
+		, MessageDatetimeFormat("MessageDatetimeFormat")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }
@@ -54,5 +56,24 @@ public interface UIWidgetSocControl_i {
 		public int getValue() {
 			return value;
 		}
+	}
+	
+	public enum MessageTranslationID {
+		E_Reserve_fail_unable_launch_grc("&SCADAGEN_SOC_UIWidgetSocControl_Reserve_fail_unable_launch_grc")
+		, E_grc_abort_update_error("&SCADAGEN_SOC_UIWidgetSocControl_grc_abort_update_error")
+		, E_grc_result_update_error("&SCADAGEN_SOC_UIWidgetSocControl_grc_result_update_error")
+		, E_grc_launch_result_error("&SCADAGEN_SOC_UIWidgetSocControl_grc_launch_result_error")
+		, E_grc_prepare_result_error("&SCADAGEN_SOC_UIWidgetSocControl_grc_prepare_result_error")
+		, E_grc_step_result_error("&SCADAGEN_SOC_UIWidgetSocControl_grc_step_result_error")
+		, E_rtdb_read_error("&SCADAGEN_SOC_UIWidgetSocControl_rtdb_read_error")
+		, E_SOC_incompleted_failed_steps("&SCADAGEN_SOC_UIWidgetSocControl_SOC_incompleted_failed_steps")
+		, E_SOC_completed_failed_steps("&SCADAGEN_SOC_UIWidgetSocControl_SOC_completed_failed_steps")
+		, E_SOC_incompleted_no_failed_steps("&SCADAGEN_SOC_UIWidgetSocControl_SOC_incompleted_no_failed_steps")
+		, E_SOC_completed_no_failed_steps("&SCADAGEN_SOC_UIWidgetSocControl_SOC_completed_no_failed_steps")
+		;
+		private final String text;
+		private MessageTranslationID(final String text) { this.text = text; }
+		@Override
+		public String toString() { return this.text; }
 	}
 }

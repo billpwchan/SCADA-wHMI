@@ -26,6 +26,8 @@ public interface UIWidgetDataGrid_i {
 		, TargetDataGrid_B("TargetDataGrid_B")
 		, TargetDataGridColumn_B("TargetDataGridColumn_B")
 		, TargetDataGridColumn_B2("TargetDataGridColumn_B2")
+		
+		, MaxDelayAfterSuccess("MaxDelayAfterSuccess")
 		;
 		private final String text;
 		private ParameterName(final String text) { this.text = text; }

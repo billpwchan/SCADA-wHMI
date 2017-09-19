@@ -152,7 +152,7 @@
 		<OperationString4>UIScreenMMI</OperationString4>
 		<OperationString5>UIScreenMMI/UIScreenMMI.view.xml</OperationString5>
 		<OperationString6>UIScreenMMI/UIScreenMMI.opts.xml</OperationString6>
-		<OperationString7>UIScreenMMI/UIScreenMMI.view.xml</OperationString7>
+		<OperationString7>UIScreenMMI</OperationString7>
 	</action>
 	
 	<actionset key="login_invalid_thresthold_reach_procedure">

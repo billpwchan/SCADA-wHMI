@@ -6,6 +6,7 @@ import com.thalesgroup.scadagen.whmi.uinamecard.uinamecard.client.UINameCard;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILogger;
 import com.thalesgroup.scadagen.whmi.uiutil.uilogger.client.UILoggerFactory;
 import com.thalesgroup.scadagen.whmi.uiutil.uiutil.client.UIWidgetUtil;
+import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.entrypoint.UILayoutEntryPoint;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutLogin;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uilayout.UILayoutSoc;
 import com.thalesgroup.scadagen.whmi.uiview.uiviewmgr.client.panel.uiwidget.UILayoutConfiguration;
@@ -72,7 +73,13 @@ public class InitUIWidgetFactorys {
 	
 				UIWidget_i uiWidget_i = null;
 	
-				if (
+				if ( UIWidgetUtil.getClassSimpleName(
+						UILayoutEntryPoint.class.getName()).equals(uiCtrl) ) {
+					
+					uiWidget_i = new UILayoutEntryPoint();
+
+				}
+				else if (
 						UIWidgetUtil.getClassSimpleName(UIWidgetConfiguration.class.getName())
 						.equals(uiCtrl)
 						) {

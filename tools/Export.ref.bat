@@ -10,17 +10,17 @@ IF [%v_strdt%] == [] SET v_strdt=%1
 
 ECHO "v_strdt=%v_strdt%"
 
-ECHO Start of APPLI
+ECHO Start of REF
 
 SET _folder="%DEPOT_HOME%\%v_strdt%"
 ECHO _folder=%_folder% 
 MD %_folder%
 
-SET _E02="D:\Build.SCADAgen\whmi\appli"
-ECHO _E02=%_E02%
+SET _REF="D:\Build.SCADAgen\whmi\ref"
+ECHO _REF=%_REF%
 
-REM Export APPLI
+REM Export REF
 
-%SEVEN_ZIP_HOME% a %_folder%\appli %_E02%
+%SEVEN_ZIP_HOME% a %_folder%\ref %_REF%
 
-ECHO END OF APPLI
+ECHO END OF REF

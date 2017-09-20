@@ -1,0 +1,290 @@
+####
+#
+# External Alarm/Event Configuration
+#
+####
+
+########################################################
+#
+#    EVENTS on OPM operations
+#
+########################################################
+CLASS            = 1
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7
+OBJECT_NAME      = 
+FUNCTIONAL_CAT   = 50
+GEOGRAPHICAL_CAT = 50
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          = 
+MESSAGE_E        =  ;(%s) %s 
+MESSAGE_N        =  ;(%s) %s 
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS on Alarm Acknowldege
+#
+########################################################
+CLASS            = 2
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7 
+OBJECT_NAME      = 
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =
+GROUP_2          =
+MESSAGE_E        =  ;(%s) %s: %s
+MESSAGE_N        =  ;(%s) %s: %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS generated from TCL
+#
+########################################################
+CLASS            = 3
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 1
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS on General Send Command
+#
+########################################################
+CLASS            = 7
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomaton
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7
+OBJECT_NAME      =
+FUNCTIONAL_CAT   = 
+GEOGRAPHICAL_CAT = 
+EQUIPMENT_CLASS  = 
+GROUP_1          = 
+GROUP_2          = 
+MESSAGE_E        =  ;(%s) %s: %s(%s)%s %s$;$;$; %s
+MESSAGE_N        =  ;(%s) %s: %s(%s) %s %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS on Dpc changeVarStatus: SS, AI
+#
+########################################################
+CLASS            = 8
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7 
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =
+GROUP_2          =
+MESSAGE_E        =  ;(%s) %s: %s(%s) %s$;$; %s
+MESSAGE_N        =  ;(%s) %s: %s(%s) %s$;$; %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS on Dpc changeVarForce: MO
+#
+########################################################
+CLASS            = 9
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7 
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =
+GROUP_2          =
+MESSAGE_E        =  ;(%s) %s: %s(%s) %s %s$;$; %s
+MESSAGE_N        =  ;(%s) %s: %s(%s) %s %s$;$; %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS on Start SOC
+#
+########################################################
+CLASS            = 10
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =
+GROUP_2          =
+MESSAGE_E        =  ;%s
+MESSAGE_N        =  ;%s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS on Permit to work
+#
+########################################################
+CLASS            = 11
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 7
+SEVERITY_N       = 7 
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =
+GROUP_2          =
+MESSAGE_E        =  ;(%s) %s: %s(%s) %s$;$; 
+MESSAGE_N        =  ;(%s) %s: %s(%s) %s$;$; 
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS generated from TCC
+#
+########################################################
+CLASS            = 12
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 1
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =  C
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS generated from PA
+#
+########################################################
+CLASS            = 13
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 1
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =  C
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS generated from OPM Login/LogOut
+#
+########################################################
+CLASS            = 14
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 1
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   = 1
+GEOGRAPHICAL_CAT = 1
+EQUIPMENT_CLASS  =
+GROUP_1          =  L
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+########################################################
+#
+#    EVENTS generated from PTW
+#
+########################################################
+CLASS            = 15
+ACTIVE           = TRUE
+VALUE_AUTOMATON  = ExtAlmAckValueAutomatonLog
+ACK_AUTOMATON    = Ack
+STATE_E          = A
+STATE_N          = N
+SEVERITY_E       = 1
+SEVERITY_N       = 0
+OBJECT_NAME      =
+FUNCTIONAL_CAT   =
+GEOGRAPHICAL_CAT =
+EQUIPMENT_CLASS  =
+GROUP_1          =  PTW
+GROUP_2          =
+MESSAGE_E        =  %s
+MESSAGE_N        =  %s
+DSS_EVENT_TYPE   =
+
+
+
+
+
+
+
+
+

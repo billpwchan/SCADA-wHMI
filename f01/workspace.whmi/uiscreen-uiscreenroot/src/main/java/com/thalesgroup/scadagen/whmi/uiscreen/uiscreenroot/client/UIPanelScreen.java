@@ -33,6 +33,10 @@ public class UIPanelScreen extends UIWidget_i {
 	private final String strUILayoutEntryPoint	= "UILayoutEntryPoint";
 	
 	private final String strUIScreenEmpty		= "UIScreenEmpty";
+	
+	private final String strUIScreenMMIPath		= "UIScreenMMI/UIScreenMMI.view.xml";
+	
+	private final String strUIScreenMMI			= "UIScreenMMI";
 
 	@Override
 	public void init() {
@@ -46,8 +50,8 @@ public class UIPanelScreen extends UIWidget_i {
 		
 		String uiCtrl = "UILayoutEntryPoint";
 		
-		if ( viewXMLFile.equals("UIScreenMMI/UIScreenMMI.view.xml") ) {
-			uiCtrl = "UIScreenMMI";
+		if ( viewXMLFile.equals(strUIScreenMMIPath) ) {
+			uiCtrl = strUIScreenMMI;
 		}
 		
 		logger.debug(className, function, "UIPathUIPanelScreen[{}]", UIPathUIPanelScreen);

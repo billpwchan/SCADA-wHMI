@@ -90,13 +90,13 @@
 		<OperationAction>alm</OperationAction>
 		<OperationString1>NotifyExternalEvent</OperationString1>
 		<OperationString2>Key</OperationString2>
-		<OperationString3>OCCENVCONN</OperationString3>
-		<OperationString4>ConfigFileName</OperationString4>
-		<OperationString5>1</OperationString5>
-		<OperationString6>PointAlias</OperationString6>
+		<OperationString3>M100CONN</OperationString3>
+		<OperationString4>scsAlmExt.cnf</OperationString4>
+		<OperationString5>14</OperationString5>
+		<OperationString6>:SYS:M100000:GWS_0001</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
-		<OperationString9>%GETOPERATOR% : Logout on %GETIPADDRESS%</OperationString9>
+		<OperationString9>|EXT_E_OPM|-|||%GETOPERATOR% : Logout at %GETIPADDRESS%|||||||||||||</OperationString9>
 		<OperationString10>UIOpmSCADAgen</OperationString10>
 	</action>
 	
@@ -112,6 +112,7 @@
 		<OperationAction>opm</OperationAction>
 		<OperationString1>OpmLogout</OperationString1>
 		<OperationString2>UIOpmSCADAgen</OperationString2>
+		<OperationString3>1000</OperationString3>
 	</action>
 		
 	<action key="help">

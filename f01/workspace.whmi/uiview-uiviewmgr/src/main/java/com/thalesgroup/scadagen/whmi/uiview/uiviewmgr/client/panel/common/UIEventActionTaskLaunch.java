@@ -71,11 +71,19 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 
 		} else if ( strOperationString1.equals(UIEventActionTaskLaunchAction.UITaskLaunch_UIWidgetMgrFactory.toString()) ) {
 			
-			String strUiPath				= (String) action.getParameter(ActionAttribute.OperationString2.toString());
+			String strUiPath			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 			String strUiScreen			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
 			String strUiCtrl			= (String) action.getParameter(ActionAttribute.OperationString4.toString());
 			String strUiView			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
-			String strUiOpts			= (String) action.getParameter(ActionAttribute.OperationString5.toString());
+			String strUiOpts			= (String) action.getParameter(ActionAttribute.OperationString6.toString());
+			String strUiElem			= (String) action.getParameter(ActionAttribute.OperationString7.toString());
+			
+			logger.debug(className, function, "strUiPath[{}]", strUiPath);
+			logger.debug(className, function, "strUiScreen[{}]", strUiScreen);
+			logger.debug(className, function, "strUiCtrl[{}]", strUiCtrl);
+			logger.debug(className, function, "strUiView[{}]", strUiView);
+			logger.debug(className, function, "strUiOpts[{}]", strUiOpts);
+			logger.debug(className, function, "strUiElem[{}]", strUiElem);
 			
 			boolean isValid = false;
 			
@@ -94,6 +102,7 @@ public class UIEventActionTaskLaunch extends UIEventActionExecute_i {
 				uiTaskLaunch.setUiCtrl(strUiCtrl);
 				uiTaskLaunch.setUiView(strUiView);
 				uiTaskLaunch.setUiOpts(strUiOpts);
+				uiTaskLaunch.setUiElem(strUiElem);
 				
 				logger.debug(className, function, "fire event task strOperationString1[{}]", strOperationString1);
 				

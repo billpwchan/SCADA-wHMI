@@ -17,6 +17,10 @@ CALL %TOOLS_PATH%\Export.git.commit.bat %v_strdt%
 CALL %TOOLS_PATH%\Build.workspace.bat %v_strdt%
 CALL %TOOLS_PATH%\Export.workspace.binary.log.bat %v_strdt%
 
+CALL %TOOLS_PATH%\Export.appli.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.conn.bat %v_strdt%
+CALL %TOOLS_PATH%\Export.webapp.bat %v_strdt%
+
 CALL %TOOLS_PATH%\Export.e01.bat %v_strdt%
 CALL %TOOLS_PATH%\Export.e02.bat %v_strdt%
 CALL %TOOLS_PATH%\Export.p01.bat %v_strdt%

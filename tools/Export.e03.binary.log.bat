@@ -1,27 +1,26 @@
 @ECHO OFF
 
-CALL LoadPath.bat
+SET CUR_PATH=%~dp0
+SET TOOLS_PATH=%CUR_PATH:~0,-1%
+
+CALL %TOOLS_PATH%\LoadPath.bat
 
 IF [%1] == [] SET v_strdt=%strdt%
 IF [%v_strdt%] == [] SET v_strdt=%1
 
-ECHO Start of build e03
+ECHO "v_strdt=%v_strdt%"
 
-SET LOG_FILE=%LOG_HOME%\build.e03.%v_strdt%.log
+ECHO Start of e03
 
-CD /d %SOURCE_BASE%/e03
-CD 02_MA_generated/scadagen-data-model
+SET _folder="%DEPOT_HOME%\%v_strdt%"
+ECHO _folder=%_folder% 
+MD %_folder%
 
-ECHO Starting build e03 process and log to %LOG_FILE%...
+SET _E03="D:\Build.SCADAgen\whmi\e03\02_MA_generated\scadagen-data-model\target\*.jar"
+ECHO _E03=%_P01%
 
-ECHO Cleaning e03 before build
-CALL mvn clean -V > %LOG_FILE%
+REM Export E03
 
-ECHO Building e03
-CALL mvn install >> %LOG_FILE%
+%SEVEN_ZIP_HOME% a %_folder%\e03 %_E03%
 
-cd %TOOLS_PATH%
- 
-ECHO End of build e03
-
-REM PAUSE
+ECHO END OF e03

@@ -26,6 +26,18 @@ export class UtilService {
         return false;
     }
 
+    public static isDateExpired(d: string, hour: number, minute: number): boolean {
+        const seconds = +d;
+        const testDate = new Date(seconds * 1000);
+        testDate.setHours(hour, minute, 0);
+        const currentDate = new Date();
+        currentDate.setSeconds(0);
+
+        console.log('{UtilService}', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
+            testDate.getTime() < currentDate.getTime());
+        return testDate.getTime() < currentDate.getTime();
+    }
+
     public static includesComingDayOfWeek(d: string, dayofweek: number): boolean {
         const seconds = +d;
         const testDate = new Date(seconds * 1000);
@@ -91,11 +103,12 @@ export class UtilService {
     }
 
     public static isTimeExpired(hour: number, minute: number): boolean {
-        console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute);
         const currentDate = new Date();
         if (hour < currentDate.getHours() || (hour === currentDate.getHours() && minute < currentDate.getMinutes())) {
+            console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute, 'return true');
             return true;
         }
+        console.log('{UtilService}', '[isTimeExpired]', 'hour', hour, 'minute', minute, 'return false');
         return false;
     }
 }

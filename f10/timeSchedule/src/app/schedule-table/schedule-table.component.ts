@@ -420,6 +420,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public getScheduleContentPage() {
         console.log('{schedule-table}', '[getScheduleContentPage]', 'page=', this.pageOffset, 'size=', this.pageSize);
+        this.scheduleService.clearOnOffTimerMap();
         const startIdx = this.pageOffset * this.pageSize;
         for (let rowIdx = startIdx; rowIdx < (startIdx + this.pageSize) && rowIdx < this.tempSchItems.length; rowIdx++) {
             this.getScheduleItemContent(rowIdx);

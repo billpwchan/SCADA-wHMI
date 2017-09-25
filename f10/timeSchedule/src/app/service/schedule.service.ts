@@ -50,6 +50,12 @@ export class ScheduleService implements OnDestroy {
 
     private updateOnOffTimerMap = new Map<string, any>();
 
+    private schTableTaskNames: string[];
+
+    private runningStatusUpdateStartDelay = 10000;
+
+    private runningStatusUpdatePeriod = 5000;
+
     constructor(
         private configService: ConfigService, private scsTscService: ScsTscService
     ) { }
@@ -61,22 +67,28 @@ export class ScheduleService implements OnDestroy {
     }
     private loadConfig() {
         this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);
-        console.log('{schedule-table}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
+        console.log('{ScheduleServicee}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
 
         this.displayOffset = this.configService.config.getIn(['schedule_table', 'show_cutoff_offset']);
-        console.log('{schedule-table}', '[loadConfig]', 'show_cutoff_offset=', this.displayOffset);
+        console.log('{ScheduleService}', '[loadConfig]', 'show_cutoff_offset=', this.displayOffset);
 
         this.unavailableOnOffTime = this.configService.config.getIn(['schedule_table', 'unavailable_on_off_time']);
-        console.log('{schedule-table}', '[loadConfig]', 'unavailable_on_off_time=', this.unavailableOnOffTime);
+        console.log('{ScheduleService}', '[loadConfig]', 'unavailable_on_off_time=', this.unavailableOnOffTime);
 
         this.inhibitedOnOffTime = this.configService.config.getIn(['schedule_table', 'inhibited_on_off_time']);
-        console.log('{schedule-table}', '[loadConfig]', 'inhibited_on_off_time=', this.inhibitedOnOffTime);
+        console.log('{ScheduleService}', '[loadConfig]', 'inhibited_on_off_time=', this.inhibitedOnOffTime);
 
         this.dayGroupConfig = this.configService.config.getIn(['schedule_table', 'schedule_daygroup']);
-        console.log('{schedule-table}', '[loadConfig]', 'schedule_daygroup=', this.dayGroupConfig);
+        console.log('{ScheduleService}', '[loadConfig]', 'schedule_daygroup=', this.dayGroupConfig);
 
         this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
-        console.log('{schedule-table}', '[loadConfig]', 'tsc_time_offset=', this.tscTimeOffset);
+        console.log('{ScheduleService}', '[loadConfig]', 'tsc_time_offset=', this.tscTimeOffset);
+
+        this.runningStatusUpdateStartDelay = this.configService.config.getIn(['running_status_update_start_delay']);
+        console.log('{ScheduleService}', '[loadConfig]', 'running_status_update_start_delay', this.runningStatusUpdateStartDelay);
+
+        this.runningStatusUpdatePeriod = this.configService.config.getIn(['running_status_update_period']);
+        console.log('{ScheduleService}', '[loadConfig]', 'running_status_update_period', this.runningStatusUpdatePeriod);
     }
     public loadData() {
         this.readTscTaskNames();
@@ -88,16 +100,18 @@ export class ScheduleService implements OnDestroy {
                 console.log('{ScheduleService}', '[readTscTaskNames]', taskNames);
                 this.extractScheduleTasks(taskNames);
 
-                const schTableTaskNames = new Array<string>();
+                this.schTableTaskNames = new Array<string>();
 
                 for (const s of this.schedules) {
-                    schTableTaskNames.push(s.taskName);
+                    this.schTableTaskNames.push(s.taskName);
                     console.log('{ScheduleService}', '[readTscTaskNames]', 'schTableTaskName', s.taskName);
                 }
 
-                if (schTableTaskNames && schTableTaskNames.length > 0) {
-                    this.readSchTableDescription(schTableTaskNames);
+                if (this.schTableTaskNames && this.schTableTaskNames.length > 0) {
+                    this.readSchTableDescription(this.schTableTaskNames);
                 }
+
+                this.startRunningStatusUpdateTimer(this.runningStatusUpdateStartDelay);
 
                 subGetTaskNames.unsubscribe();
             }
@@ -268,91 +282,7 @@ export class ScheduleService implements OnDestroy {
         }
         return t;
     }
-    private extractDescFilterEnable(taskNames: string[], data: any[]) {
-        console.log('{ScheduleService}', '[extractDescFilterEnable]', 'begin');
-        for (let i = 0; i < taskNames.length; i++) {
-            const taskColumns: string[] = taskNames[i].split(',');
-            const header = taskColumns[ScheduleDef.SCHEDULE_HEADER_COL];
-            const scheduleType = taskColumns[ScheduleDef.SCHEDULE_TYPE_COL];
-            const scheduleId = taskColumns[ScheduleDef.SCHEDULE_ID_COL];
-            if (header != null && header === ScheduleDef.SCHEDULE_TABLE_HEADER) {
-//                console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule table process ', taskNames[i]);
-                const schedule = this.schedules.find(s =>
-                    s.scheduleType === scheduleType &&
-                    s.id === scheduleId);
-                if (schedule != null) {
-                    const schTableData: string = data[3 * i];
-                    const dataColumns = schTableData.split(',');
-                    const scheduleDescription = dataColumns[ScheduleDef.SCHEDULE_TABLE_TYPE_DESC_COL];
-                    const scheduleTitle = dataColumns[ScheduleDef.SCHEDULE_TABLE_TITLE_COL];
-                    const runningStatus = dataColumns[ScheduleDef.SCHEDULE_RUNNING_STATUE_COL];
-                    const visibility = dataColumns[ScheduleDef.SCHEDULE_VISIBILITY_COL];
-                    const periodic = dataColumns[ScheduleDef.SCHEDULE_PERIODIC_COL];
-                    const titleReadOnly = dataColumns[ScheduleDef.SCHEDULE_TITLE_READ_ONLY_COL];
-                    const timeReadOnly = dataColumns[ScheduleDef.SCHEDULE_TIME_READ_ONLY_COL];
-                    const eqtListReadOnly = dataColumns[ScheduleDef.SCHEDULE_EQT_LIST_READ_ONLY_COL];
-                    schedule.scheduleDescription = scheduleDescription;
-                    schedule.text = scheduleTitle;
-                    schedule.runningStatus = runningStatus;
-                    schedule.visibility = visibility;
-                    schedule.periodic = (periodic === 'true');
-                    schedule.titleReadOnly = (titleReadOnly === 'true');
-                    schedule.timeReadOnly = (timeReadOnly === 'true');
-                    schedule.eqtListReadOnly = (eqtListReadOnly === 'true');
-                    schedule.taskName = taskNames[i];
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule description updated',  schedule.scheduleDescription);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule title updated ',  schedule.text);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule runningStatus updated ',  schedule.runningStatus);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule periodic updated ', schedule.periodic);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule titleReadOnly updated ', schedule.titleReadOnly);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule timeReadOnly updated ', schedule.timeReadOnly);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule eqtListReadOnly updated ', schedule.eqtListReadOnly);
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule table updated ');
-                } else {
-                    console.warn('{ScheduleService}', '[extractDescFilterEnable]', ' schedule table not found ');
-                }
-            } else if (header != null && header === ScheduleDef.SCHEDULE_TASK_HEADER) {
-//                console.log('{ScheduleService}', '[extractDescFilterEnable]', ' schedule task process ', taskNames[i]);
-                const schTaskData: string = data[3 * i];
-                const dataColumns = schTaskData.split(',');
-                const alias = taskColumns[ScheduleDef.SCHEDULE_EQT_ALIAS_COL];
-                const pointAtt = taskColumns[ScheduleDef.SCHEDULE_EQT_POINT_ATT_COL];
-                const targetState = taskColumns[ScheduleDef.SCHEDULE_EQT_TARGET_STATE];
-                const filter = data[3 * i + 1];
-                const enableFlag = +data[3 * i + 2];
-                const scheduleItem = this.scheduleItems.find( r =>
-                    r.scheduleType === scheduleType &&
-                    r.scheduleId === scheduleId &&
-                    r.eqtAlias === alias &&
-                    r.eqtPointAtt === pointAtt);
-                if (scheduleItem != null) {
-                    scheduleItem.eqtLabel = dataColumns[ScheduleDef.SCHEDULE_EQT_LABEL_COL];
-                    scheduleItem.eqtDescription = dataColumns[ScheduleDef.SCHEDULE_EQT_DESCRIPTION_COL];
-                    const onOffTime = this.getOnOffTime(filter);
-                    const onOffTimeDisplay = onOffTime;
 
-                    if (targetState === 'ON') {
-                        scheduleItem.onTime = onOffTime;
-                        scheduleItem.onTimeDisplay = onOffTimeDisplay;
-                        scheduleItem.filter1 = filter;
-                        scheduleItem.enableFlag1 = enableFlag;
-                    } else if (targetState === 'OFF') {
-                        scheduleItem.offTime = onOffTime;
-                        scheduleItem.offTimeDisplay = onOffTimeDisplay;
-                        scheduleItem.filter2 = filter;
-                        scheduleItem.enableFlag2 = enableFlag;
-                    }
-                    console.log('{ScheduleService}', '[extractDescFilterEnable]', 'update scheduleItem label, description, filter, enableFlag ',
-                                scheduleItem.eqtLabel, scheduleItem.eqtDescription, filter, enableFlag);
-                } else {
-                    console.warn('{ScheduleService}', '[extractDescFilterEnable]', 'scheduleItem not found ', scheduleType, scheduleId, alias, pointAtt);
-                }
-            } else {
-                console.error('{ScheduleService}', '[extractDescFilterEnable]', 'unrecognized header in taskname', taskNames[i]);
-            }
-        }
-        console.log('{ScheduleService}', '[extractDescFilterEnable]', 'end');
-    }
     public getScheduleDescFilterEnable(taskName: string) {
         console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'taskName=', taskName);
         const taskColumns: string[] = taskName.split(',');
@@ -1210,6 +1140,96 @@ export class ScheduleService implements OnDestroy {
         return false;
     }
 
+    public loadNonPeriodicScheduleItems() {
+        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'scheduleItems count =', this.scheduleItems.length);
+        let taskToRunCnt = 0;
+
+        for (const scheduleItem of this.scheduleItems) {
+            const schedule = this.scheduleIdMap.get(scheduleItem.scheduleId);
+            if (!schedule) {
+                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'schedule not found for scheduleItem', scheduleItem);
+                continue;
+            }
+            // console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'schedule periodic', schedule.periodic, 'visibility', schedule.visibility);
+            if (!schedule.periodic && schedule.visibility === ScheduleDef.VISIBLE) {
+
+                if (scheduleItem.taskName1) {
+                    this.scsTscService.getEnableFlag(scheduleItem.taskName1).subscribe((enableFlag) => {
+                        // console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'taskname', scheduleItem.taskName1, 'enableFlag1=', enableFlag);
+
+                        scheduleItem.enableFlag1 = +enableFlag;
+
+                        if (scheduleItem.enableFlag1) {
+                            this.scsTscService.getFilter(scheduleItem.taskName1).subscribe((filter) => {
+                                const onOffTime = this.getOnOffTime(filter);
+                                const onOffTimeDisplay = onOffTime;
+
+                                const hour = +onOffTime.split(':')[0];
+                                const minute = +onOffTime.split(':')[1];
+                                const taskDaygroup: string = filter.split(' ')[0];
+                                const daygroup = this.dayGroupIdMap.get(taskDaygroup);
+                                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'taskname', scheduleItem.taskName1,
+                                    'taskDaygroup', taskDaygroup, 'daygroup', daygroup);
+                                if (daygroup && daygroup.datesList && daygroup.datesList.length > 0) {
+                                    const d = daygroup.datesList[0];
+                                    // Check if date/time has expired
+                                    if (UtilService.isDateExpired(d, hour, minute)) {
+                                        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time has expired');
+                                    } else {
+                                        taskToRunCnt++;
+                                        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time scheduled to run at ',
+                                            onOffTime, taskToRunCnt);
+                                    }
+                                }
+                                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time ', onOffTime, 'taskToRunCnt', taskToRunCnt);
+                                this.updateRunningSchedules();
+                                // subGetFilter1.unsubscribe();
+                            })
+                        }
+                        // subGetEnbale1.unsubscribe();
+                    });
+                }
+                if (scheduleItem.taskName2) {
+                    this.scsTscService.getEnableFlag(scheduleItem.taskName2).subscribe((enableFlag) => {
+                        // console.log('{ScheduleService}', '[getScheduleEnable]', 'taskname', scheduleItem.taskName2, 'enableFlag2=', enableFlag);
+
+                        scheduleItem.enableFlag2 = +enableFlag;
+
+                        if (scheduleItem.enableFlag2) {
+                            this.scsTscService.getFilter(scheduleItem.taskName2).subscribe((filter) => {
+                                const onOffTime = this.getOnOffTime(filter);
+                                const onOffTimeDisplay = onOffTime;
+
+                                const hour = +onOffTime.split(':')[0];
+                                const minute = +onOffTime.split(':')[1];
+                                const taskDaygroup: string = filter.split(' ')[0];
+                                const daygroup = this.dayGroupIdMap.get(taskDaygroup);
+                                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'taskname', scheduleItem.taskName2,
+                                    'taskDaygroup', taskDaygroup, 'daygroup', daygroup);
+                                if (daygroup && daygroup.datesList && daygroup.datesList.length > 0) {
+                                    const d = daygroup.datesList[0];
+                                    // Check if date/time has expired
+                                    if (UtilService.isDateExpired(d, hour, minute)) {
+                                        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task off time has expired');
+                                    } else {
+                                        taskToRunCnt++;
+                                        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task off time scheduled to run at ',
+                                            onOffTime, taskToRunCnt);
+                                    }
+                                }
+                                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time ', onOffTime, 'taskToRunCnt', taskToRunCnt);
+                                this.updateRunningSchedules();
+                                // subGetFilter2.unsubscribe();
+                            })
+                        }
+                        // subGetEnbale2.unsubscribe();
+                    });
+                }
+            }
+        }
+        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'end');
+    }
+
     public clearOnOffTimerMap() {
         console.log('{ScheduleService}', '[clearOnOffTimerMap]');
         this.updateOnOffTimerMap.forEach((subTimer: any, key: string) => {
@@ -1249,5 +1269,56 @@ export class ScheduleService implements OnDestroy {
         }
         this.updateOnOffTimerMap.set(taskName, subTimer);
         console.log('{ScheduleService}', '[addOnOffUpdateTimer]', 'updateOnOffTimerMap timer - count =', this.updateOnOffTimerMap.size);
+    }
+
+    public startRunningStatusUpdateTimer(startDelay: number) {
+        const timer = Observable.timer(startDelay, this.runningStatusUpdatePeriod);
+        const subTimer = timer.subscribe(val => {
+            this.readSchTableRunningStatus();
+        })
+    }
+
+    public readSchTableRunningStatus() {
+        const subGetSchTableRunningStatus = Observable.forkJoin(
+            this.schTableTaskNames.map((taskName: any) => {
+                return this.scsTscService.getDescription(taskName)
+                    .map((desc: any) => {
+                        return desc;
+                    })
+            }))
+            .subscribe((data: any[]) => {
+                console.log('{ScheduleService}', '[readSchTableRunningStatus]', 'extractSchTableRunningStatus');
+                this.extractSchTableRunningStatus(this.schTableTaskNames, data);
+
+                this.readDayGroups();
+
+                subGetSchTableRunningStatus.unsubscribe();
+            })
+    }
+
+    public extractSchTableRunningStatus(taskNames: string[], data: any[]) {
+        console.log('{ScheduleService}', '[extractSchTableRunningStatus]', 'begin');
+        for (let i = 0; i < taskNames.length; i++) {
+            const taskColumns: string[] = taskNames[i].split(',');
+            const header = taskColumns[ScheduleDef.SCHEDULE_HEADER_COL];
+            const scheduleType = taskColumns[ScheduleDef.SCHEDULE_TYPE_COL];
+            const scheduleId = taskColumns[ScheduleDef.SCHEDULE_ID_COL];
+            if (header != null && header === ScheduleDef.SCHEDULE_TABLE_HEADER) {
+                const schedule = this.schedules.find(s =>
+                    s.scheduleType === scheduleType &&
+                    s.id === scheduleId);
+                if (schedule != null) {
+                    const schTableData: string = data[i];
+                    const dataColumns = schTableData.split(',');
+                    const runningStatus = dataColumns[ScheduleDef.SCHEDULE_RUNNING_STATUE_COL];
+                    schedule.runningStatus = runningStatus;
+                    console.log('{ScheduleService}', '[extractSchTableRunningStatus]', ' schedule runningStatus updated ',  schedule.runningStatus);
+                } else {
+                    console.warn('{ScheduleService}', '[extractSchTableRunningStatus]', ' schedule table not found ');
+                }
+            } else {
+                console.error('{ScheduleService}', '[extractSchTableRunningStatus]', 'unrecognized header in taskname', taskNames[i]);
+            }
+        }
     }
 }

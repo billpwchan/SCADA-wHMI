@@ -2,6 +2,8 @@
   "scs_tsc_url": "http://localhost:8899/scs/service/TscComponent/",
   "default_client_name": "ROOT",
   "tsc_time_offset": 0,
+  "running_status_update_start_delay": 10000,
+  "running_status_update_period": 5000,
   "i18n": {
     "default_lang": "en"
     , "resolve_by_browser_lang": true
@@ -36,7 +38,7 @@
     "sort": {
     },
     "max_title_length": 40,
-    "display_app_navigation": false,
+    "display_app_navigation": true,
     "manual_refresh_enabled": true,
     "display_cutoff_time": true,
     "display_running_schedules": true,
@@ -57,7 +59,7 @@
     },
     "periodic_planning_duration": 180,
     "apply_plan_to_running_daygroup": true,
-    "display_app_navigation": false,
+    "display_app_navigation": true,
     "manual_refresh_enabled": true,
     "display_cutoff_time": false,
     "display_running_schedules": true

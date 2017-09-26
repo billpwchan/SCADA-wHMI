@@ -50,6 +50,9 @@ export class SchedulePlanningComponent implements OnInit {
 
     public displayRunningSchedules = true;
 
+    // schedule task cut off time
+    public cutoffTime: string;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -90,6 +93,9 @@ export class SchedulePlanningComponent implements OnInit {
 
         this.displayRunningSchedules = this.configService.config.getIn(['schedule_planning', 'display_running_schedules']);
         console.log('{schedule-planning}', '[loadConfig]', 'display_running_schedules=', this.displayRunningSchedules);
+
+        this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);
+        console.log('{schedule-table}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
     }
 
     private loadData() {

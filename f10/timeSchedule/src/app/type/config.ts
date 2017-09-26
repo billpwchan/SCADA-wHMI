@@ -11,6 +11,8 @@ export interface Config {
     running_status_update_start_delay: number
     // default period to update schedules running status
     running_status_update_period: number
+    // default period to update daygroup datelist
+    daygroup_update_period: number
     // i18n related configuration
     i18n: {
         // detault language to use, if translation of the user's language is not available

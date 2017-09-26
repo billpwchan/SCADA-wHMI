@@ -12,6 +12,7 @@ export class ConfigService {
         tsc_time_offset: 0,
         running_status_update_start_delay: 10000,
         running_status_update_period: 5000,
+        daygroup_update_period: 60000,
         i18n: Map({
             default_lang: 'en',
             resolve_by_browser_lang: true,

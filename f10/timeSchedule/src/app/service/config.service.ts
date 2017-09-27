@@ -10,6 +10,9 @@ export class ConfigService {
         scs_tsc_url: 'http://127.0.0.1:8899/scs/service/TscComponent/',
         default_client_name: 'ROOT',
         tsc_time_offset: 0,
+        running_status_update_start_delay: 10000,
+        running_status_update_period: 5000,
+        daygroup_update_period: 60000,
         i18n: Map({
             default_lang: 'en',
             resolve_by_browser_lang: true,
@@ -34,7 +37,8 @@ export class ConfigService {
             equipment_task_string_separator: ' - ',
             geocat_translation_prefix: 'Location_',
             funcat_translation_prefix: 'System_',
-            page_size: 5
+            page_size: 5,
+            display_spinner: true
         }),
         schedule_planning: Map({
             weekly_planning: {},
@@ -43,7 +47,8 @@ export class ConfigService {
             display_app_navigation: false,
             manual_refresh_enabled: true,
             display_cutoff_time: false,
-            display_running_schedules: true
+            display_running_schedules: true,
+            display_spinner: true
         })
     });
     public config: any;

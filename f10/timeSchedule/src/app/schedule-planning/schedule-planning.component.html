@@ -1,6 +1,9 @@
 <div *ngIf="displayAppNavigation">
     <app-navigation></app-navigation>
 </div>
+<div *ngIf="displaySpinner">
+    <app-loading-component></app-loading-component>
+</div>
 <div class="panel panel-default" id="schedule-planning">
     <div class="panel panel-heading" id="schedule-planning-header">
         <h4>{{'Schedule Planning' | translate}}</h4>

@@ -2,11 +2,17 @@ export interface Config {
     // URL to time schedule
     time_schedule_url: string;
     // default client name to identify sender
-    default_client_name: 'ROOT',
+    default_client_name: string,
     // temp fix for time difference between windows and linux in SetDate and GetDate API.
     // Windows client should set this value to 0
     // Linux client should set this value to 2,177,452,800
-    tsc_time_offset: 0,
+    tsc_time_offset: number,
+    // default delay to start update schedules running status
+    running_status_update_start_delay: number
+    // default period to update schedules running status
+    running_status_update_period: number
+    // default period to update daygroup datelist
+    daygroup_update_period: number
     // i18n related configuration
     i18n: {
         // detault language to use, if translation of the user's language is not available
@@ -55,6 +61,8 @@ export interface Config {
         funcat_translation_prefix: string;
         // table page size
         page_size: number;
+        // enable spinner
+        display_spinner: boolean;
     };
     schedule_planning: {
         // default schedule assignment for each weekday
@@ -71,5 +79,7 @@ export interface Config {
         display_cutoff_time: boolean;
         // option to show running schedules
         display_running_schedules: boolean;
+        // enable spinner
+        display_spinner: boolean;
     }
 }

@@ -1,4 +1,6 @@
 export class UtilService {
+    public static UNIX_TIME_MAX = 2147483647;
+
     public static isCurrentDate(d: string): boolean {
         const seconds = +d;
         const testDate = new Date(seconds * 1000);
@@ -26,14 +28,14 @@ export class UtilService {
         return false;
     }
 
-    public static isDateExpired(d: string, hour: number, minute: number): boolean {
-        const seconds = +d;
+    public static isDateExpired(dateTime: number, hour: number, minute: number): boolean {
+        const seconds = +dateTime;
         const testDate = new Date(seconds * 1000);
-        testDate.setHours(hour, minute, 0);
+        testDate.setHours(hour, minute, 0, 0);
         const currentDate = new Date();
-        currentDate.setSeconds(0);
+        currentDate.setSeconds(0, 0);
 
-        console.log('{UtilService}', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
+        console.log('{UtilService}', '[isDateExpired]', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
             testDate.getTime() < currentDate.getTime());
         return testDate.getTime() < currentDate.getTime();
     }
@@ -52,6 +54,24 @@ export class UtilService {
             return true;
         }
         return false;
+    }
+
+    public static beyondNextWeek(d: string): boolean {
+        const seconds = +d;
+        const testDate = new Date(seconds * 1000);
+        testDate.setHours(0, 0, 0, 0);
+
+        const nextWeekDate = new Date();
+        nextWeekDate.setHours(0, 0, 0, 0);
+        nextWeekDate.setTime(nextWeekDate.getTime() + (7 * 86400000));
+
+        if (testDate.getTime() > nextWeekDate.getTime()) {
+            console.log('{UtilService}', '[beyondNextWeek]', 'testDate', testDate, 'nextWeekDate', nextWeekDate, 'return false');
+            return true;
+        } else {
+            console.log('{UtilService}', '[beyondNextWeek]', 'testDate', testDate, 'nextWeekDate', nextWeekDate, 'return true');
+            return false;
+        }
     }
 
     public static getWeekDatesList(weekdays: number[], startDate: Date, duration: number): string[] {

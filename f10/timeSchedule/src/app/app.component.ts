@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Cookie } from 'ng2-cookies';
 import { ConfigService } from './service/config.service';
 import { ScheduleService } from './service/schedule.service';
+import { LoadingService } from './service/loading.service';
 @Component({
     selector: 'app-tsc-root',
     templateUrl: './app.component.html',
@@ -11,7 +12,7 @@ import { ScheduleService } from './service/schedule.service';
 export class AppComponent {
     private static defaultLanguage = 'en';
     public title = 'Time Schedule';
-    constructor( private configService: ConfigService, private translate: TranslateService, private scheduleService: ScheduleService) {
+    constructor( private configService: ConfigService, private translate: TranslateService, private loadingService: LoadingService, private scheduleService: ScheduleService) {
         const defaultLanguage = configService.config.getIn(['i18n', 'default_lang']);
         const preferedLanguage = this.getPreferedLanguage();
         console.log(

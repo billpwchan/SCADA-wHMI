@@ -833,10 +833,19 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     const dgtime = selectedItem.filter2.split(' ');
                     dgtime[4] = hh;
                     dgtime[5] = mm;
-                    if (this.checkBeforeCutoffTime(+hh, +mm)) {
-                        dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
+
+                    if (this.displayPeriodicSchedules) {
+                        if (this.checkBeforeCutoffTime(+hh, +mm)) {
+                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
+                        } else {
+                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
+                        }
                     } else {
-                        dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
+                        if (UtilService.isTimeExpired(+hh, +mm)) {
+                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
+                        } else {
+                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
+                        }
                     }
                     const filter = dgtime.join(' ');
                     console.log('{schedule-table}', '[saveModified]', 'offTime=', hh, mm, 'filter=', filter);

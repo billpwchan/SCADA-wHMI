@@ -56,6 +56,24 @@ export class UtilService {
         return false;
     }
 
+    public static beyondNextWeek(d: string): boolean {
+        const seconds = +d;
+        const testDate = new Date(seconds * 1000);
+        testDate.setHours(0, 0, 0, 0);
+
+        const nextWeekDate = new Date();
+        nextWeekDate.setHours(0, 0, 0, 0);
+        nextWeekDate.setTime(nextWeekDate.getTime() + (7 * 86400000));
+
+        if (testDate.getTime() > nextWeekDate.getTime()) {
+            console.log('{UtilService}', '[beyondNextWeek]', 'testDate', testDate, 'nextWeekDate', nextWeekDate, 'return false');
+            return true;
+        } else {
+            console.log('{UtilService}', '[beyondNextWeek]', 'testDate', testDate, 'nextWeekDate', nextWeekDate, 'return true');
+            return false;
+        }
+    }
+
     public static getWeekDatesList(weekdays: number[], startDate: Date, duration: number): string[] {
         const datesList = [];
         console.log('{UtilService}', '[getWeekDatesList]', 'days in week', weekdays, 'startDate',

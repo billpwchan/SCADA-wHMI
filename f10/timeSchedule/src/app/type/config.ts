@@ -61,6 +61,8 @@ export interface Config {
         funcat_translation_prefix: string;
         // table page size
         page_size: number;
+        // enable spinner
+        display_spinner: boolean;
     };
     schedule_planning: {
         // default schedule assignment for each weekday
@@ -77,5 +79,7 @@ export interface Config {
         display_cutoff_time: boolean;
         // option to show running schedules
         display_running_schedules: boolean;
+        // enable spinner
+        display_spinner: boolean;
     }
 }

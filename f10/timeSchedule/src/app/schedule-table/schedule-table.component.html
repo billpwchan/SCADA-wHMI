@@ -1,6 +1,9 @@
 <div *ngIf="displayAppNavigation">
     <app-navigation></app-navigation>
 </div>
+<div *ngIf="displaySpinner">
+    <app-loading-component></app-loading-component>
+</div>
 <div class="panel panel-default" id="schedule-table">
     <div class="panel panel-heading" id="schedule-table-header">
         <h4>{{'Schedule Table' | translate}}</h4>
@@ -164,7 +167,6 @@
                 <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>{{'Stop' | translate}}
             </button>
         </div>
-
         <div class="panel panel-body" id='selected-column'>
             <div class="row">
                 <div class="col-md-6 label-md">

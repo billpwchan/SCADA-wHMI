@@ -4,4 +4,6 @@
 @import "./app/schedule-table/schedule-table.component.css";
 @import "./app/schedule-planning/schedule-planning.component.css";
 
-@import "~bootstrap/dist/css/bootstrap.css"
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "~@angular/material/prebuilt-themes/purple-green.css";

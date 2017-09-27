@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
+import { MdProgressSpinnerModule } from '@angular/material';
 import { SelectModule } from 'ng2-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable/src';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -10,11 +12,14 @@ import { PageNotFoundComponent } from './not-found.component';
 import { AppComponent } from './app.component';
 import { AppNavigationComponent } from './app-navigation.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppLoadingComponent } from './app-loading.component';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import { SchedulePlanningComponent } from './schedule-planning/schedule-planning.component';
 import { ScsTscService } from './service/scs-tsc.service';
 import { ConfigService } from './service/config.service';
 import { ScheduleService } from './service/schedule.service';
+import { LoadingService } from './service/loading.service';
+
 export function translateHttpLoaderFactory(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -27,7 +32,8 @@ export function configFactory(config: ConfigService) {
     AppNavigationComponent,
     PageNotFoundComponent,
     ScheduleTableComponent,
-    SchedulePlanningComponent
+    SchedulePlanningComponent,
+    AppLoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +42,8 @@ export function configFactory(config: ConfigService) {
     AppRoutingModule,
     SelectModule,
     NgxDatatableModule,
+    BrowserAnimationsModule,
+    MdProgressSpinnerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -53,7 +61,8 @@ export function configFactory(config: ConfigService) {
       deps: [ConfigService],
       multi: true
     },
-    ScheduleService
+    ScheduleService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

@@ -124,6 +124,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public displayRunningSchedules = true;
 
+    public displaySpinner = true;
+
     public equipmentTaskSeparator = '-';
 
     public geocatTranslationPrefix = 'geocat';
@@ -196,6 +198,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.pageSize = this.configService.config.getIn(['schedule_table', 'page_size']);
         console.log('{schedule-table}', '[loadConfig]', 'page_size=', this.pageSize);
+
+        this.displaySpinner = this.configService.config.getIn(['schedule_table', 'display_spinner']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_spinner=', this.displaySpinner);
     }
     loadData() {
         if (this.subRoute) {

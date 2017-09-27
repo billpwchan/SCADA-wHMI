@@ -35,7 +35,7 @@ export class UtilService {
         const currentDate = new Date();
         currentDate.setSeconds(0, 0);
 
-        console.log('{UtilService}', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
+        console.log('{UtilService}', '[isDateExpired]', 'testDate', testDate, testDate.getTime(), 'currentDate', currentDate, currentDate.getTime(),
             testDate.getTime() < currentDate.getTime());
         return testDate.getTime() < currentDate.getTime();
     }

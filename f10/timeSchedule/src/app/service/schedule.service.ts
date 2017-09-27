@@ -259,7 +259,7 @@ export class ScheduleService implements OnDestroy {
             }
             // console.log('{ScheduleService}', '[extractScheduleTask]', 'new schedule item created.');
         } else {
-            if (targetState === 'OFF') {
+            if (targetState === ScheduleDef.OFF) {
                 rowFound.taskName2 = taskName;
             } else {
                 rowFound.taskName1 = taskName;
@@ -298,7 +298,7 @@ export class ScheduleService implements OnDestroy {
         t.offTimeDisplay = this.unavailableOnOffTime;
         t.enableFlag1 = 0;
         t.enableFlag2 = 0;
-        if (targetState === 'OFF') {
+        if (targetState === ScheduleDef.OFF) {
             t.taskName2 = taskName;
         } else {
             t.taskName1 = taskName;
@@ -334,11 +334,11 @@ export class ScheduleService implements OnDestroy {
                 console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'filter=', filter);
                 const onOffTime = this.getOnOffTime(filter);
                 const onOffTimeDisplay = onOffTime;
-                if (targetState === 'ON') {
+                if (targetState === ScheduleDef.ON) {
                     scheduleItem.onTime = onOffTime;
                     scheduleItem.onTimeDisplay = onOffTimeDisplay;
                     scheduleItem.filter1 = filter;
-                } else if (targetState === 'OFF') {
+                } else if (targetState === ScheduleDef.OFF) {
                     scheduleItem.offTime = onOffTime;
                     scheduleItem.offTimeDisplay = onOffTimeDisplay;
                     scheduleItem.filter2 = filter;
@@ -348,7 +348,7 @@ export class ScheduleService implements OnDestroy {
             });
             const subGetEnable = this.scsTscService.getEnableFlag(taskName).subscribe((enableFlag) => {
                 console.log('{ScheduleService}', '[getScheduleDescFilterEnable]', 'enableFlag=', enableFlag);
-                if (targetState === 'ON') {
+                if (targetState === ScheduleDef.ON) {
                     scheduleItem.enableFlag1 = +enableFlag;
                 } else {
                     scheduleItem.enableFlag2 = +enableFlag;
@@ -377,11 +377,11 @@ export class ScheduleService implements OnDestroy {
                 console.log('{ScheduleService}', '[getScheduleFilter]', 'filter=', filter);
                 const onOffTime = this.getOnOffTime(filter);
                 const onOffTimeDisplay = onOffTime;
-                if (targetState === 'ON') {
+                if (targetState === ScheduleDef.ON) {
                     scheduleItem.onTime = onOffTime;
                     scheduleItem.onTimeDisplay = onOffTimeDisplay;
                     scheduleItem.filter1 = filter;
-                } else if (targetState === 'OFF') {
+                } else if (targetState === ScheduleDef.OFF) {
                     scheduleItem.offTime = onOffTime;
                     scheduleItem.offTimeDisplay = onOffTimeDisplay;
                     scheduleItem.filter2 = filter;
@@ -408,7 +408,7 @@ export class ScheduleService implements OnDestroy {
         if (scheduleItem) {
             const subGetEnbale = this.scsTscService.getEnableFlag(taskName).subscribe((enableFlag) => {
                 console.log('{ScheduleService}', '[getScheduleEnable]', 'enableFlag=', enableFlag);
-                if (targetState === 'ON') {
+                if (targetState === ScheduleDef.ON) {
                     scheduleItem.enableFlag1 = +enableFlag;
                 } else {
                     scheduleItem.enableFlag2 = +enableFlag;
@@ -1387,5 +1387,49 @@ export class ScheduleService implements OnDestroy {
         const subTimer = timer.subscribe(() => {
             this.readDayGroupDates();
         })
+    }
+
+    public setScheduleItemOnTime(scheduleId: string, scheduleItem: ScheduleItem, onTime: string): Observable<any> {
+        return this.setScheduleItemOnOffTime(scheduleId, scheduleItem, onTime, ScheduleDef.ON);
+    }
+
+    public setScheduleItemOffTime(scheduleId: string, scheduleItem: ScheduleItem, offTime: string): Observable<any> {
+        return this.setScheduleItemOnOffTime(scheduleId, scheduleItem, offTime, ScheduleDef.OFF);
+    }
+
+    public setScheduleItemOnOffTime(scheduleId: string, scheduleItem: ScheduleItem, onOffTime: string, targetState: string): Observable<any> {
+        const hh = onOffTime.split(':')[0];
+        const mm = onOffTime.split(':')[1];
+        const taskName = targetState === ScheduleDef.ON ? scheduleItem.taskName1 : scheduleItem.taskName2;
+        const filter = targetState === ScheduleDef.ON ? scheduleItem.filter1 : scheduleItem.filter2;
+        const dgtime = filter.split(' ');
+        dgtime[4] = hh;
+        dgtime[5] = mm;
+
+        if (this.currentIsPeriodic) {
+            if (this.checkBeforeCutoffTime(+hh, +mm)) {
+                dgtime[0] = this.getRunNextDayGroupId(scheduleId);
+            } else {
+                dgtime[0] = this.getRunDayGroupId(scheduleId);
+            }
+        } else {
+            if (UtilService.isTimeExpired(+hh, +mm)) {
+                dgtime[0] = this.getRunNextDayGroupId(scheduleId);
+            } else {
+                dgtime[0] = this.getRunDayGroupId(scheduleId);
+            }
+        }
+        const newFilter = dgtime.join(' ');
+
+        return this.setFilter(taskName, newFilter);
+    }
+
+    public checkBeforeCutoffTime(hour: number, minute: number): boolean {
+        const cutoffHr = +this.cutoffTime.split(':')[0];
+        const cutoffMin = +this.cutoffTime.split(':')[1];
+        if (hour < cutoffHr || (hour === cutoffHr && minute < cutoffMin)) {
+            return true;
+        }
+        return false;
     }
 }

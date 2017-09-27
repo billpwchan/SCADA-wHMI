@@ -792,69 +792,21 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         if (this.newOnTime !== selectedItem.onTime) {
             if (this.newOnTime && this.selectedRow.length === 1 && this.newOnTime !== selectedItem.onTime) {
-                if (selectedItem && selectedItem.taskName1) {
-                    selectedItem.onTime = this.newOnTime;
-                    const hh = this.newOnTime.split(':')[0];
-                    const mm = this.newOnTime.split(':')[1];
-                    const dgtime = selectedItem.filter1.split(' ');
-                    dgtime[4] = hh;
-                    dgtime[5] = mm;
-
-                    if (this.displayPeriodicSchedules) {
-                        if (this.checkBeforeCutoffTime(+hh, +mm)) {
-                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
-                        } else {
-                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
-                        }
-                    } else {
-                        if (UtilService.isTimeExpired(+hh, +mm)) {
-                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
-                        } else {
-                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
-                        }
+                this.scheduleService.setScheduleItemOnTime(this.selectedSchedule.id, selectedItem, this.newOnTime).subscribe(
+                    res => {
+                        console.log('{schedule-table}', '[saveModified]', 'setFilter OnTime for returned', res);
                     }
-                    const filter = dgtime.join(' ');
-                    console.log('{schedule-table}', '[saveModified]', 'onTime=', hh, mm, 'filter=', filter);
-                    this.scheduleService.setFilter(selectedItem.taskName1, filter).subscribe(
-                        res => {
-                            console.log('{schedule-table}', '[saveModified]', 'setFilter returned', res);
-                        }
-                    );
-                }
+                )
             }
         }
 
         if (this.newOffTime !== selectedItem.offTime) {
             if (this.newOffTime && this.selectedRow.length === 1 && this.newOffTime !== selectedItem.offTime) {
-                if (selectedItem && selectedItem.taskName2) {
-                    selectedItem.offTime = this.newOffTime;
-                    const hh = this.newOffTime.split(':')[0];
-                    const mm = this.newOffTime.split(':')[1];
-                    const dgtime = selectedItem.filter2.split(' ');
-                    dgtime[4] = hh;
-                    dgtime[5] = mm;
-
-                    if (this.displayPeriodicSchedules) {
-                        if (this.checkBeforeCutoffTime(+hh, +mm)) {
-                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
-                        } else {
-                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
-                        }
-                    } else {
-                        if (UtilService.isTimeExpired(+hh, +mm)) {
-                            dgtime[0] = this.scheduleService.getRunNextDayGroupId(this.selectedSchedule.id);
-                        } else {
-                            dgtime[0] = this.scheduleService.getRunDayGroupId(this.selectedSchedule.id);
-                        }
+                this.scheduleService.setScheduleItemOffTime(this.selectedSchedule.id, selectedItem, this.newOffTime).subscribe(
+                    res => {
+                        console.log('{schedule-table}', '[saveModified]', 'setFilter OffTime returned', res);
                     }
-                    const filter = dgtime.join(' ');
-                    console.log('{schedule-table}', '[saveModified]', 'offTime=', hh, mm, 'filter=', filter);
-                    this.scheduleService.setFilter(selectedItem.taskName2, filter).subscribe(
-                        res => {
-                            console.log('{schedule-table}', '[saveModified]', 'setFilter returned', res);
-                        }
-                    );
-                }
+                )
             }
         }
     }
@@ -894,15 +846,6 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.newOnTimeValid = true;
         this.newOffTimeValid = true;
         this.inputTimeValid = true;
-    }
-
-    public checkBeforeCutoffTime(hour: number, minute: number): boolean {
-        const cutoffHr = +this.cutoffTime.split(':')[0];
-        const cutoffMin = +this.cutoffTime.split(':')[1];
-        if (hour < cutoffHr || (hour === cutoffHr && minute < cutoffMin)) {
-            return true;
-        }
-        return false;
     }
 
     public updateNewScheduleTitle(newScheduleTitle) {

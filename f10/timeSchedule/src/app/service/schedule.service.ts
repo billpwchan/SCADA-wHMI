@@ -468,7 +468,6 @@ export class ScheduleService implements OnDestroy {
         }
     }
     private updateOneshotOnOffTimeDisplay(scheduleItem: ScheduleItem) {
-        const schedule = this.scheduleIdMap.get(scheduleItem.scheduleId);
         const scheduleRunDaygroup = this.getRunDayGroupId(scheduleItem.scheduleId);
         const scheduleRunNextDaygroup = this.getRunNextDayGroupId(scheduleItem.scheduleId);
         if (scheduleItem.enableFlag1 === 0) {
@@ -509,7 +508,7 @@ export class ScheduleService implements OnDestroy {
                     } else if (taskDaygroup === scheduleRunNextDaygroup) {
                         scheduleItem.onTimeDisplay = scheduleItem.onTime;
                     } else {
-                        console.warn('{ScheduleService}', '[updateOneshotOnOffTimeDisplay]', 'invalid daygroup found for schedule task', scheduleItem.taskName1);
+                        console.warn('{ScheduleService}', '[updateOneshotOnOffTimeDisplay]', 'invalid daygroup found for task', scheduleItem.taskName1);
                     }
                 }
             }
@@ -553,7 +552,7 @@ export class ScheduleService implements OnDestroy {
                     } else if (taskDaygroup === scheduleRunNextDaygroup) {
                         scheduleItem.offTimeDisplay = scheduleItem.offTime;
                     } else {
-                        console.warn('{ScheduleService}', '[updateOneshotOnOffTimeDisplay]', 'invalid daygroup found for schedule task', scheduleItem.taskName2);
+                        console.warn('{ScheduleService}', '[updateOneshotOnOffTimeDisplay]', 'invalid daygroup found for task', scheduleItem.taskName2);
                     }
                 }
             }
@@ -1284,7 +1283,7 @@ export class ScheduleService implements OnDestroy {
             this.oneshotTaskToRunCnt = taskToRunCnt;
             this.updateOneshotOnOffTimeDisplayAll();
             this.updateRunningSchedules();
-            this.loadingService.setLoading(false); 
+            this.loadingService.setLoading(false);
             sub.unsubscribe();
         });
     }

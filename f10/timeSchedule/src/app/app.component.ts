@@ -12,7 +12,8 @@ import { LoadingService } from './service/loading.service';
 export class AppComponent {
     private static defaultLanguage = 'en';
     public title = 'Time Schedule';
-    constructor( private configService: ConfigService, private translate: TranslateService, private loadingService: LoadingService, private scheduleService: ScheduleService) {
+    constructor( private configService: ConfigService, private translate: TranslateService,
+                private loadingService: LoadingService, private scheduleService: ScheduleService) {
         const defaultLanguage = configService.config.getIn(['i18n', 'default_lang']);
         const preferedLanguage = this.getPreferedLanguage();
         console.log(

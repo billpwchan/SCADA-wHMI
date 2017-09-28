@@ -247,6 +247,14 @@ public class UIWidgetSocControl extends UIWidget_i {
 								logger.info(className, function, "datagridSelected[{}]", datagridSelected);
 
 								if ( datagridSelected.equals(targetDataGridA) ) {
+									// When selecting the row of SOCDetailList, the "datagridSelected" will be different from
+									// "targetDataGridA". Which means when the if statement is true, it means another row of
+									// "SOCCardList" is selected. Then need to clean the skipped steps.
+									
+									logger.info(className, function, "current skipped steps: [{}]", skipList);
+									skipList = new ArrayList<Integer>();
+									logger.info(className, function, "skipped steps after cleanning: [{}]", skipList);
+									
 									if ( null != obj2 ) {
 										if ( obj2 instanceof Equipment_i ) {
 											equipmentSelected = (Equipment_i) obj2;
@@ -281,7 +289,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 									} else {
 										logger.warn(className, function, "obj2 IS NULL");
 									}
-								}
+								} 
+								
 							} else {
 								logger.warn(className, function, "obj1 IS NOT TYPE OF String");
 							}

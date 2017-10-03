@@ -25,6 +25,8 @@
 		<ReservedValueStr>1</ReservedValueStr>
 		<UnreservedValueStr></UnreservedValueStr>
 
+		<MaxReserveRetry>2</MaxReserveRetry>
+
 		<MessageDatetimeFormat></MessageDatetimeFormat>
 	</header>
 	

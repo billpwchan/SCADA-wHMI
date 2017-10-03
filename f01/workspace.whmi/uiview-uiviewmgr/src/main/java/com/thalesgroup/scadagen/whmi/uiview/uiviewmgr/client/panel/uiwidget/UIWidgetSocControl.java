@@ -12,6 +12,7 @@ import com.google.gwt.i18n.shared.DateTimeFormat;
 import com.google.gwt.json.client.JSONNumber;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONString;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Widget;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.DictionariesCache;
 import com.thalesgroup.scadagen.whmi.uievent.uievent.client.UIEvent;
@@ -111,6 +112,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String reservedValueStr = null;
 	private String unreservedValueStr = null;
 	
+	private int maxReserveRetry = 1; //default max retry
+	
 	private String messageDatetimefmt = null;
 	
 	private String currentOperator =  UIOpmSCADAgen.getInstance().getCurrentOperator();
@@ -119,6 +122,90 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private int completedSteps = 0;
 	private int failedSteps = 0;
 	private int skippedSteps = 0;
+
+	private class ReserveVerifier
+	{
+		private String clientKey;
+		private String [] aliases;
+		private int reserveRetryCount;
+		
+		public ReserveVerifier(String clientKey, String [] aliases, int reserveRetryCount)
+		{
+			this.clientKey = clientKey;
+			this.aliases = aliases;
+			this.reserveRetryCount = reserveRetryCount;
+		}
+		
+		public void verifyNow()
+		{
+			readReserve(clientKey, aliases, createMultiReadResult());
+		}
+		
+		private MultiReadResult createMultiReadResult()
+		{
+			return new MultiReadResult() {
+				
+				@Override
+				public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
+					
+					final String function = "ReserveVerifier setReadResult";
+					logger.begin(className, function);
+					logger.debug(className, function, "current Operator is:[{}]", currentOperator);
+					logger.debug(className, function, "clientKey [{}] check reserve are set", key);
+					boolean hasFailed = false;
+					
+					for (int j=0; j<values.length; j++) {
+						String unquotedStr = "";
+						
+						if (values[j] != null) {
+							if (values[j].equals("null")) {
+								unquotedStr = "";
+							} else {
+								unquotedStr = values[j].replaceAll("\"", "");
+							}
+						}
+						// Check whether reservation was set by current operator
+						if (unquotedStr == currentOperator) {
+							// Current equipment's reservation is set by current operator, check next equipment.
+							continue;
+						} else {
+							// Unable to set equipment reservation
+							hasFailed = true;
+							break;
+						}
+					}
+					
+					if (hasFailed) {
+						if(reserveRetryCount > 0)
+						{
+							reserveRetryCount--;
+							logger.warn(className, function, "readReserve failed try again count={}.",reserveRetryCount);
+							Timer readAgainTimer = new Timer() {
+								
+								@Override
+								public void run() {
+									readReserve(clientKey, aliases, createMultiReadResult());
+								}
+							};
+							readAgainTimer.schedule(0);
+						} else {
+							// Unable to set one of the equipment's reservation
+							String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
+							sendDisplayMessageEvent(errorMsg);
+							
+							logger.warn(className, function, "readReserve error");
+						}
+					} else {
+						// All equipment are successfully reserved
+						reserveRetryCount = 0;
+						preparegrc();
+					}
+					
+					logger.end(className, function);
+				}
+			};
+		}
+	}
 
 	private UIWidgetCtrl_i uiWidgetCtrl_i = new UIWidgetCtrl_i() {
 		
@@ -397,6 +484,18 @@ public class UIWidgetSocControl extends UIWidget_i {
 			reserveAttributeType	= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeType.toString(), strHeader);
 			reservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReservedValueStr.toString(), strHeader);
 			unreservedValueStr		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.UnreservedValueStr.toString(), strHeader);
+			try
+			{
+				maxReserveRetry		= Integer.parseInt(dictionariesCache.getStringValue(optsXMLFile, ParameterName.MaxReserveRetry.toString(), strHeader));
+				if (maxReserveRetry < 1)
+				{
+					maxReserveRetry = 1;
+				}
+			}
+			catch(Exception e)
+			{
+				maxReserveRetry = 1; // default number of retry before consider reservation failure.
+			}
 			
 			messageDatetimefmt		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.MessageDatetimeFormat.toString(), strHeader);
 		}
@@ -422,6 +521,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "reserveAttributeType[{}]", reserveAttributeType);
 		logger.info(className, function, "reservedValueStr[{}]", reservedValueStr);
 		logger.info(className, function, "unreservedValueStr[{}]", unreservedValueStr);
+		
+		logger.info(className, function, "maxReserveRetry[{}]", maxReserveRetry);
 		
 		logger.info(className, function, "messageDatetimefmt[{}]", messageDatetimefmt);
 		
@@ -1312,7 +1413,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 					String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
 					sendDisplayMessageEvent(errorMsg);
 					
-					logger.warn(className, function, errorMsg);			
+					logger.warn(className, function, errorMsg);
 					
 				} else {
 					// No equipment reserved by other person, check any equipment need to set reservation
@@ -1323,53 +1424,8 @@ public class UIWidgetSocControl extends UIWidget_i {
 						String clientKey = "reserveReqAliases" + "_" + scsenvid + "_" + dbalias;
 						
 						// Check whether reservation is set successfully
-						readReserve(clientKey, reservedIDAliases, new MultiReadResult() {
+						new ReserveVerifier(clientKey, reservedIDAliases, maxReserveRetry).verifyNow();
 	
-							@Override
-							public void setReadResult(String key, String[] values, int errorCode, String errorMessage) {
-								
-								final String function = "reservedIDAliases setReadResult";
-								logger.begin(className, function);
-								logger.debug(className, function, "current Operator is:[{}]", currentOperator);
-								logger.debug(className, function, "clientKey [{}] check reserve are set", key);
-								boolean hasFailed = false;
-								
-								for (int j=0; j<values.length; j++) {
-									String unquotedStr = "";
-									
-									if (values[j] != null) {
-										if (values[j].equals("null")) {
-											unquotedStr = "";
-										} else {
-											unquotedStr = values[j].replaceAll("\"", "");
-										}
-									}
-									// Check whether reservation was set by current operator 
-									if (unquotedStr == currentOperator) {
-										// Current equipment's reservation is set by current operator, check next equipment.
-										continue;
-									} else {
-										// Unable to set equipment reservation
-										hasFailed = true;
-										break;
-									}
-								}
-								
-								if (hasFailed) {
-									// Unable to set one of the equipment's reservation
-									String errorMsg = MessageTranslationID.E_Reserve_fail_unable_launch_grc.toString();
-									sendDisplayMessageEvent(errorMsg);
-									
-									logger.warn(className, function, errorMsg);
-									
-								} else {
-									// All equipment are successfully reserved
-									preparegrc();
-								}
-								
-								logger.end(className, function);
-							}			
-						});
 					} else {
 						// All equipment already reserved
 						preparegrc();

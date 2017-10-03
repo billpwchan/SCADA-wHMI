@@ -26,6 +26,8 @@ public interface UIWidgetSocControl_i {
 		, ReservedValueStr("ReservedValueStr")
 		, UnreservedValueStr("UnreservedValueStr")
 		
+		, MaxReserveRetry("MaxReserveRetry")
+		
 		, MessageDatetimeFormat("MessageDatetimeFormat")
 		;
 		private final String text;

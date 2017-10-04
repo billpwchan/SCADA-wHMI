@@ -21,11 +21,11 @@ IF EXIST %SOURCE_BASE_F10%/%AUTOLOGOUT%/%NODE_MODULES% goto :build_dist
 
 ECHO Zip and copy node_modules libraries from cots...
 
-%SEVEN_ZIP_HOME% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%AUTOLOGOUT%/*
+%PATH_7Z_BIN% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%AUTOLOGOUT%/*
 
 ECHO Extract node_modules to autologout build folder
 
-%SEVEN_ZIP_HOME% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%AUTOLOGOUT%/%NODE_MODULES%
+%PATH_7Z_BIN% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%AUTOLOGOUT%/%NODE_MODULES%
 
 
 :build_dist
@@ -37,7 +37,7 @@ CALL ./build_release.cmd >> %LOG_FILE%
 
 IF NOT EXIST ./dist goto :cleanup
 
-%SEVEN_ZIP_HOME% a scadagen-f10-%AUTOLOGOUT%.zip ./dist/*
+%PATH_7Z_BIN% a scadagen-f10-%AUTOLOGOUT%.zip ./dist/*
 
 CD %TOOLS_BASE%
 

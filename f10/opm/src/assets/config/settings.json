@@ -1,5 +1,5 @@
 {
-      "opmmgr_url": "http://localhost:12081"
+      "opmmgr_url": "$$OPM_ADDRESS$$"
     , "i18n": {
           "default_lang": "en"
         , "resolve_by_browser_lang": true

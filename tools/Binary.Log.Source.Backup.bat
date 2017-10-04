@@ -76,9 +76,9 @@ SET _EXCLUDE2="-xr!mywebapp\src\main\gwt-unitCache"
 SET _EXCLUDE3="-xr!workspace.webapp-func\webapp-func\myproject-webapp-func*.zip"
 ECHO _EXCLUDE=%_EXCLUDE%
 
-%SEVEN_ZIP_HOME% a %_folder%\f01 %_F01_WEBAPPFUNC% %_F01_WHMI% %_F01_WHMI_UIWIDGET% %_F01_WRAPPER% %_F01_FAS% %_EXCLUDE% %_EXCLUDE3%
-%SEVEN_ZIP_HOME% a %_folder%\p01 %_P01% %_EXCLUDE%
-%SEVEN_ZIP_HOME% a %_folder%\f02 %_F02_WEBAPP% %_EXCLUDE% %_EXCLUDE2%
-%SEVEN_ZIP_HOME% a %_folder%\e02 %_E02% %_EXCLUDE%
+%PATH_7Z_BIN% a %_folder%\f01 %_F01_WEBAPPFUNC% %_F01_WHMI% %_F01_WHMI_UIWIDGET% %_F01_WRAPPER% %_F01_FAS% %_EXCLUDE% %_EXCLUDE3%
+%PATH_7Z_BIN% a %_folder%\p01 %_P01% %_EXCLUDE%
+%PATH_7Z_BIN% a %_folder%\f02 %_F02_WEBAPP% %_EXCLUDE% %_EXCLUDE2%
+%PATH_7Z_BIN% a %_folder%\e02 %_E02% %_EXCLUDE%
 
 ECHO END OF BACKUP

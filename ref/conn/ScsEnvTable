@@ -1,0 +1,24 @@
+Define Environment {
+	Define Server "Terracotta" {
+        Phase = 0
+        Termination = RETRY
+        Snapshot = NONE
+        Shutdown order = 2
+        Supervision = UNIX
+        Priority = NORMAL
+        Run string = "start_terracotta.bat"
+        Init timeout = 30
+        Shutdown timeout = 10
+    }  
+    Define Server "SCSConnector" {
+        Phase = 2
+        Termination = RETRY
+        Snapshot = NONE
+        Shutdown order = 1
+        Supervision = PUSH
+        Priority = NORMAL
+        Run string = "start_ba.bat"
+        Init timeout = 30
+        Shutdown timeout = 10
+    }  
+}

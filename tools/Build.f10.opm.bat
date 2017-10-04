@@ -21,11 +21,11 @@ IF EXIST %SOURCE_BASE_F10%/%OPM%/%NODE_MODULES% goto :build_dist
 
 ECHO Zip and copy node_modules libraries from cots...
 
-%SEVEN_ZIP_HOME% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%OPM%/*
+%PATH_7Z_BIN% a %NODE_MODULES_7Z% %REPO_BASE%/%NODE_MODULES%/%OPM%/*
 
 ECHO Extract node_modules to opm build folder
 
-%SEVEN_ZIP_HOME% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%OPM%/%NODE_MODULES%
+%PATH_7Z_BIN% x %NODE_MODULES_7Z% -o%SOURCE_BASE_F10%/%OPM%/%NODE_MODULES%
 
 
 :build_dist
@@ -37,7 +37,7 @@ CALL ./build_release.cmd >> %LOG_FILE%
 
 IF NOT EXIST ./dist goto :cleanup
 
-%SEVEN_ZIP_HOME% a scadagen-f10-%OPM%.zip ./dist/*
+%PATH_7Z_BIN% a scadagen-f10-%OPM%.zip ./dist/*
 
 CD %TOOLS_BASE%
 

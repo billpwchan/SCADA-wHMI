@@ -16,11 +16,11 @@ SET _folder="%DEPOT_HOME%\%v_strdt%"
 ECHO _folder=%_folder% 
 MD %_folder%
 
-SET _E01="D:\Build.SCADAgen\whmi\e01"
+SET _E01="D:\Build.SCADAgen\whmi\e01\*"
 ECHO _E01=%_E01%
 
 REM Export E01
 
-%SEVEN_ZIP_HOME% a %_folder%\e01 %_E01%
+CALL ARCHIVE.cmd :ZIP "%_folder%\e01" "%_E01%" "-xr!.gitignore -xr!.gitkeep"
 
 ECHO END OF E01

@@ -17,10 +17,10 @@ ECHO _folder=%_folder%
 MD %_folder%
 
 SET _E03="D:\Build.SCADAgen\whmi\e03\02_MA_generated\scadagen-data-model\target\*.jar"
-ECHO _E03=%_P01%
+ECHO _E03=%_E03%
 
 REM Export E03
 
-%SEVEN_ZIP_HOME% a %_folder%\e03 %_E03%
+CALL ARCHIVE.cmd :ZIP "%_folder%\e03" "%_E03%" "-xr!.gitignore -xr!.gitkeep"
 
 ECHO END OF e03

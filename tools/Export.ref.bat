@@ -21,6 +21,10 @@ ECHO _REF=%_REF%
 
 REM Export REF
 
-%SEVEN_ZIP_HOME% a %_folder%\ref %_REF%
+CALL ARCHIVE.cmd :ZIP "%_folder%\ref_appli" "%_REF%\appli\*" "-xr!.gitignore -xr!.gitkeep"
+
+CALL ARCHIVE.cmd :ZIP "%_folder%\ref_conn" "%_REF%\conn\*" "-xr!.gitignore -xr!.gitkeep"
+
+CALL ARCHIVE.cmd :ZIP "%_folder%\ref_webapp" "%_REF%\webapp\*" "-xr!.gitignore -xr!.gitkeep"
 
 ECHO END OF REF

@@ -1,0 +1,18 @@
+{
+    "Add": "Add",
+    "Delete": "Delete",
+    "Rename": "Rename",
+    "Cancel": "Cancel",
+
+	"Enable": "Enable",
+	"Disable": "Disable",
+	"Save": "Save",
+    "Clear": "Clear",
+
+    "Start": "Start",
+    "Stop": "Stop",
+
+    "Apply": "Apply",
+    "Revert": "Revert",
+    "Defaults": "Defaults"
+}

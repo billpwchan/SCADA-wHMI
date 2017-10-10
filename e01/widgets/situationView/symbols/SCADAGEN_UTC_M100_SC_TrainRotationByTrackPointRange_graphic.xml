@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAGEN_UTC_M100_SC_TrainRotationByTrackPointRange_graphic">
+    <root>
+	  <svgGroup id="TrainRotationByTrackPointRange_rot">
+        <svgGroup id="SCADAGEN_UTC_M100_SC_TrainRotationByTrackPointRange_TrainRotationByTrackPointRange">
+          <svgRef brickId="TrainRotationByTrackPointRange" id="TrainRotationByTrackPointRange_node"></svgRef>
+        </svgGroup>
+	  </svgGroup>
+    </root>
+  </graphic>
+</graphicConfiguration>

@@ -2214,4 +2214,26 @@
 		
 		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_NeedAck</uiConf>
 	</option>
+	<option key="416">
+		<type>S</type>
+		<name>TrainPositionByTrackPointRange</name>
+		<title>TrainPositionByTrackPointRange</title>
+		<tooltips>TrainPositionByTrackPointRange</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionByTrackPointRange</uiConf>
+	</option>
+	<option key="417">
+		<type>S</type>
+		<name>TrainRotationByTrackPointRange</name>
+		<title>TrainRotationByTrackPointRange</title>
+		<tooltips>TrainRotationByTrackPointRange</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainRotationByTrackPointRange</uiConf>
+	</option>
 </data-set>

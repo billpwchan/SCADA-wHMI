@@ -1,12 +1,20 @@
 package com.thalesgroup.scadagen.calculated.util;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
+import com.thalesgroup.hv.common.HypervisorException;
 import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
@@ -190,5 +198,61 @@ public class Util {
 		dumpInputStatusByNameAttribute(inputStatusByName.get(fieldname));
 		logger.warn("{} {} inputStatusByName[{}]", new Object[]{function, prefix, inputStatusByName});
 		logger.debug("{} {} End", function, prefix);
+	}
+	
+	public void readMapFromCsv(String csvFile, String delimiter, Map<Integer, List<Map<String, Double>>> mapListMap) throws HypervisorException {
+		try {
+			ResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
+			Resource res = pathResolver.getResource(csvFile);
+			List<String> columnHeaders = null;
+	
+			Scanner scanner = new Scanner(res.getFile());
+			logger.debug("scanner=[{}]", scanner);
+			if (scanner != null) {
+				if (delimiter != null && !delimiter.isEmpty()) {
+					scanner.useDelimiter(delimiter);
+				}
+				
+				while (scanner.hasNextLine()) {
+					String line = scanner.nextLine();
+					// logger.debug("csv line=[{}]", line);
+	
+					String [] tokens = line.trim().split(delimiter);
+					
+					if (columnHeaders == null) {
+						columnHeaders = new ArrayList<String>();
+
+						for (int i = 0; i < tokens.length; i++) {
+							String colHeader = tokens[i].trim();
+							columnHeaders.add(colHeader);
+							// logger.debug("colHeader=[{}]", colHeader);
+						}
+					} else {
+						Map<String, Double> strMap = new HashMap<String, Double>();
+						
+						String listKey = tokens[0].trim();
+						Integer listKeyNum = Integer.parseInt(listKey);
+						for (int i = 1; i < tokens.length && i < columnHeaders.size(); i++) {
+							String value = tokens[i].trim();
+							strMap.put(columnHeaders.get(i), Double.valueOf(value));
+							// logger.debug("strMap.put [{}] [{}]", columnHeaders.get(i), value);
+						}
+								
+						List<Map<String, Double>> listMap = mapListMap.get(listKeyNum);
+						if (listMap == null) {
+							listMap = new ArrayList<Map<String, Double>>();		
+						}
+						listMap.add(strMap);
+						mapListMap.put(listKeyNum, listMap);
+						logger.debug("mapListMap.put [{}] [{}]", listKeyNum, listMap);
+					}
+				}
+				scanner.close();
+			}
+		} catch (FileNotFoundException e) {
+			throw new HypervisorException(e);
+		} catch (Exception e) {
+			throw new HypervisorException(e);
+		}
 	}
 }

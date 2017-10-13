@@ -160,6 +160,91 @@ public class ReadJson {
 		logger.end(className, function);
 		return array;
 	}
+	
+	public static int [] readIntsFromArray(JSONArray jsonArray, String key) {	
+		final String function = "readIntsFromArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonArray[{}] key[{}]", new Object[]{jsonArray, key});
+
+		int ints [] = null;
+		
+		if ( null != jsonArray ) {
+			ints = new int[jsonArray.size()];
+			for (int i = 0; i < jsonArray.size(); ++i) {
+				if ( null != jsonArray.get(i) ) {
+					JSONObject object = jsonArray.get(i).isObject();
+					if (null != object.get(key)) {
+						if ( null != object.get(key).isNumber() ) {
+							ints[i] = (int) object.get(key).isNumber().doubleValue();
+						}
+					} else {
+						logger.warn(className, function, "object.get({}) IS NULL", key);
+					}
+				} else {
+					logger.warn(className, function, "jsonArray.get({}) IS NULL", i);
+				}
+			}
+		} else {
+			logger.warn(className, function, "jsonArray IS NULL");
+		}
+		
+		return ints;
+	}
+	
+	public static int [] readIntArray(JSONArray jsonArray) {
+		final String function = "readIntArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonArray[{}]", jsonArray);
+
+		int array [] = null;
+		if ( null != jsonArray ) {
+			array = new int[jsonArray.size()];
+			for (int i = 0; i < jsonArray.size(); ++i) {
+				JSONValue jsonValue = jsonArray.get(i);
+				if (jsonValue != null && jsonValue.isNumber() != null) {
+					array[i] = (int) jsonValue.isNumber().doubleValue();
+				} else {
+					logger.warn(className, function, "jsonValue[{}] IS INVALID", jsonValue);
+				}
+			}
+		} else {
+			logger.warn(className, function, "jsonArray IS NULL");
+		}
+
+		logger.end(className, function);
+		return array;
+	}
+	
+	public static int [] readIntArray(JSONObject jsonObject, String key) {
+		final String function = "readIntArray";
+		logger.begin(className, function);
+		logger.trace(className, function, "jsonObject[{}] key[{}]", jsonObject, key);
+		int array [] = null;
+
+		if (null != jsonObject) {
+			JSONValue m = jsonObject.get(key);
+			if (m != null && m.isArray() != null) {
+				array = readIntArray(m.isArray());
+			}
+		} else {
+			logger.warn(className, function, "jsonObject IS NULL");
+		}
+
+		logger.end(className, function);
+		return array;
+	}
+	
+	public static JSONObject readObject(JSONObject json, String key) {
+		final String function = "readObject";
+		logger.begin(className, function);
+		logger.trace(className, function, "json[{}] key[{}]", new Object[]{json, key});
+		
+		JSONValue jsonValue = json.get(key);
+		JSONObject jsonObject = jsonValue.isObject();
+
+		logger.end(className, function);
+		return jsonObject;
+	}
 
 	public static JSONObject readObject(JSONArray jsonArray, String indexKey, String keyValue) {
 		final String function = "readObject";

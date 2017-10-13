@@ -15,4 +15,6 @@ public interface OlsMgr_i {
 		  }
 		  public String getValue() { return this.value; }
 	  }
+	  
+	  public final static String FIELD_DATA = "data";
 }

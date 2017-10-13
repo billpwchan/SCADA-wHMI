@@ -1,0 +1,24 @@
+{
+  "scs_ols_url": "http://localhost:8899/scs/service/OlsComponent/",
+  "i18n": {
+    "default_lang": "en"
+    , "resolve_by_browser_lang": true
+    , "use_culture_lang": true
+    , "resolve_by_browser_cookie": false
+    , "use_cookie_name": "iscs.webapp.Lang"
+  },
+  "rtt_url": "http://localhost:8090/rttapp/",
+  "archive_names": [
+    "TECSOperating",
+    "TECSPTW",
+    "TECSTemperature",
+    "TM_ARCHIVE",
+    "TS_ARCHIVE"
+  ],
+  "col_idx_1": "8",
+  "col_idx_2": "7",
+  "col_idx_3": "6",
+  "col_idx_4": "5",
+  "col_idx_5": "4",
+  "col_idx_6": "3"
+}

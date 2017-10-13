@@ -764,6 +764,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							}
 						} else {
 							chkDPMs[y][indexAI].removeStyleName(stylename);
+							if ( !valueRefreshed ) {
+								chkDPMs[y][indexAI].setValue(false);
+							}
 						}
 					}
 					if ( null != chkDPMs[y][indexSS] ) {
@@ -774,6 +777,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							}
 						} else {
 							chkDPMs[y][indexSS].removeStyleName(stylename);
+							if ( !valueRefreshed ) {
+								chkDPMs[y][indexSS].setValue(false);
+							}
 						}
 					}
 					if ( null != chkDPMs[y][indexMO] ) {
@@ -784,6 +790,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							}
 						} else {
 							chkDPMs[y][indexMO].removeStyleName(stylename);
+							if ( !valueRefreshed ) {
+								chkDPMs[y][indexMO].setValue(false);
+							}
 						}
 					}
 				} else {

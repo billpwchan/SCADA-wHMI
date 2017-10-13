@@ -10,7 +10,7 @@
         <ownedDecoratedSymbol xmi:id="_u4awAJOBEeeBsejFH_1odg" x="61.0" y="-4.0" width="76.0" height="208.0" ratio_width="1.0" ratio_height="1.0" symbol="_u4bXEJOBEeeBsejFH_1odg"/>
         <condition xmi:id="_WjrEoJN_EeeBsejFH_1odg" value="1" attribute="_doAqEJN_EeeBsejFH_1odg"/>
       </ownedAspect>
-      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_doAqEJN_EeeBsejFH_1odg" id="Int2IntMapping" condition="_WWrxgJN_EeeBsejFH_1odg _WjrEoJN_EeeBsejFH_1odg" qualifiedName="Int2IntCompare" outputType="INT"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_doAqEJN_EeeBsejFH_1odg" id="Int2IntCompare" condition="_WWrxgJN_EeeBsejFH_1odg _WjrEoJN_EeeBsejFH_1odg" qualifiedName="Int2IntCompare" outputType="INT"/>
     </aspectPackage>
     <symbolLibrary xmi:id="_iFhMopN-EeeBsejFH_1odg">
       <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_oswfAJOBEeeBsejFH_1odg" filePath="Symbols/SC_/NUM_ZERO.svg" id="_SCADAGEN_SYMBOLS_SC__NUM_ZERO_SVG" width="76.0" height="208.0"/>

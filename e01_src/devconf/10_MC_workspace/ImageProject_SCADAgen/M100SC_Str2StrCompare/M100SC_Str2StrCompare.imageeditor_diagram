@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:imageeditor="http://www.thalesgroup.com/configurator/imageeditor" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_Ch_s0LAMEeeAk62ejs-pVA" type="Imageeditor" name="M100SC_Str2StrCompare.imageeditor_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_G-8ZQLAMEeeAk62ejs-pVA" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_G-8ZQrAMEeeAk62ejs-pVA" type="5002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_G-8ZQ7AMEeeAk62ejs-pVA" y="5"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_G-8ZRLAMEeeAk62ejs-pVA" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_XArQIbAPEeeHwcZ7NzZZbQ" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_XArQI7APEeeHwcZ7NzZZbQ" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_XArQJLAPEeeHwcZ7NzZZbQ" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M100SC_Str2StrCompare/M100SC_Str2StrCompare.imageeditor#//@canvas/@ownedItem.0"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XArQIrAPEeeHwcZ7NzZZbQ" x="964" y="580"/>
+      </children>
+    </children>
+    <element xmi:type="imageeditor:GraphicalCanvas" href="/ImageProject_SCADAgen/M100SC_Str2StrCompare/M100SC_Str2StrCompare.imageeditor#//@canvas"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G-8ZQbAMEeeAk62ejs-pVA" x="322" y="232"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_Ch_s0bAMEeeAk62ejs-pVA"/>
+  <styles xmi:type="notation:FillStyle" xmi:id="_CpXgILAMEeeAk62ejs-pVA" fillColor="13816530"/>
+  <element xmi:type="imageeditor:GraphicalViewer" href="/ImageProject_SCADAgen/M100SC_Str2StrCompare/M100SC_Str2StrCompare.imageeditor#/"/>
+</notation:Diagram>

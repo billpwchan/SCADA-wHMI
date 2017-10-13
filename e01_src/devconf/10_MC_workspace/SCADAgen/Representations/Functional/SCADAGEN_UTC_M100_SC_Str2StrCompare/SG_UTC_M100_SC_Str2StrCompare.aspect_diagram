@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation" xmi:id="_1OHawK_xEeesaaHpx7kXMw" type="Aspect" name="default.aspect_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_mF3MwK_yEeesaaHpx7kXMw" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_mF4a4K_yEeesaaHpx7kXMw" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_mF5B8K_yEeesaaHpx7kXMw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_tS3mAK_yEeesaaHpx7kXMw" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_tSfLgK_yEeesaaHpx7kXMw"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_tS3mAa_yEeesaaHpx7kXMw" x="28" y="12"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_mF5B8a_yEeesaaHpx7kXMw" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_mF5B8q_yEeesaaHpx7kXMw" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_mF5B86_yEeesaaHpx7kXMw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_mF5B9K_yEeesaaHpx7kXMw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_mF5B9a_yEeesaaHpx7kXMw"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_Yaz8kK_zEeeAk62ejs-pVA" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Ya0joK_zEeeAk62ejs-pVA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ya0joa_zEeeAk62ejs-pVA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_YaxgUK_zEeeAk62ejs-pVA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Yaz8ka_zEeeAk62ejs-pVA" x="90" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_mFrmkK_yEeesaaHpx7kXMw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mF3Mwa_yEeesaaHpx7kXMw" x="318" y="66"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_oCHeEK_yEeesaaHpx7kXMw" type="2001" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_oCIFIK_yEeesaaHpx7kXMw" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_oCIFIa_yEeesaaHpx7kXMw" type="7001">
+      <children xmi:type="notation:Shape" xmi:id="_vqPGAK_yEeesaaHpx7kXMw" type="3001" fontName="Segoe UI">
+        <element xmi:type="scsRepresentation:DecoratedSymbol" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_vqDf0K_yEeesaaHpx7kXMw"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vqPGAa_yEeesaaHpx7kXMw" x="27" y="12"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_oCIFIq_yEeesaaHpx7kXMw" showTitle="true"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_oCIFI6_yEeesaaHpx7kXMw" type="7002">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_oCIFJK_yEeesaaHpx7kXMw" showTitle="true"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_oCIFJa_yEeesaaHpx7kXMw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_oCIFJq_yEeesaaHpx7kXMw"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_Yvi2cK_zEeeAk62ejs-pVA" type="3004" fontName="Segoe UI">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Yvi2cq_zEeeAk62ejs-pVA" type="5001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Yvi2c6_zEeeAk62ejs-pVA" y="5"/>
+      </children>
+      <element xmi:type="scsRepresentation:AttributeCondition" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_YviPYK_zEeeAk62ejs-pVA"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Yvi2ca_zEeeAk62ejs-pVA" x="90" y="319"/>
+    </children>
+    <element xmi:type="scsRepresentation:Aspect" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_oCFo4K_yEeesaaHpx7kXMw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_oCHeEa_yEeesaaHpx7kXMw" x="582" y="66"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_QMxkIK_zEeeAk62ejs-pVA" type="2002" fontName="Segoe UI">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QMyLMK_zEeeAk62ejs-pVA" type="5003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QMyyQK_zEeeAk62ejs-pVA" y="5"/>
+    </children>
+    <element xmi:type="scsRepresentation:CalculatedAttribute" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_QLzTwa_zEeeAk62ejs-pVA"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QMxkIa_zEeeAk62ejs-pVA" x="522" y="450"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_1OHawa_xEeesaaHpx7kXMw"/>
+  <element xmi:type="scsRepresentation:AspectPackage" href="SCADAGEN_UTC_M100_SC_Str2StrCompare.scsrepresentation#_1NaQIa_xEeesaaHpx7kXMw"/>
+  <edges xmi:type="notation:Connector" xmi:id="_ewxZEK_zEeeAk62ejs-pVA" type="4001" source="_Yaz8kK_zEeeAk62ejs-pVA" target="_QMxkIK_zEeeAk62ejs-pVA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_ewxZEa_zEeeAk62ejs-pVA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ewxZEq_zEeeAk62ejs-pVA" points="[31, 16, -112, -71]$[182, 85, 39, -2]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ewz1UK_zEeeAk62ejs-pVA" id="(0.225,0.4)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_fFcBgK_zEeeAk62ejs-pVA" type="4001" source="_Yvi2cK_zEeeAk62ejs-pVA" target="_QMxkIK_zEeeAk62ejs-pVA">
+    <styles xmi:type="notation:FontStyle" xmi:id="_fFcBga_zEeeAk62ejs-pVA" fontName="Segoe UI"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_fFcBgq_zEeeAk62ejs-pVA" points="[-20, 10, 112, -73]$[-123, 45, 9, -38]"/>
+  </edges>
+</notation:Diagram>

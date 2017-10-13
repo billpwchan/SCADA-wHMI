@@ -17,14 +17,6 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
-
-
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thalesgroup.hv.data_v1.attribute.AbstractAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.DoubleAttributeType;
 import com.thalesgroup.hv.data_v1.attribute.FloatAttributeType;
@@ -39,8 +31,6 @@ import com.thalesgroup.rtt.constants.HypervisorConstants;
 public class RttUtil {
 	
 	private static DateFormat df = new SimpleDateFormat("HH:mm:ss");
-	
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	private static final String delimiter = " ";
 	
@@ -114,7 +104,7 @@ public class RttUtil {
 		
 	}
 	
-	public static SubscriptionRequest createSubscription(String query) {
+	public static SubscriptionRequest createSubscription_hv(String query) {
 		String[] params = query.split(delimiter, 5);
 		SubscriptionRequest subReq = new SubscriptionRequest();
 		if (params.length == 5) {
@@ -130,6 +120,32 @@ public class RttUtil {
 			return subReq;
 		}
 		return null;
+	}
+	
+	//ENV+Name+ID
+	public static SubscriptionRequest createSubscription(String query) {
+		String[] params = query.split(delimiter, 5);
+		SubscriptionRequest subReq = new SubscriptionRequest();
+//		if (params.length == 5) {
+		//ENV+Name+ArchiveNametry 
+			try {
+			subReq.setEnv(params[0]);
+			subReq.setHypervisorId(params[1]);
+			subReq.setField(params[2]);
+			
+			if (checkValidColor(params[3])) {
+				subReq.setColor(params[3]);
+			}
+			
+			//not used
+			subReq.setTopicExpression("DEFAULT_TOPIC_EXP");
+			subReq.setType("DEFAULT_TYPE");			
+			subReq.setTopic("DEFAULT_TOPIC");
+				
+			return subReq;
+		} catch (Exception e){
+			return null;
+		}
 	}
 	
 	public static boolean validRequest(SubscriptionRequest subReq) {
@@ -269,6 +285,13 @@ public class RttUtil {
 		sb.append("+");
 		sb.append(field);
 		return sb.toString();
+	}
+	
+	public static boolean checkValidColor(String hex) {
+		if (null == hex || "".equals(hex)) 
+			return false;
+		
+		return true;
 	}
 	
 }

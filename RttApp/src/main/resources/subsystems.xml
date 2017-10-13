@@ -22,8 +22,8 @@
 		<hv-sub:operationResponderEndpoint>http://aixdv09.hk.thales/scadaGZ4/operation/responder</hv-sub:operationResponderEndpoint>
 	</hv-conf:entity>-->
 	<hv-conf:entity id="MCS_GZ5" xsi:type="prj_gz_cocc:SCADAType">
-		<hv-sub:notificationProducerEndpoint>http://aixdv09.hk.thales/scadaGZ5/notification/producer</hv-sub:notificationProducerEndpoint>
-        <hv-sub:operationResponderEndpoint>http://aixdv09.hk.thales/scadaGZ5/operation/responder</hv-sub:operationResponderEndpoint>
+		<hv-sub:notificationProducerEndpoint>http://127.0.0.1:3100/simuprod/subscription/reception</hv-sub:notificationProducerEndpoint>
+        <hv-sub:operationResponderEndpoint>http://127.0.0.1:3100/simu/operation/reception</hv-sub:operationResponderEndpoint>
     </hv-conf:entity>
     <hv-conf:entity id="MCS_LGF" xsi:type="prj_gz_cocc:SCADAType">
 		<hv-sub:notificationProducerEndpoint>http://aixdv09.hk.thales/scadaLGF/notification/producer</hv-sub:notificationProducerEndpoint>

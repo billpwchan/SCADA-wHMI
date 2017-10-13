@@ -1,5 +1,6 @@
 package com.thalesgroup.rtt.beans;
 
+import java.util.Objects;
 
 public class SubscriptionRequest implements Comparable<SubscriptionRequest>{
 	
@@ -37,6 +38,7 @@ public class SubscriptionRequest implements Comparable<SubscriptionRequest>{
 	
 	private String chartHeight;
 	
+	private String color;
 	
 	public SubscriptionRequest() {};
 	
@@ -49,6 +51,7 @@ public class SubscriptionRequest implements Comparable<SubscriptionRequest>{
 		this.field = field;
 		this.hypervisorId = hypervisorId;
 		this.env = env;
+//		this.color = color;
 	}
 
 	public String getTopic() {
@@ -195,6 +198,24 @@ public class SubscriptionRequest implements Comparable<SubscriptionRequest>{
 		return Integer.compare(this.getOrder(), subReq.getOrder());
 	}
 
+	@Override
+    public boolean equals(Object o) {
+		if (o == this) return true;
+		if (!(o instanceof SubscriptionRequest)) {
+            return false;
+        }
+		SubscriptionRequest sr = (SubscriptionRequest) o;
+        return  Objects.equals(env, sr.env) &&
+                Objects.equals(hypervisorId, sr.hypervisorId) &&
+                Objects.equals(field, sr.field) &&
+                Objects.equals(callerId, sr.callerId);
+	}
+	
+    @Override
+    public int hashCode() {
+        return Objects.hash(env, hypervisorId, field, callerId);
+    }
+	
 	public String getChartWidth() {
 		return chartWidth;
 	}
@@ -210,6 +231,13 @@ public class SubscriptionRequest implements Comparable<SubscriptionRequest>{
 	public void setChartHeight(String chartHeight) {
 		this.chartHeight = chartHeight;
 	}
-	
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 	
 }

@@ -1,8 +1,11 @@
 package com.thalesgroup.rtt.registry;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -17,6 +20,7 @@ import com.google.common.collect.Table;
 import com.google.common.collect.Table.Cell;
 import com.google.common.collect.Tables;
 import com.google.common.collect.TreeBasedTable;
+import com.thalesgroup.rtt.beans.Subscribed;
 import com.thalesgroup.rtt.beans.SubscriptionRequest;
 
 @Component
@@ -45,6 +49,7 @@ public class SubscriptionTracker {
 		for (Map.Entry<String, SubscriptionRequest> entry :
 			requestInfoRegistry.getSubscriptionByLinkInternal(link)) 
 		{
+			log.debug("entry: " + entry.getKey());
 			entry.getValue().setLastUpdateTime(time);
 			entry.getValue().setLastUpdateValue(value);
 		}
@@ -61,6 +66,24 @@ public class SubscriptionTracker {
 	
 	public String getLink(String queryKey, String callerId ) {
 		return requestLinkRegistry.getLinkInternal(queryKey, callerId);
+	}
+	
+	public Subscribed getAllSubscriptions() {
+//		Set<String> archiveSet = new HashSet<String>();
+		List<SubscriptionRequest> srList = new ArrayList<SubscriptionRequest>();
+		Set<Cell<String, String, SubscriptionRequest>> chartValueCells = requestInfoRegistry.getActiveChartTable().cellSet();
+		Iterator<Cell<String, String, SubscriptionRequest>> iter = chartValueCells.iterator();
+//		Map<String, String> expiryMap = new TreeMap<String, String>();
+		while(iter.hasNext()) {
+			Cell<String, String, SubscriptionRequest> cell = iter.next();
+//			String archiveName = cell.getValue().getField();
+//			archiveSet.add(archiveName);
+			srList.add(cell.getValue());
+		}
+		Subscribed sub = new Subscribed();
+//		sub.setAllArchives(archiveSet);
+		sub.setAllSubReqs(srList);
+		return sub;
 	}
 	
 	public void removeExpiredSubscriptions() {

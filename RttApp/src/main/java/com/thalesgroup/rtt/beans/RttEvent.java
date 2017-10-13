@@ -7,7 +7,7 @@ public class RttEvent extends ApplicationEvent
 {
   
 	private static final long serialVersionUID = 1L;
-	
+		
 	private int eventType;
 	
 	private String subId;
@@ -19,8 +19,10 @@ public class RttEvent extends ApplicationEvent
 	private String value;
 	
     private String time;
+    
+    private String env;
 	
-	public RttEvent(Object source, int eventType, String subId, String field, String hvId, String time, String value) {
+	public RttEvent(Object source, int eventType, String subId, String field, String hvId, String time, String value, String env) {
 		super(source);
 		this.eventType = eventType;
 		this.subId = subId;
@@ -28,6 +30,7 @@ public class RttEvent extends ApplicationEvent
 		this.hvId = hvId;
 		this.time = time;
 		this.value = value;
+		this.env = env;
 	}
 
  
@@ -88,6 +91,16 @@ public class RttEvent extends ApplicationEvent
 
 	public void setEventType(int eventType) {
 		this.eventType = eventType;
+	}
+
+
+	public String getEnv() {
+		return env;
+	}
+
+
+	public void setEnv(String env) {
+		this.env = env;
 	}
 	
 }

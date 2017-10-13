@@ -5,8 +5,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,16 +30,17 @@ import com.thalesgroup.hv.ws.notification_v1.UnableToGetSubscriptionStatusFault;
 import com.thalesgroup.hv.ws.notification_v1.UnacceptableTerminationTimeFault;
 import com.thalesgroup.hv.ws.notification_v1.xsd.GetSubscriptionStatusResponse;
 import com.thalesgroup.hv.ws.notification_v1.xsd.RenewResponse;
-import com.thalesgroup.hv.ws.notification_v1.xsd.SubscribeResponse;
 import com.thalesgroup.hv.ws.notification_v1.xsd.UnsubscribeResponse;
 import com.thalesgroup.rtt.beans.RttEvent;
 import com.thalesgroup.rtt.beans.SubscriptionRequest;
 import com.thalesgroup.rtt.beans.SubscriptionStatusRequest;
 import com.thalesgroup.rtt.registry.SubscriptionTracker;
+import com.thalesgroup.rtt.tasks.ScheduledTask;
 import com.thalesgroup.rtt.tools.RttUtil;
 import com.thalesgroup.rtt.transports.RttMessagePublisher;
 import com.thalesgroup.rtt.ws.producers.WebServiceProducerConnector;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 public class RttController {
 	
@@ -49,13 +53,16 @@ public class RttController {
 	@Autowired
 	private SubscriptionTracker tracker;
 	
+	@Autowired
+	private ScheduledTask scheduler;
+	
 	@Value("${link.prefix}")
 	private String urlPrefix;
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
     @RequestMapping("/hvSubscribe")
-    @ResponseBody
+    @ResponseBody    
     public String subscribe(@RequestParam(value="callerId", required=true, defaultValue="") String callerId,
     						@RequestParam(value="xaxisLabel", required=true, defaultValue="") String xaxisLabel,
     						@RequestParam(value="yaxisLabel1", required=true, defaultValue="") String yaxisLabel1,
@@ -74,6 +81,7 @@ public class RttController {
     	Collection<SubscriptionRequest> subReqCol = RttUtil.createSubscriptions(subscriptionInfo1, 
     			subscriptionInfo2, subscriptionInfo3, subscriptionInfo4, subscriptionInfo5, subscriptionInfo6, 
     			subscriptionInfo7, subscriptionInfo8);
+    	log.info("Recieved subscription: " + subscriptionInfo1);
     	int i = 0;
     	if (subReqCol.size() > 0) {
     		Iterator<SubscriptionRequest> iter = subReqCol.iterator();
@@ -87,17 +95,25 @@ public class RttController {
 		        	subscriptionRequest.setChartHeight(height);
 		        	subscriptionRequest.setOrder(i);
 		        	if (!yaxisLabel2.isEmpty()) {
+		        		log.info("axis label 1:" + yaxisLabel1 + ", yaxislabel2:" + yaxisLabel2);
 		        		subscriptionRequest.setYaxisLabel2(new String(yaxisLabel2.getBytes("ISO-8859-1"), "UTF-8"));
 		        	}
-					SubscribeResponse subscriptionResponse = connector.subscribe(subscriptionRequest);
-					String subscriptionId = subscriptionResponse.getSubscriptionReference().getReferenceParameters().getSubscriptionID();
-					Long terminationTime = RttUtil.toUnixTime(subscriptionResponse.getTerminationTime());
+//		        	SubscribeResponse subscriptionResponse = connector.subscribe(subscriptionRequest);
+//					String subscriptionId = subscriptionResponse.getSubscriptionReference().getReferenceParameters().getSubscriptionID();
+		        	
+		        			        	
+					String subscriptionId = UUID.randomUUID().toString();
+					Long terminationTime = RttUtil.addMinutesToDate(5, new Date()).getTime();
+					
+					
 					if (subscriptionId != null) {
 						subscriptionRequest.setSubscriptionId(subscriptionId);
 						subscriptionRequest.setTerminationTime(terminationTime);
-						log.info("Subscription made to connector: " + subscriptionId + " terminationTime: " + subscriptionResponse.getTerminationTime());
+			        	/** add to scheduler polling the OLSList **/
+						log.info("Subscription made to connector: " + subscriptionId + " terminationTime: " + new Date(terminationTime));
 						tracker.addOrReplaceSubscriptionRequest(subscriptionRequest);
-					}
+					}					
+					
 					i++;
 				} catch (Exception e) {
 					log.error("Subscription error: " + e.getMessage());
@@ -105,6 +121,7 @@ public class RttController {
 				}
     		}
     	}
+    	scheduler.refreshAllSubscribedData();
         return urlPrefix + callerId;
     }
     
@@ -117,39 +134,43 @@ public class RttController {
     	Collections.sort(subList);
     	int i = 0;
     	String tempField = "";
-    	boolean fieldMapped = false;
+//    	boolean fieldMapped = false;
     	//Iterator<SubscriptionRequest> iter = subscriptions.iterator();
     	Iterator<SubscriptionRequest> iter = subList.iterator();
     	while (iter.hasNext()) {
     		SubscriptionRequest subReq = iter.next();
 			if (i == 0) {
 				model.addAttribute("xaxisLabel", subReq.getXaxisLabel());
-				model.addAttribute("yaxisLabel1", subReq.getYaxisLabel1());
+				model.addAttribute("yaxisLabel0", subReq.getYaxisLabel1());
 				model.addAttribute("chartWidth", subReq.getChartWidth());
 				model.addAttribute("chartHeight", subReq.getChartHeight());
 				if (subReq.getYaxisLabel2() != null) {
-					model.addAttribute("yaxisLabel2", subReq.getYaxisLabel2());
+					model.addAttribute("yaxisLabel1", subReq.getYaxisLabel2());
 				}
-				tempField = subReq.getField();
-				model.addAttribute("yaxisField1", tempField);
-			} else {
-				if (!fieldMapped) {
-					if (!subReq.getField().equals(tempField)) {
-						model.addAttribute("yaxisField2", subReq.getField());
-						fieldMapped = true;
-					}
-				}
+				tempField = subReq.getHypervisorId();
+//			} else {
+//				if (!fieldMapped) {
+//					if (!subReq.getField().equals(tempField)) {
+//						model.addAttribute("yaxisField2", subReq.getHypervisorId());
+//						fieldMapped = true;
+//					}
+//				}
+//			}										
 			}
+			model.addAttribute("yaxisField"+i, subReq.getHypervisorId());
 			model.addAttribute("subscriptionLink" + i, subReq.getLink());
 			model.addAttribute("env" + i, subReq.getEnv());
 			model.addAttribute("subscriptionId" + i, subReq.getSubscriptionId());
-			model.addAttribute("subField" + i, subReq.getField());
+//			model.addAttribute("subField" + i, subReq.getField());
+			model.addAttribute("subField" + i, subReq.getHypervisorId());
+			model.addAttribute("color" + i, "#"+subReq.getColor());
 			i++;
 		
 		model.addAttribute("callerId", callerId);
     	}
     	return "rtt";
     }
+    
     
     @RequestMapping("/hvUnsubscribe")
     @ResponseBody
@@ -247,7 +268,7 @@ public class RttController {
     	SubscriptionRequest subReq = tracker.getSubscription(subStatusReq.getCallerId(), link);
     	if (subReq.getLastUpdateTime() != null && subReq.getLastUpdateValue() != null) {
     		RttEvent event = new RttEvent(publisher, 2, subReq.getSubscriptionId(), subReq.getField(), subReq.getHypervisorId(),
-    				subReq.getLastUpdateTime(), subReq.getLastUpdateValue());
+    				subReq.getLastUpdateTime(), subReq.getLastUpdateValue(), subReq.getEnv());
     		publisher.publishWsMessage(event);
     	}
     	try {

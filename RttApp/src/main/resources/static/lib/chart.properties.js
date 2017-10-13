@@ -1,6 +1,6 @@
 
 //Number of ticks to show in x and y axis
-numTicks = 10;
+numTicks = 20;
 
 //Number format of y-axis ticks
 valueFormat = '%d';
@@ -12,23 +12,27 @@ lineWidth = 2;
 edgeTolerance = 5;
 markerStyle = 'square';
 refreshPeriod = 1000;
+xaxisIncrement = 1000;
 chartTitle = '';
-gridBackgroundColor = '#445359';
+//gridBackgroundColor = '#445359';
+gridBackgroundColor = '#FFFFFF';
 fontFamily = 'Arial';
-gridLineColor = '#2B252B';
+//gridLineColor = '#2B252B';
+gridLineColor = '#d3d3d3';
 gridLineWidth = 1.0;
 gridBorderWidth = 1.0;
 xaxisDateFormat = '%H:%M:%S';
 showGridLine = false;
 tickAngle = -30;
 showLegend = true;
-legendLocation = 'e';
+legendLocation = 's';
 legendPlacement = 'outsideGrid';
-textColor = '#FF0000';
+textColor = '#000000';
+//textColor = '#FF0000';
 fontSize = '15px';
 
 //ticks
-ticksColor = '#FF0000';
+ticksColor = '#000000';
 
 //series colors
 colorLine1 = '#FF0000';

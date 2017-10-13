@@ -1,5 +1,7 @@
 package com.thalesgroup.rtt.transports;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.core.MessageSendingOperations;
@@ -22,6 +24,8 @@ public class RttMessageForwarder {
     
     private static final String destinationPrefix = "/";
     
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    
     @Autowired
     public RttMessageForwarder(final MessageSendingOperations<String> messagingTemplate,
     		final ConnectorConfManager confManager,
@@ -33,9 +37,14 @@ public class RttMessageForwarder {
 	
     @EventListener
 	public void handleRttData(RttEvent event) {
-    	String env = confManager.getSubsystem(event.getHvId());
+//    	String env = confManager.getSubsystem(event.getHvId());
+    	String env = event.getEnv();
     	String link = destinationPrefix + env + destinationPrefix + event.getSubId();
-    	subscriptionTracker.modifyLastUpdate(link, event.getTime(), event.getValue());
+    	String value = String.valueOf((Double.parseDouble(event.getValue())));
+    	log.debug("checking link: " + link);
+    	log.debug("RTTEvent. hvid: " + event.getHvId() + ", time" + event.getTime() + ", timestamp:" + event.getTimestamp() + ", value: " + event.getValue()); 
+    	subscriptionTracker.modifyLastUpdate(link, event.getTime(), value);
+    	event.setValue(value);
         messagingTemplate.convertAndSend(link, event);
     }
     

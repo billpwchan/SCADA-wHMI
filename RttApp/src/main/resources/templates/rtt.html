@@ -18,6 +18,13 @@
 		<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css"/>
 		<script th:inline="javascript">
 			/*<![CDATA[*/
+			window.onload = function() {
+			    if(!window.location.hash) {
+			        window.location = window.location + '#loaded';
+			        window.location.reload();
+			    }
+			}
+			           
 			$(document).ready(function() {
 				var client;
 				var ws;
@@ -60,19 +67,40 @@
 				var subField6 = /*[[${subField6}]]*/;
 				var subField7 = /*[[${subField7}]]*/;
 				
+				var color0 = /*[[${color0}]]*/;
+				var color1 = /*[[${color1}]]*/;
+				var color2 = /*[[${color2}]]*/;
+				var color3 = /*[[${color3}]]*/;
+				var color4 = /*[[${color4}]]*/;
+				var color5 = /*[[${color5}]]*/;
+				var color6 = /*[[${color6}]]*/;
+				var color7 = /*[[${color7}]]*/;
+				
 				var xaxisLabel = /*[[${xaxisLabel}]]*/;
+				var yaxisLabel0 = /*[[${yaxisLabel0}]]*/;
 				var yaxisLabel1 = /*[[${yaxisLabel1}]]*/;
 				var yaxisLabel2 = /*[[${yaxisLabel2}]]*/;
+				var yaxisLabel3 = /*[[${yaxisLabel3}]]*/;
+				var yaxisLabel4 = /*[[${yaxisLabel4}]]*/;
+				var yaxisLabel5 = /*[[${yaxisLabel5}]]*/;
+				var yaxisLabel6 = /*[[${yaxisLabel6}]]*/;
+				var yaxisLabel7 = /*[[${yaxisLabel7}]]*/;
 				
+				var yaxisField0 = /*[[${yaxisField0}]]*/;
 				var yaxisField1 = /*[[${yaxisField1}]]*/;
 				var yaxisField2 = /*[[${yaxisField2}]]*/;
+				var yaxisField3 = /*[[${yaxisField3}]]*/;
+				var yaxisField4 = /*[[${yaxisField4}]]*/;
+				var yaxisField5 = /*[[${yaxisField5}]]*/;
+				var yaxisField6 = /*[[${yaxisField6}]]*/;
+				var yaxisField7 = /*[[${yaxisField7}]]*/;
 				
 				var chartWidth = /*[[${chartWidth}]]*/;
 				var chartHeight = /*[[${chartHeight}]]*/;
 				
 				var callerId = /*[[${callerId}]]*/;
 				
-				var bufferTime = 1000 * numTicks;
+				var bufferTime = xaxisIncrement * numTicks;
 				var ticksArray = [];
 				var series = [];
 				
@@ -127,9 +155,9 @@
 				function initTicks(ticksArray, iterations, startDate) {
 					var date;
 					for (i=0; i<iterations; i++) {
-						date = startDate - (iterations-1-i)*1000;
+						date = startDate - (iterations-1-i)*xaxisIncrement;
 						ticksArray.push(date);
-					}
+					}					
 					options.axes.xaxis.ticks = ticksArray;
 				}
 				
@@ -154,23 +182,37 @@
 				};
 				
 				function initYAxisMapping() {
-					yaxisMap[yaxisField1] = {};
-					yaxisMap[yaxisField1].key = yaxisKeys.shift();
-					yaxisMap[yaxisField1].label = yaxisLabel1;
-					if (yaxisField2 != null) {
-						yaxisMap[yaxisField2] = {};
-						yaxisMap[yaxisField2].key = yaxisKeys.shift();
-						yaxisMap[yaxisField2].label = yaxisLabel2;
+					var fieldName = '';
+					var labelName = '';
+					for (i = 0; i < 7; i ++) {
+						fieldName = eval('yaxisField'+i);
+						labelName = eval('yaxisLabel'+i)
+// 						alert('fieldName:'+fieldName);
+// 						alert('labelName:'+labelName);
+						yaxisMap[fieldName] = {};
+						yaxisMap[fieldName].key = yaxisKeys.shift();
+						yaxisMap[fieldName].label = labelName;
 					}
+// 					yaxisMap[yaxisField0] = {};
+// 					yaxisMap[yaxisField0].key = yaxisKeys.shift();
+// 					yaxisMap[yaxisField0].label = yaxisLabel0;
+// 					if (yaxisField1 != null) {
+// 						yaxisMap[yaxisField1] = {};
+// 						yaxisMap[yaxisField1].key = yaxisKeys.shift();
+//  					yaxisMap[yaxisField1].label = yaxisLabel1;
+// 					}
 				}
 				
 				function addYAxisKey(field) {
-					yaxisMap[field] = yaxisKeys.shift();
 					return yaxisMap[field];
 				}
 				
+				function addColor(color) {
+					seriesColors.unshift(color);
+				}
+
 				function getYAxisKey(field) {
-					return yaxisMap[field].key;
+					return yaxisMap[field].key;					
 				}
 				
 				function getYAxisLabel(field) {
@@ -192,6 +234,8 @@
 					options.axes[yAxisKey].labelOptions.textColor = textColor;
 					options.axes[yAxisKey].labelOptions.fontSize = fontSize;
 					options.axes[yAxisKey].labelOptions.fontFamily = fontFamily;
+					options.axes[yAxisKey].showTicks = true;
+					options.axes[yAxisKey].showTickMarks = true; 
 					options.axes[yAxisKey].numberTicks = numTicks;
 					options.axes[yAxisKey].tickOptions = {};
 					options.axes[yAxisKey].tickOptions.formatString = valueFormat;
@@ -200,9 +244,19 @@
 					options.axes[yAxisKey].pad = yaxisPadding;
 				}
 				
-				function addSeries(field) {
+				function addSeries(field, i) {
 					var index;
-					var yaxisKey = getYAxisKey(field);
+					//default yaxis name
+					var yaxisKey = 'yaxis';
+					
+					
+					//if other yaxis labels have been defined, then draw a axis for that label
+					if (i > 0 && null != getYAxisLabel(field)) {						
+						yaxisKey = getYAxisKey(field);
+					} else {
+						yaxisKey = 'yaxis';
+					}				
+					
 					options.series.push({});
 					index = options.series.length - 1;
 					options.series[index].yaxis = yaxisKey;
@@ -210,9 +264,11 @@
 					options.series[index].lineWidth = lineWidth;
 					options.series[index].pointLabels = {};
 					options.series[index].pointLabels.edgeTolerance = edgeTolerance;
+					options.series[index].showMarker = false;
 					options.series[index].markerOptions = {};
 					options.series[index].markerOptions.style = markerStyle;
-					options.series[index].color = seriesColors.shift();
+// 					options.series[index].color = seriesColors[index];
+					options.series[index].color = seriesColors[0];
 				}
 				
 				function addSeriesMapping(subscriptionId, index) {
@@ -224,41 +280,55 @@
 					return seriesMap[subscriptionId].index;
 				}
 				
-				function initSub(subscriptionId, field) {
-					var index;
-					addYAxis(field);
-					addSeries(field);
+				function initSub(subscriptionId, field, i) {
+					var index;						
+					addSeries(field, i);					
+					addYAxis(field);									
 					series.push([]);
 					index = series.length - 1;
 					addSeriesMapping(subscriptionId, index);
 				}
 				
 				function initSubscriptOptions() {
-					if (subscriptionId0 != null && subField0 != null) {
-						initSub(subscriptionId0, subField0);
+					for (i = 0; i < 8; i++) {
+						var subscrip = eval('subscriptionId'+i);						
+						var subfield = eval('subField'+i)
+						var subcolor = eval('color'+i);
+						
+						if (subscrip != null && subfield != null) {
+							if (subcolor != null) {
+								addColor(subcolor);
+							}							
+							initSub(subscrip, subfield, i);							
+						}						
 					}
-					if (subscriptionId1 != null && subField1 != null) {
-						initSub(subscriptionId1, subField1);
-					}
-					if (subscriptionId2 != null && subField2 != null) {
-						initSub(subscriptionId2, subField2);
-					}
-					if (subscriptionId3 != null && subField3 != null) {
-						initSub(subscriptionId3, subField3);
-					}
-					if (subscriptionId4 != null && subField4 != null) {
-						initSub(subscriptionId4, subField4);
-					}
-					if (subscriptionId5 != null && subField5 != null) {
-						initSub(subscriptionId5, subField5);
-					}
-					if (subscriptionId6 != null && subField6 != null) {
-						initSub(subscriptionId6, subField6);
-					}
-					if (subscriptionId7 != null && subField7 != null) {
-						initSub(subscriptionId7, subField7);
-					}
-				}
+					
+
+// 					if (subscriptionId0 != null && subField0 != null) {
+// 						initSub(subscriptionId0, subField0);
+// 					}
+// 					if (subscriptionId1 != null && subField1 != null) {
+// 						initSub(subscriptionId1, subField1);
+// 					}
+// 					if (subscriptionId2 != null && subField2 != null) {
+// 						initSub(subscriptionId2, subField2);
+// 					}
+// 					if (subscriptionId3 != null && subField3 != null) {
+// 						initSub(subscriptionId3, subField3);
+// 					}
+// 					if (subscriptionId4 != null && subField4 != null) {
+// 						initSub(subscriptionId4, subField4);
+// 					}
+// 					if (subscriptionId5 != null && subField5 != null) {
+// 						initSub(subscriptionId5, subField5);
+// 					}
+// 					if (subscriptionId6 != null && subField6 != null) {
+// 						initSub(subscriptionId6, subField6);
+// 					}
+// 					if (subscriptionId7 != null && subField7 != null) {
+// 						initSub(subscriptionId7, subField7);
+// 					}
+				}				
 				
 				function init() {
 					initGrid();
@@ -282,6 +352,7 @@
 				};
 				
 				function updateBufferPoint(data, index) {
+// 					alert(data[index] + ', ' + index);
 					var firstValue = data[index][0][1];
 					var lastValue = data[index][data[index].length-1][1];
 					if (data[index].length >= 2) {
@@ -295,30 +366,34 @@
 				
 				function updateTimeSeries() {
 					setTimeout(function() {
-						var latestTime = ticksArray[ticksArray.length-1];
-						var futureTime = parseInt(latestTime) + refreshPeriod;
-						ticksArray.push(futureTime);
-						var tempTime = ticksArray.shift();
-						for (i = 0; i < series.length; i++) {
-							
-							var dataSize = series[i].length;
-	
-							if (dataSize > 2) {
-								var n = 0;
-								//phase out old time from series
-								var dataSize2 = series[i].length-2;
-								while (n < dataSize2) {
-									if (series[i][1][0] < parseInt(tempTime)) {
-										series[i][0][1] = series[i][1][1];
-										series[i].splice(1, 1);
-									} else {
-										break;
+						var currentTimeTicks = new Date().getTime().toString();
+						var passedTicks =  currentTimeTicks - ticksArray[ticksArray.length-1];	  
+						if (passedTicks >= xaxisIncrement) {
+							var latestTime = ticksArray[ticksArray.length-1];
+							var futureTime = parseInt(latestTime) + xaxisIncrement;
+							ticksArray.push(futureTime);
+							var tempTime = ticksArray.shift();
+							for (i = 0; i < series.length; i++) {
+								
+								var dataSize = series[i].length;
+		
+								if (dataSize > 2) {
+									var n = 0;
+									//phase out old time from series
+									var dataSize2 = series[i].length-2;
+									while (n < dataSize2) {
+										if (series[i][1][0] < parseInt(tempTime)) {
+											series[i][0][1] = series[i][1][1];
+											series[i].splice(1, 1);
+										} else {
+											break;
+										}
+										n++;
 									}
-									n++;
 								}
+								updateBufferPoint(series, i);
+								
 							}
-							updateBufferPoint(series, i);
-							
 						}
 						var tempArray = [[[null,null]]];
 						if (plot) {
@@ -340,7 +415,7 @@
 						
 						if (!conn_err) {
 							updateTimeSeries();
-						}
+						}						
 					}, refreshPeriod);
 				};
 				
@@ -417,7 +492,7 @@
 			/*]]>*/	
 		</script>
 	</head>
-	<body style="background-color: lightblue">
+	<body style="background-color: lightgray;" >
 		<div id="chart"></div>
 	</body>
 </html>

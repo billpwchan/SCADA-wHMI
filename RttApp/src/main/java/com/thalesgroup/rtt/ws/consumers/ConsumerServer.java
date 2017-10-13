@@ -63,10 +63,8 @@ public class ConsumerServer implements NotificationConsumer
 			if (entry.getValue() != null) {
 				String field = entry.getKey();
 				String time = Long.toString(entry.getValue().getTimestamp());
-				Date date = new Date();
-				date.setTime(entry.getValue().getTimestamp());
 				String value = messageResolver.getNumericValueToString(entry.getValue());
-				RttEvent event = new RttEvent(publisher, 1, subscriptionId, field, hvId, time, value);
+				RttEvent event = new RttEvent(publisher, 1, subscriptionId, field, hvId, time, value, "some_env");
 				this.publisher.publishWsMessage(event);
 			}
 		}

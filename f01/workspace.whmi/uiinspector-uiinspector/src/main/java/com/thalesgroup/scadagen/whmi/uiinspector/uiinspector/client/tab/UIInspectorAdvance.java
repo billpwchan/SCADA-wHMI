@@ -51,6 +51,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
+	private int indexAI		= UIInspectorAdvance_i.CHKBOX_INDEX_AI;
+	private int indexSS		= UIInspectorAdvance_i.CHKBOX_INDEX_SS;
+	private int indexMO		= UIInspectorAdvance_i.CHKBOX_INDEX_MO;
+
 	private int dalValueTableLength = 12;
 	
 	private int dalValueTableLabelColIndex = 4;
@@ -776,10 +780,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				if ( null != sForcedStatus ) {
 					int forcedStatus = Integer.parseInt(sForcedStatus);
 					
-					int indexAI = 0;
-					int indexSS = 1;
-					int indexMO = 2;
-					
 					if ( null != chkDPMs[y][indexAI] ) {
 						if ( DatabaseHelper.isAI(forcedStatus) ) {
 							chkDPMs[y][indexAI].addStyleName(stylename);
@@ -1187,11 +1187,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		logger.end(className, function);
 	}
-	
-	private final int indexAI = 0;
-	private final int indexSS = 1;
-	private final int indexMO = 2;
-	private final int indexTotal = 3;
 	
 	private Integer getForcedStatus(final String dbaddress, final int col, final PointType pointType) {
 		final String function = "getForcedStatus";

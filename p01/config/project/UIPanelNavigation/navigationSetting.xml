@@ -2216,13 +2216,24 @@
 	</option>
 	<option key="416">
 		<type>S</type>
-		<name>TrainPositionRotation</name>
-		<title>TrainPositionRotation</title>
-		<tooltips>TrainPositionRotation</tooltips>
+		<name>TrainPositionRotation01</name>
+		<title>TrainPositionRotation01</title>
+		<tooltips>TrainPositionRotation01</tooltips>
 		
 		<uiScreen>-1</uiScreen>
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		
-		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation</uiConf>
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation01</uiConf>
+	</option>
+	<option key="417">
+		<type>S</type>
+		<name>TrainPositionRotation02</name>
+		<title>TrainPositionRotation02</title>
+		<tooltips>TrainPositionRotation02</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation02</uiConf>
 	</option>
 </data-set>

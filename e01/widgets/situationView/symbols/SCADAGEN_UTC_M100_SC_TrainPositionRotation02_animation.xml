@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animationConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/animation">
+  <animationRules id="SCADAGEN_UTC_M100_SC_TrainPositionRotation02_animation">
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="TrainPositionByTrackPointRange02" name="location"></source>
+		<sourceType>STRING</sourceType>
+		<customAnimation id="trainPositionByTrackPointRange02" />
+    </animationRule>
+    <animationRule>
+		<source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:computedStatusDataSourceType" statusComputerName="TrainRotationByTrackPointRange02" name="rot"></source>
+		<sourceType>DOUBLE</sourceType>
+		<rotationAnimation defaultValue="0.0" nodeId="TrainRotationByTrackPointRange02_node" />
+	</animationRule>
+    <animationRule>
+      <source xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:statusDataSourceType" name="needack" />
+      <sourceType>INT</sourceType>
+      <blinkAnimation defaultValue="false">
+        <rangeBinding>
+          <range from="1" to="2147483647" value="true" />
+        </rangeBinding>
+      </blinkAnimation>
+    </animationRule>
+  </animationRules>
+</animationConfiguration>

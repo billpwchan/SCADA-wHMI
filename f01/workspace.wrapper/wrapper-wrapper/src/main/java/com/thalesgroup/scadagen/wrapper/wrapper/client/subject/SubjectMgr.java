@@ -26,6 +26,7 @@ public class SubjectMgr {
 	
 	public void setSubject(String key, Subject subject) {
 		final String function = "setSubject";
+		logger.debug(classNamePrefix, function, "key[{}]", key);
 		subjectMap.put(key, subject);
 		logger.debug(classNamePrefix, function, "SubjectMap subject count=[{}]", subjectMap.size());
 	}
@@ -42,8 +43,8 @@ public class SubjectMgr {
 		logger.begin(classNamePrefix, function);
 		
 		String key = clientKey + function;
-    	logger.debug(classNamePrefix, function, "subjectMap subject count=[{}]", subjectMap.size());
-    	Subject subject = subjectMap.get(key);
+    	logger.debug(classNamePrefix, function, "subjectMap subject key[{}] count=[{}]", key, subjectMap.size());
+    	Subject subject = subjectMap.get(key); 
     	
     	if ( null != subject ) {
     		try {
@@ -86,11 +87,11 @@ public class SubjectMgr {
 			, String name4, JSONValue param4) {
 		logger.begin(classNamePrefix, prefix);
 		
-		if ( logger.isInfoEnabled() ) {
-	    	logger.info(classNamePrefix, prefix, "name1[{}] param1[{}]", name1, param1);
-	    	logger.info(classNamePrefix, prefix, "name2[{}] param2[{}]", name2, param2);
-	    	logger.info(classNamePrefix, prefix, "name3[{}] param3[{}]", name3, param3);
-	    	logger.info(classNamePrefix, prefix, "name4[{}] param4[{}]", name4, param4);
+		if ( logger.isDebugEnabled() ) {
+	    	logger.debug(classNamePrefix, prefix, "name1[{}] param1[{}]", name1, param1);
+	    	logger.debug(classNamePrefix, prefix, "name2[{}] param2[{}]", name2, param2);
+	    	logger.debug(classNamePrefix, prefix, "name3[{}] param3[{}]", name3, param3);
+	    	logger.debug(classNamePrefix, prefix, "name4[{}] param4[{}]", name4, param4);
 		}
 		
     	JSONObject jsdata = new JSONObject();
@@ -113,7 +114,7 @@ public class SubjectMgr {
 	public JSONObject convert2Json(String function, String clientKey, int errorCode, String errorMessage) {
 		logger.begin(classNamePrefix, function);
 		
-    	logger.info(classNamePrefix, function, "function[{}] clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{function, clientKey, errorCode, errorMessage});
+    	logger.debug(classNamePrefix, function, "function[{}] clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{function, clientKey, errorCode, errorMessage});
     	
     	JSONObject jsdata = convert2Json(new JSONObject(), function, clientKey, errorCode, errorMessage);
     	
@@ -125,7 +126,7 @@ public class SubjectMgr {
 	public JSONObject convert2Json(JSONObject jsdata, String function, String clientKey, int errorCode, String errorMessage) {
 		logger.begin(classNamePrefix, function);
 		
-    	logger.info(classNamePrefix, function, "function[{}] clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{function, clientKey, errorCode, errorMessage});
+    	logger.debug(classNamePrefix, function, "function[{}] clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{function, clientKey, errorCode, errorMessage});
     	
     	jsdata = convert2Json(function, strfunction, new JSONString(function), strclientKey, new JSONString(clientKey), strerrorCode, new JSONNumber(errorCode), strerrorMessage, new JSONString(errorMessage));
     	

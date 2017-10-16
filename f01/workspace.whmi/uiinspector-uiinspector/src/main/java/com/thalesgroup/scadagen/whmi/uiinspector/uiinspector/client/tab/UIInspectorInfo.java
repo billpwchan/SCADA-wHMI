@@ -25,6 +25,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIIns
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspectorTab_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.common.UIInspector_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.page.PageCounter;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.alarm.AckAlarm;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorInfo_i.Attribute;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.Database_i.PointName;
@@ -877,13 +878,13 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				if ( null != event ) {
 					if ( null != uiInspectorTabClickEvent ) uiInspectorTabClickEvent.onClick(); 
 				} else {
-					logger.debug(className, function, "event IS NULL");
+					logger.warn(className, function, "event IS NULL");
 				}
 			}
 		});
 		rootPanel.addStyleName("project-gwt-panel-inspector-dialogbox");
 		
-		logger.begin(className, function);
+		logger.end(className, function);
 	}
 	
 	private void ackPageAlarms() {
@@ -935,22 +936,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			}
 		}
-		
-		String [] alarmIds = alarmList.toArray(new String[0]);
-		
-		if ( logger.isDebugEnabled() ) {
-			for ( String alarmId : alarmIds ) {
-				logger.debug(className, function, "alarmId[{}]", alarmId);
-			}
-		}
-		
-		logger.warn(className, function, "ackAlarms page disabled!");
-		
-//		String key = "ackalarms";
-//		String comment = "";
-//		int inUserId = 0;
-//		AlmMgr almMgr = AlmMgr.getInstance("AlmMgr");
-//		almMgr.ackAlarms(key, scsEnvId, alarmIds, comment, inUserId);
+
+		new AckAlarm(scsEnvId).ack(alarmList.toArray(new String[0]));
 
 		logger.end(className, function);
 	}

@@ -16,6 +16,8 @@
 		<RetryElement>retry</RetryElement>
 		<SkipElement>skip</SkipElement>
 
+		<ReserveIdentifier>OperatorName</ReserveIdentifier>
+		<!--ReserveIdentifier supports "OperatorName" (case sensitive) and "Profile"-->
 		<ReserveAttributeReserveReqID>resrvReserveReqID</ReserveAttributeReserveReqID>
 		<ReserveAttributeUnreserveReqID>resrvUnreserveReqID</ReserveAttributeUnreserveReqID>
 		<ReserveAttributeReservedID>resrvReservedID</ReserveAttributeReservedID>

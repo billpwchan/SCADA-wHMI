@@ -17,6 +17,7 @@ public interface UIWidgetSocControl_i {
 		, RetryElement("RetryElement")
 		, SkipElement("SkipElement")
 		
+		, ReserveIdentifier("ReserveIdentifier")
 		, ReserveAttributeReserveReqID("ReserveAttributeReserveReqID")
 		, ReserveAttributeUnreserveReqID("ReserveAttributeUnreserveReqID")
 		, ReserveAttributeReservedID("ReserveAttributeReservedID")

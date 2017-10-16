@@ -2225,4 +2225,15 @@
 		
 		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation</uiConf>
 	</option>
+	<option key="417">
+		<type>S</type>
+		<name>Str2StrCompare</name>
+		<title>Str2StrCompare</title>
+		<tooltips>Str2StrCompare</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_Str2StrCompare</uiConf>
+	</option>
 </data-set>

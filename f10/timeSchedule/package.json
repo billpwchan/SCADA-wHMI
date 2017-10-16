@@ -1,6 +1,6 @@
 {
   "name": "scadagen-timeSchedule",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "license": "Thales",
   "scripts": {
     "ng": "ng",

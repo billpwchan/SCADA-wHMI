@@ -5,7 +5,7 @@
 
     <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
     <artifactId>scadagen-ba</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.3</version>
     <packaging>jar</packaging>
     <name>SCADAgen HV Connector supporting generic BPS</name>
     <description>SCADAgen connector for Hypervisor VS9</description>
@@ -75,21 +75,21 @@
         <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>fasapi</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.3</version>
         </dependency>
         
         <!-- SCADAgenBA Comp -->
         <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>scadagen-ba-comp</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.3</version>
         </dependency>
 
         <!-- SCADAgen BPS -->       
         <dependency>
             <groupId>com.thalesgroup.scadagen.scadagenba</groupId>
             <artifactId>scadagen-bps</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.thalesgroup.scadasoft</groupId>

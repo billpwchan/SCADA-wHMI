@@ -6,7 +6,7 @@
   <parent>
     <artifactId>whmi</artifactId>
     <groupId>com.thalesgroup.scadagen.whmi</groupId>
-  <version>1.5.2</version>
+  <version>1.5.3</version>
   </parent>
   <groupId>com.thalesgroup.scadagen.whmi.whmi</groupId>
   <artifactId>whmi</artifactId>

@@ -10,7 +10,14 @@
           <layoutConstraint xmi:type="notation:Location" xmi:id="_XArQJLAPEeeHwcZ7NzZZbQ" y="5"/>
         </children>
         <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M100SC_Str2StrCompare/M100SC_Str2StrCompare.imageeditor#//@canvas/@ownedItem.0"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XArQIrAPEeeHwcZ7NzZZbQ" x="964" y="580"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XArQIrAPEeeHwcZ7NzZZbQ" x="564" y="582" width="200" height="200"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_u5R7EbIfEeexHq26Itv3Gg" type="3001" fontName="Segoe UI">
+        <children xmi:type="notation:DecorationNode" xmi:id="_u5R7E7IfEeexHq26Itv3Gg" type="5001">
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_u5R7FLIfEeexHq26Itv3Gg" y="5"/>
+        </children>
+        <element xmi:type="imageeditor:GraphicalItem" href="/ImageProject_SCADAgen/M100SC_Str2StrCompare/M100SC_Str2StrCompare.imageeditor#//@canvas/@ownedItem.1"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_u5R7ErIfEeexHq26Itv3Gg" x="1326" y="582" width="200" height="200"/>
       </children>
     </children>
     <element xmi:type="imageeditor:GraphicalCanvas" href="/ImageProject_SCADAgen/M100SC_Str2StrCompare/M100SC_Str2StrCompare.imageeditor#//@canvas"/>

@@ -104,6 +104,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	private String retryElement = "retry";
 	private String skipElement = "skip";
 	
+	private String reserveIdentifier = null;
 	private String resrvReserveReqID = null;
 	private String resrvUnreserveReqID = null;
 	private String resrvReservedID = null;
@@ -116,7 +117,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 	
 	private String messageDatetimefmt = null;
 	
-	private String currentOperator =  UIOpmSCADAgen.getInstance().getCurrentOperator();
+	private String currentOperator =  null;
 	
 	private int notExecutedSteps = 0;
 	private int completedSteps = 0;
@@ -476,6 +477,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 				skipElement = element;
 			}
 			
+			reserveIdentifier		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveIdentifier.toString(), strHeader);
 			resrvReserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeReserveReqID.toString(), strHeader);
 			resrvUnreserveReqID		= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeUnreserveReqID.toString(), strHeader);
 			resrvReservedID			= dictionariesCache.getStringValue(optsXMLFile, ParameterName.ReserveAttributeReservedID.toString(), strHeader);
@@ -514,6 +516,7 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "retryElement[{}]", retryElement);
 		logger.info(className, function, "skipElement[{}]", skipElement);
 		
+		logger.info(className, function, "reserveIdentifier[{}]", reserveIdentifier);
 		logger.info(className, function, "resrvReserveReqID[{}]", resrvReserveReqID);
 		logger.info(className, function, "resrvUnreserveReqID[{}]", resrvUnreserveReqID);
 		logger.info(className, function, "resrvReservedID[{}]", resrvReservedID);
@@ -525,6 +528,13 @@ public class UIWidgetSocControl extends UIWidget_i {
 		logger.info(className, function, "maxReserveRetry[{}]", maxReserveRetry);
 		
 		logger.info(className, function, "messageDatetimefmt[{}]", messageDatetimefmt);
+		
+		if (reserveIdentifier == "OperatorName"){
+			currentOperator = UIOpmSCADAgen.getInstance().getCurrentOperator();
+		} else {
+			currentOperator = UIOpmSCADAgen.getInstance().getCurrentProfile();
+		}
+		logger.info(className, function, "currentOperator[{}]", currentOperator);
 		
 		uiWidgetGeneric = new UIWidgetGeneric();
 		uiWidgetGeneric.setUINameCard(this.uiNameCard);

@@ -18,4 +18,9 @@ public interface UIInspectorAdvance_i {
 		@Override
 		public String toString() { return this.text; }
 	}
+	
+	public final static int CHKBOX_INDEX_AI = 0;
+	public final static int CHKBOX_INDEX_SS = 1;
+	public final static int CHKBOX_INDEX_MO = 2;
+	public final static int CHKBOX_INDEX_TOTAL = 3;
 }

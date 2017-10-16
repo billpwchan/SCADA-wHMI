@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:scsRepresentation="http://www.thalesgroup.com/scsRepresentation">
+  <scsRepresentation:GraphicalRepresentation xmi:id="_S40hIa4mEeeNfba8dj2zhQ" prototypeRefId="SGEQPT8_SGEQPT8_xo3goFXDEee4As-TYSGT9g_1497968499626" name="SCADAGEN_UTC_M100_SC_TrainPositionRotation01" defaultAspect="_YGrGEK4mEeeNfba8dj2zhQ" category="_S40hJa4mEeeNfba8dj2zhQ">
+    <aspectPackage xmi:id="_S40hIq4mEeeNfba8dj2zhQ" name="Aspect Container">
+      <ownedAspect xmi:id="_YGrGEK4mEeeNfba8dj2zhQ" name="TrainPositionRotation01">
+        <ownedDecoratedSymbol xmi:id="_igR-MK4mEeeNfba8dj2zhQ" y="65.0" width="200.0" height="68.0" ratio_width="1.8018018" ratio_height="1.7894737" symbol="_igbvMK4mEeeNfba8dj2zhQ"/>
+      </ownedAspect>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_LAro0K_qEee6mqtCrBI10A" id="TrainPositionByTrackPointRange01" qualifiedName="TrainPositionByTrackPointRange01"/>
+      <ownedAttribute xsi:type="scsRepresentation:CalculatedAttribute" xmi:id="_SSELwK_qEee6mqtCrBI10A" id="TrainRotationByTrackPointRange01" qualifiedName="TrainRotationByTrackPointRange01" outputType="DOUBLE"/>
+    </aspectPackage>
+    <symbolLibrary xmi:id="_S40hI64mEeeNfba8dj2zhQ">
+      <ownedSymbol xsi:type="scsRepresentation:SvgSymbol" xmi:id="_igbvMK4mEeeNfba8dj2zhQ" filePath="Symbols/SIG_Train_Right.svg" id="_PRJ_GZ_COCC_SYMBOLS_SIGNAL_SIG_TRAIN_RIGHT_SVG" width="111.0" height="38.0"/>
+    </symbolLibrary>
+  </scsRepresentation:GraphicalRepresentation>
+  <scsRepresentation:CategoryPackage xmi:id="_S40hJK4mEeeNfba8dj2zhQ">
+    <ownedCategories xmi:id="_S40hJa4mEeeNfba8dj2zhQ" name="Functional"/>
+  </scsRepresentation:CategoryPackage>
+</xmi:XMI>

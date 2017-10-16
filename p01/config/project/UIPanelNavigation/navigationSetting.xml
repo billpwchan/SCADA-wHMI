@@ -2214,17 +2214,6 @@
 		
 		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_NeedAck</uiConf>
 	</option>
-	<option key="416">
-		<type>S</type>
-		<name>TrainPositionRotation</name>
-		<title>TrainPositionRotation</title>
-		<tooltips>TrainPositionRotation</tooltips>
-		
-		<uiScreen>-1</uiScreen>
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		
-		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation</uiConf>
-	</option>
 	<option key="417">
 		<type>S</type>
 		<name>Str2StrCompare</name>
@@ -2235,5 +2224,27 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		
 		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_Str2StrCompare</uiConf>
+	</option>
+	<option key="418">
+		<type>S</type>
+		<name>TrainPositionRotation01</name>
+		<title>TrainPositionRotation01</title>
+		<tooltips>TrainPositionRotation01</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation01</uiConf>
+	</option>
+	<option key="419">
+		<type>S</type>
+		<name>TrainPositionRotation02</name>
+		<title>TrainPositionRotation02</title>
+		<tooltips>TrainPositionRotation02</tooltips>
+		
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		
+		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation02</uiConf>
 	</option>
 </data-set>

@@ -313,8 +313,9 @@
 	<option key="Verify|Status Computer|IntFormatting"><setting>413</setting></option>
 	<option key="Verify|Status Computer|IntMapping"><setting>414</setting></option>
 	<option key="Verify|Status Computer|NeedAck"><setting>415</setting></option>
-	<option key="Verify|Status Computer|TrainPositionRotation"><setting>416</setting></option>
 	<option key="Verify|Status Computer|Str2StrCompare"><setting>417</setting></option>
+	<option key="Verify|Status Computer|TrainPositionRotation01"><setting>418</setting></option>
+	<option key="Verify|Status Computer|TrainPositionRotation02"><setting>419</setting></option>
 	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>

@@ -114,10 +114,10 @@
   <brick id="NeedAck_Negative" filename="bricks/NeedAck_Negative.svg"></brick>
   <brick id="NeedAck_Zero" filename="bricks/NeedAck_Zero.svg"></brick>
   <brick id="NeedAck_Positive" filename="bricks/NeedAck_Positive.svg"></brick>
-  <brick id="TrainPositionByTrackPointRange" filename="bricks/TrainPositionByTrackPointRange.svg"></brick>
-  <brick id="TrainRotationByTrackPointRange" filename="bricks/TrainRotationByTrackPointRange.svg"></brick>
   <brick id="Str2StrCompare_0" filename="bricks/Str2StrCompare_0.svg"></brick>
   <brick id="Str2StrCompare_1" filename="bricks/Str2StrCompare_1.svg"></brick>
+  <brick id="TrainPositionRotation01" filename="bricks/TrainPositionRotation01.svg"></brick>
+  <brick id="TrainPositionRotation02" filename="bricks/TrainPositionRotation02.svg"></brick>
   <brick id="TES__ActiveBackdrop" filename="bricks/TES__ActiveBackdrop.svg"></brick>
   <brick id="TTVF_D_Symbol_Exhaust_Blink" filename="bricks/TTVF_D_Symbol_Exhaust_Blink.svg"></brick>
   <brick id="TTVF_D_State_MO" filename="bricks/TTVF_D_State_MO.svg"></brick>

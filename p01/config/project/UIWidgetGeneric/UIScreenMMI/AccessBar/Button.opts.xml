@@ -93,7 +93,7 @@
 		<OperationString3>M100CONN</OperationString3>
 		<OperationString4>scsAlmExt.cnf</OperationString4>
 		<OperationString5>14</OperationString5>
-		<OperationString6>:SYS:M000001:GWS_0001</OperationString6>
+		<OperationString6>:SYS:M100000:GWS_0001</OperationString6>
 		<OperationString7>1</OperationString7>
 		<OperationString8>1</OperationString8>
 		<OperationString9>|EXT_E_OPM|-|||%GETOPERATOR% : Logout at %GETIPADDRESS%|||||||||||||</OperationString9>

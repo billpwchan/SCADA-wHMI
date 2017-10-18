@@ -2038,7 +2038,8 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiScreen>-1</uiScreen>
 		
-		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=TimeSchedule/Summary.view.xml&amp;uiOpts=TimeSchedule/Summary.opts.xml</uiConf>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiView>UILayoutEntryPointOneshotTimeScheduleURLSummary/UILayoutEntryPointOneshotTimeScheduleURLSummary.view.xml</uiView>
 	</option>
 	<option key="368">
 		<type>P</type>
@@ -2049,7 +2050,8 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiScreen>-1</uiScreen>
 		
-		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=TimeSchedule/Summary.view.xml&amp;uiOpts=TimeSchedule/Summary.opts.xml</uiConf>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiView>UILayoutEntryPointPeriodicTimeScheduleURLSummary/UILayoutEntryPointPeriodicTimeScheduleURLSummary.view.xml</uiView>
 	</option>
 	<option key="369">
 		<type>P</type>
@@ -2059,8 +2061,9 @@
 		
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiScreen>-1</uiScreen>
-		
-		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=TimeSchedule/Summary.view.xml&amp;uiOpts=TimeSchedule/Summary.opts.xml</uiConf>
+
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiView>UILayoutEntryPointWeeklySchedulePlanningURLSummary/UILayoutEntryPointWeeklySchedulePlanningURLSummary.view.xml</uiView>		
 	</option>
 	<option key="370">
 		<type>P</type>

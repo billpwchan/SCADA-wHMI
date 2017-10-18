@@ -9,7 +9,7 @@ import { MdProgressSpinnerModule } from '@angular/material';
     styleUrls: ['./app-loading.component.css'],
 })
 export class AppLoadingComponent implements OnInit, OnDestroy {
-    private isLoading = false;
+    public isLoading = false;
     private subscription: any;
     public spinnerColor = 'primary';
 

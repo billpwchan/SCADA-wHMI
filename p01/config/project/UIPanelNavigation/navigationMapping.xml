@@ -305,6 +305,7 @@
 	<option key="M001|Utilities|Historical Report"><setting>375</setting></option>
 	<option key="M001|Utilities|OPM"><setting>376</setting></option>
 	<option key="M001|Utilities|Help"><setting>377</setting></option>
+	<option key="M001|MCS|SOC"><setting>378</setting></option>
 	
 	<option key="Verify"><setting>400</setting></option>
 	<option key="Verify|Status Computer"><setting>401</setting></option>

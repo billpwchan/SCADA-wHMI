@@ -2009,7 +2009,7 @@
 		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
 		<uiScreen>-1</uiScreen>
 		
-		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=AlarmMgmt/Summary.view.xml&amp;uiOpts=AlarmMgmt/Summary.opts.xml</uiConf>
+		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=AlmMgn/Summary.view.xml&amp;uiOpts=AlmMgn/Summary.opts.xml</uiConf>
 	</option>
 	
 	<option key="365">
@@ -2148,6 +2148,16 @@
 		<uiScreen>-1</uiScreen>
 		
 		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=Help/Summary.view.xml&amp;uiOpts=Help/Summary.opts.xml</uiConf>
+	</option>
+	<option key="378">
+		<type>P</type>
+		<name>SOC</name>
+		<title>SOC</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
+		<tooltips>SOC</tooltips>
 	</option>
 	
 	<option key="400">

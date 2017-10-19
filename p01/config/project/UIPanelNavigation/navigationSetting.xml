@@ -2128,16 +2128,12 @@
 		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=DBMS/Summary.view.xml&amp;uiOpts=DBMS/Summary.opts.xml</uiConf>
 	</option>
 	<option key="376">
-		<type>P</type>
+		<type>M</type>
 		<name>OPM</name>
 		<title>OPM</title>
 		<tooltips>OPM</tooltips>
-		
-		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
-		<uiScreen>-1</uiScreen>
-		
-		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=OPM/Summary.view.xml&amp;uiOpts=OPM/Summary.opts.xml</uiConf>
 	</option>
+
 	<option key="377">
 		<type>P</type>
 		<name>Help</name>
@@ -2159,7 +2155,18 @@
 		<uiView>UILayoutEntryPointSocSummary/UILayoutEntryPointSocSummary.view.xml</uiView>
 		<tooltips>SOC</tooltips>
 	</option>
-	
+	<option key="379">
+		<type>P</type>
+		<name>OPM</name>
+		<title>OPM</title>
+		<tooltips>OPM</tooltips>
+		
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiScreen>-1</uiScreen>
+		
+		<uiConf>uiCtrl=UILayoutSummary&amp;uiView=OPM/Summary.view.xml&amp;uiOpts=OPM/Summary.opts.xml</uiConf>
+	</option>
+
 	<option key="400">
 		<type>M</type>
 		<name>Verify</name>
@@ -2260,4 +2267,32 @@
 		
 		<uiConf>uiCtrl=SCADAgenSituationViewPanel&amp;uiSvId=M100SC_TrainPositionRotation02</uiConf>
 	</option>
+	
+	<option key="420">
+		<type>M</type>
+		<name>OPM</name>
+		<title>OPM</title>
+		<tooltips>OPM</tooltips>
+	</option>
+	<option key="421">
+		<type>P</type>
+		<name>Change Password</name>
+		<title>Change Password</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/ChangePassword/UILayoutEntryPointOPMChangePasswordSummary.view.xml</uiView>
+		<tooltips>Change Password</tooltips>
+	</option>
+	<option key="422">
+		<type>P</type>
+		<name>Change Target User Password</name>
+		<title>Change Target User Password</title>
+		<uiCtrl>UILayoutEntryPoint</uiCtrl>
+		<uiScreen>-1</uiScreen>
+		<uiPath>:UIGws:UIPanelScreen:UIScreenMMI:UIPanelViewLayout</uiPath>
+		<uiView>Verify/Opm/ChangePassword/UILayoutEntryPointOPMChangeTargetUserPasswordSummary.view.xml</uiView>
+		<tooltips>Change User Password</tooltips>
+	</option>
+	
 </data-set>

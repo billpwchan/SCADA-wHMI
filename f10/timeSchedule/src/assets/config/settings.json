@@ -2,8 +2,8 @@
   "scs_tsc_url": "$$M100CONN1_REST_ADDRESS$$/scs/service/TscComponent/",
   "default_client_name": "ROOT",
   "tsc_time_offset": 0,
-  "running_status_update_start_delay": 10000,
-  "running_status_update_period": 5000,
+  "running_status_update_start_delay": 30000,
+  "running_status_update_period": 20000,
   "daygroup_update_period": 60000,
   "i18n": {
     "default_lang": "en"
@@ -47,7 +47,7 @@
     "geocat_translation_prefix": "Location_",
     "funcat_translation_prefix": "System_",
     "page_size": 5,
-    "display_spinner": true
+    "display_spinner": false
 	},
   "schedule_planning": {
       "weekly_planning": {
@@ -65,6 +65,6 @@
     "manual_refresh_enabled": true,
     "display_cutoff_time": false,
     "display_running_schedules": true,
-    "display_spinner": true
+    "display_spinner": false
   }
 }

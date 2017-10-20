@@ -130,4 +130,9 @@ public class SCADARest implements INotifManager {
 		return n;
 	}
 
+	@Override
+	public String convertToRTDBAddress(String abstractAddress) {
+		return abstractAddress;
+	}
+
 }

@@ -17,10 +17,10 @@
     <name>SCADAgen BA Component</name>
     <description>SCADAgen BA Executor and JSComponent library</description>
 	
-	<properties>
-		<scadasoft.version>6.3.1_P05</scadasoft.version>
-		<scadasoft.hv.version>6.3.1_P05-HV960</scadasoft.hv.version>
-	</properties>
+    <properties>
+        <scadasoft.version>6.3.1_P06</scadasoft.version>
+        <scadasoft.hv.version>6.3.1_P06-HV960</scadasoft.hv.version>
+    </properties>
 
     <dependencies>
         <dependency>

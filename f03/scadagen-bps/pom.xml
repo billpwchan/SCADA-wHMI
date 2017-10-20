@@ -13,8 +13,8 @@
         <hv.connector.sdk.version>2.12.0</hv.connector.sdk.version>
         <slf4j.version>1.6.1</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-        <scadasoft.version>6.3.1_P05</scadasoft.version>
-		<scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
+        <scadasoft.version>6.3.1_P06</scadasoft.version>
+	<scadasoft.model.version>6.3.1_P06-HV960P01</scadasoft.model.version>
 	</properties>
 	
 	<dependencies>

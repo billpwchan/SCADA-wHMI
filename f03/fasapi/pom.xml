@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.thalesgroup.scadasoft</groupId>
         <artifactId>scadasoft</artifactId>
-        <version>6.3.1_P05</version>
+        <version>6.3.1_P06</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

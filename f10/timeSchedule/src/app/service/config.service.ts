@@ -13,6 +13,7 @@ export class ConfigService {
         running_status_update_start_delay: 10000,
         running_status_update_period: 5000,
         daygroup_update_period: 60000,
+        disable_periodic_schedule_planning: false,
         i18n: Map({
             default_lang: 'en',
             resolve_by_browser_lang: true,
@@ -38,7 +39,8 @@ export class ConfigService {
             geocat_translation_prefix: 'Location_',
             funcat_translation_prefix: 'System_',
             page_size: 5,
-            display_spinner: true
+            display_spinner: true,
+            display_other_types_in_running_schedules: true
         }),
         schedule_planning: Map({
             weekly_planning: {},
@@ -48,7 +50,8 @@ export class ConfigService {
             manual_refresh_enabled: true,
             display_cutoff_time: false,
             display_running_schedules: true,
-            display_spinner: true
+            display_spinner: true,
+            display_other_types_in_running_schedules: true
         })
     });
     public config: any;

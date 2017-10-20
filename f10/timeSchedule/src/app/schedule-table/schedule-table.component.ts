@@ -132,6 +132,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public funcatTranslationPrefix = 'funcat';
 
+    public displayOtherTypesInRunningSchedules = true;
+
     constructor(
         private configService: ConfigService,
         private route: ActivatedRoute,
@@ -201,6 +203,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.displaySpinner = this.configService.config.getIn(['schedule_table', 'display_spinner']);
         console.log('{schedule-table}', '[loadConfig]', 'display_spinner=', this.displaySpinner);
+
+        this.displayOtherTypesInRunningSchedules = this.configService.config.getIn(['schedule_table', 'display_other_types_in_running_schedules']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_other_types_in_running_schedules=', this.displayOtherTypesInRunningSchedules);
     }
     loadData() {
         if (this.subRoute) {

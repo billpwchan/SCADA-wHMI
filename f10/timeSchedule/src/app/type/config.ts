@@ -13,6 +13,8 @@ export interface Config {
     running_status_update_period: number
     // default period to update daygroup datelist
     daygroup_update_period: number
+    // disable periodic schedule planning
+    disable_periodic_schedule_planning: boolean;
     // i18n related configuration
     i18n: {
         // detault language to use, if translation of the user's language is not available
@@ -63,6 +65,8 @@ export interface Config {
         page_size: number;
         // enable spinner
         display_spinner: boolean;
+        // option to display other schedule types in running schedule
+        display_other_types_in_running_schedules: boolean;
     };
     schedule_planning: {
         // default schedule assignment for each weekday
@@ -81,5 +85,7 @@ export interface Config {
         display_running_schedules: boolean;
         // enable spinner
         display_spinner: boolean;
+        // option to display other schedule types in running schedules
+        display_other_types_in_running_schedules: boolean;
     }
 }

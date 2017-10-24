@@ -31,7 +31,7 @@
 		<link>
 			<name>.tempExport</name>
 			<type>2</type>
-			<location>D:/SCADAgen_rtdb/MC_SCADAgen/11_SCDM_dev/genModel/SCADAgen</location>
+			<location>D:/SCADAgen_Repo/whmi/e01_src/devconf/11_SCDM_dev/genModel/SCADAgen</location>
 		</link>
 	</linkedResources>
 </projectDescription>

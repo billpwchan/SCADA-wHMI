@@ -98,7 +98,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.debug(className, function, "this.scsEnvId[{}] this.parent[{}]", this.scsEnvId, this.parent);
+		logger.debug(className, function, "this.parent[{}] this.scsEnvId[{}]", this.parent, this.scsEnvId);
 	}
 	
 	@Override

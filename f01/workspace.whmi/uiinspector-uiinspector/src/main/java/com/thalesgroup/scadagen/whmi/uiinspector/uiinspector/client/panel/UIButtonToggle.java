@@ -17,6 +17,10 @@ public class UIButtonToggle extends Button {
 	public UIButtonToggle( String string ){
 		super(string);
 	}
+	
+	private String strStyleName = "project-gwt-button-inspector-control-selected";
+	public void setHightLightStyleName(String strStyleName) { this.strStyleName = strStyleName; }
+	
 	private boolean hightLight = false;
 	/**
 	 * set the button as hight light
@@ -29,22 +33,18 @@ public class UIButtonToggle extends Button {
 	 * @param hightLight
 	 */
 	public void setHightLight ( boolean hightLight ) {
-		
 		final String function = "setHightLight";
-		
 		logger.begin(className, function);
 		logger.debug(className, function, "setHightLight Begin hightLight[{}]", hightLight);
 
 		this.hightLight = hightLight;
 		
-		String styleName = "project-gwt-button-inspector-control-selected";
-		
-		logger.debug(className, function, "setHightLight addStyleName[{}] hightLight[{}]", styleName, hightLight);
+		logger.debug(className, function, "setHightLight strStyleName[{}] hightLight[{}]", strStyleName, hightLight);
 
 		if ( hightLight ) {
-			this.addStyleName(styleName);
+			this.addStyleName(strStyleName);
 		} else {
-			this.removeStyleName(styleName);
+			this.removeStyleName(strStyleName);
 		}
 		
 		logger.end(className, function);

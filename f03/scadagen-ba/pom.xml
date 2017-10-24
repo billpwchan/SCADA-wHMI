@@ -15,8 +15,8 @@
         <hv.common.integ.version>1.11.0</hv.common.integ.version>
         
         <scadasoft.model.version>6.3.1_P04-HV960</scadasoft.model.version>
-        <scadasoft.hv.version>6.3.1_P05-HV960</scadasoft.hv.version>
-        <scadasoft.version>6.3.1_P05</scadasoft.version>
+        <scadasoft.hv.version>6.3.1_P06-HV960</scadasoft.hv.version>
+        <scadasoft.version>6.3.1_P06</scadasoft.version>
         
         <jcloverslf4j.version>1.7.21</jcloverslf4j.version>
         <jersey.version>2.23.2</jersey.version>

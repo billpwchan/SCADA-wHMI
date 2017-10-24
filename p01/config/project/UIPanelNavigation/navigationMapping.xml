@@ -278,6 +278,7 @@
 	<option key="M100|Utilities|Historical Report"><setting>315</setting></option>
 	<option key="M100|Utilities|OPM"><setting>316</setting></option>
 	<option key="M100|Utilities|Help"><setting>317</setting></option>
+	<option key="M100|Utilities|OPM|Summary"><setting>318</setting></option>
 	
 	<option key="M001"><setting>350</setting></option>
 	<option key="M001|ECT"><setting>351</setting></option>
@@ -305,6 +306,8 @@
 	<option key="M001|Utilities|Historical Report"><setting>375</setting></option>
 	<option key="M001|Utilities|OPM"><setting>376</setting></option>
 	<option key="M001|Utilities|Help"><setting>377</setting></option>
+	<option key="M001|MCS|SOC"><setting>378</setting></option>
+	<option key="M001|Utilities|OPM|Summary"><setting>379</setting></option>
 	
 	<option key="Verify"><setting>400</setting></option>
 	<option key="Verify|Status Computer"><setting>401</setting></option>
@@ -316,6 +319,10 @@
 	<option key="Verify|Status Computer|Str2StrCompare"><setting>417</setting></option>
 	<option key="Verify|Status Computer|TrainPositionRotation01"><setting>418</setting></option>
 	<option key="Verify|Status Computer|TrainPositionRotation02"><setting>419</setting></option>
+	
+	<option key="Verify|OPM"><setting>420</setting></option>
+	<option key="Verify|OPM|Change Password"><setting>421</setting></option>
+	<option key="Verify|OPM|Change Targe Password"><setting>422</setting></option>
 	
 	<!-- Keep it as Default Page for not found -->
 	<option key="MenuNotFound"><setting>-1</setting></option>

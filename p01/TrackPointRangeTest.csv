@@ -1,2 +1,2 @@
-TrackID, Kp_End, Kp_Begin, x_End, y_End, x_Begin, y_Begin, x_Offset, y_Offset, rotation
-1,100,200,200,1000,300,1000,50,0,0
+TrackID, Kp_End, Kp_Begin, x_End, y_End, x_Begin, y_Begin, x_Offset_Conv, y_Offset_Conv, x_Offset_Rev, y_Offset_Rev, rotation
+1,100,200,200,1000,300,1000,50,0,50,0,0

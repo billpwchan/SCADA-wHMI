@@ -30,8 +30,11 @@ public abstract class TrainPositionByTrackPointRange extends SCSStatusComputer i
 	protected final String yEndField		= "y_End";
 	protected final String xBeginField		= "x_Begin";
 	protected final String yBeginField		= "y_Begin";
-	protected final String xOffsetField		= "x_Offset";
-	protected final String yOffsetField		= "y_Offset";
+	protected final String xOffsetConvField		= "x_Offset_Conv";
+	protected final String yOffsetConvField		= "y_Offset_Conv";
+	protected final String xOffsetRevField		= "x_Offset_Rev";
+	protected final String yOffsetRevField		= "y_Offset_Rev";
+	protected final String rotationField		= "rotation";
 	
 	protected final String defaultXPropName		= ".defaultX";
 	protected final String defaultYPropName		= ".defaultY";
@@ -293,38 +296,53 @@ public abstract class TrainPositionByTrackPointRange extends SCSStatusComputer i
 			logger.warn("yEnd column data not found");
 			yEnd = 0.0;
 		}
-		Double xOffset = foundKpMap.get(xOffsetField);
-		if (xOffset == null) {
-			logger.warn("xOffset column data not found");
-			xOffset = 0.0;
+		Double xOffsetConv = foundKpMap.get(xOffsetConvField);
+		if (xOffsetConv == null) {
+			logger.warn("xOffsetConv column data not found");
+			xOffsetConv = 0.0;
 		}
-		Double yOffset = foundKpMap.get(yOffsetField);
-		if (yOffset == null) {
-			logger.warn("yOffset column data not found");
-			yOffset = 0.0;
+		Double yOffsetConv = foundKpMap.get(yOffsetConvField);
+		if (yOffsetConv == null) {
+			logger.warn("yOffsetConv column data not found");
+			yOffsetConv = 0.0;
+		}
+		Double xOffsetRev = foundKpMap.get(xOffsetRevField);
+		if (xOffsetRev == null) {
+			logger.warn("xOffsetRev column data not found");
+			xOffsetRev = 0.0;
+		}
+		Double yOffsetRev = foundKpMap.get(yOffsetRevField);
+		if (yOffsetRev == null) {
+			logger.warn("yOffsetRev column data not found");
+			yOffsetRev = 0.0;
+		}
+		Double kpRot = foundKpMap.get(rotationField);
+		if (kpRot == null) {
+			logger.warn("rotation column data not found");
+			kpRot = 0.0;
 		}
 		
 		if (trackPoint > midKp) {
 			if (direction == dirConventional) {
-				x = xBegin - xOffset;
-				y = yBegin - yOffset;
+				x = xBegin + xOffsetConv;
+				y = yBegin + yOffsetConv;
 			} else if (direction == dirReverse) {
-				x = ((xEnd + xBegin) / 2) + xOffset;
-				y = ((yEnd + yBegin) / 2) + yOffset;
+				x = ((xEnd + xBegin) / 2) + xOffsetRev;
+				y = ((yEnd + yBegin) / 2) + yOffsetRev;
 			} else {
-				x = (((xEnd + xBegin) / 2) + xBegin) / 2;
-				y = (((yEnd + yBegin) / 2) + yBegin) / 2;
+				x = (((xEnd + xBegin) / 2) + xEnd) / 2 + (100 * Math.sin(Math.toRadians(kpRot)));
+				y = (((yEnd + yBegin) / 2) + yEnd) / 2 + (100 * Math.cos(Math.toRadians(kpRot)));
 			}
 		} else {
 			if (direction == dirConventional) {
-				x = ((xEnd + xBegin) / 2) - xOffset;
-				y = ((yEnd + yBegin) / 2) - yOffset;
+				x = ((xEnd + xBegin) / 2) + xOffsetConv;
+				y = ((yEnd + yBegin) / 2) + yOffsetConv;
 			} else if (direction == dirReverse) {
-				x = xEnd + xOffset;
-				y = yEnd + yOffset;	
+				x = xEnd + xOffsetRev;
+				y = yEnd + yOffsetRev;
 			} else {
-				x = (((xEnd + xBegin) / 2) + xEnd) / 2;
-				y = (((yEnd + yBegin) / 2) + yEnd) / 2;
+				x = (((xEnd + xBegin) / 2) + xEnd) / 2 + (100 * Math.sin(Math.toRadians(kpRot)));
+				y = (((yEnd + yBegin) / 2) + yEnd) / 2 + (100 * Math.cos(Math.toRadians(kpRot)));
 			}
 		}
 		logger.debug("TrackID[{}] TrackPoint[{}] Direction[{}] mapped to coordinate x[{}] y[{}]", new Object[] {trackID, trackPoint, direction, x, y});

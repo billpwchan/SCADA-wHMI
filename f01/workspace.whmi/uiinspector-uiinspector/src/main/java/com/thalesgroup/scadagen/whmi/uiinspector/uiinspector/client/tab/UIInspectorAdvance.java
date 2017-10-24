@@ -85,9 +85,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) {
-		this.tabName = tabName;
-	}
+	public void setTabName(String tabName) { this.tabName = tabName; }
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
 	@Override
@@ -123,8 +121,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.debug(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.parent[{}] this.scsEnvId[{}]", this.parent, this.scsEnvId);
 	}
 	
 	@Override

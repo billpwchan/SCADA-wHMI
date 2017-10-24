@@ -21,6 +21,10 @@ public interface UIInspectorControl_i {
 		, sioValueTableValueColIndex("sioValueTableValueColIndex")
 		, sioValueTableLabelColIndex("sioValueTableLabelColIndex")
 		
+		, byPassInitCond("byPassInitCond")
+		, byPassRetCond("byPassRetCond")
+		, sendAnyway("sendAnyway")
+		
 		;
 		private final String text;
 		private Attribute(final String text) { this.text = text; }

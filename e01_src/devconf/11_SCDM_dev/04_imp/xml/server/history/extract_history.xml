@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Archives SYSTEM "archive.dtd">
+<Archives>
+	<Archive name="TM_ARCHIVE">
+		<ChangeBased period="600" min_files="99" max_files="100" size="4000" capacity="3000" list_type="CIRCULAR">
+			<Points type="" value=".value" quality=".validity" timestamp=".valueDate"/>
+		</ChangeBased>
+	</Archive>
+	<Archive name="TS_ARCHIVE">
+		<ChangeBased period="600" min_files="99" max_files="100" size="4000" capacity="3000" list_type="CIRCULAR">
+			<Points type="" value=".value" quality=".validity" timestamp=".valueDate"/>
+		</ChangeBased>
+	</Archive>
+</Archives>

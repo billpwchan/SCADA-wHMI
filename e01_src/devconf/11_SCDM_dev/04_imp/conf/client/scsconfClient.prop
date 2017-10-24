@@ -1,0 +1,257 @@
+##################################################################
+#                                                                #
+# configurateurClient.prop : fichier de configuration du client  #
+#                                                                #
+# nota: toutes les valeurs de propriétés indiquant un répertoire #
+#       doivent être terminées par /                             #
+##################################################################
+
+######################################################
+# Look and feel definition (by default, use the system look and feel)
+######################################################
+#swing.defaultlaf=com.sun.java.swing.plaf.motif.MotifLookAndFeel
+#swing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
+#swing.defaultlaf=com.sun.java.swing.plaf.windows.WindowsLookAndFeel
+
+######################################################
+#   pour indiquer le numéro de version du 
+#   configurateur dans le menu à propos
+######################################################
+gui.ihm.main.version=${server.rmi.name}
+
+######################################
+# Propriété de la GAI pour indiquer s'il y a merge ou pas
+######################################
+gai.synchronize=true
+
+######################################
+# Répertoire des écrans XML
+######################################
+environment.home=xml
+
+######################################
+# Certaines propriétés peuvent être redéfini  
+# comme paramètres d'autre propriété
+######################################
+
+directory.log=${application.home}/log/
+directory.conf=${application.home}/conf/
+
+resource.path=resource/gfx/
+resource.css.file.path=${application.home}/resource/css/default.css
+
+###########################################################
+# Repertoires relatives au repertoire "user.home"
+# dans lesquels effectuer les enregistrement au format CSV
+###########################################################
+requete.path=${application.home}/requetes
+requete_result.path=${application.home}/requetes_results
+journal.path=${application.home}/
+diff.path=${application.home}/
+controle.path=${application.home}/
+integration.path=${application.home}/
+default.path=${application.home}/
+
+###############################
+# Configuration de XwingML
+###############################
+#bluestone.xml.iparser=com.thalesis.config.client.framework.xmlwrapper.XMLIBMNoDTDParser
+bluestone.xml.iparser=com.thalesis.config.client.framework.xmlwrapper.XMLXercesParser
+bluestone.xml.height=${framework.util.yresolution}
+bluestone.xml.width=${framework.util.xresolution}
+
+##################################################
+# Propriete permettant la demande automatique
+# de rafraichissment des indicateurs au demarrage
+##################################################
+indicateur.refreshonstart=true
+
+###########################################################
+# Fichier helpset a utiliser pour l'aide
+# (un jar le contenant doit etre present dans le classpath)
+###########################################################
+help.file=jh_configurator.hs
+
+##########################################################################
+# icône par défaut s'il n'existe pas d'icône associé à une classe d'objet
+##########################################################################
+default.gif=unknow.gif
+
+xml.path.dtd=${environment.home}/dtd/;
+xml.path.main=${xml.path.dtd}${environment.home}/main/;
+xml.path.ecransXwingml=${xml.path.main}${environment.home}/ecransXwingml/;
+xml.path.formulaEditor=${xml.path.ecransXwingml}${environment.home}/formulaEditor/;
+xml.path.ListeAttributs=${xml.path.formulaEditor}${environment.home}/ListeAttributs/;
+xml.path.listeFils=${xml.path.ListeAttributs}${environment.home}/listeFils/;
+xml.path.listeLiens=${xml.path.listeFils}${environment.home}/listeLiens/;
+xml.path.transformations=${xml.path.listeLiens}${environment.home}/transformations/;
+xml.path.requeteur=${xml.path.transformations}${environment.home}/requeteur/;
+xml.path.CreationObjetAlphaNu=${xml.path.requeteur}${environment.home}/CreationObjetAlphaNu/;
+xml.path.ImportExport=${xml.path.CreationObjetAlphaNu}${environment.home}/ImportExport/;
+xml.path.Animator=${xml.path.ImportExport}${environment.home}/animator/;
+xml.path=${xml.path.Animator}
+
+
+######################################################
+# Chemin pour les fichiers de configuration du systeme
+# RAPPEL : 	les propriétés ayant le même nom dans les different
+# 		fichiers de configuration auront la valeur de la première
+#		propriété dans l'odre d'apparition.
+# CONSTRUCTION:
+#		pour ajouter un fichier de configuration avec de nouvelles
+#		propriétés on doit ajouter une propriété nommée:
+#		property.file.XXX=[nom du répertoire par rapport au répertoire d'installation/]*[nom du fichier]
+######################################################
+#le fichier de configuration du logging (log4j)
+property.logging.file=${application.home}/conf/loggingClient.prop
+
+property.file.logging=${property.logging.file}
+
+#le fichier pour le parseur SAX
+property.file.jaxp=${directory.conf}/JAXP.prop
+
+#le fichier pour le logiciel Animator
+property.file.animator=${directory.conf}/animator.prop
+
+#le fichier pour import ICD
+property.file.itsc=${directory.conf}/itsc.prop
+
+######################################################
+#   Pour le montage SAMBA de Animator
+######################################################
+# indicate if animator should be initialized
+animator.init=false
+samba.user=T0009042
+samba.password=
+samba.share=StressTest_1_2_2
+
+# variable construite depuis les valeurs entrees ci-dessus. NE PAS MODIFIER
+animator.samba.drive=\\\\\\${server.rmi.host}\\\\${samba.share}/environnement_courant
+server.samba.drive=\\\\\\${server.rmi.host}\\\\${samba.share}
+
+######################################################
+#   Pour les impressions
+######################################################
+# fichier temporaire contenant le code HTML a imprimer
+# ATTENTION, ce chemin doit etre absolu, surtout pas relatif !!!
+# win 2000 & win NT
+print.file=C:\\WINNT\\Temp\\scadaprint.html
+
+# programme servant a imprimer le fichier HTML (le nom du fichier est ajoute a l'execution entre guillemets)
+# win 2000 & win NT
+print.prg=rundll32.exe C:\\WINNT\\System32\\mshtml.dll,PrintHTML
+
+######################################################
+#   Pour la saisie assistée 
+######################################################
+
+# en milliseconds
+delay=1000
+
+######################################################
+#   pour indiquer le nom et le chemin de la DLL OPM
+#   utiliser pour gérer les droits dans le cas
+#   d'utilisation d'ADMS
+######################################################
+opmClient.environment.dll.opmClient=OpmApi.dll
+opmClient.environment.dll.opmClientPath=${application.home}/lib
+
+##################################################
+# Generation automatique d'images
+##################################################
+client.gui.ihm.scadasoft.validimagetypes=
+
+##################################################
+# Internationalisation
+##################################################
+# define the locale
+#internationalisation.langue=fr
+#internationalisation.location=FR
+internationalisation.langue=en
+internationalisation.location=GB
+internationalisation.variante=
+
+# indicates (true) if the panels should be translated
+ihm.internationalisation=true
+
+# file root containing the panel label definition
+property.label.file=panelLabel
+property.label.file.local=panelLabelLocal
+
+# file root containing error messages
+property.error.file=messageClient
+#property.error.file.local=
+
+# file root containing common messages for client and server
+property.common.messages.file=messageCommon
+#property.common.messages.file.local=
+
+# sort tree nodes by names and types if true, sort only by names if false
+tree.sort.nameAndType=false
+# Allow multiselection in instance tree navigator (true)
+tree.multiselection=true
+
+
+##############################################################################################
+# Propriétés permettant de controler que la saisie ne dépasse pas la taille des colonnes
+# des tables de la base
+# ATTENTION : Ces propriétés doivent être cohérentes avec celles du serveur 
+#             dans database.prop
+##############################################################################################
+storage.resource.colsize_att_resource=600
+storage.resource.colsize_id=256
+
+##############################################################################################
+# Propriété permettant de controler que la saisie des noms d'instance ne dépasse pas la
+# taille maximum définie sur le serveur dans la même propriété
+# ATTENTION : Cette propriété doit être cohérente avec celle du serveur 
+#             dans constraints.prop
+##############################################################################################
+business.instance.name.length=256
+
+##########################################################
+#   Appel d'un script externe pour la création des groupes
+#   d'abonnement à l'export2scada
+#   Définir les propriétés pour activer l'appel
+##########################################################
+#creategroup.exe.name=${application.home}/lib/creategroup.bat
+#creategroup.file.flag=StartGroup
+#creategroup.wait.periodms=5000
+#creategroup.wait.nbPeriods=120
+
+##########################################################
+# File name for request columns result
+##########################################################
+gui.ihm.requeteur.defaultColumnsFile=${application.home}/xml/requeteur/DefaultVisibleColumns.xml
+
+###########################################################
+# Fichier helpset a utiliser pour l'aide
+# (un jar le contenant doit etre present dans le classpath ou doit avoir le chemin complet)
+# 
+###########################################################
+#help.file=jh_configurator.hs
+help.file=${application.home}\\doc\\jh_configurator.hs
+
+#####################################################
+# Application Help
+# Use to configure help view menu (jh_configurator.hs)
+#####################################################
+
+#help.manual.menu.position=1
+#help.guide_configuration.menu.position=2
+#help.dictionnary.menu.position=3
+#help.rules.menu.position=4
+
+#####################################################
+# Application Help
+# Use to allow generation/view of object type generation
+#####################################################
+
+help.document.option=true
+
+
+##########################################################
+# Param for not using waiting task (ON/OFF), uncomment to use it
+##########################################################
+#gui.ihm.waiting.popup.show_task=OFF
+

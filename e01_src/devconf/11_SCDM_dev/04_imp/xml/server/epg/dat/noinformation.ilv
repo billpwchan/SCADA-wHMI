@@ -1,0 +1,15 @@
+// Ilv Version: 5.0
+// File generated: Mon Jan 02 13:20:40 2006
+// Creator class: IlvGadgetManagerOutput
+FileName "noinformation"
+PathName "D:\\ccase\\EpgPcc\\bin\\dat\\noinformation.ilv"
+Palettes 1
+0 F "gray" "black" "%Arial-12-[Charset:0]" 0 solid solid 0 0 0 65535 1
+IlvObjects 1
+0 { 0 P 1
+[ IlvInteractorProperty __ilvInteractor "Gadget" ]
+0 IlvMessageLabel 5 5 355 18 F268435468 0 { IlvMessageItem 262169 4 16 4 "< No information >"  }   } 32 "lblNothing"
+0
+Size 362 25
+Background 54484 53456 51400
+EOF

@@ -1,0 +1,1748 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Configuration file for AliasValidator -->
+<!DOCTYPE root SYSTEM "aliasvalidator.dtd">
+<root>
+	<class name="AFFSIEL">
+		<attribut name="listeQuai">
+			<classRef name="eqQUAI"/>
+		</attribut>
+	</class>
+	<class name="BRDHREG">
+		<attribut name="listeStation">
+			<classRef name="eqTRAFSTA"/>
+		</attribut>
+	</class>
+	<class name="CHEMINMDB">
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="eqCYCALT">
+		<attribut name="listeIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiTP">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiDA">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCycleIncompat">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="ItiTPannulCyc">
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="eqCYCITI">
+		<attribut name="listeIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiTP">
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiDA">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCycleIncompat">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="ItiTPannulCyc">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="eqCYCVUT">
+		<attribut name="listeIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiTP">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiDA">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCycleIncompat">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="ItiTPannulCyc">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="eqCYCX">
+		<attribut name="listeIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiTP">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiDA">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCycleIncompat">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="ItiTPannulCyc">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="eqENCLSNS">
+		<attribut name="TableCondCdvImpair_cdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableCondCdvImpair_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+		<attribut name="listeCondItiImpair">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="TableCondCdvPair_cdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableCondCdvPair_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+		<attribut name="listeCondItiPair">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="eqETIQLTV">
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+	</class>
+	<class name="eqETIQTR">
+		<attribut name="tableBloc_bloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+	</class>
+	<class name="eqITI">
+		<attribut name="CondFoItiF">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="LinkDesSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP2">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP3">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeBlocIncompatible">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeCdvLibPdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLibEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOccEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeItiEnreg">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondEnCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondEnCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondVertCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCycleIncomp">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeCycleIncompatible">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeItiCompose">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleEnr">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleForm">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeSPIncompatibles">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="SP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP1listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP2listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP3listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableAigIti_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+	</class>
+	<class name="eqITIB">
+		<attribut name="CondFoItiF">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="LinkDesSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP2">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP3">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeBlocIncompatible">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeCdvLibPdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLibEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOccEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeItiEnreg">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondEnCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondEnCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondVertCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCycleIncomp">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeCycleIncompatible">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeItiCompose">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleEnr">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleForm">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeSPIncompatibles">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="SP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP1listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP2listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP3listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableAigIti_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+	</class>
+	<class name="eqITICL">
+		<attribut name="CondFoItiF">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="LinkDesSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP2">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP3">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeBlocIncompatible">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeCdvLibPdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLibEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOccEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeItiEnreg">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondEnCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondEnCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondVertCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCycleIncomp">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeCycleIncompatible">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeItiCompose">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleEnr">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleForm">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeSPIncompatibles">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="SP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP1listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP2listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP3listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableAigIti_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+	</class>
+	<class name="eqITIDVCV">
+		<attribut name="CondFoItiF">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="LinkDesSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP2">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP3">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeBlocIncompatible">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeCdvLibPdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLibEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOccEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeItiEnreg">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondEnCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondEnCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondVertCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCycleIncomp">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeCycleIncompatible">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeItiCompose">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleEnr">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleForm">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeSPIncompatibles">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="SP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP1listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP2listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP3listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableAigIti_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+	</class>
+	<class name="eqITIE">
+		<attribut name="CondFoItiF">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="LinkDesSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP2">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP3">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeBlocIncompatible">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeCdvLibPdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLibEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOccEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeItiEnreg">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondEnCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondEnCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondVertCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCycleIncomp">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeCycleIncompatible">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeItiCompose">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleEnr">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleForm">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeSPIncompatibles">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="SP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP1listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP2listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP3listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableAigIti_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+	</class>
+	<class name="eqITIX">
+		<attribut name="CondFoItiF">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="DesSP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="DesSP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="LinkDesSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP1">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP2">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="linkSP3">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeBloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeBlocIncompatible">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeCdvLibPdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvLibEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeCdvOccEchap">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondDeItiEnreg">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondEnCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondEnCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondVertCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCycleIncomp">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeCycleIncompatible">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+		</attribut>
+		<attribut name="listeItiCompose">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleEnr">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiIncompatibleForm">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeSPIncompatibles">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="SP1listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP1listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP1listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP2listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP2listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCdvEAP">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="SP3listeCondDeItiDetruit">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="SP3listeCondFoCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="TableAigIti_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+	</class>
+	<class name="eqMOTIFDEST">
+		<attribut name="listeStationDest">
+			<classRef name="eqTRAFSTA"/>
+		</attribut>
+	</class>
+	<class name="eqNMTR">
+		<attribut name="tableNumeroteur_bloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+	</class>
+	<class name="eqQUAI">
+		<attribut name="tableBlocZA_bloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+	</class>
+	<class name="eqSIG">
+		<attribut name="listeBlocZAP">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="tableCondVertAig_aiguille">
+			<classRef name="eqAIG"/>
+		</attribut>
+		<attribut name="listeCondVertCdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeCondOeilIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondOeilCdvLib">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeItisDuSignal">
+			<classRef name="eqSIG"/>
+		</attribut>
+		<attribut name="listeCondEnclApprCdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="tableBlocZC_bloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+	</class>
+	<class name="eqSP">
+		<attribut name="tableTerminus_terminus">
+			<classRef name="eqTRAFSTA"/>
+		</attribut>
+		<attribut name="tableTerminus_trajet">
+			<classRef name="TRAJETMDB"/>
+		</attribut>
+		<attribut name="tableTerminus_trajetAlt">
+			<classRef name="TRAJETMDB"/>
+		</attribut>
+		<attribut name="tableBlocZC_bloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listeSPIncompatible">
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiTP">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeItiDA">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCondIti">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+		<attribut name="listeCycleIncompat">
+			<classRef name="eqCYCALT"/>
+			<classRef name="eqCYCITI"/>
+			<classRef name="eqCYCVUT"/>
+			<classRef name="eqCYCX"/>
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIX"/>
+			<classRef name="eqSP"/>
+		</attribut>
+		<attribut name="listeSig">
+			<classRef name="eqSIG"/>
+		</attribut>
+		<attribut name="listeCondDepCdvOcc">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="listeDeclDepCdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+		<attribut name="tableDso_dso">
+			<classRef name="eqDSO"/>
+		</attribut>
+		<attribut name="tableDso_condStation">
+			<classRef name="eqTRAFSTA"/>
+		</attribut>
+		<attribut name="listeItiTPannulSP">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIPMI"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="MANOEUVREMDB">
+		<attribut name="ListeSousManoeuvre">
+			<classRef name="SSMANOMDB"/>
+		</attribut>
+		<attribut name="ListManoImcomp">
+			<classRef name="MANOEUVREMDB"/>
+		</attribut>
+	</class>
+	<class name="POSGARAGE">
+		<attribut name="tableBloc_bloc">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="listePosGarIncomp">
+			<classRef name="POSGARAGE"/>
+		</attribut>
+	</class>
+	<class name="SECTEUROUR">
+		<attribut name="listeCdv">
+			<classRef name="eqCDV"/>
+		</attribut>
+	</class>
+	<class name="SSMANOMDB">
+		<attribut name="listeBlocs">
+			<classRef name="eqBLOC"/>
+			<classRef name="eqBLOCNS"/>
+		</attribut>
+		<attribut name="tableEtape_caracteris">
+			<classRef name="eqITI"/>
+			<classRef name="eqITIB"/>
+			<classRef name="eqITICL"/>
+			<classRef name="eqITIDVCV"/>
+			<classRef name="eqITIE"/>
+			<classRef name="eqITIX"/>
+		</attribut>
+	</class>
+	<class name="TMARCHEMDB">
+		<attribut name="tableTpsStationnt_quai">
+			<classRef name="eqQUAI"/>
+		</attribut>
+	</class>
+	<class name="TRAJETMDB">
+		<attribut name="listePointArret">
+			<classRef name="PTARRETPHY"/>
+		</attribut>
+	</class>
+</root>

@@ -93,9 +93,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) {
-		this.tabName = tabName;
-	}
+	public void setTabName(String tabName) { this.tabName = tabName; }
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
 	@Override
@@ -151,8 +149,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		final String function = "setParent";
 		this.scsEnvId = scsEnvId;
 		this.parent = parent;
-		logger.debug(className, function, "this.scsEnvId[{}]", this.scsEnvId);
-		logger.debug(className, function, "this.parent[{}]", this.parent);
+		logger.debug(className, function, "this.parent[{}] this.scsEnvId[{}]", this.parent, this.scsEnvId);
 	}
 	
 	@Override
@@ -246,7 +243,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 					if ( 0 == strClientKey.compareTo(key) ) {
 						String [] dbaddresses	= database.getKeyAndAddress(key);
 						String [] dbvalues		= database.getKeyAndValues(key);
-						HashMap<String, String> keyAndValue = new HashMap<String, String>();
+						Map<String, String> keyAndValue = new HashMap<String, String>();
 						for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
 							keyAndValue.put(dbaddresses[i], dbvalues[i]);
 						}
@@ -616,7 +613,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		for ( int x = rowBegin, y = 0 ; x < rowEnd ; ++x, ++y ) {
 			String address = this.addresses[x];
 			
-			logger.trace(className, function, "address[{}]", address);
+			logger.debug(className, function, "address[{}]", address);
 			
 			String point = DatabaseHelper.getPoint(address);
 			PointType pointType = DatabaseHelper.getPointType(point);
@@ -645,31 +642,46 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			value = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
 			if (value != null) {
 				label = TranslationMgr.getInstance().getTranslation(value);
-				logger.trace(className, function, "computedMessage[{}] translated to label[{}]", value, label);
+				logger.debug(className, function, "computedMessage[{}] translated to label[{}]", value, label);
 			}
 		} else {
 			value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
-			logger.trace(className, function, "value[{}]", value);
-		
-			String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-			logger.trace(className, function, "valueTable[{}]", valueTable);
-				
-			{
-				logger.trace(className, function, "dalValueTableValueColIndex[{}] dalValueTableLabelColIndex[{}]", dalValueTableValueColIndex, dalValueTableLabelColIndex);
-				
+			logger.debug(className, function, "value[{}]", value);
+			
+			int iValue = -1;
+			
+			boolean isValidValue = false;
+			try {
+			
+				iValue = Integer.parseInt(value);
+				isValidValue = true;
+			} catch ( NumberFormatException ex ) {
+				logger.error(className, function, "value[{}] should be in integer type", value);
+				logger.error(className, function, "ex[{}]", ex.toString());
+			}
+			
+			if ( isValidValue ) {
+				String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
+				logger.debug(className, function, "valueTable[{}]", valueTable);
+					
+				logger.debug(className, function, "dalValueTableValueColIndex[{}] dalValueTableLabelColIndex[{}]", dalValueTableValueColIndex, dalValueTableLabelColIndex);
+					
 				for( int r = 0 ; r < dalValueTableLength ; ++r ) {
 					String v = DatabaseHelper.getArrayValues(valueTable, dalValueTableValueColIndex, r );
-					logger.trace(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
+					logger.debug(className, function, "getvalue r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
 					if ( 0 == v.compareTo(value) ) {
-						logger.trace(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, v, valueTable});
-						label = DatabaseHelper.getArrayValues(valueTable, dalValueTableLabelColIndex, r );
+						logger.debug(className, function, "getname r[{}] v[{}] == valueTable[i][{}]", new Object[]{r, iValue, valueTable});
+						label = DatabaseHelper.getArrayValues(valueTable, dalValueTableLabelColIndex, iValue );
 						break;
 					}
 				}
+			} else {
+				logger.error(className, function, "isValidValue IS FALSE");
 			}
+
 		}
 		
-		logger.trace(className, function, "name[{}]", label);
+		logger.debug(className, function, "label[{}]", label);
 		
 		if ( null != label ) {
 			label = DatabaseHelper.removeDBStringWrapper(label);
@@ -680,18 +692,18 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		}
 		
 		String valueAlarmVector = DatabaseHelper.getAttributeValue(address, PointName.dalValueAlarmVector.toString(), dbvalues);
-		logger.trace(className, function, "dalValueAlarmVector[{}]", valueAlarmVector);
+		logger.debug(className, function, "dalValueAlarmVector[{}]", valueAlarmVector);
 		
 		String validity = DatabaseHelper.getAttributeValue(address, PointName.validity.toString(), dbvalues);
-		logger.trace(className, function, "validity[{}]", validity);
+		logger.debug(className, function, "validity[{}]", validity);
 		
 		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.dfoForcedStatus.toString(), dbvalues);
-		logger.trace(className, function, "dfoForcedStatus[{}]", forcedStatus);
+		logger.debug(className, function, "dfoForcedStatus[{}]", forcedStatus);
 		
 		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
-		logger.trace(className, function, "strColorCSS[{}]", strColorCSS);
+		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
 		
 		logger.end(className, function);
 	}
@@ -1014,7 +1026,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				
 				// Read specific property for getting dynamic attribute value label based on dbaddress
 				String propStr = ReadProp.readString(DICTIONARY_CACHE_NAME, DICTIONARY_FILE_NAME, valueKey, "");
-				logger.trace(function+" " + valueKey + "=" + propStr.toString() );
+				logger.debug(function+" " + valueKey + "=" + propStr.toString() );
 
 				String [] propArray = propStr.split(",");
 				if (propArray.length == 2) {

@@ -62,5 +62,11 @@
     "System_2": "fr-FR:System_2",
     "System_3": "fr-FR:System_3",
     "System_4": "fr-FR:System_4",
-    "System_5": "fr-FR:System_5"
+    "System_5": "fr-FR:System_5",
+    
+    "Weekday": "fr-FR:Weekday",
+    "Holiday": "fr-FR:Holiday",
+    "User Defined 1": "fr-FR:User-Defined 1",
+    "User Defined 2": "fr-FR:User-Defined 2",
+    "User Defined 3": "fr-FR:User-Defined 3"
 }

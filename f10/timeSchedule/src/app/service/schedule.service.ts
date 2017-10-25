@@ -8,6 +8,7 @@ import { ScheduleItem } from '../type/schedule-item';
 import { ScheduleDef } from './schedule-def';
 import { DayGroup } from '../type/daygroup';
 import { UtilService } from '../service/util.service';
+import { TranslateService } from '@ngx-translate/core';
 import { LoadingService } from '../service/loading.service';
 @Injectable()
 export class ScheduleService implements OnDestroy {
@@ -68,7 +69,8 @@ export class ScheduleService implements OnDestroy {
     private dayGroupIdList: string[];
 
     constructor(
-        private configService: ConfigService, private scsTscService: ScsTscService, private loadingService: LoadingService
+        private configService: ConfigService, private translate: TranslateService,
+        private scsTscService: ScsTscService, private loadingService: LoadingService
     ) { }
     ngOnDestroy() {
     }
@@ -173,7 +175,8 @@ export class ScheduleService implements OnDestroy {
                     const timeReadOnly = dataColumns[ScheduleDef.SCHEDULE_TIME_READ_ONLY_COL];
                     const eqtListReadOnly = dataColumns[ScheduleDef.SCHEDULE_EQT_LIST_READ_ONLY_COL];
                     schedule.scheduleDescription = scheduleDescription;
-                    schedule.text = scheduleTitle;
+                    schedule.scheduleTitle = scheduleTitle;
+                    schedule.text = this.translate.instant(scheduleTitle);
                     schedule.runningStatus = runningStatus;
                     schedule.visibility = visibility;
                     schedule.periodic = (periodic === 'true');

@@ -15,10 +15,10 @@
   },
   "schedule_table": {
     "cutoff_time": "02:00",
-    "show_cutoff_offset": true,
+    "show_cutoff_offset": false,
     "unavailable_on_off_time": "N/A",
     "inhibited_onoff_time": "",
-    "max_userdefined_schedule_count": 3,
+    "max_userdefined_schedule_count": 0,
 	  "schedule_daygroup": {
       "OS": {
         "01": { "run_day_group": 1, "run_next_day_group": 2 }
@@ -42,7 +42,8 @@
     "max_title_length": 40,
     "display_app_navigation": true,
     "manual_refresh_enabled": true,
-    "display_cutoff_time": true,
+    "display_cutoff_time_periodic": true,
+    "display_cutoff_time_non_periodic": false,
     "display_running_schedules": true,
     "equipment_task_string_separator": " - ",
     "geocat_translation_prefix": "Location_",

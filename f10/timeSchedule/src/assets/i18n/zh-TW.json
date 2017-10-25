@@ -62,5 +62,11 @@
     "System_2": "zh-TW:System_2",
     "System_3": "zh-TW:System_3",
     "System_4": "zh-TW:System_4",
-    "System_5": "zh-TW:System_5"
+    "System_5": "zh-TW:System_5",
+    
+    "Weekday": "zh-TW:Weekday",
+    "Holiday": "zh-TW:Holiday",
+    "User Defined 1": "zh-TW:User-Defined 1",
+    "User Defined 2": "zh-TW:User-Defined 2",
+    "User Defined 3": "zh-TW:User-Defined 3"
 }

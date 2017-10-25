@@ -52,7 +52,8 @@ export interface Config {
         // option to show manual refresh button
         manual_refresh_enabled: boolean;
         // option to show cut-off time
-        display_cutoff_time: boolean;
+        display_cutoff_time_periodic: boolean;
+        display_cutoff_time_non_periodic: boolean;
         // option to show running schedules
         display_running_schedules: boolean;
         // string separator for concatenation of equipment task column values

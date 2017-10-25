@@ -122,6 +122,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public displayCutoffTime = true;
 
+    public displayCutoffTimePeriodic = true;
+
+    public displayCutoffTimeNonPeriodic = false;
+
     public displayRunningSchedules = true;
 
     public displaySpinner = true;
@@ -133,6 +137,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public funcatTranslationPrefix = 'funcat';
 
     public displayOtherTypesInRunningSchedules = true;
+
+    public disableSchedulePlanning = false;
 
     constructor(
         private configService: ConfigService,
@@ -155,6 +161,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
     loadConfig() {
         console.log('{schedule-table}', '[loadConfig]', 'translate current lang=', this.translate.currentLang);
+
+        this.disableSchedulePlanning = this.configService.config.getIn(['disable_periodic_schedule_planning']);
 
         this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);
         console.log('{schedule-table}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
@@ -183,8 +191,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.manualRefreshEnabled = this.configService.config.getIn(['schedule_table', 'manual_refresh_enabled']);
         console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
 
-        this.displayCutoffTime = this.configService.config.getIn(['schedule_table', 'display_cutoff_time']);
-        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time=', this.displayCutoffTime);
+        this.displayCutoffTimePeriodic = this.configService.config.getIn(['schedule_table', 'display_cutoff_time_periodic']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time_periodic=', this.displayCutoffTimePeriodic);
+
+        this.displayCutoffTimeNonPeriodic = this.configService.config.getIn(['schedule_table', 'display_cutoff_time_non_periodic']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time_non_periodic=', this.displayCutoffTimeNonPeriodic);
 
         this.displayRunningSchedules = this.configService.config.getIn(['schedule_table', 'display_running_schedules']);
         console.log('{schedule-table}', '[loadConfig]', 'display_running_schedules=', this.displayRunningSchedules);
@@ -216,8 +227,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             const p = params['periodic'];
             if (p === 'true') {
                 this.displayPeriodicSchedules = true;
+                this.displayCutoffTime = this.displayCutoffTimePeriodic;
             } else {
                 this.displayPeriodicSchedules = false;
+                this.displayCutoffTime = this.displayCutoffTimeNonPeriodic;
             }
             console.log('{schedule-table}', '[loadData]', 'periodic =', this.displayPeriodicSchedules);
 

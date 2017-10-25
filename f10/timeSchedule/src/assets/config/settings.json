@@ -27,9 +27,7 @@
         "02": { "plan_day_group": 19, "plan_next_day_group": 20, "run_day_group": 3, "run_next_day_group": 4 },
         "03": { "plan_day_group": 21, "plan_next_day_group": 22, "run_day_group": 5, "run_next_day_group": 6 },
         "04": { "plan_day_group": 23, "plan_next_day_group": 24, "run_day_group": 7, "run_next_day_group": 8 },
-        "05": { "plan_day_group": 25, "plan_next_day_group": 26, "run_day_group": 9, "run_next_day_group": 10 }
-      },
-      "UD": {
+        "05": { "plan_day_group": 25, "plan_next_day_group": 26, "run_day_group": 9, "run_next_day_group": 10 },
         "06": { "plan_day_group": 27, "plan_next_day_group": 28, "run_day_group": 11, "run_next_day_group": 12 },
         "07": { "plan_day_group": 29, "plan_next_day_group": 30, "run_day_group": 13, "run_next_day_group": 14 },
         "08": { "plan_day_group": 31, "plan_next_day_group": 32, "run_day_group": 15, "run_next_day_group": 16 }

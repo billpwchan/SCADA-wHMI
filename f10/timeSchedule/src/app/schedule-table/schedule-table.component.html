@@ -169,6 +169,14 @@
                 <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>{{'Stop' | translate}}
             </button>
         </div>
+        <div class="panel panel-body" id="periodic-start-stop" *ngIf="displayPeriodicSchedules && disableSchedulePlanning">
+            <button class="btn btn-primary" id="start-periodic-button" [disabled]="periodicStarted" (click)="startPeriodic()">
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>{{'Start' | translate}}
+            </button>
+            <button class="btn btn-primary" id="stop-periodic-button" [disabled]="!periodicStarted" (click)="stopPeriodic()">
+                <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>{{'Stop' | translate}}
+            </button>
+        </div>
         <div class="panel panel-body" id='selected-column'>
             <div class="row">
                 <div class="col-md-6 label-md">

@@ -7,6 +7,7 @@ import { Schedule } from '../type/schedule';
 import { ScheduleItem } from '../type/schedule-item';
 import { ScheduleDef } from './schedule-def';
 import { DayGroup } from '../type/daygroup';
+import { WeekdayDef } from '../schedule-planning/weekday-def';
 import { UtilService } from '../service/util.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LoadingService } from '../service/loading.service';
@@ -68,6 +69,10 @@ export class ScheduleService implements OnDestroy {
 
     private dayGroupIdList: string[];
 
+    private defaultWeeklyConfig: any;
+
+    private periodicPlanningDuration: number;
+
     constructor(
         private configService: ConfigService, private translate: TranslateService,
         private scsTscService: ScsTscService, private loadingService: LoadingService
@@ -105,6 +110,12 @@ export class ScheduleService implements OnDestroy {
 
         this.daygroupUpdatePeriod = this.configService.config.getIn(['daygroup_update_period']);
         console.log('{ScheduleService}', '[loadConfig]', 'daygroup_update_period', this.daygroupUpdatePeriod);
+
+        this.defaultWeeklyConfig = this.configService.config.getIn(['schedule_planning', 'weekly_planning']);
+        console.log('{schedule-planning}', '[loadConfig]', 'defaultWeeklyConfig=', this.defaultWeeklyConfig);
+
+        this.periodicPlanningDuration = this.configService.config.getIn(['schedule_planning', 'periodic_planning_duration']);
+        console.log('{schedule-planning}', '[loadConfig]', 'periodicPlanningDuration=', this.periodicPlanningDuration);
     }
     public loadData() {
         this.readTscTaskNames();
@@ -593,6 +604,12 @@ export class ScheduleService implements OnDestroy {
                             this.periodicStarted = true;
                         } else {
                             this.oneshotStarted = true;
+                        }
+                    } else {
+                        if (isPeriodic) {
+                            this.periodicStarted = false;
+                        } else {
+                            this.oneshotStarted = false;
                         }
                     }
                     // console.log('{ScheduleService}', '[updateSchedulesByPeriodic]', '*** schedule is pushed to schedulesByPeriodic');
@@ -1433,5 +1450,92 @@ export class ScheduleService implements OnDestroy {
             return true;
         }
         return false;
+    }
+
+    public getPeriodicSchedulesMap(): Map<string, number[]> {
+        console.log('{ScheduleService}', '[getPeriodicSchedulesMap]');
+        const assignedSchedulesMap = new Map<string, number[]>();
+        const wSchedules = Array<Schedule>(7);
+
+        wSchedules[WeekdayDef.SUNDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.SUNDAY.toString());
+        wSchedules[WeekdayDef.MONDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.MONDAY.toString());
+        wSchedules[WeekdayDef.TUESDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.TUESDAY.toString());
+        wSchedules[WeekdayDef.WEDNESDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.WEDNESDAY.toString());
+        wSchedules[WeekdayDef.THURSDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.THURSDAY.toString());
+        wSchedules[WeekdayDef.FRIDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.FRIDAY.toString());
+        wSchedules[WeekdayDef.SATURDAY] = this.getDefaultWeekdaySchedule(WeekdayDef.SATURDAY.toString());
+
+        for (let i = 0; i < 7; i++) {
+            if (wSchedules[i] && wSchedules[i].id) {
+                if (assignedSchedulesMap.has(wSchedules[i].id)) {
+                    assignedSchedulesMap.get(wSchedules[i].id).push(i);
+                    console.log('{ScheduleService}', '[getPeriodicSchedulesMap]', 'assigning weekday', i, 'to', wSchedules[i].id);
+                } else {
+                    assignedSchedulesMap.set(wSchedules[i].id, [i]);
+                    console.log('{ScheduleService}', '[getPeriodicSchedulesMap]', 'assigning weekday', i, 'to', wSchedules[i].id);
+                }
+            }
+        }
+
+        return assignedSchedulesMap;
+    }
+
+    public getDefaultWeekdaySchedule(weekday: string): Schedule {
+        if (this.defaultWeeklyConfig.get(weekday)) {
+            console.log('{ScheduleService}', '[getDefaultWeekdaySchedule]', weekday, this.defaultWeeklyConfig.get(weekday));
+            if (this.defaultWeeklyConfig.get(weekday).get('type') && this.defaultWeeklyConfig.get(weekday).get('id')) {
+                console.log('{ScheduleService}', '[getDefaultWeekdaySchedule]', 'periodicSchedules count =', this.schedules.length);
+                const type = this.defaultWeeklyConfig.get(weekday).get('type');
+                const id = this.defaultWeeklyConfig.get(weekday).get('id');
+                if (type && id) {
+                    for (const s of this.schedules) {
+                        if (s.scheduleType === type && s.id === id) {
+                            if (this.isScheduleVisible(s.id)) {
+                                console.log('{ScheduleService}', '[getDefaultWeekdaySchedule]', 'schedule is visible', s.id);
+                                return s;
+                            } else {
+                                console.log('{ScheduleService}', '[getDefaultWeekdaySchedule]', 'schedule is invisible', s.id);
+                                return null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public startDefaultPeriodicSchedules() {
+        const periodicSchedulesMap = this.getPeriodicSchedulesMap();
+        console.log('{ScheduleService}', '[startDefaultPeriodicSchedules]', periodicSchedulesMap);
+
+        for (const s of this.schedules) {
+            if (periodicSchedulesMap.has(s.id)) {
+                const currentDate = new Date();
+                const nextDate = new Date();
+                currentDate.setHours(0, 0, 0, 0);
+                nextDate.setTime(nextDate.getTime() + 86400000);
+                nextDate.setHours(0, 0, 0, 0);
+                const wdayList = periodicSchedulesMap.get(s.id);
+
+                console.log('{ScheduleService}', '[startDefaultPeriodicSchedules]', 'current date', currentDate.getFullYear(), currentDate.getMonth() + 1,
+                    currentDate.getDate(), 'next date', nextDate.getFullYear(), nextDate.getMonth() + 1, nextDate.getDate());
+
+                const datesList = UtilService.getWeekDatesList(wdayList, currentDate, this.periodicPlanningDuration);
+                const nextDatesList = UtilService.getWeekNextDatesList(wdayList, nextDate, this.periodicPlanningDuration);
+
+                if (datesList && datesList.length > 0) {
+                    this.setScheduleRunDates(s.id, datesList, nextDatesList);
+                } else {
+                    console.error('{ScheduleService}', '[startDefaultPeriodicSchedules]', 'Error generating date list for schedule', s.scheduleType, s.id);
+                }
+            }
+            if (s.periodic) {
+                this.setScheduleRunningDesc(s.id, ScheduleDef.STARTED);
+            }
+        }
+
+        // Reload day groups to update running schedules
+        this.readDayGroupDates();
     }
 }

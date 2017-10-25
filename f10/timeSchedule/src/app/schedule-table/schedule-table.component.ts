@@ -116,6 +116,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public oneshotStarted = false;
 
+    public periodicStarted = false;
+
     public displayAppNavigation = false;
 
     public manualRefreshEnabled = false;
@@ -261,6 +263,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                             }
                         }
                         this.oneshotStarted = this.scheduleService.isOneshotScheduleStarted();
+                        this.periodicStarted = this.scheduleService.isPeriodicScheduleStarted();
                         this.updateAddDeleteRenameScheduleButton();
                         this.cancelRenameSchedule();
                     } else {
@@ -712,6 +715,19 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.oneshotStarted = false;
     }
 
+    public startPeriodic() {
+        this.scheduleService.startDefaultPeriodicSchedules();
+        this.periodicStarted = true;
+        console.log('{schedule-table}', '[startPeriodic]', 'periodicStarted', this.periodicStarted);
+    }
+
+    public stopPeriodic() {
+        // this.clearPeriodicWeeklySchedules();
+        this.scheduleService.stopPeriodicSchedules();
+        this.periodicStarted = false;
+        console.log('{schedule-table}', '[stopPeriodic]', 'periodicStarted', this.periodicStarted);
+    }
+
     public updateOnTimeValue(newOnTimeValue) {
         console.log('{schedule-table}', '[updateOnTimeValue]', newOnTimeValue);
         this.newOnTime = newOnTimeValue;
@@ -900,9 +916,19 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     console.log('{schedule-table}', '[getRunningSchedules] return', schedules);
                     if (schedules) {
                         this.runningSchedules = schedules;
+                        let cnt = 0;
                         if (schedules.length > 0) {
-                            let cnt = 0;
                             for (const s of schedules) {
+                                if (!this.displayOtherTypesInRunningSchedules) {
+                                    console.log('{schedule-table}', '[getRunningSchedules]', 'this.displayPeriodicSchedules && !s.periodic',
+                                        this.displayPeriodicSchedules && !s.periodic);
+                                        console.log('{schedule-table}', '[getRunningSchedules]', '!this.displayPeriodicSchedules && s.periodic',
+                                        !this.displayPeriodicSchedules && s.periodic);
+                                    if ((this.displayPeriodicSchedules && !s.periodic) ||
+                                        (!this.displayPeriodicSchedules && s.periodic)) {
+                                            continue;
+                                        }
+                                }
                                 if (cnt > 0) {
                                     this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
                                 } else {
@@ -911,7 +937,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                                 cnt++;
                                 console.log('{schedule-table}', '[getRunningSchedules] runningSchedulesStr', this.runningSchedulesStr);
                             }
-                        } else {
+                        }
+
+                        if (cnt < 1) {
                             const str = 'No schedule is running';
                             const translatedStr = this.translate.instant(str);
                             if (translatedStr) {

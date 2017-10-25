@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8"?>
+<targetSystemFilter>
+  <class name="basicNode">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+  <class name="advNode">
+    <attribute name="LISTIMAG" used="true" />
+    <attribute name="DX" used="true" />
+    <attribute name="DY" used="true" />
+    <attribute name="DZ" used="true" />
+    <attribute name="ImageEast" used="true" />
+    <attribute name="ImageNorth" used="true" />
+    <attribute name="ImageSouth" used="true" />
+    <attribute name="ImageUp" used="true" />
+    <attribute name="ImageWest" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="X" used="true" />
+    <attribute name="Y" used="true" />
+    <attribute name="Z" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+  <class name="basicEquipment">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="forcedSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="inhibStatus" used="true" />
+    <attribute name="inhibSynthesis" used="true" />
+    <attribute name="isControlable" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="shortname" used="true" />
+    <attribute name="tag1Label" used="true" />
+    <attribute name="tag2Label" used="true" />
+    <attribute name="tagStatus" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="user_class" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+  <class name="advEquipment">
+    <attribute name="LISTIMAG" used="true" />
+    <attribute name="DX" used="true" />
+    <attribute name="DY" used="true" />
+    <attribute name="DZ" used="true" />
+    <attribute name="ImageEast" used="true" />
+    <attribute name="ImageNorth" used="true" />
+    <attribute name="ImageSouth" used="true" />
+    <attribute name="ImageUp" used="true" />
+    <attribute name="ImageWest" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="X" used="true" />
+    <attribute name="Y" used="true" />
+    <attribute name="Z" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="forcedSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="inhibStatus" used="true" />
+    <attribute name="inhibSynthesis" used="true" />
+    <attribute name="isControlable" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="shortname" used="true" />
+    <attribute name="tag1Label" used="true" />
+    <attribute name="tag2Label" used="true" />
+    <attribute name="tagStatus" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="user_class" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+  <class name="sio_type">
+    <attribute name="initCondTable" used="true" />
+    <attribute name="retCondTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="execStatus" used="true" />
+    <attribute name="initCond1" used="true" />
+    <attribute name="initCond2" used="true" />
+    <attribute name="initCond3" used="true" />
+    <attribute name="initCond4" used="true" />
+    <attribute name="initCond5" used="true" />
+    <attribute name="initCond6" used="true" />
+    <attribute name="initCond7" used="true" />
+    <attribute name="initCond8" used="true" />
+    <attribute name="initCondGL" used="true" />
+    <attribute name="initCondTO" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="returnCond1" used="true" />
+    <attribute name="returnCond2" used="true" />
+    <attribute name="returnCond3" used="true" />
+    <attribute name="returnCond4" used="true" />
+    <attribute name="returnCond5" used="true" />
+    <attribute name="returnCond6" used="true" />
+    <attribute name="returnCond7" used="true" />
+    <attribute name="returnCond8" used="true" />
+    <attribute name="returnCondGL" used="true" />
+    <attribute name="returnCondTO" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueLength" used="true" />
+    <attribute name="veCoord" used="true" />
+  </class>
+  <class name="aio_type">
+    <attribute name="initCondTable" used="true" />
+    <attribute name="retCondTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="execStatus" used="true" />
+    <attribute name="initCond1" used="true" />
+    <attribute name="initCond2" used="true" />
+    <attribute name="initCond3" used="true" />
+    <attribute name="initCond4" used="true" />
+    <attribute name="initCond5" used="true" />
+    <attribute name="initCond6" used="true" />
+    <attribute name="initCond7" used="true" />
+    <attribute name="initCond8" used="true" />
+    <attribute name="initCondGL" used="true" />
+    <attribute name="initCondTO" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="returnCond1" used="true" />
+    <attribute name="returnCond2" used="true" />
+    <attribute name="returnCond3" used="true" />
+    <attribute name="returnCond4" used="true" />
+    <attribute name="returnCond5" used="true" />
+    <attribute name="returnCond6" used="true" />
+    <attribute name="returnCond7" used="true" />
+    <attribute name="returnCond8" used="true" />
+    <attribute name="returnCondGL" used="true" />
+    <attribute name="returnCondTO" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueLimits" used="true" />
+    <attribute name="veCoord" used="true" />
+  </class>
+  <class name="dio_type">
+    <attribute name="valueTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="execStatus" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="value" used="true" />
+  </class>
+  <class name="dov_type">
+    <attribute name="initCondTable" used="true" />
+    <attribute name="retCondTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initCond1" used="true" />
+    <attribute name="initCond2" used="true" />
+    <attribute name="initCond3" used="true" />
+    <attribute name="initCond4" used="true" />
+    <attribute name="initCond5" used="true" />
+    <attribute name="initCond6" used="true" />
+    <attribute name="initCond7" used="true" />
+    <attribute name="initCond8" used="true" />
+    <attribute name="initCondGL" used="true" />
+    <attribute name="initCondTO" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="returnCond1" used="true" />
+    <attribute name="returnCond2" used="true" />
+    <attribute name="returnCond3" used="true" />
+    <attribute name="returnCond4" used="true" />
+    <attribute name="returnCond5" used="true" />
+    <attribute name="returnCond6" used="true" />
+    <attribute name="returnCond7" used="true" />
+    <attribute name="returnCond8" used="true" />
+    <attribute name="returnCondGL" used="true" />
+    <attribute name="returnCondTO" used="true" />
+    <attribute name="veCoord" used="true" />
+  </class>
+  <class name="ScadaSoft">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="dbvDate" used="true" />
+    <attribute name="dbvName" used="true" />
+    <attribute name="dpcTrigger" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="UserFields">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="intf1" used="true" />
+    <attribute name="intf2" used="true" />
+    <attribute name="lstrf1" used="true" />
+    <attribute name="lstrf2" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="strf1" used="true" />
+    <attribute name="strf2" used="true" />
+    <attribute name="ce_intf1" used="true" />
+    <attribute name="ce_intf2" used="true" />
+    <attribute name="ce_lstrf1" used="true" />
+    <attribute name="ce_lstrf2" used="true" />
+    <attribute name="ce_strf1" used="true" />
+    <attribute name="ce_strf2" used="true" />
+  </class>
+  <class name="ScsCtlGrc">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="GrcPoint">
+    <attribute name="brctable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="curstatus" used="true" />
+    <attribute name="curstep" used="true" />
+    <attribute name="inhibflag" used="true" />
+    <attribute name="initcond" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="lexectime" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="clScsAlarm">
+    <attribute name="format" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="resetSynthesis" used="true" />
+  </class>
+  <class name="clAlarmsynthesis">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="functionalCategory">
+    <attribute name="CategoryName" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="identifier" used="true" />
+    <attribute name="maxAckSeverity" used="true" />
+    <attribute name="maxAlarmSeverity" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="geographicalCategory">
+    <attribute name="CategoryName" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="identifier" used="true" />
+    <attribute name="maxAckSeverity" used="true" />
+    <attribute name="maxAlarmSeverity" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="clFunc">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="clGeo">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="aci_st_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="aci_cb_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="dci_st_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="dci_mt_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="dci_cb_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="sci_st_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="sci_cb_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="aci_mt_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="sci_mt_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="initValue" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="operStatus" used="true" />
+    <attribute name="period" used="true" />
+    <attribute name="previousStatus" used="true" />
+    <attribute name="previousValidity" used="true" />
+    <attribute name="previousValue" used="true" />
+    <attribute name="previousValueDate" used="true" />
+    <attribute name="source" used="true" />
+    <attribute name="status" used="true" />
+    <attribute name="userField1" used="true" />
+    <attribute name="userField2" used="true" />
+    <attribute name="validity" used="true" />
+    <attribute name="value" used="true" />
+    <attribute name="valueDate" used="true" />
+  </class>
+  <class name="sco_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="computedDate" used="true" />
+    <attribute name="computedStatus" used="true" />
+    <attribute name="computedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="period" used="true" />
+  </class>
+  <class name="aac_type">
+    <attribute name="veTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="acqDate" used="true" />
+    <attribute name="acqStatus" used="true" />
+    <attribute name="acqValue" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="equipmentDate" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="period" used="true" />
+  </class>
+  <class name="aco_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="computedDate" used="true" />
+    <attribute name="computedStatus" used="true" />
+    <attribute name="computedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="period" used="true" />
+  </class>
+  <class name="aes_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="estimatedDate" used="true" />
+    <attribute name="estimatedStatus" used="true" />
+    <attribute name="estimatedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="afo_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="forcedDate" used="true" />
+    <attribute name="forcedSource" used="true" />
+    <attribute name="forcedStatus" used="true" />
+    <attribute name="forcedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="dac_type">
+    <attribute name="veTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="acqDate" used="true" />
+    <attribute name="acqStatus" used="true" />
+    <attribute name="acqValue" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="equipmentDate" used="true" />
+    <attribute name="nature" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="period" used="true" />
+  </class>
+  <class name="aal_type">
+    <attribute name="valueTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="ackAutomaton" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="dssEventType" used="true" />
+    <attribute name="hidden" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="theme" used="true" />
+    <attribute name="valueAlarmVector" used="true" />
+    <attribute name="valueAutomaton" used="true" />
+    <attribute name="valueLimits" used="true" />
+  </class>
+  <class name="dal_type">
+    <attribute name="valueTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="ackAutomaton" used="true" />
+    <attribute name="alClass" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="dssEventType" used="true" />
+    <attribute name="hidden" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="theme" used="true" />
+    <attribute name="valueAlarmVector" used="true" />
+    <attribute name="valueAutomaton" used="true" />
+  </class>
+  <class name="dco_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="computedDate" used="true" />
+    <attribute name="computedStatus" used="true" />
+    <attribute name="computedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="period" used="true" />
+  </class>
+  <class name="des_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="estimatedDate" used="true" />
+    <attribute name="estimatedStatus" used="true" />
+    <attribute name="estimatedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="dfo_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="forcedDate" used="true" />
+    <attribute name="forcedSource" used="true" />
+    <attribute name="forcedStatus" used="true" />
+    <attribute name="forcedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="sac_type">
+    <attribute name="veTable" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="acqDate" used="true" />
+    <attribute name="acqStatus" used="true" />
+    <attribute name="acqValue" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="equipmentDate" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="period" used="true" />
+  </class>
+  <class name="sfo_type">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="class_id" used="true" />
+    <attribute name="forcedDate" used="true" />
+    <attribute name="forcedSource" used="true" />
+    <attribute name="forcedStatus" used="true" />
+    <attribute name="forcedValue" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="AmosMonitorSequence">
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="link_SequenceCamera" used="true" />
+    <attribute name="nom_instance" used="true" />
+  </class>
+  <class name="AmosMonitor">
+    <attribute name="LISTIMAG" used="true" />
+    <attribute name="AmosMonitorLocation" used="true" />
+    <attribute name="DX" used="true" />
+    <attribute name="DY" used="true" />
+    <attribute name="DZ" used="true" />
+    <attribute name="ImageEast" used="true" />
+    <attribute name="ImageNorth" used="true" />
+    <attribute name="ImageSouth" used="true" />
+    <attribute name="ImageUp" used="true" />
+    <attribute name="ImageWest" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="X" used="true" />
+    <attribute name="Y" used="true" />
+    <attribute name="Z" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="forcedSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="inhibStatus" used="true" />
+    <attribute name="inhibSynthesis" used="true" />
+    <attribute name="isControlable" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="shortname" used="true" />
+    <attribute name="tag1Label" used="true" />
+    <attribute name="tag2Label" used="true" />
+    <attribute name="tagStatus" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="user_class" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+  <class name="AmosCCTVSwitch">
+    <attribute name="LISTIMAG" used="true" />
+    <attribute name="DX" used="true" />
+    <attribute name="DY" used="true" />
+    <attribute name="DZ" used="true" />
+    <attribute name="ImageEast" used="true" />
+    <attribute name="ImageNorth" used="true" />
+    <attribute name="ImageSouth" used="true" />
+    <attribute name="ImageUp" used="true" />
+    <attribute name="ImageWest" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="X" used="true" />
+    <attribute name="Y" used="true" />
+    <attribute name="Z" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="forcedSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="inhibStatus" used="true" />
+    <attribute name="inhibSynthesis" used="true" />
+    <attribute name="isControlable" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="shortname" used="true" />
+    <attribute name="tag1Label" used="true" />
+    <attribute name="tag2Label" used="true" />
+    <attribute name="tagStatus" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="user_class" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+  <class name="AmosCamera">
+    <attribute name="LISTIMAG" used="true" />
+    <attribute name="AmosCameraPreposition" used="true" />
+    <attribute name="DX" used="true" />
+    <attribute name="DY" used="true" />
+    <attribute name="DZ" used="true" />
+    <attribute name="ImageEast" used="true" />
+    <attribute name="ImageNorth" used="true" />
+    <attribute name="ImageSouth" used="true" />
+    <attribute name="ImageUp" used="true" />
+    <attribute name="ImageWest" used="true" />
+    <attribute name="UNIVNAME" used="true" />
+    <attribute name="X" used="true" />
+    <attribute name="Y" used="true" />
+    <attribute name="Z" used="true" />
+    <attribute name="alarmSynthesis" used="true" />
+    <attribute name="forcedSynthesis" used="true" />
+    <attribute name="functionalCat" used="true" />
+    <attribute name="geographicalCat" used="true" />
+    <attribute name="inhibStatus" used="true" />
+    <attribute name="inhibSynthesis" used="true" />
+    <attribute name="isControlable" used="true" />
+    <attribute name="label" used="true" />
+    <attribute name="name" used="true" />
+    <attribute name="nom_instance" used="true" />
+    <attribute name="opDate" used="true" />
+    <attribute name="opSource" used="true" />
+    <attribute name="prevAlarmSynthesis" used="true" />
+    <attribute name="prevValidSynthesis" used="true" />
+    <attribute name="shortname" used="true" />
+    <attribute name="tag1Label" used="true" />
+    <attribute name="tag2Label" used="true" />
+    <attribute name="tagStatus" used="true" />
+    <attribute name="type" used="true" />
+    <attribute name="user_class" used="true" />
+    <attribute name="validSynthesis" used="true" />
+  </class>
+</targetSystemFilter>

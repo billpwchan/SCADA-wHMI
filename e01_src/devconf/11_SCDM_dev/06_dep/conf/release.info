@@ -1,0 +1,9 @@
+cible.version.name=v
+cible.version.num=2
+cible.release.num=3
+cible.revision.num=2
+build.num=0
+build.name=bp
+build.schema.name=MCD
+build.schema.num=232
+build.schema.checkIn.desc=Génération_du_Schèma

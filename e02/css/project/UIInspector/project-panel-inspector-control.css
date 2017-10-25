@@ -199,6 +199,15 @@
 	background-color: rgb(246, 230, 139);
 }
 
+.project-inspector-control-panel-pageBar 
+{
+}
+
+.project-inspector-control-panel-bottomBar 
+{
+	width: 100%
+}
+
 /* pager styles */
 .gwt-Button.project-inspector-control-button-up
 , .gwt-Button.project-inspector-control-button-down 

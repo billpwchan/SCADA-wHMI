@@ -199,6 +199,15 @@
 	background-color: rgb(246, 230, 139);
 }
 
+.project-inspector-tag-panel-pageBar 
+{
+}
+
+.project-inspector-tag-panel-bottomBar 
+{
+	width: 100%
+}
+
 /* pager styles */
 .gwt-Button.project-inspector-tag-button-up
 , .gwt-Button.project-inspector-tag-button-down 

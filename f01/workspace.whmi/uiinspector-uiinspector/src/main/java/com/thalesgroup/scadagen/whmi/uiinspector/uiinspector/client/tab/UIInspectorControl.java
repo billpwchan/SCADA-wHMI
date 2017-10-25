@@ -988,6 +988,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		});	
 
 		HorizontalPanel pageBar = new HorizontalPanel();
+		pageBar.addStyleName(strCssPrefix+"panel-pageBar");
 
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -1002,7 +1003,7 @@ public class UIInspectorControl implements UIInspectorTab_i {
 		pageBar.add(btnDown);
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.setWidth("100%");
+		bottomBar.addStyleName(strCssPrefix+"panel-bottomBar");
 		
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);

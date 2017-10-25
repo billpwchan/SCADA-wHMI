@@ -9,10 +9,12 @@ import java.util.Map.Entry;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -91,9 +93,28 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 	
 	private final String INSPECTOR = UIInspectorInfo_i.INSPECTOR;
 	
+	public static final String STR_EMPTY				= "";
+	
+	public static final String STR_UP					= "▲";
+	public static final String STR_SPLITER				= " / ";
+	public static final String STR_DOWN					= "▼";
+	public static final String STR_PAGER_DEFAULT		= "1 / 1";
+	
+	private static final String STR_ATTRIBUTE_LABEL		= "ATTRIBUTE_LABEL_";
+	private static final String STR_COLON				= ":";
+	private static final String STR_ATTRIBUTE_STATUS	= "ATTRIBUTE_STATUS_";
+	private static final String STR_R					= "R";
+	
+	private static final String STR_ACK_PAGE			= "Ack. Page";
+	
+	private String strCssPrefix;
+	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) { this.tabName = tabName; }
+	public void setTabName(String tabName) { 
+		this.tabName = tabName;
+		this.strCssPrefix = "project-inspector-"+tabName+"-";
+	}
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
 	@Override
@@ -368,7 +389,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				
 		if ( pageCounter.hasPreview || pageCounter.hasNext ) {
 			btnUp.setEnabled(pageCounter.hasPreview);
-			lblPageNum.setText(String.valueOf(pageIndex+1) + " / " + String.valueOf(pageCounter.pageCount));
+			lblPageNum.setText(String.valueOf(pageIndex+1) + STR_SPLITER + String.valueOf(pageCounter.pageCount));
 			btnDown.setEnabled(pageCounter.hasNext);
 		} else {
 			btnUp.setVisible(false);
@@ -440,8 +461,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		final String function = "buildWidgets";
 		logger.begin(className, function);
 		
-		logger.debug(className, function, "numOfWidgets[{}]", numOfWidgets);
-		logger.debug(className, function, "numOfPointEachPage[{}]", numOfPointEachPage);
+		logger.debug(className, function, "numOfWidgets[{}] numOfPointEachPage[{}]", numOfWidgets, numOfPointEachPage);
 		
 		if ( null != vpCtrls ) {
 			
@@ -461,32 +481,36 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				txtAttibuteColor	= new InlineLabel[pageSize];
 
 				flexTableAttibutes = new FlexTable();
-				flexTableAttibutes.setWidth("100%");
-				for( int i = 0 ; i < pageSize ; ++i ) {
-					
-					logger.debug(className, function, "i[{}]", i);
+				flexTableAttibutes.addStyleName(strCssPrefix+"flextable");
+				
+				for( int index = 0 ; index < pageSize ; ++index ) {
+					logger.debug(className, function, "index[{}]", index);
 						
-					lblAttibuteLabel[i] = new InlineLabel();
-					lblAttibuteLabel[i].setWidth("100%");
-					lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-label");
-					lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
-					flexTableAttibutes.setWidget(i+1, 0, lblAttibuteLabel[i]);
-					txtAttributeValue[i] = new TextBox();
-					txtAttributeValue[i].setWidth("95%");
-					txtAttributeValue[i].setText("ATTRIBUTE_STATUS_"+(i+1));
-					txtAttributeValue[i].addStyleName("project-gwt-textbox-inspector-"+tabName+"-value");
-					txtAttributeValue[i].setReadOnly(true);
-					txtAttributeValue[i].setMaxLength(16);
-					flexTableAttibutes.setWidget(i+1, 1, txtAttributeValue[i]);
-					txtAttibuteColor[i] = new InlineLabel();
-					txtAttibuteColor[i].setText("R");
-					txtAttibuteColor[i].setStyleName(strCSSStatusGrey);
-					flexTableAttibutes.setWidget(i+1, 2, txtAttibuteColor[i]);
+					lblAttibuteLabel[index] = new InlineLabel();
+					lblAttibuteLabel[index].addStyleName(strCssPrefix+"inlinelabel-label");
+					lblAttibuteLabel[index].setText(STR_ATTRIBUTE_LABEL+(index+1)+STR_COLON);
+					flexTableAttibutes.setWidget(index+1, 0, lblAttibuteLabel[index]);
+					DOM.getParent(lblAttibuteLabel[index].getElement()).setClassName(strCssPrefix+"inlinelabel-label-parent");
+					
+					txtAttributeValue[index] = new TextBox();
+					txtAttributeValue[index].addStyleName(strCssPrefix+"textbox-value");
+					txtAttributeValue[index].setText(STR_ATTRIBUTE_STATUS+(index+1));
+					txtAttributeValue[index].setReadOnly(true);
+					txtAttributeValue[index].setMaxLength(16);
+					flexTableAttibutes.setWidget(index+1, 1, txtAttributeValue[index]);
+					DOM.getParent(txtAttributeValue[index].getElement()).setClassName(strCssPrefix+"textbox-value-parent");
+					
+					txtAttibuteColor[index] = new InlineLabel();
+					txtAttibuteColor[index].addStyleName(strCssPrefix+"textbox-color");
+					txtAttibuteColor[index].setStyleName(strCSSStatusGrey);
+					txtAttibuteColor[index].setText(STR_R);
+					flexTableAttibutes.setWidget(index+1, 2, txtAttibuteColor[index]);
+					DOM.getParent(txtAttibuteColor[index].getElement()).setClassName(strCssPrefix+"textbox-color-parent");
 				}
 
-				flexTableAttibutes.getColumnFormatter().addStyleName(0, "project-gwt-flextable-inspectorlabel-col");
-				flexTableAttibutes.getColumnFormatter().addStyleName(1, "project-gwt-flextable-inspectorvalue-col");
-				flexTableAttibutes.getColumnFormatter().addStyleName(2, "project-gwt-flextable-inspectorstatus-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(0, strCssPrefix+"flextable-inspectorlabel-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(1, strCssPrefix+"flextable-inspectorvalue-col");
+				flexTableAttibutes.getColumnFormatter().addStyleName(2, strCssPrefix+"flextable-inspectorstatus-col");
 
 //			} else {
 //				logger.debug(className, function, "this.addresses IS INVALID");
@@ -631,6 +655,29 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		logger.end(className, function);
 	}
 	
+	public String getColorCSS(String alarmVector, String validity, String forcedStatus) {
+		final String function = "getColorCSS";
+		logger.begin(className, function);
+		
+		logger.debug(className, function, "alarmVector[{}] validity[{}] forcedStatus[{}]", new Object[]{alarmVector, validity, forcedStatus});
+		
+		String colorCSS	= strCSSStatusGrey;
+		
+		if ( DatabaseHelper.isForced(forcedStatus) ) {
+			colorCSS = strCSSStatusBlue;
+		} else if ( ! DatabaseHelper.isValid(validity)) {
+			colorCSS = strCSSStatusGrey;
+		} else if ( DatabaseHelper.isAlarm(alarmVector) ) {
+			colorCSS = strCSSStatusRed;
+		} else {
+			colorCSS = strCSSStatusGreen;
+		}
+		
+		logger.debug(className, function, "colorCode[{}]", colorCSS);
+		logger.end(className, function);
+		return colorCSS;
+	}
+	
 	private void updateDci(String address, int row) {
 		final String function = "updateDci";
 		logger.begin(className, function);
@@ -700,7 +747,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.dfoForcedStatus.toString(), dbvalues);
 		logger.debug(className, function, "dfoForcedStatus[{}]", forcedStatus);
 		
-		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		String strColorCSS = getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
 		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
@@ -712,7 +759,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		final String function = "updateAci";
 		logger.begin(className, function);
 		
-		String value = "";
+		String value = STR_EMPTY;
 		
 		if (isValLabelFromComputedMessage(address, PointType.aci)) {
 			String compMsg = DatabaseHelper.getAttributeValue(address, PointName.computedMessage.toString(), dbvalues);
@@ -737,7 +784,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.afoForcedStatus.toString(), dbvalues);
 		logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
 		
-		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		String strColorCSS = getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
 		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
@@ -773,7 +820,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		String forcedStatus = DatabaseHelper.getAttributeValue(address, PointName.sfoForcedStatus.toString(), dbvalues);
 		logger.debug(className, function, "forcedStatus[{}]", forcedStatus);
 		
-		String strColorCSS = DatabaseHelper.getColorCSS(valueAlarmVector, validity, forcedStatus);
+		String strColorCSS = getColorCSS(valueAlarmVector, validity, forcedStatus);
 		txtAttibuteColor[row].setStyleName(strColorCSS);
 		
 		logger.debug(className, function, "strColorCSS[{}]", strColorCSS);
@@ -806,17 +853,17 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		final String function = "init";
 		logger.begin(className, function);
 		
-		strCSSStatusGreen		= "project-gwt-inlinelabel-inspector"+tabName+"status-green";
-		strCSSStatusRed			= "project-gwt-inlinelabel-inspector"+tabName+"status-red";
-		strCSSStatusBlue		= "project-gwt-inlinelabel-inspector"+tabName+"status-blue";
-		strCSSStatusGrey		= "project-gwt-inlinelabel-inspector"+tabName+"status-grey";
+		strCSSStatusGreen		= strCssPrefix + "inlinelabel-status-green";
+		strCSSStatusRed			= strCssPrefix + "inlinelabel-status-red";
+		strCSSStatusBlue		= strCssPrefix + "inlinelabel-status-blue";
+		strCSSStatusGrey		= strCssPrefix + "inlinelabel-status-grey";
 		
 		vpCtrls = new VerticalPanel();
-		vpCtrls.setWidth("100%");
+		vpCtrls.addStyleName(strCssPrefix+"panel-vpCtrls");
 		
 		btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-"+tabName+"-up");
-		btnUp.setText("▲");
+		btnUp.addStyleName(strCssPrefix+"button-up");
+		btnUp.setText(STR_UP);
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -827,12 +874,12 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});
 		
 		lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-pagenum");
-		lblPageNum.setText("1 / 1");
+		lblPageNum.addStyleName(strCssPrefix+"label-pagenum");
+		lblPageNum.setText(STR_PAGER_DEFAULT);
 		
 		btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-"+tabName+"-down");
-		btnDown.setText("▼");
+		btnDown.addStyleName(strCssPrefix+"button-down");
+		btnDown.setText(STR_DOWN);
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -841,8 +888,8 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});	
 		
 		btnAckCurPage = new Button();
-		btnAckCurPage.addStyleName("project-gwt-button-inspector-"+tabName+"-ackpage");
-		btnAckCurPage.setText("Ack. Page");
+		btnAckCurPage.addStyleName(strCssPrefix+"button-ackpage");
+		btnAckCurPage.setText(STR_ACK_PAGE);
 		btnAckCurPage.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -851,6 +898,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		});	
 		
 		HorizontalPanel pageBar = new HorizontalPanel();
+		pageBar.addStyleName(strCssPrefix+"panel-pageBar");
 
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -865,7 +913,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		pageBar.add(btnDown);
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.addStyleName("project-gwt-panel-inspector-"+tabName+"-bottom");
+		bottomBar.addStyleName(strCssPrefix+"panel-bottomBar");
 		
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -876,7 +924,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		bottomBar.add(btnAckCurPage);
 		
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tabName+"-inspector");
+		basePanel.addStyleName(strCssPrefix+"panel-base");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 
@@ -894,7 +942,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 				}
 			}
 		});
-		rootPanel.addStyleName("project-gwt-panel-inspector-dialogbox");
+		rootPanel.addStyleName(strCssPrefix+"panel-root");
 		
 		logger.end(className, function);
 	}

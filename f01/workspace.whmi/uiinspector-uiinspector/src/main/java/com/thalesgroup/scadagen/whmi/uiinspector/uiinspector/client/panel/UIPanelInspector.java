@@ -77,6 +77,54 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	
 	final private String INSPECTOR		= "inspector";
 	
+	private final static String strCssPrefixTabDisable = "project-gwt-inspector-tabpanel-tab-disable-";
+	
+	private String containTabDisableCss(Widget widget) {
+		final String function = "containTabDisableCss";
+		logger.begin(className, function);
+		String ret = null;
+		String target = strCssPrefixTabDisable;
+		logger.debug(className, function, "addStyleName target[{}]", target);
+		String cssName = widget.getStyleName();
+		if ( null != cssName ) {
+			logger.debug(className, function, "cssName[{}]", cssName);
+			String [] cssNames = cssName.split(" ");
+			if ( null != cssNames ) {
+				for ( int i = 0 ; i < cssNames.length ; ++i ) {
+					logger.debug(className, function, "cssNames({})[{}]", i, cssNames[i]);
+					if ( cssNames[i].startsWith(target) ) {
+						ret = cssNames[i];
+						break;
+					}
+				}	
+			} else {
+				logger.warn(className, function, "cssNames IS NULL");
+			}
+		} else {
+			logger.warn(className, function, "cssName IS NULL");
+		}
+		logger.debug(className, function, "ret[{}]", ret);
+		logger.end(className, function);
+		return ret;
+	}
+	
+	private void modifyTabDisableCss(Widget widget, int index, boolean isAdd) {
+		final String function = "modifyTabDisableCss";
+		logger.begin(className, function);
+		String cssNameNum = strCssPrefixTabDisable+index;
+		logger.debug(className, function, "StyleName cssNameNum[{}] isAdd[{}]", cssNameNum, isAdd);
+		if ( isAdd ) {
+			widget.addStyleName(cssNameNum);
+		} else {
+			String cssToRemove = containTabDisableCss(widget);
+			logger.debug(className, function, "cssToRemove[{}]", cssToRemove);
+			if ( null != cssToRemove ) {
+				widget.removeStyleName(cssToRemove);
+			}
+		}
+		logger.end(className, function);
+	}
+
 	public void setPeriodMillis(int periodMillis) {
 		this.periodMillis = periodMillis;
 	}
@@ -154,7 +202,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		for ( String k : tabDatas.keySet() ) {
 			TabData d = tabDatas.get(k);
 			if ( d.points.isEmpty() ) {
-				
 				if ( isIgnoreEmptyRemoveTab(k) ) {
 					logger.debug(className, function, "k[{}] d.points.isEmpty() but in ignore list, ignore it", k);
 				}
@@ -162,7 +209,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					logger.debug(className, function, "k[{}] d.points.isEmpty() Remove it", k);
 					panelTab.remove(d.panel);
 				}
-				
 			}
 		}
 
@@ -305,7 +351,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				}
 			});
 		} else {
-			logger.warn(className, function, "database IS NUL");
+			logger.warn(className, function, "database IS NULL");
 		}
 
 		logger.end(className, function);
@@ -480,8 +526,6 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	public void buildTabsAddress(String[] instances) {
 		final String function = "buildTabsAddress";
 		logger.begin(className, function);
-
-		logger.begin(className, function + " getLists");
 		
 		String dictionariesCacheName = "UIInspectorPanel";
 		
@@ -802,24 +846,24 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	
 	private Map<Integer, String> tabHtmls = new HashMap<Integer, String>();
 	private Map<String, Boolean> tabHomRights = new HashMap<String, Boolean>();
-	private void checkAccessWithHomAndApplyTab(final String action, final int i, final String tabHtml) {
+	private void checkAccessWithHomAndApplyTab(final String action, final int index, final String tabHtml) {
 		final String function = "checkAccessWithHomAndApplyTab";
 		logger.begin(className, function);
 		
 		logger.debug(className, function, "scsEnvId[{}] parent[{}]", new Object[]{scsEnvId, parent});
-		logger.debug(className, function, "action[{}] i[{}] tabHtml[{}]", new Object[]{action, i, tabHtml});
+		logger.debug(className, function, "action[{}] index[{}] tabHtml[{}]", new Object[]{action, index, tabHtml});
 		
 		uiOpm_i.checkAccessWithHom(getFunction(), getLocation(), action, mode, scsEnvId, parent
 				, new CheckAccessWithHOMEvent_i() {
 			
 			@Override
 			public void result(boolean result) {
-				final String function = "result";
+				final String function = "checkAccessWithHom result";
 				logger.begin(className, function);
 				logger.debug(className, function, "result[{}]", result);
 				
-				logger.debug(className, function, "i[{}] tabHtml[{}]", i, tabHtml);
-				tabHtmls.put(i, tabHtml);
+				logger.debug(className, function, "index[{}] tabHtml[{}]", index, tabHtml);
+				tabHtmls.put(index, tabHtml);
 				logger.debug(className, function, "tabHtml[{}] result[{}]", tabHtml, result);
 				tabHomRights.put(tabHtml, result);
 				
@@ -832,15 +876,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					}
 				}
 				
-				String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
-
-				String cssNameNum = cssName + i;
 				if ( ! result ) {
-					logger.debug(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
-					((Widget)panelTab.getTabBar().getTab(i)).addStyleName(cssNameNum);
+					modifyTabDisableCss((Widget)panelTab.getTabBar().getTab(index), index, true);
 				} else {
-					logger.debug(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
-					((Widget)panelTab.getTabBar().getTab(i)).removeStyleName(cssNameNum);
+					modifyTabDisableCss((Widget)panelTab.getTabBar().getTab(index), index, false);
 				}
 				
 				logger.end(className, function);
@@ -910,15 +949,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 								panelTab.getTabBar().selectTab(0);
 							}
 						}
-						String cssName = "project-gwt-inspector-tabpanel-tab-disable-";
-						for ( int i = 1 ; i < tabCount ; ++i ) {
-							String cssNameNum = cssName + i;
+
+						for ( int index = 1 ; index < tabCount ; ++index ) {
 							if ( 2 == eqtReserved ) {
-								logger.debug(className, function, "addStyleName cssNameNum[{}]", cssNameNum);
-								((Widget)panelTab.getTabBar().getTab(i)).addStyleName(cssNameNum);
+								modifyTabDisableCss((Widget)panelTab.getTabBar().getTab(index), index, true);
 							} else {
-								logger.debug(className, function, "removeStyleName cssNameNum[{}]", cssNameNum);
-								((Widget)panelTab.getTabBar().getTab(i)).removeStyleName(cssNameNum);
+								modifyTabDisableCss((Widget)panelTab.getTabBar().getTab(index), index, false);
 							}
 						}
 					}
@@ -1081,7 +1117,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					}
 				}
 
-						
+				String cssApplied = containTabDisableCss((Widget)panelTab.getTabBar().getTab(index));
+				if ( null != cssApplied ) {
+					logger.debug(className, function, "cssNames[{}] FOUND, Skip SELECTION EVENT", cssApplied);
+					event.cancel();
+				} else {
+					logger.debug(className, function, "cssNames IS NOT FOUND, continue");
+				}
+
 				logger.end(className, function);
 			}
 		});
@@ -1118,6 +1161,19 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		rootPanel.add(panelTab);
 		rootPanel.add(bottomBar);
 		rootPanel.addStyleName("project-gwt-panel-inspector");
+		
+		// Disable the tab by default
+		if ( null != panelTab ) {
+			int tabCount = panelTab.getTabBar().getTabCount();
+			logger.debug(className, function, "tabCount[{}]", tabCount);
+			if ( tabCount > 1 ) {
+				for ( int index = 1 ; index < tabCount ; ++index ) {
+					modifyTabDisableCss((Widget)panelTab.getTabBar().getTab(index), index, true);
+				}
+			}
+		} else {
+			logger.warn(className, function, "panelTab IS NULL, bypass dissable tab");
+		}
 
 		logger.end(className, function);
 	}

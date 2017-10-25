@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="lib/stomp.min.js"></script>
 		<script type="text/javascript" src="lib/sockjs-1.0.3.js"></script>
 		<script type="text/javascript" src="lib/chart.properties.js"></script>
-		<!-- <script type="text/javascript" src="rtt.chart.functions.js"></script> -->
+<!-- 		<script type="text/javascript" src="rtt.chart.functions.js"></script> -->
 		<link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css"/>
 		<script th:inline="javascript">
 			/*<![CDATA[*/
@@ -100,7 +100,8 @@
 				
 				var callerId = /*[[${callerId}]]*/;
 				
-				var bufferTime = xaxisIncrement * numTicks;
+				var bufferTime = xaxisIncrement * xnumTicks;
+				
 				var ticksArray = [];
 				var series = [];
 				
@@ -149,7 +150,7 @@
 					options.axes.xaxis.tickOptions.formatString = xaxisDateFormat;
 					options.axes.xaxis.tickOptions.showGridline = showGridLine;
 					options.axes.xaxis.tickOptions.textColor = ticksColor;
-					options.axes.xaxis.numberTicks = numTicks;
+					options.axes.xaxis.numberTicks = xnumTicks;
 				}
 				
 				function initTicks(ticksArray, iterations, startDate) {
@@ -236,7 +237,7 @@
 					options.axes[yAxisKey].labelOptions.fontFamily = fontFamily;
 					options.axes[yAxisKey].showTicks = true;
 					options.axes[yAxisKey].showTickMarks = true; 
-					options.axes[yAxisKey].numberTicks = numTicks;
+					options.axes[yAxisKey].numberTicks = ynumTicks;
 					options.axes[yAxisKey].tickOptions = {};
 					options.axes[yAxisKey].tickOptions.formatString = valueFormat;
 					options.axes[yAxisKey].tickOptions.textColor = ticksColor;
@@ -338,7 +339,7 @@
 					var now = roundToSecond(new Date().getTime().toString());
 					addXAxis(options, xaxisLabel);
 					initSubscriptOptions();
-					initTicks(ticksArray, numTicks, now);
+					initTicks(ticksArray, xnumTicks, now);
 					updateTimeSeries();
 				}
 				

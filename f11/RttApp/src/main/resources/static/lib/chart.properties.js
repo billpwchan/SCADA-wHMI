@@ -1,6 +1,8 @@
 
 //Number of ticks to show in x and y axis
-numTicks = 20;
+//numTicks = 20;
+ynumTicks = 10;
+xnumTicks = 20;
 
 //Number format of y-axis ticks
 valueFormat = '%d';

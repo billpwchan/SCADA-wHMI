@@ -127,7 +127,8 @@ public class RttController {
     
     
     @RequestMapping("/Chart")
-    public String chart(@RequestParam(value="callerId") String callerId, Model model) 
+    public String chart(@RequestParam(value="callerId") String callerId, Model model,
+    		@RequestParam(value="xaxisTickInterval", required=false) String xaxisTickInterval) 
     {
     	Collection<SubscriptionRequest> subCol = tracker.getSubscriptions(callerId);
     	List<SubscriptionRequest> subList = new ArrayList<SubscriptionRequest>(subCol);
@@ -165,9 +166,11 @@ public class RttController {
 			model.addAttribute("subField" + i, subReq.getHypervisorId());
 			model.addAttribute("color" + i, "#"+subReq.getColor());
 			i++;
-		
+					
 		model.addAttribute("callerId", callerId);
     	}
+    	model.addAttribute("xaxisIncrement", xaxisTickInterval);
+    	
     	return "rtt";
     }
     

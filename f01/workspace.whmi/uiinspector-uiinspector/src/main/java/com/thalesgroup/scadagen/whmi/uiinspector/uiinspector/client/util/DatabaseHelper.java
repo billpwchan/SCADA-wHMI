@@ -206,32 +206,6 @@ public class DatabaseHelper {
 		return string2int(string, "");
 	}
 	
-	public static String getColorCSS(String alarmVector, String validity, String forcedStatus) {
-		final String function = "getColorCSS";
-		
-		logger.begin(className, function);
-		
-		logger.debug(className, function, "alarmVector[{}] validity[{}] forcedStatus[{}]", new Object[]{alarmVector, validity, forcedStatus});
-		
-		String colorCSS	= RTDB_i.strCSSStatusGrey;
-		
-		if ( isForced(forcedStatus) ) {
-			colorCSS = RTDB_i.strCSSStatusBlue;
-		} else if ( ! isValid(validity)) {
-			colorCSS = RTDB_i.strCSSStatusGrey;
-		} else if ( isAlarm(alarmVector) ) {
-			colorCSS = RTDB_i.strCSSStatusRed;
-		} else {
-			colorCSS = RTDB_i.strCSSStatusGreen;
-		}
-		
-		logger.debug(className, function, "colorCode[{}]", colorCSS);
-		
-		logger.end(className, function);
-
-		return colorCSS;
-	}
-	
 	public static final String strDynamic			= "dynamic";
 	public static final String strStatic			= "static";
 	public static final String strMultiReadValue	= "multiReadValue";

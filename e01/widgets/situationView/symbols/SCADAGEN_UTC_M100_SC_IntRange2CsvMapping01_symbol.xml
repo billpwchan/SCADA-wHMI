@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<symbolConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/symbol">
+  <entitySymbol animationId="SCADAGEN_UTC_M100_SC_IntRange2CsvMapping01_animation" cssBaseClass="mwt-sv-cfg-entity" id="SCADAGEN_UTC_M100_SC_IntRange2CsvMapping01" graphicId="SCADAGEN_UTC_M100_SC_IntRange2CsvMapping01_graphic" zoomStrategyId="ID" width="200.0" height="200.0"></entitySymbol>
+</symbolConfiguration>

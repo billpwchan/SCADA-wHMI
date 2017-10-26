@@ -317,8 +317,8 @@
 	<option key="Verify|Status Computer|IntMapping"><setting>414</setting></option>
 	<option key="Verify|Status Computer|NeedAck"><setting>415</setting></option>
 	<option key="Verify|Status Computer|Str2StrCompare"><setting>417</setting></option>
-	<option key="Verify|Status Computer|TrainPositionRotation01"><setting>418</setting></option>
-	<option key="Verify|Status Computer|TrainPositionRotation02"><setting>419</setting></option>
+	<option key="Verify|Status Computer|IntRange2CsvMapping01"><setting>418</setting></option>
+	<option key="Verify|Status Computer|IntRange2CsvMapping02"><setting>419</setting></option>
 	
 	<option key="Verify|OPM"><setting>420</setting></option>
 	<option key="Verify|OPM|Change Password"><setting>421</setting></option>

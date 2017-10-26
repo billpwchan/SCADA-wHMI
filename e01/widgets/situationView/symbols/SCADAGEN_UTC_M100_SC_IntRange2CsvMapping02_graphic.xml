@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<graphicConfiguration xmlns:ns2="http://www.thalesgroup.com/hv/mwt/conf/common" xmlns="http://www.thalesgroup.com/hv/mwt/conf/situationview/graphic">
+  <graphic id="SCADAGEN_UTC_M100_SC_IntRange2CsvMapping02_graphic">
+    <root>
+      <svgRef brickId="IntRange2CsvMapping02" id="IntRange2DoubleMapping02_node"></svgRef>
+    </root>
+  </graphic>
+</graphicConfiguration>

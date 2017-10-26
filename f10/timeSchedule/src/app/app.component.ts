@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, Route } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Cookie } from 'ng2-cookies';
 import { ConfigService } from './service/config.service';
@@ -13,8 +14,10 @@ export class AppComponent {
     private static defaultLanguage = 'en';
     public title = 'Time Schedule';
     constructor( private configService: ConfigService, private translate: TranslateService,
-                private loadingService: LoadingService, private scheduleService: ScheduleService) {
+                private loadingService: LoadingService, private scheduleService: ScheduleService,
+                private router: Router) {
         const defaultLanguage = configService.config.getIn(['i18n', 'default_lang']);
+        const disablePeriodicSchedulePlanning = configService.config.getIn(['disable_periodic_schedule_planning']);
         const preferedLanguage = this.getPreferedLanguage();
         console.log(
             '{AppComponent}',
@@ -26,6 +29,10 @@ export class AppComponent {
         if (preferedLanguage) {
             translate.use(preferedLanguage);
             console.log('{AppComponent}', '[Language]', 'use preferred language ', preferedLanguage);
+        }
+        if (disablePeriodicSchedulePlanning) {
+            this.removePeriodicSchedulePlanningRoute();
+            console.log('{AppComponent}', '[loadConfig]', 'disable periodic schedule planning ', disablePeriodicSchedulePlanning);
         }
         scheduleService.load();
     }
@@ -45,5 +52,17 @@ export class AppComponent {
             console.log('{AppComponent}', 'No defined way to obtain prefered language');
         }
         return undefined;
+    }
+
+    private removePeriodicSchedulePlanningRoute() {
+        const routeConfig = this.router.config;
+        const newConfig = Array<Route>();
+        for (const r of routeConfig) {
+            if (r.path !== 'schedule-planning') {
+            newConfig.push(r);
+            }
+        }
+        console.log('{AppRoutingModule}', 'update router config to ', newConfig);
+        this.router.resetConfig(newConfig);
     }
 }

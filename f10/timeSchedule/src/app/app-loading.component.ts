@@ -17,8 +17,8 @@ export class AppLoadingComponent implements OnInit, OnDestroy {
     }
 
     public showLoading(loading) {
-        console.log('isLoading', this.isLoading);
         this.isLoading = loading;
+        console.log('isLoading', this.isLoading);
     }
 
     ngOnInit() {

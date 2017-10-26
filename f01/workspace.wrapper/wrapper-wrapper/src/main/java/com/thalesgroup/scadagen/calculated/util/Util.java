@@ -19,6 +19,7 @@ import com.thalesgroup.hypervisor.mwt.core.util.config.loader.IConfigLoader;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.data.server.rpc.implementation.ServicesImplFactory;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.AttributeClientAbstract;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.BooleanAttribute;
+import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.Coordinates;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.CoordinatesAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.DateTimeAttribute;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.ui.client.data.attribute.DoubleAttribute;
@@ -113,6 +114,29 @@ public class Util {
 	    return ret;
 	}
 	
+	public DoubleAttribute getDoubleAttribute(Double value, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} value[{}] isValid[{}] date[{}]", new Object[]{function, prefix, value, date});
+		DoubleAttribute ret = new DoubleAttribute();
+	    ret.setValue(value);
+	    ret.setValid(isValid);
+	    ret.setTimestamp(date);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
+	    return ret;
+	}
+	
+	public CoordinatesAttribute getCoordinatesAttribute(Coordinates coordinates, boolean isValid, Date date) {
+		final String function = "getStringAttribute";
+		logger.debug("{} {} coordinate.getX[{}] coordinate.getY[{}] isValid[{}] date[{}]", new Object[]{function, prefix, coordinates.getX(), coordinates.getY(), date});
+
+		CoordinatesAttribute ret = new CoordinatesAttribute();
+		ret.setValue(coordinates);
+    	ret.setTimestamp(new Date());
+    	ret.setValid(true);
+	    logger.debug("{} {} ret.getValue()[{}]", new Object[]{function, prefix, ret.getValue()});
+	    return ret;
+	}
+	
 	public String getConfigAttribute(String attributeName) {
 		return STR_DOT+attributeName;
 	}
@@ -198,6 +222,30 @@ public class Util {
 		dumpInputStatusByNameAttribute(inputStatusByName.get(fieldname));
 		logger.warn("{} {} inputStatusByName[{}]", new Object[]{function, prefix, inputStatusByName});
 		logger.debug("{} {} End", function, prefix);
+	}
+	
+	public Map<Integer, String> readLineFromFile(String csvFile) throws HypervisorException {
+		Map<Integer, String> ret = new HashMap<Integer, String>();
+		try {
+			ResourcePatternResolver pathResolver = new PathMatchingResourcePatternResolver();
+			Resource res = pathResolver.getResource(csvFile);
+			Scanner scanner = new Scanner(res.getFile());
+			logger.debug("scanner[{}]", scanner);
+			if (scanner != null) {
+				int i = 0;
+				while (scanner.hasNextLine()) {
+					String line = scanner.nextLine();
+					logger.debug("i[{}] line[{}]", i, line);
+					ret.put(i++, line);
+				}
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			throw new HypervisorException(e);
+		} catch (Exception e) {
+			throw new HypervisorException(e);
+		}
+		return ret;
 	}
 	
 	public void readMapFromCsv(String csvFile, String delimiter, Map<Integer, List<Map<String, Double>>> mapListMap) throws HypervisorException {

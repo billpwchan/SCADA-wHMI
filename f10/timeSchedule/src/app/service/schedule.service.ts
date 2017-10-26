@@ -504,6 +504,13 @@ export class ScheduleService implements OnDestroy {
                         }
                     }
                     if (dateTimeExpired) {
+                        // Disable task item
+                        const subDisableTask = this.disableTask(scheduleItem.taskName1).subscribe(
+                            res => {
+                                console.log('{ScheduleService}', '[updateOneshotOnOffTimeDisplay]', 'disableTask returned', res);
+                                subDisableTask.unsubscribe();
+                            }
+                        );
                         scheduleItem.onTimeDisplay = '';
                     } else {
                         scheduleItem.onTimeDisplay = scheduleItem.onTime;
@@ -548,6 +555,13 @@ export class ScheduleService implements OnDestroy {
                         }
                     }
                     if (dateTimeExpired) {
+                        // Disable task item
+                        const subDisableTask2 = this.disableTask(scheduleItem.taskName2).subscribe(
+                            res => {
+                                console.log('{ScheduleService}', '[updateOneshotOnOffTimeDisplay]', 'disableTask returned', res);
+                                subDisableTask2.unsubscribe();
+                            }
+                        );
                         scheduleItem.offTimeDisplay = '';
                     } else {
                         scheduleItem.offTimeDisplay = scheduleItem.offTime;
@@ -786,6 +800,64 @@ export class ScheduleService implements OnDestroy {
             }
         );
     }
+    public addCurrentDayToOneshotSchedules() {
+        for (const s of this.schedules) {
+            if (!s.periodic) {
+                // Get daygroup id for this schedule from config
+                const runDayGroupId = this.getRunDayGroupId(s.id);
+                const runNextDayGroupId = this.getRunNextDayGroupId(s.id);
+
+                // Get current dateList from run daygroup
+                if (runDayGroupId) {
+                    const subGetDates = this.scsTscService.getDates(runDayGroupId).subscribe(
+                        datesList => {
+                            console.log('{ScheduleService}', '[addCurrentDayToOneshotSchedules]', 'getDates', datesList);
+
+                            this.addCurrentDayToDateList(datesList);
+
+                            // Set dateList to running daygroup to implement start schedule
+                            const subSetDates = this.scsTscService.setDates(runDayGroupId, datesList, this.clientName).subscribe(
+                                res => {
+                                    console.log('{ScheduleService}', '[addCurrentDayToOneshotSchedules]', 'setDates', res);
+
+                                    // Get next dateList from run daygroup
+                                    if (runNextDayGroupId) {
+                                        const subGetDates2 = this.scsTscService.getDates(runNextDayGroupId).subscribe(
+                                            datesList2 => {
+                                                console.log('{ScheduleService}', '[addCurrentDayToOneshotSchedules]', 'getDates', datesList2);
+
+                                                this.addNextDayToDateList(datesList2);
+
+                                                // Set dateList to running daygroup to implement start schedule
+                                                const subSetDates2 = this.scsTscService.setDates(runNextDayGroupId, datesList2, this.clientName).subscribe(
+                                                    res2 => {
+                                                        console.log('{ScheduleService}', '[addCurrentDayToOneshotSchedules]', 'setDates', res2);
+
+                                                        // Reload day groups to update running schedules
+                                                        this.readDayGroupDates();
+
+                                                        subSetDates2.unsubscribe();
+                                                    }
+                                                );
+                                                subGetDates2.unsubscribe();
+                                            }
+                                        );
+                                    } else {
+                                        console.error('{ScheduleService}', '[addCurrentDayToOneshotSchedules]',
+                                            'runNextDayGroupId not found in config')
+                                    }
+                                    subSetDates.unsubscribe();
+                                }
+                            );
+                            subGetDates.unsubscribe();
+                        }
+                    );
+                } else {
+                    console.error('{ScheduleService}', '[addCurrentDayToOneshotSchedules]', 'runDayGroupId not found in config')
+                }
+            }
+        }
+    }
 
     public addOffsetToDateList(dateList: string[]) {
         for (let i = 0; i < dateList.length; i++) {
@@ -797,6 +869,45 @@ export class ScheduleService implements OnDestroy {
         for (let i = 0; i < dateList.length; i++) {
             const timevalue = +dateList[i] - this.tscTimeOffset;
             dateList[i] = timevalue.toString();
+        }
+    }
+    public addCurrentDayToDateList(dateList: string[]) {
+        const d = new Date();
+        const dd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+        console.log('{ScheduleService}', '[addCurrentDayToDateList]', 'current Date', dd, dd.getTime() / 1000);
+
+        let currentDay = (dd.getTime() / 1000) + '';
+
+        if (this.tscTimeOffset > 0) {
+            const timeValue = +currentDay + this.tscTimeOffset;
+            currentDay = timeValue + '';
+        }
+        this.addDateToDateList(currentDay, dateList);
+    }
+    public addNextDayToDateList(dateList: string[]) {
+        const d = new Date();
+        const dd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+        const nn = new Date(dd.getTime() + 86400000);
+        console.log('{ScheduleService}', '[addNextDayToDateList]', 'next Date', nn, nn.getTime() / 1000);
+
+        let nextDay = (nn.getTime() / 1000) + '';
+
+        if (this.tscTimeOffset > 0) {
+            const timeValue = +nextDay + this.tscTimeOffset;
+            nextDay = timeValue + '';
+        }
+        this.addDateToDateList(nextDay, dateList);
+    }
+    public addDateToDateList(date: string, dateList: string[]) {
+        let dateFound = false;
+        for (const d of dateList) {
+            const dstr = d + '';
+            if (date === dstr) {
+                dateFound = true;
+            }
+        }
+        if (!dateFound) {
+            dateList.push(date);
         }
     }
     public startPeriodicSchedules() {
@@ -1259,47 +1370,67 @@ export class ScheduleService implements OnDestroy {
                     return enable;
                 }));
             }
-            return Observable.combineLatest(obsList).map(() => enabledTaskList);
+            return Observable.combineLatest(obsList).map(() => {
+                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'enabledTaskList count =', enabledTaskList.length);
+                return enabledTaskList;
+            });
         })
         .mergeMap(enabledTaskList => {
-            const obsList = new Array<Observable<any>>();
+            const obsList2 = new Array<Observable<any>>();
             for (const taskName of enabledTaskList) {
-                obsList.push(this.scsTscService.getFilter(taskName).map(filter => filter));
+                obsList2.push(this.scsTscService.getFilter(taskName).map(filter => {
+                    console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'enabled taskName =', taskName, 'filter =', filter);
+                    return filter;
+                }));
             }
-            return Observable.combineLatest(obsList);
+            if (enabledTaskList.length > 0) {
+                return Observable.combineLatest(obsList2);
+            } else {
+                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'return empty observable');
+                return Observable.of([]);
+            }
         })
         .subscribe(filterList => {
             let taskToRunCnt = 0;
-            for (const filter of filterList) {
-                const onOffTime = this.getOnOffTime(filter);
-                const onOffTimeDisplay = onOffTime;
 
-                const hour = +onOffTime.split(':')[0];
-                const minute = +onOffTime.split(':')[1];
-                const taskDaygroup: string = filter.split(' ')[0];
-                const daygroup = this.dayGroupIdMap.get(taskDaygroup);
+            if (filterList) {
+                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'filterListCnt =', filterList.length);
+                for (const filter of filterList) {
+                    const onOffTime = this.getOnOffTime(filter);
+                    const onOffTimeDisplay = onOffTime;
 
-                if (daygroup && daygroup.datesList && daygroup.datesList.length > 0) {
-                    let dateTime = +daygroup.datesList[0];
-                    if (this.tscTimeOffset === 0) {
-                        // Handle unix time underflow from tsc server
-                        if (dateTime > UtilService.UNIX_TIME_MAX) {
-                            dateTime = 0;
+                    const hour = +onOffTime.split(':')[0];
+                    const minute = +onOffTime.split(':')[1];
+                    const taskDaygroup: string = filter.split(' ')[0];
+                    const daygroup = this.dayGroupIdMap.get(taskDaygroup);
+                    let dateTimeExpired = true;
+
+                    if (daygroup && daygroup.datesList && daygroup.datesList.length > 0) {
+                        for (const d of daygroup.datesList) {
+                            let dateTime = +d;
+                            if (this.tscTimeOffset > 0) {
+                                dateTime = dateTime - this.tscTimeOffset;
+                            }
+                            // Handle unix time underflow from tsc server
+                            if (dateTime > UtilService.UNIX_TIME_MAX) {
+                                dateTime = 0;
+                            }
+                            // Check if date/time has expired
+                            if (!UtilService.isDateExpired(dateTime, hour, minute)) {
+                                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time has expired', dateTime, hour, minute);
+                                dateTimeExpired = false;
+                                break;
+                            }
                         }
-                    } else {
-                        dateTime = dateTime - this.tscTimeOffset;
-                    }
-                    // Check if date/time has expired
-                    if (UtilService.isDateExpired(dateTime, hour, minute)) {
-                        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time has expired');
-                    } else {
-                        taskToRunCnt++;
-                        console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time scheduled to run at ',
-                            onOffTime, taskToRunCnt);
+                        if (!dateTimeExpired) {
+                            taskToRunCnt++;
+                            console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time scheduled to run at ',
+                                onOffTime, taskToRunCnt);
+                        }
                     }
                 }
-                console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'task on time ', onOffTime, 'taskToRunCnt', taskToRunCnt);
             }
+            console.log('{ScheduleService}', '[loadNonPeriodicScheduleItems]', 'taskToRunCnt', taskToRunCnt);
             this.oneshotTaskToRunCnt = taskToRunCnt;
             this.updateOneshotOnOffTimeDisplayAll();
             this.updateRunningSchedules();

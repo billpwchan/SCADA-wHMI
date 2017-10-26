@@ -792,7 +792,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     // click event handler for save button
     public saveModified() {
         const selectedItem: ScheduleItem = this.selectedRow[0];
+        let checkRunDates = false;
         if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
+            checkRunDates = true;
             const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName1).subscribe(
                 res => {
                     console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
@@ -809,6 +811,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
 
         if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
+            checkRunDates = true;
             const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName2).subscribe(
                 res => {
                     console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
@@ -826,6 +829,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         if (this.newOnTime !== selectedItem.onTime) {
             if (this.newOnTime && this.selectedRow.length === 1 && this.newOnTime !== selectedItem.onTime) {
+                checkRunDates = true;
                 this.scheduleService.setScheduleItemOnTime(this.selectedSchedule.id, selectedItem, this.newOnTime).subscribe(
                     res => {
                         console.log('{schedule-table}', '[saveModified]', 'setFilter OnTime for returned', res);
@@ -836,12 +840,18 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         if (this.newOffTime !== selectedItem.offTime) {
             if (this.newOffTime && this.selectedRow.length === 1 && this.newOffTime !== selectedItem.offTime) {
+                checkRunDates = true;
                 this.scheduleService.setScheduleItemOffTime(this.selectedSchedule.id, selectedItem, this.newOffTime).subscribe(
                     res => {
                         console.log('{schedule-table}', '[saveModified]', 'setFilter OffTime returned', res);
                     }
                 )
             }
+        }
+
+        // update dates in oneshot schedule run day group
+        if (!this.displayPeriodicSchedules && this.oneshotStarted && checkRunDates) {
+            this.scheduleService.addCurrentDayToOneshotSchedules();
         }
     }
 

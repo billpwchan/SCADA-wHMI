@@ -52,6 +52,8 @@ export class SchedulePlanningComponent implements OnInit {
 
     public displaySpinner = true;
 
+    public displayOtherTypesInRunningSchedules = true;
+
     // schedule task cut off time
     public cutoffTime: string;
 
@@ -101,6 +103,9 @@ export class SchedulePlanningComponent implements OnInit {
 
         this.displaySpinner = this.configService.config.getIn(['schedule_planning', 'display_spinner']);
         console.log('{schedule-planning}', '[loadConfig]', 'display_spinner=', this.displaySpinner);
+
+        this.displayOtherTypesInRunningSchedules = this.configService.config.getIn(['schedule_planning', 'display_other_types_in_running_schedules']);
+        console.log('{schedule-planning}', '[loadConfig]', 'display_other_types_in_running_schedules=', this.displayOtherTypesInRunningSchedules);
     }
 
     private loadData() {

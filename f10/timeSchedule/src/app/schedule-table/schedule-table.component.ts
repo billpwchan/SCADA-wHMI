@@ -116,11 +116,17 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
     public oneshotStarted = false;
 
+    public periodicStarted = false;
+
     public displayAppNavigation = false;
 
     public manualRefreshEnabled = false;
 
     public displayCutoffTime = true;
+
+    public displayCutoffTimePeriodic = true;
+
+    public displayCutoffTimeNonPeriodic = false;
 
     public displayRunningSchedules = true;
 
@@ -131,6 +137,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     public geocatTranslationPrefix = 'geocat';
 
     public funcatTranslationPrefix = 'funcat';
+
+    public displayOtherTypesInRunningSchedules = true;
+
+    public disableSchedulePlanning = false;
 
     constructor(
         private configService: ConfigService,
@@ -153,6 +163,8 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     }
     loadConfig() {
         console.log('{schedule-table}', '[loadConfig]', 'translate current lang=', this.translate.currentLang);
+
+        this.disableSchedulePlanning = this.configService.config.getIn(['disable_periodic_schedule_planning']);
 
         this.cutoffTime = this.configService.config.getIn(['schedule_table', 'cutoff_time']);
         console.log('{schedule-table}', '[loadConfig]', 'cutoff_time=', this.cutoffTime);
@@ -181,8 +193,11 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.manualRefreshEnabled = this.configService.config.getIn(['schedule_table', 'manual_refresh_enabled']);
         console.log('{schedule-table}', '[loadConfig]', 'manual_refresh_enabled=', this.manualRefreshEnabled);
 
-        this.displayCutoffTime = this.configService.config.getIn(['schedule_table', 'display_cutoff_time']);
-        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time=', this.displayCutoffTime);
+        this.displayCutoffTimePeriodic = this.configService.config.getIn(['schedule_table', 'display_cutoff_time_periodic']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time_periodic=', this.displayCutoffTimePeriodic);
+
+        this.displayCutoffTimeNonPeriodic = this.configService.config.getIn(['schedule_table', 'display_cutoff_time_non_periodic']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_cutoff_time_non_periodic=', this.displayCutoffTimeNonPeriodic);
 
         this.displayRunningSchedules = this.configService.config.getIn(['schedule_table', 'display_running_schedules']);
         console.log('{schedule-table}', '[loadConfig]', 'display_running_schedules=', this.displayRunningSchedules);
@@ -201,6 +216,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         this.displaySpinner = this.configService.config.getIn(['schedule_table', 'display_spinner']);
         console.log('{schedule-table}', '[loadConfig]', 'display_spinner=', this.displaySpinner);
+
+        this.displayOtherTypesInRunningSchedules = this.configService.config.getIn(['schedule_table', 'display_other_types_in_running_schedules']);
+        console.log('{schedule-table}', '[loadConfig]', 'display_other_types_in_running_schedules=', this.displayOtherTypesInRunningSchedules);
     }
     loadData() {
         if (this.subRoute) {
@@ -211,8 +229,10 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
             const p = params['periodic'];
             if (p === 'true') {
                 this.displayPeriodicSchedules = true;
+                this.displayCutoffTime = this.displayCutoffTimePeriodic;
             } else {
                 this.displayPeriodicSchedules = false;
+                this.displayCutoffTime = this.displayCutoffTimeNonPeriodic;
             }
             console.log('{schedule-table}', '[loadData]', 'periodic =', this.displayPeriodicSchedules);
 
@@ -243,6 +263,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                             }
                         }
                         this.oneshotStarted = this.scheduleService.isOneshotScheduleStarted();
+                        this.periodicStarted = this.scheduleService.isPeriodicScheduleStarted();
                         this.updateAddDeleteRenameScheduleButton();
                         this.cancelRenameSchedule();
                     } else {
@@ -694,6 +715,19 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         this.oneshotStarted = false;
     }
 
+    public startPeriodic() {
+        this.scheduleService.startDefaultPeriodicSchedules();
+        this.periodicStarted = true;
+        console.log('{schedule-table}', '[startPeriodic]', 'periodicStarted', this.periodicStarted);
+    }
+
+    public stopPeriodic() {
+        // this.clearPeriodicWeeklySchedules();
+        this.scheduleService.stopPeriodicSchedules();
+        this.periodicStarted = false;
+        console.log('{schedule-table}', '[stopPeriodic]', 'periodicStarted', this.periodicStarted);
+    }
+
     public updateOnTimeValue(newOnTimeValue) {
         console.log('{schedule-table}', '[updateOnTimeValue]', newOnTimeValue);
         this.newOnTime = newOnTimeValue;
@@ -758,7 +792,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
     // click event handler for save button
     public saveModified() {
         const selectedItem: ScheduleItem = this.selectedRow[0];
+        let checkRunDates = false;
         if (this.pendingOnTimeIsEnabled && !selectedItem.enableFlag1) {
+            checkRunDates = true;
             const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName1).subscribe(
                 res => {
                     console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
@@ -775,6 +811,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
         }
 
         if (this.pendingOffTimeIsEnabled && !selectedItem.enableFlag2) {
+            checkRunDates = true;
             const subEnableTask = this.scheduleService.enableTask(this.selectedRow[0].taskName2).subscribe(
                 res => {
                     console.log('{schedule-table}', '[saveModified]', 'enableTask returned', res);
@@ -792,6 +829,7 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         if (this.newOnTime !== selectedItem.onTime) {
             if (this.newOnTime && this.selectedRow.length === 1 && this.newOnTime !== selectedItem.onTime) {
+                checkRunDates = true;
                 this.scheduleService.setScheduleItemOnTime(this.selectedSchedule.id, selectedItem, this.newOnTime).subscribe(
                     res => {
                         console.log('{schedule-table}', '[saveModified]', 'setFilter OnTime for returned', res);
@@ -802,12 +840,18 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
 
         if (this.newOffTime !== selectedItem.offTime) {
             if (this.newOffTime && this.selectedRow.length === 1 && this.newOffTime !== selectedItem.offTime) {
+                checkRunDates = true;
                 this.scheduleService.setScheduleItemOffTime(this.selectedSchedule.id, selectedItem, this.newOffTime).subscribe(
                     res => {
                         console.log('{schedule-table}', '[saveModified]', 'setFilter OffTime returned', res);
                     }
                 )
             }
+        }
+
+        // update dates in oneshot schedule run day group
+        if (!this.displayPeriodicSchedules && this.oneshotStarted && checkRunDates) {
+            this.scheduleService.addCurrentDayToOneshotSchedules();
         }
     }
 
@@ -882,9 +926,19 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                     console.log('{schedule-table}', '[getRunningSchedules] return', schedules);
                     if (schedules) {
                         this.runningSchedules = schedules;
+                        let cnt = 0;
                         if (schedules.length > 0) {
-                            let cnt = 0;
                             for (const s of schedules) {
+                                if (!this.displayOtherTypesInRunningSchedules) {
+                                    console.log('{schedule-table}', '[getRunningSchedules]', 'this.displayPeriodicSchedules && !s.periodic',
+                                        this.displayPeriodicSchedules && !s.periodic);
+                                        console.log('{schedule-table}', '[getRunningSchedules]', '!this.displayPeriodicSchedules && s.periodic',
+                                        !this.displayPeriodicSchedules && s.periodic);
+                                    if ((this.displayPeriodicSchedules && !s.periodic) ||
+                                        (!this.displayPeriodicSchedules && s.periodic)) {
+                                            continue;
+                                        }
+                                }
                                 if (cnt > 0) {
                                     this.runningSchedulesStr = this.runningSchedulesStr + ', ' + s.text;
                                 } else {
@@ -893,7 +947,9 @@ export class ScheduleTableComponent implements OnInit, OnDestroy {
                                 cnt++;
                                 console.log('{schedule-table}', '[getRunningSchedules] runningSchedulesStr', this.runningSchedulesStr);
                             }
-                        } else {
+                        }
+
+                        if (cnt < 1) {
                             const str = 'No schedule is running';
                             const translatedStr = this.translate.instant(str);
                             if (translatedStr) {

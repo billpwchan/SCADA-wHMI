@@ -62,5 +62,12 @@
     "System_2": "System_2",
     "System_3": "System_3",
     "System_4": "System_4",
-    "System_5": "System_5"
+    "System_5": "System_5",
+
+    "Oneshot": "Oneshot",
+    "Weekday": "Weekday",
+    "Holiday": "Holiday",
+    "User Defined 1": "User-Defined 1",
+    "User Defined 2": "User-Defined 2",
+    "User Defined 3": "User-Defined 3"
 }

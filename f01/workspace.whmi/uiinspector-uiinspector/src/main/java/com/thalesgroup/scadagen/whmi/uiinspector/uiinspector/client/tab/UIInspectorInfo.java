@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -956,7 +957,7 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 		int rowBegin	= pageCounter.pageRowBegin;
 		int rowEnd		= pageCounter.pageRowEnd;
 
-		ArrayList<String> alarmList = new ArrayList<String>();
+		List<String> alarmList = new ArrayList<String>();
 		for ( int x = rowBegin ; x < rowEnd ; ++x) {
 			String address = this.addresses[x];
 			
@@ -983,21 +984,21 @@ public class UIInspectorInfo implements UIInspectorTab_i {
 			
 			boolean bIsValid	= DatabaseHelper.isValid(validity);
 			
-			boolean bIsAlarm	= DatabaseHelper.isAlarm(valueAlarmVector);
-			
 			boolean bIsNeedAck	= DatabaseHelper.isNeedAck(valueAlarmVector);
 			
-			logger.debug(className, function, "address[{}] bIsValid[{}] bIsAlarm[{}] bIsNeedAck[{}]", new Object[]{address, bIsValid, bIsAlarm, bIsNeedAck});
+			logger.debug(className, function, "address[{}] bIsValid[{}] bIsNeedAck[{}]", new Object[]{address, bIsValid, bIsNeedAck});
 
-			if ( bIsValid && bIsAlarm && bIsNeedAck ) {
-				
+			if ( bIsValid && bIsNeedAck ) {
 				logger.debug(className, function, "address[{}] added to alarm list", address);
 				alarmList.add(address);
-			
 			}
 		}
 
-		new AckAlarm(scsEnvId).ack(alarmList.toArray(new String[0]));
+		if ( 0 != alarmList.size() ) {
+			new AckAlarm(scsEnvId).ack(alarmList.toArray(new String[0]));
+		} else {
+			logger.warn(className, function, "alarmList.size IS ZERO");
+		}
 
 		logger.end(className, function);
 	}

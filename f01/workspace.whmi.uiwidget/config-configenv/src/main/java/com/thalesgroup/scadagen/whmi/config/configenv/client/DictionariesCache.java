@@ -3,6 +3,8 @@ package com.thalesgroup.scadagen.whmi.config.configenv.client;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary;
 import com.thalesgroup.scadagen.whmi.config.config.shared.Dictionary_i;
@@ -18,7 +20,7 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	private final String className = UIWidgetUtil.getClassSimpleName(DictionariesCache.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
 
-	private static HashMap<String, DictionariesCache> instances = new HashMap<String, DictionariesCache>();
+	private static Map<String, DictionariesCache> instances = new HashMap<String, DictionariesCache>();
 	private DictionariesCache () {}
 	public static DictionariesCache getInstance(String key) {
 		if ( ! instances.containsKey(key) ) {	instances.put(key, new DictionariesCache()); }
@@ -26,13 +28,13 @@ public class DictionariesCache implements DictionariesMgrEvent {
 		return instance;
 	}
 		
-	private LinkedList<String> incoming		= new LinkedList<String>();
-//	private LinkedList<String> waiting		= new LinkedList<String>();
-	private LinkedList<String> fails		= new LinkedList<String>();
+	private List<String> incoming		= new LinkedList<String>();
+//	private List<String> waiting		= new LinkedList<String>();
+	private List<String> fails		= new LinkedList<String>();
 	
-	private LinkedList<DictionariesMgr> dictionariesMgrs = new LinkedList<DictionariesMgr>();
+	private List<DictionariesMgr> dictionariesMgrs = new LinkedList<DictionariesMgr>();
 	
-	private HashMap <String, Dictionary> dictionaries = new HashMap<String, Dictionary>();
+	private Map <String, Dictionary> dictionaries = new HashMap<String, Dictionary>();
 	public Set<String> getDictionaryKeys () { return this.dictionaries.keySet(); }
 	public Dictionary getDictionary(String path, String extention) { return this.dictionaries.get(path+"|"+extention); }
 	public Dictionary getDictionary(String path) { return this.dictionaries.get(path); }
@@ -71,11 +73,9 @@ public class DictionariesCache implements DictionariesMgrEvent {
 	// For XML Option
 	public String getStringValue(final String fileName, final String keyValue, final String tag, final String tagKey) {
 		final String function = "getStringValue";
-		
 		logger.begin(className, function);
-		
 		logger.trace(className, function, "fileName[{}] keyValue[{}] tag[{}] tagKey[{}]", new Object[]{fileName, keyValue, tag, tagKey});
-		
+	
 		String value = null;
 		Dictionary dictionary = getDictionary(fileName+(null!=tag?"|"+tag:""));
 			
@@ -227,7 +227,6 @@ public class DictionariesCache implements DictionariesMgrEvent {
 								String createDateTimeLabel = (String)dictionary.getAttribute(DictionaryCacheInterface.XMLAttribute.DateTime.toString());
 								
 								logger.trace(className, function, "fileName[{}] tag[{}] createDateTimeLabel[{}]", new Object[]{fileName, tag, createDateTimeLabel});
-								
 								logger.trace(className, function, "relativePath[{}]", relativePath);
 								
 								String dictionariesKey = relativePath+"|"+tag;

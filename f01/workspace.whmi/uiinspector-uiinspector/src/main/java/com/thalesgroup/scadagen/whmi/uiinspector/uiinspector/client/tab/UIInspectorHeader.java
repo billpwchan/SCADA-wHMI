@@ -306,7 +306,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	public void updateValue(String strClientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValue";
 		logger.begin(className, function);
-		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		logger.trace(className, function, "strClientKey[{}]", strClientKey);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
@@ -411,7 +411,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private void widgetRemoveCSS(Widget widget, String css) {
 		final String function = "widgetRemoveCSS";
 		logger.begin(className, function);
-		logger.debug(className, function, "widget[{}] css[{}]", widget, css);
+		logger.trace(className, function, "widget[{}] css[{}]", widget, css);
 		if ( widgetHasCSS(widget, css) ) {
 			widget.removeStyleName(css);
 		}
@@ -421,7 +421,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	private void widgetAddCSS(Widget widget, String css) {
 		final String function = "widgetAddCSS";
 		logger.begin(className, function);
-		logger.debug(className, function, "widget[{}] css[{}]", widget, css);
+		logger.trace(className, function, "widget[{}] css[{}]", widget, css);
 		if ( ! widgetHasCSS(widget, css) ) {
 			widget.addStyleName(css);
 		}
@@ -440,10 +440,10 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{
 			String isControlableValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.IsControlableAttribute.toString()), dbvalues);
 			isControlableValue = DatabaseHelper.removeDBStringWrapper(isControlableValue);
-			logger.debug(className, function, "isControlableValue[{}]", isControlableValue);
+			logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
 			if ( null != isControlableValue ) {
 				isControlableValue = controlRightLabels.get(isControlableValue);
-				logger.debug(className, function, "isControlableValue[{}]", isControlableValue);
+				logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
 				isControlableValue = Translation.getWording(isControlableValue);
 				txtAttributeStatus[2].setText(isControlableValue);
 			}
@@ -451,20 +451,20 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{		
 			String resrvReservedIDValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.ResrvReservedIDAttribute.toString()), dbvalues);
 			resrvReservedIDValue = DatabaseHelper.removeDBStringWrapper(resrvReservedIDValue);
-			logger.debug(className, function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
+			logger.trace(className, function, "resrvReservedIDValue[{}]", resrvReservedIDValue);
 
-			logger.debug(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
+			logger.trace(className, function, "resrvReservedPreviewValue[{}] == resrvReservedIDValue[{}]", resrvReservedPreviewValue, resrvReservedIDValue);
 			if ( null == resrvReservedPreviewValue || (null != resrvReservedIDValue && ! resrvReservedIDValue.equals(resrvReservedPreviewValue)) ) { 
 				
 				eqtReserved = EquipmentReserve.isEquipmentReservation(resrvReservedIDValue, equipmentReserveHasScreen, uiNameCard.getUiScreen());
-				logger.debug(className, function, "eqtReserved[{}]", eqtReserved);
+				logger.trace(className, function, "eqtReserved[{}]", eqtReserved);
 				
 				if ( null != equipmentReserveEvent ) equipmentReserveEvent.isAvaiable(eqtReserved);
 				resrvReservedPreviewValue = resrvReservedIDValue;
 
 				String strEqtReservedLabel = null;
 				strEqtReservedLabel = controlRightReservedLabels.get(eqtReserved);
-				logger.debug(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
+				logger.trace(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
 				strEqtReservedLabel = Translation.getWording(strEqtReservedLabel);
 				txtAttributeStatus[3].setText(strEqtReservedLabel);
 			}
@@ -472,11 +472,11 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		{
 			String hdvFlagValue = DatabaseHelper.getAttributeValue(parent, attributes.get(AttributeName.HdvFlagAttribute.toString()), dbvalues);
 			hdvFlagValue = DatabaseHelper.removeDBStringWrapper(hdvFlagValue);
-			logger.debug(className, function, "hdvFlagValue[{}]", hdvFlagValue);
+			logger.trace(className, function, "hdvFlagValue[{}]", hdvFlagValue);
 			
 			if ( null != hdvFlagValue ) {
 				if ( ! hdvFlagValue.equals(hdvFlagPreviewValue) ) {
-					logger.debug(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					logger.trace(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
 					int eqtHom = Hom.isHom(hdvFlagValue);
 					if ( null != homEvent ) homEvent.isAvaiable(eqtHom);
 					hdvFlagPreviewValue = hdvFlagValue;
@@ -485,28 +485,28 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				if ( null == handoverRightLabels ) handoverRightLabels = new HashMap<String, String>();
 				
 				if ( ! handoverRightLabels.containsKey(hdvFlagValue) ) {
-					logger.debug(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
+					logger.trace(className, function, "hdvFlagPreviewValue[{}] == hdvFlagValue[{}]", hdvFlagPreviewValue, hdvFlagValue);
 					String attribite = dictionariesCacheName_prefix + "HdvFlag"+UIPanelInspector_i.strDot+hdvFlagValue;
 					
-					logger.debug(className, function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
+					logger.trace(className, function, "Reading dictionariesCacheName_fileName[{}] attribite[{}]", dictionariesCacheName_fileName, attribite);
 					handoverRightLabels.put(hdvFlagValue, ReadProp.readString(dictionariesCacheName, dictionariesCacheName_fileName, attribite, ""));
 				}
-				logger.debug(className, function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
+				logger.trace(className, function, "handoverRightLabels.get({}) =[{}]", hdvFlagValue, handoverRightLabels.get(hdvFlagValue));
 				
 				String hdvFlagDisplayValue = handoverRightLabels.get(hdvFlagValue);
-				logger.debug(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
+				logger.trace(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
 				hdvFlagDisplayValue = Translation.getWording(hdvFlagDisplayValue);
 				txtAttributeStatus[4].setText(hdvFlagDisplayValue);
 				
-				logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
+				logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});
 				
-				logger.debug(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
+				logger.trace(className, function, "strHandoverRightLabelCSSShow[{}] strHandoverRightLabelCSSHidden[{}] strHandoverRightValueCSSShow[{}] strHandoverRightValueCSSHidden[{}]"
 						, new Object[]{strHandoverRightLabelCSSShow, strHandoverRightLabelCSSHidden, strHandoverRightValueCSSShow, strHandoverRightValueCSSHidden});
 				
 				boolean isHOMHiddenValue = false;
 				if ( null != strHandoverRightHiddenHOMValues ) {
 					for ( int i = 0 ; i < strHandoverRightHiddenHOMValues.length ; ++i ) {
-						logger.debug(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
+						logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValues({})[{}]", new Object[]{hdvFlagValue, i, strHandoverRightHiddenHOMValues[i]});
 						if ( null != strHandoverRightHiddenHOMValues[i] && hdvFlagValue.equals(strHandoverRightHiddenHOMValues[i]) ) {
 							isHOMHiddenValue = true;
 							break;
@@ -517,7 +517,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				}
 				
 				
-				logger.debug(className, function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
+				logger.trace(className, function, "isHOMHiddenValue[{}]", isHOMHiddenValue);
 				
 				if ( isHOMHiddenValue ) {
 					

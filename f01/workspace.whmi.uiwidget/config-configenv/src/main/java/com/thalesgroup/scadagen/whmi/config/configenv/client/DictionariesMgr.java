@@ -81,7 +81,7 @@ public class DictionariesMgr implements AsyncCallback<Dictionary_i> {
 
 		if ( null != dictionaryCur ) {
 	
-			logger.info(className, function, "calling the callback: dictionariesMgrEvents.DictionariesMgrEventReady()");
+			logger.debug(className, function, "calling the callback: dictionariesMgrEvents.DictionariesMgrEventReady()");
 			for (Iterator<DictionariesMgrEvent> iterator = dictionariesMgrEvents.iterator(); iterator.hasNext();) {
 				DictionariesMgrEvent dictionariesMgrEvent = iterator.next();
 				dictionariesMgrEvent.dictionariesMgrEventReady(dictionaryCur);

@@ -18,15 +18,26 @@ var debugId = json.PrintDataDebugId;
 var dataColumns = json.PrintDataColumns;
 var dataIndexs = json.PrintDataIndexs;
 var dataAttachement = json.PrintDataAttachement;
+var dataDivIndexs = json.PrintDataDivIndexs;
+
+var div = new Array();
+div[0] = document.getElementById(debugId);
 
 // Navigator to the table
-var indexes = [1,0,1,0,2,0,1,0,0,2]; // SCADAgen
-//var indexes = [1,0,2,0,2,0,1,0,0,2]; // ISCS
+if ( null == dataDivIndexs ) {
+	console.log(logPrefix, ' Passing dataDivIndexs IS NULL, using default value');
+	var indexes = [1,0,1,0,2,0,1,0,0,2]; // SCADAgen
+//	var indexes = [1,0,2,0,2,0,1,0,0,2]; // ISCS
+} else {
+	var indexes = dataDivIndexs;
+}
+//console.log(logPrefix, ' Reading indexes[', indexes, '], indexes.length[', indexes.length,']');
+
 for ( var index = 0 ; index < indexes.length ; ++index ) {
 	var indexNext = index+1;
 //	console.log(logPrefix, ' Reading index[', index, '], indexNext[', indexNext, ']');
 	var ci = indexes[index];
-//	console.log(logPrefix, ' Reading index[', index, '], ci', ci, ']');
+//	console.log(logPrefix, ' Reading index[', index, '], ci[', ci, ']');
 	div[indexNext]=div[index].childNodes[ci];
 //	console.log(logPrefix, ' div[', indexNext, ']', div[indexNext]);
 }
@@ -34,7 +45,7 @@ for ( var index = 0 ; index < indexes.length ; ++index ) {
 
 // Extract the table for data extract
 var tbody = div[index].tBodies[0];
-console.log(logPrefix, ' tbody.childNodes.length', tbody.childNodes.length);
+//console.log(logPrefix, ' tbody.childNodes.length', tbody.childNodes.length);
 
 var lines = [];
 for ( var x = 0 ; x < tbody.childNodes.length ; ++x ) {

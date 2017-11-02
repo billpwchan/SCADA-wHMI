@@ -65,6 +65,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 	private String printDataColumns	= null;
 	private String printDataIndexs	= null;
 	private String printDataAttachement = null;
+	private String printDataDivIndexes = null;
 	
 	private int printDataStart = 0;
 	private int printDataLength = 8000;
@@ -144,7 +145,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printDataColumns			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataColumns.toString(), strHeader);
 			printDataIndexs				= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataIndexs.toString(), strHeader);
 			printDataAttachement		= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataAttachement.toString(), strHeader);
-			
+			printDataDivIndexes			= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataDivIndexes.toString(), strHeader);
 			
 			String strPrintDataStart	= dictionariesCache.getStringValue(optsXMLFile, UIWidgetViewer_i.ParameterName.PrintDataStart.toString(), strHeader);
 			try {
@@ -183,6 +184,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
 		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
 		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
+		logger.debug(className, function, "printDataDivIndexes[{}]", printDataDivIndexes);
 		
 		logger.debug(className, function, "printDataStart[{}]", printDataStart);
 		logger.debug(className, function, "printDataLength[{}]", printDataLength);
@@ -488,6 +490,7 @@ public class UIWidgetViewer extends UILayoutRealize {
 			printGDGPage.setPageRangeParameter(printDataStart, printDataLength);
 			printGDGPage.setTimerParameter(printDataReceviedWait, printDataWalkthoughWait);
 			printGDGPage.setDownloadParameter(printDataAttachement);
+			printGDGPage.setDivIndexsParameter(printDataDivIndexes);
 			
 		} else {
 			logger.warn(className, function, "scsOlsListPanel IS NULL");

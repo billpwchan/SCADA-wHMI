@@ -105,7 +105,7 @@ public class Database implements Connectable_i {
 	 */
 	private void printCachesStatic(String logPrefix) {
 		final String function = "printCachesStatic";
-		logger.debug(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
+		logger.trace(className, function, logPrefix+" Number of KeyAndAddress.size[{}] KeyAndValues.size[{}]", KeyAndAddress.size(), KeyAndValues.size());
 	}
 	
 	/**
@@ -228,9 +228,9 @@ public class Database implements Connectable_i {
 		logger.begin(className, function);
 		logger.info(className, function, "api[{}] clientKey[{}] scsEnvId[{}]", new Object[]{api, clientKey, scsEnvId});
 		printCachesStatic("Before");		
-		if ( logger.isDebugEnabled() ) {
+		if ( logger.isTraceEnabled() ) {
 			for ( int i = 0 ; i < dbaddresses.length ; ++i ) {
-				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				logger.trace(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 		}
 		if ( null != databaseEvent ) {
@@ -377,16 +377,12 @@ public class Database implements Connectable_i {
 			@Override
 			public void setReadResult(String key, String[] value, int errorCode, String errorMessage) {
 				final String function = "setReadResult";
-				
 				logger.begin(className, function);
 				
-				if ( logger.isDebugEnabled() ) {				
-					if ( logger.isDebugEnabled() ) {
-				    	logger.debug(className, function, "key[{}] errorCode[{}] errorMessage[{}]", new Object[]{key, errorCode, errorMessage});
-				    	
-						for(int i = 0; i < value.length; ++i) {
-							logger.debug(className, function, "value[{}][{}]", i, value[i]);
-						}	
+				if ( logger.isTraceEnabled() ) {
+				    logger.trace(className, function, "key[{}] errorCode[{}] errorMessage[{}]", new Object[]{key, errorCode, errorMessage});
+					for(int i = 0; i < value.length; ++i) {
+						logger.trace(className, function, "value[{}][{}]", i, value[i]);
 					}
 				}
 		    	
@@ -405,7 +401,6 @@ public class Database implements Connectable_i {
 				}
 
 				logger.end(className, function);
-				
 			}
 
 			@Override
@@ -469,13 +464,12 @@ public class Database implements Connectable_i {
 			@Override
 			public void setGetChildrenResult(String clientKey, String[] instances, int errorCode, String errorMessage) {
 				final String function = "setGetChildrenResult";
-				
 				logger.begin(className, function);
 
-				if ( logger.isDebugEnabled() ) {
-					logger.debug(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
+				if ( logger.isTraceEnabled() ) {
+					logger.trace(className, function, "clientKey[{}] errorCode[{}] errorMessage[{}]", new Object[]{clientKey, errorCode, errorMessage});
 					for(int i = 0; i < instances.length; ++i) {
-						logger.debug(className, function, "instances[{}][{}]", i, instances[i]);
+						logger.trace(className, function, "instances[{}][{}]", i, instances[i]);
 					}	
 				}
 		    	
@@ -489,7 +483,6 @@ public class Database implements Connectable_i {
 				}
 				
 				logger.end(className, function);
-				
 			}
 
 			@Override
@@ -625,7 +618,7 @@ public class Database implements Connectable_i {
 								String scsEnvId = jsonRequest.scsEnvId;
 								String dbaddress = jsonRequest.dbaddress;
 								
-								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
+								logger.trace(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 								
 								rtdb.getChildren(clientKey, scsEnvId, dbaddress);
 								
@@ -636,7 +629,7 @@ public class Database implements Connectable_i {
 								String scsEnvId = jsonRequest.scsEnvId;
 								String[] dbaddresses = jsonRequest.dbaddresses;
 								
-								logger.debug(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
+								logger.trace(className, function, "api[{}] key[{}] scsEnvId[{}]",new Object[]{ api, clientKey, scsEnvId});
 								
 								rtdb.multiReadValueRequest(clientKey, scsEnvId, dbaddresses);
 							}

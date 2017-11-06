@@ -8,6 +8,7 @@ import { ScsTscDef } from './scs-tsc-def';
 @Injectable()
 export class ScsTscService {
     private urlScsTsc = this.configService.config.getIn(['scs_tsc_url']);
+    private tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
     constructor(
         private http: Http,
         private configService: ConfigService
@@ -168,11 +169,18 @@ export class ScsTscService {
         console.log('{ScsTscService}', '[extractDatesList]', res);
         const jsonObj = res.json();
         console.log('{ScsTscService}', '[extractDatesList]', jsonObj.response.datesList);
-        return jsonObj.response.datesList || {};
+        const datesList = jsonObj.response.datesList;
+        if (this.tscTimeOffset > 0) {
+           this.subtractOffsetFromDateList(datesList);
+        }
+        return datesList || {};
     }
     public setDates(dayGroupId: string, datesList: string[], clientName: string): Observable<string[]> {
         let dates = '';
         if (datesList.length > 0) {
+            if (this.tscTimeOffset > 0) {
+                this.addOffsetToDateList(datesList);
+            }
             for (const d of datesList) {
                 if (dates.length > 0) {
                     dates = dates + ',' + d;
@@ -198,5 +206,17 @@ export class ScsTscService {
         const jsonObj = res.json();
         console.log('{ScsTscService}', '[extractDayGroup]', jsonObj.response.dayGroup);
         return jsonObj.response.dayGroup || {};
+    }
+    public addOffsetToDateList(dateList: string[]) {
+        for (let i = 0; i < dateList.length; i++) {
+            const timevalue = +dateList[i] + this.tscTimeOffset;
+            dateList[i] = timevalue + '';
+        }
+    }
+    public subtractOffsetFromDateList(dateList: string[]) {
+        for (let i = 0; i < dateList.length; i++) {
+            const timevalue = +dateList[i] - this.tscTimeOffset;
+            dateList[i] = timevalue + '';
+        }
     }
 }

@@ -49,8 +49,6 @@ export class ScheduleService implements OnDestroy {
     private oneshotStarted = false;
     private periodicStarted = false;
 
-    private tscTimeOffset = 0;
-
     private updateOnOffTimerMap = new Map<string, any>();
 
     private schTableTaskNames = new Array<string>();
@@ -98,9 +96,6 @@ export class ScheduleService implements OnDestroy {
 
         this.dayGroupConfig = this.configService.config.getIn(['schedule_table', 'schedule_daygroup']);
         console.log('{ScheduleService}', '[loadConfig]', 'schedule_daygroup=', this.dayGroupConfig);
-
-        this.tscTimeOffset = this.configService.config.getIn(['tsc_time_offset']);
-        console.log('{ScheduleService}', '[loadConfig]', 'tsc_time_offset=', this.tscTimeOffset);
 
         this.runningStatusUpdateStartDelay = this.configService.config.getIn(['running_status_update_start_delay']);
         console.log('{ScheduleService}', '[loadConfig]', 'running_status_update_start_delay', this.runningStatusUpdateStartDelay);
@@ -766,17 +761,12 @@ export class ScheduleService implements OnDestroy {
 
         const curDateList = new Array<string>();
         // convert from milli-sec to seconds
-        curDateList.push((dd.getTime() / 1000).toString());
+        curDateList.push((dd.getTime() / 1000) + '');
         console.log('{ScheduleService}', '[startOneshotSchedule]', 'current Date', d.getFullYear(), d.getMonth() + 1, d.getDate());
 
         const nextDateList = new Array<string>();
         const nn = new Date(dd.getTime() + 86400000);
-        nextDateList.push((nn.getTime() / 1000).toString());
-
-        if (this.tscTimeOffset > 0) {
-            this.addOffsetToDateList(curDateList);
-            this.addOffsetToDateList(nextDateList);
-        }
+        nextDateList.push((nn.getTime() / 1000) + '');
 
         // Set dateList to running daygroup to implement start schedule
         const subDates = this.scsTscService.setDates(runDayGroupId, curDateList, this.clientName).subscribe(
@@ -859,29 +849,14 @@ export class ScheduleService implements OnDestroy {
         }
     }
 
-    public addOffsetToDateList(dateList: string[]) {
-        for (let i = 0; i < dateList.length; i++) {
-            const timevalue = +dateList[i] + this.tscTimeOffset;
-            dateList[i] = timevalue.toString();
-        }
-    }
-    public subtractOffsetFromDateList(dateList: string[]) {
-        for (let i = 0; i < dateList.length; i++) {
-            const timevalue = +dateList[i] - this.tscTimeOffset;
-            dateList[i] = timevalue.toString();
-        }
-    }
+
     public addCurrentDayToDateList(dateList: string[]) {
         const d = new Date();
         const dd = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
         console.log('{ScheduleService}', '[addCurrentDayToDateList]', 'current Date', dd, dd.getTime() / 1000);
 
-        let currentDay = (dd.getTime() / 1000) + '';
+        const currentDay = (dd.getTime() / 1000) + '';
 
-        if (this.tscTimeOffset > 0) {
-            const timeValue = +currentDay + this.tscTimeOffset;
-            currentDay = timeValue + '';
-        }
         this.addDateToDateList(currentDay, dateList);
     }
     public addNextDayToDateList(dateList: string[]) {
@@ -890,12 +865,8 @@ export class ScheduleService implements OnDestroy {
         const nn = new Date(dd.getTime() + 86400000);
         console.log('{ScheduleService}', '[addNextDayToDateList]', 'next Date', nn, nn.getTime() / 1000);
 
-        let nextDay = (nn.getTime() / 1000) + '';
+        const nextDay = (nn.getTime() / 1000) + '';
 
-        if (this.tscTimeOffset > 0) {
-            const timeValue = +nextDay + this.tscTimeOffset;
-            nextDay = timeValue + '';
-        }
         this.addDateToDateList(nextDay, dateList);
     }
     public addDateToDateList(date: string, dateList: string[]) {
@@ -1109,9 +1080,6 @@ export class ScheduleService implements OnDestroy {
                     const daygroup = this.dayGroupIdMap.get(dgid);
                     if (daygroup) {
                         daygroup.datesList = [...datesList];
-                        if (this.tscTimeOffset > 0) {
-                            this.subtractOffsetFromDateList(daygroup.datesList);
-                        }
                     }
                     return datesList;
                 }));
@@ -1229,11 +1197,6 @@ export class ScheduleService implements OnDestroy {
         const daygroupId = this.getPlanDayGroupId(scheduleId);
         const nextDaygroupId = this.getPlanNextDayGroupId(scheduleId);
 
-        if (this.tscTimeOffset > 0) {
-            this.addOffsetToDateList(datesList);
-            this.addOffsetToDateList(nextDatesList);
-        }
-
         const subdaygroup = this.scsTscService.setDates(daygroupId, datesList, this.clientName).subscribe(
             res => {
                 console.log('{ScheduleService}', '[setSchedulePlanDates]', 'response', res);
@@ -1251,11 +1214,6 @@ export class ScheduleService implements OnDestroy {
     public setScheduleRunDates(scheduleId, datesList, nextDatesList) {
         const daygroupId = this.getRunDayGroupId(scheduleId);
         const nextDaygroupId = this.getRunNextDayGroupId(scheduleId);
-
-        if (this.tscTimeOffset > 0) {
-            this.addOffsetToDateList(datesList);
-            this.addOffsetToDateList(nextDatesList);
-        }
 
         const subdaygroup = this.scsTscService.setDates(daygroupId, datesList, this.clientName).subscribe(
             res => {
@@ -1408,9 +1366,7 @@ export class ScheduleService implements OnDestroy {
                     if (daygroup && daygroup.datesList && daygroup.datesList.length > 0) {
                         for (const d of daygroup.datesList) {
                             let dateTime = +d;
-                            if (this.tscTimeOffset > 0) {
-                                dateTime = dateTime - this.tscTimeOffset;
-                            }
+
                             // Handle unix time underflow from tsc server
                             if (dateTime > UtilService.UNIX_TIME_MAX) {
                                 dateTime = 0;

@@ -18,20 +18,35 @@ var debugId = json.PrintDataDebugId;
 var dataColumns = json.PrintDataColumns;
 var dataIndexs = json.PrintDataIndexs;
 var dataAttachement = json.PrintDataAttachement;
+var dataDivIndexs = json.PrintDataDivIndexs;
 
-console.log(logPrefix, ' Reading table Start debugId', debugId);
-var divPanel = document.getElementById(debugId);
+var div = new Array();
+div[0] = document.getElementById(debugId);
 
-var div1 = divPanel.childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[2].childNodes[0].childNodes[1];
-//console.log(logPrefix, ' Reading table Start div1', div1);
+// Navigator to the table
+if ( null == dataDivIndexs ) {
+	console.log(logPrefix, ' Passing dataDivIndexs IS NULL, using default value');
+	var indexes = [1,0,1,0,2,0,1,0,0,2]; // SCADAgen
+//	var indexes = [1,0,2,0,2,0,1,0,0,2]; // ISCS
+} else {
+	var indexes = dataDivIndexs;
+}
+//console.log(logPrefix, ' Reading indexes[', indexes, '], indexes.length[', indexes.length,']');
 
-var div2 = div1.childNodes[0].childNodes[0];
-//console.log(logPrefix, ' Reading table Start div2', div2);
+for ( var index = 0 ; index < indexes.length ; ++index ) {
+	var indexNext = index+1;
+//	console.log(logPrefix, ' Reading index[', index, '], indexNext[', indexNext, ']');
+	var ci = indexes[index];
+//	console.log(logPrefix, ' Reading index[', index, '], ci[', ci, ']');
+	div[indexNext]=div[index].childNodes[ci];
+//	console.log(logPrefix, ' div[', indexNext, ']', div[indexNext]);
+}
+//console.log(logPrefix, ' Reading div[', index, '][', div[index], ']');
 
-var table = div2.childNodes[2];
-var tbody = table.tBodies[0];
+// Extract the table for data extract
+var tbody = div[index].tBodies[0];
+//console.log(logPrefix, ' tbody.childNodes.length', tbody.childNodes.length);
 
-console.log(logPrefix, ' tbody.childNodes.length', tbody.childNodes.length);
 var lines = [];
 for ( var x = 0 ; x < tbody.childNodes.length ; ++x ) {
 	var tr = tbody.childNodes[x];

@@ -587,7 +587,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "updateValue";
 
 		logger.begin(className, function);
-		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		logger.trace(className, function, "strClientKey[{}]", strClientKey);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
@@ -641,7 +641,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "updateValueStatic";
 		
 		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.trace(className, function, "key[{}]", key);
 		
 		valueRefreshed = false;
 		
@@ -668,7 +668,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				// Update the Label
 				String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 				label = DatabaseHelper.removeDBStringWrapper(label);
-				logger.debug(className, function, "label[{}]", label);
+				logger.trace(className, function, "label[{}]", label);
 
 				lblAttibuteLabel[y].setText(label);
 				
@@ -685,7 +685,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					
 					// Update the Label
 					String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-					logger.debug(className, function, "valueTable[{}]", valueTable);
+					logger.trace(className, function, "valueTable[{}]", valueTable);
 					
 					if ( null != valueTable ) {
 
@@ -705,7 +705,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 							
 							lstValues[y].addItem(labels[r]);
 							
-							logger.debug(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
+							logger.trace(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
 						}
 					} else {
 						logger.warn(className, function, "valueTable IS NULL!");
@@ -718,7 +718,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					// Update the Label
 					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
+					logger.trace(className, function, "value[{}]", value);
 					
 					txtValues[y].setText(value);
 					
@@ -729,7 +729,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 
 					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
+					logger.trace(className, function, "value[{}]", value);
 					
 					txtValues[y].setText(value);
 					
@@ -744,7 +744,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	public void updateValueDynamic(String clientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
 		logger.begin(className, function);
-		logger.debug(className, function, "clientkey[{}]", clientKey);
+		logger.trace(className, function, "clientkey[{}]", clientKey);
 		
 		pageCounter.calc(pageIndex);
 		
@@ -827,7 +827,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				
 				String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 				value = DatabaseHelper.removeDBStringWrapper(value);
-				logger.debug(className, function, "value[{}]", value);
+				logger.trace(className, function, "value[{}]", value);
 				
 				if ( null != value ) {
 					String point = DatabaseHelper.getPoint(address);
@@ -1203,21 +1203,21 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			} else if ( PointType.sci == pointType ) {
 				sForcedStatusPoint = PointName.sfoForcedStatus.toString();
 			}
-			logger.debug(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
+			logger.trace(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
 			
 			String sForcedStatus = getStatusValue(dbaddress, sForcedStatusPoint);
-			logger.debug(className, function, "sForcedStatus[{}]", sForcedStatus);
+			logger.trace(className, function, "sForcedStatus[{}]", sForcedStatus);
 			
 			if ( null != sForcedStatus ) {
 				try {
 					ret = Integer.parseInt(sForcedStatus);
-					logger.debug(className, function, "ret[{}]", ret);
+					logger.trace(className, function, "ret[{}]", ret);
 				} catch ( NumberFormatException e ) {
 					logger.warn(className, function, "NumberFormatException[{}]", e.toString());
 					logger.warn(className, function, "Integer.parseInt({})", sForcedStatus);
 				}
 			} else {
-				logger.debug(className, function, "sForcedStatus IS NULL");
+				logger.trace(className, function, "sForcedStatus IS NULL");
 			}
 			
 		} else {

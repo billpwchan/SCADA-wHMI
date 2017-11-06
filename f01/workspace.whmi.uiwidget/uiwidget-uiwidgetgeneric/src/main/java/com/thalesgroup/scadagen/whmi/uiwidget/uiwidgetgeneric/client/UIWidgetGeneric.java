@@ -3,6 +3,7 @@ package com.thalesgroup.scadagen.whmi.uiwidget.uiwidgetgeneric.client;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.gwt.core.client.GWT;
@@ -49,13 +50,11 @@ import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetStatus;
 import com.thalesgroup.scadagen.whmi.uiwidget.uiwidget.client.UIWidgetGeneric_i.WidgetType;
 
-
 public class UIWidgetGeneric extends UIGeneric {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIWidgetGeneric.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
-	
-	
+
 	private static final String basePath = GWT.getModuleBaseURL();
 	
 	private int rows	= 0;
@@ -67,11 +66,11 @@ public class UIWidgetGeneric extends UIGeneric {
 
     private String strRootCss;
     
-    private HashMap<String, WidgetStatus> widgetStatus = new HashMap<String, WidgetStatus>();
+    private Map<String, WidgetStatus> widgetStatus = new HashMap<String, WidgetStatus>();
     
-    private HashMap<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
+    private Map<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
     
-    private HashMap<Integer, Widget> widgets = new HashMap<Integer, Widget>();
+    private Map<Integer, Widget> widgets = new HashMap<Integer, Widget>();
     
     protected String getDefaultDebugId(String element) {
     	String debugId = null;
@@ -87,15 +86,17 @@ public class UIWidgetGeneric extends UIGeneric {
     public String [] getElementValues(WidgetAttribute element) {
     	String elements [] = new String[this.values.size()];
 		for( int i=0 ; i < this.values.size(); ++i ) {
-			HashMap<String, String> valueMap = this.values.get(i);
+			Map<String, String> valueMap = this.values.get(i);
 			if ( null != valueMap ) {
 				elements[i] = valueMap.get(element);
 			} else {
 				elements[i] = "";
 			}
 		}
-		for( int i=0 ; i < values.size(); ++i ) {
-			logger.debug(className, "getElementValues", "name[{}][{}]", i, elements[i]);
+		if ( logger.isTraceEnabled() ) {
+			for( int i=0 ; i < values.size(); ++i ) {
+				logger.trace(className, "getElementValues", "name[{}][{}]", i, elements[i]);
+			}
 		}
     	return elements;
     }
@@ -111,7 +112,7 @@ public class UIWidgetGeneric extends UIGeneric {
 	@Override
     public void init() {
 		final String function = "init";
-    	
+    	logger.begin(className, function);
     	logger.debug(className, function, "this.viewXMLFile[{}]", this.viewXMLFile);
     	
     	DictionariesCache uiPanelSettingCache = DictionariesCache.getInstance("UIWidgetGeneric");
@@ -163,17 +164,17 @@ public class UIWidgetGeneric extends UIGeneric {
 			
 		    for ( int i = 0 ; i < rows ; ++i ) {
 		    	
-				logger.debug(className, function, "Build Filter Table Loop i[{}] Begin", i);
+				logger.trace(className, function, "Build Filter Table Loop i[{}] Begin", i);
 				
 				for ( int j = 0 ; j < cols ; ++j ) {
 					
 					int index = (i*cols)+j;
 					
-					logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
+					logger.trace(className, function, "Build Filter Table Loop i[{}] j[{}] => index[{}]", new Object[]{i, j, index});
 					
 					if ( index < values.size() ) {
 						
-						HashMap<String, String> valueMap = this.values.get(index);
+						Map<String, String> valueMap = this.values.get(index);
 						
 						if ( null != valueMap ) {
 							
@@ -226,9 +227,9 @@ public class UIWidgetGeneric extends UIGeneric {
 							String uiView			= valueMap.get(WidgetAttribute.uiView.toString());
 							String uiOpts			= valueMap.get(WidgetAttribute.uiOpts.toString());
 							
-							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
-							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
-							logger.debug(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
+							logger.trace(className, function, "Build Filter Table Loop i[{}] j[{}] widget[{}]", new Object[]{i, j, widget});
+							logger.trace(className, function, "Build Filter Table Loop i[{}] j[{}] label[{}]", new Object[]{i, j, label});
+							logger.trace(className, function, "Build Filter Table Loop i[{}] j[{}] css[{}]", new Object[]{i, j, css});
 							
 							if ( null != label ) {
 								if ( null == disableTranslation || ( null != disableTranslation && ! disableTranslation.equalsIgnoreCase("true") )) {
@@ -365,7 +366,7 @@ public class UIWidgetGeneric extends UIGeneric {
 									}
 									String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
 									
-									logger.debug(className, function, "getMainPanel html["+html+"]");
+									logger.trace(className, function, "getMainPanel html["+html+"]");
 									
 									((Button)w).setHTML(html);
 								}
@@ -406,9 +407,9 @@ public class UIWidgetGeneric extends UIGeneric {
 								if ( null == groupName )
 									logger.warn(className, function, "getMainPanel created widget["+widget+"] groupName IS NULL");
 								
-								logger.debug(className, function, "groupName BF[{}]", groupName);
+								logger.trace(className, function, "groupName BF[{}]", groupName);
 								groupName = groupName + "_" + uiNameCard.getUiScreen();
-								logger.debug(className, function, "groupName AF[{}]", groupName);
+								logger.trace(className, function, "groupName AF[{}]", groupName);
 								
 								if ( null != groupName ) 	w = new RadioButton(groupName);
 								
@@ -437,9 +438,7 @@ public class UIWidgetGeneric extends UIGeneric {
 								String elem = null;
 								HashMap<String, Object> options = new HashMap<String, Object>();
 								
-								logger.debug(className, function, "getMainPanel ctrl["+ctrl+"]");
-								logger.debug(className, function, "getMainPanel view["+view+"]");
-								logger.debug(className, function, "getMainPanel opt["+opt+"]");
+								logger.trace(className, function, "getMainPanel ctrl[{}] view[{}] opt[{}]", new Object[]{ctrl, view, opt});
 								
 								UIWidget_i uiWidget = uiPredefinePanelMgr.getUIWidget(ctrl, view, uiNameCard, opt, elem, dict, options);
 	
@@ -524,7 +523,7 @@ public class UIWidgetGeneric extends UIGeneric {
     					HashMap<String, String> hashMap = this.values.get(key);
     					if ( null != hashMap) {
     						element = hashMap.get(WidgetAttribute.element.toString());
-    						logger.debug(className, function, "key[{}] element[{}]", key, element);
+    						logger.trace(className, function, "key[{}] element[{}]", key, element);
     						break;
     					} else {
     						logger.warn(className, function, "hashMap at key[{}] IS NULL", key);
@@ -543,10 +542,8 @@ public class UIWidgetGeneric extends UIGeneric {
     @Override
     public Widget getWidget(String element) {
     	final String function = "getWidget";
-    	
     	logger.begin(className, function);
-    	
-    	logger.debug(className, function, "element[{}]", element);
+    	logger.trace(className, function, "element[{}]", element);
     	
     	Widget widget = null;
     	Set<Integer> keys = this.values.keySet();
@@ -554,7 +551,7 @@ public class UIWidgetGeneric extends UIGeneric {
     	while ( iter.hasNext() ) {
     		Integer integer = iter.next();
     		if ( null != integer ) {
-	    		HashMap<String, String> valueMap = this.values.get(integer);
+	    		Map<String, String> valueMap = this.values.get(integer);
 	    		if ( null != valueMap ) {
 	 				String e = valueMap.get(WidgetAttribute.element.toString());
 					if ( e != null && 0 == element.compareTo(e) ) {
@@ -564,13 +561,10 @@ public class UIWidgetGeneric extends UIGeneric {
 	    		}
     		}
     	}
-    	
     	if ( null == widget ) {
     		logger.warn(className, function, "elementValue[{}] widget IS NULL", element);
     	}
-    	
     	logger.end(className, function);
-    	
 		return widget;
     }
     
@@ -578,28 +572,23 @@ public class UIWidgetGeneric extends UIGeneric {
     public WidgetStatus getWidgetStatus ( String element ) {
     	final String function = "getWidgetStatus";
     	logger.begin(className, function);
-    	
-    	logger.debug(className, function, "element[{}]", element);
+    	logger.trace(className, function, "element[{}]", element);
     	
     	WidgetStatus status = getWidgetStatus(getWidget(element));
     	
-    	logger.debug(className, function, "status[{}]", status);
-    	
+    	logger.trace(className, function, "status[{}]", status);
     	logger.end(className, function);
-    	
     	return status;
     }
     
     public WidgetStatus getWidgetStatus ( Widget widget ) {
     	final String function = "getWidgetStatus";
-    	
     	logger.begin(className, function);
-    	
-    	logger.debug(className, function, "widget[{}]", widget);
+    	logger.trace(className, function, "widget[{}]", widget);
     	
     	WidgetStatus status = null;
     	if ( null != widget ) {
-    		HashMap<String, String> valueMap 	= getWidgetValues(widget);
+    		Map<String, String> valueMap 	= getWidgetValues(widget);
     		String element						= valueMap.get(WidgetAttribute.element.toString());
     		status = widgetStatus.get(element);
         	if ( null == status ) {
@@ -609,16 +598,14 @@ public class UIWidgetGeneric extends UIGeneric {
         		widgetStatus.put(element, status);
         	}
     	}
-    	
     	return status;
     }
 		
 	@Override
 	public void setWidgetStatus(String element, WidgetStatus status) {
 		final String function = "setWidgetStatus";
-		
     	logger.begin(className, function);
-    	logger.debug(className, function, "element[{}] status[{}]", element, status.toString());
+    	logger.trace(className, function, "element[{}] status[{}]", element, status.toString());
     	
     	setWidgetStatus(getWidget(element), status);
     	
@@ -627,21 +614,20 @@ public class UIWidgetGeneric extends UIGeneric {
     
     public void setWidgetStatus ( Widget widget, WidgetStatus status ) {
     	final String function = "setWidgetStatus";
-    	
     	logger.begin(className, function);
-    	logger.debug(className, function, "widget[{}] status[{}]", widget, status);
+    	logger.trace(className, function, "widget[{}] status[{}]", widget, status);
     	
     	if ( null != widget ) {
     		 
     		if ( null != status ) {
     			
-    			HashMap<String, String> valueMap 	= getWidgetValues(widget);
+    			Map<String, String> valueMap 	= getWidgetValues(widget);
     			
     			if ( null != valueMap ) {
     			
 	    			if ( WidgetStatus.Visible == status || WidgetStatus.Invisible == status ) {
 	        			boolean visible = (WidgetStatus.Visible == status);
-	        			logger.debug(className, function, "visible[{}]", status);
+	        			logger.trace(className, function, "visible[{}]", status);
 	        			widget.setVisible(visible);
 	
 	        			String element						= valueMap.get(WidgetAttribute.element.toString());
@@ -725,7 +711,7 @@ public class UIWidgetGeneric extends UIGeneric {
     								}
     								String html = "<div width=\""+iconDivWidth+"\" height=\""+iconDivHeight+"\"><center>"+(null==img?"":img)+(null==lbl?"":lbl)+"</center></div>";
     								
-    								logger.debug(className, function, "html["+html+"]");
+    								logger.trace(className, function, "html["+html+"]");
     								
     								((Button)widget).setHTML(html);
     							}							
@@ -749,35 +735,30 @@ public class UIWidgetGeneric extends UIGeneric {
     						}
     						if ( null != cssRemove1 ) {
     							widget.removeStyleName(cssRemove1);
-    							logger.debug(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
+    							logger.trace(className, function, "status[{}] removeStyleName[{}]", status, cssRemove1);
     						}
     						if ( null != cssRemove2 ) {
     							widget.removeStyleName(cssRemove2);
-    							logger.debug(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
+    							logger.trace(className, function, "status[{}] removeStyleName[{}]", status, cssRemove2);
     						}
     						if ( null != cssAdd ) {
     							widget.addStyleName(cssAdd);
-    							logger.debug(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
+    							logger.trace(className, function, "status[{}] addStyleName[{}]", status, cssAdd);
     						}
 
     						if ( widget instanceof FocusWidget ) {
     							logger.debug(className, function, "widget[{}] instanceof FocusWidget", widget);
     							boolean bStatus = !(WidgetStatus.Disable == status);
-    							logger.debug(className, function, "widget[{}] setEnabled bStatus[{}]", widget, bStatus);
+    							logger.trace(className, function, "widget[{}] setEnabled bStatus[{}]", widget, bStatus);
     							((FocusWidget)widget).setEnabled(bStatus);
     						}
-    		    			
     					} else {
     						logger.warn(className, function, "widget IS INVALID");
     					}
-
         			}
-        			
     			} else {
     				logger.warn(className, function, "valueMap IS INVALID");
     			}
-    			
-
     		} else {
     			logger.warn(className, function, "status IS NULL");
     		}
@@ -798,11 +779,12 @@ public class UIWidgetGeneric extends UIGeneric {
 		final String function = "isGetWidgetValueSupported";
 		logger.begin(className, function);
 		boolean result = false;
-		logger.debug(className, function, "widgetType[{}]", widgetType);
+		logger.trace(className, function, "widgetType[{}]", widgetType);
 		if ( null != widgetType ) {
 			for ( int i = 0 ; i < getWidgetValueSupported.length ; ++i ) {
 				if ( 0 == widgetType.compareTo(getWidgetValueSupported[i]) ) {
 					result = true;
+					break;
 				}
 			}
 		} else {
@@ -814,7 +796,6 @@ public class UIWidgetGeneric extends UIGeneric {
     @Override
     public String getWidgetValue(String element) {
     	final String function = "getWidgetValue";
-  
     	logger.begin(className, function);
     	
     	String value = null;
@@ -827,7 +808,7 @@ public class UIWidgetGeneric extends UIGeneric {
 			
 			if ( null != w ) {
 				
-				HashMap<String, String> valueMap = this.values.get(index);
+				Map<String, String> valueMap = this.values.get(index);
 				String widget		= valueMap.get(WidgetAttribute.widget.toString());
 
 				if ( WidgetType.Button.equalsName(widget) ) {
@@ -858,7 +839,7 @@ public class UIWidgetGeneric extends UIGeneric {
 				}
 				
 			} else {
-				logger.debug(className, function, "widget IS NULL");
+				logger.warn(className, function, "widget IS NULL");
 			}
 		} else {
 			logger.warn(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
@@ -879,11 +860,12 @@ public class UIWidgetGeneric extends UIGeneric {
 		final String function = "setWidgetValueSupported";
 		logger.begin(className, function);
 		boolean result = false;
-		logger.debug(className, function, "widgetType[{}]", widgetType);
+		logger.trace(className, function, "widgetType[{}]", widgetType);
 		if ( null != widgetType ) {
 			for ( int i = 0 ; i < setWidgetValueSupported.length ; ++i ) {
 				if ( 0 == widgetType.compareTo(setWidgetValueSupported[i]) ) {
 					result = true;
+					break;
 				}
 			}
 		} else {
@@ -900,7 +882,6 @@ public class UIWidgetGeneric extends UIGeneric {
 	@Override
 	public void setWidgetValue (String element, String value, Object[] msgParam) {
 		final String function = "setWidgetValue";
-		
 		if ( null != value ) logger.begin(className, function);
 		if ( null != value ) logger.debug(className, function, "element[{}] value[{}]", element, value);
 
@@ -912,7 +893,7 @@ public class UIWidgetGeneric extends UIGeneric {
 			
 			if ( null != w ) {
 				
-				HashMap<String, String> valueMap = this.values.get(index);
+				Map<String, String> valueMap = this.values.get(index);
 				String widget		= valueMap.get(WidgetAttribute.widget.toString());
 				String media		= valueMap.get(WidgetAttribute.media.toString());
 				String label		= valueMap.get(WidgetAttribute.label.toString());
@@ -920,7 +901,7 @@ public class UIWidgetGeneric extends UIGeneric {
 				
 				String disableTranslation		= valueMap.get(WidgetAttribute.disableTranslation.toString());
 				
-				if ( null != value ) logger.debug(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
+				if ( null != value ) logger.trace(className, function, "index[{}] widget[{}] media[{}]", new Object[]{index, widget, media});
 
 				if ( null != value ) label = value;
 				
@@ -979,10 +960,8 @@ public class UIWidgetGeneric extends UIGeneric {
 				} else {
 					logger.warn(className, function, "WidgetType IS NULL");
 				}
-				
-				
 			} else {
-				logger.debug(className, function, "widget IS NULL");
+				logger.warn(className, function, "widget IS NULL");
 			}
 		} else {
 			logger.warn(className, function, "index IS INVALID index[{}] this.widgets.size()[{}]", index, this.widgets.size());
@@ -1069,7 +1048,7 @@ public class UIWidgetGeneric extends UIGeneric {
 									if ( null != key) {
 										keys = v.split("\\|");
 										
-										logger.debug(className, function, "dictionary key[{}]", key);
+										logger.trace(className, function, "dictionary key[{}]", key);
 										
 										break;
 									}
@@ -1094,11 +1073,11 @@ public class UIWidgetGeneric extends UIGeneric {
 								}
 								
 								if ( isvalid ) {
-									logger.debug(className, function, "dictionary row[{}] col[{}]", row, col);
+									logger.trace(className, function, "dictionary row[{}] col[{}]", row, col);
 									
 									index = (row * cols) + col;
 									
-									logger.debug(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
+									logger.trace(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
 									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
@@ -1107,7 +1086,7 @@ public class UIWidgetGeneric extends UIGeneric {
 												String k = (String)o2;
 												String v = (String)d2.getValue(o2);
 												
-												logger.debug(className, function, "dictionary k[{}] v[{}]", k, v);
+												logger.trace(className, function, "dictionary k[{}] v[{}]", k, v);
 				
 												hashMap.put(k, v);
 											}

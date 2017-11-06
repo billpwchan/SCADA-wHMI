@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.ComplexPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.InlineLabel;
@@ -47,10 +48,13 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 	
 	final private String INSPECTOR = UIInspectorHeader_i.INSPECTOR;
 	
+	private String strCssPrefix;
+	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) {
+	public void setTabName(String tabName) { 
 		this.tabName = tabName;
+		this.strCssPrefix = "project-inspector-"+tabName+"-";
 	}
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
@@ -743,26 +747,29 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 		String strHeadersStatus [] = new String[] { strEquipmentDescriptionInitValue, strLocationInitValue, strControlRightInitValue, strControlRightReservedInitValue, strHandoverRightInitValue };
 		
 		FlexTable flexTableHeader = new FlexTable();
-		flexTableHeader.addStyleName("project-gwt-flextable-header");
+		flexTableHeader.addStyleName(strCssPrefix+"flextable-header");
 		txtAttributeStatus = new TextBox[strHeadersStatus.length];
 		lblAttributeStatus = new InlineLabel[strHeadersStatus.length];
 		for ( int i = 0 ; i < strHeadersLabel.length ; i++ ) {
-			String strHeadersLabelDisplay = Translation.getWording(strHeadersLabel[i]);
+			String strHeadersLabelDisplay = Translation.getDBMessage(strHeadersLabel[i]);
 			lblAttributeStatus[i] = new InlineLabel(strHeadersLabelDisplay);
 			lblAttributeStatus[i].getElement().getStyle().setPadding(10, Unit.PX);
-			lblAttributeStatus[i].addStyleName("project-gwt-inlinelabel-headerlabel");
+			lblAttributeStatus[i].addStyleName(strCssPrefix+"inlinelabel-label-"+i);
 			flexTableHeader.setWidget(i, 0, lblAttributeStatus[i]);
+			DOM.getParent(lblAttributeStatus[i].getElement()).setClassName(strCssPrefix+"inlinelabel-label-parent-"+i);
+			
 			txtAttributeStatus[i] = new TextBox();
-			String strHeadersStatusDisplay = Translation.getWording(strHeadersStatus[i]);
+			String strHeadersStatusDisplay = Translation.getDBMessage(strHeadersStatus[i]);
 			txtAttributeStatus[i].setText(strHeadersStatusDisplay);
 			txtAttributeStatus[i].setMaxLength(16);
 			txtAttributeStatus[i].setReadOnly(true);
-			txtAttributeStatus[i].addStyleName("project-gwt-textbox-headervalue");
+			txtAttributeStatus[i].addStyleName(strCssPrefix+"textbox-value-"+i);
 			flexTableHeader.setWidget(i, 2, txtAttributeStatus[i]);
+			DOM.getParent(txtAttributeStatus[i].getElement()).setClassName(strCssPrefix+"textbox-value-parent-"+i);
 		}
 		
 		vpCtrls = new VerticalPanel();
-		vpCtrls.addStyleName("project-gwt-panel-header");
+		flexTableHeader.addStyleName(strCssPrefix+"panel-vpCtrlsr");
 		vpCtrls.add(flexTableHeader);
 		
 		logger.end(className, function);

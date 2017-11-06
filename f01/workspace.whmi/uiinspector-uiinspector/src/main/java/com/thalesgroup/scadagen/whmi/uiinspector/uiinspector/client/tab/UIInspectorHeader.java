@@ -372,7 +372,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			String shortLabelValue = DatabaseHelper.getAttributeValue(parent, shortLabel, dbvalues);
 			shortLabelValue = DatabaseHelper.removeDBStringWrapper(shortLabelValue);
 			if ( null != shortLabelValue ) {
-				shortLabelValue = Translation.getWording(shortLabelValue);
+				shortLabelValue = Translation.getDBMessage(shortLabelValue);
 				txtAttributeStatus[0].setText(shortLabelValue);
 			}
 		}
@@ -383,7 +383,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			String geographicalCatValue = DatabaseHelper.getAttributeValue(parent, geographicalCat, dbvalues);
 			geographicalCatValue = DatabaseHelper.removeDBStringWrapper(geographicalCatValue);
 			if ( null != geographicalCatValue ) {
-				geographicalCatValue = Translation.getWording(strLocationPrefix + geographicalCatValue);
+				geographicalCatValue = Translation.getDBMessage(strLocationPrefix + geographicalCatValue);
 				txtAttributeStatus[1].setText(geographicalCatValue);
 			}
 		}
@@ -448,7 +448,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 			if ( null != isControlableValue ) {
 				isControlableValue = controlRightLabels.get(isControlableValue);
 				logger.trace(className, function, "isControlableValue[{}]", isControlableValue);
-				isControlableValue = Translation.getWording(isControlableValue);
+				isControlableValue = Translation.getDBMessage(isControlableValue);
 				txtAttributeStatus[2].setText(isControlableValue);
 			}
 		}
@@ -469,7 +469,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				String strEqtReservedLabel = null;
 				strEqtReservedLabel = controlRightReservedLabels.get(eqtReserved);
 				logger.trace(className, function, "strEqtReservedLabel[{}]", strEqtReservedLabel);
-				strEqtReservedLabel = Translation.getWording(strEqtReservedLabel);
+				strEqtReservedLabel = Translation.getDBMessage(strEqtReservedLabel);
 				txtAttributeStatus[3].setText(strEqtReservedLabel);
 			}
 		}
@@ -499,7 +499,7 @@ public class UIInspectorHeader implements UIInspectorTab_i {
 				
 				String hdvFlagDisplayValue = handoverRightLabels.get(hdvFlagValue);
 				logger.trace(className, function, "hdvFlagDisplayValue[{}]", hdvFlagDisplayValue);
-				hdvFlagDisplayValue = Translation.getWording(hdvFlagDisplayValue);
+				hdvFlagDisplayValue = Translation.getDBMessage(hdvFlagDisplayValue);
 				txtAttributeStatus[4].setText(hdvFlagDisplayValue);
 				
 				logger.trace(className, function, "hdvFlagValue[{}] strHandoverRightHiddenHOMValue[{}]", new Object[]{hdvFlagValue, strHandoverRightHiddenHOMValue});

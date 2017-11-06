@@ -41,31 +41,6 @@ div.gwt-TabBarItem.project-gwt-inspector-tabpanel-tab-disable-3 {
 	background-color: slategrey;
 }
 
-.project-gwt-flextable-header {
-
-}
-
-.project-gwt-inlinelabel-equipmentname {
-	width:100%;
-	text-align:center;
-	font-size:16px !important;
-}
-
-.project-gwt-inlinelabel-equipmentalias {
-	padding:10px;
-}
-
-.project-gwt-inlinelabel-headerlabel {
-	font-size: 16px !important;
-}
-
-.project-gwt-textbox-headervalue {
-	color:black !important;
-	font-size: 16px;
-	width: 380px;
-	background-color: white;
-}
-
 .project-gwt-button-inspector-up {
 	width:50px;
 	padding:10px;
@@ -119,16 +94,4 @@ div.gwt-TabBarItem.project-gwt-inspector-tabpanel-tab-disable-3 {
 .gwt-DialogBox div.dialogBottomRightInner {
 	width: 0px;
 	height: 0px;
-}
-
-/* Hidden the Field */
-.project-UIInspectorHeader-label-hidden,
-.project-UIInspectorHeader-value-hidden {
-	visibility: hidden;
-}
-
-/* Show the Field */
-.project-UIInspectorHeader-label-show,
-.project-UIInspectorHeader-value-show {
-	visibility: visible;
 }

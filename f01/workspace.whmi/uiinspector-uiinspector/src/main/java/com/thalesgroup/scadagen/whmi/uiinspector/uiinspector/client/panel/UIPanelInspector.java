@@ -31,6 +31,7 @@ import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.reserv
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSorting;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.panel.sorting.PointsSortingEvent;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader;
+import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorHeader_i;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.tab.UIInspectorTabFactory;
 import com.thalesgroup.scadagen.whmi.uiinspector.uiinspector.client.util.DatabaseHelper;
 import com.thalesgroup.scadagen.whmi.config.configenv.client.ReadProp;
@@ -75,7 +76,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 	private boolean equipmentReserveUseHostName = false;
 	private int equipmentReserveDefaultIndex = 0;
 	
-	final private String INSPECTOR		= "inspector";
+	final private String INSPECTOR = UIInspector_i.INSPECTOR;
 	
 	private final static String strCssPrefixTabDisable = "project-gwt-inspector-tabpanel-tab-disable-";
 	

@@ -8,6 +8,7 @@ import java.util.Map;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
@@ -50,6 +51,42 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private final String className = UIWidgetUtil.getClassSimpleName(UIInspectorAdvance.class.getName());
 	private UILogger logger = UILoggerFactory.getInstance().getLogger(className);
+	
+	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
+	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.advance.properties";
+	private static final String CONFIG_PREFIX = "inspectorpanel.advance.";
+	
+	private final String INSPECTOR = UIInspectorControl_i.INSPECTOR;
+	
+	public static final String STR_UNDERSCORE			= "_";
+	public static final String STR_INITCONDGL_VALID		= "1";
+	
+	public static final String STR_EMPTY				= "";
+	
+	public static final String STR_UP					= "▲";
+	public static final String STR_SPLITER				= " / ";
+	public static final String STR_DOWN					= "▼";
+	public static final String STR_PAGER_DEFAULT		= "1 / 1";
+	
+	public static final String STR_EQP_POINT	= "Equipment Point";
+	public static final String STR_AI			= "AI";
+	public static final String STR_SS			= "SS";
+	public static final String STR_MO			= "MO";
+	public static final String STR_VALUE		= "Value";
+	
+	// Create Header
+	public static final String [] STR_HEADERS	= new String[] {STR_EQP_POINT, STR_AI, STR_SS, STR_MO, STR_VALUE, STR_EMPTY};
+	
+	public static final String STR_APPLY 		= "Apply";
+	public static final String STR_CANCEL 		= "Cancel";
+	
+	public static final String STR_INHIBIT 		= "Inhibit";
+	public static final String STR_SUSPEND 		= "Suspend";
+
+	public static final String STR_RESTORE 		= "Restore";
+	public static final String STR_OVERRIDE 	= "Override";
+	
+	public static final String STR_ATTRIBUTE_LABEL = "ATTRIBUTE_LABEL_";
 
 	private int indexAI		= UIInspectorAdvance_i.CHKBOX_INDEX_AI;
 	private int indexSS		= UIInspectorAdvance_i.CHKBOX_INDEX_SS;
@@ -76,16 +113,15 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private String parent		= null;
 	private String[] addresses	= null;
 	private Database database	= null;
-	
-	private static final String DICTIONARY_CACHE_NAME = UIInspector_i.strUIInspector;
-	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.advance.properties";
-	private static final String CONFIG_PREFIX = "inspectorpanel.advance.";
-	
-	final private String INSPECTOR = "inspector";
+
+	private String strCssPrefix;
 	
 	private String tabName = null;
 	@Override
-	public void setTabName(String tabName) { this.tabName = tabName; }
+	public void setTabName(String tabName) { 
+		this.tabName = tabName;
+		this.strCssPrefix = "project-inspector-"+tabName+"-";
+	}
 	
 	private Map<String, Map<String, String>> attributesList = new HashMap<String, Map<String, String>>();
 	@Override
@@ -147,7 +183,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		
 		if ( pageCounter.hasPreview || pageCounter.hasNext ) {
 			btnUp.setEnabled(pageCounter.hasPreview);
-			lblPageNum.setText(String.valueOf(pageIndex+1) + " / " + String.valueOf(pageCounter.pageCount));
+			lblPageNum.setText(String.valueOf(pageIndex+1) + STR_SPLITER + String.valueOf(pageCounter.pageCount));
 			btnDown.setEnabled(pageCounter.hasNext);
 		} else {
 			btnUp.setVisible(false);
@@ -414,15 +450,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	
 	private int pageIndex = 0;
 	private PageCounter pageCounter = null;
-	
-	String strApply = "Apply";
-	String strCancel = "Cancel";
-	
-	String strInhibit = "Inhibit";
-	String strSuspend = "Suspend";
 
-	String strRestore = "Restore";
-	String strOverride = "Override";
 	
 	private InlineLabel[] lblAttibuteLabel		= null;
 	private ListBox[] lstValues					= null;
@@ -449,7 +477,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			pageCounter.calc(pageIndex);
 			
 			flexTableAttibutes = new FlexTable();
-			flexTableAttibutes.setWidth("100%");			
+			flexTableAttibutes.addStyleName(strCssPrefix+"flextable-attribute");
 			
 			int pageSize = pageCounter.pageSize;
 			
@@ -467,15 +495,13 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			btnApplys			= new UIButtonToggle[pageSize];
 
 			{
-				// Create Header
-				String [] header = new String[] {"Equipment Point", "AI", "SS", "MO", "Value", ""};
-				
-				for ( int i = 0 ; i < header.length ; ++i ) {
-					InlineLabel label = new InlineLabel();
-					label.setWidth("100%");
-					label.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-header-label");
-					label.setText(header[i]);
-					flexTableAttibutes.setWidget(1, i, label);
+				InlineLabel labels[] = new InlineLabel[STR_HEADERS.length];
+				for ( int i = 0 ; i < STR_HEADERS.length ; ++i ) {
+					labels[i] = new InlineLabel();
+					labels[i].addStyleName(strCssPrefix+"inlinelabel-header-"+i);
+					labels[i].setText(STR_HEADERS[i]);
+					flexTableAttibutes.setWidget(1, i, labels[i]);
+					DOM.getParent(labels[i].getElement()).setClassName(strCssPrefix+"inlinelabel-header-parent-"+i);
 				}
 			}
 								
@@ -486,15 +512,17 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				logger.debug(className, function, "i[{}]", i);
 					
 				lblAttibuteLabel[i] = new InlineLabel();
-				lblAttibuteLabel[i].addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-label");
-				lblAttibuteLabel[i].setText("ATTRIBUTE_LABEL_"+(i+1)+":");
+				lblAttibuteLabel[i].addStyleName(strCssPrefix+"inlinelabel-points-"+i);
+				lblAttibuteLabel[i].setText(STR_ATTRIBUTE_LABEL+(i+1)+":");
 				flexTableAttibutes.setWidget(i+1+1, r++, lblAttibuteLabel[i]);
+				DOM.getParent(lblAttibuteLabel[i].getElement()).setClassName(strCssPrefix+"inlinelabel-points-parent-"+i);
 				
 				chkDPMs[i] = new CheckBox[3];
 				chkDPMs[i][0] = new CheckBox();
-				chkDPMs[i][0].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-ai");
+				chkDPMs[i][0].addStyleName(strCssPrefix+"checkbox-points-ai-"+i);
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][0]);
+				DOM.getParent(chkDPMs[i][0].getElement()).setClassName(strCssPrefix+"checkbox-points-ai-parent-"+i);
 				
 				chkDPMs[i][0].addClickHandler(new ClickHandler() {
 					
@@ -505,9 +533,10 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				});
 				
 				chkDPMs[i][1] = new CheckBox();
-				chkDPMs[i][1].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-ss");
+				chkDPMs[i][1].addStyleName(strCssPrefix+"checkbox-points-ss-"+i);
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][1]);
+				DOM.getParent(chkDPMs[i][1].getElement()).setClassName(strCssPrefix+"checkbox-points-ss-parent-"+i);
 				
 				chkDPMs[i][1].addClickHandler(new ClickHandler() {
 					
@@ -518,9 +547,9 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				});
 				
 				chkDPMs[i][2] = new CheckBox();
-				chkDPMs[i][2].addStyleName("project-gwt-checkbox-inspector-"+tabName+"-points-mo");
-				
+				chkDPMs[i][2].addStyleName(strCssPrefix+"checkbox-points-mo-"+i);
 				flexTableAttibutes.setWidget(i+1+1, r++, chkDPMs[i][2]);
+				DOM.getParent(chkDPMs[i][2].getElement()).setClassName(strCssPrefix+"checkbox-points-mo-parent-"+i);
 				
 				chkDPMs[i][2].addClickHandler(new ClickHandler() {
 					
@@ -532,20 +561,22 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				
 				lstValues[i] = new ListBox();
 				lstValues[i].setVisibleItemCount(1);
-				lstValues[i].addStyleName("project-gwt-listbox-inspector-"+tabName+"-points-value");
+				lstValues[i].addStyleName(strCssPrefix+"listbox-point-label-"+i);
 
 				txtValues[i] = new TextBox();
 				txtValues[i].setVisible(false);
-				txtValues[i].addStyleName("project-gwt-textbox-inspector-"+tabName+"-points-value");
+				txtValues[i].addStyleName(strCssPrefix+"textbox-point-value-"+i);
 
 				HorizontalPanel hp = new HorizontalPanel();
+				hp.addStyleName(strCssPrefix+"panel-points-value-"+i);
 				hp.add(lstValues[i]);
 				hp.add(txtValues[i]);
 				
 				flexTableAttibutes.setWidget(i+1+1, r++, hp);
+				DOM.getParent(hp.getElement()).setClassName(strCssPrefix+"panel-points-value-parent-"+i);
 				
-				btnApplys[i] = new UIButtonToggle(strApply);
-				btnApplys[i].addStyleName("project-gwt-button-inspector-"+tabName+"-point-apply");
+				btnApplys[i] = new UIButtonToggle(STR_APPLY);
+				btnApplys[i].addStyleName(strCssPrefix+"button-point-apply-"+i);
 				
 				btnApplys[i].addClickHandler(new ClickHandler() {
 					
@@ -560,10 +591,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					}
 				});
 				flexTableAttibutes.setWidget(i+1+1, r++, btnApplys[i]);
+				DOM.getParent(btnApplys[i].getElement()).setClassName(strCssPrefix+"button-point-apply-parent-"+i);
 			}
 			
 			for ( int i = 0 ; i < 8 ; ++i ) {
-				flexTableAttibutes.getColumnFormatter().addStyleName(i, "project-gwt-flextable-inspector-"+tabName+"-status-col"+i);
+				flexTableAttibutes.getColumnFormatter().addStyleName(i, strCssPrefix+"table-column-status-col-"+i);
 			}
 
 			vpCtrls.add(flexTableAttibutes);
@@ -587,7 +619,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "updateValue";
 
 		logger.begin(className, function);
-		logger.debug(className, function, "strClientKey[{}]", strClientKey);
+		logger.trace(className, function, "strClientKey[{}]", strClientKey);
 		
 		DataBaseClientKey clientKey = new DataBaseClientKey("_", strClientKey);
 		
@@ -641,7 +673,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		final String function = "updateValueStatic";
 		
 		logger.begin(className, function);
-		logger.debug(className, function, "key[{}]", key);
+		logger.trace(className, function, "key[{}]", key);
 		
 		valueRefreshed = false;
 		
@@ -668,7 +700,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				// Update the Label
 				String label = DatabaseHelper.getAttributeValue(address, PointName.label.toString(), dbvalues);
 				label = DatabaseHelper.removeDBStringWrapper(label);
-				logger.debug(className, function, "label[{}]", label);
+				logger.trace(className, function, "label[{}]", label);
 
 				lblAttibuteLabel[y].setText(label);
 				
@@ -685,7 +717,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					
 					// Update the Label
 					String valueTable = DatabaseHelper.getAttributeValue(address, PointName.dalValueTable.toString(), dbvalues);
-					logger.debug(className, function, "valueTable[{}]", valueTable);
+					logger.trace(className, function, "valueTable[{}]", valueTable);
 					
 					if ( null != valueTable ) {
 
@@ -701,11 +733,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 						lstValues[y].clear();
 						for( int r = 0 ; r < dalValueTableLength ; ++r ) {
 							
-							if ( 0 == labels[r].compareTo("") ) break;
+							if ( 0 == labels[r].compareTo(STR_EMPTY) ) break;
 							
 							lstValues[y].addItem(labels[r]);
 							
-							logger.debug(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
+							logger.trace(className, function, "names[{}][{}] values[{}][{}]", new Object[]{r, labels[r], r, values[r]});
 						}
 					} else {
 						logger.warn(className, function, "valueTable IS NULL!");
@@ -718,7 +750,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 					// Update the Label
 					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
+					logger.trace(className, function, "value[{}]", value);
 					
 					txtValues[y].setText(value);
 					
@@ -729,13 +761,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 
 					String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 					value = DatabaseHelper.removeDBStringWrapper(value);
-					logger.debug(className, function, "value[{}]", value);
+					logger.trace(className, function, "value[{}]", value);
 					
 					txtValues[y].setText(value);
 					
 				}
 			}
-			
 		}
 		
 		logger.end(className, function);
@@ -744,7 +775,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	public void updateValueDynamic(String clientKey, Map<String, String> keyAndValue) {
 		final String function = "updateValueDynamic";
 		logger.begin(className, function);
-		logger.debug(className, function, "clientkey[{}]", clientKey);
+		logger.trace(className, function, "clientkey[{}]", clientKey);
 		
 		pageCounter.calc(pageIndex);
 		
@@ -756,7 +787,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			
 			// Update the AI, SS and MO status
 			{
-				String stylename = "project-gwt-checkbox-inspector" + tabName + "-points-activated";
+				String stylename = strCssPrefix+"checkbox-points-activated-"+y;
 				
 				String point = DatabaseHelper.getPoint(address);
 				PointType pointType = DatabaseHelper.getPointType(point);
@@ -827,7 +858,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				
 				String value = DatabaseHelper.getAttributeValue(address, PointName.value.toString(), dbvalues);
 				value = DatabaseHelper.removeDBStringWrapper(value);
-				logger.debug(className, function, "value[{}]", value);
+				logger.trace(className, function, "value[{}]", value);
 				
 				if ( null != value ) {
 					String point = DatabaseHelper.getPoint(address);
@@ -871,9 +902,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		}
 		
 		if ( !valueRefreshed ) {
-			
 			valueRefreshed = true;
-		
 		}
 		
 		logger.end(className, function);
@@ -1181,7 +1210,6 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			logger.warn(className, function, "chk IS NULL");
 		}
 		
-		
 		logger.end(className, function);
 	}
 	
@@ -1203,21 +1231,21 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 			} else if ( PointType.sci == pointType ) {
 				sForcedStatusPoint = PointName.sfoForcedStatus.toString();
 			}
-			logger.debug(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
+			logger.trace(className, function, "pointType[{}] sForcedStatusPoint[{}]", pointType, sForcedStatusPoint);
 			
 			String sForcedStatus = getStatusValue(dbaddress, sForcedStatusPoint);
-			logger.debug(className, function, "sForcedStatus[{}]", sForcedStatus);
+			logger.trace(className, function, "sForcedStatus[{}]", sForcedStatus);
 			
 			if ( null != sForcedStatus ) {
 				try {
 					ret = Integer.parseInt(sForcedStatus);
-					logger.debug(className, function, "ret[{}]", ret);
+					logger.trace(className, function, "ret[{}]", ret);
 				} catch ( NumberFormatException e ) {
 					logger.warn(className, function, "NumberFormatException[{}]", e.toString());
 					logger.warn(className, function, "Integer.parseInt({})", sForcedStatus);
 				}
 			} else {
-				logger.debug(className, function, "sForcedStatus IS NULL");
+				logger.trace(className, function, "sForcedStatus IS NULL");
 			}
 			
 		} else {
@@ -1302,11 +1330,11 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		logger.begin(className, function);
 
 		vpCtrls = new VerticalPanel();
-		vpCtrls.setWidth("100%");
+		vpCtrls.addStyleName(strCssPrefix+"panel-vpCtrls");
 
 		btnUp = new Button();
-		btnUp.addStyleName("project-gwt-button-inspector-"+tabName+"-up");
-		btnUp.setText("▲");
+		btnUp.addStyleName(strCssPrefix+"button-up");
+		btnUp.setText(STR_UP);
 		btnUp.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -1320,12 +1348,12 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		});
 		
 		lblPageNum = new InlineLabel();
-		lblPageNum.addStyleName("project-gwt-inlinelabel-inspector-"+tabName+"-pagenum");
-		lblPageNum.setText("1 / 1");
+		lblPageNum.addStyleName(strCssPrefix+"label-pagenum");
+		lblPageNum.setText(STR_PAGER_DEFAULT);
 		
 		btnDown = new Button();
-		btnDown.addStyleName("project-gwt-button-inspector-"+tabName+"-down");
-		btnDown.setText("▼");
+		btnDown.addStyleName(strCssPrefix+"button-down");
+		btnDown.setText(STR_DOWN);
 		btnDown.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
@@ -1336,6 +1364,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		});	
 
 		HorizontalPanel pageBar = new HorizontalPanel();
+		pageBar.addStyleName(strCssPrefix+"panel-pageBar");
 
 		pageBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		pageBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
@@ -1350,14 +1379,14 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 		pageBar.add(btnDown);
 		
 		HorizontalPanel bottomBar = new HorizontalPanel();
-		bottomBar.setWidth("100%");
+		bottomBar.addStyleName(strCssPrefix+"panel-bottomBar");
 		
 		bottomBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		bottomBar.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		bottomBar.add(pageBar);
 		
 		basePanel = new DockLayoutPanel(Unit.PX);
-		basePanel.addStyleName("project-gwt-panel-"+tabName+"-inspector");
+		basePanel.addStyleName(strCssPrefix+"panel-base");
 		basePanel.addSouth(bottomBar, 50);
 		basePanel.add(vpCtrls);
 
@@ -1375,7 +1404,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 				}
 			}
 		});
-		rootPanel.addStyleName("project-gwt-panel-inspector-dialogbox");
+		rootPanel.addStyleName(strCssPrefix+"panel-root");
 		
 		logger.end(className, function);
 	}

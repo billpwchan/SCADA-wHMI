@@ -28,6 +28,7 @@ public class PrintGDGPage {
 	String printDataDebugId	= null;
 	String printDataColumns	= null;
 	String printDataIndexs	= null;
+	String printDataDivIndexs	= null;
 	String printDataAttachement = null;
 	
 	int printDataStart = 0;
@@ -59,6 +60,9 @@ public class PrintGDGPage {
 	public void setDownloadParameter(String printDataAttachement) {
 		this.printDataAttachement=printDataAttachement;
 	}
+	public void setDivIndexsParameter(String printDataDivIndexs) {
+		this.printDataDivIndexs=printDataDivIndexs;
+	}	
 	
 	private int startIndexOrg = 0, pageSizeOrg = 32;
 	public void setPageSize(int startIndex, int pageSize, boolean save) {
@@ -95,6 +99,7 @@ public class PrintGDGPage {
 		}
 		JSONArray jsonPrintDataColumns = JSONUtil.convertStringsToJSONArray(strPrintDataColumns);
 		 
+		// Data Index
 		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
 		String strPrintDataIndexs [] = printDataIndexs.split(STR_SPILTER);
 		
@@ -102,6 +107,15 @@ public class PrintGDGPage {
 		int intPrintDataIndexs [] = JSONUtil.convertStringToInts(strPrintDataIndexs);
 		JSONArray jsonPrintDataIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataIndexs);
 	 
+		// Data Div Index
+		logger.debug(className, function, "printDataDivIndexs[{}]", printDataDivIndexs);
+		String strPrintDataDivIndexs [] = printDataDivIndexs.split(STR_SPILTER);
+		
+		logger.debug(className, function, "strPrintDataDivIndexs.length[{}]", strPrintDataDivIndexs.length);
+		int intPrintDataDivIndexs [] = JSONUtil.convertStringToInts(strPrintDataDivIndexs);
+		JSONArray jsonPrintDataDivIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataDivIndexs);
+		
+		
 		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
 		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);
 		
@@ -110,6 +124,8 @@ public class PrintGDGPage {
 	    jsonObject.put("PrintDataAttachement", new JSONString(printDataAttachement));
 	    jsonObject.put("PrintDataColumns", jsonPrintDataColumns);
 	    jsonObject.put("PrintDataIndexs", jsonPrintDataIndexs);
+	    jsonObject.put("PrintDataDivIndexs", jsonPrintDataDivIndexs);
+
 
 	    String jsonstring = jsonObject.toString();
 	    

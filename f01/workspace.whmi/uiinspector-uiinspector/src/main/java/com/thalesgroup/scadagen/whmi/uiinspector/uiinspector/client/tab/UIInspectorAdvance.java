@@ -56,7 +56,7 @@ public class UIInspectorAdvance implements UIInspectorTab_i {
 	private static final String DICTIONARY_FILE_NAME = "inspectorpanel.advance.properties";
 	private static final String CONFIG_PREFIX = "inspectorpanel.advance.";
 	
-	private final String INSPECTOR = UIInspectorControl_i.INSPECTOR;
+	private final String INSPECTOR = UIInspectorAdvance_i.INSPECTOR;
 	
 	public static final String STR_UNDERSCORE			= "_";
 	public static final String STR_INITCONDGL_VALID		= "1";

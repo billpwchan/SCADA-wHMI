@@ -920,6 +920,8 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		}
 
 		uiInspectorHeader	= UIInspectorTabFactory.getInstance().getUIInspectorTabFactory(strUIInspectorHeader);
+		
+		uiInspectorHeader.setTabName("header");
 
 		if ( logger.isDebugEnabled() ) {
 			for ( String k : tabDatas.keySet() ) {

@@ -85,14 +85,14 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		logger.begin(className, function);
 		String ret = null;
 		String target = strCssPrefixTabDisable;
-		logger.debug(className, function, "addStyleName target[{}]", target);
+		logger.trace(className, function, "addStyleName target[{}]", target);
 		String cssName = widget.getStyleName();
 		if ( null != cssName ) {
-			logger.debug(className, function, "cssName[{}]", cssName);
+			logger.trace(className, function, "cssName[{}]", cssName);
 			String [] cssNames = cssName.split(" ");
 			if ( null != cssNames ) {
 				for ( int i = 0 ; i < cssNames.length ; ++i ) {
-					logger.debug(className, function, "cssNames({})[{}]", i, cssNames[i]);
+					logger.trace(className, function, "cssNames({})[{}]", i, cssNames[i]);
 					if ( cssNames[i].startsWith(target) ) {
 						ret = cssNames[i];
 						break;
@@ -104,7 +104,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		} else {
 			logger.warn(className, function, "cssName IS NULL");
 		}
-		logger.debug(className, function, "ret[{}]", ret);
+		logger.trace(className, function, "ret[{}]", ret);
 		logger.end(className, function);
 		return ret;
 	}
@@ -113,12 +113,12 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 		final String function = "modifyTabDisableCss";
 		logger.begin(className, function);
 		String cssNameNum = strCssPrefixTabDisable+index;
-		logger.debug(className, function, "StyleName cssNameNum[{}] isAdd[{}]", cssNameNum, isAdd);
+		logger.trace(className, function, "StyleName cssNameNum[{}] isAdd[{}]", cssNameNum, isAdd);
 		if ( isAdd ) {
 			widget.addStyleName(cssNameNum);
 		} else {
 			String cssToRemove = containTabDisableCss(widget);
-			logger.debug(className, function, "cssToRemove[{}]", cssToRemove);
+			logger.trace(className, function, "cssToRemove[{}]", cssToRemove);
 			if ( null != cssToRemove ) {
 				widget.removeStyleName(cssToRemove);
 			}
@@ -267,7 +267,7 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 				public void update(String key, String[] value) {
 					final String function2 = "DatabaseEvent update";
 					logger.begin(className, function);
-					logger.debug(className, function, "{} key[{}]", new Object[]{function2, key});
+					logger.trace(className, function, "{} key[{}]", new Object[]{function2, key});
 
 					String [] dbaddresses	= database.getKeyAndAddress(key);
 					String [] dbvalues		= database.getKeyAndValues(key);
@@ -275,15 +275,15 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 						logger.error(className, function, "{} dbaddresses or dbvalues is null", function2);
 						return;
 					}
-					if (logger.isDebugEnabled()) {
+					if (logger.isTraceEnabled()) {
 						for (int i=0; i<dbaddresses.length; i++) {
-							logger.debug(className, function, "{} dbaddresses[{}]=[{}]", new Object[]{function2, i, dbaddresses[i]});
+							logger.trace(className, function, "{} dbaddresses[{}]=[{}]", new Object[]{function2, i, dbaddresses[i]});
 						}
 						for (int i=0; i<dbvalues.length; i++) {
-							logger.debug(className, function, "{} dbvalues[{}]=[{}]", new Object[]{function2, i, dbvalues[i]});
+							logger.trace(className, function, "{} dbvalues[{}]=[{}]", new Object[]{function2, i, dbvalues[i]});
 						}
 						for (int i=0; i<value.length; i++) {
-							logger.debug(className, function, "{} value[{}]=[{}]", new Object[]{function2, i, value[i]});
+							logger.trace(className, function, "{} value[{}]=[{}]", new Object[]{function2, i, value[i]});
 						}
 					}
 					
@@ -402,10 +402,10 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 			dbaddresses = dbaddressesArrayList.toArray(new String[0]);
 		}
 		
-		if ( logger.isDebugEnabled() ) {
-			logger.debug(className, function, "strClientKey[{}] scsEnvId[{}]", strClientKey, scsEnvId);
+		if ( logger.isTraceEnabled() ) {
+			logger.trace(className, function, "strClientKey[{}] scsEnvId[{}]", strClientKey, scsEnvId);
 			for(int i = 0; i < dbaddresses.length; ++i ) {
-				logger.debug(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
+				logger.trace(className, function, "dbaddresses({})[{}]", i, dbaddresses[i]);
 			}
 		}
 		
@@ -559,8 +559,9 @@ public class UIPanelInspector extends UIWidget_i implements UIInspector_i, UIIns
 					PointsFilter.applyFiltedList(d.points, d.regExpPatternBlackList, d.regExpPatternWhileList, dbaddress);
 					
 					if ( logger.isDebugEnabled() ) {
-						logger.debug(className, function, "k[{}] d.tabConfigName[{}]", k, d.tabConfigName);
-						logger.debug(className, function, "d.points.size()[{}]", d.points.size());
+						logger.debug(className, function, "k[{}] d.tabConfigName[{}] d.points.size()[{}]"
+								, new Object[]{k, d.tabConfigName, d.points.size()});
+						logger.debug(className, function, "");
 						for ( String dba : d.points ) {
 							logger.debug(className, function, "d.tabName[{}] dba[{}]", d.tabName, dba);
 						}

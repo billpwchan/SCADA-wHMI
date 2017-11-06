@@ -25,6 +25,12 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 				, UIEventActionDbmAction.WriteStringValue.toString()
 				};
 	}
+	
+	private final static String strProperties				= "properties";
+	private final static String dictionariesCacheName		= "UIInspectorPanel";
+	private final static String strPropPrefix				= "UIEventAction.Dbm.";
+	private final static String strPropName	 				= strPropPrefix+strProperties;
+	private final static String strDatabaseMultiReadingKey	= strPropPrefix+"DatabaseWritingKey";
 
 	@Override
 	public boolean executeAction(UIEventAction action, HashMap<String, HashMap<String, Object>> override) {
@@ -37,20 +43,14 @@ public class UIEventActionDbm extends UIEventActionExecute_i {
 		String strScsEnvId			= (String) action.getParameter(ActionAttribute.OperationString2.toString());
 		String strAddress			= (String) action.getParameter(ActionAttribute.OperationString3.toString());
 		String strValue				= (String) action.getParameter(ActionAttribute.OperationString4.toString());
-		if ( logger.isDebugEnabled() ) {
+		if ( logger.isTraceEnabled() ) {
 			for ( Entry<String, Object> entry : action.getParameters() ) {
 				String key = entry.getKey();
 				Object obj = entry.getValue();
-				logger.debug(className, function, "key[{}] obj[{}]", key, obj);
+				if ( null != obj ) logger.trace(className, function, "key[{}] obj[{}]", key, obj);
 			}
 		}
-		
-		final String strProperties				= "properties";
-		final String dictionariesCacheName		= "UIInspectorPanel";
-		final String strPropPrefix				= "UIEventAction.Dbm.";
-		final String strPropName	 			= strPropPrefix+strProperties;
-		final String strDatabaseMultiReadingKey	= strPropPrefix+"DatabaseWritingKey";
-		
+
 		String databaseWritingKey = "DatabaseWritingSingleton";
 		databaseWritingKey = ReadProp.readString(dictionariesCacheName, strPropName, strDatabaseMultiReadingKey, databaseWritingKey);
 		logger.debug(className, function, "databaseWritingKey[{}]", databaseWritingKey);

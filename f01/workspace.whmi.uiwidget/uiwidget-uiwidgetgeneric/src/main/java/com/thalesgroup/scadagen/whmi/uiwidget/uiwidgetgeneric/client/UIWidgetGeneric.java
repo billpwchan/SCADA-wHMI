@@ -520,7 +520,7 @@ public class UIWidgetGeneric extends UIGeneric {
     			Widget w = this.widgets.get(key);
     			if ( null != w ) {
     				if ( w == widget ) {
-    					HashMap<String, String> hashMap = this.values.get(key);
+    					Map<String, String> hashMap = this.values.get(key);
     					if ( null != hashMap) {
     						element = hashMap.get(WidgetAttribute.element.toString());
     						logger.trace(className, function, "key[{}] element[{}]", key, element);
@@ -1079,7 +1079,7 @@ public class UIWidgetGeneric extends UIGeneric {
 									
 									logger.trace(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
-									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
+									Map<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
 										for ( Object o2 : d2.getValueKeys() ) {
 											if ( null != o2 ) {
@@ -1113,7 +1113,7 @@ public class UIWidgetGeneric extends UIGeneric {
 		
 	}
 	
-	private HashMap<String, String> getWidgetValues(Widget widget) {
+	private Map<String, String> getWidgetValues(Widget widget) {
 		HashMap<String, String> values = null;
 		Set<Integer> keys = this.widgets.keySet();
 		Iterator<Integer> iter = keys.iterator();
@@ -1132,7 +1132,7 @@ public class UIWidgetGeneric extends UIGeneric {
     private int getElementIndex(WidgetAttribute widgetAttribute, String elementValue) {
 		int index = -1;
 		for( int i=0 ; i < values.size(); i++ ) {
-			HashMap<String, String> valueMap = this.values.get(i);
+			Map<String, String> valueMap = this.values.get(i);
 			if ( null != valueMap ) {
 				String element = valueMap.get(widgetAttribute.toString());
 				if ( element != null && 0 == elementValue.compareTo(element) ) {

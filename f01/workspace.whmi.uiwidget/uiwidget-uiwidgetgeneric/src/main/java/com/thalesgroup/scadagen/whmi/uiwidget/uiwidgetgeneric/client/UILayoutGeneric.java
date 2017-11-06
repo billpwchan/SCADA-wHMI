@@ -35,7 +35,7 @@ public class UILayoutGeneric extends UIGeneric {
 	
 	private Map<String, UIWidget_i> uiGeneric = new HashMap<String, UIWidget_i>();
 	
-	private Map<Integer, HashMap<String, String>> values = new HashMap<Integer, HashMap<String, String>>();
+	private Map<Integer, Map<String, String>> values = new HashMap<Integer, Map<String, String>>();
 	
 	private int rows;
 	private int cols;
@@ -413,7 +413,7 @@ public class UILayoutGeneric extends UIGeneric {
 									
 									logger.debug(className, function, "dictionary row[{}] col[{}] => index[{}]", new Object[]{row, col, index});
 									
-									HashMap<String, String> hashMap = this.values.get(Integer.valueOf(index));
+									Map<String, String> hashMap = this.values.get(Integer.valueOf(index));
 									if ( null != hashMap ) {
 										for ( Object o2 : d2.getValueKeys() ) {
 											if ( null != o2 ) {

@@ -6,9 +6,9 @@
          By default the application start with the DEBUG log level to change it modify the log level
          into the html start page.
      -->
-    <inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+    <inherits name="com.allen_sauer.gwt.log.gwt-log-INFO" />
     
-    <extend-property name="log_level" values="DEBUG,INFO,WARN"/> 
+    <extend-property name="log_level" values="TRACE,DEBUG,INFO"/> 
 
     <!-- Turn off the `DivLogger` -->
     <set-property name="log_DivLogger" value="DISABLED" />

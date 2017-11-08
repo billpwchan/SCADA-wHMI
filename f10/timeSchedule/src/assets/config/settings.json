@@ -1,5 +1,5 @@
 {
-  "scs_tsc_url": "$$M100CONN1_REST_ADDRESS$$/scs/service/TscComponent/",
+  "scs_tsc_url": "$$REST_ADDRESS_TSC$$",
   "default_client_name": "ROOT",
   "tsc_time_offset": 0,
   "running_status_update_start_delay": 30000,

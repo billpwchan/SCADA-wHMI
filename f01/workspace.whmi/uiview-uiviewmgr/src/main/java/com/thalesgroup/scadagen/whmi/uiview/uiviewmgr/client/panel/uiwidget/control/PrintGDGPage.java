@@ -90,15 +90,18 @@ public class PrintGDGPage {
 		final String function = "printCurPage";
 		logger.begin(className, function);
 		
+		JSONArray jsonPrintDataColumns = null;
 		logger.debug(className, function, "printDataColumns[{}]", printDataColumns);
-		String strPrintDataColumns [] = printDataColumns.split(STR_SPILTER);
-		
-		logger.debug(className, function, "strPrintDataColumns.length[{}]", strPrintDataColumns.length);
-		for ( int i = 0 ; i < strPrintDataColumns.length ; ++i ) {
-			strPrintDataColumns[i] = TranslationMgr.getInstance().getTranslation(strPrintDataColumns[i]);
+		if ( null != printDataColumns ) {
+			String strPrintDataColumns [] = printDataColumns.split(STR_SPILTER);
+			
+			logger.debug(className, function, "strPrintDataColumns.length[{}]", strPrintDataColumns.length);
+			for ( int i = 0 ; i < strPrintDataColumns.length ; ++i ) {
+				strPrintDataColumns[i] = TranslationMgr.getInstance().getTranslation(strPrintDataColumns[i]);
+			}
+			jsonPrintDataColumns = JSONUtil.convertStringsToJSONArray(strPrintDataColumns);
 		}
-		JSONArray jsonPrintDataColumns = JSONUtil.convertStringsToJSONArray(strPrintDataColumns);
-		 
+
 		// Data Index
 		logger.debug(className, function, "printDataIndexs[{}]", printDataIndexs);
 		String strPrintDataIndexs [] = printDataIndexs.split(STR_SPILTER);
@@ -108,13 +111,15 @@ public class PrintGDGPage {
 		JSONArray jsonPrintDataIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataIndexs);
 	 
 		// Data Div Index
+		JSONArray jsonPrintDataDivIndexs = null;
 		logger.debug(className, function, "printDataDivIndexs[{}]", printDataDivIndexs);
-		String strPrintDataDivIndexs [] = printDataDivIndexs.split(STR_SPILTER);
-		
-		logger.debug(className, function, "strPrintDataDivIndexs.length[{}]", strPrintDataDivIndexs.length);
-		int intPrintDataDivIndexs [] = JSONUtil.convertStringToInts(strPrintDataDivIndexs);
-		JSONArray jsonPrintDataDivIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataDivIndexs);
-		
+		if ( null != printDataDivIndexs ) {
+			String strPrintDataDivIndexs [] = printDataDivIndexs.split(STR_SPILTER);
+			
+			logger.debug(className, function, "strPrintDataDivIndexs.length[{}]", strPrintDataDivIndexs.length);
+			int intPrintDataDivIndexs [] = JSONUtil.convertStringToInts(strPrintDataDivIndexs);
+			jsonPrintDataDivIndexs = JSONUtil.convertIntsToJSONArray(intPrintDataDivIndexs);
+		}		
 		
 		logger.debug(className, function, "printDataDebugId[{}]", printDataDebugId);
 		logger.debug(className, function, "printDataAttachement[{}]", printDataAttachement);

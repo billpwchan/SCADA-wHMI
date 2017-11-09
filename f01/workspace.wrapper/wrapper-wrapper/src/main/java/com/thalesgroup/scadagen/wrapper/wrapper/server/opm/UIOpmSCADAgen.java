@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -143,7 +145,27 @@ public class UIOpmSCADAgen implements UIOpm_i {
 	}
 	@Override
 	public String getRemoteHostName(HttpServletRequest httpServletRequest) {
-		return httpServletRequest.getRemoteHost();
+		logger.debug("getRemoteHostName begin");
+		
+		String ret = getRemoteIPAddress(httpServletRequest);
+		InetAddress inetAddress;
+		try {
+			inetAddress = InetAddress.getByName(ret);
+			if ( null != ret ) {
+				String hostname = inetAddress.getHostName();
+				if ( null != hostname) {
+					ret = hostname;
+				}
+			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		ret = httpServletRequest.getRemoteHost();
+		logger.debug("getRemoteHostName ret[{}]", ret);
+		logger.debug("getRemoteHostName end");
+		return ret;
 	}
 	private static final String STR_UNKNOWN = "unknown";
 	private static final String[] STR_HEADERS_LIST = {

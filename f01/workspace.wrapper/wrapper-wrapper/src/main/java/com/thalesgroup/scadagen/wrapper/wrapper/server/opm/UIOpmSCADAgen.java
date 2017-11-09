@@ -1,5 +1,7 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -118,13 +120,67 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		}
 		return result;
 	}
+	
+	private void dumpGetRemoteHeader(HttpServletRequest httpServletRequest) {
+		logger.debug("dumpGetRemoteHeader begin");
+		Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
+		if (headerNames != null) {
+			logger.debug("dumpGetRemoteHeader Start to list out headerNames");
+			while (headerNames.hasMoreElements()) {
+				String element = headerNames.nextElement();
+				logger.debug("dumpGetRemoteHeader element[{}]", element);
+				if ( null != element ) {
+					String elementValues =  httpServletRequest.getHeader(element);
+					logger.debug("dumpGetRemoteHeader {}=[{}]", element, elementValues);
+				} else {
+					logger.debug("dumpGetRemoteHeader element IS NULL");
+				}
+			}
+		} else {
+			logger.debug("headerNames IS NULL");
+		}
+		logger.debug("dumpGetRemoteHeader end");
+	}
 	@Override
 	public String getRemoteHostName(HttpServletRequest httpServletRequest) {
 		return httpServletRequest.getRemoteHost();
 	}
+	private static final String STR_UNKNOWN = "unknown";
+	private static final String[] STR_HEADERS_LIST = {
+			"X-Forwarded-For",
+			"Proxy-Client-IP",
+			"WL-Proxy-Client-IP",
+			"HTTP_X_FORWARDED_FOR",
+			"HTTP_X_FORWARDED",
+			"HTTP_X_CLUSTER_CLIENT_IP",
+			"HTTP_CLIENT_IP",
+			"HTTP_FORWARDED_FOR",
+			"HTTP_FORWARDED",
+			"HTTP_VIA",
+			"REMOTE_ADDR" 
+	};
 	@Override
 	public String getRemoteIPAddress(HttpServletRequest httpServletRequest) {
-		return httpServletRequest.getRemoteAddr();
+		logger.debug("getRemoteIPAddress begin");
+		String ret = null;
+		
+		dumpGetRemoteHeader(httpServletRequest);
+		
+		for (String header : STR_HEADERS_LIST) {
+			logger.debug("getRemoteIPAddress header[{}]", header);
+			ret = httpServletRequest.getHeader(header);
+			logger.debug("getRemoteIPAddress {}=[{}]", header, ret);
+			if (ret != null && ret.length() != 0 && !STR_UNKNOWN.equalsIgnoreCase(ret)) {
+				break;
+			}
+		}
+		if ( null == ret ) {
+			ret = httpServletRequest.getRemoteAddr();
+		}
+		
+		logger.debug("getRemoteIPAddress ret[{}]", ret);
+		logger.debug("getRemoteIPAddress end");
+		return ret;
 	}
 	@Override
 	public String getHostName() {

@@ -1,9 +1,5 @@
 package com.thalesgroup.scadagen.wrapper.wrapper.server.opm;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Enumeration;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -13,6 +9,7 @@ import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.common.server.rpc.session.SessionManager;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OperatorOpmInfo;
 import com.thalesgroup.hypervisor.mwt.core.webapp.core.opm.client.dto.OpmRequestDto;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.net.Network;
 
 public class UIOpmSCADAgen implements UIOpm_i {
 
@@ -24,6 +21,8 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return instance;
 	}
 	private UIOpmSCADAgen () {}
+	
+	private Network network = new Network();
 
 	@Override
 	public boolean checkAccess(String function, String location, String action, String mode) {
@@ -123,96 +122,29 @@ public class UIOpmSCADAgen implements UIOpm_i {
 		return result;
 	}
 	
-	private void dumpGetRemoteHeader(HttpServletRequest httpServletRequest) {
-		logger.debug("dumpGetRemoteHeader begin");
-		Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
-		if (headerNames != null) {
-			logger.debug("dumpGetRemoteHeader Start to list out headerNames");
-			while (headerNames.hasMoreElements()) {
-				String element = headerNames.nextElement();
-				logger.debug("dumpGetRemoteHeader element[{}]", element);
-				if ( null != element ) {
-					String elementValues =  httpServletRequest.getHeader(element);
-					logger.debug("dumpGetRemoteHeader {}=[{}]", element, elementValues);
-				} else {
-					logger.debug("dumpGetRemoteHeader element IS NULL");
-				}
-			}
-		} else {
-			logger.debug("headerNames IS NULL");
-		}
-		logger.debug("dumpGetRemoteHeader end");
-	}
 	@Override
 	public String getRemoteHostName(HttpServletRequest httpServletRequest) {
-		logger.debug("getRemoteHostName begin");
-		
-		String ret = getRemoteIPAddress(httpServletRequest);
-		InetAddress inetAddress;
-		try {
-			inetAddress = InetAddress.getByName(ret);
-			if ( null != ret ) {
-				String hostname = inetAddress.getHostName();
-				if ( null != hostname) {
-					ret = hostname;
-				}
-			}
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-//		ret = httpServletRequest.getRemoteHost();
+		String ret = network.getRemoteHostName(httpServletRequest);
 		logger.debug("getRemoteHostName ret[{}]", ret);
-		logger.debug("getRemoteHostName end");
 		return ret;
 	}
-	private static final String STR_UNKNOWN = "unknown";
-	private static final String[] STR_HEADERS_LIST = {
-			"X-Forwarded-For",
-			"Proxy-Client-IP",
-			"WL-Proxy-Client-IP",
-			"HTTP_X_FORWARDED_FOR",
-			"HTTP_X_FORWARDED",
-			"HTTP_X_CLUSTER_CLIENT_IP",
-			"HTTP_CLIENT_IP",
-			"HTTP_FORWARDED_FOR",
-			"HTTP_FORWARDED",
-			"HTTP_VIA",
-			"REMOTE_ADDR" 
-	};
 	@Override
 	public String getRemoteIPAddress(HttpServletRequest httpServletRequest) {
-		logger.debug("getRemoteIPAddress begin");
-		String ret = null;
-		
-		dumpGetRemoteHeader(httpServletRequest);
-		
-		for (String header : STR_HEADERS_LIST) {
-			logger.debug("getRemoteIPAddress header[{}]", header);
-			ret = httpServletRequest.getHeader(header);
-			logger.debug("getRemoteIPAddress {}=[{}]", header, ret);
-			if (ret != null && ret.length() != 0 && !STR_UNKNOWN.equalsIgnoreCase(ret)) {
-				break;
-			}
-		}
-		if ( null == ret ) {
-			ret = httpServletRequest.getRemoteAddr();
-		}
-		
+		String ret = network.getRemoteIPAddress(httpServletRequest);
 		logger.debug("getRemoteIPAddress ret[{}]", ret);
-		logger.debug("getRemoteIPAddress end");
 		return ret;
 	}
 	@Override
 	public String getHostName() {
-		// TODO Auto-generated method stub
-		return null;
+		String ret = network.getHostName();
+		logger.debug("getHostName ret[{}]", ret);
+		return ret;
 	}
 	@Override
 	public String getIPAddress() {
-		// TODO Auto-generated method stub
-		return null;
+		String ret = network.getIPAddress();
+		logger.debug("getIPAddress ret[{}]", ret);
+		return ret;
 	}
 
 }

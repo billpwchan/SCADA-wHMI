@@ -1077,6 +1077,7 @@ export class ScheduleService implements OnDestroy {
             for (const dgid of daygroupIdList) {
                 obsList.push(this.scsTscService.getDates(dgid).map((datesList) => {
                     console.log('{ScheduleService}', '[readDayGroupDates]', 'dgid', dgid, 'datesList =', datesList);
+
                     const daygroup = this.dayGroupIdMap.get(dgid);
                     if (daygroup) {
                         daygroup.datesList = [...datesList];
@@ -1599,17 +1600,14 @@ export class ScheduleService implements OnDestroy {
         for (const s of this.schedules) {
             if (periodicSchedulesMap.has(s.id)) {
                 const currentDate = new Date();
-                const nextDate = new Date();
                 currentDate.setHours(0, 0, 0, 0);
-                nextDate.setTime(nextDate.getTime() + 86400000);
-                nextDate.setHours(0, 0, 0, 0);
                 const wdayList = periodicSchedulesMap.get(s.id);
 
                 console.log('{ScheduleService}', '[startDefaultPeriodicSchedules]', 'current date', currentDate.getFullYear(), currentDate.getMonth() + 1,
-                    currentDate.getDate(), 'next date', nextDate.getFullYear(), nextDate.getMonth() + 1, nextDate.getDate());
+                    currentDate.getDate());
 
                 const datesList = UtilService.getWeekDatesList(wdayList, currentDate, this.periodicPlanningDuration);
-                const nextDatesList = UtilService.getWeekNextDatesList(wdayList, nextDate, this.periodicPlanningDuration);
+                const nextDatesList = UtilService.getWeekNextDatesList(wdayList, currentDate, this.periodicPlanningDuration);
 
                 if (datesList && datesList.length > 0) {
                     this.setScheduleRunDates(s.id, datesList, nextDatesList);

@@ -20,6 +20,8 @@ var dataIndexs = json.PrintDataIndexs;
 var dataAttachement = json.PrintDataAttachement;
 var dataDivIndexs = json.PrintDataDivIndexs;
 
+console.log(logPrefix, ' dataDivIndexs[', dataDivIndexs, ']');
+
 var div = new Array();
 div[0] = document.getElementById(debugId);
 
@@ -31,7 +33,7 @@ if ( null == dataDivIndexs ) {
 } else {
 	var indexes = dataDivIndexs;
 }
-//console.log(logPrefix, ' Reading indexes[', indexes, '], indexes.length[', indexes.length,']');
+// console.log(logPrefix, ' Reading indexes[', indexes, '], indexes.length[', indexes.length,']');
 
 for ( var index = 0 ; index < indexes.length ; ++index ) {
 	var indexNext = index+1;

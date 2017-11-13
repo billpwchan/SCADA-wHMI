@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.thalesgroup.scadagen.wrapper.wrapper.server.opm.OpmMgr;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.UIGenericServiceImpl_i;
 import com.thalesgroup.scadagen.wrapper.wrapper.server.uigeneric.factory.UIAction_i;
 
@@ -17,6 +18,8 @@ public class UIActionOpm implements UIAction_i {
     private final Logger logger = LoggerFactory.getLogger(UIActionOpm.class);
 	
 	public static JsonNodeFactory s_json_factory = new JsonNodeFactory(false);
+	
+	private static final String STR_UIOPMSCADAGEN = "UIOpmSCADAgen";
 
 	public ObjectNode execute(HttpServletRequest httpServletRequest, ObjectNode request) {
 		logger.debug("Begin");
@@ -41,8 +44,8 @@ public class UIActionOpm implements UIAction_i {
 		        jsparam = s_json_factory.objectNode();
 		        
 		        jsdata.put(UIGenericServiceImpl_i.OperationAttribute4, UIActionOpm_i.GetCurrentHostName);
-		
-				String host = httpServletRequest.getRemoteHost();
+		        
+		        String host = OpmMgr.getInstance(STR_UIOPMSCADAGEN).getRemoteHostName(httpServletRequest);
 				logger.debug("host[{}]", host);
 				
 				if ( null == host ) { logger.warn("host IS NULL"); }
@@ -54,7 +57,7 @@ public class UIActionOpm implements UIAction_i {
 				
 				jsdata.put(UIGenericServiceImpl_i.OperationAttribute4, UIActionOpm_i.GetCurrentIPAddress);
 				
-				String ip = httpServletRequest.getRemoteAddr();
+				String ip = OpmMgr.getInstance(STR_UIOPMSCADAGEN).getRemoteIPAddress(httpServletRequest);
 				logger.debug("ip[{}]", ip);
 				
 				if ( null == ip ) { logger.warn("ip IS NULL"); }

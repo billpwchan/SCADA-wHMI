@@ -5,7 +5,7 @@
 		<EventBusName>socsummary</EventBusName>
 		<EventBusScope>local</EventBusScope>
 		<InitDelayMS>1000</InitDelayMS>
-		<ScsEnvIds>M100CONN</ScsEnvIds>
+		<ScsEnvIds>$$SOC_ENVS$$</ScsEnvIds>
 	</header>
 	
 	<actionset key="init">
